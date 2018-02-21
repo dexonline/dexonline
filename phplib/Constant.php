@@ -10,8 +10,8 @@ class Constant {
     '/(?<!\\\\)ţ/'   => 'ț',
     '/(?<!\\\\)Ţ/'   => 'Ț',
 
-    '/ ◊ /' => ' * ',
-    '/ ♦ /' => ' ** ',
+    '/ ◊ /' => ' * ',  /* (U+25CA) LOZENGE ◊ */
+    '/ ♦ /' => ' ** ', /* (U+2666) BLACK DIAMOND SUIT ♦ */
 
     // hyphens and spaces
     '/(?<!\\\\) /'   => ' ',     /* U+00A0 non-breaking space */
@@ -19,34 +19,37 @@ class Constant {
     '/(?<!\\\\)—/'   => '-',     /* U+2014 em dash */
     '/(?<!\\\\)­/'   => '',      /* U+00AD soft hyphen */
 
+    // Replace a quotation mark that may look like comma
+    '/(?<!\\\\)‚/'   => ',',     /* U+201A SINGLE LOW-9 QUOTATION MARK */
+    
     // Replace all kinds of double quotes with the ASCII ones.
     // Do NOT alter ″ (double prime, 0x2033), which is used for inch and second symbols.
-    '/(?<!\\\\)„/'   => '"',     /* U+201E */
-    '/(?<!\\\\)”/'   => '"',     /* U+201D */
-    '/(?<!\\\\)“/'   => '"',     /* U+201C */
-    '/(?<!\\\\)‟/'   => '"',     /* U+201F */
+    '/(?<!\\\\)“/'   => '"',     /* U+201C LEFT DOUBLE QUOTATION MARK */
+    '/(?<!\\\\)”/'   => '"',     /* U+201D RIGHT DOUBLE QUOTATION MARK */
+    '/(?<!\\\\)„/'   => '"',     /* U+201E DOUBLE LOW-9 QUOTATION MARK */
+    '/(?<!\\\\)‟/'   => '"',     /* U+201F DOUBLE HIGH-REVERSED-9 QUOTATION MARK */
 
     // Replace all kinds of single quotes and acute accents with the ASCII apostrophe.
     // Do NOT alter ′ (prime, 0x2032), which is used for foot and minute symbols.
-    '/(?<!\\\\)´/'   => "'",     /* U+00B4 */
-    '/(?<!\\\\)‘/'   => "'",     /* U+2018 */
-    '/(?<!\\\\)’/'   => "'",     /* U+2019 */
+    '/(?<!\\\\)´/'   => "'",     /* U+00B4 ACUTE ACCENT */
+    '/(?<!\\\\)‘/'   => "'",     /* U+2018 LEFT SINGLE QUOTATION MARK */
+    '/(?<!\\\\)’/'   => "'",     /* U+2019 RIGHT SINGLE QUOTATION MARK */
+    '/(?<!\\\\)‛/'   => "'",     /* U+201B SINGLE HIGH-REVERSED-9 QUOTATION */
 
     // Replace the ordinal indicator with the degree sign.
     '/(?<!\\\\)º/'   =>  '°',    /* U+00BA => U+00B0 */
-
-    // romanian quoting style
-    '/(?<!\\\\)"([^"]*)"/' => '„$1”',/* "x" => „x” */
 
     "/(?<!\\\\)\r\n/" => "\n"    /* Unix newlines only */
   ];
 
   // will use preg_replace for string values, preg_replace_callback for arrays
   const HTML_PATTERNS = [
+    '/(?<!\\\\)"([^"]*)"/' => '„$1”',                               // "x" => „x” - romanian quoting style
     '/(?<!\\\\)\{\{(.*)\}\}/U' => ['FootnoteHtmlizer', 'htmlize'], // {{fotnote}}
+    '/(?<!\\\\)#([^#]*)#/' => ['AbbrevHtmlizer', 'htmlize'],       // #abbreviation#
     '/(?<!\\\\)%([^%]*)%/' => '<span class="spaced">$1</span>',    // %spaced%
     '/(?<!\\\\)@([^@]*)@/' => '<b>$1</b>',                         // @bold@
-    '/(?<!\\\\)\\$([^$]*)\\$/' => '<i>$1</i>',                     // italic
+    '/(?<!\\\\)\\$([^$]*)\\$/' => '<i>$1</i>',                     // $italic$
     '/(?<!\\\\)\^(\d)/' => '<sup>$1</sup>',                        // superscript ^123
     '/(?<!\\\\)\^\{([^}]*)\}/' => '<sup>$1</sup>',                 // superscript ^{a b c}
     '/(?<!\\\\)_(\d)/' => '<sub>$1</sub>',                         // subscript _123

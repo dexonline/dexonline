@@ -19,12 +19,15 @@ class parseIniFile {
 
 	/** Contents of the config file currently being parsed */
 	var $content;
+  private $parseCommented;
 
 	/**
 	 * Constructor.
+   * @param $parseCommented  default = false
 	 */
-  public function __construct()
+  public function __construct($parseCommented = false)
   {
+    $this->parseCommented = $parseCommented;
   }
 
 	/**
@@ -50,29 +53,27 @@ class parseIniFile {
 		while (!feof($fp)) {
 			$line = fgets($fp, 1024);
 			$line = trim($line);
-			if ($line === '' || strpos($line, ';') === 0) {
-				// Skip empty or commented line
+			if ($line === '' || ($line[0] === ';' && !$this->parseCommented)) {
+				// Skip empty lines or commented ones (only if !parseCommented is false)
 				continue;
 			}
-
-			if (preg_match('/^\[(.+)\]/', $line, $matches)) {
+      
+      //if ($line[0] === ';') {
+      //  $line = substr($line, 1);
+			//}
+      
+			if (preg_match('/^\[(.+)\]$/', $line, $matches)) {
 				// Found a section
-				$currentSection = $matches[1];
-				if (!isset($configData[$currentSection])) {
-					$configData[$currentSection] = array();
-				}
-
+        $currentSection = $matches[1];
+        if (!isset($configData[$currentSection])) {
+          $configData[$currentSection] = array();
+        }
 			} else if (strpos($line, '=') !== false) {
 				// Found a setting
 				list($key, $value) = explode('=', $line, 2);
 				$key = trim($key);
-        if ($key == 'm. m. c. perf.')
-        {
-          $a = 1+1;
-        }
 				$value = trim($value);
-
-				// FIXME This may produce incorrect results if the line contains a comment
+        
 				if (preg_match('/^[\"\'](.*)[\"\']$/', $value, $matches)) {
 					// Treat value as a string
 					$value = stripslashes($matches[1]);

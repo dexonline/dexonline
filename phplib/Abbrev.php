@@ -48,9 +48,8 @@ class Abbrev {
    * An ambiguous abbreviation such as "top" or "gen" also has a meaning as an inflected form.
    * Ambiguous abbreviations should be expanded carefully, or with human approval.
    */
-  private static function loadAbbreviations($sourceId) {
+    static function loadAbbreviations($sourceId) {
     if (!array_key_exists($sourceId, self::$ABBREVS)) {
-      //self::loadAbbreviationsIndex();
       $abbrevs = [];
 
       $results = Model::factory('Abbreviation')
@@ -80,7 +79,8 @@ class Abbrev {
 
           $abbrevs[$abbrev['short']] = [
             'id' => $abbrev['id'],
-            'to' => $abbrev['internalRep'],
+            'internalRep' => $abbrev['internalRep'],
+            'htmlRep' => $abbrev['htmlRep'],
             'enforced' => $abbrev['enforced'] == '1',
             'ambiguous' => $abbrev['ambiguous'] == '1',
             'caseSensitive' => $abbrev['caseSensitive'] == '1',
@@ -164,7 +164,7 @@ class Abbrev {
   // Similar to array_key_exists, but better handling of capitalization.
   // E.g. the array keys can include both "Ed." (Editura) and "ed." (ediție), or
   // we may look for a specific capitalization (BWV, but not bwv; AM, but not am)
-  private static function bestAbbrevMatch($s, $abbrevList) {
+  static function bestAbbrevMatch($s, $abbrevList) {
     $key = array_search($s, $abbrevList, true);
     if (!is_numeric($key)) {
       $abbrevListLower = array_map('mb_strtolower', $abbrevList);
@@ -190,7 +190,7 @@ class Abbrev {
         $matchingKey = self::bestAbbrevMatch($from, array_keys($abbrevs));
         $position = $match[1];
         if ($matchingKey) {
-          $hint = $abbrevs[$matchingKey]['to'];
+          $hint = $abbrevs[$matchingKey]['htmlRep'];
         } else {
           $hint = 'abreviere necunoscută';
           if ($errors !== null) {
@@ -213,7 +213,7 @@ class Abbrev {
         $matchingKey = self::bestAbbrevMatch($from, array_keys($abbrevs));
         $position = $match[1];
         if ($matchingKey) {
-          $to = $abbrevs[$matchingKey]['to'];
+          $to = $abbrevs[$matchingKey]['internalRep'];
           $s = substr_replace($s, $to, $position - 1, 2 + strlen($from));
         }
       }
@@ -221,13 +221,4 @@ class Abbrev {
     return $s;
   }
   
-  static function internalToHtml($s) {
-    foreach (Constant::HTML_ABBREV_PATTERNS as $internal => $replacement) {
-      if (is_string($replacement)) {
-        $s = preg_replace($internal, $replacement, $s);
-      }
-    }
-    return trim($s);
-  }
-
 }

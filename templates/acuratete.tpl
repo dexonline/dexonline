@@ -42,8 +42,8 @@
             <td>{$proj->getUser()}</td>
             <td>{$proj->getSource()->shortName|default:'&mdash;'}</td>
             <td>{$proj->defCount|number_format:0:',':'.'}</td>
-            <td>{$proj->errorRate|string_format:"%.2f"}</td>
-            <td>{$proj->getSpeed()|number_format:0:',':'.'}</td>
+            <td>{$proj->getErrorsPerKb()|string_format:"%.2f"}</td>
+            <td>{$proj->getCharactersPerHour()|number_format:0:',':'.'}</td>
           </tr>
         {/foreach}
       </tbody>
@@ -77,7 +77,7 @@
         <div class="form-group">
           <label for="f_length" class="col-sm-3 control-label">lungime</label>
           <div class="col-sm-9">
-            <input type="text"
+            <input type="number"
               id="f_length"
               class="form-control"
               name="length"

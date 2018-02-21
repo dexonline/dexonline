@@ -90,43 +90,27 @@
         <dt>total definiții</dt>
         <dd>{$project->defCount}</dd>
         <dt>definiții evaluate</dt>
-        <dd>{$project->evalCount}</dd>
+        <dd>{$project->getEvalCount()}</dd>
         <dt>caractere evaluate</dt>
-        <dd>{$project->evalLength}</dd>
+        <dd>{$project->getEvalLength()}</dd>
         <dt>erori</dt>
-        <dd>{$project->errorCount}</dd>
+        <dd>{$project->getErrorCount()}</dd>
         <dt>acuratețe</dt>
         <dd>
-          {$project->accuracy|string_format:"%.3f"}%
-          ({$project->errorRate|string_format:"%.2f"} erori / 1.000 caractere)
+          {$project->getAccuracy()|string_format:"%.3f"}%
+          ({$project->getErrorsPerKb()|string_format:"%.2f"} erori / 1.000 caractere)
         </dd>
       </dl>
 
       <dl class="dl-horizontal col-md-6">
-
-        {if $mine}
-          <form class="pull-right" method="post">
-            <input type="hidden" name="projectId" value="{$project->id}">
-
-            <button class="btn btn-default btn-xs" type="submit" name="recomputeSpeedButton">
-              <i class="glyphicon glyphicon-refresh"></i>
-              recalculează viteza
-            </button>
-          </form>
-        {/if}
-
-        {if $project->getSpeed()}
+        {if $project->getCharactersPerHour()}
 
           <dt>viteză</dt>
           <dd>
-            {$project->getSpeed()|number_format:0:',':'.'} caractere / oră
+            {$project->getCharactersPerHour()|number_format:0:',':'.'} caractere / oră
           </dd>
           <dt>total caractere</dt>
           <dd>{$project->totalLength|number_format:0:',':'.'}</dd>
-          <dt>timp petrecut</dt>
-          <dd>{($project->timeSpent/3600)|string_format:"%.2f"} ore</dd>
-          <dt>definiții ignorate</dt>
-          <dd>{$project->ignoredDefinitions|number_format:0:',':'.'}</dd>
 
         {else}
 

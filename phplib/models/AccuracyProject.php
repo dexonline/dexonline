@@ -22,14 +22,6 @@ class AccuracyProject extends BaseObject implements DatedObject {
   private $owner = null;
   private $user = null;
 
-  // accuracy data, computed on demand
-  public $evalCount = 0;  // number of evaluated definitions
-  public $evalLength = 0; // length of evaluated definitions
-  public $errorCount = 0; // number of errors
-  public $defCount = 0;   // number of available definitions
-  public $accuracy = 0;   // fraction of correct characters expressed as percentage
-  public $errorRate = 0;  // errors per thousand characters
-
   function visibleTo($user) {
     if ($user->id == $this->ownerId) {
       return true;
@@ -131,10 +123,8 @@ class AccuracyProject extends BaseObject implements DatedObject {
   }
 
   // Returns accuracy results based on the definitions evaluated so far.
+  // TODO run on definition save
   function computeAccuracyData() {
-    $this->evalLength = 0;
-    $this->errorCount = 0;
-
     $data = Model::factory('Definition')
           ->table_alias('d')
           ->select_expr('char_length(d.internalRep)', 'len')
@@ -142,31 +132,25 @@ class AccuracyProject extends BaseObject implements DatedObject {
           ->join('AccuracyRecord', [ 'd.id', '=', 'ar.definitionId'], 'ar')
           ->where('ar.projectId', $this->id)
           ->find_many();
-    foreach ($data as $row) {
-      $this->evalLength += $row->len;
-      $this->errorCount += $row->errors;
-    }
 
-    $this->evalCount = count($data);
-    $this->defCount = $this->getQuery()->count();
-    if ($this->evalLength) {
-      $this->accuracy = (1 - $this->errorCount / $this->evalLength) * 100;
-      $this->errorRate = $this->errorCount / $this->evalLength * 1000;
+    $errorCount = $this->getErrorCount();
+    $evalLength = $this->getEvalLength();
+    if ($evalLength) {
+      $this->errorRate = $errorCount / $evalLength;
     }
   }
 
-  // Recomputes the total definition length and time spend
-  function recomputeSpeedData() {
+  // Recomputes $defCount, $totalLength and $speed
+  function computeSpeedData() {
     DB::setBuffering(false);
 
-    $defs = $this->getQuery()->order_by_desc('createDate')->find_many();
+    $defs = $this->getQuery()->order_by_desc('createDate')->find_result_set();
+    $this->defCount = count($defs);
 
     $prev = 0; // timestamp of the *next* definition in chronological order
     $this->totalLength = 0;
-    $this->timeSpent = 0;
-    $this->ignoredDefinitions = 0;
+    $timeSpent = 0;
     foreach ($defs as $d) {
-      $ignored = true;
       if ($prev) {
         $time = $prev - $d->createDate;
         if ($time) {
@@ -174,27 +158,62 @@ class AccuracyProject extends BaseObject implements DatedObject {
           $speed = $len / $time;
           if ($speed > self::SLOW_LIMIT) {
             $this->totalLength += $len;
-            $this->timeSpent += $time;
-            $ignored = false;
+            $timeSpent += $time;
           }
         }
-      }
-      if ($ignored) {
-        $this->ignoredDefinitions++;
       }
       $prev = $d->createDate;
     }
 
+    $this->speed = $timeSpent ? ($this->totalLength / $timeSpent) : 0;
+
     DB::setBuffering(true);
   }
 
-  // returns the speed in characters / hour
-  function getSpeed() {
-    if ($this->timeSpent) {
-      return $this->totalLength * 3600 / $this->timeSpent;
-    } else {
-      return 0;
+  function getEvalLength() {
+    // load all reviewed definitions
+    $defs = Model::factory('Definition')
+          ->table_alias('d')
+          ->select('d.*')
+          ->join('AccuracyRecord', ['d.id', '=', 'ar.definitionId'], 'ar')
+          ->where('ar.projectId', $this->id)
+          ->where('ar.reviewed', true)
+          ->find_many();
+
+    $sum = 0;
+    foreach ($defs as $d) {
+      $sum += mb_strlen($d->internalRep);
     }
+    return $sum;
+  }
+
+  function getEvalCount() {
+    return Model::factory('AccuracyRecord')
+      ->where('projectId', $this->id)
+      ->where('reviewed', true)
+      ->count();
+  }
+
+  function getErrorCount() {
+    return Model::factory('AccuracyRecord')
+      ->where('projectId', $this->id)
+      ->sum('errors');
+  }
+
+  // $this->errorRate is (errors found) / (characters evaluated)
+  // multiply by 1,000 to get the error rate per KB
+  function getErrorsPerKb() {
+    return $this->errorRate * 1000;
+  }
+
+  // another way of measuring the error rate
+  function getAccuracy() {
+    return 100 * (1 - $this->errorRate);
+  }
+
+  // returns the speed in characters / hour
+  function getCharactersPerHour() {
+    return $this->speed * 3600;
   }
 
   // Validates the project. Sets flash errors if needed. Returns true on success.
@@ -221,7 +240,6 @@ class AccuracyProject extends BaseObject implements DatedObject {
 
     return empty(FlashMessage::getMessages());
   }
-
 
   function __toString() {
     $result = "{$this->name} (";

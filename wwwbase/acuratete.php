@@ -21,9 +21,14 @@ if ($submitButton) {
   $p->visibility = Request::get('visibility');
 
   if ($p->validate()) {
-    $p->recomputeSpeedData();
-    $p->save();
-    Util::redirect("acuratete-eval?projectId={$p->id}");
+    if ($length > 0) {
+      $p->computeSpeedData();
+      exit;
+      //$p->save();
+      Util::redirect("acuratete-eval?projectId={$p->id}");
+    } else {
+      FlashMessage::add('lungimea trebuie să fie > 0');
+    }
   }
 }
 
@@ -45,9 +50,9 @@ if ($includePublic && User::can(User::PRIV_ADMIN)) {
 $aps = $aps->order_by_asc('name')->find_many();
 
 // build a map of project ID => project
+// TODO - do we need this?
 $projects = [];
 foreach ($aps as $ap) {
-  $ap->computeAccuracyData();
   $projects[$ap->id] = $ap;
 }
 

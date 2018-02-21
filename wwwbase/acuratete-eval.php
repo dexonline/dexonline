@@ -1,11 +1,10 @@
 <?php
-require_once("../phplib/Core.php");
+require_once('../phplib/Core.php');
 User::mustHave(User::PRIV_EDIT | User::PRIV_ADMIN);
 
 $projectId = Request::get('projectId');
 $saveButton = Request::has('saveButton');
 $deleteButton = Request::has('deleteButton');
-$recomputeSpeedButton = Request::has('recomputeSpeedButton');
 $editProjectButton = Request::has('editProjectButton');
 $defId = Request::get('defId');
 $errors = Request::get('errors');
@@ -22,13 +21,6 @@ $mine = User::getActiveId() == $project->ownerId;
 if (!$project->visibleTo(User::getActive())) {
   FlashMessage::add('Nu aveți dreptul să vedeți acest proiect.', 'danger');
   Util::redirect('index.php');
-}
-
-if ($recomputeSpeedButton) {
-  $project->recomputeSpeedData();
-  $project->save();
-  FlashMessage::add('Am recalculat viteza.', 'success');
-  Util::redirect("?projectId={$projectId}");
 }
 
 if ($deleteButton) {

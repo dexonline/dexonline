@@ -15,6 +15,14 @@ class AccuracyProject extends BaseObject implements DatedObject {
     self::VIS_PUBLIC => 'toți administratorii și editorii',
   ];
 
+  // used by runQuery()
+  const FETCH_COUNT = 1;
+  const FETCH_LENGTH = 2;
+  const FETCH_DATA = 3;
+
+  const SORT_RAND = 1;
+  const SORT_CREATE_DATE_DESC = 2;
+
   // Below this speed (chars/sec) we ignore a definition when computing editor speed.
   const SLOW_LIMIT = 0.1;
 
@@ -67,31 +75,72 @@ class AccuracyProject extends BaseObject implements DatedObject {
     return $this->endDate && ($this->endDate != '0000-00-00');
   }
 
-  // Returns a ready-to-run idiorm query.
-  function getQuery() {
-    $q = Model::factory('Definition')
-       ->where_in('status', [ Definition::ST_ACTIVE, Definition::ST_HIDDEN ])
-       ->where('userId', $this->userId);
+  /**
+   * Runs a PDO query specific to this project. We cannot work at Idiorm level
+   * because it does not support buffered queries.
+   *
+   * Apparently the best way to count the number of rows with PDO is to issue
+   * a count(*) query: http://php.net/manual/en/pdostatement.rowcount.php
+   *
+   * @param int $fetch what to return; see FETCH_* constants
+   * @param int $sort sort order; see SORT_* constants
+   **/
+  function runQuery($fetch, $sort = null) {
+    // collect clauses
+    $clauses = [
+      sprintf('(status in (%d, %d))', Definition::ST_ACTIVE, Definition::ST_HIDDEN),
+      sprintf('(userId = %d)', $this->userId),
+    ];
 
     if ($this->sourceId) {
-      $q = $q->where('sourceId', $this->sourceId);
+      $clauses[] = sprintf('(sourceId = %d)', $this->sourceId);
     }
 
     if ($this->lexiconPrefix) {
-      $q = $q->where_like('lexicon', "{$this->lexiconPrefix}%");
+      $clauses[] = sprintf('(lexicon like "%s%%")', addslashes($this->lexiconPrefix));
     }
 
     if ($this->hasStartDate()) {
       $ts = strtotime($this->startDate);
-      $q = $q->where_gte('createDate', $ts);
+      $clauses[] = sprintf('(createDate >= %d)', $ts);
     }
 
     if ($this->hasEndDate()) {
       $ts = strtotime($this->endDate);
-      $q = $q->where_lte('createDate', $ts);
+      $clauses[] = sprintf('(createDate <= %d)', $ts);
     }
 
-    return $q;
+    // assemble the query
+    $clauseString = implode(' and ', $clauses);
+
+    switch ($fetch) {
+      case self::FETCH_COUNT: $select = 'count(*)'; break;
+      case self::FETCH_LENGTH: $select = 'sum(char_length(internalRep))'; break;
+      case self::FETCH_DATA: $select = '*'; break;
+    }
+
+    switch ($sort) {
+      case self::SORT_RAND: $order = 'order by rand()'; break;
+      case self::SORT_CREATE_DATE_DESC: $order = 'order by createDate desc'; break;
+      default: $order = '';
+    }
+
+    $q = sprintf('select %s from Definition where %s %s', $select, $clauseString, $order);
+
+    // run the query and return the result;
+    return DB::execute($q, PDO::FETCH_ASSOC);
+  }
+
+  // returns the number of definitions covered by this project
+  function getNumDefinitions() {
+    $result = $this->runQuery(self::FETCH_COUNT);
+    return $result->fetchColumn();
+  }
+
+  // returns the total length of definitions covered by this project
+  function getTotalLength() {
+    $result = $this->runQuery(self::FETCH_LENGTH);
+    return $result->fetchColumn();
   }
 
   // Finds the alphabetically smallest definition covered by the project that
@@ -144,17 +193,18 @@ class AccuracyProject extends BaseObject implements DatedObject {
   function computeSpeedData() {
     DB::setBuffering(false);
 
-    $defs = $this->getQuery()->order_by_desc('createDate')->find_result_set();
-    $this->defCount = count($defs);
+    $this->defCount = $this->getNumDefinitions();
+
+    $defs = $this->runQuery(self::FETCH_DATA, self::SORT_CREATE_DATE_DESC);
 
     $prev = 0; // timestamp of the *next* definition in chronological order
     $this->totalLength = 0;
     $timeSpent = 0;
     foreach ($defs as $d) {
       if ($prev) {
-        $time = $prev - $d->createDate;
+        $time = $prev - $d['createDate'];
         if ($time) {
-          $len = mb_strlen($d->internalRep);
+          $len = mb_strlen($d['internalRep']);
           $speed = $len / $time;
           if ($speed > self::SLOW_LIMIT) {
             $this->totalLength += $len;
@@ -162,12 +212,38 @@ class AccuracyProject extends BaseObject implements DatedObject {
           }
         }
       }
-      $prev = $d->createDate;
+      $prev = $d['createDate'];
     }
 
     $this->speed = $timeSpent ? ($this->totalLength / $timeSpent) : 0;
 
     DB::setBuffering(true);
+  }
+
+  // select a random set of definitions totaling at least $length characters
+  // and create AccuracyRecords for them
+  function sampleDefinitions($length) {
+    DB::setBuffering(false);
+    $result = $this->runQuery(self::FETCH_DATA, self::SORT_RAND);
+
+    // Save definition IDs until we can turn on buffering. we cannot run SQL
+    // queries while buffering is off.
+    $ids = [];
+    while (($length > 0) && ($d = $result->fetch())) {
+      $ids[] = $d['id'];
+      $length -= mb_strlen($d['internalRep']);
+    }
+
+    $result->closeCursor(); // discard other rows
+
+    DB::setBuffering(true);
+
+    foreach ($ids as $id) {
+      $ar = Model::factory('AccuracyRecord')->create();
+      $ar->projectId = $this->id;
+      $ar->definitionId = $id;
+      $ar->save();
+    }
   }
 
   function getEvalLength() {
@@ -217,7 +293,7 @@ class AccuracyProject extends BaseObject implements DatedObject {
   }
 
   // Validates the project. Sets flash errors if needed. Returns true on success.
-  function validate() {
+  function validate($targetLength) {
     if (!$this->name) {
       FlashMessage::add('Numele nu poate fi vid.');
     }
@@ -232,10 +308,12 @@ class AccuracyProject extends BaseObject implements DatedObject {
     }
 
     // Count the characters in all the applicable definitions
-    $count = $this->getQuery()->count();
-    if ($count <= 100) {
-      FlashMessage::add("Criteriile alese returnează doar {$count} definiții. " .
-                        "Relaxați-le pentru a obține minim 100 de definiții.");
+    $len = $this->getTotalLength();
+    if ($len < $targetLength) {
+      FlashMessage::add(
+        "Criteriile alese returnează definiții cu lungimea totală de {$len} caractere. " .
+        "Relaxați-le pentru a obține lungimea dorită."
+      );
     }
 
     return empty(FlashMessage::getMessages());

@@ -20,11 +20,11 @@ if ($submitButton) {
   $p->endDate = Request::get('endDate');
   $p->visibility = Request::get('visibility');
 
-  if ($p->validate()) {
+  if ($p->validate($length)) {
     if ($length > 0) {
       $p->computeSpeedData();
-      exit;
-      //$p->save();
+      $p->save();
+      $p->sampleDefinitions($length);
       Util::redirect("acuratete-eval?projectId={$p->id}");
     } else {
       FlashMessage::add('lungimea trebuie să fie > 0');

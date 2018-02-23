@@ -7,8 +7,8 @@ foreach ($projects as $p) {
 
   $p->computeSpeedData();
   $p->computeAccuracyData();
-  $evalLength = $p->getEvalLength();
+  $rlen = $p->getReviewedLength();
   $errorCount = $p->getErrorCount();
-  $p->errorRate = $evalLength ? ($errorCount / $evalLength) : 0.0;
+  $p->errorRate = $rlen ? ($errorCount / $rlen) : 0.0;
   $p->save();
 }

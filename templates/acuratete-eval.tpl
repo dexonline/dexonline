@@ -94,13 +94,13 @@
         </dd>
         <dt>eșantion</dt>
         <dd>
-          {$project->getProjectDefCount()|number_format:0:',':'.'} definiții,
-          {$project->getProjectLength()|number_format:0:',':'.'} caractere
+          {$project->getSampleDefinitions()|number_format:0:',':'.'} definiții,
+          {$project->getSampleLength()|number_format:0:',':'.'} caractere
         </dd>
         <dt>evaluate</dt>
         <dd>
-          {$project->getEvalCount()|number_format:0:',':'.'} definiții,
-          {$project->getEvalLength()|number_format:0:',':'.'} caractere
+          {$project->getReviewedDefinitions()|number_format:0:',':'.'} definiții,
+          {$project->getReviewedLength()|number_format:0:',':'.'} caractere
         </dd>
       </dl>
 

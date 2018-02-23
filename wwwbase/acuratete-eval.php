@@ -52,7 +52,7 @@ if ($saveButton) {
   $ar->errors = $errors;
   $ar->save();
 
-  $project->computeAccuracyData();
+  $project->computeErrorRate();
   $project->save();
 
   Util::redirect("?projectId={$projectId}");

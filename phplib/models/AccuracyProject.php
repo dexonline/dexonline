@@ -233,8 +233,8 @@ class AccuracyProject extends BaseObject implements DatedObject {
     return $data;
   }
 
-  // Returns accuracy results based on the definitions reviewed so far.
-  function computeAccuracyData() {
+  // Recomputes the error rate.
+  function computeErrorRate() {
     $data = Model::factory('Definition')
           ->table_alias('d')
           ->select_expr('char_length(d.internalRep)', 'len')
@@ -245,9 +245,7 @@ class AccuracyProject extends BaseObject implements DatedObject {
 
     $errorCount = $this->getErrorCount();
     $rlen = $this->getReviewedLength();
-    if ($rlen) {
-      $this->errorRate = $errorCount / $rlen;
-    }
+    $this->errorRate = $rlen ? ($errorCount / $rlen) : 0.0;
   }
 
   // Recomputes $defCount, $totalLength and $speed

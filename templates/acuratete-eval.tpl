@@ -14,7 +14,7 @@
         {/if}
 
         <a class="btn btn-default btn-xs pull-right"
-           href="admin/definitionEdit.php?definitionId={$def->id}">
+          href="admin/definitionEdit.php?definitionId={$def->id}">
           <i class="glyphicon glyphicon-pencil"></i>
           editează
         </a>
@@ -29,12 +29,12 @@
 
             <button id="butDown" type="button" class="btn btn-default">&ndash;</button>
             <input class="form-control"
-                   id="errors"
-                   type="number"
-                   name="errors"
-                   value="{$errors}"
-                   min="0"
-                   max="999">
+              id="errors"
+              type="number"
+              name="errors"
+              value="{$errors}"
+              min="0"
+              max="999">
             <button id="butUp" type="button" class="btn btn-default">+</button>
 
             <button class="btn btn-success" type="submit" name="saveButton">
@@ -126,8 +126,8 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       <a class="collapsed"
-         data-toggle="collapse"
-         href="#editPanel">
+        data-toggle="collapse"
+        href="#editPanel">
         <i class="pull-right glyphicon glyphicon-chevron-down"></i>
         {if $mine}
           Editează proiectul
@@ -146,10 +146,10 @@
             <label class="col-sm-2 control-label">nume</label>
             <div class="col-sm-10">
               <input type="text"
-                     class="form-control"
-                     name="name"
-                     value="{$project->name}"
-                     {if !$mine}disabled{/if}>
+                class="form-control"
+                name="name"
+                value="{$project->name}"
+                {if !$mine}disabled{/if}>
             </div>
           </div>
 
@@ -157,10 +157,10 @@
             <label class="col-sm-2 control-label">vizibilitate</label>
             <div class="col-sm-10">
               {include "bits/dropdown.tpl"
-              name="visibility"
-              data=AccuracyProject::$VIS_NAMES
-              selected=$project->visibility
-              disabled=!$mine}
+                name="visibility"
+                data=AccuracyProject::$VIS_NAMES
+                selected=$project->visibility
+                disabled=!$mine}
             </div>
           </div>
 
@@ -203,6 +203,17 @@
                 <div class="col-sm-10">
                   <p class="form-control-static">
                     {$project->endDate}
+                  </p>
+                </div>
+              </div>
+            {/if}
+
+            {if $project->lexiconPrefix}
+              <div>
+                <label class="col-sm-2 control-label">prefix</label>
+                <div class="col-sm-10">
+                  <p class="form-control-static">
+                    {$project->lexiconPrefix}
                   </p>
                 </div>
               </div>

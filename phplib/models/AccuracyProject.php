@@ -68,11 +68,11 @@ class AccuracyProject extends BaseObject implements DatedObject {
   }
 
   function hasStartDate() {
-    return $this->startDate && ($this->startDate != '0000-00-00');
+    return $this->startDate != '0000-00-00';
   }
 
   function hasEndDate() {
-    return $this->endDate && ($this->endDate != '0000-00-00');
+    return $this->endDate != '0000-00-00';
   }
 
   /**
@@ -150,7 +150,7 @@ class AccuracyProject extends BaseObject implements DatedObject {
       ->count();
   }
 
-  // returns the sum of definitions in this sample, optionally filtered by the reviewed field
+  // returns the number of characters in this sample, optionally filtered by the reviewed field
   function getSumLength($reviewed = null) {
     $q = Model::factory('Definition')
        ->table_alias('d')

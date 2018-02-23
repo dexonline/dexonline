@@ -6,7 +6,6 @@
 
 require_once __DIR__ . '/../../phplib/Core.php';
 require_once __DIR__ . '/../../phplib/third-party/simple_html_dom.php';
-require_once __DIR__ . '/../../phplib/third-party/phpuri.php';
 
 $varMap = []; // map of siteIDs to variables
 
@@ -31,7 +30,6 @@ do {
        ->find_many();
 
   foreach ($cus as $cu) {
-    $domain = parse_url($cu->url, PHP_URL_HOST);
     $cu->loadBody($root);
     $cu->loadHtml($root);
     $cu->createParser();

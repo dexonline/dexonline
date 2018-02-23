@@ -153,4 +153,13 @@ class CrawlerUrl extends BaseObject implements DatedObject {
   function saveHtml($root) {
     $this->saveData($this->rawHtml, $this->getHtmlFileName($root));
   }
+
+  function getPhrases() {
+    // split at '. ' when there are no periods among the previous 10 characters
+    $phrases = preg_split('/(?<=[^.]{10,10})\\. /', $this->body);
+    foreach ($phrases as &$p) {
+      $p .= '.';
+    }
+    return $phrases;
+  }
 }

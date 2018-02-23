@@ -106,8 +106,8 @@ class AccuracyProject extends BaseObject implements DatedObject {
     }
 
     if ($this->hasEndDate()) {
-      $ts = strtotime($this->endDate);
-      $clauses[] = sprintf('(createDate <= %d)', $ts);
+      $ts = strtotime($this->endDate . ' +1 day');
+      $clauses[] = sprintf('(createDate < %d)', $ts);
     }
 
     // assemble the query

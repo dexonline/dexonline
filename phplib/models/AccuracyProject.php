@@ -146,18 +146,18 @@ class AccuracyProject extends BaseObject implements DatedObject {
   // Finds the alphabetically smallest definition covered by the project that
   // wasn't already evaluated.
   function getDefinition() {
-    $d = Model::factory('AccuracyRecord')
-       ->select('d.*')
-       ->table_alias('ar')
-       ->join('Definition', ['ar.definitionId', '=', 'd.id'], 'd')
-       ->where('projectId', $this->id)
-       ->where('reviewed', false)
-       ->order_by_asc('d.lexicon')
-       ->order_by_asc('d.createDate')
-       ->find_one();
+    return Model::factory('Definition')
+      ->table_alias('d')
+      ->select('d.*')
+      ->join('AccuracyRecord', ['ar.definitionId', '=', 'd.id'], 'ar')
+      ->where('ar.projectId', $this->id)
+      ->where('ar.reviewed', false)
+      ->order_by_asc('d.lexicon')
+      ->order_by_asc('d.createDate')
+      ->find_one();
   }
 
-  // Returns an array of (id, lexicon) for all evaluated definitions.
+  // Returns an array of (id, lexicon, errors) for all evaluated definitions.
   function getDefinitionData() {
     $data = Model::factory('Definition')
           ->table_alias('d')
@@ -166,13 +166,13 @@ class AccuracyProject extends BaseObject implements DatedObject {
           ->select('ar.errors')
           ->join('AccuracyRecord', [ 'd.id', '=', 'ar.definitionId'], 'ar')
           ->where('ar.projectId', $this->id)
-          ->order_by_desc('ar.createDate')
+          ->where('ar.reviewed', true)
+          ->order_by_desc('ar.modDate')
           ->find_array();
     return $data;
   }
 
   // Returns accuracy results based on the definitions evaluated so far.
-  // TODO run on definition save
   function computeAccuracyData() {
     $data = Model::factory('Definition')
           ->table_alias('d')
@@ -226,8 +226,8 @@ class AccuracyProject extends BaseObject implements DatedObject {
     DB::setBuffering(false);
     $result = $this->runQuery(self::FETCH_DATA, self::SORT_RAND);
 
-    // Save definition IDs until we can turn on buffering. we cannot run SQL
-    // queries while buffering is off.
+    // Save definition IDs in memory. We cannot run SQL queries while
+    // buffering is off.
     $ids = [];
     while (($length > 0) && ($d = $result->fetch())) {
       $ids[] = $d['id'];
@@ -263,10 +263,32 @@ class AccuracyProject extends BaseObject implements DatedObject {
     return $sum;
   }
 
+  function getProjectLength() {
+    // load all reviewed definitions
+    $defs = Model::factory('Definition')
+          ->table_alias('d')
+          ->select('d.*')
+          ->join('AccuracyRecord', ['d.id', '=', 'ar.definitionId'], 'ar')
+          ->where('ar.projectId', $this->id)
+          ->find_many();
+
+    $sum = 0;
+    foreach ($defs as $d) {
+      $sum += mb_strlen($d->internalRep);
+    }
+    return $sum;
+  }
+
   function getEvalCount() {
     return Model::factory('AccuracyRecord')
       ->where('projectId', $this->id)
       ->where('reviewed', true)
+      ->count();
+  }
+
+  function getProjectDefCount() {
+    return Model::factory('AccuracyRecord')
+      ->where('projectId', $this->id)
       ->count();
   }
 
@@ -293,7 +315,7 @@ class AccuracyProject extends BaseObject implements DatedObject {
   }
 
   // Validates the project. Sets flash errors if needed. Returns true on success.
-  function validate($targetLength) {
+  function validate($targetLength = 0) {
     if (!$this->name) {
       FlashMessage::add('Numele nu poate fi vid.');
     }

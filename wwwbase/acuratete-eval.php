@@ -44,12 +44,17 @@ if ($editProjectButton) {
 if ($saveButton) {
   $ar = AccuracyRecord::get_by_projectId_definitionId($projectId, $defId);
   if (!$ar) {
-    $ar = Model::factory('AccuracyRecord')->create();
-    $ar->projectId = $projectId;
-    $ar->definitionId = $defId;
+    $def = Definition::get_by_id($defId);
+    FlashMessage::add("Definiția „{$d->lexicon}” nu face parte din acest proiect.");
+    Util::redirect("?projectId={$projectId}");
   }
+  $ar->reviewed = true;
   $ar->errors = $errors;
   $ar->save();
+
+  $project->computeAccuracyData();
+  $project->save();
+
   Util::redirect("?projectId={$projectId}");
 }
 
@@ -71,7 +76,6 @@ if ($def) {
 }
 
 $defData = $project->getDefinitionData();
-$project->computeAccuracyData();
 
 SmartyWrap::assign('project', $project);
 SmartyWrap::assign('mine', $mine);

@@ -87,12 +87,24 @@
     <div class="panel-heading">Raport de acuratețe</div>
     <div class="panel-body row">
       <dl class="dl-horizontal col-md-6">
-        <dt>total definiții</dt>
-        <dd>{$project->defCount}</dd>
-        <dt>definiții evaluate</dt>
-        <dd>{$project->getEvalCount()}</dd>
-        <dt>caractere evaluate</dt>
-        <dd>{$project->getEvalLength()}</dd>
+        <dt>total</dt>
+        <dd>
+          {$project->defCount|number_format:0:',':'.'} definiții,
+          {$project->totalLength|number_format:0:',':'.'} caractere
+        </dd>
+        <dt>eșantion</dt>
+        <dd>
+          {$project->getProjectDefCount()|number_format:0:',':'.'} definiții,
+          {$project->getProjectLength()|number_format:0:',':'.'} caractere
+        </dd>
+        <dt>evaluate</dt>
+        <dd>
+          {$project->getEvalCount()|number_format:0:',':'.'} definiții,
+          {$project->getEvalLength()|number_format:0:',':'.'} caractere
+        </dd>
+      </dl>
+
+      <dl class="dl-horizontal col-md-6">
         <dt>erori</dt>
         <dd>{$project->getErrorCount()}</dd>
         <dt>acuratețe</dt>
@@ -100,24 +112,14 @@
           {$project->getAccuracy()|string_format:"%.3f"}%
           ({$project->getErrorsPerKb()|string_format:"%.2f"} erori / 1.000 caractere)
         </dd>
-      </dl>
-
-      <dl class="dl-horizontal col-md-6">
-        {if $project->getCharactersPerHour()}
-
-          <dt>viteză</dt>
-          <dd>
+        <dt>viteză</dt>
+        <dd>
+          {if $project->speed}
             {$project->getCharactersPerHour()|number_format:0:',':'.'} caractere / oră
-          </dd>
-          <dt>total caractere</dt>
-          <dd>{$project->totalLength|number_format:0:',':'.'}</dd>
-
-        {else}
-
-          <dt>viteză</dt>
-          <dd>necunoscută</dd>
-
-        {/if}
+          {else}
+            necunoscută
+          {/if}
+        </dd>
       </dl>
     </div>
   </div>

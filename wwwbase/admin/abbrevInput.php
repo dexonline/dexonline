@@ -49,7 +49,10 @@ if ($saveButton) {
       $abbrev->caseSensitive = $row['caseSensitive'];
       $abbrev->short = trim($row['short']);
       $abbrev->internalRep = trim($row['internalRep']);
-      $abbrev->htmlRep = Str::htmlize(trim($row['internalRep']), $sourceId);
+      
+      list($htmlRep, $ignored) = Str::htmlize(trim($row['internalRep']), $sourceId);
+      
+      $abbrev->htmlRep = $htmlRep;
       $abbrev->modUserId = $userId;
 
       try {

@@ -1,11 +1,10 @@
 <?php
-require_once("../phplib/Core.php");
+require_once('../phplib/Core.php');
 User::mustHave(User::PRIV_EDIT | User::PRIV_ADMIN);
 
 $projectId = Request::get('projectId');
 $saveButton = Request::has('saveButton');
 $deleteButton = Request::has('deleteButton');
-$recomputeSpeedButton = Request::has('recomputeSpeedButton');
 $editProjectButton = Request::has('editProjectButton');
 $defId = Request::get('defId');
 $errors = Request::get('errors');
@@ -24,13 +23,6 @@ if (!$project->visibleTo(User::getActive())) {
   Util::redirect('index.php');
 }
 
-if ($recomputeSpeedButton) {
-  $project->recomputeSpeedData();
-  $project->save();
-  FlashMessage::add('Am recalculat viteza.', 'success');
-  Util::redirect("?projectId={$projectId}");
-}
-
 if ($deleteButton) {
   if ($project) {
     $project->delete();
@@ -41,8 +33,6 @@ if ($deleteButton) {
 
 if ($editProjectButton) {
   $project->name = Request::get('name');
-  $project->method = Request::get('method');
-  $project->step = Request::get('step');
   $project->visibility = Request::get('visibility');
   if ($project->validate()) {
     $project->save();
@@ -54,17 +44,17 @@ if ($editProjectButton) {
 if ($saveButton) {
   $ar = AccuracyRecord::get_by_projectId_definitionId($projectId, $defId);
   if (!$ar) {
-    $ar = Model::factory('AccuracyRecord')->create();
-    $ar->projectId = $projectId;
-    $ar->definitionId = $defId;
-
-    // update the project to reflect the last createDate
     $def = Definition::get_by_id($defId);
-    $project->lastCreateDate = $def->createDate;
-    $project->save();
+    FlashMessage::add("Definiția „{$d->lexicon}” nu face parte din acest proiect.");
+    Util::redirect("?projectId={$projectId}");
   }
+  $ar->reviewed = true;
   $ar->errors = $errors;
   $ar->save();
+
+  $project->computeErrorRate();
+  $project->save();
+
   Util::redirect("?projectId={$projectId}");
 }
 
@@ -86,7 +76,6 @@ if ($def) {
 }
 
 $defData = $project->getDefinitionData();
-$project->computeAccuracyData();
 
 SmartyWrap::assign('project', $project);
 SmartyWrap::assign('mine', $mine);

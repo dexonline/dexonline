@@ -14,6 +14,15 @@ class CrawlerUrl extends BaseObject implements DatedObject {
     return $cu;
   }
 
+  function createParser() {
+    $s = str_replace ( "</" , " </" , $this->rawHtml);
+    $this->parser = str_get_html($s);
+  }
+
+  function freeParser() {
+    unset($this->parser);
+  }
+
   // fetches the URL and instantiates a parser
   function fetch() {
     $this->rawHtml = @file_get_contents($this->url);
@@ -22,19 +31,18 @@ class CrawlerUrl extends BaseObject implements DatedObject {
     }
 
     // insert spaces so that plaintext doesn't concatenate paragraphs.
-    $s = str_replace ( "</" , " </" , $this->rawHtml);
-    $this->parser = str_get_html($s);
+    $this->createParser();
   }
 
   function extractAuthor($selector, $regexp) {
     $authors = $this->parser->find($selector);
 
     if (empty($authors)) {
-      Log::warning('no authors found');
+      Log::notice('no authors found');
       $this->author = '';
     } else {
       if (count($authors) > 1) {
-        Log::warning('%s authors found, using the first one', count($authors));
+        Log::notice('%s authors found, using the first one', count($authors));
       }
       $authorWrapper = trim($authors[0]->plaintext);
 
@@ -82,7 +90,6 @@ class CrawlerUrl extends BaseObject implements DatedObject {
   function sanitizeBody() {
     $this->body = Str::cleanup($this->body);
     $this->body = html_entity_decode($this->body);
-    $this->body = preg_replace('/\s\s+/', ' ', $this->body);
     $this->body = str_replace('­', '', $this->body); // remove soft hyphens, Unicode 00AD
   }
 
@@ -145,5 +152,14 @@ class CrawlerUrl extends BaseObject implements DatedObject {
 
   function saveHtml($root) {
     $this->saveData($this->rawHtml, $this->getHtmlFileName($root));
+  }
+
+  function getPhrases() {
+    // split at '. ' when there are no periods among the previous 10 characters
+    $phrases = preg_split('/(?<=[^.]{10,10})\\. /', $this->body);
+    foreach ($phrases as &$p) {
+      $p .= '.';
+    }
+    return $phrases;
   }
 }

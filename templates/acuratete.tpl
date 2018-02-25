@@ -42,8 +42,8 @@
             <td>{$proj->getUser()}</td>
             <td>{$proj->getSource()->shortName|default:'&mdash;'}</td>
             <td>{$proj->defCount|number_format:0:',':'.'}</td>
-            <td>{$proj->errorRate|string_format:"%.2f"}</td>
-            <td>{$proj->getSpeed()|number_format:0:',':'.'}</td>
+            <td>{$proj->getErrorsPerKb()|string_format:"%.2f"}</td>
+            <td>{$proj->getCharactersPerHour()|number_format:0:',':'.'}</td>
           </tr>
         {/foreach}
       </tbody>
@@ -71,6 +71,20 @@
             <select name="userId" class="form-control select2Users">
               <option value="{$p->userId}" selected></option>
             </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="f_length" class="col-sm-3 control-label">lungime</label>
+          <div class="col-sm-9">
+            <input type="number"
+              id="f_length"
+              class="form-control"
+              name="length"
+              value="{$length}">
+            <div class="text-muted">
+              lungimea totală a definițiilor pe care doriți să le evaluați
+            </div>
           </div>
         </div>
 
@@ -106,27 +120,6 @@
           <label for="f_endDate" class="col-sm-3 control-label">dată de sfârșit (opțional)</label>
           <div class="col-sm-9">
             <input type="text" id="f_endDate" name="endDate" value="{$p->endDate}" placeholder="AAAA-LL-ZZ" class="form-control">
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label class="col-sm-3 control-label">metodă</label>
-          <div class="col-sm-9">
-            {include "bits/dropdown.tpl"
-              name="method"
-              data=AccuracyProject::getMethodNames()
-              selected=$p->method}
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label class="col-sm-3 control-label">cu pasul</label>
-          <div class="col-sm-9">
-            <input type="number"
-              name="step"
-              value="{$p->step|default:1}"
-              placeholder="din câte în câte definiții veți primi"
-              class="form-control">
           </div>
         </div>
 

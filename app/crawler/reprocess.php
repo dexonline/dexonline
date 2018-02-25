@@ -6,18 +6,14 @@
 
 require_once __DIR__ . '/../../phplib/Core.php';
 require_once __DIR__ . '/../../phplib/third-party/simple_html_dom.php';
-require_once __DIR__ . '/../../phplib/third-party/phpuri.php';
 
-// build a map of domains to site IDs
-$urlMap = [];
+$varMap = []; // map of siteIDs to variables
 
 $config = parse_ini_file('crawler.conf', true);
 foreach ($config as $section => $vars) {
   if (Str::startsWith($section, 'site-')) {
     $siteId = explode('-', $section, 2)[1];
-    $rootUrl = $vars['url'];
-    $rootDomain = parse_url($rootUrl, PHP_URL_HOST);
-    $urlMap[$rootDomain] = $siteId;
+    $varMap[$siteId] = $vars;
   }
 }
 
@@ -34,11 +30,43 @@ do {
        ->find_many();
 
   foreach ($cus as $cu) {
-    $domain = parse_url($cu->url, PHP_URL_HOST);
     $cu->loadBody($root);
     $cu->loadHtml($root);
+    $cu->createParser();
+
+    $vars = $varMap[$cu->siteId];
+    $changed = false;
+
+    $oldAuthor = $cu->author;
+    $cu->extractAuthor($vars['authorSelector'], $vars['authorRegexp']);
+    if ($cu->author != $oldAuthor) {
+      $changed = true;
+      Log::warning("[%d] author changed for [%s]:\n[%s] ->\n[%s]",
+                   $cu->id, $cu->url, $oldAuthor, $cu->author);
+    }
+
+    $oldTitle = $cu->title;
+    $cu->extractTitle($vars['titleSelector']);
+    if ($cu->title != $oldTitle) {
+      $changed = true;
+      Log::warning("[%d] title changed for [%s]:\n[%s] ->\n[%s]",
+                   $cu->id, $cu->url, $oldTitle, $cu->title);
+    }
+
+    if ($changed) {
+      $cu->save();
+    }
+
+    $oldBody = $cu->body;
+    $cu->extractBody($vars['bodySelector']);
+    if ($cu->body != $oldBody) {
+      Log::warning("[%d] body changed for [%s]:\n[%s] ->\n[%s]",
+                   $cu->id, $cu->url, $oldBody, $cu->body);
+    }
+
+    $cu->freeParser();
   }
 
   $offset += count($cus);
   Log::info("Processed $offset crawled URLs.");
-} while (count($cus));
+} while (count($cus) == BATCH_SIZE);

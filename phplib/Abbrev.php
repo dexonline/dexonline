@@ -13,34 +13,8 @@ class Abbrev {
   const LEADERS = '[ @$%(\["<\n-]';
   const FOLLOWERS = '([ @$%,;:)\]*"\/\n-]|$)';
 
-  private static $ABBREV_INDEX = null; // These will be loaded lazily
+  // a map of sourceId => list of abbreviations, loaded lazily
   private static $ABBREVS = [];
-
-  /**
-   * Creates a map of $sourceId => array of sections to use.
-   * Each section resides in a file named docs/abbrev/<section>.conf (these are loaded lazily).
-   */
-  static function loadAbbreviationsIndex() {
-    if (!self::$ABBREV_INDEX) {
-      self::$ABBREV_INDEX = [];
-      $raw = parse_ini_file(Core::getRootPath() . "docs/abbrev/abbrev.conf", true);
-      foreach ($raw['sources'] as $sourceId => $sectionList) {
-        self::$ABBREV_INDEX[$sourceId] = preg_split('/, */', $sectionList);
-      }
-    }
-    return self::$ABBREV_INDEX;
-  }
-
-  static function getAbbrevSectionNames() {
-    self::loadAbbreviationsIndex();
-    $sections = [];
-    foreach (self::$ABBREV_INDEX as $sectionList) {
-      foreach ($sectionList as $s) {
-        $sections[$s] = true;
-      }
-    }
-    return array_keys($sections);
-  }
 
   /**
    * Creates and caches a map($from, pair($to, $ambiguous)) for this sourceId.
@@ -220,5 +194,5 @@ class Abbrev {
     }
     return $s;
   }
-  
+
 }

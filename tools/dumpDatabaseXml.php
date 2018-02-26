@@ -67,13 +67,13 @@ if ($LAST_DUMP) {
            "$REMOTE_FOLDER/$TODAY-edm.xml.gz",
            "$REMOTE_FOLDER/$TODAY-edm-diff.xml.gz",
            'EntryDefinition',
-           'dumping entry-definition map diff');           
+           'dumping entry-definition map diff');
 
   dumpDiff("$REMOTE_FOLDER/$LAST_DUMP-elm.xml.gz",
            "$REMOTE_FOLDER/$TODAY-elm.xml.gz",
            "$REMOTE_FOLDER/$TODAY-elm-diff.xml.gz",
            'EntryLexem',
-           'dumping entry-lexeme map diff');           
+           'dumping entry-lexeme map diff');
 }
 
 removeOldDumps($REMOTE_FOLDER, $TODAY, $LAST_DUMP);
@@ -112,7 +112,7 @@ function getLastDumpDate($folder) {
     krsort($map);
     $date = key($map); // First key
     return ($map[$date] == 8) ? $date : null;
-  } else {  
+  } else {
     return null;
   }
 }
@@ -141,25 +141,19 @@ function dumpAbbrevs($remoteFile) {
   global $FTP;
 
   Log::info("dumping abbreviations");
-  $sources = Abbrev::loadAbbreviationsIndex();
-  $sectionNames = Abbrev::getAbbrevSectionNames();
-  $sections = [];
 
-  foreach ($sectionNames as $name) {
-    $raw_section = parse_ini_file(Core::getRootPath() . "docs/abbrev/{$name}.conf", true);
-    $section = [];
-    foreach ($raw_section[$name] as $short => $long) {
-      $abbrev_info = ['short' => $short, 'long' => $long, 'ambiguous' => false];
-      if (substr($short, 0, 1) == "*") {
-        $abbrev_info['short'] = substr($short, 1);
-        $abbrev_info['ambiguous'] = true;
-      }
-      $section[] = $abbrev_info;
-    }
-    $sections[$name] = $section;
+  $sourceIds = Model::factory('Abbreviation')
+             ->select('sourceId')
+             ->distinct()
+             ->find_array();
+  $sourceIds = array_column($sourceIds, 'sourceId');
+
+  $map = [];
+  foreach ($sourceIds as $sourceId) {
+    $map[$sourceId] = Abbrev::loadAbbreviations($sourceId);
   }
-  SmartyWrap::assign('sources', $sources);
-  SmartyWrap::assign('sections', $sections);
+
+  SmartyWrap::assign('map', $map);
   $xml = SmartyWrap::fetch('xml/xmldump/abbrev.tpl');
   $gzip = gzencode($xml);
   $FTP->staticServerPutContents($gzip, $remoteFile);
@@ -277,7 +271,7 @@ function dumpDiff($oldRemoteFile, $newRemoteFile, $diffRemoteFile, $elementName,
   $newXml = wgetAndGunzip(Config::get('static.url') . '/' . $newRemoteFile);
   $output = null;
   exec("diff $oldXml $newXml", $output, $ignored);
-  $tmpFile = tempnam(Config::get('global.tempDir'), 'xmldump_');  
+  $tmpFile = tempnam(Config::get('global.tempDir'), 'xmldump_');
   $file = gzopen($tmpFile, 'wb9');
   gzwrite($file, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
   gzwrite($file, "<{$elementName}>\n");

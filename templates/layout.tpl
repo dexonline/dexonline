@@ -67,7 +67,7 @@
 
           <div class="text-center">
             <ul class="list-inline">
-              <li>Copyright (C) 2004-{$currentYear} dexonline (https://dexonline.ro)</li>
+              <li>Copyright © 2004-{$currentYear} dexonline (https://dexonline.ro)</li>
               <li class="licenceLink"><a href="{$wwwRoot}licenta">Licență</a></li>
               {if $cfg.global.hostedBy}
                 <li class="hostingLink">{include "hosting/`$cfg.global.hostedBy`.tpl"}</li>

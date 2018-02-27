@@ -53,7 +53,7 @@ if ($doFullDump) {
 }
 
 OS::executeAndAssert("rm -f $SQL_FILE");
-OS::executeAndAssert("echo \"-- Copyright (C) 2004-$currentYear dexonline (https://dexonline.ro)\" > $SQL_FILE");
+OS::executeAndAssert("echo \"-- Copyright © 2004-$currentYear dexonline (https://dexonline.ro)\" > $SQL_FILE");
 OS::executeAndAssert("cat $LICENSE >> $SQL_FILE");
 $mysql = "$COMMON_COMMAND $tablesToIgnore >> $SQL_FILE";
 OS::executeAndAssert($mysql);
@@ -91,8 +91,8 @@ if (!$doFullDump) {
   DB::execute("insert into _Definition_Copy select * from Definition");
   $query = <<<EOT
     update _Definition_Copy
-    set internalRep = concat(left(internalRep, 20), '...'), 
-        htmlRep = '[această definiție nu poate fi redistribuită]' 
+    set internalRep = concat(left(internalRep, 20), '...'),
+        htmlRep = '[această definiție nu poate fi redistribuită]'
     where sourceId in (select id from Source where !canDistribute)
 EOT;
   DB::execute($query);

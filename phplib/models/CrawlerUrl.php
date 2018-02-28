@@ -6,6 +6,7 @@ class CrawlerUrl extends BaseObject implements DatedObject {
   private $rawHtml = null;
   private $parser = null;
   private $body = null;
+  private $root = null;
 
   static function create($url, $siteId) {
     $cu = Model::factory('CrawlerUrl')->create();
@@ -15,12 +16,22 @@ class CrawlerUrl extends BaseObject implements DatedObject {
   }
 
   function createParser() {
+    $this->loadHtml();
+    // insert spaces so that plaintext doesn't concatenate paragraphs.
     $s = str_replace ( "</" , " </" , $this->rawHtml);
     $this->parser = str_get_html($s);
   }
 
   function freeParser() {
     unset($this->parser);
+  }
+
+  function getBody() {
+    return $this->body;
+  }
+
+  function setRoot($root) {
+    $this->root = $root;
   }
 
   // fetches the URL and instantiates a parser
@@ -30,7 +41,6 @@ class CrawlerUrl extends BaseObject implements DatedObject {
       throw new CrawlerException("could not fetch {$this->url}");
     }
 
-    // insert spaces so that plaintext doesn't concatenate paragraphs.
     $this->createParser();
   }
 
@@ -130,28 +140,32 @@ class CrawlerUrl extends BaseObject implements DatedObject {
     }
   }
 
-  function getBodyFileName($root) {
-    return sprintf('%s/%s/body/%s.txt', $root, $this->siteId, $this->id);
+  function getBodyFileName() {
+    return sprintf('%s/%s/body/%s.txt', $this->root, $this->siteId, $this->id);
   }
 
-  function getHtmlFileName($root) {
-    return sprintf('%s/%s/raw/%s.html.gz', $root, $this->siteId, $this->id);
+  function getHtmlFileName() {
+    return sprintf('%s/%s/raw/%s.html.gz', $this->root, $this->siteId, $this->id);
   }
 
-  function loadBody($root) {
-    $this->body = $this->loadData($this->getBodyFileName($root));
+  function loadBody() {
+    if ($this->body === null) {
+      $this->body = $this->loadData($this->getBodyFileName());
+    }
   }
 
-  function loadHtml($root) {
-    $this->rawHtml = $this->loadData($this->getHtmlFileName($root));
+  function loadHtml() {
+    if ($this->rawHtml === null) {
+      $this->rawHtml = $this->loadData($this->getHtmlFileName());
+    }
   }
 
-  function saveBody($root) {
-    $this->saveData($this->body, $this->getBodyFileName($root));
+  function saveBody() {
+    $this->saveData($this->body, $this->getBodyFileName());
   }
 
-  function saveHtml($root) {
-    $this->saveData($this->rawHtml, $this->getHtmlFileName($root));
+  function saveHtml() {
+    $this->saveData($this->rawHtml, $this->getHtmlFileName());
   }
 
   function getPhrases() {

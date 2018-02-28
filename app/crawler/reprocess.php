@@ -30,8 +30,7 @@ do {
        ->find_many();
 
   foreach ($cus as $cu) {
-    $cu->loadBody($root);
-    $cu->loadHtml($root);
+    $cu->setRoot($root);
     $cu->createParser();
 
     $vars = $varMap[$cu->siteId];
@@ -57,11 +56,12 @@ do {
       $cu->save();
     }
 
-    $oldBody = $cu->body;
+    $cu->loadBody();
+    $oldBody = $cu->getBody();
     $cu->extractBody($vars['bodySelector']);
-    if ($cu->body != $oldBody) {
-      Log::warning("[%d] body changed for [%s]:\n[%s] ->\n[%s]",
-                   $cu->id, $cu->url, $oldBody, $cu->body);
+    if ($cu->getBody() != $oldBody) {
+      Log::warning("[%d] body changed for [%s]", $cu->id, $cu->url);
+      $cu->saveBody();
     }
 
     $cu->freeParser();

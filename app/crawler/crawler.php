@@ -49,7 +49,7 @@ foreach ($config as $section => $vars) {
 
 /*************************************************************************/
 
-function fetch($url, $siteId, $vars, $path) {
+function fetch($url, $siteId, $vars, $root) {
   Log::info('fetching %s', urldecode($url));
 
   $cu = null;
@@ -69,8 +69,9 @@ function fetch($url, $siteId, $vars, $path) {
 
   if ($cu->id) {
     try {
-      $cu->saveHtml($path);
-      $cu->saveBody($path);
+      $cu->setRoot($root);
+      $cu->saveHtml();
+      $cu->saveBody();
     } catch (CrawlerException $e) {
       Log::critical('crawler exception: %s', $e->getMessage());
       exit;

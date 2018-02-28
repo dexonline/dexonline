@@ -21,7 +21,6 @@ do {
        ->find_many();
 
   foreach ($cus as $cu) {
-    $cu->setRoot($root);
     $cu->extractUnknownWords();
   }
 

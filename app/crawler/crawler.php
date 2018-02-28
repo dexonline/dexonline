@@ -69,7 +69,6 @@ function fetch($url, $siteId, $vars, $root) {
 
   if ($cu->id) {
     try {
-      $cu->setRoot($root);
       $cu->saveHtml();
       $cu->saveBody();
     } catch (CrawlerException $e) {

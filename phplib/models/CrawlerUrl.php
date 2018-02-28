@@ -3,10 +3,18 @@
 class CrawlerUrl extends BaseObject implements DatedObject {
   static $_table = 'CrawlerUrl';
 
+  const CONTEXT_SIZE = 100;
+
   private $rawHtml = null;
   private $parser = null;
   private $body = null;
-  private $root = null;
+  private static $root = null;
+
+  static function init() {
+    $file = __DIR__ . '/../../app/crawler/crawler.conf';
+    $config = parse_ini_file($file, true);
+    self::$root = $config['global']['path'];
+  }
 
   static function create($url, $siteId) {
     $cu = Model::factory('CrawlerUrl')->create();
@@ -31,10 +39,6 @@ class CrawlerUrl extends BaseObject implements DatedObject {
       throw new CrawlerException('body needs to be loaded or extracted first');
     }
     return $this->body;
-  }
-
-  function setRoot($root) {
-    $this->root = $root;
   }
 
   // fetches the URL and instantiates a parser
@@ -144,17 +148,11 @@ class CrawlerUrl extends BaseObject implements DatedObject {
   }
 
   function getBodyFileName() {
-    if (!$this->root) {
-      throw new CrawlerException('root not set');
-    }
-    return sprintf('%s/%s/body/%s.txt', $this->root, $this->siteId, $this->id);
+    return sprintf('%s/%s/body/%s.txt', self::$root, $this->siteId, $this->id);
   }
 
   function getHtmlFileName() {
-    if (!$this->root) {
-      throw new CrawlerException('root not set');
-    }
-    return sprintf('%s/%s/raw/%s.html.gz', $this->root, $this->siteId, $this->id);
+    return sprintf('%s/%s/raw/%s.html.gz', self::$root, $this->siteId, $this->id);
   }
 
   function loadBody() {
@@ -189,21 +187,54 @@ class CrawlerUrl extends BaseObject implements DatedObject {
     return $phrases;
   }
 
+  /**
+   * Returns the context around this unknown word.
+   **/
+  function getContext($unknownWord) {
+    $body = $this->getBody();
+
+    // figure out the multibyte position from the ASCII position
+    $pos = mb_strlen(substr($body, 0, $unknownWord->position));
+
+    $left = max(0, $pos - self::CONTEXT_SIZE);
+    $right = min(mb_strlen($body), $pos + mb_strlen($unknownWord->word) + self::CONTEXT_SIZE);
+
+    while (Str::getCharAt($body, $left) != ' ') {
+      $left++;
+    }
+    while (Str::getCharAt($body, $right) != ' ') {
+      $right--;
+    }
+    $context = trim(mb_substr($body, $left, $right - $left));
+
+    return $context;
+  }
+
+  /**
+   * @return array An array of CrawlerUnknownWords (some of these words are in
+   * fact known and will be filtered later)
+   **/
   function getWords() {
     $this->loadBody();
     $body = $this->getBody();
 
     // don't deal with dashes and capital letters for now
-    preg_match_all("/(?<!([-']|\p{L}))\p{Ll}{3,}(?!([-']|\p{L}))/u", $body, $matches);
-    $words = $matches[0];
-    foreach ($words as &$w) {
-      $w = Str::convertOrthography($w);
+    preg_match_all("/(?<!([-']|\p{L}))\p{Ll}{3,}(?!([-']|\p{L}))/u",
+                   $body, $matches, PREG_OFFSET_CAPTURE);
+
+    $results = [];
+    foreach ($matches[0] as $rec) {
+      $uw = Model::factory('CrawlerUnknownWord')->create();
+      $uw->word = Str::convertOrthography($rec[0]);
+      $uw->position = $rec[1];
+      $uw->crawlerUrlId = $this->id;
+      $results[] = $uw;
     }
-    return $words;
+    return $results;
   }
 
-  private function unknownWordFilter($word) {
-    return !InflectedForm::get_by_formNoAccent($word);
+  private function unknownWordFilter($crawlerUnknownWord) {
+    return !InflectedForm::get_by_formNoAccent($crawlerUnknownWord->word);
   }
 
   /**
@@ -217,11 +248,8 @@ class CrawlerUrl extends BaseObject implements DatedObject {
 
     $words = $this->getWords();
     $unknown = array_filter($words, [$this, 'unknownWordFilter']);
-    foreach ($unknown as $word) {
-      Log::info('Found unknown word [%s] in url %d [%s]', $word, $this->id, $this->url);
-      $uw = Model::factory('CrawlerUnknownWord')->create();
-      $uw->word = $word;
-      $uw->crawlerUrlId = $this->id;
+    foreach ($unknown as $uw) {
+      Log::info('Found unknown word [%s] in url %d [%s]', $uw->word, $this->id, $this->url);
       $uw->save();
     }
 
@@ -230,3 +258,5 @@ class CrawlerUrl extends BaseObject implements DatedObject {
   }
 
 }
+
+CrawlerUrl::init();

@@ -10,6 +10,9 @@ $unknownWords = Model::factory('CrawlerUnknownWord')
               ->order_by_desc('count')
               ->limit(100)
               ->find_many();
+foreach ($unknownWords as $uw) {
+  $uw->examples = $uw->loadExamples(3);
+}
 
 $numUnknownWords = DB::getSingleValue('select count(distinct word) from CrawlerUnknownWord');
 

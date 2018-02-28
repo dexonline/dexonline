@@ -27,6 +27,9 @@ class CrawlerUrl extends BaseObject implements DatedObject {
   }
 
   function getBody() {
+    if (!$this->body) {
+      throw new CrawlerException('body needs to be loaded or extracted first');
+    }
     return $this->body;
   }
 
@@ -179,7 +182,7 @@ class CrawlerUrl extends BaseObject implements DatedObject {
    **/
   function getPhrases() {
     // split at '. ' when there are no periods among the previous 5 characters
-    $phrases = preg_split('/(?<=[^.]{5,5})\\. /', $this->body);
+    $phrases = preg_split('/(?<=[^.]{5,5})\\. /', $this->getBody());
     foreach ($phrases as &$p) {
       $p .= '.';
     }
@@ -188,9 +191,10 @@ class CrawlerUrl extends BaseObject implements DatedObject {
 
   function getWords() {
     $this->loadBody();
+    $body = $this->getBody();
 
     // don't deal with dashes and capital letters for now
-    preg_match_all("/(?<!([-']|\p{L}))\p{Ll}{3,}(?!([-']|\p{L}))/u", $this->body, $matches);
+    preg_match_all("/(?<!([-']|\p{L}))\p{Ll}{3,}(?!([-']|\p{L}))/u", $body, $matches);
     $words = $matches[0];
     foreach ($words as &$w) {
       $w = Str::convertOrthography($w);

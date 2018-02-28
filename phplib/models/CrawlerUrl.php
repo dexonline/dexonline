@@ -141,10 +141,16 @@ class CrawlerUrl extends BaseObject implements DatedObject {
   }
 
   function getBodyFileName() {
+    if (!$this->root) {
+      throw new CrawlerException('root not set');
+    }
     return sprintf('%s/%s/body/%s.txt', $this->root, $this->siteId, $this->id);
   }
 
   function getHtmlFileName() {
+    if (!$this->root) {
+      throw new CrawlerException('root not set');
+    }
     return sprintf('%s/%s/raw/%s.html.gz', $this->root, $this->siteId, $this->id);
   }
 
@@ -168,12 +174,55 @@ class CrawlerUrl extends BaseObject implements DatedObject {
     $this->saveData($this->rawHtml, $this->getHtmlFileName());
   }
 
+  /**
+   * Currently unused. Might be useful for extracting context around a word.
+   **/
   function getPhrases() {
-    // split at '. ' when there are no periods among the previous 10 characters
-    $phrases = preg_split('/(?<=[^.]{10,10})\\. /', $this->body);
+    // split at '. ' when there are no periods among the previous 5 characters
+    $phrases = preg_split('/(?<=[^.]{5,5})\\. /', $this->body);
     foreach ($phrases as &$p) {
       $p .= '.';
     }
     return $phrases;
   }
+
+  function getWords() {
+    $this->loadBody();
+
+    // don't deal with dashes and capital letters for now
+    preg_match_all("/(?<!([-']|\p{L}))\p{Ll}{3,}(?!([-']|\p{L}))/u", $this->body, $matches);
+    $words = $matches[0];
+    foreach ($words as &$w) {
+      $w = Str::convertOrthography($w);
+    }
+    return $words;
+  }
+
+  private function unknownWordFilter($word) {
+    return !InflectedForm::get_by_formNoAccent($word);
+  }
+
+  /**
+   * Creates CrawlerUnknownWord records for unknown words in $this->body.
+   * Does nothing if the extractedUnknownWords field is true.
+   **/
+  function extractUnknownWords() {
+    if ($this->extractedUnknownWords) {
+      return;
+    }
+
+    $words = $this->getWords();
+    $unknown = array_filter($words, [$this, 'unknownWordFilter']);
+    foreach ($unknown as $word) {
+      Log::info('Found unknown word [%s] in url %d [%s]', $word, $this->id, $this->url);
+      $uw = Model::factory('CrawlerUnknownWord')->create();
+      $uw->word = $word;
+      $uw->crawlerUrlId = $this->id;
+      $uw->save();
+    }
+
+    $this->extractedUnknownWords = true;
+    $this->save();
+  }
+
 }

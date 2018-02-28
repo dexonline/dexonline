@@ -5,8 +5,8 @@ class Str {
   // Convert old (î) orthography to new (â) orthography.
   // Assumes $s uses diacritics (if needed).
   static function convertOrthography($s) {
-    $s = preg_replace("/\bsînt(?=\b|em\b|\eți)/u", 'sunt', $s);
-    $s = preg_replace("/\bSÎNT(?=\b|EM\b|\EȚI)/u", 'SUNT', $s);
+    $s = preg_replace("/\bsînt(?=\b|em\b|eți\b)/u", 'sunt', $s);
+    $s = preg_replace("/\bSÎNT(?=\b|EM\b|EȚI\b)/u", 'SUNT', $s);
 
     // replace î with â unless it's at the beginning, the end or after a prefix
     $r = '\b';
@@ -195,7 +195,7 @@ class Str {
     foreach ($char_map as $a => $i) {
       // workaround for the fact that /\b{$a}\b/u doesn't work.
       // see http://stackoverflow.com/questions/2432868/php-regex-word-boundary-matching-in-utf-8
-      $tpl_output = preg_replace("/(?<=[A-Za-zĂȘȚășț]){$a}(?=[A-Za-zĂȘȚășț])/", 
+      $tpl_output = preg_replace("/(?<=[A-Za-zĂȘȚășț]){$a}(?=[A-Za-zĂȘȚășț])/",
                                  "$1{$i}$2", $tpl_output);
       $tpl_output = preg_replace("/(r[ou]m)$i(n)/i", "\${1}$a\${2}", $tpl_output);
     }
@@ -249,8 +249,8 @@ class Str {
 
   /* Place a css class around the letter bearing the tonic accent */
   static function highlightAccent($s) {
-    return preg_replace("/(?<!\\\\)'(.)/u", 
-                        "<span class=\"tonic-accent\">\$1</span>", 
+    return preg_replace("/(?<!\\\\)'(.)/u",
+                        "<span class=\"tonic-accent\">\$1</span>",
                         $s);
   }
 
@@ -290,10 +290,10 @@ class Str {
 
     // Replace \abcd with the Unicode character 0xABCD
     $s = preg_replace_callback(
-      '/\\\\([\dabcdef]{4,5})/i', 
+      '/\\\\([\dabcdef]{4,5})/i',
       function ($matches) {
       return self::chr(hexdec($matches[0]));
-      }, 
+      },
       $s);
 
     return $s;
@@ -517,10 +517,10 @@ class Str {
 
     // Replace backslashed characters with their XML escape code
     $s = preg_replace_callback(
-      '/\\\\(.)/', 
+      '/\\\\(.)/',
       function ($matches) {
       return '&#x5c;' . '&#x' . dechex(self::ord($matches[1])) . ';';
-      }, 
+      },
       $s);
 
     return $s;
@@ -760,7 +760,7 @@ class Str {
 
     foreach ($processedLinks as $pl) {
       if ($pl['short_reason'] !== 'nemodificat') {
-        $errors[] = sprintf('Legătura de la "%s" la "%s" este considerată redundantă (motiv: %s)', 
+        $errors[] = sprintf('Legătura de la "%s" la "%s" este considerată redundantă (motiv: %s)',
                             $pl['original_word'], $pl['linked_lexeme'], $pl['reason']);
       }
     }

@@ -779,6 +779,7 @@ $orth = [
   'sîntem astăzi sînt mîine' => 'suntem astăzi sunt mâine',
   'sîntul așteaptă' => 'sântul așteaptă',
   'țîfnos țîrîi' => 'țâfnos țârâi', // UTF8 context
+  'sînteți' => 'sunteți',
 ];
 foreach ($orth as $old => $new) {
   assertEquals($new, Str::convertOrthography($old));

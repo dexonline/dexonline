@@ -463,6 +463,9 @@ class Str {
     $errors = $errors ?? [];
     $warnings = $warnings ?? [];
 
+    // stripping unwanted parts of definition
+    $s = preg_replace('/▶(.*?)◀/', '', $s);
+    
     $s = htmlspecialchars($s, ENT_NOQUOTES);
 
     self::findRedundantLinks($s, $warnings);

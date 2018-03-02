@@ -146,7 +146,7 @@ class Entry extends BaseObject implements DatedObject {
 
     // load lexemes from two sources:
     // * simple lexemes that generate this form;
-    // * comppound lexemes that have a fragment that generates this form
+    // * compound lexemes that have a fragment that generates this form
 
     $simple = 'select l.id ' .
             'from Lexeme l ' .

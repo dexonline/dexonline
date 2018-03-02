@@ -269,7 +269,7 @@ $data = [
     [],
   ],
   [
-    '@FILLER@ art.hot. @FILLER@',
+    '@FILLER@ art. hot. @FILLER@',
     '@FILLER@ #art. hot.# @FILLER@',
     1,
     [],
@@ -342,22 +342,22 @@ foreach ($data as list($before, $after, $sourceId, $ambiguous)) {
 }
 
 assertEquals(
-  ["FOO <abbr class=\"abbrev\" title=\"farmacie; farmacologie\">farm.</abbr> BAR", []],
+  ["FOO <abbr class=\"abbrev\" data-html=\"true\" title=\"farmacie; farmacologie\">farm.</abbr> BAR", []],
   Str::htmlize("FOO #farm.# BAR", 1)); /** Semicolon in abbreviation **/
 assertEquals(
-  ["FOO <abbr class=\"abbrev\" title=\"substantiv masculin\">s. m.</abbr> BAR", []],
+  ["FOO <abbr class=\"abbrev\" data-html=\"true\" title=\"substantiv masculin\">s. m.</abbr> BAR", []],
   Str::htmlize("FOO #s. m.# BAR", 1));
 $errors = [];
 assertEquals(
-  ["FOO <abbr class=\"abbrev\" title=\"abreviere necunoscută\">brrb. ghhg.</abbr> BAR", []],
+  ["FOO <abbr class=\"abbrev\" data-html=\"true\" title=\"abreviere necunoscută\">brrb. ghhg.</abbr> BAR", []],
   Str::htmlize("FOO #brrb. ghhg.# BAR", 1, false, $errors));
 assertEquals(
-  ['Abreviere necunoscută: «brrb. ghhg.». Verificați că după fiecare punct există un spațiu.'],
+  ['Abreviere necunoscută: «brrb. ghhg.».'],
   $errors);
 
 $internalRep = '@M\'ARE^2,@ $mări,$ #s. f.# Nume generic dat vastelor întinderi de apă stătătoare, adânci și sărate, de pe suprafața |Pământului|Pământ|, care de obicei sunt unite cu oceanul printr-o strâmtoare; parte a oceanului de lângă țărm; $#p. ext.#$ ocean. * #Expr.# $Marea cu sarea$ = mult, totul; imposibilul. $A vântura mări și țări$ = a călători mult. $A încerca marea cu degetul$ = a face o încercare, chiar dacă șansele de reușită sunt minime. $Peste (nouă) mări și (nouă) țări$ = foarte departe. ** #Fig.# Suprafață vastă; întindere mare; imensitate. ** #Fig.# Mulțime (nesfârșită), cantitate foarte mare. - Lat. @mare, -is.@';
 list ($actualRep, $ambiguous) =
-  Str::sanitize('@M\'ARE^2@, $mări$, s. f. Nume generic dat vastelor întinderi de apă stătătoare, adânci și sărate, de pe suprafața |Pământului|Pământ|, care de obicei sunt unite cu oceanul printr-o strâmtoare; parte a oceanului de lângă țărm; $p.ext.$ ocean. * Expr. $Marea cu sarea$ = mult, totul; imposibilul. $A vântura mări și țări$ = a călători mult. $A încerca marea cu degetul$ = a face o încercare, chiar dacă șansele de reușită sunt minime. $Peste (nouă) mări și (nouă) țări$ = foarte departe. ** Fig. Suprafață vastă; întindere mare; imensitate. ** Fig. Mulțime (nesfârșită), cantitate foarte mare. - Lat. @mare, -is@.', 1);
+  Str::sanitize('@M\'ARE^2@, $mări$, s. f. Nume generic dat vastelor întinderi de apă stătătoare, adânci și sărate, de pe suprafața |Pământului|Pământ|, care de obicei sunt unite cu oceanul printr-o strâmtoare; parte a oceanului de lângă țărm; $p. ext.$ ocean. * Expr. $Marea cu sarea$ = mult, totul; imposibilul. $A vântura mări și țări$ = a călători mult. $A încerca marea cu degetul$ = a face o încercare, chiar dacă șansele de reușită sunt minime. $Peste (nouă) mări și (nouă) țări$ = foarte departe. ** Fig. Suprafață vastă; întindere mare; imensitate. ** Fig. Mulțime (nesfârșită), cantitate foarte mare. - Lat. @mare, -is@.', 1);
 assertEquals($internalRep, $actualRep);
 assertEquals([
   0 => [
@@ -369,7 +369,7 @@ assertEquals([
 
 list($actualRep, $ignored)
   = Str::htmlize($internalRep, 1);
-assertEquals('<b>M<span class="tonic-accent">A</span>RE<sup>2</sup>,</b> <i>mări,</i> <abbr class="abbrev" title="substantiv feminin">s. f.</abbr> Nume generic dat vastelor întinderi de apă stătătoare, adânci și sărate, de pe suprafața <a class="ref" href="/definitie/Pământ">Pământului</a>, care de obicei sunt unite cu oceanul printr-o strâmtoare; parte a oceanului de lângă țărm; <i><abbr class="abbrev" title="prin extensiune">p. ext.</abbr></i> ocean. ◊ <abbr class="abbrev" title="expresie">Expr.</abbr> <i>Marea cu sarea</i> = mult, totul; imposibilul. <i>A vântura mări și țări</i> = a călători mult. <i>A încerca marea cu degetul</i> = a face o încercare, chiar dacă șansele de reușită sunt minime. <i>Peste (nouă) mări și (nouă) țări</i> = foarte departe. ♦ <abbr class="abbrev" title="figurat">Fig.</abbr> Suprafață vastă; întindere mare; imensitate. ♦ <abbr class="abbrev" title="figurat">Fig.</abbr> Mulțime (nesfârșită), cantitate foarte mare. – Lat. <b>mare, -is.</b>',
+assertEquals('<b>M<span class="tonic-accent">A</span>RE<sup>2</sup>,</b> <i>mări,</i> <abbr class="abbrev" data-html="true" title="substantiv feminin">s. f.</abbr> Nume generic dat vastelor întinderi de apă stătătoare, adânci și sărate, de pe suprafața <a class="ref" href="/definitie/Pământ">Pământului</a>, care de obicei sunt unite cu oceanul printr-o strâmtoare; parte a oceanului de lângă țărm; <i><abbr class="abbrev" data-html="true" title="prin extensiune">p. ext.</abbr></i> ocean. ◊ <abbr class="abbrev" data-html="true" title="expresie">Expr.</abbr> <i>Marea cu sarea</i> = mult, totul; imposibilul. <i>A vântura mări și țări</i> = a călători mult. <i>A încerca marea cu degetul</i> = a face o încercare, chiar dacă șansele de reușită sunt minime. <i>Peste (nouă) mări și (nouă) țări</i> = foarte departe. ♦ <abbr class="abbrev" data-html="true" title="figurat">Fig.</abbr> Suprafață vastă; întindere mare; imensitate. ♦ <abbr class="abbrev" data-html="true" title="figurat">Fig.</abbr> Mulțime (nesfârșită), cantitate foarte mare. – Lat. <b>mare, -is.</b>',
              $actualRep);
 
 $msg1 = 'Unele dintre caracterele @$%#{} nu sunt împerecheate corect.';
@@ -409,19 +409,19 @@ $data = [
   [
     'FILLER adv. FILLER',
     'FILLER #adv.# FILLER',
-    'FILLER <abbr class="abbrev" title="adverb">adv.</abbr> FILLER',
+    'FILLER <abbr class="abbrev" data-html="true" title="adverb">adv.</abbr> FILLER',
     1,
   ],
   [
     'FILLER Adv. FILLER',
     'FILLER #Adv.# FILLER',
-    'FILLER <abbr class="abbrev" title="adverb">Adv.</abbr> FILLER',
+    'FILLER <abbr class="abbrev" data-html="true" title="adverb">Adv.</abbr> FILLER',
     1,
   ],
   [
     'FILLER BWV FILLER',
     'FILLER #BWV# FILLER',
-    'FILLER <abbr class="abbrev" title="Bach-Werke-Verzeichnis">BWV</abbr> FILLER',
+    'FILLER <abbr class="abbrev" data-html="true" title="Bach-Werke-Verzeichnis">BWV</abbr> FILLER',
     32,
   ],
   [
@@ -439,13 +439,13 @@ $data = [
   [
     'FILLER ed. FILLER',
     'FILLER #ed.# FILLER',
-    'FILLER <abbr class="abbrev" title="ediție, editat">ed.</abbr> FILLER',
+    'FILLER <abbr class="abbrev" data-html="true" title="ediție, editat">ed.</abbr> FILLER',
     32,
   ],
   [
     'FILLER Ed. FILLER',
     'FILLER #Ed.# FILLER',
-    'FILLER <abbr class="abbrev" title="Editura">Ed.</abbr> FILLER',
+    'FILLER <abbr class="abbrev" data-html="true" title="Editura">Ed.</abbr> FILLER',
     32,
   ],
   [
@@ -457,14 +457,14 @@ $data = [
   [
     'FILLER RRHA, TMC FILLER', // abbreviation includes special characters
     'FILLER #RRHA, TMC# FILLER',
-    "FILLER <abbr class=\"abbrev\" title=\"Revue Roumaine d'Histoire de l'Art, série " .
-    "Théâtre, Musique, Cinématographie\">RRHA, TMC</abbr> FILLER",
+    "FILLER <abbr class=\"abbrev\" data-html=\"true\" title=\"Revue Roumaine d’Histoire de l’Art, " .
+    "série Théâtre, Musique, Cinématographie\">RRHA, TMC</abbr> FILLER",
     32,
   ],
   [
     'FILLER adj. interog.-rel. FILLER',
     'FILLER #adj. interog.-rel.# FILLER',
-    'FILLER <abbr class="abbrev" title="adjectiv interogativ-relativ">' .
+    'FILLER <abbr class="abbrev" data-html="true" title="adjectiv interogativ-relativ">' .
     'adj. interog.-rel.</abbr> FILLER',
     1,
   ],
@@ -779,6 +779,7 @@ $orth = [
   'sîntem astăzi sînt mîine' => 'suntem astăzi sunt mâine',
   'sîntul așteaptă' => 'sântul așteaptă',
   'țîfnos țîrîi' => 'țâfnos țârâi', // UTF8 context
+  'sînteți' => 'sunteți',
 ];
 foreach ($orth as $old => $new) {
   assertEquals($new, Str::convertOrthography($old));

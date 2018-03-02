@@ -32,7 +32,7 @@
 
   <h3>Pentru restul dicționarelor</h3>
 
-  <p>Copyright (C) 2004-{$currentYear} dexonline</p>
+  <p>Copyright © 2004-{$currentYear} dexonline</p>
   <p>
     Baza de definiții a <i>dexonline</i> este liberă; o puteți redistribui și/sau modifica în conformitate cu termenii Licenței Publice Generale GNU așa
     cum este ea publicată de Free Software Foundation; fie versiunea 2 a Licenței, fie (la latitudinea dumneavoastră) orice versiune ulterioară.  Baza de
@@ -42,7 +42,7 @@
 
   <h3>Pentru codul-sursă</h3>
 
-  <p>Copyright (C) 2004-{$currentYear} dexonline</p>
+  <p>Copyright © 2004-{$currentYear} dexonline</p>
   <p>
     Acest program este software liber: îl puteți redistribui și/sau modifica sub termenii <a href="http://www.gnu.org/licenses/agpl-3.0.html">Licenței
     Publice Generale Affero (AGPL)</a> așa cum este ea publicată de Free Software Foundation, fie versiunea 3 a licenței, fie (la latitudinea

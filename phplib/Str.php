@@ -462,9 +462,6 @@ class Str {
   static function htmlize($s, $sourceId, $obeyNewlines = false, &$errors = null, &$warnings = null) {
     $errors = $errors ?? [];
     $warnings = $warnings ?? [];
-
-    // stripping unwanted parts of definition
-    $s = preg_replace('/▶(.*?)◀/', '', $s);
     
     $s = htmlspecialchars($s, ENT_NOQUOTES);
 

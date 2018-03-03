@@ -47,7 +47,7 @@ class Constant {
 
   // will use preg_replace for string values, preg_replace_callback for arrays
   const HTML_PATTERNS = [
-    '/▶(.*?)◀/' => '',                                              // remove unwanted parts of definition
+    '/▶(.*?)◀/s' => '',                                              // remove unwanted parts of definition
     '/(?<!\\\\)"([^"]*)"/' => '„$1”',                               // "x" => „x” - romanian quoting style
     '/(?<!\\\\)\{\{(.*)\}\}/U' => ['FootnoteHtmlizer', 'htmlize'], // {{fotnote}}
     '/(?<!\\\\)#([^#]*)#/' => ['AbbrevHtmlizer', 'htmlize'],       // #abbreviation#

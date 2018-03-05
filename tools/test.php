@@ -214,6 +214,11 @@ assertTransform('Str::htmlize', [ 0 ], [
 
   'abc\\^{def}ghi' =>
   ['abc^{def}ghi', []],
+  
+  // remove unwanted parts of definition
+  "I\\'m the ▶invisible ◀man▶ - some lyrics from Queen◀." =>
+  ["I’m the man.", []],
+
 ]);
 
 assertTransform('Str::htmlize', [ 0, true ], [

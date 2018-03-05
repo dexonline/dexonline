@@ -462,7 +462,7 @@ class Str {
   static function htmlize($s, $sourceId, $obeyNewlines = false, &$errors = null, &$warnings = null) {
     $errors = $errors ?? [];
     $warnings = $warnings ?? [];
-
+    
     $s = htmlspecialchars($s, ENT_NOQUOTES);
 
     self::findRedundantLinks($s, $warnings);

@@ -33,7 +33,7 @@ if ($type == 'rss' || $type == 'blog') {
 
     SmartyWrap::assign('def', $def);
     SmartyWrap::assign('source', $source);
-    SmartyWrap::assign('reason', $w->description);
+    SmartyWrap::assign('reason', Str::htmlize($w->description, 0)[0]);
     SmartyWrap::assign('imageUrl', $w->getLargeThumbUrl());
     if ($type == 'blog') {
         $curDate = strftime("%e %B", $ts);
@@ -81,7 +81,7 @@ if (!$wotd) {
 
 $reason = '';
 if ($wotd) {
-  $reason = $wotd->description;
+  $reason = Str::htmlize($wotd->description, 0)[0];
   if (User::can(User::PRIV_WOTD) || ($date <= $maxReasonDate)) {
     SmartyWrap::assign('reason', $reason);
   }
@@ -129,6 +129,7 @@ foreach ($prevWotds as $w) {
       $def = Definition::get_by_id_status($defId, Definition::ST_ACTIVE);
 
       // removing reason description for newer words in $otherYears
+      $w->description = Str::htmlize($w->description, 0)[0];
       $dateWotd = new DateTimeImmutable($w->displayDate);
       if ($dateWotd > $maxReasonDate) {
         $w->description = '';

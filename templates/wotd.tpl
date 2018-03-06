@@ -86,7 +86,7 @@
     </div>
     {if $reason}
       <div class="row panel-footer">
-        <b>Cheia alegerii:</b> {$reason|escape:'html'}
+        <b>Cheia alegerii:</b> {$reason}
       </div>
     {/if}
   </div>

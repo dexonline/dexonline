@@ -18,7 +18,7 @@ class Constant {
     '/(?<!\\\\)‑/'   => '-',     /* U+2011 non-breaking hyphen */
     '/(?<!\\\\)—/'   => '-',     /* U+2014 em dash */
     '/(?<!\\\\)­/'   => '',      /* U+00AD soft hyphen */
-    '/\s+/'          => ' ',
+    '/[ \t]+/'       => ' ',     /* Leave newlines alone. Some editors like to use them in definitions. */
 
     // Replace a quotation mark that may look like comma
     '/(?<!\\\\)‚/'   => ',',     /* U+201A SINGLE LOW-9 QUOTATION MARK */

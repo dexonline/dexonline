@@ -165,7 +165,7 @@ $displayDate = Request::get('displayDate');
 $priority = Request::get('priority');
 $definitionId = Request::get('definitionId');
 $refType = Request::get('refType');
-$image = Request::get('image');
+$image = Request::getRaw('image'); // do not convert e.g. ş to ș
 $description = Request::get('description');
 
 switch ($oper) {

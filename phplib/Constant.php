@@ -47,19 +47,19 @@ class Constant {
 
   // will use preg_replace for string values, preg_replace_callback for arrays
   const HTML_PATTERNS = [
-    '/▶(.*?)◀/s' => '',                                              // remove unwanted parts of definition
-    '/(?<!\\\\)"([^"]*)"/' => '„$1”',                               // "x" => „x” - romanian quoting style
-    '/(?<!\\\\)\{\{(.*)\}\}/U' => ['FootnoteHtmlizer', 'htmlize'], // {{fotnote}}
-    '/(?<!\\\\)#([^#]*)#/' => ['AbbrevHtmlizer', 'htmlize'],       // #abbreviation#
-    '/(?<!\\\\)%([^%]*)%/' => '<span class="spaced">$1</span>',    // %spaced%
-    '/(?<!\\\\)@([^@]*)@/' => '<b>$1</b>',                         // @bold@
-    '/(?<!\\\\)\\$([^$]*)\\$/' => '<i>$1</i>',                     // $italic$
-    '/(?<!\\\\)\^(\d)/' => '<sup>$1</sup>',                        // superscript ^123
-    '/(?<!\\\\)\^\{([^}]*)\}/' => '<sup>$1</sup>',                 // superscript ^{a b c}
-    '/(?<!\\\\)_(\d)/' => '<sub>$1</sub>',                         // subscript _123
-    '/(?<!\\\\)_\{([^}]*)\}/' => '<sub>$1</sub>',                  // superscript _{a b c}
-    '/(?<!\\\\)\{-([^}]*)-\}/' => '<del>$1</del>',                 // deletions {-foo-}
-    '/(?<!\\\\)\{\+([^}]*)\+\}/' => '<ins>$1</ins>',               // insertions {+foo+}
+    '/▶(.*?)◀/s' => '',                                                 // remove unwanted parts of definition
+    '/(?<!\\\\)"([^"]*)"/' => '„$1”',                                    // "x" => „x” - romanian quoting style
+    '/(?<!\\\\)\{\{(.*)\}\}/U' => ['FootnoteHtmlizer', 'htmlize'],      // {{fotnote}}
+    '/(?<!\\\\)#([^#]*)#/' => ['AbbrevHtmlizer', 'htmlize'],            // #abbreviation#
+    '/(?<!\\\\)%(.*)(?<!\\\\)%/U' => '<span class="spaced">$1</span>',  // %spaced%
+    '/(?<!\\\\)@(.*)(?<!\\\\)@/U' => '<b>$1</b>',                       // @bold@
+    '/(?<!\\\\)\\$(.*)(?<!\\\\)\\$/U' => '<i>$1</i>',                   // $italic$
+    '/(?<!\\\\)\^(\d)/' => '<sup>$1</sup>',                             // superscript ^123
+    '/(?<!\\\\)\^\{([^}]*)\}/' => '<sup>$1</sup>',                      // superscript ^{a b c}
+    '/(?<!\\\\)_(\d)/' => '<sub>$1</sub>',                              // subscript _123
+    '/(?<!\\\\)_\{([^}]*)\}/' => '<sub>$1</sub>',                       // superscript _{a b c}
+    '/(?<!\\\\)\{-([^}]*)-\}/' => '<del>$1</del>',                      // deletions {-foo-}
+    '/(?<!\\\\)\{\+([^}]*)\+\}/' => '<ins>$1</ins>',                    // insertions {+foo+}
 
     // |foo|bar| references
     '/(?<!\\\\)\|([^|]*)\|([^|]*)\|/' => '<a class="ref" href="/definitie/$2">$1</a>',
@@ -88,8 +88,12 @@ class Constant {
       'a', 'A', 'ă', 'Ă', 'â', 'Â', 'e', 'E', 'i', 'I', 'î', 'Î',
       'o', 'O', 'ö', 'Ö', 'u', 'U', 'ü', 'Ü', 'y', 'Y',
     ],
+    'marked' => [
+      "'a", "'A", "'ă", "'Ă", "'â", "'Â", "'e", "'E", "'i", "'I", "'î", "'Î",
+      "'o", "'O", "'ö", "'Ö", "'u", "'U", "'ü", "'Ü", "'y", "'Y",
+    ],
   ];
-
+    
   // prefixes which should be followed by 'î', not 'â'
   const I_PREFIXES = [
     'auto',

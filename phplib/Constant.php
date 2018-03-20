@@ -51,9 +51,9 @@ class Constant {
     '/(?<!\\\\)"([^"]*)"/' => '„$1”',                                    // "x" => „x” - romanian quoting style
     '/(?<!\\\\)\{\{(.*)\}\}/U' => ['FootnoteHtmlizer', 'htmlize'],      // {{fotnote}}
     '/(?<!\\\\)#([^#]*)#/' => ['AbbrevHtmlizer', 'htmlize'],            // #abbreviation#
-    '/(?<!\\\\)%(.*)(?<!\\\\)%/U' => '<span class="spaced">$1</span>',  // %spaced%
-    '/(?<!\\\\)@(.*)(?<!\\\\)@/U' => '<b>$1</b>',                       // @bold@
-    '/(?<!\\\\)\\$(.*)(?<!\\\\)\\$/U' => '<i>$1</i>',                   // $italic$
+    '/(?<!\\\\)%(.*)(?<!\\\\)%/Us' => '<span class="spaced">$1</span>',  // %spaced%
+    '/(?<!\\\\)@(.*)(?<!\\\\)@/Us' => '<b>$1</b>',                       // @bold@
+    '/(?<!\\\\)\\$(.*)(?<!\\\\)\\$/Us' => '<i>$1</i>',                   // $italic$
     '/(?<!\\\\)\^(\d)/' => '<sup>$1</sup>',                             // superscript ^123
     '/(?<!\\\\)\^\{([^}]*)\}/' => '<sup>$1</sup>',                      // superscript ^{a b c}
     '/(?<!\\\\)_(\d)/' => '<sub>$1</sub>',                              // subscript _123

@@ -17,15 +17,15 @@
       <div class="row">
         <div class="col-md-4">
           <div class="panel panel-info paymentSection">
-            <div class="panel-heading" title="Comision fix de 3,5%">
-              Donează online
+            <div class="panel-heading" title="Comision fix de 3,5% la donațiile online și 9-18% la cele prin SMS">
+              Donează online sau prin SMS
               <i class="glyphicon glyphicon-info-sign"></i>
             </div>
             <div class="panel-body">
               <form id="donateOnline" action="doneaza-euplatesc.php" method="post" enctype="multipart/form-data">
                 <div class="form-group">
-                  <label class="donate-labels">Suma</label>
-                  <select name="amount" class="form-control select-donated-sum">
+                  <label for="donateOnlineAmount" class="donate-labels">Suma</label>
+                  <select id="donateOnlineAmount" name="amount" class="form-control select-donated-sum">
                     <option value="10">10 lei</option>
                     <option value="20">20 lei</option>
                     <option value="50" selected>50 lei</option>
@@ -35,7 +35,7 @@
                   </select>
                 </div>
                 <div class="form-group">
-                  <label title="e-mailul este necesar pentru trimiterea confirmării plății" class="donate-labels">E-mail *</label>
+                  <label for="donateOnlineEmail" title="e-mailul este necesar pentru trimiterea confirmării plății" class="donate-labels">E-mail *</label>
                   <input id="donateOnlineEmail" type="text" name="email" value="{$defaultEmail}" class="form-control donor-email">
                 </div>
                 <div class="text-center">

@@ -249,8 +249,11 @@ class Str {
 
   /* Place a css class around the letter bearing the tonic accent */
   static function highlightAccent($s) {
-    return preg_replace("/(?<!\\\\)'(.)/u",
+    $s = preg_replace("/(?<!\\\\|\\')'(\p{L})/u",
                         "<span class=\"tonic-accent\">\$1</span>",
+                        $s);
+    return preg_replace("/(?<!\\\\)''(\p{L})/u",
+                        "<span class=\"secondary-accent\">\$1</span>",
                         $s);
   }
 
@@ -588,6 +591,15 @@ class Str {
 
     // remove tonic accents
     $s = preg_replace("/(?<!\\\\)'/", '', $s);
+
+    return $s;
+  }
+    /**
+   * Replaces graphic accents (Á) with marked ones ('A)
+   * Should be used carefully only with strings suitable for tonic accents
+   */
+  static function changeAccents($s) {
+    $s = str_replace(Constant::ACCENTS['accented'], Constant::ACCENTS['marked'], $s);
 
     return $s;
   }

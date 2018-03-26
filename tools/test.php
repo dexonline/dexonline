@@ -500,6 +500,10 @@ assertTransform('Str::removeAccents', [], [
   'cásă' => 'casă',
 ]);
 
+assertTransform('Str::changeAccents', [], [
+  'cásă' => "c'asă",
+]);
+
 assertTransform('Str::cleanupQuery', [], [
   "'mama'" => 'mama',
   '"mama"' => 'mama',

@@ -1,13 +1,14 @@
 <?php
 
 class Definition extends BaseObject implements DatedObject {
+
   public static $_table = 'Definition';
 
   const ST_ACTIVE = 0;
   const ST_PENDING = 1;
   const ST_DELETED = 2;
   const ST_HIDDEN = 3;
-
+  
   const ABBREV_NOT_REVIEWED = 0;
   const ABBREV_AMBIGUOUS = 1;
   const ABBREV_REVIEW_COMPLETE = 2;
@@ -18,17 +19,17 @@ class Definition extends BaseObject implements DatedObject {
     self::ST_DELETED => 'ștearsă',
     self::ST_HIDDEN  => 'ascunsă',
   ];
-
+  
   private $source = null;
   private $footnotes = null;
 
   /* For admins, returns the definition with the given ID. For regular users,
-     return null rather than a hidden definition. */
+    return null rather than a hidden definition. */
   static function getByIdNotHidden($id) {
     if (User::can(User::PRIV_ADMIN)) {
       return parent::get_by_id($id);
     } else {
-      return Model::factory('Definition')->where('id',$id)->where_not_equal('status', self::ST_HIDDEN)->find_one();
+      return Model::factory('Definition')->where('id', $id)->where_not_equal('status', self::ST_HIDDEN)->find_one();
     }
   }
 
@@ -46,9 +47,9 @@ class Definition extends BaseObject implements DatedObject {
   function getFootnotes() {
     if ($this->footnotes === null) {
       $this->footnotes = Model::factory('Footnote')
-                       ->where('definitionId', $this->id)
-                       ->order_by_asc('rank')
-                       ->find_many();
+        ->where('definitionId', $this->id)
+        ->order_by_asc('rank')
+        ->find_many();
     }
     return $this->footnotes;
   }
@@ -61,16 +62,16 @@ class Definition extends BaseObject implements DatedObject {
     $warnings = [];
 
     // sanitize
-    list($this->internalRep, $ambiguousAbbreviations)
+    list($this->internalRep, $ambiguousAbbreviations) 
       = Str::sanitize($this->internalRep, $this->sourceId, $warnings);
 
     // htmlize + footnotes
-    list($this->htmlRep, $footnotes)
+    list($this->htmlRep, $footnotes) 
       = Str::htmlize($this->internalRep, $this->sourceId, false, $errors, $warnings);
 
     // abbrevReview status
-    $this->abbrevReview = count($ambiguousAbbreviations)
-                        ? Definition::ABBREV_AMBIGUOUS
+    $this->abbrevReview = count($ambiguousAbbreviations) 
+                        ? Definition::ABBREV_AMBIGUOUS 
                         : Definition::ABBREV_REVIEW_COMPLETE;
 
     // lexicon
@@ -95,15 +96,15 @@ class Definition extends BaseObject implements DatedObject {
     }
 
     return Model::factory('Definition')
-      ->table_alias('d')
-      ->select('d.*')
-      ->join('EntryDefinition', ['d.id', '=', 'ed.definitionId'], 'ed')
-      ->join('Source', ['s.id', '=', 'd.sourceId'], 's')
-      ->where_in('ed.entryId', $entryIds)
-      ->where_not_equal('status', self::ST_DELETED)
-      ->order_by_desc('structurable')
-      ->order_by_asc('displayOrder')
-      ->find_many();
+        ->table_alias('d')
+        ->select('d.*')
+        ->join('EntryDefinition', ['d.id', '=', 'ed.definitionId'], 'ed')
+        ->join('Source', ['s.id', '=', 'd.sourceId'], 's')
+        ->where_in('ed.entryId', $entryIds)
+        ->where_not_equal('status', self::ST_DELETED)
+        ->order_by_desc('structurable')
+        ->order_by_asc('displayOrder')
+        ->find_many();
   }
 
   // Looks for a similar definition. Optionally sets $diffSize to the number of differences it finds.
@@ -115,14 +116,14 @@ class Definition extends BaseObject implements DatedObject {
     if ($similarSource && count($entryIds)) {
       // Load all definitions from $similarSource mapped to any of $entryIds
       $candidates = Model::factory('Definition')
-                  ->table_alias('d')
-                  ->select('d.*')
-                  ->distinct()
-                  ->join('EntryDefinition', ['ed.definitionId', '=', 'd.id'], 'ed')
-                  ->where_not_equal('d.status', self::ST_DELETED)
-                  ->where('d.sourceId', $similarSource->id)
-                  ->where_in('ed.entryId', $entryIds)
-                  ->find_many();
+        ->table_alias('d')
+        ->select('d.*')
+        ->distinct()
+        ->join('EntryDefinition', ['ed.definitionId', '=', 'd.id'], 'ed')
+        ->where_not_equal('d.status', self::ST_DELETED)
+        ->where('d.sourceId', $similarSource->id)
+        ->where_in('ed.entryId', $entryIds)
+        ->find_many();
 
       // Find the definition with the minimum diff from the original
       $diffSize = 1000000000;
@@ -140,14 +141,14 @@ class Definition extends BaseObject implements DatedObject {
 
   static function getListOfWordsFromSources($wordStart, $wordEnd, $sources) {
     return Model::factory('Definition')
-      ->select('Definition.*')
-      ->where_gte('lexicon', $wordStart)
-      ->where_lte('lexicon', $wordEnd)
-      ->where_in('sourceId', $sources)
-      ->where('status', self::ST_ACTIVE)
-      ->order_by_asc('lexicon')
-      ->order_by_asc('sourceId')
-      ->find_many();
+        ->select('Definition.*')
+        ->where_gte('lexicon', $wordStart)
+        ->where_lte('lexicon', $wordEnd)
+        ->where_in('sourceId', $sources)
+        ->where('status', self::ST_ACTIVE)
+        ->order_by_asc('lexicon')
+        ->order_by_asc('sourceId')
+        ->find_many();
   }
 
   static function countUnassociated() {
@@ -164,9 +165,9 @@ class Definition extends BaseObject implements DatedObject {
 
   static function countAmbiguousAbbrevs() {
     return Model::factory('Definition')
-      ->where_not_equal('status', self::ST_DELETED)
-      ->where('abbrevReview', self::ABBREV_AMBIGUOUS)
-      ->count();
+        ->where_not_equal('status', self::ST_DELETED)
+        ->where('abbrevReview', self::ABBREV_AMBIGUOUS)
+        ->count();
   }
 
   static function loadForEntries(&$entries, $sourceId, $preferredWord) {
@@ -178,13 +179,13 @@ class Definition extends BaseObject implements DatedObject {
     // Get the IDs first, then load the definitions. This prevents MySQL
     // from creating temporary tables on disk.
     $query = Model::factory('Definition')
-           ->table_alias('d')
-           ->select('d.id')
-           ->distinct()
-           ->join('EntryDefinition', ['d.id', '=', 'ed.definitionId'], 'ed')
-           ->join('Source', ['d.sourceId', '=', 's.id'], 's')
-           ->where_in('ed.entryId', $entryIds)
-           ->where_in('d.status', [self::ST_ACTIVE, self::ST_HIDDEN]);
+      ->table_alias('d')
+      ->select('d.id')
+      ->distinct()
+      ->join('EntryDefinition', ['d.id', '=', 'ed.definitionId'], 'ed')
+      ->join('Source', ['d.sourceId', '=', 's.id'], 's')
+      ->where_in('ed.entryId', $entryIds)
+      ->where_in('d.status', [self::ST_ACTIVE, self::ST_HIDDEN]);
     if ($sourceId) {
       $query = $query->where('s.id', $sourceId);
     }
@@ -204,16 +205,16 @@ class Definition extends BaseObject implements DatedObject {
 
   static function searchEntry($entry) {
     return Model::factory('Definition')
-      ->table_alias('d')
-      ->select('d.*')
-      ->join('EntryDefinition', ['d.id', '=', 'ed.definitionId'], 'ed')
-      ->join('Source', ['d.sourceId', '=', 's.id'], 's')
-      ->where('ed.entryId', $entry->id)
-      ->where_in('d.status', [self::ST_ACTIVE, self::ST_HIDDEN])
-      ->order_by_desc('s.type')
-      ->order_by_asc('s.displayOrder')
-      ->order_by_asc('d.lexicon')
-      ->find_many();
+        ->table_alias('d')
+        ->select('d.*')
+        ->join('EntryDefinition', ['d.id', '=', 'ed.definitionId'], 'ed')
+        ->join('Source', ['d.sourceId', '=', 's.id'], 's')
+        ->where('ed.entryId', $entry->id)
+        ->where_in('d.status', [self::ST_ACTIVE, self::ST_HIDDEN])
+        ->order_by_desc('s.type')
+        ->order_by_asc('s.displayOrder')
+        ->order_by_asc('d.lexicon')
+        ->find_many();
   }
 
   static function searchFullText($words, $hasDiacritics, $sourceId) {
@@ -251,18 +252,18 @@ class Definition extends BaseObject implements DatedObject {
       // see if any entries for these lexemes are adult
       if (!empty($lexemeIds)) {
         $adult |= Model::factory('Entry')
-                ->table_alias('e')
-                ->join('EntryLexeme', ['e.id', '=', 'el.entryId'], 'el')
-                ->where_in('el.lexemeId', $lexemeIds)
-                ->where('e.adult', true)
-                ->count();
+          ->table_alias('e')
+          ->join('EntryLexeme', ['e.id', '=', 'el.entryId'], 'el')
+          ->where_in('el.lexemeId', $lexemeIds)
+          ->where('e.adult', true)
+          ->count();
       }
 
       if ($isStopWord) {
         $stopWords[] = $word;
       } else {
-        $intersection = ($intersection === null)
-                      ? $defIds
+        $intersection = ($intersection === null) 
+                      ? $defIds 
                       : Util::intersectArrays($intersection, $defIds);
       }
     }
@@ -296,16 +297,19 @@ class Definition extends BaseObject implements DatedObject {
 
     foreach ($res as $key => &$words) {
       $forms = Model::factory('InflectedForm')
-             ->table_alias('i1')
-             ->select('i2.formNoAccent')
-             ->distinct()
-             ->join('Lexeme', ['i1.lexemeId', '=', 'l.id'], 'l')
-             ->left_outer_join('InflectedForm', ['i2.lexemeId', '=', 'l.id'], 'i2')
-             ->where('l.stopWord', 0)
-             ->where('i1.formUtf8General', $key)
-             ->find_many();
+        ->table_alias('i1')
+        ->select('i2.form')
+        ->select('i2.formNoAccent')
+        ->distinct()
+        ->join('Lexeme', ['i1.lexemeId', '=', 'l.id'], 'l')
+        ->left_outer_join('InflectedForm', ['i2.lexemeId', '=', 'l.id'], 'i2')
+        ->where('l.stopWord', 0)
+        ->where('i1.formUtf8General', $key)
+        ->find_many();
       foreach ($forms as $f) {
-        $words[] = $f->formNoAccent;
+        $words['accented'][] = str_replace(Constant::ACCENTS['marked'], Constant::ACCENTS['accented'], $f->form);
+        $words['unaccented'][] = $f->formNoAccent;
+        $words['marked'][] = $f->form;
       }
 
       if (empty($words)) {
@@ -316,14 +320,24 @@ class Definition extends BaseObject implements DatedObject {
     foreach ($definitions as $def) {
       $classIndex = 0;
       foreach ($res as &$words) {
-        $wordsString = implode("|", $words);
+        $wordsHighlight = array();
 
-        preg_match_all('/[^a-zăâîșț<\/]('. $wordsString .')[^a-zăâîșț>]/iS', $def->htmlRep, $match, PREG_OFFSET_CAPTURE);
+        // we need each variant of searched words as our definition are mixed accented
+        $wordsHighlight[] = implode("|", $words['accented']);
+        $wordsHighlight[] = implode("|", $words['unaccented']);
+        $marked = str_replace("/", "\\/", Str::highlightAccent($words['marked']));
+        $wordsHighlight[] = implode("|", $marked);
+
+        // finally get an 'or' string pattern of all variants
+        $wordsString = implode("|", $wordsHighlight);
+        $pattern = '/[^\p{L}](' . $wordsString . ')[^\p{L}]/iuS';
+
+        preg_match_all($pattern, $def->htmlRep, $match, PREG_OFFSET_CAPTURE);
         $revMatch = array_reverse($match[1]);
 
         foreach ($revMatch as $m) {
-          $def->htmlRep = substr_replace($def->htmlRep,
-                                         "<span class=\"fth fth{$classIndex}\">{$m[0]}</span>",
+          $def->htmlRep = substr_replace($def->htmlRep, 
+                                         "<span class=\"fth fth{$classIndex}\">{$m[0]}</span>", 
                                          $m[1], strlen($m[0]));
         }
         $classIndex = ($classIndex + 1) % 5; // keep the number of colors in sync with search.css
@@ -400,9 +414,8 @@ class Definition extends BaseObject implements DatedObject {
     $s = str_replace("\\'", "'", $s);
     $s = str_replace(['$', '\\|', '|'], '', $s); // Onomastic uses |
     $s = preg_replace('/[_^]{?[0-9]+}?/', '', $s); // strip homonym numbering and subscripts
-
-    // strip homonyms and asterisks (Scriban)
-    $s = preg_replace('/^[-* 0-9).]+/', '', $s);
+    
+    $s = preg_replace('/^[-* 0-9).]+/', '', $s); // strip homonyms and asterisks (Scriban)
 
     if (in_array($this->sourceId, [7, 9, 38, 62])) {
       // Strip 'a ', 'a se ' etc. from verbs

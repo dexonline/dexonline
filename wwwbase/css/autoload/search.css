@@ -16,27 +16,33 @@ h3 .variantList {
 
 /* Full text highlight. Keep the number of colors in sync with Definition::highlight(). */
 .fth {
+  padding: 0 2px;
   color: #FFF;
-  border-width: 1.5px;
-  border-style: outset;
+  border-radius: 2px;
+  border: 1px solid transparent;
 }
 
 .fth0 {
-  background: #cc0000;
+  background: #b50000;
+  border-color: #a50000;
 }
 
 .fth1 {
   background: #cc6600;
+  border-color: #bc6600;
 }
 
 .fth2 {
   background: #008800;
+  border-color: #007800;
 }
 
 .fth3 {
   background: #000088;
+  border-color: #000078;
 }
 
 .fth4 {
   background: #880088;
+  border-color: #780088;
 }

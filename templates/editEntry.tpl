@@ -450,6 +450,7 @@
             {include "bits/definitionMenu.tpl"
               showEntryToggles=true
               showHistory=true
+              showPageModal=false
             }
 
           </div>

@@ -8,6 +8,7 @@
 {$showHistory=$showHistory|default:false}
 {$showId=$showId|default:true}
 {$showPageLink=$showPageLink|default:true}
+{$showPageModal=$showPageModal|default:true}
 {$showPermalink=$showPermalink|default:true}
 {$showRemoveBookmark=$showRemoveBookmark|default:false}
 {$showSource=$showSource|default:true}
@@ -212,11 +213,14 @@
 
 </ul>
 
-
 {if $showFlagTypo}
   {include "bits/typoForm.tpl"}
 {/if}
 
-{if $showPageLink && $row->source->hasPageImages && User::can(User::PRIV_EDIT)}
+{*
+   Sometimes we need to include the modal separately. For example, nested forms are not
+   allowed, so if we are inside a form we cannot include the modal.
+*}
+{if $showPageLink && $showPageModal && $row->source->hasPageImages && User::can(User::PRIV_EDIT)}
   {include "bits/pageModal.tpl"}
 {/if}

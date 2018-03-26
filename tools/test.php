@@ -54,9 +54,9 @@ assertTransform('Str::cleanup', [], [
   '\\ş ş \\º º' => '\\ş ș \\º °',
 ]);
 
-//assertTransform('Str::unicodeToLatin', [], [
-//  'ắčèğýžẮČÈĞÝŽ' => 'acegyzACEGYZ',
-//]);
+assertTransform('Str::unicodeToLatin', [], [
+  'ắčèğýžẮČÈĞÝŽ' => 'acegyzACEGYZ',
+]);
 
 assertTransform('mb_strtolower', [], [
   'mama' => 'mama',
@@ -498,10 +498,6 @@ assertTransform('Str::migrateFormatChars', [], [
 
 assertTransform('Str::removeAccents', [], [
   'cásă' => 'casă',
-]);
-
-assertTransform('Str::changeAccents', [], [
-  'cásă' => "c'asă",
 ]);
 
 assertTransform('Str::cleanupQuery', [], [

@@ -159,6 +159,14 @@ abbr[title] {
   line-height: 1.88; /* equivalent line height: 1.6 / 0.85em */
 }
 
+.defDetails .column {
+  padding-left: 0;
+}
+
+.defDetails ul {
+  margin-bottom: 0;
+}
+
 .spaced {
   letter-spacing: 3px;
   /* prevent ligatures, since %fig.%, %refl.% etc. look bad when spaced. */

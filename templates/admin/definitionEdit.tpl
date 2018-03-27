@@ -143,26 +143,22 @@
         {/if}
 
         <div class="btn-group pull-right" id="tinymceButtonWrapper">
-
-          {if $source->hasPageImages}
-            <a class="btn btn-link"
-               href="#"
-               title="arată pagina originală cu această definiție"
-               data-toggle="modal"
-               data-target="#pageModal"
-               data-sourceId="{$def->sourceId}"
-               data-word="{$def->lexicon|escape}">
-              <i class="glyphicon glyphicon-file"></i>
-              arată originalul
-            </a>
-          {/if}
+          <span class="btn btn-link">
+            {include "bits/definitionMenuProper.tpl"
+              showEditLink=false
+              showHistory=true
+              showId=false
+              showSource=false
+              showUser=false
+            }
+          </span>
 
           <button id="tinymceToggleButton"
-                  type="button"
-                  class="btn btn-default"
-                  data-other-text="ascunde TinyMCE"
-                  href="#"
-                  title="TinyMCE este un editor vizual (cu butoane de bold, italic etc.).">
+            type="button"
+            class="btn btn-default"
+            data-other-text="ascunde TinyMCE"
+            href="#"
+            title="TinyMCE este un editor vizual (cu butoane de bold, italic etc.).">
             arată TinyMCE
           </button>
         </div>
@@ -170,8 +166,6 @@
     </div>
 
   </form>
-
-  {include "bits/pageModal.tpl"}
 
   <div class="panel panel-default">
     <div class="panel-heading">

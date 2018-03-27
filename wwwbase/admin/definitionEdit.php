@@ -167,10 +167,17 @@ if ($isOCR && empty($entryIds)) {
   }
 }
 
+// If we got here, either there were errors saving, or this is the first time
+// loading the page.
 
-// Either there were errors saving, or this is the first time loading the page.
+// create a stub SearchResult so we can show the menu
+$row = new SearchResult();
+$row->definition = $d;
+$row->source = $d->getSource();
+
 SmartyWrap::assign('isOCR', $isOCR);
 SmartyWrap::assign('def', $d);
+SmartyWrap::assign('row', $row);
 SmartyWrap::assign('source', $d->getSource());
 SmartyWrap::assign('sim', SimilarRecord::create($d, $entryIds));
 SmartyWrap::assign('user', User::get_by_id($d->userId));

@@ -178,6 +178,10 @@ abbr[title] {
   text-decoration: underline;
 }
 
+.secondary-accent {
+  text-decoration: underline double;
+}
+
 .defWrapper .glyphicon-comment {
   color: #1E83C2;
   padding-right: 10px;

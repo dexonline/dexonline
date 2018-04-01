@@ -27,7 +27,7 @@ class DiffUtil {
   // This is necessary so that the HTML diff doesn't break.
   const FINE_DIFF_GRANULARITY = [
     self::GRANULARITY_CHARACTER => [ "\n\r", ".\n\r", " \t.\n\r", "" ],
-    self::GRANULARITY_WORD => [ "\n\r", ".\n\r", " \t.\n\r" ],
+    self::GRANULARITY_WORD => [ "\n\r", ".\n\r", " \t.\n\r", "@$%#();" ],
     self::GRANULARITY_SENTENCE => [ "\n\r", ".\n\r" ],
     self::GRANULARITY_PARAGRAPH => [ "\n\r" ],
   ];

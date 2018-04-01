@@ -42,18 +42,22 @@ $defsSeen = 0;
 $indexSize = 0;
 $fileName = tempnam(Config::get('global.tempDir'), 'index_');
 $handle = fopen($fileName, 'w');
+$pattern = '/\p{L}+/u'; // not suitable for compound words like "a-tot-știutor"
 Log::info("Writing index to file $fileName.");
 DebugInfo::disable();
 
 foreach ($dbResult as $dbRow) {
-  $words = extractWords($dbRow[1]);
+  $text = mb_strtolower($dbRow[1]); // this could be avoided with select lcase(internalRep)
+  $text = Str::removeAccents($text);
+  
+  preg_match_all($pattern, $text, $matches, PREG_OFFSET_CAPTURE, 0);
 
-  foreach ($words as $position => $word) {
-    if (!isset($stopWordForms[$word])) {
-      if (array_key_exists($word, $ifMap)) {
-        $lexemeList = preg_split('/,/', $ifMap[$word]);
+  foreach ($matches[0] as $w) {
+    if (!isset($stopWordForms[$w[0]])) {
+      if (array_key_exists($w[0], $ifMap)) {
+        $lexemeList = preg_split('/,/', $ifMap[$w[0]]);
         for ($i = 0; $i < count($lexemeList); $i += 2) {
-          fwrite($handle, $lexemeList[$i] . "\t" . $lexemeList[$i + 1] . "\t" . $dbRow[0] . "\t" . $position . "\n");
+          fwrite($handle, $lexemeList[$i] . "\t" . $lexemeList[$i + 1] . "\t" . $dbRow[0] . "\t" . $w[1] . "\n"); // $w[1] = offset position
           $indexSize++;
         }
       }

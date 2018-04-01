@@ -1,5 +1,3 @@
-/* Global Inferno */
-
 (function(){
 
   var shiftDownEvt = new Event('ShiftDown');
@@ -71,6 +69,7 @@
 	var COOKIE = 'charmap';
 
 	var CYRILLIC = [
+	  '---;Caractere CHIRILICE',
     'а;А', 'б;Б', 'в;В', 'г;Г', 'д;Д', 'е;Е', 'ё;Ё', 'ж;Ж', 'з;З',
     'и;И', 'й;Й', 'к;К', 'л;Л', 'м;М', 'н;Н', 'о;О', 'п;П', 'р;Р',
     'с;С', 'т;Т', 'у;У', 'ф;Ф', 'х;Х', 'ц;Ц', 'ч;Ч', 'ш;Ш', 'щ;Щ',
@@ -78,6 +77,7 @@
   ];
 
   var GREEK = [
+    '---;Caractere GRECEȘTI',
     'α;Α;Alfa', 'β;Β;Beta', 'γ;Γ;Gamma', 'δ;Δ;Delta', 'ε;Ε;Epsilon', 'ζ;Ζ;Zeta', 'η;Η;Eta', 'θ;Θ;Teta', 'ι;Ι;Iota',
     'κ;Κ;Kappa', 'λ;Λ;Lambda', 'μ;Μ;Miu', 'ν;Ν;Niu', 'ξ;Ξ;Csi', 'ο;Ο;Omicron', 'π;Π;Pi', 'ρ;Ρ;Ro', 'σ;Σ;Sigma',
     'τ;Τ;Tau', 'υ;Υ;Ipsilon', 'φ;Φ;Fi', 'χ;Χ;Hi', 'ψ;Ψ;Psi', 'ω;Ω;Omega'
@@ -87,6 +87,9 @@
 
 	var BUTTON = '<button class="btn btn-default btn-charmap" data-dismiss="modal">';
 
+  function getSection(txt) {
+    return '<h3>' + txt.split(';')[1] + '</h3>';
+  }
 
 	// character read/edit logic
 	var Charmap = function() {
@@ -153,6 +156,9 @@
 		return button;
 	};
 
+	function isSection(txt) {
+	  return txt.indexOf('---') === 0;
+  }
 
 	// modal display and logic
 	var CharmapModal = function(target, charmap, buttons) {
@@ -171,8 +177,14 @@
 	};
 
 	CharmapModal.prototype.update = function() {
+	  var content = this.charmap.read().map(
+	    function(entry) {
+	      return isSection(entry)
+          ? getSection(entry)
+          : this.buttons.button(entry);
+	    }.bind(this));
 		$('[data-role=buttons]', this.target)
-			.html(this.buttons.buttons(this.charmap.read()));
+			.html(content);
 	};
 
 	CharmapModal.prototype.show = function() {

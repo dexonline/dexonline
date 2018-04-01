@@ -1,21 +1,22 @@
 (function(){
 
-  var shiftDownEvt = new Event('ShiftDown');
-  var shiftUpEvt = new Event('ShiftUp');
+  var ShiftChangedEvt = document.createEvent('CustomEvent');
 
   // taken from https://stackoverflow.com/a/11101662
   var shiftDown = false;
   var setShiftDown = function(event){
     if(event.keyCode === 16 || event.charCode === 16){
       shiftDown = true;
-      window.dispatchEvent(shiftDownEvt);
+      ShiftChangedEvt.initCustomEvent('ShiftChanged', true, true, {shiftDown: shiftDown});
+      window.dispatchEvent(ShiftChangedEvt);
     }
   };
 
   var setShiftUp = function(event){
     if(event.keyCode === 16 || event.charCode === 16){
       shiftDown = false;
-      window.dispatchEvent(shiftUpEvt);
+      ShiftChangedEvt.initCustomEvent('ShiftChanged', true, true, {shiftDown: shiftDown});
+      window.dispatchEvent(ShiftChangedEvt);
     }
   };
 
@@ -85,7 +86,29 @@
 
   var DEFAULT = [].concat(CYRILLIC, GREEK);
 
-	var BUTTON = '<button class="btn btn-default btn-charmap" data-dismiss="modal">';
+	function getButton(inserter, props) {
+    var lower = props[0];
+    var upper = props[1];
+    var title = props[2];
+
+    // Default properties
+    var button = document.createElement('button');
+	  button.className = 'btn btn-default btn-charmap';
+	  button.setAttribute('data-dismiss', 'modal');
+
+	  button.innerText = lower;
+
+    button.setAttribute('title', title);
+	  button.setAttribute('data-lower', lower);
+	  button.setAttribute('data-upper', upper);
+	  button.setAttribute('value', lower);
+
+	  button.addEventListener('click', function(){
+      inserter(button.getAttribute('value'));
+    });
+
+	  return button;
+  }
 
   function getSection(txt) {
     return '<h3>' + txt.split(';')[1] + '</h3>';
@@ -132,37 +155,30 @@
 	};
 
 	CharmapButtons.prototype.button = function(chr) {
-    var split = chr.split(';');
-    var lower = split[0];
-    var upper = split[1];
-    var title = split[2];
-
-		var button = $(BUTTON);
-		button.text(lower);
-		button.attr('title', title);
-
-		var inserter = this.inserter;
-		button.on('click', function() {
-		  var insert_chr = shiftDown ? upper : lower;
-		  inserter(insert_chr);
-		});
-
-    window.addEventListener('ShiftDown', function() {
-      button.text() === upper ? function(){}() : button.text(upper); });
-
-    window.addEventListener('ShiftUp', function(){
-      button.text() === lower ? function(){}() : button.text(lower); });
-
-		return button;
+    var props = chr.split(';');
+    return getButton(this.inserter, props);
 	};
 
 	function isSection(txt) {
 	  return txt.indexOf('---') === 0;
   }
 
+  function changeButtonsCase(evt) {
+    [].slice.call(document.querySelectorAll('.btn-charmap'))
+      .forEach(function(button) {
+        var new_text = shiftDown ? button.getAttribute('data-upper') : button.getAttribute('data-lower');
+        button.innerText === new_text ? function(){}() : button.innerText = new_text;
+        button.setAttribute('value', new_text);
+      })
+  }
+
+  function modalClose() {
+    window.removeEventListener('ShiftChanged', changeButtonsCase);
+  }
+
 	// modal display and logic
-	var CharmapModal = function(target, charmap, buttons) {
-		this.target = $(target);
+	var CharmapModal = function(sel_modal, charmap, buttons) {
+		this.target = $(sel_modal);
 		this.charmap = charmap;
 		this.buttons = buttons;
 
@@ -173,18 +189,25 @@
 		this.resetButton = $('#resetButton', this.target).on('click', this.reset.bind(this));
 		this.saveButton = $('#saveButton', this.target).on('click', this.save.bind(this));
 
+		// cleanup ShiftChanged listener on modal close
+		this.target.off('hidden.bs.modal', modalClose);
+		this.target.on('hidden.bs.modal', modalClose);
+
 		this.update();
 	};
 
 	CharmapModal.prototype.update = function() {
+    window.removeEventListener('ShiftChanged', changeButtonsCase);
+
 	  var content = this.charmap.read().map(
 	    function(entry) {
 	      return isSection(entry)
           ? getSection(entry)
           : this.buttons.button(entry);
 	    }.bind(this));
-		$('[data-role=buttons]', this.target)
-			.html(content);
+    $('[data-role=buttons]', this.target).html(content);
+
+    window.addEventListener('ShiftChanged', changeButtonsCase);
 	};
 
 	CharmapModal.prototype.show = function() {
@@ -196,6 +219,7 @@
 	};
 
 	CharmapModal.prototype.edit = function() {
+
 		this.editButton.hide();
 		this.editBox.val(this.charmap.read().join('\n'));
 		this.editArea.show();

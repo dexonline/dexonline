@@ -15,3 +15,8 @@
 .select2-selection__choice.select2-highlighted {
   background-color: #aaa;
 }
+
+.btn-charmap {
+  width: 3em;
+  margin: 2px;
+}

@@ -37,8 +37,8 @@
 
 			var pos = startPos + myValue.length;
 
-			myField.focus();
 			myField.setSelectionRange(pos, pos);
+			myField.focus();
 		}
 
 		//IE support
@@ -100,7 +100,7 @@
 
     button.setAttribute('title', title);
 	  button.setAttribute('data-lower', lower);
-	  button.setAttribute('data-upper', upper);
+	  button.setAttribute('data-upper', upper || lower);
 	  button.setAttribute('value', lower);
 
 	  button.addEventListener('click', function(){

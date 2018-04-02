@@ -16,9 +16,9 @@
         <div class="checkbox">
           <label>
             <input type="checkbox"
-                   name="includeOtrs"
-                   value="1"
-                   {if $includeOtrs}checked{/if}>
+              name="includeOtrs"
+              value="1"
+              {if $includeOtrs}checked{/if}>
             preia tichetele din OTRS
           </label>
         </div>

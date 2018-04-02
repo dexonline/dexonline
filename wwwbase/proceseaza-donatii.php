@@ -5,7 +5,7 @@ require_once '../phplib/third-party/PHPMailer/PHPMailer.php';
 User::mustHave(User::PRIV_DONATION);
 
 define('OTRS_DONATION_EMAIL_REGEX',
-       '/^Mesaj raspuns: Approved.*' .
+       '/^Mesaj raspuns: (Approved|SMS Pending Transaction).*' .
        '^3. PRET: (?<amount>[0-9.]+) RON.*' .
        '^   EMAIL: (?<email>[^\n]+)$/ms');
 
@@ -92,7 +92,16 @@ class Donor {
   const AMOUNT_STICKER = 100;
   const AMOUNT_TEE = 200;
 
-  public $email;
+  const EMAIL_YES = 0;         // this user should get an email response
+  const EMAIL_LOW_AMOUNT = 1;  // no donations for low amounts
+  const EMAIL_BAD_ADDRESS = 2; // email is incorrect (e.g. for SMS donations)  public $email;
+
+  const EMAIL_REASON = [
+    self::EMAIL_YES => '', // shouldn't ever need to read this value
+    self::EMAIL_LOW_AMOUNT => 'Pentru sume mici nu este necesar să trimitem mesaj.',
+    self::EMAIL_BAD_ADDRESS => 'Adresa de e-mail a donatorului pare incorectă.',
+  ];
+
   public $amount;
   public $date;
   public $source;
@@ -113,7 +122,18 @@ class Donor {
   }
 
   function needsEmail() {
-    return $this->amount >= self::AMOUNT_MEDAL;
+    if (!filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
+      return self::EMAIL_BAD_ADDRESS;
+    } else if ($this->amount < self::AMOUNT_MEDAL) {
+      return self::EMAIL_LOW_AMOUNT;
+    } else {
+      return self::EMAIL_YES;
+    }
+  }
+
+  // returns a description of the reason why this donor doesn't need an email
+  function getEmailReason() {
+    return self::EMAIL_REASON[$this->needsEmail()];
   }
 
   function validate() {
@@ -228,7 +248,7 @@ class OtrsDonationProvider extends DonationProvider {
     $response = OtrsApiClient::searchTickets([
       'Queues' => 'ONG',
       'States' => 'new',
-      'From' => 'office@euplatesc.ro',
+      'From' => '%@euplatesc.ro',
     ]);
 
     $ticketIds = isset($response->TicketID) ? $response->TicketID : [];

@@ -26,7 +26,7 @@
               </label>
             </div>
 
-            {if $donor->needsEmail()}
+            {if $donor->needsEmail() == Donor::EMAIL_YES}
               <div class="checkbox">
                 <label>
                   <input type="checkbox" name="messageTicketId[]" value="{$donor->ticketId}" checked>
@@ -39,7 +39,7 @@
               </div>
             {else}
               <p class="text-muted">
-                Pentru sume mici nu este necesar să trimitem mesaj.
+                {$donor->getEmailReason()}
               </p>
             {/if}
           {/foreach}
@@ -58,7 +58,7 @@
             <input type="hidden" name="amount[]" value="{$donor->amount}">
             <input type="hidden" name="date[]" value="{$donor->date}">
 
-            {if $donor->needsEmail()}
+            {if $donor->needsEmail() == Donor::EMAIL_YES}
               <div class="checkbox">
                 <label>
                   <input type="checkbox" name="manualSendMessage_{$i}" value="1" checked>
@@ -71,7 +71,7 @@
               </div>
             {else}
               <p class="text-muted">
-                Pentru sume mici nu este necesar să trimitem mesaj.
+                {$donor->getEmailReason()}
               </p>
             {/if}
           {/foreach}

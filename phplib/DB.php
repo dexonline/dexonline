@@ -63,11 +63,12 @@ class DB {
 
     $cat = OS::getCatCommand();
     $filename = realpath(Str::portable($filename));
-    $command = sprintf("{$cat} {$filename} | mysql -u %s %s %s",
-                       self::$user,
-                       $database,
-                       self::$password ? ("-p" . self::$password) : '');
-
+    $command = sprintf(
+      "{$cat} {$filename} | mysql -h %s -u %s %s %s",
+      self::$host,
+      self::$user,
+      $database,
+      self::$password ? ("-p" . self::$password) : '');
     OS::executeAndAssert($command);
   }
 

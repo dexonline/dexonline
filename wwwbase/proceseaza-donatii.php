@@ -1,6 +1,6 @@
 <?php
 require_once '../phplib/Core.php';
-require_once '../phplib/third-party/PHPMailer/PHPMailerAutoload.php';
+require_once '../phplib/third-party/PHPMailer/PHPMailer.php';
 
 User::mustHave(User::PRIV_DONATION);
 
@@ -324,7 +324,7 @@ class OtrsApiClient {
       'AllArticles' => '1',
     ]);
   }
-  
+
   static function closeTicket($ticketId) {
     return self::restQuery('TicketUpdate', [
       'TicketID' => $ticketId,

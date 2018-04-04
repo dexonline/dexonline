@@ -8,7 +8,7 @@ class Definition extends BaseObject implements DatedObject {
   const ST_PENDING = 1;
   const ST_DELETED = 2;
   const ST_HIDDEN = 3;
-  
+
   const ABBREV_NOT_REVIEWED = 0;
   const ABBREV_AMBIGUOUS = 1;
   const ABBREV_REVIEW_COMPLETE = 2;
@@ -19,7 +19,7 @@ class Definition extends BaseObject implements DatedObject {
     self::ST_DELETED => 'ștearsă',
     self::ST_HIDDEN  => 'ascunsă',
   ];
-  
+
   private $source = null;
   private $footnotes = null;
 
@@ -62,16 +62,16 @@ class Definition extends BaseObject implements DatedObject {
     $warnings = [];
 
     // sanitize
-    list($this->internalRep, $ambiguousAbbreviations) 
+    list($this->internalRep, $ambiguousAbbreviations)
       = Str::sanitize($this->internalRep, $this->sourceId, $warnings);
 
     // htmlize + footnotes
-    list($this->htmlRep, $footnotes) 
+    list($this->htmlRep, $footnotes)
       = Str::htmlize($this->internalRep, $this->sourceId, false, $errors, $warnings);
 
     // abbrevReview status
-    $this->abbrevReview = count($ambiguousAbbreviations) 
-                        ? Definition::ABBREV_AMBIGUOUS 
+    $this->abbrevReview = count($ambiguousAbbreviations)
+                        ? Definition::ABBREV_AMBIGUOUS
                         : Definition::ABBREV_REVIEW_COMPLETE;
 
     // lexicon
@@ -217,58 +217,54 @@ class Definition extends BaseObject implements DatedObject {
         ->find_many();
   }
 
-  static function searchFullText($words, $hasDiacritics, $sourceId) {
+  // Modifies $words to remove stop words. Returns a tuple of:
+  // * an array matching definition IDs
+  // * an array of stop words
+  // * a boolean indicating whether any words are adult
+  static function searchFullText(&$words, $hasDiacritics, $sourceId) {
     $field = $hasDiacritics ? 'formNoAccent' : 'formUtf8General';
     $intersection = null;
     $stopWords = [];
     $lexemeMap = [];
     $adult = false;
 
-    foreach ($words as $word) {
-      // Get all lexemes generating this form
-      $lexemes = Model::factory('InflectedForm')
-        ->select('lexemeId')
-        ->distinct()
-        ->where($field, $word)
-        ->find_many();
-      $lexemeIds = Util::objectProperty($lexemes, 'lexemeId');
-      $lexemeMap[] = $lexemeIds;
-
-      // Get the FullTextIndex records for each form. Note that the FTI excludes stop words.
-      $defIds = FullTextIndex::loadDefinitionIdsForLexemes($lexemeIds, $sourceId);
-
-      // Determine whether the word is a stop word.
-      if (empty($defIds)) {
-        $isStopWord = Model::factory('InflectedForm')
-          ->table_alias('i')
-          ->join('Lexeme', 'i.lexemeId = l.id', 'l')
-          ->where("i.{$field}", $word)
-          ->where('l.stopWord', 1)
-          ->count();
-      } else {
-        $isStopWord = false;
-      }
-
-      // see if any entries for these lexemes are adult
-      if (!empty($lexemeIds)) {
-        $adult |= Model::factory('Entry')
-          ->table_alias('e')
-          ->join('EntryLexeme', ['e.id', '=', 'el.entryId'], 'el')
-          ->where_in('el.lexemeId', $lexemeIds)
-          ->where('e.adult', true)
-          ->count();
-      }
-
+    foreach ($words as $key => $word) {
+      $isStopWord = InflectedForm::isStopWord($field, $word);
       if ($isStopWord) {
         $stopWords[] = $word;
+        unset($words[$key]);
       } else {
-        $intersection = ($intersection === null) 
-                      ? $defIds 
+
+        // Get all lexemes generating this form
+        $lexemes = Model::factory('InflectedForm')
+                 ->select('lexemeId')
+                 ->distinct()
+                 ->where($field, $word)
+                 ->find_many();
+        $lexemeIds = Util::objectProperty($lexemes, 'lexemeId');
+        $lexemeMap[] = $lexemeIds;
+
+        // Get the definition IDs for all lexemes
+        $defIds = FullTextIndex::loadDefinitionIdsForLexemes($lexemeIds, $sourceId);
+
+        // see if any entries for these lexemes are adult
+        if (!empty($lexemeIds)) {
+          $adult |= Model::factory('Entry')
+                  ->table_alias('e')
+                  ->join('EntryLexeme', ['e.id', '=', 'el.entryId'], 'el')
+                  ->where_in('el.lexemeId', $lexemeIds)
+                  ->where('e.adult', true)
+                  ->count();
+        }
+
+        $intersection = ($intersection === null)
+                      ? $defIds
                       : Util::intersectArrays($intersection, $defIds);
       }
     }
 
-    if (empty($intersection)) { // This can happen when the query is all stopwords or the source selection produces no results
+    if (empty($intersection)) {
+      // This can happen when the query is all stopwords or the source selection produces no results
       return [[], $stopWords, $adult];
     }
     if (count($words) == 1) {
@@ -292,7 +288,7 @@ class Definition extends BaseObject implements DatedObject {
     return [$intersection, $stopWords, $adult];
   }
 
-  static function highlight($words, &$definitions) {
+  static function highlight($words, $stopWords, &$definitions) {
     $res = array_fill_keys($words, []);
 
     foreach ($res as $key => &$words) {
@@ -336,8 +332,8 @@ class Definition extends BaseObject implements DatedObject {
         $revMatch = array_reverse($match[1]);
 
         foreach ($revMatch as $m) {
-          $def->htmlRep = substr_replace($def->htmlRep, 
-                                         "<span class=\"fth fth{$classIndex}\">{$m[0]}</span>", 
+          $def->htmlRep = substr_replace($def->htmlRep,
+                                         "<span class=\"fth fth{$classIndex}\">{$m[0]}</span>",
                                          $m[1], strlen($m[0]));
         }
         $classIndex = ($classIndex + 1) % 5; // keep the number of colors in sync with search.css
@@ -414,7 +410,7 @@ class Definition extends BaseObject implements DatedObject {
     $s = str_replace("\\'", "'", $s);
     $s = str_replace(['$', '\\|', '|'], '', $s); // Onomastic uses |
     $s = preg_replace('/[_^]{?[0-9]+}?/', '', $s); // strip homonym numbering and subscripts
-    
+
     $s = preg_replace('/^[-* 0-9).]+/', '', $s); // strip homonyms and asterisks (Scriban)
 
     if (in_array($this->sourceId, [7, 9, 38, 62])) {

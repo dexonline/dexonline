@@ -43,8 +43,17 @@ class InflectedForm extends BaseObject {
     ", addslashes($modelNumber), $inflId));
   }
 
+  static function isStopWord($field, $form) {
+    return Model::factory('InflectedForm')
+      ->table_alias('i')
+      ->join('Lexeme', 'i.lexemeId = l.id', 'l')
+      ->where("i.{$field}", $form)
+      ->where('l.stopWord', 1)
+      ->count();
+  }
+
   function save() {
     $this->formUtf8General = $this->formNoAccent;
     parent::save();
-  }  
+  }
 }

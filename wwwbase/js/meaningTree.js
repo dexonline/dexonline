@@ -36,7 +36,7 @@ $(function() {
       width: '100%',
     });
 
-    $('#relationType').change(selectRelationType).change();
+    $('.relationType').change(selectRelationType);
 
     $('.editorObj').bind(
       'change keyup input paste', function() {
@@ -343,6 +343,10 @@ $(function() {
       });
     });
 
+    // reset the relation type radios back to synonyms
+    // event must be triggered explicitly
+    $('.relationType[value="1"]').prop('checked', true).change();
+
     renumber();
   }
 
@@ -357,9 +361,17 @@ $(function() {
     $('.editorRelation').html('').trigger('change');
   }
 
-  function selectRelationType() {
+  function selectRelationType(evt) {
+    // show the relevant select box...
     $('.relationWrapper').hide();
-    $('.relationWrapper[data-type="' + $(this).val() + '"]').show();
+    var input = $('.relationWrapper[data-type="' + $(this).val() + '"]');
+    input.removeClass('hidden').show();
+
+    // ... and focus it if the event was caused by a user click (not
+    // programmatically by changing meanings).
+    if (evt.originalEvent) {
+      input.find('select').select2('open');
+    }
   }
 
   // Iterate a meaning tree node (<ul> element) recursively and collect meaning-related fields

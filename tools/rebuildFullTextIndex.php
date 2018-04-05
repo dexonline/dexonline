@@ -46,7 +46,8 @@ Log::info("Writing index to file $fileName.");
 DebugInfo::disable();
 
 foreach ($dbResult as $dbRow) {
-  $words = extractWords($dbRow[1]);
+  $rep = fullTextRep($dbRow[1]);
+  $words = extractWords($rep);
 
   foreach ($words as $position => $word) {
     if (!isset($stopWordForms[$word])) {
@@ -112,4 +113,15 @@ function extractWords($text) {
   }
 
   return $result;
+}
+
+/* Cleans up a definition's internal rep, throwing away text we shouldn't index */
+function fullTextRep($s) {
+  // throw away hidden text
+  $s = preg_replace('/▶.*◀/sU', '', $s);
+
+  // throw away footnotes
+  $s = preg_replace('/(?<!\\\\)\{\{.*\}\}/sU', '', $s);
+
+  return $s;
 }

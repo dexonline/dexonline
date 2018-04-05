@@ -25,7 +25,7 @@ Log::info("Building inflected form map.");
 $dbResult = DB::execute("select formNoAccent, lexemeId, inflectionId from InflectedForm");
 $ifMap = [];
 foreach ($dbResult as $r) {
-  $form = $r['formNoAccent'];
+  $form = mb_strtolower($r['formNoAccent']);
   $s = isset($ifMap[$form])
      ? ($ifMap[$form] . ',')
      : '';

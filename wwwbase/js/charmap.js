@@ -103,6 +103,7 @@
 
 		else {
 			myField.value += myValue;
+			myField.focus();
 		}
 	}
 

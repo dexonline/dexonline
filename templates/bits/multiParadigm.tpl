@@ -19,7 +19,7 @@
 
     {foreach $entry->getLexemes() as $lexeme}
       <div class="paraLexeme">
-        <div class="lexemeData">
+        <div>
           <span class="lexemeName">{include "bits/lexemeName.tpl" lexeme=$lexeme}</span>
 
           {foreach $lexeme->getTags() as $t}
@@ -35,6 +35,20 @@
             </a>
           {/if}
         </div>
+
+        <ul class="lexemeMorphology">
+          {if $lexeme->hyphenations}
+            <li>
+              silabisire: <span class="value">{$lexeme->hyphenations}</span>
+            </li>
+          {/if}
+
+          {if $lexeme->pronunciations}
+            <li>
+              pronunție: <span class="value">{$lexeme->pronunciations}</span>
+            </li>
+          {/if}
+        </ul>
 
         {include "paradigm/paradigm.tpl" lexeme=$lexeme}
       </div>

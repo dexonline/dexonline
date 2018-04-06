@@ -159,6 +159,11 @@ function searchInitAutocomplete(acMinChars){
 
 function scrabbleAutoSearch(){
 
+  function clearSearch() {
+    searchInput.val(null);
+    queueSearch();
+  }
+
   function getGlyph(){
     var el = $('<span class="form-control-feedback glyphicon">');
     el.css({'pointer-events': 'initial'}); // enable click
@@ -174,12 +179,15 @@ function scrabbleAutoSearch(){
   var feedback = $('.scrabbleSearchDiv .form-group');
   var feedbackGlyph = $('#scrabble-feedback-glyph');
 
-  var nextSearch = null;
+  var lastSearchedKey;
+  var nextSearch;
   var searchCache = {};
+
   var queryURL = wwwRoot + 'scrabble.php';
 
 
   function updatePage(data) {
+    // update feedback indicators
     feedback.removeClass('has-feedback has-error has-success');
     feedbackGlyph.html(null);
 
@@ -195,6 +203,7 @@ function scrabbleAutoSearch(){
       glyphIcon = 'glyphicon-remove';
     }
 
+    // update results
     if (data.template) {
       feedback.addClass('has-feedback ' + icon);
       glyph = getGlyph();
@@ -203,13 +212,21 @@ function scrabbleAutoSearch(){
     }
 
     results.html(data.template);
+    searchInput.focus();
   }
 
   function doSearch(cacheKey, params){
-    $.getJSON(queryURL, params, function(data){
-      searchCache[cacheKey] = data;
-      updatePage(data);
-    })
+    var cached = searchCache[cacheKey];
+    if (!cached){
+      $.getJSON(queryURL, params, function(data){
+        searchCache[cacheKey] = data;
+        updatePage(data);
+      })
+    }
+    else if (cached && lastSearchedKey !== cacheKey) {
+      lastSearchedKey = cacheKey;
+      updatePage(cached);
+    }
   }
 
   function queueSearch() {
@@ -218,27 +235,15 @@ function scrabbleAutoSearch(){
       return acc;
     }
     var cacheKey = searchForm.serialize();
-    var cached = searchCache[cacheKey];
-    if (cached){
-      updatePage(cached)
-    }
-    else {
-      var formData = searchForm.serializeArray().reduce(reducer, {ajax: true});
-      nextSearch = {key: cacheKey, params: formData};
-    }
-
+    var formData = searchForm.serializeArray().reduce(reducer, {ajax: true});
+    nextSearch = {key: cacheKey, params: formData};
   }
 
+  // execute queued search
   function runner() {
     if (nextSearch){
       doSearch(nextSearch.key, nextSearch.params);
-      nextSearch = null;
     }
-  }
-
-  function clearSearch() {
-    searchInput.val(null);
-    queueSearch();
   }
 
   searchInput.on('input', queueSearch);

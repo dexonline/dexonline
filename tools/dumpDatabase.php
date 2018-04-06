@@ -13,11 +13,15 @@ $COMMON_COMMAND = sprintf("mysqldump -h %s %s ", DB::$host, DB::$database);
 $schemaOnly = [
   'AccuracyProject',
   'AccuracyRecord',
+  'AdsClick',
   'Cookie',
   'DefinitionSimple',
   'DefinitionVersion',
   'Donation',
   'history_Comment',
+  'OCR',
+  'OCRLot',
+  'PasswordToken',
   'RecentLink',
   'Typo',                // site-based... no need to distribute
   'UserWordBookmark',

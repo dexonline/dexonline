@@ -27,6 +27,8 @@ $(function() {
     searchInitAutocomplete(d.data('minChars'));
   }
 
+  scrabbleAutoSearch();
+
   // prevent double clicking of submit buttons
   $('input[type="submit"], button[type="submit"]').click(function() {
     if ($(this).data('clicked')) {
@@ -153,6 +155,96 @@ function searchInitAutocomplete(acMinChars){
       searchForm.submit();
     }
   });
+}
+
+function scrabbleAutoSearch(){
+
+  function getGlyph(){
+    var el = $('<span class="form-control-feedback glyphicon">');
+    el.css({'pointer-events': 'initial'}); // enable click
+    el.on('click', clearSearch);
+    return el;
+  }
+
+  var searchForm = $('form[action="scrabble"]');
+  var searchInput = $('input.scrabbleSearchField', searchForm);
+  var locVersion = $('select', searchForm);
+  var results = $('#scrabble-results');
+
+  var feedback = $('.scrabbleSearchDiv .form-group');
+  var feedbackGlyph = $('#scrabble-feedback-glyph');
+
+  var nextSearch = null;
+  var searchCache = {};
+  var queryURL = wwwRoot + 'scrabble.php';
+
+
+  function updatePage(data) {
+    feedback.removeClass('has-feedback has-error has-success');
+    feedbackGlyph.html(null);
+
+    var icon, glyphIcon;
+
+    if (data.count > 0) {
+      icon = 'has-success';
+      glyphIcon = 'glyphicon-ok';
+    }
+
+    else {
+      icon = 'has-error';
+      glyphIcon = 'glyphicon-remove';
+    }
+
+    if (data.template) {
+      feedback.addClass('has-feedback ' + icon);
+      glyph = getGlyph();
+      glyph.addClass(glyphIcon);
+      feedbackGlyph.append(glyph);
+    }
+
+    results.html(data.template);
+  }
+
+  function doSearch(cacheKey, params){
+    $.getJSON(queryURL, params, function(data){
+      searchCache[cacheKey] = data;
+      updatePage(data);
+    })
+  }
+
+  function queueSearch() {
+    function reducer(acc, el){
+      acc[el.name] = el.value;
+      return acc;
+    }
+    var cacheKey = searchForm.serialize();
+    var cached = searchCache[cacheKey];
+    if (cached){
+      updatePage(cached)
+    }
+    else {
+      var formData = searchForm.serializeArray().reduce(reducer, {ajax: true});
+      nextSearch = {key: cacheKey, params: formData};
+    }
+
+  }
+
+  function runner() {
+    if (nextSearch){
+      doSearch(nextSearch.key, nextSearch.params);
+      nextSearch = null;
+    }
+  }
+
+  function clearSearch() {
+    searchInput.val(null);
+    queueSearch();
+  }
+
+  searchInput.on('input', queueSearch);
+  locVersion.on('change', queueSearch);
+
+  setInterval(runner, 500);
 }
 
 function getWwwRoot() {

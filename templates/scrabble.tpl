@@ -25,13 +25,15 @@
             <div class="form-group">
           {/if}
           <input class="scrabbleSearchField form-control" type="text" name="form" placeholder="kwyjibo" value="{$form|default:""|escape}" autofocus>
-          {if isset($data)}
-            {if count($data)}
-              <span class="form-control-feedback glyphicon glyphicon-ok"></span>
-            {else}
-              <span class="form-control-feedback glyphicon glyphicon-remove"></span>
+            <span id="scrabble-feedback-glyph">
+            {if isset($data)}
+              {if count($data)}
+                <span class="form-control-feedback glyphicon glyphicon-ok"></span>
+              {else}
+                <span class="form-control-feedback glyphicon glyphicon-remove"></span>
+              {/if}
             {/if}
-          {/if}
+            </span>
           </div>
 
           <div class="form-inline text-center">
@@ -48,30 +50,8 @@
           </div>
         </div>
       </form>
-
       <br>
-
-      {if isset($data)}
-          {if !count($data)}
-            <p class="alert alert-danger">
-              Niciun cuvânt din LOC {$selectedLocVersion|escape} nu generează forma
-              <strong>{$form|escape}.</strong>
-            </p>
-          {else}
-            <div class="alert alert-success">
-              <dl class="dl-horizontal">
-                {foreach $data as $r}
-                  <dt>{$r.inflectedForm|escape}</dt>
-                  <dd>provine din
-                    <a href="{$wwwRoot}definitie/{$r.lexemeFormNoAccent|escape}">{$r.lexemeForm|escape}</a>
-                    {$r.modelType}{$r.modelNumber}{$r.restriction}
-                    ({$r.inflection|escape})
-                  </dd>
-                {/foreach}
-              </dl>
-            </div>
-          {/if}
-      {/if}
+      <div id="scrabble-results">{include "scrabble-results.tpl"}</div>
     </div>
   </div>
 

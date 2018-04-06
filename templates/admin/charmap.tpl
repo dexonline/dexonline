@@ -18,7 +18,7 @@
 
 				<div data-role="edit">
 					<p>Adaugă glifele în căsuța de mai jos, unul pe linie.</p>
-					<textarea id="editBox" class="form-control" rows="10"></textarea>
+					<textarea id="editBox" class="form-control" rows="10" title="Glife"></textarea>
 					<button type="button" id="saveButton" class="btn btn-success">salvează</button>
 
 				  <button
@@ -39,3 +39,4 @@
 		</div>
 	</div>
 </div>
+<script>Charmap.init('#modal-charmap');</script>

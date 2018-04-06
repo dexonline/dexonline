@@ -141,8 +141,8 @@
 	function getButton(inserter, chr) {
     var props = chr.split(';');
     var lower = props[0];
-    var upper = props[1];
-    var title = props[2];
+    var upper = props[1] || lower;
+    var title = props[2] || '';
 
     // Default properties
     var button = document.createElement('button');
@@ -153,7 +153,7 @@
 
     button.setAttribute('title', title);
 	  button.setAttribute('data-lower', lower);
-	  button.setAttribute('data-upper', upper || lower);
+	  button.setAttribute('data-upper', upper);
 	  button.setAttribute('value', lower);
 
 	  button.addEventListener('click', function(){

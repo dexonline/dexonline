@@ -65,11 +65,11 @@ class Constant {
     '/(?<!\\\\)\|([^|]*)\|([^|]*)\|/' => '<a class="ref" href="/definitie/$2">$1</a>',
 
     // tree mentions
-    '/([-a-zăâîșț]+)\[\[([0-9]+)\]\]/i' =>
+    '/([-a-zăâîșț]+)\[\[([0-9]+)\]\]/iu' =>
     '<span data-toggle="popover" data-html="true" data-placement="auto right" ' .
     'class="treeMention" title="$2">$1</span>',
 
-    '/([-a-zăâîșț]+)\[([0-9]+)(\*{0,2})\]/i' => [ 'MentionHtmlizer' ],      // meaning mentions
+    '/([-a-zăâîșț]+)\[([0-9]+)(\*{0,2})\]/iu' => [ 'MentionHtmlizer' ],      // meaning mentions
   ];
 
   const HTML_REPLACEMENTS = [
@@ -93,7 +93,7 @@ class Constant {
       "'o", "'O", "'ö", "'Ö", "'u", "'U", "'ü", "'Ü", "'y", "'Y",
     ],
   ];
-    
+
   // prefixes which should be followed by 'î', not 'â'
   const I_PREFIXES = [
     'auto',

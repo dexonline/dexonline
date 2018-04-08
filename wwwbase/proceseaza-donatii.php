@@ -159,7 +159,7 @@ class Donor {
 
   function process() {
     if ($this->sendEmail) {
-      $mail = new PHPMailer();
+      $mail = new PHPMailer\PHPMailer\PHPMailer();
 
       $mail->setFrom(Config::get('global.contact'), 'dexonline');
       $mail->addAddress($this->email);

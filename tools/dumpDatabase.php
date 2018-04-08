@@ -4,76 +4,85 @@ require_once __DIR__ . '/../phplib/Core.php';
 
 $SQL_FILE = Config::get('global.tempDir') . '/dex-database.sql';
 $GZ_FILE = Config::get('global.tempDir') . '/dex-database.sql.gz';
-$LICENSE = Core::getRootPath() . '/tools/dumpDatabaseLicense.txt';
+$LICENSE_FILE = Core::getRootPath() . '/tools/dumpDatabaseLicense.txt';
 
-  // Skip the username/password here to avoid a Percona warning.
-  // Place them in my.cnf.
+// Skip the username/password here to avoid a Percona warning.
+// Place them in my.cnf.
 $COMMON_COMMAND = sprintf("mysqldump -h %s %s ", DB::$host, DB::$database);
 
-$schemaOnly = [
+// Tables we never want to export, whether in the public or full dump
+$SKIP_TABLES = [
+  'diverta_Book',
+  'diverta_Index',
+  'history_Comment',
+];
+
+// Tables whose data is to be filtered and/or altered before dumping
+$FILTER_TABLES = [
+  'Definition',
+  'Source',
+  'User',
+];
+
+// Tables for which we only dump the schema in both the public and full dump
+// (usually for sensitive information or huge volumes of data)
+$SCHEMA_ONLY_TABLES = [
   'AccuracyProject',
   'AccuracyRecord',
-  'AdsClick',
   'Cookie',
-  'DefinitionSimple',
   'DefinitionVersion',
   'Donation',
-  'history_Comment',
-  'OCR',
-  'OCRLot',
   'PasswordToken',
   'RecentLink',
-  'Typo',                // site-based... no need to distribute
   'UserWordBookmark',
 ];
-$currentYear = date("Y");
 
-// Full/Public dump: the public dump omits the user table, which contains emails and md5-ed passwords.
-$doFullDump = false;
+// Tables to be included in the full dump, but schema only in the public dump
+$PRIVATE_TABLES = [
+  'AdsClick',
+  'DefinitionSimple',
+  'OCR',
+  'OCRLot',
+  'Typo',
+];
 
-for ($i = 1; $i < count($argv); $i++) {
-  $arg = $argv[$i];
-  if ($arg == "--full") {
-    $doFullDump = true;
-  } else if ($arg == '--public') {
-    $doFullDump = false;
-  } else {
-    OS::errorAndExit("Unknown flag: $arg");
-  }
-}
+// read command line arguments
+$opts = getopt('', ['full']);
+$doFullDump = isset($opts['full']);
 
 Log::notice('started with argument %s', ($doFullDump ? 'full' : 'public'));
 
-$dbName = DB::$database;
-$tablesToIgnore = '';
-foreach ($schemaOnly as $table) {
-  $tablesToIgnore .= "--ignore-table=$dbName.$table ";
-}
-if ($doFullDump) {
-  $remoteFile = '/download/mirrorAccess/dex-database.sql.gz';
-} else {
-  $remoteFile = '/download/dex-database.sql.gz';
-  $tablesToIgnore .= "--ignore-table=$dbName.User --ignore-table=$dbName.Definition --ignore-table=$dbName.Source --ignore-table=$dbName.diverta_Book --ignore-table=$dbName.divertaIndex ";
-}
+$currentYear = date("Y");
+$license = file_get_contents($LICENSE_FILE);
+$license = sprintf($license, $currentYear);
+file_put_contents($SQL_FILE, $license);
 
-OS::executeAndAssert("rm -f $SQL_FILE");
-OS::executeAndAssert("echo \"-- Copyright © 2004-$currentYear dexonline (https://dexonline.ro)\" > $SQL_FILE");
-OS::executeAndAssert("cat $LICENSE >> $SQL_FILE");
-$mysql = "$COMMON_COMMAND $tablesToIgnore >> $SQL_FILE";
-OS::executeAndAssert($mysql);
+// dump tables with data
+$ignoredTables = $doFullDump
+               ? array_merge($SKIP_TABLES, $SCHEMA_ONLY_TABLES)
+               : array_merge($SKIP_TABLES, $FILTER_TABLES, $SCHEMA_ONLY_TABLES, $PRIVATE_TABLES);
+$ignoreString = implode(' ', array_map(function($table) {
+  return sprintf('--ignore-table=%s.%s', DB::$database, $table);
+}, $ignoredTables));
 
-// Dump only the schema for some tables
-$command = "$COMMON_COMMAND --no-data";
-foreach ($schemaOnly as $table) {
-  $command .= " $table";
-}
-$command .= " >> $SQL_FILE";
+$command = "$COMMON_COMMAND $ignoreString >> $SQL_FILE";
+OS::executeAndAssert($command);
+
+// dump tables with no data (schema only)
+$schemaTables = $doFullDump
+              ? $SCHEMA_ONLY_TABLES
+              : array_merge($SCHEMA_ONLY_TABLES, $PRIVATE_TABLES);
+$command = sprintf('%s --no-data %s >> %s',
+                   $COMMON_COMMAND,
+                   implode(' ', $schemaTables),
+                   $SQL_FILE);
 OS::executeAndAssert($command);
 
 if (!$doFullDump) {
   // Anonymize the User table. Handle the case for id = 0 separately, since
   // "insert into _User_Copy set id = 0" doesn't work (it inserts an id of 1).
   Log::info('Anonymizing the User table');
+  DB::execute("drop table if exists _User_Copy");
   DB::execute("create table _User_Copy like User");
   DB::execute("insert into _User_Copy select * from User where id = 0");
   DB::execute("update _User_Copy set id = 0 where id = 1");
@@ -82,7 +91,9 @@ if (!$doFullDump) {
   OS::executeAndAssert("$COMMON_COMMAND _User_Copy | sed 's/_User_Copy/User/g' >> $SQL_FILE");
   DB::execute("drop table _User_Copy");
 
+  // Hide links to scanned pages from the Source table
   Log::info('Anonymizing the Source table');
+  DB::execute("drop table if exists _Source_Copy");
   DB::execute("create table _Source_Copy like Source");
   DB::execute("insert into _Source_Copy select * from Source");
   DB::execute("update _Source_Copy set link = null");
@@ -91,6 +102,7 @@ if (!$doFullDump) {
 
   // Dump only the Definitions for which we have redistribution rights
   Log::info('Filtering the Definition table');
+  DB::execute("drop table if exists _Definition_Copy");
   DB::execute("create table _Definition_Copy like Definition");
   DB::execute("insert into _Definition_Copy select * from Definition");
   $query = <<<EOT
@@ -103,6 +115,10 @@ EOT;
   OS::executeAndAssert("$COMMON_COMMAND _Definition_Copy | sed 's/_Definition_Copy/Definition/g' >> $SQL_FILE");
   DB::execute("drop table _Definition_Copy");
 }
+
+$remoteFile = $doFullDump
+  ? '/download/mirrorAccess/dex-database.sql.gz'
+  :'/download/dex-database.sql.gz';
 
 OS::executeAndAssert("gzip -f $SQL_FILE");
 $f = new FtpUtil();

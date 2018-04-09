@@ -137,6 +137,13 @@ dfp_id_home = ""
 dfp_id_search = ""
 dfp_id_other = ""
 
+pgSlot[] = ""
+pgDivId[] = ""
+pgWidth[] = ""
+pgHeight[] = ""
+pgClientMinWidth[] = ""
+pgClientMaxWidth[] = ""
+
 reviveUrl = "https://dexonline.ro/openx/www/delivery/asyncjs.php"
 reviveId = ""
 reviveZoneId1 = ""

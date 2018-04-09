@@ -8,7 +8,6 @@ switch($p) {
     break;
   case 'contact': break;
   case 'links': break;
-  case 'ads': break;
   default: exit;
 }
 

@@ -1,7 +1,6 @@
 <?php
 
 require_once('../phplib/Core.php');
-require_once('../phplib/ads/adsModule.php');
 
 define('SEARCH_REGEXP', 0);
 define('SEARCH_MULTIWORD', 1);

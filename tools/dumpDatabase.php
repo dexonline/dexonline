@@ -12,8 +12,6 @@ $COMMON_COMMAND = sprintf("mysqldump -h %s %s ", DB::$host, DB::$database);
 
 // Tables we never want to export, whether in the public or full dump
 $SKIP_TABLES = [
-  'diverta_Book',
-  'diverta_Index',
   'history_Comment',
 ];
 

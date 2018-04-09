@@ -1,11 +1,5 @@
 <?php
 require_once("../phplib/Core.php");
-require_once("../phplib/ads/adsModule.php");
-
-// Display a custom ad 50% of the times
-if (rand(0, 99) < 50) {
-  AdsModule::runAllModules(null, null);
-}
 
 $widgets = Preferences::getWidgets(User::getActive());
 $numEnabledWidgets = array_reduce($widgets, function($result, $w) { return $result + $w['enabled']; });

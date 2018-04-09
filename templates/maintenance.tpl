@@ -4,6 +4,7 @@
 
 {block "search"}{/block}
 {block "banner"}{/block}
+{block "bannerHead"}{/block}
 
 {block "content"}
 

@@ -1,19 +1,17 @@
-<script async='async' src='https://www.googletagservices.com/tag/js/gpt.js'></script>
-<script>
-  var googletag = googletag || {};
-  googletag.cmd = googletag.cmd || [];
-</script>
-<div id='div-pg-ad-1490338946-0'>
-  <script type='text/javascript'>
+<!-- /8095840/.2_8651.3_dexonline.ro_tier1 -->
+<div id='div-gpt-ad-1522308048586-0' style='height:90px; width:728px;'>
+  <script>
     if (getWidth() >= 800) {
-      googletag.cmd.push(function() { googletag.pubads().display('/8095840/.2_8651.3_dexonline.ro_tier1', [728, 90], 'div-pg-ad-1490338946-0'); });
-   }
+      googletag.cmd.push(function() { googletag.display('div-gpt-ad-1522308048586-0'); });
+    }
   </script>
 </div>
-<div id='div-pg-ad-1492680472-1'>
-  <script type='text/javascript'>
+
+<!-- /8095840/.2_9288.28_dexonline.ro_tier1 -->
+<div id='div-gpt-ad-1522308096412-0' style='height:100px; width:320px;'>
+  <script>
     if (getWidth() < 800) {
-      googletag.cmd.push(function() { googletag.pubads().display('/8095840/.2_9288.28_dexonline.ro_tier1', [320, 100], 'div-pg-ad-1492680472-1'); });
+      googletag.cmd.push(function() { googletag.display('div-gpt-ad-1522308096412-0'); });
     }
   </script>
 </div>

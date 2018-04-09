@@ -1,3 +1,4 @@
+{* Banner-related code that goes in the ad spot *}
 {assign var="adsProvider" value=$adsProvider|default:null}
 {assign var="adsProviderParams" value=$adsProviderParams|default:null}
 

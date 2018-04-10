@@ -12,7 +12,7 @@
 
 .wotdArchiveTable td {
   width: 90px;
-  height: 90px;
+  height: 112px;
 }
 
 .wotd-navigation {
@@ -27,9 +27,8 @@
   .wotdArchiveTable tbody td {
     display: block;
     width: auto;
-    height: auto;
+    height: 98px;
     font-size: 1.2em;
-    text-align: left;
     border: none;
     background: #fff;
   }
@@ -44,20 +43,29 @@
   }
 
   .wotdArchiveTable .wotdDoM {
-    width: 5%;
+    width: 7%;
   }
 
   .wotd-link {
-    width: 78%;
+    text-align: right;
+    width: 88%;
   }
 }
 
 @media (max-width: 320px) {
+  .wotdArchiveTable tbody td {
+    height: 65px;
+  }
+
   .wotdArchiveTable .wotdDoM {
     width: 8%;
   }
 
   .wotd-link {
     width: 70%;
+  }
+
+  .thumb {
+    min-width: 18%;
   }
 }

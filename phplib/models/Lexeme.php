@@ -192,10 +192,8 @@ class Lexeme extends BaseObject implements DatedObject {
     $field = $hasDiacritics ? 'formNoAccent' : 'formUtf8General';
 
     if ($sourceId) {
-      // Suppres warnings from idiorm's log query function, which uses vsprintf,
+      // Suppress warnings from idiorm's log query function, which uses vsprintf,
       // which trips on extra % signs.
-      // TODO: count() works incorrectly here, because idiorm issues distinct count(*)
-      // instead of count(distinct *).
       return @Model::factory('Lexeme')
         ->table_alias('l')
         ->join('EntryLexeme', ['l.id', '=', 'el.lexemeId'], 'el')
@@ -204,8 +202,11 @@ class Lexeme extends BaseObject implements DatedObject {
         ->where_raw("$field $mysqlRegexp")
         ->where('d.sourceId', $sourceId);
     } else {
+      // even where there is no sourceId, make sure the lexeme has associated entries
+      // (fragments don't)
       return @Model::factory('Lexeme')
         ->table_alias('l')
+        ->join('EntryLexeme', ['l.id', '=', 'el.lexemeId'], 'el')
         ->where_raw("$field $mysqlRegexp");
     }
   }

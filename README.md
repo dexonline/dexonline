@@ -1,1 +1,1 @@
-Instrucțiunile de instalare sunt la [https://wiki.dexonline.ro/wiki/Instrucțiuni_de_instalare](https://wiki.dexonline.ro/wiki/Instrucțiuni_de_instalare).
+To contribute, please read the [installation instructions](https://wiki.dexonline.ro/wiki/Instrucțiuni_de_instalare) and the [issue list for newbies](https://github.com/dexonline/dexonline/labels/newbie)

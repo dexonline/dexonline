@@ -434,8 +434,8 @@ class FineDiff {
 		// fragment-level diffing
 		$from_text_len = strlen($from_text);
 		$to_text_len = strlen($to_text);
-    $from_fragments = FineDiff::extractFragmentsInternal($from_text, $delimiters); // originally FineDiff::extractFragments
-		$to_fragments = FineDiff::extractFragmentsInternal($to_text, $delimiters); // originally FineDiff::extractFragments
+		$from_fragments = FineDiff::extractFragments($from_text, $delimiters);
+		$to_fragments = FineDiff::extractFragments($to_text, $delimiters);
 
 		$jobs = array(array(0, $from_text_len, 0, $to_text_len));
 
@@ -684,49 +684,5 @@ class FineDiff {
  			echo '<ins>', htmlentities(substr($from, $from_offset, $from_len)), '</ins>';
 			}
 		}
-    
-  /**
-	* Efficiently fragment the text into an array according to
-	* specified delimiters.
-	* No delimiters means fragment into single character.
-	* The array indices are the offset of the fragments into
-	* the input string.
-	* A sentinel empty fragment is always added at the end.
-	* Careful: No check is performed as to the validity of the
-	* delimiters.
-	*/
-	private static function extractFragmentsInternal($text, $delimiters) {
-    // special case: split into characters
-    if (empty($delimiters)) {
-      $chars = str_split($text, 1);
-      $chars[strlen($text)] = '';
-      return $chars;
-    }
-    $fragments = array();
-    $start = $end = 0;
-    
-    /* We need a more fragmented array of strings to not interfere with internal notations */
-    for (;;) {
-      $end += strcspn($text, $delimiters, $end);
-      if ($end === $start) { // no valid characters found so we search for splitters
-        $end += strspn($text, $delimiters, $end);
-        if ($end === $start) { // reached the end of string
-          break;
-        }
-        else { 
-          /* Split all internal notations */
-          foreach (str_split(substr($text, $start, $end - $start)) as $char) {
-            $fragments[$start++] = $char;
-          }
-        }
-      }
-      else {
-        $fragments[$start] = substr($text, $start, $end - $start);
-      }
-      $start = $end;
-    }
-    $fragments[$start] = '';
-    return $fragments;
-  }
-  
-}
+	}
+

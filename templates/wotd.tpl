@@ -17,7 +17,7 @@
 {block "content"}
   {assign var="reason" value=$reason|default:''}
 
-  <h3>
+  <h3 class="clearfix">
     Cuvântul zilei, {$day} {$monthName} {$year}
 
     {if $skinVariables.wotdSubscribe}
@@ -66,23 +66,24 @@
     </div>
     <div class="row panel-body">
 
-      {include "bits/definition.tpl"
-      row=$searchResult
-      showBookmark=1
-      showCourtesyLink=1
-      showFlagTypo=1
-      showHistory=1}
-
       {if $imageUrl}
         <a {if $wotd->url}href="{$wotd->url}"{/if} target="_blank">
           <img class="img-responsive center-block"
-               src="{$imageUrl}" alt="{$searchResult->definition->lexicon}"
-               title="{$searchResult->definition->lexicon}">
+            src="{$imageUrl}" alt="{$searchResult->definition->lexicon}"
+            title="{$searchResult->definition->lexicon}">
         </a>
         <div class="text-muted pull-right">
           {$artist->credits|default:''}
         </div>
       {/if}
+
+      {include "bits/definition.tpl"
+        row=$searchResult
+        showBookmark=1
+        showCourtesyLink=1
+        showFlagTypo=1
+        showHistory=1}
+
     </div>
     {if $reason}
       <div class="row panel-footer">

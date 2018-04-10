@@ -70,6 +70,14 @@ $(function() {
         $('select[name="modelNumber"]').data('selected', data.modelNumber);
         updateModelTypeList($('*[data-model-dropdown]'));
         $('input[name="restriction"]').val(data.restriction);
+
+        // copy part-of-speech tags (skip already existing ones)
+        $.each(data.posTags, function(index, e) {
+          if (!$("#tagIds option[value='" + e.id + "']").length) {
+            $('#tagIds').append(new Option(e.text, e.id, true, true));
+          }
+        });
+        $('#tagIds').trigger('change');
       });
   }
 

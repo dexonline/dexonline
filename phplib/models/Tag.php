@@ -94,6 +94,14 @@ class Tag extends BaseObject implements DatedObject {
     return $result;
   }
 
+  function isDescendantOf($other) {
+    $p = $this;
+    while ($p && $p->id != $other->id) {
+      $p = Tag::get_by_id($p->parentId);
+    }
+    return (bool)$p;
+  }
+
   /**
    * Validates a tag for correctness. Returns an array of { field => array of errors }.
    **/
@@ -104,7 +112,7 @@ class Tag extends BaseObject implements DatedObject {
       $errors['value'][] = 'Numele nu poate fi vid.';
     }
 
-    // make sure the chosen parent is not also a descendat - no cycles allowed
+    // make sure the chosen parent is not also a descendant - no cycles allowed
     $p = $this;
     do {
       $p = Tag::get_by_id($p->parentId);

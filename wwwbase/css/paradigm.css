@@ -49,6 +49,24 @@
   font-weight: bold;
 }
 
+.lexemeMorphology {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.lexemeMorphology li {
+  display: inline;
+}
+
+.lexemeMorphology li + li:before {
+  content: '/';
+}
+
+.lexemeMorphology .value {
+  font-style: italic;
+}
+
 .lexemeNotes,
 .lexemeSources {
   font-size: 75%;
@@ -90,7 +108,7 @@
 }
 
 
-/* 
+/*
   Fix the inflection arrow for Google Chrome
   Reference: https://github.com/dexonline/dexonline/issues/484
 */

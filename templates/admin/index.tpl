@@ -407,7 +407,7 @@
                            step="100"
                            tabindex="-1">
                     <div class="input-group-btn-vertical">
-                      <button class="btn btn-default" type="button" tabindex="-1"">
+                      <button class="btn btn-default" type="button" tabindex="-1">
                         <i class="glyphicon glyphicon-chevron-up"></i>
                       </button>
                       <button class="btn btn-default" type="button" tabindex="-1">

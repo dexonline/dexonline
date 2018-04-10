@@ -1,7 +1,6 @@
 <?php
 
 require_once('../phplib/Core.php');
-require_once('../phplib/ads/adsModule.php');
 
 define('SEARCH_REGEXP', 0);
 define('SEARCH_MULTIWORD', 1);
@@ -164,13 +163,13 @@ if ($text) {
     }
 
     // For single-word queries, just order the definitions by lexicon.
-    if (count($words) - count($extra['stopWords']) == 1) {
+    if (count($words) == 1) {
       usort($definitions, function($a, $b) {
         return strcoll($a->lexicon, $b->lexicon) > 0;
       });
     }
 
-    Definition::highlight($words, $definitions);
+    Definition::highlight($words, $stopWords, $definitions);
   }
 }
 

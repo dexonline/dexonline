@@ -123,10 +123,10 @@
         </button>
 
         <button type="button"
-                class="btn btn-default"
-                {if !count($entryTrees)}disabled{/if}
-                data-toggle="modal"
-                data-target="#mergeModal">
+          class="btn btn-default"
+          {if !count($entryTrees)}disabled{/if}
+          data-toggle="modal"
+          data-target="#mergeModal">
           <i class="glyphicon glyphicon-resize-small"></i>
           unifică cu...
         </button>
@@ -141,12 +141,12 @@
         </a>
 
         <button type="submit"
-                class="btn btn-danger pull-right"
-                name="delete"
-                {if !$canDelete}
-                disabled
-                title="Nu puteți șterge acest arbore, deoarece el are sensuri, mențiuni și/sau relații."
-                {/if}>
+          class="btn btn-danger pull-right"
+          name="delete"
+          {if !$canDelete}
+          disabled
+          title="Nu puteți șterge acest arbore, deoarece el are sensuri, mențiuni și/sau relații."
+          {/if}>
           <i class="glyphicon glyphicon-trash"></i>
           șterge
         </button>
@@ -282,10 +282,10 @@
               <td><b>{$m->destBreadcrumb}</b></td>
               <td>
                 <a href="#"
-                   class="deleteMeaningMention"
-                   title="șterge mențiunea din sensul-sursă, lăsând restul sensului intact"
-                   data-mention-id="{$m->id}"
-                   data-meaning-id="{$m->destId}">
+                  class="deleteMeaningMention"
+                  title="șterge mențiunea din sensul-sursă, lăsând restul sensului intact"
+                  data-mention-id="{$m->id}"
+                  data-meaning-id="{$m->destId}">
                   <i class="glyphicon glyphicon-trash"></i>
                 </a>
               </td>
@@ -302,53 +302,53 @@
       <div class="panel-body">
         <div class="treeWrapper">
           {include "bits/editableMeaningTree.tpl"
-          meanings=$t->getMeanings()
-          id="meaningTree"}
+            meanings=$t->getMeanings()
+            id="meaningTree"}
         </div>
 
         <div>
           {if $canEdit}
             <div class="btn-group">
               <button type="button"
-                      class="btn btn-default btn-sm"
-                      id="addMeaningButton"
-                      title="Adaugă un sens ca frate al sensului selectat. Dacă nici un sens nu este selectat, adaugă un sens la sfârșitul listei.">
+                class="btn btn-default btn-sm"
+                id="addMeaningButton"
+                title="Adaugă un sens ca frate al sensului selectat. Dacă nici un sens nu este selectat, adaugă un sens la sfârșitul listei.">
                 adaugă sens
               </button>
               <button type="button"
-                      class="btn btn-default btn-sm meaningAction"
-                      id="addSubmeaningButton"
-                      disabled
-                      title="Adaugă un sens ca ultimul fiu al sensului selectat">
+                class="btn btn-default btn-sm meaningAction"
+                id="addSubmeaningButton"
+                disabled
+                title="Adaugă un sens ca ultimul fiu al sensului selectat">
                 adaugă subsens
               </button>
               <button type="button"
-                      class="btn btn-default btn-sm meaningAction"
-                      id="cloneMeaningButton"
-                      disabled
-                      title="Clonează sensul selectat">
+                class="btn btn-default btn-sm meaningAction"
+                id="cloneMeaningButton"
+                disabled
+                title="Clonează sensul selectat">
                 <i class="glyphicon glyphicon-duplicate"></i>
                 clonează sens
               </button>
               <button type="button"
-                      class="btn btn-danger btn-sm meaningAction"
-                      id="deleteMeaningButton"
-                      data-toggle="popover"
-                      role="button"
-                      tabindex="0"
-                      disabled>
+                class="btn btn-danger btn-sm meaningAction"
+                id="deleteMeaningButton"
+                data-toggle="popover"
+                role="button"
+                tabindex="0"
+                disabled>
                 <i class="glyphicon glyphicon-trash"></i>
                 șterge sens
               </button>
 
               <div id="deletePopoverContent" style="display: none">
                 <button type="button"
-                        class="btn btn-danger btn-sm meaningAction deleteMeaningConfirmButton">
+                  class="btn btn-danger btn-sm meaningAction deleteMeaningConfirmButton">
                   <i class="glyphicon glyphicon-trash"></i>
                   confirm
                 </button>
                 <button type="button"
-                        class="btn btn-default btn-sm meaningAction deleteMeaningCancelButton">
+                  class="btn btn-default btn-sm meaningAction deleteMeaningCancelButton">
                   <i class="glyphicon glyphicon-remove"></i>
                   m-am răzgândit
                 </button>
@@ -358,31 +358,31 @@
 
             <div class="btn-group">
               <button type="button"
-                      class="btn btn-default btn-sm meaningAction"
-                      id="meaningLeftButton"
-                      disabled
-                      title="Sensul devine fratele următor al tatălui său.">
+                class="btn btn-default btn-sm meaningAction"
+                id="meaningLeftButton"
+                disabled
+                title="Sensul devine fratele următor al tatălui său.">
                 <i class="glyphicon glyphicon-arrow-left"></i>
               </button>
               <button type="button"
-                      class="btn btn-default btn-sm meaningAction"
-                      id="meaningRightButton"
-                      disabled
-                      title="Sensul devine fiu al fratelui său anterior.">
+                class="btn btn-default btn-sm meaningAction"
+                id="meaningRightButton"
+                disabled
+                title="Sensul devine fiu al fratelui său anterior.">
                 <i class="glyphicon glyphicon-arrow-right"></i>
               </button>
               <button type="button"
-                      class="btn btn-default btn-sm meaningAction"
-                      id="meaningDownButton"
-                      disabled
-                      title="Sensul schimbă locurile cu fratele său următor.">
+                class="btn btn-default btn-sm meaningAction"
+                id="meaningDownButton"
+                disabled
+                title="Sensul schimbă locurile cu fratele său următor.">
                 <i class="glyphicon glyphicon-arrow-down"></i>
               </button>
               <button type="button"
-                      class="btn btn-default btn-sm meaningAction"
-                      id="meaningUpButton"
-                      disabled
-                      title="Sensul schimbă locurile cu fratele său anterior.">
+                class="btn btn-default btn-sm meaningAction"
+                id="meaningUpButton"
+                disabled
+                title="Sensul schimbă locurile cu fratele său anterior.">
                 <i class="glyphicon glyphicon-arrow-up"></i>
               </button>
             </div>
@@ -405,10 +405,10 @@
                   {foreach Meaning::$FIELD_NAMES as $i => $tn}
                     <label class="radio-inline">
                       <input type="radio"
-                             name="editorType"
-                             class="editorObj editorType"
-                             value="{$i}"
-                             disabled>
+                        name="editorType"
+                        class="editorObj editorType"
+                        value="{$i}"
+                        disabled>
                       {$tn}
                     </label>
                   {/foreach}
@@ -417,9 +417,9 @@
               <div class="form-group">
                 <label>sens</label>
                 <textarea id="editorRep"
-                          class="form-control editorObj"
-                          rows="6"
-                          disabled></textarea>
+                  class="form-control editorObj"
+                  rows="6"
+                  disabled></textarea>
               </div>
             </div>
 
@@ -434,9 +434,9 @@
                 </select>
 
                 {include "bits/frequentObjects.tpl"
-                name="meaningSources"
-                type="sources"
-                target="#editorSources"}
+                  name="meaningSources"
+                  type="sources"
+                  target="#editorSources"}
               </div>
 
               <div class="form-group">
@@ -445,36 +445,37 @@
                 <select id="editorTags" class="editorObj select2Tags" multiple disabled></select>
 
                 {include "bits/frequentObjects.tpl"
-                name="meaningTags"
-                type="tags"
-                target="#editorTags"}
+                  name="meaningTags"
+                  type="tags"
+                  target="#editorTags"}
               </div>
 
               <div class="form-group">
-                <label>relații:</label>
+                <label>relații</label>
 
-                <select id="relationType" class="form-control editorObj" disabled>
-                  {foreach Relation::$TYPE_NAMES as $type => $name}
-                    <option value="{$type}" title="{$name}">{$name}</option>
+                <div>
+                  {foreach Relation::$SHORT_TYPE_NAMES as $i => $tn}
+                    <label class="radio-inline">
+                      <input type="radio"
+                        name="relationType"
+                        class="relationType editorObj"
+                        value="{$i}"
+                        disabled
+                        {if $i == 1}checked{/if}>
+                      {$tn}
+                    </label>
                   {/foreach}
-                </select>
+                </div>
 
-                <span class="relationWrapper" data-type="1">
-                  <select class="form-control editorRelation select2Trees editorObj" multiple disabled>
-                  </select>
-                </span>
-                <span class="relationWrapper" data-type="2">
-                  <select class="form-control editorRelation select2Trees editorObj" multiple disabled>
-                  </select>
-                </span>
-                <span class="relationWrapper" data-type="3">
-                  <select class="form-control editorRelation select2Trees editorObj" multiple disabled>
-                  </select>
-                </span>
-                <span class="relationWrapper" data-type="4">
-                  <select class="form-control editorRelation select2Trees editorObj" multiple disabled>
-                  </select>
-                </span>
+                {for $type=1 to Relation::NUM_TYPES}
+                  <span class="relationWrapper {if $type != 1}hidden{/if}" data-type="{$type}">
+                    <select
+                      class="form-control editorRelation select2Trees editorObj"
+                      multiple
+                      disabled>
+                    </select>
+                  </span>
+                {/for}
               </div>
             </div>
           </div>

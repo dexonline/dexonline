@@ -93,7 +93,7 @@ class Constant {
       "'o", "'O", "'ö", "'Ö", "'u", "'U", "'ü", "'Ü", "'y", "'Y",
     ],
   ];
-    
+
   // prefixes which should be followed by 'î', not 'â'
   const I_PREFIXES = [
     'auto',

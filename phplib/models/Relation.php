@@ -18,6 +18,13 @@ class Relation extends BaseObject implements DatedObject {
     self::TYPE_AUGMENTATIVE  => 'augmentative',
   ];
 
+  public static $SHORT_TYPE_NAMES = [
+    self::TYPE_SYNONYM  => 'sin.',
+    self::TYPE_ANTONYM  => 'ant.',
+    self::TYPE_DIMINUTIVE  => 'dim.',
+    self::TYPE_AUGMENTATIVE  => 'aug.',
+  ];
+
   // Returns a meaning's related trees, mapped by type
   static function loadByMeaningId($meaningId) {
     $trees = Model::factory('Tree')

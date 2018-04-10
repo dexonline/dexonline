@@ -52,7 +52,5 @@ truncate table WordOfTheDay;
 truncate table WordOfTheDayRel;
 truncate table WordOfTheMonth;
 truncate table WotdArtist;
-truncate table diverta_Book;
-truncate table diverta_Index;
 truncate table history_WordOfTheDay;
 truncate table history_WordOfTheDayRel;

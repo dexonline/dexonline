@@ -1,19 +1,26 @@
-<script async='async' src='https://www.googletagservices.com/tag/js/gpt.js'></script>
-<script>
-  var googletag = googletag || {};
-  googletag.cmd = googletag.cmd || [];
-</script>
-<div id='div-pg-ad-1490338946-0'>
-  <script type='text/javascript'>
-    if (getWidth() >= 800) {
-      googletag.cmd.push(function() { googletag.pubads().display('/8095840/.2_8651.3_dexonline.ro_tier1', [728, 90], 'div-pg-ad-1490338946-0'); });
-   }
-  </script>
-</div>
-<div id='div-pg-ad-1492680472-1'>
-  <script type='text/javascript'>
-    if (getWidth() < 800) {
-      googletag.cmd.push(function() { googletag.pubads().display('/8095840/.2_9288.28_dexonline.ro_tier1', [320, 100], 'div-pg-ad-1492680472-1'); });
-    }
-  </script>
+<div id="pgWrapper" style="height: 90px">
+
+  {foreach $cfg.banner.pgDivId as $i => $divId}
+    {$width=$cfg.banner.pgWidth.$i}
+    {$height=$cfg.banner.pgHeight.$i}
+    {$clientMinWidth=$cfg.banner.pgClientMinWidth.$i}
+    {$clientMaxWidth=$cfg.banner.pgClientMaxWidth.$i}
+    <div
+      id='{$divId}'
+      style='height:{$height}px; width:{$width}px; margin: 0 auto;'>
+      <script>
+        var d = document.getElementById('{$divId}');
+        var wrapper = document.getElementById('pgWrapper');
+        var clientWidth = getWidth();
+        if ((clientWidth >= {$clientMinWidth}) &&
+            (clientWidth <= {$clientMaxWidth})) {
+          googletag.cmd.push(function() { googletag.display('{$divId}'); });
+          wrapper.style.height = '{$height}px';
+        } else {
+          d.style.display = 'none';
+        }
+      </script>
+    </div>
+  {/foreach}
+
 </div>

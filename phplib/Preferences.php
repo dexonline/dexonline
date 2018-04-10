@@ -43,22 +43,22 @@ class Preferences {
     self::EXCLUDE_UNOFFICIAL => [
       'enabled' => true,
       'label' => 'Ascunde definițiile neoficiale',
-      'comment' => 'Sursele neoficiale nu au girul niciunei instituții acreditate de Academia Română sau al vreunei edituri de prestigiu.', 
+      'comment' => 'Sursele neoficiale nu au girul niciunei instituții acreditate de Academia Română sau al vreunei edituri de prestigiu.',
     ],
     self::SHOW_PARADIGM => [
       'enabled' => true,
       'label' => 'Deschide fila de flexiuni',
-      'comment' => 'Implicit, prima filă vizibilă la căutări este cea cu definiții.', 
+      'comment' => 'Implicit, prima filă vizibilă la căutări este cea cu definiții.',
     ],
     self::LOC_PARADIGM => [
       'enabled' => true,
       'label' => 'Arată formele ilegale la jocul de scrabble',
-      'comment' => 'La afișarea paradigmei, aceste forme flexionare vor apărea cu roșu.', 
+      'comment' => 'La afișarea paradigmei, aceste forme flexionare vor apărea cu roșu.',
     ],
     self::SHOW_ADVANCED => [
       'enabled' => true,
       'label' => 'Afișează meniul de căutare avansată în mod implicit',
-      'comment' => 'În mod implicit, meniul de căutare avansată (marcat cu \'opțiuni\') va fi afișat pe toate paginile.', 
+      'comment' => 'În mod implicit, meniul de căutare avansată (marcat cu „opțiuni”) va fi afișat pe toate paginile.',
     ],
     self::PRIVATE_MODE => [
       'enabled' => false,

@@ -2,11 +2,6 @@
 ; Some entire sections are optional. Please refer to each section's comments.
 
 [global]
-; Modules that are allowed to run and possibly serve a banner instead of the bannerType choice below.
-; These will be invoked in the order they are listed until one of them serves a banner.
-; If none of them has a relevant banner, we fall back to bannerType.
-; adsModulesH[] = diverta
-; adsModulesH[] = someOtherModule
 
 ; Contact email, sprinkled throughout the site
 contact = contact@dexonline.ro
@@ -19,7 +14,7 @@ database = mysql://root@localhost/DEX
 debugUser = ""
 
 ; True on development installations. Used to hide the Google analytics code and to allow fake user logins
-developmentMode = 0
+developmentMode = 1
 
 ; Display a maintenance page when true. Requires the DB to exist, but it may be empty.
 maintenanceMode = 0
@@ -136,6 +131,13 @@ dfp_slot_other = ""
 dfp_id_home = ""
 dfp_id_search = ""
 dfp_id_other = ""
+
+pgSlot[] = ""
+pgDivId[] = ""
+pgWidth[] = ""
+pgHeight[] = ""
+pgClientMinWidth[] = ""
+pgClientMaxWidth[] = ""
 
 reviveUrl = "https://dexonline.ro/openx/www/delivery/asyncjs.php"
 reviveId = ""

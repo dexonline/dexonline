@@ -1,13 +1,8 @@
-{assign var="adsProvider" value=$adsProvider|default:null}
-{assign var="adsProviderParams" value=$adsProviderParams|default:null}
-
+{* Banner-related code that goes in the ad spot *}
 {if !$suggestNoBanner && empty($adult)}
   <section class="row banner-section" data-placement="{$cfg.banner.placement}">
     <div class="center-block text-center">
-      {if $adsProvider == 'diverta'}
-        {* TODO: edit revive.tpl to make this work *}
-        {include "banner/revive.tpl" zoneId="" params=$adsProviderParams}
-      {elseif $cfg.banner.type == 'revive'}
+      {if $cfg.banner.type == 'revive'}
         {include "banner/revive.tpl"}
       {elseif $cfg.banner.type == 'adsense'}
         {** Expects corresponding values in the [banner] section of dex.conf. **}

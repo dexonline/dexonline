@@ -43,18 +43,17 @@ server {
     rewrite ^/lista/cuvinte-aleatoare/(\d+)$ /randomList.php?n=$1&k=1 last;
     rewrite ^/lista/cuvintele-zilei-aleatoare$ /randomList.php?w=15 last;
     rewrite ^/lista/cuvintele-zilei-aleatoare/(\d+)$ /randomList.php?w=$1 last;
-  
+
     # Non-search pages
     rewrite ^/404$ /simple.php?p=404 last;
     rewrite ^/contact$ /simple.php?p=contact last;
     rewrite ^/informatii$ https://wiki.dexonline.ro/wiki/Informații last;
     rewrite ^/legaturi$ /simple.php?p=links last;
-    rewrite ^/publicitate$ /simple.php?p=ads last;
     rewrite ^/articol/(.*)$ /wikiArticle.php?title=$1 last;
     rewrite ^/rss/articole$ /articole.php?t=rss last;
     rewrite ^/spanzuratoarea$ /hangman.php last;
     rewrite ^/moara$ /mill.php last;
-  
+
     # Redirect old php pages to new ones (only where we care about the link / pagerank)
     rewrite ^/ghid-exprimare$ /articol/Ghid_de_exprimare_corectă permanent;
 

@@ -14,7 +14,7 @@ database = mysql://root@localhost/DEX
 debugUser = ""
 
 ; True on development installations. Used to hide the Google analytics code and to allow fake user logins
-developmentMode = 0
+developmentMode = 1
 
 ; Display a maintenance page when true. Requires the DB to exist, but it may be empty.
 maintenanceMode = 0

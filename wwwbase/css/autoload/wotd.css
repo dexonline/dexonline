@@ -1,18 +1,18 @@
 /* used from bits/wotdArchive.tpl, but only included (via Ajax) in wotd.tpl */
 .wotdArchiveTable {
+  table-layout: fixed;
   text-align: center;
   vertical-align: middle;
-  table-layout: fixed;
 }
 
 .wotdArchiveTable .wotdDoM {
-  text-align: right;
   font-weight: bold;
+  text-align: right;
 }
 
 .wotdArchiveTable td {
-  width: 90px;
   height: 112px;
+  width: 90px;
 }
 
 .wotd-navigation {
@@ -25,12 +25,12 @@
 
 @media (max-width: 767px) {
   .wotdArchiveTable tbody td {
-    display: block;
-    width: auto;
-    height: 98px;
-    font-size: 1.2em;
-    border: none;
     background: #fff;
+    border: none;
+    display: block;
+    font-size: 1.2em;
+    height: 98px;
+    width: auto;
   }
 
   .wotdArchiveTable thead,

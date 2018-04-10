@@ -33,7 +33,7 @@ if (!$definitionId) {
   Log::notice("Imported definition {$d->id} ({$d->lexicon}) from OCR {$ocr->id}");
 
   // Redirect to the new Definition.
-  Util::redirect("definitionEdit.php?definitionId={$d->id}&isOCR=1");
+  Util::redirect("definitionEdit.php?definitionId={$d->id}&isOcr=1");
 }
 
 if (!($d = Definition::get_by_id($definitionId))) {
@@ -44,7 +44,7 @@ if (!($d = Definition::get_by_id($definitionId))) {
 $orig = Definition::get_by_id($definitionId); // for comparison
 
 // Load request fields and buttons.
-$isOCR = Request::get('isOCR');
+$isOcr = Request::get('isOcr');
 $entryIds = Request::getArray('entryIds');
 $sourceId = Request::get('source');
 $similarSource = Request::has('similarSource');
@@ -128,9 +128,9 @@ if ($saveButton || $nextOcrBut) {
       Util::redirect('definitionEdit.php');
     } else {
       $url = "definitionEdit.php?definitionId={$d->id}";
-      if ($isOCR) {
+      if ($isOcr) {
         // carry this around so the user can click "Save" any number of times, then "next OCR".
-        $url .= "&isOCR=1";
+        $url .= "&isOcr=1";
       }
       Util::redirect($url);
     }
@@ -154,7 +154,7 @@ $typos = Model::factory('Typo')
   ->order_by_asc('id')
   ->find_many();
 
-if ($isOCR && empty($entryIds)) {
+if ($isOcr && empty($entryIds)) {
   $d->extractLexicon();
   if ($d->lexicon) {
       $entries = Model::factory('Definition')
@@ -175,7 +175,7 @@ $row = new SearchResult();
 $row->definition = $d;
 $row->source = $d->getSource();
 
-SmartyWrap::assign('isOCR', $isOCR);
+SmartyWrap::assign('isOcr', $isOcr);
 SmartyWrap::assign('def', $d);
 SmartyWrap::assign('row', $row);
 SmartyWrap::assign('source', $d->getSource());

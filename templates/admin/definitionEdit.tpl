@@ -3,7 +3,7 @@
 {block "title"}Editare definiție{/block}
 
 {block "content"}
-  {if $isOCR}
+  {if $isOcr}
     {$title='Adăugare definiție OCR'}
   {else}
     {$title="Editare definiție {$def->id}"}
@@ -22,7 +22,7 @@
 
   <form action="definitionEdit.php" method="post" class="form-horizontal">
     <input type="hidden" name="definitionId" value="{$def->id}">
-    <input type="hidden" name="isOCR" value="{$isOCR}">
+    <input type="hidden" name="isOcr" value="{$isOcr}">
 
     <div class="row">
       <div class="col-md-6">
@@ -136,7 +136,7 @@
           <u>s</u>alvează
         </button>
 
-        {if $isOCR}
+        {if $isOcr}
           <button type="submit" class="btn btn-success" name="but_next_ocr">
             salvează și preia următoarea definiție OCR
           </button>

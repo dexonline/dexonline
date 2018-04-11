@@ -7,19 +7,17 @@
 <script>
   var googletag = googletag || {};
   googletag.cmd = googletag.cmd || [];
-</script>
 
-{foreach $cfg.banner.pgDivId as $i => $divId}
+  {foreach $cfg.banner.pgDivId as $i => $divId}
   {$slot=$cfg.banner.pgSlot.$i}
   {$width=$cfg.banner.pgWidth.$i}
   {$height=$cfg.banner.pgHeight.$i}
-  <script>
-    googletag.cmd.push(function() {
-      googletag.defineSlot('{$slot}',
-                           [{$width}, {$height}],
-                           '{$divId}')
-               .addService(googletag.pubads());
-      googletag.enableServices();
-    });
-  </script>
-{/foreach}
+  googletag.cmd.push(function() {
+    googletag.defineSlot('{$slot}',
+                         [{$width}, {$height}],
+                         '{$divId}')
+             .addService(googletag.pubads());
+    googletag.enableServices();
+  });
+  {/foreach}
+</script>

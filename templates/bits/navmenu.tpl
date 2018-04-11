@@ -78,13 +78,10 @@
           </a>
 
           <ul class="dropdown-menu">
-            <li><a href="{$wwwRoot}contribuie">Contribuie cu definiții</a></li>
-            <li><a href="{$wwwRoot}top">Topul voluntarilor</a></li>
             <li>
-              <a href="https://wiki.dexonline.ro/wiki/Informa%C8%9Bii_pentru_programatori">
-                Informații pentru programatori
-              </a>
+              <a href="https://wiki.dexonline.ro/wiki/Cum_pute%C8%9Bi_ajuta">Cum poți ajuta</a>
             </li>
+            <li><a href="{$wwwRoot}top">Topul voluntarilor</a></li>
           </ul>
 
         </li>

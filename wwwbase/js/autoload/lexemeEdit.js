@@ -63,13 +63,21 @@ $(function() {
 
   function similarLexemeChange() {
     var lexemeId = $(this).find('option:selected').val();
-    var url = wwwRoot + 'ajax/getModelByLexemeId.php?id=' + lexemeId;
+    var url = wwwRoot + 'ajax/getLexemeInfo.php?id=' + lexemeId;
     $.get(url)
       .done(function(data) {
         $('select[name="modelType"]').data('selected', data.modelType);
         $('select[name="modelNumber"]').data('selected', data.modelNumber);
         updateModelTypeList($('*[data-model-dropdown]'));
         $('input[name="restriction"]').val(data.restriction);
+
+        // copy part-of-speech tags (skip already existing ones)
+        $.each(data.posTags, function(index, e) {
+          if (!$("#tagIds option[value='" + e.id + "']").length) {
+            $('#tagIds').append(new Option(e.text, e.id, true, true));
+          }
+        });
+        $('#tagIds').trigger('change');
       });
   }
 

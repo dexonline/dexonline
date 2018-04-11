@@ -1,18 +1,18 @@
 /* used from bits/wotdArchive.tpl, but only included (via Ajax) in wotd.tpl */
 .wotdArchiveTable {
+  table-layout: fixed;
   text-align: center;
   vertical-align: middle;
-  table-layout: fixed;
 }
 
 .wotdArchiveTable .wotdDoM {
-  text-align: right;
   font-weight: bold;
+  text-align: right;
 }
 
 .wotdArchiveTable td {
+  height: 112px;
   width: 90px;
-  height: 90px;
 }
 
 .wotd-navigation {
@@ -25,13 +25,12 @@
 
 @media (max-width: 767px) {
   .wotdArchiveTable tbody td {
-    display: block;
-    width: auto;
-    height: auto;
-    font-size: 1.2em;
-    text-align: left;
-    border: none;
     background: #fff;
+    border: none;
+    display: block;
+    font-size: 1.2em;
+    height: 98px;
+    width: auto;
   }
 
   .wotdArchiveTable thead,
@@ -44,20 +43,29 @@
   }
 
   .wotdArchiveTable .wotdDoM {
-    width: 5%;
+    width: 7%;
   }
 
   .wotd-link {
-    width: 78%;
+    text-align: right;
+    width: 88%;
   }
 }
 
 @media (max-width: 320px) {
+  .wotdArchiveTable tbody td {
+    height: 65px;
+  }
+
   .wotdArchiveTable .wotdDoM {
     width: 8%;
   }
 
   .wotd-link {
     width: 70%;
+  }
+
+  .thumb {
+    min-width: 18%;
   }
 }

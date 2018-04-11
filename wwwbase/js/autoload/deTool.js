@@ -69,7 +69,7 @@ $(function() {
       m.append(stemOption).trigger('change');
     } else {
       $.ajax({
-        url: wwwRoot + 'ajax/getModelByLexemeId.php?id=' + lexemeId,
+        url: wwwRoot + 'ajax/getLexemeInfo.php?id=' + lexemeId,
         success: function(model) {
           var id = model.modelType + model.modelNumber;
           var text = model.modelType + model.modelNumber + ' (' + model.exponent + ')';

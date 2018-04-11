@@ -31,19 +31,19 @@
     </div>
     <div class="panel-body">
 
-      {include "bits/definition.tpl"
-      row=$searchResult
-      showBookmark=1
-      showCourtesyLink=1
-      showFlagTypo=1
-      showHistory=1}
-
       {if $imageUrl}
         <img class="img-responsive center-block" src="{$imageUrl}" alt="{$searchResult->definition->lexicon}" title="{$searchResult->definition->lexicon}">
         <div class="text-muted pull-right">
           {$artist->credits|default:''}
         </div>
       {/if}
+
+      {include "bits/definition.tpl"
+        row=$searchResult
+        showBookmark=1
+        showCourtesyLink=1
+        showFlagTypo=1
+        showHistory=1}
 
     </div>
   </div>

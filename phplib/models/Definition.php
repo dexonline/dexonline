@@ -66,7 +66,7 @@ class Definition extends BaseObject implements DatedObject {
       = Str::sanitize($this->internalRep, $this->sourceId, $warnings);
 
     // htmlize + footnotes
-    list($this->htmlRep, $footnotes)
+    list($this->htmlRep, $this->footnotes)
       = Str::htmlize($this->internalRep, $this->sourceId, false, $errors, $warnings);
 
     // abbrevReview status
@@ -86,8 +86,6 @@ class Definition extends BaseObject implements DatedObject {
         FlashMessage::add($error);
       }
     }
-
-    return $footnotes;
   }
 
   static function loadByEntryIds($entryIds) {
@@ -454,5 +452,17 @@ class Definition extends BaseObject implements DatedObject {
   function save() {
     $this->modUserId = User::getActiveId();
     return parent::save();
+  }
+  
+  function deepSave() {
+    $success = $this->save();
+    
+    Footnote::delete_all_by_definitionId($this->id);
+    foreach ($this->footnotes as $f) {
+      $f->definitionId = $this->id;
+      $f->save();
+    }
+    Typo::delete_all_by_definitionId($this->id);
+    return $success;
   }
 }

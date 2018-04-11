@@ -63,7 +63,7 @@ if ($saveButton || $nextOcrBut) {
   $d->similarSource = $similarSource;
   $d->structured = $structured;
 
-  $footnotes = $d->process();
+  $d->process();
 
   if (!FlashMessage::hasErrors()) {
     // Save the new entries, load the rest.
@@ -94,13 +94,7 @@ if ($saveButton || $nextOcrBut) {
     }
 
     // Save the definition and delete the typos associated with it.
-    $d->save();
-    Footnote::delete_all_by_definitionId($d->id);
-    foreach ($footnotes as $f) {
-      $f->definitionId = $d->id;
-      $f->save();
-    }
-    Typo::delete_all_by_definitionId($d->id);
+    $d->deepSave();
 
     if ($d->structured && ($d->internalRep != $orig->internalRep)) {
       FlashMessage::add('Ați modificat o definiție deja structurată. Dacă se poate, ' .

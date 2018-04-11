@@ -12,7 +12,9 @@ $entryIds = Request::getArray('entryIds');
 $d = Definition::get_by_id($definitionId);
 $d->internalRep = $internalRep;
 $d->sourceId = $sourceId;
-$footnotes = $d->process(false);
+$d->process(false);
+
+$footnotes = $d->getFootnotes();
 
 $sim = SimilarRecord::create($d, $entryIds);
 

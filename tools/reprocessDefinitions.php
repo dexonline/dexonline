@@ -24,7 +24,7 @@ do {
     $d->process(false);
     if ($oldRep !== $d->internalRep || $oldHtmlRep !== $d->htmlRep) {
       // printf("**** %d %3d %s %s\n", $d->id, $d->sourceId, defUrl($d), $d->lexicon);
-      $d->save();
+      $d->deepSave();
       $modified++;
     }
   }

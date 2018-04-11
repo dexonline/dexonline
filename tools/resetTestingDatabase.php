@@ -319,14 +319,9 @@ function createDefinition($rep, $lexicon, $userId, $sourceId, $status) {
   $d->sourceId = $sourceId;
   $d->internalRep = $rep;
   $d->status = $status;
-  $footnotes = $d->process(false);
+  $d->process(false);
   $d->lexicon = $lexicon; // overwrite extracted lexicon
-  $d->save();
-
-  foreach ($footnotes as $f) {
-    $f->definitionId = $d->id;
-    $f->save();
-  }
+  $d->deepSave();
 
   return $d;
 }

@@ -96,10 +96,12 @@ if ($saveButton) {
       if ($obj->structured){
         $objStructured[] = $obj->id;
       }
+      $obj->deepSave();
     } else { // $obj is a meaning
       meaningReplace($obj, $search, $replace);
+      $obj->save();
     }
-    $obj->save();
+
     $objChanged++;
   }
   DebugInfo::stopClock('BulkReplace - AfterForEach +SaveButton');

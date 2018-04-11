@@ -141,7 +141,7 @@ class Session {
     setcookie('prefs[source]', $source, time() + self::ONE_YEAR_IN_SECONDS, '/');
   }
 
-  static function getDefaultContribSourceId() {
+  static function getSourceCookie() {
     return self::getCookieSetting('source');
   }
 

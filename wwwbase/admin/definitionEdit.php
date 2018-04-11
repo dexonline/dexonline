@@ -38,8 +38,16 @@ if ($isOcr && !$definitionId) {
 } else if (!$definitionId) {
   // create a new definition
   $d = Model::factory('Definition')->create();
-  $d->sourceId = Session::getDefaultContribSourceId();
   $d->status = User::can(User::PRIV_EDIT) ? Definition::ST_ACTIVE : Definition::ST_PENDING;
+
+  $d->sourceId = Session::getSourceCookie();
+  if (!$d->sourceId) {
+    $s = Model::factory('Source')
+       ->where('canModerate', true)
+       ->order_by_asc('displayOrder')
+       ->find_one();
+    $d->sourceId = $s->id;
+  }
 } else {
   $d = Definition::get_by_id($definitionId);
   if (!$d) {
@@ -128,9 +136,11 @@ if ($saveButton || $nextOcrBut) {
 
     Log::notice("Saved definition {$d->id} ({$d->lexicon})");
 
+    Session::setSourceCookie($d->sourceId);
+
     if ($nextOcrBut) {
       // cause the next OCR definition to load
-      Util::redirect('definitionEdit.php');
+      Util::redirect('definitionEdit.php?isOcr=1');
     } else {
       $url = "definitionEdit.php?definitionId={$d->id}";
       if ($isOcr) {
@@ -191,7 +201,7 @@ SmartyWrap::assign('user', User::get_by_id($d->userId));
 SmartyWrap::assign('entryIds', $entryIds);
 SmartyWrap::assign('tagIds', $tagIds);
 SmartyWrap::assign('typos', $typos);
-SmartyWrap::assign("allModeratorSources", Model::factory('Source')->where('canModerate', true)->order_by_asc('displayOrder')->find_many());
+SmartyWrap::assign('allModeratorSources', Model::factory('Source')->where('canModerate', true)->order_by_asc('displayOrder')->find_many());
 SmartyWrap::addCss('tinymce', 'admin', 'diff');
 SmartyWrap::addJs('select2Dev', 'tinymce', 'cookie', 'frequentObjects');
 SmartyWrap::display('admin/definitionEdit.tpl');

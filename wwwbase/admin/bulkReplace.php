@@ -61,12 +61,14 @@ if (!$saveButton) {
   Session::set('objCount', $objCount);
   Session::set('objChanged', 0);
   Session::set('objExcluded', 0);
+  Session::set('objStructured', []);
 }
 
 // variables should not be null
 $objCount = Session::get('objCount');
 $objChanged = Session::get('objChanged');
 $objExcluded = Session::get('objExcluded');
+$objStructured = Session::get('objStructured');
 
 // preparing the main query object with global parameters
 $query = $query
@@ -91,6 +93,9 @@ if ($saveButton) {
 
     if ($target == 1) { // $obj is a definition
       definitionReplace($obj, $search, $replace);
+      if ($obj->structured){
+        $objStructured[] = $obj->id;
+      }
     } else { // $obj is a meaning
       meaningReplace($obj, $search, $replace);
     }
@@ -113,12 +118,21 @@ if ($saveButton) {
                    $objCount,
                    $replace);
     FlashMessage::add($msg, 'success');
-    Util::redirect('index.php');
+    if (!empty($objStructured)) {
+      // eventually we could pass as encoded string, but this array may be huge exceeding the limit of URL size
+      //$serialized = rawurlencode(serialize($objStructured)); 
+      $serialized = implode(',', $objStructured); 
+      Session::unsetVar('objStructured');
+      Util::redirect('bulkReplaceStructured.php?objStructured='.$serialized); // case history of changed structured definitions
+    } else {
+      Util::redirect('index.php'); // nothing else to do
+    }
   }
 }
 
 Session::set('objChanged', $objChanged);
 Session::set('objExcluded', $objExcluded);
+Session::set('objStructured', $objStructured);
 
 // more records? we need another query
 $remaining = $objCount - $objChanged - $objExcluded;
@@ -150,6 +164,13 @@ if ($remaining) {
                   ($remaining > $limit) ? "maximum {$limit}" : $remaining);
 
   FlashMessage::add($msg, 'warning');
+  if (!empty($objStructured)) {
+    $msg = sprintf('%s %s %s structurate au fost modificate :: Lista lor este disponibilă accesând linkul din josul paginii.',
+               count($objStructured),
+               Str::getAmountPreposition(count($objStructured)),
+               $targetName);
+    FlashMessage::add($msg, 'danger');
+  }
 }
 
 SmartyWrap::assign('search', $search);
@@ -163,6 +184,7 @@ SmartyWrap::assign('remaining', $remaining);
 SmartyWrap::assign('de', Str::getAmountPreposition(count($objects)));
 SmartyWrap::assign('modUser', User::getActive());
 SmartyWrap::assign('objects', $objects);
+SmartyWrap::assign('structuredChanged', count($objStructured));
 SmartyWrap::addJs('diff');
 SmartyWrap::addCss('admin', 'diff');
 SmartyWrap::display('admin/bulkReplace.tpl');

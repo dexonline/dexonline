@@ -1,32 +1,34 @@
-$(document).ready(function() {
+$(document).ready(function () {
 
-  // toggle checked/unchecked for all checkboxes in list
-  $('#toggleAll').change(function() {
+  // toggle checked/unchecked for all checkboxes in list 
+  // according to secondClass ( structured : unstructured)
+  $('.toggleAll').change(function () {
+    var secondClass = this.className.split(' ')[1];
     var status = $(this).is(':checked');
-    $('.objCheckbox').prop('checked', status);
-    $('#chng').text(status ? objCount : '0');
-    $('#de').prop('hidden', !status);
+    toggleAll(secondClass, status);
+    unchecked[secondClass] = status ? 0 : checkboxes[secondClass];
+    changeFields();
   });
 
   // counting unchecked objects, changing some fields accordingly
-  $('.objCheckbox').change(function() {
-    var unchecked = $('.objCheckbox').not(':checked');
-    $('#toggleAll').prop('checked', !unchecked.length);
-    checkedCount = objCount - unchecked.length;
-    $('#chng').text(checkedCount);
-    $('#de').prop('hidden', hideAmountPreposition(checkedCount));
+  $('.objCheckbox').change(function () {
+    var secondClass = this.className.split(' ')[1];
+    var count = countUnchecked('.' + secondClass);
+    unchecked[secondClass] = count;
+    $('.toggleAll' + '.' + (secondClass)).prop('checked', !count);
+    changeFields();
   });
 
   // toggle between DeletionsOnly, InsertionsOnly and All modifications
-  $('input[name="radiodiff"]').click(function() {
+  $('input[name="radiodiff"]').click(function () {
     var selValue = $(this).val();
     $('#panel-body ins').toggle(selValue != 'del');
     $('#panel-body del').toggle(selValue != 'ins');
   });
 
   // getting the array for unchecked objects to be excluded from replace
-  $('[name="saveButton"]').click(function() {
-    var uncheckedIds = $('.objCheckbox').not(':checked').map(function() {
+  $('[name="saveButton"]').click(function () {
+    var uncheckedIds = $('.objCheckbox').not(':checked').map(function () {
       return this.value;
     }).get().join(',');
     $('input[name="excludedIds"]').val(uncheckedIds);
@@ -34,10 +36,31 @@ $(document).ready(function() {
 
   // setting variables
   var objCount = parseInt($('#chng').text());
-  var checkedCount = 0;
+  var checkboxes = { structured : $('.objCheckbox.structured').length, 
+                     unstructured : $('.objCheckbox.unstructured').length};
+  var unchecked = { structured : 0, 
+                    unstructured : 0 };
+  
+  function countUnchecked(cls) {
+    return $('.objCheckbox' + cls).not(':checked').length;
+  }
+
+  function toggleAll(secondClass, status) {
+    $('.objCheckbox' + '.' + secondClass).prop('checked', status);
+  }
+
+  function changeFields() {
+    var checkedCount = objCount - unchecked['structured'] - unchecked['unstructured'];
+    $('#chng').text(checkedCount);
+    $('#de').prop('hidden', hideAmountPreposition(checkedCount));
+  }
 
   function hideAmountPreposition(amount) {
     return (amount % 100) < 20;
   }
-
+  
+  // counting checkboxes
+  if (checkboxes['structured'] === 0) { $('#labelStructured').addClass('disabled');}
+  if (checkboxes['unstructured'] === 0) { $('#labelUnstructured').addClass('disabled');}
+  
 });

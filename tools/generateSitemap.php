@@ -70,7 +70,6 @@ function addUrl($url) {
 function addOtherUrls() {
   addUrl('https://dexonline.ro/');
   addUrl('https://dexonline.ro/contact');
-  addUrl('https://dexonline.ro/contribuie');
   addUrl('https://dexonline.ro/articol/Ghid_de_exprimare_corect%C4%83');
   addUrl('https://dexonline.ro/licenta');
   addUrl('https://dexonline.ro/auth/login');

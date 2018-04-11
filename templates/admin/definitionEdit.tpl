@@ -5,8 +5,10 @@
 {block "content"}
   {if $isOcr}
     {$title='Adăugare definiție OCR'}
-  {else}
+  {else if $def->id}
     {$title="Editare definiție {$def->id}"}
+  {else}
+    {$title="Trimite o definiție nouă"}
   {/if}
   <h3>
     {$title}

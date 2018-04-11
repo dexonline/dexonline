@@ -27,7 +27,7 @@ $reports = [
    'privilege' => User::PRIV_EDIT
   ],
   ['text' => 'Definiții OCR neverificate',
-   'url' => 'admin/definitionEdit',
+   'url' => 'admin/definitionEdit?isOcr=1',
    'count' => sprintf('%d (disponibile: %d)',
                       Variable::peek('Count.rawOcrDefinitions'),
                       OCR::countAvailable(User::getActiveId())),

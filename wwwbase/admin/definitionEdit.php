@@ -4,9 +4,10 @@ User::mustHave(User::PRIV_EDIT);
 Util::assertNotMirror();
 
 $definitionId = Request::get('definitionId');
+$isOcr = Request::get('isOcr');
 $userId = User::getActiveId();
 
-if (!$definitionId) {
+if ($isOcr && !$definitionId) {
   // User requested an OCR definition. Try to find one.
   $ocr = OCR::getNext($userId);
   if (!$ocr) {
@@ -37,14 +38,13 @@ if (!$definitionId) {
 }
 
 if (!($d = Definition::get_by_id($definitionId))) {
-  FlashMessage::add("Nu există nicio definiție cu ID-ul {$definitionId}.");
-  Util::redirect("index.php");
+  // create a new definition
+  $d = Model::factory('Definition')->create();
+  $d->sourceId = Session::getDefaultContribSourceId();
+  $d->status = User::can(User::PRIV_EDIT) ? Definition::ST_ACTIVE : Definition::ST_PENDING;
 }
 
-$orig = Definition::get_by_id($definitionId); // for comparison
-
 // Load request fields and buttons.
-$isOcr = Request::get('isOcr');
 $entryIds = Request::getArray('entryIds');
 $sourceId = Request::get('source');
 $similarSource = Request::has('similarSource');
@@ -102,7 +102,8 @@ if ($saveButton || $nextOcrBut) {
     }
     Typo::delete_all_by_definitionId($d->id);
 
-    if ($d->structured && ($d->internalRep != $orig->internalRep)) {
+    $orig = Definition::get_by_id($definitionId);
+    if ($d->structured && $orig && ($d->internalRep != $orig->internalRep)) {
       FlashMessage::add('Ați modificat o definiție deja structurată. Dacă se poate, ' .
                         'vă rugăm să modificați corespunzător și arborele de sensuri.',
                         'warning');
@@ -139,8 +140,10 @@ if ($saveButton || $nextOcrBut) {
   }
 } else {
   // First time loading this page -- not a save.
-  RecentLink::add(sprintf('Definiție: %s (%s) (ID=%s)',
-                          $d->lexicon, $d->getSource()->shortName, $d->id));
+  if ($d->id) {
+    RecentLink::add(sprintf('Definiție: %s (%s) (ID=%s)',
+                            $d->lexicon, $d->getSource()->shortName, $d->id));
+  }
 
   $entries = $d->getEntries();
   $entryIds = Util::objectProperty($entries, 'id');

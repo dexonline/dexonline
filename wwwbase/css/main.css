@@ -169,6 +169,7 @@ abbr[title] {
 
 .spaced {
   letter-spacing: 3px;
+  padding-left: 2px;
   /* prevent ligatures, since %fig.%, %refl.% etc. look bad when spaced. */
   -webkit-font-variant-ligatures: no-common-ligatures;
   font-variant-ligatures: no-common-ligatures;
@@ -184,6 +185,10 @@ abbr[title] {
 
 .tonic-accent {
   text-decoration: underline;
+}
+
+.secondary-accent {
+  text-decoration: underline double;
 }
 
 .defWrapper .glyphicon-comment {

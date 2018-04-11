@@ -356,7 +356,7 @@
               <label class="col-md-2 control-label">surse</label>
               <div class="col-md-10">
                 <select id="sourceIds"
-                        class="form-control""
+                        class="form-control"
                         name="sourceIds[]"
                         multiple
                         {if !$canEdit.sources}disabled{/if}>

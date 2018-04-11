@@ -10,6 +10,10 @@
   margin-bottom: 0.8em;
 }
 
+.defStructuredWrapper {
+  background-color: #f5f7f9;
+}
+
 .select2-container--default
 .select2-selection--multiple
 .select2-selection__choice.select2-highlighted {

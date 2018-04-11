@@ -326,7 +326,7 @@ class Str {
     return [$s, $ambiguousAbbrevs];
   }
 
-  // Checks that varios pairs of characters are nested properly in $s.
+  // Checks that various pairs of characters are nested properly in $s.
   // Some pairs contain the same character for opening and closing blocks (e.g. '@').
   // We cannot check the nesting of () due the use of ) in "a), b), c)".
   static function reportSanitizationErrors($s, &$errors) {

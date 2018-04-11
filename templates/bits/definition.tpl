@@ -1,6 +1,7 @@
 {$showTypos=$showTypos|default:false}
+{$showStructuredWrapper=$showStructuredWrapper|default:false}
 
-<div class="defWrapper">
+<div class="defWrapper{if $row->definition->structured && $showStructuredWrapper} defStructuredWrapper{/if}">
   <p>
     <span class="def" title="Clic pentru a naviga la acest cuvânt">
       {$row->definition->htmlRep}

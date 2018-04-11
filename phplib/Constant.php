@@ -49,7 +49,7 @@ class Constant {
   const HTML_PATTERNS = [
     '/▶(.*?)◀/s' => '',                                                 // remove unwanted parts of definition
     '/(?<!\\\\)"([^"]*)"/' => '„$1”',                                    // "x" => „x” - romanian quoting style
-    '/(?<!\\\\)\{\{(.*)\}\}/U' => ['FootnoteHtmlizer', 'htmlize'],      // {{fotnote}}
+    '/(?<!\\\\)\{{2}(.*)(?<![+])\}{2}/U' => ['FootnoteHtmlizer', 'htmlize'],      // {{fotnote}}
     '/(?<!\\\\)#([^#]*)#/' => ['AbbrevHtmlizer', 'htmlize'],            // #abbreviation#
     '/(?<!\\\\)%(.*)(?<!\\\\)%/Us' => '<span class="spaced">$1</span>',  // %spaced%
     '/(?<!\\\\)@(.*)(?<!\\\\)@/Us' => '<b>$1</b>',                       // @bold@

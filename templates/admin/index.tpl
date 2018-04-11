@@ -438,7 +438,7 @@
 
         <p class="text-muted">
           Folosiți cu precauție această unealtă. Ea înlocuiește primul text cu al
-          doilea în toate definițiile, incuzând notele de subsol, făcând diferența între litere mari și mici
+          doilea în toate definițiile, incluzând notele de subsol, făcând diferența între litere mari și mici
           (case-sensitive) și fără expresii regulate (textul este căutat ca
           atare). Vor fi modificate maximum 1.000 de definiții. Veți putea vedea
           lista de modificări propuse și să o acceptați. 

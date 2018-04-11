@@ -35,13 +35,17 @@ if ($isOcr && !$definitionId) {
 
   // Redirect to the new Definition.
   Util::redirect("definitionEdit.php?definitionId={$d->id}&isOcr=1");
-}
-
-if (!($d = Definition::get_by_id($definitionId))) {
+} else if (!$definitionId) {
   // create a new definition
   $d = Model::factory('Definition')->create();
   $d->sourceId = Session::getDefaultContribSourceId();
   $d->status = User::can(User::PRIV_EDIT) ? Definition::ST_ACTIVE : Definition::ST_PENDING;
+} else {
+  $d = Definition::get_by_id($definitionId);
+  if (!$d) {
+    FlashMessage::add("Nu există nicio definiție cu ID-ul {$definitionId}.");
+    Util::redirect('index.php');
+  }
 }
 
 // Load request fields and buttons.

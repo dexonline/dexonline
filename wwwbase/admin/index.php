@@ -90,6 +90,41 @@ $reportPriv = array_reduce($reports, function($carry, $r) {
   return $carry | $r['privilege'];
 }, 0);
 
+$links = [
+  [
+    'url' => 'moderatori',
+    'text' => 'moderatori',
+  ],
+  [
+    'url' => 'surse',
+    'text' => 'surse',
+  ],
+  [
+    'url' => 'etichete',
+    'text' => 'etichete',
+  ],
+  [
+    'url' => 'tipuri-modele',
+    'text' => 'tipuri de model',
+  ],
+  [
+    'url' => 'flexiuni',
+    'text' => 'flexiuni',
+  ],
+  [
+    'url' => 'admin/ocrInput',
+    'text' => 'adaugă definiții OCR',
+  ],
+  [
+    'url' => 'admin/contribTotals',
+    'text' => 'contorizare contribuții',
+  ],
+  [
+    'url' => 'admin/abbrevInput',
+    'text' => 'adaugă abrevieri',
+  ],
+];
+
 $minModDate = Model::factory('Variable')
             ->where_like('name', 'Count.%')
             ->min('modDate');
@@ -98,6 +133,7 @@ $timeAgo = time() - $minModDate;
 SmartyWrap::assign('structurists', User::getStructurists());
 SmartyWrap::assign('reports', $reports);
 SmartyWrap::assign('reportPriv', $reportPriv);
+SmartyWrap::assign('links', $links);
 SmartyWrap::assign('timeAgo', $timeAgo);
 SmartyWrap::addCss('admin', 'bootstrap-spinedit', 'bootstrap-datepicker');
 SmartyWrap::addJs('select2Dev', 'adminIndex', 'modelDropdown', 'bootstrap-spinedit',

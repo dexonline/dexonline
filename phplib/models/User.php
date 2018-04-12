@@ -69,4 +69,8 @@ class User extends BaseObject {
   static function setActive($userId) {
     self::$active = User::get_by_id($userId);
   }
+
+  static function isTrainee() {
+    return self::can(self::PRIV_TRAINEE);
+  }
 }

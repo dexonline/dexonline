@@ -106,6 +106,12 @@ if ($saveButton || $nextOcrBut) {
                         'warning');
     }
 
+    if (User::isTrainee() && $d->status == Definition::ST_ACTIVE) {
+      $d->status = Definition::ST_PENDING;
+      FlashMessage::add('Am trecut definiția înapoi în starea temporară, ' .
+                        'iar un moderator o va examina curând.', 'warning');
+    }
+
     // Save the definition and delete the typos associated with it.
     $d->save();
     Footnote::delete_all_by_definitionId($d->id);
@@ -222,11 +228,11 @@ function getDefaultStatus() {
 
 // trainees cannot edit the status field
 function canEditStatus() {
-  return !User::can(User::PRIV_TRAINEE);
+  return !User::isTrainee();
 }
 
 // trainees can only edit their own definitions
 function canEdit($definition) {
-  return !User::can(User::PRIV_TRAINEE) ||
+  return !User::isTrainee() ||
     ($definition->userId == User::getActiveId());
 }

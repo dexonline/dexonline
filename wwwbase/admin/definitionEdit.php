@@ -5,40 +5,22 @@ Util::assertNotMirror();
 
 $definitionId = Request::get('definitionId');
 $isOcr = Request::get('isOcr');
+$entryIds = Request::getArray('entryIds');
+$sourceId = Request::get('source');
+$similarSource = Request::has('similarSource');
+$structured = Request::has('structured');
+$internalRep = Request::get('internalRep');
+$status = Request::get('status', null);
+$tagIds = Request::getArray('tagIds');
+
+$saveButton = Request::has('saveButton');
+$nextOcrBut = Request::has('but_next_ocr');
+
 $userId = User::getActiveId();
 
 if ($isOcr && !$definitionId) {
   // user requested an OCR definition
-
-  checkPendingLimit($userId);
-
-  // try to load a definition from the OCR queue
-  $ocr = OCR::getNext($userId);
-  if (!$ocr) {
-    FlashMessage::add('Lista cu definiții OCR este goală.', 'warning');
-    Util::redirect('index.php');
-  }
-
-  // Found one, create the Definition and update the OCR.
-  $d = Model::factory('Definition')->create();
-  $d->status = getDefaultStatus();
-  $d->userId = $userId;
-  $d->sourceId = $ocr->sourceId;
-  $d->similarSource = 0;
-  $d->structured = 0;
-  $d->internalRep = $ocr->ocrText;
-  $d->process();
-  $d->save();
-
-  $ocr->definitionId = $d->id;
-  $ocr->editorId = $userId;
-  $ocr->status = 'published';
-  $ocr->save();
-
-  Log::notice("Imported definition {$d->id} ({$d->lexicon}) from OCR {$ocr->id}");
-
-  // Redirect to the new Definition.
-  Util::redirect("definitionEdit.php?definitionId={$d->id}&isOcr=1");
+  getDefinitionFromOcr($userId);
 } else if (!$definitionId) {
   // create a new definition
   $d = Model::factory('Definition')->create();
@@ -60,18 +42,6 @@ if ($isOcr && !$definitionId) {
     Util::redirect('index.php');
   }
 }
-
-// Load request fields and buttons.
-$entryIds = Request::getArray('entryIds');
-$sourceId = Request::get('source');
-$similarSource = Request::has('similarSource');
-$structured = Request::has('structured');
-$internalRep = Request::get('internalRep');
-$status = Request::get('status', null);
-$tagIds = Request::getArray('tagIds');
-
-$saveButton = Request::has('saveButton');
-$nextOcrBut = Request::has('but_next_ocr');
 
 if ($saveButton || $nextOcrBut) {
   $d->internalRep = $internalRep;
@@ -225,6 +195,38 @@ SmartyWrap::addJs('select2Dev', 'tinymce', 'cookie', 'frequentObjects');
 SmartyWrap::display('admin/definitionEdit.tpl');
 
 /*************************************************************************/
+
+// loads an OCR definition assigned to this user and redirects to it
+function getDefinitionFromOcr($userId) {
+  checkPendingLimit($userId);
+
+  // try to load a definition from the OCR queue
+  $ocr = OCR::getNext($userId);
+  if (!$ocr) {
+    FlashMessage::add('Lista cu definiții OCR este goală.', 'warning');
+    Util::redirect('index.php');
+  }
+
+  // Found one, create the Definition and update the OCR.
+  $d = Model::factory('Definition')->create();
+  $d->status = getDefaultStatus();
+  $d->userId = $userId;
+  $d->sourceId = $ocr->sourceId;
+  $d->similarSource = 0;
+  $d->structured = 0;
+  $d->internalRep = $ocr->ocrText;
+  $d->process();
+  $d->save();
+
+  $ocr->definitionId = $d->id;
+  $ocr->editorId = $userId;
+  $ocr->status = 'published';
+  $ocr->save();
+
+  Log::notice("Imported definition {$d->id} ({$d->lexicon}) from OCR {$ocr->id}");
+
+  Util::redirect("definitionEdit.php?definitionId={$d->id}&isOcr=1");
+}
 
 // check the pending definitions limit for trainees
 function checkPendingLimit($userId) {

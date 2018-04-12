@@ -62,6 +62,7 @@ if (!$saveButton) {
   Session::set('objChanged', 0);
   Session::set('objExcluded', 0);
   Session::set('objStructured', []);
+  Session::set('finishedReplace', false);
 }
 
 // variables should not be null
@@ -101,11 +102,13 @@ if ($saveButton) {
       meaningReplace($obj, $search, $replace);
       $obj->save();
     }
-
+    
     $objChanged++;
   }
   DebugInfo::stopClock('BulkReplace - AfterForEach +SaveButton');
 
+  Session::set('objStructured', $objStructured);
+  
   Log::notice('Replaced [%s] objects - [%s] with [%s] in source [%s]',
               $objChanged, $search, $replace, $sourceId);
   if ($objCount - $objChanged - $objExcluded == 0) {
@@ -121,12 +124,11 @@ if ($saveButton) {
                    $replace);
     FlashMessage::add($msg, 'success');
     if (!empty($objStructured)) {
-      // eventually we could pass as encoded string, but this array may be huge exceeding the limit of URL size
-      //$serialized = rawurlencode(serialize($objStructured)); 
-      $serialized = implode(',', $objStructured); 
-      Session::unsetVar('objStructured');
-      Util::redirect('bulkReplaceStructured.php?objStructured='.$serialized); // case history of changed structured definitions
+      Session::set('finishedReplace', true);
+      Util::redirect('bulkReplaceStructured.php'); // case history of changed structured definitions
     } else {
+      Session::unsetVar('objStructured'); // we don't need it anymore
+      Session::unsetVar('finishedReplace');
       Util::redirect('index.php'); // nothing else to do
     }
   }
@@ -134,7 +136,6 @@ if ($saveButton) {
 
 Session::set('objChanged', $objChanged);
 Session::set('objExcluded', $objExcluded);
-Session::set('objStructured', $objStructured);
 
 // more records? we need another query
 $remaining = $objCount - $objChanged - $objExcluded;
@@ -167,7 +168,8 @@ if ($remaining) {
 
   FlashMessage::add($msg, 'warning');
   if (!empty($objStructured)) {
-    $msg = sprintf('%s %s %s structurate au fost modificate :: Lista lor este disponibilă accesând linkul din josul paginii.',
+    $msg = sprintf('%s %s %s structurate au fost modificate :: Lista lor este '
+               . 'disponibilă accesând linkul din josul paginii.',
                count($objStructured),
                Str::getAmountPreposition(count($objStructured)),
                $targetName);

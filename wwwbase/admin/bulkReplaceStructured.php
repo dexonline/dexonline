@@ -5,25 +5,18 @@ require_once('../../phplib/Core.php');
 User::mustHave(User::PRIV_ADMIN);
 Util::assertNotMirror();
 
-const SEP_GRCONCAT ='␣'; // ␣ = &#8203;
-const SEP_CONCAT = '|';
-
 $objStructured = Session::get('objStructured');
+$finishedReplace = Session::get('finishedReplace');
 
 if ($objStructured == null) {
-  //$objStructured = unserialize(rawurldecode(Request::get('objStructured')));
-  $objStructured = explode(',', Request::get('objStructured'));
-  if ($objStructured == null) {
-    $msg = 'Nu am primit niciun parametru pentru a putea afișa lista.';
+    $msg = 'Nu am primit niciun parametru pentru a putea afișa lista definițiilor structurate modificate.';
     FlashMessage::add($msg, 'danger');
     Util::redirect('index.php'); // nothing else to do
-  }
 }
 
 DebugInfo::init();
 
 $defs = Model::factory('Definition')
-       ->where_in('status', [Definition::ST_ACTIVE, Definition::ST_HIDDEN])
        ->where_in('id', $objStructured)
        ->order_by_asc('id')
        ->find_many();
@@ -32,31 +25,35 @@ $defResults = createDefinitionDiffs($defs);
 
 $defIds = implode(',', $objStructured);
 
-$query = 
-  "SELECT ed.definitionId, GROUP_CONCAT(CONCAT_WS('" . SEP_CONCAT . "', e.description, e.id, e.structStatus) SEPARATOR '" . SEP_GRCONCAT . "') AS entries " .
-  "FROM EntryDefinition ed " .
-  "INNER JOIN Entry e ON e.id = ed.entryId " .
-  "WHERE ed.definitionId IN (" . $defIds . ") " .
-  "GROUP BY definitionId";
-
-$ents = DB::execute($query);
-DebugInfo::stopClock('BulkReplaceStructured - AfterQueryEntries');
-
-$entryResults = [];
-foreach ($ents as $row) {
-  $entries = explode(SEP_GRCONCAT, $row['entries']);
-  $variants = [];
-  foreach ($entries as $e) {
-    $variants[] = explode(SEP_CONCAT, $e);
-  }
-  
-  $entryResults[$row['definitionId']] = $variants; 
+if ($finishedReplace){
+  Session::unsetVar('finishedReplace');
+  Session::unsetVar('objStructured');
 }
-DebugInfo::stopClock('BulkReplaceStructured - AfterForeachEntries');
+
+// we do not want to overcrowd final list, so filtering only possible modified entries
+$entries = Model::factory('Entry')
+          ->table_alias('e')
+          ->select('e.*')
+          ->select('ed.definitionId')
+          ->join('EntryDefinition', ['e.id', '=', 'ed.entryId'], 'ed')
+          ->where_in('ed.definitionId', $objStructured)
+          ->where_in('e.structStatus', [Entry::STRUCT_STATUS_IN_PROGRESS, Entry::STRUCT_STATUS_DONE])
+          ->order_by_asc('ed.definitionId')
+          ->order_by_asc('ed.entryRank')  // ca intrările să apară în ordinea în care le-a aranjat editorul
+          ->find_many();
+        
+$entryResults = [];
+foreach ($entries as $e) {
+  // câmpul definitionId nu este nativ pe Entry, ci este extras de query-ul de mai sus
+  $entryResults[$e->definitionId][] = $e;
+}
+
+DebugInfo::stopClock('BulkReplaceStructured - AfterEntryResults');
 
 SmartyWrap::assign('modUser', User::getActive());
 SmartyWrap::assign('defResults', $defResults);
 SmartyWrap::assign('entryResults', $entryResults);
+SmartyWrap::assign('finished', $finishedReplace);
 SmartyWrap::addCss('admin', 'diff');
 SmartyWrap::display('admin/bulkReplaceStructured.tpl');
 
@@ -78,7 +75,7 @@ function createDefinitionDiffs($defs) {
     $diffDef = DiffUtil::internalDiff($dv->internalRep, $d->internalRep);
     list($d->htmlRep, $ignored) = Str::htmlize($diffDef, $d->sourceId);
   }
-  DebugInfo::stopClock('BulkReplaceStructured - AfterForEach +MoreToReplace');
+  DebugInfo::stopClock('BulkReplaceStructured - AfterCreateDefinitionDiffs');
 
   return $searchResults;
 }

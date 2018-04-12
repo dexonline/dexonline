@@ -1,11 +1,12 @@
 {$editLink=$editLink|default:false}
+{$target=$target|default:'_self'}
 {$editLinkClass=$editLinkClass|default:''}
 {$link=$link|default:false}
 {$variantList=$variantList|default:false}
 {$tagList=$tagList|default:false}
 
 {if $editLink}
-  <a href="{$wwwRoot}editEntry.php?id={$entry->id}" class="{$editLinkClass}" title="editează">
+  <a href="{$wwwRoot}editEntry.php?id={$entry->id}" class="{$editLinkClass}" title="editează" target="{$target}">
     {$entry->description}
   </a>
 {elseif $link}

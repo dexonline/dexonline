@@ -12,3 +12,7 @@
 .panel-admin .btn {
   margin-bottom: 5px;
 }
+
+.panel-heading .btn {
+  min-width: 100px;
+}

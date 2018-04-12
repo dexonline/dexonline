@@ -138,7 +138,10 @@
           type="submit"
           name="saveButton"
           class="btn btn-success"
-          {if !$canEdit}disabled title="nu puteți modifica această definiție"{/if}>
+          {if !$canEdit}
+          disabled
+          title="stagiarii nu pot modifica definiții introduse de altcineva"
+          {/if}>
           <i class="glyphicon glyphicon-floppy-disk"></i>
           <u>s</u>alvează
         </button>
@@ -148,7 +151,10 @@
             type="submit"
             class="btn btn-success"
             name="but_next_ocr"
-            {if !$canEdit}disabled title="nu puteți modifica această definiție"{/if}>
+            {if !$canEdit}
+            disabled
+            title="stagiarii nu pot modifica definiții introduse de altcineva"
+            {/if}>
             salvează și preia următoarea definiție OCR
           </button>
         {/if}

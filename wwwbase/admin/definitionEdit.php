@@ -8,7 +8,11 @@ $isOcr = Request::get('isOcr');
 $userId = User::getActiveId();
 
 if ($isOcr && !$definitionId) {
-  // User requested an OCR definition. Try to find one.
+  // user requested an OCR definition
+
+  checkPendingLimit($userId);
+
+  // try to load a definition from the OCR queue
   $ocr = OCR::getNext($userId);
   if (!$ocr) {
     FlashMessage::add('Lista cu definiții OCR este goală.', 'warning');
@@ -221,6 +225,21 @@ SmartyWrap::addJs('select2Dev', 'tinymce', 'cookie', 'frequentObjects');
 SmartyWrap::display('admin/definitionEdit.tpl');
 
 /*************************************************************************/
+
+// check the pending definitions limit for trainees
+function checkPendingLimit($userId) {
+  if (User::isTrainee()) {
+    $pending = Model::factory('Definition')
+             ->where('userId', $userId)
+             ->where('status', Definition::ST_PENDING)
+             ->count();
+    $limit = Config::get('limits.limitTraineePendingDefinitions');
+    if ($pending >= $limit) {
+      FlashMessage::add("Ați atins limita de {$limit} definiții nemoderate.");
+      Util::redirect('index.php');
+    }
+  }
+}
 
 function getDefaultStatus() {
   return User::can(User::PRIV_EDIT) ? Definition::ST_ACTIVE : Definition::ST_PENDING;

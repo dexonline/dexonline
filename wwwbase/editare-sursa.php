@@ -23,7 +23,6 @@ if ($saveButton) {
   $src->courtesyText = Request::get('courtesyText');
   $src->isActive = Request::has('isActive');
   $src->type = Request::get('type');
-  $src->canContribute = Request::has('canContribute');
   $src->canModerate = Request::has('canModerate');
   $src->canDistribute = Request::has('canDistribute');
   $src->structurable = Request::has('structurable');

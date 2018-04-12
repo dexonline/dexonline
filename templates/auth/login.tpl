@@ -76,7 +76,11 @@
   </p>
 
   <ul>
-    <li>Dacă contribuiți cu definiții, ele se vor adăuga în contul dumneavostră;</li>
+
+    <li>
+      Vă puteți alege <a href="../preferinte">preferințele</a>, cu efect pe toate calculatoarele;
+    </li>
+
     <li>Vă puteți crea o listă de definiții favorite pentru acces ușor.</li>
   </ul>
 {/block}

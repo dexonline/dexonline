@@ -71,7 +71,6 @@ server {
     # Redirect old php pages to new ones (only where we care about the link / pagerank)
     rewrite ^/faq.php$ https://wiki.dexonline.ro/wiki/Informații permanent;
     rewrite ^/contact.php$ /contact permanent;
-    rewrite ^/contrib.php$ /contribuie permanent;
     rewrite ^/corect.php$ /articol/Ghid_de_exprimare_corectă permanent;
     rewrite ^/tools.php$ /unelte permanent;
   }

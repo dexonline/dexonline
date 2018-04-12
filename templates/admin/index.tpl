@@ -445,7 +445,9 @@
         </p>
       </div>
     </div>
+  {/if}
 
+  {if User::can($linkPriv)}
     <div class="panel panel-default">
       <div class="panel-heading">
         Legături
@@ -454,9 +456,11 @@
       <div class="panel-body">
         <div class="row">
           {foreach $links as $l}
-            <div class="col-lg-3 col-md-4 col-sm-6">
-              <a href="{$l.url}">{$l.text}</a>
-            </div>
+            {if User::can($l.privilege)}
+              <div class="col-lg-3 col-md-4 col-sm-6">
+                <a href="{$wwwRoot}{$l.url}">{$l.text}</a>
+              </div>
+            {/if}
           {/foreach}
         </div>
       </div>

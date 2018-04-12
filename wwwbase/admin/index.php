@@ -86,44 +86,58 @@ $reports = [
 ];
 
 // OR of all the above privileges -- that's the mask to view any reports
-$reportPriv = array_reduce($reports, function($carry, $r) {
-  return $carry | $r['privilege'];
-}, 0);
+$reportPriv = array_reduce($reports, 'orReducer', 0);
 
 $links = [
   [
     'url' => 'moderatori',
     'text' => 'moderatori',
+    'privilege' => User::PRIV_ADMIN,
   ],
   [
     'url' => 'surse',
     'text' => 'surse',
+    'privilege' => User::PRIV_ADMIN,
   ],
   [
     'url' => 'etichete',
     'text' => 'etichete',
+    'privilege' => User::PRIV_EDIT,
   ],
   [
     'url' => 'tipuri-modele',
     'text' => 'tipuri de model',
+    'privilege' => User::PRIV_EDIT,
   ],
   [
     'url' => 'flexiuni',
     'text' => 'flexiuni',
+    'privilege' => User::PRIV_LOC,
   ],
   [
     'url' => 'admin/ocrInput',
     'text' => 'adaugă definiții OCR',
+    'privilege' => User::PRIV_ADMIN,
   ],
   [
     'url' => 'admin/contribTotals',
     'text' => 'contorizare contribuții',
+    'privilege' => User::PRIV_ADMIN,
   ],
   [
     'url' => 'admin/abbrevInput',
     'text' => 'adaugă abrevieri',
+    'privilege' => User::PRIV_ADMIN,
+  ],
+  [
+    'url' => 'admin/definitionEdit',
+    'text' => 'adaugă o definiție',
+    'privilege' => User::PRIV_EDIT | User::PRIV_TRAINEE,
   ],
 ];
+
+// OR of all the above privileges -- that's the mask to view any links
+$linkPriv = array_reduce($links, 'orReducer', 0);
 
 $minModDate = Model::factory('Variable')
             ->where_like('name', 'Count.%')
@@ -134,8 +148,15 @@ SmartyWrap::assign('structurists', User::getStructurists());
 SmartyWrap::assign('reports', $reports);
 SmartyWrap::assign('reportPriv', $reportPriv);
 SmartyWrap::assign('links', $links);
+SmartyWrap::assign('linkPriv', $linkPriv);
 SmartyWrap::assign('timeAgo', $timeAgo);
 SmartyWrap::addCss('admin', 'bootstrap-spinedit', 'bootstrap-datepicker');
 SmartyWrap::addJs('select2Dev', 'adminIndex', 'modelDropdown', 'bootstrap-spinedit',
                   'bootstrap-datepicker');
 SmartyWrap::display('admin/index.tpl');
+
+/*************************************************************************/
+
+function orReducer($carry, $r) {
+  return $carry | $r['privilege'];
+}

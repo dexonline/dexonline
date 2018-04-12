@@ -1,6 +1,6 @@
 <?php
 require_once("../../phplib/Core.php");
-User::mustHave(User::PRIV_EDIT);
+User::mustHave(User::PRIV_EDIT | User::PRIV_TRAINEE);
 Util::assertNotMirror();
 
 $definitionId = Request::get('definitionId');
@@ -17,7 +17,7 @@ if ($isOcr && !$definitionId) {
 
   // Found one, create the Definition and update the OCR.
   $d = Model::factory('Definition')->create();
-  $d->status = Definition::ST_ACTIVE;
+  $d->status = getDefaultStatus();
   $d->userId = $userId;
   $d->sourceId = $ocr->sourceId;
   $d->similarSource = 0;
@@ -38,7 +38,8 @@ if ($isOcr && !$definitionId) {
 } else if (!$definitionId) {
   // create a new definition
   $d = Model::factory('Definition')->create();
-  $d->status = User::can(User::PRIV_EDIT) ? Definition::ST_ACTIVE : Definition::ST_PENDING;
+  $d->status = getDefaultStatus();
+  $d->userId = $userId;
 
   $d->sourceId = Session::getSourceCookie();
   if (!$d->sourceId) {
@@ -192,6 +193,11 @@ $row = new SearchResult();
 $row->definition = $d;
 $row->source = $d->getSource();
 
+$sources = Model::factory('Source')
+         ->where('canModerate', true)
+         ->order_by_asc('displayOrder')
+         ->find_many();
+
 SmartyWrap::assign('isOcr', $isOcr);
 SmartyWrap::assign('def', $d);
 SmartyWrap::assign('row', $row);
@@ -201,7 +207,26 @@ SmartyWrap::assign('user', User::get_by_id($d->userId));
 SmartyWrap::assign('entryIds', $entryIds);
 SmartyWrap::assign('tagIds', $tagIds);
 SmartyWrap::assign('typos', $typos);
-SmartyWrap::assign('allModeratorSources', Model::factory('Source')->where('canModerate', true)->order_by_asc('displayOrder')->find_many());
+SmartyWrap::assign('canEdit', canEdit($d));
+SmartyWrap::assign('canEditStatus', canEditStatus());
+SmartyWrap::assign('allModeratorSources', $sources);
 SmartyWrap::addCss('tinymce', 'admin', 'diff');
 SmartyWrap::addJs('select2Dev', 'tinymce', 'cookie', 'frequentObjects');
 SmartyWrap::display('admin/definitionEdit.tpl');
+
+/*************************************************************************/
+
+function getDefaultStatus() {
+  return User::can(User::PRIV_EDIT) ? Definition::ST_ACTIVE : Definition::ST_PENDING;
+}
+
+// trainees cannot edit the status field
+function canEditStatus() {
+  return !User::can(User::PRIV_TRAINEE);
+}
+
+// trainees cannot edit someone else's definition
+function canEdit($definition) {
+  return !User::can(User::PRIV_TRAINEE) ||
+    ($definition->userId == User::getActiveId());
+}

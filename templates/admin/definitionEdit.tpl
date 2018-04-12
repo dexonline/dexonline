@@ -43,7 +43,10 @@
         <div class="form-group">
           <label class="col-sm-2 col-md-4 control-label">stare</label>
           <div class="col-sm-10 col-md-8">
-            {include "bits/statusDropDown.tpl" name="status" selectedStatus=$def->status}
+            {include "bits/statusDropDown.tpl"
+              name="status"
+              selectedStatus=$def->status
+              disabled=!$canEditStatus}
           </div>
         </div>
       </div>
@@ -131,15 +134,21 @@
           <u>r</u>eafișează
         </button>
 
-        <button type="submit"
-                name="saveButton"
-                class="btn btn-success">
+        <button
+          type="submit"
+          name="saveButton"
+          class="btn btn-success"
+          {if !$canEdit}disabled title="nu puteți modifica această definiție"{/if}>
           <i class="glyphicon glyphicon-floppy-disk"></i>
           <u>s</u>alvează
         </button>
 
         {if $isOcr}
-          <button type="submit" class="btn btn-success" name="but_next_ocr">
+          <button
+            type="submit"
+            class="btn btn-success"
+            name="but_next_ocr"
+            {if !$canEdit}disabled title="nu puteți modifica această definiție"{/if}>
             salvează și preia următoarea definiție OCR
           </button>
         {/if}

@@ -28,10 +28,10 @@ $reports = [
   ],
   ['text' => 'Definiții OCR neverificate',
    'url' => 'admin/definitionEdit?isOcr=1',
-   'count' => sprintf('%d (disponibile: %d)',
+   'count' => sprintf('%d (alocate dvs.: %d)',
                       Variable::peek('Count.rawOcrDefinitions'),
                       OCR::countAvailable(User::getActiveId())),
-   'privilege' => User::PRIV_EDIT
+   'privilege' => User::PRIV_EDIT | User::PRIV_TRAINEE
   ],
   ['text' => 'Definiții neasociate cu nicio intrare',
    'url' => 'admin/viewUnassociatedDefinitions',
@@ -85,6 +85,11 @@ $reports = [
   ],
 ];
 
+// OR of all the above privileges -- that's the mask to view any reports
+$reportPriv = array_reduce($reports, function($carry, $r) {
+  return $carry | $r['privilege'];
+}, 0);
+
 $minModDate = Model::factory('Variable')
             ->where_like('name', 'Count.%')
             ->min('modDate');
@@ -92,6 +97,7 @@ $timeAgo = time() - $minModDate;
 
 SmartyWrap::assign('structurists', User::getStructurists());
 SmartyWrap::assign('reports', $reports);
+SmartyWrap::assign('reportPriv', $reportPriv);
 SmartyWrap::assign('timeAgo', $timeAgo);
 SmartyWrap::addCss('admin', 'bootstrap-spinedit', 'bootstrap-datepicker');
 SmartyWrap::addJs('select2Dev', 'adminIndex', 'modelDropdown', 'bootstrap-spinedit',

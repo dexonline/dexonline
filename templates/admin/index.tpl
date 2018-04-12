@@ -7,7 +7,7 @@
 
   {include "bits/phpConstants.tpl"}
 
-  {if User::can(User::PRIV_EDIT)}
+  {if User::can($reportPriv)}
     <div class="panel panel-default">
       <div class="panel-heading">
         Rapoarte

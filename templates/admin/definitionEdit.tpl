@@ -13,12 +13,12 @@
   <h3>
     {$title}
     <span class="pull-right">
-      <small>
-        <a href="https://wiki.dexonline.ro/wiki/Editarea_defini%C8%9Biilor">
-          <i class="glyphicon glyphicon-question-sign"></i>
-          instrucțiuni
-        </a>
-      </small>
+      <a class="btn btn-link"
+        href="https://wiki.dexonline.ro/wiki/Editarea_defini%C8%9Biilor"
+        target="_blank">
+        <i class="glyphicon glyphicon-question-sign"></i>
+        ajutor
+      </a>
     </span>
   </h3>
 

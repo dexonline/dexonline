@@ -225,7 +225,7 @@ function canEditStatus() {
   return !User::can(User::PRIV_TRAINEE);
 }
 
-// trainees cannot edit someone else's definition
+// trainees can only edit their own definitions
 function canEdit($definition) {
   return !User::can(User::PRIV_TRAINEE) ||
     ($definition->userId == User::getActiveId());

@@ -54,7 +54,7 @@ class Definition extends BaseObject implements DatedObject {
     return $this->footnotes;
   }
 
-  /* 
+  /**
    * Process the entire definition
    * 
    * Single entry point for sanitize() / htmlize() / footnotes reprocess etc. 

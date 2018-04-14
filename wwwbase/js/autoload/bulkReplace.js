@@ -59,8 +59,12 @@ $(document).ready(function () {
     return (amount % 100) < 20;
   }
   
+  function disableCheck(secondClass){
+    $('.toggleAll'+'.'+secondClass).prop('disabled', true).removeProp('checked');
+  }
+  
   // counting checkboxes
-  if (checkboxes['structured'] === 0) { $('#labelStructured').addClass('disabled');}
-  if (checkboxes['unstructured'] === 0) { $('#labelUnstructured').addClass('disabled');}
+  if (checkboxes['structured'] === 0) { $('#labelStructured').addClass('disabled'); disableCheck('structured');}
+  if (checkboxes['unstructured'] === 0) { $('#labelUnstructured').addClass('disabled'); disableCheck('unstructured');}
   
 });

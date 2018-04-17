@@ -4,6 +4,8 @@ require_once("../../phplib/Core.php");
 $query = Request::get('term');
 $exclude = Request::get('exclude', 0);
 
+$query = addslashes($query);
+
 $entries = Model::factory('Entry')
          ->table_alias('e')
          ->select('e.*')

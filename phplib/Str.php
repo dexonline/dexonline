@@ -465,7 +465,7 @@ class Str {
   static function htmlize($s, $sourceId, $obeyNewlines = false, &$errors = null, &$warnings = null) {
     $errors = $errors ?? [];
     $warnings = $warnings ?? [];
-    
+
     $s = htmlspecialchars($s, ENT_NOQUOTES);
 
     self::findRedundantLinks($s, $warnings);
@@ -482,7 +482,11 @@ class Str {
         $className = $replacement[0];
         $helper = new $className($sourceId, $errors, $warnings);
         $s = preg_replace_callback($internal, [$helper, 'htmlize'], $s);
-        $payloads[$helper->getKey()] = $helper->getPayload();
+
+        $key = $helper->getKey();
+        if ($key) {
+          $payloads[$key] = $helper->getPayload();
+        }
       } else {
         die('Unknown value type in HTML_PATTERNS.');
       }

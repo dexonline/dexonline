@@ -16,8 +16,19 @@ abstract class Htmlizer {
     $this->warnings = &$warnings;
   }
 
-  abstract function getKey();
-  abstract function getPayload();
+  /**
+   * Override if the child class needs to return payload information.
+   **/
+  function getKey() {
+    return null;
+  }
+
+  /**
+   * Override if the child class needs to return payload information.
+   **/
+  function getPayload() {
+    return null;
+  }
 
   // htmlize one instance of a match
   abstract function htmlize($match);

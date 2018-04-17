@@ -9,7 +9,9 @@ $internalRep = Request::get('internalRep');
 $sourceId = Request::get('sourceId');
 $entryIds = Request::getArray('entryIds');
 
-$d = Definition::get_by_id($definitionId);
+$d = ($definitionId)
+   ? Definition::get_by_id($definitionId)
+   : Model::factory('Definition')->create();
 $d->internalRep = $internalRep;
 $d->sourceId = $sourceId;
 $footnotes = $d->process(false);

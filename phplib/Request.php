@@ -73,7 +73,8 @@ class Request {
 
   /* Use when the parameter is expected to have array type. */
   static function getArray($name) {
-    return self::get($name, []);
+    $val = self::get($name);
+    return empty($val) ? [] : $val;
   }
 
   /**

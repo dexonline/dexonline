@@ -178,18 +178,20 @@ $sources = Model::factory('Source')
          ->order_by_asc('displayOrder')
          ->find_many();
 
-SmartyWrap::assign('isOcr', $isOcr);
-SmartyWrap::assign('def', $d);
-SmartyWrap::assign('row', $row);
-SmartyWrap::assign('source', $d->getSource());
-SmartyWrap::assign('sim', SimilarRecord::create($d, $entryIds));
-SmartyWrap::assign('user', User::get_by_id($d->userId));
-SmartyWrap::assign('entryIds', $entryIds);
-SmartyWrap::assign('tagIds', $tagIds);
-SmartyWrap::assign('typos', $typos);
-SmartyWrap::assign('canEdit', canEdit($d));
-SmartyWrap::assign('canEditStatus', canEditStatus());
-SmartyWrap::assign('allModeratorSources', $sources);
+SmartyWrap::assign([
+  'isOcr' => $isOcr,
+  'def' => $d,
+  'row' => $row,
+  'source' => $d->getSource(),
+  'sim' => SimilarRecord::create($d, $entryIds),
+  'user' => User::get_by_id($d->userId),
+  'entryIds' => $entryIds,
+  'tagIds' => $tagIds,
+  'typos' => $typos,
+  'canEdit' => canEdit($d),
+  'canEditStatus' => canEditStatus(),
+  'allModeratorSources' => $sources,
+]);
 SmartyWrap::addCss('tinymce', 'admin', 'diff');
 SmartyWrap::addJs('select2Dev', 'tinymce', 'cookie', 'frequentObjects');
 SmartyWrap::display('admin/definitionEdit.tpl');

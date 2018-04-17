@@ -186,12 +186,14 @@ class SmartyWrap {
     self::$theSmarty->compile_dir = Core::getRootPath() . 'templates_c';
     self::$theSmarty->inheritance_merge_compiled_includes = false; // This allows variable names in {include} tags
     if (Request::isWeb()) {
-      self::assign('wwwRoot', Core::getWwwRoot());
-      self::assign('imgRoot', Core::getImgRoot());
-      self::assign('currentYear', date("Y"));
-      self::assign('suggestNoBanner', Util::suggestNoBanner());
-      self::assign('privateMode', Session::userPrefers(Preferences::PRIVATE_MODE));
-      self::assign('cfg', Config::getAll());
+      self::assign([
+        'wwwRoot' => Core::getWwwRoot(),
+        'imgRoot' => Core::getImgRoot(),
+        'currentYear' => date("Y"),
+        'suggestNoBanner' => Util::suggestNoBanner(),
+        'privateMode' => Session::userPrefers(Preferences::PRIVATE_MODE),
+        'cfg' => Config::getAll(),
+      ]);
     }
   }
 
@@ -338,25 +340,36 @@ class SmartyWrap {
     print self::fetch($templateName);
   }
 
-static function fetch($templateName) {
-	self::$cssFiles = array_merge(
-		self::orderResources(self::$cssMap, self::$includedCss),
-		self::$cssFiles
-	);
-	self::assign('cssFile', self::mergeResources(self::$cssFiles, 'css'));
+  static function fetch($templateName) {
+    self::$cssFiles = array_merge(
+      self::orderResources(self::$cssMap, self::$includedCss),
+      self::$cssFiles
+    );
+    self::assign('cssFile', self::mergeResources(self::$cssFiles, 'css'));
 
-	self::$jsFiles = array_merge(
-		self::orderResources(self::$jsMap, self::$includedJs),
-		self::$jsFiles
-	);
-	self::assign('jsFile', self::mergeResources(self::$jsFiles, 'js'));
+    self::$jsFiles = array_merge(
+      self::orderResources(self::$jsMap, self::$includedJs),
+      self::$jsFiles
+    );
+    self::assign('jsFile', self::mergeResources(self::$jsFiles, 'js'));
 
-	self::assign('flashMessages', FlashMessage::getMessages());
-	return self::$theSmarty->fetch($templateName);
+    self::assign('flashMessages', FlashMessage::getMessages());
+    return self::$theSmarty->fetch($templateName);
   }
 
-  static function assign($variable, $value) {
-    self::$theSmarty->assign($variable, $value);
+  /**
+   * Can be called as
+   * assign($name, $value) or
+   * assign([$name1 => $value1, $name2 => $value2, ...])
+   **/
+  static function assign($arg1, $arg2 = null) {
+    if (is_array($arg1)) {
+      foreach ($arg1 as $name => $value) {
+        self::$theSmarty->assign($name, $value);
+      }
+    } else {
+      self::$theSmarty->assign($arg1, $arg2);
+    }
   }
 
   static function registerOutputFilters() {

@@ -1,5 +1,5 @@
 <?php
-require_once("../../phplib/Core.php"); 
+require_once("../../phplib/Core.php");
 User::mustHave(User::PRIV_EDIT | User::PRIV_STRUCT);
 Util::assertNotMirror();
 
@@ -209,6 +209,7 @@ if ($joinEntryTag || $joinLexemeTag) {
 // Count the results. Note: we cannot use the count() method, because of the grouping above.
 $countResult = $q
   ->select("{$alias}.id")
+  ->distinct()
   ->find_array();
 $count = count($countResult);
 

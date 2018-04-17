@@ -49,17 +49,17 @@ class Constant {
   const HTML_PATTERNS = [
     '/▶(.*?)◀/s' => '',                                                 // remove unwanted parts of definition
     '/(?<!\\\\)"([^"]*)"/' => '„$1”',                                    // "x" => „x” - romanian quoting style
-    '/(?<!\\\\)\{{2}(.*)(?<![+])\}{2}/U' => ['FootnoteHtmlizer', 'htmlize'],      // {{fotnote}}
-    '/(?<!\\\\)#([^#]*)#/' => ['AbbrevHtmlizer', 'htmlize'],            // #abbreviation#
+    '/(?<!\\\\)\{{2}(.*)(?<![+])\}{2}/U' => [ 'FootnoteHtmlizer' ],      // {{fotnote}}
+    '/(?<!\\\\)#([^#]*)#/' => [ 'AbbrevHtmlizer' ],                      // #abbreviation#
     '/(?<!\\\\)%(.*)(?<!\\\\)%/Us' => '<span class="spaced">$1</span>',  // %spaced%
     '/(?<!\\\\)@(.*)(?<!\\\\)@/Us' => '<b>$1</b>',                       // @bold@
     '/(?<!\\\\)\\$(.*)(?<!\\\\)\\$/Us' => '<i>$1</i>',                   // $italic$
-    '/(?<!\\\\)\^(\d)/' => '<sup>$1</sup>',                             // superscript ^123
-    '/(?<!\\\\)\^\{([^}]*)\}/' => '<sup>$1</sup>',                      // superscript ^{a b c}
-    '/(?<!\\\\)_(\d)/' => '<sub>$1</sub>',                              // subscript _123
-    '/(?<!\\\\)_\{([^}]*)\}/' => '<sub>$1</sub>',                       // superscript _{a b c}
-    '/(?<!\\\\)\{-([^}]*)-\}/' => '<del>$1</del>',                      // deletions {-foo-}
-    '/(?<!\\\\)\{\+([^}]*)\+\}/' => '<ins>$1</ins>',                    // insertions {+foo+}
+    '/(?<!\\\\)\^(\d)/' => '<sup>$1</sup>',                              // superscript ^123
+    '/(?<!\\\\)\^\{([^}]*)\}/' => '<sup>$1</sup>',                       // superscript ^{a b c}
+    '/(?<!\\\\)_(\d)/' => '<sub>$1</sub>',                               // subscript _123
+    '/(?<!\\\\)_\{([^}]*)\}/' => '<sub>$1</sub>',                        // superscript _{a b c}
+    '/(?<!\\\\)\{-([^}]*)-\}/' => '<del>$1</del>',                       // deletions {-foo-}
+    '/(?<!\\\\)\{\+([^}]*)\+\}/' => '<ins>$1</ins>',                     // insertions {+foo+}
 
     // |foo|bar| references
     '/(?<!\\\\)\|([^|]*)\|([^|]*)\|/' => '<a class="ref" href="/definitie/$2">$1</a>',

@@ -32,4 +32,11 @@ abstract class Htmlizer {
 
   // htmlize one instance of a match
   abstract function htmlize($match);
+
+  /**
+   * Some htmlizers need to run some postprocessing. Default is to do nothing.
+   **/
+  function postprocess($s) {
+    return $s;
+  }
 }

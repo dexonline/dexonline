@@ -481,7 +481,9 @@ class Str {
       } else if (is_array($replacement)) {
         $className = $replacement[0];
         $helper = new $className($sourceId, $errors, $warnings);
+
         $s = preg_replace_callback($internal, [$helper, 'htmlize'], $s);
+        $s = $helper->postprocess($s);
 
         $key = $helper->getKey();
         if ($key) {
@@ -490,13 +492,6 @@ class Str {
       } else {
         die('Unknown value type in HTML_PATTERNS.');
       }
-    }
-
-    // __emphasized__ text
-    $count = 0;
-    $s = preg_replace('/__(.*?)__/', '<span class="emph">$1</span>', $s, -1, $count);
-    if ($count) {
-      $s = "<span class=\"deemph\">$s</span>";
     }
 
     // t'onic 'accent

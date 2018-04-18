@@ -64,7 +64,13 @@ $(document).ready(function () {
   }
   
   // counting checkboxes
-  if (checkboxes['structured'] === 0) { $('#labelStructured').addClass('disabled'); disableCheck('structured');}
-  if (checkboxes['unstructured'] === 0) { $('#labelUnstructured').addClass('disabled'); disableCheck('unstructured');}
+  if (checkboxes['structured'] === 0) { 
+    $('#labelStructured').addClass('disabled'); 
+    disableCheck('structured');
+  }
+  if (checkboxes['unstructured'] === 0) { 
+    $('#labelUnstructured').addClass('disabled'); 
+    disableCheck('unstructured');
+  }
   
 });

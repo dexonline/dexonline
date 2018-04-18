@@ -6,49 +6,42 @@ ini_set('max_execution_time', '3600');
 User::mustHave(User::PRIV_ADMIN);
 Util::assertNotMirror();
 
-const TARGET_NAMES = [
-  1 => 'definiții',
-  2 => 'sensuri',
-];
-
 $search = Request::getRaw('search');
 $replace = Request::getRaw('replace');
 $target = Request::get('target');
 $sourceId = Request::get('sourceId');
-$lastId = intval(Request::get('lastId')); // id of object for further search
 $limit = Request::get('limit'); // max possible number of objects that will be changed
-$excludedIds = Request::get('excludedIds'); // array of object IDs excluded from changes
 $saveButton = Request::has('saveButton');
 
-$targetName = TARGET_NAMES[$target];
+$excludedIds = Request::get('excludedIds'); // array of object IDs excluded from changes
+
+$targetName = Constant::TARGET_NAMES[$target]['select'];
 
 DebugInfo::init();
 
-// Use | to escape MySQL special characters so that constructs and chars like
-// \% , _ , | (which in dexonline notation means: "literal percent sign", latex
-// convention for subscript, the pipe itself) remains unaffected.
-$replaceChars = [
-  '%' => '|%',
-  '_' => '|_',
-  '|' => '||',
-];
-$mysqlSearch = strtr($search, array_combine(array_keys($replaceChars), array_values($replaceChars)));
+$mysqlSearch = strtr($search, 
+  array_combine(array_keys(Constant::BULKREPLACE_ESCAPES), 
+                array_values(Constant::BULKREPLACE_ESCAPES)
+    )
+  );
 
-if ($target == 1) { // definitions
-  $query = Model::factory('Definition')
-         ->where_in('status', [Definition::ST_ACTIVE, Definition::ST_HIDDEN])
-         ->where_raw('(binary internalRep like ? escape "|")', ["%{$mysqlSearch}%"]);
-  if ($sourceId) {
-    $query = $query->where('sourceId', $sourceId);
-  }
-} else { // meanings
-  $query = Model::factory('Meaning')
-         ->where_raw('(binary internalRep like ? escape "|")', ["%{$mysqlSearch}%"]);
-}
-
-// we need the count only once to speed up subsequent replace
+/** 
+ * We need the array of Ids, matching the search criteria, only once.
+ *  - big array of Ids will be divided into chunks
+ *  - further search is based on array_diff of $objRemainingIds chunks with $excludedIds, 
+ *    which outperform queries with LIMIT
+ *  - counting of objects: remaining, changed and excluded is based on those arrays
+ */
 if (!$saveButton) {
-  $objCount = $query->count();
+  $query = prepareBaseQuery($target, $mysqlSearch, $sourceId);
+  $objResults = $query->select('id')->find_many();
+  
+  foreach ($objResults as $o) {
+    $objRemainingIds[] = $o->id;
+  }
+  $objCount = count($objRemainingIds);
+  $objRemainingIds = array_chunk($objRemainingIds, $limit);
+  unset($objResults);
   DebugInfo::stopClock('BulkReplace - Count - After search criteria');
 
   // no records? we should not go any further
@@ -61,60 +54,43 @@ if (!$saveButton) {
   Session::set('objCount', $objCount);
   Session::set('objChanged', 0);
   Session::set('objExcluded', 0);
-  Session::set('objStructured', []);
+  Session::set('objRemainingIds', $objRemainingIds);
+  Session::set('objStructuredIds', []);
+  Session::set('phase', 0);
   Session::set('finishedReplace', false);
 }
 
 // variables should not be null
+$phase = Session::get('phase');
 $objCount = Session::get('objCount');
 $objChanged = Session::get('objChanged');
 $objExcluded = Session::get('objExcluded');
-$objStructured = Session::get('objStructured');
+$objRemainingIds = Session::get('objRemainingIds');
+$objStructuredIds = Session::get('objStructuredIds');
 
-// preparing the main query object with global parameters
-$query = $query
-       ->order_by_asc('id')
-       ->limit($limit);
-
+/** Form was submitted, process the records */
 if ($saveButton) {
-  $querySave = $query->where_gt('id', $lastId); // only those records that were previsualized
-  $objects = $querySave->find_many();
-  DebugInfo::stopClock('BulkReplace - AfterQuery +SaveButton');
-
-  $excludedIds = filter_var_array(
-    preg_split('/,/', $excludedIds, null, PREG_SPLIT_NO_EMPTY),
-    FILTER_SANITIZE_NUMBER_INT);
-  $objExcluded += count($excludedIds);
-
-  foreach ($objects as $obj) {
-    $lastId = $obj->id;                     // $lastId will get the final ID
-    if (in_array($obj->id, $excludedIds)) {
-      continue;                             // don't process exluded IDs
-    }
-
-    if ($target == 1) { // $obj is a definition
-      definitionReplace($obj, $search, $replace);
-      if ($obj->structured){
-        $objStructured[] = $obj->id;
-      }
-      $obj->deepSave();
-    } else { // $obj is a meaning
-      meaningReplace($obj, $search, $replace);
-      $obj->save();
-    }
-    
-    $objChanged++;
-  }
-  DebugInfo::stopClock('BulkReplace - AfterForEach +SaveButton');
-
-  Session::set('objStructured', $objStructured);
+  /** preparing array for the subsequent query */
+  $queryIds = processObjectIds($objRemainingIds, $excludedIds, $objExcluded, $phase);
   
-  Log::notice('Replaced [%s] objects - [%s] with [%s] in source [%s]',
-              $objChanged, $search, $replace, $sourceId);
-  if ($objCount - $objChanged - $objExcluded == 0) {
-    Session::unsetVar('objCount');
-    Session::unsetVar('objChanged');
-    Session::unsetVar('objExcluded');
+  if (!empty($queryIds)) {
+    /** select only those records that were previewed (and not excluded) */
+    $query = prepareBaseQuery($target, $mysqlSearch, $sourceId);
+    $objects = $query->where_id_in($queryIds)->find_many();
+    DebugInfo::stopClock('BulkReplace - AfterQueryObjects +SaveButton');
+
+    /** Save and log */
+    saveObjects($objects, $target, $search, $replace, $objChanged, $objStructuredIds);
+    DebugInfo::stopClock('BulkReplace - AfterSaveObjects +SaveButton');
+    Log::notice('Replaced [%s] with [%s] in [%s] objects from table %s '. ($sourceId ?: ' in source [%s]'),
+                $search, $replace, $objChanged, Constant::TARGET_NAMES[$target]['model'], $sourceId);
+    unset($objects);
+  }
+  
+  /** Test if we are done */
+  if ($objCount == $objChanged + $objExcluded) {
+    /** a little housekeeping, preparing for redirect */
+    unsetVars([ 'phase', 'objCount', 'objChanged', 'objExcluded', 'objRemainingIds' ]);
 
     $msg = sprintf('%s %s ocurențe [%s] din totalul de %s au fost înlocuite cu [%s]',
                    $objChanged,
@@ -123,72 +99,72 @@ if ($saveButton) {
                    $objCount,
                    $replace);
     FlashMessage::add($msg, 'success');
-    if (!empty($objStructured)) {
+    if (!empty($objStructuredIds)) {
       Session::set('finishedReplace', true);
       Util::redirect('bulkReplaceStructured.php'); // case history of changed structured definitions
     } else {
-      Session::unsetVar('objStructured'); // we don't need it anymore
-      Session::unsetVar('finishedReplace');
+      unsetVars(['objStructured', 'finishedReplace']); // we don't need them anymore
       Util::redirect('index.php'); // nothing else to do
     }
   }
+  unset($objRemainingIds[$phase]);
+  $phase++;
 }
 
-Session::set('objChanged', $objChanged);
-Session::set('objExcluded', $objExcluded);
+/** First time or have more records?
+ *  get the chunck of $phase and prepare the query array */
+$queryIds = processObjectIds($objRemainingIds, '', $objExcluded, $phase);
 
-// more records? we need another query
+/** select $limit records */
+$query = prepareBaseQuery($target, $mysqlSearch, $sourceId);
+$objects = $query->where_id_in($queryIds)->find_many();
+DebugInfo::stopClock('BulkReplace - AfterQuery +MoreToReplace');
+
+/** Diffing the returned objects */
+if ($target == 1) {
+  // objects are SearchResults
+  $objects = createDefinitionDiffs($objects, $search, $replace);
+} else {
+  // objects are Meanings
+  $objects = createMeaningDiffs($objects, $search, $replace);
+}
+
 $remaining = $objCount - $objChanged - $objExcluded;
-if ($remaining) {
-  $objects = $query
-           ->where_gt('id', $lastId)
-           ->find_many();
-  DebugInfo::stopClock('BulkReplace - AfterQuery +MoreToReplace');
-
-  if ($target == 1) {
-    // objects are SearchResults
-    $objects = createDefinitionDiffs($objects, $search, $replace);
-  } else {
-    // objects are Meanings
-    $objects = createMeaningDiffs($objects, $search, $replace);
-  }
-
-  $msg = sprintf('%s %s %s se potrivesc ::',
-                 $objCount,
-                 Str::getAmountPreposition($objCount),
-                 $targetName);
-  if ($objCount) {
-    $msg .= " {$objChanged} au fost modificate ::";
-  }
-  if ($objExcluded) {
-    $msg .= " {$objExcluded} au fost excluse ::";
-  }
-  $msg .= sprintf(" %s vor fi modificate.",
-                  ($remaining > $limit) ? "maximum {$limit}" : $remaining);
-
-  FlashMessage::add($msg, 'warning');
-  if (!empty($objStructured)) {
-    $msg = sprintf('%s %s %s structurate au fost modificate :: Lista lor este '
-               . 'disponibilă accesând linkul din josul paginii.',
-               count($objStructured),
-               Str::getAmountPreposition(count($objStructured)),
+$msg = sprintf('%s %s %s se potrivesc ::',
+               $objCount,
+               Str::getAmountPreposition($objCount),
                $targetName);
-    FlashMessage::add($msg, 'danger');
-  }
+if ($objChanged) {
+  $msg .= " {$objChanged} au fost modificate ::";
+}
+if ($objExcluded) {
+  $msg .= " {$objExcluded} au fost excluse ::";
+}
+$msg .= sprintf(" %s vor fi modificate.",
+                ($remaining > $limit) ? "maximum {$limit}" : $remaining);
+
+FlashMessage::add($msg, 'warning');
+if (!empty($objStructuredIds)) {
+  $msg = sprintf('%s %s %s structurate au fost modificate :: Lista lor este '
+             . 'disponibilă accesând linkul din josul paginii.',
+             count($objStructuredIds),
+             Str::getAmountPreposition(count($objStructuredIds)),
+             $targetName);
+  FlashMessage::add($msg, 'danger');
 }
 
+/** Finally displaying the template*/
 SmartyWrap::assign('search', $search);
 SmartyWrap::assign('replace', $replace);
 SmartyWrap::assign('target', $target);
 SmartyWrap::assign('targetName', $targetName);
 SmartyWrap::assign('sourceId', $sourceId);
-SmartyWrap::assign('lastId', $lastId);
 SmartyWrap::assign('limit', $limit);
 SmartyWrap::assign('remaining', $remaining);
 SmartyWrap::assign('de', Str::getAmountPreposition(count($objects)));
 SmartyWrap::assign('modUser', User::getActive());
 SmartyWrap::assign('objects', $objects);
-SmartyWrap::assign('structuredChanged', count($objStructured));
+SmartyWrap::assign('structuredChanged', count($objStructuredIds));
 SmartyWrap::addJs('diff');
 SmartyWrap::addCss('admin', 'diff');
 SmartyWrap::display('admin/bulkReplace.tpl');
@@ -233,4 +209,87 @@ function createMeaningDiffs($meanings, $search, $replace) {
   DebugInfo::stopClock('BulkReplace - created meaning diffs');
 
   return $meanings;
+}
+
+/**
+ * Process the session arrays and replaces them
+ * 
+ * @param   array   $objRemainingIds  referential
+ * @param   string  $excludedIds      retrieved from the submission form
+ * @param   int     $objExcluded      referential, count of excluded objects
+ * @param   int     $phase            keeps track of $objRemainingIds chunks
+ * @return  array   $queryIds         list of Ids supposed to be changed by replace operations
+ */
+function processObjectIds(&$objRemainingIds, $excludedIds, &$objExcluded, $phase) {
+ 
+  $objExcludedIds = filter_var_array(
+    preg_split('/,/', $excludedIds, null, PREG_SPLIT_NO_EMPTY), FILTER_SANITIZE_NUMBER_INT);
+  $objExcluded += count($objExcludedIds);
+  Session::set('objExcluded', $objExcluded);
+  
+  $queryIds = array_diff($objRemainingIds[$phase], $objExcludedIds);
+  Session::set('phase', $phase);
+  Session::set('objRemainingIds', $objRemainingIds);
+ 
+  return $queryIds;
+}
+
+/**
+ * Saves the objects (definition/meaning)
+ * 
+ * @param model   $objects          model of Definition or Meaning
+ * @param int     $target           type of $object 1=Definition, 2=Meaning
+ * @param string  $search           string to be replaced
+ * @param string  $replace          replaces $search
+ * @param int     $objChanged       count of changed $objects
+ * @param array   $objStructuredIds maintains throughout the session the defIds to be reviewed
+ */
+function saveObjects($objects, $target, $search, $replace, &$objChanged, &$objStructuredIds){
+    foreach ($objects as $obj) {
+    if ($target == 1) { // $obj is a definition
+      definitionReplace($obj, $search, $replace);
+      if ($obj->structured){
+        $objStructuredIds[] = $obj->id;
+      }
+      $obj->deepSave();
+    } else { // $obj is a meaning
+      meaningReplace($obj, $search, $replace);
+      $obj->save();
+    }
+    $objChanged++;
+  }
+  Session::set('objChanged', $objChanged);
+  Session::set('objStructuredIds', $objStructuredIds);
+}
+
+/**
+ * 
+ * @param array $var
+ */
+function unsetVars($var){
+  foreach ($var as $value) {
+    Session::unsetVar($value);
+  }
+}
+
+/**
+ * Prepares the base query, according to some values
+ * 
+ * @param   int         $target       1-Definition, 2-Meaning
+ * @param   string      $mysqlSearch  search string
+ * @param   int         $sourceId     used only for <i>$target</i> 1-Definition
+ * @return  ORMWrapper                based on <b>$target</b>
+ */
+function prepareBaseQuery($target, $mysqlSearch, $sourceId){
+  $query = Model::factory(Constant::TARGET_NAMES[$target]['model'])
+           ->where_raw('(binary internalRep like ? escape "|")', ["%{$mysqlSearch}%"]);
+  
+  if ($target == 1) { // definitions
+    $query->where_in('status', [Definition::ST_ACTIVE, Definition::ST_HIDDEN]);
+    if ($sourceId) {
+      $query->where('sourceId', $sourceId);
+    }
+  }
+  
+  return $query;
 }

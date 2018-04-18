@@ -79,7 +79,6 @@
     <input type="hidden" name="replace" value="{$replace|escape}">
     <input type="hidden" name="target" value="{$target}">
     <input type="hidden" name="sourceId" value="{$sourceId}">
-    <input type="hidden" name="lastId" value="{$lastId}">
     <input type="hidden" name="limit" value="{$limit}">
     <input type="hidden" name="excludedIds" value="">
     <input type="hidden" name="structuredChanged" value="{$structuredChanged}">

@@ -116,5 +116,32 @@ class Constant {
     'ultra',
     // false negatives: "altîncotro"
   ];
+  
+  /** 
+   * Use <b>|</b> to escape MySQL special characters so that constructs and chars like:<br/>
+   * \%  - "literal percent sign",<br/>
+   * _   - latex convention for subscript,<br/>
+   * |   - the pipe itself,<br/>
+   * remains unaffected.<br/>
+   */
+  const BULKREPLACE_ESCAPES = [
+    '%' => '|%',
+    '_' => '|_',
+    '|' => '||',
+  ];
+  
+  /**
+   * Used for creating Models and for select boxes
+   */
+  const TARGET_NAMES = [
+    1 => [
+      'model' => 'Definition',
+      'select' => 'definiții',
+    ],
+    2 => [
+      'model' => 'Meaning',
+      'select' => 'sensuri',
+    ],
+  ];
 
 }

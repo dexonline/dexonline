@@ -8,6 +8,7 @@ $(function() {
   var anyChanges = false;
   var editable = $('#editable').length;
   var clickedButton = null; // which submit button was clicked?
+  var sourceQuery = {};
 
   function init() {
     if (editable) {
@@ -33,7 +34,16 @@ $(function() {
     stem = $('#stemNode li').detach();
 
     initSelect2('#editorSources', 'ajax/getSourcesById.php', {
+      language: {
+        searching: function(params) {
+          if (params.term) {
+            sourceQuery = params.term.toLowerCase(); // cache the query
+          }
+          return 'caut...';
+        },
+      },
       placeholder: 'adaugă o sursă...',
+      sorter: sortSources,
       width: '100%',
     });
 
@@ -82,6 +92,17 @@ $(function() {
         ? 'Confirmați părăsirea paginii? Aveți modificări nesalvate.'
         : null;
     }
+  }
+
+  // sorter that prefers prefix matches
+  function sortSources(params) {
+    return params.sort(function(first, second) {
+      var a = first.text.toLowerCase();
+      var b = second.text.toLowerCase();
+      var pa = a.startsWith(sourceQuery) ? 0 : 100; // prefix bonus for a
+      var pb = b.startsWith(sourceQuery) ? 0 : 100; // prefix bonus for b
+      return pa - pb + a.localeCompare(b);
+    });
   }
 
   function renumberHelper(node, prefix) {

@@ -425,7 +425,7 @@ $(function() {
     // ... and focus it if the event was caused by a user click (not
     // programmatically by changing meanings).
     if (evt.originalEvent) {
-      input.find('select').select2('open');
+      input.find('select').select2('focus');
     }
   }
 

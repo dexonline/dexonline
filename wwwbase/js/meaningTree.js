@@ -20,6 +20,7 @@ $(function() {
     $('#meaningTree li, #stemNode li').click(meaningClick);
     $('#addMeaningButton').click(addMeaning);
     $('#addSubmeaningButton').click(addSubmeaning);
+    $('#addExampleButton').click(addExample);
     $('#cloneMeaningButton').click(cloneMeaning);
     $(document).on('click', '.deleteMeaningConfirmButton', deleteMeaning);
     $(document).on('click', '.deleteMeaningCancelButton', hidePopover);
@@ -129,6 +130,26 @@ $(function() {
     }
   }
 
+  // common code for all types of adding / cloning a meaning
+  // returns the selected meaning and the newly cloned meaning
+  // @param clone: if true, then clone the selected row; otherwise clone the stem node
+  function createNode(clone = false) {
+    acceptMeaningEdit();
+    var sel = $('#meaningTree li.selected');
+    var node = clone ? sel.clone(true) : stem.clone(true);
+    return {
+      node: node,
+      sel: sel,
+    };
+  }
+
+  // visit a meaning after we have created it
+  function visit(node) {
+    node.click();
+    renumber();
+    scroll();
+  }
+
   // copy some data when we add a (sub)meaning
   function copyMeaningData(src, dest) {
     var type = src.find('> .meaningContainer > .type').html();
@@ -143,43 +164,55 @@ $(function() {
     };
   }
 
-  function addMeaning() {
-    acceptMeaningEdit();
-    var newNode = stem.clone(true);
-    var sel = $('#meaningTree li.selected');
+  function _addMeaning(sel, node) {
     if (sel.length) {
-      copyMeaningData(sel, newNode);
-      newNode.insertAfter(sel);
+      copyMeaningData(sel, node);
+      node.insertAfter(sel);
     } else {
-      newNode.appendTo($('#meaningTree'));
+      node.appendTo($('#meaningTree'));
     }
-    newNode.click();
-    renumber();
-    scroll();
+  }
+
+  function addMeaning() {
+    var rec = createNode();
+    _addMeaning(rec.sel, rec.node);
+    visit(rec.node);
+  }
+
+  function _addSubmeaning(sel, node) {
+    copyMeaningData(sel, node);
+    var ul = ensureUl(sel);
+    node.prependTo(ul);
   }
 
   function addSubmeaning() {
-    acceptMeaningEdit();
-    var newNode = stem.clone(true);
-    var sel = $('#meaningTree li.selected');
+    var rec = createNode();
+    _addSubmeaning(rec.sel, rec.node);
+    visit(rec.node);
+  }
 
-    copyMeaningData(sel, newNode);
+  // the "add example" button can add a meaning or a submeaning, depending on
+  // the selected node type
+  function addExample() {
+    var rec = createNode();
+    var type = rec.sel.find('> .meaningContainer > .type').html();
 
-    var ul = ensureUl(sel);
-    newNode.prependTo(ul);
-    newNode.click();
-    renumber();
-    scroll();
+    if (type == EXAMPLE_TYPE) {
+      _addMeaning(rec.sel, rec.node);
+    } else {
+      _addSubmeaning(rec.sel, rec.node);
+      rec.node.find('.type').html(EXAMPLE_TYPE);
+    }
+
+    visit(rec.node);
   }
 
   function cloneMeaning() {
-    acceptMeaningEdit();
-    var sel = $('#meaningTree li.selected');
-    var newNode = sel.clone(true);
-    newNode.find('.id').text('');
-    newNode.insertAfter(sel).click();
-    renumber();
-    scroll();
+    var rec = createNode(true);
+
+    rec.node.insertAfter(rec.sel);
+
+    visit(rec.node);
   }
 
   function deleteMeaning() {

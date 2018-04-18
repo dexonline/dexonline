@@ -148,6 +148,7 @@ $(function() {
     node.click();
     renumber();
     scroll();
+    $('#editorRep').focus();
   }
 
   // copy some data when we add a (sub)meaning

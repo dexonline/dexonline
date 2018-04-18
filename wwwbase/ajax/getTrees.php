@@ -2,9 +2,10 @@
 require_once("../../phplib/Core.php");
 
 $query = Request::get('term');
+$query = addslashes($query);
 
 $trees = Model::factory('Tree')
-       ->where_like('description', "{$query}%")
+       ->where_raw("binary description like '{$query}%'") // match case
        ->where('status', Tree::ST_VISIBLE)
        ->order_by_asc('description')
        ->limit(10)

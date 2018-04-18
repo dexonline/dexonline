@@ -89,6 +89,7 @@ $(function() {
       target.append(new Option(text, id, true, true))
     }
     target.trigger('change');
+    target.select2('focus');
   }
 
   function frequentObjectAddClick() {

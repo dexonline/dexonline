@@ -313,14 +313,24 @@
                 class="btn btn-default btn-sm"
                 id="addMeaningButton"
                 title="Adaugă un sens ca frate al sensului selectat. Dacă nici un sens nu este selectat, adaugă un sens la sfârșitul listei.">
-                adaugă sens
+                <i class="glyphicon glyphicon-plus"></i>
+                sens
               </button>
               <button type="button"
                 class="btn btn-default btn-sm meaningAction"
                 id="addSubmeaningButton"
                 disabled
-                title="Adaugă un sens ca ultimul fiu al sensului selectat">
-                adaugă subsens
+                title="Adaugă un sens ca primul fiu al sensului selectat">
+                <i class="glyphicon glyphicon-triangle-bottom"></i>
+                subsens
+              </button>
+              <button type="button"
+                class="btn btn-default btn-sm meaningAction"
+                id="addExampleButton"
+                disabled
+                title="Adaugă un subsens-exemplu la sensul selectat. Dacă sensul selectat este el însuși exemplu, adaugă un frate.">
+                <i class="glyphicon glyphicon-paperclip"></i>
+                exemplu
               </button>
               <button type="button"
                 class="btn btn-default btn-sm meaningAction"

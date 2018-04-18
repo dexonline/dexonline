@@ -11,6 +11,7 @@ $(function() {
     $(document).bind('keydown', 'alt+i', quickNavEntryFocus);
 
     $(document).bind('keydown', 'alt+a', redirectToAdmin);
+    $(document).bind('keydown', 'alt+n', redirectToNewDefinition);
     $(document).bind('keydown', 'alt+r', clickRefreshButton);
     $(document).bind('keydown', 'alt+s', clickSaveButton);
     $(document).bind('keydown', 'alt+v', clickRecentPagesLink);
@@ -31,6 +32,10 @@ $(function() {
 
   function redirectToAdmin() {
     window.location = wwwRoot + 'admin';
+  }
+
+  function redirectToNewDefinition() {
+    window.location = wwwRoot + 'admin/definitionEdit.php';
   }
 
   function redirectToWotDTable() {

@@ -27,11 +27,11 @@ $reports = [
    'privilege' => User::PRIV_EDIT
   ],
   ['text' => 'Definiții OCR neverificate',
-   'url' => 'admin/definitionEdit',
-   'count' => sprintf('%d (disponibile: %d)',
+   'url' => 'admin/definitionEdit?isOcr=1',
+   'count' => sprintf('%d (alocate dvs.: %d)',
                       Variable::peek('Count.rawOcrDefinitions'),
                       OCR::countAvailable(User::getActiveId())),
-   'privilege' => User::PRIV_EDIT
+   'privilege' => User::PRIV_EDIT | User::PRIV_TRAINEE
   ],
   ['text' => 'Definiții neasociate cu nicio intrare',
    'url' => 'admin/viewUnassociatedDefinitions',
@@ -85,6 +85,60 @@ $reports = [
   ],
 ];
 
+// OR of all the above privileges -- that's the mask to view any reports
+$reportPriv = array_reduce($reports, 'orReducer', 0);
+
+$links = [
+  [
+    'url' => 'moderatori',
+    'text' => 'moderatori',
+    'privilege' => User::PRIV_ADMIN,
+  ],
+  [
+    'url' => 'surse',
+    'text' => 'surse',
+    'privilege' => User::PRIV_ADMIN,
+  ],
+  [
+    'url' => 'etichete',
+    'text' => 'etichete',
+    'privilege' => User::PRIV_EDIT,
+  ],
+  [
+    'url' => 'tipuri-modele',
+    'text' => 'tipuri de model',
+    'privilege' => User::PRIV_EDIT,
+  ],
+  [
+    'url' => 'flexiuni',
+    'text' => 'flexiuni',
+    'privilege' => User::PRIV_LOC,
+  ],
+  [
+    'url' => 'admin/ocrInput',
+    'text' => 'adaugă definiții OCR',
+    'privilege' => User::PRIV_ADMIN,
+  ],
+  [
+    'url' => 'admin/contribTotals',
+    'text' => 'contorizare contribuții',
+    'privilege' => User::PRIV_ADMIN,
+  ],
+  [
+    'url' => 'admin/abbrevInput',
+    'text' => 'adaugă abrevieri',
+    'privilege' => User::PRIV_ADMIN,
+  ],
+  [
+    'url' => 'admin/definitionEdit',
+    'text' => 'adaugă o definiție',
+    'privilege' => User::PRIV_EDIT | User::PRIV_TRAINEE,
+  ],
+];
+
+// OR of all the above privileges -- that's the mask to view any links
+$linkPriv = array_reduce($links, 'orReducer', 0);
+
 $minModDate = Model::factory('Variable')
             ->where_like('name', 'Count.%')
             ->min('modDate');
@@ -92,8 +146,17 @@ $timeAgo = time() - $minModDate;
 
 SmartyWrap::assign('structurists', User::getStructurists());
 SmartyWrap::assign('reports', $reports);
+SmartyWrap::assign('reportPriv', $reportPriv);
+SmartyWrap::assign('links', $links);
+SmartyWrap::assign('linkPriv', $linkPriv);
 SmartyWrap::assign('timeAgo', $timeAgo);
 SmartyWrap::addCss('admin', 'bootstrap-spinedit', 'bootstrap-datepicker');
 SmartyWrap::addJs('select2Dev', 'adminIndex', 'modelDropdown', 'bootstrap-spinedit',
                   'bootstrap-datepicker');
 SmartyWrap::display('admin/index.tpl');
+
+/*************************************************************************/
+
+function orReducer($carry, $r) {
+  return $carry | $r['privilege'];
+}

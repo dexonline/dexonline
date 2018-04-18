@@ -172,13 +172,6 @@
 
             <div class="checkbox">
               <label>
-                <input type="checkbox" name="canContribute" {if $src->canContribute}checked{/if}>
-                deschisă pentru contribuții
-              </label>
-            </div>
-
-            <div class="checkbox">
-              <label>
                 <input type="checkbox" name="canModerate" {if $src->canModerate}checked{/if}>
                 moderatorii pot muta definiții în/din această sursă
               </label>

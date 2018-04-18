@@ -5,8 +5,8 @@
         <div class="logo-wrapper">
           <a class="navbar-brand" href="{$wwwRoot}" title="Prima pagină">
             <img id="logo-nav"
-                 alt="logo dexonline"
-                 src="{$wwwRoot}img/svg/logo-nav.svg">
+              alt="logo dexonline"
+              src="{$wwwRoot}img/svg/logo-nav.svg">
           </a>
         </div>
       {/if}
@@ -25,10 +25,10 @@
       </ul>
 
       <button type="button"
-              class="navbar-toggle collapsed hamburger-menu"
-              data-toggle="collapse"
-              data-target="#navMenu"
-              aria-expanded="false">
+        class="navbar-toggle collapsed hamburger-menu"
+        data-toggle="collapse"
+        data-target="#navMenu"
+        aria-expanded="false">
         <span class="sr-only">Navigare</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -43,11 +43,11 @@
         <li class="dropdown">
 
           <a href="#"
-             class="dropdown-toggle"
-             data-toggle="dropdown"
-             role="button"
-             aria-haspopup="true"
-             aria-expanded="false">
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false">
             Despre noi
             <span class="caret"></span>
           </a>
@@ -55,7 +55,7 @@
           <ul class="dropdown-menu">
             <li>
               <a href="https://wiki.dexonline.ro/wiki/Informa%C8%9Bii"
-                 target="_blank">
+                target="_blank">
                 Informații
               </a>
             </li>
@@ -68,23 +68,20 @@
         <li class="dropdown">
 
           <a href="#"
-             class="dropdown-toggle"
-             data-toggle="dropdown"
-             role="button"
-             aria-haspopup="true"
-             aria-expanded="false">
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false">
             Implică-te
             <span class="caret"></span>
           </a>
 
           <ul class="dropdown-menu">
-            <li><a href="{$wwwRoot}contribuie">Contribuie cu definiții</a></li>
-            <li><a href="{$wwwRoot}top">Topul voluntarilor</a></li>
             <li>
-              <a href="https://wiki.dexonline.ro/wiki/Informa%C8%9Bii_pentru_programatori">
-                Informații pentru programatori
-              </a>
+              <a href="https://wiki.dexonline.ro/wiki/Cum_pute%C8%9Bi_ajuta">Cum poți ajuta</a>
             </li>
+            <li><a href="{$wwwRoot}top">Topul voluntarilor</a></li>
           </ul>
 
         </li>
@@ -92,11 +89,11 @@
         <li class="dropdown">
 
           <a href="#"
-             class="dropdown-toggle"
-             data-toggle="dropdown"
-             role="button"
-             aria-haspopup="true"
-             aria-expanded="false">
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false">
             Articole și resurse
             <span class="caret"></span>
           </a>
@@ -124,7 +121,7 @@
         <ul class="nav navbar-nav navbar-right">
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown"
-               role="button" aria-haspopup="true" aria-expanded="false">
+              role="button" aria-haspopup="true" aria-expanded="false">
               {if User::getActive()->hasAvatar|default:false}
                 {include "bits/avatar.tpl" user=User::getActive()}
               {else}
@@ -237,6 +234,7 @@
 
           <ul>
             <li><a href="{$wwwRoot}admin/">Alt-A</a> = pagina moderatorului</li>
+            <li><a href="{$wwwRoot}admin/definitionEdit.php">Alt-N</a> = adaugă o definiție</li>
             <li><a href="{$wwwRoot}admin/wotdTable.php">Alt-C</a> = cuvintele zilei</li>
             <li><a href="{$wwwRoot}alocare-autori.php">Alt-X</a> = asignare autori</li>
             <li><a href="{$wwwRoot}admin/wotdImages.php">Alt-Z</a> = imaginile cuvintelor zilei</li>

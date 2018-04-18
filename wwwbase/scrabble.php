@@ -1,6 +1,7 @@
 <?php
 require_once("../phplib/Core.php");
 $form = Request::get('form');
+$ajax = Request::get('ajax');
 $locVersion = Request::get('locVersion');
 
 $locVersions = Config::getLocVersions();
@@ -43,4 +44,14 @@ if ($locVersion && $form) {
 
 SmartyWrap::addJs('modelDropdown');
 SmartyWrap::assign('locVersions', $locVersions);
-SmartyWrap::display('scrabble.tpl');
+
+if($ajax){
+  $results = [
+    'count' => count($data),
+    'template' => SmartyWrap::fetch('scrabble-results.tpl'),
+  ];
+  header("Content-Type: application/json");
+  print json_encode($results);
+} else {
+  SmartyWrap::display('scrabble.tpl');
+}

@@ -4,11 +4,20 @@ require_once("../../phplib/Core.php");
 $query = Request::get('term');
 $exclude = Request::get('exclude', 0);
 
+$query = addslashes($query);
+
 $entries = Model::factory('Entry')
-         ->where_like('description', "{$query}%")
-         ->where_not_equal('id', $exclude)
-         ->order_by_asc('description')
-         ->limit(10)
+         ->table_alias('e')
+         ->select('e.*')
+         ->distinct()
+         ->join('EntryLexeme', ['e.id', '=', 'el.entryId'], 'el')
+         ->join('Lexeme', ['el.lexemeId', '=', 'l.id'], 'l')
+         ->where_like('l.formNoAccent', "{$query}%")
+         ->where_not_equal('e.id', $exclude)
+         ->order_by_expr("l.formNoAccent = '{$query}' desc") // prefer exact matches
+         ->order_by_expr("e.description like '{$query}%' desc") // then prefer prefix matches
+         ->order_by_asc('e.description')
+         ->limit(20)
          ->find_many();
 
 $resp = ['results' => []];

@@ -7,7 +7,7 @@
 
   {include "bits/phpConstants.tpl"}
 
-  {if User::can(User::PRIV_EDIT)}
+  {if User::can($reportPriv)}
     <div class="panel panel-default">
       <div class="panel-heading">
         Rapoarte
@@ -100,9 +100,9 @@
                   <label class="col-xs-4 control-label">descriere</label>
                   <div class="col-xs-8">
                     <input class="form-control"
-                           type="text"
-                           name="description"
-                           placeholder="acceptă expresii regulate">
+                      type="text"
+                      name="description"
+                      placeholder="acceptă expresii regulate">
                   </div>
                 </div>
 
@@ -153,9 +153,9 @@
                   <label class="col-xs-4 control-label">formă lexem</label>
                   <div class="col-xs-8">
                     <input class="form-control"
-                           type="text"
-                           name="formNoAccent"
-                           placeholder="acceptă expresii regulate">
+                      type="text"
+                      name="formNoAccent"
+                      placeholder="acceptă expresii regulate">
                   </div>
                 </div>
 
@@ -201,9 +201,9 @@
                   <label class="col-xs-4 control-label">lexicon</label>
                   <div class="col-xs-8">
                     <input class="form-control"
-                           type="text"
-                           name="lexicon"
-                           placeholder="acceptă expresii regulate">
+                      type="text"
+                      name="lexicon"
+                      placeholder="acceptă expresii regulate">
                   </div>
                 </div>
 
@@ -399,13 +399,13 @@
                 <div class="col-xs-9">
                   <div class="input-group spinner">
                     <input type="numeric"
-                           name="limit"
-                           class="form-control"
-                           value="1000"
-                           min="100"
-                           max="1000"
-                           step="100"
-                           tabindex="-1">
+                      name="limit"
+                      class="form-control"
+                      value="1000"
+                      min="100"
+                      max="1000"
+                      step="100"
+                      tabindex="-1">
                     <div class="input-group-btn-vertical">
                       <button class="btn btn-default" type="button" tabindex="-1">
                         <i class="glyphicon glyphicon-chevron-up"></i>
@@ -448,30 +448,25 @@
         </p>
       </div>
     </div>
+  {/if}
 
+  {if User::can($linkPriv)}
     <div class="panel panel-default">
       <div class="panel-heading">
         Legături
       </div>
 
-      <table class="table table-condensed">
-        <tr>
-          <td><a href="{$wwwRoot}moderatori">moderatori</a></td>
-          <td><a href="{$wwwRoot}surse">surse</a></td>
-        </tr>
-        <tr>
-          <td><a href="{$wwwRoot}etichete">etichete</a></td>
-          <td><a href="{$wwwRoot}tipuri-modele">tipuri de model</a></td>
-        </tr>
-        <tr>
-          <td><a href="{$wwwRoot}flexiuni">flexiuni</a></td>
-          <td><a href="{$wwwRoot}admin/ocrInput.php">adaugă definiții OCR</a></td>
-        </tr>
-        <tr>
-          <td><a href="{$wwwRoot}admin/contribTotals">contorizare contribuții</a></td>
-          <td><a href="{$wwwRoot}admin/abbrevInput">adaugă abrevieri</a></td>
-        </tr>
-      </table>
+      <div class="panel-body">
+        <div class="row">
+          {foreach $links as $l}
+            {if User::can($l.privilege)}
+              <div class="col-lg-3 col-md-4 col-sm-6">
+                <a href="{$wwwRoot}{$l.url}">{$l.text}</a>
+              </div>
+            {/if}
+          {/foreach}
+        </div>
+      </div>
     </div>
   {/if}
 

@@ -465,7 +465,7 @@ class Str {
   static function htmlize($s, $sourceId, $obeyNewlines = false, &$errors = null, &$warnings = null) {
     $errors = $errors ?? [];
     $warnings = $warnings ?? [];
-    
+
     $s = htmlspecialchars($s, ENT_NOQUOTES);
 
     self::findRedundantLinks($s, $warnings);
@@ -481,18 +481,17 @@ class Str {
       } else if (is_array($replacement)) {
         $className = $replacement[0];
         $helper = new $className($sourceId, $errors, $warnings);
+
         $s = preg_replace_callback($internal, [$helper, 'htmlize'], $s);
-        $payloads[$helper->getKey()] = $helper->getPayload();
+        $s = $helper->postprocess($s);
+
+        $key = $helper->getKey();
+        if ($key) {
+          $payloads[$key] = $helper->getPayload();
+        }
       } else {
         die('Unknown value type in HTML_PATTERNS.');
       }
-    }
-
-    // __emphasized__ text
-    $count = 0;
-    $s = preg_replace('/__(.*?)__/', '<span class="emph">$1</span>', $s, -1, $count);
-    if ($count) {
-      $s = "<span class=\"deemph\">$s</span>";
     }
 
     // t'onic 'accent

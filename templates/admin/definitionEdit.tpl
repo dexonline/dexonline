@@ -3,26 +3,28 @@
 {block "title"}Editare definiție{/block}
 
 {block "content"}
-  {if $isOCR}
+  {if $isOcr}
     {$title='Adăugare definiție OCR'}
-  {else}
+  {else if $def->id}
     {$title="Editare definiție {$def->id}"}
+  {else}
+    {$title="Trimite o definiție nouă"}
   {/if}
   <h3>
     {$title}
     <span class="pull-right">
-      <small>
-        <a href="https://wiki.dexonline.ro/wiki/Editarea_defini%C8%9Biilor">
-          <i class="glyphicon glyphicon-question-sign"></i>
-          instrucțiuni
-        </a>
-      </small>
+      <a class="btn btn-link"
+        href="https://wiki.dexonline.ro/wiki/Editarea_defini%C8%9Biilor"
+        target="_blank">
+        <i class="glyphicon glyphicon-question-sign"></i>
+        ajutor
+      </a>
     </span>
   </h3>
 
   <form action="definitionEdit.php" method="post" class="form-horizontal">
     <input type="hidden" name="definitionId" value="{$def->id}">
-    <input type="hidden" name="isOCR" value="{$isOCR}">
+    <input type="hidden" name="isOcr" value="{$isOcr}">
 
     <div class="row">
       <div class="col-md-6">
@@ -41,7 +43,10 @@
         <div class="form-group">
           <label class="col-sm-2 col-md-4 control-label">stare</label>
           <div class="col-sm-10 col-md-8">
-            {include "bits/statusDropDown.tpl" name="status" selectedStatus=$def->status}
+            {include "bits/statusDropDown.tpl"
+              name="status"
+              selectedStatus=$def->status
+              disabled=!$canEditStatus}
           </div>
         </div>
       </div>
@@ -129,15 +134,27 @@
           <u>r</u>eafișează
         </button>
 
-        <button type="submit"
-                name="saveButton"
-                class="btn btn-success">
+        <button
+          type="submit"
+          name="saveButton"
+          class="btn btn-success"
+          {if !$canEdit}
+          disabled
+          title="stagiarii nu pot modifica definiții introduse de altcineva"
+          {/if}>
           <i class="glyphicon glyphicon-floppy-disk"></i>
           <u>s</u>alvează
         </button>
 
-        {if $isOCR}
-          <button type="submit" class="btn btn-success" name="but_next_ocr">
+        {if $isOcr}
+          <button
+            type="submit"
+            class="btn btn-success"
+            name="but_next_ocr"
+            {if !$canEdit}
+            disabled
+            title="stagiarii nu pot modifica definiții introduse de altcineva"
+            {/if}>
             salvează și preia următoarea definiție OCR
           </button>
         {/if}

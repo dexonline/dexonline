@@ -10,7 +10,8 @@ class User extends BaseObject {
   const PRIV_STRUCT = 0x10;
   const PRIV_VISUAL = 0x20;
   const PRIV_DONATION = 0x40;
-  const NUM_PRIVILEGES = 7;
+  const PRIV_TRAINEE = 0x80;
+  const NUM_PRIVILEGES = 8;
 
   static $PRIV_NAMES = [
     self::PRIV_ADMIN => 'administrator',
@@ -20,6 +21,7 @@ class User extends BaseObject {
     self::PRIV_STRUCT => 'structurist al definițiilor',
     self::PRIV_VISUAL => 'dicționarul vizual',
     self::PRIV_DONATION => 'procesare donații',
+    self::PRIV_TRAINEE => 'stagiar',
   ];
 
   const PRIV_VIEW_HIDDEN = self::PRIV_ADMIN;
@@ -66,5 +68,9 @@ class User extends BaseObject {
 
   static function setActive($userId) {
     self::$active = User::get_by_id($userId);
+  }
+
+  static function isTrainee() {
+    return self::can(self::PRIV_TRAINEE);
   }
 }

@@ -144,13 +144,11 @@ $msg .= sprintf(" %s vor fi modificate.",
                 ($remaining > $limit) ? "maximum {$limit}" : $remaining);
 
 FlashMessage::add($msg, 'warning');
-if (!empty($objStructuredIds)) {
-  $msg = sprintf('%s %s %s structurate au fost modificate :: Lista lor este '
-             . 'disponibilă accesând linkul din josul paginii.',
-             count($objStructuredIds),
-             Str::getAmountPreposition(count($objStructuredIds)),
-             $targetName);
-  FlashMessage::add($msg, 'danger');
+if (!empty($objStructured)) {
+    FlashMessage::addTemplate('bulkReplacedStructured.tpl', [
+      'count' => count($objStructured),
+      'prep' => Str::getAmountPreposition(count($objStructured)),
+    ]);
 }
 
 /** Finally displaying the template*/

@@ -58,7 +58,6 @@ $klingon->publisher = 'The Klingon Academy';
 $klingon->year = '2010';
 $klingon->type = Source::TYPE_OFFICIAL;
 $klingon->displayOrder = 1;
-$klingon->canContribute = 1;
 $klingon->save();
 
 $devil = Model::factory('Source')->create();

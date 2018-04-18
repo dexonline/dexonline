@@ -68,6 +68,7 @@ if ($mergeButton) {
   }
 
   $e->mergeInto($other->id);
+  $other->deleteTemporaryLexemes();
 
   FlashMessage::add('Am unificat intrările.', 'success');
   Util::redirect("?id={$other->id}");
@@ -168,6 +169,8 @@ if ($saveButton) {
     EntryLexeme::update($e->id, $variantLexemeIds, ['main' => false]);
     TreeEntry::update($treeIds, $e->id);
     ObjectTag::wipeAndRecreate($e->id, ObjectTag::TYPE_ENTRY, $tagIds);
+
+    $e->deleteTemporaryLexemes();
 
     if ($renameTrees) {
       foreach ($e->getTrees() as $t) {

@@ -162,7 +162,9 @@ wotdArchive = true
 wotdSubscribe = true
 
 [limits]
+
 limitFulltextSearch = 200
+limitTraineePendingDefinitions = 50
 
 [search]
 acEnable = true

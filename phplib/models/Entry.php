@@ -291,6 +291,30 @@ class Entry extends BaseObject implements DatedObject {
     }
   }
 
+  // delete associated lexemes if
+  // 1. they are temporary (model type T);
+  // 2. they are only associated with this entry, no other entries;
+  // 3. the entry has another, non-T lexeme with the same base form.
+  function deleteTemporaryLexemes() {
+
+    // collect forms of non-T lexemes
+    $formMap = [];
+    foreach ($this->getLexemes() as $l) {
+      if ($l->modelType != 'T') {
+        $formMap[$l->formNoAccent] = true;
+      }
+    }
+
+    foreach ($this->getLexemes() as $l) {
+      if (($l->modelType == 'T') &&
+          isset($formMap[$l->formNoAccent]) &&
+          (count($l->getEntries()) == 1)) {
+        $l->delete();
+      }
+    }
+
+  }
+
   function mergeInto($otherId) {
     // transfer the relations to one of the other entry's trees, if any
     $te = TreeEntry::get_by_entryId($otherId);

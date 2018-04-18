@@ -5,14 +5,6 @@
  **/
 
 class MentionHtmlizer extends Htmlizer {
-  function getKey() {
-    return 'mentions';
-  }
-
-  function getPayload() {
-    return null; // we don't really need to return anything
-  }
-
   // htmlize one instance of a meaning mention formatted as text[meaningID]
   function htmlize($match) {
     $text = $match[1];

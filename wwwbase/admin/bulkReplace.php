@@ -102,13 +102,13 @@ if ($saveButton) {
       meaningReplace($obj, $search, $replace);
       $obj->save();
     }
-    
+
     $objChanged++;
   }
   DebugInfo::stopClock('BulkReplace - AfterForEach +SaveButton');
 
   Session::set('objStructured', $objStructured);
-  
+
   Log::notice('Replaced [%s] objects - [%s] with [%s] in source [%s]',
               $objChanged, $search, $replace, $sourceId);
   if ($objCount - $objChanged - $objExcluded == 0) {
@@ -168,12 +168,10 @@ if ($remaining) {
 
   FlashMessage::add($msg, 'warning');
   if (!empty($objStructured)) {
-    $msg = sprintf('%s %s %s structurate au fost modificate :: Lista lor este '
-               . 'disponibilă accesând linkul din josul paginii.',
-               count($objStructured),
-               Str::getAmountPreposition(count($objStructured)),
-               $targetName);
-    FlashMessage::add($msg, 'danger');
+    FlashMessage::addTemplate('bulkReplacedStructured.tpl', [
+      'count' => count($objStructured),
+      'prep' => Str::getAmountPreposition(count($objStructured)),
+    ]);
   }
 }
 

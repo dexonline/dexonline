@@ -54,9 +54,14 @@ class Definition extends BaseObject implements DatedObject {
     return $this->footnotes;
   }
 
-  // Single entry point for sanitize() / htmlize() / etc.
-  // $flash (boolean): if true, set flash messages for errors and warnings
-  // Returns an array of footnotes whose ID field is not set.
+  /**
+   * Process the entire definition
+   * 
+   * Single entry point for sanitize() / htmlize() / footnotes reprocess etc. 
+   * 
+   * @param   boolean $flash  :if true, set flash messages for errors and warnings
+   * @return  void
+   */
   function process($flash = true) {
     $errors = [];
     $warnings = [];
@@ -66,7 +71,7 @@ class Definition extends BaseObject implements DatedObject {
       = Str::sanitize($this->internalRep, $this->sourceId, $warnings);
 
     // htmlize + footnotes
-    list($this->htmlRep, $footnotes)
+    list($this->htmlRep, $this->footnotes)
       = Str::htmlize($this->internalRep, $this->sourceId, false, $errors, $warnings);
 
     // abbrevReview status
@@ -86,8 +91,6 @@ class Definition extends BaseObject implements DatedObject {
         FlashMessage::add($error);
       }
     }
-
-    return $footnotes;
   }
 
   static function loadByEntryIds($entryIds) {
@@ -451,8 +454,42 @@ class Definition extends BaseObject implements DatedObject {
     return $s;
   }
 
+  /** 
+   * Saves only definition, without footnotes
+   * 
+   * Does not regenerate htmlized footnotes
+   * 
+   * @param none
+   * 
+   * @return  bool  <p>$success from parent</p>
+   */
   function save() {
     $this->modUserId = User::getActiveId();
     return parent::save();
+  }
+  
+  /** 
+   * Saves definition and footnotes
+   * 
+   * Deletes every footnote associated with this definition and saves them again <br/>
+   * Prior calling this function make sure you called either of:
+   * 
+   * <b>process()</b> - so footnotes get htmlized again from changed <i>internalRep</i><br/>
+   * <b>getFootnotes()</b> - to load the old ones into <i>$this->footnotes</i><br/>
+   * 
+   * @param  none
+   * 
+   * @return bool $success  <p>from function save()</p>
+   */
+  function deepSave() {
+    $success = $this->save();
+    
+    Footnote::delete_all_by_definitionId($this->id);
+    foreach ($this->footnotes as $f) {
+      $f->definitionId = $this->id;
+      $f->save();
+    }
+    Typo::delete_all_by_definitionId($this->id);
+    return $success;
   }
 }

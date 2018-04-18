@@ -61,12 +61,15 @@ if (!$saveButton) {
   Session::set('objCount', $objCount);
   Session::set('objChanged', 0);
   Session::set('objExcluded', 0);
+  Session::set('objStructured', []);
+  Session::set('finishedReplace', false);
 }
 
 // variables should not be null
 $objCount = Session::get('objCount');
 $objChanged = Session::get('objChanged');
 $objExcluded = Session::get('objExcluded');
+$objStructured = Session::get('objStructured');
 
 // preparing the main query object with global parameters
 $query = $query
@@ -91,14 +94,21 @@ if ($saveButton) {
 
     if ($target == 1) { // $obj is a definition
       definitionReplace($obj, $search, $replace);
+      if ($obj->structured){
+        $objStructured[] = $obj->id;
+      }
+      $obj->deepSave();
     } else { // $obj is a meaning
       meaningReplace($obj, $search, $replace);
+      $obj->save();
     }
-    $obj->save();
+    
     $objChanged++;
   }
   DebugInfo::stopClock('BulkReplace - AfterForEach +SaveButton');
 
+  Session::set('objStructured', $objStructured);
+  
   Log::notice('Replaced [%s] objects - [%s] with [%s] in source [%s]',
               $objChanged, $search, $replace, $sourceId);
   if ($objCount - $objChanged - $objExcluded == 0) {
@@ -113,7 +123,14 @@ if ($saveButton) {
                    $objCount,
                    $replace);
     FlashMessage::add($msg, 'success');
-    Util::redirect('index.php');
+    if (!empty($objStructured)) {
+      Session::set('finishedReplace', true);
+      Util::redirect('bulkReplaceStructured.php'); // case history of changed structured definitions
+    } else {
+      Session::unsetVar('objStructured'); // we don't need it anymore
+      Session::unsetVar('finishedReplace');
+      Util::redirect('index.php'); // nothing else to do
+    }
   }
 }
 
@@ -150,6 +167,14 @@ if ($remaining) {
                   ($remaining > $limit) ? "maximum {$limit}" : $remaining);
 
   FlashMessage::add($msg, 'warning');
+  if (!empty($objStructured)) {
+    $msg = sprintf('%s %s %s structurate au fost modificate :: Lista lor este '
+               . 'disponibilă accesând linkul din josul paginii.',
+               count($objStructured),
+               Str::getAmountPreposition(count($objStructured)),
+               $targetName);
+    FlashMessage::add($msg, 'danger');
+  }
 }
 
 SmartyWrap::assign('search', $search);
@@ -163,6 +188,7 @@ SmartyWrap::assign('remaining', $remaining);
 SmartyWrap::assign('de', Str::getAmountPreposition(count($objects)));
 SmartyWrap::assign('modUser', User::getActive());
 SmartyWrap::assign('objects', $objects);
+SmartyWrap::assign('structuredChanged', count($objStructured));
 SmartyWrap::addJs('diff');
 SmartyWrap::addCss('admin', 'diff');
 SmartyWrap::display('admin/bulkReplace.tpl');

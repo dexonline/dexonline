@@ -1,0 +1,18 @@
+.panel-admin .defWrapper {
+  padding: 0 30px 0 3px;
+  border-bottom: 1px dotted #CCC;
+}
+
+.panel-admin .entryWrapper {
+  padding: 0 30px 10px 3px;
+  border-bottom: 1px double #CCC;
+  margin-bottom: 10px;
+}
+
+.panel-admin .btn {
+  margin-bottom: 5px;
+}
+
+.panel-heading .btn {
+  min-width: 100px;
+}

@@ -14,7 +14,9 @@ $d = ($definitionId)
    : Model::factory('Definition')->create();
 $d->internalRep = $internalRep;
 $d->sourceId = $sourceId;
-$footnotes = $d->process(false);
+$d->process(false);
+
+$footnotes = $d->getFootnotes();
 
 $sim = SimilarRecord::create($d, $entryIds);
 

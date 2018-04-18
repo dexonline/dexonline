@@ -1,8 +1,21 @@
-.checkbox-inline {
-  float: right;
+.checkbox-hidden input[type="checkbox"] {
+  display:none;
+}
+.checkbox-hidden input[type="checkbox"] + .glyphicon {
+  opacity:0.15
+}
+.checkbox-hidden input[type="checkbox"]:checked + .glyphicon{
+  opacity:1
 }
 
 .panel-admin .defWrapper {
   padding: 0 30px 0 3px;
   border-bottom: 1px solid #CCC;
+}
+
+.btn span.glyphicon {    			
+  opacity: 0.15;				
+}
+.btn.active span.glyphicon {				
+  opacity: 1;				
 }

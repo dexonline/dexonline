@@ -15,13 +15,13 @@ $saveButton = Request::has('saveButton');
 
 $excludedIds = Request::get('excludedIds'); // array of object IDs excluded from changes
 
-$targetName = Constant::TARGET_NAMES[$target]['select'];
+$targetName = Constant::BULKREPLACE_TARGETS[$target]['text'];
 
 DebugInfo::init();
 
 $mysqlSearch = strtr($search, 
-  array_combine(array_keys(Constant::BULKREPLACE_ESCAPES), 
-                array_values(Constant::BULKREPLACE_ESCAPES)
+  array_combine(array_keys(Constant::MYSQL_LIKE_ESCAPES), 
+                array_values(Constant::MYSQL_LIKE_ESCAPES)
     )
   );
 
@@ -36,11 +36,9 @@ if (!$saveButton) {
   $query = prepareBaseQuery($target, $mysqlSearch, $sourceId);
   $objResults = $query->select('id')->find_many();
   
-  foreach ($objResults as $o) {
-    $objRemainingIds[] = $o->id;
-  }
+  $objRemainingIds = Util::objectProperty($objResults, 'id');
+  
   $objCount = count($objRemainingIds);
-  $objRemainingIds = array_chunk($objRemainingIds, $limit);
   unset($objResults);
   DebugInfo::stopClock('BulkReplace - Count - After search criteria');
 
@@ -56,12 +54,10 @@ if (!$saveButton) {
   Session::set('objExcluded', 0);
   Session::set('objRemainingIds', $objRemainingIds);
   Session::set('objStructuredIds', []);
-  Session::set('phase', 0);
   Session::set('finishedReplace', false);
 }
 
 // variables should not be null
-$phase = Session::get('phase');
 $objCount = Session::get('objCount');
 $objChanged = Session::get('objChanged');
 $objExcluded = Session::get('objExcluded');
@@ -71,7 +67,7 @@ $objStructuredIds = Session::get('objStructuredIds');
 /** Form was submitted, process the records */
 if ($saveButton) {
   /** preparing array for the subsequent query */
-  $queryIds = processObjectIds($objRemainingIds, $excludedIds, $objExcluded, $phase);
+  $queryIds = processObjectIds($objRemainingIds, $excludedIds, $objExcluded, $limit);
   
   if (!empty($queryIds)) {
     /** select only those records that were previewed (and not excluded) */
@@ -82,15 +78,15 @@ if ($saveButton) {
     /** Save and log */
     saveObjects($objects, $target, $search, $replace, $objChanged, $objStructuredIds);
     DebugInfo::stopClock('BulkReplace - AfterSaveObjects +SaveButton');
-    Log::notice('Replaced [%s] with [%s] in [%s] objects from table %s '. ($sourceId ?: ' in source [%s]'),
-                $search, $replace, $objChanged, Constant::TARGET_NAMES[$target]['model'], $sourceId);
+    Log::notice('Replaced [%s] with [%s] in [%s] objects from table %s '. (!$sourceId ?: 'in source [%s]'),
+                $search, $replace, $objChanged, Constant::BULKREPLACE_TARGETS[$target]['model'], $sourceId);
     unset($objects);
   }
   
   /** Test if we are done */
   if ($objCount == $objChanged + $objExcluded) {
     /** a little housekeeping, preparing for redirect */
-    unsetVars([ 'phase', 'objCount', 'objChanged', 'objExcluded', 'objRemainingIds' ]);
+    unsetVars([ 'objCount', 'objChanged', 'objExcluded', 'objRemainingIds' ]);
 
     $msg = sprintf('%s %s ocurențe [%s] din totalul de %s au fost înlocuite cu [%s]',
                    $objChanged,
@@ -107,13 +103,12 @@ if ($saveButton) {
       Util::redirect('index.php'); // nothing else to do
     }
   }
-  unset($objRemainingIds[$phase]);
-  $phase++;
+  $objRemainingIds = array_splice($objRemainingIds, $limit);
 }
 
 /** First time or have more records?
- *  get the chunck of $phase and prepare the query array */
-$queryIds = processObjectIds($objRemainingIds, '', $objExcluded, $phase);
+ *  get the chunck of $limit and prepare the query array */
+$queryIds = processObjectIds($objRemainingIds, '', $objExcluded, $limit);
 
 /** select $limit records */
 $query = prepareBaseQuery($target, $mysqlSearch, $sourceId);
@@ -144,10 +139,10 @@ $msg .= sprintf(" %s vor fi modificate.",
                 ($remaining > $limit) ? "maximum {$limit}" : $remaining);
 
 FlashMessage::add($msg, 'warning');
-if (!empty($objStructured)) {
+if (!empty($objStructuredIds)) {
     FlashMessage::addTemplate('bulkReplacedStructured.tpl', [
-      'count' => count($objStructured),
-      'prep' => Str::getAmountPreposition(count($objStructured)),
+      'count' => count($objStructuredIds),
+      'prep' => Str::getAmountPreposition(count($objStructuredIds)),
     ]);
 }
 
@@ -215,18 +210,17 @@ function createMeaningDiffs($meanings, $search, $replace) {
  * @param   array   $objRemainingIds  referential
  * @param   string  $excludedIds      retrieved from the submission form
  * @param   int     $objExcluded      referential, count of excluded objects
- * @param   int     $phase            keeps track of $objRemainingIds chunks
+ * @param   int     $limit            limit of Ids to be filtered
  * @return  array   $queryIds         list of Ids supposed to be changed by replace operations
  */
-function processObjectIds(&$objRemainingIds, $excludedIds, &$objExcluded, $phase) {
+function processObjectIds(&$objRemainingIds, $excludedIds, &$objExcluded, $limit) {
  
   $objExcludedIds = filter_var_array(
     preg_split('/,/', $excludedIds, null, PREG_SPLIT_NO_EMPTY), FILTER_SANITIZE_NUMBER_INT);
   $objExcluded += count($objExcludedIds);
   Session::set('objExcluded', $objExcluded);
   
-  $queryIds = array_diff($objRemainingIds[$phase], $objExcludedIds);
-  Session::set('phase', $phase);
+  $queryIds = array_diff(array_slice($objRemainingIds, 0, $limit), $objExcludedIds);
   Session::set('objRemainingIds', $objRemainingIds);
  
   return $queryIds;
@@ -279,7 +273,7 @@ function unsetVars($var){
  * @return  ORMWrapper                based on <b>$target</b>
  */
 function prepareBaseQuery($target, $mysqlSearch, $sourceId){
-  $query = Model::factory(Constant::TARGET_NAMES[$target]['model'])
+  $query = Model::factory(Constant::BULKREPLACE_TARGETS[$target]['model'])
            ->where_raw('(binary internalRep like ? escape "|")', ["%{$mysqlSearch}%"]);
   
   if ($target == 1) { // definitions

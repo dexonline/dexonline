@@ -125,23 +125,23 @@ class Constant {
    * |   - the pipe itself,<br/>
    * remains unaffected.<br/>
    */
-  const BULKREPLACE_ESCAPES = [
+  const MYSQL_LIKE_ESCAPES = [
     '%' => '|%',
     '_' => '|_',
     '|' => '||',
   ];
 
   /**
-   * Used for creating Models and for select boxes
+   * Used for creating Models and for text like: select boxes, messages etc.
    */
-  const TARGET_NAMES = [
+  const BULKREPLACE_TARGETS = [
     1 => [
       'model' => 'Definition',
-      'select' => 'definiții',
+      'text' => 'definiții',
     ],
     2 => [
       'model' => 'Meaning',
-      'select' => 'sensuri',
+      'text' => 'sensuri',
     ],
   ];
 

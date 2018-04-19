@@ -6,7 +6,6 @@
  **/
 
 class CallToAction extends Plugin {
-  protected $dirName = 'callToAction';
 
   /* template name, relative to templates/plugins/callToAction/ */
   private $templateName;

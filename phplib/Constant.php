@@ -47,9 +47,9 @@ class Constant {
 
   // will use preg_replace for string values, preg_replace_callback for arrays
   const HTML_PATTERNS = [
-    '/▶(.*?)◀/s' => '',                                                 // remove unwanted parts of definition
-    '/(?<!\\\\)"([^"]*)"/' => '„$1”',                                    // "x" => „x” - romanian quoting style
-    '/(?<!\\\\)\{{2}(.*)(?<![+])\}{2}/U' => [ 'FootnoteHtmlizer' ],      // {{fotnote}}
+    '/▶(.*?)◀/s' => '',                                                  // remove unwanted parts of definition
+    '/(?<!\\\\)"([^"]*)"/' => '„$1”',                                     // "x" => „x” - romanian quoting style
+    '/(?<!\\\\)\{{2}(.*)(?<![+])\}{2}/U' => [ 'FootnoteHtmlizer' ],      // {{footnote}}
     '/(?<!\\\\)#(.*)(?<!\\\\)#/Us' => [ 'AbbrevHtmlizer' ],              // #abbreviation#
     '/(?<!\\\\)%(.*)(?<!\\\\)%/Us' => '<span class="spaced">$1</span>',  // %spaced%
     '/(?<!\\\\)@(.*)(?<!\\\\)@/Us' => '<b>$1</b>',                       // @bold@
@@ -117,7 +117,7 @@ class Constant {
     'ultra',
     // false negatives: "altîncotro"
   ];
-  
+
   /** 
    * Use <b>|</b> to escape MySQL special characters so that constructs and chars like:<br/>
    * \%  - "literal percent sign",<br/>
@@ -130,7 +130,7 @@ class Constant {
     '_' => '|_',
     '|' => '||',
   ];
-  
+
   /**
    * Used for creating Models and for select boxes
    */

@@ -13,9 +13,6 @@ abstract class Plugin {
   /* list of registered plugins */
   private static $plugins;
 
-  /* subdirectory under js/, css/ and templates/ where the plugin's files reside */
-  protected $dirName;
-
   static function init() {
     self::registerPlugins();
   }
@@ -36,20 +33,40 @@ abstract class Plugin {
     }
   }
 
-  /* notify registered plugins by invoking $method */
-  static function notify($method) {
+  /* Notify registered plugins by invoking $method. Pass along all arguments (unpacked). */
+  static function notify($method, &...$args) {
     foreach (self::$plugins as $plugin) {
-      $plugin->$method();
+      $plugin->$method(...$args);
     }
   }
 
   /** following are methods that plugins may choose to implement **/
 
-  /* called when the HTML is rendering, after the <body> tag but before the site header */
+  /* called when the HTML is rendering, at the end of the <head> tag */
+  function htmlHead() {
+  }
+
+  /* called when the HTML is rendering, inside the <body> tag but before the site header */
   function bodyStart() {
+  }
+
+  /* called when the HTML is rendering, after the </body> tag */
+  function afterBody() {
   }
 
   /* called before SmartyWrap::fetch(); plugins may include CSS/JS and assign Smarty variables */
   function cssJsSmarty() {
+  }
+
+  /* called at the start of a search for $query in search.php */
+  function searchStart($query, $hasDiacritics) {
+  }
+
+  /* called after an entry ID search, once the entry and definitions are ready */
+  function searchEntryId(&$definitions) {
+  }
+
+  /* called after a normal (inflected form) search, once the entry and definitions are ready */
+  function searchInflected(&$definitions, $sourceId) {
   }
 }

@@ -3,7 +3,7 @@
     src: url("../../fonts/plugins/typewriter/FuckinGwenhwyfar.ttf") format("truetype");
 }
 
-#aprilFoolsOverlay {
+#typewriterOverlay {
   width: 100%;
   height: 100%;
   position: fixed;
@@ -14,7 +14,7 @@
   display: table;
 }
 
-#aprilFoolsOverlayTarget {
+#typewriterOverlayTarget {
   vertical-align: middle;
   border: 0;
   background-color: transparent;

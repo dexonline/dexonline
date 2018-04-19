@@ -11,11 +11,11 @@
   var COOKIE_DEFINITIONS = "typewriterRanDefinitions";
   var COOKIE_OVERLAY = "typewriterRanOverlay";
 
-  var ELEM_OVERLAY_ID = "aprilFoolsOverlay";
-  var ELEM_OVERLAY_TARGET_ID = "aprilFoolsOverlayTarget";
+  var ELEM_OVERLAY_ID = "typewriterOverlay";
+  var ELEM_OVERLAY_TARGET_ID = "typewriterOverlayTarget";
 
   var CSS_TYPETARGET = "typewriterTarget";
-  var SOUND_BASEPATH = document.getElementById('aprilFools').getAttribute('data-sound');
+  var SOUND_BASEPATH = document.getElementById('typewriter').getAttribute('data-sound');
   var KEY_SOUNDS = keySounds(SOUND_BASEPATH);
   var SOUND_CR = new Audio(SOUND_BASEPATH + 'cr.mp3');
 
@@ -142,7 +142,7 @@
   function runOverlay(doneCallback) {
 
     var overlay = setupOverlay();
-    var typeInto = document.getElementById('aprilFoolsOverlayTarget');
+    var typeInto = document.getElementById('typewriterOverlayTarget');
 
     function newTypewriter(elem) {
       var typewriter = new Typewriter(elem);

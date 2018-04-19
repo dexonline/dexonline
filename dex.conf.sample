@@ -44,10 +44,6 @@ mirror = 0
 ; Prefix for the LOC databases.
 mysql_loc_prefix = LOC_
 
-; Seasonal pranks FTW
-aprilFoolsDay = 0
-typewriterEnabled = 0
-
 ; API formats
 
 ; Enable XML response when appending /xml to the definition URL

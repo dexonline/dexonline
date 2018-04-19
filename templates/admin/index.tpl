@@ -351,7 +351,7 @@
       </div>
 
       <div class="panel-body">
-        <form class="form-horizontal" action="bulkReplace.php">
+        <form class="form-horizontal" action="bulkReplace.php" method="post">
 
           <div class="row">
 

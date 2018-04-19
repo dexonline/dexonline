@@ -36,9 +36,7 @@
 
   <body>
 
-    {if isset($callToAction)}
-      {include $cfg.global.callToAction}
-    {/if}
+    {Plugin::notify('bodyStart')}
 
     <header>
       {block "banner"}

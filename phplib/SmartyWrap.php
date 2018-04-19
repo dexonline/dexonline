@@ -55,9 +55,6 @@ class SmartyWrap {
 		'editableMeaningTree' => [
 			'editableMeaningTree.css'
 		],
-		'callToAction' => [
-			'callToAction.css'
-		],
 		'privateMode' => [
 			'opensans.css'
 		],
@@ -146,9 +143,6 @@ class SmartyWrap {
 		'charmap' => [
 			'charmap.js',
 		],
-		'callToAction' => [
-			'callToAction.js'
-		],
 		'seedrandom' => [
 			'third-party/seedrandom.min.js'
 		],
@@ -214,6 +208,16 @@ class SmartyWrap {
     if (file_exists($fileName)) {
       self::$jsFiles[] = $jsFile;
     }
+  }
+
+  // add a CSS file relative to css/plugins/
+  static function addPluginCss($name) {
+    self::$cssFiles[] = "plugins/$name";
+  }
+
+  // add a JS file relative to js/plugins/
+  static function addPluginJs($name) {
+    self::$jsFiles[] = "plugins/$name";
   }
 
 	static function orderResources($mapping, $selected) {
@@ -311,12 +315,6 @@ class SmartyWrap {
       self::addCss('jqueryui');
       self::addJs('jqueryui');
     }
-    if (Config::get('global.callToAction') &&
-        !isset($_COOKIE['hideCallToAction'])) { // CTA campaign active and user did not hide it
-      self::addCss('callToAction');
-      self::addJs('callToAction', 'cookie');
-      self::assign('callToAction', true);
-    }
     if (User::can(User::PRIV_ANY)) {
       self::addJs('admin', 'hotkeys', 'cookie', 'charmap', 'sprintf');
     }
@@ -332,6 +330,7 @@ class SmartyWrap {
       }
     }
     self::registerOutputFilters();
+    Plugin::notify('cssJsSmarty');
     print self::fetch($templateName);
   }
 

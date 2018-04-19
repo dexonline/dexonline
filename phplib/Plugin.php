@@ -42,8 +42,16 @@ abstract class Plugin {
 
   /** following are methods that plugins may choose to implement **/
 
-  /* called when the HTML is rendering, after the <body> tag but before the site header */
+  /* called when the HTML is rendering, at the end of the <head> tag */
+  function htmlHead() {
+  }
+
+  /* called when the HTML is rendering, inside the <body> tag but before the site header */
   function bodyStart() {
+  }
+
+  /* called when the HTML is rendering, after the </body> tag */
+  function afterBody() {
   }
 
   /* called before SmartyWrap::fetch(); plugins may include CSS/JS and assign Smarty variables */

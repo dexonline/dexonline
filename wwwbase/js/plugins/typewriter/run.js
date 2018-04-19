@@ -117,7 +117,7 @@
   }
 
   function runDefinitions() {
-    var rootElements = [].slice.call(document.querySelectorAll('.defWrapper p.def'));
+    var rootElements = [].slice.call(document.querySelectorAll('.defWrapper p span.def'));
 
     // Create a new element so we can output typing sounds.
     // Doesn't have to be added to the DOM.

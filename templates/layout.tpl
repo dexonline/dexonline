@@ -1,5 +1,4 @@
 {assign var="cuv" value=$cuv|default:''}
-{assign var="typewriterEnabled" value=$cfg.global.typewriterEnabled|default:false}
 {assign var="pageType" value=$pageType|default:'other'}
 <!DOCTYPE html>
 <html>
@@ -17,7 +16,7 @@
     {/block}
     {if !$privateMode}
       <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,b,i,bi"
-            rel="stylesheet" type="text/css">
+        rel="stylesheet" type="text/css">
     {/if}
     <link href="{$cssFile.path}?v={$cssFile.date}" rel="stylesheet" type="text/css">
     <script src="{$jsFile.path}?v={$jsFile.date}"></script>
@@ -25,10 +24,7 @@
     <link href="https://plus.google.com/100407552237543221945" rel="publisher">
     <link rel="alternate" type="application/rss+xml" title="Cuvântul zilei" href="https://dexonline.ro/rss/cuvantul-zilei">
     <link rel="apple-touch-icon" href="{$imgRoot}/apple-touch-icon.png">
-    {if $typewriterEnabled}
-      <link rel="prefetch" href="{$wwwRoot}typewriter/font/FuckinGwenhwyfar.ttf">
-      <link rel="stylesheet" type="text/css" href="{$wwwRoot}typewriter/run.css">
-    {/if}
+    {Plugin::notify('htmlHead')}
     {block "bannerHead"}
       {include "banner/bannerHead.tpl"}
     {/block}
@@ -82,13 +78,6 @@
     {include "bits/debugInfo.tpl"}
   </body>
 
-  {if $typewriterEnabled}
-    <script src="{$wwwRoot}typewriter/typewriter.js"></script>
-    <script
-        id="aprilFools"
-        src="{$wwwRoot}typewriter/run.js"
-        data-sound="{$wwwRoot}typewriter/sound/"></script>
-    <script>typewriter.run("{$pageType}");</script>
-  {/if}
+  {Plugin::notify('afterBody')}
 
 </html>

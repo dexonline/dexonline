@@ -45,6 +45,7 @@ class Core {
       exit;
     }
     self::initAdvancedSearchPreference();
+    Plugin::init();
   }
 
   static function initAdvancedSearchPreference() {

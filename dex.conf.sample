@@ -48,9 +48,6 @@ mysql_loc_prefix = LOC_
 aprilFoolsDay = 0
 typewriterEnabled = 0
 
-; Call to action for occasional activism. Specify a template to include, or false to turn off.
-callToAction = false
-
 ; Custom definitions. Results will be returned as if the corresponding word was searched for.
 spoofEnabled = false
 
@@ -312,3 +309,10 @@ lexemeAutoType[] = "F|IL|infinitiv lung"
 lexemeAutoType[] = "A|PT|participiu"
 
 partOfSpeech = "parte de vorbire"
+
+[plugins]
+
+; array of class names, each one residing in phplib/plugins and implementing a plugin
+; plugin[] = ClassName
+
+; Each plugin expects some plugin-specific variables, which should be listed below.

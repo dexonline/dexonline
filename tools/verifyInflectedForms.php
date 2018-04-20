@@ -10,6 +10,10 @@ ini_set('memory_limit','8G');
 
 define('START_ID', 0);
 
+// pass -f to fix some of the issues encountered
+$opts = getopt('f');
+$fix = isset($opts['f']);
+
 $lexemes = Model::factory('Lexeme')
          ->where_gte('id', START_ID)
          ->order_by_asc('id')
@@ -25,7 +29,7 @@ foreach ($lexemes as $l) {
           ->order_by_asc('inflectionId')
           ->order_by_asc('variant')
           ->find_many();
-  checkSameIfs($l, $oldIfs);
+  checkSameIfs($l, $oldIfs, $fix);
   if (++$processed % 1000 == 0) {
     Log::info('%s lexemes processed.', $processed);
   }
@@ -33,7 +37,7 @@ foreach ($lexemes as $l) {
 
 /*************************************************************************/
 
-function checkSameIfs($lexeme, $oldIfs) {
+function checkSameIfs($lexeme, $oldIfs, $fix) {
   try {
     $newIfs = $lexeme->generateInflectedForms();
   } catch (ParadigmException $e) {
@@ -48,6 +52,7 @@ function checkSameIfs($lexeme, $oldIfs) {
     return;
   }
 
+  $anyChanges = false;
   foreach ($oldIfs as $i => $oif) {
     $nif = $newIfs[$i];
     if (($oif->form != $nif->form) ||
@@ -62,7 +67,12 @@ function checkSameIfs($lexeme, $oldIfs) {
                  $nif->form,
                  $nif->inflectionId,
                  $nif->variant);
+      $anyChanges = true;
     }
+  }
+
+  if ($anyChanges && $fix) {
+    $lexeme->deepSave();
   }
 }
 

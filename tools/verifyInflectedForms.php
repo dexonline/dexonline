@@ -25,8 +25,7 @@ foreach ($lexemes as $l) {
           ->order_by_asc('inflectionId')
           ->order_by_asc('variant')
           ->find_many();
-  $newIfs = $l->generateInflectedForms();
-  checkSameIfs($l, $oldIfs, $newIfs);
+  checkSameIfs($l, $oldIfs);
   if (++$processed % 1000 == 0) {
     Log::info('%s lexemes processed.', $processed);
   }
@@ -34,12 +33,21 @@ foreach ($lexemes as $l) {
 
 /*************************************************************************/
 
-function checkSameIfs($lexeme, $oldIfs, $newIfs) {
+function checkSameIfs($lexeme, $oldIfs) {
+  try {
+    $newIfs = $lexeme->generateInflectedForms();
+  } catch (ParadigmException $e) {
+    Log::error('In lexeme %s %s', $lexeme, editUrl($lexeme));
+    Log::error('cannot generate paradigm');
+    return;
+  }
+
   if (count($oldIfs) != count($newIfs)) {
     Log::error('In lexeme %s %s', $lexeme, editUrl($lexeme));
     Log::error('%s old forms, %s new forms', count($oldIfs), count($newIfs));
     return;
   }
+
   foreach ($oldIfs as $i => $oif) {
     $nif = $newIfs[$i];
     if (($oif->form != $nif->form) ||

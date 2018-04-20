@@ -371,9 +371,15 @@ class FlexStr {
   }
 
   static function applyTransforms($s, $transforms, $accentShift, $accentedVowel) {
-    // Remove the accent, but store its position
-    $accentIndex = mb_strpos($s, "'");
-    $s = str_replace("'", '', $s);
+    // Remove the accent, but store its position.
+    // Disregard double (secondary) accents and escaped accents.
+    preg_match("/(?<!\\\\|\\')'(?!\\')/", $s, $matches, PREG_OFFSET_CAPTURE);
+    if (count($matches)) {
+      $accentIndex = $matches[0][1];
+      $s = substr_replace($s, '', $accentIndex, 1);
+    } else {
+      $accentIndex = false;
+    }
 
     // Go backwards through the transforms list and figure out where each
     // of them will take place
@@ -418,8 +424,7 @@ class FlexStr {
       // Place the accent exactly where it is in the lexeme form, if there is
       // one.
       if ($accentIndex !== false) {
-        $result = mb_substr($result, 0, $accentIndex) . "'" .
-          mb_substr($result, $accentIndex);
+        $result = substr_replace($result, "'", $accentIndex, 0);
       }
     } else if ($accentShift != ModelDescription::UNKNOWN_ACCENT_SHIFT) {
       $result = self::placeAccent($result, $accentShift, $accentedVowel);

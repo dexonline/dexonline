@@ -8,8 +8,10 @@ require_once __DIR__ . '/../phplib/Core.php';
 
 ini_set('memory_limit','8G');
 
+define('START_ID', 0);
+
 $lexemes = Model::factory('Lexeme')
-         ->where_gte('id', 120000)
+         ->where_gte('id', START_ID)
          ->order_by_asc('id')
          ->find_many();
 
@@ -34,7 +36,8 @@ foreach ($lexemes as $l) {
 
 function checkSameIfs($lexeme, $oldIfs, $newIfs) {
   if (count($oldIfs) != count($newIfs)) {
-    Log::error('%s old forms, %s new forms for %s', count($oldIfs), count($newIfs), $lexeme);
+    Log::error('%s old forms, %s new forms for lexeme %s %s',
+               count($oldIfs), count($newIfs), $lexeme->id, $lexeme);
     return;
   }
   foreach ($oldIfs as $i => $oif) {
@@ -42,15 +45,16 @@ function checkSameIfs($lexeme, $oldIfs, $newIfs) {
     if (($oif->form != $nif->form) ||
         ($oif->inflectionId != $nif->inflectionId) ||
         ($oif->variant != $nif->variant)) {
-      Log::error('difference at position %s lexeme %s [%s][%d,%d] : [%s][%d,%d]',
-                $i,
-                $lexeme,
-                $oif->form,
-                $oif->inflectionId,
-                $oif->variant,
-                $nif->form,
-                $nif->inflectionId,
-                $nif->variant);
+      Log::error('difference at position %s lexeme %s %s [%s][%d,%d] : [%s][%d,%d]',
+                 $i,
+                 $lexeme->id,
+                 $lexeme,
+                 $oif->form,
+                 $oif->inflectionId,
+                 $oif->variant,
+                 $nif->form,
+                 $nif->inflectionId,
+                 $nif->variant);
     }
   }
 }

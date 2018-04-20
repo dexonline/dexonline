@@ -36,8 +36,8 @@ foreach ($lexemes as $l) {
 
 function checkSameIfs($lexeme, $oldIfs, $newIfs) {
   if (count($oldIfs) != count($newIfs)) {
-    Log::error('%s old forms, %s new forms for lexeme %s %s',
-               count($oldIfs), count($newIfs), $lexeme->id, $lexeme);
+    Log::error('In lexeme %s %s', $lexeme, editUrl($lexeme));
+    Log::error('%s old forms, %s new forms', count($oldIfs), count($newIfs));
     return;
   }
   foreach ($oldIfs as $i => $oif) {
@@ -45,10 +45,9 @@ function checkSameIfs($lexeme, $oldIfs, $newIfs) {
     if (($oif->form != $nif->form) ||
         ($oif->inflectionId != $nif->inflectionId) ||
         ($oif->variant != $nif->variant)) {
-      Log::error('difference at position %s lexeme %s %s [%s][%d,%d] : [%s][%d,%d]',
+      Log::error('In lexeme %s %s', $lexeme, editUrl($lexeme));
+      Log::error('difference at position %s [%s][%d,%d] : [%s][%d,%d]',
                  $i,
-                 $lexeme->id,
-                 $lexeme,
                  $oif->form,
                  $oif->inflectionId,
                  $oif->variant,
@@ -57,4 +56,8 @@ function checkSameIfs($lexeme, $oldIfs, $newIfs) {
                  $nif->variant);
     }
   }
+}
+
+function editUrl($lexeme) {
+  return "https://dexonline.ro/admin/lexemeEdit.php?lexemeId={$lexeme->id}";
 }

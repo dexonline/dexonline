@@ -5,10 +5,9 @@
 
 {strip}
 <span {if $t->tooltip}class="tag-tooltip"{/if} title="{$t->tooltip}">
-  <a href="{$wwwRoot}eticheta.php?id={$t->id}"
-     class="label label-default {if !$link}disabled{/if}"
-     {if !$link}disabled tabindex="-1"{/if}
-     {if $colors}style="{$style}"{/if}>
+  <a href="{$wwwRoot}eticheta.php?id={$t->id}" class="label label-default {if !$link}disabled{/if}"
+     {if !$link} disabled tabindex="-1"{/if}
+     {if $colors} style="{$style}"{/if}>
     {if $t->icon}
       <i class="glyphicon glyphicon-{$t->icon}"></i>
     {/if}

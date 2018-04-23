@@ -89,7 +89,15 @@ $(function() {
       target.append(new Option(text, id, true, true))
     }
     target.trigger('change');
-    target.select2('focus');
+
+    // focus the focusTarget element
+    var focusId = $(this).closest('.frequentObjects').data('focusTarget');
+    var focusElem = $(focusId);
+    if (focusElem.data('select2')) {
+      focusElem.select2('focus');
+    } else {
+      focusElem.focus();
+    }
   }
 
   function frequentObjectAddClick() {

@@ -446,7 +446,8 @@
                 {include "bits/frequentObjects.tpl"
                   name="meaningSources"
                   type="sources"
-                  target="#editorSources"}
+                  target="#editorSources"
+                  focusTarget="#editorRep"}
               </div>
 
               <div class="form-group">
@@ -457,7 +458,8 @@
                 {include "bits/frequentObjects.tpl"
                   name="meaningTags"
                   type="tags"
-                  target="#editorTags"}
+                  target="#editorTags"
+                  focusTarget="#editorRep"}
               </div>
 
               <div class="form-group">

@@ -1,14 +1,17 @@
 {**
- * Arguments:
- * $name: a unique name for cookie saving/loading
- * $type: what data to autocomplete (tags, sources etc.)
- * $target: target select2 element
- **}
+  * Arguments:
+  * $name: a unique name for cookie saving/loading
+  * $type: what data to autocomplete (tags, sources etc.)
+  * $target: target select2 element
+  * $focusTarget: element to focus on object click; defaults to $target
+  **}
+{$focusTarget=$focusTarget|default:$target}
 <div class="clearfix">
   <div class="btn-toolbar pull-right voffset frequentObjects"
        data-name="{$name}"
        data-type="{$type}"
-       data-target="{$target}">
+       data-target="{$target}"
+       data-focus-target="{$focusTarget}">
 
     <div class="btn-group btn-group-xs frequentObjectAddDiv">
       <button type="button"

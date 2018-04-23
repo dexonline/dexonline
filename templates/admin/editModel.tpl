@@ -174,7 +174,7 @@
       {/if}
     {/if}
 
-    {if count($participles) && !FlashMessage::hasErrors()}
+    {if !empty($participles) && !FlashMessage::hasErrors()}
       <div class="panel panel-default">
         <div class="panel-heading">
           Participii regenerate conform modelului A{$pm->adjectiveModel|escape}

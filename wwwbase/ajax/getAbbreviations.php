@@ -15,5 +15,4 @@ if ($sourceId) {
 
 SmartyWrap::assign('sourceId', $sourceId);
 SmartyWrap::assign('results', $abbrevs);
-SmartyWrap::assign('modUser', User::getActive());
 SmartyWrap::display('ajax/getAbbreviations.tpl');

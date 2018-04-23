@@ -1,7 +1,7 @@
 <?php
 
 require_once("../../phplib/Core.php");
-User::mustHave(User::PRIV_EDIT);
+User::mustHave(User::PRIV_ADMIN);
 Util::assertNotMirror();
 
 $action = Request::get('action');
@@ -13,16 +13,12 @@ $enforced = Request::has('enforced');
 $ambiguous = Request::has('ambiguous');
 $caseSensitive = Request::has('caseSensitive');
 $userId = User::getActiveId();
-$html = '';
-
 
 if (!$abbrevId) {
   $abbrev = Model::factory('Abbreviation')->create();
   $abbrev->sourceId = $sourceId;
 } else {
-  $abbrev = Model::factory('Abbreviation')
-                   ->where('id', $abbrevId)
-                   ->find_one();
+  $abbrev = Abbreviation::get_by_id($abbrevId);
 }
 
 /** Populate the fields with new values and save */
@@ -35,35 +31,10 @@ $abbrev->caseSensitive = $caseSensitive;
 $abbrev->modUserId = $userId;
 $abbrev->save();
 
-/** Prepare the false checkboxes from within the row */
-$tableData = '';
-$props = [$enforced, $ambiguous, $caseSensitive];
-foreach ($props as $checked) {
-  $tableData .= '<td>' .
-                  '<label class="label label-' . ($checked ? 'success' : 'primary') . '">' .
-                    '<i class="glyphicon glyphicon-' . ($checked ? 'ok' : 'minus') 
-                      . '" data-checked="' . $checked . '"></i>' .
-                  '</label>' .
-                '</td>';
-}
-
-/** Render the entire row */
-$html = '<tr id="' . $abbrev->id . '">' .
-          '<td>' .
-            '<span class="label label-primary">' . $abbrev->id . '</span>' .
-          '</td>' .
-          $tableData .
-          '<td>' . $short . '</td>' .
-          '<td>' . $internalRep . '</td>' .
-          '<td>' .
-            '<div class="btn-group btn-group">' .
-              '<button type="button" class="btn btn-xs btn-default" name="btn-edit" data-row-id="'. 
-                 $abbrev->id . '"><i class="glyphicon glyphicon-edit"></i></button>' .
-              '<button type="button" class="btn btn-xs btn-default" data-row-id="' . 
-                 $abbrev->id . '"><i class="glyphicon glyphicon-trash"></i></button>' .
-            '</div>' .
-          '</td>' .
-        '</tr>';
+/** Prepare the tableRow from template */
+SmartyWrap::assign('row', $abbrev);
+SmartyWrap::assign('labelEdited', 'primary');
+$html = SmartyWrap::fetch('bits/abbrevRow.tpl');
 
 $response = [ 'id' => $abbrev->id,
               'action' => $action,

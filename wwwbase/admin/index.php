@@ -130,6 +130,11 @@ $links = [
     'privilege' => User::PRIV_ADMIN,
   ],
   [
+    'url' => 'admin/abbrevEdit',
+    'text' => 'editează abrevieri',
+    'privilege' => User::PRIV_ADMIN,
+  ],
+  [
     'url' => 'admin/definitionEdit',
     'text' => 'adaugă o definiție',
     'privilege' => User::PRIV_EDIT | User::PRIV_TRAINEE,

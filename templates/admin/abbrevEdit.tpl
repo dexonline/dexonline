@@ -6,14 +6,6 @@
 {block "content"}
   <h3>Editează abrevieri pentru dicționar</h3>
 
-  {if $message}
-    <div class="alert alert-{$msgClass} alert-dismissible">
-      <button type="button" class="close" data-dismiss="alert">
-        <span aria-hidden="true">&times;</span>
-      </button>
-      {$message}
-    </div>
-  {/if}
   <div class="panel panel-default">
     <div class="panel-heading clearfix">
       <div id="lds-dual-ring" class="pull-right"></div>
@@ -32,7 +24,7 @@
       <div class="row">
         <label class="col-sm-1 control-label align-bottom">sursa</label>
         <div class="col-sm-9">
-          {include "bits/sourceDropDown.tpl" sources=$allModeratorSources skipAnySource=true}
+          {include "bits/sourceDropDown.tpl" sources=$allSources skipAnySource=true}
         </div>
       </div>
       <p class="text-muted">
@@ -58,7 +50,7 @@
       </ol>
     </div>
   </div>
-  <div id="abbrevs">
-  </div>
+  {* div populated by ajax calls *}
+  <div id="abbrevs"></div>
   {include "bits/abbrevEditModal.tpl"}
 {/block}

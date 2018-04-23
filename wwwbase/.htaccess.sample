@@ -45,6 +45,7 @@ RewriteRule ^lista/cuvinte-aleatoare/(\d+)$ randomList.php?n=$1&k=1 [PT,L]
 RewriteRule ^lista/cuvintele-zilei-aleatoare$ randomList.php?w=15 [PT,L]
 RewriteRule ^lista/cuvintele-zilei-aleatoare/(\d+)$ randomList.php?w=$1 [PT,L]
 RewriteRule ^model-flexiune/(.*)$ model-flexiune.php?model=$1 [PT,L]
+RewriteRule ^modele-flexiune/(.*)$ modele-flexiune.php?modelType=$1 [PT,L]
 
 # Non-search pages
 RewriteRule ^404$ simple.php?p=404 [PT,L]

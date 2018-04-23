@@ -1,21 +1,19 @@
 {* Argument: $lexeme *}
-{if User::can(User::PRIV_EDIT)}
-  <div>
-    {$lexeme->getPartOfSpeeech()}
+<div>
+  {$lexeme->getPartOfSpeeech()}
 
-    {if $lexeme->compound}
-      compus
-    {else}
-      {strip}
-      (
-      <a href="{$wwwRoot}model-flexiune/{$lexeme->modelType}{$lexeme->modelNumber}">
-        {$lexeme->modelType}{$lexeme->modelNumber}
-      </a>
-      )
-      {/strip}
-    {/if}
-  </div>
-{/if}
+  {if $lexeme->compound}
+    compus
+  {else}
+    {strip}
+    (
+    <a href="{$wwwRoot}model-flexiune/{$lexeme->modelType}{$lexeme->modelNumber}">
+      {$lexeme->modelType}{$lexeme->modelNumber}
+    </a>
+    )
+    {/strip}
+  {/if}
+</div>
 
 {if $lexeme->notes}
   <div class="lexemeNotes">{$lexeme->notes|escape}</div>

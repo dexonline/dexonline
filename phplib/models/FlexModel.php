@@ -28,9 +28,17 @@ class FlexModel extends BaseObject {
       ->find_many();
   }
 
+  // syntactic sugar so the caller doesn't have to split F1 into ['F', '1']
+  static function loadCanonical($modelName) {
+    $pos = strcspn($modelName, '0123456789');
+    $type = substr($modelName, 0, $pos);
+    $number = substr($modelName, $pos);
+    return self::loadCanonicalByTypeNumber($type, $number);
+  }
+
   static function loadCanonicalByTypeNumber($type, $number) {
     $type = ModelType::canonicalize($type);
-    return Model::factory('FlexModel')->where('modelType', $type)->where('number', $number)->find_one();
+    return FlexModel::get_by_modelType_number($type, $number);
   }
 
   function delete() {

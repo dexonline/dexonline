@@ -6,10 +6,6 @@ h3 .variantList {
   font-size: 80%;
 }
 
-.entryList span:not(:first-child):before {
-  content: '•';
-}
-
 .entryName {
   font-weight: bold;
 }

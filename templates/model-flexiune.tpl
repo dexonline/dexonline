@@ -3,21 +3,26 @@
 {block "title"}Model de flexiune{/block}
 
 {block "content"}
-    <h3>
-        Modelul de flexiune {$model->modelType} {$model->number}
-    </h3>
+  <h3>
+    Modelul de flexiune {$model} ({$exponent})
+  </h3>
 
-    <p>
-        <a class="btn btn-default" href="#" onclick="window.history.back();">
-            <i class="glyphicon glyphicon-chevron-left"></i>
-            înapoi
-        </a>
-    </p>
-
+  {if $model->description}
     <h4>
-        {$model->modelType} {$model->number}. {$model->getHtmlExponent()}
+      Descriere: {$model->description}
     </h4>
+  {/if}
 
-    <b>Descriere: {$model->description}</b>
-    {include "paradigm/paradigm.tpl" lexeme=$lexeme}
+  <p>
+    <a class="btn btn-default" href="#" onclick="window.history.back();">
+      <i class="glyphicon glyphicon-chevron-left"></i>
+      înapoi
+    </a>
+  </p>
+
+  {include "paradigm/paradigm.tpl" lexeme=$exponent}
+
+  <h3>Cuvinte care se flexionează conform acestui model (maxim 100 afișate)</h3>
+
+  {include "search/lexemeList.tpl"}
 {/block}

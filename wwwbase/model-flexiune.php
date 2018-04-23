@@ -1,21 +1,25 @@
 <?php
+
 require_once("../phplib/Core.php");
 
-$modelType = Request::get('t');
-$modelNumber = Request::get('n');
+define('LEXEMES_LIMIT', 100);
 
-$model = FlexModel::loadCanonicalByTypeNumber($modelType, $modelNumber);
+$model = Request::get('model');
+
+$model = FlexModel::loadCanonical($model);
 
 if (!$model) {
-    FlashMessage::add('Date incorecte.');
-    Util::redirect('scrabble');
+  FlashMessage::add('Date incorecte.');
+  Util::redirect('scrabble');
 }
 
-$lexeme = getLexeme($model->exponent, $model->modelType, $model->number);
+$exponent = getExponent($model);
+$lexemes = Lexeme::loadByCanonicalModel($model->modelType, $model->number, LEXEMES_LIMIT);
 
 SmartyWrap::addCss('paradigm');
 SmartyWrap::assign('model', $model);
-SmartyWrap::assign('lexeme', $lexeme);
+SmartyWrap::assign('exponent', $exponent);
+SmartyWrap::assign('lexemes', $lexemes);
 SmartyWrap::display('model-flexiune.tpl');
 
 /*************************************************************************/
@@ -23,23 +27,22 @@ SmartyWrap::display('model-flexiune.tpl');
 /**
  * Returns a lexeme for a given word and model. Creates one if one doesn't exist.
  **/
-function getLexeme($form, $modelType, $modelNumber) {
-    // Load by canonical model, so if $modelType is V, look for a lexeme with type V or VT.
-    $l = Model::factory('Lexeme')
-        ->table_alias('l')
-        ->select('l.*')
-        ->join('ModelType', 'modelType = code', 'mt')
-        ->where('mt.canonical', $modelType)
-        ->where('l.modelNumber', $modelNumber)
-        ->where('l.form', $form)
-        ->limit(1)
-        ->find_one();
-    if ($l) {
-        $l->loadInflectedFormMap();
-    } else {
-        $l = Lexeme::create($form, $modelType, $modelNumber);
-        $l->setAnimate(true);
-        $l->generateInflectedFormMap();
-    }
-    return $l;
+function getExponent($model) {
+  // Load by canonical model, so if $modelType is V, look for a lexeme with type V or VT.
+  $l = Model::factory('Lexeme')
+     ->table_alias('l')
+     ->select('l.*')
+     ->join('ModelType', 'modelType = code', 'mt')
+     ->where('mt.canonical', $model->modelType)
+     ->where('l.modelNumber', $model->number)
+     ->where('l.form', $model->exponent)
+     ->find_one();
+  if ($l) {
+    $l->loadInflectedFormMap();
+  } else {
+    $l = Lexeme::create($model->exponent, $model->modelType, $model->number);
+    $l->setAnimate(true);
+    $l->generateInflectedFormMap();
+  }
+  return $l;
 }

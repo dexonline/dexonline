@@ -8,9 +8,7 @@
     {else}
       {strip}
       (
-      <a href="{"%sadmin/dispatchModelAction.php?editModel=1&amp;modelType=%s&amp;modelNumber=%s"|sprintf
-               :$wwwRoot:$lexeme->modelType:$lexeme->modelNumber}"
-         title="editează modelul">
+      <a href="{$wwwRoot}model-flexiune/{$lexeme->modelType}{$lexeme->modelNumber}">
         {$lexeme->modelType}{$lexeme->modelNumber}
       </a>
       )

@@ -366,6 +366,10 @@ a.disabled {
 .voffset8 { margin-top: 100px; }
 .voffset9 { margin-top: 150px; }
 
+.entryList span:not(:first-child):before {
+  content: '•';
+}
+
 /* articles images (imported from wiki */
 
 div.tright {

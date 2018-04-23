@@ -10,12 +10,14 @@ if (!$modelType) {
   FlashMessage::add('Date incorecte.');
   Util::redirect('scrabble');
 }
-if ($locVersion) LocVersion::changeDatabase($locVersion);
+if ($locVersion) {
+  LocVersion::changeDatabase($locVersion);
+}
 $models = FlexModel::loadByType($modelType->code);
 
 $lexemes = [];
 foreach ($models as $m) {
-  $lexemes[] = getLexeme($m->exponent, $modelType->code, $m->number);
+  $lexemes[] = $m->getExponentWithParadigm();
 }
 DB::changeDatabase(DB::$database);
 
@@ -25,29 +27,3 @@ SmartyWrap::assign('lexemes', $lexemes);
 SmartyWrap::assign('locVersion', $locVersion);
 SmartyWrap::assign('modelType', $modelType);
 SmartyWrap::display('modele-flexiune.tpl');
-
-/*************************************************************************/
-
-/**
- * Returns a lexeme for a given word and model. Creates one if one doesn't exist.
- **/
-function getLexeme($form, $modelType, $modelNumber) {
-  // Load by canonical model, so if $modelType is V, look for a lexeme with type V or VT.
-  $l = Model::factory('Lexeme')
-     ->table_alias('l')
-     ->select('l.*')
-     ->join('ModelType', 'modelType = code', 'mt')
-     ->where('mt.canonical', $modelType)
-     ->where('l.modelNumber', $modelNumber)
-     ->where('l.form', $form)
-     ->limit(1)
-     ->find_one();
-  if ($l) {
-    $l->loadInflectedFormMap();
-  } else {
-    $l = Lexeme::create($form, $modelType, $modelNumber);
-    $l->setAnimate(true);
-    $l->generateInflectedFormMap();
-  }
-  return $l;
-}

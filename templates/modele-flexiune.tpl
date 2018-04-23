@@ -6,12 +6,12 @@
   <h3>
     Modele de flexiune pentru tipul {$modelType->code} ({$modelType->description})
     {if $locVersion}
-    în LOC versiunea {$locVersion}
+      în LOC versiunea {$locVersion}
     {/if}
   </h3>
 
   <p>
-    <a class="btn btn-default" href="scrabble">
+    <a class="btn btn-default" href="{$wwwRoot}scrabble">
       <i class="glyphicon glyphicon-chevron-left"></i>
       înapoi
     </a>

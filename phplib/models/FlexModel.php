@@ -18,6 +18,27 @@ class FlexModel extends BaseObject {
     return Str::highlightAccent($this->exponent);
   }
 
+  /* Returns a lexeme with inflected forms. Creates one if one doesn't exist. */
+  function getExponentWithParadigm() {
+    // Load by canonical model, so if $modelType is V, look for a lexeme with type V or VT.
+    $l = Model::factory('Lexeme')
+       ->table_alias('l')
+       ->select('l.*')
+       ->join('ModelType', 'modelType = code', 'mt')
+       ->where('mt.canonical', $this->modelType)
+       ->where('l.modelNumber', $this->number)
+       ->where('l.form', $this->exponent)
+       ->find_one();
+    if ($l) {
+      $l->loadInflectedFormMap();
+    } else {
+      $l = Lexeme::create($this->exponent, $this->modelType, $this->number);
+      $l->setAnimate(true);
+      $l->generateInflectedFormMap();
+    }
+    return $l;
+  }
+
   static function loadByType($type) {
     $type = ModelType::canonicalize($type);
     // Need a raw query here because order_by_asc() expects a field, nothing more
@@ -51,24 +72,6 @@ class FlexModel extends BaseObject {
       $pm->delete();
     }
     parent::delete();
-  }
-
-  /** Returns an array containing the type, number and restrictions **/
-  static function splitName($name) {
-    $result = [];
-    $len = strlen($name);
-    $i = 0;
-    while ($i < $len && !ctype_digit($name[$i])) {
-      $i++;
-    }
-    $result[] = substr($name, 0, $i);
-    $j = $i;
-    while ($j < $len && ctype_digit($name[$j])) {
-      $j++;
-    }
-    $result[] = substr($name, $i, $j - $i);
-    $result[] = substr($name, $j);
-    return $result;
   }
 
   function __toString() {

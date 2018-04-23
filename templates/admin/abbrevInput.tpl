@@ -58,8 +58,8 @@
             <li> abreviere impusă - nu ia în considerare forma editată și impune forma din câmpul short - <i>valoare booleană 0/1</i></li>
             <li> abreviere ambiguă - <i>valoare booleană 0/1</i></li>
             <li> diferențiere între majuscule și minuscule - <i>valoare booleană 0/1</i></li>
-            <li> abrevierea - <i>permite și alte semne de punctuație, nu doar „.”</i></li>
-            <li> detalierea abrevierii - <i>permite formatare internă html $,@,%</i></li>
+            <li> abrevierea - <i>permite și alte semne de punctuație, nu doar „.” + formatare internă $,@,%,_{},^{}</i></li>
+            <li> detalierea abrevierii - <i>permite formatare internă html $,@,%,_{},^{}</i></li>
           </ol>
           </p>
         {/if}
@@ -84,7 +84,7 @@
           {$modUser}
         </div>
 
-        <table id="abrrevs" class="table table-striped ">
+        <table id="abbrevs" class="table table-striped ">
           <thead>
             <tr>
               <th>Nr.</th>
@@ -101,7 +101,7 @@
                 <td><span class="sourceShortName">{$k+1}</span></td>
                 <td><span class="enforced">{$v.enforced}</span></td>
                 <td><span class="ambiguous">{$v.ambiguous}</span></td>
-                <td><span class="caseSensitive">{$v.caseSensitive}</td>
+                <td><span class="caseSensitive">{$v.caseSensitive}</span></td>
                 <td><span class="short">{$v.short}</span></td>
                 <td><span class="internalRep">{$v.internalRep}</span></td>
               </tr>

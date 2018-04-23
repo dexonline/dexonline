@@ -312,7 +312,6 @@ class Str {
     $s = self::cleanup($s);
     $s = str_replace(['$$', '@@', '%%'], '', $s);
 
-    $s = self::migrateFormatChars($s);
     if ($sourceId) {
       list($s, $ambiguousAbbrevs) = Abbrev::markAbbreviations($s, $sourceId);
     } else {
@@ -385,73 +384,6 @@ class Str {
       }
     }
 
-    return $s;
-  }
-
-  static function migrateFormatChars($s) {
-    // First, check that all format chars come in pairs
-    $len = strlen($s);
-    $i = 0;
-    $state = ['$' => false, '@' => false, '%' => false];
-
-    // 0 = punctuation (.,;:), 1 = closing char, 2 = whitespace, 3 = opening char, 4 = other
-    $value = $len ? array_fill(0, $len, 4) : [];
-
-    while ($i < $len) {
-      $c = $s[$i];
-      if ($c == '\\') {
-        $i++;
-      } else if (array_key_exists($c, $state)) {
-        $state[$c] = !$state[$c];
-        $value[$i] = $state[$c] ? 3 : 1;
-      } else if ($c && strpos('.,;:', $c) !== false) {
-        $value[$i] = 0;
-      } else if ($c == ' ') {
-        $value[$i] = 2;
-      }
-      $i++;
-    }
-    foreach ($state as $char => $bool) {
-      if ($bool) {
-        $s .= $char;
-        $value[] = 1;
-      }
-    }
-
-    // Now put all format chars in the right positions.
-    // - opening chars need to more right past whitespace and punctuation (.,;:)
-    // - closing chars need to move left past whitespace
-    // Therefore, take every string consisting of (w)hitespace, (p)unctuation, (o)pening chars
-    // and (c)losing chars and rearrange it as p,c,w,o
-    $matches = [];
-    preg_match_all('/[ .,;:@$%]+/', $s, $matches, PREG_OFFSET_CAPTURE);
-    if (count($matches)) {
-      foreach ($matches[0] as $match) {
-        $chars = str_split($match[0]);
-        $offset = $match[1];
-        if ($offset && $s[$offset - 1] == '\\') {
-          $chars = array_slice($chars, 1);
-          $offset++;
-        }
-        $len = count($chars);
-        $sopen = array_slice($value, $offset, $len);
-
-        $changes = true;
-        for ($i = 0; $i < $len - 1 && $changes; $i++) { // We need a stable algorithm, so bubblesort...
-          $changes = false;
-          for ($j = 0; $j < $len - 1; $j++) {
-            if ($sopen[$j] > $sopen[$j + 1]) {
-              $t = $chars[$j]; $chars[$j] = $chars[$j + 1]; $chars[$j + 1] = $t;
-              $t = $sopen[$j]; $sopen[$j] = $sopen[$j + 1]; $sopen[$j + 1] = $t;
-              $changes = true;
-            }
-          }
-        }
-        $s = substr($s, 0, $offset) . implode('', $chars) . substr($s, $offset + count($chars));
-      }
-      // Collapse consecutive spaces and trim the string
-      $s = trim(preg_replace('/  +/', ' ', $s));
-    }
     return $s;
   }
 

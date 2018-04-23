@@ -214,7 +214,7 @@ assertTransform('Str::htmlize', [ 0 ], [
 
   'abc\\^{def}ghi' =>
   ['abc^{def}ghi', []],
-  
+
   // remove unwanted parts of definition
   "I\\'m the ▶invisible ◀man▶ - some lyrics from Queen◀." =>
   ["I’m the man.", []],
@@ -360,7 +360,7 @@ assertEquals(
   ['Abreviere necunoscută: «brrb. ghhg.».'],
   $errors);
 
-$internalRep = '@M\'ARE^2,@ $mări,$ #s. f.# Nume generic dat vastelor întinderi de apă stătătoare, adânci și sărate, de pe suprafața |Pământului|Pământ|, care de obicei sunt unite cu oceanul printr-o strâmtoare; parte a oceanului de lângă țărm; $#p. ext.#$ ocean. * #Expr.# $Marea cu sarea$ = mult, totul; imposibilul. $A vântura mări și țări$ = a călători mult. $A încerca marea cu degetul$ = a face o încercare, chiar dacă șansele de reușită sunt minime. $Peste (nouă) mări și (nouă) țări$ = foarte departe. ** #Fig.# Suprafață vastă; întindere mare; imensitate. ** #Fig.# Mulțime (nesfârșită), cantitate foarte mare. - Lat. @mare, -is.@';
+$internalRep = '@M\'ARE^2@, $mări$, #s. f.# Nume generic dat vastelor întinderi de apă stătătoare, adânci și sărate, de pe suprafața |Pământului|Pământ|, care de obicei sunt unite cu oceanul printr-o strâmtoare; parte a oceanului de lângă țărm; $#p. ext.#$ ocean. * #Expr.# $Marea cu sarea$ = mult, totul; imposibilul. $A vântura mări și țări$ = a călători mult. $A încerca marea cu degetul$ = a face o încercare, chiar dacă șansele de reușită sunt minime. $Peste (nouă) mări și (nouă) țări$ = foarte departe. ** #Fig.# Suprafață vastă; întindere mare; imensitate. ** #Fig.# Mulțime (nesfârșită), cantitate foarte mare. - Lat. @mare, -is@.';
 list ($actualRep, $ambiguous) =
   Str::sanitize('@M\'ARE^2@, $mări$, s. f. Nume generic dat vastelor întinderi de apă stătătoare, adânci și sărate, de pe suprafața |Pământului|Pământ|, care de obicei sunt unite cu oceanul printr-o strâmtoare; parte a oceanului de lângă țărm; $p. ext.$ ocean. * Expr. $Marea cu sarea$ = mult, totul; imposibilul. $A vântura mări și țări$ = a călători mult. $A încerca marea cu degetul$ = a face o încercare, chiar dacă șansele de reușită sunt minime. $Peste (nouă) mări și (nouă) țări$ = foarte departe. ** Fig. Suprafață vastă; întindere mare; imensitate. ** Fig. Mulțime (nesfârșită), cantitate foarte mare. - Lat. @mare, -is@.', 1);
 assertEquals($internalRep, $actualRep);
@@ -374,7 +374,7 @@ assertEquals([
 
 list($actualRep, $ignored)
   = Str::htmlize($internalRep, 1);
-assertEquals('<b>M<span class="tonic-accent">A</span>RE<sup>2</sup>,</b> <i>mări,</i> <abbr class="abbrev" data-html="true" title="substantiv feminin">s. f.</abbr> Nume generic dat vastelor întinderi de apă stătătoare, adânci și sărate, de pe suprafața <a class="ref" href="/definitie/Pământ">Pământului</a>, care de obicei sunt unite cu oceanul printr-o strâmtoare; parte a oceanului de lângă țărm; <i><abbr class="abbrev" data-html="true" title="prin extensiune">p. ext.</abbr></i> ocean. ◊ <abbr class="abbrev" data-html="true" title="expresie">Expr.</abbr> <i>Marea cu sarea</i> = mult, totul; imposibilul. <i>A vântura mări și țări</i> = a călători mult. <i>A încerca marea cu degetul</i> = a face o încercare, chiar dacă șansele de reușită sunt minime. <i>Peste (nouă) mări și (nouă) țări</i> = foarte departe. ♦ <abbr class="abbrev" data-html="true" title="figurat">Fig.</abbr> Suprafață vastă; întindere mare; imensitate. ♦ <abbr class="abbrev" data-html="true" title="figurat">Fig.</abbr> Mulțime (nesfârșită), cantitate foarte mare. – Lat. <b>mare, -is.</b>',
+assertEquals('<b>M<span class="tonic-accent">A</span>RE<sup>2</sup></b>, <i>mări</i>, <abbr class="abbrev" data-html="true" title="substantiv feminin">s. f.</abbr> Nume generic dat vastelor întinderi de apă stătătoare, adânci și sărate, de pe suprafața <a class="ref" href="/definitie/Pământ">Pământului</a>, care de obicei sunt unite cu oceanul printr-o strâmtoare; parte a oceanului de lângă țărm; <i><abbr class="abbrev" data-html="true" title="prin extensiune">p. ext.</abbr></i> ocean. ◊ <abbr class="abbrev" data-html="true" title="expresie">Expr.</abbr> <i>Marea cu sarea</i> = mult, totul; imposibilul. <i>A vântura mări și țări</i> = a călători mult. <i>A încerca marea cu degetul</i> = a face o încercare, chiar dacă șansele de reușită sunt minime. <i>Peste (nouă) mări și (nouă) țări</i> = foarte departe. ♦ <abbr class="abbrev" data-html="true" title="figurat">Fig.</abbr> Suprafață vastă; întindere mare; imensitate. ♦ <abbr class="abbrev" data-html="true" title="figurat">Fig.</abbr> Mulțime (nesfârșită), cantitate foarte mare. – Lat. <b>mare, -is</b>.',
              $actualRep);
 
 $msg1 = 'Unele dintre caracterele @$%#{} nu sunt împerecheate corect.';
@@ -488,13 +488,6 @@ foreach ($data as list($raw, $internal, $html, $sourceId)) {
   list ($s, $ignored) = Str::htmlize($internal, $sourceId, $errors);
   assertEquals($html, $s);
 }
-
-assertTransform('Str::migrateFormatChars', [], [
-  '@MÁRE^2@, $mări$, s.f.' => '@MÁRE^2,@ $mări,$ s.f.',
-  '@$ % spaced % text $@' => '@$%spaced% text$@',
-  '40\% dolomite' => '40\% dolomite',
-  '40% dolomite%' => '40 %dolomite%',
-]);
 
 assertTransform('Str::removeAccents', [], [
   'cásă' => 'casă',

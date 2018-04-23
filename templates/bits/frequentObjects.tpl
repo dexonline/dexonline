@@ -6,8 +6,9 @@
   * $focusTarget: element to focus on object click; defaults to $target
   **}
 {$focusTarget=$focusTarget|default:$target}
+{$pull=$pull|default:'pull-right'}
 <div class="clearfix">
-  <div class="btn-toolbar pull-right voffset frequentObjects"
+  <div class="btn-toolbar {$pull} voffset frequentObjects"
        data-name="{$name}"
        data-type="{$type}"
        data-target="{$target}"

@@ -218,4 +218,3 @@ $(function() {
     placeholder: '',
   });
 });
-

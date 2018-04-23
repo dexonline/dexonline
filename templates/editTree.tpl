@@ -325,7 +325,7 @@
                 subsens
               </button>
               <button type="button"
-                class="btn btn-default btn-sm meaningAction"
+                class="btn btn-warning btn-sm meaningAction"
                 id="addExampleButton"
                 disabled
                 title="Adaugă un subsens-exemplu la sensul selectat. Dacă sensul selectat este el însuși exemplu, adaugă un frate.">

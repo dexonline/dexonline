@@ -232,9 +232,10 @@ $(function() {
   function cloneMeaning() {
     var rec = createNode(true);
 
+    rec.node.find('.id').text('');
     rec.node.insertAfter(rec.sel);
 
-    visit(rec.node);
+    visit(rec.sel); // stay on the current node
   }
 
   function deleteMeaning() {
@@ -328,7 +329,7 @@ $(function() {
     var type = c.find('.type').text();
     $('.editorType[value="' + type + '"]').prop('checked', true);
 
-    $('#editorRep').val(c.find('.internalRep').text());
+    $('#editorRep').val(c.find('.internalRep').text()).focus();
 
     $('#editorSources option').prop('selected', false);
     c.find('.sourceIds span').each(function() {

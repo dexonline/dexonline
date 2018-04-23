@@ -26,7 +26,8 @@ if ($fakeUserNick) {
     $user->name = $fakeUserNick;
   }
   if ($allPriv) {
-    $user->moderator = User::PRIV_ANY;
+    // PRIV_TRAINEE is more of a restriction than a privilege
+    $user->moderator = User::PRIV_ANY ^ User::PRIV_TRAINEE;
   } else {
     $user->moderator = array_sum($priv);
   }

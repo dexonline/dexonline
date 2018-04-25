@@ -15,15 +15,15 @@
             <div class="row">
               <div class="col-xs-4">
                 <input type="checkbox" class="col col-xs-1" id="enforced" name="enforced"/>
-                <label for="enforced">Impus:</label>
+                <label for="enforced">Impus</label>
               </div>
               <div class="col-xs-4">
                 <input type="checkbox" class="col col-xs-1" id="ambiguous" name="ambiguous"/>
-                <label for="ambiguous" class="control-label">Ambiguu:</label>
+                <label for="ambiguous" class="control-label">Ambiguu</label>
               </div>
               <div class="col-xs-4">
                 <input type="checkbox" class="col col-xs-1" id="caseSensitive" name="caseSensitive"/>
-                <label for="caseSensitive" class="control-label">CS:</label>
+                <label for="caseSensitive" class="control-label">Diferențiere aA</label>
               </div>
             </div>
           </div>
@@ -35,6 +35,9 @@
             <label for="internalRep" class="control-label">Detalierea abrevierii:</label>
             <input type="text" class="form-control" id="internalRep" name="internalRep" value=""/>
           </div>
+        </div>
+          <div class="alert alert-warning" id="message" style="display: none">
+          Această abreviere există! Apăsați salvează din nou pentru a o suprascrie.
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" data-dismiss="modal">

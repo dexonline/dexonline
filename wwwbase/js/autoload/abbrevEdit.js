@@ -23,7 +23,6 @@ $(function () {
   
   $('#abbrevs').on('click', '#command-add', function(){
     prepareModalForm(0,0,0,0,'','','add');
-    $('#edit_modal').modal('show');
   });
 
   $("#btn-save").click(function () {
@@ -41,7 +40,6 @@ $(function () {
     var sho = elem.find('td:nth-of-type(5)').html();
     var ir = elem.find('td:nth-of-type(6)').html();
     prepareModalForm(id, enf, amb, cs, sho, ir, 'edit');
-    $('#edit_modal').modal('show');
   });
   
   function prepareModalForm(id, enf, amb, cs, sho, ir, act){
@@ -55,6 +53,8 @@ $(function () {
     
     elem.find('#short').val(sho);
     elem.find('#internalRep').val(ir);
+    $('#frm_edit #message').hide();
+    $('#edit_modal').modal('show');
   }
 
   function abbrevEdit() {
@@ -72,11 +72,15 @@ $(function () {
           $('#table-abbrevs tbody').find('#'+response.id).replaceWith(response.html);
         } else if (response.action === 'delete') {
           $('#table-abbrevs tbody').remove('#'+response.id);
-        } else {
-          
+        } else if (response.action === 'duplicate') {
+          $('[name="abbrevId"]').val(response.id);
+          $('[name="action"]').val('edit');
+          $('#frm_edit #message').show();
         }
         
-        $('#edit_modal').modal('hide');
+        if (response.action !== 'duplicate'){
+          $('#edit_modal').modal('hide');
+        }
       }
     });
   }

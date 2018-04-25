@@ -13,7 +13,6 @@ $enforced = Request::has('enforced');
 $ambiguous = Request::has('ambiguous');
 $caseSensitive = Request::has('caseSensitive');
 $userId = User::getActiveId();
-$duplicate = false;
 $html = '';
 
 if (!$abbrevId) {
@@ -26,14 +25,14 @@ if (!$abbrevId) {
     $abbrev->sourceId = $sourceId;
   }
   else {
-    $duplicate = true;
+    $action = 'duplicate';
   }
 }
 else {
   $abbrev = Abbreviation::get_by_id($abbrevId);
 }
 
-if (!$duplicate) {
+if ($action != 'duplicate') {
   /** Populate the fields with new values and save */
   $abbrev->short = $short;
   $abbrev->internalRep = $internalRep;
@@ -48,9 +47,6 @@ if (!$duplicate) {
   SmartyWrap::assign('row', $abbrev);
   SmartyWrap::assign('labelEdited', 'primary');
   $html = SmartyWrap::fetch('bits/abbrevRow.tpl');
-  
-} else {
-  $action = 'duplicate';
 }
 
 $response = [ 'id' => $abbrev->id,

@@ -16,6 +16,7 @@ $formNoAccent = Request::get('formNoAccent');
 $isLoc = Request::get('isLoc');
 $paradigm = Request::get('paradigm');
 $lexemeTagIds = Request::getArray('lexemeTagIds');
+$modelTypes = Request::getArray('modelTypes');
 
 // definition parameters
 $lexicon = Request::get('lexicon');
@@ -85,6 +86,11 @@ if ($paradigm !== '') {
   } else {
     $q = $q->where('l.modelType', 'T');
   }
+}
+
+if (!empty($modelTypes)) {
+  $joinLexeme = true;
+  $q = $q->where_in('l.modelType', $modelTypes);
 }
 
 // process definition parameters

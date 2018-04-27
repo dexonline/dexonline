@@ -43,6 +43,8 @@ $(function() {
       $(this).closest('form').submit();
     });
 
+    $('#advSearchModelTypes').select2();
+
     $('.calendar').datepicker({
       autoclose: true,
       format: 'yyyy-mm-dd',

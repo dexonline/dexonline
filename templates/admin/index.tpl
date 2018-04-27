@@ -189,6 +189,21 @@
                   </div>
                 </div>
 
+                <div class="form-group">
+                  <label class="col-xs-4 control-label">modele</label>
+                  <div class="col-xs-8">
+                    <select
+                      id="advSearchModelTypes"
+                      name="modelTypes[]"
+                      class="form-control"
+                      multiple>
+                      {foreach $modelTypes as $mt}
+                        <option value="{$mt->code}">{$mt->code}</option>
+                      {/foreach}
+                    </select>
+                  </div>
+                </div>
+
               </fieldset>
             </div>
 
@@ -441,7 +456,7 @@
           doilea în toate definițiile, incluzând notele de subsol, făcând diferența între litere mari și mici
           (case-sensitive) și fără expresii regulate (textul este căutat ca
           atare). Vor fi modificate maximum 1.000 de definiții. Veți putea vedea
-          lista de modificări propuse și să o acceptați. 
+          lista de modificări propuse și să o acceptați.
         </p>
         <p class="text-danger">
           Evitați pe cât posibil definițiile cu note de subsol și cele structurate, debifându-le.

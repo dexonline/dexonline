@@ -149,12 +149,17 @@ $minModDate = Model::factory('Variable')
             ->min('modDate');
 $timeAgo = time() - $minModDate;
 
-SmartyWrap::assign('structurists', User::getStructurists());
-SmartyWrap::assign('reports', $reports);
-SmartyWrap::assign('reportPriv', $reportPriv);
-SmartyWrap::assign('links', $links);
-SmartyWrap::assign('linkPriv', $linkPriv);
-SmartyWrap::assign('timeAgo', $timeAgo);
+$modelTypes = ModelType::getAll();
+
+SmartyWrap::assign([
+  'structurists' => User::getStructurists(),
+  'reports' => $reports,
+  'reportPriv' => $reportPriv,
+  'modelTypes' => $modelTypes,
+  'links' => $links,
+  'linkPriv' => $linkPriv,
+  'timeAgo' => $timeAgo,
+]);
 SmartyWrap::addCss('admin', 'bootstrap-spinedit', 'bootstrap-datepicker');
 SmartyWrap::addJs('select2Dev', 'adminIndex', 'modelDropdown', 'bootstrap-spinedit',
                   'bootstrap-datepicker');

@@ -5,9 +5,9 @@ $query = Request::get('term');
 $query = addslashes($query);
 
 $trees = Model::factory('Tree')
-       ->where_raw("binary description like '{$query}%'") // match case
+       ->where_like('description', "{$query}%") // case sensitive
        ->where('status', Tree::ST_VISIBLE)
-       ->order_by_asc('description')
+       ->order_by_asc('descriptionSort')
        ->limit(10)
        ->find_many();
 

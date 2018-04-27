@@ -23,7 +23,7 @@ $data = Model::factory('InflectedForm')
       ->where_any_is([['m.breadcrumb' => "{$qualifier}%"],
                       ['m.id' => "{$qualifier}%"]],
                      'like')
-      ->order_by_asc('t.description')
+      ->order_by_asc('t.descriptionSort')
       ->order_by_asc('m.displayOrder')
       ->find_many();
 

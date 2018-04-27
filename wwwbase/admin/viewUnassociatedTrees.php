@@ -1,5 +1,5 @@
 <?php
-require_once("../../phplib/Core.php"); 
+require_once("../../phplib/Core.php");
 User::mustHave(User::PRIV_EDIT);
 Util::assertNotMirror();
 
@@ -8,7 +8,7 @@ $trees = Model::factory('Tree')
        ->select('t.*')
        ->left_outer_join('TreeEntry', ['t.id', '=', 'te.treeId'], 'te')
        ->where_null('te.id')
-       ->order_by_asc('t.description')
+       ->order_by_asc('t.descriptionSort')
        ->find_many();
 
 SmartyWrap::assign('trees', $trees);

@@ -343,6 +343,11 @@ class Tree extends BaseObject implements DatedObject {
     return $newt;
   }
 
+  function save() {
+    $this->descriptionSort = $this->description;
+    parent::save();
+  }
+
   function canDelete() {
     $numMeanings = Model::factory('Meaning')
                  ->where('treeId', $this->id)

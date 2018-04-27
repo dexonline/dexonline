@@ -32,7 +32,7 @@ class Relation extends BaseObject implements DatedObject {
       ->select('Relation.type')
       ->join('Relation', ['Tree.id', '=', 'treeId'])
       ->where('Relation.meaningId', $meaningId)
-      ->order_by_asc('description')
+      ->order_by_asc('descriptionSort')
       ->find_many();
     $results = [];
     for ($i = 1; $i <= self::NUM_TYPES; $i++) {

@@ -18,7 +18,7 @@ $data = Model::factory('InflectedForm')
       ->join('Tree', ['te.treeId', '=', 't.id'], 't')
       ->where('if.formNoAccent', $form)
       ->where('t.status', Tree::ST_VISIBLE)
-      ->order_by_asc('treeDescription')
+      ->order_by_asc('t.descriptionSort')
       ->order_by_asc('entryDescription')
       ->find_many();
 

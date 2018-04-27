@@ -42,7 +42,6 @@ $(function() {
           return 'caut...';
         },
       },
-      placeholder: 'adaugă o sursă...',
       sorter: sortSources,
       width: '100%',
     });

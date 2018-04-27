@@ -410,6 +410,15 @@
           <div class="form-group">
             <label class="col-md-1 control-label" for="editorSources">surse</label>
 
+            <div class="col-md-7">
+              {include "bits/frequentObjects.tpl"
+                name="meaningSources"
+                type="sources"
+                target="#editorSources"
+                focusTarget="#editorRep"
+                pull="pull-left"}
+            </div>
+
             <div class="col-md-4">
               <select id="editorSources" class="editorObj" multiple disabled>
                 {foreach Source::getAll() as $s}
@@ -418,13 +427,22 @@
               </select>
             </div>
 
+          </div>
+
+          <div class="form-group">
+            <label class="col-md-1 control-label" for="editorTags">etichete</label>
+
             <div class="col-md-7">
               {include "bits/frequentObjects.tpl"
-                name="meaningSources"
-                type="sources"
-                target="#editorSources"
+                name="meaningTags"
+                type="tags"
+                target="#editorTags"
                 focusTarget="#editorRep"
                 pull="pull-left"}
+            </div>
+
+            <div class="col-md-4">
+              <select id="editorTags" class="editorObj select2Tags" multiple disabled></select>
             </div>
           </div>
 
@@ -453,23 +471,6 @@
                 class="form-control editorObj"
                 rows="4"
                 disabled></textarea>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="col-md-1 control-label" for="editorTags">etichete</label>
-
-            <div class="col-md-4">
-              <select id="editorTags" class="editorObj select2Tags" multiple disabled></select>
-            </div>
-
-            <div class="col-md-7">
-              {include "bits/frequentObjects.tpl"
-                name="meaningTags"
-                type="tags"
-                target="#editorTags"
-                focusTarget="#editorRep"
-                pull="pull-left"}
             </div>
           </div>
 

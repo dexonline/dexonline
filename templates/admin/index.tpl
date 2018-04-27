@@ -204,6 +204,15 @@
                   </div>
                 </div>
 
+                <div class="form-group">
+                  <label class="col-xs-4 control-label">restricții</label>
+                  <div class="col-xs-8">
+                    <input class="form-control"
+                      type="text"
+                      name="restrictions">
+                  </div>
+                </div>
+
               </fieldset>
             </div>
 

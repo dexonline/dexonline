@@ -17,6 +17,7 @@ $isLoc = Request::get('isLoc');
 $paradigm = Request::get('paradigm');
 $lexemeTagIds = Request::getArray('lexemeTagIds');
 $modelTypes = Request::getArray('modelTypes');
+$restrictions = Request::getArray('restrictions');
 
 // definition parameters
 $lexicon = Request::get('lexicon');
@@ -91,6 +92,13 @@ if ($paradigm !== '') {
 if (!empty($modelTypes)) {
   $joinLexeme = true;
   $q = $q->where_in('l.modelType', $modelTypes);
+}
+
+if ($restrictions) {
+  $joinLexeme = true;
+  foreach (str_split($restrictions) as $letter) {
+    $q = $q->where_like('l.restriction', "%{$letter}%");
+  }
 }
 
 // process definition parameters

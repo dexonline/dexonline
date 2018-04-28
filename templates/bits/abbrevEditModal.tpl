@@ -49,11 +49,11 @@
               </button>
             </div>
             <div class="col-sm-4" id="btn-save">
-              <div class="btn btn-success btn-block ld-ext-left commands">
+              <button class="btn btn-success btn-block ld-ext-left commands" name="saveButton">
                 <div class="ld ld-ring ld-spin-fast"></div>
                 <i class="glyphicon glyphicon-floppy-disk"></i>
-                <u>s</u>alvează 
-              </div>
+                <u>s</u>alvează
+              </button>
             </div>
             <div class="col-sm-4" id="btn-delete">
               <div class="btn btn-danger btn-block ld-ext-left commands">

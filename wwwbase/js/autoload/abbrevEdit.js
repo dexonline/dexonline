@@ -35,8 +35,9 @@ $(function () {
     prepareModalForm(new Abbrev($(this), 'delete', 'Ștergere'));
   });
 
-  $(".commands").click(function () {
+  $(".commands").click(function (event) {
     abbrevEdit();
+    event.preventDefault();
   });
 
   function Abbrev(elem, action, title) {

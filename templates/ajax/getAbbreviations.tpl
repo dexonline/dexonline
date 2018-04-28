@@ -28,11 +28,10 @@
       <p class="panel-body text-danger">
         Nu există abrevieri încărcate pentu dicționarul ales.
       </p>
-    {/if} 
+    {/if}
     <div class="panel-footer text-center clearfix">
-      <span class="label label-default">Total abrevieri: {$results|count}</span>
+      <span class="label label-default">Total abrevieri: <span id="abbrevCount">{$results|count}</span></span>
     </div>
-
   </div>
 </div>
 {if $results|count  != 0 && User::can(User::PRIV_ADMIN)}
@@ -40,5 +39,5 @@
     <button type="button" class="btn btn-primary" id="command-add" data-source-id="{$sourceId}">
       <span class="glyphicon glyphicon-plus"></span> Adaugă
     </button>
-  </div>    
+  </div>
 {/if}

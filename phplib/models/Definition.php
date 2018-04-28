@@ -56,9 +56,9 @@ class Definition extends BaseObject implements DatedObject {
 
   /**
    * Process the entire definition
-   * 
-   * Single entry point for sanitize() / htmlize() / footnotes reprocess etc. 
-   * 
+   *
+   * Single entry point for sanitize() / htmlize() / footnotes reprocess etc.
+   *
    * @param   boolean $flash  :if true, set flash messages for errors and warnings
    * @return  void
    */
@@ -454,36 +454,52 @@ class Definition extends BaseObject implements DatedObject {
     return $s;
   }
 
-  /** 
+  /**
+   * Counts all marked abbreviations with #...# in specified source
+   *
+   * @param   string  $abbrev         short representation of abbreviation
+   * @param   int     $sourceId       source to search
+   * @param   int     $caseSensitive  binary compare option
+   * @return  int
+   */
+  static function countAbbrevs($abbrev, $sourceId, $caseSensitive = false) {
+    $cs = $caseSensitive ? ' ' : ' binary ';
+    return Model::factory('Definition')
+      ->where_raw('internalRep like' . $cs . '?', '%#' . $abbrev . '#%')
+      ->where('sourceID', $sourceId)
+      ->count();
+  }
+
+  /**
    * Saves only definition, without footnotes
-   * 
+   *
    * Does not regenerate htmlized footnotes
-   * 
+   *
    * @param none
-   * 
+   *
    * @return  bool  <p>$success from parent</p>
    */
   function save() {
     $this->modUserId = User::getActiveId();
     return parent::save();
   }
-  
-  /** 
+
+  /**
    * Saves definition and footnotes
-   * 
+   *
    * Deletes every footnote associated with this definition and saves them again <br/>
    * Prior calling this function make sure you called either of:
-   * 
+   *
    * <b>process()</b> - so footnotes get htmlized again from changed <i>internalRep</i><br/>
    * <b>getFootnotes()</b> - to load the old ones into <i>$this->footnotes</i><br/>
-   * 
+   *
    * @param  none
-   * 
+   *
    * @return bool $success  <p>from function save()</p>
    */
   function deepSave() {
     $success = $this->save();
-    
+
     Footnote::delete_all_by_definitionId($this->id);
     foreach ($this->footnotes as $f) {
       $f->definitionId = $this->id;

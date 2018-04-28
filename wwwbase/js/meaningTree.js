@@ -432,7 +432,6 @@ $(function() {
 
   // stay in the editor text area when the user clicks a type radio button
   function editorTypeClick() {
-    console.log('foo');
     $('#editorRep').focus();
   }
 

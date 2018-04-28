@@ -31,10 +31,10 @@ do {
     $d->process();
   }
 
+  $millis = DebugInfo::stopClock('processed definitions');
   $sumMillis += $millis;
   $remaining -= $limit;
 
-  $millis = DebugInfo::stopClock('processed definitions');
   print "processed {$limit} definitions in {$millis} ms, {$remaining} definitions remaining\n";
 
 } while ($remaining);

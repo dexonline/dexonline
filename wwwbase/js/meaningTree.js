@@ -30,6 +30,7 @@ $(function() {
     $('#meaningLeftButton').click(meaningLeft);
     $('#meaningRightButton').click(meaningRight);
     $('.deleteMeaningMention').click(deleteMeaningMention);
+    $('.editorType').click(editorTypeClick);
 
     stem = $('#stemNode li').detach();
 
@@ -427,6 +428,12 @@ $(function() {
     if (evt.originalEvent) {
       input.find('select').select2('focus');
     }
+  }
+
+  // stay in the editor text area when the user clicks a type radio button
+  function editorTypeClick() {
+    console.log('foo');
+    $('#editorRep').focus();
   }
 
   // Iterate a meaning tree node (<ul> element) recursively and collect meaning-related fields

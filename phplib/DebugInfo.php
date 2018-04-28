@@ -37,7 +37,9 @@ class DebugInfo {
       $delta = self::getTimeInMillis() - self::$lastClockReset;
       self::$debugInfo[] = "$delta ms: [$message]";
       self::resetClock();
+      return $delta;
     }
+    return null;
   }
 
   static function getRunningTimeInMillis() {

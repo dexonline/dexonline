@@ -190,7 +190,7 @@
     </div>
 
     <div class="panel-body">
-      <p class="def" id="defPreview">{$def->htmlRep}</p>
+      <p class="def" id="defPreview">{$def->getHtml()}</p>
     </div>
   </div>
 

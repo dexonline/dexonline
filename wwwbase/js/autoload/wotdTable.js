@@ -106,7 +106,7 @@ $(function (){
     colModel: [
       {name: 'lexicon', index: 'lexicon', editable: true, edittype: 'select', editoptions: {value: 'x:x'}, width: lexWidth},
       {name: 'source', index: 'shortName', width: sourceWidth},
-      {name: 'htmlRep', index: 'htmlRep', width: htmlWidth},
+      {name: 'htmlDef', index: 'htmlDef', width: htmlWidth},
       {name: 'displayDate', index: 'displayDate', width: dateWidth, editable: true, cellattr: function (a,b,c,d,x) {return ' title="' + x.descr + '"'}},
       {name: 'name', index: 'u.name', width: userWidth},
       {name: 'priority', index: 'priority', editable: true, width: priorWidth},

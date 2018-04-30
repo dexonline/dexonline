@@ -6,24 +6,24 @@ $opts = getopt('an');
 $ambiguous = isset($opts['a']);
 $dryRun = isset($opts['n']);
 
-if (empty($opts) ) { 
-  print "There was a problem reading the arguments.\n"; 
-  print "Options are: -- -a (mark ambiguities).\n"; 
-  print "                -n (dry run).\n"; 
+if (empty($opts) ) {
+  print "There was a problem reading the arguments.\n";
+  print "Options are: -- -a (mark ambiguities).\n";
+  print "                -n (dry run).\n";
 	print "Are you sure you want to run without options set?  Type 'y' to continue: ";
-	
+
   $handle = fopen ("php://stdin","r");
 	$line = fgets($handle);
 	fclose($handle);
-  
+
 	if(trim($line) != 'y'){
 		print "ABORTING!\n";
 		exit;
 	}
-  
-	print "\n"; 
-	print "OK!, continuing...\n";  
-} 
+
+	print "\n";
+	print "OK!, continuing...\n";
+}
 
 if ($dryRun) {
   print "---- DRY RUN ----\n";
@@ -46,12 +46,12 @@ foreach ($dbResult as $row) {
   $ambiguousMatches = [];
   $warnings = [];
   $newRep = $def->internalRep;
-  
+
   // Remove existing hash signs if ambiguous option (-a) is set
   if ($ambiguous) {
     $newRep = str_replace('#', '', $newRep);
   }
-  
+
   // Replace accented letters with new tonic accent notation
   $newRep = Str::changeAccents($newRep);
 
@@ -65,9 +65,8 @@ foreach ($dbResult as $row) {
   if ($newRep !== $def->internalRep) {
     $modified++;
     $def->internalRep = $newRep;
-    list($def->htmlRep, $ignored) = Str::htmlize($newRep, $def->sourceId, false);
   }
-  
+
   if (count($ambiguousMatches)) {
     if ($ambiguous) {
       $def->abbrevReview = Definition::ABBREV_AMBIGUOUS;
@@ -83,7 +82,7 @@ foreach ($dbResult as $row) {
   } else {
     $def->abbrevReview = Definition::ABBREV_REVIEW_COMPLETE;
   }
-  
+
   if (!$dryRun){
     $def->save();
   }

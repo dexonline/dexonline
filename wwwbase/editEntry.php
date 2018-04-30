@@ -204,7 +204,7 @@ $modelTypes = array_unique($modelTypes);
 $definitions = Definition::loadByEntryIds([$e->id]);
 foreach ($definitions as $def) {
   $def->internalRepAbbrev = Abbrev::expandAbbreviations($def->internalRep, $def->sourceId);
-  list($def->htmlRepAbbrev, $ignored)
+  list($def->htmlAbbrev, $ignored)
     = Str::htmlize($def->internalRepAbbrev, $def->sourceId);
 }
 $searchResults = SearchResult::mapDefinitionArray($definitions);

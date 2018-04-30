@@ -21,7 +21,12 @@ class Definition extends BaseObject implements DatedObject {
   ];
 
   private $source = null;
+  private $html = null;
   private $footnotes = null;
+
+  // Raised by process() and htmlize(). Callers may use the errors and warnings or ignore them.
+  private $errors = [];
+  private $warnings = [];
 
   /* For admins, returns the definition with the given ID. For regular users,
     return null rather than a hidden definition. */
@@ -44,35 +49,34 @@ class Definition extends BaseObject implements DatedObject {
     return $this->source;
   }
 
+  // Computes the HTML for the definition and extracts the footnotes.
+  function htmlize($flash = false) {
+    list($this->html, $this->footnotes)
+      = Str::htmlize($this->internalRep, $this->sourceId, false, $this->errors, $this->warnings);
+    if ($flash) {
+      $this->exportMessages();
+    }
+  }
+
+  function getHtml($force = false) {
+    if ($this->html === null || $force) {
+      $this->htmlize();
+    }
+    return $this->html;
+  }
+
   function getFootnotes() {
     if ($this->footnotes === null) {
-      $this->footnotes = Model::factory('Footnote')
-        ->where('definitionId', $this->id)
-        ->order_by_asc('rank')
-        ->find_many();
+      $this->htmlize();
     }
     return $this->footnotes;
   }
 
-  /**
-   * Process the entire definition
-   *
-   * Single entry point for sanitize() / htmlize() / footnotes reprocess etc.
-   *
-   * @param   boolean $flash  :if true, set flash messages for errors and warnings
-   * @return  void
-   */
-  function process($flash = true) {
-    $errors = [];
-    $warnings = [];
-
+  // Single entry point for sanitizing / extracting lexicon / counting ambigious abbreviations.
+  function process($flash = false) {
     // sanitize
     list($this->internalRep, $ambiguousAbbreviations)
-      = Str::sanitize($this->internalRep, $this->sourceId, $warnings);
-
-    // htmlize + footnotes
-    list($this->htmlRep, $this->footnotes)
-      = Str::htmlize($this->internalRep, $this->sourceId, false, $errors, $warnings);
+      = Str::sanitize($this->internalRep, $this->sourceId, $this->warnings);
 
     // abbrevReview status
     $this->abbrevReview = count($ambiguousAbbreviations)
@@ -83,14 +87,21 @@ class Definition extends BaseObject implements DatedObject {
     $this->extractLexicon();
 
     if ($flash) {
-      foreach ($warnings as $warning) {
-        FlashMessage::add($warning, 'warning');
-      }
-
-      foreach ($errors as $error) {
-        FlashMessage::add($error);
-      }
+      $this->exportMessages();
     }
+  }
+
+  // Export errors and warnings from process() and/or htmlize() as flash messages
+  function exportMessages() {
+    foreach ($this->warnings as $w) {
+      FlashMessage::add($w, 'warning');
+    }
+    $this->warnings = [];
+
+    foreach ($this->errors as $e) {
+      FlashMessage::add($e);
+    }
+    $this->errors = [];
   }
 
   static function loadByEntryIds($entryIds) {
@@ -471,41 +482,12 @@ class Definition extends BaseObject implements DatedObject {
   }
 
   /**
-   * Saves only definition, without footnotes
-   *
-   * Does not regenerate htmlized footnotes
-   *
-   * @param none
-   *
    * @return  bool  <p>$success from parent</p>
    */
   function save() {
     $this->modUserId = User::getActiveId();
+    Typo::delete_all_by_definitionId($this->id);
     return parent::save();
   }
 
-  /**
-   * Saves definition and footnotes
-   *
-   * Deletes every footnote associated with this definition and saves them again <br/>
-   * Prior calling this function make sure you called either of:
-   *
-   * <b>process()</b> - so footnotes get htmlized again from changed <i>internalRep</i><br/>
-   * <b>getFootnotes()</b> - to load the old ones into <i>$this->footnotes</i><br/>
-   *
-   * @param  none
-   *
-   * @return bool $success  <p>from function save()</p>
-   */
-  function deepSave() {
-    $success = $this->save();
-
-    Footnote::delete_all_by_definitionId($this->id);
-    foreach ($this->footnotes as $f) {
-      $f->definitionId = $this->id;
-      $f->save();
-    }
-    Typo::delete_all_by_definitionId($this->id);
-    return $success;
-  }
 }

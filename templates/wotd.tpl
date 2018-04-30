@@ -24,7 +24,7 @@
       <div id="wotdSocialMedia" class="pull-right">
         <div>
           <a href="#toggleContents" data-toggle="collapse"><img src="{$imgRoot}/social-media/email-29.png" alt="iconiță email"></a>
-          <a type="application/rss+xml" href="https://dexonline.ro/rss/cuvantul-zilei"><img src="{$imgRoot}/social-media/rss-29.png" alt="iconiță RSS"></a>
+          <a type="application/rss+xml" href="{$wwwRoot}rss/cuvantul-zilei"><img src="{$imgRoot}/social-media/rss-29.png" alt="iconiță RSS"></a>
           <a href="https://www.facebook.com/dexonline"><img src="{$imgRoot}/social-media/facebook-29.png" alt="iconiță Facebook"></a>
         </div>
       </div>

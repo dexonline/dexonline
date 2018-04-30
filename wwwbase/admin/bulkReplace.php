@@ -187,8 +187,7 @@ function createDefinitionDiffs($defs, $search, $replace) {
     $new = str_replace($search, $replace, $d->internalRep);
 
     // getting the diff from $old (internalRep) -> $new
-    $diff = DiffUtil::internalDiff($d->internalRep, $new);
-    list($d->htmlRep, $ignored) = Str::htmlize($diff, $d->sourceId);
+    $d->internalRep = DiffUtil::internalDiff($d->internalRep, $new);
   }
   DebugInfo::stopClock('BulkReplace - AfterForEach +MoreToReplace');
 
@@ -245,11 +244,10 @@ function saveObjects($objects, $target, $search, $replace, &$numChanged, &$struc
       if ($obj->structured){
         $structuredIds[] = $obj->id;
       }
-      $obj->deepSave();
     } else { // $obj is a meaning
       meaningReplace($obj, $search, $replace);
-      $obj->save();
     }
+    $obj->save();
     $numChanged++;
   }
   Session::set('numChanged', $numChanged);

@@ -4,14 +4,14 @@
 <div class="defWrapper{if $row->definition->structured && $showStructuredWrapper} defStructuredWrapper{/if}">
   <p>
     <span class="def" title="Clic pentru a naviga la acest cuvânt">
-      {$row->definition->htmlRep}
+      {$row->definition->getHtml()}
     </span>
     {foreach $row->tags as $t}
       {include "bits/tag.tpl"}
     {/foreach}
   </p>
 
-  {include "bits/footnotes.tpl" footnotes=$row->footnotes}
+  {include "bits/footnotes.tpl" footnotes=$row->definition->getFootnotes()}
   {include "bits/definitionMenu.tpl"}
 
 

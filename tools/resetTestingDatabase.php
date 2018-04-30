@@ -320,7 +320,7 @@ function createDefinition($rep, $lexicon, $userId, $sourceId, $status) {
   $d->status = $status;
   $d->process(false);
   $d->lexicon = $lexicon; // overwrite extracted lexicon
-  $d->deepSave();
+  $d->save();
 
   return $d;
 }

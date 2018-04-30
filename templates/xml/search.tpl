@@ -6,7 +6,7 @@
         {foreach $results as $row}
         <definition id="{$row->definition->id}">
             <internalRep>{$row->definition->internalRep|escape:html}</internalRep>
-            <htmlRep>{$row->definition->htmlRep}</htmlRep>
+            <htmlRep>{$row->definition->getHtml()}</htmlRep>
             <userNick>{$row->user->nick}</userNick>
             <sourceName>{$row->source->shortName}</sourceName>
             <createDate>{$row->definition->createDate}</createDate>

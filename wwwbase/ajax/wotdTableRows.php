@@ -69,7 +69,7 @@ class wotdTableRows{
     $this->sord = $sord;
 
     $this->sql_fields = <<<sql
-w.id, d.lexicon, s.shortName, d.htmlRep, w.displayDate, u.name, w.priority, wr.refType, w.image, w.description, d.id as definitionId
+w.id, d.lexicon, s.shortName, d.internalRep, w.displayDate, u.name, w.priority, wr.refType, w.image, w.description, d.id as definitionId
 sql;
     $this->sql_base = <<<sql
 WordOfTheDay w inner join WordOfTheDayRel wr on w.id = wr.wotdId
@@ -150,11 +150,12 @@ sql;
 
     foreach ($rows as $dbRow) {
       list($dbRow['htmlDescription'], $ignored) = Str::htmlize($dbRow['description'], 0);
+      list($dbRow['htmlDef'], $ignored) = Str::htmlize($dbRow['internalRep'], 0);
       $row = $doc->createElement('row');
       $row->setAttribute('id', $dbRow['id']);
       foreach ($dbRow as $key => $cell){
         if (!is_numeric($key) && $key != 'id'){
-          $row->appendChild($this->newNode('cell', $dbRow[$key], $doc, ($key == 'htmlRep' ? true : false)));
+          $row->appendChild($this->newNode('cell', $dbRow[$key], $doc, ($key == 'htmlDef' ? true : false)));
         }
       }
 

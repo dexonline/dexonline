@@ -22,7 +22,6 @@ class DefinitionVersion extends BaseObject {
     $dv->sourceId = $def->sourceId;
     $dv->lexicon = $def->lexicon;
     $dv->internalRep = $def->internalRep;
-    $dv->htmlRep = $def->htmlRep;
     $dv->status = $def->status;
     $dv->createDate = $def->modDate; // mind the difference
     $dv->modUserId = $def->modUserId;

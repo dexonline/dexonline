@@ -50,7 +50,8 @@ if ($saveButton || $nextOcrBut) {
   $d->similarSource = $similarSource;
   $d->structured = $structured;
 
-  $d->process();
+  $d->process(true);
+  $d->htmlize(true);
 
   if (!FlashMessage::hasErrors()) {
     // Save the new entries, load the rest.
@@ -87,7 +88,7 @@ if ($saveButton || $nextOcrBut) {
     }
 
     // Save the definition and delete the typos associated with it.
-    $d->deepSave();
+    $d->save();
 
     $orig = Definition::get_by_id($definitionId);
     if ($d->structured && $orig && ($d->internalRep != $orig->internalRep)) {

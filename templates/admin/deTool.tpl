@@ -16,7 +16,7 @@
 
   <div class="panel panel-default">
     <div class="panel-body">
-      {$def->htmlRep}
+      {$def->getHtml()}
       <a href="definitionEdit?definitionId={$def->id}">
         <i class="glyphicon glyphicon-pencil"></i>
         editează

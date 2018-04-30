@@ -105,8 +105,7 @@ if (!$doFullDump) {
   DB::execute("insert into _Definition_Copy select * from Definition");
   $query = <<<EOT
     update _Definition_Copy
-    set internalRep = concat(left(internalRep, 20), '...'),
-        htmlRep = '[această definiție nu poate fi redistribuită]'
+    set internalRep = concat(left(internalRep, 20), '...')
     where sourceId in (select id from Source where !canDistribute)
 EOT;
   DB::execute($query);

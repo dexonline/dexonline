@@ -15,7 +15,7 @@
       <div class="panel-body">
         {foreach $searchResults[$i] as $row}
           <p>
-            {$row->definition->htmlRep}
+            {$row->definition->getHtml()}
             <small class="text-muted">{$row->source->shortName}</small>
           </p>
         {/foreach}

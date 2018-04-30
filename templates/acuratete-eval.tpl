@@ -51,7 +51,7 @@
           </p>
 
           <p class="currentDef">
-            {$def->htmlRep}
+            {$def->getHtml()}
           </p>
         </div>
 

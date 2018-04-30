@@ -20,8 +20,8 @@
             {include "bits/meaningTags.tpl" tags=$t.tags}
 
             {* When the meaning itself is empty, show something else *}
-            <span class="def htmlRep {$t.meaning->getCssClass()}">
-              {$t.meaning->htmlRep}
+            <span class="def html {$t.meaning->getCssClass()}">
+              {$t.meaning->getHtml()}
               {if $t.meaning->includeRelations()}
                 {include "bits/meaningRelations.tpl" relations=$t.relations}
                 {$relationsShown=true}

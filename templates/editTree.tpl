@@ -248,7 +248,7 @@
               <td>
                 <a href="{$wwwRoot}editTree.php?id={$m->srcId}">{$m->srcDesc}</a>
               </td>
-              <td><b>{$m->breadcrumb}</b> {$m->htmlRep}</td>
+              <td><b>{$m->breadcrumb}</b> {$m->getHtml()}</td>
             </tr>
           {/foreach}
         </tbody>
@@ -278,13 +278,13 @@
               <td>
                 <a href="{$wwwRoot}editTree.php?id={$m->tsrcId}">{$m->tsrcDesc}</a>
               </td>
-              <td><b>{$m->srcBreadcrumb}</b> {$m->srcRep}</td>
+              <td><b>{$m->srcBreadcrumb}</b> {$m->getHtml()}</td>
               <td><b>{$m->destBreadcrumb}</b></td>
               <td>
                 <a href="#"
                   class="deleteMeaningMention"
                   title="șterge mențiunea din sensul-sursă, lăsând restul sensului intact"
-                  data-mention-id="{$m->id}"
+                  data-mention-id="{$m->mentionId}"
                   data-meaning-id="{$m->destId}">
                   <i class="glyphicon glyphicon-trash"></i>
                 </a>

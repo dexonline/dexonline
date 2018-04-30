@@ -34,6 +34,11 @@ class Meaning extends BaseObject implements DatedObject {
   ];
 
   private $tree = null;
+  private $html = null;
+
+  // Raised by process() and htmlize(). Callers may use the errors and warnings or ignore them.
+  private $errors = [];
+  private $warnings = [];
 
   function getDisplayTypeName() {
     return self::$DISPLAY_NAMES[$this->type];
@@ -50,43 +55,47 @@ class Meaning extends BaseObject implements DatedObject {
     return $this->tree;
   }
 
-  // Single entry point for sanitize() / htmlize() / etc.
+  // Computes the HTML for the definition. Footnotes are ignored.
+  function htmlize($flash = false) {
+    list($this->html, $ignored)
+      = Str::htmlize($this->internalRep, 0, false, $this->errors, $this->warnings);
+    if ($flash) {
+      $this->exportMessages();
+    }
+  }
+
+  function getHtml($force = false) {
+    if ($this->html === null || $force) {
+      $this->htmlize();
+    }
+    return $this->html;
+  }
+
+  // Single entry point for sanitize()
   // $flash (boolean): if true, set flash messages for errors and warnings
   // Simpler version of Definition->process()
-  function process($flash = true) {
-    $errors = [];
-    $warnings = [];
-
+  function process($flash = false) {
     // sanitize
-    list($this->internalRep, $ambiguousAbbreviations)
-      = Str::sanitize($this->internalRep, 0, $warnings);
-
-    // htmlize + footnotes
-    list($this->htmlRep, $footnotes)
-      = Str::htmlize($this->internalRep, 0, false, $errors, $warnings);
+    list($this->internalRep, $ignored)
+      = Str::sanitize($this->internalRep, 0, $this->warnings);
 
     if ($flash) {
-      foreach ($warnings as $warning) {
-        FlashMessage::add($warning, 'warning');
-      }
-
-      foreach ($errors as $error) {
-        FlashMessage::add($error);
-      }
+      $this->exportMessages();
     }
   }
 
   /**
-   * Returns true iff we should display the relations alongside the htmlRep. This happens when:
-   * - htmlRep is empty;
-   * - htmlRep is a parenthesis;
-   * - htmlRep ends in an '=' sign;
+   * Returns true iff we should display the relations alongside the HTML. This happens when:
+   * - The HTML is empty;
+   * - The HTML is a parenthesis;
+   * - The HTML ends in an '=' sign;
    **/
   function includeRelations() {
+    $h = $this->getHtml();
     return (
-     !$this->htmlRep ||
-     (Str::startsWith($this->htmlRep, '(') && Str::endsWith($this->htmlRep, ')')) ||
-     Str::endsWith($this->htmlRep, '=')
+     !$h ||
+     (Str::startsWith($h, '(') && Str::endsWith($h, ')')) ||
+     Str::endsWith($h, '=')
     );
   }
 

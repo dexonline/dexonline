@@ -226,7 +226,7 @@
             </td>
             <td>
               <strong>{$m->breadcrumb}</strong>
-              {$m->htmlRep}
+              {$m->getHtml()}
             </td>
           </tr>
         {/foreach}

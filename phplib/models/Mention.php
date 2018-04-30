@@ -43,15 +43,15 @@ class Mention extends BaseObject implements DatedObject {
   // Get detailed tree mentions about a tree, including origin tree and meaning.
   // If $treeId is null, get detailed tree mentions about all trees.
   static function getDetailedTreeMentions($treeId = null) {
-    $query = Model::factory('Mention')
-           ->table_alias('m')
-           ->select('mean.htmlRep')
+    $query = Model::factory('Meaning')
+           ->table_alias('mean')
+           ->select('mean.internalRep')
            ->select('mean.breadcrumb')
            ->select('src.id', 'srcId')
            ->select('src.description', 'srcDesc')
            ->select('dest.id', 'destId')
            ->select('dest.description', 'destDesc')
-           ->join('Meaning', ['m.meaningId', '=', 'mean.id'], 'mean')
+           ->join('Mention', ['m.meaningId', '=', 'mean.id'], 'm')
            ->join('Tree', ['mean.treeId', '=', 'src.id'], 'src')
            ->join('Tree', ['m.objectId', '=', 'dest.id'], 'dest')
            ->where('m.objectType', Mention::TYPE_TREE);
@@ -65,16 +65,16 @@ class Mention extends BaseObject implements DatedObject {
 
   // Get detailed meaning mentions about any meaning inside this tree.
   static function getDetailedMeaningMentions($treeId) {
-    return Model::factory('Mention')
-      ->table_alias('m')
-      ->select('m.id', 'id')
-      ->select('msrc.htmlRep', 'srcRep')
+    return Model::factory('Meaning')
+      ->table_alias('msrc')
+      ->select('m.id', 'mentionId')
+      ->select('msrc.internalRep')
       ->select('msrc.breadcrumb', 'srcBreadcrumb')
       ->select('mdest.id', 'destId')
       ->select('mdest.breadcrumb', 'destBreadcrumb')
       ->select('tsrc.id', 'tsrcId')
       ->select('tsrc.description', 'tsrcDesc')
-      ->join('Meaning', ['m.meaningId', '=', 'msrc.id'], 'msrc')
+      ->join('Mention', ['m.meaningId', '=', 'msrc.id'], 'm')
       ->join('Tree', ['msrc.treeId', '=', 'tsrc.id'], 'tsrc')
       ->join('Meaning', ['m.objectId', '=', 'mdest.id'], 'mdest')
       ->join('Tree', ['mdest.treeId', '=', 'tdest.id'], 'tdest')

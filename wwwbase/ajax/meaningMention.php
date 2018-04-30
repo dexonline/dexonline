@@ -4,20 +4,17 @@ require_once("../../phplib/Core.php");
 $form = Request::get('form');
 $qualifier = Request::get('qualifier');
 
-$data = Model::factory('InflectedForm')
-      ->table_alias('if')
+$data = Model::factory('Meaning')
+      ->table_alias('m')
+      ->select('m.*')
       ->select('t.description')
-      ->select('m.id')
-      ->select('m.type')
-      ->select('m.breadcrumb')
-      ->select('m.htmlRep')
       ->distinct()
-      ->join('Lexeme', ['if.lexemeId', '=', 'l.id'], 'l')
-      ->join('EntryLexeme', ['l.id', '=', 'el.lexemeId'], 'el')
-      ->join('Entry', ['el.entryId', '=', 'e.id'], 'e')
-      ->join('TreeEntry', ['e.id', '=', 'te.entryId'], 'te')
-      ->join('Tree', ['te.treeId', '=', 't.id'], 't')
-      ->join('Meaning', ['t.id', '=', 'm.treeId'], 'm')
+      ->join('Tree', ['t.id', '=', 'm.treeId'], 't')
+      ->join('TreeEntry', ['te.treeId', '=', 't.id'], 'te')
+      ->join('Entry', ['e.id', '=', 'te.entryId'], 'e')
+      ->join('EntryLexeme', ['el.entryId', '=', 'e.id'], 'el')
+      ->join('Lexeme', ['l.id', '=', 'el.lexemeId'], 'l')
+      ->join('InflectedForm', ['if.lexemeId', '=', 'l.id'], 'if')
       ->where('if.formNoAccent', $form)
       ->where('m.type', Meaning::TYPE_MEANING)
       ->where_any_is([['m.breadcrumb' => "{$qualifier}%"],
@@ -29,7 +26,7 @@ $data = Model::factory('InflectedForm')
 
 $results = [];
 foreach ($data as $r) {
-  $rep = $r->htmlRep;
+  $rep = $r->getHtml();
   if (!$rep) {
     // empty meanings usually have synonyms
     $relations = Relation::loadByMeaningId($r->id);

@@ -197,8 +197,7 @@ function createDefinitionDiffs($defs, $search, $replace) {
 function createMeaningDiffs($meanings, $search, $replace) {
   foreach ($meanings as $m) {
     $new = str_replace($search, $replace, $m->internalRep);
-    $diff = DiffUtil::internalDiff($m->internalRep, $new);
-    list($m->htmlRep, $ignored) = Str::htmlize($diff, 0);
+    $m->internalRep = DiffUtil::internalDiff($m->internalRep, $new);
   }
   DebugInfo::stopClock('BulkReplace - created meaning diffs');
 

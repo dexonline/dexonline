@@ -19,9 +19,6 @@ developmentMode = 1
 ; Display a maintenance page when true. Requires the DB to exist, but it may be empty.
 maintenanceMode = 0
 
-; API key for Google search of clones
-googleSearchApiKey = "Insert your API key here"
-
 ; Show our web host logo
 hostedBy = ""
 

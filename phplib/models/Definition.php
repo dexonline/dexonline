@@ -302,7 +302,7 @@ class Definition extends BaseObject implements DatedObject {
     return [$intersection, $stopWords, $adult];
   }
 
-  static function highlight($words, $stopWords, &$definitions) {
+  static function highlight($words, &$definitions) {
     $res = array_fill_keys($words, []);
 
     foreach ($res as $key => &$words) {
@@ -317,9 +317,12 @@ class Definition extends BaseObject implements DatedObject {
         ->where('i1.formUtf8General', $key)
         ->find_many();
       foreach ($forms as $f) {
-        $words['accented'][] = str_replace(Constant::ACCENTS['marked'], Constant::ACCENTS['accented'], $f->form);
-        $words['unaccented'][] = $f->formNoAccent;
-        $words['marked'][] = $f->form;
+        // catch accents in both forms ('a and á) as both can be present in
+        // internalRep, for historical reasons
+        $accented = str_replace(Constant::ACCENTS['marked'],
+                                Constant::ACCENTS['accented'],
+                                $f->form);
+        array_push($words, $f->formNoAccent, $f->form, $accented);
       }
 
       if (empty($words)) {
@@ -330,25 +333,21 @@ class Definition extends BaseObject implements DatedObject {
     foreach ($definitions as $def) {
       $classIndex = 0;
       foreach ($res as &$words) {
-        $wordsHighlight = array();
-
-        // we need each variant of searched words as our definition are mixed accented
-        $wordsHighlight[] = implode("|", $words['accented']);
-        $wordsHighlight[] = implode("|", $words['unaccented']);
-        $marked = str_replace("/", "\\/", Str::highlightAccent($words['marked']));
-        $wordsHighlight[] = implode("|", $marked);
-
-        // finally get an 'or' string pattern of all variants
-        $wordsString = implode("|", $wordsHighlight);
+        $wordsString = implode('|', $words);
         $pattern = '/[^\p{L}](' . $wordsString . ')[^\p{L}]/iuS';
 
-        preg_match_all($pattern, $def->htmlRep, $match, PREG_OFFSET_CAPTURE);
+        preg_match_all($pattern, $def->internalRep, $match, PREG_OFFSET_CAPTURE);
         $revMatch = array_reverse($match[1]);
 
         foreach ($revMatch as $m) {
-          $def->htmlRep = substr_replace($def->htmlRep,
-                                         "<span class=\"fth fth{$classIndex}\">{$m[0]}</span>",
-                                         $m[1], strlen($m[0]));
+          $replacement = sprintf('{c%s|%sc}', $m[0], $classIndex);
+
+          $def->internalRep = substr_replace(
+            $def->internalRep,
+            $replacement,
+            $m[1],
+            strlen($m[0])
+          );
         }
         $classIndex = ($classIndex + 1) % 5; // keep the number of colors in sync with search.css
       }

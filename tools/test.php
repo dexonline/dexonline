@@ -234,13 +234,11 @@ assertEquals('one two<sup class="footnote">[1]</sup> three' .
 
 assertEquals(2, count($footnotes));
 
-assertEquals(123, $footnotes[0]->userId);
-assertEquals(1, $footnotes[0]->rank);
-assertEquals('note', $footnotes[0]->htmlRep);
+assertEquals(123, $footnotes[0]->getUser()->id);
+assertEquals('note', $footnotes[0]->getHtml());
 
-assertEquals(456, $footnotes[1]->userId);
-assertEquals(2, $footnotes[1]->rank);
-assertEquals('another note', $footnotes[1]->htmlRep);
+assertEquals(456, $footnotes[1]->getUser()->id);
+assertEquals('another note', $footnotes[1]->getHtml());
 
 $data = [
   [

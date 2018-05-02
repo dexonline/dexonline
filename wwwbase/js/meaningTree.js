@@ -365,7 +365,7 @@ $(function() {
     var type = parseInt($('.editorType:checked').val());
     c.find('.type').text(type);
 
-    // Update internal and HTML definition
+    // Update internal and HTML reps
     var internalRep = $('#editorRep').val();
     c.find('.internalRep').text(internalRep);
     $.post(wwwRoot + 'ajax/htmlize.php',

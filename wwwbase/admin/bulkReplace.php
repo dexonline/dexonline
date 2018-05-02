@@ -30,7 +30,7 @@ $mysqlSearch = strtr($search,
  *  - big array of Ids will be divided into chunks
  *  - further search is based on array_diff of $remainingIds chunks with $excludedIds,
  *    which outperform queries with LIMIT
- *  - counting of objects: remaining, changed and excluded is based on those arrays
+ *  - counting of objects: remaining, changed and excluded is based on those arrays;
  */
 if (!$saveButton) {
   $query = prepareBaseQuery($target, $mysqlSearch, $sourceId);
@@ -58,11 +58,11 @@ if (!$saveButton) {
 }
 
 // variables should not be null
-$numCount = Session::get('numCount');
-$numChanged = Session::get('numChanged');
-$numExcluded = Session::get('numExcluded');
-$remainingIds = Session::get('remainingIds');
-$structuredIds = Session::get('structuredIds');
+$numCount = Session::get('numCount');           // count of all objects at first run of this script
+$numChanged = Session::get('numChanged');       // count of changed objects, including structured
+$numExcluded = Session::get('numExcluded');     // count of excluded objects, including structured
+$remainingIds = Session::get('remainingIds');   // array
+$structuredIds = Session::get('structuredIds'); // array of structured objects to be reviewed later
 
 /** Form was submitted, process the records */
 if ($saveButton) {
@@ -83,7 +83,9 @@ if ($saveButton) {
     unset($objects);
   }
 
-  /** Test if we are done */
+  /** Test if we are done.
+   *  Only if initial count of objects is equal to the sum of changed and excluded
+   */
   if ($numCount == $numChanged + $numExcluded) {
     /** a little housekeeping, preparing for redirect */
     unsetVars([ 'numCount', 'numChanged', 'numExcluded', 'remainingIds' ]);

@@ -14,7 +14,7 @@
               <span class="meaningTag">{$tag->value}</span>
             {/foreach}
           </span>
-          <span class="htmlRep">{$t.meaning->htmlRep}</span>
+          <span class="html">{$t.meaning->getHtml()}</span>
           <span class="sources">
             {foreach $t.sources as $s}
               <span class="meaningTag">{$s->shortName}</span>
@@ -29,7 +29,7 @@
               {/foreach}
             </span>
           {/foreach}
-          
+
           <span class="id">{$t.meaning->id}</span>
           <span class="internalRep">{$t.meaning->internalRep}</span>
           <span class="tagIds">

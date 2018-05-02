@@ -36,7 +36,7 @@
         <span class="tags"></span>
         <span class="tagIds"></span>
         <span class="internalRep"></span>
-        <span class="htmlRep"></span>
+        <span class="html"></span>
         <span class="sources"></span>
         <span class="sourceIds"></span>
         {for $rtype=1 to Relation::NUM_TYPES}
@@ -219,7 +219,7 @@
                 {Relation::$TYPE_NAMES[$m->relationType]}
               </td>
               <td>
-                {$m->htmlRep}
+                {$m->getHtml()}
               </td>
             </tr>
           {/foreach}

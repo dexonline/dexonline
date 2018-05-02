@@ -84,6 +84,20 @@ class Meaning extends BaseObject implements DatedObject {
     }
   }
 
+  // Export errors and warnings from process() and/or htmlize() as flash messages
+  // TODO this duplicates code in Definition.php
+  function exportMessages() {
+    foreach ($this->warnings as $w) {
+      FlashMessage::add($w, 'warning');
+    }
+    $this->warnings = [];
+
+    foreach ($this->errors as $e) {
+      FlashMessage::add($e);
+    }
+    $this->errors = [];
+  }
+
   /**
    * Returns true iff we should display the relations alongside the HTML. This happens when:
    * - The HTML is empty;

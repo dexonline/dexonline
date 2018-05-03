@@ -3,6 +3,20 @@
 class Abbreviation extends BaseObject implements DatedObject {
   public static $_table = 'Abbreviation';
 
+  static function create(
+    $sourceId, $short, $internalRep, $ambiguous, $caseSensitive, $enforced, $modUserId
+  ) {
+    $a = Model::factory('Abbreviation')->create();
+    $a->sourceId = $sourceId;
+    $a->short = $short;
+    $a->internalRep = $internalRep;
+    $a->ambiguous = $ambiguous;
+    $a->caseSensitive = $caseSensitive;
+    $a->enforced = $enforced;
+    $a->modUserId = $modUserId;
+    return $a;
+  }
+
   static function countAvailable($sourceId) {
     return Model::factory('Abbreviation')
       ->where('sourceID', $sourceId)

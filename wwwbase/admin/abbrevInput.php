@@ -7,7 +7,7 @@ Util::assertNotMirror();
 $sourceId = Request::get('source');
 $saveButton = Request::has('saveButton');
 $cancelButton = Request::has('cancelButton');
-$delimiter = Request::get('delimiter');
+$delimiter = Request::get('delimiter') ?: '|';
 $csvFile = Request::getFile('file');
 
 $class = "success";
@@ -24,7 +24,7 @@ try {
     } else {
       if ($csvFile["tmp_name"] != '') {
         //getting an array for csv file contents
-        $csv = csv_to_array($csvFile["tmp_name"], $delimiter ?: '|');
+        $csv = csv_to_array($csvFile["tmp_name"], $delimiter);
 
         // stashing the array for saving operation
         Session::set('csv', $csv);
@@ -39,21 +39,10 @@ try {
 if ($saveButton) {
   if (count($csv) > 0) { // process the array only if we have some data
 
-
     foreach ($csv as $row) { // handle each row
-      $abbrev = Model::factory('Abbreviation')->create();
-
-      $abbrev->sourceId = $sourceId;
-      $abbrev->enforced = $row['enforced'];
-      $abbrev->ambiguous = $row['ambiguous'];
-      $abbrev->caseSensitive = $row['caseSensitive'];
-      $abbrev->short = trim($row['short']);
-      $abbrev->internalRep = trim($row['internalRep']);
-
-      list($htmlRep, $ignored) = Str::htmlize(trim($row['internalRep']), $sourceId);
-
-      $abbrev->htmlRep = $htmlRep;
-      $abbrev->modUserId = $userId;
+      $abbrev = Abbreviation::create(
+        $sourceId, trim($row['short']), trim($row['internalRep']), $row['ambiguous'],
+        $row['caseSensitive'], $row['enforced'], $userId);
 
       try {
         $abbrev->save();
@@ -81,17 +70,22 @@ if ($cancelButton) {
   $csv = [];
 }
 
-SmartyWrap::assign('csv', $csv);
-SmartyWrap::assign('msgClass', $class);
-SmartyWrap::assign('message', $message);
-SmartyWrap::assign('modUser', User::getActive());
-SmartyWrap::assign('allModeratorSources', Model::factory('Source')->where('canModerate', true)->order_by_asc('displayOrder')->find_many());
+// create Abbreviation objects so we can use the HtmlConverter
+$abbrevs = csv_to_objects($csv, $sourceId, $userId);
 
+SmartyWrap::assign([
+  'abbrevs' => $abbrevs,
+  'msgClass' => $class,
+  'message' => $message,
+  'modUser' => User::getActive(),
+]);
 SmartyWrap::addCss('admin');
 SmartyWrap::display('admin/abbrevInput.tpl');
 
+/*************************************************************************/
+
 function csv_to_array($filename = '', $delimiter = '|') {
-  $data = array();
+  $data = [];
 
   if (file_exists($filename) && is_readable($filename)) {
     $header = NULL;
@@ -107,4 +101,16 @@ function csv_to_array($filename = '', $delimiter = '|') {
     }
   }
   return $data;
+}
+
+// converts an array of associative arrays to an array of Abbreviation objects.
+function csv_to_objects($csv, $sourceId, $userId) {
+  $results = [];
+  foreach ($csv as $row) {
+    $results[] = Abbreviation::create(
+      $sourceId, $row['short'], $row['internalRep'], $row['ambiguous'],
+      $row['caseSensitive'], $row['enforced'], $userId
+    );
+  }
+  return $results;
 }

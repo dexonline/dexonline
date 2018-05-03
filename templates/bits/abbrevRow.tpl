@@ -21,7 +21,8 @@
   {* run the array through the function *}
   {call prop data=$props}
   <td>{$row->short}</td>
-  <td>{$row->htmlRep}</td>
+  <td class="internalRep">{$row->internalRep}</td>
+  <td>{HtmlConverter::convert($row)}</td>
   {if User::can(User::PRIV_ADMIN)}
   <td>
     <div class="btn-toolbar">

@@ -16,7 +16,7 @@
   {/if}
   <div class="panel panel-default">
     <div class="panel-heading">
-      {if $csv|count == 0}
+      {if empty($abbrevs)}
         Selectare fișier
       {else}
         Alegere sursă
@@ -24,16 +24,16 @@
     </div>
     <div class="panel-body">
       <form class="form-horizontal" method="post" enctype="multipart/form-data">
-        {if $csv|count > 0}
+        {if !empty($abbrevs)}
           <div class="form-group">
             <label class="col-sm-1 control-label">sursa</label>
             <div class="col-sm-11">
-              {include "bits/sourceDropDown.tpl" sources=$allModeratorSources skipAnySource=true}
+              {include "bits/sourceDropDown.tpl" skipAnySource=true}
             </div>
           </div>
         {/if}
 
-        {if $csv|count == 0}
+        {if empty($abbrevs)}
           <div class="form-group">
             <label class="col-sm-1 control-label">fișier</label>
             <div class="col-sm-6">
@@ -65,7 +65,7 @@
         {/if}
     </div>
   </div>
-  {if $csv|count == 0}
+  {if empty($abbrevs)}
     <div class="form-group">
       <div class="col-sm-10">
         <button class="btn btn-primary" type="submit" name="submit">
@@ -76,7 +76,7 @@
   {/if}
 
 
-  {if $csv|count  != 0}
+  {if !empty($abbrevs)}
     <div class="panel-admin">
       <div class="panel panel-default">
         <div class="panel-heading" id="panel-heading">
@@ -96,14 +96,14 @@
             </tr>
           </thead>
           <tbody>
-            {foreach from=$csv key=k item=v}
+            {foreach from=$abbrevs key=k item=a}
               <tr>
-                <td><span class="sourceShortName">{$k+1}</span></td>
-                <td><span class="enforced">{$v.enforced}</span></td>
-                <td><span class="ambiguous">{$v.ambiguous}</span></td>
-                <td><span class="caseSensitive">{$v.caseSensitive}</span></td>
-                <td><span class="short">{$v.short}</span></td>
-                <td><span class="internalRep">{$v.internalRep}</span></td>
+                <td><span class="label label-default">{$k+1}</span></td>
+                <td><span class="enforced">{$a->enforced}</span></td>
+                <td><span class="ambiguous">{$a->ambiguous}</span></td>
+                <td><span class="caseSensitive">{$a->caseSensitive}</span></td>
+                <td><span class="short">{$a->short}</span></td>
+                <td><span class="html">{HtmlConverter::convert($a)}</span></td>
               </tr>
             {/foreach}
           </tbody>

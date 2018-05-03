@@ -16,10 +16,10 @@
   {/if}
   <div class="panel panel-default">
     <div class="panel-heading">
-      {if $csv|count == 0} 
-        Selectare fișier 
-      {else} 
-        Alegere sursă 
+      {if $csv|count == 0}
+        Selectare fișier
+      {else}
+        Alegere sursă
       {/if}
     </div>
     <div class="panel-body">
@@ -54,7 +54,7 @@
 
           <p class="text-muted">
             Fișierul sursă trebuie să aibă pe primul rând capul de tabel <b>enforced|ambiguous|caseSensitive|short|internalRep</b>, iar pe celelate rânduri 5(cinci) câmpuri delimitate, conform explicațiilor: </br>
-          <ol> 
+          <ol>
             <li> abreviere impusă - nu ia în considerare forma editată și impune forma din câmpul short - <i>valoare booleană 0/1</i></li>
             <li> abreviere ambiguă - <i>valoare booleană 0/1</i></li>
             <li> diferențiere între majuscule și minuscule - <i>valoare booleană 0/1</i></li>
@@ -116,7 +116,7 @@
 
         <button class="btn btn-success" name="saveButton">
           <i class="glyphicon glyphicon-floppy-disk"></i>
-          <u>s</u>alvează 
+          <u>s</u>alvează
         </button>
         <button class="btn btn-primary" name="cancelButton">
           <i class="glyphicon glyphicon-remove"></i>
@@ -126,6 +126,6 @@
       </div>
     </div>
   {/if}
-</form> 
+</form>
 
 {/block}

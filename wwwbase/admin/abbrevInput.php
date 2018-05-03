@@ -15,7 +15,7 @@ $message = "";
 $errCount = 0;
 
 $userId = User::getActiveId();
-$csv = Session::get('csv', NULL);
+$csv = Session::get('csv', []);
 
 try {
   if ($csvFile) {
@@ -38,7 +38,7 @@ try {
 
 if ($saveButton) {
   if (count($csv) > 0) { // process the array only if we have some data
-    
+
 
     foreach ($csv as $row) { // handle each row
       $abbrev = Model::factory('Abbreviation')->create();
@@ -49,9 +49,9 @@ if ($saveButton) {
       $abbrev->caseSensitive = $row['caseSensitive'];
       $abbrev->short = trim($row['short']);
       $abbrev->internalRep = trim($row['internalRep']);
-      
+
       list($htmlRep, $ignored) = Str::htmlize(trim($row['internalRep']), $sourceId);
-      
+
       $abbrev->htmlRep = $htmlRep;
       $abbrev->modUserId = $userId;
 
@@ -78,7 +78,7 @@ if ($saveButton) {
 
 if ($cancelButton) {
   Session::unsetVar('csv');
-  $csv = array();
+  $csv = [];
 }
 
 SmartyWrap::assign('csv', $csv);

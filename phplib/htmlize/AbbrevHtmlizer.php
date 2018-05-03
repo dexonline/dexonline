@@ -21,9 +21,10 @@ class AbbrevHtmlizer extends Htmlizer{
     $matchingKey = Abbrev::bestAbbrevMatch($contents, array_keys($abbrevs));
 
     if ($matchingKey) {
-      $hint = $abbrevs[$matchingKey]['htmlRep'];
+      $hint = $abbrevs[$matchingKey]['internalRep'];
       // ignore abbreviations within abbreviations... there are, but... c'mon!
-      list($hint, $ignored) = Str::htmlize($hint, $this->sourceId, false, $this->errors, $this->warnings);
+      list($hint, $ignored) = Str::htmlize($hint, $this->sourceId, false,
+                                           $this->errors, $this->warnings);
     } else {
       $hint = 'abreviere necunoscută';
       $this->errors[] = "Abreviere necunoscută: «{$contents}».";

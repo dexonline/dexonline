@@ -19,9 +19,9 @@
   {* create an array of properties *}
   {$props = [$row->enforced, $row->ambiguous, $row->caseSensitive]}
   {* run the array through the function *}
-  {call prop data=$props} 
+  {call prop data=$props}
   <td>{$row->short}</td>
-  <td>{$row->internalRep}</td>
+  <td>{$row->htmlRep}</td>
   {if User::can(User::PRIV_ADMIN)}
   <td>
     <div class="btn-toolbar">

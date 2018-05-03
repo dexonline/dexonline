@@ -388,13 +388,12 @@ class Str {
   }
 
   /**
-   * Converts $s to html. If $obeyNewlines is true, replaces \n with
-   * <br>\n; otherwise leaves \n as \n.
+   * Converts $s to html.
    * @return Array an array of
    * - HTML result
    * - extracted footnotes
    */
-  static function htmlize($s, $sourceId, $obeyNewlines = false, &$errors = null, &$warnings = null) {
+  static function htmlize($s, $sourceId, &$errors = null, &$warnings = null) {
     $errors = $errors ?? [];
     $warnings = $warnings ?? [];
 
@@ -428,10 +427,6 @@ class Str {
 
     // t'onic 'accent
     $s = self::highlightAccent($s);
-
-    if ($obeyNewlines) {
-      $s = str_replace("\n", "<br>\n", $s);
-    }
 
     // various substitutions
     $from = array_keys(Constant::HTML_REPLACEMENTS);

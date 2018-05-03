@@ -16,7 +16,7 @@ class HtmlConverter {
   static function convert($obj) {
     $sourceId = $obj->sourceId ?? 0;
     list($html, $footnotes)
-      = Str::htmlize($obj->internalRep, $sourceId, false, self::$errors, self::$warnings);
+      = Str::htmlize($obj->internalRep, $sourceId, self::$errors, self::$warnings);
 
     if ($obj instanceof Definition) {
       $obj->setFootnotes($footnotes);

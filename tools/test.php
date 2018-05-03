@@ -221,10 +221,6 @@ assertTransform('Str::htmlize', [ 0 ], [
 
 ]);
 
-assertTransform('Str::htmlize', [ 0, true ], [
-  "okely\ndokely" => ["okely<br>\ndokely", []],
-]);
-
 // htmlize with footnotes
 $internalRep = 'one two{{note/123}} three{{another @note@/456}} four';
 list($html, $footnotes) = Str::htmlize($internalRep, 1);
@@ -353,7 +349,7 @@ assertEquals(
 $errors = [];
 assertEquals(
   ["FOO <abbr class=\"abbrev\" data-html=\"true\" title=\"abreviere necunoscută\">brrb. ghhg.</abbr> BAR", []],
-  Str::htmlize("FOO #brrb. ghhg.# BAR", 1, false, $errors));
+  Str::htmlize("FOO #brrb. ghhg.# BAR", 1, $errors));
 assertEquals(
   ['Abreviere necunoscută: «brrb. ghhg.».'],
   $errors);

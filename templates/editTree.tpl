@@ -219,7 +219,7 @@
                 {Relation::$TYPE_NAMES[$m->relationType]}
               </td>
               <td>
-                {$m->getHtml()}
+                {HtmlConverter::convert($m)}
               </td>
             </tr>
           {/foreach}
@@ -248,7 +248,7 @@
               <td>
                 <a href="{$wwwRoot}editTree.php?id={$m->srcId}">{$m->srcDesc}</a>
               </td>
-              <td><b>{$m->breadcrumb}</b> {$m->getHtml()}</td>
+              <td><b>{$m->breadcrumb}</b> {HtmlConverter::convert($m)}</td>
             </tr>
           {/foreach}
         </tbody>
@@ -278,7 +278,7 @@
               <td>
                 <a href="{$wwwRoot}editTree.php?id={$m->tsrcId}">{$m->tsrcDesc}</a>
               </td>
-              <td><b>{$m->srcBreadcrumb}</b> {$m->getHtml()}</td>
+              <td><b>{$m->srcBreadcrumb}</b> {HtmlConverter::convert($m)}</td>
               <td><b>{$m->destBreadcrumb}</b></td>
               <td>
                 <a href="#"

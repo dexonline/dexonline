@@ -226,7 +226,7 @@
             </td>
             <td>
               <strong>{$m->breadcrumb}</strong>
-              {$m->getHtml()}
+              {HtmlConverter::convert($m)}
             </td>
           </tr>
         {/foreach}

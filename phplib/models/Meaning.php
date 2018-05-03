@@ -34,11 +34,6 @@ class Meaning extends BaseObject implements DatedObject {
   ];
 
   private $tree = null;
-  private $html = null;
-
-  // Raised by process() and htmlize(). Callers may use the errors and warnings or ignore them.
-  private $errors = [];
-  private $warnings = [];
 
   function getDisplayTypeName() {
     return self::$DISPLAY_NAMES[$this->type];
@@ -55,61 +50,35 @@ class Meaning extends BaseObject implements DatedObject {
     return $this->tree;
   }
 
-  // Computes the HTML for the definition. Footnotes are ignored.
-  function htmlize($flash = false) {
-    list($this->html, $ignored)
-      = Str::htmlize($this->internalRep, 0, false, $this->errors, $this->warnings);
-    if ($flash) {
-      $this->exportMessages();
-    }
-  }
-
-  function getHtml($force = false) {
-    if ($this->html === null || $force) {
-      $this->htmlize();
-    }
-    return $this->html;
-  }
-
   // Single entry point for sanitize()
-  // $flash (boolean): if true, set flash messages for errors and warnings
+  // $flash (boolean): if true, set flash messages for warnings
   // Simpler version of Definition->process()
   function process($flash = false) {
+    $warnings = [];
+
     // sanitize
     list($this->internalRep, $ignored)
-      = Str::sanitize($this->internalRep, 0, $this->warnings);
+      = Str::sanitize($this->internalRep, 0, $warnings);
 
     if ($flash) {
-      $this->exportMessages();
+      foreach ($warnings as $w) {
+        FlashMessage::add($w, 'warning');
+      }
     }
-  }
-
-  // Export errors and warnings from process() and/or htmlize() as flash messages
-  // TODO this duplicates code in Definition.php
-  function exportMessages() {
-    foreach ($this->warnings as $w) {
-      FlashMessage::add($w, 'warning');
-    }
-    $this->warnings = [];
-
-    foreach ($this->errors as $e) {
-      FlashMessage::add($e);
-    }
-    $this->errors = [];
   }
 
   /**
-   * Returns true iff we should display the relations alongside the HTML. This happens when:
-   * - The HTML is empty;
-   * - The HTML is a parenthesis;
-   * - The HTML ends in an '=' sign;
+   * Returns true iff we should display the relations alongside the meaning. This happens when:
+   * - The meaning is empty;
+   * - The meaning is a parenthesis;
+   * - The meaning ends in an '=' sign;
    **/
   function includeRelations() {
-    $h = $this->getHtml();
+    $r = $this->internalRep;
     return (
-     !$h ||
-     (Str::startsWith($h, '(') && Str::endsWith($h, ')')) ||
-     Str::endsWith($h, '=')
+     !$r ||
+     (Str::startsWith($r, '(') && Str::endsWith($r, ')')) ||
+     Str::endsWith($r, '=')
     );
   }
 
@@ -162,7 +131,7 @@ class Meaning extends BaseObject implements DatedObject {
 
       $m->type = $tuple->type;
       $m->internalRep = $tuple->internalRep;
-      $m->process(false);
+      $m->process();
 
       $row['meaning'] = $m;
       $row['sources'] = Source::loadByIds($tuple->sourceIds);
@@ -281,7 +250,7 @@ class Meaning extends BaseObject implements DatedObject {
     foreach ($mentions as $ment) {
       $m = Meaning::get_by_id($ment->meaningId);
       $m->internalRep = str_replace("[{$this->id}]", '', $m->internalRep);
-      $m->process(false);
+      $m->process();
       $m->save();
     }
 

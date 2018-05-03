@@ -26,7 +26,7 @@ $data = Model::factory('Meaning')
 
 $results = [];
 foreach ($data as $r) {
-  $rep = $r->getHtml();
+  $rep = HtmlConverter::convert($r);
   if (!$rep) {
     // empty meanings usually have synonyms
     $relations = Relation::loadByMeaningId($r->id);

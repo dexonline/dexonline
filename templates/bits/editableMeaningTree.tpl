@@ -14,7 +14,7 @@
               <span class="meaningTag">{$tag->value}</span>
             {/foreach}
           </span>
-          <span class="html">{$t.meaning->getHtml()}</span>
+          <span class="html">{HtmlConverter::convert($t.meaning)}</span>
           <span class="sources">
             {foreach $t.sources as $s}
               <span class="meaningTag">{$s->shortName}</span>

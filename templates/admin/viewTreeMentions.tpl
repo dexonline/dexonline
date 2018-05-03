@@ -21,7 +21,7 @@
           <td>
             <a href="{$wwwRoot}editTree.php?id={$m->srcId}">{$m->srcDesc}</a>
           </td>
-          <td><b>{$m->breadcrumb}</b> {$m->getHtml()}</td>
+          <td><b>{$m->breadcrumb}</b> {HtmlConverter::convert($m)}</td>
           <td>
             <a href="{$wwwRoot}editTree.php?id={$m->destId}">{$m->destDesc}</a>
           </td>

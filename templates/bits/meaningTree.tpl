@@ -21,7 +21,7 @@
 
             {* When the meaning itself is empty, show something else *}
             <span class="def html {$t.meaning->getCssClass()}">
-              {$t.meaning->getHtml()}
+              {HtmlConverter::convert($t.meaning)}
               {if $t.meaning->includeRelations()}
                 {include "bits/meaningRelations.tpl" relations=$t.relations}
                 {$relationsShown=true}

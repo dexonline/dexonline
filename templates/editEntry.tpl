@@ -439,7 +439,7 @@
               <span data-code="0" class="rep internal hiddenRep">{$def->internalRepAbbrev|escape}</span>
               <span data-code="1" class="rep hiddenRep">{$def->htmlAbbrev}</span>
               <span data-code="2" class="rep internal hiddenRep">{$def->internalRep|escape}</span>
-              <span data-code="3" data-active class="rep">{$def->getHtml()}</span>
+              <span data-code="3" data-active class="rep">{HtmlConverter::convert($def)}</span>
               {foreach $row->tags as $t}
                 {include "bits/tag.tpl"}
               {/foreach}

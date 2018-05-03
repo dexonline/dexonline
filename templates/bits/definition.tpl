@@ -1,17 +1,19 @@
 {$showTypos=$showTypos|default:false}
 {$showStructuredWrapper=$showStructuredWrapper|default:false}
 
-<div class="defWrapper{if $row->definition->structured && $showStructuredWrapper} defStructuredWrapper{/if}">
+{$def=$row->definition}
+
+<div class="defWrapper{if $def->structured && $showStructuredWrapper} defStructuredWrapper{/if}">
   <p>
     <span class="def" title="Clic pentru a naviga la acest cuvânt">
-      {$row->definition->getHtml()}
+      {HtmlConverter::convert($def)}
     </span>
     {foreach $row->tags as $t}
       {include "bits/tag.tpl"}
     {/foreach}
   </p>
 
-  {include "bits/footnotes.tpl" footnotes=$row->definition->getFootnotes()}
+  {include "bits/footnotes.tpl" footnotes=$def->getFootnotes()}
   {include "bits/definitionMenu.tpl"}
 
 

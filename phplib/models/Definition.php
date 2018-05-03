@@ -21,12 +21,7 @@ class Definition extends BaseObject implements DatedObject {
   ];
 
   private $source = null;
-  private $html = null;
   private $footnotes = null;
-
-  // Raised by process() and htmlize(). Callers may use the errors and warnings or ignore them.
-  private $errors = [];
-  private $warnings = [];
 
   /* For admins, returns the definition with the given ID. For regular users,
     return null rather than a hidden definition. */
@@ -49,34 +44,21 @@ class Definition extends BaseObject implements DatedObject {
     return $this->source;
   }
 
-  // Computes the HTML for the definition and extracts the footnotes.
-  function htmlize($flash = false) {
-    list($this->html, $this->footnotes)
-      = Str::htmlize($this->internalRep, $this->sourceId, false, $this->errors, $this->warnings);
-    if ($flash) {
-      $this->exportMessages();
-    }
-  }
-
-  function getHtml($force = false) {
-    if ($this->html === null || $force) {
-      $this->htmlize();
-    }
-    return $this->html;
+  function setFootnotes($footnotes) {
+    $this->footnotes = $footnotes;
   }
 
   function getFootnotes() {
-    if ($this->footnotes === null) {
-      $this->htmlize();
-    }
     return $this->footnotes;
   }
 
   // Single entry point for sanitizing / extracting lexicon / counting ambigious abbreviations.
   function process($flash = false) {
+    $warnings = [];
+
     // sanitize
     list($this->internalRep, $ambiguousAbbreviations)
-      = Str::sanitize($this->internalRep, $this->sourceId, $this->warnings);
+      = Str::sanitize($this->internalRep, $this->sourceId, $warnings);
 
     // abbrevReview status
     $this->abbrevReview = count($ambiguousAbbreviations)
@@ -87,21 +69,10 @@ class Definition extends BaseObject implements DatedObject {
     $this->extractLexicon();
 
     if ($flash) {
-      $this->exportMessages();
+      foreach ($warnings as $w) {
+        FlashMessage::add($w, 'warning');
+      }
     }
-  }
-
-  // Export errors and warnings from process() and/or htmlize() as flash messages
-  function exportMessages() {
-    foreach ($this->warnings as $w) {
-      FlashMessage::add($w, 'warning');
-    }
-    $this->warnings = [];
-
-    foreach ($this->errors as $e) {
-      FlashMessage::add($e);
-    }
-    $this->errors = [];
   }
 
   static function loadByEntryIds($entryIds) {

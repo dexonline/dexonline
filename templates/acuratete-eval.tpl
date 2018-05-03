@@ -51,7 +51,7 @@
           </p>
 
           <p class="currentDef">
-            {$def->getHtml()}
+            {HtmlConverter::convert($def)}
           </p>
         </div>
 

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Runs htmlize() on a sample of definitions and outputs a speed report.
+ * Converts a sample of definitions to HTML and outputs a speed report.
  **/
 
 require_once __DIR__ . '/../phplib/Core.php';
@@ -29,6 +29,7 @@ do {
   foreach ($defs as $d) {
     $sumLength += mb_strlen($d->internalRep);
     $d->process();
+    $html = HtmlConverter::convert($d);
   }
 
   $millis = DebugInfo::stopClock('processed definitions');

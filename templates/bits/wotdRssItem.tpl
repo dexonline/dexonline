@@ -4,7 +4,7 @@
   </p>
 {/if}
 
-<p>{$def->getHtml()}</p>
+<p>{$html}</p>
 
 <p>
   Sursa:

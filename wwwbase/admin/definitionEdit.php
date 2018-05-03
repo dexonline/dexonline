@@ -51,7 +51,8 @@ if ($saveButton || $nextOcrBut) {
   $d->structured = $structured;
 
   $d->process(true);
-  $d->htmlize(true);
+  HtmlConverter::convert($d);
+  HtmlConverter::exportMessages();
 
   if (!FlashMessage::hasErrors()) {
     // Save the new entries, load the rest.

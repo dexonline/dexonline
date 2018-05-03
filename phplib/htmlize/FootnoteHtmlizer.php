@@ -28,10 +28,7 @@ class FootnoteHtmlizer extends Htmlizer {
     }
 
     // ignore footnotes within footnotes... so help us God
-    list($html, $ignored)
-      = Str::htmlize($contents, $this->sourceId, false, $this->errors, $this->warnings);
-
-    $this->footnotes[] = new Footnote($html, $userId);
+    $this->footnotes[] = new Footnote($contents, $this->sourceId, $userId);
 
     // return the replacement
     $result = sprintf('<sup class="footnote">[%s]</sup>', count($this->footnotes));

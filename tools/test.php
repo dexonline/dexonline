@@ -226,7 +226,7 @@ assertTransform('Str::htmlize', [ 0, true ], [
 ]);
 
 // htmlize with footnotes
-$internalRep = 'one two{{note/123}} three{{another note/456}} four';
+$internalRep = 'one two{{note/123}} three{{another @note@/456}} four';
 list($html, $footnotes) = Str::htmlize($internalRep, 1);
 assertEquals('one two<sup class="footnote">[1]</sup> three' .
              '<sup class="footnote">[2]</sup> four',
@@ -235,10 +235,10 @@ assertEquals('one two<sup class="footnote">[1]</sup> three' .
 assertEquals(2, count($footnotes));
 
 assertEquals(123, $footnotes[0]->getUser()->id);
-assertEquals('note', $footnotes[0]->getHtml());
+assertEquals('note', HtmlConverter::convert($footnotes[0]));
 
 assertEquals(456, $footnotes[1]->getUser()->id);
-assertEquals('another note', $footnotes[1]->getHtml());
+assertEquals('another <b>note</b>', HtmlConverter::convert($footnotes[1]));
 
 $data = [
   [

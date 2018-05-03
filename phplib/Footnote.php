@@ -2,16 +2,14 @@
 
 class Footnote {
 
-  private $html;
+  public $internalRep;
+  public $sourceId;
   private $userId;
 
-  function __construct($html, $userId) {
-    $this->html = $html;
+  function __construct($internalRep, $sourceId, $userId) {
+    $this->internalRep = $internalRep;
+    $this->sourceId = $sourceId;
     $this->userId = $userId;
-  }
-
-  function getHtml() {
-    return $this->html;
   }
 
   function getUser() {

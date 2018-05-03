@@ -4,7 +4,7 @@
       <ol>
         {foreach $footnotes as $f}
           <li>
-            {$f->getHtml()}
+            {HtmlConverter::convert($f)}
             &mdash;
             {include "bits/user.tpl" u=$f->getUser()}
           </li>

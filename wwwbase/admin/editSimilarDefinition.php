@@ -14,7 +14,7 @@ $def = Definition::get_by_id($defId);
 $similar = Definition::get_by_id($similarId);
 
 $mod = DiffUtil::diffAction($similar, $def, $rank, $action);
-$mod->process(false);
+$mod->process();
 $mod->save();
 
 Util::redirect("definitionEdit.php?definitionId={$defId}");

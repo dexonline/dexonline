@@ -170,12 +170,12 @@ Log::notice((memory_get_usage() - $startMemory).' bytes used');
 
 function definitionReplace($d, $search, $replace) {
   $d->internalRep = str_replace($search, $replace, $d->internalRep);
-  $d->process(false);
+  $d->process();
 }
 
 function meaningReplace($m, $search, $replace) {
   $m->internalRep = str_replace($search, $replace, $m->internalRep);
-  $m->process(false);
+  $m->process();
 }
 
 function createDefinitionDiffs($defs, $search, $replace) {

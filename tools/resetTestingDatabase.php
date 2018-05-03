@@ -318,7 +318,7 @@ function createDefinition($rep, $lexicon, $userId, $sourceId, $status) {
   $d->sourceId = $sourceId;
   $d->internalRep = $rep;
   $d->status = $status;
-  $d->process(false);
+  $d->process();
   $d->lexicon = $lexicon; // overwrite extracted lexicon
   $d->save();
 

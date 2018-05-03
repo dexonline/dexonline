@@ -1,6 +1,6 @@
 <?php
 
-require_once("../../phplib/Core.php");
+require_once('../../phplib/Core.php');
 User::mustHave(User::PRIV_ADMIN);
 Util::assertNotMirror();
 
@@ -10,21 +10,17 @@ $cancelButton = Request::has('cancelButton');
 $delimiter = Request::get('delimiter') ?: '|';
 $csvFile = Request::getFile('file');
 
-$class = "success";
-$message = "";
-$errCount = 0;
-
 $userId = User::getActiveId();
 $csv = Session::get('csv', []);
 
 try {
   if ($csvFile) {
-    if ($csvFile["error"] !== UPLOAD_ERR_OK) {
+    if ($csvFile['error'] !== UPLOAD_ERR_OK) {
       throw new UploadException($csvFile['error']);
     } else {
-      if ($csvFile["tmp_name"] != '') {
+      if ($csvFile['tmp_name'] != '') {
         //getting an array for csv file contents
-        $csv = csv_to_array($csvFile["tmp_name"], $delimiter);
+        $csv = csv_to_array($csvFile['tmp_name'], $delimiter);
 
         // stashing the array for saving operation
         Session::set('csv', $csv);
@@ -32,13 +28,13 @@ try {
     }
   }
 } catch (Exception $e) {
-  $class = "danger";
-  $message .= $e->getMessage();
+  FlashMessage::add($e->getMessage());
 }
 
 if ($saveButton) {
   if (count($csv) > 0) { // process the array only if we have some data
 
+    $numSuccess = $numErrors = 0;
     foreach ($csv as $row) { // handle each row
       $abbrev = Abbreviation::create(
         $sourceId, trim($row['short']), trim($row['internalRep']), $row['ambiguous'],
@@ -46,22 +42,27 @@ if ($saveButton) {
 
       try {
         $abbrev->save();
+        $numSuccess++;
       } catch (Exception $e) {
-        $errCount++;
-        $class = "danger";
-        $message .= "<div> Eroare: " . $e->getMessage() . "</div>";
+        FlashMessage::add($e->getMessage);
+        $numErrors++;
       }
     }
 
-    $message .= count($csv) - $errCount . " abrevieri au fost introduse în baza de date" .
-      ($errCount ? (" :: " . $errCount . " dintre ele au generat erori...") : "!");
+    $message = "{$numSuccess} abrevieri au fost introduse în baza de date.";
+    $class = 'success';
+    if ($numErrors) {
+      $message .= " Alte {$numErrors} au generat erori.";
+      $class = 'warning';
+    }
+    FlashMessage::add($message, $class);
   }
   $cancelButton = true;
 } else {
-  if ($csvFile["name"] != '' && $class != "danger") {
-    $message .= "Fișierul " . $csvFile["name"] . " (" . count($csv) .
-      " linii) a fost încărcat" .
-      ($errCount ? (" cu " . $errCount . " erori...") : "!");
+  if ($csvFile['name'] != '' && !FlashMessage::hasErrors()) {
+    $message = sprintf('Fișierul %s (%s linii) a fost încărcat.', $csvFile['name'], count($csv));
+    $class = FlashMessage::hasErrors() ? 'warning' : 'success';
+    FlashMessage::add($message, $class);
   }
 }
 
@@ -75,8 +76,6 @@ $abbrevs = csv_to_objects($csv, $sourceId, $userId);
 
 SmartyWrap::assign([
   'abbrevs' => $abbrevs,
-  'msgClass' => $class,
-  'message' => $message,
   'modUser' => User::getActive(),
 ]);
 SmartyWrap::addCss('admin');

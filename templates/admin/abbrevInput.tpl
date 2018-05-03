@@ -6,15 +6,6 @@
 {block "content"}
   <h3>Adaugă abrevieri pentru dicționar</h3>
 
-  {if $message}
-    <div class="alert alert-{$msgClass} alert-dismissible">
-      <button type="button" class="close" data-dismiss="alert">
-        <span aria-hidden="true">&times;</span>
-      </button>
-      {$message}
-    </div>
-  {/if}
-
   <form class="form-horizontal" method="post" enctype="multipart/form-data">
 
     {* No abbreviations loaded yet -- show file selector and legend *}

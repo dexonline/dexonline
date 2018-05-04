@@ -9,7 +9,7 @@ $(function() {
     });
 
     $('#definitionId').select2({
-      ajax: { url: wwwRoot + 'ajax/wotdGetDefinitions.php', },
+      ajax: { url: wwwRoot + 'ajax/getDefinitions.php', },
       templateResult: function(item) {
         return item.text + ' (' + item.source + ') [' + item.id + ']';
       },

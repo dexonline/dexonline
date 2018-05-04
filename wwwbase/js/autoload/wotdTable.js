@@ -17,7 +17,7 @@ $(function (){
     }
     $('#lexicon').select2({
       ajax: {
-        url: wwwRoot + 'ajax/wotdGetDefinitions.php',
+        url: wwwRoot + 'ajax/getDefinitions.php',
       },
       templateResult: function(item) {
         return item.text + ' (' + item.source + ') [' + item.id + ']';

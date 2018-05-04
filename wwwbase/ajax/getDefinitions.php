@@ -15,7 +15,7 @@ $definitions = Model::factory('Definition')
 $resp = ['results' => []];
 foreach ($definitions as $d) {
   $source = Source::get_by_id($d->sourceId);
-  $preview = Str::shortenString($d->internalRep, 100);
+  $preview = Str::shorten($d->internalRep, 100);
   $html = Str::htmlize($preview, $d->sourceId)[0];
 
   $resp['results'][] = [

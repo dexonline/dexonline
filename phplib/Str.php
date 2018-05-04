@@ -224,22 +224,12 @@ class Str {
     return $result;
   }
 
-  static function shortenString($s, $maxLength) {
+  static function shorten($s, $maxLength) {
     $l = mb_strlen($s);
     if ($l >= $maxLength + 3) {
       return mb_substr($s, 0, $maxLength - 3) . '...';
     }
     return $s;
-  }
-
-  static function isSpam($s) {
-    return (stristr($s, '[url=') !== false) ||
-      (stristr($s, 'http://') !== false);
-  }
-
-  // Same as str_pad, but multibyte-safe
-  static function pad($input, $padLength, $padString = ' ', $padType = STR_PAD_RIGHT) {
-    return str_pad($input, $padLength + strlen($input) - mb_strlen($input), $padString, $padType);
   }
 
   /* Make a string portable across OS's by replacing '/' with DIRECTORY_SEPARATOR */

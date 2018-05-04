@@ -61,23 +61,24 @@ $(function (){
   }
 
   var editOptions = {
-    reloadAfterSubmit: true,
-    closeAfterEdit: true,
-    closeOnEscape: true,
-    beforeSubmit: endEdit,
     afterShowForm: beginEdit,
     afterSubmit: checkServerResponse,
+    beforeSubmit: endEdit,
+    closeAfterEdit: true,
+    closeOnEscape: true,
     onInitializeForm: formInit,
+    reloadAfterSubmit: true,
     width: 500,
   };
 
   var addOptions = {
-    reloadAfterSubmit: true,
-    closeAfterAdd: true,
-    closeOnEscape: true,
-    beforeSubmit: endEdit,
     afterShowForm: beginEdit,
     afterSubmit: checkServerResponse,
+    beforeSubmit: endEdit,
+    closeAfterAdd: true,
+    closeOnEscape: true,
+    onInitializeForm: formInit,
+    reloadAfterSubmit: true,
     width: 500,
   };
 
@@ -109,9 +110,9 @@ $(function (){
       'Adăugată de',
       'Pr.',
       'Imagine',
-      'Descriere',
+      'Descriere',         // HTML, visible as column header
       'ID-ul definiției',
-      'Descriere (internă)',
+      'Descriere',         // internal, visible as label in the edit form
     ],
     colModel: [
       {name: 'lexicon', index: 'd.lexicon', editable: true, edittype: 'select', editoptions: {value: 'x:x'}, width: lexWidth},
@@ -122,8 +123,8 @@ $(function (){
       {name: 'priority', index: 'w.priority', editable: true, width: priorWidth},
       {name: 'image', index: 'w.image', editable: true, edittype: 'select', editoptions: {value: ':'}, width: imageWidth},
       {name: 'wotdHtml', index: 'w.description', width: descWidth},
-      {name: 'description', index:'w.description', editable: true, edittype: 'textarea', hidden: true},
       {name: 'definitionId', index: 'definitionId', editable: true, hidden: true},
+      {name: 'description', index:'w.description', editable: true, edittype: 'textarea', hidden: true},
     ],
     rowNum: 50,
     recreateForm: true,
@@ -135,7 +136,7 @@ $(function (){
     viewrecords: true,
     sortorder: 'desc',
     caption: 'Cuvântul zilei',
-    editurl: wwwRoot + 'ajax/wotdSave.php',
+    editurl: wwwRoot + 'ajax/saveWotd.php',
     ondblClickRow: function(rowid) { $(this).jqGrid('editGridRow', rowid, editOptions); }
   });
   $('#wotdGrid').navGrid('#wotdPaging',

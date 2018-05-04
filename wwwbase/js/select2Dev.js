@@ -193,7 +193,7 @@ function formatEntryWithEditLink(entry) {
 }
 
 function formatDefinition(item) {
-  if (item.id) {
+  if (item.id && item.source) {
     return $('<span>' + item.html + ' (' + item.source + ') [' + item.id + ']' + '</span>');
   }
   return item.text;

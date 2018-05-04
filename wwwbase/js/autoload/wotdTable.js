@@ -96,48 +96,96 @@ $(function (){
   var userWidth   =  90;
   var priorWidth  =  40;
   var imageWidth  = 130;
-  var descWidth   = screenWidth - (lexWidth + sourceWidth + htmlWidth + dateWidth + userWidth + priorWidth + imageWidth) - 40;
+  var descWidth   = screenWidth - (lexWidth + sourceWidth + htmlWidth + dateWidth +
+                                   userWidth + priorWidth + imageWidth) - 40;
   var imageList = $('#imageList').detach().removeAttr('id');
 
+  var colModels = [
+    {
+      label: 'Cuvânt',
+      name: 'lexicon',
+      index: 'd.lexicon',
+      editable: true,
+      edittype: 'select',
+      editoptions: {value: 'x:x'},
+      width: lexWidth,
+    },
+    {
+      label: 'Sursă',
+      name: 'shortName',
+      index: 's.shortName',
+      width: sourceWidth,
+    },
+    {
+      label: 'Definiție',
+      name: 'defHtml',
+      index: 'd.internalRep',
+      width: htmlWidth,
+    },
+    {
+      label: 'Data afișării',
+      name: 'displayDate',
+      index: 'w.displayDate',
+      width: dateWidth,
+      editable: true,
+    },
+    {
+      label: 'Adăugată de',
+      name: 'name',
+      index: 'u.name',
+      width: userWidth,
+    },
+    {
+      label: 'Pr.',
+      name: 'priority',
+      index: 'w.priority',
+      editable: true,
+      width: priorWidth,
+    },
+    {
+      label: 'Imagine',
+      name: 'image',
+      index: 'w.image',
+      editable: true,
+      edittype: 'select',
+      editoptions: {value: ':'},
+      width: imageWidth,
+    },
+    { // HTML, visible as column header
+      label: 'Motiv',
+      name: 'wotdHtml',
+      index: 'w.description',
+      width: descWidth,
+    },
+    {
+      name: 'definitionId',
+      index: 'definitionId',
+      editable: true,
+      hidden: true,
+    },
+    { // internal, visible as label in the edit form
+      name: 'description',
+      index:'w.description',
+      editable: true,
+      edittype: 'textarea',
+      hidden: true,
+    },
+  ];
+
   $('#wotdGrid').jqGrid({
-    url: wwwRoot + 'ajax/getWotds.php',
+    colModel: colModels,
     datatype: 'json',
-    colNames: [
-      'Cuvânt',
-      'Sursă',
-      'Definiție',
-      'Data afișării',
-      'Adăugată de',
-      'Pr.',
-      'Imagine',
-      'Descriere',         // HTML, visible as column header
-      'ID-ul definiției',
-      'Descriere',         // internal, visible as label in the edit form
-    ],
-    colModel: [
-      {name: 'lexicon', index: 'd.lexicon', editable: true, edittype: 'select', editoptions: {value: 'x:x'}, width: lexWidth},
-      {name: 'shortName', index: 's.shortName', width: sourceWidth},
-      {name: 'defHtml', index: 'd.internalRep', width: htmlWidth},
-      {name: 'displayDate', index: 'w.displayDate', width: dateWidth, editable: true, cellattr: function (a,b,c,d,x) {return ' title="' + x.descr + '"'}},
-      {name: 'name', index: 'u.name', width: userWidth},
-      {name: 'priority', index: 'w.priority', editable: true, width: priorWidth},
-      {name: 'image', index: 'w.image', editable: true, edittype: 'select', editoptions: {value: ':'}, width: imageWidth},
-      {name: 'wotdHtml', index: 'w.description', width: descWidth},
-      {name: 'definitionId', index: 'definitionId', editable: true, hidden: true},
-      {name: 'description', index:'w.description', editable: true, edittype: 'textarea', hidden: true},
-    ],
-    rowNum: 50,
-    recreateForm: true,
-    autoWidth: true,
-    height: '100%',
-    rowList: [20, 50, 100, 200],
-    sortname: 'displayDate',
-    pager: $('#wotdPaging'),
-    viewrecords: true,
-    sortorder: 'desc',
-    caption: 'Cuvântul zilei',
     editurl: wwwRoot + 'ajax/saveWotd.php',
-    ondblClickRow: function(rowid) { $(this).jqGrid('editGridRow', rowid, editOptions); }
+    height: '100%',
+    ondblClickRow: function(rowid) { $(this).jqGrid('editGridRow', rowid, editOptions); },
+    pager: $('#wotdPaging'),
+    recreateForm: true,
+    rowList: [20, 50, 100, 200],
+    rowNum: 50,
+    sortname: 'w.displayDate',
+    sortorder: 'desc',
+    url: wwwRoot + 'ajax/getWotds.php',
+    viewrecords: true,
   });
   $('#wotdGrid').navGrid('#wotdPaging',
     {

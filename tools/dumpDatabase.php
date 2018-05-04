@@ -12,7 +12,6 @@ $COMMON_COMMAND = sprintf("mysqldump -h %s %s ", DB::$host, DB::$database);
 
 // Tables we never want to export, whether in the public or full dump
 $SKIP_TABLES = [
-  'history_Comment',
 ];
 
 // Tables whose data is to be filtered and/or altered before dumping

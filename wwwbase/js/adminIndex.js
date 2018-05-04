@@ -10,9 +10,8 @@ $(function() {
 
     $('#definitionId').select2({
       ajax: { url: wwwRoot + 'ajax/getDefinitions.php', },
-      templateResult: function(item) {
-        return item.text + ' (' + item.source + ') [' + item.id + ']';
-      },
+      templateResult: formatDefinition,
+      templateSelection: formatDefinition,
       minimumInputLength: 1,
       placeholder: 'caută o definiție',
       width: '100%',

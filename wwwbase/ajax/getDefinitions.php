@@ -13,12 +13,15 @@ $definitions = Model::factory('Definition')
              ->find_many();
 
 $resp = ['results' => []];
-foreach ($definitions as $definition){
-  $source = Source::get_by_id($definition->sourceId);
+foreach ($definitions as $d) {
+  $source = Source::get_by_id($d->sourceId);
+  $preview = Str::shortenString($d->internalRep, 100);
+  $html = Str::htmlize($preview, $d->sourceId)[0];
+
   $resp['results'][] = [
-    'id' => $definition->id,
-    'lexicon' => $definition->lexicon,
-    'text' => mb_substr($definition->internalRep, 0, 80),
+    'id' => $d->id,
+    'lexicon' => $d->lexicon,
+    'html' => $html,
     'source' => $source->shortName,
   ];
 }

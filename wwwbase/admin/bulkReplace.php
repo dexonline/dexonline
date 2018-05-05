@@ -236,11 +236,11 @@ function processObjectIds(&$remainingIds, $excludedIds, &$numExcluded, $limit) {
  * @param int     $numChanged       count of changed $objects
  * @param array   $structuredIds maintains throughout the session the defIds to be reviewed
  */
-function saveObjects($objects, $target, $search, $replace, &$numChanged, &$structuredIds){
-    foreach ($objects as $obj) {
+function saveObjects($objects, $target, $search, $replace, &$numChanged, &$structuredIds) {
+  foreach ($objects as $obj) {
     if ($target == 1) { // $obj is a definition
       definitionReplace($obj, $search, $replace);
-      if ($obj->structured){
+      if ($obj->structured) {
         $structuredIds[] = $obj->id;
       }
     } else { // $obj is a meaning
@@ -257,7 +257,7 @@ function saveObjects($objects, $target, $search, $replace, &$numChanged, &$struc
  *
  * @param array $var
  */
-function unsetVars($var){
+function unsetVars($var) {
   foreach ($var as $value) {
     Session::unsetVar($value);
   }
@@ -271,7 +271,7 @@ function unsetVars($var){
  * @param   int         $sourceId     used only for <i>$target</i> 1-Definition
  * @return  ORMWrapper                based on <b>$target</b>
  */
-function prepareBaseQuery($target, $mysqlSearch, $sourceId){
+function prepareBaseQuery($target, $mysqlSearch, $sourceId) {
   $query = Model::factory(Constant::BULKREPLACE_TARGETS[$target]['model'])
            ->where_raw('(binary internalRep like ? escape "|")', ["%{$mysqlSearch}%"]);
 

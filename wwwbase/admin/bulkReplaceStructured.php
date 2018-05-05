@@ -25,7 +25,7 @@ $defResults = createDefinitionDiffs($defs);
 
 $defIds = implode(',', $structuredIds);
 
-if ($finishedReplace){
+if ($finishedReplace) {
   Session::unsetVar('finishedReplace');
   Session::unsetVar('structuredIds');
 }
@@ -72,7 +72,7 @@ function createDefinitionDiffs($defs) {
         ->find_one();
 
     // getting the diff from $old ($dv->internalRep) -> $new($d->internalRep)
-    if ($dv != null){
+    if ($dv != null) {
       $d->internalRep = DiffUtil::internalDiff($dv->internalRep, $d->internalRep);
     }
   }

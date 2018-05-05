@@ -14,8 +14,9 @@ $d = ($definitionId)
    : Model::factory('Definition')->create();
 $d->internalRep = $internalRep;
 $d->sourceId = $sourceId;
-$d->process(false);
+$d->process();
 
+$html = HtmlConverter::convert($d);
 $footnotes = $d->getFootnotes();
 
 $sim = SimilarRecord::create($d, $entryIds);
@@ -24,7 +25,7 @@ SmartyWrap::assign('footnotes', $footnotes);
 $footnoteHtml = SmartyWrap::fetch('bits/footnotes.tpl');
 
 $data = $sim->getJsonFriendly();
-$data['htmlRep'] = $d->htmlRep;
+$data['html'] = $html;
 $data['footnoteHtml'] = $footnoteHtml;
 
 print json_encode($data);

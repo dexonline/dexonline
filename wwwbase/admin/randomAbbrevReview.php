@@ -31,7 +31,7 @@ if ($saveButton) {
     }
   }
   $def->internalRep = $s;
-  $def->process(false);
+  $def->process();
   $def->abbrevReview = Definition::ABBREV_REVIEW_COMPLETE;
   $def->save();
 }

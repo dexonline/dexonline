@@ -291,7 +291,7 @@ function mentionHoverIn() {
         elem.removeAttr('title');
         elem.data('loaded', 1);
         elem.popover({
-          content: resp.htmlRep,
+          content: resp.html,
           title: resp.description + ' (' + resp.breadcrumb + ')',
         }).popover('show');
       });

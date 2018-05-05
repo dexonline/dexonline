@@ -437,15 +437,15 @@
             id="def_{$def->id}">
             <div>
               <span data-code="0" class="rep internal hiddenRep">{$def->internalRepAbbrev|escape}</span>
-              <span data-code="1" class="rep hiddenRep">{$def->htmlRepAbbrev}</span>
+              <span data-code="1" class="rep hiddenRep">{$def->htmlAbbrev}</span>
               <span data-code="2" class="rep internal hiddenRep">{$def->internalRep|escape}</span>
-              <span data-code="3" data-active class="rep">{$def->htmlRep}</span>
+              <span data-code="3" data-active class="rep">{HtmlConverter::convert($def)}</span>
               {foreach $row->tags as $t}
                 {include "bits/tag.tpl"}
               {/foreach}
             </div>
 
-            {include "bits/footnotes.tpl" footnotes=$row->footnotes}
+            {include "bits/footnotes.tpl" footnotes=$def->getFootnotes()}
 
             {include "bits/definitionMenu.tpl"
               showEntryToggles=true

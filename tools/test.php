@@ -221,12 +221,8 @@ assertTransform('Str::htmlize', [ 0 ], [
 
 ]);
 
-assertTransform('Str::htmlize', [ 0, true ], [
-  "okely\ndokely" => ["okely<br>\ndokely", []],
-]);
-
 // htmlize with footnotes
-$internalRep = 'one two{{note/123}} three{{another note/456}} four';
+$internalRep = 'one two{{note/123}} three{{another @note@/456}} four';
 list($html, $footnotes) = Str::htmlize($internalRep, 1);
 assertEquals('one two<sup class="footnote">[1]</sup> three' .
              '<sup class="footnote">[2]</sup> four',
@@ -234,13 +230,11 @@ assertEquals('one two<sup class="footnote">[1]</sup> three' .
 
 assertEquals(2, count($footnotes));
 
-assertEquals(123, $footnotes[0]->userId);
-assertEquals(1, $footnotes[0]->rank);
-assertEquals('note', $footnotes[0]->htmlRep);
+assertEquals(123, $footnotes[0]->getUser()->id);
+assertEquals('note', HtmlConverter::convert($footnotes[0]));
 
-assertEquals(456, $footnotes[1]->userId);
-assertEquals(2, $footnotes[1]->rank);
-assertEquals('another note', $footnotes[1]->htmlRep);
+assertEquals(456, $footnotes[1]->getUser()->id);
+assertEquals('another <b>note</b>', HtmlConverter::convert($footnotes[1]));
 
 $data = [
   [
@@ -355,7 +349,7 @@ assertEquals(
 $errors = [];
 assertEquals(
   ["FOO <abbr class=\"abbrev\" data-html=\"true\" title=\"abreviere necunoscută\">brrb. ghhg.</abbr> BAR", []],
-  Str::htmlize("FOO #brrb. ghhg.# BAR", 1, false, $errors));
+  Str::htmlize("FOO #brrb. ghhg.# BAR", 1, $errors));
 assertEquals(
   ['Abreviere necunoscută: «brrb. ghhg.».'],
   $errors);

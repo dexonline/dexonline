@@ -12,9 +12,10 @@
             <th data-column-id="ambiguous">Amb.</th>
             <th data-column-id="caseSensitive">CS</th>
             <th data-column-id="short">Abreviere</th>
-            <th data-column-id="internalRep">Detalierea abrevierii</th>
+            <th data-column-id="internalRep" class="internalRep"></th>
+            <th data-column-id="html">Detalierea abrevierii</th>
             {if User::can(User::PRIV_ADMIN)}
-            <th data-column-id="commands" data-formatter="commands" data-sortable="false">Comenzi</th>
+              <th data-column-id="commands" data-formatter="commands" data-sortable="false">Comenzi</th>
             {/if}
           </tr>
         </thead>

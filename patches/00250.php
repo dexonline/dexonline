@@ -90,7 +90,7 @@ foreach (array_keys($ABBREV_INDEX) as $sourceId) { // handle each source
     // further cleaning string
     $abbrev->internalRep = Str::cleanup($internalRep);
 
-    list($htmlRep, $ignored) = Str::htmlize($abbrev->internalRep, $sourceId, false, $errors, $warnings);
+    list($htmlRep, $ignored) = Str::htmlize($abbrev->internalRep, $sourceId, $errors, $warnings);
 
     $abbrev->htmlRep = $htmlRep;
     $abbrev->modUserId = $userId;

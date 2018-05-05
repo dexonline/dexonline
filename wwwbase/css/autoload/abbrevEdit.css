@@ -153,3 +153,7 @@
   right: auto;
   left: 1em;
 }
+
+td.internalRep, th.internalRep {
+  display: none;
+}

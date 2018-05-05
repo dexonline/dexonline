@@ -7,6 +7,6 @@ $t = Tree::get_by_id($m->treeId);
 $results = [
   'description' => $t->description,
   'breadcrumb' => $m->breadcrumb,
-  'htmlRep' => $m->htmlRep,
+  'html' => HtmlConverter::convert($m),
 ];
 print json_encode($results);

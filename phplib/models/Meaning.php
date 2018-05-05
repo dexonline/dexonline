@@ -50,43 +50,35 @@ class Meaning extends BaseObject implements DatedObject {
     return $this->tree;
   }
 
-  // Single entry point for sanitize() / htmlize() / etc.
-  // $flash (boolean): if true, set flash messages for errors and warnings
+  // Single entry point for sanitize()
+  // $flash (boolean): if true, set flash messages for warnings
   // Simpler version of Definition->process()
-  function process($flash = true) {
-    $errors = [];
+  function process($flash = false) {
     $warnings = [];
 
     // sanitize
-    list($this->internalRep, $ambiguousAbbreviations)
+    list($this->internalRep, $ignored)
       = Str::sanitize($this->internalRep, 0, $warnings);
 
-    // htmlize + footnotes
-    list($this->htmlRep, $footnotes)
-      = Str::htmlize($this->internalRep, 0, false, $errors, $warnings);
-
     if ($flash) {
-      foreach ($warnings as $warning) {
-        FlashMessage::add($warning, 'warning');
-      }
-
-      foreach ($errors as $error) {
-        FlashMessage::add($error);
+      foreach ($warnings as $w) {
+        FlashMessage::add($w, 'warning');
       }
     }
   }
 
   /**
-   * Returns true iff we should display the relations alongside the htmlRep. This happens when:
-   * - htmlRep is empty;
-   * - htmlRep is a parenthesis;
-   * - htmlRep ends in an '=' sign;
+   * Returns true iff we should display the relations alongside the meaning. This happens when:
+   * - The meaning is empty;
+   * - The meaning is a parenthesis;
+   * - The meaning ends in an '=' sign;
    **/
   function includeRelations() {
+    $r = $this->internalRep;
     return (
-     !$this->htmlRep ||
-     (Str::startsWith($this->htmlRep, '(') && Str::endsWith($this->htmlRep, ')')) ||
-     Str::endsWith($this->htmlRep, '=')
+     !$r ||
+     (Str::startsWith($r, '(') && Str::endsWith($r, ')')) ||
+     Str::endsWith($r, '=')
     );
   }
 
@@ -139,7 +131,7 @@ class Meaning extends BaseObject implements DatedObject {
 
       $m->type = $tuple->type;
       $m->internalRep = $tuple->internalRep;
-      $m->process(false);
+      $m->process();
 
       $row['meaning'] = $m;
       $row['sources'] = Source::loadByIds($tuple->sourceIds);
@@ -258,7 +250,7 @@ class Meaning extends BaseObject implements DatedObject {
     foreach ($mentions as $ment) {
       $m = Meaning::get_by_id($ment->meaningId);
       $m->internalRep = str_replace("[{$this->id}]", '', $m->internalRep);
-      $m->process(false);
+      $m->process();
       $m->save();
     }
 

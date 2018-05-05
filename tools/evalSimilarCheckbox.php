@@ -56,7 +56,7 @@ foreach ($defs as $def) {
       }
     }
     printf("Definiție [%s] bifă [%s] diferență %4d     %s URL %s/admin/definitionEdit?definitionId=%d\n",
-           Str::pad($def->lexicon, 20),
+           Str::padRight($def->lexicon, 20),
            ($def->similarSource ? 'X' : ' '),
            $diffSize,
            $correct ? '      ' : 'EROARE',

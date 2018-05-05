@@ -365,12 +365,12 @@ $(function() {
     var type = parseInt($('.editorType:checked').val());
     c.find('.type').text(type);
 
-    // Update internal and HTML definition
+    // Update internal and HTML reps
     var internalRep = $('#editorRep').val();
     c.find('.internalRep').text(internalRep);
     $.post(wwwRoot + 'ajax/htmlize.php',
            { internalRep: internalRep, sourceId: 0 },
-           function(data) { c.find('.htmlRep').html(data); }
+           function(data) { c.find('.html').html(data); }
           );
 
     // Update sources and source IDs

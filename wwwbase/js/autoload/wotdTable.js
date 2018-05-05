@@ -17,11 +17,10 @@ $(function (){
     }
     $('#lexicon').select2({
       ajax: {
-        url: wwwRoot + 'ajax/wotdGetDefinitions.php',
+        url: wwwRoot + 'ajax/getDefinitions.php',
       },
-      templateResult: function(item) {
-        return item.text + ' (' + item.source + ') [' + item.id + ']';
-      },
+      templateResult: formatDefinition,
+      templateSelection: formatDefinition,
       minimumInputLength: 1,
       placeholder: 'caută un cuvânt...',
       width: '410px',
@@ -62,23 +61,24 @@ $(function (){
   }
 
   var editOptions = {
-    reloadAfterSubmit: true,
-    closeAfterEdit: true,
-    closeOnEscape: true,
-    beforeSubmit: endEdit,
     afterShowForm: beginEdit,
     afterSubmit: checkServerResponse,
+    beforeSubmit: endEdit,
+    closeAfterEdit: true,
+    closeOnEscape: true,
     onInitializeForm: formInit,
+    reloadAfterSubmit: true,
     width: 500,
   };
 
   var addOptions = {
-    reloadAfterSubmit: true,
-    closeAfterAdd: true,
-    closeOnEscape: true,
-    beforeSubmit: endEdit,
     afterShowForm: beginEdit,
     afterSubmit: checkServerResponse,
+    beforeSubmit: endEdit,
+    closeAfterAdd: true,
+    closeOnEscape: true,
+    onInitializeForm: formInit,
+    reloadAfterSubmit: true,
     width: 500,
   };
 
@@ -96,38 +96,96 @@ $(function (){
   var userWidth   =  90;
   var priorWidth  =  40;
   var imageWidth  = 130;
-  var descWidth   = screenWidth - (lexWidth + sourceWidth + htmlWidth + dateWidth + userWidth + priorWidth + imageWidth) - 40;
+  var descWidth   = screenWidth - (lexWidth + sourceWidth + htmlWidth + dateWidth +
+                                   userWidth + priorWidth + imageWidth) - 40;
   var imageList = $('#imageList').detach().removeAttr('id');
 
+  var colModels = [
+    {
+      label: 'Cuvânt',
+      name: 'lexicon',
+      index: 'd.lexicon',
+      editable: true,
+      edittype: 'select',
+      editoptions: {value: 'x:x'},
+      width: lexWidth,
+    },
+    {
+      label: 'Sursă',
+      name: 'shortName',
+      index: 's.shortName',
+      width: sourceWidth,
+    },
+    {
+      label: 'Definiție',
+      name: 'defHtml',
+      index: 'd.internalRep',
+      width: htmlWidth,
+    },
+    {
+      label: 'Data afișării',
+      name: 'displayDate',
+      index: 'w.displayDate',
+      width: dateWidth,
+      editable: true,
+    },
+    {
+      label: 'Adăugată de',
+      name: 'name',
+      index: 'u.name',
+      width: userWidth,
+    },
+    {
+      label: 'Pr.',
+      name: 'priority',
+      index: 'w.priority',
+      editable: true,
+      width: priorWidth,
+    },
+    {
+      label: 'Imagine',
+      name: 'image',
+      index: 'w.image',
+      editable: true,
+      edittype: 'select',
+      editoptions: {value: ':'},
+      width: imageWidth,
+    },
+    { // HTML, visible as column header
+      label: 'Motiv',
+      name: 'wotdHtml',
+      index: 'w.description',
+      width: descWidth,
+    },
+    {
+      name: 'definitionId',
+      index: 'definitionId',
+      editable: true,
+      hidden: true,
+    },
+    { // internal, visible as label in the edit form
+      name: 'description',
+      index:'w.description',
+      editable: true,
+      edittype: 'textarea',
+      hidden: true,
+    },
+  ];
+
   $('#wotdGrid').jqGrid({
-    url: wwwRoot + 'ajax/wotdTableRows.php',
-    datatype: 'xml',
-    colNames: ['Cuvînt', 'Sursă', 'Definiție', 'Data afișării', 'Adăugată de', 'Pr.', 'Tipul resursei', 'Imagine', 'Descriere', 'ID-ul definiției', 'Descriere'],
-    colModel: [
-      {name: 'lexicon', index: 'lexicon', editable: true, edittype: 'select', editoptions: {value: 'x:x'}, width: lexWidth},
-      {name: 'source', index: 'shortName', width: sourceWidth},
-      {name: 'htmlRep', index: 'htmlRep', width: htmlWidth},
-      {name: 'displayDate', index: 'displayDate', width: dateWidth, editable: true, cellattr: function (a,b,c,d,x) {return ' title="' + x.descr + '"'}},
-      {name: 'name', index: 'u.name', width: userWidth},
-      {name: 'priority', index: 'priority', editable: true, width: priorWidth},
-      {name: 'refType', index: 'refType', editable: true, edittype: 'select', editoptions: {value: 'Definition:Definition'}, hidden: true},
-      {name: 'image', index: 'w.image', editable: true, edittype: 'select', editoptions: {value: ':'}, width: imageWidth},
-      {name: 'description', index:'description', editable: true, edittype: 'textarea', width:0, hidden: true},
-      {name: 'definitionId', index: 'definitionId', editable: true, hidden: true},
-      {name: 'htmlDescription', index: 'htmlDescription', hidden: false, width: descWidth},
-    ],
-    rowNum: 50,
-    recreateForm: true,
-    autoWidth: true,
+    colModel: colModels,
+    datatype: 'json',
+    editurl: wwwRoot + 'ajax/saveWotd.php',
     height: '100%',
-    rowList: [20, 50, 100, 200],
-    sortname: 'displayDate',
+    ondblClickRow: function(rowid) { $(this).jqGrid('editGridRow', rowid, editOptions); },
     pager: $('#wotdPaging'),
-    viewrecords: true,
+    recreateForm: true,
+    rowList: [20, 50, 100, 200],
+    rowNum: 50,
+    sortname: 'w.displayDate',
     sortorder: 'desc',
-    caption: 'Cuvântul zilei',
-    editurl: wwwRoot + 'ajax/wotdSave.php',
-    ondblClickRow: function(rowid) { $(this).jqGrid('editGridRow', rowid, editOptions); }
+    url: wwwRoot + 'ajax/getWotds.php',
+    viewrecords: true,
   });
   $('#wotdGrid').navGrid('#wotdPaging',
     {

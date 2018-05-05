@@ -96,15 +96,12 @@ function updateEntity($e, $isDefinition)
     }
 
     if ($didChange) {
-      $sourceId = $isDefinition ? $e->sourceId : 0;
-      list($e->htmlRep, $ignored) = Str::htmlize($e->internalRep, $sourceId);
       $e->save();
 
-      $tableName = $isDefinition ? 'Definition' : 'Meaning';
-
       if (CREATE_PATCH_FILE) {
-        $line = sprintf("UPDATE %s SET internalRep = '%s', htmlRep = '%s' WHERE id = %s;\n",
-                        $tableName, $e->internalRep, $e->htmlRep, $e->id);
+        $tableName = $isDefinition ? 'Definition' : 'Meaning';
+        $line = sprintf("UPDATE %s SET internalRep = '%s' WHERE id = %s;\n",
+                        $tableName, $e->internalRep, $e->id);
         file_put_contents($newPatch, $line, FILE_APPEND);
       }
     }

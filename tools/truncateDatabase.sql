@@ -13,7 +13,6 @@ truncate table DefinitionVersion;
 truncate table Entry;
 truncate table EntryDefinition;
 truncate table EntryLexeme;
-truncate table Footnote;
 truncate table FullTextIndex;
 -- truncate table InflectedForm;
 -- truncate table Inflection;

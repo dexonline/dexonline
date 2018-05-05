@@ -20,11 +20,12 @@ do {
 
   foreach ($defs as $d) {
     $oldRep = $d->internalRep;
-    $oldHtmlRep = $d->htmlRep;
-    $d->process(false);
-    if ($oldRep !== $d->internalRep || $oldHtmlRep !== $d->htmlRep) {
+    $oldHtml = HtmlConverter::convert($d);
+    $d->process();
+    $html = HtmlConverter::convert($d);
+    if ($oldRep !== $d->internalRep || $oldHtml !== $html) {
       // printf("**** %d %3d %s %s\n", $d->id, $d->sourceId, defUrl($d), $d->lexicon);
-      $d->deepSave();
+      $d->save();
       $modified++;
     }
   }

@@ -192,6 +192,13 @@ function formatEntryWithEditLink(entry) {
   return $('<span>' + entry.text + link + '</span>');
 }
 
+function formatDefinition(item) {
+  if (item.id && item.source) {
+    return $('<span>' + item.html + ' (' + item.source + ') [' + item.id + ']' + '</span>');
+  }
+  return item.text;
+}
+
 function allowNewOptions(data) {
   return {
     id: '@' + data.term,

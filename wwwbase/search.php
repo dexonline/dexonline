@@ -156,7 +156,7 @@ if ($text) {
       });
     }
 
-    Definition::highlight($words, $stopWords, $definitions);
+    Definition::highlight($words, $definitions);
   }
 }
 

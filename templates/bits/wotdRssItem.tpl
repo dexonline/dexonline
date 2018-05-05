@@ -4,7 +4,7 @@
   </p>
 {/if}
 
-<p>{$def->htmlRep}</p>
+<p>{$html}</p>
 
 <p>
   Sursa:

@@ -77,9 +77,11 @@ if ($def) {
 
 $defData = $project->getDefinitionData();
 
-SmartyWrap::assign('project', $project);
-SmartyWrap::assign('mine', $mine);
-SmartyWrap::assign('def', $def);
-SmartyWrap::assign('errors', $errors);
-SmartyWrap::assign('definitionData', $defData);
+SmartyWrap::assign([
+  'project' => $project,
+  'mine' => $mine,
+  'def' => $def,
+  'errors' => $errors,
+  'definitionData' => $defData,
+]);
 SmartyWrap::display('acuratete-eval.tpl');

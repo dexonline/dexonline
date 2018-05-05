@@ -31,10 +31,13 @@ if ($type == 'rss' || $type == 'blog') {
     $def = Model::factory('Definition')->where('id', $defId)->where('status', Definition::ST_ACTIVE)->find_one();
     $source = Model::factory('Source')->where('id', $def->sourceId)->find_one();
 
-    SmartyWrap::assign('def', $def);
-    SmartyWrap::assign('source', $source);
-    SmartyWrap::assign('reason', Str::htmlize($w->description, 0)[0]);
-    SmartyWrap::assign('imageUrl', $w->getLargeThumbUrl());
+    SmartyWrap::assign([
+      'def' => $def,
+      'source' => $source,
+      'reason' => Str::htmlize($w->description, 0)[0],
+      'imageUrl' => $w->getLargeThumbUrl(),
+      'html' => HtmlConverter::convert($def),
+    ]);
     if ($type == 'blog') {
         $curDate = strftime("%e %B", $ts);
         SmartyWrap::assign('curDate', $curDate);

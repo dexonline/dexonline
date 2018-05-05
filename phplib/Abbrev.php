@@ -54,7 +54,6 @@ class Abbrev {
           $abbrevs[$abbrev['short']] = [
             'id' => $abbrev['id'],
             'internalRep' => $abbrev['internalRep'],
-            'htmlRep' => $abbrev['htmlRep'],
             'enforced' => $abbrev['enforced'] == '1',
             'ambiguous' => $abbrev['ambiguous'] == '1',
             'caseSensitive' => $abbrev['caseSensitive'] == '1',
@@ -152,29 +151,6 @@ class Abbrev {
       }
     }
     return $abbrevList[$key];
-  }
-
-  static function htmlizeAbbreviations($s, $sourceId, &$errors) {
-    $abbrevs = self::loadAbbreviations($sourceId);
-    $matches = [];
-    preg_match_all("/(?<!\\\\)#([^#]*)#/", $s, $matches, PREG_OFFSET_CAPTURE);
-    if (count($matches[1])) {
-      foreach (array_reverse($matches[1]) as $match) {
-        $from = $match[0];
-        $matchingKey = self::bestAbbrevMatch($from, array_keys($abbrevs));
-        $position = $match[1];
-        if ($matchingKey) {
-          $hint = $abbrevs[$matchingKey]['htmlRep'];
-        } else {
-          $hint = 'abreviere necunoscută';
-          if ($errors !== null) {
-            $errors[] = "Abreviere necunoscută: «{$from}».";
-          }
-        }
-        $s = substr_replace($s, "<abbr class=\"abbrev\" data-html=\"true\" title=\"$hint\">$from</abbr>", $position - 1, 2 + strlen($from));
-      }
-    }
-    return $s;
   }
 
   static function expandAbbreviations($s, $sourceId) {

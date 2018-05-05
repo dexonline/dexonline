@@ -29,14 +29,14 @@ class Spoof extends Plugin {
   }
 
   function replaceSpoofedWord($s) {
-    $pattern = '|<b>(.*)(,?)</b>|U';
-    $replacement = sprintf('<b>%s${2}</b>', mb_strtoupper($this->query));
+    $pattern = '/^@(.*)(,?)@/U';
+    $replacement = sprintf('@%s${2}@', mb_strtoupper($this->query));
     return preg_replace($pattern, $replacement, $s, 1);
   }
 
-  function spoofDefinitionHtml(&$definitions) {
+  function spoofDefinitions(&$definitions) {
     foreach ($definitions as $d) {
-      $d->htmlRep = $this->replaceSpoofedWord($d->htmlRep);
+      $d->internalRep = $this->replaceSpoofedWord($d->internalRep);
     }
   }
 
@@ -56,7 +56,7 @@ class Spoof extends Plugin {
     if ($this->spoofedQuery) {
       $entries = Entry::searchInflectedForms($this->spoofedQuery, $this->hasDiacritics);
       $definitions = Definition::searchEntry($entries[0]);
-      $this->spoofDefinitionHtml($definitions);
+      $this->spoofDefinitions($definitions);
     }
   }
 
@@ -64,7 +64,7 @@ class Spoof extends Plugin {
     if ($this->spoofedQuery) {
       $entries = Entry::searchInflectedForms($this->spoofedQuery, $this->hasDiacritics);
       $definitions = Definition::loadForEntries($entries, $sourceId, $this->spoofedQuery);
-      $this->spoofDefinitionHtml($definitions);
+      $this->spoofDefinitions($definitions);
     }
   }
 }

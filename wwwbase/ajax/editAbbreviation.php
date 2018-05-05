@@ -26,8 +26,7 @@ if ($action != 'delete') {
 
 if ($abbrevId) {
   $abbrev = Abbreviation::get_by_id($abbrevId);
-}
-else {
+} else {
   $abbrev = Model::factory('Abbreviation')->create();
   $abbrev->sourceId = $sourceId;
 }
@@ -54,7 +53,6 @@ switch ($action) {
     /** Populate the fields with new values and save */
     $abbrev->short = $short;
     $abbrev->internalRep = $internalRep;
-    list($abbrev->htmlRep, $ignored) = Str::htmlize($internalRep, $sourceId);
     $abbrev->enforced = $enforced;
     $abbrev->ambiguous = $ambiguous;
     $abbrev->caseSensitive = $caseSensitive;

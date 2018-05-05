@@ -189,7 +189,7 @@ while ($i < count($lines)) {
   $definition->sourceId = $sourceId;
   $definition->status = $status;
   $definition->internalRep = $def;
-  $definition->process(false);
+  $definition->process();
   $definition->save();
   if($verbose) echo("\tAdded definition {$definition->id} ({$definition->lexicon})\n");
 

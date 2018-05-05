@@ -170,12 +170,12 @@ Log::notice((memory_get_usage() - $startMemory).' bytes used');
 
 function definitionReplace($d, $search, $replace) {
   $d->internalRep = str_replace($search, $replace, $d->internalRep);
-  $d->process(false);
+  $d->process();
 }
 
 function meaningReplace($m, $search, $replace) {
   $m->internalRep = str_replace($search, $replace, $m->internalRep);
-  $m->process(false);
+  $m->process();
 }
 
 function createDefinitionDiffs($defs, $search, $replace) {
@@ -187,8 +187,7 @@ function createDefinitionDiffs($defs, $search, $replace) {
     $new = str_replace($search, $replace, $d->internalRep);
 
     // getting the diff from $old (internalRep) -> $new
-    $diff = DiffUtil::internalDiff($d->internalRep, $new);
-    list($d->htmlRep, $ignored) = Str::htmlize($diff, $d->sourceId);
+    $d->internalRep = DiffUtil::internalDiff($d->internalRep, $new);
   }
   DebugInfo::stopClock('BulkReplace - AfterForEach +MoreToReplace');
 
@@ -198,8 +197,7 @@ function createDefinitionDiffs($defs, $search, $replace) {
 function createMeaningDiffs($meanings, $search, $replace) {
   foreach ($meanings as $m) {
     $new = str_replace($search, $replace, $m->internalRep);
-    $diff = DiffUtil::internalDiff($m->internalRep, $new);
-    list($m->htmlRep, $ignored) = Str::htmlize($diff, 0);
+    $m->internalRep = DiffUtil::internalDiff($m->internalRep, $new);
   }
   DebugInfo::stopClock('BulkReplace - created meaning diffs');
 
@@ -245,11 +243,10 @@ function saveObjects($objects, $target, $search, $replace, &$numChanged, &$struc
       if ($obj->structured){
         $structuredIds[] = $obj->id;
       }
-      $obj->deepSave();
     } else { // $obj is a meaning
       meaningReplace($obj, $search, $replace);
-      $obj->save();
     }
+    $obj->save();
     $numChanged++;
   }
   Session::set('numChanged', $numChanged);

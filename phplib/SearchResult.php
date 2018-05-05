@@ -10,7 +10,6 @@ class SearchResult {
   public $user;
   public $source;
   public $typos;
-  public $footnotes;
   public $bookmark;
   public $tags;
   public $wotdType;
@@ -37,7 +36,6 @@ class SearchResult {
       $result->user = $userMap[$definition->userId];
       $result->source = $sourceMap[$definition->sourceId];
       $result->typos = [];
-      $result->footnotes = $definition->getFootnotes();
       $result->wotdType = self::WOTD_NOT_IN_LIST;
       $result->wotdDate = null;
       $result->bookmark = false;

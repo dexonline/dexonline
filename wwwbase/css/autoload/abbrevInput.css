@@ -3,7 +3,7 @@ ol {
   padding:0;
   counter-reset:item;
 }
- 
+
 ol>li {
   margin:0;
   padding:0 0 0 2em;
@@ -12,7 +12,7 @@ ol>li {
   counter-increment:item;
   color: #777;
 }
- 
+
 ol>li:before {
   display:inline-block;
   width:1.5em;

@@ -82,6 +82,19 @@ class WordOfTheDay extends BaseObject {
     list($ignored, $httpCode) = Util::fetchUrl($this->getImageUrl());
     return $httpCode == 200;
   }
+
+  function save() {
+    parent::save();
+    Log::notice('Saved WotD id=%s, date=%s, image=%s, description=[%s]',
+                $this->id, $this->displayDate, $this->image, $this->description);
+  }
+
+  function delete() {
+    WordOfTheDayRel::delete_all_by_wotdId($this->id);
+    parent::delete();
+    Log::warning('Deleted WotD id=%s date=%s, image=%s, description=[%s]',
+                 $this->id, $this->displayDate, $this->image, $this->description);
+  }
 }
 
 WordOfTheDay::init();

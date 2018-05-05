@@ -65,7 +65,7 @@ $(function() {
     if (data.definition) {
       $('#similarDefinitionEdit').show();
       $('#similarDefinitionEdit').attr('href', '?definitionId=' + data.definition.id);
-      $('#similarRep').html(data.definition.htmlRep);
+      $('#similarRep').html(data.definition.html);
     } else {
       $('#similarDefinitionEdit').hide();
       $('#similarRep').html('');
@@ -86,8 +86,8 @@ $(function() {
       $('#similarSourceMessageNoSource').show();
     }
 
-    if (typeof data.htmlRep != 'undefined') {
-      $('#defPreview').html(data.htmlRep);
+    if (typeof data.html != 'undefined') {
+      $('#defPreview').html(data.html);
     }
     if (typeof data.footnoteHtml != 'undefined') {
       $('#footnotes').html(data.footnoteHtml);

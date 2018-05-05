@@ -44,35 +44,21 @@ class Definition extends BaseObject implements DatedObject {
     return $this->source;
   }
 
+  function setFootnotes($footnotes) {
+    $this->footnotes = $footnotes;
+  }
+
   function getFootnotes() {
-    if ($this->footnotes === null) {
-      $this->footnotes = Model::factory('Footnote')
-        ->where('definitionId', $this->id)
-        ->order_by_asc('rank')
-        ->find_many();
-    }
     return $this->footnotes;
   }
 
-  /**
-   * Process the entire definition
-   *
-   * Single entry point for sanitize() / htmlize() / footnotes reprocess etc.
-   *
-   * @param   boolean $flash  :if true, set flash messages for errors and warnings
-   * @return  void
-   */
-  function process($flash = true) {
-    $errors = [];
+  // Single entry point for sanitizing / extracting lexicon / counting ambigious abbreviations.
+  function process($flash = false) {
     $warnings = [];
 
     // sanitize
     list($this->internalRep, $ambiguousAbbreviations)
       = Str::sanitize($this->internalRep, $this->sourceId, $warnings);
-
-    // htmlize + footnotes
-    list($this->htmlRep, $this->footnotes)
-      = Str::htmlize($this->internalRep, $this->sourceId, false, $errors, $warnings);
 
     // abbrevReview status
     $this->abbrevReview = count($ambiguousAbbreviations)
@@ -83,12 +69,8 @@ class Definition extends BaseObject implements DatedObject {
     $this->extractLexicon();
 
     if ($flash) {
-      foreach ($warnings as $warning) {
-        FlashMessage::add($warning, 'warning');
-      }
-
-      foreach ($errors as $error) {
-        FlashMessage::add($error);
+      foreach ($warnings as $w) {
+        FlashMessage::add($w, 'warning');
       }
     }
   }
@@ -291,7 +273,7 @@ class Definition extends BaseObject implements DatedObject {
     return [$intersection, $stopWords, $adult];
   }
 
-  static function highlight($words, $stopWords, &$definitions) {
+  static function highlight($words, &$definitions) {
     $res = array_fill_keys($words, []);
 
     foreach ($res as $key => &$words) {
@@ -306,9 +288,12 @@ class Definition extends BaseObject implements DatedObject {
         ->where('i1.formUtf8General', $key)
         ->find_many();
       foreach ($forms as $f) {
-        $words['accented'][] = str_replace(Constant::ACCENTS['marked'], Constant::ACCENTS['accented'], $f->form);
-        $words['unaccented'][] = $f->formNoAccent;
-        $words['marked'][] = $f->form;
+        // catch accents in both forms ('a and á) as both can be present in
+        // internalRep, for historical reasons
+        $accented = str_replace(Constant::ACCENTS['marked'],
+                                Constant::ACCENTS['accented'],
+                                $f->form);
+        array_push($words, $f->formNoAccent, $f->form, $accented);
       }
 
       if (empty($words)) {
@@ -319,25 +304,21 @@ class Definition extends BaseObject implements DatedObject {
     foreach ($definitions as $def) {
       $classIndex = 0;
       foreach ($res as &$words) {
-        $wordsHighlight = array();
-
-        // we need each variant of searched words as our definition are mixed accented
-        $wordsHighlight[] = implode("|", $words['accented']);
-        $wordsHighlight[] = implode("|", $words['unaccented']);
-        $marked = str_replace("/", "\\/", Str::highlightAccent($words['marked']));
-        $wordsHighlight[] = implode("|", $marked);
-
-        // finally get an 'or' string pattern of all variants
-        $wordsString = implode("|", $wordsHighlight);
+        $wordsString = implode('|', $words);
         $pattern = '/[^\p{L}](' . $wordsString . ')[^\p{L}]/iuS';
 
-        preg_match_all($pattern, $def->htmlRep, $match, PREG_OFFSET_CAPTURE);
+        preg_match_all($pattern, $def->internalRep, $match, PREG_OFFSET_CAPTURE);
         $revMatch = array_reverse($match[1]);
 
         foreach ($revMatch as $m) {
-          $def->htmlRep = substr_replace($def->htmlRep,
-                                         "<span class=\"fth fth{$classIndex}\">{$m[0]}</span>",
-                                         $m[1], strlen($m[0]));
+          $replacement = sprintf('{c%s|%sc}', $m[0], $classIndex);
+
+          $def->internalRep = substr_replace(
+            $def->internalRep,
+            $replacement,
+            $m[1],
+            strlen($m[0])
+          );
         }
         $classIndex = ($classIndex + 1) % 5; // keep the number of colors in sync with search.css
       }
@@ -471,41 +452,12 @@ class Definition extends BaseObject implements DatedObject {
   }
 
   /**
-   * Saves only definition, without footnotes
-   *
-   * Does not regenerate htmlized footnotes
-   *
-   * @param none
-   *
    * @return  bool  <p>$success from parent</p>
    */
   function save() {
     $this->modUserId = User::getActiveId();
+    Typo::delete_all_by_definitionId($this->id);
     return parent::save();
   }
 
-  /**
-   * Saves definition and footnotes
-   *
-   * Deletes every footnote associated with this definition and saves them again <br/>
-   * Prior calling this function make sure you called either of:
-   *
-   * <b>process()</b> - so footnotes get htmlized again from changed <i>internalRep</i><br/>
-   * <b>getFootnotes()</b> - to load the old ones into <i>$this->footnotes</i><br/>
-   *
-   * @param  none
-   *
-   * @return bool $success  <p>from function save()</p>
-   */
-  function deepSave() {
-    $success = $this->save();
-
-    Footnote::delete_all_by_definitionId($this->id);
-    foreach ($this->footnotes as $f) {
-      $f->definitionId = $this->id;
-      $f->save();
-    }
-    Typo::delete_all_by_definitionId($this->id);
-    return $success;
-  }
 }

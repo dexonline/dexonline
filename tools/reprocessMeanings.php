@@ -25,7 +25,7 @@ do {
             ->find_many();
 
   foreach ($meanings as $m) {
-    $m->process(false);
+    $m->process();
     $m->save();
     // Log::info("Modified: [%s] rank %s", treeUrl($m->treeId), $m->displayOrder);
     $modified++;

@@ -25,10 +25,10 @@
 
       <div class="panel-body" id="panel-body">
         {foreach $defResults as $row}
-            {$objId=$row->definition->id}
+          {$objId=$row->definition->id}
 
           {include "bits/definition.tpl" showStatus=1 showFlagTypo=1 showUser=0}
-          
+
           <div class="entryWrapper">
             {foreach $entryResults[$objId] as $entry}
               {$btnClass = "btn btn-{if $entry->structStatus==4}primary

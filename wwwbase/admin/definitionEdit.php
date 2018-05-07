@@ -12,6 +12,8 @@ $structured = Request::has('structured');
 $internalRep = Request::get('internalRep');
 $status = Request::get('status', null);
 $tagIds = Request::getArray('tagIds');
+$volume = Request::get('volume', 0);
+$page = Request::get('page', 0);
 
 $saveButton = Request::has('saveButton');
 $nextOcrBut = Request::has('but_next_ocr');
@@ -49,8 +51,12 @@ if ($saveButton || $nextOcrBut) {
   $d->sourceId = (int)$sourceId;
   $d->similarSource = $similarSource;
   $d->structured = $structured;
+  $d->volume = $volume;
+  $d->page = $page;
 
   $d->process(true);
+  $d->setVolumeAndPage(); // only after we have extracted the lexicon
+
   HtmlConverter::convert($d);
   HtmlConverter::exportMessages();
 
@@ -214,6 +220,7 @@ function getDefinitionFromOcr($userId) {
   $d->structured = 0;
   $d->internalRep = $ocr->ocrText;
   $d->process();
+  $d->setVolumeAndPage();
   $d->save();
 
   $ocr->definitionId = $d->id;

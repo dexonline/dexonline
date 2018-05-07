@@ -49,6 +49,25 @@
               disabled=!$canEditStatus}
           </div>
         </div>
+
+        <div class="form-group">
+          <label class="col-sm-2 col-md-4 control-label">volum</label>
+          <div class="col-sm-2 col-md-2">
+            <input
+              class="form-control"
+              type="number"
+              name="volume"
+              value="{$def->volume}">
+          </div>
+          <label class="col-sm-2 col-md-2 control-label">pagină</label>
+          <div class="col-sm-3 col-md-3">
+            <input
+              class="form-control"
+              type="number"
+              name="page"
+              value="{$def->page}">
+          </div>
+        </div>
       </div>
 
       <div class="col-md-6">
@@ -63,9 +82,9 @@
             </select>
 
             {include "bits/frequentObjects.tpl"
-                     name="definitionTags"
-                     type="tags"
-                     target="#tagIds"}
+              name="definitionTags"
+              type="tags"
+              target="#tagIds"}
           </div>
         </div>
 
@@ -127,9 +146,9 @@
       <div class="col-sm-10">
 
         <button id="refreshButton"
-                type="button"
-                name="refreshButton"
-                class="btn btn-primary">
+          type="button"
+          name="refreshButton"
+          class="btn btn-primary">
           <i class="glyphicon glyphicon-refresh"></i>
           <u>r</u>eafișează
         </button>
@@ -165,6 +184,7 @@
               showEditLink=false
               showHistory=true
               showId=false
+              showPageModal=false
               showSource=false
               showUser=false
             }
@@ -252,4 +272,5 @@
     <a href="#" class="btn btn-link btm-sm diffCancel">anulează</a>
   </div>
 
+  {include "bits/pageModal.tpl"}
 {/block}

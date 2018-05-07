@@ -1,5 +1,5 @@
 <form class="form-inline">
-  <a class="prevPage" class="btn btn-link" title="pagina anterioară">
+  <a class="prevPage btn btn-link" title="pagina anterioară">
     <i class="glyphicon glyphicon-chevron-left"></i>
   </a>
 
@@ -14,7 +14,7 @@
          placeholder="navighează la un cuvânt..."
          >
 
-  <a class="nextPage" class="btn btn-link" title="pagina următoare">
+  <a class="nextPage btn btn-link" title="pagina următoare">
     <i class="glyphicon glyphicon-chevron-right"></i>
   </a>
 </form>

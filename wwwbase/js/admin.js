@@ -4,7 +4,7 @@ $(function() {
   var sourceId;
   var volume;
   var page;
-  
+
   function init() {
     // move the modal outside of any tabs
     $('#pageModal').appendTo('body');
@@ -29,6 +29,8 @@ $(function() {
     var link = $(event.relatedTarget); // link that triggered the modal
     sourceId = link.attr('data-sourceId');
     var word = link.attr('data-word');
+    var linkVolume = link.attr('data-volume');
+    var linkPage = link.attr('data-page');
 
     $('#pageModal .sourceDropDown').val(sourceId).trigger('change');
 
@@ -36,8 +38,13 @@ $(function() {
     $.get(wwwRoot + 'ajax/getPage.php', { sourceId: sourceId, word: word, })
       .done(function(data) {
         urlPattern = data.urlPattern;
-        volume = data.volume;
-        page = data.page;
+        if (linkVolume > 0 && linkPage > 0) {
+          volume = linkVolume;
+          page = linkPage;
+        } else {
+          volume = data.volume;
+          page = data.page;
+        }
         loadPage();
       })
       .fail(function(e) {

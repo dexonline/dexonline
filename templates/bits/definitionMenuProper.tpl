@@ -189,7 +189,9 @@
               data-toggle="modal"
               data-target="#pageModal"
               data-sourceId="{$def->sourceId}"
-              data-word="{$def->lexicon|escape}">
+              data-word="{$def->lexicon|escape}"
+              data-volume="{$def->volume|escape}"
+              data-page="{$def->page|escape}">
               <i class="glyphicon glyphicon-file"></i>
               arată originalul
             </a>

@@ -75,6 +75,19 @@ class Definition extends BaseObject implements DatedObject {
     }
   }
 
+  // sets the volume and page fields under certain conditions
+  function setVolumeAndPage() {
+    if ($this->volume && $this->page) {
+      return; // do not change existing values
+    }
+
+    $pi = PageIndex::lookup($this->lexicon, $this->sourceId);
+    if ($pi) {
+      $this->volume = $pi->volume;
+      $this->page = $pi->page;
+    }
+  }
+
   static function loadByEntryIds($entryIds) {
     if (!count($entryIds)) {
       return [];

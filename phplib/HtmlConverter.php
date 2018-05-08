@@ -14,6 +14,10 @@ class HtmlConverter {
   private static $warnings = [];
 
   static function convert($obj) {
+    if (!$obj) {
+      return null;
+    }
+
     $sourceId = $obj->sourceId ?? 0;
     list($html, $footnotes)
       = Str::htmlize($obj->internalRep, $sourceId, self::$errors, self::$warnings);

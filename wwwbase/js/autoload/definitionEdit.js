@@ -62,23 +62,23 @@ $(function() {
     if (data.source) {
       $('.similarSourceName').text(data.source.shortName);
     }
-    if (data.definition) {
+    if (data.sim) {
       $('#similarDefinitionEdit').show();
-      $('#similarDefinitionEdit').attr('href', '?definitionId=' + data.definition.id);
-      $('#similarRep').html(data.definition.html);
+      $('#similarDefinitionEdit').attr('href', '?definitionId=' + data.sim.id);
+      $('#similarRep').html(data.simHtml);
     } else {
       $('#similarDefinitionEdit').hide();
       $('#similarRep').html('');
     }
-    $('#similarDiff').html(data.htmlDiff);
+    $('#similarDiff').html(data.simDiff);
 
     $('#similarIdentical').toggle(data.identical);
-    var existsAndIsDifferent = (data.definition != null) && !data.identical;
+    var existsAndIsDifferent = (data.sim != null) && !data.identical;
     $('#similarNotIdentical').toggle(existsAndIsDifferent);
     $('#similarDiff').toggle(existsAndIsDifferent);
 
     $('#similarSourceMessageYes, #similarSourceMessageNoSource, #similarSourceMessageNoDefinition').hide();
-    if (data.source && data.definition) {
+    if (data.source && data.sim) {
       $('#similarSourceMessageYes').show();
     } else if (data.source) {
       $('#similarSourceMessageNoDefinition').show();
@@ -111,7 +111,7 @@ $(function() {
   function diffClick(e) {
     var ins = ($(this).prop('tagName') == 'INS') ? 1 : 0;
     var defId = $('input[name=definitionId]').val();
-    var similarId = similarRecord.definition.id;
+    var similarId = similarRecord.sim.id;
     var action = $(this).data('insert');
 
     var pattern = '%sadmin/editSimilarDefinition.php?defId=%s&similarId=%s&rank=%s&action=%s';

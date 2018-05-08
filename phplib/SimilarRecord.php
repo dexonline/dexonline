@@ -32,8 +32,9 @@ class SimilarRecord {
   function getJsonFriendly() {
     return [
       'source' => $this->source ? $this->source->as_array() : null,
-      'definition' => $this->definition ? $this->definition->as_array() : null,
-      'htmlDiff' => $this->htmlDiff,
+      'sim' => $this->definition ? $this->definition->as_array() : null,
+      'simHtml' => HtmlConverter::convert($this->definition),
+      'simDiff' => $this->htmlDiff,
       'identical' => $this->identical,
     ];
   }

@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../phplib/Core.php';
+require_once __DIR__ . '/../../phplib/Core.php';
 
 $opts = getopt('an');
 $ambiguous = isset($opts['a']);

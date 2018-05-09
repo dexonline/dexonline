@@ -39,6 +39,7 @@ class ElfinderUtil {
     $opts = [
       'bind'  => [
         'mkdir mkfile rename duplicate upload rm paste' => [$logger, 'log'],
+        'upload.presave' => ['ElfinderUtil::cleanupFileName'],
       ],
       'roots' => [
         array_merge($root, [
@@ -57,4 +58,16 @@ class ElfinderUtil {
     return $opts;
   }
 
+  static function cleanupFileName(&$path, &$name, $tmpname, $elfinder, $volume) {
+    $name = Str::cleanup($name);
+
+    // a bit of standardization
+    // lowercase extension, e.g. JPG -> jpg
+    $name = preg_replace_callback('/\.\w+$/', function($m) {
+      return strtolower($m[0]);
+    }, $name);
+
+    $name = str_replace([' ', '_'], '-', $name);
+    $name = str_replace('jpeg', 'jpg', $name);
+  }
 }

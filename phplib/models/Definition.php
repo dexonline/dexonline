@@ -460,7 +460,7 @@ class Definition extends BaseObject implements DatedObject {
     $cs = $caseSensitive ? ' ' : ' binary ';
     return Model::factory('Definition')
       ->where_raw('internalRep like' . $cs . '?', '%#' . $abbrev . '#%')
-      ->where('status', Definition::ST_ACTIVE)
+      ->where_in('status', [Definition::ST_ACTIVE, Definition::ST_HIDDEN])
       ->where('sourceID', $sourceId)
       ->count();
   }

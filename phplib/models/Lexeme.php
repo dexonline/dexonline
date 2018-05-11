@@ -512,6 +512,35 @@ class Lexeme extends BaseObject implements DatedObject {
     }
   }
 
+  // apply tags required by harmonization rules
+  function harmonizeTags() {
+    $hts = Model::factory('HarmonizeTag')
+      ->where('modelType', $this->modelType)
+      ->where_in('modelNumber', ['', $this->modelNumber])
+      ->find_many();
+    foreach ($hts as $ht) {
+      ObjectTag::associate(ObjectTag::TYPE_LEXEME, $this->id, $ht->tagId);
+    }
+  }
+
+  // change the model given the tags, according to harmonization rules
+  function harmonizeModel($tagIds) {
+    $hm = Model::factory('HarmonizeModel')
+      ->where('modelType', $this->modelType)
+      ->where_in('modelNumber', ['', $this->modelNumber]);
+    if (count($tagIds)) {
+      $hm = $hm->where_in('tagId', $tagIds);
+    }
+    $hm = $hm->find_one();
+
+    if ($hm) {
+      $this->modelType = $hm->newModelType;
+      if ($hm->newModelNumber) {
+        $this->modelNumber = $hm->newModelNumber;
+      }
+    }
+  }
+
   function regenerateDependentLexemes() {
     if ($this->modelType == 'VT') {
       $infl = Inflection::loadParticiple();
@@ -571,17 +600,7 @@ class Lexeme extends BaseObject implements DatedObject {
           $entry->save();
         }
 
-        // Also tag the lexeme with the appropriate tag
-        $autoTypes = Config::get('tags.lexemeAutoType', []);
-        foreach ($autoTypes as $at) {
-          list($fromModelType, $toModelType, $tagValue) = explode('|', $at);
-          if ($dedicatedType == $toModelType) {
-            $tag = Tag::get_by_value($tagValue);
-            if ($tag) {
-              ObjectTag::associate(ObjectTag::TYPE_LEXEME, $l->id, $tag->id);
-            }
-          }
-        }
+        $l->harmonizeTags();
 
         // Also associate the new entry with the same definitions as $this.
         foreach ($this->getEntries() as $e) {

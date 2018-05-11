@@ -10,7 +10,7 @@
  *
  * Arguments for the model number select:
  * data-model-number: mandatory
- * data-all-option="1": optional; show the "All" option
+ * data-all-option="text|value": optional; show an "all" option
  * data-selected="...": optional; model number to select initially
  **/
 
@@ -68,8 +68,10 @@ function updateModelList(span) {
         null, 'json')
     .success(function(data) {
       select.empty();
-      if (select.data('allOption')) {
-        select.append($('<option></option>').attr('value', -1).text('Toate'));
+      var allOption = select.data('allOption');
+      if (allOption) {
+        var parts = allOption.split('|')
+        select.append($('<option></option>').attr('value', parts[1]).text(parts[0]));
       }
       $.each(data, function(index, dict) {
         var display = dict.number + ' (' + dict.exponent + ')';

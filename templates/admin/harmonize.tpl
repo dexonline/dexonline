@@ -43,7 +43,11 @@
               <input type="hidden" name="locVersion" value="6.0" data-loc-version>
               <select class="form-control" name="modelType" data-model-type>
               </select>
-              <select class="form-control" name="modelNumber" data-model-number data-all-option="1">
+              <select
+                class="form-control"
+                name="modelNumber"
+                data-model-number
+                data-all-option="oricare|">
               </select>
             </span>
           </div>
@@ -102,7 +106,11 @@
               <input type="hidden" name="locVersion" value="6.0" data-loc-version>
               <select class="form-control" name="modelType" data-model-type>
               </select>
-              <select class="form-control" name="modelNumber" data-model-number data-all-option="1">
+              <select
+                class="form-control"
+                name="modelNumber"
+                data-model-number
+                data-all-option="oricare|">
               </select>
             </span>
           </div>
@@ -120,7 +128,7 @@
                 class="form-control"
                 name="newModelNumber"
                 data-model-number
-                data-all-option="1">
+                data-all-option="oricare|">
               </select>
             </span>
           </div>

@@ -126,6 +126,8 @@ class Tag extends BaseObject implements DatedObject {
 
   function delete() {
     ObjectTag::delete_all_by_tagId($this->id);
+    HarmonizeTag::delete_all_by_tagId($this->id);
+    HarmonizeModel::delete_all_by_tagId($this->id);
     parent::delete();
     Log::warning("Deleted tag {$this->id} ({$this->value})");
   }

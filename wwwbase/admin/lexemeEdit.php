@@ -83,6 +83,7 @@ if ($refreshButton || $saveButton) {
       }
       $lexeme->deepSave();
       $lexeme->regenerateDependentLexemes();
+      $lexeme->harmonizeTags();
       LexemeSource::update($lexeme->id, $sourceIds);
       EntryLexeme::update($entryIds, $lexeme->id);
 
@@ -199,20 +200,7 @@ function populate(&$lexeme, &$original, $lexemeForm, $lexemeNumber, $lexemeDescr
     $lexeme->modelType = $modelType;
     $lexeme->modelNumber = $modelNumber;
     $lexeme->restriction = $restriction;
-
-    // set / clear the model type when the right tag is present / absent
-    $autoTypes = Config::get('tags.lexemeAutoType', []);
-    foreach ($autoTypes as $at) {
-      list($fromModelType, $toModelType, $tagValue) = explode('|', $at);
-      $tag = Tag::get_by_value($tagValue);
-      if (($lexeme->modelType == $fromModelType) &&
-          in_array($tag->id, $tagIds)) {
-        $lexeme->modelType = $toModelType;
-      } else if (($lexeme->modelType == $toModelType) &&
-          !in_array($tag->id, $tagIds)) {
-        $lexeme->modelType = $fromModelType;
-      }
-    }
+    $lexeme->harmonizeModel($tagIds);
   }
 
   // create ObjectTags

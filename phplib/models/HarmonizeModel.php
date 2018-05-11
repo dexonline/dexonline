@@ -67,6 +67,13 @@ class HarmonizeModel extends BaseObject implements DatedObject {
       FlashMessage::add('Modelul nu poate fi același.');
     }
 
+    $can1 = ModelType::canonicalize($this->modelType);
+    $can2 = ModelType::canonicalize($this->newModelType);
+    if ($can1 != $can2) {
+      FlashMessage::add(
+        'Puteți schimba modelul doar cu altul din aceeași grupă canonică (de ex. F ↔ IL.');
+    }
+
     if (!$this->modelNumber && $this->newModelNumber) {
       FlashMessage::add("Nu puteți schimba numărul de model din (oricare) în {$this->newModelNumber}");
     }

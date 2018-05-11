@@ -32,6 +32,12 @@
               href="?deleteHarmonizeTagId={$ht->id}">
               <i class="glyphicon glyphicon-trash"></i>
             </a>
+           {if $ht->countPending()}
+              <a class="btn btn-sm btn-default"
+                href="?applyHarmonizeTagId={$ht->id}"
+                title="aplică regula lexemelor pentru care ea nu este respectată">
+                aplică ({$ht->countPending()}){/if}
+              </a>
           </td>
         </tr>
       {/foreach}

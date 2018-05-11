@@ -88,7 +88,7 @@
             {include "bits/tag.tpl" t=$hm->getTag()}
           </td>
           <td>
-            {$hm->newModelType}{$hm->newModelNumber|default:' (orice număr)'}
+            {$hm->newModelType}{$hm->newModelNumber|default:' (păstrează numărul)'}
           </td>
           <td>
             <a class="btn btn-sm btn-danger deleteRuleLink"
@@ -128,7 +128,7 @@
                 class="form-control"
                 name="newModelNumber"
                 data-model-number
-                data-all-option="oricare|">
+                data-all-option="neschimbat|">
               </select>
             </span>
           </div>

@@ -25,6 +25,10 @@ class HarmonizeModel extends BaseObject implements DatedObject {
       FlashMessage::add('Modelul nu poate fi același.');
     }
 
+    if (!$this->modelNumber && $this->newModelNumber) {
+      FlashMessage::add("Nu puteți schimba numărul de model din (oricare) în {$this->newModelNumber}");
+    }
+
     return empty(FlashMessage::getMessages());
   }
 

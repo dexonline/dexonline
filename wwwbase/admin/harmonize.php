@@ -7,6 +7,7 @@ Util::assertNotMirror();
 $deleteHarmonizeTagId = Request::get('deleteHarmonizeTagId');
 $deleteHarmonizeModelId = Request::get('deleteHarmonizeModelId');
 $applyHarmonizeTagId = Request::get('applyHarmonizeTagId');
+$applyHarmonizeModelId = Request::get('applyHarmonizeModelId');
 $saveHarmonizeTagButton = Request::has('saveHarmonizeTagButton');
 $saveHarmonizeModelButton = Request::has('saveHarmonizeModelButton');
 
@@ -25,6 +26,13 @@ if ($deleteHarmonizeModelId) {
 if ($applyHarmonizeTagId) {
   $ht = HarmonizeTag::get_by_id($applyHarmonizeTagId);
   $ht->apply();
+  FlashMessage::add('Am aplicat regula.', 'success');
+  Util::redirect('harmonize');
+}
+
+if ($applyHarmonizeModelId) {
+  $hm = HarmonizeModel::get_by_id($applyHarmonizeModelId);
+  $hm->apply();
   FlashMessage::add('Am aplicat regula.', 'success');
   Util::redirect('harmonize');
 }

@@ -32,12 +32,13 @@
               href="?deleteHarmonizeTagId={$ht->id}">
               <i class="glyphicon glyphicon-trash"></i>
             </a>
-           {if $ht->countPending()}
+            {if $ht->countPending()}
               <a class="btn btn-sm btn-default"
                 href="?applyHarmonizeTagId={$ht->id}"
                 title="aplică regula lexemelor pentru care ea nu este respectată">
-                aplică ({$ht->countPending()}){/if}
+                aplică ({$ht->countPending()})
               </a>
+            {/if}
           </td>
         </tr>
       {/foreach}
@@ -101,6 +102,13 @@
               href="?deleteHarmonizeModelId={$hm->id}">
               <i class="glyphicon glyphicon-trash"></i>
             </a>
+            {if $hm->countPending()}
+              <a class="btn btn-sm btn-default"
+                href="?applyHarmonizeModelId={$hm->id}"
+                title="aplică regula lexemelor pentru care ea nu este respectată">
+                aplică ({$hm->countPending()})
+              </a>
+            {/if}
           </td>
         </tr>
       {/foreach}
@@ -149,5 +157,11 @@
 
     </table>
   </form>
+
+  <div class="alert alert-warning" role="alert">
+    Folosiți cu prudență aceste reguli. Aplicarea lor nu regenerează
+    paradigmele lexemelor afectate. Evitați schimbările care ar necesita
+    schimbarea paradigmei (cum ar fi A1 → A2).
+  </div>
 
 {/block}

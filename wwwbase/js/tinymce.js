@@ -34,9 +34,6 @@ $(function() {
       }
       $.cookie(TINYMCE_COOKIE, 'off', { expires: 3650, path: '/' });
     }
-    var tmp = $(this).data('otherText');
-    $(this).data('otherText', $(this).text());
-    $(this).text(tmp);
     return false;
   }
 

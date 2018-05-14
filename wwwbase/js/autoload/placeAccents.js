@@ -7,11 +7,6 @@ $(function() {
   }
 
   function defClick() {
-    var span = $(this).find('span');
-    var tmp = span.data('otherText');
-    span.data('otherText', $(this).text());
-    span.text(tmp);
-
     $(this).closest('div').next().stop().slideToggle();
     return false;
   }

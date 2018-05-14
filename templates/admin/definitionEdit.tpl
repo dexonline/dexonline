@@ -192,7 +192,7 @@
 
           <button id="tinymceToggleButton"
             type="button"
-            class="btn btn-default"
+            class="btn btn-default doubleText"
             data-other-text="ascunde TinyMCE"
             href="#"
             title="TinyMCE este un editor vizual (cu butoane de bold, italic etc.).">

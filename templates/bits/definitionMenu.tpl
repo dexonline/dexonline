@@ -20,9 +20,9 @@
       {/if}
 
       {if $showEntryToggles}
-        | <a href="#" class="toggleRepLink" title="comută între notația internă și HTML"
+        | <a href="#" class="toggleRepLink doubleText" title="comută între notația internă și HTML"
             data-value="1" data-order="1" data-other-text="html">text</a>
-        | <a href="#" class="toggleRepLink" title="contractează sau expandează abrevierile"
+        | <a href="#" class="toggleRepLink doubleText" title="contractează sau expandează abrevierile"
             data-value="1" data-order="2" data-other-text="abreviat">expandat</a>
 
         |

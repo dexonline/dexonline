@@ -76,10 +76,7 @@ $(function() {
     var newActive = $(this).closest('.defWrapper').find('[data-code=' + code + ']');
     newActive.stop().show().attr('data-active', '');
 
-    // Toggle the link text and data-value attribute
-    var tmp = $(this).text();
-    $(this).text($(this).attr('data-other-text'));
-    $(this).attr('data-other-text', tmp);
+    // Toggle the data-value attribute
     $(this).attr('data-value', 1 - $(this).attr('data-value'));
     return false;
   }

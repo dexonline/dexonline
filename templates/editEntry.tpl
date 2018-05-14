@@ -317,25 +317,25 @@
             <input type="hidden" name="id" value="{$e->id}">
             <div class="checkbox">
               <label>
-                <input type="checkbox" name="cloneDefinitions" checked>
+                <input type="checkbox" name="cloneDefinitions">
                 copiază asocierile cu definiții
               </label>
             </div>
             <div class="checkbox">
               <label>
-                <input type="checkbox" name="cloneLexemes" checked>
+                <input type="checkbox" name="cloneLexemes">
                 copiază asocierile cu lexeme
               </label>
             </div>
             <div class="checkbox">
               <label>
-                <input type="checkbox" name="cloneTrees" checked>
+                <input type="checkbox" name="cloneTrees">
                 copiază asocierile cu arbori
               </label>
             </div>
             <div class="checkbox">
               <label>
-                <input type="checkbox" name="cloneStructurist" checked>
+                <input type="checkbox" name="cloneStructurist">
                 copiază starea structurării și structuristul
               </label>
             </div>

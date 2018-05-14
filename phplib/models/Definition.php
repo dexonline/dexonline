@@ -202,17 +202,19 @@ class Definition extends BaseObject implements DatedObject {
   }
 
   static function searchEntry($entry) {
+    $shortDesc = addslashes($entry->getShortDescription());
     return Model::factory('Definition')
-        ->table_alias('d')
-        ->select('d.*')
-        ->join('EntryDefinition', ['d.id', '=', 'ed.definitionId'], 'ed')
-        ->join('Source', ['d.sourceId', '=', 's.id'], 's')
-        ->where('ed.entryId', $entry->id)
-        ->where_in('d.status', [self::ST_ACTIVE, self::ST_HIDDEN])
-        ->order_by_desc('s.type')
-        ->order_by_asc('s.displayOrder')
-        ->order_by_asc('d.lexicon')
-        ->find_many();
+      ->table_alias('d')
+      ->select('d.*')
+      ->join('EntryDefinition', ['d.id', '=', 'ed.definitionId'], 'ed')
+      ->join('Source', ['d.sourceId', '=', 's.id'], 's')
+      ->where('ed.entryId', $entry->id)
+      ->where_in('d.status', [self::ST_ACTIVE, self::ST_HIDDEN])
+      ->order_by_desc('s.type')
+      ->order_by_expr("d.lexicon = '{$shortDesc}' desc")
+      ->order_by_asc('s.displayOrder')
+      ->order_by_asc('d.lexicon')
+      ->find_many();
   }
 
   // Modifies $words to remove stop words. Returns a tuple of:

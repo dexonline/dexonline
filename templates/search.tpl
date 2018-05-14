@@ -54,19 +54,19 @@
 
         {include "search/definitionList.tpl"}
 
-      {* full-text search *}
+        {* full-text search *}
       {elseif $searchType == $smarty.const.SEARCH_FULL_TEXT}
         {if isset($extra.fullTextLock)}
           {include "search/fullTextLock.tpl"}
         {else}
           <h3>
             {include "bits/count.tpl"
-            displayed=count($results)
-            total=$extra.numDefinitionsFullText
-            none="Nicio definiție nu cuprinde"
-            one="O definiție cuprinde"
-            many="definiții cuprind"
-            common="toate cuvintele căutate"}
+              displayed=count($results)
+              total=$extra.numDefinitionsFullText
+              none="Nicio definiție nu cuprinde"
+              one="O definiție cuprinde"
+              many="definiții cuprind"
+              common="toate cuvintele căutate"}
           </h3>
 
           {if !empty($extra.stopWords)}
@@ -81,7 +81,7 @@
           {include "search/definitionList.tpl" categories=false}
         {/if}
 
-      {* entry ID search *}
+        {* entry ID search *}
       {elseif $searchType == $smarty.const.SEARCH_ENTRY_ID}
 
         {include "search/gallery.tpl"}
@@ -92,11 +92,11 @@
 
           <h3>
             {include "bits/count.tpl"
-            displayed=count($results)
-            none="Nicio definiție"
-            one="O definiție"
-            many="definiții"
-            common="pentru"}
+              displayed=count($results)
+              none="Nicio definiție"
+              one="O definiție"
+              many="definiții"
+              common="pentru"}
 
             {include "bits/entry.tpl" entry=$entries[0] variantList=true tagList=true}
           </h3>
@@ -113,12 +113,12 @@
 
         <h3>
           {include "bits/count.tpl"
-          displayed=count($lexemes)
-          total=$extra.numLexemes|default:0
-          none="Niciun rezultat"
-          one="Un rezultat"
-          many="rezultate"
-          common=$smarty.capture.common}
+            displayed=count($lexemes)
+            total=$extra.numLexemes|default:0
+            none="Niciun rezultat"
+            one="Un rezultat"
+            many="rezultate"
+            common=$smarty.capture.common}
         </h3>
 
         {if !count($lexemes) && $sourceId}
@@ -143,12 +143,12 @@
 
           <h3>
             {include "bits/count.tpl"
-            displayed=count($results)
-            total=$extra.numDefinitions
-            none="Nicio definiție"
-            one="O definiție"
-            many="definiții"
-            common=$smarty.capture.common}
+              displayed=count($results)
+              total=$extra.numDefinitions
+              none="Nicio definiție"
+              one="O definiție"
+              many="definiții"
+              common=$smarty.capture.common}
           </h3>
 
           {if !count($results) && count($entries) && $sourceId}
@@ -162,12 +162,12 @@
         {if (count($entries) > 1) && count($results)}
           <h3>
             {include "bits/count.tpl"
-            displayed=count($results)
-            total=$extra.numDefinitions
-            none=""
-            one="O definiție"
-            many="definiții"
-            common=""}
+              displayed=count($results)
+              total=$extra.numDefinitions
+              none=""
+              one="O definiție"
+              many="definiții"
+              common=""}
           </h3>
         {/if}
 
@@ -175,17 +175,18 @@
 
         {include "search/showAllLink.tpl"}
         {include "search/definitionList.tpl"}
+        {include "search/showAllLink.tpl"}
 
         {* multiword search *}
       {elseif $searchType == $smarty.const.SEARCH_MULTIWORD}
         <h3>
           {include "bits/count.tpl"
-          displayed=count($results)
-          total=$extra.numDefinitions
-          none="Nicio definiție nu se potrivește"
-          one="O definiție se potrivește"
-          many="definiții se potrivesc"
-          common="cu cel puțin doi dintre termenii căutați"}
+            displayed=count($results)
+            total=$extra.numDefinitions
+            none="Nicio definiție nu se potrivește"
+            one="O definiție se potrivește"
+            many="definiții se potrivesc"
+            common="cu cel puțin doi dintre termenii căutați"}
         </h3>
 
         <p class="text-warning">
@@ -207,6 +208,7 @@
 
         {include "search/showAllLink.tpl"}
         {include "search/definitionList.tpl" categories=false}
+        {include "search/showAllLink.tpl"}
 
         {* approximate search *}
       {elseif $searchType == $smarty.const.SEARCH_APPROXIMATE}
@@ -240,8 +242,8 @@
 
         <div>
           <a class="paradigmLink"
-             title="Link către această pagină, dar cu flexiunile expandate"
-             href="{$paradigmLink}">
+            title="Link către această pagină, dar cu flexiunile expandate"
+            href="{$paradigmLink}">
             Link către această paradigmă
           </a>
         </div>

@@ -90,6 +90,7 @@
 .notRecommended {
   color: #1010c0;
   cursor: help;
+  display: none;
   font-style: italic;
 }
 
@@ -98,13 +99,8 @@
   font-style: italic;
 }
 
-.toggleOff {
-  display: none;
-}
-
-.notRecommendedShowHide {
+#toggleNotRecommended {
   color: blue;
-  cursor: pointer;
 }
 
 .variantParadigm {

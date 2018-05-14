@@ -236,7 +236,12 @@
         {if $hasUnrecommendedForms}
           <div class="notRecommendedLegend">
             * Formă nerecomandată sau greșită –
-            <span class="notRecommendedShowHide">(arată)</span>
+            <a id="toggleNotRecommended"
+              href="#"
+              class="doubleText"
+              data-other-text="(ascunde)">
+              (arată)
+            </a>
           </div>
         {/if}
 

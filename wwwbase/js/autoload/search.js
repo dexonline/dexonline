@@ -6,8 +6,8 @@ $(function() {
       return false;
     });
 
-    $('#toggleVariantParadigms').click(function() {
-      $('.variantParadigm').stop().slideToggle();
+    $('.toggleVariantParadigms').click(function() {
+      $(this).siblings('.variantParadigm').stop().slideToggle();
     });
 
     moveBanner();

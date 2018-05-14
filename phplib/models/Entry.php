@@ -4,6 +4,7 @@ class Entry extends BaseObject implements DatedObject {
   public static $_table = 'Entry';
 
   private $tags = null;
+  private $variants = null;
 
   const STRUCT_STATUS_NEW = 1;
   const STRUCT_STATUS_IN_PROGRESS = 2;
@@ -200,7 +201,14 @@ class Entry extends BaseObject implements DatedObject {
   }
 
   function getVariants() {
-    return $this->getLexemes(['main' => 0]);
+    if ($this->variants === null) {
+      $this->variants = $this->getLexemes(['main' => 0]);
+    }
+    return $this->variants;
+  }
+
+  function hasVariants() {
+    return count($this->getVariants()) > 0;
   }
 
   static function getHomonyms($entries) {

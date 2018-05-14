@@ -21,10 +21,21 @@
       {include "bits/extendedParadigm.tpl"}
     {/foreach}
 
-    <div class="variantParadigm">
-      {foreach $entry->getVariants() as $lexeme}
-        {include "bits/extendedParadigm.tpl"}
-      {/foreach}
-    </div>
+    {if $entry->hasVariants()}
+      <div class="variantParadigm">
+        {foreach $entry->getVariants() as $lexeme}
+          {include "bits/extendedParadigm.tpl"}
+        {/foreach}
+
+      </div>
+
+      <button
+        type="button"
+        class="btn btn-default toggleVariantParadigms doubleText"
+        data-other-text="ascunde variantele">
+        arată și variantele
+      </button>
+    {/if}
+
   </div>
 </div>

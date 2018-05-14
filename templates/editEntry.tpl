@@ -448,6 +448,7 @@
             {include "bits/footnotes.tpl" footnotes=$def->getFootnotes()}
 
             {include "bits/definitionMenu.tpl"
+              showSelectCheckbox=true
               showEntryToggles=true
               showHistory=true
               showPageModal=false

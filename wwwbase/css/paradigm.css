@@ -107,6 +107,9 @@
   cursor: pointer;
 }
 
+.variantParadigm {
+  display: none;
+}
 
 /*
   Fix the inflection arrow for Google Chrome

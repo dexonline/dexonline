@@ -195,6 +195,14 @@ class Entry extends BaseObject implements DatedObject {
     return $this->getLexemeIds(['main' => false]);
   }
 
+  function getMainLexemes() {
+    return $this->getLexemes(['main' => 1]);
+  }
+
+  function getVariants() {
+    return $this->getLexemes(['main' => 0]);
+  }
+
   static function getHomonyms($entries) {
     $entryIds = [];
     $homonymIds = [];

@@ -6,6 +6,10 @@ $(function() {
       $(this).text($(this).text() == '(arată)' ? '(ascunde)' : '(arată)');
     });
 
+    $('#toggleVariantParadigms').click(function() {
+      $('.variantParadigm').stop().slideToggle();
+    });
+
     moveBanner();
   }
 

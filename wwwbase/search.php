@@ -337,6 +337,16 @@ if ($SEARCH_PARAMS[$searchType]['paradigm']) {
     }
   }
   SmartyWrap::assign('hasUnrecommendedForms', $hasUnrecommendedForms);
+
+  // Check if any of the shown entries have variants
+  $entryIds = Util::objectProperty($entries, 'id');
+  $hasVariants = Model::factory('Entry')
+    ->table_alias('e')
+    ->join('EntryLexeme', ['e.id', '=', 'el.entryId'], 'el')
+    ->where_in('e.id', $entryIds)
+    ->where('el.main', 0)
+    ->count();
+  SmartyWrap::assign('hasVariants', $hasVariants);
 }
 
 // Collect source list to display in meta tags

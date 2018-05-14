@@ -240,10 +240,22 @@
           </div>
         {/if}
 
-        <div>
-          <a class="paradigmLink"
-            title="Link către această pagină, dar cu flexiunile expandate"
+        {if $hasVariants}
+          <div>
+            <button
+              id="toggleVariantParadigms"
+              type="button"
+              class="btn btn-default voffset2 doubleText"
+              data-other-text="ascunde variantele">
+              arată și variantele
+            </button>
+          </div>
+        {/if}
+
+        <div class="paradigmLink voffset2">
+          <a title="Link către această pagină, dar cu flexiunile expandate"
             href="{$paradigmLink}">
+            <i class="glyphicon glyphicon-link"></i>
             Link către această paradigmă
           </a>
         </div>

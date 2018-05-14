@@ -42,6 +42,12 @@ $(function() {
   });
 
   $('.defWrapper .deleteLink').click(deleteDefinition);
+  $('.doubleText').click(function() {
+    var tmp = $(this).text();
+    $(this).text($(this).attr('data-other-text'));
+    $(this).attr('data-other-text', tmp);
+  });
+
 });
 
 if (typeof jQuery.ui != 'undefined') {

@@ -9,10 +9,6 @@ class Definition extends BaseObject implements DatedObject {
   const ST_DELETED = 2;
   const ST_HIDDEN = 3;
 
-  const ABBREV_NOT_REVIEWED = 0;
-  const ABBREV_AMBIGUOUS = 1;
-  const ABBREV_REVIEW_COMPLETE = 2;
-
   public static $STATUS_NAMES = [
     self::ST_ACTIVE  => 'activă',
     self::ST_PENDING => 'temporară',
@@ -60,10 +56,8 @@ class Definition extends BaseObject implements DatedObject {
     list($this->internalRep, $ambiguousAbbreviations)
       = Str::sanitize($this->internalRep, $this->sourceId, $warnings);
 
-    // abbrevReview status
-    $this->abbrevReview = count($ambiguousAbbreviations)
-                        ? Definition::ABBREV_AMBIGUOUS
-                        : Definition::ABBREV_REVIEW_COMPLETE;
+    // ambiguous abbreviations
+    $this->hasAmbiguousAbbreviations = !empty($ambiguousAbbreviations);
 
     // lexicon
     $this->extractLexicon();
@@ -163,9 +157,9 @@ class Definition extends BaseObject implements DatedObject {
 
   static function countAmbiguousAbbrevs() {
     return Model::factory('Definition')
-        ->where_not_equal('status', self::ST_DELETED)
-        ->where('abbrevReview', self::ABBREV_AMBIGUOUS)
-        ->count();
+      ->where_not_equal('status', self::ST_DELETED)
+      ->where('hasAmbiguousAbbreviations', true)
+      ->count();
   }
 
   static function loadForEntries(&$entries, $sourceId, $preferredWord) {

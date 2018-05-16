@@ -32,19 +32,18 @@ if ($saveButton) {
   }
   $def->internalRep = $s;
   $def->process();
-  $def->abbrevReview = Definition::ABBREV_REVIEW_COMPLETE;
   $def->save();
 }
 
 $MARKER = 'DEADBEEF'; // any string that won't occur naturally in a definition
-$def = null;
-$ids = DB::getArray(sprintf('select id from Definition where status != %d and abbrevReview = %d',
-                            Definition::ST_DELETED,
-                            Definition::ABBREV_AMBIGUOUS));
-if (count($ids)) {
-  $defId = $ids[array_rand($ids, 1)];
-  $def = Definition::get_by_id($defId);
 
+$def = Model::factory('Definition')
+  ->where_in('status', [Definition::ST_ACTIVE, Definition::ST_HIDDEN])
+  ->where('hasAmbiguousAbbreviations', true)
+  ->order_by_expr('rand()')
+  ->find_one();
+
+if ($def) {
   // Collect the positions of ambiguous abbreviations
   list ($def->internalRep, $matches)
     = Abbrev::markAbbreviations($def->internalRep, $def->sourceId);

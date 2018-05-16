@@ -219,18 +219,23 @@ $canEdit = [
   'structuristId' => User::can(User::PRIV_ADMIN),
 ];
 
+$canDelete = ($e->structuristId == User::getActiveId()) || !$e->structuristId;
+
 $homonyms = Entry::getHomonyms([ $e ]);
 
-SmartyWrap::assign('e', $e);
-SmartyWrap::assign('searchResults', $searchResults);
-SmartyWrap::assign('mainLexemeIds', $mainLexemeIds);
-SmartyWrap::assign('variantLexemeIds', $variantLexemeIds);
-SmartyWrap::assign('treeIds', $treeIds);
-SmartyWrap::assign('tagIds', $tagIds);
-SmartyWrap::assign('modelTypes', $modelTypes);
-SmartyWrap::assign('canEdit', $canEdit);
-SmartyWrap::assign('homonyms', $homonyms);
-SmartyWrap::assign('structurists', User::getStructurists($e->structuristId));
+SmartyWrap::assign([
+  'e' => $e,
+  'searchResults' => $searchResults,
+  'mainLexemeIds' => $mainLexemeIds,
+  'variantLexemeIds' => $variantLexemeIds,
+  'treeIds' => $treeIds,
+  'tagIds' => $tagIds,
+  'modelTypes' => $modelTypes,
+  'canEdit' => $canEdit,
+  'canDelete' => $canDelete,
+  'homonyms' => $homonyms,
+  'structurists' => User::getStructurists($e->structuristId),
+]);
 SmartyWrap::addCss('editableMeaningTree', 'admin');
 SmartyWrap::addJs('select2Dev', 'meaningTree', 'textComplete');
 SmartyWrap::display('editEntry.tpl');

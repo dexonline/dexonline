@@ -226,15 +226,30 @@
     </a>
 
     <div class="pull-right">
-      <button type="submit" class="btn btn-danger" name="delete">
+      <button
+        type="submit"
+        class="btn btn-danger"
+        name="delete"
+        {if !$canDelete}
+        disabled
+        title="Nu puteți șterge intrarea deoarece ea îi este repartizată altui structurist"
+        {/if}
+      >
         <i class="glyphicon glyphicon-trash"></i>
         șterge
       </button>
 
-      <button type="submit"
+      <button
+        type="submit"
         class="btn btn-danger"
         name="deleteExt"
-        title="șterge intrarea, lexemele de tip T și arborii goi">
+        {if !$canDelete}
+        disabled
+        title="Nu puteți șterge intrarea deoarece ea îi este repartizată altui structurist"
+        {else}
+        title="șterge intrarea, lexemele de tip T și arborii goi"
+        {/if}
+      >
         <i class="glyphicon glyphicon-trash"></i>
         <i class="glyphicon glyphicon-trash"></i>
         șterge extins

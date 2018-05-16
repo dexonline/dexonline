@@ -46,8 +46,7 @@ Log::info("Writing index to file $fileName.");
 DebugInfo::disable();
 
 foreach ($dbResult as $dbRow) {
-  $rep = fullTextRep($dbRow[1]);
-  $words = extractWords($rep);
+  $words = extractWords($dbRow[1]);
 
   foreach ($words as $position => $word) {
     if (!isset($stopWordForms[$word])) {
@@ -85,43 +84,16 @@ Log::notice('finished; peak memory usage %d MB', round(memory_get_peak_usage() /
 
 /***************************************************************************/
 
-function extractWords($text) {
-  $alphabet = 'abcdefghijklmnopqrstuvwxyzăâîșț';
-
-  $text = mb_strtolower($text);
-  $text = Str::removeAccents($text);
-
-  // remove tonic accents (apostrophes not preceded by a backslash)
-  $text = preg_replace("/(?<!\\\\)'/", '', $text);
-
-  $result = [];
-  $currentWord = '';
-  $chars = Str::unicodeExplode($text);
-  foreach ($chars as $c) {
-    if (strpos($alphabet, $c) !== false) {
-      $currentWord .= $c;
-    } else {
-      if ($currentWord) {
-        $result[] = $currentWord;
-      }
-      $currentWord = '';
-    }
-  }
-
-  if ($currentWord) {
-    $result[] = $currentWord;
-  }
-
-  return $result;
-}
-
-/* Cleans up a definition's internal rep, throwing away text we shouldn't index */
-function fullTextRep($s) {
+function extractWords($s) {
   // throw away hidden text
   $s = preg_replace('/▶.*◀/sU', '', $s);
 
   // throw away footnotes
   $s = preg_replace('/(?<!\\\\)\{\{.*\}\}/sU', '', $s);
 
-  return $s;
+  $s = mb_strtolower($s);
+  $s = Str::removeAccents($s);
+
+  $words = preg_split('/\P{L}+/u', $s, null, PREG_SPLIT_NO_EMPTY);
+  return $words;
 }

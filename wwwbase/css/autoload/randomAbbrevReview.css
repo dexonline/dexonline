@@ -1,0 +1,15 @@
+.ambigAbbrev {
+  white-space: nowrap;
+}
+
+.ambigAbbrev span {
+  margin: 0 3px;
+}
+
+.previewAbbrev {
+  border-bottom: 1px dotted #777;
+}
+
+.previewWord {
+  /* currently empty -- non-abbreviations have no style */
+}

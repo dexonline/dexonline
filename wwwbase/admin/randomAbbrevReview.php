@@ -7,15 +7,9 @@ $saveButton = Request::has('saveButton');
 
 if ($saveButton) {
   $defId = Request::get('definitionId');
-  $def = Definition::get_by_id($defId);
+  $actions = Request::getJson('actions', []);
 
-  // Collect the user choices
-  $choices = [];
-  foreach ($_REQUEST as $name => $value) {
-    if (Str::startsWith($name, 'radio_')) {
-      $choices[substr($name, 6)] = $value;
-    }
-  }
+  $def = Definition::get_by_id($defId);
 
   // Collect the positions of ambiguous abbreviations
   list($def->internalRep, $matches)
@@ -24,8 +18,8 @@ if ($saveButton) {
 
   $s = $def->internalRep;
   foreach ($matches as $i => $m) {
-    $choice = $choices[count($choices) - 1 - $i];
-    $replacement = ($choice == 'abbrev') ? '#' : '##';
+    $action = $actions[count($actions) - 1 - $i];
+    $replacement = ($action == 1) ? '#' : '##';
     $s = substr_replace($s, $replacement, $m['position'] + $m['length'], 0);
     $s = substr_replace($s, $replacement, $m['position'], 0);
   }
@@ -33,8 +27,6 @@ if ($saveButton) {
   $def->process();
   $def->save();
 }
-
-$MARKER = 'DEADBEEF'; // any string that won't occur naturally in a definition
 
 $def = Model::factory('Definition')
   ->where_in('status', [Definition::ST_ACTIVE, Definition::ST_HIDDEN])
@@ -49,27 +41,10 @@ if ($def) {
   usort($matches, 'positionCmp');
 
   // Inject our marker around each ambiguity and htmlize the definition
-  $s = $def->internalRep;
   foreach ($matches as $m) {
-    $s = substr($s, 0, $m['position']) . " $MARKER " . substr($s, $m['position'], $m['length']) . " $MARKER " . substr($s, $m['position'] + $m['length']);
+    $def->internalRep = substr_replace($def->internalRep, '#}', $m['position'] + $m['length'], 0);
+    $def->internalRep = substr_replace($def->internalRep, '{#', $m['position'], 0);
   }
-  list($s, $ignored) = Str::htmlize($s, $def->sourceId);
-
-  // Split the definition into n ambiguities and n+1 bits of text between the ambiguities
-  $text = [];
-  $ambiguities = [];
-  while (($p = strpos($s, $MARKER)) !== false) {
-    $chunk = trim(substr($s, 0, $p));
-    $s = trim(substr($s, $p + strlen($MARKER)));
-    if (count($text) == count($ambiguities)) {
-      $text[] = $chunk;
-    } else {
-      $ambiguities[] = $chunk;
-    }
-  }
-  $text[] = trim($s);
-  SmartyWrap::assign('text', $text);
-  SmartyWrap::assign('ambiguities', $ambiguities);
 }
 
 SmartyWrap::assign('def', $def);

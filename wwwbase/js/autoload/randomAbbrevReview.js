@@ -1,27 +1,45 @@
 $(function() {
-  var numLeft = null;
-  var clickTracker = null;
-  
+  var stem = null;
+
   function init() {
-    numLeft = parseInt($('#numAmbiguities').text());
-    $('label').click(pushAbbrevButton);
+    stem = $('#stem').detach();
+
+    $('.ambigAbbrev').each(function() {
+      var e = stem.children().clone();
+      e.find('.text').html($(this).html());
+      $(this).replaceWith(e);
+    });
+    $('.ambigAbbrev button').click(pushAbbrevButton);
+
+    $('form').submit(collectActions);
   }
 
   function pushAbbrevButton() {
     var span = $(this).siblings('span');
-    var state = parseInt($(this).data('answer'));
-    if (state) {
-      span.removeClass('text-danger').addClass('text-success');
+    var isAbbrev = parseInt($(this).data('abbrev'));
+    $(this).closest('.ambigAbbrev').attr('data-action', isAbbrev);
+
+    if (isAbbrev) {
+      span.removeClass('previewWord').addClass('previewAbbrev');
     } else {
-      span.removeClass('text-success').addClass('text-danger');
+      span.removeClass('previewAbbrev').addClass('previewWord');
     }
-    if (!span.data('clicked')) {
-      span.data('clicked', '1');
-      numLeft--;
-      if (!numLeft) {
-        $('button[name="saveButton"]').removeAttr('disabled');
-      }
+
+    var numLeft = $('.ambigAbbrev[data-action=""]').length;
+    if (!numLeft) {
+      $('button[name="saveButton"]').removeAttr('disabled');
     }
+
+    $(this).siblings('button').addBack().removeClass('btn-primary').addClass('btn-default');
+  }
+
+  function collectActions() {
+    var actions = [];
+    $('.ambigAbbrev').each(function() {
+      actions.push($(this).data('action'));
+    });
+
+    $('input[name=actions]').val(JSON.stringify(actions));
   }
 
   init();

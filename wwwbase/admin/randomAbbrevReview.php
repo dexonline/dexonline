@@ -4,6 +4,7 @@ User::mustHave(User::PRIV_EDIT);
 Util::assertNotMirror();
 
 $saveButton = Request::has('saveButton');
+$sourceId = Request::get('sourceId');
 
 if ($saveButton) {
   $defId = Request::get('definitionId');
@@ -28,7 +29,13 @@ if ($saveButton) {
   $def->save();
 }
 
-$def = Model::factory('Definition')
+$def = Model::factory('Definition');
+
+if ($sourceId) {
+  $def = $def->where('sourceId', $sourceId);
+}
+
+$def = $def
   ->where_in('status', [Definition::ST_ACTIVE, Definition::ST_HIDDEN])
   ->where('hasAmbiguousAbbreviations', true)
   ->order_by_expr('rand()')
@@ -47,7 +54,22 @@ if ($def) {
   }
 }
 
-SmartyWrap::assign('def', $def);
+$sources = Model::factory('Source')
+  ->table_alias('s')
+  ->select('s.*')
+  ->select_expr('count(*)', 'numAmbiguous')
+  ->join('Definition', ['s.id', '=', 'd.sourceId'], 'd')
+  ->where('d.hasAmbiguousAbbreviations', true)
+  ->where_in('d.status', [Definition::ST_ACTIVE, Definition::ST_HIDDEN])
+  ->group_by('s.id')
+  ->order_by_asc('s.displayOrder')
+  ->find_many();
+
+SmartyWrap::assign([
+  'def' => $def,
+  'sourceId' => $sourceId,
+  'sources' => $sources,
+]);
 SmartyWrap::addCss('admin');
 SmartyWrap::display('admin/randomAbbrevReview.tpl');
 

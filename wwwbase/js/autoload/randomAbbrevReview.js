@@ -11,7 +11,8 @@ $(function() {
     });
     $('.ambigAbbrev button').click(pushAbbrevButton);
 
-    $('form').submit(collectActions);
+    $('#reviewForm').submit(collectActions);
+    $('#sourceId').change(function() { this.form.submit() });
   }
 
   function pushAbbrevButton() {

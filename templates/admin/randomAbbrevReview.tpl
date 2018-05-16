@@ -5,14 +5,31 @@
 {block "content"}
   <h3>Examinare abrevieri</h3>
 
+  <form class="form-inline">
+    <label>sursa</label>
+    <select id="sourceId" name="sourceId" class="form-control">
+      <option value="">oricare</option>
+      {foreach $sources as $s}
+        <option value="{$s->id}" {if $s->id == $sourceId}selected{/if}>
+          {$s->shortName}
+          ({$s->numAmbiguous})
+        </option>
+      {/foreach}
+    </select>
+  </form>
+
+  <div class="voffset3"></div>
+
   {if $def}
-    <form action="" method="post">
+    <form id="reviewForm" method="post">
       <input type="hidden" name="definitionId" value="{$def->id}">
       <input type="hidden" name="actions" value="">
 
       <p>
         {HtmlConverter::convert($def)}
       </p>
+
+      {include "bits/footnotes.tpl" footnotes=$def->getFootnotes()}
 
       <div class="form-group">
         <button type="submit"
@@ -31,7 +48,11 @@
     </form>
   {else}
     <div class="alert alert-success">
-      Nu există definiții de revizuit. Ura!
+      {if $sourceId}
+        Nu există definiții de revizuit din această sursă. Puteți alege altă sursă.
+      {else}
+        Nu există definiții de revizuit. Ura!
+      {/if}
     </div>
   {/if}
 

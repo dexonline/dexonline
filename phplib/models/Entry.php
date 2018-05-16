@@ -4,6 +4,12 @@ class Entry extends BaseObject implements DatedObject {
   public static $_table = 'Entry';
 
   private $tags = null;
+
+  // Custom handling of associated lexemes. The generic code for
+  // Foo::getBars() does not work because we need the ability to filter main
+  // lexemes and variants, and it is important that they only be loaded once
+  // (for addLocInfo()).
+  private $lexemes = null;
   private $variants = null;
 
   const STRUCT_STATUS_NEW = 1;
@@ -188,6 +194,18 @@ class Entry extends BaseObject implements DatedObject {
       ->find_one();
   }
 
+  function loadLexemes() {
+    if ($this->mainLexemes === null) {
+      $this->mainLexemes = parent::getLexemes(['main' => true]);
+      $this->variants = parent::getLexemes(['main' => false]);
+    }
+  }
+
+  function getLexemes() {
+    $this->loadLexemes();
+    return array_merge($this->mainLexemes, $this->variants);
+  }
+
   function getMainLexemeIds() {
     return $this->getLexemeIds(['main' => true]);
   }
@@ -197,18 +215,18 @@ class Entry extends BaseObject implements DatedObject {
   }
 
   function getMainLexemes() {
-    return $this->getLexemes(['main' => 1]);
+    $this->loadLexemes();
+    return $this->mainLexemes;
   }
 
   function getVariants() {
-    if ($this->variants === null) {
-      $this->variants = $this->getLexemes(['main' => 0]);
-    }
+    $this->loadLexemes();
     return $this->variants;
   }
 
   function hasVariants() {
-    return count($this->getVariants()) > 0;
+    $this->loadLexemes();
+    return !empty($this->variants);
   }
 
   static function getHomonyms($entries) {

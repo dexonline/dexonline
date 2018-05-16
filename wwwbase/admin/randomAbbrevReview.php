@@ -24,11 +24,10 @@ if ($saveButton) {
 
   $s = $def->internalRep;
   foreach ($matches as $i => $m) {
-    if ($choices[count($choices) - 1 - $i] == 'abbrev') {
-      $orig = substr($s, $m['position'], $m['length']);
-      $replacement = Str::isUppercase(Str::getCharAt($orig, 0)) ? Str::capitalize($m['abbrev']) : $m['abbrev'];
-      $s = substr_replace($s, "#{$replacement}#", $m['position'], $m['length']);
-    }
+    $choice = $choices[count($choices) - 1 - $i];
+    $replacement = ($choice == 'abbrev') ? '#' : '##';
+    $s = substr_replace($s, $replacement, $m['position'] + $m['length'], 0);
+    $s = substr_replace($s, $replacement, $m['position'], 0);
   }
   $def->internalRep = $s;
   $def->process();

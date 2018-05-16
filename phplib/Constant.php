@@ -50,6 +50,8 @@ class Constant {
     '/▶(.*?)◀/s' => '',                                                  // remove unwanted parts of definition
     '/(?<!\\\\)"([^"]*)"/' => '„$1”',                                     // "x" => „x” - romanian quoting style
     '/(?<!\\\\)\{{2}(.*)(?<![+])\}{2}/U' => [ 'FootnoteHtmlizer' ],      // {{footnote}}
+    '/(?<!\\\\)##(.*)(?<!\\\\)##/Us' => '$1',                            // ##non-abbreviation##
+    '/\{#(.*)#\}/Us' => '<span class="ambigAbbrev">$1</span>',           // {#abbreviation#} for review
     '/(?<!\\\\)#(.*)(?<!\\\\)#/Us' => [ 'AbbrevHtmlizer' ],              // #abbreviation#
     '/(?<!\\\\)%(.*)(?<!\\\\)%/Us' => '<span class="spaced">$1</span>',  // %spaced%
     '/(?<!\\\\)@(.*)(?<!\\\\)@/Us' => '<b>$1</b>',                       // @bold@

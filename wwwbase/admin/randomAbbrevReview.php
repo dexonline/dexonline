@@ -4,18 +4,13 @@ User::mustHave(User::PRIV_EDIT);
 Util::assertNotMirror();
 
 $saveButton = Request::has('saveButton');
+$sourceId = Request::get('sourceId');
 
 if ($saveButton) {
   $defId = Request::get('definitionId');
-  $def = Definition::get_by_id($defId);
+  $actions = Request::getJson('actions', []);
 
-  // Collect the user choices
-  $choices = [];
-  foreach ($_REQUEST as $name => $value) {
-    if (Str::startsWith($name, 'radio_')) {
-      $choices[substr($name, 6)] = $value;
-    }
-  }
+  $def = Definition::get_by_id($defId);
 
   // Collect the positions of ambiguous abbreviations
   list($def->internalRep, $matches)
@@ -24,57 +19,57 @@ if ($saveButton) {
 
   $s = $def->internalRep;
   foreach ($matches as $i => $m) {
-    if ($choices[count($choices) - 1 - $i] == 'abbrev') {
-      $orig = substr($s, $m['position'], $m['length']);
-      $replacement = Str::isUppercase(Str::getCharAt($orig, 0)) ? Str::capitalize($m['abbrev']) : $m['abbrev'];
-      $s = substr_replace($s, "#{$replacement}#", $m['position'], $m['length']);
-    }
+    $action = $actions[count($actions) - 1 - $i];
+    $replacement = ($action == 1) ? '#' : '##';
+    $s = substr_replace($s, $replacement, $m['position'] + $m['length'], 0);
+    $s = substr_replace($s, $replacement, $m['position'], 0);
   }
   $def->internalRep = $s;
   $def->process();
-  $def->abbrevReview = Definition::ABBREV_REVIEW_COMPLETE;
   $def->save();
 }
 
-$MARKER = 'DEADBEEF'; // any string that won't occur naturally in a definition
-$def = null;
-$ids = DB::getArray(sprintf('select id from Definition where status != %d and abbrevReview = %d',
-                            Definition::ST_DELETED,
-                            Definition::ABBREV_AMBIGUOUS));
-if (count($ids)) {
-  $defId = $ids[array_rand($ids, 1)];
-  $def = Definition::get_by_id($defId);
+$def = Model::factory('Definition');
 
+if ($sourceId) {
+  $def = $def->where('sourceId', $sourceId);
+}
+
+$def = $def
+  ->where_in('status', [Definition::ST_ACTIVE, Definition::ST_HIDDEN])
+  ->where('hasAmbiguousAbbreviations', true)
+  ->order_by_expr('rand()')
+  ->find_one();
+
+if ($def) {
   // Collect the positions of ambiguous abbreviations
   list ($def->internalRep, $matches)
     = Abbrev::markAbbreviations($def->internalRep, $def->sourceId);
   usort($matches, 'positionCmp');
 
   // Inject our marker around each ambiguity and htmlize the definition
-  $s = $def->internalRep;
   foreach ($matches as $m) {
-    $s = substr($s, 0, $m['position']) . " $MARKER " . substr($s, $m['position'], $m['length']) . " $MARKER " . substr($s, $m['position'] + $m['length']);
+    $def->internalRep = substr_replace($def->internalRep, '#}', $m['position'] + $m['length'], 0);
+    $def->internalRep = substr_replace($def->internalRep, '{#', $m['position'], 0);
   }
-  list($s, $ignored) = Str::htmlize($s, $def->sourceId);
-
-  // Split the definition into n ambiguities and n+1 bits of text between the ambiguities
-  $text = [];
-  $ambiguities = [];
-  while (($p = strpos($s, $MARKER)) !== false) {
-    $chunk = trim(substr($s, 0, $p));
-    $s = trim(substr($s, $p + strlen($MARKER)));
-    if (count($text) == count($ambiguities)) {
-      $text[] = $chunk;
-    } else {
-      $ambiguities[] = $chunk;
-    }
-  }
-  $text[] = trim($s);
-  SmartyWrap::assign('text', $text);
-  SmartyWrap::assign('ambiguities', $ambiguities);
 }
 
-SmartyWrap::assign('def', $def);
+$sources = Model::factory('Source')
+  ->table_alias('s')
+  ->select('s.*')
+  ->select_expr('count(*)', 'numAmbiguous')
+  ->join('Definition', ['s.id', '=', 'd.sourceId'], 'd')
+  ->where('d.hasAmbiguousAbbreviations', true)
+  ->where_in('d.status', [Definition::ST_ACTIVE, Definition::ST_HIDDEN])
+  ->group_by('s.id')
+  ->order_by_asc('s.displayOrder')
+  ->find_many();
+
+SmartyWrap::assign([
+  'def' => $def,
+  'sourceId' => $sourceId,
+  'sources' => $sources,
+]);
 SmartyWrap::addCss('admin');
 SmartyWrap::display('admin/randomAbbrevReview.tpl');
 

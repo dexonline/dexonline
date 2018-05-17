@@ -13,6 +13,9 @@ $(function() {
 
     $('#reviewForm').submit(collectActions);
     $('#sourceId').change(function() { this.form.submit() });
+
+    $(document).bind('keydown', '1', pressNextLeftArrow);
+    $(document).bind('keydown', '2', pressNextRightArrow);
   }
 
   function pushAbbrevButton() {
@@ -41,6 +44,14 @@ $(function() {
     });
 
     $('input[name=actions]').val(JSON.stringify(actions));
+  }
+
+  function pressNextLeftArrow() {
+    $('.ambigAbbrev[data-action=""] button[data-abbrev="1"]').first().click();
+  }
+
+  function pressNextRightArrow() {
+    $('.ambigAbbrev[data-action=""] button[data-abbrev="0"]').first().click();
   }
 
   init();

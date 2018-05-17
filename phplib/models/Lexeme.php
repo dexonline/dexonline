@@ -525,13 +525,15 @@ class Lexeme extends BaseObject implements DatedObject {
 
   // change the model given the tags, according to harmonization rules
   function harmonizeModel($tagIds) {
+    if (empty($tagIds)) {
+      return;
+    }
+
     $hm = Model::factory('HarmonizeModel')
       ->where('modelType', $this->modelType)
-      ->where_in('modelNumber', ['', $this->modelNumber]);
-    if (count($tagIds)) {
-      $hm = $hm->where_in('tagId', $tagIds);
-    }
-    $hm = $hm->find_one();
+      ->where_in('modelNumber', ['', $this->modelNumber])
+      ->where_in('tagId', $tagIds)
+      ->find_one();
 
     if ($hm) {
       $this->modelType = $hm->newModelType;

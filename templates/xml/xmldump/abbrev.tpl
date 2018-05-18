@@ -4,7 +4,7 @@
     <Source id="{$sourceId}">
     {foreach $abbrList as $short => $abbrev}
       {strip}
-      <Abbrev short="{$short}"{if $abbrev.ambiguous} ambiguous="1"{/if}>
+      <Abbrev short="{$short|escape}"{if $abbrev.ambiguous} ambiguous="1"{/if}>
         {$abbrev.internalRep}
       </Abbrev>
         {/strip}

@@ -436,7 +436,7 @@ class Str {
 
     // Replace backslashed characters with their XML escape code
     $s = preg_replace_callback(
-      '/\\\\(.)/',
+      '/\\\\(.)/u',
       function ($matches) {
       return '&#x5c;' . '&#x' . dechex(self::ord($matches[1])) . ';';
       },

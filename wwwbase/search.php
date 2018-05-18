@@ -222,7 +222,9 @@ if ($searchType == SEARCH_INFLECTED) {
     $entries = Lexeme::searchApproximate($cuv);
     SmartyWrap::assign('suggestNoBanner', true);
     if (count($entries) == 1) {
-      FlashMessage::add("Ați fost redirecționat automat la forma „{$entries[0]->description}”.");
+      $msg = sprintf('V-am redirecționat automat de la <b>%s</b> la <b>%s</b>.',
+                     $cuv, $entries[0]->description);
+      FlashMessage::add($msg);
     }
   }
 

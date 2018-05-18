@@ -3,7 +3,7 @@
 {block "title"}Examinare abrevieri{/block}
 
 {block "content"}
-  <h3>Examinare abrevieri</h3>
+  <h3>Abrevieri ambigue</h3>
 
   <form class="form-inline">
     <label>sursa</label>

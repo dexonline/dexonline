@@ -13,6 +13,7 @@ $(function() {
 
     $('#reviewForm').submit(collectActions);
     $('#sourceId').change(function() { this.form.submit() });
+    updateSaveButtonState();
 
     $(document).bind('keydown', '1', pressNextLeftArrow);
     $(document).bind('keydown', '2', pressNextRightArrow);
@@ -29,12 +30,16 @@ $(function() {
       span.removeClass('previewAbbrev').addClass('previewWord');
     }
 
+    $(this).siblings('button').addBack().removeClass('btn-primary').addClass('btn-default');
+    updateSaveButtonState();
+  }
+
+  // enables the Save button if there are no more decisions to make
+  function updateSaveButtonState() {
     var numLeft = $('.ambigAbbrev[data-action=""]').length;
     if (!numLeft) {
       $('button[name="saveButton"]').removeAttr('disabled');
     }
-
-    $(this).siblings('button').addBack().removeClass('btn-primary').addClass('btn-default');
   }
 
   function collectActions() {

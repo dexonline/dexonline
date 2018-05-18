@@ -33,7 +33,6 @@ $(function (){
 
     $('#priority')[0].style.width = '400px';
     $('#description')[0].style.width = '400px';
-    $('#tr_description').show();
 
     // This needs to be selected explicitly sometimes -- don't know why
     var value = $('#wotdGrid').getCell(rowId, 'image');
@@ -58,6 +57,11 @@ $(function (){
     } else {
       return [true];
     }
+  }
+
+  // by default free jqGrid displays HTML as raw text; this seems to do the trick
+  function htmlFormatter(cellValue, options, rowObject) {
+    return cellValue;
   }
 
   var editOptions = {
@@ -100,6 +104,16 @@ $(function (){
                                    userWidth + priorWidth + imageWidth) - 40;
   var imageList = $('#imageList').detach().removeAttr('id');
 
+  // remove the "clear search" button and left align the search cursor for all columns
+  jQuery.extend(jQuery.jgrid.defaults, {
+    cmTemplate: {
+      searchoptions: {
+        attr: { style: "text-align: left" },
+        clearSearch: false,
+      }
+    }
+  });
+
   var colModels = [
     {
       label: 'Cuvânt',
@@ -120,6 +134,7 @@ $(function (){
       label: 'Definiție',
       name: 'defHtml',
       index: 'd.internalRep',
+      formatter: htmlFormatter,
       width: htmlWidth,
     },
     {
@@ -155,6 +170,7 @@ $(function (){
       label: 'Motiv',
       name: 'wotdHtml',
       index: 'w.description',
+      formatter: htmlFormatter,
       width: descWidth,
     },
     {
@@ -168,6 +184,7 @@ $(function (){
       index:'w.description',
       editable: true,
       edittype: 'textarea',
+      editrules: { edithidden: true },
       hidden: true,
     },
   ];

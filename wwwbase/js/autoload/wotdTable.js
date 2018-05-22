@@ -4,6 +4,11 @@ $(function (){
     $('#image').html('').append(imageList.find('option').clone());
   }
 
+  function doubleClickRow(rowId) {
+    $(this).jqGrid('setSelection', rowId);
+    $(this).jqGrid('editGridRow', rowId, editOptions);
+  }
+
   function beginEdit(id, op) {
     var rowId = $('#wotdGrid').jqGrid('getGridParam', 'selrow');
 
@@ -194,7 +199,7 @@ $(function (){
     datatype: 'json',
     editurl: wwwRoot + 'ajax/saveWotd.php',
     height: '100%',
-    ondblClickRow: function(rowid) { $(this).jqGrid('editGridRow', rowid, editOptions); },
+    ondblClickRow: doubleClickRow,
     pager: $('#wotdPaging'),
     recreateForm: true,
     rowList: [20, 50, 100, 200],

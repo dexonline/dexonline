@@ -66,16 +66,15 @@
     </div>
     <div class="row panel-body">
 
-      {if $imageUrl}
-        <a {if $wotd->url}href="{$wotd->url}"{/if} target="_blank">
-          <img class="img-responsive center-block"
-            src="{$imageUrl}" alt="{$searchResult->definition->lexicon}"
-            title="{$searchResult->definition->lexicon}">
-        </a>
-        <div class="text-muted pull-right">
-          {$artist->credits|default:''}
-        </div>
-      {/if}
+      <a {if $wotd->url}href="{$wotd->url}"{/if} target="_blank">
+        <img class="img-responsive center-block"
+          src="{$wotd->getLargeThumbUrl()}"
+          alt="{$searchResult->definition->lexicon}"
+          title="{$searchResult->definition->lexicon}">
+      </a>
+      <div class="text-muted pull-right">
+        {$wotd->getArtist()->credits|default:''}
+      </div>
 
       {include "bits/definition.tpl"
         row=$searchResult
@@ -107,8 +106,8 @@
                src="{$r.wotd->getSmallThumbUrl()}"
                alt="iconița cuvântului zilei">
           <p>
-            <strong>{$r.wotd->displayDate|date_format:'%Y'}:</strong>
-            <a href="{$wwwRoot}cuvantul-zilei/{$r.wotd->displayDate|date_format:'%Y/%m/%d'}">
+            <strong>{$r.wotd->displayDate|date_format:'%Y'}</strong>:
+            <a href="{$wwwRoot}cuvantul-zilei/{$r.wotd->getUrlDate()}">
               {$r.word}
             </a>
           </p>

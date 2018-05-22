@@ -1,6 +1,6 @@
 <?php
 
-class WordOfTheDayRel extends BaseObject {
+class WordOfTheDayRel extends BaseObject implements DatedObject {
   public static $_table = 'WordOfTheDayRel';
 
   function countDefs($refId) {

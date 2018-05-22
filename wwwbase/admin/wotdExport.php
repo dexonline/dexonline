@@ -6,7 +6,10 @@ $month = Request::get('month');
 $year = Request::get('year');
 
 $month = sprintf("%02d", $month);
-$wotds = Model::factory('WordOfTheDay')->where_like('displayDate', "{$year}-{$month}-%")->order_by_asc('displayDate')->find_many();
+$wotds = Model::factory('WordOfTheDay')
+  ->where_like('displayDate', "{$year}-{$month}-%")
+  ->order_by_asc('displayDate')
+  ->find_many();
 $wotdSet = [];
 
 foreach($wotds as $wotd) {

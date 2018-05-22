@@ -1,8 +1,9 @@
 <?php
 
-class WordOfTheMonth extends BaseObject {
+class WordOfTheMonth extends BaseObject implements DatedObject {
   public static $_table = 'WordOfTheMonth';
-  public static $DEFAULT_IMAGE = 'generic.jpg';
+
+  const DEFAULT_IMAGE = 'generic.jpg';
   public static $IMAGE_CREDITS_DIR;
 
   static function getWotM($date) {
@@ -30,7 +31,7 @@ class WordOfTheMonth extends BaseObject {
 
   // TODO: this duplicates code from WordOfTheDay.php
   function getThumbUrl($size) {
-    $pic = $this->image ? $this->image : self::$DEFAULT_IMAGE;
+    $pic = $this->image ? $this->image : self::DEFAULT_IMAGE;
     return sprintf('%simg/wotd/thumb%s/cuvantul-lunii/%s',
                    Config::get('static.url'),  $size, $pic);
   }

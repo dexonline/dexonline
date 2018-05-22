@@ -1,8 +1,10 @@
 <?php
 
-class WordOfTheDay extends BaseObject {
+class WordOfTheDay extends BaseObject implements DatedObject {
   public static $_table = 'WordOfTheDay';
-  public static $DEFAULT_IMAGE;
+
+  const BIG_BANG = '2011-04-29';
+  const DEFAULT_IMAGE = 'generic.jpg';
   public static $IMAGE_CREDITS_DIR;
 
   // Thumbnail sizes
@@ -12,31 +14,66 @@ class WordOfTheDay extends BaseObject {
   const THUMBNAIL_SIZES = [ self::SIZE_S, self::SIZE_M, self::SIZE_L ];
 
   static function init() {
-    self::$DEFAULT_IMAGE = "generic.jpg";
     self::$IMAGE_CREDITS_DIR = Core::getRootPath() . 'docs/imageCredits';
   }
 
+  // delay in minutes
   static function getRSSWotD($delay = 0) {
-    $nowDate = ( $delay == 0 ) ? 'NOW()' : 'DATE_SUB(NOW(), INTERVAL ' . $delay. ' MINUTE)';
-    return Model::factory('WordOfTheDay')->where_gt('displayDate', '2011-01-01')->where_raw('displayDate < ' . $nowDate)
-      ->order_by_desc('displayDate')->limit(25)->find_many();
-  }
+    $ts = time() - $delay * 60;
+    $date = date('Y-m-d', $ts);
 
-  static function getTodaysWord() {
-    return Model::factory('WordOfTheDay')->where_raw('displayDate = curdate()')->find_one();
-  }
-
-  static function updateTodaysWord() {
-    DB::execute('update WordOfTheDay set displayDate=curdate() where displayDate is null order by priority, rand() limit 1');
-  }
-
-  static function getPreviousYearsWotds($month, $day) {
     return Model::factory('WordOfTheDay')
-      ->where_raw('month(displayDate) = ?', $month)
-      ->where_raw('day(displayDate) = ?', $day)
+      ->where_gte('displayDate', self::BIG_BANG)
+      ->where_lte('displayDate', $date)
       ->order_by_desc('displayDate')
       ->limit(25)
       ->find_many();
+  }
+
+  static function getTodaysWord() {
+    return Model::factory('WordOfTheDay')
+      ->where_raw('displayDate = curdate()')
+      ->find_one();
+  }
+
+  static function updateTodaysWord() {
+    $wotd = Model::factory('WordOfTheDay')
+      ->where('displayDate', '0000-00-00')
+      ->order_by_asc('priority')
+      ->order_by_expr('rand()')
+      ->find_one();
+    if ($wotd) {
+      $wotd->displayDate = date('Y-m-d');
+      $wotd->save();
+    }
+    return $wotd;
+  }
+
+  // get words of the day for this day and month in other years, up to and including today
+  static function getWotdsInOtherYears($year, $month, $day) {
+    $today = date('Y-m-d');
+    return Model::factory('WordOfTheDay')
+      ->where_lte('displayDate', $today)
+      ->where_raw('year(displayDate) != ?', $year)
+      ->where_raw('month(displayDate) = ?', $month)
+      ->where_raw('day(displayDate) = ?', $day)
+      ->order_by_desc('displayDate')
+      ->find_many();
+  }
+
+  function getDefinition() {
+    return Model::factory('Definition')
+      ->table_alias('d')
+      ->select('d.*')
+      ->join('WordOfTheDayRel', ['r.refId', '=', 'd.id'], 'r')
+      ->join('WordOfTheDay', ['w.id', '=', 'r.wotdId'], 'w')
+      ->where('w.id', $this->id)
+      ->where('d.status', Definition::ST_ACTIVE)
+      ->find_one();
+  }
+
+  function getUrlDate() {
+    return str_replace('-', '/', $this->displayDate);
   }
 
   static function getStatus($refId, $refType = 'Definition') {
@@ -46,12 +83,12 @@ class WordOfTheDay extends BaseObject {
   }
 
   function getImageUrl() {
-    $pic = $this->image ? $this->image : self::$DEFAULT_IMAGE;
+    $pic = $this->image ? $this->image : self::DEFAULT_IMAGE;
     return Config::get('static.url') . 'img/wotd/' . $pic;
   }
 
   function getThumbUrl($size) {
-    $pic = $this->image ? $this->image : self::$DEFAULT_IMAGE;
+    $pic = $this->image ? $this->image : self::DEFAULT_IMAGE;
     return sprintf('%simg/wotd/thumb%s/%s',
                    Config::get('static.url'),  $size, $pic);
   }

@@ -53,7 +53,9 @@ function saveWotd($id, $definitionId, $displayDate, $priority, $image, $descript
     return 'Nu puteți atribui o dată din trecut.';
   }
 
-  $isPast = $wotd->displayDate && $wotd->displayDate < $today;
+  $isPast = $wotd->displayDate
+    && $wotd->displayDate != '0000-00-00'
+    && $wotd->displayDate < $today;
   if ($isPast && $displayDate != $wotd->displayDate) {
     return 'Nu puteți modifica data pentru un cuvânt al zilei deja afișat.';
   }
@@ -63,7 +65,7 @@ function saveWotd($id, $definitionId, $displayDate, $priority, $image, $descript
   }
 
   // save the WotD
-  $wotd->displayDate = $displayDate ?: null;
+  $wotd->displayDate = $displayDate ?: '0000-00-00';
   $wotd->priority = $priority;
   $wotd->image = $image;
   $wotd->description = $description;

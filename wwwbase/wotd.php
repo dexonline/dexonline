@@ -1,6 +1,5 @@
 <?php
 
-define('WOTD_BIG_BANG', '2011/05/01');
 // hide reason for newer words
 define('HIDE_REASON', false);
 define('MAX_DATE_FOR_REASON_DISPLAY', '-2 days midnight');
@@ -16,7 +15,7 @@ if (!$date) {
 // use objects from here on
 $date = new DateTimeImmutable($date);
 $today = new DateTimeImmutable('today midnight');
-$bigBang = new DateTimeImmutable(WOTD_BIG_BANG);
+$bigBang = new DateTimeImmutable(WordOfTheDay::BIG_BANG);
 $maxReasonDate = HIDE_REASON ? new DateTimeImmutable(MAX_DATE_FOR_REASON_DISPLAY) : $today;
 
 // RSS stuff - could be separated from the rest
@@ -27,9 +26,8 @@ if ($type == 'rss' || $type == 'blog') {
   foreach ($words as $w) {
     $item = [];
     $ts = strtotime($w->displayDate);
-    $defId = WordOfTheDayRel::getRefId($w->id);
-    $def = Model::factory('Definition')->where('id', $defId)->where('status', Definition::ST_ACTIVE)->find_one();
-    $source = Model::factory('Source')->where('id', $def->sourceId)->find_one();
+    $def = $w->getDefinition();
+    $source = Source::get_by_id($def->sourceId);
 
     SmartyWrap::assign([
       'def' => $def,
@@ -78,8 +76,7 @@ if (!$wotd) {
   if ($date != $today) {
     Util::redirect(Core::getWwwRoot() . 'cuvantul-zilei');
   }
-  WordOfTheDay::updateTodaysWord();
-  $wotd = WordOfTheDay::get_by_displayDate($mysqlDate);
+  $wotd = WordOfTheDay::updateTodaysWord();
 }
 
 $reason = '';
@@ -122,39 +119,26 @@ $month = $date->format('m');
 $monthName = strftime('%B', $date->getTimestamp());
 $day = $date->format('j');
 
-$prevWotds = WordOfTheDay::getPreviousYearsWotds($month, $day);
+$otherWotds = WordOfTheDay::getWotdsInOtherYears($year, $month, $day);
 $otherYears = [];
-foreach ($prevWotds as $w) {
-  if ($w->displayDate <= $today->format('Y-m-d')) {
-    $currentYear = substr($w->displayDate, 0, 4);
-    if ($currentYear != $year) {
-      $defId = WordOfTheDayRel::getRefId($w->id);
-      $def = Definition::get_by_id_status($defId, Definition::ST_ACTIVE);
+foreach ($otherWotds as $w) {
+  $def = $w->getDefinition();
+  $w->description = Str::htmlize($w->description, 0)[0];
 
-      // removing reason description for newer words in $otherYears
-      $w->description = Str::htmlize($w->description, 0)[0];
-      $dateWotd = new DateTimeImmutable($w->displayDate);
-      if ($dateWotd > $maxReasonDate) {
-        $w->description = '';
-      }
-
-      $otherYears[] = [
-        'wotd' => $w,
-        'word' => $def->lexicon,
-      ];
-    }
-  }
+  $otherYears[] = [
+    'wotd' => $w,
+    'word' => $def->lexicon,
+  ];
 }
 
-// TODO: remove $wotd->* fields assigned individually
-SmartyWrap::assign('wotd', $wotd);
-SmartyWrap::assign('imageUrl', $wotd->getLargeThumbUrl());
-SmartyWrap::assign('artist', $wotd->getArtist());
-SmartyWrap::assign('year', $year);
-SmartyWrap::assign('month', $month);
-SmartyWrap::assign('monthName', $monthName);
-SmartyWrap::assign('day', $day);
-SmartyWrap::assign('otherYears', $otherYears);
-SmartyWrap::assign('searchResult', array_pop($searchResults));
+SmartyWrap::assign([
+  'wotd' => $wotd,
+  'year' => $year,
+  'month' => $month,
+  'monthName' => $monthName,
+  'day' => $day,
+  'otherYears' => $otherYears,
+  'searchResult' => array_pop($searchResults),
+]);
 
 SmartyWrap::display('wotd.tpl');

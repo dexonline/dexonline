@@ -74,7 +74,8 @@ class SearchResult {
         $results[$w->id]->wotdType = ($w->id == $w->refId)
                                    ? self::WOTD_IN_LIST
                                    : self::WOTD_RELATED;
-        $results[$w->id]->wotdDate = $w->displayDate;
+        $results[$w->id]->wotdDate = ($w->displayDate == '0000-00-00') ? null : $w->displayDate;
+
       }
 
       $bookmarks = Model::factory('UserWordBookmark')->where('userId', $suid)->where_in('definitionId', $defIds)->find_many();

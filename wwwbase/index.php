@@ -14,8 +14,7 @@ SmartyWrap::assign('numEnabledWidgets', $numEnabledWidgets);
 /* WotD part */
 $wotd = WordOfTheDay::getTodaysWord();
 if (!$wotd) {
-  WordOfTheDay::updateTodaysWord();
-  $wotd = WordOfTheDay::getTodaysWord();
+  $wotd = WordOfTheDay::updateTodaysWord();
 }
 if (!$wotd) {
   $wotd = Model::factory('WordOfTheDay')->create(); // generic WotD

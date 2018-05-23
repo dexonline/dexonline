@@ -73,18 +73,11 @@ function saveWotd($id, $definitionId, $displayDate, $noYear, $priority, $image, 
 
   // save the WotD
   $wotd->displayDate = $displayDate ?: '0000-00-00';
+  $wotd->definitionId = $definitionId;
   $wotd->priority = $priority;
   $wotd->image = $image;
   $wotd->description = $description;
   $wotd->save();
-
-  // when creating a WotD, also create a WotdRel object
-  if (!$id) {
-    $wotdr = Model::factory('WordOfTheDayRel')->create();
-    $wotdr->wotdId = $wotd->id;
-    $wotdr->refId = $definitionId;
-    $wotdr->save();
-  }
 
   return '';
 }

@@ -65,8 +65,7 @@ class WordOfTheDay extends BaseObject implements DatedObject {
     return Model::factory('Definition')
       ->table_alias('d')
       ->select('d.*')
-      ->join('WordOfTheDayRel', ['r.refId', '=', 'd.id'], 'r')
-      ->join('WordOfTheDay', ['w.id', '=', 'r.wotdId'], 'w')
+      ->join('WordOfTheDay', ['d.id', '=', 'w.definitionId'], 'w')
       ->where('w.id', $this->id)
       ->where('d.status', Definition::ST_ACTIVE)
       ->find_one();
@@ -79,12 +78,6 @@ class WordOfTheDay extends BaseObject implements DatedObject {
   // true if displayDate has a definite value, including the year
   function hasFullDate() {
     return $this->displayDate && !Str::startsWith($this->displayDate, '0000');
-  }
-
-  static function getStatus($refId, $refType = 'Definition') {
-    $result = Model::factory('WordOfTheDay')->table_alias('W')->select('W.id')->join('WordOfTheDayRel', 'W.id = R.wotdId', 'R')
-      ->where('R.refId', $refId)->where('R.refType', $refType)->find_one();
-    return $result ? $result->id : NULL;
   }
 
   function getImageUrl() {
@@ -132,10 +125,9 @@ class WordOfTheDay extends BaseObject implements DatedObject {
   }
 
   function delete() {
-    WordOfTheDayRel::delete_all_by_wotdId($this->id);
-    parent::delete();
     Log::warning('Deleted WotD id=%s date=%s, image=%s, description=[%s]',
                  $this->id, $this->displayDate, $this->image, $this->description);
+    parent::delete();
   }
 }
 

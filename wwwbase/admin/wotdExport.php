@@ -13,8 +13,7 @@ $wotds = Model::factory('WordOfTheDay')
 $wotdSet = [];
 
 foreach($wotds as $wotd) {
-  $wotdr = WordOfTheDayRel::get_by_wotdId($wotd->id);
-  $def = Definition::get_by_id($wotdr->refId);
+  $def = Definition::get_by_id($wotd->definitionId);
   $wotdSet[] = ['wotd' => $wotd, 'def' => $def];
 }
 

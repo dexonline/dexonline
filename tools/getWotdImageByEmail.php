@@ -69,8 +69,7 @@ try {
     ->table_alias('wotd')
     ->select('wotd.*')
     ->distinct()
-    ->join('WordOfTheDayRel', 'wotd.id = rel.wotdId', 'rel')
-    ->join('EntryDefinition', 'rel.refId = ed.definitionId', 'ed')
+    ->join('EntryDefinition', 'wotd.definitionId = ed.definitionId', 'ed')
     ->join('EntryLexeme', 'ed.entryId = el.entryId', 'el')
     ->join('Lexeme', 'el.lexemeId = l.id', 'l')
     ->join('InflectedForm', 'i.lexemeId = l.id', 'i')
@@ -104,7 +103,7 @@ try {
   $f = new FtpUtil();
   $f->staticServerPut($tmpFilePath, $wotdImagePath);
   unlink($tmpFilePath);
-    
+
   replyToEmail($sender, $subject, "Succes epic! Am adăugat imaginea pentru '{$word}'.");
 
 } catch (Exception $e) {

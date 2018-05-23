@@ -12,7 +12,7 @@ define('DEFAULT_WOTD_LIST_LENGTH', 15);
 
 //define('RANDOM_WORDS_QUERY', 'select cuv %s from RandomWord where id in (%s)');
 define('RANDOM_WORDS_QUERY', 'select cuv %s from RandomWord order by rand() limit %d');
-define('RANDOM_WOTD_QUERY', "select lexicon cuv from WordOfTheDayRel W join Definition D on W.refId=D.id and W.refType='Definition' order by rand() limit %d");
+define('RANDOM_WOTD_QUERY', "select lexicon cuv from WordOfTheDay W join Definition D on W.definitionId=D.id order by rand() limit %d");
 define('SOURCE_PART_RANDOM_WORDS', ', surse');
 
 $wListLength = (int) Request::get('w');

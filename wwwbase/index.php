@@ -19,8 +19,7 @@ if (!$wotd) {
 if (!$wotd) {
   $wotd = Model::factory('WordOfTheDay')->create(); // generic WotD
 }
-$defId = WordOfTheDayRel::getRefId($wotd->id);
-$def = Model::factory('Definition')->where('id', $defId)->where('status', Definition::ST_ACTIVE)->find_one();
+$def = Definition::get_by_id_status($wotd->definitionId, Definition::ST_ACTIVE);
 SmartyWrap::assign('thumbUrl', $wotd->getMediumThumbUrl());
 SmartyWrap::assign('wotdDef', $def);
 SmartyWrap::assign('today', date('Y/m/d'));

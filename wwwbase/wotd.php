@@ -87,8 +87,7 @@ if ($wotd) {
   }
 }
 
-$defId = WordOfTheDayRel::getRefId($wotd->id);
-$def = Definition::get_by_id($defId);
+$def = Definition::get_by_id($wotd->definitionId);
 
 if ($type == 'url') {
   SmartyWrap::assign('today', $today);

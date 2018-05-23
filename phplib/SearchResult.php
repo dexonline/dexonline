@@ -59,19 +59,17 @@ class SearchResult {
       // Select definitions that were themselves WotD or definitions from the same entries as the
       // former.
       $wotdRecs = Model::factory('Definition')
-               ->table_alias('d')
-               ->select('d.id')
-               ->select('r.refId')
-               ->select('w.displayDate')
-               ->join('EntryDefinition', ['d.id', '=', 'ed1.definitionId'], 'ed1')
-               ->join('EntryDefinition', ['ed1.entryId', '=', 'ed2.entryId'], 'ed2')
-               ->join('WordOfTheDayRel', ['ed2.definitionId', '=', 'r.refId'], 'r')
-               ->join('WordOfTheDay', ['w.id', '=', 'r.wotdId'], 'w')
-               ->where_in('d.id', $defIds)
-               ->where('r.refType', 'Definition')
-               ->find_many();
+        ->table_alias('d')
+        ->select('d.id')
+        ->select('w.definitionId')
+        ->select('w.displayDate')
+        ->join('EntryDefinition', ['d.id', '=', 'ed1.definitionId'], 'ed1')
+        ->join('EntryDefinition', ['ed1.entryId', '=', 'ed2.entryId'], 'ed2')
+        ->join('WordOfTheDay', ['w.definitionId', '=', 'ed2.definitionId'], 'w')
+        ->where_in('d.id', $defIds)
+        ->find_many();
       foreach ($wotdRecs as $w) {
-        $results[$w->id]->wotdType = ($w->id == $w->refId)
+        $results[$w->id]->wotdType = ($w->id == $w->definitionId)
                                    ? self::WOTD_IN_LIST
                                    : self::WOTD_RELATED;
         $results[$w->id]->wotdDate = ($w->displayDate == '0000-00-00') ? null : $w->displayDate;

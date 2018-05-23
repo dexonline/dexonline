@@ -205,7 +205,6 @@ $(function (){
     { // internal, visible as label in the edit form
       label: 'Motiv',
       name: 'description',
-      index:'w.description',
       editable: true,
       edittype: 'textarea',
       editrules: { edithidden: true },

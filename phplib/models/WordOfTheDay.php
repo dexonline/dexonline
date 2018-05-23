@@ -37,11 +37,15 @@ class WordOfTheDay extends BaseObject implements DatedObject {
   }
 
   static function updateTodaysWord() {
+    // prefer words slotted on this date of ANY year, if available
+    $today = date('0000-m-d');
     $wotd = Model::factory('WordOfTheDay')
-      ->where('displayDate', '0000-00-00')
+      ->where_in('displayDate', [$today, '0000-00-00'])
+      ->order_by_desc('displayDate')
       ->order_by_asc('priority')
       ->order_by_expr('rand()')
       ->find_one();
+
     if ($wotd) {
       $wotd->displayDate = date('Y-m-d');
       $wotd->save();

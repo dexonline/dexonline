@@ -7,6 +7,7 @@ Util::assertNotMirror();
 $oper = Request::get('oper');
 $id = Request::get('id');
 $displayDate = Request::get('displayDate');
+$noYear = Request::get('noYear');
 $priority = Request::get('priority');
 $definitionId = Request::get('definitionId');
 $image = Request::getRaw('image'); // do not convert e.g. ş to ș
@@ -14,10 +15,10 @@ $description = Request::get('description');
 
 switch ($oper) {
   case 'add':
-    print saveWotd(null, $definitionId, $displayDate, $priority, $image, $description);
+    print saveWotd(null, $definitionId, $displayDate, $noYear, $priority, $image, $description);
     break;
   case 'edit':
-    print saveWotd($id, $definitionId, $displayDate, $priority, $image, $description);
+    print saveWotd($id, $definitionId, $displayDate, $noYear, $priority, $image, $description);
     break;
   case 'del':
     print deleteWotd($id);
@@ -36,7 +37,7 @@ function deleteWotd($id) {
   }
 }
 
-function saveWotd($id, $definitionId, $displayDate, $priority, $image, $description) {
+function saveWotd($id, $definitionId, $displayDate, $noYear, $priority, $image, $description) {
   // load / create object
   if ($id) {
     $wotd = WordOfTheDay::get_by_id($id);
@@ -45,17 +46,19 @@ function saveWotd($id, $definitionId, $displayDate, $priority, $image, $descript
     $wotd->userId = User::getActiveId();
   }
 
-  // validation
-  $today = date('Y-m-d', time());
+  if ($noYear && $displayDate) {
+    $displayDate = substr_replace($displayDate, '0000', 0, 4);
+  }
 
-  $setInPast = $displayDate && $displayDate < $today;
+  // validation
+  $today = date('Y-m-d');
+
+  $setInPast = $displayDate && !$noYear && $displayDate < $today;
   if ($setInPast && ($displayDate != $wotd->displayDate)) {
     return 'Nu puteți atribui o dată din trecut.';
   }
 
-  $isPast = $wotd->displayDate
-    && $wotd->displayDate != '0000-00-00'
-    && $wotd->displayDate < $today;
+  $isPast = $wotd->hasFullDate() && $wotd->displayDate < $today;
   if ($isPast && $displayDate != $wotd->displayDate) {
     return 'Nu puteți modifica data pentru un cuvânt al zilei deja afișat.';
   }

@@ -159,6 +159,15 @@ $(function (){
       editable: true,
     },
     {
+      label: 'Fără an',
+      name: 'noYear',
+      editable: true,
+      edittype: 'checkbox',
+      editrules: { edithidden: true },
+      editoptions: { value: '1:' }, // the default is 'Yes:No', which is weird
+      hidden: true,
+    },
+    {
       label: 'Adăugată de',
       name: 'name',
       index: 'u.name',

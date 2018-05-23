@@ -76,6 +76,11 @@ class WordOfTheDay extends BaseObject implements DatedObject {
     return str_replace('-', '/', $this->displayDate);
   }
 
+  // true if displayDate has a definite value, including the year
+  function hasFullDate() {
+    return $this->displayDate && !Str::startsWith($this->displayDate, '0000');
+  }
+
   static function getStatus($refId, $refType = 'Definition') {
     $result = Model::factory('WordOfTheDay')->table_alias('W')->select('W.id')->join('WordOfTheDayRel', 'W.id = R.wotdId', 'R')
       ->where('R.refId', $refId)->where('R.refType', $refType)->find_one();

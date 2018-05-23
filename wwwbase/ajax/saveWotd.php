@@ -46,7 +46,10 @@ function saveWotd($id, $definitionId, $displayDate, $noYear, $priority, $image, 
     $wotd->userId = User::getActiveId();
   }
 
-  if ($noYear && $displayDate) {
+  // also compensate for some behavior in bootstrap-datepicker which submits
+  // 0-MM-DD instead of 0000-MM-DD.
+  if (($noYear && $displayDate)
+      || Str::startsWith($displayDate, '0-')) {
     $displayDate = preg_replace('/^\d+/', '0000', $displayDate);
   }
 

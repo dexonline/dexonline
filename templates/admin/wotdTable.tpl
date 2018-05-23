@@ -19,10 +19,24 @@
 
   <div class="panel panel-default">
     <div class="panel-heading">
-      Pagini asociate
+      Legături
     </div>
 
     <ul class="list-group">
+
+      <li class="list-group-item">
+        asistent CZ:
+        <ul class="list-inline">
+          {foreach $assistantDates as $timestamp}
+            <li>
+              <a href="wotdAssistant.php?month={$timestamp|date_format:"%Y-%m"}">
+                {$timestamp|date_format:"%B %Y"}
+              </a>
+            </li>
+          {/foreach}
+        </ul>
+      </li>
+
       <li class="list-group-item">
         <a href="wotdImages.php">imagini pentru cuvântul zilei</a>
       </li>

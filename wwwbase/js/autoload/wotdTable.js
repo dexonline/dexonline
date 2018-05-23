@@ -12,7 +12,16 @@ $(function (){
   function beginEdit(id, op) {
     var rowId = $('#wotdGrid').jqGrid('getGridParam', 'selrow');
 
-    $('#displayDate').datepicker({ dateFormat: 'yy-mm-dd' });
+    $('#displayDate').datepicker({
+      autoclose: true,
+      format: 'yyyy-mm-dd',
+      keyboardNavigation: false,
+      language: 'ro',
+      todayBtn: 'linked',
+      todayHighlight: true,
+      weekStart: 1,
+    });
+
     $('#displayDate')[0].style.width = '400px';
 
     $('#lexicon').html('');

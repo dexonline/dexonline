@@ -47,7 +47,7 @@ function saveWotd($id, $definitionId, $displayDate, $noYear, $priority, $image, 
   }
 
   if ($noYear && $displayDate) {
-    $displayDate = substr_replace($displayDate, '0000', 0, 4);
+    $displayDate = preg_replace('/^\d+/', '0000', $displayDate);
   }
 
   // validation
@@ -63,8 +63,12 @@ function saveWotd($id, $definitionId, $displayDate, $noYear, $priority, $image, 
     return 'Nu puteți modifica data pentru un cuvânt al zilei deja afișat.';
   }
 
-  if (!$definitionId) {
-    return 'Trebuie să alegeți o definiție';
+  // We allow WotDs with no definition if the reason and date are set. A use
+  // case is: we notice that event X happens on date D and we want to
+  // celebrate it, but we don't have the time to find a word right now.
+  if (!$definitionId &&
+      (!$description || !$displayDate)) {
+    return 'Dacă nu alegeți o definiție, atunci trebuie să alegeți o dată și un motiv.';
   }
 
   // save the WotD

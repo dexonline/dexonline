@@ -43,7 +43,7 @@ $(function (){
       $('#definitionId').val(data.id);
       $('#lexicon').val(data.lexicon);
     });
-    $('#lexicon').prop('disabled', op == 'edit');
+    $('#lexicon').prop('disabled', $('#lexicon').val());
 
     $('#priority')[0].style.width = '400px';
     $('#description')[0].style.width = '400px';
@@ -203,6 +203,7 @@ $(function (){
       hidden: true,
     },
     { // internal, visible as label in the edit form
+      label: 'Motiv',
       name: 'description',
       index:'w.description',
       editable: true,

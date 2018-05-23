@@ -34,26 +34,4 @@
     </ul>
   </div>
 
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      Descarcă lista de cuvinte
-    </div>
-
-    <div class="panel-body">
-      <form class="form-inline" action="wotdExport.php">
-        <div class="form-group">
-          <label>luna</label>
-          {include "bits/numericDropDown.tpl" name="month" start=1 end=13 selected=$downloadMonth}
-        </div>
-
-        <div class="form-group">
-          <label>anul</label>
-          {include "bits/numericDropDown.tpl" name="year" start=$downloadYear-3 end=$downloadYear+3 selected=$downloadYear}
-        </div>
-
-        <button type="submit" class="btn btn-primary" name="submitButton">
-          <i class="glyphicon glyphicon-download-alt"></i>
-          descarcă
-        </button>
-  </form>
 {/block}

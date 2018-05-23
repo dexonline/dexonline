@@ -18,8 +18,6 @@ foreach ($staticFiles as $s) {
   }
 }
 
-SmartyWrap::assign('downloadYear', date("Y",strtotime("+1 month")));
-SmartyWrap::assign('downloadMonth', date("m",strtotime("+1 month")));
 SmartyWrap::assign('imageList', $imageList);
 SmartyWrap::addCss('jqgrid', 'jqueryui', 'admin', 'bootstrap-datepicker');
 SmartyWrap::addJs('jqgrid', 'jqueryui', 'select2Dev', 'bootstrap-datepicker');

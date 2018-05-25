@@ -1,0 +1,13 @@
+.panel-heading {
+  cursor: pointer;
+}
+
+.panel-heading.collapsed span.date:before {
+  font-family: 'Glyphicons Halflings';
+  content: "\e080"; /* chevron-right */
+}
+
+.panel-heading span.date:before {
+  font-family: 'Glyphicons Halflings';
+  content: "\e114"; /* chevron-down */
+}

@@ -696,4 +696,8 @@ class Str {
     return $processedLinks;
   }
 
+  static function getEnglishMonthName($date) {
+    $ts = strtotime($date);
+    return date('F', $ts);
+  }
 }

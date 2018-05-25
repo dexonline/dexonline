@@ -13,7 +13,9 @@
         <label for="calendar">alege altă lună:</label>
         <input id="calendar" type="text" name="for" value="{$yearMonth}" class="form-control">
       </div>
-      <button type="submit" class="btn btn-default">OK</button>
+      <button type="submit" class="btn btn-default">
+        <i class="glyphicon glyphicon-ok"></i>
+      </button>
     </form>
   </h3>
 
@@ -29,9 +31,21 @@
           {$day} {$yearMonth|date_format:'%B %Y'}
         </span>
 
-        {if $rec.allOk}
-          <span class ="pull-right">{$rec.thisYear[0]->lexicon}</span>
-        {/if}
+        <div class="pull-right">
+          <a
+            class="btn btn-link btn-xs"
+            href="https://ro.wikipedia.org/wiki/{$day}_{$yearMonth|date_format:'%B'}"
+            target="_blank">wikipedia RO</a>
+          <a
+            class="btn btn-link btn-xs"
+            href="https://en.wikipedia.org/wiki/{$enMonthName}_{$day}"
+            target="_blank">wikipedia EN</a>
+
+          {if $rec.allOk}
+            <span class"pull-right">{$rec.thisYear[0]->lexicon}</span>
+          {/if}
+        </div>
+
       </div>
 
       <div id="collapseDay{$day}" class="panel-collapse collapse {if !$rec.allOk}in{/if}">

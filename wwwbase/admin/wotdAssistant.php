@@ -58,6 +58,7 @@ foreach ($data as &$rec) {
 SmartyWrap::assign([
   'data' => $data,
   'yearMonth' => $yearMonth,
+  'enMonthName' => Str::getEnglishMonthName($yearMonth),
 ]);
 SmartyWrap::addCss('admin', 'bootstrap-datepicker');
 SmartyWrap::addJs('bootstrap-datepicker');

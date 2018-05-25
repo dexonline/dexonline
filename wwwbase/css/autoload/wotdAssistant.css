@@ -1,5 +1,17 @@
+h3 form {
+  font-size: 14px;
+}
+
+#calendar {
+  width: 100px;
+}
+
 .panel-heading {
   cursor: pointer;
+}
+
+.panel-body {
+  padding-bottom: 0;
 }
 
 .panel-heading.collapsed span.date:before {

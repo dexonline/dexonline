@@ -16,13 +16,14 @@ $wotds = Model::factory('WordOfTheDay')
   ->table_alias('w')
   ->left_outer_join('Definition', ['w.definitionId', '=', 'd.id'], 'd')
   ->where_like('displayDate', "____-{$month}-__")
+  // compensate for the fact that February has varying numbers of days
+  ->where_raw('right(displayDate, 2) <= ?', $days)
   ->order_by_asc('displayDate')
   ->find_many();
 
 // build an map of day number to
 // 1. wotds for this day
-// 2. wotds for that day in other years
-// 3. wotds for that day with no assigned year
+// 2. wotds for that day in other years, including no year at all
 $data = [];
 foreach (range(1, $days) as $day) {
   $data[$day] = [
@@ -54,9 +55,10 @@ foreach ($data as &$rec) {
   $rec['allOk'] = count($a) == 1 && $a[0]->defHtml && $a[0]->description;
 }
 
-
 SmartyWrap::assign([
   'data' => $data,
   'yearMonth' => $yearMonth,
 ]);
+SmartyWrap::addCss('admin', 'bootstrap-datepicker');
+SmartyWrap::addJs('bootstrap-datepicker');
 SmartyWrap::display('admin/wotdAssistant.tpl');

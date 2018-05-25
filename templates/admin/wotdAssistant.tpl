@@ -5,7 +5,19 @@
 {block "title"}{$title}{/block}
 
 {block "content"}
-  <h3>{$title}</h3>
+  <h3>
+    {$title}
+
+    <form class="form-inline pull-right">
+      <div class="form-group">
+        <label for="calendar">alege altă lună:</label>
+        <input id="calendar" type="text" name="for" value="{$yearMonth}" class="form-control">
+      </div>
+      <button type="submit" class="btn btn-default">OK</button>
+    </form>
+  </h3>
+
+  <div class="voffset4"></div>
 
   {foreach $data as $day => $rec}
     <div class="panel panel-default {if $rec.allOk}panel-success{/if}">

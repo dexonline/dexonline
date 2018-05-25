@@ -1,3 +1,8 @@
 .container {
   width: 100%;
 }
+
+ul.list-inline {
+  display: inline;
+  margin-left: 2px;
+}

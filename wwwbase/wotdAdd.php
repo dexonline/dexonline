@@ -6,22 +6,17 @@ Util::assertNotMirror();
 
 $defId = Request::get('defId');
 
-$status = WordOfTheDay::getStatus($defId);
+$wotd = WordOfTheDay::get_by_definitionId($defId);
 
-if (is_null($status)) {
+if (!$wotd) {
   $wotd = Model::factory('WordOfTheDay')->create();
   $wotd->userId = User::getActiveId();
+  $wotd->definitionId = $defId;
   $wotd->priority = 0;
   $wotd->save();
 
-  $wotdr = Model::factory('WordOfTheDayRel')->create();
-  $wotdr->refId = $defId;
-  $wotdr->refType = 'Definition';
-  $wotdr->wotdId = $wotd->id;
-  $wotdr->save();
-
   $d = Definition::get_by_id($defId);
-  
+
   Log::info("Added WotD, ID = {$wotd->id}, definition ID = {$d->id}, lexicon = {$d->lexicon}");
 }
 

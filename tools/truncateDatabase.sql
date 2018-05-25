@@ -48,8 +48,6 @@ truncate table VisualTag;
 truncate table WikiArticle;
 truncate table WikiKeyword;
 truncate table WordOfTheDay;
-truncate table WordOfTheDayRel;
 truncate table WordOfTheMonth;
 truncate table WotdArtist;
 truncate table history_WordOfTheDay;
-truncate table history_WordOfTheDayRel;

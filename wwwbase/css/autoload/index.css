@@ -146,3 +146,8 @@ a.widget,
 .form-control.calendar {
   width: 45%;
 }
+
+ul.list-inline {
+  display: inline;
+  margin-left: 2px;
+}

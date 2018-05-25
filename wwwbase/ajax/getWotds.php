@@ -24,9 +24,8 @@ $query = Model::factory('WordOfTheDay')
        ->select('w.id')
        ->select('d.id', 'definitionId')
        ->select('d.sourceId')
-       ->join('WordOfTheDayRel', ['w.id', '=', 'wr.wotdId'], 'wr')
-       ->join('Definition', ['wr.refId', '=', 'd.id'], 'd')
-       ->join('Source', ['d.sourceId', '=', 's.id'], 's')
+       ->left_outer_join('Definition', ['w.definitionId', '=', 'd.id'], 'd')
+       ->left_outer_join('Source', ['d.sourceId', '=', 's.id'], 's')
        ->join('User', ['w.userId', '=', 'u.id'], 'u');
 
 // filters

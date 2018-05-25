@@ -4,10 +4,24 @@ $(function (){
     $('#image').html('').append(imageList.find('option').clone());
   }
 
+  function doubleClickRow(rowId) {
+    $(this).jqGrid('setSelection', rowId);
+    $(this).jqGrid('editGridRow', rowId, editOptions);
+  }
+
   function beginEdit(id, op) {
     var rowId = $('#wotdGrid').jqGrid('getGridParam', 'selrow');
 
-    $('#displayDate').datepicker({ dateFormat: 'yy-mm-dd' });
+    $('#displayDate').datepicker({
+      autoclose: true,
+      format: 'yyyy-mm-dd',
+      keyboardNavigation: false,
+      language: 'ro',
+      todayBtn: 'linked',
+      todayHighlight: true,
+      weekStart: 1,
+    });
+
     $('#displayDate')[0].style.width = '400px';
 
     $('#lexicon').html('');
@@ -29,11 +43,10 @@ $(function (){
       $('#definitionId').val(data.id);
       $('#lexicon').val(data.lexicon);
     });
-    $('#lexicon').prop('disabled', op == 'edit');
+    $('#lexicon').prop('disabled', $('#lexicon').val());
 
     $('#priority')[0].style.width = '400px';
     $('#description')[0].style.width = '400px';
-    $('#tr_description').show();
 
     // This needs to be selected explicitly sometimes -- don't know why
     var value = $('#wotdGrid').getCell(rowId, 'image');
@@ -58,6 +71,11 @@ $(function (){
     } else {
       return [true];
     }
+  }
+
+  // by default free jqGrid displays HTML as raw text; this seems to do the trick
+  function htmlFormatter(cellValue, options, rowObject) {
+    return cellValue;
   }
 
   var editOptions = {
@@ -100,6 +118,16 @@ $(function (){
                                    userWidth + priorWidth + imageWidth) - 40;
   var imageList = $('#imageList').detach().removeAttr('id');
 
+  // remove the "clear search" button and left align the search cursor for all columns
+  jQuery.extend(jQuery.jgrid.defaults, {
+    cmTemplate: {
+      searchoptions: {
+        attr: { style: "text-align: left" },
+        clearSearch: false,
+      }
+    }
+  });
+
   var colModels = [
     {
       label: 'Cuvânt',
@@ -120,6 +148,7 @@ $(function (){
       label: 'Definiție',
       name: 'defHtml',
       index: 'd.internalRep',
+      formatter: htmlFormatter,
       width: htmlWidth,
     },
     {
@@ -128,6 +157,15 @@ $(function (){
       index: 'w.displayDate',
       width: dateWidth,
       editable: true,
+    },
+    {
+      label: 'Fără an',
+      name: 'noYear',
+      editable: true,
+      edittype: 'checkbox',
+      editrules: { edithidden: true },
+      editoptions: { value: '1:' }, // the default is 'Yes:No', which is weird
+      hidden: true,
     },
     {
       label: 'Adăugată de',
@@ -155,6 +193,7 @@ $(function (){
       label: 'Motiv',
       name: 'wotdHtml',
       index: 'w.description',
+      formatter: htmlFormatter,
       width: descWidth,
     },
     {
@@ -164,10 +203,11 @@ $(function (){
       hidden: true,
     },
     { // internal, visible as label in the edit form
+      label: 'Motiv',
       name: 'description',
-      index:'w.description',
       editable: true,
       edittype: 'textarea',
+      editrules: { edithidden: true },
       hidden: true,
     },
   ];
@@ -177,7 +217,7 @@ $(function (){
     datatype: 'json',
     editurl: wwwRoot + 'ajax/saveWotd.php',
     height: '100%',
-    ondblClickRow: function(rowid) { $(this).jqGrid('editGridRow', rowid, editOptions); },
+    ondblClickRow: doubleClickRow,
     pager: $('#wotdPaging'),
     recreateForm: true,
     rowList: [20, 50, 100, 200],

@@ -576,6 +576,18 @@
           <li><a href="wotdImages.php">imaginea zilei</a></li>
           <li><a href="../autori-imagini.php">autori</a></li>
           <li><a href="../alocare-autori.php">alocarea autorilor</a></li>
+          <li>
+            asistent:
+            <ul class="list-inline">
+              {foreach $wotdAssistantDates as $timestamp}
+                <li>
+                  <a href="wotdAssistant.php?for={$timestamp|date_format:"%Y-%m"}">
+                    {$timestamp|date_format:"%B %Y"}
+                  </a>
+                </li>
+              {/foreach}
+            </ul>
+          </li>
         </ul>
       </div>
     </div>

@@ -83,7 +83,7 @@ class SmartyWrap {
 		],
 		'jqgrid' => [
 			'third-party/grid.locale-en.js',
-			'third-party/jquery.jqGrid.min.js',
+			'third-party/jquery.jqgrid.min.js',
 		],
 		'jqTableDnd' => [
 			'third-party/jquery.tablednd.0.8.min.js'

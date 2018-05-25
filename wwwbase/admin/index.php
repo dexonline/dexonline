@@ -156,6 +156,12 @@ $timeAgo = time() - $minModDate;
 
 $modelTypes = ModelType::getAll();
 
+$wotdAssistantDates = [
+  strtotime("+1 month"),
+  strtotime("+2 month"),
+  strtotime("+3 month"),
+];
+
 SmartyWrap::assign([
   'structurists' => User::getStructurists(),
   'reports' => $reports,
@@ -164,6 +170,7 @@ SmartyWrap::assign([
   'links' => $links,
   'linkPriv' => $linkPriv,
   'timeAgo' => $timeAgo,
+  'wotdAssistantDates' => $wotdAssistantDates,
 ]);
 SmartyWrap::addCss('admin', 'bootstrap-spinedit', 'bootstrap-datepicker');
 SmartyWrap::addJs('select2Dev', 'adminIndex', 'modelDropdown', 'bootstrap-spinedit',

@@ -42,27 +42,18 @@ for ($d = 0; $d <= NUM_DAYS; $d++) {
   }
   $wotd = $wotds[0];
 
-  // Check that it has exactly one WotD rel
-  $rels = WordOfTheDayRel::get_all_by_wotdId($wotd->id);
-  if (count($rels) != 1) {
-    addError($date, count($rels) ? sprintf("Există %s definiții asociate", count($rels)) : "Nu există nicio definiție asociată");
-    continue;
-  }
-
   // Check that the definition exists
-  $def = Definition::get_by_id($rels[0]->refId);
+  $def = Definition::get_by_id($wotd->definitionId);
   if (!$def) {
-    addError($date, sprintf("Definiția cu id-ul %s nu există", $rels[0]->refId));
+    addError($date, sprintf("Definiția cu id-ul %s nu există", $wotd->definitionId));
     continue;
   }
 
   // Check that we haven't had the same word or a similar one in the past.
   // Currently we look for words that contain, or are contained by, the proposed word.
   $query = sprintf("select d.lexicon, w.displayDate " .
-                   "from WordOfTheDay w, WordOfTheDayRel r, Definition d " .
-                   "where w.id = r.wotdId " .
-                   "and r.refId = d.id " .
-                   "and r.refType = 'Definition' " .
+                   "from WordOfTheDay w, Definition d " .
+                   "where w.definitionId = d.id " .
                    "and w.displayDate < '%s' " .
                    "and char_length(lexicon) >= 4 " .
                    "and ((instr('%s', lexicon) > 0) or (lexicon like '%%%s%%'))",

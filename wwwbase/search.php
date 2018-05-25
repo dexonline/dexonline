@@ -195,13 +195,11 @@ if ($searchType == SEARCH_INFLECTED) {
     if ($showWotd) {
       $wasWotd = Model::factory('Definition')
                ->table_alias('d')
-               ->join('WordOfTheDayRel', ['d.id', '=', 'r.refId'], 'r')
-               ->join('WordOfTheDay', ['w.id', '=', 'r.wotdId'], 'w')
+               ->join('WordOfTheDay', ['d.id', '=', 'w.definitionId'], 'w')
                ->where('d.lexicon', $cuv)
-               ->where('r.refType', 'Definition')
                ->find_one();
       if ($wasWotd) {
-        FlashMessage::add('Acest cuvânt este în lista WotD', 'warning');
+        FlashMessage::add('Acest cuvânt este în lista WotD.', 'warning');
       }
     }
   }

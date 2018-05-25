@@ -1,0 +1,29 @@
+h3 form {
+  font-size: 14px;
+}
+
+#calendar {
+  width: 100px;
+}
+
+.panel-heading {
+  cursor: pointer;
+}
+
+.panel-heading a {
+  display: none;
+}
+
+.panel-body {
+  padding-bottom: 0;
+}
+
+.panel-heading.collapsed span.date:before {
+  font-family: 'Glyphicons Halflings';
+  content: "\e080"; /* chevron-right */
+}
+
+.panel-heading span.date:before {
+  font-family: 'Glyphicons Halflings';
+  content: "\e114"; /* chevron-down */
+}

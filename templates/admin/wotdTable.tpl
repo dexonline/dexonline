@@ -29,7 +29,7 @@
         <ul class="list-inline">
           {foreach $assistantDates as $timestamp}
             <li>
-              <a href="wotdAssistant.php?month={$timestamp|date_format:"%Y-%m"}">
+              <a href="wotdAssistant.php?for={$timestamp|date_format:"%Y-%m"}">
                 {$timestamp|date_format:"%B %Y"}
               </a>
             </li>

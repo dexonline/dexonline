@@ -52,7 +52,7 @@
         <div class="panel-body">
           {if empty($rec.thisYear)}
             <div class="alert alert-danger" role="alert">
-              Nu ați ales încă un cuvânt.
+              Nu ai ales încă un cuvânt.
             </div>
           {else if count($rec.thisYear) > 1}
             <div class="alert alert-warning" role="alert">

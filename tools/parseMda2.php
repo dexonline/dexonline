@@ -9,25 +9,36 @@ require_once __DIR__ . '/../phplib/third-party/PHP-parsing-tool/Parser.php';
 
 define('SOURCE_ID', 53);
 define('BATCH_SIZE', 10000);
-define('START_AT', 'babaluc');
+define('START_AT', '');
 define('DEBUG', false);
 $offset = 0;
 
 $PARTS_OF_SPEECH = [
   'a',
+  'ad',
   'af',
   'ai',
+  'am',
+  'anh',
+  'ain',
+  'art',
   'av',
   'c',
+  'ec',
   'i',
   'la',
   'no',
   'pd',
+  'pdf',
   'pp',
   'pr',
+  'pron',
+  's',
   'sf',
+  'sfa',
   'sfn',
   'sfp',
+  'sfs',
   'sm',
   'smf',
   'smi',
@@ -40,6 +51,7 @@ $PARTS_OF_SPEECH = [
   'sns',
   'v',
   'vi',
+  'vr',
   'vt',
   'vtr',
 ];
@@ -62,8 +74,8 @@ $GRAMMAR = [
     '(form homonym?)+", "',
   ],
   'homonym' => [
-    '/\^\d/',
-    '/\^\{\d\}/',
+    '/\^\d-?/',
+    '/\^\{\d\}-?/', // if there is a dash, the number comes before it, e.g. aer^3-
   ],
   'formattedPosList' => [
     'formattedPos+", "',
@@ -83,7 +95,8 @@ $GRAMMAR = [
     '/[$@]*/ "#vz#" /[$@]*/',
   ],
   'form' => [
-    "/[-~a-zăâîșțáắấéíóú']+/u",
+    '"##" form "##"',
+    "/[A-ZĂÂÎȘȚ]?[-~a-zăâîșțáắấéíóú()']+/u", // accept capitalized forms
   ],
   'ignored' => [
     '/.*/',
@@ -97,6 +110,8 @@ do {
         ->where('sourceId', SOURCE_ID)
         ->where('status', Definition::ST_ACTIVE)
         ->where_gte('lexicon', START_AT)
+        ->where_not_like('internalRep', '%▶%')
+        ->where_not_like('internalRep', '%{{%')
         ->order_by_asc('lexicon')
         ->order_by_asc('id')
         ->limit(BATCH_SIZE)
@@ -106,7 +121,9 @@ do {
   foreach ($defs as $d) {
     $parsed = $parser->parse($d->internalRep);
     if (!$parsed) {
-      printf("Cannot parse %s %s [%s]\n", $d->lexicon, $d->id, mb_substr($d->internalRep, 0, 120));
+      printf("Cannot parse %s %s [%s] %s\n",
+      $d->lexicon, $d->id, mb_substr($d->internalRep, 0, 120),
+      defUrl($d));
     } else {
       if (DEBUG) {
         printf("Parsed %s %s [%s]\n", $d->lexicon, $d->id, mb_substr($d->internalRep, 0, 120));
@@ -137,4 +154,8 @@ function makeParser($grammar) {
   }
 
   return new \ParserGenerator\Parser($s);
+}
+
+function defUrl($d) {
+  return "https://dexonline.ro/admin/definitionEdit.php?definitionId={$d->id}";
 }

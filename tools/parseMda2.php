@@ -14,46 +14,12 @@ define('DEBUG', false);
 $offset = 0;
 
 $PARTS_OF_SPEECH = [
-  'a',
-  'ad',
-  'af',
-  'ai',
-  'am',
-  'anh',
-  'ain',
-  'art',
-  'av',
-  'c',
-  'ec',
-  'i',
-  'la',
-  'no',
-  'pd',
-  'pdf',
-  'pp',
-  'pr',
-  'pron',
-  's',
-  'sf',
-  'sfa',
-  'sfn',
-  'sfp',
-  'sfs',
-  'sm',
-  'smf',
-  'smi',
-  'smn',
-  'smp',
-  'sms',
-  'sn',
-  'snm',
-  'snp',
-  'sns',
-  'v',
-  'vi',
-  'vr',
-  'vt',
-  'vtr',
+  'a', 'ad', 'af', 'afp', 'ai', 'am', 'amp', 'an', 'anh', 'ain', 'art', 'av',
+  'c', 'ec', 'i', 'la', 'lc', 'nc', 'no', 'pd', 'pdf', 'pdm', 'pin', 'pir',
+  'pnh', 'pp', 'ppl', 'ppr', 'pr', 'pron', 's', 'sf', 'sfa', 'sfi', 'sfn',
+  'sfp', 'sfs', 'si', 'sm', 'sma', 'smf', 'smi', 'smn', 'smnf', 'smp', 'sms',
+  'sn', 'sna', 'snf', 'snm', 'snp', 'sns', 'v', 'vi', 'vir', 'vit', 'vr',
+  'vri', 'vt', 'vti', 'vtr', 'vtri',
 ];
 $PARTS_OF_SPEECH = array_map(function($s) {
   return '"' . $s . '"';
@@ -96,7 +62,7 @@ $GRAMMAR = [
   ],
   'form' => [
     '"##" form "##"',
-    "/[A-ZĂÂÎȘȚ]?[-~a-zăâîșțáắấéíóú()']+/u", // accept capitalized forms
+    "/[A-ZĂÂÎȘȚ]?[-~a-zăâîșțáắấéíî́óú()']+/u", // accept capitalized forms
   ],
   'ignored' => [
     '/.*/',
@@ -123,8 +89,7 @@ do {
     if (!$parsed) {
       $errorPos = $parser->getError()['index'];
       $rep = substr_replace($d->internalRep, '***', $errorPos, 0);
-      printf("Cannot parse %s %s [%s] %s\n",
-             $d->lexicon, $d->id, $rep, defUrl($d));
+      printf("Cannot parse %s [%s]\n", defUrl($d), $rep);
     } else {
       if (DEBUG) {
         printf("Parsed %s %s [%s]\n", $d->lexicon, $d->id, mb_substr($d->internalRep, 0, 120));

@@ -121,9 +121,10 @@ do {
   foreach ($defs as $d) {
     $parsed = $parser->parse($d->internalRep);
     if (!$parsed) {
+      $errorPos = $parser->getError()['index'];
+      $rep = substr_replace($d->internalRep, '***', $errorPos, 0);
       printf("Cannot parse %s %s [%s] %s\n",
-      $d->lexicon, $d->id, mb_substr($d->internalRep, 0, 120),
-      defUrl($d));
+             $d->lexicon, $d->id, $rep, defUrl($d));
     } else {
       if (DEBUG) {
         printf("Parsed %s %s [%s]\n", $d->lexicon, $d->id, mb_substr($d->internalRep, 0, 120));

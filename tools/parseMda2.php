@@ -27,11 +27,14 @@ $PARTS_OF_SPEECH = array_map(function($s) {
 
 $GRAMMAR = [
   'start' => [
+    'definition',
     'reference',
   ],
+  'definition' => [
+    'formattedEntryWithInflectedForms (ws formattedPosList)? ws ignored',
+  ],
   'reference' => [
-    //    'formattedEntryWithInflectedForms " " formattedPosList " " formattedVz " " ignored',
-    'formattedEntryWithInflectedForms " " formattedPosList " " formattedVz " " formattedForm',
+    'formattedEntryWithInflectedForms ws formattedPosList ws formattedVz ws formattedForm',
   ],
   'formattedEntryWithInflectedForms' => [
     '/[$@]*/ entryWithInflectedForms /[$@]*/',
@@ -64,8 +67,11 @@ $GRAMMAR = [
     '"##" form "##"',
     "/[A-ZĂÂÎȘȚ]?[-~a-zăâîșțáắấéíî́óú()']+/u", // accept capitalized forms
   ],
+  'ws' => [
+    '/(\s|\n)+/',
+  ],
   'ignored' => [
-    '/.*/',
+    '/.*/s',
   ],
 ];
 

@@ -14,12 +14,15 @@ define('DEBUG', false);
 $offset = 0;
 
 $PARTS_OF_SPEECH = [
-  'a', 'ad', 'af', 'afp', 'ai', 'am', 'amp', 'an', 'anh', 'ain', 'art', 'av',
-  'c', 'ec', 'i', 'la', 'lc', 'nc', 'no', 'pd', 'pdf', 'pdm', 'pin', 'pir',
-  'pnh', 'pp', 'ppl', 'ppr', 'pr', 'pron', 's', 'sf', 'sfa', 'sfi', 'sfn',
-  'sfp', 'sfs', 'si', 'sm', 'sma', 'smf', 'smi', 'smn', 'smnf', 'smp', 'sms',
-  'sn', 'sna', 'snf', 'snm', 'snp', 'sns', 'v', 'vi', 'vir', 'vit', 'vr',
-  'vri', 'vt', 'vti', 'vtr', 'vtri',
+  'a', 'ad', 'af', 'afi', 'afp', 'afpt', 'ai', 'ain', 'am', 'an', 'anh', 'apr',
+  'ard', 'arh', 'arp', 'art', 'arti', 'av', 'avi', 'avr', 'c', 'ec', 'i', 'la', 'lav',
+  'ls', 'nc', 'no', 'pd', 'pdf', 'pin', 'pî', 'pnh', 'pp', 'prl', 'prn', 's', 'sa',
+  'sf', 'sfa', 'sfi', 'sfm', 'sfn', 'sfp', 'sfs', 'sfsa', 'si', 'sm', 'sma',
+  'smf', 'smi', 'smn', 'smp', 'sms', 'sn', 'sna', 'snf', 'sni', 'snm', 'snp',
+  'sns', 'ssg', 'ssga', 'ssp', 'v', 'va', 'vi', 'vi(a)', 'vif', 'vim', 'vir',
+  'virp', 'virt', 'vit', 'vit(a)', 'vitr', 'viu', 'vp', 'vr', 'vra', 'vri',
+  'vrim', 'vrp', 'vrr', 'vrt', 'vru', 'vt', 'vt(a)', 'vtf', 'vtfr', 'vti',
+  'vtir', 'vtr', 'vtra', 'vtrf', 'vtri', 'vtrp', 'vtrr', 'vu',
 ];
 $PARTS_OF_SPEECH = array_map(function($s) {
   return '"' . $s . '"';
@@ -31,16 +34,20 @@ $GRAMMAR = [
     'reference',
   ],
   'definition' => [
-    'formattedEntryWithInflectedForms (ws formattedPosList)? ws ignored',
+    'entryWithInflectedForms (ws formattedPosList)? ws bracket ws ignored',
+  ],
+  'bracket' => [
+    '/[$@]*/ "[" attestation /[^\\]]+/ "]" /[$@]*/',
+  ],
+  'attestation' => [
+    /* '"#At:# " /.+?(?= \/ )/ " / "', */
+    '"#At:# " /.+?\/(?!\d)/ ws?',
   ],
   'reference' => [
-    'formattedEntryWithInflectedForms ws formattedPosList ws formattedVz ws formattedForm',
-  ],
-  'formattedEntryWithInflectedForms' => [
-    '/[$@]*/ entryWithInflectedForms /[$@]*/',
+    'entryWithInflectedForms ws formattedPosList ws formattedVz ws formattedForm',
   ],
   'entryWithInflectedForms' => [
-    '(form homonym?)+", "',
+    '(/[$@]*/ form /[$@]*/ homonym? /[$@]*/)+/,[$@]* /',
   ],
   'homonym' => [
     '/\^\d-?/',
@@ -64,8 +71,12 @@ $GRAMMAR = [
     '/[$@]*/ "#vz#" /[$@]*/',
   ],
   'form' => [
-    '"##" form "##"',
-    "/[A-ZĂÂÎȘȚ]?[-~a-zăâîșțáắấéíî́óú()']+/u", // accept capitalized forms
+    'fragment+/[- ]/',
+    'fragment "-"', // prefixes
+    '"-" fragment', // suffixes
+  ],
+  'fragment' => [
+    "/[A-ZĂÂÎȘȚ]?([~a-zăâçîșțüáắấéíî́óúý()']|##)+/u", // accept capitalized forms
   ],
   'ws' => [
     '/(\s|\n)+/',
@@ -93,13 +104,14 @@ do {
   foreach ($defs as $d) {
     $parsed = $parser->parse($d->internalRep);
     if (!$parsed) {
+      $expected = $parser->getError()['expected'][0];
       $errorPos = $parser->getError()['index'];
       $rep = substr_replace($d->internalRep, '***', $errorPos, 0);
-      printf("Cannot parse %s [%s]\n", defUrl($d), $rep);
+      printf("%s [expected: %s] [%s]\n", defUrl($d), $expected, $rep);
     } else {
       if (DEBUG) {
         printf("Parsed %s %s [%s]\n", $d->lexicon, $d->id, mb_substr($d->internalRep, 0, 120));
-        var_dump($parsed->findFirst('formattedForm'));
+        var_dump($parsed->findFirst('definition'));
       }
     }
     if (DEBUG) {

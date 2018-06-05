@@ -9,20 +9,20 @@ require_once __DIR__ . '/../phplib/third-party/PHP-parsing-tool/Parser.php';
 
 define('SOURCE_ID', 53);
 define('BATCH_SIZE', 10000);
-define('START_AT', '');
+define('START_AT', 'bo');
 define('DEBUG', false);
 $offset = 0;
 
 $PARTS_OF_SPEECH = [
   'a', 'ad', 'af', 'afi', 'afp', 'afpt', 'ai', 'ain', 'am', 'an', 'anh', 'apr',
   'ard', 'arh', 'arp', 'art', 'arti', 'av', 'avi', 'avr', 'c', 'ec', 'i', 'la', 'lav',
-  'ls', 'nc', 'no', 'pd', 'pdf', 'pin', 'pî', 'pnh', 'pp', 'prl', 'prn', 's', 'sa',
+  'ls', 'nc', 'ncv', 'no', 'pd', 'pdf', 'pin', 'pî', 'pnh', 'pp', 'prl', 'prn', 's', 'sa',
   'sf', 'sfa', 'sfi', 'sfm', 'sfn', 'sfp', 'sfs', 'sfsa', 'si', 'sm', 'sma',
   'smf', 'smi', 'smn', 'smp', 'sms', 'sn', 'sna', 'snf', 'sni', 'snm', 'snp',
   'sns', 'ssg', 'ssga', 'ssp', 'v', 'va', 'vi', 'vi(a)', 'vif', 'vim', 'vir',
-  'virp', 'virt', 'vit', 'vit(a)', 'vitr', 'viu', 'vp', 'vr', 'vra', 'vri',
-  'vrim', 'vrp', 'vrr', 'vrt', 'vru', 'vt', 'vt(a)', 'vtf', 'vtfr', 'vti',
-  'vtir', 'vtr', 'vtra', 'vtrf', 'vtri', 'vtrp', 'vtrr', 'vu',
+  'virp', 'virt', 'vit', 'vit(a)', 'vitr', 'viu', 'vp', 'vr', 'vr(a)', 'vra', 'vri',
+  'vrim', 'vrp', 'vrr', 'vrt', 'vru', 'vt', 'vt(a)', 'vta', 'vtf', 'vtfr', 'vti',
+  'vtir', 'vtr', 'vtr(a)', 'vtra', 'vtrf', 'vtri', 'vtrp', 'vtrr', 'vu',
 ];
 $PARTS_OF_SPEECH = array_map(function($s) {
   return '"' . $s . '"';
@@ -93,8 +93,6 @@ do {
         ->where('sourceId', SOURCE_ID)
         ->where('status', Definition::ST_ACTIVE)
         ->where_gte('lexicon', START_AT)
-        ->where_not_like('internalRep', '%▶%')
-        ->where_not_like('internalRep', '%{{%')
         ->order_by_asc('lexicon')
         ->order_by_asc('id')
         ->limit(BATCH_SIZE)
@@ -102,12 +100,16 @@ do {
         ->find_many();
 
   foreach ($defs as $d) {
-    $parsed = $parser->parse($d->internalRep);
+    // for now remove footnotes and invisible comments
+    $rep = preg_replace("/\{\{.*\}\}/U", '', $d->internalRep);
+    $rep = preg_replace("/▶.*◀/U", '', $rep);
+
+    $parsed = $parser->parse($rep);
     if (!$parsed) {
       $expected = $parser->getError()['expected'][0];
       $errorPos = $parser->getError()['index'];
-      $rep = substr_replace($d->internalRep, '***', $errorPos, 0);
-      printf("%s [expected: %s] [%s]\n", defUrl($d), $expected, $rep);
+      $markedRep = substr_replace($rep, '***', $errorPos, 0);
+      printf("%s [expected: %s] [%s]\n", defUrl($d), $expected, $markedRep);
     } else {
       if (DEBUG) {
         printf("Parsed %s %s [%s]\n", $d->lexicon, $d->id, mb_substr($d->internalRep, 0, 120));

@@ -9,19 +9,20 @@ require_once __DIR__ . '/../phplib/third-party/PHP-parsing-tool/Parser.php';
 
 define('SOURCE_ID', 53);
 define('BATCH_SIZE', 10000);
-define('START_AT', 'bo');
+define('START_AT', '');
 define('DEBUG', false);
 $offset = 0;
 
 $PARTS_OF_SPEECH = [
-  'a', 'ad', 'af', 'afi', 'afp', 'afpt', 'ai', 'ain', 'am', 'an', 'anh', 'apr',
+  'a', 'ad', 'af', 'afi', 'afp', 'afpt', 'ai', 'ain', 'am', 'amp', 'an', 'anh', 'apr',
   'ard', 'arh', 'arp', 'art', 'arti', 'av', 'avi', 'avr', 'c', 'ec', 'i', 'la', 'lav',
-  'ls', 'nc', 'ncv', 'no', 'pd', 'pdf', 'pin', 'pî', 'pnh', 'pp', 'prl', 'prn', 's', 'sa',
-  'sf', 'sfa', 'sfi', 'sfm', 'sfn', 'sfp', 'sfs', 'sfsa', 'si', 'sm', 'sma',
-  'smf', 'smi', 'smn', 'smp', 'sms', 'sn', 'sna', 'snf', 'sni', 'snm', 'snp',
+  'lc', 'ls', 'nc', 'ncv', 'nf', 'no', 'pd', 'pdf', 'pdm', 'pin', 'pir', 'pî', 'pnh', 'pnhi',
+  'pp', 'ppl', 'ppr', 'prl', 'prli', 'prn', 's', 'sa',
+  'sf', 'sfa', 'sfi', 'sfm', 'sfn', 'sfp', 'sfpa', 'sfs', 'sfsa', 'si', 'sm', 'sma',
+  'smf', 'smi', 'smn', 'smnf', 'smp', 'sms', 'smsa', 'sn', 'sna', 'snf', 'sni', 'snm', 'snp',
   'sns', 'ssg', 'ssga', 'ssp', 'v', 'va', 'vi', 'vi(a)', 'vif', 'vim', 'vir',
   'virp', 'virt', 'vit', 'vit(a)', 'vitr', 'viu', 'vp', 'vr', 'vr(a)', 'vra', 'vri',
-  'vrim', 'vrp', 'vrr', 'vrt', 'vru', 'vt', 'vt(a)', 'vta', 'vtf', 'vtfr', 'vti',
+  'vrim', 'vrp', 'vrr', 'vrt', 'vru', 'vt', 'vt(a)', 'vta', 'vt(f)', 'vtf', 'vtfr', 'vti',
   'vtir', 'vtr', 'vtr(a)', 'vtra', 'vtrf', 'vtri', 'vtrp', 'vtrr', 'vu',
 ];
 $PARTS_OF_SPEECH = array_map(function($s) {
@@ -37,11 +38,11 @@ $GRAMMAR = [
     'entryWithInflectedForms (ws formattedPosList)? ws bracket ws ignored',
   ],
   'bracket' => [
-    '/[$@]*/ "[" attestation /[^\\]]+/ "]" /[$@]*/',
+    '/[$@]*/ "[" attestation /[^\]]+/ "]" /[$@]*/',
   ],
   'attestation' => [
     /* '"#At:# " /.+?(?= \/ )/ " / "', */
-    '"#At:# " /.+?\/(?!\d)/ ws?',
+    '"#At:#" ws /.+?\/(?!\d)/s ws?',
   ],
   'reference' => [
     'entryWithInflectedForms ws formattedPosList ws formattedVz ws formattedForm',

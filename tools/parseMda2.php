@@ -9,12 +9,12 @@ require_once __DIR__ . '/../phplib/third-party/PHP-parsing-tool/Parser.php';
 
 define('SOURCE_ID', 53);
 define('BATCH_SIZE', 10000);
-define('START_AT', '');
+define('START_AT', 'cr');
 define('DEBUG', false);
 $offset = 0;
 
 $PARTS_OF_SPEECH = [
-  'a', 'ad', 'af', 'afi', 'afp', 'afpt', 'ai', 'ain', 'am', 'amp', 'an', 'anh', 'apr',
+  'a', 'ad', 'af', 'afi', 'afp', 'afpt', 'afs', 'ai', 'ain', 'am', 'amp', 'an', 'anh', 'apr',
   'ard', 'arh', 'arp', 'art', 'arti', 'av', 'avi', 'avr', 'c', 'ec', 'i', 'la', 'lav',
   'lc', 'ls', 'nc', 'ncv', 'nf', 'no', 'pd', 'pdf', 'pdm', 'pin', 'pir', 'pî', 'pnh', 'pnhi',
   'pp', 'ppl', 'ppr', 'prl', 'prli', 'prn', 's', 'sa',
@@ -23,7 +23,7 @@ $PARTS_OF_SPEECH = [
   'sns', 'ssg', 'ssga', 'ssp', 'v', 'va', 'vi', 'vi(a)', 'vif', 'vim', 'vir',
   'virp', 'virt', 'vit', 'vit(a)', 'vitr', 'viu', 'vp', 'vr', 'vr(a)', 'vra', 'vri',
   'vrim', 'vrp', 'vrr', 'vrt', 'vru', 'vt', 'vt(a)', 'vta', 'vt(f)', 'vtf', 'vtfr', 'vti',
-  'vtir', 'vtr', 'vtr(a)', 'vtra', 'vtrf', 'vtri', 'vtrp', 'vtrr', 'vu',
+  'vti(a)', 'vtir', 'vtr', 'vtr(a)', 'vtra', 'vtrf', 'vtri', 'vtrp', 'vtrr', 'vu',
 ];
 $PARTS_OF_SPEECH = array_map(function($s) {
   return '"' . $s . '"';
@@ -38,11 +38,60 @@ $GRAMMAR = [
     'entryWithInflectedForms (ws formattedPosList)? ws bracket ws ignored',
   ],
   'bracket' => [
-    '/[$@]*/ "[" attestation /[^\]]+/ "]" /[$@]*/',
+    '/[$@]*/ "[" attestation (morphology formattedSlash ws?)* etymology "]" /[$@]*/',
   ],
   'attestation' => [
-    /* '"#At:# " /.+?(?= \/ )/ " / "', */
-    '"#At:#" ws /.+?\/(?!\d)/s ws?',
+    '"#At:#" ws /.+?\/(?! ?[\d\w\/])/s ws?',
+  ],
+  'morphology' => [
+    'abbreviation',
+    'accent',
+    'alsoWritten',
+    'cases',
+    'plural',
+    'tenses',
+    'pronunciation',
+    'variants',
+  ],
+  'formattedSlash' => [
+    '/[$@]*\/[$@]*/',
+  ],
+  'abbreviation' => [
+    '"#Abr#:" /[^\/]+/s',
+  ],
+  'accent' => [
+    '"A:" /[^\/]+/s',
+    '"#A:#" /[^\/]+/s',
+    '"#A și:#" /[^\/]+/s',
+    '"A și (#înv#):" /[^\/]+/s',
+  ],
+  'alsoWritten' => [
+    '"S:" /[^\/]+/s',
+    '"#S:#" /[^\/]+/s',
+    '"#S și:#" /[^\/]+/s',
+  ],
+  'cases' => [
+    '"#G-D#:" /[^\/]+/s',
+  ],
+  'plural' => [
+    '"#Pl:#" /[^\/]+/s',
+    '"#Pl#:" /[^\/]+/s',
+    '"#Pl# și:" /[^\/]+/s',
+  ],
+  'pronunciation' => [
+    '"#P:#" /[^\/]+/s',
+    '"#P și:#" /[^\/]+/s',
+  ],
+  'tenses' => [
+    '"#Pzi:#" /[^\/]+/s',
+    '"#Ps:#" /[^\/]+/s',
+    '"#Par#:" /[^\/]+/s',
+  ],
+  'variants' => [
+    '"#V:#" /[^\/]+/s',
+  ],
+  'etymology' => [
+    '"#E:#" /[^\]]+/',
   ],
   'reference' => [
     'entryWithInflectedForms ws formattedPosList ws formattedVz ws formattedForm',
@@ -107,10 +156,9 @@ do {
 
     $parsed = $parser->parse($rep);
     if (!$parsed) {
-      $expected = $parser->getError()['expected'][0];
       $errorPos = $parser->getError()['index'];
-      $markedRep = substr_replace($rep, '***', $errorPos, 0);
-      printf("%s [expected: %s] [%s]\n", defUrl($d), $expected, $markedRep);
+      $markedRep = substr_replace($rep, red('***'), $errorPos, 0);
+      printf("%s [%s]\n", defUrl($d), $markedRep);
     } else {
       if (DEBUG) {
         printf("Parsed %s %s [%s]\n", $d->lexicon, $d->id, mb_substr($d->internalRep, 0, 120));
@@ -145,4 +193,8 @@ function makeParser($grammar) {
 
 function defUrl($d) {
   return "https://dexonline.ro/admin/definitionEdit.php?definitionId={$d->id}";
+}
+
+function red($s) {
+  return "\033[01;31m{$s}\033[0m";
 }

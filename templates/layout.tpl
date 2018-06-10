@@ -65,9 +65,10 @@
           <div class="text-center">
             <ul class="list-inline">
               <li>Copyright © 2004-{$currentYear} dexonline (https://dexonline.ro)</li>
-              <li class="licenceLink"><a href="{$wwwRoot}licenta">Licență</a></li>
+              <li><a href="{$wwwRoot}licenta">Licență</a></li>
+              <li><a href="https://wiki.dexonline.ro/wiki/Principii_de_confiden%C8%9Bialitate_dexonline.ro">Confidențialitate</a></li>
               {if $cfg.global.hostedBy}
-                <li class="hostingLink">{include "hosting/`$cfg.global.hostedBy`.tpl"}</li>
+                <li>{include "hosting/`$cfg.global.hostedBy`.tpl"}</li>
               {/if}
             </ul>
           </div>

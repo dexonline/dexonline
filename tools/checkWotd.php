@@ -55,6 +55,7 @@ for ($d = 0; $d <= NUM_DAYS; $d++) {
                    "from WordOfTheDay w, Definition d " .
                    "where w.definitionId = d.id " .
                    "and w.displayDate < '%s' " .
+                   "and w.displayDate != '0000-00-00' " .
                    "and char_length(lexicon) >= 4 " .
                    "and ((instr('%s', lexicon) > 0) or (lexicon like '%%%s%%'))",
                    $date, $def->lexicon, $def->lexicon);

@@ -88,7 +88,7 @@ $GRAMMAR = [
     '"#V:#" /[^\/]+/s',
   ],
   'etymology' => [
-    '"#E:#" /[^\]]+/',
+    '"#E:#" ws /([^\[\]]*\[[^\[\]]+\])*[^\[\]]*/',
   ],
   'reference' => [
     'entryWithInflectedForms ws formattedPosList ws formattedVz ws formattedForm',

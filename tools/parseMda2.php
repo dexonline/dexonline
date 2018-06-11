@@ -9,12 +9,12 @@ require_once __DIR__ . '/../phplib/third-party/PHP-parsing-tool/Parser.php';
 
 define('SOURCE_ID', 53);
 define('BATCH_SIZE', 10000);
-define('START_AT', 'cr');
+define('START_AT', '');
 define('DEBUG', false);
 $offset = 0;
 
 $PARTS_OF_SPEECH = [
-  'a', 'ad', 'af', 'afi', 'afp', 'afpt', 'afs', 'ai', 'ain', 'am', 'amp', 'an', 'anh', 'apr',
+  'a', 'ad', 'ada', 'af', 'afi', 'afp', 'afpt', 'afs', 'ai', 'ain', 'am', 'amp', 'an', 'anh', 'apr',
   'ard', 'arh', 'arp', 'art', 'arti', 'av', 'avi', 'avr', 'c', 'ec', 'i', 'la', 'lav',
   'lc', 'ls', 'nc', 'ncv', 'nf', 'no', 'pd', 'pdf', 'pdm', 'pin', 'pir', 'pî', 'pnh', 'pnhi',
   'pp', 'ppl', 'ppr', 'prl', 'prli', 'prn', 's', 'sa',
@@ -60,32 +60,23 @@ $GRAMMAR = [
     '"#Abr#:" /[^\/]+/s',
   ],
   'accent' => [
-    '"A:" /[^\/]+/s',
-    '"#A:#" /[^\/]+/s',
-    '"#A și:#" /[^\/]+/s',
-    '"A și (#înv#):" /[^\/]+/s',
+    '("A:"|"#A:#"|"#A și:#"|"A și (#înv#):") /[^\/]+/s',
+    '"A: #nct#" ws',
   ],
   'alsoWritten' => [
-    '"S:" /[^\/]+/s',
-    '"#S:#" /[^\/]+/s',
-    '"#S și:#" /[^\/]+/s',
+    '("S:"|"#S:#"|"#S și:#") /[^\/]+/s',
   ],
   'cases' => [
-    '"#G-D#:" /[^\/]+/s',
+    '("#Ac#:"|"#D:#"|"#G-D#:") /[^\/]+/s',
   ],
   'plural' => [
-    '"#Pl:#" /[^\/]+/s',
-    '"#Pl#:" /[^\/]+/s',
-    '"#Pl# și:" /[^\/]+/s',
+    '("#Pl:#"|"#Pl#:"|"#Pl# și:") /[^\/]+/s',
   ],
   'pronunciation' => [
-    '"#P:#" /[^\/]+/s',
-    '"#P și:#" /[^\/]+/s',
+    '("#P:#"|"#P și:#") /[^\/]+/s',
   ],
   'tenses' => [
-    '"#Pzi:#" /[^\/]+/s',
-    '"#Ps:#" /[^\/]+/s',
-    '"#Par#:" /[^\/]+/s',
+    '("#Cj#:"|"#Cnd#:"|"#Grz#:"|"#Im#:"|"#Imt#:"|"#In#:"|"#Mp#:"|"#Par#:"|"#Ps:#"|"#Pzi:#") /[^\/]+/s',
   ],
   'variants' => [
     '"#V:#" /[^\/]+/s',

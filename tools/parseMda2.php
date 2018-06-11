@@ -11,6 +11,12 @@ define('SOURCE_ID', 53);
 define('BATCH_SIZE', 10000);
 define('START_AT', '');
 define('DEBUG', false);
+define('TAGS_TO_IGNORE', [
+  404, // incomplete definition, usually missing everything after the [...]
+  405, // missing etymology
+]);
+
+
 $offset = 0;
 
 $PARTS_OF_SPEECH = [
@@ -86,13 +92,20 @@ $GRAMMAR = [
   ],
   'reference' => [
     'entryWithInflectedForms ws formattedPosList ws formattedVz ws formattedForm',
+    '(prefixForm|suffixForm) ws formattedVz ws formattedForm',
   ],
   'entryWithInflectedForms' => [
-    '(/[$@]*/ form /[$@]*/ homonym? /[$@]*/)+/,[$@]* /',
+    '(/[$@]*/ form /[$@]*/ homonym? "-"? /[$@]*/)+/,[$@]* /',
+  ],
+  'prefixForm' => [
+    '/[$@]*/ fragment /[$@]*/ homonym? "-" /[$@]*/',
+  ],
+  'suffixForm' => [
+    '/[$@]*/ "-" /[$@]*/ fragment /[$@]*/ homonym? /[$@]*/',
   ],
   'homonym' => [
-    '/\^\d-?/',
-    '/\^\{\d\}-?/', // if there is a dash, the number comes before it, e.g. aer^3-
+    '/\^\d/',
+    '/\^\{\d\}/',
   ],
   'formattedPosList' => [
     'formattedPos+", "',
@@ -106,7 +119,7 @@ $GRAMMAR = [
   ],
   'pos' => $PARTS_OF_SPEECH,
   'formattedForm' => [
-    '/[$@]*/ form homonym? /[$@]*/',
+    '/[$@]*/ form homonym? "-"? /[$@]*/',
   ],
   'formattedVz' => [
     '/[$@]*/ "#vz#" /[$@]*/',
@@ -127,6 +140,11 @@ $GRAMMAR = [
   ],
 ];
 
+$subquery = sprintf(
+  'select objectId from ObjectTag where objectType = %s and tagId in (%s)',
+  ObjectTag::TYPE_DEFINITION,
+  implode(',', TAGS_TO_IGNORE)
+);
 $parser = makeParser($GRAMMAR);
 
 do {
@@ -134,6 +152,7 @@ do {
         ->where('sourceId', SOURCE_ID)
         ->where('status', Definition::ST_ACTIVE)
         ->where_gte('lexicon', START_AT)
+        ->where_raw("id not in ({$subquery})")
         ->order_by_asc('lexicon')
         ->order_by_asc('id')
         ->limit(BATCH_SIZE)

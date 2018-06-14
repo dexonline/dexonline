@@ -220,8 +220,8 @@ function getDefinitionFromOcr($userId) {
   $d->structured = 0;
   $d->internalRep = $ocr->ocrText;
   $d->process();
-  $d->setVolumeAndPage();
   $d->save();
+  // do not set the volume and page here as the lexicon could be completely wrong
 
   $ocr->definitionId = $d->id;
   $ocr->editorId = $userId;

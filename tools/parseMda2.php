@@ -79,7 +79,17 @@ $GRAMMAR = [
     '("#Pl:#"|"#Pl#:"|"#Pl# și:") /[^\/]+/s',
   ],
   'pronunciation' => [
-    '("#P:#"|"#P și:#") ws /[$@]+/ /[-~]?/ fragment+/[- ]/ /[-~]?/ /[$@]+/ ws'
+    '("#P:#"|"#P și:#") ws pronunciationList+/( și )|( )/ ws'
+  ],
+  'pronunciationList' => [
+    'pronunciationBracket? /[$@]+/ pronunciationForm+", " ","? /[$@]+/',
+    '"?"',
+  ],
+  'pronunciationBracket' => [
+    '/\(.*?\)/ ws',
+  ],
+  'pronunciationForm' => [
+    '/[-~]?/ fragment+/[- ]/ /[-~]?/'
   ],
   'tenses' => [
     '("#Cj#:"|"#Cnd#:"|"#Grz#:"|"#Im#:"|"#Imt#:"|"#In#:"|"#Mp#:"|"#Par#:"|"#Ps:#"|"#Pzi:#") /[^\/]+/s',

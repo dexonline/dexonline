@@ -8,7 +8,7 @@
       Lex iniusta non est lex.
     </strong>
 
-    Susții gașca de penali care vor să legalizeze corupția? Dacă nu, demonstrează că ai spirit civic și mergi la proteste!
+    Susții gașca de penali care ar vrea să legalizeze corupția? Dacă nu, demonstrează că ai spirit civic și mergi la proteste!
   </p>
 
   <p>

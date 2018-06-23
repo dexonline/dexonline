@@ -301,6 +301,7 @@ class Str {
 
     $s = self::cleanup($s);
     $s = str_replace(['$$', '@@', '%%'], '', $s);
+    $s = self::migrateFormatChars($s);
 
     if ($sourceId) {
       list($s, $ambiguousAbbrevs) = Abbrev::markAbbreviations($s, $sourceId);
@@ -361,6 +362,59 @@ class Str {
       $distinct = $same . implode($pairs);
       $errors[] = "Unele dintre caracterele {$distinct} nu sunt împerecheate corect.";
     }
+  }
+
+  // Move closing formatting chars left past whitespace. Move opening formatting chars right
+  // past whitespace. This simplifies the parser.
+  static function migrateFormatChars($s) {
+    // first distinguish open and closed format chars
+    $len = strlen($s);
+    $i = 0;
+    $state = ['$' => false, '@' => false, '%' => false];
+
+    // 1 = closing char, 2 = whitespace, 3 = opening char, 0 = other
+    $class = $len ? array_fill(0, $len, 0) : [];
+
+    while ($i < $len) {
+      $c = $s[$i];
+      switch ($c) {
+        case '\\':
+          $i++;
+          break;
+
+        case '@': case '$': case '%':
+          $state[$c] = !$state[$c];
+          $class[$i] = $state[$c] ? 3 : 1;
+          break;
+
+        case ' ': case "\n":
+          $class[$i] = 2;
+          break;
+      }
+      $i++;
+    }
+
+    // reorder characters by class: closed formats, whitespace, open formats
+    preg_match_all("/(?<!\\\\)[ \n@$%]+/m", $s, $matches, PREG_OFFSET_CAPTURE);
+    foreach ($matches[0] as $match) {
+      $len = strlen($match[0]);
+      $offset = $match[1];
+
+      $buf = '';
+      for ($c = 1; $c <= 3; $c++) {
+        for ($i = 0; $i < $len; $i++) {
+          if ($class[$i + $offset] == $c) {
+            $buf .= $s[$i + $offset];
+          }
+        }
+      }
+      $s = substr_replace($s, $buf, $offset, $len);
+    }
+
+    // collapse consecutive spaces and trim the string
+    $s = trim(preg_replace('/  +/', ' ', $s));
+
+    return $s;
   }
 
   // append /userId to {{footnotes}} that don't have one

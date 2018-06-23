@@ -501,6 +501,15 @@ assertTransform('Str::cleanupQuery', [], [
   '12&qweasd;34' => '1234',
 ]);
 
+assertTransform('Str::migrateFormatChars', [], [
+  '@$foo @$bar' => '@$foo@$ bar',
+  '@$foo @$ bar' => '@$foo@$ bar',
+  '   @$foo @$ bar  ' => '@$foo@$ bar',
+  "@%foo\n%@bar" => "@%foo%@\nbar",
+  '\@$foo @bar' => '\@$foo @bar',
+  '\@$foo $bar' => '\@$foo$ bar',
+]);
+
 assert(Str::hasDiacritics('mamă'));
 assert(!Str::hasDiacritics('mama'));
 

@@ -508,6 +508,7 @@ assertTransform('Str::migrateFormatChars', [], [
   "@%foo\n%@bar" => "@%foo%@\nbar",
   '\@$foo @bar' => '\@$foo @bar',
   '\@$foo $bar' => '\@$foo$ bar',
+  '@$some{{some @$footnote$@ here}} text$@' => '@$some{{some @$footnote$@ here}} text$@',
 ]);
 
 assert(Str::hasDiacritics('mamă'));

@@ -367,32 +367,8 @@ class Str {
   // Move closing formatting chars left past whitespace. Move opening formatting chars right
   // past whitespace. This simplifies the parser.
   static function migrateFormatChars($s) {
-    // first distinguish open and closed format chars
-    $len = strlen($s);
-    $i = 0;
-    $state = ['$' => false, '@' => false, '%' => false];
 
-    // 1 = closing char, 2 = whitespace, 3 = opening char, 0 = other
-    $class = $len ? array_fill(0, $len, 0) : [];
-
-    while ($i < $len) {
-      $c = $s[$i];
-      switch ($c) {
-        case '\\':
-          $i++;
-          break;
-
-        case '@': case '$': case '%':
-          $state[$c] = !$state[$c];
-          $class[$i] = $state[$c] ? 3 : 1;
-          break;
-
-        case ' ': case "\n":
-          $class[$i] = 2;
-          break;
-      }
-      $i++;
-    }
+    $class = self::characterClasses($s);
 
     // reorder characters by class: closed formats, whitespace, open formats
     preg_match_all("/(?<!\\\\)[ \n@$%]+/m", $s, $matches, PREG_OFFSET_CAPTURE);
@@ -415,6 +391,71 @@ class Str {
     $s = trim(preg_replace('/  +/', ' ', $s));
 
     return $s;
+  }
+
+  // Examines nested substructures ({{footnotes}} and ▶hidden notes◀).
+  // Returns an array containing the nesting level of every character in $s.
+  private static function nestingLevels($s) {
+    $len = strlen($s);
+
+    // count nesting levels
+    $nestRegexp = [
+      '/(?<!\\\\)\{{2}.*(?<![+])\}{2}/sU',
+      '/▶.*◀/sU',
+    ];
+    $level = $len ? array_fill(0, $len, 0) : [];
+    foreach ($nestRegexp as $regexp) {
+      preg_match_all($regexp, $s, $matches, PREG_OFFSET_CAPTURE);
+      foreach ($matches[0] as $match) {
+        $l = strlen($match[0]);
+        $offset = $match[1];
+        for ($i = 0; $i < $l; $i++) {
+          $level[$i + $offset]++;
+        }
+      }
+    }
+
+    return $level;
+  }
+
+  // Returns an array of numbers for whitespace and formatting characters:
+  // 1 = closing char, 2 = whitespace, 3 = opening char, 0 = other
+  // Takes nested substructures into account.
+  private static function characterClasses($s) {
+    $level = self::nestingLevels($s);
+
+    $len = strlen($s);
+    $i = 0;
+    $prevLevel = -1;
+    $stack[] = 0; // stack of open/closed state for @, $ and % at the current nesting level
+
+    $class = $len ? array_fill(0, $len, 0) : [];
+
+    while ($i < $len) {
+      if  ($level[$i] > $prevLevel) {
+        // start a new substructure
+        $stack[$level[$i]] = ['$' => false, '@' => false, '%' => false];
+      }
+      $c = $s[$i];
+      switch ($c) {
+        case '\\':
+          $i++;
+          break;
+
+        case '@': case '$': case '%':
+          $stack[$level[$i]][$c] = !$stack[$level[$i]][$c];
+          $class[$i] = $stack[$level[$i]][$c] ? 3 : 1;
+          break;
+
+        case ' ': case "\n":
+          $class[$i] = 2;
+          break;
+      }
+      $prevLevel = $level[$i];
+      $i++;
+    }
+
+    return $class;
   }
 
   // append /userId to {{footnotes}} that don't have one

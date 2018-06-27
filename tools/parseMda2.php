@@ -82,20 +82,36 @@ $GRAMMAR = [
     '("#P:#"|"#P și:#") ws pronunciationList+/( și )|( )/ ws'
   ],
   'pronunciationList' => [
-    'pronunciationBracket? /[$@]+/ pronunciationForm+", " ","? /[$@]+/',
+    'morphologyParent? /[$@]+/ morphologyForm+", " ","? /[$@]+/',
     '"?"',
   ],
-  'pronunciationBracket' => [
+  'morphologyParent' => [
     '/\(.*?\)/ ws',
   ],
-  'pronunciationForm' => [
-    '/[-~]?/ fragment+/[- ]/ /[-~]?/'
+  'morphologyForm' => [
+    '/[-~]*/ fragment+/[- ]/ /[-~]*/'
   ],
   'tenses' => [
     '("#Cj#:"|"#Cnd#:"|"#Grz#:"|"#Im#:"|"#Imt#:"|"#In#:"|"#Mp#:"|"#Par#:"|"#Ps:#"|"#Pzi:#") /[^\/]+/s',
   ],
   'variants' => [
-    '"#V:#" /[^\/]+/s',
+    '"#V:#" ws variantsList+" " ws',
+  ],
+  'variantsList' => [
+    'morphologyParent? /[$@]+/ (morphologyForm homonym?)+", " /[$@,]+/ variantDetails',
+  ],
+  'variantDetails' => [
+    'variantPosList? variantMorphInfo?',
+    'variantMorphInfo? variantPosList?',
+  ],
+  'variantPosList' => [
+    'ws "$"? posHash+", " /[$,]*/'
+  ],
+  'variantMorphInfo' => [
+    'ws "(" ("#Pl:#"|"#Pl#:"|"#pl#"|"#pl#:"|"#S și:#"|"#A și:#"|"#P:#"|"#Pzi:#"|"#Pzi:# 3"|"#pzi:#") " $" /[^$)]+/ "$"? ")" /[$,]*/',
+    'ws "(#A:# #nct#)" ","?',
+    'ws "(#A:# #ns#)" ","?',
+    'ws "(#Pl:# #nct#)" ","?',
   ],
   'etymology' => [
     '"#E:#" ws /([^\[\]]*\[[^\[\]]+\])*[^\[\]]*/',

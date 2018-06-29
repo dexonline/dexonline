@@ -101,8 +101,7 @@ $GRAMMAR = [
     'morphologyParent? /[$@]+/ (morphologyForm homonym?)+", " /[$@,]+/ variantDetails',
   ],
   'variantDetails' => [
-    'variantPosList? variantMorphInfo?',
-    'variantMorphInfo? variantPosList?',
+    '(variantPosList|variantMorphInfo|variantMeaning)*',
   ],
   'variantPosList' => [
     'ws "$"? posHash+", " /[$,]*/'
@@ -112,6 +111,9 @@ $GRAMMAR = [
     'ws "(#A:# #nct#)" ","?',
     'ws "(#A:# #ns#)" ","?',
     'ws "(#Pl:# #nct#)" ","?',
+  ],
+  'variantMeaning' => [
+    'ws /\(@\d+@\)/',
   ],
   'etymology' => [
     '"#E:#" ws /([^\[\]]*\[[^\[\]]+\])*[^\[\]]*/',

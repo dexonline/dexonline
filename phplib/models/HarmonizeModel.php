@@ -18,15 +18,17 @@ class HarmonizeModel extends BaseObject implements DatedObject {
 
   // returns a portion of a SQL clause, common to the select and insert clauses
   function getJoin() {
+    $tagIds = Tag::getDescendantIds($this->tagId);
+
     $query = sprintf(
       'Lexeme l ' .
       'join ObjectTag ot ' .
       'on ot.objectId = l.id ' .
       'and ot.objectType = %d ' .
-      'and ot.tagId = %d ' .
+      'and ot.tagId in (%s) ' .
       'and l.modelType = "%s" ',
       ObjectTag::TYPE_LEXEME,
-      $this->tagId,
+      implode(',', $tagIds),
       $this->modelType
     );
     if ($this->modelNumber) {

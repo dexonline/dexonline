@@ -94,6 +94,14 @@ class Tag extends BaseObject implements DatedObject {
     return $result;
   }
 
+  // returns the IDs of all ancestors of $tagId, including $tagId
+  static function getAncestorIds($tagId) {
+    $tag = Tag::get_by_id($tagId);
+    $ancestors = $tag->getAncestors();
+    $ids = Util::objectProperty($ancestors, 'id');
+    return $ids;
+  }
+
   // returns the IDs of all tags in the subtree of $tagId, including $tagId
   static function getDescendantIds($tagId) {
     $result = [ $tagId ];

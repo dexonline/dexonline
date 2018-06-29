@@ -538,10 +538,16 @@ class Lexeme extends BaseObject implements DatedObject {
       return;
     }
 
+    $tagIdsWithAncestors = [];
+    foreach ($tagIds as $tagId) {
+      $ancestorIds = Tag::getAncestorIds($tagId);
+      $tagIdsWithAncestors = array_merge($tagIdsWithAncestors, $ancestorIds);
+    }
+
     $hm = Model::factory('HarmonizeModel')
       ->where('modelType', $this->modelType)
       ->where_in('modelNumber', ['', $this->modelNumber])
-      ->where_in('tagId', $tagIds)
+      ->where_in('tagId', $tagIdsWithAncestors)
       ->find_one();
 
     if ($hm) {

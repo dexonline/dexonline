@@ -94,6 +94,20 @@ class Tag extends BaseObject implements DatedObject {
     return $result;
   }
 
+  // returns the IDs of all tags in the subtree of $tagId, including $tagId
+  static function getDescendantIds($tagId) {
+    $result = [ $tagId ];
+    $ids = [ $tagId ];
+    do {
+      $tags = Model::factory('Tag')
+        ->where_in('parentId', $ids)
+        ->find_many();
+      $ids = Util::objectProperty($tags, 'id');
+      $result = array_merge($result, $ids);
+    } while (count($ids));
+    return $result;
+  }
+
   function isDescendantOf($other) {
     $p = $this;
     while ($p && $p->id != $other->id) {

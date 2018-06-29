@@ -519,7 +519,16 @@ class Lexeme extends BaseObject implements DatedObject {
       ->where_in('modelNumber', ['', $this->modelNumber])
       ->find_many();
     foreach ($hts as $ht) {
-      ObjectTag::associate(ObjectTag::TYPE_LEXEME, $this->id, $ht->tagId);
+      // apply the tag only if the lexeme doesn't have the tag or any descendant tag
+      $descendantIds = Tag::getDescendantIds($ht->tagId);
+      $ot = Model::factory('ObjectTag')
+        ->where('objectId', $this->id)
+        ->where('objectType', ObjectTag::TYPE_LEXEME)
+        ->where_in('tagId', $descendantIds)
+        ->find_one();
+      if (!$ot) {
+        ObjectTag::associate(ObjectTag::TYPE_LEXEME, $this->id, $ht->tagId);
+      }
     }
   }
 

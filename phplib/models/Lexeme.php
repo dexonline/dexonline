@@ -99,6 +99,35 @@ class Lexeme extends BaseObject implements DatedObject {
     return $this->compoundParts;
   }
 
+  // Splits a form into chunks while obeying the lexeme's fragments.
+  // In most cases we could just split the form at dashes and spaces.
+  // However, in some cases the fragments themselves include delimiters (e.g. 'week-end party').
+  // Also returns the real delimiters (skipping those contained inside fragments)
+  function getChunks() {
+    $chunks = [];
+    $delimiters = [];
+
+    // split week-end-party as (week, -, end, ' ', party)
+    $parts = preg_split('/([-\s])/', $this->formNoAccent, -1, PREG_SPLIT_DELIM_CAPTURE);
+    $lexemes = $this->getCompoundParts();
+
+    // concatenate the chunks (week, -, end) (because the lexeme 'week-end' contains one dash)
+    // and (party), with the delimiter ' ' between them
+    foreach ($lexemes as $l) {
+      $numDelims = preg_match_all('/[-\s]/', $l->formNoAccent);
+      $size = 2 * $numDelims + 1;
+      $chunk = implode(array_slice($parts, 0, $size));
+      $chunks[] = $chunk;
+      if (count($parts) > $size) { // there is no delimiter after the final chunk
+        $delimiters[] = $parts[$size];
+      }
+      $parts = array_slice($parts, $size + 1);
+    }
+
+    // return ['week-end', 'party'] and [' ']
+    return [$chunks, $delimiters];
+  }
+
   function getSourceNames() {
     if ($this->sourceNames === null) {
       $sources = $this->getSources();
@@ -361,7 +390,7 @@ class Lexeme extends BaseObject implements DatedObject {
 
     $fragments = $this->getFragments();
     $parts = $this->getCompoundParts();  // lexemes
-    $chunks = preg_split('/[-\s]/', $this->formNoAccent);
+    list($chunks, $delimiters) = $this->getChunks();
 
     if (count($chunks) != count($fragments)) {
       throw new ParadigmException(
@@ -413,8 +442,7 @@ class Lexeme extends BaseObject implements DatedObject {
       $forms[] = $f;
     }
 
-    $delimiter = (strpos($this->form, '-') === false) ? ' ' : '-';
-    $f = implode($delimiter, $forms);
+    $f = implode(Util::interleaveArrays($forms, $delimiters));
     return [ InflectedForm::create($f, $this->id, $infl->id, 0, true) ];
   }
 

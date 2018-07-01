@@ -190,11 +190,35 @@ class Util {
    * @param integer $number Amount of something processed
    * @param integer $total The total of something
    * @param integer $decimals Decimal rounding unit
-   * 
+   *
    * @return float
    */
   static function percentageOf($number, $total, $decimals = 2) {
     return round($number / $total * 100, $decimals);
   }
 
+  /**
+   * Interleaves A = (a_1, a_2, ..., a_n) and B = (b_1, b_2, ..., b_n) to obtain
+   * (a_1, b_1, a_2, b_2, ..., a_n, b_n).
+   * Checks that A and B have equal numbers of elements or A has one mre.
+   **/
+  static function interleaveArrays($a, $b) {
+    if ((count($a) != count($b)) &&
+        (count($a) != count($b) + 1)) {
+      throw new Exception(
+        sprintf('Cannnot interleave arrays of sizes %s and %s',
+                count($a), count($b))
+      );
+    }
+
+    $result = [];
+    foreach ($a as $i => $elem) {
+      $result[] = $elem;
+      if ($i < count($b)) {
+        $result[] = $b[$i];
+      }
+    }
+
+    return $result;
+  }
 }

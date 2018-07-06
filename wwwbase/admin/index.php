@@ -130,7 +130,7 @@ $links = [
     'privilege' => User::PRIV_ADMIN,
   ],
   [
-    'url' => 'admin/abbrevEdit',
+    'url' => 'admin/abbrevList',
     'text' => 'editează abrevieri',
     'privilege' => User::PRIV_ADMIN,
   ],

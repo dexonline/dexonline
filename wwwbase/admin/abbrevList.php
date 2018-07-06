@@ -13,4 +13,4 @@ $allSources = Model::factory('Source')
                      ->find_many();
 
 SmartyWrap::assign('allSources', $allSources);
-SmartyWrap::display('admin/abbrevEdit.tpl');
+SmartyWrap::display('admin/abbrevList.tpl');

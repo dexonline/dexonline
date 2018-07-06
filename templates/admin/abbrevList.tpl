@@ -32,22 +32,22 @@
             </p>
           </div>
           <div class="container-fluid">
-            <ul class="col-sm-11"> 
-              <li> Imp. - abreviere impusă - nu ia în considerare forma editată 
-                și impune forma din câmpul „Abreviere” - 
+            <ul class="col-sm-11">
+              <li> Imp. - abreviere impusă - nu ia în considerare forma editată
+                și impune forma din câmpul „Abreviere” -
                 <i>folositoare în cazul unui OCR inexact sau inconsistență în dicționar</i>
               </li>
-              <li> Amb. - abreviere ambiguă  - 
+              <li> Amb. - abreviere ambiguă  -
                 <i>pentru situații similare cu „loc.”, „ac.”, „cont.”</i>
               </li>
-              <li> CS - (case sensitive) - 
+              <li> CS - (case sensitive) -
                 <i>diferențiere între majuscule și minuscule: v. ≠ V.</i>
               </li>
-              <li> Abreviere - 
-                <i>permite și alte semne de punctuație, nu doar „.” + formatare 
+              <li> Abreviere -
+                <i>permite și alte semne de punctuație, nu doar „.” + formatare
                   internă $,@,%,_{},^{}</i>
               </li>
-              <li> Detalierea abrevierii - 
+              <li> Detalierea abrevierii -
                 <i>permite formatare internă html $,@,%,_{},^{}</i>
               </li>
             </ul>
@@ -58,5 +58,5 @@
   </div>
   {* div populated by ajax calls *}
   <div id="abbrevs"></div>
-  {include "bits/abbrevEditModal.tpl"}
+  {include "bits/abbrevListModal.tpl"}
 {/block}

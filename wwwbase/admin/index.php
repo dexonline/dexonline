@@ -131,8 +131,8 @@ $links = [
   ],
   [
     'url' => 'admin/abbrevList',
-    'text' => 'editează abrevieri',
-    'privilege' => User::PRIV_ADMIN,
+    'text' => 'abrevieri',
+    'privilege' => User::PRIV_ADMIN | User::PRIV_EDIT,
   ],
   [
     'url' => 'admin/definitionEdit',

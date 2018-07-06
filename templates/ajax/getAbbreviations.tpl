@@ -35,7 +35,7 @@
     </div>
   </div>
 </div>
-{if $results|count  != 0 && User::can(User::PRIV_ADMIN)}
+{if $results|count != 0 && User::can(User::PRIV_ADMIN)}
   <div class="pull-right">
     <button type="button" class="btn btn-primary" id="command-add" data-source-id="{$sourceId}">
       <span class="glyphicon glyphicon-plus"></span> Adaugă

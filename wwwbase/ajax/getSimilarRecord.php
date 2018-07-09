@@ -1,7 +1,7 @@
 <?php
 /* Htmlizes the definition, then builds the SimilarRecord */
 require_once("../../phplib/Core.php");
-User::mustHave(User::PRIV_EDIT);
+User::mustHave(User::PRIV_EDIT | User::PRIV_TRAINEE);
 Util::assertNotMirror();
 
 $definitionId = Request::get('definitionId');

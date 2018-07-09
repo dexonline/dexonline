@@ -2,6 +2,6 @@
 
 {if !$privateMode && !$suggestNoBanner && empty($adult)}
   {if $cfg.banner.type == 'pubgalaxy'}
-   {* {include "banner/pubGalaxyHead.tpl"} *}
+   {include "banner/pubGalaxyHead.tpl"}
   {/if}
 {/if}

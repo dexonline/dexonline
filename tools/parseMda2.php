@@ -41,7 +41,7 @@ $GRAMMAR = [
     'reference',
   ],
   'definition' => [
-    'entryWithInflectedForms (ws formattedPosList)? ws bracket ws ignored',
+    'entryWithInflectedForms (ws formattedPosList)? ws bracket ws numberedMeanings',
   ],
   'bracket' => [
     '/[$@]*/ "[" attestation (morphology formattedSlash ws?)* etymology "]" /[$@]*/',
@@ -122,6 +122,16 @@ $GRAMMAR = [
     'entryWithInflectedForms ws formattedPosList ws formattedVz ws formattedForm',
     '(prefixForm|suffixForm) ws formattedVz ws formattedForm',
   ],
+  'numberedMeanings' => [
+    '(meaning ws)? (meaningNumber ws meaning)+ws',
+    'meaning',
+  ],
+  'meaning' => [
+    '/(.(?!\s+@\d))*./', // stop at the " @nnn@ " number of the next meaning
+  ],
+  'meaningNumber' => [
+    '/@\d+(-\d+)?@/',
+  ],
   'entryWithInflectedForms' => [
     '(/[$@]*/ form /[$@]*/ homonym? "-"? /[$@]*/)+/,[$@]* /',
   ],
@@ -200,7 +210,7 @@ do {
     } else {
       if (DEBUG) {
         printf("Parsed %s %s [%s]\n", $d->lexicon, $d->id, mb_substr($d->internalRep, 0, 120));
-        var_dump($parsed->findFirst('definition'));
+        var_dump($parsed->findAll('meaning'));
       }
     }
     if (DEBUG) {

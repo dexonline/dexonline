@@ -98,7 +98,7 @@
       {else} {* a related definition is in WotD *}
         <span class="text-warning">
           o definiție similară este în WotD
-          {if $row->wotdDate}({$row->wotdDate}){/if}
+          {if $row->wotdDate}(<a href="/cuvantul-zilei/{$row->wotdDate|replace:'-':'/'}">{$row->wotdDate}</a>){/if}
         </span>
       {/if}
     </li>

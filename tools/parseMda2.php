@@ -7,6 +7,8 @@
 require_once __DIR__ . '/../phplib/Core.php';
 require_once __DIR__ . '/../phplib/third-party/PHP-parsing-tool/Parser.php';
 
+ini_set('memory_limit', '512M');
+
 define('SOURCE_ID', 53);
 define('BATCH_SIZE', 10000);
 define('START_AT', '');
@@ -82,8 +84,11 @@ $GRAMMAR = [
     '("#P:#"|"#P și:#") ws pronunciationList+/( și )|( )/ ws'
   ],
   'pronunciationList' => [
-    'morphologyParent? /[$@]+/ morphologyForm+", " ","? /[$@]+/',
+    'morphologyParent? pronunciationFormatting morphologyForm+", " ","? pronunciationFormatting',
     '"?"',
+  ],
+  'pronunciationFormatting' => [
+    '/[$@]+/',
   ],
   'morphologyParent' => [
     '/\(.*?\)/ ws',
@@ -210,8 +215,11 @@ do {
     } else {
       if (DEBUG) {
         printf("Parsed %s %s [%s]\n", $d->lexicon, $d->id, mb_substr($d->internalRep, 0, 120));
-        var_dump($parsed->findAll('meaning'));
+        //        var_dump($parsed->getLeafs());
+        // var_dump($parsed);
       }
+
+      // fixSyntax($d, $parsed);
     }
     if (DEBUG) {
       exit;
@@ -237,6 +245,32 @@ function makeParser($grammar) {
   }
 
   return new \ParserGenerator\Parser($s);
+}
+
+function fixSyntax($d, $parsed) {
+  $changes = false;
+
+  foreach ($parsed->findAll('pronunciationFormatting') as $pf) {
+    if ($pf->toString() != '$') {
+      foreach ($pf->getLeafs() as $l) {
+        $l->setContent('$');
+      }
+      $changes = true;
+    }
+  }
+
+  foreach ($parsed->findAll('formattedSlash') as $pf) {
+    if ($pf->toString() != '/') {
+      foreach ($pf->getLeafs() as $l) {
+        $l->setContent('/');
+      }
+      $changes = true;
+    }
+  }
+
+  if ($changes) {
+    printf("CHANGED A: %s\nCHANGED B: %s\n", $d->internalRep, $parsed->toString());
+  }
 }
 
 function defUrl($d) {

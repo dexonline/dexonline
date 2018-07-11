@@ -127,7 +127,7 @@ $GRAMMAR = [
     'meaning',
   ],
   'meaning' => [
-    '/(.(?!\s+@\d))*./', // stop at the " @nnn@ " number of the next meaning
+    '/(.(?!\s+@\d))*./s', // stop at the " @nnn@ " number of the next meaning
   ],
   'meaningNumber' => [
     '/@\d+(-\d+)?@/',

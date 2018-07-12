@@ -14,12 +14,10 @@ if ($sourceUrlName) {
 $ip = $_SERVER['REMOTE_ADDR'];
 
 $defs = Model::factory('Definition')
-      ->table_alias('d')
-      ->select('d.*')
-      ->where('d.status', Definition::ST_PENDING);
+  ->where('status', Definition::ST_PENDING);
 
 if ($sourceId) {
-  $defs = $defs->where('d.sourceId', $sourceId);
+  $defs = $defs->where('sourceId', $sourceId);
 }
 
 $defs = $defs

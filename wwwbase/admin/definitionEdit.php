@@ -43,6 +43,10 @@ if ($isOcr && !$definitionId) {
     FlashMessage::add("Nu există nicio definiție cu ID-ul {$definitionId}.");
     Util::redirect('index.php');
   }
+  if (User::isTrainee() && $userId != $d->userId) {
+    FlashMessage::add("Nu aveți suficiente drepturi pentru a accesa definiția cu ID-ul {$definitionId}.");
+    Util::redirect('index.php');
+  }
 }
 
 if ($saveButton || $nextOcrBut) {

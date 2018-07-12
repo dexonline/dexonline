@@ -8,13 +8,21 @@ class Util {
   const INFINITY = 1000000000;
 
   /* Returns $obj->$prop for every $obj in $a */
-
   static function objectProperty($a, $prop) {
     $results = [];
     foreach ($a as $obj) {
       $results[] = $obj->$prop;
     }
     return $results;
+  }
+
+  // TODO merge Inflection::mapById into this
+  static function mapById($objects) {
+    $result = [];
+    foreach ($objects as $o) {
+      $result[$o->id] = $o;
+    }
+    return $result;
   }
 
   // Returns a pair of ($data, $httpCode)

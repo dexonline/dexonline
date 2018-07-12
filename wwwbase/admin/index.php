@@ -140,6 +140,11 @@ $links = [
     'privilege' => User::PRIV_EDIT | User::PRIV_TRAINEE,
   ],
   [
+    'url' => 'admin/traineeDefinitions',
+    'text' => 'definițiile mele',
+    'privilege' => User::PRIV_TRAINEE,
+  ],
+  [
     'url' => 'admin/harmonize',
     'text' => 'armonizare lexem-etichetă',
     'privilege' => User::PRIV_ADMIN,

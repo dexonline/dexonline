@@ -1,5 +1,5 @@
 <?php
-require_once("../../phplib/Core.php"); 
+require_once("../../phplib/Core.php");
 User::mustHave(User::PRIV_EDIT);
 Util::assertNotMirror();
 
@@ -16,7 +16,6 @@ $ip = $_SERVER['REMOTE_ADDR'];
 $defs = Model::factory('Definition')
       ->table_alias('d')
       ->select('d.*')
-      ->join('EntryDefinition', ['ed.definitionId', '=', 'd.id'], 'ed')
       ->where('d.status', Definition::ST_PENDING);
 
 if ($sourceId) {

@@ -28,8 +28,8 @@ class SearchResult {
       $sourceIds[] = $definition->sourceId;
       $userIds[] = $definition->userId;
     }
-    $userMap = self::mapById(Model::factory('User')->where_in('id', array_unique($userIds))->find_many());
-    $sourceMap = self::mapById(Model::factory('Source')->where_in('id', array_unique($sourceIds))->find_many());
+    $userMap = Util::mapById(Model::factory('User')->where_in('id', array_unique($userIds))->find_many());
+    $sourceMap = Util::mapById(Model::factory('Source')->where_in('id', array_unique($sourceIds))->find_many());
     foreach ($definitionArray as $definition) {
       $result = new SearchResult();
       $result->definition = $definition;
@@ -109,11 +109,4 @@ class SearchResult {
     return [ $unofficialHidden, $sourcesHidden ];
   }
 
-  private static function mapById($objects) {
-    $result = [];
-    foreach ($objects as $o) {
-      $result[$o->id] = $o;
-    }
-    return $result;
-  }
 }

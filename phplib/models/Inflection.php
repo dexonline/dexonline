@@ -24,14 +24,6 @@ class Inflection extends BaseObject {
     return Model::factory('Inflection')->where_like('description', '%infinitiv lung%')->find_one();
   }
 
-  static function mapById($inflections) {
-    $result = [];
-    foreach ($inflections as $i) {
-      $result[$i->id] = $i;
-    }
-    return $result;
-  }
-
   function delete() {
     DB::execute("update Inflection set rank = rank - 1 where modelType = '{$this->modelType}' and rank > {$this->rank}");
     parent::delete();

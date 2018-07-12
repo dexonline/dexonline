@@ -302,7 +302,7 @@ if ($m->modelType == 'V') {
 }
 
 SmartyWrap::assign('shortList', $shortList);
-SmartyWrap::assign('inflectionMap', Inflection::mapById($inflections));
+SmartyWrap::assign('inflectionMap', Util::mapById($inflections));
 SmartyWrap::assign('previewPassed', $previewButton && !FlashMessage::hasErrors());
 SmartyWrap::assign('locPerm', $locPerm);
 SmartyWrap::addCss('paradigm', 'admin');

@@ -16,7 +16,6 @@ class Util {
     return $results;
   }
 
-  // TODO merge Inflection::mapById into this
   static function mapById($objects) {
     $result = [];
     foreach ($objects as $o) {

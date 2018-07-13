@@ -1,6 +1,10 @@
 $(function() {
 
+  var isStructurist;
+
   function init() {
+
+    isStructurist = $('#isStructurist').text() != '0';
 
     checkEntryWikiPage();
 
@@ -14,6 +18,9 @@ $(function() {
       url: wwwRoot + 'ajax/getEntries.php',
       data: function(params) {
         params['exclude'] = $('#entryId').val();
+        if (!isStructurist) {
+          params['unstructured'] = true;
+        };
         return params;
       },
     }

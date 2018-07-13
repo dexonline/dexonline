@@ -11,6 +11,8 @@
 {block "content"}
   {$renameTrees=$renameTrees|default:false}
 
+  <div id="isStructurist" class="hidden">{User::can(User::PRIV_STRUCT)}</div>
+
   <h3>
     {if $e->id}
       Editează intrarea
@@ -289,6 +291,11 @@
           </div>
 
           <div class="modal-body">
+            {if !User::can(User::PRIV_STRUCT)}
+              <div class="alert alert-info" role="alert">
+                Puteți selecta doar intrări care nu au fost deja structurate.
+              </div>
+            {/if}
             <input type="hidden" name="id" value="{$e->id}">
             <select id="mergeEntryId" name="mergeEntryId" class="form-control">
             </select>

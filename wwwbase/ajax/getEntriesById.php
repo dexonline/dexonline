@@ -13,9 +13,12 @@ foreach ($ids as $id) {
       'text' => $e->description,
     ];
   } else {
+    if (Str::startsWith($id, '@')) {
+      $id = substr($id, 1);
+    }
     $data[] = [
       'id' => 0,
-      'text' => '',
+      'text' => $id,
     ];
   }
 }

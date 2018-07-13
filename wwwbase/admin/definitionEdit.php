@@ -64,6 +64,8 @@ if ($saveButton || $nextOcrBut) {
   HtmlConverter::convert($d);
   HtmlConverter::exportMessages();
 
+  checkDeletedStructuredEntries($d, $entryIds);
+
   if (!FlashMessage::hasErrors()) {
     // Save the new entries, load the rest.
     $noAccentNag = false;
@@ -249,6 +251,28 @@ function checkPendingLimit($userId) {
       FlashMessage::add("Ați atins limita de {$limit} definiții nemoderate.");
       Util::redirect('index.php');
     }
+  }
+}
+
+// only structurists are allowed to dissociate structured entries
+function checkDeletedStructuredEntries($d, $entryIds) {
+
+  if (User::can(User::PRIV_STRUCT)) {
+    return; // no limitations for structurists
+  }
+
+  // collect dissociated structured entries
+  $entries = Model::factory('Entry')
+    ->table_alias('e')
+    ->select('e.*')
+    ->join('EntryDefinition', ['e.id', '=', 'ed.entryId'], 'ed')
+    ->where('ed.definitionId', $d->id)
+    ->where_in('e.structStatus', [Entry::STRUCT_STATUS_UNDER_REVIEW, Entry::STRUCT_STATUS_DONE])
+    ->where_not_in('e.id', $entryIds)
+    ->find_many();
+
+  if (count($entries)) {
+    FlashMessage::addTemplate('dissociateStructuredEntries.tpl', ['entries' => $entries]);
   }
 }
 

@@ -5,6 +5,7 @@
 {$variantList=$variantList|default:false}
 {$tagList=$tagList|default:false}
 
+{strip}
 {if $editLink}
   <a href="{$wwwRoot}editEntry.php?id={$entry->id}" class="{$editLinkClass}" title="editează" target="{$target}">
     {$entry->description}
@@ -16,6 +17,7 @@
 {else}
   <span class="entryName">{$entry->description}</span>
 {/if}
+{/strip}
 
 {if $variantList}
   <span class="variantList">

@@ -59,9 +59,7 @@
             structurare
           </label>
           <div class="col-md-10">
-            {include "bits/structStatusRadio.tpl"
-              selected=$e->structStatus
-              canEdit=$canEdit.structStatus}
+            {include "bits/structStatusRadio.tpl" selected=$e->structStatus}
             {include "bits/fieldErrors.tpl" errors=$errors.structStatus|default:null}
           </div>
         </div>
@@ -183,12 +181,27 @@
 
     </div>
 
-    <button type="submit" class="btn btn-success" name="saveButton">
+    <button
+      type="submit"
+      class="btn btn-success"
+      name="saveButton"
+      {if !$canEdit}
+      disabled
+      title="doar structuriștii pot modifica intrările structurate"
+      {/if}>
       <i class="glyphicon glyphicon-floppy-disk"></i>
       <u>s</u>alvează
     </button>
 
-    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#mergeModal">
+    <button
+      type="button"
+      class="btn btn-default"
+      data-toggle="modal"
+      data-target="#mergeModal"
+      {if !$canEdit}
+      disabled
+      title="doar structuriștii pot modifica intrările structurate"
+      {/if}>
       <i class="glyphicon glyphicon-resize-small"></i>
       unifică cu...
     </button>
@@ -198,7 +211,14 @@
       clonează...
     </button>
 
-    <button type="submit" class="btn btn-default" name="createTree">
+    <button
+      type="submit"
+      class="btn btn-default"
+      name="createTree"
+      {if !$canEdit}
+      disabled
+      title="doar structuriștii pot modifica intrările structurate"
+      {/if}>
       <i class="glyphicon glyphicon-tree-deciduous"></i>
       creează un arbore de sensuri
     </button>

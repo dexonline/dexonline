@@ -261,6 +261,10 @@ function checkDeletedStructuredEntries($d, $entryIds) {
     return; // no limitations for structurists
   }
 
+  if (empty($entryIds)) {
+    return; // no associated entries -> prevent where_in barf
+  }
+
   // collect dissociated structured entries
   $entries = Model::factory('Entry')
     ->table_alias('e')

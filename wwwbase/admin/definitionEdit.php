@@ -94,7 +94,9 @@ if ($saveButton || $nextOcrBut) {
                         'warning');
     }
 
-    if (User::isTrainee() && $d->status == Definition::ST_ACTIVE) {
+    if (User::isTrainee()
+        && !TraineeSource::TraineeCanEditSource($userId, $d->sourceId)
+        && $d->status == Definition::ST_ACTIVE) {
       $d->status = Definition::ST_PENDING;
       FlashMessage::add('Am trecut definiția înapoi în starea temporară, ' .
                         'iar un moderator o va examina curând.', 'warning');
@@ -197,7 +199,7 @@ SmartyWrap::assign([
   'tagIds' => $tagIds,
   'typos' => $typos,
   'canEdit' => canEdit($d),
-  'canEditStatus' => canEditStatus(),
+  'canEditStatus' => canEditStatus($d),
   'allModeratorSources' => $sources,
 ]);
 SmartyWrap::addCss('tinymce', 'admin', 'diff');
@@ -285,8 +287,9 @@ function getDefaultStatus() {
 }
 
 // trainees cannot edit the status field
-function canEditStatus() {
-  return !User::isTrainee();
+function canEditStatus($definition) {
+  return !User::isTrainee() ||
+    TraineeSource::TraineeCanEditSource($definition->userId,$definition->sourceId);
 }
 
 // trainees can only edit their own definitions

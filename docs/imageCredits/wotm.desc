@@ -4,7 +4,7 @@
 # Liniile sunt procesate de sus în jos până când un regex se potrivește cu o dată.
 # Este afișat creditul înregistrării WotdArtist cu eticheta respectivă.
 
-^2016-08::
+^2018-08::
 ^2018-01::
 ^2017-05::ramona@miolk
 ^2016-12::cn

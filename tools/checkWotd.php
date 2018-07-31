@@ -71,7 +71,7 @@ for ($d = 0; $d <= NUM_DAYS; $d++) {
   // Check that there is an artist
   $artist = WotdArtist::getByDate($date);
   if (!$artist) {
-    addError($date, 'Niciun artist nu este asignat; asignați un artist la https://dexonline.ro/alocare-autori');
+    assignArtistByDate($date);
   }
 
   // Check that there is an image
@@ -186,4 +186,29 @@ function stripImageName($fileName) {
   $s = str_replace(['-', ' ', 'ş', 'ţ', 'Ş', 'Ţ'], ['', '', 's', 't', 's', 't'], $s);
   $s = mb_strtolower($s);
   return $s;
+}
+
+// Go back in time preserving the day of the month. Find an artist and copy their assignment.
+function assignArtistByDate($date) {
+  $pattern = '%' . substr($date, -3);
+  $artist = Model::factory('WotdArtist')
+    ->table_alias('ar')
+    ->select('ar.*')
+    ->select('as.date')
+    ->join('WotdAssignment', ['ar.id', '=', 'as.artistId'], 'as')
+    ->where_like('as.date', $pattern)
+    ->where_lt('as.date', $date)
+    ->order_by_desc('as.date')
+    ->find_one();
+
+  if ($artist) {
+    WotdAssignment::assign($date, $artist);
+    $msg = sprintf('Am adăugat automat artistul %s, similar cu data de %s.',
+                   $artist->name, $artist->date);
+    addInfo($date, $msg);
+  } else {
+    addError($date,
+             'Niciun artist nu este asignat; asignați un artist la ' .
+             'https://dexonline.ro/alocare-autori');
+  }
 }

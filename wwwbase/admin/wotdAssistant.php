@@ -4,6 +4,14 @@ User::mustHave(User::PRIV_WOTD);
 Util::assertNotMirror();
 RecentLink::add('Asistent cuvântul zilei');
 
+// Certain old wotds occur commonly as prefixes or suffixes and trigger too
+// many duplicate warnings, so we ignore them. We still report duplicates if
+// the exact word is chosen again.
+define('DUPLICATES_TO_IGNORE', [
+  'bas', 'buf', 'bur', 'cid', 'geneză', 'inic', 'inter', 'ion', 'mat', 'oman', 'op',
+  'ordie', 'pan', 'pat', 'rec', 'ster', 'tor',
+]);
+
 $nextMonth = date('Y-m', strtotime('+1 month'));
 $yearMonth = Request::get('for', $nextMonth);
 
@@ -29,6 +37,7 @@ foreach (range(1, $days) as $day) {
   $data[$day] = [
     'thisYear' => [],
     'otherYears' => [],
+    'duplicates' => [],
   ];
 }
 
@@ -49,10 +58,19 @@ foreach ($wotds as $w) {
   }
 }
 
+$duplicates = loadDuplicates($yearMonth);
+foreach ($duplicates as $day => $dups) {
+  $data[$day]['duplicates'] = $dups;
+}
+
 // mark properly assigned days
 foreach ($data as &$rec) {
   $a = $rec['thisYear'];
-  $rec['allOk'] = count($a) == 1 && $a[0]->defHtml && $a[0]->description;
+  $rec['allOk'] =
+    count($a) == 1 &&
+    $a[0]->defHtml &&
+    $a[0]->description &&
+    empty($rec['duplicates']);
 }
 
 SmartyWrap::assign([
@@ -63,3 +81,47 @@ SmartyWrap::assign([
 SmartyWrap::addCss('admin', 'bootstrap-datepicker');
 SmartyWrap::addJs('bootstrap-datepicker');
 SmartyWrap::display('admin/wotdAssistant.tpl');
+
+/*************************************************************************/
+
+// load similar wotds (those with a defined displayDate in the past, which are prefixes or suffixes
+// of wotds from this month, or which contain these as a prefix or suffix).
+function loadDuplicates($yearMonth) {
+  // use a raw query due to the complex join condition
+  $dupQuery = <<<SQL
+    select trim(leading '0' from right(w1.displayDate, 2)) as day,
+           d2.lexicon as oldLexicon,
+           replace(w2.displayDate, '-', '/') as oldDate,
+           d1.lexicon = d2.lexicon as exact
+    from WordOfTheDay w1
+    join Definition d1 on w1.definitionId = d1.id
+    join Definition d2 on (
+      d1.lexicon like concat(d2.lexicon, '%%') or
+      d1.lexicon like concat('%%', d2.lexicon) or
+      d2.lexicon like concat(d1.lexicon, '%%') or
+      d2.lexicon like concat('%%', d1.lexicon)
+    )
+    join WordOfTheDay w2 on d2.id = w2.definitionId
+    where w1.displayDate like '%s-__'
+      and w2.displayDate != '0000-00-00'
+      and w2.displayDate < '%s'
+SQL;
+
+  $dupQuery = sprintf($dupQuery, $yearMonth, $yearMonth);
+
+  $duplicates = Model::factory('WordOfTheDay')->raw_query($dupQuery)->find_array();
+
+  $results = [];
+  foreach ($duplicates as $rec) {
+    // ignore duplicates in DUPLICATES_TO_IGNORE when they match as prefixes or suffixes,
+    // but include them when they match exactly.
+    if ($rec['exact'] ||
+        !in_array($rec['oldLexicon'], DUPLICATES_TO_IGNORE)) {
+      $results[$rec['day']][] = [
+        'oldLexicon' => $rec['oldLexicon'],
+        'oldDate' => $rec['oldDate'],
+      ];
+    }
+  }
+  return $results;
+}

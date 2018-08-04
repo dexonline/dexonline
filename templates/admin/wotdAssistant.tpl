@@ -68,6 +68,17 @@
             </div>
           {/if}
 
+          {foreach $rec.duplicates as $dup}
+            <div class="alert alert-warning" role="alert">
+              Un cuvânt asemănător, <b>{$dup.oldLexicon}</b>, a fost programat pe
+              {strip}
+              <a href="{$wwwRoot}cuvantul-zilei/{$dup.oldDate}" class="alert-link">
+                {$dup.oldDate|date_format:'%d %B %Y'}
+              </a>.
+              {/strip}
+            </div>
+          {/foreach}
+
           {foreach $rec.thisYear as $w}
             <p>
               {if $w->defHtml}

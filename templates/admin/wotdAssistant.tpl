@@ -69,8 +69,15 @@
           {/if}
 
           {foreach $rec.duplicates as $dup}
-            <div class="alert alert-warning" role="alert">
-              Un cuvânt asemănător, <b>{$dup.oldLexicon}</b>, a fost programat pe
+            <div
+              class="alert {if $dup.exact}alert-danger{else}alert-warning{/if}"
+              role="alert">
+              {if $dup.exact}
+                Un cuvânt identic,
+              {else}
+                Un cuvânt asemănător,
+              {/if}
+              <b>{$dup.oldLexicon}</b>, a fost programat pe
               {strip}
               <a href="{$wwwRoot}cuvantul-zilei/{$dup.oldDate}" class="alert-link">
                 {$dup.oldDate|date_format:'%d %B %Y'}

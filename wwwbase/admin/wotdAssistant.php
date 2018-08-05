@@ -120,6 +120,7 @@ SQL;
       $results[$rec['day']][] = [
         'oldLexicon' => $rec['oldLexicon'],
         'oldDate' => $rec['oldDate'],
+        'exact' => $rec['exact'],
       ];
     }
   }

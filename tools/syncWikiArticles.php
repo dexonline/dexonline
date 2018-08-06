@@ -126,7 +126,7 @@ function parse($text) {
   // Manipulate the DOM to convert some elements to bootstrap
   // Ensure there is a single root element
   $html = "<div>{$html}</div>";
-  
+
   // Load the HTML and make sure it is in UTF8. Do not add DTD and <head> and <body> tags.
   $dom = new DOMDocument();
   $dom->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'),
@@ -144,7 +144,8 @@ function parse($text) {
 
     foreach ($toc->childNodes as $c) {
       if ($c->nodeType == XML_ELEMENT_NODE) { // skip text nodes
-        if ($c->getAttribute('id') == 'toctitle') {
+        if (($c->getAttribute('id') == 'toctitle') ||
+            ($c->getAttribute('class') == 'toctitle')) {
           $title = $c;
         } else if ($c->nodeName == 'ul') {
           $ul = $c;

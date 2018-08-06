@@ -17,7 +17,7 @@ define('TAGS_TO_IGNORE', [
   404, // incomplete definition, usually missing everything after the [...]
   405, // missing etymology
 ]);
-
+define('COMMENT_MARKER', '¶');
 
 $offset = 0;
 
@@ -204,9 +204,7 @@ do {
         ->find_many();
 
   foreach ($defs as $d) {
-    // for now remove footnotes and invisible comments
-    $rep = preg_replace("/\{\{.*\}\}/U", '', $d->internalRep);
-    $rep = preg_replace("/▶.*◀/U", '', $rep);
+    list($rep, $comments) = extractComments($d->internalRep);
 
     $parsed = $parser->parse($rep);
     if (!$parsed) {
@@ -221,12 +219,16 @@ do {
       }
 
       $state = new ParserState();
-      $newRep = parseTree($parsed, $state);
+      $rep = parseTree($parsed, $state, $comments);
+      $rep = reduceFormatting($rep);
+      $rep = restoreComments($rep, $comments);
+      list($rep, $ignored) = Str::sanitize($rep, $d->sourceId);
+      $rep = reduceFormatting($rep);
 
-      if ($newRep != $d->internalRep) {
-        printf("%s\n%s\n%s\n", defUrl($d), $d->internalRep, $newRep);
+      if ($rep != $d->internalRep) {
+        printf("%s\n%s\n%s\n", defUrl($d), $d->internalRep, $rep);
       }
-      exit;
+      // exit;
     }
     if (DEBUG) {
       exit;
@@ -254,8 +256,49 @@ function makeParser($grammar) {
   return new \ParserGenerator\Parser($s);
 }
 
+// remove footnotes and invisible comments and note their initial positions
+// returns
+// * the cleaned up string
+// * an array of position => comment
+function extractComments($rep) {
+  $comments = [];
+
+  preg_match_all("/(\{\{.*\}\})|(▶.*◀)/U", $rep, $matches, PREG_SET_ORDER | PREG_OFFSET_CAPTURE);
+
+  $numDeleted = 0; // remember positions relative to the cleaned up string
+  foreach ($matches as $m) {
+    $text = $m[0][0];
+    $pos = $m[0][1];
+    $comments[$pos - $numDeleted] = $text;
+    $numDeleted += strlen($text);
+  }
+
+  // now perform the actual deletion
+  $rep = preg_replace("/(\{\{.*\}\})|(▶.*◀)/U", '', $rep);
+
+  return [ $rep, $comments ];
+}
+
+// replaces comment markers with comments, in appearence order
+function restoreComments($rep, $comments) {
+  // short and dirty; preg_replace_callback() would be faster
+  foreach ($comments as $c) {
+    $rep = preg_replace('/' . COMMENT_MARKER . '/', $c, $rep, 1);
+  }
+
+  return $rep;
+}
+
+// parseTree() ends up inserting too many formatting symbols. Try to clean some of them up.
+function reduceFormatting($rep) {
+  $rep = str_replace('@ @', ' ', $rep);
+  $rep = str_replace('@, @', ', ', $rep);
+  $rep = str_replace('@' . COMMENT_MARKER . '@', COMMENT_MARKER, $rep);
+  return $rep;
+}
+
 // returns the modified contents
-function parseTree($t, &$state) {
+function parseTree($t, &$state, $comments) {
   $content = '';
 
   if ($t->isBranch()) {
@@ -263,7 +306,7 @@ function parseTree($t, &$state) {
     $rule = $t->getType();
     $state->pushRule($rule);
     foreach ($t->getSubnodes() as $c) {
-      $content .= parseTree($c, $state);
+      $content .= parseTree($c, $state, $comments);
     }
     $state->popRule();
 
@@ -273,20 +316,28 @@ function parseTree($t, &$state) {
         if (!$state->isItalic()) {
           $content = '$' . $content . '$';
         }
-        break;
-
-      case 'formattedPos':
-        // remove bold signs from part of speech lists, even breaking parity
-        $content = str_replace('@', '', $content, $count);
+        if ($state->isBold()) {
+          $content = '@' . $content . '@';
+        }
         break;
     }
 
   } else { // leaf
 
+    $oldPos = $state->getPosition();
     $content = $t->getContent();
-    $rule = $state->getCurrentRule();
-
     $state->processLeaf($content);
+    $curPos = $state->getPosition();
+
+    foreach (array_reverse($comments, true) as $pos => $text) {
+      if (($pos > $oldPos) && ($pos <= $curPos)) {
+        // Insert markers for comments that we have passed during this $content.
+        // We could not have done this before parsing the definition, because
+        // it could have broken the parser.
+
+        $content = substr_replace($content, COMMENT_MARKER, $pos - $oldPos, 0);
+      }
+    }
   }
 
   return $content;
@@ -340,6 +391,10 @@ class ParserState {
 
   function getCurrentRule() {
     return end($this->ruleStack);
+  }
+
+  function getPosition() {
+    return $this->position;
   }
 
 }

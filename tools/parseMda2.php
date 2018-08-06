@@ -11,7 +11,7 @@ ini_set('memory_limit', '512M');
 
 define('SOURCE_ID', 53);
 define('BATCH_SIZE', 10000);
-define('START_AT', '');
+define('START_AT', 'abrogare');
 define('DEBUG', false);
 define('TAGS_TO_IGNORE', [
   404, // incomplete definition, usually missing everything after the [...]
@@ -109,7 +109,7 @@ $GRAMMAR = [
     '(variantPosList|variantMorphInfo|variantMeaning)*',
   ],
   'variantPosList' => [
-    'ws "$"? posHash+", " /[$,]*/'
+    'ws "$"? pos+", " /[$,]*/'
   ],
   'variantMorphInfo' => [
     'ws "(" ("#Pl:#"|"#Pl#:"|"#pl#"|"#pl#:"|"#S și:#"|"#A și:#"|"#P:#"|"#Pzi:#"|"#Pzi:# 3"|"#pzi:#") " $" /[^$)]+/ "$"? ")" /[$,]*/',
@@ -154,13 +154,14 @@ $GRAMMAR = [
     'formattedPos+", "',
   ],
   'formattedPos' => [
-    '/[$@]*/ posHash /[$@]*/',
+    '/[$@]*/ pos /[$@]*/',
   ],
-  'posHash' => [
-    '"#" pos "#"',
-    'pos',
+  'pos' => [
+    '"#" posHash "#"',
+    'posNoHash',
   ],
-  'pos' => $PARTS_OF_SPEECH,
+  'posHash' => $PARTS_OF_SPEECH,
+  'posNoHash' => $PARTS_OF_SPEECH,
   'formattedForm' => [
     '/[$@]*/ form homonym? "-"? /[$@]*/',
   ],
@@ -219,7 +220,13 @@ do {
         // var_dump($parsed);
       }
 
-      // fixSyntax($d, $parsed);
+      $state = new ParserState();
+      $newRep = parseTree($parsed, $state);
+
+      if ($newRep != $d->internalRep) {
+        printf("%s\n%s\n%s\n", defUrl($d), $d->internalRep, $newRep);
+      }
+      exit;
     }
     if (DEBUG) {
       exit;
@@ -247,30 +254,42 @@ function makeParser($grammar) {
   return new \ParserGenerator\Parser($s);
 }
 
-function fixSyntax($d, $parsed) {
-  $changes = false;
+// returns the modified contents
+function parseTree($t, &$state) {
+  $content = '';
 
-  foreach ($parsed->findAll('pronunciationFormatting') as $pf) {
-    if ($pf->toString() != '$') {
-      foreach ($pf->getLeafs() as $l) {
-        $l->setContent('$');
-      }
-      $changes = true;
+  if ($t->isBranch()) {
+
+    $rule = $t->getType();
+    $state->pushRule($rule);
+    foreach ($t->getSubnodes() as $c) {
+      $content .= parseTree($c, $state);
     }
-  }
+    $state->popRule();
 
-  foreach ($parsed->findAll('formattedSlash') as $pf) {
-    if ($pf->toString() != '/') {
-      foreach ($pf->getLeafs() as $l) {
-        $l->setContent('/');
-      }
-      $changes = true;
+    switch ($rule) {
+      case 'pos':
+        // parts of speech should always be italicized
+        if (!$state->isItalic()) {
+          $content = '$' . $content . '$';
+        }
+        break;
+
+      case 'formattedPos':
+        // remove bold signs from part of speech lists, even breaking parity
+        $content = str_replace('@', '', $content, $count);
+        break;
     }
+
+  } else { // leaf
+
+    $content = $t->getContent();
+    $rule = $state->getCurrentRule();
+
+    $state->processLeaf($content);
   }
 
-  if ($changes) {
-    printf("CHANGED A: %s\nCHANGED B: %s\n", $d->internalRep, $parsed->toString());
-  }
+  return $content;
 }
 
 function defUrl($d) {
@@ -279,4 +298,48 @@ function defUrl($d) {
 
 function red($s) {
   return "\033[01;31m{$s}\033[0m";
+}
+
+class ParserState {
+  private $inBold;
+  private $inItalic;
+  private $position; // in bytes, not multibytes
+  private $ruleStack;
+  private $errors;
+
+  function __construct() {
+    $this->inBold = false;
+    $this->inItalic = false;
+    $this->position = 0;
+    $this->ruleStack = [];
+    $this->errors = [];
+  }
+
+  function isBold() {
+    return $this->inBold;
+  }
+
+  function isItalic() {
+    return $this->inItalic;
+  }
+
+  function processLeaf($str) {
+    $this->inBold ^= (substr_count($str, '@') & 1);
+    $this->inItalic ^= (substr_count($str, '$') & 1);
+    $this->position += strlen($str);
+    // printf("[%s] [%s]\n", implode(' / ', $this->ruleStack), $str);
+  }
+
+  function pushRule($rule) {
+    array_push($this->ruleStack, $rule);
+  }
+
+  function popRule() {
+    array_pop($this->ruleStack);
+  }
+
+  function getCurrentRule() {
+    return end($this->ruleStack);
+  }
+
 }

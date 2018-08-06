@@ -5,8 +5,8 @@ class TraineeSource extends BaseObject {
 
   static function TraineeCanEditSource($userId, $sourceId) {
     $result = Model::factory('TraineeSource')
-      ->where_equal('idUser', $userId)
-      ->where_equal('idSource', $sourceId)
+      ->where_equal('userId', $userId)
+      ->where_equal('sourceId', $sourceId)
       ->count();
 
     return $result;

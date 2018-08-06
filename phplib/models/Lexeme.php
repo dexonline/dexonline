@@ -417,15 +417,12 @@ class Lexeme extends BaseObject implements DatedObject {
           );
         }
       } else {
-        // Load a preferred order of inflections from the part's model type and declension.
-        // Try them one by one until one generates a form.
-        $inflections = Fragment::getInflections($infl, $p->modelType, $frag->declension);
-        $i = 0;
-
-        do {
-          $if = InflectedForm::get_by_lexemeId_inflectionId_variant($p->id, $inflections[$i]->id, 0);
-          $i++;
-        } while (!$if);
+        // Decide what inflection to use for the part from the part's model type and declension.
+        // Generate it on the fly (this works even if the part normally restricts that inflection).
+        $partInfl = Fragment::getInflection($infl, $p->modelType, $frag->declension);
+        $model = FlexModel::loadCanonicalByTypeNumber($p->modelType, $p->modelNumber);
+        $ifs = $p->generateInflectedFormWithModel($p->form, $partInfl->id, $model->id, false);
+        $if = count($ifs) ? $ifs[0] : InflectedForm::create('?');
       }
 
       $f = $if->form;
@@ -446,8 +443,9 @@ class Lexeme extends BaseObject implements DatedObject {
     return [ InflectedForm::create($f, $this->id, $infl->id, 0, true) ];
   }
 
+  // We may ignore restrictions when the lexeme is part of a compound lexeme
   // throws ParadigmException if the given inflection cannot be generated
-  function generateInflectedFormWithModel($form, $inflId, $modelId) {
+  function generateInflectedFormWithModel($form, $inflId, $modelId, $obeyRestrictions = true) {
     $inflection = Inflection::get_by_id($inflId);
     if ($inflection->animate && !$this->isAnimate()) {
       // animate inflections, like the vocative, require the lexeme to be animate
@@ -473,7 +471,8 @@ class Lexeme extends BaseObject implements DatedObject {
         $end++;
       }
 
-      if (ConstraintMap::validInflection($inflId, $this->restriction, $variant)) {
+      if (!$obeyRestrictions ||
+          ConstraintMap::validInflection($inflId, $this->restriction, $variant)) {
         $inflId = $mds[$start]->inflectionId;
         $accentShift = $mds[$start]->accentShift;
         $vowel = $mds[$start]->vowel;

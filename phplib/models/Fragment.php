@@ -69,7 +69,7 @@ class Fragment extends BaseObject implements DatedObject {
   // decide which inflection of the part lexeme we need to look at.
   // Returns all the legal inflections in decreasing order of desirability.
   // This helps with lexemes that don't have all the forms (e.g. vocative is missing).
-  static function getInflections($infl, $partModelType, $declension) {
+  static function getInflection($infl, $partModelType, $declension) {
     $query = Model::factory('Inflection')
            ->table_alias('i')
            ->select('i.*')
@@ -83,6 +83,6 @@ class Fragment extends BaseObject implements DatedObject {
       $query = $query->order_by_expr("(`{$field}` = {$value}) desc");
     }
 
-    return $query->order_by_asc('i.rank')->find_many();
+    return $query->order_by_asc('i.rank')->find_one();
   }
 }

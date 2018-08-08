@@ -91,7 +91,7 @@ openx.com, 540119109, RESELLER, 6a698e2ec38604c54
 aolcloud.net, 11208, RESELLER
 adtech.com, 11208, RESELLER
 c1exchange.com, C1X201401, RESELLER
-coxmt.com, 2000068021002, RESELLER
+coxmt.com, 2000068032602, DIRECT
 conversantmedia.com, 40835, RESELLER
 appnexus.com, 4052, RESELLER
 openx.com, 540031703, RESELLER, 6a698e2ec38604c6
@@ -121,7 +121,7 @@ google.com, pub-7269238500499280, RESELLER, f08c47fec0942fa0
 c.amazon-adsystem.com, 3352, RESELLER, #banner
 districtm.io, 101200, DIRECT
 appnexus.com, 7944, RESELLER, f5ab79cb980f11d1
-gumgum.com, 13165, DIRECT, ffdef49475d318a9
+gumgum.com, 13165, DIRECT, ffdef49475d318a9
 openx.com, 76456, RESELLER, 6a698e2ec38604c6
 openx.com, 537133173, RESELLER, 6a698e2ec38604c6
 openx.com, 540105370, DIRECT, 6a698e2ec38604c6
@@ -146,6 +146,8 @@ contextweb.com, 560078, RESELLER
 contextweb.com, 557945, RESELLER
 contextweb.com, 557994, RESELLER
 rhythmone.com,1026339493,DIRECT,a670c89d4a324e47
+rubiconproject.com, 18630, DIRECT, 0bfd66d529a55807
+rubiconproject.com, 18632, DIRECT, 0bfd66d529a55807
 smartadserver.com,1331, RESELLER
 indexexchange.com,179394,RESELLER
 contextweb.com,560288,RESELLER,89ff185a4c4e857c

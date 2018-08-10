@@ -10,6 +10,7 @@ class Core {
     'phplib',
     'phplib' . DIRECTORY_SEPARATOR . 'models',
     'phplib' . DIRECTORY_SEPARATOR . 'htmlize',
+    'phplib' . DIRECTORY_SEPARATOR . 'parser',
   ];
 
   static function autoload($className) {

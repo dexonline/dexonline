@@ -288,6 +288,14 @@ animateLexeme[] = "admite vocativul"
 
 partOfSpeech = "parte de vorbire"
 
+[parsers]
+
+; parser[urlName] = ParserClassName (file should reside in phplib/parser/)
+parser[mda2] = Mda2Parser
+
+tagsToIgnore[] = 404 ; incomplete definition
+tagsToIgnore[] = 405 ; missing etymology
+
 [plugins]
 
 ; array of class names, each one residing in phplib/plugins and implementing a plugin

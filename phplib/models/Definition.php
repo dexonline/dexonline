@@ -62,9 +62,36 @@ class Definition extends BaseObject implements DatedObject {
     // lexicon
     $this->extractLexicon();
 
+    // pass the definition through the parser
+    $this->parse($warnings);
+
     if ($flash) {
       foreach ($warnings as $w) {
         FlashMessage::add($w, 'warning');
+      }
+    }
+  }
+
+  function parse(&$warnings = null) {
+    $warnings = $warnings ?? [];
+
+    // certain tags explicitly say "don't try to parse this definition"
+    $ignoredTagIds = Config::get('parsers.tagsToIgnore');
+    $hasIgnoredTags = Model::factory('ObjectTag')
+      ->where('objectId', $this->id)
+      ->where('objectType', ObjectTag::TYPE_DEFINITION)
+      ->where_in('tagId', $ignoredTagIds)
+      ->find_one();
+
+    if (!$hasIgnoredTags) {
+      // see if we have a parser for this definition's source
+      $parser = ParserFactory::getParser($this);
+      if ($parser) {
+        try {
+          $this->internalRep = $parser->parse($this, $warnings);
+        } catch (Exception $e) {
+          $warnings[] = $e->getMessage();
+        }
       }
     }
   }

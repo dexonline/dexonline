@@ -11,390 +11,49 @@ ini_set('memory_limit', '512M');
 
 define('SOURCE_ID', 53);
 define('BATCH_SIZE', 10000);
-define('START_AT', 'abrogare');
+define('START_AT', '');
 define('DEBUG', false);
-define('TAGS_TO_IGNORE', [
-  404, // incomplete definition, usually missing everything after the [...]
-  405, // missing etymology
-]);
-define('COMMENT_MARKER', '¶');
 
 $offset = 0;
 
-$PARTS_OF_SPEECH = [
-  'a', 'ad', 'ada', 'af', 'afi', 'afp', 'afpt', 'afs', 'ai', 'ain', 'am', 'amp', 'an', 'anh', 'apr',
-  'ard', 'arh', 'arp', 'art', 'arti', 'av', 'avi', 'avr', 'c', 'ec', 'i', 'la', 'lav',
-  'lc', 'ls', 'nc', 'ncv', 'nf', 'no', 'pd', 'pdf', 'pdm', 'pin', 'pir', 'pî', 'pnh', 'pnhi',
-  'pp', 'ppl', 'ppr', 'prl', 'prli', 'prn', 's', 'sa',
-  'sf', 'sfa', 'sfi', 'sfm', 'sfn', 'sfp', 'sfpa', 'sfs', 'sfsa', 'si', 'sm', 'sma',
-  'smf', 'smi', 'smn', 'smnf', 'smp', 'sms', 'smsa', 'sn', 'sna', 'snf', 'sni', 'snm', 'snp',
-  'sns', 'ssg', 'ssga', 'ssp', 'v', 'va', 'vi', 'vi(a)', 'vif', 'vim', 'vir',
-  'virp', 'virt', 'vit', 'vit(a)', 'vitr', 'viu', 'vp', 'vr', 'vr(a)', 'vra', 'vri',
-  'vrim', 'vrp', 'vrr', 'vrt', 'vru', 'vt', 'vt(a)', 'vta', 'vt(f)', 'vtf', 'vtfr', 'vti',
-  'vti(a)', 'vtir', 'vtr', 'vtr(a)', 'vtra', 'vtrf', 'vtri', 'vtrp', 'vtrr', 'vu',
-];
-$PARTS_OF_SPEECH = array_map(function($s) {
-  return '"' . $s . '"';
-}, $PARTS_OF_SPEECH);
-
-$GRAMMAR = [
-  'start' => [
-    'definition',
-    'reference',
-  ],
-  'definition' => [
-    'entryWithInflectedForms (ws formattedPosList)? ws bracket ws numberedMeanings',
-  ],
-  'bracket' => [
-    '/[$@]*/ "[" attestation (morphology formattedSlash ws?)* etymology "]" /[$@]*/',
-  ],
-  'attestation' => [
-    '"#At:#" ws /.+?\/(?! ?[\d\w\/])/s ws?',
-  ],
-  'morphology' => [
-    'abbreviation',
-    'accent',
-    'alsoWritten',
-    'cases',
-    'plural',
-    'tenses',
-    'pronunciation',
-    'variants',
-  ],
-  'formattedSlash' => [
-    '/[$@]*\/[$@]*/',
-  ],
-  'abbreviation' => [
-    '"#Abr#:" ws /\$[^$]+\$/ ws',
-  ],
-  'accent' => [
-    '("A:"|"#A:#"|"#A și:#"|"A și (#înv#):") /[^\/]+/s',
-    '"A: #nct#" ws',
-  ],
-  'alsoWritten' => [
-    '("S:"|"#S:#"|"#S și:#") /[^\/]+/s',
-  ],
-  'cases' => [
-    '("#Ac#:"|"#D:#"|"#G-D#:") /[^\/]+/s',
-  ],
-  'plural' => [
-    '("#Pl:#"|"#Pl#:"|"#Pl# și:") /[^\/]+/s',
-  ],
-  'pronunciation' => [
-    '("#P:#"|"#P și:#") ws pronunciationList+/( și )|( )/ ws'
-  ],
-  'pronunciationList' => [
-    'morphologyParent? pronunciationFormatting morphologyForm+", " ","? pronunciationFormatting',
-    '"?"',
-  ],
-  'pronunciationFormatting' => [
-    '/[$@]+/',
-  ],
-  'morphologyParent' => [
-    '/\(.*?\)/ ws',
-  ],
-  'morphologyForm' => [
-    '/[-~]*/ fragment+/[- ]/ /[-~]*/'
-  ],
-  'tenses' => [
-    '("#Cj#:"|"#Cnd#:"|"#Grz#:"|"#Im#:"|"#Imt#:"|"#In#:"|"#Mp#:"|"#Par#:"|"#Ps:#"|"#Pzi:#") /[^\/]+/s',
-  ],
-  'variants' => [
-    '"#V:#" ws variantsList+" " ws',
-  ],
-  'variantsList' => [
-    'morphologyParent? /[$@]+/ (morphologyForm homonym?)+", " /[$@,]+/ variantDetails',
-  ],
-  'variantDetails' => [
-    '(variantPosList|variantMorphInfo|variantMeaning)*',
-  ],
-  'variantPosList' => [
-    'ws "$"? pos+", " /[$,]*/'
-  ],
-  'variantMorphInfo' => [
-    'ws "(" ("#Pl:#"|"#Pl#:"|"#pl#"|"#pl#:"|"#S și:#"|"#A și:#"|"#P:#"|"#Pzi:#"|"#Pzi:# 3"|"#pzi:#") " $" /[^$)]+/ "$"? ")" /[$,]*/',
-    'ws "(#A:# #nct#)" ","?',
-    'ws "(#A:# #ns#)" ","?',
-    'ws "(#Pl:# #nct#)" ","?',
-  ],
-  'variantMeaning' => [
-    'ws /\(@\d+@\)/',
-  ],
-  'etymology' => [
-    '"#E:#" ws /([^\[\]]*\[[^\[\]]+\])*[^\[\]]*/',
-  ],
-  'reference' => [
-    'entryWithInflectedForms ws formattedPosList ws formattedVz ws formattedForm',
-    '(prefixForm|suffixForm) ws formattedVz ws formattedForm',
-  ],
-  'numberedMeanings' => [
-    '(meaning ws)? (meaningNumber ws meaning)+ws',
-    'meaning',
-  ],
-  'meaning' => [
-    '/(.(?!\s+@\d))*./s', // stop at the " @nnn@ " number of the next meaning
-  ],
-  'meaningNumber' => [
-    '/@\d+(-\d+)?@/',
-  ],
-  'entryWithInflectedForms' => [
-    '(/[$@]*/ form /[$@]*/ homonym? "-"? /[$@]*/)+/,[$@]* /',
-  ],
-  'prefixForm' => [
-    '/[$@]*/ fragment /[$@]*/ homonym? "-" /[$@]*/',
-  ],
-  'suffixForm' => [
-    '/[$@]*/ "-" /[$@]*/ fragment /[$@]*/ homonym? /[$@]*/',
-  ],
-  'homonym' => [
-    '/\^\d/',
-    '/\^\{\d\}/',
-  ],
-  'formattedPosList' => [
-    'formattedPos+", "',
-  ],
-  'formattedPos' => [
-    '/[$@]*/ pos /[$@]*/',
-  ],
-  'pos' => [
-    '"#" posHash "#"',
-    'posNoHash',
-  ],
-  'posHash' => $PARTS_OF_SPEECH,
-  'posNoHash' => $PARTS_OF_SPEECH,
-  'formattedForm' => [
-    '/[$@]*/ form homonym? "-"? /[$@]*/',
-  ],
-  'formattedVz' => [
-    '/[$@]*/ "#vz#" /[$@]*/',
-  ],
-  'form' => [
-    'fragment+/[- ]/',
-    'fragment "-"', // prefixes
-    '"-" fragment', // suffixes
-  ],
-  'fragment' => [
-    "/[A-ZĂÂÎȘȚ]?([~a-zăâçîöșțüáắấéíî́óúý()']|##)+/u", // accept capitalized forms
-  ],
-  'ws' => [
-    '/(\s|\n)+/',
-  ],
-  'ignored' => [
-    '/.*/s',
-  ],
-];
-
-$subquery = sprintf(
-  'select objectId from ObjectTag where objectType = %s and tagId in (%s)',
-  ObjectTag::TYPE_DEFINITION,
-  implode(',', TAGS_TO_IGNORE)
-);
-$parser = makeParser($GRAMMAR);
-
 do {
   $defs = Model::factory('Definition')
-        ->where('sourceId', SOURCE_ID)
-        ->where('status', Definition::ST_ACTIVE)
-        ->where_gte('lexicon', START_AT)
-        ->where_raw("id not in ({$subquery})")
-        ->order_by_asc('lexicon')
-        ->order_by_asc('id')
-        ->limit(BATCH_SIZE)
-        ->offset($offset)
-        ->find_many();
+    ->where('sourceId', SOURCE_ID)
+    ->where('status', Definition::ST_ACTIVE)
+    ->where_gte('lexicon', START_AT)
+    ->order_by_asc('lexicon')
+    ->order_by_asc('id')
+    ->limit(BATCH_SIZE)
+    ->offset($offset)
+    ->find_many();
 
   foreach ($defs as $d) {
-    list($rep, $comments) = extractComments($d->internalRep);
-
-    $parsed = $parser->parse($rep);
-    if (!$parsed) {
-      $errorPos = $parser->getError()['index'];
-      $markedRep = substr_replace($rep, red('***'), $errorPos, 0);
-      printf("%s [%s]\n", defUrl($d), $markedRep);
-    } else {
-      if (DEBUG) {
-        printf("Parsed %s %s [%s]\n", $d->lexicon, $d->id, mb_substr($d->internalRep, 0, 120));
-        //        var_dump($parsed->getLeafs());
-        // var_dump($parsed);
-      }
-
-      $state = new ParserState();
-      $rep = parseTree($parsed, $state, $comments);
-      $rep = reduceFormatting($rep);
-      $rep = restoreComments($rep, $comments);
-      list($rep, $ignored) = Str::sanitize($rep, $d->sourceId);
-      $rep = reduceFormatting($rep);
-
-      if ($rep != $d->internalRep) {
-        printf("%s\n%s\n%s\n", defUrl($d), $d->internalRep, $rep);
-      }
-      // exit;
-    }
-    if (DEBUG) {
-      exit;
+    $orig = $d->internalRep;
+    $warnings = [];
+    $d->parse($warnings);
+    if ($orig != $d->internalRep) {
+      printf("%s\n", defUrl($d));
+      wdiff($orig, $d->internalRep);
     }
   }
 
   $offset += count($defs);
   Log::info("Processed $offset definitions.");
-} while (count($defs));
+} while (count($defs) == BATCH_SIZE);
 
 Log::info('ended');
 
 /*************************************************************************/
 
-function makeParser($grammar) {
-  $s = '';
-  foreach ($grammar as $name => $productions) {
-    $s .= "{$name} ";
-    foreach ($productions as $p) {
-      $s .= " :=> {$p}";
-    }
-    $s .= ".\n";
-  }
-
-  return new \ParserGenerator\Parser($s);
-}
-
-// remove footnotes and invisible comments and note their initial positions
-// returns
-// * the cleaned up string
-// * an array of position => comment
-function extractComments($rep) {
-  $comments = [];
-
-  preg_match_all("/(\{\{.*\}\})|(▶.*◀)/U", $rep, $matches, PREG_SET_ORDER | PREG_OFFSET_CAPTURE);
-
-  $numDeleted = 0; // remember positions relative to the cleaned up string
-  foreach ($matches as $m) {
-    $text = $m[0][0];
-    $pos = $m[0][1];
-    $comments[$pos - $numDeleted] = $text;
-    $numDeleted += strlen($text);
-  }
-
-  // now perform the actual deletion
-  $rep = preg_replace("/(\{\{.*\}\})|(▶.*◀)/U", '', $rep);
-
-  return [ $rep, $comments ];
-}
-
-// replaces comment markers with comments, in appearence order
-function restoreComments($rep, $comments) {
-  // short and dirty; preg_replace_callback() would be faster
-  foreach ($comments as $c) {
-    $rep = preg_replace('/' . COMMENT_MARKER . '/', $c, $rep, 1);
-  }
-
-  return $rep;
-}
-
-// parseTree() ends up inserting too many formatting symbols. Try to clean some of them up.
-function reduceFormatting($rep) {
-  $rep = str_replace('@ @', ' ', $rep);
-  $rep = str_replace('@, @', ', ', $rep);
-  $rep = str_replace('@' . COMMENT_MARKER . '@', COMMENT_MARKER, $rep);
-  return $rep;
-}
-
-// returns the modified contents
-function parseTree($t, &$state, $comments) {
-  $content = '';
-
-  if ($t->isBranch()) {
-
-    $rule = $t->getType();
-    $state->pushRule($rule);
-    foreach ($t->getSubnodes() as $c) {
-      $content .= parseTree($c, $state, $comments);
-    }
-    $state->popRule();
-
-    switch ($rule) {
-      case 'pos':
-        // parts of speech should always be italicized
-        if (!$state->isItalic()) {
-          $content = '$' . $content . '$';
-        }
-        if ($state->isBold()) {
-          $content = '@' . $content . '@';
-        }
-        break;
-    }
-
-  } else { // leaf
-
-    $oldPos = $state->getPosition();
-    $content = $t->getContent();
-    $state->processLeaf($content);
-    $curPos = $state->getPosition();
-
-    foreach (array_reverse($comments, true) as $pos => $text) {
-      if (($pos > $oldPos) && ($pos <= $curPos)) {
-        // Insert markers for comments that we have passed during this $content.
-        // We could not have done this before parsing the definition, because
-        // it could have broken the parser.
-
-        $content = substr_replace($content, COMMENT_MARKER, $pos - $oldPos, 0);
-      }
-    }
-  }
-
-  return $content;
-}
-
 function defUrl($d) {
   return "https://dexonline.ro/admin/definitionEdit.php?definitionId={$d->id}";
 }
 
-function red($s) {
-  return "\033[01;31m{$s}\033[0m";
-}
-
-class ParserState {
-  private $inBold;
-  private $inItalic;
-  private $position; // in bytes, not multibytes
-  private $ruleStack;
-  private $errors;
-
-  function __construct() {
-    $this->inBold = false;
-    $this->inItalic = false;
-    $this->position = 0;
-    $this->ruleStack = [];
-    $this->errors = [];
-  }
-
-  function isBold() {
-    return $this->inBold;
-  }
-
-  function isItalic() {
-    return $this->inItalic;
-  }
-
-  function processLeaf($str) {
-    $this->inBold ^= (substr_count($str, '@') & 1);
-    $this->inItalic ^= (substr_count($str, '$') & 1);
-    $this->position += strlen($str);
-    // printf("[%s] [%s]\n", implode(' / ', $this->ruleStack), $str);
-  }
-
-  function pushRule($rule) {
-    array_push($this->ruleStack, $rule);
-  }
-
-  function popRule() {
-    array_pop($this->ruleStack);
-  }
-
-  function getCurrentRule() {
-    return end($this->ruleStack);
-  }
-
-  function getPosition() {
-    return $this->position;
-  }
-
+function wdiff($old, $new) {
+  file_put_contents('/tmp/old.txt', $old . "\n");
+  file_put_contents('/tmp/new.txt', $new . "\n");
+  system(
+    "wdiff -w $'\033[30;41m' -x $'\033[0m' " .
+    "-y $'\033[30;42m' -z $'\033[0m' " .
+    "/tmp/old.txt /tmp/new.txt");
 }

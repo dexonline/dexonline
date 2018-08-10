@@ -57,8 +57,8 @@ function wdiff($old, $new) {
   file_put_contents('/tmp/old.txt', $old . "\n");
   file_put_contents('/tmp/new.txt', $new . "\n");
   system(
-    "wdiff -w $'\033[30;41m' -x $'\033[0m' " .
-    "-y $'\033[30;42m' -z $'\033[0m' " .
+    "wdiff -w '\033[30;41m' -x '\033[0m' " .
+    "-y '\033[30;42m' -z '\033[0m' " .
     "/tmp/old.txt /tmp/new.txt");
 }
 

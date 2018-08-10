@@ -34,6 +34,10 @@ do {
     if ($orig != $d->internalRep) {
       printf("%s\n", defUrl($d));
       wdiff($orig, $d->internalRep);
+
+      if (readCommand('Acceptați [d/n]?', ['d', 'n']) == 'd') {
+        $d->save();
+      }
     }
   }
 
@@ -56,4 +60,11 @@ function wdiff($old, $new) {
     "wdiff -w $'\033[30;41m' -x $'\033[0m' " .
     "-y $'\033[30;42m' -z $'\033[0m' " .
     "/tmp/old.txt /tmp/new.txt");
+}
+
+function readCommand($msg, $choices) {
+  do {
+    $answer = mb_strtolower(readline($msg. ' '));
+  } while (!in_array($answer, $choices));
+  return $answer;
 }

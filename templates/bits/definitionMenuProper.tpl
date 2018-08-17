@@ -182,7 +182,7 @@
           {/if}
         {/if}
 
-        {if $showPageLink && $row->source->hasPageImages && User::can(User::PRIV_EDIT)}
+        {if $showPageLink && $row->source->hasPageImages && (User::can(User::PRIV_EDIT) || TraineeSource::TraineeCanEditSource(User::getActiveId(), $def->sourceId))}
           <li>
             <a href="#"
               title="arată pagina originală cu această definiție"

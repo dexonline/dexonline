@@ -120,6 +120,12 @@ abstract class Parser {
             $content = '@' . $content . '@';
           }
           break;
+
+        case 'posNoHash':
+          // parts of speech should always go between hash signs
+          $warnings[] = "Am pus între diezi partea de vorbire «{$content}».";
+          $content = "#{$content}#";
+          break;
       }
 
     } else { // leaf

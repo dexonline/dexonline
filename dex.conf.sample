@@ -41,6 +41,8 @@ mirror = 0
 ; Prefix for the LOC databases.
 mysql_loc_prefix = LOC_
 
+protocol = http
+
 ; API formats
 
 ; Enable XML response when appending /xml to the definition URL

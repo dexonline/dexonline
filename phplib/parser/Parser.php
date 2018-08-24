@@ -87,8 +87,11 @@ abstract class Parser {
 
   // parseTree() ends up inserting too many formatting symbols. Try to clean some of them up.
   private function reduceFormatting($rep) {
-    // negitive lookbehind for \d so as to leave @15@ @Foobar@ alone
+    // negative lookbehind for \d so as to leave @15@ @Foobar@ alone
     $rep = preg_replace('/(?<!\d)@ @/', ' ', $rep);
+
+    // bold markers should never span line breaks
+    $rep = preg_replace('/@\s*\n\s*@/', "\n", $rep);
 
     $rep = str_replace('@, @', ', ', $rep);
     $rep = str_replace('@' . self::COMMENT_MARKER . '@', self::COMMENT_MARKER, $rep);

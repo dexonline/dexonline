@@ -129,6 +129,17 @@ abstract class Parser {
           $warnings[] = "Am pus între diezi partea de vorbire «{$content}».";
           $content = "#{$content}#";
           break;
+
+        case 'formattedVz':
+          if ($state->isBold()) {
+            $warnings[] = "Am scos din bold textul «vz».";
+            $content = '@' . $content . '@';
+          }
+          if ($state->isItalic()) {
+            $warnings[] = "Am scos din italic textul «vz».";
+            $content = '$' . $content . '$';
+          }
+          break;
       }
 
     } else { // leaf

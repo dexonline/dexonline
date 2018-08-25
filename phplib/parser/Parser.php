@@ -140,7 +140,18 @@ abstract class Parser {
             $content = '$' . $content . '$';
           }
           break;
-      }
+
+        case 'mainForm': // for references
+          if (!$state->isItalic()) {
+            $warnings[] = "Am pus în italic textul «{$content}».";
+            $content = '$' . $content . '$';
+          }
+          if (!$state->isBold()) {
+            $warnings[] = "Am pus în bold textul «{$content}».";
+            $content = '@' . $content . '@';
+          }
+          break;
+}
 
     } else { // leaf
 

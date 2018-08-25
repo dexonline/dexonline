@@ -101,8 +101,8 @@ class Mda2Parser extends Parser {
       '"#E:#" ws /([^\[\]]*\[[^\[\]]+\])*[^\[\]]*/',
     ],
     'reference' => [
-      'entryWithInflectedForms ws formattedPosList ws formattedVz ws formattedForm',
-      '(prefixForm|suffixForm) ws formattedVz ws formattedForm',
+      'entryWithInflectedForms ws formattedPosList ws formattedVz ws formattedMainForm',
+      '(prefixForm|suffixForm) ws formattedVz ws formattedMainForm',
     ],
     'numberedMeanings' => [
       '(meaning ws)? (meaningNumber ws meaning)+ws',
@@ -139,8 +139,11 @@ class Mda2Parser extends Parser {
     ],
     'posHash' => [],
     'posNoHash' => [],
-    'formattedForm' => [
-      '/[$@]*/ form homonym? "-"? /[$@]*/',
+    'formattedMainForm' => [
+      '/[$@]*/ mainForm /[$@]*/',
+    ],
+    'mainForm' => [
+      'form homonym? "-"?',
     ],
     'formattedVz' => [
       '/[$@]*/ "#vz#" /[$@]*/',

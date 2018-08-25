@@ -15,7 +15,9 @@ define('START_AT', '');
 define('DEBUG', false);
 
 $opts = getopt('l:');
-$minLengthDiff = $opts['l'] ?? 0;
+
+// maximum length difference at which changes are accepted automatically
+$maxLengthDiff = $opts['l'] ?? 0;
 
 $offset = 0;
 
@@ -38,7 +40,7 @@ do {
       printf("%s\n", defUrl($d));
       wdiff($orig, $d->internalRep);
 
-      $minor = (abs(strlen($orig) - strlen($d->internalRep)) <= $minLengthDiff);
+      $minor = (abs(strlen($orig) - strlen($d->internalRep)) <= $maxLengthDiff);
 
       if ($minor ||
           readCommand('Acceptați [d/n]?', ['d', 'n']) == 'd') {

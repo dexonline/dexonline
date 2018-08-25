@@ -14,6 +14,9 @@ define('BATCH_SIZE', 10000);
 define('START_AT', '');
 define('DEBUG', false);
 
+$opts = getopt('l:');
+$minLengthDiff = $opts['l'] ?? 0;
+
 $offset = 0;
 
 do {
@@ -35,7 +38,7 @@ do {
       printf("%s\n", defUrl($d));
       wdiff($orig, $d->internalRep);
 
-      $minor = (abs(strlen($orig) - strlen($d->internalRep)) <= 5);
+      $minor = (abs(strlen($orig) - strlen($d->internalRep)) <= $minLengthDiff);
 
       if ($minor ||
           readCommand('Acceptați [d/n]?', ['d', 'n']) == 'd') {

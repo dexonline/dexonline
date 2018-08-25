@@ -35,7 +35,10 @@ do {
       printf("%s\n", defUrl($d));
       wdiff($orig, $d->internalRep);
 
-      if (readCommand('Acceptați [d/n]?', ['d', 'n']) == 'd') {
+      $minor = (abs(strlen($orig) - strlen($d->internalRep)) <= 5);
+
+      if ($minor ||
+          readCommand('Acceptați [d/n]?', ['d', 'n']) == 'd') {
         $d->save();
       }
     }

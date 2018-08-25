@@ -90,8 +90,8 @@ abstract class Parser {
     // negative lookbehind for \d so as to leave @15@ @Foobar@ alone
     $rep = preg_replace('/(?<!\d)@ @/', ' ', $rep);
 
-    // bold markers should never span line breaks
-    $rep = preg_replace('/@\s*\n\s*@/', "\n", $rep);
+    // bold markers shouldn't span line breaks, except before new meanings
+    $rep = preg_replace('/@\s*\n\s*@(?!\d)/', "\n", $rep);
 
     $rep = str_replace('@, @', ', ', $rep);
     $rep = str_replace('@' . self::COMMENT_MARKER . '@', self::COMMENT_MARKER, $rep);

@@ -36,6 +36,12 @@ do {
     $orig = $d->internalRep;
     $warnings = [];
     $d->parse($warnings);
+    if ($warnings) {
+      printf("%s\n", defUrl($d));
+      foreach ($warnings as $w) {
+        print "  * {$w}\n";
+      }
+    }
     if ($orig != $d->internalRep) {
       printf("%s\n", defUrl($d));
       wdiff($orig, $d->internalRep);

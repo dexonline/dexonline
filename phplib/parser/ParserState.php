@@ -10,6 +10,7 @@ class ParserState {
   private $position; // in bytes, not multibytes
   private $ruleStack;
   private $errors;
+  private $meaningNumber;
 
   function __construct() {
     $this->inBold = false;
@@ -17,6 +18,7 @@ class ParserState {
     $this->position = 0;
     $this->ruleStack = [];
     $this->errors = [];
+    $this->meaningNumber = 0;
   }
 
   function isBold() {
@@ -48,6 +50,14 @@ class ParserState {
 
   function getPosition() {
     return $this->position;
+  }
+
+  function getMeaningNumber() {
+    return $this->meaningNumber;
+  }
+
+  function setMeaningNumber($number) {
+    $this->meaningNumber = $number;
   }
 
 }

@@ -158,6 +158,26 @@ abstract class Parser {
             $content = '~ă';
           }
           break;
+
+        case 'meaningNumber':
+          $old = $state->getMeaningNumber();
+          $new = substr($content, 1, -1);
+          $parts = explode('-', $new);
+          if (count($parts) > 2) {
+            $warnings[] = "Număr de sens incorect: «{$new}».";
+          } else {
+            if (count($parts) == 1) {
+              $from = $to = $new;
+            } else {
+              $from = $parts[0];
+              $to = $parts[1];
+            }
+            if ($from != $old + 1) {
+              $warnings[] = "Numerotare incorectă a sensurilor: «{$new}» după «{$old}».";
+            }
+            $state->setMeaningNumber($to);
+          }
+          break;
       }
 
     } else { // leaf

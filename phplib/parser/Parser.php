@@ -151,7 +151,14 @@ abstract class Parser {
             $content = '@' . $content . '@';
           }
           break;
-}
+
+        case 'form': // word forms and their inflected forms
+          if ($content == '-ă') {
+            $warnings[] = "Am înlocuit - cu ~ în forma «{$content}».";
+            $content = '~ă';
+          }
+          break;
+      }
 
     } else { // leaf
 

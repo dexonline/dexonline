@@ -5,8 +5,9 @@
 {/block}
 
 {block "pageDescription"}
-  <meta name="description"
-        content="Cuvântul lunii {$timestamp|date_format:'%B %Y'} la dexonline: {$searchResult->definition->lexicon}">
+  <meta
+    name="description"
+    content="Cuvântul lunii {$timestamp|date_format:'%B %Y'} la dexonline: {$searchResult->definition->lexicon}">
 {/block}
 
 {block "openGraph"}
@@ -46,5 +47,10 @@
         showHistory=1}
 
     </div>
+    {if $reason}
+      <div class="row panel-footer">
+        <b>Cheia alegerii:</b> {$reason}
+      </div>
+    {/if}
   </div>
 {/block}

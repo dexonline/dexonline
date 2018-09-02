@@ -19,6 +19,13 @@ aolcloud.net, 9993, RESELLER
 rubiconproject.com, 16414, RESELLER
 criteo.com, 3450, RESELLER
 indexexchange.com, 185506, RESELLER
+agencyorquidea.com, 1572, DIRECT
+google.com, pub-2726428685015992, RESELLER, f08c47fec0942fa0
+appnexus.com, 3263, RESELLER 
+adtech.com, 11315, DIRECT
+aolcloud.net, 11315, DIRECT
+pubmatic.com, 155986, RESELLER, 5d62403b186f2ace
+appnexus.com, 9095, RESELLER, f5ab79cb980f11d1 
 google.com, pub-6163857992956964, RESELLER, f08c47fec0942fa0
 adform.com, 1633, RESELLER
 adpone.com, 1992, RESELLER
@@ -53,10 +60,13 @@ google.com, pub-5916433635784354, DIRECT, f08c47fec0942fa0
 adtech.com, 9436, RESELLER
 adyoulike.com, 76ba207dcce2b3839a366e219ba462bc, RESELLER, 4ad745ead2958bf7
 google.com, pub-4170006775212586, RESELLER, f08c47fec0942fa0
-amazon-adsystem.com, b27071e3-9cd5-4188-a9ed-a0a266923454, DIRECT
-contextweb.com, 561562, RESELLER, 89ff185a4c4e857c
-districtm.io, 100962, DIRECT
-c1exchange.com,c1x_a9_uampubs,RESELLER 
+aps.amazon.com, 6d0c7ea7-f036-437d-be93-21fc59c890c2, DIRECT #display
+openx.com, 540191398, RESELLER, 6a698e2ec38604c6 #display
+pubmatic.com, 157150, RESELLER, 5d62403b186f2ace #display
+districtm.io, 100962, RESELLER #display
+appnexus.com, 1908, RESELLER, f5ab79cb980f11d1 #display
+yldbt.com, 5b522cc167f6b300b89dc6d3, RESELLER, cd184cb30abaabb5 #display
+coxmt.com, 2000068024302, RESELLER #display
 appnexus.com, 7393, DIRECT
 EMXDGT.com, 417, RESELLER, 1e1d41537f7cad7f
 appnexus.com, 1356, RESELLER, f5ab79cb980f11d1
@@ -125,10 +135,13 @@ gumgum.com, 13165, DIRECT, ffdef49475d318a9
 openx.com, 76456, RESELLER, 6a698e2ec38604c6
 openx.com, 537133173, RESELLER, 6a698e2ec38604c6
 openx.com, 540105370, DIRECT, 6a698e2ec38604c6
+openx.com, 537151081, RESELLER, 6a698e2ec38604c6
 appnexus.com, 6979, RESELLER, f5ab79cb980f11d1
 indexexchange.com, 184230, RESELLER, 50b1c356f2c5c8fc
 pubmatic.com, 38381, RESELLER, 5d62403b186f2ace
 pubmatic.com, 92998, RESELLER, 5d62403b186f2ace
+pubmatic.com, 157296, RESELLER, 5d62403b186f2ace
+pubmatic.com, 157230, RESELLER, 5d62403b186f2ace
 contextweb.com, 557821, RESELLER
 contextweb.com, 557886, RESELLER
 contextweb.com, 558663, RESELLER

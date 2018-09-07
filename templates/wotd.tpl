@@ -42,10 +42,6 @@
     </div>
   </div>
 
-  {if $wotd->sponsor}
-    {include "wotd-sponsors/{$wotd->sponsor}"}
-  {/if}
-
   <div class="container panel panel-default">
     <div class="row panel-heading">
       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 wotd-navigation">
@@ -65,7 +61,6 @@
       </div>
     </div>
     <div class="row panel-body">
-
       <a {if $wotd->url}href="{$wotd->url}"{/if} target="_blank">
         <img class="img-responsive center-block"
           src="{$wotd->getLargeThumbUrl()}"
@@ -75,6 +70,11 @@
       <div class="text-muted pull-right">
         {$wotd->getArtist()->credits|default:''}
       </div>
+
+      {if $wotd->sponsor}
+        <div style="clear: both"></div>
+        {include "wotd-sponsors/{$wotd->sponsor}"}
+      {/if}
 
       {include "bits/definition.tpl"
         row=$searchResult

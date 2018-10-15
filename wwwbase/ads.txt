@@ -1,3 +1,4 @@
+Last updated: 28.09.2018
 appnexus.com, 3153, RESELLER, f5ab79cb980f11d1
 districtm.io, 100750, DIRECT
 adtech.com, 11095, Reseller
@@ -58,6 +59,10 @@ rubiconproject.com, 17580, RESELLER, 0bfd66d529a55807
 google.com, pub-2697300012216849, DIRECT, f08c47fec0942fa0
 google.com, pub-5916433635784354, DIRECT, f08c47fec0942fa0
 adtech.com, 9436, RESELLER
+coxmt.com, 2000067907202, Reseller
+Openx.com, 537143344, Reseller
+indexexchange.com, 175407, Reseller
+pubmatic.com, 156078, RESELLER, 5d62403b186f2ace
 adyoulike.com, 76ba207dcce2b3839a366e219ba462bc, RESELLER, 4ad745ead2958bf7
 google.com, pub-4170006775212586, RESELLER, f08c47fec0942fa0
 aps.amazon.com, 6d0c7ea7-f036-437d-be93-21fc59c890c2, DIRECT #display
@@ -67,6 +72,7 @@ districtm.io, 100962, RESELLER #display
 appnexus.com, 1908, RESELLER, f5ab79cb980f11d1 #display
 yldbt.com, 5b522cc167f6b300b89dc6d3, RESELLER, cd184cb30abaabb5 #display
 coxmt.com, 2000068024302, RESELLER #display
+rubiconproject.com, 18020, RESELLER, 0bfd66d529a55807 #display
 appnexus.com, 7393, DIRECT
 EMXDGT.com, 417, RESELLER, 1e1d41537f7cad7f
 appnexus.com, 1356, RESELLER, f5ab79cb980f11d1
@@ -158,6 +164,21 @@ contextweb.com, 558550, RESELLER
 contextweb.com, 560078, RESELLER
 contextweb.com, 557945, RESELLER
 contextweb.com, 557994, RESELLER
+freewheel.tv, 327377, RESELLER
+beachfront.com, 4969, RESELLER 
+tremorhub.com, cdgfn, RESELLER, 1a4e959a1b50034a
+springserve.com, 1, RESELLER, a24eb641fc82e93d 
+ssp.ynxs.io, 185, RESELLER
+rubiconproject.com, 17156, RESELLER, 0bfd66d529a55807 
+advertising.com, 24667, RESELLER 
+streamrail.net, 5715e0602ed89a000200022f, RESELLER 
+streamrail.net, 5715e0602ed89a000200022f, DIRECT
+lkqd.net, 505, RESELLER, 59c49fa9598a0117 
+lkqd.net, 307, RESELLER, 59c49fa9598a0117 
+lkqd.com, 307, RESELLER, 59c49fa9598a0117 
+lkqd.net, 307, DIRECT, 59c49fa9598a0117 
+lkqd.com, 307, DIRECT, 59c49fa9598a0117 
+vertamedia.com, 282639, RESELLER, 7de89dc7742b5b11
 rhythmone.com,1026339493,DIRECT,a670c89d4a324e47
 rubiconproject.com, 18630, DIRECT, 0bfd66d529a55807
 rubiconproject.com, 18632, DIRECT, 0bfd66d529a55807

@@ -26,6 +26,11 @@ class ParserFactory {
       }
     }
 
+    if (self::$parserMap[$sid]) {
+      // PHP-parsing-tool runs out of memory for large definitions
+      ini_set('memory_limit', '1G');
+    }
+
     return self::$parserMap[$sid];
   }
 

@@ -103,7 +103,7 @@
       <div class="panel panel-default">
         <div class="panel-body">
           <img class="pull-right"
-               src="{$r.wotd->getSmallThumbUrl()}"
+               src="{$r.wotd->getMediumThumbUrl()}"
                alt="iconița cuvântului zilei">
           <p>
             <strong>{$r.wotd->displayDate|date_format:'%Y'}</strong>:

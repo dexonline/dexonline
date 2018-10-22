@@ -61,9 +61,7 @@ class Meaning extends BaseObject implements DatedObject {
       = Str::sanitize($this->internalRep, 0, $warnings);
 
     if ($flash) {
-      foreach ($warnings as $w) {
-        FlashMessage::add($w, 'warning');
-      }
+      FlashMessage::bulkAdd($warnings, 'warning');
     }
   }
 

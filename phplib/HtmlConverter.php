@@ -30,13 +30,8 @@ class HtmlConverter {
 
   // Export errors and warnings as flash messages
   static function exportMessages() {
-    foreach (self::$warnings as $w) {
-      FlashMessage::add($w, 'warning');
-    }
-
-    foreach (self::$errors as $e) {
-      FlashMessage::add($e);
-    }
+    FlashMessage::bulkAdd(self::$warnings, 'warning');
+    FlashMessage::bulkAdd(self::$errors);
   }
 
 }

@@ -48,11 +48,7 @@ abstract class Parser {
           $delta += strlen($text);
         }
       }
-      throw new Exception(
-        'Nu pot analiza sintactic definiția. ' .
-        '<a href="https://wiki.dexonline.ro/wiki/Editarea_defini%C8%9Biilor" class="alert-link" target="_blank">' .
-        'detalii</a>',
-        $index + $delta);
+      throw new Exception($index + $delta);
     }
 
     $state = new ParserState();

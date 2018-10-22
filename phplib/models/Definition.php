@@ -66,9 +66,7 @@ class Definition extends BaseObject implements DatedObject {
     $this->parse($warnings);
 
     if ($flash) {
-      foreach ($warnings as $w) {
-        FlashMessage::add($w, 'warning');
-      }
+      FlashMessage::bulkAdd($warnings, 'warning');
     }
   }
 
@@ -90,8 +88,8 @@ class Definition extends BaseObject implements DatedObject {
         try {
           $this->internalRep = $parser->parse($this, $warnings);
         } catch (Exception $e) {
-          $warnings[] = $e->getMessage();
-          $pos = $e->getCode();
+          $pos = $e->getMessage();
+          $warnings[] = [ 'parsingError.tpl', [] ];
           $this->internalRep = Str::insert(
             $this->internalRep,
             Constant::PARSING_ERROR_MARKER,

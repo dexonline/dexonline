@@ -42,16 +42,16 @@
     </div>
   </div>
 
-  <div class="container panel panel-default">
-    <div class="row panel-heading">
-      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 wotd-navigation">
+  <div class="panel panel-default">
+    <div class="panel-heading clearfix">
+      <div class="wotd-navigation pull-left">
         {if $prevDay}
           <a href="{$wwwRoot}cuvantul-zilei/{$prevDay}">
             <span class="glyphicon glyphicon-chevron-left"></span>
           </a>
         {/if}
       </div>
-      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 wotd-navigation">
+      <div class="wotd-navigation pull-right">
         {if $nextDay}
           <a href="{$wwwRoot}cuvantul-zilei/{$nextDay}">
             <span class="glyphicon glyphicon-chevron-right pull-right">
@@ -60,7 +60,7 @@
         {/if}
       </div>
     </div>
-    <div class="row panel-body">
+    <div class="panel-body">
       <a {if $wotd->url}href="{$wotd->url}"{/if} target="_blank">
         <img class="img-responsive center-block"
           src="{$wotd->getLargeThumbUrl()}"
@@ -85,7 +85,7 @@
 
     </div>
     {if $reason}
-      <div class="row panel-footer">
+      <div class="panel-footer">
         <b>Cheia alegerii:</b> {$reason}
       </div>
     {/if}

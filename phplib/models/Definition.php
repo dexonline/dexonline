@@ -91,6 +91,11 @@ class Definition extends BaseObject implements DatedObject {
           $this->internalRep = $parser->parse($this, $warnings);
         } catch (Exception $e) {
           $warnings[] = $e->getMessage();
+          $pos = $e->getCode();
+          $this->internalRep = Str::insert(
+            $this->internalRep,
+            Constant::PARSING_ERROR_MARKER,
+            $pos);
         }
       }
     }

@@ -3,7 +3,7 @@
 /* Big ugly constants sit here so as not to clutter the code base. */
 
 class Constant {
-
+  const PARSING_ERROR_MARKER = "◼◼◼";
   const CLEANUP_PATTERNS = [
     '/(?<!\\\\)ş/'   => 'ș',
     '/(?<!\\\\)Ş/'   => 'Ș',
@@ -33,7 +33,8 @@ class Constant {
     // Replace the ordinal indicator with the degree sign.
     '/(?<!\\\\)º/'   =>  '°',    /* U+00BA => U+00B0 */
 
-    "/(?<!\\\\)\r\n/" => "\n"    /* Unix newlines only */
+    "/(?<!\\\\)\r\n/" => "\n",    /* Unix newlines only */
+    '/' . self::PARSING_ERROR_MARKER . '/' => '',
   ];
 
   const APOSTROPHE_CLEANUP_PATTERNS = [
@@ -62,6 +63,7 @@ class Constant {
     '/(?<!\\\\)_\{([^}]*)\}/' => '<sub>$1</sub>',                        // superscript _{a b c}
     '/(?<!\\\\)\{-([^}]*)-\}/' => '<del>$1</del>',                       // deletions {-foo-}
     '/(?<!\\\\)\{\+([^}]*)\+\}/' => '<ins>$1</ins>',                     // insertions {+foo+}
+    '/' . self::PARSING_ERROR_MARKER . '/' => '',
 
     // cycle CSS class {cfoo|0c}, used to highlight full-text search matches
     '/(?<!\\\\)\{c([^|}]+)\|(\d+)c\}/' => '<span class="fth fth$2">$1</span>',

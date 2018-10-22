@@ -40,6 +40,10 @@ class Str {
     return $startString == $substring;
   }
 
+  static function insert($string, $substring, $pos) {
+    return substr_replace($string, $substring, $pos, 0);
+  }
+
   /**
    * True if it contains any Unicode (but non-Latin) letters.
    */

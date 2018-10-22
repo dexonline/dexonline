@@ -30,7 +30,7 @@ abstract class Parser {
     $this->baseParser = new \ParserGenerator\Parser($s);
   }
 
-  // Parses a definition. Returns the modified internalRep
+  // Parses a definition. Returns the modified internalRep.
   function parse($def, &$warnings = null) {
     $warnings = $warnings ?? [];
 
@@ -39,7 +39,20 @@ abstract class Parser {
 
     $tree = $this->baseParser->parse($rep);
     if (!$tree) {
-      throw new Exception("Nu pot analiza sintactic definiția.");
+      // the reported error position needs to be adjusted for comments we have
+      // previously removed
+      $index = $this->baseParser->getError()['index'];
+      $delta = 0;
+      foreach ($comments as $pos => $text) {
+        if ($pos < $index) {
+          $delta += strlen($text);
+        }
+      }
+      throw new Exception(
+        'Nu pot analiza sintactic definiția. ' .
+        '<a href="https://wiki.dexonline.ro/wiki/Editarea_defini%C8%9Biilor" class="alert-link" target="_blank">' .
+        'detalii</a>',
+        $index + $delta);
     }
 
     $state = new ParserState();

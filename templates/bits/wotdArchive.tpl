@@ -48,7 +48,7 @@
               <div class="thumb">
                 {if $day.wotd && $day.wotd->image && $day.visible}
                   <a href="{$wwwRoot}cuvantul-zilei/{$day.wotd->getUrlDate()}">
-                    <img src="{$day.wotd->getSmallThumbUrl()}"
+                    <img src="{$day.wotd->getMediumThumbUrl()}"
                       alt="thumbnail {$day.def->lexicon}">
                   </a>
                 {/if}

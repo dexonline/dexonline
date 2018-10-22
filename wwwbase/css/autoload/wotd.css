@@ -6,7 +6,6 @@
 }
 
 .wotdArchiveTable .wotdDoM {
-  font-weight: bold;
   text-align: right;
 }
 
@@ -29,7 +28,7 @@
     border: none;
     display: block;
     font-size: 1.2em;
-    height: 98px;
+    height: 138px;
     width: auto;
   }
 
@@ -53,10 +52,6 @@
 }
 
 @media (max-width: 320px) {
-  .wotdArchiveTable tbody td {
-    height: 65px;
-  }
-
   .wotdArchiveTable .wotdDoM {
     width: 8%;
   }

@@ -38,6 +38,15 @@
           <label>Credite</label>
           <input type="text" name="credits" value="{$artist->credits|escape}" size="80" class="form-control">
         </div>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" name="sponsor" {if $artist->sponsor}checked{/if}>
+            sponsor
+            <p class="help-block">
+              sponsorii nu sunt asignați automat în lunile viitoare
+            </p>
+          </label>
+        </div>
 
         <button class="btn btn-success" type="submit" name="saveButton">
           <i class="glyphicon glyphicon-floppy-disk"></i>

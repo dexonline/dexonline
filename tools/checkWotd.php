@@ -198,6 +198,7 @@ function assignArtistByDate($date) {
     ->join('WotdAssignment', ['ar.id', '=', 'as.artistId'], 'as')
     ->where_like('as.date', $pattern)
     ->where_lt('as.date', $date)
+    ->where_equal('ar.sponsor', false)
     ->order_by_desc('as.date')
     ->find_one();
 

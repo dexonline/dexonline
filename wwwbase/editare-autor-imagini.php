@@ -21,6 +21,7 @@ if ($saveButton) {
   $artist->email = Request::get('email');
   $artist->label = Request::get('label');
   $artist->credits = Request::get('credits');
+  $artist->sponsor = Request::has('sponsor');
 
   if (validate($artist)) {
     $artist->save();

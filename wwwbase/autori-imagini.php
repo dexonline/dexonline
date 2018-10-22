@@ -2,7 +2,9 @@
 require_once("../phplib/Core.php");
 User::mustHave(User::PRIV_WOTD);
 
-$artists = Model::factory('WotdArtist')->find_many();
+$artists = Model::factory('WotdArtist')
+  ->order_by_asc('name')
+  ->find_many();
 
 // Cannot delete artists with WotM credits
 $wotmMap = [];

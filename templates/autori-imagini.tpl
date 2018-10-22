@@ -4,15 +4,13 @@
 
 {block "content"}
 
-  <table class="table table-condensed table-bordered table-striped">
-    <caption class="table-caption">
-      Autori ai imaginilor
-    </caption>
+  <h3>Autori ai imaginilor</h3>
+
+  <table class="table table-condensed table-striped">
     <tr>
       <th>nume</th>
       <th>e-mail</th>
       <th>cod</th>
-      <th>credite</th>
       <th>acțiuni</th>
     </tr>
     {foreach $artists as $a}
@@ -20,7 +18,6 @@
         <td>{$a->name}</td>
         <td>{$a->email}</td>
         <td>{$a->label}</td>
-        <td>{$a->credits|escape}</td>
         <td>
           <a href="editare-autor-imagini.php?id={$a->id}">editează</a>
           {if $a->canDelete}

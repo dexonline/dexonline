@@ -75,11 +75,12 @@
               {if $cfg.global.hostedBy}
                 <li>{include "hosting/`$cfg.global.hostedBy`.tpl"}</li>
               {/if}
-              <li>
-                <a href="javascript:window.__cmp(&quot;displayConsentUi&quot;)">
-                  Modifică consimțământul pentru anunțuri
-                </a>
-              </li>
+              {* disabled while we resolve the GDPR third-party cookie issues *}
+              {* <li> *}
+              {*  <a href="javascript:window.__cmp(&quot;displayConsentUi&quot;)"> *}
+              {*    Modifică consimțământul pentru anunțuri *}
+              {*  </a> *}
+              {* </li> *}
             </ul>
           </div>
         </div>

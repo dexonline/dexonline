@@ -184,7 +184,7 @@
                 <li>
                   <a href="{$wwwRoot}auth/login">
                     <i class="glyphicon glyphicon-log-in"></i>
-                    Autentificare cu OpenID
+                    Autentificare
                   </a>
                 </li>
               {/if}

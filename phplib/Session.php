@@ -15,33 +15,14 @@ class Session {
     // Otherwise we're being called by a local script, not a web-based one.
   }
 
-  static function login($user, $openidData) {
-    if (!$user) {
-      $user = Model::factory('User')->create();
-    }
-    if (!$user->identity) {
-      $user->identity = $openidData['identity'];
-    }
-    if (!$user->openidConnectSub && isset($openidData['sub'])) {
-      $user->openidConnectSub = $openidData['sub'];
-    }
-    if (!$user->nick && isset($openidData['nickname'])) {
-      $user->nick = Str::cleanup($openidData['nickname']);
-    }
-    if (isset($openidData['fullname'])) {
-      $user->name = Str::cleanup($openidData['fullname']);
-    }
-    if (isset($openidData['email'])) {
-      $user->email = $openidData['email'];
-    }
-    $user->password = null; // no longer necessary after the first OpenID login
-    $user->save();
-
+  static function login($user, $remember) {
     self::set('userId', $user->id);
-    $cookie = Cookie::create($user->id);
-    setcookie("prefs[lll]", $cookie->cookieString, time() + self::ONE_YEAR_IN_SECONDS, '/');
-    User::setActive($user->id); // for logging purposes only
+    if ($remember) {
+      $cookie = Cookie::create($user->id);
+      setcookie("prefs[lll]", $cookie->cookieString, time() + self::ONE_YEAR_IN_SECONDS, '/');
+    }
 
+    User::setActive($user->id); // for logging purposes only
     Log::info('Logged in, IP=' . $_SERVER['REMOTE_ADDR']);
     Util::redirect(Core::getWwwRoot());
   }

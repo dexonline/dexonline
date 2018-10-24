@@ -73,4 +73,23 @@ class User extends BaseObject {
   static function isTrainee() {
     return self::can(self::PRIV_TRAINEE);
   }
+
+  // Checks if the user can claim this email when registering or editing their profile.
+  // Returns null on success or an error message on errors.
+  static function canChooseEmail($email) {
+    if (!$email) {
+      return null; // it's optional
+    }
+
+    $u = User::get_by_email($email);
+    if ($u && $u->id != self::getActiveId()) {
+      return 'Această adresă de e-mail este deja folosită.';
+    }
+
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+      return 'Adresa de e-mail pare incorectă.';
+    }
+
+    return null;
+  }
 }

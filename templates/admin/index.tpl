@@ -94,7 +94,7 @@
             <div class="col-lg-4 col-md-6 col-sm-6">
 
               <fieldset>
-                <legend>proprietăți intrări</legend>
+                <legend><h4>proprietăți intrări</h4></legend>
 
                 <div class="form-group">
                   <label class="col-xs-4 control-label">descriere</label>
@@ -147,7 +147,7 @@
             <div class="col-lg-4 col-md-6 col-sm-6">
 
               <fieldset>
-                <legend>proprietăți lexeme</legend>
+                <legend><h4>proprietăți lexeme</h4></legend>
 
                 <div class="form-group">
                   <label class="col-xs-4 control-label">formă lexem</label>
@@ -219,7 +219,7 @@
             <div class="col-lg-4 col-md-6 col-sm-6">
 
               <fieldset>
-                <legend>proprietăți definiții</legend>
+                <legend><h4>proprietăți definiții</h4></legend>
 
                 <div class="form-group">
                   <label class="col-xs-4 control-label">lexicon</label>

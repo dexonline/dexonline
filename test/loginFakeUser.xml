@@ -27,12 +27,12 @@
 </tr>
 <tr>
 	<td>verifyElementPresent</td>
-	<td>link=Autentificare cu OpenID</td>
+	<td>link=Autentificare</td>
 	<td></td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=Autentificare cu OpenID</td>
+	<td>link=Autentificare</td>
 	<td></td>
 </tr>
 <tr>

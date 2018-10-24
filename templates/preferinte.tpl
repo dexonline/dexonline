@@ -29,32 +29,108 @@
           {/if}
 
           <p class="help-block">
-            Imaginea profilului dumneavoastră are rezoluția de 48x48 pixeli.
-            Pe ecranul următor puteți edita poza încărcată.
+            Imaginea profilului tău are rezoluția de 48x48 pixeli.
+            Pe ecranul următor poți edita poza încărcată.
           </p>
         </form>
       </div>
     </div>
   {/if}
 
-
-  <form method="post" action="preferinte" name="accountForm">
+  <form method="post">
     {if User::getActive()}
       <div class="panel panel-default">
         <div class="panel-heading">Date personale</div>
         <div class="panel-body">
+
+          <div class="form-group {if isset($errors.email)}has-error{/if}">
+            <div class="input-group">
+              <span class="input-group-addon">
+                <i class="glyphicon glyphicon-envelope"></i>
+              </span>
+              <input
+                class="form-control"
+                type="text"
+                name="email"
+                value="{$email}"
+                placeholder="adresa de e-mail*">
+            </div>
+            {include "bits/fieldErrors.tpl" errors=$errors.email|default:null}
+          </div>
+          <p class="help-block">
+            *folosită <b>doar</b> ca să îți poți recupera contul dacă îți uiți parola
+          </p>
+
+          <div class="form-group">
+            <div class="input-group">
+              <span class="input-group-addon">
+                <i class="glyphicon glyphicon-user"></i>
+              </span>
+              <input
+                class="form-control"
+                type="text"
+                name="name"
+                value="{$name}"
+                placeholder="numele real">
+            </div>
+          </div>
+
           <div class="checkbox">
             <label>
               <input type="checkbox" name="detailsVisible" value="1" {if $detailsVisible}checked{/if}>
-              Datele mele sunt vizibile public
+              datele mele sunt vizibile public
               <span class="help-block">
-                Identitatea OpenID, numele și adresa de email furnizate de OpenID vor apărea în
-                <a href="{$wwwRoot}utilizator/{User::getActive()}">profilul dumneavoastră</a>.
-                <em>dexonline</em> nu permite editarea directă a acestor date.<br>
-                Ele sunt preluate din identitatea OpenID.
+                Poți afișa sau ascunde numele și adresa de email în
+                <a href="{$wwwRoot}utilizator/{User::getActive()}">profilul tău</a>.
               </span>
             </label>
           </div>
+
+          <fieldset>
+            <legend><h5>dacă vrei să îți schimbi parola</h5></legend>
+
+            <div class="form-group {if isset($errors.password)}has-error{/if}">
+              <div class="input-group">
+                <span class="input-group-addon">
+                  <i class="glyphicon glyphicon-lock"></i>
+                </span>
+                <input
+                  class="form-control"
+                  type="password"
+                  name="password"
+                  value="{$password}"
+                  placeholder="parola curentă">
+              </div>
+              {include "bits/fieldErrors.tpl" errors=$errors.password|default:null}
+            </div>
+
+            <div class="form-group {if isset($errors.newPassword)}has-error{/if}">
+              <div class="input-group">
+                <span class="input-group-addon">
+                  <i class="glyphicon glyphicon-lock"></i>
+                </span>
+                <input
+                  class="form-control"
+                  type="password"
+                  name="newPassword"
+                  value="{$newPassword}"
+                  placeholder="parola nouă">
+              </div>
+              <div class="input-group voffset3">
+                <span class="input-group-addon">
+                  <i class="glyphicon glyphicon-lock"></i>
+                </span>
+                <input
+                  class="form-control"
+                  type="password"
+                  name="newPassword2"
+                  value="{$newPassword2}"
+                  placeholder="parola nouă (din nou)">
+              </div>
+              {include "bits/fieldErrors.tpl" errors=$errors.newPassword|default:null}
+            </div>
+          </fieldset>
+
         </div>
       </div>
     {/if}

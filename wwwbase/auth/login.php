@@ -4,7 +4,12 @@ require_once("../../phplib/Core.php");
 Util::assertNotMirror();
 Util::assertNotLoggedIn();
 
-$openid = Request::get('openid');
+// nick means "nick or email" throughout this form
+$nick = Request::get('nick');
+$password = Request::get('password');
+$remember = Request::has('remember');
+$submitButton = Request::has('submitButton');
+
 $fakeUserNick = Request::get('fakeUserNick');
 $priv = Request::getArray('priv');
 $allPriv = Request::get('allPriv');
@@ -20,7 +25,6 @@ if ($fakeUserNick) {
   if (!$user) {
     $user = Model::factory('User')->create();
   }
-  $user->identity = 'http://fake.example.com';
   $user->nick = $fakeUserNick;
   if (!$user->name) {
     $user->name = $fakeUserNick;
@@ -32,65 +36,56 @@ if ($fakeUserNick) {
     $user->moderator = array_sum($priv);
   }
   $user->save();
-  Session::login($user, []);
+  Session::login($user, true);
 }
 
-switch ($openid) {
-  case 'google': $openid = "https://accounts.google.com/o/oauth2/auth"; break;
-  case 'yahoo': $openid = "http://me.yahoo.com/"; break;
-}
+if ($submitButton) {
+  $user = validate($nick, $password, $errors);
 
-if ($openid) {
-  // Add protocol if missing
-  if (!Str::startsWith($openid, 'http://') &&
-      !Str::startsWith($openid, 'https://')) {
-    $openid = "http://{$openid}";
-  }
-
-  $credentials = Config::get('openid.credentials');
-  $host = parse_url($openid, PHP_URL_HOST);
-
-  // Decide if we're using OpenID or OpenID connect
-  $isOpenidConnect = true;
-  $oidc = new OpenIDConnect($openid);
-  if (isset($credentials[$host])) {
-    // We have an explicit rule for OpenID Connect in the config file
-    list($oidcId, $oidcSecret) = explode('|', $credentials[$host]);
-
-  } else if ($oidc->hasWellKnownConfig()) {
-    // The site has a .well-known file, so it uses OpenID Connect
-    if ($oidc->supportsDynamicRegistration()) {
-      list($oidcId, $oidcSecret) = $oidc->dynamicRegistration();
-    } else {
-      // OpenID connect, but no dynamic registration and no explicit config.
-      // Log this and display an error message.
-      Log::error("Need OpenID Connect registration for {$openid}");
-      FlashMessage::add('Momentan nu putem accepta OpenID de la acest furnizor. Problema nu ține de noi, dar vom încerca să o reparăm.');
-    }
-
+  if ($user) {
+    Session::login($user, $remember);
   } else {
-    // asume plain OpenID
-    $isOpenidConnect = false;
-  }
-
-  if (!FlashMessage::hasErrors()) {
-    if ($isOpenidConnect) {
-      try {
-        $oidc->authenticate($oidcId, $oidcSecret);
-      } catch (OpenIDException $e) {
-        FlashMessage::add($e->getMessage());
-      }
-    } else {
-      // This returns null on errors; does not return at all on success.
-      OpenID::beginAuth($openid, null);
-    }
+    SmartyWrap::assign('errors', $errors);
   }
 }
 
 if ($devel) {
-  SmartyWrap::assign('allowFakeUsers', true);
-  SmartyWrap::assign('fakeUserNick', 'test' . rand(10000, 99999));
+  SmartyWrap::assign([
+    'allowFakeUsers' => true,
+    'fakeUserNick' => 'test' . rand(10000, 99999),
+  ]);
 }
 
-SmartyWrap::assign('openid', $openid);
+SmartyWrap::assign([
+  'nick' => $nick,
+  'remember' => $remember,
+]);
 SmartyWrap::display('auth/login.tpl');
+
+/*************************************************************************/
+
+// returns a user upon successful credentials, null otherwise
+function validate($nick, $password, &$errors) {
+  $errors = [];
+
+  if (!$nick) {
+    $errors['nick'][] = 'Numele de utilizator / adresa de e-mail nu pot fi vide.';
+  }
+
+  if (!$password) {
+    $errors['password'][] = 'Parola nu poate fi vidă.';
+  }
+
+  $user = null;
+  if ($nick && $password) {
+    $user = Model::factory('User')
+      ->where_any_is([['nick' => $nick], ['email' => $nick]])
+      ->where('password', md5($password))
+      ->find_one();
+    if (!$user) {
+      $errors['password'][] = 'Numele de utilizator / adresa de e-mail sau parola sunt incorecte.';
+    }
+  }
+
+  return $user;
+}

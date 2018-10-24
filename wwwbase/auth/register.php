@@ -54,15 +54,7 @@ function validate($nick, $password, $password2, $email) {
     $errors['nick'][] = 'Acest nume de utilizator este deja folosit.';
   }
 
-  if (!$password) {
-    $errors['password'][] = 'Parola nu poate fi vidă.';
-  } else if (!$password2) {
-    $errors['password'][] = 'Introdu parola de două ori pentru verificare.';
-  } else if ($password != $password2) {
-    $errors['password'][] = 'Parolele nu coincid.';
-  } else if (strlen($password) < 8) {
-    $errors['password'][] = 'Parola trebuie să aibă minimum 8 caractere.';
-  }
+  User::validateNewPassword($password, $password2, $errors, 'password');
 
   $msg = User::canChooseEmail($email);
   if ($msg) {

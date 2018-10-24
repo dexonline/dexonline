@@ -81,15 +81,7 @@ function validate($email, $password, $newPassword, $newPassword2) {
       $errors['password'][] = 'Parola curentă este incorectă.';
     }
 
-    if (!$newPassword) {
-      $errors['newPassword'][] = 'Introdu noua parolă.';
-    } else if (!$newPassword2) {
-      $errors['newPassword'][] = 'Introdu parola de două ori pentru verificare.';
-    } else if ($newPassword != $newPassword2) {
-      $errors['newPassword'][] = 'Parolele nu coincid.';
-    } else if (strlen($newPassword) < 8) {
-      $errors['newPassword'][] = 'Parola trebuie să aibă minimum 8 caractere.';
-    }
+    User::validateNewPassword($newPassword, $newPassword2, $errors, 'newPassword');
   }
 
   return $errors;

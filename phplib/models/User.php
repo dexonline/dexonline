@@ -92,4 +92,16 @@ class User extends BaseObject {
 
     return null;
   }
+
+  static function validateNewPassword($password, $password2, &$errors, $field) {
+    if (!$password) {
+      $errors[$field][] = 'Parola nu poate fi vidă.';
+    } else if (!$password2) {
+      $errors[$field][] = 'Introdu parola de două ori pentru verificare.';
+    } else if ($password != $password2) {
+      $errors[$field][] = 'Parolele nu coincid.';
+    } else if (strlen($password) < 8) {
+      $errors[$field][] = 'Parola trebuie să aibă minimum 8 caractere.';
+    }
+  }
 }

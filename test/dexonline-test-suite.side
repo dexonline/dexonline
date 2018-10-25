@@ -16,21 +16,21 @@
       "id": "da9fd4ac-3153-429a-9c6f-742056c9c34d",
       "comment": "",
       "command": "verifyElementPresent",
-      "target": "link=Despre noi",
+      "target": "linkText=Despre noi",
       "targets": [],
       "value": ""
     }, {
       "id": "9b6ee84e-d339-4d3e-a3b4-b290159aa4f0",
       "comment": "",
       "command": "verifyElementPresent",
-      "target": "link=Implică-te",
+      "target": "linkText=Implică-te",
       "targets": [],
       "value": ""
     }, {
       "id": "c1af77e2-ce20-4360-b26d-5e4af2c70c2b",
       "comment": "",
       "command": "verifyElementPresent",
-      "target": "link=Articole și resurse",
+      "target": "linkText=Articole și resurse",
       "targets": [],
       "value": ""
     }, {
@@ -2418,7 +2418,7 @@
       "id": "85a5471d-19c1-4534-bc84-08b5986293ed",
       "comment": "",
       "command": "dragAndDropToObject",
-      "target": "//table[@id='inflections']/tbody/tr[3]/td",
+      "target": "xpath=//table[@id='inflections']/tbody/tr[3]/td",
       "targets": [],
       "value": "css=th"
     }, {
@@ -2478,14 +2478,14 @@
       "id": "e945ce52-657b-4769-8a16-8d214826a9ad",
       "comment": "",
       "command": "dragAndDropToObject",
-      "target": "//table[@id='inflections']/tbody/tr[3]/td",
+      "target": "xpath=//table[@id='inflections']/tbody/tr[3]/td",
       "targets": [],
       "value": "css=th"
     }, {
       "id": "080f3ccf-3b89-4d91-a98d-249f31e86539",
       "comment": "",
       "command": "dragAndDropToObject",
-      "target": "//table[@id='inflections']/tbody/tr[3]/td",
+      "target": "xpath=//table[@id='inflections']/tbody/tr[3]/td",
       "targets": [],
       "value": "css=th"
     }, {

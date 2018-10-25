@@ -1,6 +1,6 @@
 Bună ziua,
 
-Primiți acest mesaj deoarece ați solicitat recuperarea parolei pentru contul dumneavoastră la dexonline. Pentru a revendica acest cont și a-l uni cu identitatea dumeavoastră OpenID, vizitați adresa:
+Primiți acest mesaj deoarece ați solicitat recuperarea parolei pentru contul dumneavoastră la dexonline. Pentru a vă schimba parola, vizitați adresa:
 
 {$homePage}auth/recuperare-parola?token={$token}
 

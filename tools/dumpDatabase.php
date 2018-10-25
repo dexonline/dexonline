@@ -84,7 +84,7 @@ if (!$doFullDump) {
   DB::execute("insert into _User_Copy select * from User where id = 0");
   DB::execute("update _User_Copy set id = 0 where id = 1");
   DB::execute("insert into _User_Copy select * from User where id > 0");
-  DB::execute("update _User_Copy set password = md5('1234'), email = concat(id, '@anonymous.com'), identity = null");
+  DB::execute("update _User_Copy set password = md5('1234'), email = concat(id, '@anonymous.com')");
   OS::executeAndAssert("$COMMON_COMMAND _User_Copy | sed 's/_User_Copy/User/g' >> $SQL_FILE");
   DB::execute("drop table _User_Copy");
 

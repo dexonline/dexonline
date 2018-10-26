@@ -67,7 +67,49 @@
       </div>
     </div>
 
-    <a href="register">vreau să îmi creez un cont</a>
+    <p>
+      <a href="register">vreau să îmi creez un cont</a>
+      <a href="#openidInfo" class="pull-right" data-toggle="collapse">
+        informații despre OpenID
+      </a>
+    </p>
+
+    <div id="openidInfo" class="collapse">
+      <div class="well">
+        <p>
+          <i>dexonline</i> a permis autentificarea cu OpenID (și doar cu
+          OpenID) între 2011 și 2018. OpenID promitea să fie un standard
+          deschis și descentralizat pentru autentificare. Marele avantaj ar fi
+          fost că utilizatorii puteau folosi același cont pe toate site-urile,
+          fără a mai memora zeci de conturi și parole.
+        </p>
+
+        <p>
+          Din păcate, OpenID nu a avut succesul dorit. Marii furnizori de
+          identități pe Internet (în primul rând Google și Facebook) l-au
+          înlocuit fiecare cum a crezut de cuviință, folosind tehnologii
+          divergente. Pentru <i>dexonline</i>, unde timpul de dezvoltare este
+          limitat, nu se justifică energia necesară întreținerii tuturor
+          acestor tehnologii. În plus, ambele companii au devenit obsedate de
+          urmărirea activității utilizatorilor. Nu dorim să încurajăm acest
+          model forțând utilizatorii să se autentifice cu Google sau Facebook.
+        </p>
+
+        <p>
+          De aceea am luat decizia să revenim la modelul clasic, de conturi cu
+          nume și parolă doar pentru dexonline. Dacă aveți un cont la noi, vă
+          puteți recupera parola accesând link-ul
+          <a href="parola-uitata">mi-am uitat parola</a>.
+        </p>
+
+        <p>
+          Știm că gestionarea atâtor conturi devine o problemă. Vă recomandăm
+          să încercați un manager de parole cum ar fi
+          <a href="https://keepass.info/">KeePass</a> sau
+          <a href="https://www.keepassx.org/">KeePassX</a>.
+        </p>
+      </div>
+    </div>
 
   </div>
 

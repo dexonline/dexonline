@@ -1,86 +1,116 @@
 {extends "layout.tpl"}
 
-{block "title"}Autentificare cu OpenID{/block}
+{block "title"}Autentificare{/block}
 
 {block "search"}{/block}
 
 {block "content"}
   {assign var="allowFakeUsers" value=$allowFakeUsers|default:false}
-  {assign var="openid" value=$openid|default:''}
 
   {if $allowFakeUsers}
     {include "bits/fakeUser.tpl"}
   {/if}
 
-  <h3>Autentificare cu OpenID</h3>
-
-  <form class="form-inline" method="post" action="{$wwwRoot}auth/login">
-    <div class="form-group">
-      <label>
-        OpenID:
-        <input class="form-control" type="text" name="openid" value="{$openid}" size="50" autofocus>
-      </label>
-
-      <button class="btn btn-primary" type="submit">
+  <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+    <div class="panel panel-default">
+      <div class="panel-heading">
         Autentificare
-      </button>
+      </div>
+
+      <div class="panel-body">
+        <form method="post">
+
+          <div class="form-group {if isset($errors.nick)}has-error{/if}">
+            <div class="input-group">
+              <span class="input-group-addon">
+                <i class="glyphicon glyphicon-user"></i>
+              </span>
+              <input
+                class="form-control"
+                type="text"
+                name="nick"
+                value="{$nick}"
+                placeholder="numele de utilizator sau adresa de e-mail">
+            </div>
+            {include "bits/fieldErrors.tpl" errors=$errors.nick|default:null}
+          </div>
+
+          <div class="form-group {if isset($errors.password)}has-error{/if}">
+            <div class="input-group">
+              <span class="input-group-addon">
+                <i class="glyphicon glyphicon-lock"></i>
+              </span>
+              <input
+                class="form-control"
+                type="password"
+                name="password"
+                placeholder="parola">
+            </div>
+            {include "bits/fieldErrors.tpl" errors=$errors.password|default:null}
+          </div>
+
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" name="remember" value="1" {if $remember}checked{/if}>
+              ține-mă autentificat un an
+            </label>
+          </div>
+
+          <button class="btn btn-primary" type="submit" name="submitButton">
+            autentificare
+          </button>
+
+          <a class="btn btn-link pull-right" href="parola-uitata">
+            mi-am uitat parola
+          </a>
+        </form>
+      </div>
     </div>
-  </form>
 
-  <div class="voffset3"></div>
+    <p>
+      <a href="register">vreau să îmi creez un cont</a>
+      <a href="#openidInfo" class="pull-right" data-toggle="collapse">
+        informații despre OpenID
+      </a>
+    </p>
 
-  <p>
-    Dacă aveți un cont Google sau Yahoo, îl puteți folosi ca OpenID:
-  </p>
+    <div id="openidInfo" class="collapse">
+      <div class="well">
+        <p>
+          <i>dexonline</i> a permis autentificarea cu OpenID (și doar cu
+          OpenID) între 2011 și 2018. OpenID promitea să fie un standard
+          deschis și descentralizat pentru autentificare. Marele avantaj ar fi
+          fost că utilizatorii puteau folosi același cont pe toate site-urile,
+          fără a mai memora zeci de conturi și parole.
+        </p>
 
-  <div>
-    <a href="{$wwwRoot}auth/login?openid=google">
-      <img src="{$imgRoot}/openid/btn_google_dark_normal.png" alt="Autentificare cu un cont Google">
-    </a>
-    <a href="{$wwwRoot}auth/login?openid=yahoo">
-      <img src="{$imgRoot}/openid/btn_yahoo_light.png" alt="Autentificare cu un cont Yahoo">
-    </a>
+        <p>
+          Din păcate, OpenID nu a avut succesul dorit. Marii furnizori de
+          identități pe Internet (în primul rând Google și Facebook) l-au
+          înlocuit fiecare cum a crezut de cuviință, folosind tehnologii
+          divergente. Pentru <i>dexonline</i>, unde timpul de dezvoltare este
+          limitat, nu se justifică energia necesară întreținerii tuturor
+          acestor tehnologii. În plus, ambele companii au devenit obsedate de
+          urmărirea activității utilizatorilor. Nu dorim să încurajăm acest
+          model forțând utilizatorii să se autentifice cu Google sau Facebook.
+        </p>
+
+        <p>
+          De aceea am luat decizia să revenim la modelul clasic, de conturi cu
+          nume și parolă doar pentru dexonline. Dacă aveți un cont la noi, vă
+          puteți recupera parola accesând link-ul
+          <a href="parola-uitata">mi-am uitat parola</a>.
+        </p>
+
+        <p>
+          Știm că gestionarea atâtor conturi devine o problemă. Vă recomandăm
+          să încercați un manager de parole cum ar fi
+          <a href="https://keepass.info/">KeePass</a> sau
+          <a href="https://www.keepassx.org/">KeePassX</a>.
+        </p>
+      </div>
+    </div>
+
   </div>
 
-  <h3>Ce este OpenID?</h3>
-
-  <div>
-    <img src="{$imgRoot}/openid/openid.png" alt="Logo OpenID">
-
-    <span>este o modalitate mai rapidă și mai ușoară de a vă autentifica pe un site web.</span>
-  </div>
-
-  <ul>
-    <li>Nu este nevoie să vă creați un cont nou pentru <i>dexonline</i>, ceea ce vă economisește timp;</li>
-    <li>Nu este nevoie să memorați o parolă în plus;</li>
-    <li>Un cont OpenID, odată creat, poate fi refolosit pe orice site care admite OpenID, iar numărul acestora este în creștere;</li>
-    <li>Sunt șanse mari să aveți deja un OpenID, deoarece multe site-uri mari (Google, Yahoo și altele) servesc și ca furnizori de OpenID;</li>
-    <li>Dacă aveați deja un cont pe <i>dexonline</i>, îl veți putea revendica și asocia cu OpenID-ul dumneavoastră.</li>
-  </ul>
-
-  <p>
-    Puteți citi mai multe informații pe <a href="http://openid.net/">site-ul OpenID</a>
-    (în limba engleză).
-  </p>
-
-  <h3>Cum obțin un OpenID?</h3>
-
-  <p>
-    Vizitați <a href="http://openid.net/get-an-openid/">lista furnizorilor de OpenID</a>.
-  </p>
-
-  <h3>Precizare</h3>
-
-  <p>
-    Majoritatea funcțiilor din <i>dexonline</i> nu necesită autentificarea, cu excepțiile:
-  </p>
-
-  <ul>
-
-    <li>
-      Vă puteți alege <a href="../preferinte">preferințele</a>, cu efect pe toate calculatoarele;
-    </li>
-
-    <li>Vă puteți crea o listă de definiții favorite pentru acces ușor.</li>
-  </ul>
 {/block}

@@ -276,13 +276,6 @@ restUrl = http://otrs.dexonline.ro/otrs/nph-genericinterface.pl/Webservice/rest
 login = ""
 password = ""
 
-[openid]
-
-; OpenID 2.0 should just work (TM).
-; OpenID Connect logins on sites that allow dynamic registration should also work.
-; For OpenID Connect on sites that require registration, enter your credentials here.
-credentials[example.com] = "client_id|client_secret"
-
 [tags]
 
 ; Animate lexemes have forms for the vocative case

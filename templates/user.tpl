@@ -17,14 +17,9 @@
       {/if}
 
     </div>
-    {if $user->detailsVisible}
+    {if $user->detailsVisible && ($user->name || $user->email)}
       <div class="panel-body">
         <dl class="dl-horizontal">
-          {if $user->identity}
-            <dt>OpenID</dt>
-            <dd><a href="{$user->identity}">{$user->identity}</a></dd>
-          {/if}
-
           {if $user->detailsVisible && $user->name}
             <dt>Nume</dt>
             <dd>{$user->name|escape}</dd>
@@ -33,7 +28,6 @@
           {if $user->detailsVisible && $user->email}
             <dt>Adresă de e-mail</dt>
             <dd>{$user->email|escape}</dd>
-            <br>
           {/if}
         </dl>
       </div>

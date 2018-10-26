@@ -48,11 +48,11 @@ class ParserFactory {
 
       self::$sourceMap = [];
       foreach ($cfg as $urlName => $class) {
-        if (!isset($map[$urlName])) {
-          throw new Exception(
-            "Unknown Source.urlName: $urlName. Please check the [parsers] section of your config");
+        if (isset($map[$urlName])) {
+          self::$sourceMap[$map[$urlName]] = $class;
         }
-        self::$sourceMap[$map[$urlName]] = $class;
+        // otherwise the source urlName is probably misspelled, but it's also
+        // possible we are in testing mode and that source does not exist
       }
     }
   }

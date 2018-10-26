@@ -1,0 +1,3657 @@
+{
+  "id": "335079ed-3579-4207-8cfc-68ab2509c3f3",
+  "name": "dexonline-test-suite",
+  "url": "http://localhost/dexonline/wwwbase/",
+  "tests": [{
+    "id": "homePage.htm",
+    "name": "homePage",
+    "commands": [{
+      "id": "73ef4467-9767-4dbe-a4f2-46a68af5e5de",
+      "comment": "",
+      "command": "open",
+      "target": ".",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "da9fd4ac-3153-429a-9c6f-742056c9c34d",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "linkText=Despre noi",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "9b6ee84e-d339-4d3e-a3b4-b290159aa4f0",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "linkText=Implică-te",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c1af77e2-ce20-4360-b26d-5e4af2c70c2b",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "linkText=Articole și resurse",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d208ca88-5fce-4d5f-9608-7f15fe480d0c",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "name=cuv",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "0abd7b6c-53d1-4c52-9d85-f2584113ab52",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=searchButton",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "07ceac09-d335-41ab-b156-6f71f9f63d91",
+      "comment": "",
+      "command": "verifyText",
+      "target": "id=advancedAnchor",
+      "targets": [],
+      "value": "opțiuni"
+    }]
+  }, {
+    "id": "searchByInflectedForm.htm",
+    "name": "searchByInflectedForm",
+    "commands": [{
+      "id": "a83dd0f9-76f6-40e1-b2a7-53851f811108",
+      "comment": "",
+      "command": "open",
+      "target": ".",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "bb77b56b-8225-4b68-9235-dde8cbd48766",
+      "comment": "",
+      "command": "type",
+      "target": "name=cuv",
+      "targets": [],
+      "value": "brânzeturi"
+    }, {
+      "id": "d8f37374-6b58-4467-bf5b-cc79f3f2ce8a",
+      "comment": "",
+      "command": "click",
+      "target": "id=searchButton",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "1b6b7590-d6dd-4972-8585-55c81850f38a",
+      "comment": "",
+      "command": "verifyValue",
+      "target": "name=cuv",
+      "targets": [],
+      "value": "brânză"
+    }, {
+      "id": "fc249081-ff3f-48e9-be82-2aca48fe764d",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=h3",
+      "targets": [],
+      "value": "O definiție pentru brânză"
+    }, {
+      "id": "4c11de69-1f01-4ce3-bbda-8cec908933c8",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=span.def",
+      "targets": [],
+      "value": "Produs alimentar[1] obținut prin coagularea și prelucrarea laptelui."
+    }, {
+      "id": "a8a4f8cc-307f-496a-aea6-d719f29068a0",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=a.ref",
+      "targets": [],
+      "value": "Source 1 (2010)"
+    }, {
+      "id": "46f7012f-cbda-4fe1-918e-38dbb6217ecb",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=.dropup > li:nth-child(2) > a",
+      "targets": [
+        ["css=.dropup > li:nth-child(2) > a", "css:finder"],
+        ["xpath=(//a[contains(text(),'john')])[2]", "xpath:link"],
+        ["xpath=//div[@id='resultsTab']/div/div[2]/ul/li[2]/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '/dexonline/wwwbase/utilizator/john')])[3]", "xpath:href"],
+        ["xpath=//div[2]/ul/li[2]/a", "xpath:position"]
+      ],
+      "value": "john"
+    }, {
+      "id": "f2020628-e234-4c10-948a-f18960ff564c",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=acțiuni",
+      "targets": [
+        ["linkText=acțiuni", "linkText"],
+        ["css=ul.list-inline.dropup > li.dropdown > a.dropdown-toggle", "css"],
+        ["css=.list-inline .dropdown-toggle", "css:finder"],
+        ["xpath=//a[contains(text(),'acțiuni')]", "xpath:link"],
+        ["xpath=//div[@id='resultsTab']/div/div[2]/ul/li[3]/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '#')])[8]", "xpath:href"],
+        ["xpath=//div[2]/ul/li[3]/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "78b14100-6bcc-411e-899a-08155cfa7635",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "linkText=semnalează o greșeală",
+      "targets": [
+        ["linkText=semnalează o greșeală", "linkText"],
+        ["css=li.dropdown.open > ul.dropdown-menu > li > a", "css"],
+        ["css=.open li:nth-child(1) > a", "css:finder"],
+        ["xpath=//div[@id='resultsTab']/div/div[2]/ul/li[3]/ul/li/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '#')])[9]", "xpath:href"],
+        ["xpath=//div[2]/ul/li[3]/ul/li/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "674cbee0-4349-4803-a19d-dbbbc0b0278d",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "linkText=permalink",
+      "targets": [
+        ["linkText=permalink", "linkText"],
+        ["css=a[title=\"link direct către această definiție\"]", "css"],
+        ["css=.open li:nth-child(3) > a", "css:finder"],
+        ["xpath=//div[@id='resultsTab']/div/div[2]/ul/li[3]/ul/li[3]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/dexonline/wwwbase/definitie/brânză/1')]", "xpath:href"],
+        ["xpath=//div[2]/ul/li[3]/ul/li[3]/a", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "searchApproximate.htm",
+    "name": "searchApproximate",
+    "commands": [{
+      "id": "3fb40585-617d-4740-a58f-025f31ea2543",
+      "comment": "",
+      "command": "open",
+      "target": ".",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c1472062-fa08-44f9-8699-982022edfbb0",
+      "comment": "",
+      "command": "type",
+      "target": "name=cuv",
+      "targets": [],
+      "value": "brbnză"
+    }, {
+      "id": "700a1ad2-1090-4e9a-b8bd-f8b0bff05276",
+      "comment": "",
+      "command": "click",
+      "target": "id=searchButton",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "0fc2eba7-f181-406c-8cd5-6c08f7f51a8b",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=.alert",
+      "targets": [
+        ["css=.alert", "css:finder"],
+        ["xpath=//main/div/div/div/div", "xpath:position"]
+      ],
+      "value": "×\\nV-am redirecționat automat de la brbnză la brânză."
+    }, {
+      "id": "5c49005c-dba3-4749-83ee-628d84cae15d",
+      "comment": "",
+      "command": "verifyValue",
+      "target": "name=cuv",
+      "targets": [],
+      "value": "brânză"
+    }, {
+      "id": "89634789-187b-4852-809e-e0b6364f4343",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=span.def",
+      "targets": [],
+      "value": "Produs alimentar[1] obținut prin coagularea și prelucrarea laptelui."
+    }]
+  }, {
+    "id": "searchRegexp.htm",
+    "name": "searchRegexp",
+    "commands": [{
+      "id": "efa17919-4349-42ea-8519-50953dcee64a",
+      "comment": "",
+      "command": "open",
+      "target": ".",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "6c2dc94b-c446-4d57-89d6-2be1e7bae81e",
+      "comment": "",
+      "command": "type",
+      "target": "name=cuv",
+      "targets": [],
+      "value": "*ă*"
+    }, {
+      "id": "8ca02440-14cb-45d9-aab6-1dbbb67df5c6",
+      "comment": "",
+      "command": "click",
+      "target": "id=searchButton",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "1ddd9c4c-7ef1-42b6-94ef-87d70625a2f2",
+      "comment": "",
+      "command": "verifyValue",
+      "target": "name=cuv",
+      "targets": [],
+      "value": "*ă*"
+    }, {
+      "id": "addb5998-373b-4466-979d-bd2809d25701",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=h3",
+      "targets": [],
+      "value": "4 rezultate pentru *ă*"
+    }, {
+      "id": "8b5ba554-6687-42d9-80da-8bf74a340414",
+      "comment": "",
+      "command": "verifyText",
+      "target": "linkText=brânză",
+      "targets": [],
+      "value": "brânză"
+    }, {
+      "id": "8c84adef-adea-4502-802b-ef475ba97b45",
+      "comment": "",
+      "command": "verifyText",
+      "target": "linkText=cadă",
+      "targets": [],
+      "value": "cadă"
+    }, {
+      "id": "a4afe97a-e703-424b-bf3d-269888ae37ec",
+      "comment": "",
+      "command": "verifyText",
+      "target": "linkText=ladă",
+      "targets": [],
+      "value": "ladă"
+    }, {
+      "id": "161a1b2a-dce8-4096-811c-315a4b202022",
+      "comment": "",
+      "command": "verifyText",
+      "target": "linkText=ogradă",
+      "targets": [],
+      "value": "ogradă"
+    }]
+  }, {
+    "id": "searchFullText.htm",
+    "name": "searchFullText",
+    "commands": [{
+      "id": "fe5a4351-45f5-4d80-a95c-fe00ced5f7ae",
+      "comment": "",
+      "command": "open",
+      "target": ".",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "e7574efd-e9dd-461b-9ac9-0b7953f547cb",
+      "comment": "",
+      "command": "type",
+      "target": "name=cuv",
+      "targets": [],
+      "value": "din metal"
+    }, {
+      "id": "2e016352-b240-43da-a1e5-b1a7cc34d3a2",
+      "comment": "",
+      "command": "click",
+      "target": "id=advancedAnchor",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "4faf7dd1-3de4-4676-9d2a-081444915a4b",
+      "comment": "",
+      "command": "click",
+      "target": "name=text",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "1985b364-720b-4d3e-b624-9527ff2604c8",
+      "comment": "",
+      "command": "click",
+      "target": "id=searchButton",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b58bdc8d-24a4-4828-9989-7f2f70c309c2",
+      "comment": "",
+      "command": "verifyValue",
+      "target": "name=cuv",
+      "targets": [],
+      "value": "din metal"
+    }, {
+      "id": "eb8bae8a-332a-4a54-be53-b28f78dfc2b7",
+      "comment": "",
+      "command": "verifyValue",
+      "target": "name=text",
+      "targets": [],
+      "value": "on"
+    }, {
+      "id": "5ac67c3f-f09f-458d-a1bd-9c81d8a2b8ca",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=h3",
+      "targets": [],
+      "value": "O definiție cuprinde toate cuvintele căutate"
+    }, {
+      "id": "9326315e-4504-4001-8516-efe45349b004",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=.fth:nth-child(4)",
+      "targets": [
+        ["css=.fth:nth-child(4)", "css:finder"],
+        ["xpath=//div[@id='resultsTab']/div/p/span/span[4]", "xpath:idRelative"],
+        ["xpath=//span/span[4]", "xpath:position"]
+      ],
+      "value": "din"
+    }, {
+      "id": "7ae2ac1a-545d-45f7-a068-ed1e3942ddf0",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=span.fth.fth1",
+      "targets": [],
+      "value": "metal"
+    }]
+  }, {
+    "id": "searchByDefinitionId.htm",
+    "name": "searchByDefinitionId",
+    "commands": [{
+      "id": "54ecb0eb-1735-40f4-af87-737298c341e9",
+      "comment": "",
+      "command": "open",
+      "target": ".",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "4cd1ffaa-e66c-4780-b2f9-40a911608f01",
+      "comment": "",
+      "command": "type",
+      "target": "name=cuv",
+      "targets": [],
+      "value": "1"
+    }, {
+      "id": "aba60407-099d-48bd-8ad4-e85879602d20",
+      "comment": "",
+      "command": "click",
+      "target": "id=searchButton",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "6b7c0aca-2b95-4b8e-bf62-1c12dd3982d4",
+      "comment": "",
+      "command": "verifyValue",
+      "target": "name=cuv",
+      "targets": [],
+      "value": "brânză"
+    }, {
+      "id": "f5a0ffc8-65c8-4a54-8e74-46437c205705",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=span.def",
+      "targets": [],
+      "value": "Produs alimentar[1] obținut prin coagularea și prelucrarea laptelui."
+    }]
+  }, {
+    "id": "searchByLexemeId.htm",
+    "name": "searchByLexemeId",
+    "commands": [{
+      "id": "27c60fbb-dc92-461c-8f7f-e326978d860c",
+      "comment": "",
+      "command": "open",
+      "target": ".",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d7dabd68-4722-4af4-ab36-a9cca7d004bc",
+      "comment": "",
+      "command": "type",
+      "target": "name=cuv",
+      "targets": [],
+      "value": "din"
+    }, {
+      "id": "c48d9e59-8db8-46ff-bbee-5e7a1fd8a622",
+      "comment": "",
+      "command": "click",
+      "target": "id=searchButton",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "ce68bd5d-9224-4d6b-9b79-47bdff518bba",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=h3",
+      "targets": [],
+      "value": "2 intrări"
+    }, {
+      "id": "9e0b94d9-0d84-4834-8b77-21667d20eb5f",
+      "comment": "",
+      "command": "verifyText",
+      "target": "linkText=din",
+      "targets": [],
+      "value": "din"
+    }, {
+      "id": "47aff159-62f7-490b-9ed4-7bd4c2c6f3db",
+      "comment": "",
+      "command": "verifyText",
+      "target": "xpath=(//a[contains(text(),'din')])[2]",
+      "targets": [],
+      "value": "din"
+    }, {
+      "id": "ac78a8d1-3f34-47e9-9061-74798c1a62e0",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=din",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "cb0255ad-e009-4ade-b777-235386fec2c7",
+      "comment": "",
+      "command": "verifyValue",
+      "target": "name=cuv",
+      "targets": [],
+      "value": "din"
+    }, {
+      "id": "ea72a7a6-50ae-4046-beba-697e453dd27e",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=h3",
+      "targets": [],
+      "value": "O definiție pentru din"
+    }]
+  }, {
+    "id": "adsLink.htm",
+    "name": "adsLink",
+    "commands": [{
+      "id": "1523ee18-3196-4f8a-aef9-9f25c1996b67",
+      "comment": "",
+      "command": "open",
+      "target": "./spre/wikipedia",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "0113e48f-9498-42d1-8220-ab7a04bd587f",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=span.lang-list-button-text.jsl10n",
+      "targets": [
+        ["css=span.lang-list-button-text.jsl10n", "css"],
+        ["css=.lang-list-button-text", "css:finder"],
+        ["xpath=//button[@id='js-lang-list-button']/span", "xpath:idRelative"],
+        ["xpath=//button/span", "xpath:position"]
+      ],
+      "value": "Read Wikipedia in your language"
+    }]
+  }, {
+    "id": "articles.htm",
+    "name": "articles",
+    "commands": [{
+      "id": "7553873c-62ff-4170-8ba6-50fca93d98be",
+      "comment": "",
+      "command": "open",
+      "target": "./articole",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "de2c9a4b-789e-4997-b157-32eae7982954",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=h1",
+      "targets": [],
+      "value": "Articole lingvistice"
+    }, {
+      "id": "04842fa2-fd69-44b9-9042-49621b58a06c",
+      "comment": "",
+      "command": "verifyText",
+      "target": "xpath=(//a[contains(text(),'Ghid de exprimare')])[2]",
+      "targets": [],
+      "value": "Ghid de exprimare"
+    }, {
+      "id": "0ce8a642-3f4b-4407-b459-bfbb5d3e73b4",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=h3:nth-child(3)",
+      "targets": [
+        ["css=h3:nth-child(3)", "css:finder"],
+        ["xpath=//div[@id='linguisticArticles']/h3[2]", "xpath:idRelative"],
+        ["xpath=//h3[2]", "xpath:position"]
+      ],
+      "value": "Exprimare corectă"
+    }, {
+      "id": "89a79ebf-dfd9-4873-8e40-5eb3550ab8b2",
+      "comment": "",
+      "command": "verifyText",
+      "target": "linkText=Niciun sau nici un",
+      "targets": [],
+      "value": "Niciun sau nici un"
+    }, {
+      "id": "19bce411-f4d4-4d37-9daf-a0cbd89ef6a6",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=(//a[contains(text(),'Ghid de exprimare')])[2]",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "ba04da48-ee91-4059-b990-c1d3acc01441",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=h3",
+      "targets": [],
+      "value": "Ghid de exprimare"
+    }, {
+      "id": "3f75e1d3-3cb6-4f5e-9dbe-54433d33974e",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=div.col-md-12.main-content > div",
+      "targets": [],
+      "value": "Conținutul articolului 2."
+    }, {
+      "id": "8ad210ba-c3b2-4451-a547-74c97077f580",
+      "comment": "",
+      "command": "verifyText",
+      "target": "xpath=//h3[2]",
+      "targets": [],
+      "value": "Alte articole lingvistice"
+    }, {
+      "id": "75cf9ad9-957d-45c9-b522-7e643da790f3",
+      "comment": "",
+      "command": "verifyText",
+      "target": "xpath=//h4[2]",
+      "targets": [],
+      "value": "Exprimare corectă"
+    }, {
+      "id": "05789b34-289a-41ff-a91a-c8afc03dec36",
+      "comment": "",
+      "command": "verifyText",
+      "target": "linkText=Niciun sau nici un",
+      "targets": [],
+      "value": "Niciun sau nici un"
+    }]
+  }, {
+    "id": "articlesSearchResults.htm",
+    "name": "articlesSearchResults",
+    "commands": [{
+      "id": "95a4714e-9f71-4525-ba70-e63899a09964",
+      "comment": "",
+      "command": "open",
+      "target": "./definitie/metal",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "0fd8ba91-b016-41b7-abe1-9b8bd44dc372",
+      "comment": "",
+      "command": "verifyText",
+      "target": "xpath=//div[@id='resultsTab']/h3[2]",
+      "targets": [],
+      "value": "Articole pe această temă:"
+    }, {
+      "id": "ea5da772-3a2c-4ccd-ac9e-3757c33832f5",
+      "comment": "",
+      "command": "verifyText",
+      "target": "linkText=Niciun sau nici un",
+      "targets": [],
+      "value": "Niciun sau nici un"
+    }, {
+      "id": "0fb9247a-482d-4100-a8d2-85752b4cc951",
+      "comment": "",
+      "command": "verifyText",
+      "target": "xpath=(//a[contains(text(),'Ghid de exprimare')])[2]",
+      "targets": [],
+      "value": "Ghid de exprimare"
+    }, {
+      "id": "914864a6-f407-4ac8-a56c-fcf562a6c7f3",
+      "comment": "",
+      "command": "type",
+      "target": "name=cuv",
+      "targets": [],
+      "value": "din"
+    }, {
+      "id": "db65758e-3be4-48dc-89d1-1fbb4c184df3",
+      "comment": "",
+      "command": "click",
+      "target": "id=searchButton",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b4523045-740e-40bd-a284-50f55b03b73e",
+      "comment": "",
+      "command": "verifyText",
+      "target": "xpath=//div[@id='resultsTab']/h3[2]",
+      "targets": [],
+      "value": "Articole pe această temă:"
+    }, {
+      "id": "38d0c77b-ba12-4fbb-971a-d99e64d779ba",
+      "comment": "",
+      "command": "verifyText",
+      "target": "linkText=Niciun sau nici un",
+      "targets": [],
+      "value": "Niciun sau nici un"
+    }, {
+      "id": "04c01604-ea56-4aa0-9c44-96482cf6215a",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Niciun sau nici un",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "7f6b0898-0cce-4ba2-9f5e-97916874048e",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=h3",
+      "targets": [
+        ["css=h3", "css"],
+        ["css=h3:nth-child(2)", "css:finder"],
+        ["xpath=//h3", "xpath:position"]
+      ],
+      "value": "Niciun sau nici un"
+    }, {
+      "id": "428af61e-4f46-420d-9745-55c24bc87778",
+      "comment": "",
+      "command": "type",
+      "target": "name=cuv",
+      "targets": [],
+      "value": "brânză"
+    }, {
+      "id": "188eccf1-b59b-4a40-9cd5-e16b10c4f581",
+      "comment": "",
+      "command": "click",
+      "target": "id=searchButton",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "de685b1b-5691-41d6-bd48-d4507b43d911",
+      "comment": "",
+      "command": "verifyNotText",
+      "target": "css=body",
+      "targets": [],
+      "value": "glob:*Articole pe această temă*"
+    }]
+  }, {
+    "id": "commentView.htm",
+    "name": "commentView",
+    "commands": [{
+      "id": "f1b283e0-121a-430f-87c2-2360a913c139",
+      "comment": "",
+      "command": "open",
+      "target": "./definitie/brânză",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "5a95beb2-8524-4bb6-b295-a6ea86591ac6",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=div.panel-body",
+      "targets": [],
+      "value": "Foarte foarte gustos — john"
+    }, {
+      "id": "95037839-e68f-48b9-be09-6b9736d94423",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=div.panel-body a",
+      "targets": [],
+      "value": "john"
+    }]
+  }, {
+    "id": "constraints.htm",
+    "name": "constraints",
+    "commands": [{
+      "id": "fd66f1c0-b5c6-4397-bba9-1c527fe36277",
+      "comment": "",
+      "command": "open",
+      "target": "./definitie/ladă/paradigma",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "97e84f44-95eb-4357-b34a-2bd9af28d074",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=ul.nav-tabs > li.active",
+      "targets": [],
+      "value": "declinări"
+    }, {
+      "id": "53f239e6-5bad-4694-bb8f-64d2721625a3",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=rezultate (1)",
+      "targets": [
+        ["linkText=rezultate (1)", "linkText"],
+        ["css=ul.nav.nav-tabs > li > a", "css"],
+        ["css=.nav-tabs > li:nth-child(1) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'rezultate (1)')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '#resultsTab')]", "xpath:href"],
+        ["xpath=//main/div/ul/li/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "7c7630bc-33f1-4e1f-bf39-ac37e58f23dd",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=h3",
+      "targets": [],
+      "value": "Nicio definiție pentru ladă"
+    }, {
+      "id": "0e04efbc-42d5-4a20-b6ee-c5b408844771",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=declinări",
+      "targets": [
+        ["linkText=declinări", "linkText"],
+        ["css=li.active > a", "css"],
+        ["css=.active > a", "css:finder"],
+        ["xpath=//a[contains(text(),'declinări')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '#paradigmTab')]", "xpath:href"],
+        ["xpath=//main/div/ul/li[2]/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "8ad2cb2a-9b23-4999-8644-6920c54ee7f4",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=span.lexemeName",
+      "targets": [],
+      "value": "ladă"
+    }, {
+      "id": "f32a4c3e-3e18-47e1-bd88-352c60addf91",
+      "comment": "",
+      "command": "verifyText",
+      "target": "xpath=//tr[2]/td[3]",
+      "targets": [
+        ["css=td.form", "css"],
+        ["css=tr:nth-child(2) > .form:nth-child(3)", "css:finder"],
+        ["xpath=//div[@id='paradigmTab']/div/div[2]/div/table/tbody/tr[2]/td[3]", "xpath:idRelative"],
+        ["xpath=//tr[2]/td[3]", "xpath:position"]
+      ],
+      "value": "ladă"
+    }, {
+      "id": "2cd5d408-67e4-45c6-b4b0-481980816112",
+      "comment": "",
+      "command": "verifyText",
+      "target": "xpath=//tr[2]/td[4]",
+      "targets": [
+        ["css=tr:nth-child(2) > .form:nth-child(4)", "css:finder"],
+        ["xpath=//div[@id='paradigmTab']/div/div[2]/div/table/tbody/tr[2]/td[4]", "xpath:idRelative"],
+        ["xpath=//td[4]", "xpath:position"]
+      ],
+      "value": "lada"
+    }, {
+      "id": "9f952a62-20ad-43d3-a189-ebd8eefa2813",
+      "comment": "",
+      "command": "verifyText",
+      "target": "xpath=//tr[3]/td[2]",
+      "targets": [
+        ["css=tr:nth-child(3) > .form:nth-child(2)", "css:finder"],
+        ["xpath=//div[@id='paradigmTab']/div/div[2]/div/table/tbody/tr[3]/td[2]", "xpath:idRelative"],
+        ["xpath=//tr[3]/td[2]", "xpath:position"]
+      ],
+      "value": "—"
+    }, {
+      "id": "0fe3a424-7cc0-4d0c-b978-5d138e608913",
+      "comment": "",
+      "command": "verifyText",
+      "target": "xpath=//tr[3]/td[3]",
+      "targets": [
+        ["css=tr:nth-child(3) > .form:nth-child(3)", "css:finder"],
+        ["xpath=//div[@id='paradigmTab']/div/div[2]/div/table/tbody/tr[3]/td[3]", "xpath:idRelative"],
+        ["xpath=//tr[3]/td[3]", "xpath:position"]
+      ],
+      "value": "—"
+    }, {
+      "id": "e66e4b62-ef74-4182-b7fa-b7ec6c649c69",
+      "comment": "",
+      "command": "verifyText",
+      "target": "xpath=//tr[4]/td[3]",
+      "targets": [],
+      "value": "lăzi"
+    }, {
+      "id": "2c5b354b-60fd-4413-892a-0f6491124ff1",
+      "comment": "",
+      "command": "verifyText",
+      "target": "xpath=//tr[4]/td[4]",
+      "targets": [],
+      "value": "lăzii"
+    }, {
+      "id": "cad550d6-3fdb-48d7-9300-c94ee058e7aa",
+      "comment": "",
+      "command": "verifyText",
+      "target": "xpath=//tr[5]/td[2]",
+      "targets": [],
+      "value": "—"
+    }, {
+      "id": "1f30a6f3-1b37-41bd-87bb-c231a024b20c",
+      "comment": "",
+      "command": "verifyText",
+      "target": "xpath=//tr[5]/td[3]",
+      "targets": [],
+      "value": "—"
+    }, {
+      "id": "47900d1a-bc66-4125-aefb-5143ff6df167",
+      "comment": "",
+      "command": "verifyText",
+      "target": "xpath=//tr[6]/td[3]",
+      "targets": [],
+      "value": "ladă, lado"
+    }, {
+      "id": "7f0ac60b-e50c-41a0-a0d8-cbff9313aeb6",
+      "comment": "",
+      "command": "verifyText",
+      "target": "xpath=//tr[7]/td[2]",
+      "targets": [],
+      "value": "—"
+    }, {
+      "id": "d840c1fd-7ac6-4f52-8bd6-8564c1a451f1",
+      "comment": "",
+      "command": "open",
+      "target": "./definitie/ogradă/paradigma",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "9e48844b-8c55-4196-a5c5-e76455c9b681",
+      "comment": "",
+      "command": "verifyText",
+      "target": "xpath=//tr[6]/td[3]",
+      "targets": [],
+      "value": "ogradă"
+    }]
+  }, {
+    "id": "autocomplete.htm",
+    "name": "autocomplete",
+    "commands": [{
+      "id": "c84bc661-7136-4be3-83f3-7592c8f74eca",
+      "comment": "",
+      "command": "open",
+      "target": "./",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "10f0bdd9-68ef-4837-ac4f-1826b3176512",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "name=cuv",
+      "targets": [],
+      "value": "bra"
+    }, {
+      "id": "7f066c7e-a887-47dd-9544-be04c081d0ce",
+      "comment": "",
+      "command": "pause",
+      "target": "1000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3e074bdf-c0c8-41d7-a6d9-91bcc1650a31",
+      "comment": "",
+      "command": "verifyText",
+      "target": "id=ui-id-2",
+      "targets": [],
+      "value": "brânză"
+    }, {
+      "id": "494eab12-779e-48f9-982c-63f39271e2b2",
+      "comment": "",
+      "command": "click",
+      "target": "id=ui-id-2",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b987667f-e37f-4475-9359-ddeada738d4a",
+      "comment": "",
+      "command": "verifyValue",
+      "target": "name=cuv",
+      "targets": [],
+      "value": "brânză"
+    }, {
+      "id": "4e250807-eb6d-4c25-938f-77f4ef13eb98",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=h3",
+      "targets": [],
+      "value": "O definiție pentru brânză"
+    }]
+  }, {
+    "id": "lexemeSourcesView.htm",
+    "name": "lexemeSourcesView",
+    "commands": [{
+      "id": "6ec03382-8616-42b2-b2b6-6a6de26213d8",
+      "comment": "",
+      "command": "open",
+      "target": "./definitie/metal/paradigma",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b35a0722-9167-46eb-acec-36bf5c4bb7f1",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=span.lexemeName",
+      "targets": [],
+      "value": "metal"
+    }, {
+      "id": "a57b47b1-2281-4800-a781-a4c0056db217",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=div.lexemeSources",
+      "targets": [],
+      "value": "Surse flexiune: Source 2"
+    }]
+  }, {
+    "id": "sourcesViewAsAnonymous.htm",
+    "name": "sourcesViewAsAnonymous",
+    "commands": [{
+      "id": "77f4f90f-29ba-4591-9488-73c93e389f7f",
+      "comment": "",
+      "command": "open",
+      "target": "./surse",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "39cf67a3-52cd-4456-84f9-bddaf0091f41",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=span.sourceShortName",
+      "targets": [],
+      "value": "Source 1"
+    }, {
+      "id": "da1de1b3-7036-4156-810d-d4e5b9b98e36",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=span.sourceName",
+      "targets": [],
+      "value": "English - Klingon Dictionary"
+    }, {
+      "id": "0e633f56-16ec-4263-8d14-383dcda658b0",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=div.sourceComplete.sourceComplete0",
+      "targets": [],
+      "value": "necunoscut"
+    }, {
+      "id": "bf9c2091-07a1-409b-aaa2-76708268a362",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=span.sourceShortName",
+      "targets": [],
+      "value": "Source 1"
+    }, {
+      "id": "2faf2f65-3228-4c9a-a194-8f37987f91f5",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=tr:nth-child(2) > .nick",
+      "targets": [
+        ["css=tr:nth-child(2) > .nick", "css:finder"],
+        ["xpath=//table[@id='sources']/tbody/tr[2]/td[2]", "xpath:idRelative"],
+        ["xpath=//tr[2]/td[2]", "xpath:position"]
+      ],
+      "value": "The Devil's Dictionary"
+    }, {
+      "id": "147138c8-f67c-4e4e-b886-ec80aadb8c2d",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=tr:nth-child(2) .sourceName",
+      "targets": [
+        ["css=tr:nth-child(2) .sourceName", "css:finder"],
+        ["xpath=//table[@id='sources']/tbody/tr[2]/td[2]/span", "xpath:idRelative"],
+        ["xpath=//tr[2]/td[2]/span", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "03b13228-4b3d-4d99-9436-28acfe89f86d",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "css=tr:nth-child(2) .sourceName .popover-content",
+      "targets": [],
+      "value": "1000"
+    }, {
+      "id": "762ed9cd-78ba-40bd-98ca-72a41d6c1ead",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=tr:nth-child(2) .sourceName .popover-content",
+      "targets": [
+        ["css=tr:nth-child(2) .sourceName", "css:finder"],
+        ["xpath=//table[@id='sources']/tbody/tr[2]/td[2]/span", "xpath:idRelative"],
+        ["xpath=//tr[2]/td[2]/span", "xpath:position"]
+      ],
+      "value": "Autor: Ambrose Bierce\\nEditură: Neale Publishing Co.\\nAnul apariției: 1911"
+    }]
+  }, {
+    "id": "hangman.htm",
+    "name": "hangman",
+    "commands": [{
+      "id": "b4014c93-c7a5-45a4-816f-263cdfdf46f4",
+      "comment": "",
+      "command": "open",
+      "target": "./spanzuratoarea",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "da580813-6384-4598-b4ca-4eac086b879e",
+      "comment": "",
+      "command": "verifyValue",
+      "target": "name=out[]",
+      "targets": [],
+      "value": "B"
+    }, {
+      "id": "ea440c41-6111-4815-b974-c2bf72d1349e",
+      "comment": "",
+      "command": "verifyValue",
+      "target": "xpath=(//input[@name='out[]'])[2]",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "24408e15-9091-46c6-b9a0-10fb403e507c",
+      "comment": "",
+      "command": "verifyValue",
+      "target": "xpath=(//input[@name='out[]'])[3]",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "e038a849-b1ea-4f42-ae16-26e83f1ef5cb",
+      "comment": "",
+      "command": "verifyValue",
+      "target": "xpath=(//input[@name='out[]'])[4]",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "0df0ebb9-ef07-4339-9ea1-4105cd4669d6",
+      "comment": "",
+      "command": "verifyValue",
+      "target": "xpath=(//input[@name='out[]'])[5]",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "f27075d9-ea29-4f6e-9188-c85b80490532",
+      "comment": "",
+      "command": "verifyValue",
+      "target": "xpath=(//input[@name='out[]'])[6]",
+      "targets": [],
+      "value": "Ă"
+    }, {
+      "id": "af46534b-6cdb-4398-9f5f-28867b5488b4",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "css=input.letterButtons.buttonGuessed[value=\"Ă\"]",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d936a874-d551-49bc-ace4-92e804222bde",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "css=input.letterButtons.buttonGuessed[value=\"B\"]",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "8f1ccacd-d011-4c0e-8aca-9cde140ef5ab",
+      "comment": "",
+      "command": "verifyElementNotPresent",
+      "target": "css=input.letterButtons.buttonGuessed[value=\"Z\"]",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "2211ff83-f57b-4653-99b5-4b3bbf13bd0e",
+      "comment": "",
+      "command": "verifyElementNotPresent",
+      "target": "css=div.hangmanPic[style|=\"background\"]",
+      "targets": [
+        ["css=div.hangmanPic", "css"],
+        ["css=.hangmanPic", "css:finder"],
+        ["xpath=//form[@id='hangman']/div/div", "xpath:idRelative"],
+        ["xpath=//form/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "3b86d3bf-e80f-4235-9732-ed970a16cfb3",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//input[@value='G']",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "8f51185c-8d01-4a56-8acb-34f30092be52",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "css=input.letterButtons.buttonMissed[value=\"G\"]",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "f2f7c1e3-52ee-4964-948d-3722898bd631",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "css=div.hangmanPic[style|=\"background\"]",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "ec72e1d0-160c-4979-81c0-aaf19990adbf",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//input[@value='R']",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "06a448b6-b409-4f68-bbe5-aa86fcbbe9ac",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "css=input.letterButtons.buttonGuessed[value=\"R\"]",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "0295faaa-f5b4-4d37-a806-65d6db6d5bd0",
+      "comment": "",
+      "command": "verifyValue",
+      "target": "xpath=(//input[@name='out[]'])[2]",
+      "targets": [],
+      "value": "R"
+    }]
+  }, {
+    "id": "loginFakeUser.htm",
+    "name": "loginFakeUser",
+    "commands": [{
+      "id": "ed6d14ec-0c62-4909-8c7c-172774412c2d",
+      "comment": "",
+      "command": "open",
+      "target": ".",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "f690bbe4-859b-4ff2-b49b-8aa720d07258",
+      "comment": "",
+      "command": "verifyText",
+      "target": "linkText=Anonim",
+      "targets": [],
+      "value": "Anonim"
+    }, {
+      "id": "2e6d52d3-cee1-4cd6-a02c-1349c8dd31c9",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Anonim",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "7fea537f-c508-4154-84f7-186614194099",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "linkText=Autentificare",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "115b9af6-2cf6-42db-8dd8-4d472e41a37d",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Autentificare",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "84ab82ee-326f-4d0d-8b79-338753a36733",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "name=fakeUserNick",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "2b3ef5dc-6438-4fae-98b0-cc291a14fc38",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "name=submitButton",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "adf14f53-b245-4b2e-96d6-ac7fd817432b",
+      "comment": "",
+      "command": "click",
+      "target": "name=fakeUserNick",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b58472a9-92ab-48ff-a545-05b6fe79da9e",
+      "comment": "",
+      "command": "type",
+      "target": "name=fakeUserNick",
+      "targets": [],
+      "value": "john"
+    }, {
+      "id": "3ad4f1e8-42eb-47b7-9938-fe123eb03c77",
+      "comment": "",
+      "command": "click",
+      "target": "id=allPriv",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "7e31d98c-fbd5-49d5-84ff-fee75a6d9060",
+      "comment": "",
+      "command": "click",
+      "target": "css=input.btn.btn-warning",
+      "targets": [
+        ["css=input.btn.btn-warning", "css"],
+        ["css=.btn-warning", "css:finder"],
+        ["xpath=//input[@value='autentificare ca utilizator de test']", "xpath:attributes"],
+        ["xpath=//form/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "5bd81331-13dc-4e87-b502-5d615a5cfc10",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "linkText=john",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "eaa51150-d63e-4e62-8469-7dfa9c43a7d3",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=john",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a48f76a4-bafa-4a06-85d6-26fe2001926b",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "linkText=Pagina moderatorului",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "ff9eb0fa-fa09-4740-91dc-9d1be9c95966",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "linkText=Profilul meu",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "f60916dd-5c06-40f4-9d51-a451c3f62fb8",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "linkText=Închide sesiunea",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "bookmarks.htm",
+    "name": "bookmarks",
+    "commands": [{
+      "id": "ab367449-3e85-431c-91e3-1e15e36d6775",
+      "comment": "",
+      "command": "open",
+      "target": "./definitie/brânză",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c42ee304-562f-451e-942c-c1c6498a605d",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=acțiuni",
+      "targets": [
+        ["linkText=acțiuni", "linkText"],
+        ["css=ul.list-inline.dropup > li.dropdown > a.dropdown-toggle", "css"],
+        ["css=.dropdown:nth-child(5) > .dropdown-toggle", "css:finder"],
+        ["xpath=//a[contains(text(),'acțiuni')]", "xpath:link"],
+        ["xpath=//div[@id='resultsTab']/div/div[2]/ul/li[5]/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '#')])[13]", "xpath:href"],
+        ["xpath=//div/div/div/div/div[2]/ul/li[5]/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "6cbb3ed0-135a-43a2-8581-bb11f0c9c135",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=a.bookmarkAddButton > span",
+      "targets": [],
+      "value": "adaugă la favorite"
+    }, {
+      "id": "60e858b4-14d2-45e1-8d14-6138beaa5aa5",
+      "comment": "",
+      "command": "click",
+      "target": "css=a.bookmarkAddButton",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a5587f22-d24b-422c-a7b6-bcc0c7e2ede2",
+      "comment": "",
+      "command": "pause",
+      "target": "500",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3f84ad28-e1de-44cb-8a0c-bcd46200dfc4",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=a.bookmarkAddButton > span",
+      "targets": [],
+      "value": "adăugat la favorite"
+    }, {
+      "id": "2eb1cfd9-1f68-42df-afb7-e8992375bd94",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=john",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "55aebe9b-312e-4f2f-ab7e-c770c0bc160b",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Cuvinte favorite",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "8a7bac36-8f42-4c98-9e49-025c61695b65",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=h3",
+      "targets": [],
+      "value": "Lista cuvintelor favorite pentru john (John Smith)"
+    }, {
+      "id": "8e5eaafb-56c9-4de7-9721-91934b08299d",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=span.def",
+      "targets": [],
+      "value": "Produs alimentar[1] obținut prin coagularea și prelucrarea laptelui."
+    }, {
+      "id": "3abc8e84-2853-4be3-8a81-215276ac8c20",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=acțiuni",
+      "targets": [
+        ["linkText=acțiuni", "linkText"],
+        ["css=ul.list-inline.dropup > li.dropdown > a.dropdown-toggle", "css"],
+        ["css=.dropdown:nth-child(5) > .dropdown-toggle", "css:finder"],
+        ["xpath=//a[contains(text(),'acțiuni')]", "xpath:link"],
+        ["xpath=//div[@id='resultsTab']/div/div[2]/ul/li[5]/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '#')])[13]", "xpath:href"],
+        ["xpath=//div/div/div/div/div[2]/ul/li[5]/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "173320cc-65de-45d4-87e5-2bce32580a29",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=a.bookmarkRemoveButton > span",
+      "targets": [],
+      "value": "șterge de la favorite"
+    }, {
+      "id": "73f46317-fcdb-4437-91d8-6fb25a08b0df",
+      "comment": "",
+      "command": "click",
+      "target": "css=a.bookmarkRemoveButton > span",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "5920d380-1c77-4df9-bde0-d02072b48a50",
+      "comment": "",
+      "command": "pause",
+      "target": "500",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "58868a69-65bc-4108-bb7e-3de35a3b9a76",
+      "comment": "",
+      "command": "open",
+      "target": "./cuvinte-favorite",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "6709e871-33af-41bf-bf50-eb44acf3d00c",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=dl.favoriteDefs",
+      "targets": [],
+      "value": "Nu aveți niciun cuvânt favorit."
+    }, {
+      "id": "ae31814d-8044-40e2-8381-2846fe4d451e",
+      "comment": "",
+      "command": "open",
+      "target": "./definitie/brânză",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "93eee3d5-801a-4361-9bb8-5e1aeeae2d6e",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=acțiuni",
+      "targets": [
+        ["linkText=acțiuni", "linkText"],
+        ["css=ul.list-inline.dropup > li.dropdown > a.dropdown-toggle", "css"],
+        ["css=.dropdown:nth-child(5) > .dropdown-toggle", "css:finder"],
+        ["xpath=//a[contains(text(),'acțiuni')]", "xpath:link"],
+        ["xpath=//div[@id='resultsTab']/div/div[2]/ul/li[5]/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '#')])[13]", "xpath:href"],
+        ["xpath=//div/div/div/div/div[2]/ul/li[5]/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "39fd4c04-66bc-43f7-b533-9c54871078a5",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=a.bookmarkAddButton > span",
+      "targets": [],
+      "value": "adaugă la favorite"
+    }]
+  }, {
+    "id": "sourcesViewLoggedIn.htm",
+    "name": "sourcesViewLoggedIn",
+    "commands": [{
+      "id": "9cc80dd3-4bf4-408c-8c60-0d62386e1df3",
+      "comment": "",
+      "command": "open",
+      "target": "./surse",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "9424ba01-d0c6-4fae-a0e4-251770e4c811",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=span.sourceShortName",
+      "targets": [],
+      "value": "Source 1"
+    }, {
+      "id": "c832e0c9-2f56-4ca3-9003-16c8481d24cf",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=span.sourceName",
+      "targets": [
+        ["css=span.sourceName", "css"],
+        ["css=tr:nth-child(1) .sourceName", "css:finder"],
+        ["xpath=//table[@id='sources']/tbody/tr/td[4]/span", "xpath:idRelative"],
+        ["xpath=//td[4]/span", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "9c3ff7aa-6ca9-4234-bb62-ef43b94e8873",
+      "comment": "",
+      "command": "verifyText",
+      "target": "xpath=//td[4]/span/div/div[@class='popover-content']",
+      "targets": [
+        ["css=td.nick", "css"],
+        ["css=tbody > tr:nth-child(1) > .nick", "css:finder"],
+        ["xpath=//table[@id='sources']/tbody/tr/td[4]", "xpath:idRelative"],
+        ["xpath=//td[4]", "xpath:position"]
+      ],
+      "value": "Autor: Worf\\nEditură: The Klingon Academy\\nAnul apariției: 2010"
+    }, {
+      "id": "c2692818-faeb-4cc0-9696-259a86950794",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=div.sourceComplete.sourceComplete0",
+      "targets": [],
+      "value": "necunoscut"
+    }, {
+      "id": "fa05d3b4-db88-44fe-953a-66695c2f3bf2",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "linkText=editează",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a44a2bd6-b170-4984-bef7-00ed37345f32",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "name=saveButton",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "ad2b6768-fc5f-46e6-8661-2f3de2d1cdc2",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "linkText=adaugă o sursă",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "2ee52f18-ad53-414f-83e9-ee38e7290fae",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "linkText=renunță",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "sourcesReorder.htm",
+    "name": "sourcesReorder",
+    "commands": [{
+      "id": "a9186c04-11c0-4e61-b5cc-130bbd25fa31",
+      "comment": "",
+      "command": "open",
+      "target": "./surse",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a60e3f7b-4853-4ce9-9d58-694af62bb019",
+      "comment": "",
+      "command": "dragAndDropToObject",
+      "target": "css=td.abbreviation",
+      "targets": [
+        ["css=tr:nth-child(2) > .abbreviation", "css:finder"],
+        ["xpath=//table[@id='sources']/tbody/tr[2]/td", "xpath:idRelative"],
+        ["xpath=//tr[2]/td", "xpath:position"]
+      ],
+      "value": "css=tr:nth-child(2) > .abbreviation"
+    }, {
+      "id": "3ea0c24a-ff17-446a-9a20-f22b3a1f7b17",
+      "comment": "",
+      "command": "click",
+      "target": "name=saveButton",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "e7d32a28-b55c-4a4c-b34b-c837f4d8284d",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=span.sourceShortName",
+      "targets": [
+        ["css=span.sourceShortName", "css"],
+        ["css=tr:nth-child(1) .sourceShortName", "css:finder"],
+        ["xpath=//table[@id='sources']/tbody/tr/td/span", "xpath:idRelative"],
+        ["xpath=//td/span", "xpath:position"]
+      ],
+      "value": "Source 2"
+    }, {
+      "id": "49ce70a6-84e4-4904-95e1-a57e37f3a6a8",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=tr:nth-child(2) .sourceShortName",
+      "targets": [
+        ["css=tr:nth-child(2) .sourceShortName", "css:finder"],
+        ["xpath=//table[@id='sources']/tbody/tr[2]/td/span", "xpath:idRelative"],
+        ["xpath=//tr[2]/td/span", "xpath:position"]
+      ],
+      "value": "Source 1"
+    }, {
+      "id": "2f262f9a-9b1f-4061-a05c-db77fdc6be07",
+      "comment": "",
+      "command": "dragAndDropToObject",
+      "target": "css=td.abbreviation",
+      "targets": [
+        ["css=tr:nth-child(2) > .abbreviation", "css:finder"],
+        ["xpath=//table[@id='sources']/tbody/tr[2]/td", "xpath:idRelative"],
+        ["xpath=//tr[2]/td", "xpath:position"]
+      ],
+      "value": "css=tr:nth-child(2) > .abbreviation"
+    }, {
+      "id": "0ee3b9af-7230-4d46-a741-b554fc811c0a",
+      "comment": "",
+      "command": "click",
+      "target": "name=saveButton",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "86c66732-12cb-4d02-a0d2-42509f8033d7",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=span.sourceShortName",
+      "targets": [],
+      "value": "Source 1"
+    }, {
+      "id": "9baaa298-0518-4edc-823a-7d61fcace84f",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=tr:nth-child(2) .sourceShortName",
+      "targets": [
+        ["css=tr:nth-child(2) .sourceShortName", "css:finder"],
+        ["xpath=//table[@id='sources']/tbody/tr[2]/td/span", "xpath:idRelative"],
+        ["xpath=//tr[2]/td/span", "xpath:position"]
+      ],
+      "value": "Source 2"
+    }]
+  }, {
+    "id": "sourceEdit.htm",
+    "name": "sourceEdit",
+    "commands": [{
+      "id": "751579e7-5814-4007-806a-4023ab5deb50",
+      "comment": "",
+      "command": "open",
+      "target": "./surse",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d141d822-67fe-4dd3-b020-425787fddbbf",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=editează",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "198bf14f-f421-4c90-85e8-4c162d6e7e96",
+      "comment": "",
+      "command": "type",
+      "target": "name=name",
+      "targets": [],
+      "value": "English - Klingon DictionaryA"
+    }, {
+      "id": "528a7aba-2e91-430b-8a7f-2fb871ff1ae0",
+      "comment": "",
+      "command": "type",
+      "target": "name=shortName",
+      "targets": [],
+      "value": "Source 1B"
+    }, {
+      "id": "6fc76ad8-9b05-4466-ad8a-334731e0285f",
+      "comment": "",
+      "command": "type",
+      "target": "name=urlName",
+      "targets": [],
+      "value": "source1C"
+    }, {
+      "id": "619e0dc2-0bb6-43bb-abb7-8c8a5eeb43d1",
+      "comment": "",
+      "command": "type",
+      "target": "name=author",
+      "targets": [],
+      "value": "WorfD"
+    }, {
+      "id": "23b2175a-6122-4a05-ab4d-278c46ec2fa1",
+      "comment": "",
+      "command": "type",
+      "target": "name=publisher",
+      "targets": [],
+      "value": "The Klingon AcademyE"
+    }, {
+      "id": "419ec16c-48e1-4fb3-bd03-8573ee9658c1",
+      "comment": "",
+      "command": "type",
+      "target": "name=year",
+      "targets": [],
+      "value": "2010F"
+    }, {
+      "id": "d4fe3bb5-d89b-4044-a723-a28974f25075",
+      "comment": "",
+      "command": "type",
+      "target": "name=link",
+      "targets": [],
+      "value": "G"
+    }, {
+      "id": "24753539-7e2f-4708-8e4b-f53e23740d96",
+      "comment": "",
+      "command": "select",
+      "target": "name=type",
+      "targets": [],
+      "value": "label=neoficial"
+    }, {
+      "id": "691db03a-b96a-4e72-acb8-fe9eaaeb461f",
+      "comment": "",
+      "command": "type",
+      "target": "name=defCount",
+      "targets": [],
+      "value": "10000"
+    }, {
+      "id": "1a95229f-26ae-4564-aef8-10d772161d94",
+      "comment": "",
+      "command": "click",
+      "target": "name=isActive",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3e7ea82c-45d0-4563-b3ae-c0c933a92931",
+      "comment": "",
+      "command": "click",
+      "target": "name=canModerate",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "4c1241bf-9c87-41c4-b4ab-b6b63bd59c6c",
+      "comment": "",
+      "command": "click",
+      "target": "name=canDistribute",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "614e2bc5-5e18-41ab-8cc5-f995970d48e1",
+      "comment": "",
+      "command": "click",
+      "target": "name=structurable",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "e16f769f-68c2-4ae9-854c-0a9dde50b876",
+      "comment": "",
+      "command": "click",
+      "target": "name=saveButton",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c06fd94b-eb8f-4067-a83f-14c4c7f50d75",
+      "comment": "",
+      "command": "verifyValue",
+      "target": "name=name",
+      "targets": [],
+      "value": "English - Klingon DictionaryA"
+    }, {
+      "id": "f816fd95-28f1-438b-a346-5320ac1bf1c5",
+      "comment": "",
+      "command": "verifyValue",
+      "target": "name=shortName",
+      "targets": [],
+      "value": "Source 1B"
+    }, {
+      "id": "37e8b255-e6b4-473d-a550-cc9e558b637f",
+      "comment": "",
+      "command": "verifyValue",
+      "target": "name=urlName",
+      "targets": [],
+      "value": "source1C"
+    }, {
+      "id": "c8a07f54-f105-4333-8309-c3cb148dbe94",
+      "comment": "",
+      "command": "verifyValue",
+      "target": "name=author",
+      "targets": [],
+      "value": "WorfD"
+    }, {
+      "id": "f4ed7cb7-80cd-4d91-9041-5e1d4eec8682",
+      "comment": "",
+      "command": "verifyValue",
+      "target": "name=publisher",
+      "targets": [],
+      "value": "The Klingon AcademyE"
+    }, {
+      "id": "cb34f8d7-a302-409a-b77b-b7c9c47cee43",
+      "comment": "",
+      "command": "verifyValue",
+      "target": "name=year",
+      "targets": [],
+      "value": "2010F"
+    }, {
+      "id": "7de6e230-30c4-43be-950b-472e922f104a",
+      "comment": "",
+      "command": "verifyValue",
+      "target": "name=link",
+      "targets": [],
+      "value": "G"
+    }, {
+      "id": "dd8df2d7-589f-413d-8eaa-e55c79e3ad5f",
+      "comment": "",
+      "command": "verifySelectedLabel",
+      "target": "name=type",
+      "targets": [],
+      "value": "neoficial"
+    }, {
+      "id": "df331a9c-e93b-493c-bd3b-084616d6165c",
+      "comment": "",
+      "command": "verifyValue",
+      "target": "name=defCount",
+      "targets": [],
+      "value": "10000"
+    }, {
+      "id": "f34f0cf1-65b9-4de2-8803-692a50373643",
+      "comment": "",
+      "command": "verifyNotChecked",
+      "target": "name=isActive",
+      "targets": [
+        ["name=isActive", "name"],
+        ["css=input[name=\"isActive\"]", "css"],
+        ["css=.checkbox:nth-child(8) input", "css:finder"],
+        ["xpath=//input[@name='isActive']", "xpath:attributes"],
+        ["xpath=//label/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "481b58d8-15da-4cba-a58f-29ba26b477bf",
+      "comment": "",
+      "command": "verifyChecked",
+      "target": "name=canModerate",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "15c60c82-6747-4d67-9fa1-0456c6120eeb",
+      "comment": "",
+      "command": "verifyChecked",
+      "target": "name=canDistribute",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "ff52daab-72dc-44fe-b409-e8f73e905bfe",
+      "comment": "",
+      "command": "verifyChecked",
+      "target": "name=structurable",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "9246be59-93ea-492a-9e5c-79fdb68c64ef",
+      "comment": "",
+      "command": "type",
+      "target": "name=name",
+      "targets": [],
+      "value": "English - Klingon Dictionary"
+    }, {
+      "id": "87939258-a1d2-42c6-9e54-34701f7a360f",
+      "comment": "",
+      "command": "type",
+      "target": "name=shortName",
+      "targets": [],
+      "value": "Source 1"
+    }, {
+      "id": "9c8d5833-3561-4e4d-8b8a-d98585a03637",
+      "comment": "",
+      "command": "type",
+      "target": "name=urlName",
+      "targets": [],
+      "value": "source1"
+    }, {
+      "id": "afc7d609-2ec8-4e9d-ba61-a840863b9b45",
+      "comment": "",
+      "command": "type",
+      "target": "name=author",
+      "targets": [],
+      "value": "Worf"
+    }, {
+      "id": "1e153a61-67da-49c7-b49a-22553af97118",
+      "comment": "",
+      "command": "type",
+      "target": "name=publisher",
+      "targets": [],
+      "value": "The Klingon Academy"
+    }, {
+      "id": "f4355264-828c-441f-9a98-056cfbf34ce8",
+      "comment": "",
+      "command": "type",
+      "target": "name=year",
+      "targets": [],
+      "value": "2010"
+    }, {
+      "id": "8f8a486c-69d9-4eed-8deb-8cfcb7e9654b",
+      "comment": "",
+      "command": "type",
+      "target": "name=link",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "70c0feb3-3f0e-44fe-850c-6b67343d177a",
+      "comment": "",
+      "command": "select",
+      "target": "name=type",
+      "targets": [],
+      "value": "label=oficial"
+    }, {
+      "id": "ff594953-70a8-4655-ad3e-7077f446b626",
+      "comment": "",
+      "command": "type",
+      "target": "name=defCount",
+      "targets": [],
+      "value": "-1"
+    }, {
+      "id": "ce911e79-4bd8-46b3-9746-94affd678df2",
+      "comment": "",
+      "command": "click",
+      "target": "name=isActive",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b29b30ad-c97a-464c-b2fd-ffc2cc75a7e6",
+      "comment": "",
+      "command": "click",
+      "target": "name=canModerate",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "7bf74819-51dd-441b-bc7a-0acf22ddc3e8",
+      "comment": "",
+      "command": "click",
+      "target": "name=canDistribute",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d9977372-b141-4e05-b282-80b03fde6cc0",
+      "comment": "",
+      "command": "click",
+      "target": "name=structurable",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "87b1fc2b-d31a-4e67-82bf-fc1d85e15acf",
+      "comment": "",
+      "command": "click",
+      "target": "name=saveButton",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b7636a0f-667a-4635-89b0-53ad7b56fc27",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=înapoi la lista de surse",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "97a9d57a-f501-4f3d-850d-b4674ebb6955",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=span.sourceShortName",
+      "targets": [],
+      "value": "Source 1"
+    }, {
+      "id": "ebd0476c-cf76-46d0-bf56-795b69d38560",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "xpath=//td[4]/span/div/div[contains(@class, 'popover-content') and contains(.,'The Klingon Academy ')]",
+      "targets": [
+        ["css=td.nick", "css"],
+        ["css=tbody > tr:nth-child(1) > .nick", "css:finder"],
+        ["xpath=//table[@id='sources']/tbody/tr/td[4]", "xpath:idRelative"],
+        ["xpath=//td[4]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "87d560fb-b71c-4b93-a072-cc02fdf7bfff",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=div.sourceComplete.sourceComplete0",
+      "targets": [],
+      "value": "necunoscut"
+    }, {
+      "id": "4c77496b-a9f0-4250-960b-287702471cd0",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "linkText=editează",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "modelTypesView.htm",
+    "name": "modelTypesView",
+    "commands": [{
+      "id": "0d0894a1-45c4-4f15-b04c-735daead5086",
+      "comment": "",
+      "command": "open",
+      "target": "./tipuri-modele",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "7fdf2ec2-6156-4746-a431-d0e49e682c2f",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=caption.table-caption",
+      "targets": [
+        ["css=caption.table-caption", "css"],
+        ["css=.table-caption", "css:finder"],
+        ["xpath=//caption", "xpath:position"]
+      ],
+      "value": "Tipuri de modele"
+    }, {
+      "id": "efb3ebb2-edd7-4348-a4eb-327feb59e90e",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=td",
+      "targets": [
+        ["css=td", "css"],
+        ["css=tr:nth-child(2) > td:nth-child(1)", "css:finder"],
+        ["xpath=//td", "xpath:position"]
+      ],
+      "value": "AF"
+    }, {
+      "id": "599c7199-aaeb-4497-b690-53235ba67ec5",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=tr:nth-child(2) > td:nth-child(2)",
+      "targets": [
+        ["css=tr:nth-child(2) > td:nth-child(2)", "css:finder"],
+        ["xpath=//td[2]", "xpath:position"]
+      ],
+      "value": "F"
+    }, {
+      "id": "27400d97-a978-460f-b4c6-4de43a9817df",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=tr:nth-child(2) > td:nth-child(3)",
+      "targets": [
+        ["css=tr:nth-child(2) > td:nth-child(3)", "css:finder"],
+        ["xpath=//td[3]", "xpath:position"]
+      ],
+      "value": "adjectiv feminin"
+    }, {
+      "id": "8aa45d3b-db40-467f-a78d-6a83519b0895",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=tr:nth-child(2) > td:nth-child(4)",
+      "targets": [
+        ["css=tr:nth-child(2) > td:nth-child(4)", "css:finder"],
+        ["xpath=//td[4]", "xpath:position"]
+      ],
+      "value": "0"
+    }, {
+      "id": "6bceca99-c494-464b-99bb-1d1b929ad9fb",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=tr:nth-child(2) > td:nth-child(5)",
+      "targets": [
+        ["css=tr:nth-child(2) > td:nth-child(5)", "css:finder"],
+        ["xpath=//td[5]", "xpath:position"]
+      ],
+      "value": "0"
+    }, {
+      "id": "94c11f49-b476-493d-bdcf-a2a701611601",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=tr:nth-child(2) > td:nth-child(6)",
+      "targets": [
+        ["css=tr:nth-child(2) > td:nth-child(6)", "css:finder"],
+        ["xpath=//td[6]", "xpath:position"]
+      ],
+      "value": "editează șterge"
+    }, {
+      "id": "348d733a-54da-4797-a620-0cb831428d67",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=tr:nth-child(3) > td:nth-child(1)",
+      "targets": [
+        ["css=tr:nth-child(3) > td:nth-child(1)", "css:finder"],
+        ["xpath=//tr[3]/td", "xpath:position"]
+      ],
+      "value": "F"
+    }, {
+      "id": "dfb23268-e959-4453-993e-e2eae1244bc3",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=tr:nth-child(3) > td:nth-child(2)",
+      "targets": [
+        ["css=tr:nth-child(3) > td:nth-child(2)", "css:finder"],
+        ["xpath=//tr[3]/td[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "9835cada-2989-458a-aebc-b32ca971b60e",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=tr:nth-child(3) > td:nth-child(3)",
+      "targets": [
+        ["css=tr:nth-child(3) > td:nth-child(3)", "css:finder"],
+        ["xpath=//tr[3]/td[3]", "xpath:position"]
+      ],
+      "value": "substantiv feminin"
+    }, {
+      "id": "c3f3e2ec-1928-4d42-9c07-dd66f3e4ccb9",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=tr:nth-child(3) > td:nth-child(4)",
+      "targets": [
+        ["css=tr:nth-child(3) > td:nth-child(4)", "css:finder"],
+        ["xpath=//tr[3]/td[4]", "xpath:position"]
+      ],
+      "value": "3"
+    }, {
+      "id": "8217f56a-4f55-45d0-8b92-01b401ac8bdf",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=tr:nth-child(3) > td:nth-child(5)",
+      "targets": [
+        ["css=tr:nth-child(3) > td:nth-child(5)", "css:finder"],
+        ["xpath=//tr[3]/td[5]", "xpath:position"]
+      ],
+      "value": "5"
+    }, {
+      "id": "0fdee682-7596-4fbf-a723-1980d53ac740",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=tr:nth-child(3) > td:nth-child(6)",
+      "targets": [
+        ["css=tr:nth-child(3) > td:nth-child(6)", "css:finder"],
+        ["xpath=//tr[3]/td[6]", "xpath:position"]
+      ],
+      "value": "editează"
+    }, {
+      "id": "ce948f3c-7885-4562-a928-4b8f0ce6a1bb",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "linkText=adaugă un tip de model",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "modelTypeAddEditDelete.htm",
+    "name": "modelTypeAddEditDelete",
+    "commands": [{
+      "id": "fe7276ee-0a35-4d35-94f8-e9ed0cc7ff90",
+      "comment": "",
+      "command": "open",
+      "target": "./tipuri-modele",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d714feda-5078-476a-99d2-35592bab87ef",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=adaugă un tip de model",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "1cb97576-426d-429c-a81d-6b7416dbf440",
+      "comment": "",
+      "command": "type",
+      "target": "name=code",
+      "targets": [],
+      "value": "X"
+    }, {
+      "id": "2f305484-8793-41ed-b4b1-5f08bc73815c",
+      "comment": "",
+      "command": "type",
+      "target": "name=description",
+      "targets": [],
+      "value": "some description"
+    }, {
+      "id": "9b899994-b351-4976-a635-e2efad93c27e",
+      "comment": "",
+      "command": "click",
+      "target": "name=saveButton",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "45c2676c-b5d0-4f00-afcd-9f442236aa63",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=caption.table-caption",
+      "targets": [
+        ["css=caption.table-caption", "css"],
+        ["css=.table-caption", "css:finder"],
+        ["xpath=//caption", "xpath:position"]
+      ],
+      "value": "Tipuri de modele"
+    }, {
+      "id": "09c1906b-cdb4-4c70-8c67-09ffbf74a79d",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=tr:nth-child(6) > td:nth-child(1)",
+      "targets": [
+        ["css=tr:nth-child(6) > td:nth-child(1)", "css:finder"],
+        ["xpath=//tr[6]/td", "xpath:position"]
+      ],
+      "value": "X"
+    }, {
+      "id": "189eff72-d783-4ac0-83aa-42faf08a3fee",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=tr:nth-child(6) > td:nth-child(2)",
+      "targets": [
+        ["css=tr:nth-child(6) > td:nth-child(2)", "css:finder"],
+        ["xpath=//tr[6]/td[2]", "xpath:position"]
+      ],
+      "value": "F"
+    }, {
+      "id": "086f2105-1393-4c6c-bf91-83465370b7e8",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=tr:nth-child(6) > td:nth-child(3)",
+      "targets": [
+        ["css=tr:nth-child(6) > td:nth-child(3)", "css:finder"],
+        ["xpath=//tr[6]/td[3]", "xpath:position"]
+      ],
+      "value": "some description"
+    }, {
+      "id": "6c8ae2f7-12df-4fc9-8fcd-b6efa033ff58",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=tr:nth-child(6) > td:nth-child(4)",
+      "targets": [
+        ["css=tr:nth-child(6) > td:nth-child(4)", "css:finder"],
+        ["xpath=//tr[6]/td[4]", "xpath:position"]
+      ],
+      "value": "0"
+    }, {
+      "id": "a98d4b6f-f034-4402-896e-596122a64cc2",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=tr:nth-child(6) > td:nth-child(5)",
+      "targets": [
+        ["css=tr:nth-child(6) > td:nth-child(5)", "css:finder"],
+        ["xpath=//tr[6]/td[5]", "xpath:position"]
+      ],
+      "value": "0"
+    }, {
+      "id": "a63db8ab-07fb-4653-b1fd-0cad12ae46e2",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=tr:nth-child(6) > td:nth-child(6)",
+      "targets": [
+        ["css=tr:nth-child(6) > td:nth-child(6)", "css:finder"],
+        ["xpath=//tr[6]/td[6]", "xpath:position"]
+      ],
+      "value": "editează șterge"
+    }, {
+      "id": "9adc02f0-29c9-456f-a709-d856c388ba43",
+      "comment": "",
+      "command": "click",
+      "target": "css=tr:nth-child(6) a:nth-child(1)",
+      "targets": [
+        ["css=tr:nth-child(6) a:nth-child(1)", "css:finder"],
+        ["xpath=(//a[contains(text(),'editează')])[5]", "xpath:link"],
+        ["xpath=//a[contains(@href, '?editId=5')]", "xpath:href"],
+        ["xpath=//tr[6]/td[6]/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "d603fbd3-28ea-46ab-beda-9fbee4cc35b9",
+      "comment": "",
+      "command": "type",
+      "target": "name=description",
+      "targets": [],
+      "value": "some other description"
+    }, {
+      "id": "e8e6b3a2-7d7e-4750-9bc5-af624be6ffae",
+      "comment": "",
+      "command": "click",
+      "target": "name=saveButton",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "6645f3a1-ceaa-48ca-8b36-7ea09759592c",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=tr:nth-child(6) > td:nth-child(3)",
+      "targets": [
+        ["css=tr:nth-child(6) > td:nth-child(3)", "css:finder"],
+        ["xpath=//tr[6]/td[3]", "xpath:position"]
+      ],
+      "value": "some other description"
+    }, {
+      "id": "15c36a8f-3cf5-4b56-8cc6-6690fbd1e267",
+      "comment": "",
+      "command": "click",
+      "target": "css=tr:nth-child(6) a:nth-child(2)",
+      "targets": [
+        ["css=tr:nth-child(6) a:nth-child(2)", "css:finder"],
+        ["xpath=(//a[contains(text(),'șterge')])[2]", "xpath:link"],
+        ["xpath=//a[contains(@href, '?deleteId=5')]", "xpath:href"],
+        ["xpath=//tr[6]/td[6]/a[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "95a26f9f-c0a5-4758-923d-3acb2e3f29af",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=.alert",
+      "targets": [
+        ["css=.alert", "css:finder"],
+        ["xpath=//main/div/div/div/div", "xpath:position"]
+      ],
+      "value": "×\\nAm șters tipul de model 'X'."
+    }, {
+      "id": "81d794c1-c86c-4f57-b356-90efe40ac2d9",
+      "comment": "",
+      "command": "verifyElementNotPresent",
+      "target": "css=tr:nth-child(6)",
+      "targets": [
+        ["css=tr:nth-child(5) > td:nth-child(3)", "css:finder"],
+        ["xpath=//tr[5]/td[3]", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "inflectionsView.htm",
+    "name": "inflectionsView",
+    "commands": [{
+      "id": "6238b703-ac34-45be-8b16-05c69bb1f627",
+      "comment": "",
+      "command": "open",
+      "target": "./flexiuni",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "81b8a2e2-e218-45a8-92e9-a4f40c279f16",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=tr:nth-child(1) > td:nth-child(1)",
+      "targets": [
+        ["css=td.nick", "css"],
+        ["css=tr:nth-child(1) > .nick", "css:finder"],
+        ["xpath=//table[@id='inflections']/tbody/tr/td", "xpath:idRelative"],
+        ["xpath=//td", "xpath:position"]
+      ],
+      "value": "nominativ, singular, nearticulat"
+    }, {
+      "id": "0eceb3d4-a409-45e3-bcbe-88c89d743b72",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=tr:nth-child(1) > td:nth-child(2)",
+      "targets": [
+        ["css=tr:nth-child(1) > td:nth-child(2)", "css:finder"],
+        ["xpath=//table[@id='inflections']/tbody/tr/td[2]", "xpath:idRelative"],
+        ["xpath=//td[2]", "xpath:position"]
+      ],
+      "value": "F"
+    }, {
+      "id": "4c464485-e772-4426-9234-28bb5973d9d0",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=tr:nth-child(1) > td:nth-child(3)",
+      "targets": [
+        ["css=tr:nth-child(1) > td:nth-child(3)", "css:finder"],
+        ["xpath=//table[@id='inflections']/tbody/tr/td[3]", "xpath:idRelative"],
+        ["xpath=//td[3]", "xpath:position"]
+      ],
+      "value": "1"
+    }, {
+      "id": "a9df196a-5de2-4718-becb-77ca18faefb0",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=tr:nth-child(1) > td:nth-child(4)",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "f3e819bb-5b79-485b-ae5e-56bb09e22adb",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=tr:nth-child(2) > td:nth-child(1)",
+      "targets": [],
+      "value": "genitiv, singular, nearticulat"
+    }, {
+      "id": "0428ac47-71a6-4048-bc0c-da65220fe7d4",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=tr:nth-child(2) > td:nth-child(2)",
+      "targets": [],
+      "value": "F"
+    }, {
+      "id": "0e152a29-10e5-4be2-876a-ca8752ae02aa",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=tr:nth-child(2) > td:nth-child(3)",
+      "targets": [],
+      "value": "2"
+    }, {
+      "id": "bfe1a7bc-bc72-4c84-94ea-f317dcaa63cf",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=tr:nth-child(2) > td:nth-child(4)",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "ddc29102-ab13-4e65-b937-a3bcd47de935",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=tr:nth-child(3) > td:nth-child(1)",
+      "targets": [],
+      "value": "nominativ, plural, nearticulat"
+    }, {
+      "id": "ea0eb0d0-4abc-44c4-b9a2-9ebfab9c3605",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=tr:nth-child(3) > td:nth-child(2)",
+      "targets": [],
+      "value": "F"
+    }, {
+      "id": "2d974f70-8919-41db-aa0b-2be9d31634ea",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=tr:nth-child(3) > td:nth-child(3)",
+      "targets": [],
+      "value": "3"
+    }, {
+      "id": "7cec91fd-1d4b-4b0c-ab3d-d294d99bac50",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=tr:nth-child(3) > td:nth-child(4)",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "7e6e3024-0292-4996-a763-5876c5a5aa64",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "name=newDescription",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3cbc5edd-eca7-47f4-aa67-711868c19aa3",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "name=newModelType",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "9cf0eb65-1e96-4cef-b1b2-7b6766ada7c6",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "name=saveButton",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "inflectionsReorder.htm",
+    "name": "inflectionsReorder",
+    "commands": [{
+      "id": "2488f0f7-e778-463f-b8e0-7d87f23e3381",
+      "comment": "",
+      "command": "open",
+      "target": "./flexiuni",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "63fdd463-63e6-496d-b4cd-9b2ef1ff4142",
+      "comment": "",
+      "command": "click",
+      "target": "css=td.nick",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "85a5471d-19c1-4534-bc84-08b5986293ed",
+      "comment": "",
+      "command": "dragAndDropToObject",
+      "target": "xpath=//table[@id='inflections']/tbody/tr[3]/td",
+      "targets": [],
+      "value": "css=th"
+    }, {
+      "id": "fcd4f5aa-3b1a-47c0-bd09-8be7a6440eae",
+      "comment": "",
+      "command": "click",
+      "target": "name=saveButton",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "1f5f0522-5428-463e-8d1d-3734c2e529f3",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=tr:nth-child(1) > td:nth-child(1)",
+      "targets": [
+        ["css=tr:nth-child(2) > td:nth-child(2)", "css:finder"],
+        ["xpath=//table[@id='inflections']/tbody/tr[2]/td[2]", "xpath:idRelative"],
+        ["xpath=//tr[2]/td[2]", "xpath:position"]
+      ],
+      "value": "nominativ, plural, nearticulat"
+    }, {
+      "id": "b4b4b058-7f42-46d2-8078-d0737ac236e7",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=tr:nth-child(1) > td:nth-child(3)",
+      "targets": [],
+      "value": "1"
+    }, {
+      "id": "5a89c090-0973-4747-884c-80fc995b7281",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=tr:nth-child(2) > td:nth-child(1)",
+      "targets": [],
+      "value": "nominativ, singular, nearticulat"
+    }, {
+      "id": "58e707ba-e56b-4ff4-a5ad-d470ce2d5bcf",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=tr:nth-child(2) > td:nth-child(3)",
+      "targets": [],
+      "value": "2"
+    }, {
+      "id": "10bc01d0-39e9-476c-a468-08727f066168",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=tr:nth-child(3) > td:nth-child(1)",
+      "targets": [],
+      "value": "genitiv, singular, nearticulat"
+    }, {
+      "id": "ed6bd744-ab50-4437-9791-030c000d355b",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=tr:nth-child(3) > td:nth-child(3)",
+      "targets": [],
+      "value": "3"
+    }, {
+      "id": "e945ce52-657b-4769-8a16-8d214826a9ad",
+      "comment": "",
+      "command": "dragAndDropToObject",
+      "target": "xpath=//table[@id='inflections']/tbody/tr[3]/td",
+      "targets": [],
+      "value": "css=th"
+    }, {
+      "id": "080f3ccf-3b89-4d91-a98d-249f31e86539",
+      "comment": "",
+      "command": "dragAndDropToObject",
+      "target": "xpath=//table[@id='inflections']/tbody/tr[3]/td",
+      "targets": [],
+      "value": "css=th"
+    }, {
+      "id": "ad282c65-a932-4d0c-9784-8971229029ac",
+      "comment": "",
+      "command": "click",
+      "target": "name=saveButton",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "1c7445b4-3cbc-4cc2-a4b2-90ddd02d4815",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=tr:nth-child(1) > td:nth-child(1)",
+      "targets": [],
+      "value": "nominativ, singular, nearticulat"
+    }, {
+      "id": "ca9e97cf-1275-4fe7-b18d-73f56bfda01b",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=tr:nth-child(1) > td:nth-child(3)",
+      "targets": [],
+      "value": "1"
+    }, {
+      "id": "91329e2f-3809-4aa2-9760-4066d4bc66f2",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=tr:nth-child(2) > td:nth-child(1)",
+      "targets": [],
+      "value": "genitiv, singular, nearticulat"
+    }, {
+      "id": "5c1fb5e5-62f9-4bcc-b215-ab4cc4109ade",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=tr:nth-child(2) > td:nth-child(3)",
+      "targets": [],
+      "value": "2"
+    }, {
+      "id": "add1f5e8-5624-4969-937f-1b2290b541e6",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=tr:nth-child(3) > td:nth-child(1)",
+      "targets": [],
+      "value": "nominativ, plural, nearticulat"
+    }, {
+      "id": "39a46a57-bbe4-41df-86b5-e005ea541cf2",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=tr:nth-child(3) > td:nth-child(3)",
+      "targets": [],
+      "value": "3"
+    }]
+  }, {
+    "id": "inflectionAddDelete.htm",
+    "name": "inflectionAddDelete",
+    "commands": [{
+      "id": "314633e8-866e-4532-95e7-53b3563896ce",
+      "comment": "",
+      "command": "open",
+      "target": "./flexiuni",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "cbf7c265-5970-4b80-b0a5-82b842a53d18",
+      "comment": "",
+      "command": "click",
+      "target": "name=newDescription",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c3d8ddb9-798e-49d5-a0fe-7e7cafa25fa5",
+      "comment": "",
+      "command": "type",
+      "target": "name=newDescription",
+      "targets": [],
+      "value": "test inflection"
+    }, {
+      "id": "e48e8b5a-0f92-402c-a4d6-9c1d98484358",
+      "comment": "",
+      "command": "click",
+      "target": "name=saveButton",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "4d4a2780-d0a0-43c3-a2f3-545dadeb514f",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=tr:nth-child(11) > td:nth-child(1)",
+      "targets": [
+        ["css=tr:nth-child(11) > .nick", "css:finder"],
+        ["xpath=//table[@id='inflections']/tbody/tr[11]/td", "xpath:idRelative"],
+        ["xpath=//tr[11]/td", "xpath:position"]
+      ],
+      "value": "test inflection"
+    }, {
+      "id": "7694be32-4f1d-4bb4-9584-01bd9edcdbc8",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=tr:nth-child(11) > td:nth-child(2)",
+      "targets": [
+        ["css=tr:nth-child(11) > td:nth-child(3)", "css:finder"],
+        ["xpath=//table[@id='inflections']/tbody/tr[11]/td[3]", "xpath:idRelative"],
+        ["xpath=//tr[11]/td[3]", "xpath:position"]
+      ],
+      "value": "F"
+    }, {
+      "id": "22bf5780-18cd-4615-bda6-537e3d56cc8a",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=tr:nth-child(11) > td:nth-child(3)",
+      "targets": [],
+      "value": "11"
+    }, {
+      "id": "b43830fe-d777-472e-b0a9-7511dd66eeec",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=șterge",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "tagsEdit.htm",
+    "name": "tagsEdit",
+    "commands": [{
+      "id": "8471a8d4-ed6f-4742-9465-7edd9a521d72",
+      "comment": "",
+      "command": "open",
+      "target": "./etichete",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "cc9638c0-dc11-4e4e-856a-35858a198d24",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "css=i.expand.glyphicon-chevron-down",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a9e64034-a7ef-440c-826b-dbf3cde2d273",
+      "comment": "",
+      "command": "verifyElementNotPresent",
+      "target": "linkText=argou",
+      "targets": [
+        ["linkText=argou", "linkText"],
+        ["css=ul:nth-child(3) > li:nth-child(1) .label", "css:finder"],
+        ["xpath=//a[contains(text(),'argou')]", "xpath:link"],
+        ["xpath=//div[@id='tagTree']/ul/li[2]/ul/li/span/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/dexonline/wwwbase/eticheta.php?id=3')]", "xpath:href"],
+        ["xpath=//li[2]/ul/li/span/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "36a0deea-812c-4d35-bf06-e53510d4c40b",
+      "comment": "",
+      "command": "click",
+      "target": "css=.glyphicon-chevron-down",
+      "targets": [
+        ["css=.glyphicon-chevron-down", "css:finder"],
+        ["xpath=//div[@id='tagTree']/ul/li[2]/i", "xpath:idRelative"],
+        ["xpath=//li[2]/i", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "9f7442ee-8012-4255-85b7-5242c1506a47",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "css=i.expand.glyphicon-chevron-up",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "6a0a8b55-5f7b-43b6-9d2a-d0207175c7be",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "linkText=argou",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "0800e50f-9238-4726-ab55-4d65f2a7ffa2",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=argou",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "56ee0c22-f0e9-44ba-a31f-0e134cb3dbd0",
+      "comment": "",
+      "command": "type",
+      "target": "id=value",
+      "targets": [],
+      "value": "argou2"
+    }, {
+      "id": "26344c59-0e2a-4eaa-a9ac-8bbcbbfeae2a",
+      "comment": "",
+      "command": "type",
+      "target": "id=tooltip",
+      "targets": [],
+      "value": "diverse detalii"
+    }, {
+      "id": "f52723fd-9b15-44c2-8562-199e05b0f760",
+      "comment": "",
+      "command": "type",
+      "target": "id=color",
+      "targets": [],
+      "value": "#ffff00"
+    }, {
+      "id": "feba5358-d410-40b3-a3de-0c9f15d2e58d",
+      "comment": "",
+      "command": "type",
+      "target": "id=background",
+      "targets": [],
+      "value": "#1e832c"
+    }, {
+      "id": "991f025a-17d5-4df2-81a7-654a82f4f3bc",
+      "comment": "",
+      "command": "type",
+      "target": "id=icon",
+      "targets": [],
+      "value": "home"
+    }, {
+      "id": "244e038b-41e1-49ab-aca4-e8a97162aada",
+      "comment": "",
+      "command": "click",
+      "target": "name=saveButton",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "cc523792-2d06-4b34-9ea9-ce35085875e5",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "linkText= argou2",
+      "targets": [
+        ["css=span.tag-tooltip > a.label.label-default ", "css"],
+        ["css=.tag-tooltip > .label", "css:finder"],
+        ["xpath=//a[contains(text(),'argou2')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/dexonline/wwwbase/eticheta.php?id=3')]", "xpath:href"],
+        ["xpath=//span[2]/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "aa50cc1f-0df8-41d7-9a13-94959df1cd71",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "css=a.label.label-default[style|=\"color: #ffff00; background: #1e832c;\"]",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d7d38ad2-7df0-40ce-9fe3-028f32d4206c",
+      "comment": "",
+      "command": "verifyValue",
+      "target": "id=value",
+      "targets": [],
+      "value": "argou2"
+    }, {
+      "id": "b837ff7e-099c-4b79-9b1c-95932f12737b",
+      "comment": "",
+      "command": "verifyValue",
+      "target": "id=tooltip",
+      "targets": [],
+      "value": "diverse detalii"
+    }, {
+      "id": "c6e4a933-d749-4273-aa2f-7b55ea60bac2",
+      "comment": "",
+      "command": "verifyText",
+      "target": "id=select2-parentId-container",
+      "targets": [],
+      "value": "×\\nregistru stilistic"
+    }, {
+      "id": "84f6b222-9577-4efc-806e-48d13bf8b36d",
+      "comment": "",
+      "command": "verifyValue",
+      "target": "id=color",
+      "targets": [],
+      "value": "#ffff00"
+    }, {
+      "id": "60acc87a-b2fc-41fc-88e4-db38d1baa6d0",
+      "comment": "",
+      "command": "verifyValue",
+      "target": "id=background",
+      "targets": [],
+      "value": "#1e832c"
+    }, {
+      "id": "b7e7af01-da3c-471a-95c6-68672f812025",
+      "comment": "",
+      "command": "verifyValue",
+      "target": "id=icon",
+      "targets": [],
+      "value": "home"
+    }, {
+      "id": "8e438e78-c8da-4f1a-8c75-47838b4c44b1",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "css=span.input-group-addon > i.glyphicon.glyphicon-home",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "9d6d635b-20d2-4795-b5b2-4957e45c9e62",
+      "comment": "",
+      "command": "type",
+      "target": "id=value",
+      "targets": [],
+      "value": "argou"
+    }, {
+      "id": "1dbaecbb-9929-4593-92d1-bcaac2616fa4",
+      "comment": "",
+      "command": "type",
+      "target": "id=tooltip",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "16971c1c-55f0-4037-aa8c-71e8423d29bf",
+      "comment": "",
+      "command": "type",
+      "target": "id=color",
+      "targets": [],
+      "value": "#ffffff"
+    }, {
+      "id": "6428a0a9-ebb2-42aa-9ec2-ae7ecf15a719",
+      "comment": "",
+      "command": "type",
+      "target": "id=background",
+      "targets": [],
+      "value": "#1e83c2"
+    }, {
+      "id": "498cf51a-6d66-4a8e-b141-7d35b5926d0d",
+      "comment": "",
+      "command": "type",
+      "target": "id=icon",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "33d74c60-101b-4ce3-aa6c-0917f98bfcc8",
+      "comment": "",
+      "command": "click",
+      "target": "name=saveButton",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "wotdArtistsView.htm",
+    "name": "wotdArtistsView",
+    "commands": [{
+      "id": "e760c3ee-b24a-4bee-974c-61425daa7eb1",
+      "comment": "",
+      "command": "open",
+      "target": "./autori-imagini",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "59fa9bec-a015-4e5f-99df-a3fd7d1a55d2",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=h3",
+      "targets": [
+        ["css=h3", "css"],
+        ["css=h3", "css:finder"],
+        ["xpath=//h3", "xpath:position"]
+      ],
+      "value": "Autori ai imaginilor"
+    }, {
+      "id": "498250d3-fca9-467e-85be-f20c4f22e91e",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=tr:nth-child(2) > td:nth-child(1)",
+      "targets": [],
+      "value": "Geniu Neînțeles"
+    }, {
+      "id": "2b986399-810f-4cac-9cfb-e7668d27d29f",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=tr:nth-child(2) > td:nth-child(2)",
+      "targets": [],
+      "value": "geniu@example.com"
+    }, {
+      "id": "d4f5de98-e21e-4ddf-8654-81eff9b2e0e0",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=tr:nth-child(2) > td:nth-child(3)",
+      "targets": [],
+      "value": "artist1"
+    }, {
+      "id": "a32bbe87-f16e-4dc4-9f57-a6e3868d4acf",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=tr:nth-child(2) > td:nth-child(4)",
+      "targets": [],
+      "value": "editează șterge"
+    }, {
+      "id": "4b548cb9-35a1-4300-94dd-a52a41564f96",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=tr:nth-child(3) > td:nth-child(1)",
+      "targets": [],
+      "value": "Luceafărul grafittiului românesc"
+    }, {
+      "id": "a1c41403-e3c3-4000-b882-4b8cf1e7c41a",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=tr:nth-child(3) > td:nth-child(2)",
+      "targets": [
+        ["css=tr:nth-child(3) > td:nth-child(2)", "css:finder"],
+        ["xpath=//tr[3]/td[2]", "xpath:position"]
+      ],
+      "value": "luceafar@example.com"
+    }, {
+      "id": "7ad155fe-ff8b-4c89-9800-1853b0c6d25e",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=tr:nth-child(3) > td:nth-child(3)",
+      "targets": [],
+      "value": "artist2"
+    }, {
+      "id": "6cfc4f19-d965-4f2c-8fb8-9dc627cda5a4",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=tr:nth-child(3) > td:nth-child(4)",
+      "targets": [],
+      "value": "editează șterge"
+    }]
+  }, {
+    "id": "wotdArtistAddEditDelete.htm",
+    "name": "wotdArtistAddEditDelete",
+    "commands": [{
+      "id": "14e031c5-a6a2-4146-9859-51961c6a21a2",
+      "comment": "",
+      "command": "open",
+      "target": "./autori-imagini",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "ba7c3f71-9ba2-43c8-87cb-f5606ca9b308",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=adaugă un autor",
+      "targets": [
+        ["linkText=adaugă un autor", "linkText"],
+        ["css=a.btn.btn-default", "css"],
+        ["css=.btn-default", "css:finder"],
+        ["xpath=(//a[contains(@href, 'editare-autor-imagini.php')])[5]", "xpath:href"],
+        ["xpath=//main/div/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "ee9e151e-ae44-4c47-bea4-fc7382ce4fe9",
+      "comment": "",
+      "command": "click",
+      "target": "name=saveButton",
+      "targets": [
+        ["name=saveButton", "name"],
+        ["css=button[name=\"saveButton\"]", "css"],
+        ["css=.btn:nth-child(7)", "css:finder"],
+        ["xpath=//button[@name='saveButton']", "xpath:attributes"],
+        ["xpath=//form/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "d3064f07-95b6-4f81-8d13-2a33e364f853",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=.alert:nth-child(1)",
+      "targets": [
+        ["css=.alert:nth-child(1)", "css:finder"],
+        ["xpath=//main/div/div/div/div", "xpath:position"]
+      ],
+      "value": "×\\nNumele nu poate fi vid."
+    }, {
+      "id": "7bdc766a-7c9e-4774-aac9-16b4312e07b6",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=.alert:nth-child(2)",
+      "targets": [
+        ["css=.alert:nth-child(2)", "css:finder"],
+        ["xpath=//main/div/div/div/div[2]", "xpath:position"]
+      ],
+      "value": "×\\nCodul nu poate fi vid (îl folosim încă la cuvântul lunii)."
+    }, {
+      "id": "06037a8a-5338-44cc-b866-3e2b6d9f3ee9",
+      "comment": "",
+      "command": "type",
+      "target": "name=name",
+      "targets": [],
+      "value": "Ion Popescu-Gopo"
+    }, {
+      "id": "a3df125e-40af-426e-9dbd-430d7f7a4b3f",
+      "comment": "",
+      "command": "type",
+      "target": "name=email",
+      "targets": [],
+      "value": "gopo@example.com"
+    }, {
+      "id": "178b5141-9024-497f-8990-481e990fb831",
+      "comment": "",
+      "command": "type",
+      "target": "name=label",
+      "targets": [],
+      "value": "artist1"
+    }, {
+      "id": "35a4891a-b941-4755-8b34-53dc2b224ede",
+      "comment": "",
+      "command": "type",
+      "target": "name=credits",
+      "targets": [],
+      "value": "© Gopo"
+    }, {
+      "id": "d4379893-b4fe-4bad-9f19-094f77ff4b44",
+      "comment": "",
+      "command": "click",
+      "target": "name=saveButton",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b7ca1758-f5df-48d2-9cbb-0fc344741639",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=.alert",
+      "targets": [
+        ["css=.alert", "css:finder"],
+        ["xpath=//main/div/div/div/div", "xpath:position"]
+      ],
+      "value": "×\\nCodul este deja folosit."
+    }, {
+      "id": "312c50b3-d2e7-4f9e-aa73-a01a401fe637",
+      "comment": "",
+      "command": "type",
+      "target": "name=label",
+      "targets": [],
+      "value": "gopo"
+    }, {
+      "id": "0d1c56d2-617a-4373-98bd-380a55e7a804",
+      "comment": "",
+      "command": "click",
+      "target": "name=saveButton",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "82213767-d0b7-4c61-800e-73f0e5d5906c",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=tr:nth-child(3) > td:nth-child(1)",
+      "targets": [
+        ["css=tr:nth-child(3) > td:nth-child(2)", "css:finder"],
+        ["xpath=//tr[3]/td[2]", "xpath:position"]
+      ],
+      "value": "Ion Popescu-Gopo"
+    }, {
+      "id": "b0a3a1bc-062f-46b2-9500-2377ac46550a",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=tr:nth-child(3) > td:nth-child(2)",
+      "targets": [],
+      "value": "gopo@example.com"
+    }, {
+      "id": "52fea50b-9e44-48f9-b54f-c4d9b5860244",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=tr:nth-child(3) > td:nth-child(3)",
+      "targets": [],
+      "value": "gopo"
+    }, {
+      "id": "98797f30-5395-4d20-b066-b84a7e33984e",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=tr:nth-child(3) > td:nth-child(4)",
+      "targets": [],
+      "value": "editează șterge"
+    }, {
+      "id": "d86c59bd-1ca4-484b-85fc-4a930e9a01bb",
+      "comment": "",
+      "command": "click",
+      "target": "css=tr:nth-child(3) a:nth-child(1)",
+      "targets": [
+        ["css=tr:nth-child(3) a:nth-child(1)", "css:finder"],
+        ["xpath=(//a[contains(text(),'editează')])[2]", "xpath:link"],
+        ["xpath=//a[contains(@href, 'editare-autor-imagini.php?id=3')]", "xpath:href"],
+        ["xpath=//tr[3]/td[4]/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "97652699-1a35-4364-9248-f1c523626bf8",
+      "comment": "",
+      "command": "type",
+      "target": "name=name",
+      "targets": [],
+      "value": "Ion Popescu-Gopo2"
+    }, {
+      "id": "76a91bde-ffb1-4ecf-82d5-c7b7db5c3776",
+      "comment": "",
+      "command": "type",
+      "target": "name=email",
+      "targets": [],
+      "value": "gopo@example.com2"
+    }, {
+      "id": "ece16b1e-7d2f-4b7a-974e-fc63559b85dc",
+      "comment": "",
+      "command": "type",
+      "target": "name=label",
+      "targets": [],
+      "value": "gopo2"
+    }, {
+      "id": "cdf4fa66-e8e4-4dd1-8abe-51b76f338fd0",
+      "comment": "",
+      "command": "type",
+      "target": "name=credits",
+      "targets": [],
+      "value": "© Gopo2"
+    }, {
+      "id": "1cefda8d-4321-41c2-982e-2706bdd566a3",
+      "comment": "",
+      "command": "click",
+      "target": "name=saveButton",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "0d6fb212-fd51-4188-9f9e-b79575b1cb6a",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=tr:nth-child(3) > td:nth-child(1)",
+      "targets": [],
+      "value": "Ion Popescu-Gopo2"
+    }, {
+      "id": "15ea39f8-0f15-4c72-ae61-b21669325235",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=tr:nth-child(3) > td:nth-child(2)",
+      "targets": [],
+      "value": "gopo@example.com2"
+    }, {
+      "id": "be19aa07-f8cd-400c-9a00-1d8909d11ca6",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=tr:nth-child(3) > td:nth-child(3)",
+      "targets": [],
+      "value": "gopo2"
+    }, {
+      "id": "b38d01d6-fdfa-4925-9141-8a62535f2da6",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=tr:nth-child(3) > td:nth-child(4)",
+      "targets": [],
+      "value": "editează șterge"
+    }, {
+      "id": "68489257-f96c-4818-abd4-e19c536bdcaf",
+      "comment": "",
+      "command": "click",
+      "target": "css=tr:nth-child(3) a:nth-child(2)",
+      "targets": [
+        ["css=tr:nth-child(3) a:nth-child(2)", "css:finder"],
+        ["xpath=(//a[contains(text(),'șterge')])[2]", "xpath:link"],
+        ["xpath=//a[contains(@href, 'editare-autor-imagini.php?deleteId=3')]", "xpath:href"],
+        ["xpath=//tr[3]/td[4]/a[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "6a9a6828-86c4-4f11-8f4b-935e633dcdac",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=.alert",
+      "targets": [
+        ["css=.alert", "css:finder"],
+        ["xpath=//main/div/div/div/div", "xpath:position"]
+      ],
+      "value": "×\\nAm șters autorul."
+    }, {
+      "id": "c6a96a3a-c920-497b-8a69-f4c775f5c47d",
+      "comment": "",
+      "command": "verifyElementNotPresent",
+      "target": "css=tr:nth-child(4)",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "wotdAssignment.htm",
+    "name": "wotdAssignment",
+    "commands": [{
+      "id": "0f4c3021-3e52-4bc2-a2a5-14b364160dfe",
+      "comment": "",
+      "command": "open",
+      "target": "./alocare-autori",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "66665841-6faa-4d35-a725-748712934d0d",
+      "comment": "",
+      "command": "click",
+      "target": "css=td",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "72b497f3-402f-4788-8587-7a0fe7694460",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=.calendarRow:nth-child(3) > .day",
+      "targets": [
+        ["css=.calendarRow:nth-child(3) > .day", "css:finder"],
+        ["xpath=//table[@id='calendar']/tbody/tr[3]/td", "xpath:idRelative"],
+        ["xpath=//div[2]/table/tbody/tr[3]/td", "xpath:position"]
+      ],
+      "value": "3"
+    }, {
+      "id": "a373e091-4ca3-45be-b0d6-ab5a38c1790a",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=.calendarRow:nth-child(3) > .artist",
+      "targets": [
+        ["css=.calendarRow:nth-child(3) > .artist", "css:finder"],
+        ["xpath=//table[@id='calendar']/tbody/tr[3]/td[2]", "xpath:idRelative"],
+        ["xpath=//tr[3]/td[2]", "xpath:position"]
+      ],
+      "value": "nimeni"
+    }, {
+      "id": "e839386c-e0f2-4084-bc30-82fc2d4f02ea",
+      "comment": "",
+      "command": "click",
+      "target": "css=.calendarRow:nth-child(3) > .artist",
+      "targets": [
+        ["css=.calendarRow:nth-child(3) > .artist", "css:finder"],
+        ["xpath=//table[@id='calendar']/tbody/tr[3]/td[2]", "xpath:idRelative"],
+        ["xpath=//tr[3]/td[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "84a9eed8-50ed-4d96-a511-2a0253393325",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=.calendarRow:nth-child(3) > .day",
+      "targets": [
+        ["css=.calendarRow:nth-child(3) > .day", "css:finder"],
+        ["xpath=//table[@id='calendar']/tbody/tr[3]/td", "xpath:idRelative"],
+        ["xpath=//div[2]/table/tbody/tr[3]/td", "xpath:position"]
+      ],
+      "value": "3"
+    }, {
+      "id": "97c15231-449b-43b2-9b91-ab8713a5b2d6",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=.calendarRow:nth-child(3) > .artist",
+      "targets": [
+        ["css=.calendarRow:nth-child(3) > .artist", "css:finder"],
+        ["xpath=//table[@id='calendar']/tbody/tr[3]/td[2]", "xpath:idRelative"],
+        ["xpath=//tr[3]/td[2]", "xpath:position"]
+      ],
+      "value": "Geniu Neînțeles"
+    }, {
+      "id": "3f1fc267-a441-45f8-9837-2719b8491b79",
+      "comment": "",
+      "command": "click",
+      "target": "css=.calendarRow:nth-child(6) > .artist",
+      "targets": [
+        ["css=.calendarRow:nth-child(6) > .artist", "css:finder"],
+        ["xpath=//table[@id='calendar']/tbody/tr[6]/td[2]", "xpath:idRelative"],
+        ["xpath=//tr[6]/td[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "964d87dc-ac89-438f-a46e-5e2809e06903",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=.calendarRow:nth-child(6) > .day",
+      "targets": [
+        ["css=.calendarRow:nth-child(6) > .day", "css:finder"],
+        ["xpath=//table[@id='calendar']/tbody/tr[6]/td", "xpath:idRelative"],
+        ["xpath=//tr[6]/td", "xpath:position"]
+      ],
+      "value": "6"
+    }, {
+      "id": "436ef201-7a28-4487-bab6-68349adde66b",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=.calendarRow:nth-child(6) > .artist",
+      "targets": [
+        ["css=.calendarRow:nth-child(6) > .artist", "css:finder"],
+        ["xpath=//table[@id='calendar']/tbody/tr[6]/td[2]", "xpath:idRelative"],
+        ["xpath=//tr[6]/td[2]", "xpath:position"]
+      ],
+      "value": "Geniu Neînțeles"
+    }, {
+      "id": "497ce488-7ce6-4363-a0f3-5aeab1a7e409",
+      "comment": "",
+      "command": "click",
+      "target": "css=.artistRow:nth-child(2) > td",
+      "targets": [
+        ["css=.artistRow:nth-child(2) > td", "css:finder"],
+        ["xpath=//table[@id='artists']/tbody/tr[2]/td", "xpath:idRelative"],
+        ["xpath=//tr[2]/td", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "754edc51-f26a-4341-a047-f7bc30dc46ee",
+      "comment": "",
+      "command": "click",
+      "target": "css=.calendarRow:nth-child(3) > .artist",
+      "targets": [
+        ["css=.calendarRow:nth-child(3) > .artist", "css:finder"],
+        ["xpath=//table[@id='calendar']/tbody/tr[3]/td[2]", "xpath:idRelative"],
+        ["xpath=//tr[3]/td[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "d8a3f91f-fb07-4d9d-a733-4356487942dc",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=.calendarRow:nth-child(3) > .day",
+      "targets": [
+        ["css=.calendarRow:nth-child(3) > .day", "css:finder"],
+        ["xpath=//table[@id='calendar']/tbody/tr[3]/td", "xpath:idRelative"],
+        ["xpath=//div[2]/table/tbody/tr[3]/td", "xpath:position"]
+      ],
+      "value": "3"
+    }, {
+      "id": "d1bf273e-300f-4378-8d7d-b2a02024963a",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=.calendarRow:nth-child(3) > .artist",
+      "targets": [
+        ["css=.calendarRow:nth-child(3) > .artist", "css:finder"],
+        ["xpath=//table[@id='calendar']/tbody/tr[3]/td[2]", "xpath:idRelative"],
+        ["xpath=//tr[3]/td[2]", "xpath:position"]
+      ],
+      "value": "Luceafărul grafittiului românesc"
+    }, {
+      "id": "028c8974-b292-468e-9356-4a8081bf4958",
+      "comment": "",
+      "command": "click",
+      "target": "css=.artistRow:nth-child(3) > td",
+      "targets": [
+        ["css=.artistRow:nth-child(3) > td", "css:finder"],
+        ["xpath=//table[@id='artists']/tbody/tr[3]/td", "xpath:idRelative"],
+        ["xpath=//tr[3]/td", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "44070520-267b-4fdf-8442-0fa1bbcbc546",
+      "comment": "",
+      "command": "click",
+      "target": "css=.calendarRow:nth-child(3) > .artist",
+      "targets": [
+        ["css=.calendarRow:nth-child(3) > .artist", "css:finder"],
+        ["xpath=//table[@id='calendar']/tbody/tr[3]/td[2]", "xpath:idRelative"],
+        ["xpath=//tr[3]/td[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "50da5ca9-d64f-4012-ad46-9256194989ae",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=.calendarRow:nth-child(3) > .day",
+      "targets": [
+        ["css=.calendarRow:nth-child(3) > .day", "css:finder"],
+        ["xpath=//table[@id='calendar']/tbody/tr[3]/td", "xpath:idRelative"],
+        ["xpath=//div[2]/table/tbody/tr[3]/td", "xpath:position"]
+      ],
+      "value": "3"
+    }, {
+      "id": "f2cae57d-f0e1-4b16-b790-f62769c0abdd",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=.calendarRow:nth-child(3) > .artist",
+      "targets": [
+        ["css=.calendarRow:nth-child(3) > .artist", "css:finder"],
+        ["xpath=//table[@id='calendar']/tbody/tr[3]/td[2]", "xpath:idRelative"],
+        ["xpath=//tr[3]/td[2]", "xpath:position"]
+      ],
+      "value": "nimeni"
+    }, {
+      "id": "dfa588d1-4c99-482c-8403-b470d6814e32",
+      "comment": "",
+      "command": "click",
+      "target": "css=.calendarRow:nth-child(6) > .artist",
+      "targets": [
+        ["css=.calendarRow:nth-child(6) > .artist", "css:finder"],
+        ["xpath=//table[@id='calendar']/tbody/tr[6]/td[2]", "xpath:idRelative"],
+        ["xpath=//tr[6]/td[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "48cf8e83-0063-4bea-bb6c-662419d50b4c",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=.calendarRow:nth-child(6) > .day",
+      "targets": [
+        ["css=.calendarRow:nth-child(6) > .day", "css:finder"],
+        ["xpath=//table[@id='calendar']/tbody/tr[6]/td", "xpath:idRelative"],
+        ["xpath=//tr[6]/td", "xpath:position"]
+      ],
+      "value": "6"
+    }, {
+      "id": "ff7f5567-bd85-4a43-b506-abd3fab719bc",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=.calendarRow:nth-child(6) > .artist",
+      "targets": [
+        ["css=.calendarRow:nth-child(6) > .artist", "css:finder"],
+        ["xpath=//table[@id='calendar']/tbody/tr[6]/td[2]", "xpath:idRelative"],
+        ["xpath=//tr[6]/td[2]", "xpath:position"]
+      ],
+      "value": "nimeni"
+    }]
+  }, {
+    "id": "wotdArtistDeleteAssigned.htm",
+    "name": "wotdArtistDeleteAssigned",
+    "commands": [{
+      "id": "0deaf570-b541-40c5-9129-2411a52a85d9",
+      "comment": "",
+      "command": "open",
+      "target": "./autori-imagini",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "7fcc896d-d5f3-467d-a1a0-f5388c3bc327",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=tr:nth-child(2) > td:nth-child(4)",
+      "targets": [
+        ["css=tr:nth-child(2) > td:nth-child(4)", "css:finder"],
+        ["xpath=//td[4]", "xpath:position"]
+      ],
+      "value": "editează șterge"
+    }, {
+      "id": "349ed0a9-d2dc-49bc-ac5d-5c551e531a61",
+      "comment": "",
+      "command": "open",
+      "target": "./alocare-autori",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "7b3b28e4-0512-495f-b24a-f2d7db756563",
+      "comment": "",
+      "command": "click",
+      "target": "css=td",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d095e74c-e61d-4314-ac3e-d44d4fd3ba39",
+      "comment": "",
+      "command": "click",
+      "target": "css=.calendarRow:nth-child(2) > .artist",
+      "targets": [
+        ["css=.calendarRow:nth-child(2) > .artist", "css:finder"],
+        ["xpath=//table[@id='calendar']/tbody/tr[2]/td[2]", "xpath:idRelative"],
+        ["xpath=//tr[2]/td[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "321dbbde-c47a-4316-a286-3efaa5074095",
+      "comment": "",
+      "command": "open",
+      "target": "./autori-imagini",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "e12d92ba-7e0f-4e3c-8258-69d84ab35b9c",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=tr:nth-child(2) > td:nth-child(4)",
+      "targets": [
+        ["css=tr:nth-child(2) > td:nth-child(4)", "css:finder"],
+        ["xpath=//td[4]", "xpath:position"]
+      ],
+      "value": "editează"
+    }, {
+      "id": "51ca3957-0f15-4969-860f-b5550c116fe1",
+      "comment": "",
+      "command": "open",
+      "target": "./alocare-autori",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "5d941ec7-e563-4afd-8692-05540dedf577",
+      "comment": "",
+      "command": "click",
+      "target": "css=.artistRow:nth-child(3) > td",
+      "targets": [
+        ["css=.artistRow:nth-child(3) > td", "css:finder"],
+        ["xpath=//table[@id='artists']/tbody/tr[3]/td", "xpath:idRelative"],
+        ["xpath=//tr[3]/td", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "c21cffd0-4671-430c-8842-6fd1bc66ac08",
+      "comment": "",
+      "command": "click",
+      "target": "css=.calendarRow:nth-child(2) > .artist",
+      "targets": [
+        ["css=.calendarRow:nth-child(2) > .artist", "css:finder"],
+        ["xpath=//table[@id='calendar']/tbody/tr[2]/td[2]", "xpath:idRelative"],
+        ["xpath=//tr[2]/td[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "6b4ed6f7-8256-437c-9e44-44b6fd8be747",
+      "comment": "",
+      "command": "open",
+      "target": "./autori-imagini",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "9819c71c-d887-4e57-ae19-f40021e4f043",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=tr:nth-child(2) > td:nth-child(4)",
+      "targets": [
+        ["css=tr:nth-child(2) > td:nth-child(4)", "css:finder"],
+        ["xpath=//td[4]", "xpath:position"]
+      ],
+      "value": "editează șterge"
+    }]
+  }, {
+    "id": "definitionRepWhitespace.htm",
+    "name": "definitionRepWhitespace",
+    "commands": [{
+      "id": "f39f23b3-5253-4dee-bc96-85edab3f3757",
+      "comment": "",
+      "command": "open",
+      "target": ".",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "049b0e7e-5638-401f-a261-a8d16f104997",
+      "comment": "",
+      "command": "type",
+      "target": "id=searchField",
+      "targets": [],
+      "value": "spatiere"
+    }, {
+      "id": "4fcac033-78aa-497c-9870-d178949d2f0b",
+      "comment": "",
+      "command": "click",
+      "target": "id=searchButton",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "4a92f9e0-7594-4343-a177-a699c8f3dfdd",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=editează",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "86bbe254-7c41-4f96-87ea-a81cf994b21c",
+      "comment": "",
+      "command": "assertValue",
+      "target": "id=internalRep",
+      "targets": [],
+      "value": "Definiție\\n pe mai multe\\nlinii pentru a testa spațierea."
+    }]
+  }, {
+    "id": "redundantLinkWarning.htm",
+    "name": "testRedundantWarning",
+    "commands": [{
+      "id": "d922c376-abc5-4332-8411-47a88dd97c1d",
+      "comment": "",
+      "command": "open",
+      "target": ".",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "211f1e5f-7fc5-4fea-bff5-7029eb9d39b7",
+      "comment": "",
+      "command": "type",
+      "target": "id=searchField",
+      "targets": [],
+      "value": "spatiere"
+    }, {
+      "id": "e038f3f6-ee08-4c5e-a2e7-11422cde192b",
+      "comment": "",
+      "command": "click",
+      "target": "id=searchButton",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "353fa0c8-2109-49c7-81e3-f7df78fc538c",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=editează",
+      "targets": [
+        ["linkText=editează", "linkText"],
+        ["css=.list-inline > li:nth-child(4) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'editează')]", "xpath:link"],
+        ["xpath=//div[@id='resultsTab']/div/div/ul/li[4]/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '/dexonline/wwwbase/admin/definitionEdit.php?definitionId=5')])[2]", "xpath:href"],
+        ["xpath=//div/div/div/div/div/ul/li[4]/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "2db5231e-8df1-4d06-a9c5-7e1b35b71c25",
+      "comment": "",
+      "command": "type",
+      "target": "id=internalRep",
+      "targets": [],
+      "value": "Definiție\\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pe mai multe\\nlinii&nbsp;&nbsp;&nbsp;&nbsp;pentru a&nbsp;&nbsp;&nbsp;&nbsp;testa spațierea.\\n\\n|vibrarea|vibra|"
+    }, {
+      "id": "d638928f-45f4-4faa-a315-2c2f0f942a37",
+      "comment": "",
+      "command": "click",
+      "target": "name=saveButton",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "f6ee55b2-21e3-4532-8bf4-435fce82d3d6",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=.alert:nth-child(1)",
+      "targets": [
+        ["css=.alert:nth-child(1)", "css:finder"],
+        ["xpath=//main/div/div/div/div", "xpath:position"]
+      ],
+      "value": "×\\nLegătura de la \"vibrarea\" la \"vibra\" este considerată redundantă (motiv: Trimiterea nu a fost găsită în baza de date.)"
+    }]
+  }, {
+    "id": "logout.htm",
+    "name": "logout",
+    "commands": [{
+      "id": "468ac9ef-41b2-4502-880d-c1fc72aa293d",
+      "comment": "",
+      "command": "open",
+      "target": ".",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c669eb58-62f8-4fbc-93c4-088926308d06",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=john",
+      "targets": [
+        ["linkText=john", "linkText"],
+        ["css=.navbar-right .dropdown-toggle", "css:finder"],
+        ["xpath=//div[@id='navMenu']/ul[2]/li/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '#')])[4]", "xpath:href"],
+        ["xpath=//ul[2]/li/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "e49e1ba2-54b4-4afd-a2c2-30203a41cece",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Închide sesiunea",
+      "targets": [
+        ["linkText=Închide sesiunea", "linkText"],
+        ["css=.open li:nth-child(7) > a", "css:finder"],
+        ["xpath=//div[@id='navMenu']/ul[2]/li/ul/li[7]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/dexonline/wwwbase/auth/logout')]", "xpath:href"],
+        ["xpath=//ul[2]/li/ul/li[7]/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "d07cea23-b386-4bea-ab3c-ee165ff4c5eb",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "linkText=Anonim",
+      "targets": [
+        ["linkText=Anonim", "linkText"],
+        ["css=.navbar-right .dropdown-toggle", "css:finder"],
+        ["xpath=//div[@id='navMenu']/ul[2]/li/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '#')])[4]", "xpath:href"],
+        ["xpath=//ul[2]/li/a", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "8e569eef-5c5a-49f1-ae36-424b7372a393",
+    "name": "default suite",
+    "persistSession": true,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["homePage.htm", "searchByInflectedForm.htm", "searchApproximate.htm", "searchRegexp.htm", "searchFullText.htm", "searchByDefinitionId.htm", "searchByLexemeId.htm", "adsLink.htm", "articles.htm", "articlesSearchResults.htm", "commentView.htm", "constraints.htm", "autocomplete.htm", "lexemeSourcesView.htm", "sourcesViewAsAnonymous.htm", "hangman.htm", "loginFakeUser.htm", "bookmarks.htm", "sourcesViewLoggedIn.htm", "sourcesReorder.htm", "sourceEdit.htm", "modelTypesView.htm", "modelTypeAddEditDelete.htm", "inflectionsView.htm", "inflectionsReorder.htm", "inflectionAddDelete.htm", "tagsEdit.htm", "wotdArtistsView.htm", "wotdArtistAddEditDelete.htm", "wotdAssignment.htm", "wotdArtistDeleteAssigned.htm", "definitionRepWhitespace.htm", "redundantLinkWarning.htm", "logout.htm"]
+  }],
+  "urls": ["http://localhost/dexonline/wwwbase/"],
+  "plugins": []
+}

@@ -57,20 +57,6 @@ foreach ($htaccess as $rule) {
   }
 }
 
-$baseUrlFiles = shell_exec('grep -rl selenium.base test/*.xml');
-if ($baseUrlFiles) {
-  error("The following Selenium IDE test cases contain a hard-coded base URL.\n" .
-        "Please remove selenium.base and edit the 'open' command to use relative\n" .
-        "URLs (using '.').\n\n" . $baseUrlFiles);
-}
-
-$absoluteUrlFiles = shell_exec('grep -Pzol "<tbody>\s+<tr>\s+<td>open</td>\s+<td>[^.]" test/*.xml');
-if ($absoluteUrlFiles) {
-  error("The following Selenium IDE test cases contain an absolute URL path.\n" .
-        "Please make sure all paths in 'open' commands begin with a '.'\n\n" .
-        $absoluteUrlFiles);
-}
-
 /***************************************************************************/
 
 // Reads the file, retains only the lines containing RewriteRule statements

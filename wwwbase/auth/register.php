@@ -49,7 +49,7 @@ function validate($nick, $password, $password2, $email) {
   if (mb_strlen($nick) < 3) {
     $errors['nick'][] = 'Numele de utilizator trebuie să aibă minimum 3 caractere.';
   } else if (!preg_match(NICK_REGEXP, $nick)) {
-    $errors['nick'][] = 'Numele de utilizator poate conține litere, spații și caracterele .-_';
+    $errors['nick'][] = 'Numele de utilizator poate conține litere, cifre, spații și caracterele .-_';
   } else if (User::get_by_nick($nick)) {
     $errors['nick'][] = 'Acest nume de utilizator este deja folosit.';
   }

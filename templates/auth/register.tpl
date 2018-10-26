@@ -24,6 +24,7 @@
                 type="text"
                 name="nick"
                 value="{$nick}"
+                autofocus
                 placeholder="numele de utilizator">
             </div>
             {include "bits/fieldErrors.tpl" errors=$errors.nick|default:null}
@@ -88,7 +89,7 @@
                   value="{$name}"
                   placeholder="numele real">
               </div>
-            </div>            
+            </div>
 
             <div class="checkbox">
               <label>

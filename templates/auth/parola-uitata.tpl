@@ -29,6 +29,7 @@
                 type="text"
                 name="email"
                 value="{$email}"
+                autofocus
                 placeholder="adresa de e-mail">
             </div>
             {include "bits/fieldErrors.tpl" errors=$errors.email|default:null}

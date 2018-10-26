@@ -30,6 +30,7 @@
                 type="text"
                 name="nick"
                 value="{$nick}"
+                autofocus
                 placeholder="numele de utilizator sau adresa de e-mail">
             </div>
             {include "bits/fieldErrors.tpl" errors=$errors.nick|default:null}

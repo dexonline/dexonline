@@ -142,19 +142,21 @@ class Str {
       ['"', "'", 'ấ', 'Ấ', 'î́', 'Î́'],
       ['', '', 'â', 'Â', 'î', 'Î'],
       $query);
-    if (self::startsWith($query, 'a se ')) {
+
+    // Allow a la carte, a la russe etc. even when spelled without the grave accent
+    if (self::startsWith($query, 'a se ') && !Lexeme::get_by_formNoAccent($query)) {
       $query = substr($query, 5);
-    } else if (self::startsWith($query, 'a ')) {
+    } else if (self::startsWith($query, 'a ') && !Lexeme::get_by_formNoAccent($query)) {
       $query = substr($query, 2);
     }
     $query = trim($query);
     $query = strip_tags($query);
     $query = self::stripHtmlEscapeCodes($query);
-    // Delete all kinds of illegal symbols, but use them as word delimiters. Allow dots, dashes and spaces
-    $query = preg_replace("/[!@#$%&()_+=\\\\{}'\":;<>,\/]/", " ", $query);
+    // Delete all kinds of illegal symbols, but use them as word delimiters.
+    // Allow dots, dashes and spaces.
+    $query = preg_replace("/[!@#$%&()_+=\\\\{}'\":;<>,\/]/", ' ', $query);
     $query = preg_replace("/\s+/", ' ', $query);
     $query = self::convertOrthography($query);
-    $query = mb_substr($query, 0, 50);
     return $query;
   }
 

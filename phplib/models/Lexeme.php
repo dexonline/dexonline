@@ -23,7 +23,8 @@ class Lexeme extends BaseObject implements DatedObject {
 
   function setForm($form) {
     $this->form = $form;
-    $this->formNoAccent = str_replace("'", '', $form);
+    $this->formNoAccent = preg_replace("/(?<!\\\\)'/", '', $form);
+    $this->formNoAccent = str_replace("\\'", "'", $this->formNoAccent);
     $this->formUtf8General = $this->formNoAccent;
     $this->reverse = Str::reverse($this->formNoAccent);
   }

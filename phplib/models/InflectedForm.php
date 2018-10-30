@@ -7,7 +7,8 @@ class InflectedForm extends BaseObject {
                                 $variant = null, $recommended = 1) {
     $if = Model::factory('InflectedForm')->create();
     $if->form = $form;
-    $if->formNoAccent = str_replace("'", '', $form);
+    $if->formNoAccent = preg_replace("/(?<!\\\\)'/", '', $form);
+    $if->formNoAccent = str_replace("\\'", "'", $if->formNoAccent);
     $if->formUtf8General = $if->formNoAccent;
     $if->lexemeId = $lexemeId;
     $if->inflectionId = $inflectionId;
@@ -17,7 +18,9 @@ class InflectedForm extends BaseObject {
   }
 
   function getHtmlForm() {
-    return Str::highlightAccent($this->form);
+    $s = Str::highlightAccent($this->form);
+    $s = str_replace("\\'", "'", $s);
+    return $s;
   }
 
   static function mapByInflectionRank($ifs) {

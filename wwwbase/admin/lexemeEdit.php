@@ -225,7 +225,7 @@ function validate($lexeme, $original) {
     FlashMessage::add('Forma nu poate fi vidă.');
   }
 
-  $numAccents = mb_substr_count($lexeme->form, "'");
+  $numAccents = preg_match_all("/(?<!\\\\)'/", $lexeme->form);
   // Note: we allow multiple accents for lexemes like hárcea-párcea
   if ($numAccents && $lexeme->noAccent) {
     FlashMessage::add('Ați indicat că lexemul nu necesită accent, dar forma conține un accent.');

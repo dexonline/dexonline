@@ -139,8 +139,8 @@ class Str {
   static function cleanupQuery($query) {
     $query = mb_substr($query, 0, 40);   // put a hard limit on query length
     $query = str_replace(
-      ['"', "'", 'ấ', 'Ấ', 'î́', 'Î́'],
-      ['', '', 'â', 'Â', 'î', 'Î'],
+      ['"', 'ấ', 'Ấ', 'î́', 'Î́'],
+      ['', 'â', 'Â', 'î', 'Î'],
       $query);
 
     // Allow a la carte, a la russe etc. even when spelled without the grave accent
@@ -154,7 +154,7 @@ class Str {
     $query = self::stripHtmlEscapeCodes($query);
     // Delete all kinds of illegal symbols, but use them as word delimiters.
     // Allow dots, dashes and spaces.
-    $query = preg_replace("/[!@#$%&()_+=\\\\{}'\":;<>,\/]/", ' ', $query);
+    $query = preg_replace("/[!@#$%&()_+=\\\\{}\":;<>,\/]/", ' ', $query);
     $query = preg_replace("/\s+/", ' ', $query);
     $query = self::convertOrthography($query);
     return $query;

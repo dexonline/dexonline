@@ -25,7 +25,7 @@
 
     {if $lexeme->pronunciations}
       <li>
-        pronunție: <span class="value">{$lexeme->pronunciations}</span>
+        pronunție: <span class="value">{$lexeme->getDisplayPronunciations()}</span>
       </li>
     {/if}
   </ul>

@@ -160,7 +160,6 @@ SmartyWrap::assign('de', Str::getAmountPreposition(count($objects)));
 SmartyWrap::assign('modUser', User::getActive());
 SmartyWrap::assign('objects', $objects);
 SmartyWrap::assign('structuredChanged', count($structuredIds));
-SmartyWrap::addJs('diff');
 SmartyWrap::addCss('admin', 'diff');
 SmartyWrap::display('admin/bulkReplace.tpl');
 

@@ -51,6 +51,8 @@ class Constant {
     '/▶(.*?)◀/s' => '',                                                  // remove unwanted parts of definition
     '/(?<!\\\\)"([^"]*)"/' => '„$1”',                                     // "x" => „x” - romanian quoting style
     '/(?<!\\\\)\{{2}(.*)(?<![+])\}{2}/U' => [ 'FootnoteHtmlizer' ],      // {{footnote}}
+    '/(?<!\\\\)\{-(.*)-\}/' => [ 'DeleteHtmlizer' ],                       // deletions {-foo-}
+    '/(?<!\\\\)\{\+(.*)\+\}/' => [ 'InsertHtmlizer' ],                     // insertions {+foo+}
     '/(?<!\\\\)##(.*)(?<!\\\\)##/Us' => '$1',                            // ##non-abbreviation##
     '/\{#(.*)#\}/Us' => '<span class="ambigAbbrev">$1</span>',           // {#abbreviation#} for review
     '/(?<!\\\\)#(.*)(?<!\\\\)#/Us' => [ 'AbbrevHtmlizer' ],              // #abbreviation#
@@ -61,8 +63,6 @@ class Constant {
     '/(?<!\\\\)\^\{([^}]*)\}/' => '<sup>$1</sup>',                       // superscript ^{a b c}
     '/(?<!\\\\)_(\d)/' => '<sub>$1</sub>',                               // subscript _123
     '/(?<!\\\\)_\{([^}]*)\}/' => '<sub>$1</sub>',                        // superscript _{a b c}
-    '/(?<!\\\\)\{-([^}]*)-\}/' => '<del>$1</del>',                       // deletions {-foo-}
-    '/(?<!\\\\)\{\+([^}]*)\+\}/' => '<ins>$1</ins>',                     // insertions {+foo+}
     '/' . self::PARSING_ERROR_MARKER . '/' => '',
 
     // cycle CSS class {cfoo|0c}, used to highlight full-text search matches

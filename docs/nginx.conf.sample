@@ -17,8 +17,9 @@ server {
     rewrite ^/text(-([^/]+))?/(.*)$ /search.php?cuv=$3&source=$2&text=1 last;
     rewrite ^/spre/(.*)$ /goto.php?key=$1 last;
     rewrite ^/utilizator/(.*)$ /user.php?n=$1 last;
-    rewrite ^/definitie(-([^/]+))?/([^/]+)(/([0-9]+))?(/paradigma)?(/expandat)?(/(xml|json))?$ /search.php?cuv=$3&source=$2&defId=$5&showParadigm=$6&all=$7&format=$9 last;
-    rewrite ^/intrare(-([^/]+))?/([^/]+)(/([0-9]+))?(/paradigma)?(/(xml|json))?$ /search.php?cuv=$3&source=$2&entryId=$5&showParadigm=$6&format=$8 last;
+
+    rewrite ^/definitie(-([^/]+))?/([^/]+)(/([0-9]+))?(/expandat)?(/(paradigma|sinteza))?(/(xml|json))?$ /search.php?cuv=$3&source=$2&defId=$5&tab=$8&all=$6&format=$10 last;
+    rewrite ^/intrare(-([^/]+))?/([^/]+)(/([0-9]+))?(/(paradigma|sinteza))?(/(xml|json))?$ /search.php?cuv=$3&source=$2&entryId=$5&tab=$7&format=$9 last;
     rewrite ^/lexem/([^/]+)(/([0-9]+))?$ /search.php?cuv=$1&lexemeId=$3 last;
 
     # Rewrites for old syntax used by dex-online.ro
@@ -26,7 +27,8 @@ server {
 
     rewrite ^/flexiune/lexem/(.*)$ /paradigm.php?lexemeId=$1 last;
     rewrite ^/(declinare|conjugare)/lexem/(.*)$ /paradigm.php?lexemeId=$2&type=$1 last;
-    rewrite ^/flexiune/(.*)$ /paradigm.php?cuv=$1 last;
+    rewrite ^/model-flexiune/(.*)$ /model-flexiune.php?model=$1 last;
+    rewrite ^/modele-flexiune/(.*)$ /modele-flexiune.php?modelType=$1 last;
     rewrite ^/(declinare|conjugare)/(.*)$ /paradigm.php?cuv=$2&type=$1 last;
     rewrite ^/cuvantul-zilei$ /wotd.php last;
     rewrite ^/cuvantul-zilei/(.*)$ /wotd.php?d=$1 last;
@@ -53,6 +55,7 @@ server {
     rewrite ^/rss/articole$ /articole.php?t=rss last;
     rewrite ^/spanzuratoarea$ /hangman.php last;
     rewrite ^/moara$ /mill.php last;
+    rewrite ^/omleta$ /scramble.php last;
 
     # Redirect old php pages to new ones (only where we care about the link / pagerank)
     rewrite ^/ghid-exprimare$ /articol/Ghid_de_exprimare_corectă permanent;
@@ -63,10 +66,26 @@ server {
   }
 
   location ~ \.php$ {
-    fastcgi_split_path_info ^(.+\.php)(/.+)$;
-    fastcgi_pass unix:/var/run/php5-fpm.sock;
-    fastcgi_index index.php;
     include fastcgi_params;
+    fastcgi_param SCRIPT_FILENAME $request_filename;
+    # cata: Necessary for OpenID return URLs
+    fastcgi_param SERVER_PORT 80;
+    fastcgi_pass php;
+    # fastcgi_read_timeout 180;
+
+    # cata: This seems helpful in preventing fpm crashes
+    fastcgi_keep_conn on;
+
+    set $cors 0;
+    if ($arg_xml) {
+      set $cors 1;
+    }
+    if ($arg_json) {
+      set $cors 1;
+    }
+    if ($cors) {
+      add_header Access-Control-Allow-Origin *;
+    }
 
     # Redirect old php pages to new ones (only where we care about the link / pagerank)
     rewrite ^/faq.php$ https://wiki.dexonline.ro/wiki/Informații permanent;
@@ -74,4 +93,5 @@ server {
     rewrite ^/corect.php$ /articol/Ghid_de_exprimare_corectă permanent;
     rewrite ^/tools.php$ /unelte permanent;
   }
+
 }

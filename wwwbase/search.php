@@ -50,7 +50,7 @@ $lexemeId = Request::get('lexemeId');
 $defId = Request::get('defId');
 $sourceUrlName = Request::get('source');
 $text = Request::has('text');
-$showParadigm = Request::get('showParadigm');
+$tab = getTab();
 $format = checkFormat();
 $all = Request::get('all');
 
@@ -63,16 +63,16 @@ if ($cuv && !$redirect) {
   $cuv = Str::cleanupQuery($cuv);
 }
 
-Request::redirectToFriendlyUrl($cuv, $entryId, $lexemeId, $sourceUrlName, $text, $showParadigm,
-                               $format, $all);
+Request::redirectToFriendlyUrl(
+  $cuv, $entryId, $lexemeId, $sourceUrlName, $text, $tab, $format, $all);
 
-$paradigmLink = $_SERVER['REQUEST_URI'] . ($showParadigm ? '' : '/paradigma');
+$paradigmLink = getParadigmLink();
 
 $searchType = SEARCH_INFLECTED;
 $hasDiacritics = Session::userPrefers(Preferences::FORCE_DIACRITICS);
 $hasRegexp = FALSE;
 $isAllDigits = FALSE;
-$all = $all || $showParadigm;
+$all = $all || ($tab != Constant::TAB_RESULTS); // Why?
 
 $source = $sourceUrlName ? Source::get_by_urlName($sourceUrlName) : null;
 $sourceId = $source ? $source->id : null;
@@ -383,8 +383,11 @@ if (count($images)) {
 }
 
 // We cannot show the paradigm tab by default if there isn't one to show.
-$showParadigm = ($showParadigm || Session::userPrefers(Preferences::SHOW_PARADIGM))
-  && $SEARCH_PARAMS[$searchType]['paradigm'];
+if ($SEARCH_PARAMS[$searchType]['paradigm'] &&
+    $tab == Constant::TAB_RESULTS &&
+    Session::userPrefers(Preferences::SHOW_PARADIGM)) {
+  $tab = Constant::TAB_PARADIGM;
+}
 
 foreach ($entries as $e) {
   $adult |= $e->adult;
@@ -399,7 +402,7 @@ SmartyWrap::assign('text', $text);
 SmartyWrap::assign('searchType', $searchType);
 SmartyWrap::assign('searchParams', $SEARCH_PARAMS[$searchType]);
 SmartyWrap::assign('sourceId', $sourceId);
-SmartyWrap::assign('showParadigm', $showParadigm);
+SmartyWrap::assign('tab', $tab);
 SmartyWrap::assign('locParadigm', Session::userPrefers(Preferences::LOC_PARADIGM));
 SmartyWrap::assign('paradigmLink', $paradigmLink);
 SmartyWrap::assign('allDefinitions', $all);
@@ -450,6 +453,28 @@ function checkFormat() {
   }
 
   return ['name' => $f, 'tpl_path' => $path];
+}
+
+function getTab() {
+  $key = array_search('/' . Request::get('tab'), Constant::TAB_URL);
+  if (!$key) {
+    $key = Constant::TAB_RESULTS;
+  }
+  return $key;
+}
+
+function getParadigmLink() {
+  $uri = $_SERVER['REQUEST_URI'];
+
+  // remove existing tab markers
+  $uri = str_replace([
+    Constant::TAB_URL[Constant::TAB_PARADIGM],
+    Constant::TAB_URL[Constant::TAB_TREE],
+  ], '', $uri);
+
+  // add the paradigm tab marker
+  $uri .= Constant::TAB_URL[Constant::TAB_PARADIGM];
+  return $uri;
 }
 
 class TreeComparator {

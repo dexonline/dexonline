@@ -124,8 +124,9 @@ class Request {
    * Links of the old form (search.php?...) can only come via the search form and
    * should not contain lexemeId / definitionId.
    */
-  static function redirectToFriendlyUrl($cuv, $entryId, $lexemeId, $sourceUrlName, $text,
-                                        $showParadigm, $format, $all) {
+  static function redirectToFriendlyUrl(
+    $cuv, $entryId, $lexemeId, $sourceUrlName, $text, $tab, $format, $all
+  ) {
     if (strpos($_SERVER['REQUEST_URI'], '/search.php?') === false) {
       return;    // The url is already friendly.
     }
@@ -138,8 +139,8 @@ class Request {
     $sourceUrlName = urlencode($sourceUrlName);
 
     $sourcePart = $sourceUrlName ? "-{$sourceUrlName}" : '';
-    $paradigmPart = $showParadigm ? '/paradigma' : '';
-    $allPart = ($all && !$showParadigm) ? '/expandat' : '';
+    $tabPart = Constant::TAB_URL[$tab];
+    $allPart = ($all && ($tab == Constant::TAB_RESULTS)) ? '/expandat' : '';
 
     if ($text) {
       $url = "text{$sourcePart}/{$cuv}";
@@ -149,7 +150,7 @@ class Request {
         Util::redirect(Core::getWwwRoot());
       }
       $short = $e->getShortDescription();
-      $url = "intrare{$sourcePart}/{$short}/{$e->id}/{$paradigmPart}";
+      $url = "intrare{$sourcePart}/{$short}/{$e->id}{$tabPart}";
     } else if ($lexemeId) {
       $l = Lexeme::get_by_id($lexemeId);
       if (!$l) {
@@ -157,7 +158,7 @@ class Request {
       }
       $url = "lexem/{$l->formNoAccent}/{$l->id}";
     } else {
-      $url = "definitie{$sourcePart}/{$cuv}{$paradigmPart}";
+      $url = "definitie{$sourcePart}/{$cuv}{$tabPart}";
     }
 
     Util::redirect(Core::getWwwRoot() . $url . $allPart);

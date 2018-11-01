@@ -3,7 +3,7 @@
 {block "title"}
   {$cuv|escape} - definiție
   {if count($sourceList) == 1}{$sourceList[0]}{/if}
-  {if $showParadigm}și paradigmă{/if}
+  {if $searchParams.paradigm}și paradigmă{/if}
 {/block}
 
 {block "pageDescription"}
@@ -16,19 +16,19 @@
 
 {block "content"}
   {assign var="declensionText" value=$declensionText|default:null}
-  {assign var="showParadigm" value=$showParadigm|default:false}
+  {assign var="tab" value=$tab|default:false}
 
   {include "banner/banner.tpl"}
 
   <ul class="nav nav-tabs" role="tablist">
-    <li role="presentation" {if !$showParadigm}class="active"{/if}>
+    <li role="presentation" {if $tab == Constant::TAB_RESULTS}class="active"{/if}>
       <a href="#resultsTab" aria-controls="resultsTab" role="tab" data-toggle="tab">
         rezultate ({$extra.numResults})
       </a>
     </li>
 
     {if $searchParams.paradigm}
-      <li role="presentation" {if $showParadigm}class="active"{/if}>
+      <li role="presentation" {if $tab == Constant::TAB_PARADIGM}class="active"{/if}>
         <a href="#paradigmTab" aria-controls="paradigmTab" role="tab" data-toggle="tab">
           {$declensionText}
         </a>
@@ -36,7 +36,7 @@
     {/if}
 
     {if count($trees)}
-      <li role="presentation">
+      <li role="presentation" {if $tab == Constant::TAB_TREE}class="active"{/if}>
         <a href="#treeTab" aria-controls="treeTab" role="tab" data-toggle="tab">
           sinteză ({count($trees)})
         </a>
@@ -46,7 +46,10 @@
 
   <div class="tab-content">
     {* results tab *}
-    <div role="tabpanel" class="tab-pane {if !$showParadigm}active{/if}" id="resultsTab">
+    <div
+      role="tabpanel"
+      class="tab-pane {if $tab == Constant::TAB_RESULTS}active{/if}"
+      id="resultsTab">
 
       {* definition ID search *}
       {if $searchType == $smarty.const.SEARCH_DEF_ID}
@@ -228,7 +231,11 @@
 
     {* paradigm tab *}
     {if $searchParams.paradigm}
-      <div role="tabpanel" class="tab-pane {if $showParadigm}active{/if}" id="paradigmTab">
+      <div
+        role="tabpanel"
+        class="tab-pane {if $tab == Constant::TAB_PARADIGM}active{/if}"
+        id="paradigmTab">
+
         {foreach $entries as $e}
           {include "bits/multiParadigm.tpl" entry=$e}
         {/foreach}
@@ -257,7 +264,10 @@
 
     {* tree tab *}
     {if count($trees)}
-      <div role="tabpanel" class="tab-pane" id="treeTab">
+      <div
+        role="tabpanel"
+        class="tab-pane {if $tab == Constant::TAB_TREE}active{/if}"
+        id="treeTab">
         {include "search/trees.tpl"}
       </div>
     {/if}

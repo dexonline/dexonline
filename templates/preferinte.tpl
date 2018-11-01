@@ -2,6 +2,8 @@
 
 {block "title"}Preferințe{/block}
 
+{block "search"}{/block}
+
 {block "content"}
   {if User::getActive()}
     <div class="panel panel-default">
@@ -21,8 +23,8 @@
           </button>
           {if User::getActive()->hasAvatar}
             <a href="salvare-avatar?delete=1"
-               class="btn btn-danger"
-               onclick="return confirm('Confirmați ștergerea imaginii?');">
+              class="btn btn-danger"
+              onclick="return confirm('Confirmați ștergerea imaginii?');">
               <i class="glyphicon glyphicon-trash"></i>
               șterge imaginea
             </a>
@@ -142,10 +144,10 @@
           <div class="checkbox {if !$i.enabled}disabled{/if}">
             <label>
               <input type="checkbox"
-                     name="userPrefs[]"
-                     value="{$value}"
-                     {if !$i.enabled}disabled{/if}
-                     {if $i.checked}checked{/if}>
+                name="userPrefs[]"
+                value="{$value}"
+                {if !$i.enabled}disabled{/if}
+                {if $i.checked}checked{/if}>
               {$i.label}
               <span class="help-block">{$i.comment}</span>
             </label>
@@ -195,22 +197,22 @@
   </form>
 
   <script>
-   $('#avatarFileName').change(function() {
-     var error = '';
-     var allowedTypes = ['image/gif', 'image/jpeg', 'image/png'];
-     if (this.files[0].size > (1 << 21)) {
-       error = 'Dimensiunea maximă admisă este 2 MB.';
-     } else if (allowedTypes.indexOf(this.files[0].type) == -1) {
-       error = 'Sunt permise doar imagini jpeg, png sau gif.';
-     }
-     if (error) {
-       $('#avatarFileName').val('');
-       $('#avatarSubmit').attr('disabled', 'disabled');
-       alert(error);
-     } else {
-       $('#avatarSubmit').removeAttr('disabled');
-     }
-     return false;
-   });
+    $('#avatarFileName').change(function() {
+      var error = '';
+      var allowedTypes = ['image/gif', 'image/jpeg', 'image/png'];
+      if (this.files[0].size > (1 << 21)) {
+        error = 'Dimensiunea maximă admisă este 2 MB.';
+      } else if (allowedTypes.indexOf(this.files[0].type) == -1) {
+        error = 'Sunt permise doar imagini jpeg, png sau gif.';
+      }
+      if (error) {
+        $('#avatarFileName').val('');
+        $('#avatarSubmit').attr('disabled', 'disabled');
+        alert(error);
+      } else {
+        $('#avatarSubmit').removeAttr('disabled');
+      }
+      return false;
+    });
   </script>
 {/block}

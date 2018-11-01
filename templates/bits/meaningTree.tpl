@@ -6,7 +6,10 @@
     {foreach $meanings as $t}
       {$relationsShown=false}
       <li>
-        <div class="meaningContainer {if $root}primaryMeaning{else}secondaryMeaning{/if}">
+        <div
+          id="meaning{$t.meaning->id}"
+          class="meaningContainer {if $root}primaryMeaning{else}secondaryMeaning{/if}">
+
           <div>
             {if $etymologies}
               {if $t.lastBreadcrumb}

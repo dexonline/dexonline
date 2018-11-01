@@ -72,7 +72,7 @@ $searchType = SEARCH_INFLECTED;
 $hasDiacritics = Session::userPrefers(Preferences::FORCE_DIACRITICS);
 $hasRegexp = FALSE;
 $isAllDigits = FALSE;
-$all = $all || ($tab != Constant::TAB_RESULTS); // Why?
+$all = $all || ($tab != Constant::TAB_RESULTS);
 
 $source = $sourceUrlName ? Source::get_by_urlName($sourceUrlName) : null;
 $sourceId = $source ? $source->id : null;

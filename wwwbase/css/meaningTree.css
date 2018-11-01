@@ -92,6 +92,12 @@
   font-weight: normal;
 }
 
+.meaningContainer:target {
+  background: #d4edda;
+  border: 1px solid transparent;
+  border-radius: 5px;
+}
+
 .textcomplete-dropdown {
   max-height: 155px;
   overflow-y: scroll;

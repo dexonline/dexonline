@@ -75,7 +75,7 @@
               {if $cfg.global.hostedBy}
                 <li>{include "hosting/`$cfg.global.hostedBy`.tpl"}</li>
               {/if}
-              {* disabled while we resolve the GDPR third-party cookie issues *}
+              {* disabled for now as quantcast provides their own overlay *}
               {* <li> *}
               {*  <a href="javascript:window.__cmp(&quot;displayConsentUi&quot;)"> *}
               {*    Modifică consimțământul pentru anunțuri *}

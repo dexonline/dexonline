@@ -15,8 +15,8 @@ class MentionHtmlizer extends Htmlizer {
     $bc = $m ? $m->breadcrumb : '?';
 
     switch ($stars) {
-      case 0: $contents = "$text (<b>$bc</b>)"; break;
-      case 1: $contents = $text; break;
+      case 0: $contents = $text; break;
+      case 1: $contents = "$text (<b>$bc</b>)"; break;
       case 2: $contents = "(<b>$bc</b>)"; break;
     }
 

@@ -439,20 +439,16 @@ if (Config::get('search-log.enabled')) {
 /*************************************************************************/
 
 function checkFormat() {
-  $f = Request::get('format');
-  if (!$f) {
-    $f = 'html';
+  $path = Request::get('format');
+
+  if ($path) { // '/json' or '/xml'
+    $f = str_replace('/', '', $path);
+    if (Config::get(sprintf('global.%sApi', $f))) {
+      return ['name' => $f, 'tpl_path' => $path];
+    }
   }
 
-  $path = '';
-  if (($f == 'xml') && Config::get('global.xmlApi')) {
-    $path = '/xml';
-  }
-  if (($f == 'json') && Config::get('global.jsonApi')) {
-    $path = '/json';
-  }
-
-  return ['name' => $f, 'tpl_path' => $path];
+  return ['name' => 'html', 'tpl_path' => ''];
 }
 
 function getTab() {

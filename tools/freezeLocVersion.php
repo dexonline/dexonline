@@ -37,7 +37,7 @@ if (!$locDbPrefix) {
   die("ERROR: You forgot to define mysql_loc_prefix in dex.conf.\n");
 }
 
-// Assert that all the already frozen versions exist.
+// assert that all the already frozen versions exist
 for ($i = 0; $i < count($lvs) - 2; $i++) {
   print "Asserting that version {$lvs[$i]->name} exists.\n";
   $dbName = $locDbPrefix . $lvs[$i]->getDbName();
@@ -50,7 +50,7 @@ for ($i = 0; $i < count($lvs) - 2; $i++) {
   }
 }
 
-// Assert that the next-to-last version does not yet exist.
+// assert that the next-to-last version does not yet exist
 $lvToFreeze = $lvs[count($lvs) - 2];
 print "Asserting that version {$lvToFreeze->name} does not exist.\n";
 $dbName = $locDbPrefix . $lvToFreeze->getDbName();
@@ -62,7 +62,7 @@ if (!$lvToFreeze->freezeTimestamp) {
   die("ERROR: Version {$lvToFreeze->name} should have a freeze date\n");
 }
 
-// Assert that the last version is the new current version.
+// assert that the last version is the new current version
 $currentLv = $lvs[count($lvs) - 1];
 print "Asserting that version {$currentLv->name} does not exist.\n";
 $dbName = $locDbPrefix . $currentLv->getDbName();
@@ -74,30 +74,53 @@ if ($currentLv->freezeTimestamp) {
   die("ERROR: Version {$currentLv->name} should not have a freeze date\n");
 }
 
-exit;
-
-// Now create a database for $lvToFreeze and copy the relevant tables there.
+// create a database for $lvToFreeze
 $dbName = $locDbPrefix . $lvToFreeze->getDbName();
 print "Creating database $dbName\n";
 DB::execute("create database $dbName");
 
+// dump database schema
 $fileName = tempnam(Config::get('global.tempDir'), 'freeze_');
-print "Dumping schema to $fileName\n";
-$mysql = sprintf("mysqldump -h %s -u %s --password='%s' --no-data %s > %s",
-                 DB::$host, DB::$user, DB::$password, DB::$database, $fileName);
-
-print "Dumping tables to $fileName\n";
-$mysql = sprintf("mysqldump -h %s -u %s --password='%s' %s %s > %s",
-                 DB::$host, DB::$user, DB::$password, DB::$database, $tablesToDump, $fileName);
+$mysql = sprintf(
+  "mysqldump -h %s -u %s --password='%s' --no-data %s > %s",
+  DB::$host,
+  DB::$user,
+  DB::$password,
+  DB::$database,
+  $fileName);
+print "Dumping schema to $fileName: $mysql\n";
 OS::executeAndAssert($mysql);
-print "Importing $fileName to $dbName\n";
-$import = sprintf("mysql -h %s -u %s --password='%s' %s < %s", $parts['host'], $parts['user'], $parts['password'], $dbName, $fileName);
-OS::executeAndAssert($import);
+
+// dump the data for some tables
+$mysql = sprintf(
+  "mysqldump -h %s -u %s --password='%s' %s %s >> %s",
+  DB::$host,
+  DB::$user,
+  DB::$password,
+  DB::$database,
+  implode(' ', TABLES_TO_DUMP),
+  $fileName);
+print "Dumping data to $fileName: $mysql\n";
+OS::executeAndAssert($mysql);
+
+// import the data into the new database
+$mysql = sprintf(
+  "mysql -h %s -u %s --password='%s' %s < %s",
+  DB::$host,
+  DB::$user,
+  DB::$password,
+  $dbName,
+  $fileName);
+print "Importing $fileName to $dbName: $mysql\n";
+OS::executeAndAssert($mysql);
+
 print "Success!\n";
 
 /****************************************************************************/
 
 function databaseExists($dbName) {
-  $r = ORM::for_table('Definition')->raw_query("show databases like '$dbName'")->find_one();
+  $r = ORM::for_table('Definition')
+    ->raw_query("show databases like '$dbName'")
+    ->find_one();
   return ($r !== false);
 }

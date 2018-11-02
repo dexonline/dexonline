@@ -1,9 +1,29 @@
 <?php
 require_once __DIR__ . '/../phplib/Core.php';
 
-print "Acest script nu a fost adus la zi după introducerea și apoi eliminarea tabelei LexemModel.\n";
-print "Aduceți-l la zi înainte de a-l rula.\n";
-exit;
+// these tables will be dumped with data; the rest will have only the schema
+const TABLES_TO_DUMP = [
+  'ConstraintMap',
+  'Entry',
+  'EntryLexeme',
+  'InflectedForm',
+  'Inflection',
+  'Lexeme',
+  'LexemeSource',
+  'Model',
+  'ModelDescription',
+  'ModelType',
+  'OrthographicReforms',
+  'PageIndex',
+  'ParticipleModel',
+  'Source',
+  'SourceType',
+  'TraineeSource',
+  'Transform',
+  'Tree',
+  'TreeEntry',
+  'Variable',
+];
 
 $lvs = array_reverse(Config::getLocVersions());
 if (count($lvs) < 2) {
@@ -54,13 +74,19 @@ if ($currentLv->freezeTimestamp) {
   die("ERROR: Version {$currentLv->name} should not have a freeze date\n");
 }
 
+exit;
+
 // Now create a database for $lvToFreeze and copy the relevant tables there.
 $dbName = $locDbPrefix . $lvToFreeze->getDbName();
 print "Creating database $dbName\n";
 DB::execute("create database $dbName");
+
 $fileName = tempnam(Config::get('global.tempDir'), 'freeze_');
+print "Dumping schema to $fileName\n";
+$mysql = sprintf("mysqldump -h %s -u %s --password='%s' --no-data %s > %s",
+                 DB::$host, DB::$user, DB::$password, DB::$database, $fileName);
+
 print "Dumping tables to $fileName\n";
-$tablesToDump = "ConstraintMap Inflection Lexeme ModelDescription ModelType Model ParticipleModel Transform InflectedForm";
 $mysql = sprintf("mysqldump -h %s -u %s --password='%s' %s %s > %s",
                  DB::$host, DB::$user, DB::$password, DB::$database, $tablesToDump, $fileName);
 OS::executeAndAssert($mysql);

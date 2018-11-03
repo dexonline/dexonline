@@ -4,6 +4,20 @@
 
 class Constant {
   const PARSING_ERROR_MARKER = "◼◼◼";
+
+  /* https://en.wikipedia.org/wiki/Whitespace_character */
+  const SPACES = [
+    'thin' => "\u{2009}",        /* U+2009; &#8201; &thinsp; */
+    'hair' => "\u{200A}",        /* U+200A; &#8202; &hairsp; */
+    'zero-width' => " \u{200B}",  /* U+200B; &#8203; &NegativeMediumSpace; */
+    'zwnj' => "\u{200C}",        /* U+200C; &#8204; &zwnj; */
+    'zwj' => "\u{200D}",         /* U+200D; &#8205; &zwj; */
+    'punctuation' => "\u{2008}", /* U+2008; &#8200; &puncsp; */
+    'nobreak' => "\u{00A0}",     /* U+00A0; &#160; &nbsp;*/
+    'regular' => "\u{0020}",     /* U+0020; &#32; */
+    ];
+  const OPENBOX = "\u{2423}";    /* U+2423; &#9251; */
+
   const CLEANUP_PATTERNS = [
     '/(?<!\\\\)ş/'   => 'ș',
     '/(?<!\\\\)Ş/'   => 'Ș',
@@ -51,8 +65,8 @@ class Constant {
     '/▶(.*?)◀/s' => '',                                                  // remove unwanted parts of definition
     '/(?<!\\\\)"([^"]*)"/' => '„$1”',                                     // "x" => „x” - romanian quoting style
     '/(?<!\\\\)\{{2}(.*)(?<![+])\}{2}/U' => [ 'FootnoteHtmlizer' ],      // {{footnote}}
-    '/(?<!\\\\)\{-(.*)-\}/U' => [ 'DeleteHtmlizer' ],                       // deletions {-foo-}
-    '/(?<!\\\\)\{\+(.*)\+\}/U' => [ 'InsertHtmlizer' ],                     // insertions {+foo+}
+    '/(?<!\\\\)\{-(.*)-\}/Us' => [ 'DeleteHtmlizer' ],                       // deletions {-foo-}
+    '/(?<!\\\\)\{\+(.*)\+\}/Us' => [ 'InsertHtmlizer' ],                     // insertions {+foo+}
     '/(?<!\\\\)##(.*)(?<!\\\\)##/Us' => '$1',                            // ##non-abbreviation##
     '/\{#(.*)#\}/Us' => '<span class="ambigAbbrev">$1</span>',           // {#abbreviation#} for review
     '/(?<!\\\\)#(.*)(?<!\\\\)#/Us' => [ 'AbbrevHtmlizer' ],              // #abbreviation#

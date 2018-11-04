@@ -5,7 +5,7 @@ $ajax = Request::get('ajax');
 $locVersion = Request::get('locVersion');
 
 $locVersions = Config::getLocVersions();
-if (!User::can(User::PRIV_LOC)) {
+if (!User::can(User::PRIV_ADMIN)) {
   $locVersions = array_slice($locVersions, 1); // remove the version in progress
 }
 

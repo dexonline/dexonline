@@ -20,7 +20,6 @@ $renameRelated = Request::has('renameRelated');
 $compound = Request::has('compound');
 $sourceIds = Request::getArray('sourceIds');
 $notes = Request::get('notes');
-$isLoc = Request::has('isLoc');
 
 // Simple lexeme parameters
 $modelType = Request::get('modelType');
@@ -68,7 +67,7 @@ if ($refreshButton || $saveButton) {
   populate($lexeme, $original, $lexemeForm, $lexemeNumber, $lexemeDescription,
            $needsAccent, $stopWord, $hyphenations, $pronunciations,
            $compound, $modelType, $modelNumber, $restriction, $compoundModelType,
-           $compoundRestriction, $partIds, $declensions, $capitalized, $notes, $isLoc,
+           $compoundRestriction, $partIds, $declensions, $capitalized, $notes,
            $tagIds);
 
   if (validate($lexeme, $original)) {
@@ -136,14 +135,13 @@ $searchResults = SearchResult::mapDefinitionArray($definitions);
 $canEdit = [
   'general' => User::can(User::PRIV_EDIT),
   'description' => User::can(User::PRIV_EDIT),
-  'form' => !$lexeme->isLoc || User::can(User::PRIV_LOC),
+  'form' => User::can(User::PRIV_EDIT),
   'hyphenations' => User::can(User::PRIV_STRUCT | User::PRIV_EDIT),
-  'loc' => (int)User::can(User::PRIV_LOC),
   'paradigm' => User::can(User::PRIV_EDIT),
   'pronunciations' => User::can(User::PRIV_STRUCT | User::PRIV_EDIT),
-  'sources' => User::can(User::PRIV_LOC | User::PRIV_EDIT),
+  'sources' => User::can(User::PRIV_EDIT),
   'stopWord' => User::can(User::PRIV_ADMIN),
-  'tags' => User::can(User::PRIV_LOC | User::PRIV_EDIT),
+  'tags' => User::can(User::PRIV_EDIT),
 ];
 
 // Prepare a list of model numbers, to be used in the paradigm drop-down.
@@ -154,14 +152,16 @@ $homonyms = Model::factory('Lexeme')
           ->where_not_equal('id', $lexeme->id)
           ->find_many();
 
-SmartyWrap::assign('lexeme', $lexeme);
-SmartyWrap::assign('entryIds', $entryIds);
-SmartyWrap::assign('sourceIds', $sourceIds);
-SmartyWrap::assign('homonyms', $homonyms);
-SmartyWrap::assign('searchResults', $searchResults);
-SmartyWrap::assign('modelTypes', Model::factory('ModelType')->order_by_asc('code')->find_many());
-SmartyWrap::assign('models', $models);
-SmartyWrap::assign('canEdit', $canEdit);
+SmartyWrap::assign([
+  'lexeme' => $lexeme,
+  'entryIds' => $entryIds,
+  'sourceIds' => $sourceIds,
+  'homonyms' => $homonyms,
+  'searchResults' => $searchResults,
+  'modelTypes' => ModelType::getAll(),
+  'models' => $models,
+  'canEdit' => $canEdit,
+]);
 SmartyWrap::addCss('paradigm', 'admin');
 SmartyWrap::addJs('select2Dev', 'modelDropdown', 'cookie', 'frequentObjects');
 SmartyWrap::display('admin/lexemeEdit.tpl');
@@ -172,7 +172,7 @@ SmartyWrap::display('admin/lexemeEdit.tpl');
 function populate(&$lexeme, &$original, $lexemeForm, $lexemeNumber, $lexemeDescription,
                   $needsAccent, $stopWord, $hyphenations, $pronunciations,
                   $compound, $modelType, $modelNumber, $restriction, $compoundModelType,
-                  $compoundRestriction, $partIds, $declensions, $capitalized, $notes, $isLoc,
+                  $compoundRestriction, $partIds, $declensions, $capitalized, $notes,
                   $tagIds) {
   $lexeme->setForm($lexemeForm);
   $lexeme->number = $lexemeNumber;
@@ -184,7 +184,6 @@ function populate(&$lexeme, &$original, $lexemeForm, $lexemeNumber, $lexemeDescr
 
   $lexeme->compound = $compound;
   $lexeme->notes = $notes;
-  $lexeme->isLoc = $isLoc;
 
   if ($compound) {
     $lexeme->modelType = $compoundModelType;

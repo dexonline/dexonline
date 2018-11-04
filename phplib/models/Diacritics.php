@@ -5,7 +5,7 @@ class Diacritics  extends BaseObject implements DatedObject {
 
 	public static $_table = 'Diacritics';
 
-	//inlocuieste diactriticele
+	//inlocuieste diacriticele
 	private static function stripDiacritics($str) {
 
 		return str_replace(['ă','â','î','ș','ț'], ['a','a','i','s','t'], $str);

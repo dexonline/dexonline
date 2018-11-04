@@ -145,7 +145,7 @@
 
             Arată modelele pentru
 
-            <select class="form-control" name="modelType" data-model-type data-canonical="1" data-verbose="1" data-selected="">
+            <select class="form-control" name="modelType" data-model-type data-verbose="1" data-selected="">
             </select>
 
 

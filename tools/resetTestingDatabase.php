@@ -154,15 +154,15 @@ createConstraints('W', '%vocativ, singular%', 'F', 1);
 createConstraints('w', '%vocativ, singular%', 'F', 0);
 
 // lexemes
-$l1 = createLexemeDeep("br'ânză", 'F', '35', '', true);
-$l2 = createLexemeDeep("c'adă", 'F', '62', '', true);
-$l3 = createLexemeDeep("met'al", 'N', '1', '', true);
-$l4 = createLexemeDeep("d'in", 'T', '1', '', true);
-$l5 = createLexemeDeep("d'in", 'N', '1', '', true); // fictitious
-$l6 = createLexemeDeep("l'adă", 'F', '62', 'S', true);
-$l7 = createLexemeDeep("ogr'adă", 'F', '62', 'W', true);
+$l1 = createLexemeDeep("br'ânză", 'F', '35', '');
+$l2 = createLexemeDeep("c'adă", 'F', '62', '');
+$l3 = createLexemeDeep("met'al", 'N', '1', '');
+$l4 = createLexemeDeep("d'in", 'T', '1', '');
+$l5 = createLexemeDeep("d'in", 'N', '1', ''); // fictitious
+$l6 = createLexemeDeep("l'adă", 'F', '62', 'S');
+$l7 = createLexemeDeep("ogr'adă", 'F', '62', 'W');
 // for testing whitespace preservation when minifying
-$l8 = createLexemeDeep("spați'ere", 'F', '107', '', true);
+$l8 = createLexemeDeep("spați'ere", 'F', '107', '');
 $l1->frequency = 0.95; // for the Hangman game
 $l1->save();
 
@@ -281,7 +281,6 @@ function createModelDeep($type, $number, $description, $exponent, $paradigm) {
         $md->transformId = $t->id;
         $md->accentShift = $accentShift;
         $md->vowel = $accentedVowel;
-        $md->isLoc = true;
         $md->recommended = true;
         $md->save();
       }
@@ -303,8 +302,8 @@ function createConstraints($code, $inflectionRegexp, $modelTypeRegexp, $variant)
   }
 }
 
-function createLexemeDeep($form, $modelType, $modelNumber, $restriction, $isLoc) {
-  $l = Lexeme::create($form, $modelType, $modelNumber, $restriction, $isLoc);
+function createLexemeDeep($form, $modelType, $modelNumber, $restriction) {
+  $l = Lexeme::create($form, $modelType, $modelNumber, $restriction);
   $l->deepSave();
   $e = Entry::createAndSave($l->formNoAccent);
   EntryLexeme::associate($e->id, $l->id);

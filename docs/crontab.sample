@@ -65,7 +65,3 @@ DEXONLINE_PATH=/path/to/DEX
 # Run on: main site
 # Regenerate the N-gram table for approximate searches
 0 6 * * 6 php $DEXONLINE_PATH/tools/genNGram.php
-
-# Run on: main site
-# Rebuild the Scrabble forms lists
-0 6 * * 6 php $DEXONLINE_PATH/tools/rebuildScrabbleForms.php

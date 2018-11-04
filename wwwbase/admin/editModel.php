@@ -13,8 +13,6 @@ $previewButton = Request::has('previewButton');
 $saveButton = Request::has('saveButton');
 $shortList = Request::has('shortList');
 
-$locPerm = User::can(User::PRIV_LOC);
-
 $m = FlexModel::get_by_id($id);
 $pm = ParticipleModel::loadForModel($m);
 $inflections = Model::factory('Inflection')
@@ -41,17 +39,10 @@ foreach ($ifs as $i => $if) {
   // then by variant
   $inflId = $if->inflectionId;
   $forms[$inflId][] = ['form' => $if->form,
-                       'isLoc' => $mds[$i]->isLoc,
                        'recommended' => $mds[$i]->recommended];
 }
 
 if (!$previewButton && !$saveButton) {
-  if (!$locPerm) {
-    FlashMessage::add('Întrucât nu puteți modifica Lista Oficială de Cuvinte a ' .
-                      'jocului de Scrabble, nu veți putea modifica unele dintre câmpuri.',
-                      'warning');
-  }
-
   // just viewing the page
   RecentLink::add("Editare model: {$m}");
   SmartyWrap::assign('m', $m);
@@ -90,7 +81,6 @@ if (!$previewButton && !$saveButton) {
   $isPronoun = ($nm->modelType == 'P');
   $regenTransforms = [];
   // Recalculate transforms when either the form list or the exponent change.
-  // Do nothing when the isLoc values change.
   foreach ($inflections as $infl) {
     if (!equalArrays($forms[$infl->id], $nforms[$infl->id]) ||
         $m->exponent != $nm->exponent) {
@@ -178,7 +168,6 @@ if (!$previewButton && !$saveButton) {
           $md->inflectionId = $inflId;
           $md->variant = $variant;
           $md->applOrder = --$order;
-          $md->isLoc = false;
           $md->recommended = false;
           $md->transformId = $t->id;
           $md->accentShift = $accentShift;
@@ -188,14 +177,13 @@ if (!$previewButton && !$saveButton) {
       }
     }
 
-    // Set the isLoc and recommended bits appropriately.
+    // Set the recommended bit appropriately.
     // Do this separately as the loop above only includes modified forms.
-    Log::debug('Saving isLoc and recommended bits');
+    Log::debug('Saving recommended bits');
     foreach ($nforms as $inflId => $tupleArray) {
       foreach ($tupleArray as $variant => $tuple) {
         $md = ModelDescription::get_by_modelId_inflectionId_variant_applOrder(
           $m->id, $inflId, $variant, 0);
-        $md->isLoc = $tuple['isLoc'];
         $md->recommended = $tuple['recommended'];
         $md->save();
       }
@@ -304,14 +292,13 @@ if ($m->modelType == 'V') {
 SmartyWrap::assign('shortList', $shortList);
 SmartyWrap::assign('inflectionMap', Util::mapById($inflections));
 SmartyWrap::assign('previewPassed', $previewButton && !FlashMessage::hasErrors());
-SmartyWrap::assign('locPerm', $locPerm);
 SmartyWrap::addCss('paradigm', 'admin');
 SmartyWrap::display('admin/editModel.tpl');
 
 /****************************************************************************/
 
 /**
- * $a, $b: arrays of ($form, $isLoc, $recommended) tuples. Only compares the forms.
+ * $a, $b: arrays of ($form, $recommended) tuples. Only compares the forms.
  **/
 function equalArrays($a, $b) {
   if (count($a) != count($b)) {
@@ -349,7 +336,7 @@ function loadParticiplesForVerbModel($model, $pm) {
 }
 
 /**
- * Read forms and isLoc/recommended checkboxes from the request.
+ * Read forms and recommended checkboxes from the request.
  * The map is already populated with all the applicable inflection IDs.
  * InflectionId's and variants are coded in the request parameters.
  **/
@@ -362,14 +349,7 @@ function readRequest(&$map) {
       $variant = $parts[2];
       $form = trim($value);
       if ($form) {
-        $map[$inflId][$variant] = ['form' => $form, 'isLoc' => false, 'recommended' => false];
-      }
-    } else if (Str::startsWith($name, 'isLoc_')) {
-      assert(count($parts) == 3);
-      $inflId = $parts[1];
-      $variant = $parts[2];
-      if (array_key_exists($variant, $map[$inflId])) {
-        $map[$inflId][$variant]['isLoc'] = true;
+        $map[$inflId][$variant] = ['form' => $form, 'recommended' => false];
       }
     } else if (Str::startsWith($name, 'recommended_')) {
       assert(count($parts) == 3);

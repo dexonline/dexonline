@@ -7,8 +7,7 @@ class Entry extends BaseObject implements DatedObject {
 
   // Custom handling of associated lexemes. The generic code for
   // Foo::getBars() does not work because we need the ability to filter main
-  // lexemes and variants, and it is important that they only be loaded once
-  // (for addLocInfo()).
+  // lexemes and variants, and it is important that they only be loaded once.
   private $lexemes = null;
   private $variants = null;
 

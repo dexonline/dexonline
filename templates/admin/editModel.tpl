@@ -70,8 +70,7 @@
             <div class="col-xs-5">flexiune</div>
             <div class="col-xs-1"></div>
             <div class="col-xs-6 row">
-              <div class="col-xs-8">forme</div>
-              <div class="col-xs-2">LOC</div>
+              <div class="col-xs-10">forme</div>
               <div class="col-xs-2">recom</div>
             </div>
           </th>
@@ -91,20 +90,11 @@
               <div class="col-xs-6 row">
                 {foreach $f as $i => $tuple}
                   <div class="fieldWrapper">
-                    <div class="col-xs-8">
+                    <div class="col-xs-10">
                       <input class="form-control input-sm"
                              type="text"
                              name="forms_{$inflId}_{$i}"
-                             value="{$tuple.form|escape}"
-                             {if $tuple.isLoc && !$locPerm}disabled{/if}>
-                    </div>
-                    <div class="col-xs-2">
-                      <input class="checkbox"
-                             type="checkbox"
-                             name="isLoc_{$inflId}_{$i}"
-                             value="1"
-                             {if $tuple.isLoc}checked{/if}
-                             {if !$locPerm}disabled{/if}>
+                             value="{$tuple.form|escape}">
                     </div>
                     <div class="col-xs-2">
                       <input class="checkbox"

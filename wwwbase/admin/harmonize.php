@@ -66,6 +66,7 @@ if ($saveHarmonizeModelButton) {
 SmartyWrap::assign([
   'harmonizeTags' => HarmonizeTag::getAll(),
   'harmonizeModels' => HarmonizeModel::getAll(),
+  'modelTypes' => ModelType::getAll(),
 ]);
 SmartyWrap::addCss('admin');
 SmartyWrap::addJs('select2Dev', 'modelDropdown');

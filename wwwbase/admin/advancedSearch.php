@@ -13,7 +13,6 @@ $entryTagIds = Request::getArray('entryTagIds');
 
 // lexeme parameters
 $formNoAccent = Request::get('formNoAccent');
-$isLoc = Request::get('isLoc');
 $paradigm = Request::get('paradigm');
 $lexemeTagIds = Request::getArray('lexemeTagIds');
 $modelTypes = Request::getArray('modelTypes');
@@ -73,11 +72,6 @@ if (!empty($lexemeTagIds)) {
 if ($formNoAccent) {
   $joinLexeme = true;
   extendQueryWithRegexField($q, 'l.formNoAccent', $formNoAccent);
-}
-
-if ($isLoc !== '') {
-  $joinLexeme = true;
-  $q = $q->where('l.isLoc', $isLoc);
 }
 
 if ($paradigm !== '') {

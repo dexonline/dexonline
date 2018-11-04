@@ -1,5 +1,5 @@
 <?php
-require_once("../../phplib/Core.php"); 
+require_once("../../phplib/Core.php");
 User::mustHave(User::PRIV_EDIT);
 Util::assertNotMirror();
 DebugInfo::disable();
@@ -29,12 +29,6 @@ if ($saveButton) {
           }
           EntryDefinition::dissociate($srcEl->entryId, $ed->definitionId);
         }
-      }
-
-      // Add $dest to LOC if $src is in LOC
-      if ($src->isLoc && !$dest->isLoc) {
-        $dest->isLoc = true;
-        $dest->save();
       }
 
       // Delay the deletion because we might have to merge $src with other lexemes.
@@ -77,29 +71,16 @@ foreach ($dbResult as $row) {
     ->find_many();
 
   if (count($lexeme->matches)) {
-    // $lexeme->loadInflectedForms();
-    // When a plural LOC lexeme is merged into a non-LOC singular, we end up losing some word forms from LOC.
-    // Therefore, we have to add the singular lexeme to LOC as well. Matei says it is ok to expand LOC this way.
     $srcIfs = loadIfArray($lexeme);
     foreach ($lexeme->matches as $match) {
       $destIfs = loadIfArray($match);
-      $addedForms = [];
       $lostForms = [];
-      if ($lexeme->isLoc && !$match->isLoc) {
-        // Forms that are going to be added to LOC
-        foreach ($destIfs as $destIf) {
-          if (!in_array($destIf, $srcIfs)) {
-            $addedForms[] = $destIf;
-          }
-        }
-      }
       // Forms that will disappear after the merge -- these should be rare.
       foreach ($srcIfs as $srcIf) {
         if (!in_array($srcIf, $destIfs)) {
           $lostForms[] = $srcIf;
         }
       }
-      $lexeme->addedForms = $addedForms;
       $lexeme->lostForms = $lostForms;
     }
     $lexemes[] = $lexeme;

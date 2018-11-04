@@ -112,7 +112,7 @@ $links = [
   [
     'url' => 'flexiuni',
     'text' => 'flexiuni',
-    'privilege' => User::PRIV_LOC,
+    'privilege' => User::PRIV_ADMIN,
   ],
   [
     'url' => 'admin/ocrInput',
@@ -159,8 +159,6 @@ $minModDate = Model::factory('Variable')
             ->min('modDate');
 $timeAgo = time() - $minModDate;
 
-$modelTypes = ModelType::getAll();
-
 $wotdAssistantDates = [
   strtotime("+1 month"),
   strtotime("+2 month"),
@@ -171,7 +169,8 @@ SmartyWrap::assign([
   'structurists' => User::getStructurists(),
   'reports' => $reports,
   'reportPriv' => $reportPriv,
-  'modelTypes' => $modelTypes,
+  'modelTypes' => ModelType::getAll(),
+  'canonicalModelTypes' => ModelType::loadCanonical(),
   'links' => $links,
   'linkPriv' => $linkPriv,
   'timeAgo' => $timeAgo,

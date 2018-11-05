@@ -134,14 +134,14 @@ assertTransform('Str::htmlize', [ 0 ], [
   'măr pară[1234567890] prună' =>
   [
     'măr <span data-toggle="popover" data-html="true" data-placement="auto right" ' .
-    'class="mention" title="1234567890">pară (<b>?</b>)</span> prună',
+    'class="mention" title="1234567890">pară</span> prună',
     [],
   ],
 
   'măr pară[1234567890*] prună' =>
   [
     'măr <span data-toggle="popover" data-html="true" data-placement="auto right" ' .
-    'class="mention" title="1234567890">pară</span> prună',
+    'class="mention" title="1234567890">pară (<b>?</b>)</span> prună',
     [],
   ],
 
@@ -492,7 +492,7 @@ assertTransform('Str::changeAccents', [], [
 ]);
 
 assertTransform('Str::cleanupQuery', [], [
-  "'mama'" => 'mama',
+  "'mama'" => "'mama'",
   '"mama"' => 'mama',
   "aăbc<mamă foo bar>def" => 'aăbcdef',
   "AĂBC<MAMĂ FOO BAR>DEF" => 'AĂBCDEF',

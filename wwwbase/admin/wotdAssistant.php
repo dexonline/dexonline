@@ -42,7 +42,7 @@ foreach (range(1, $days) as $day) {
 }
 
 foreach ($wotds as $w) {
-  list ($w->descHtml, $ignored) = Str::htmlize($w->description, 0);
+  list ($w->descHtml, $ignored) = Str::htmlize($w->description);
   if ($w->internalRep) {
     list ($w->defHtml, $ignored) =
       Str::htmlize($w->internalRep, $w->sourceId);

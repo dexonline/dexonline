@@ -484,7 +484,7 @@ class Str {
    * - HTML result
    * - extracted footnotes
    */
-  static function htmlize($s, $sourceId, &$errors = null, &$warnings = null) {
+  static function htmlize($s, $sourceId = null, &$errors = null, &$warnings = null) {
     $errors = $errors ?? [];
     $warnings = $warnings ?? [];
 

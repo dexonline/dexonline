@@ -32,7 +32,7 @@ if ($type == 'rss' || $type == 'blog') {
     SmartyWrap::assign([
       'def' => $def,
       'source' => $source,
-      'reason' => Str::htmlize($w->description, 0)[0],
+      'reason' => Str::htmlize($w->description)[0],
       'imageUrl' => $w->getLargeThumbUrl(),
       'html' => HtmlConverter::convert($def),
     ]);
@@ -81,7 +81,7 @@ if (!$wotd) {
 
 $reason = '';
 if ($wotd) {
-  $reason = Str::htmlize($wotd->description, 0)[0];
+  $reason = Str::htmlize($wotd->description)[0];
   if (User::can(User::PRIV_WOTD) || ($date <= $maxReasonDate)) {
     SmartyWrap::assign('reason', $reason);
   }
@@ -122,7 +122,7 @@ $otherWotds = WordOfTheDay::getWotdsInOtherYears($year, $month, $day);
 $otherYears = [];
 foreach ($otherWotds as $w) {
   $def = $w->getDefinition();
-  $w->description = Str::htmlize($w->description, 0)[0];
+  $w->description = Str::htmlize($w->description)[0];
 
   $otherYears[] = [
     'wotd' => $w,

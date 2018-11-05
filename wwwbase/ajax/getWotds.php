@@ -44,7 +44,7 @@ $data = $query
 // compute HTML for some fields
 foreach ($data as &$row) {
   $row['defHtml'] = Str::htmlize($row['internalRep'], $row['sourceId'])[0];
-  $row['wotdHtml'] = Str::htmlize($row['description'], 0)[0];
+  $row['wotdHtml'] = Str::htmlize($row['description'])[0];
 }
 
 // prepare the results

@@ -165,7 +165,7 @@ class Lexeme extends BaseObject implements DatedObject {
   }
 
   function getDisplayPronunciations() {
-    return Str::htmlize($this->pronunciations, 0)[0];
+    return Str::htmlize($this->pronunciations)[0];
   }
 
   function isAnimate() {

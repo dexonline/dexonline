@@ -3,7 +3,7 @@
 /**
  * Helper class used to accumulate footnotes as we htmlize a string.
  * */
-class AbbrevHtmlizer extends Htmlizer{
+class AbbrevHtmlizer extends Htmlizer {
   private $ambiguous = [];
 
   function getKey() {

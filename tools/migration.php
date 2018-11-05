@@ -42,7 +42,7 @@ print "Current schema version is <$schemaVersion>\n";
 $patchFiles = getPatches(PATCH_DIR, $schemaVersion);
 $numPatches = 0;
 foreach ($patchFiles as $fileName) {
-  runPatch(PATCH_DIR . $fileName, $dbName, $dryRun);
+  runPatch(PATCH_DIR . $fileName, $dryRun);
   $numPatches++;
   $schemaVersion = stripExtension($fileName);
   if (!$dryRun) {
@@ -70,13 +70,13 @@ function getPatches($dir, $after) {
   return $result;
 }
 
-function runPatch($fileName, $dbName, $dryRun) {
+function runPatch($fileName, $dryRun) {
   $fileName = realpath(Str::portable($fileName));
   $extension = strrchr($fileName, '.');
   if ($extension == '.sql') {
     print "$fileName -- executing with MySQL via OS\n";
     if (!$dryRun) {
-      DB::executeSqlFile($fileName, $dbName);
+      DB::executeSqlFile($fileName);
     }
   } else if ($extension == '.php') {
     print "$fileName -- executing with PHP\n";

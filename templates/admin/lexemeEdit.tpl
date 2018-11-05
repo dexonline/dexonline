@@ -239,26 +239,10 @@
               <div class="form-group">
                 <label class="col-md-3 control-label">tip + număr</label>
 
-                <div class="col-md-9 form-inline" data-model-dropdown>
-                  <select
-                    name="modelType"
-                    class="form-control"
-                    data-model-type>
-                    {foreach $modelTypes as $mt}
-                      <option
-                        value="{$mt->code}"
-                        {if $mt->code == $lexeme->modelType}selected{/if}>
-                        {$mt->code}
-                      </option>
-                    {/foreach}
-                  </select>
-
-                  <select
-                    name="modelNumber"
-                    class="form-control"
-                    data-model-number
-                    data-selected="{$lexeme->modelNumber}">
-                  </select>
+                <div class="col-md-9 form-inline"
+                  {include "bits/modelDropDown.tpl"
+                    selectedModelType=$lexeme->modelType
+                    selectedModelNumber=$lexeme->modelNumber}
 
                   <input
                     type="text"
@@ -268,7 +252,6 @@
                     size="5"
                     placeholder="restricții">
                 </div>
-
               </div>
 
               <div class="form-group">

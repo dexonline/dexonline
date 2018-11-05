@@ -46,19 +46,7 @@
       <tr>
         <td>
           <div class="form-group">
-            <span data-model-dropdown>
-              <select class="form-control" name="modelType" data-model-type>
-                {foreach $modelTypes as $mt}
-                  <option value="{$mt->code}">{$mt->code}</option>
-                {/foreach}
-              </select>
-              <select
-                class="form-control"
-                name="modelNumber"
-                data-model-number
-                data-all-option="oricare|">
-              </select>
-            </span>
+            {include "bits/modelDropDown.tpl" allOption="oricare|"}
           </div>
         </td>
         <td>
@@ -118,19 +106,7 @@
       <tr>
         <td>
           <div class="form-group">
-            <span data-model-dropdown>
-              <select class="form-control" name="modelType" data-model-type>
-                {foreach $modelTypes as $mt}
-                  <option value="{$mt->code}">{$mt->code}</option>
-                {/foreach}
-              </select>
-              <select
-                class="form-control"
-                name="modelNumber"
-                data-model-number
-                data-all-option="oricare|">
-              </select>
-            </span>
+            {include "bits/modelDropDown.tpl" allOption="oricare|"}
           </div>
         </td>
         <td>
@@ -138,19 +114,10 @@
         </td>
         <td>
           <div class="form-group">
-            <span data-model-dropdown>
-              <select class="form-control" name="newModelType" data-model-type>
-                {foreach $modelTypes as $mt}
-                  <option value="{$mt->code}">{$mt->code}</option>
-                {/foreach}
-              </select>
-              <select
-                class="form-control"
-                name="newModelNumber"
-                data-model-number
-                data-all-option="neschimbat|">
-              </select>
-            </span>
+            {include "bits/modelDropDown.tpl"
+              modelTypeName="newModelType"
+              modelNumberName="newModelNumber"
+              allOption="neschimbat|"}
           </div>
         </td>
         <td>

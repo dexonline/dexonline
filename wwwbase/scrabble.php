@@ -42,10 +42,10 @@ if ($locVersion && $form) {
   SmartyWrap::assign('selectedLocVersion', $locVersions[0]->name);
 }
 
-SmartyWrap::addJs('modelDropdown');
+SmartyWrap::assign('canonicalModelTypes', ModelType::loadCanonical());
 SmartyWrap::assign('locVersions', $locVersions);
 
-if($ajax){
+if ($ajax) {
   $results = [
     'count' => count($data),
     'template' => SmartyWrap::fetch('scrabble-results.tpl'),

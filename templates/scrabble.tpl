@@ -136,33 +136,20 @@
 
     <div class="panel-body">
       <p>
-        <em>Stradă, cadă, ladă</em> și <em>ogradă</em> se declină la fel... dar <em>baladă</em> și <em>livadă</em> nu? Iată de ce.
+        <em>Stradă, cadă, ladă</em> și <em>ogradă</em> se declină la fel...
+        dar <em>baladă</em> și <em>livadă</em> nu? Iată de ce.
       </p>
 
-      <form class="form-inline" action="modele-flexiune" method="get">
-        <div class="form-group">
-          <span data-model-dropdown>
+      <form class="form-inline" action="modele-flexiune">
+        Arată modelele pentru
 
-            Arată modelele pentru
+        <select class="form-control" name="modelType">
+          {foreach $canonicalModelTypes as $mt}
+            <option value="{$mt->code}">{$mt->code} ({$mt->description})</option>
+          {/foreach}
+        </select>
 
-            <select class="form-control" name="modelType" data-model-type data-verbose="1" data-selected="">
-            </select>
-
-
-            în versiunea
-
-            <select class="form-control" name="locVersion" data-loc-version>
-              {foreach $locVersions as $lv}
-                <option value="{$lv->name|escape}">
-                  {$lv->name|escape}
-                </option>
-              {/foreach}
-            </select>
-
-          </span>
-        </div>
-
-        <input class="btn btn-primary" type="submit" name="submitButton" value="arată">
+        <input class="btn btn-primary" type="submit">
       </form>
     </div>
   </div>

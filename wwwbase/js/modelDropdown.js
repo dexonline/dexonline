@@ -1,7 +1,6 @@
 /**
  * Arguments for the model type select:
  * data-model-type: mandatory
- * data-verbose="1": optional; show the full model type name
  *
  * Arguments for the model number select:
  * data-model-number: mandatory

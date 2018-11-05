@@ -307,15 +307,7 @@
 
         <form class="form-inline" action="dispatchModelAction.php">
           <div class="form-group">
-            <span data-model-dropdown>
-              <select class="form-control" name="modelType" data-model-type>
-                {foreach $canonicalModelTypes as $mt}
-                  <option value="{$mt->code}">{$mt->code}</option>
-                {/foreach}
-              </select>
-              <select class="form-control" name="modelNumber" data-model-number>
-              </select>
-            </span>
+            {include "bits/modelDropDown.tpl" modelTypes=$canonicalModelTypes}
 
             <div class="btn-group">
               <button type="submit" class="btn btn-default" name="showLexemes">

@@ -54,7 +54,8 @@ class DB {
 
     // Skip the username/password here to avoid a Percona warning.
     // Place them in my.cnf (remeber this command runs as the webserver user).
-    $command = sprintf("mysql -h %s %s -e '%s'", self::$host, self::$database, $query);
+    $command = sprintf("mysql -u %s -h %s %s -e '%s'",
+                       self::$user, self::$host, self::$database, $query);
     OS::executeAndAssert($command);
   }
 
@@ -70,12 +71,6 @@ class DB {
       $database,
       self::$password ? ("-p" . self::$password) : '');
     OS::executeAndAssert($command);
-  }
-
-  static function changeDatabase($dbName) {
-    $dbName = addslashes($dbName);
-    self::init();
-    return self::execute("use `$dbName`");
   }
 
   /**

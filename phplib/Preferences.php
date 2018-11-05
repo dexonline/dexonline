@@ -6,22 +6,10 @@ class Preferences {
   const OLD_ORTHOGRAPHY = 0x04;
   const EXCLUDE_UNOFFICIAL = 0x08;
   const SHOW_PARADIGM = 0x10;
-  const LOC_PARADIGM = 0x20;
+  // const LOC_PARADIGM = 0x20; // no longer in use
   const SHOW_ADVANCED = 0x40;
   const PRIVATE_MODE = 0x80;
   const NO_TREES = 0x100;
-
-  // keep around for historic reasons (existing cookies use these)
-  static $NAMES = [
-    self::CEDILLA_BELOW => 'CEDILLA_BELOW',
-    self::FORCE_DIACRITICS => 'FORCE_DIACRITICS',
-    self::OLD_ORTHOGRAPHY => 'OLD_ORTHOGRAPHY',
-    self::EXCLUDE_UNOFFICIAL => 'EXCLUDE_UNOFFICIAL',
-    self::SHOW_PARADIGM => 'SHOW_PARADIGM',
-    self::LOC_PARADIGM => 'LOC_PARADIGM',
-    self::SHOW_ADVANCED => 'SHOW_ADVANCED',
-    self::PRIVATE_MODE => 'PRIVATE_MODE',
-  ];
 
   // Set of all customizable user preferences
   static $allPrefs = [
@@ -49,11 +37,6 @@ class Preferences {
       'enabled' => true,
       'label' => 'Deschide fila de flexiuni',
       'comment' => 'Implicit, prima filă vizibilă la căutări este cea cu definiții.',
-    ],
-    self::LOC_PARADIGM => [
-      'enabled' => true,
-      'label' => 'Arată formele ilegale la jocul de scrabble',
-      'comment' => 'La afișarea paradigmei, aceste forme flexionare vor apărea cu roșu.',
     ],
     self::SHOW_ADVANCED => [
       'enabled' => true,
@@ -85,7 +68,6 @@ class Preferences {
       $copy[$key]['checked'] = false;
     }
 
-    $userPrefs = self::convert($userPrefs);
     if ($userPrefs) {
       foreach (self::$allPrefs as $key => $value) {
         if ($userPrefs & $key) {
@@ -128,20 +110,4 @@ class Preferences {
     }
   }
 
-  // converts a historical, comma-delimited preferences set to a numeric mask
-  // TODO (after 05/2018) remove this code
-  static function convert($textPreferences) {
-    if (is_numeric($textPreferences)) {
-      return ($textPreferences); // already converted
-    }
-    $map = array_flip(self::$NAMES);
-
-    $result = 0;
-    if ($textPreferences) { // explode() doesn't work well on empty strings
-      foreach (explode(',', $textPreferences) as $pref) {
-        $result += $map[$pref];
-      }
-    }
-    return $result;
-  }
 }

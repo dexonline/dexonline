@@ -1,5 +1,5 @@
 <?php
-require_once("../../phplib/Core.php"); 
+require_once('../../phplib/Core.php');
 User::mustHave(User::PRIV_EDIT);
 Util::assertNotMirror();
 
@@ -44,7 +44,7 @@ if ($butPrev || $butNext) {
                        [$def->lexicon, $def->lexicon, $def->id])
            ->order_by_desc('lexicon')
            ->order_by_desc('id')
-           ->find_one();    
+           ->find_one();
   } else {
     $other = Model::factory('Definition')
            ->where('sourceId', SOURCE_ID)
@@ -106,7 +106,7 @@ if ($saveButton) {
         $e->description = Str::capitalize($e->description);
         $e->save();
       }
-        
+
       if ($m != "{$lexeme->modelType}{$lexeme->modelNumber}") {
         $model = Model::factory('ModelType')
                ->select('code')
@@ -171,11 +171,6 @@ if ($saveButton) {
           $lexeme = Lexeme::create(substr($lid, 1));
         } else {
           $lexeme = Lexeme::get_by_id($lid);
-        }
-
-        // Check that either the lexeme is not in LOC or the model list is unchanged
-        if ($lexeme->isLoc && ($m != "{$lexeme->modelType}{$lexeme->modelNumber}")) {
-          throw new Exception("Nu puteți schimba modelul unui lexem inclus în loc: {$lexeme}.");
         }
 
         // Check that the lexeme works with the model

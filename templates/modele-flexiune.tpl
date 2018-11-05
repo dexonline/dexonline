@@ -5,9 +5,6 @@
 {block "content"}
   <h3>
     Modele de flexiune pentru tipul {$modelType->code} ({$modelType->description})
-    {if $locVersion}
-      în LOC versiunea {$locVersion}
-    {/if}
   </h3>
 
   <p>

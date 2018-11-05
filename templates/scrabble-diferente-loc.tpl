@@ -4,7 +4,7 @@
 
 {block "content"}
   <h3>
-    Diferențe între LOC {$locVersions.0} și LOC {$locVersions.1} ({$listType})
+    Diferențe între LOC {$versions.0} și LOC {$versions.1} ({$listType})
   </h3>
 
   <p>

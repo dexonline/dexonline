@@ -1,7 +1,7 @@
 <?php
-require_once("../../phplib/Core.php"); 
+require_once("../../phplib/Core.php");
 ini_set('max_execution_time', '3600');
-User::mustHave(User::PRIV_EDIT);
+User::mustHave(User::PRIV_ADMIN);
 Util::assertNotMirror();
 DebugInfo::disable();
 
@@ -14,18 +14,6 @@ $model = Model::factory('FlexModel')
        ->where('number', $modelNumber)
        ->find_one();
 $lexemes = Lexeme::loadByCanonicalModel($modelType, $modelNumber);
-
-$locPerm = User::can(User::PRIV_LOC);
-$numLoc = 0;
-foreach ($lexemes as $l) {
-  $numLoc += ($l->isLoc);
-}
-
-if ($numLoc && !$locPerm) {
-  FlashMessage::add("Nu puteți șterge acest model, deoarece {$numLoc} dintre " .
-                    "lexeme sunt incluse în Lista Oficială de Cuvinte.",
-                    'danger');
-}
 
 if ($deleteButton) {
   foreach ($lexemes as $l) {
@@ -44,5 +32,4 @@ if ($deleteButton) {
 SmartyWrap::assign('modelType', $modelType);
 SmartyWrap::assign('modelNumber', $modelNumber);
 SmartyWrap::assign('lexemes', $lexemes);
-SmartyWrap::assign('locPerm', $locPerm);
 SmartyWrap::display('admin/deleteModel.tpl');

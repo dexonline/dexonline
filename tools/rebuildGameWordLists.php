@@ -7,31 +7,28 @@
 require_once __DIR__ . '/../phplib/Core.php';
 
 define('STATIC_SERVER_DIR', '/download/scrabble');
+define('DEX09_ID', 27);
+define('MDN_ID', 21);
 
 Log::notice('started');
 
-$locVersions = Config::getLocVersions();
-$lv = $locVersions[1]->name; // use the last frozen one
-LocVersion::changeDatabase($lv);
 $tempDir = Core::getTempPath();
 
 Log::info('collecting forms');
 $forms = Model::factory('InflectedForm')
-       ->table_alias('i')
-       ->select('i.formNoAccent')
-       ->distinct()
-       ->join('Lexeme', ['i.lexemeId', '=', 'l.id'], 'l')
-       ->join('ModelType', ['l.modelType', '=', 'mt.code'], 'mt')
-       ->join('Model', 'mt.canonical = m.modelType and l.modelNumber = m.number', 'm')
-       ->join('ModelDescription',
-              'm.id = md.modelId and i.variant = md.variant and i.inflectionId = md.inflectionId',
-              'md')
-       ->where('l.isLoc', 1)
-       ->where('md.isLoc', 1)
-       ->where_raw('binary i.formNoAccent rlike "^[a-zăâîșț]+$"') // no caps - chemical symbols etc.
-       ->where_raw('char_length(i.formNoAccent) between 3 and 7')
-       ->order_by_asc('i.formNoAccent')
-       ->find_many();
+  ->table_alias('if')
+  ->select('if.formNoAccent')
+  ->distinct()
+  ->join('Inflection', ['if.inflectionId', '=', 'i.id'], 'i')
+  ->join('Lexeme', ['if.lexemeId', '=', 'l.id'], 'l')
+  ->join('Definition', ['l.formNoAccent', '=', 'd.lexicon'], 'd')
+  ->where('i.animate', false)
+  ->where_raw('binary if.formNoAccent rlike "^[a-zăâîșț]+$"') // no caps - chemical symbols etc.
+  ->where_raw('char_length(if.formNoAccent) between 3 and 7')
+  ->where('d.status', Definition::ST_ACTIVE)
+  ->where_in('d.sourceId', [ DEX09_ID, MDN_ID ])
+  ->order_by_asc('if.formNoAccent')
+  ->find_many();
 $joined = implode("\n", Util::objectProperty($forms, 'formNoAccent'));
 
 $diaFileName = $tempDir.'/game-word-list-dia.txt';

@@ -22,12 +22,12 @@ maintenanceMode = 0
 ; Show our web host logo
 hostedBy = ""
 
-; LOC versions (for scrabble users). Each version should have a corresponding LOC_* database.
-; See also mysql_loc_prefix
-locVersions[] = 4.0 10/09/2007
-locVersions[] = 4.1 01/11/2008
-locVersions[] = 5.0 01/24/2011
-locVersions[] = 6.0 current
+; LOC versions (for scrabble users)
+locVersions[] = 4.0 2007-10-09
+locVersions[] = 4.1 2008-01-11
+locVersions[] = 5.0 2011-01-24
+locVersions[] = 6.0 2018-02-11
+defaultLocVersion = 5.0
 
 ; Folder for temporary data
 tempDir = /tmp
@@ -37,9 +37,6 @@ maxBookmarks = 500
 
 ; If this site is a mirror, certain features will be disabled: user login, typo reporting etc.
 mirror = 0
-
-; Prefix for the LOC databases.
-mysql_loc_prefix = LOC_
 
 protocol = http
 

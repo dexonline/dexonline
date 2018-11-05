@@ -4,7 +4,7 @@ class User extends BaseObject {
   public static $_table = 'User';
 
   const PRIV_ADMIN = 0x01;
-  const PRIV_LOC = 0x02;
+  // const PRIV_LOC = 0x02; // no longer in use
   const PRIV_EDIT = 0x04;
   const PRIV_WOTD = 0x08;
   const PRIV_STRUCT = 0x10;
@@ -15,7 +15,6 @@ class User extends BaseObject {
 
   static $PRIV_NAMES = [
     self::PRIV_ADMIN => 'administrator',
-    self::PRIV_LOC => 'LOC scrabble',
     self::PRIV_EDIT => 'moderator',
     self::PRIV_WOTD => 'cuvântul zilei',
     self::PRIV_STRUCT => 'structurist al definițiilor',

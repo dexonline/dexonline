@@ -4,34 +4,21 @@ class LocVersion {
   public $name;
   public $freezeTimestamp;
 
-  function getDate() {
-    if (!$this->freezeTimestamp) {
-      return 'curentă';
-    } else {
-      return date('m/d/Y', $this->freezeTimestamp);
-    }
+  private function getUrl($type) {
+    return sprintf('%sdownload/scrabble/loc-%s-%s.zip',
+                   Config::get('static.url'), $type, $this->name);
   }
 
-  function getDbName() {
-    return str_replace('.', '_', $this->name);
+  function getBaseFormUrl() {
+    return $this->getUrl('baza');
   }
 
-  /* Returns the SQL database name on success, false on failure */
-  static function changeDatabase($versionName) {
-    $lvs = Config::getLocVersions();
-    if ($versionName == $lvs[0]->name || !$versionName) {
-      $dbName = DB::$database;
-    } else {
-      $lv = new LocVersion();
-      $lv->name = $versionName;
-      $dbName = Config::get('global.mysql_loc_prefix') . $lv->getDbName();
-    }
-
-    try {
-      DB::changeDatabase($dbName);
-      return $dbName;
-    } catch (PDOException $e) {
-      return false;
-    }
+  function getInflectedFormUrl() {
+    return $this->getUrl('flexiuni');
   }
+
+  function getReducedFormUrl() {
+    return $this->getUrl('reduse');
+  }
+
 }

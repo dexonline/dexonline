@@ -46,17 +46,7 @@
       <tr>
         <td>
           <div class="form-group">
-            <span data-model-dropdown>
-              <input type="hidden" name="locVersion" value="6.0" data-loc-version>
-              <select class="form-control" name="modelType" data-model-type>
-              </select>
-              <select
-                class="form-control"
-                name="modelNumber"
-                data-model-number
-                data-all-option="oricare|">
-              </select>
-            </span>
+            {include "bits/modelDropDown.tpl" allOption="oricare|"}
           </div>
         </td>
         <td>
@@ -116,17 +106,7 @@
       <tr>
         <td>
           <div class="form-group">
-            <span data-model-dropdown>
-              <input type="hidden" name="locVersion" value="6.0" data-loc-version>
-              <select class="form-control" name="modelType" data-model-type>
-              </select>
-              <select
-                class="form-control"
-                name="modelNumber"
-                data-model-number
-                data-all-option="oricare|">
-              </select>
-            </span>
+            {include "bits/modelDropDown.tpl" allOption="oricare|"}
           </div>
         </td>
         <td>
@@ -134,17 +114,10 @@
         </td>
         <td>
           <div class="form-group">
-            <span data-model-dropdown>
-              <input type="hidden" name="locVersion" value="6.0" data-loc-version>
-              <select class="form-control" name="newModelType" data-model-type>
-              </select>
-              <select
-                class="form-control"
-                name="newModelNumber"
-                data-model-number
-                data-all-option="neschimbat|">
-              </select>
-            </span>
+            {include "bits/modelDropDown.tpl"
+              modelTypeName="newModelType"
+              modelNumberName="newModelNumber"
+              allOption="neschimbat|"}
           </div>
         </td>
         <td>

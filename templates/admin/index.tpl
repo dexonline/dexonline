@@ -160,17 +160,6 @@
                 </div>
 
                 <div class="form-group">
-                  <label class="col-xs-4 control-label">în LOC</label>
-                  <div class="col-xs-8">
-                    <select class="form-control" name="isLoc">
-                      <option value="">indiferent</option>
-                      <option value="1">da</option>
-                      <option value="0">nu</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div class="form-group">
                   <label class="col-xs-4 control-label">paradigmă</label>
                   <div class="col-xs-8">
                     <select class="form-control" name="paradigm">
@@ -318,13 +307,7 @@
 
         <form class="form-inline" action="dispatchModelAction.php">
           <div class="form-group">
-            <span data-model-dropdown>
-              <input type="hidden" name="locVersion" value="6.0" data-loc-version>
-              <select class="form-control" name="modelType" data-model-type data-canonical="1">
-              </select>
-              <select class="form-control" name="modelNumber" data-model-number>
-              </select>
-            </span>
+            {include "bits/modelDropDown.tpl" modelTypes=$canonicalModelTypes}
 
             <div class="btn-group">
               <button type="submit" class="btn btn-default" name="showLexemes">

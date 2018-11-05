@@ -36,37 +36,25 @@ if ($dryRun) {
   print "---- DRY RUN ONLY ----\n";
 }
 
-foreach (Config::getLocVersions() as $v) {
-  if ($dbName = LocVersion::changeDatabase($v->name)) {
-    print "**** Patching database {$dbName}\n";
-    patchLocVersion($dbName);
+$schemaVersion = DB::tableExists('Variable') ? Variable::peek('Schema.version', '00000') : '00000';
+print "Current schema version is <$schemaVersion>\n";
+
+$patchFiles = getPatches(PATCH_DIR, $schemaVersion);
+$numPatches = 0;
+foreach ($patchFiles as $fileName) {
+  runPatch(PATCH_DIR . $fileName, $dryRun);
+  $numPatches++;
+  $schemaVersion = stripExtension($fileName);
+  if (!$dryRun) {
+    // Update after each patch, in case one of the patches terminates with error.
+    Variable::poke('Schema.version', $schemaVersion);
   }
 }
-exit;
+
+print "$numPatches patches applied.\n";
+print "New schema version is <$schemaVersion>\n";
 
 /*****************************************************************/
-
-function patchLocVersion($dbName) {
-  global $dryRun;
-
-  $schemaVersion = DB::tableExists('Variable') ? Variable::peek('Schema.version', '00000') : '00000';
-  print "Current schema version is <$schemaVersion>\n";
-
-  $patchFiles = getPatches(PATCH_DIR, $schemaVersion);
-  $numPatches = 0;
-  foreach ($patchFiles as $fileName) {
-    runPatch(PATCH_DIR . $fileName, $dbName, $dryRun);
-    $numPatches++;
-    $schemaVersion = stripExtension($fileName);
-    if (!$dryRun) {
-      // Update after each patch, in case one of the patches terminates with error.
-      Variable::poke('Schema.version', $schemaVersion);
-    }
-  }
-
-  print "$numPatches patches applied.\n";
-  print "New schema version is <$schemaVersion>\n";
-}
 
 function getPatches($dir, $after) {
   $result = [];
@@ -82,13 +70,13 @@ function getPatches($dir, $after) {
   return $result;
 }
 
-function runPatch($fileName, $dbName, $dryRun) {
+function runPatch($fileName, $dryRun) {
   $fileName = realpath(Str::portable($fileName));
   $extension = strrchr($fileName, '.');
   if ($extension == '.sql') {
     print "$fileName -- executing with MySQL via OS\n";
     if (!$dryRun) {
-      DB::executeSqlFile($fileName, $dbName);
+      DB::executeSqlFile($fileName);
     }
   } else if ($extension == '.php') {
     print "$fileName -- executing with PHP\n";

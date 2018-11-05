@@ -56,7 +56,6 @@ $(function() {
     // allow disabled selects to submit (they should have been readonly,
     // not disabled, but Select2 4.0 doesn't use readonly).
     $('input[name="stopWord"]').prop('disabled', false);
-    $('input[name="isLoc"]').prop('disabled', false);
     $('select[name="modelType"]').prop('disabled', false);
     $('select[name="modelNumber"]').prop('disabled', false);
   }
@@ -66,9 +65,9 @@ $(function() {
     var url = wwwRoot + 'ajax/getLexemeInfo.php?id=' + lexemeId;
     $.get(url)
       .done(function(data) {
-        $('select[name="modelType"]').data('selected', data.modelType);
+        $('select[name="modelType"]').val(data.modelType);
         $('select[name="modelNumber"]').data('selected', data.modelNumber);
-        updateModelTypeList($('*[data-model-dropdown]'));
+        updateModelList($('*[data-model-dropdown]'));
         $('input[name="restriction"]').val(data.restriction);
 
         // copy part-of-speech tags (skip already existing ones)

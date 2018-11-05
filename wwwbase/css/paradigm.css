@@ -43,12 +43,6 @@
   white-space: nowrap;
 }
 
-.isLoc {
-  color: green;
-  cursor: help;
-  font-weight: bold;
-}
-
 .lexemeMorphology {
   list-style-type: none;
   margin: 0;
@@ -79,12 +73,6 @@
 
 .paradigmLink {
   font-size: small;
-}
-
-.notInLoc {
-  color: #c01010;
-  cursor: help;
-  font-style: italic;
 }
 
 .notRecommended {

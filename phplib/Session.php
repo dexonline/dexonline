@@ -86,9 +86,7 @@ class Session {
       $preferences = self::getCookieSetting('anonymousPrefs');
     }
 
-    $preferences = Preferences::convert($preferences);
-
-    return $preferences & $pref;
+    return (int)$preferences & $pref;
   }
 
   static function setAnonymousPrefs($pref) {

@@ -2,11 +2,6 @@
 require_once("../../phplib/Core.php");
 
 $modelType = Request::get('modelType');
-$locVersion = Request::get('locVersion');
-
-if ($locVersion) {
-  LocVersion::changeDatabase($locVersion);
-}
 
 $models = FlexModel::loadByType($modelType);
 

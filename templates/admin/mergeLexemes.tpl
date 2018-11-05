@@ -43,9 +43,6 @@
         <div class="panel-heading">
           {$lIter+1}. <strong>{$l->form|escape}</strong>
           {$l->modelType}{$l->modelNumber}{$l->restriction}
-          {if $l->isLoc}
-            <span class="label label-success">LOC</span>
-          {/if}
           <a href="../admin/lexemeEdit.php?lexemeId={$l->id}" class="btn btn-link">
             <i class="glyphicon glyphicon-pencil"></i>
             editează
@@ -73,10 +70,6 @@
                   {$match->modelType}{$match->modelNumber}{$match->restriction}
                 </label>
 
-                {if $match->isLoc}
-                  <span class="label label-success">LOC</span>
-                {/if}
-
                 <a href="../admin/lexemeEdit.php?lexemeId={$match->id}" class="btn btn-link">
                   <i class="glyphicon glyphicon-pencil"></i>
                   editează
@@ -91,27 +84,14 @@
                 </a>
               </div>
 
-              {if ($l->isLoc && !$match->isLoc) || $match->addedForms || $match->lostForms}
+              {if $match->lostForms}
                 <ul>
-                  {if ($l->isLoc && !$match->isLoc)}
-                    <li>Acest lexem va fi adăugat la LOC</li>
-                  {/if}
-                  {if $match->addedForms}
-                    <li>
-                      Următoarele forme vor fi adăugate la LOC:
-                      {foreach $match->addedForms as $form}
-                        {$form}
-                      {/foreach}
-                    </li>
-                  {/if}
-                  {if $match->lostForms}
-                    <li>
-                      Următoarele forme se vor pierde:
-                      {foreach $match->lostForms as $form}
-                        {$form}
-                      {/foreach}
-                    </li>
-                  {/if}
+                  <li>
+                    Următoarele forme se vor pierde:
+                    {foreach $match->lostForms as $form}
+                      {$form}
+                    {/foreach}
+                  </li>
                 </ul>
               {/if}
               <div class="well" id="def_{$match->id}"></div>

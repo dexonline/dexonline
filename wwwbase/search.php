@@ -328,7 +328,6 @@ if ($SEARCH_PARAMS[$searchType]['paradigm']) {
       $l->getModelType();
       $l->getSourceNames();
       $map = $l->loadInflectedFormMap();
-      $l->addLocInfo();
       foreach ($map as $ifs) {
         foreach ($ifs as $if) {
           $hasUnrecommendedForms |= !$if->recommended;
@@ -403,7 +402,6 @@ SmartyWrap::assign('searchType', $searchType);
 SmartyWrap::assign('searchParams', $SEARCH_PARAMS[$searchType]);
 SmartyWrap::assign('sourceId', $sourceId);
 SmartyWrap::assign('tab', $tab);
-SmartyWrap::assign('locParadigm', Session::userPrefers(Preferences::LOC_PARADIGM));
 SmartyWrap::assign('paradigmLink', $paradigmLink);
 SmartyWrap::assign('allDefinitions', $all);
 SmartyWrap::assign('showWotd', $showWotd);

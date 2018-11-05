@@ -18,7 +18,6 @@ class Lexeme extends BaseObject implements DatedObject {
   const METHOD_LOAD = 2;
 
   const CAN_DELETE_OK = null;
-  const CAN_DELETE_LOC = 'lexemul nu poate fi șters deoarece este inclus în LOC';
   const CAN_DELETE_FRAGMENT = 'lexemul nu poate fi șters deoarece este fragment al unui lexem compus';
 
   function setForm($form) {
@@ -29,8 +28,7 @@ class Lexeme extends BaseObject implements DatedObject {
     $this->reverse = Str::reverse($this->formNoAccent);
   }
 
-  static function create($form, $modelType = '', $modelNumber = '', $restriction = '',
-                                $isLoc = false) {
+  static function create($form, $modelType = '', $modelNumber = '', $restriction = '') {
     $l = Model::factory('Lexeme')->create();
 
     $form = trim($form);
@@ -47,7 +45,6 @@ class Lexeme extends BaseObject implements DatedObject {
     $l->modelNumber = $modelNumber;
     $l->restriction = $restriction;
     $l->notes = '';
-    $l->isLoc = $isLoc;
 
     return $l;
   }
@@ -515,35 +512,6 @@ class Lexeme extends BaseObject implements DatedObject {
     }
   }
 
-  /**
-   * Adds an isLoc field to every inflected form in the map. Assumes the map already exists.
-   **/
-  function addLocInfo() {
-    // Build a map of inflection IDs not in LOC
-    $ids = Model::factory('InflectedForm')
-      ->table_alias('i')
-      ->select('i.id')
-      ->join('Lexeme', 'i.lexemeId = l.id', 'l')
-      ->join('ModelType', 'l.modelType = mt.code', 'mt')
-      ->join('Model', 'mt.canonical = m.modelType and l.modelNumber = m.number', 'm')
-      ->join('ModelDescription', 'm.id = md.modelId and i.variant = md.variant and i.inflectionId = md.inflectionId', 'md')
-      ->where('md.applOrder', 0)
-      ->where('md.isLoc', 0)
-      ->where('l.id', $this->id)
-      ->find_array();
-    $map = [];
-    foreach ($ids as $rec) {
-      $map[$rec['id']] = 1;
-    }
-
-    // Set the bit accordingly on every inflection in the map
-    foreach ($this->inflectedFormMap as $ifs) {
-      foreach ($ifs as $if) {
-        $if->isLoc = !array_key_exists($if->id, $map);
-      }
-    }
-  }
-
   // apply tags required by harmonization rules
   function harmonizeTags() {
     $hts = Model::factory('HarmonizeTag')
@@ -621,20 +589,14 @@ class Lexeme extends BaseObject implements DatedObject {
          ->where_in('modelType', [$genericType, $dedicatedType])
          ->where('modelNumber', $number)
          ->find_one();
-      if ($l) {
-        if ($this->isLoc && !$l->isLoc) {
-          $l->isLoc = true;
-          $l->save();
-          FlashMessage::addTemplate('lexemeAddedToLoc.tpl', [ 'lexeme' => $l ], 'info');
-        }
-      } else {
+      if (!$l) {
         // if a lexeme exists with this form, but a different model, give a warning
         $existing = Lexeme::get_by_formNoAccent($if->formNoAccent);
         if ($existing) {
           FlashMessage::addTemplate('lexemeExists.tpl', [ 'lexeme' => $existing ], 'warning');
         }
 
-        $l = Lexeme::create($if->form, $dedicatedType, $number, '', $this->isLoc);
+        $l = Lexeme::create($if->form, $dedicatedType, $number, '');
         $l->deepSave();
         $entry = Entry::createAndSave($if->formNoAccent);
         EntryLexeme::associate($entry->id, $l->id);
@@ -712,11 +674,6 @@ class Lexeme extends BaseObject implements DatedObject {
 
   // returns one of the CAN_DELETE_* constants
   function canDelete() {
-    // only LOC moderators can delete LOC lexemes
-    if ($this->isLoc && !User::can(User::PRIV_LOC)) {
-      return self::CAN_DELETE_LOC;
-    }
-
     // cannot delete lexemes which are fragments of compound lexemes
     if (Fragment::get_by_partId($this->id)) {
       return self::CAN_DELETE_FRAGMENT;
@@ -796,7 +753,6 @@ class Lexeme extends BaseObject implements DatedObject {
     $clone->modelNumber = '1';
     $clone->restriction = '';
     $clone->notes = '';
-    $clone->isLoc = false;
     $clone->deepSave();
 
     return $clone;

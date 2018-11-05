@@ -73,7 +73,7 @@ class HarmonizeModel extends BaseObject implements DatedObject {
     $can2 = ModelType::canonicalize($this->newModelType);
     if ($can1 != $can2) {
       FlashMessage::add(
-        'Puteți schimba modelul doar cu altul din aceeași grupă canonică (de ex. F ↔ IL.');
+        'Puteți schimba modelul doar cu altul din aceeași grupă canonică (de ex. F ↔ IL).');
     }
 
     if (!$this->modelNumber && $this->newModelNumber) {

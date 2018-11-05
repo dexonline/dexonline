@@ -4,6 +4,7 @@
 
     function clearSearch() {
       searchInput.val(null);
+      searchInput.focus();
       queueSearch();
     }
 
@@ -16,7 +17,7 @@
 
     var searchForm = $('form[action="scrabble"]');
     var searchInput = $('input.scrabbleSearchField', searchForm);
-    var locVersion = $('select', searchForm);
+    var version = $('select', searchForm);
     var results = $('#scrabble-results');
 
     var feedback = $('.scrabbleSearchDiv .form-group');
@@ -28,7 +29,6 @@
 
     var queryURL = wwwRoot + 'scrabble.php';
 
-
     function updatePage(data) {
       // update feedback indicators
       feedback.removeClass('has-feedback has-error has-success');
@@ -36,12 +36,10 @@
 
       var icon, glyphIcon;
 
-      if (data.count > 0) {
+      if (data.answer) {
         icon = 'has-success';
         glyphIcon = 'glyphicon-ok';
-      }
-
-      else {
+      } else {
         icon = 'has-error';
         glyphIcon = 'glyphicon-remove';
       }
@@ -61,10 +59,10 @@
     function doSearch(cacheKey, params){
       var cached = searchCache[cacheKey];
       if (!cached){
-        $.getJSON(queryURL, params, function(data){
+        $.getJSON(queryURL, params, function(data) {
           searchCache[cacheKey] = data;
           updatePage(data);
-        })
+        });
       }
       else if (cached && lastSearchedKey !== cacheKey) {
         lastSearchedKey = cacheKey;
@@ -90,7 +88,7 @@
     }
 
     searchInput.on('input', queueSearch);
-    locVersion.on('change', queueSearch);
+    version.on('change', queueSearch);
 
     setInterval(runner, 500);
   }

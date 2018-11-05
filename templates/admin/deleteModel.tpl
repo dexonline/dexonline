@@ -33,12 +33,9 @@
     {/foreach}
     <br>
 
-    <!-- We want to disable the button on click, but still submit a value -->
-    {if $locPerm}
-      <button type="submit" class="btn btn-danger" name="deleteButton">
-        <i class="glyphicon glyphicon-trash"></i>
-        șterge
-      </button>
-    {/if}
+    <button type="submit" class="btn btn-danger" name="deleteButton">
+      <i class="glyphicon glyphicon-trash"></i>
+      șterge
+    </button>
   </form>
 {/block}

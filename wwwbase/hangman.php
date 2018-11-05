@@ -36,23 +36,13 @@ default :
   $maxLength = easyLength;
 }
 
-$count = Model::factory('Lexeme')
-  ->where('isLoc', 1)
-  ->where_gte('frequency', $minFreq)
-  ->where_lte('frequency', $maxFreq)
-  ->where_raw('char_length(formUtf8General) >= 5')
-  ->where_raw('char_length(formUtf8General) <= '.$maxLength)
-  ->count();
-
 do {
   $lexeme = Model::factory('Lexeme')
-    ->where('isLoc', 1)
     ->where_gte('frequency', $minFreq)
     ->where_lte('frequency', $maxFreq)
     ->where_raw('char_length(formUtf8General) >= 5')
     ->where_raw('char_length(formUtf8General) <= '. $maxLength)
-    ->limit(1)
-    ->offset(rand(0, $count - 1))
+    ->order_by_expr('rand()')
     ->find_one();
 
   // select all the definitions for the given lexeme

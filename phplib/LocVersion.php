@@ -2,6 +2,7 @@
 
 class LocVersion {
   public $name;
+  public $freezeTimestamp;
 
   private function getUrl($type) {
     return sprintf('%sdownload/scrabble/loc-%s-%s.zip',

@@ -15,7 +15,6 @@ $lexemes = [];
 foreach ($models as $m) {
   $lexemes[] = $m->getExponentWithParadigm();
 }
-DB::changeDatabase(DB::$database);
 
 SmartyWrap::addCss('paradigm');
 SmartyWrap::assign('models', $models);

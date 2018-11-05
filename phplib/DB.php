@@ -73,12 +73,6 @@ class DB {
     OS::executeAndAssert($command);
   }
 
-  static function changeDatabase($dbName) {
-    $dbName = addslashes($dbName);
-    self::init();
-    return self::execute("use `$dbName`");
-  }
-
   /**
    * Extracts the user, password, host and database from a DSN
    **/

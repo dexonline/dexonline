@@ -52,12 +52,12 @@
   </tr>
   <tr>
     <td rowspan="3" class="inflection">singular</td>
-    <td class="inflection person">I (eu)</td>    
+    <td class="inflection person">I (eu)</td>
     <td class="form">
       {include "bits/ifArray.tpl" ifArray=$ifMap[7]|default:null}
     </td>
     <td class="form">
-      {if count($ifMap[13]|default:null) > 0}(să){/if}
+      {if count($ifMap[13]|default:[]) > 0}(să){/if}
       {include "bits/ifArray.tpl" ifArray=$ifMap[13]|default:null}
     </td>
     <td class="form">
@@ -71,12 +71,12 @@
     </td>
   </tr>
   <tr>
-    <td class="inflection person">a II-a (tu)</td>    
+    <td class="inflection person">a II-a (tu)</td>
     <td class="form">
       {include "bits/ifArray.tpl" ifArray=$ifMap[8]|default:null}
     </td>
     <td class="form">
-      {if count($ifMap[14]|default:null) > 0}(să){/if}
+      {if count($ifMap[14]|default:[]) > 0}(să){/if}
       {include "bits/ifArray.tpl" ifArray=$ifMap[14]|default:null}
     </td>
     <td class="form">
@@ -90,12 +90,12 @@
     </td>
   </tr>
   <tr>
-    <td class="inflection person">a III-a (el, ea)</td>    
+    <td class="inflection person">a III-a (el, ea)</td>
     <td class="form">
       {include "bits/ifArray.tpl" ifArray=$ifMap[9]|default:null}
     </td>
     <td class="form">
-      {if count($ifMap[15]|default:null) > 0}(să){/if}
+      {if count($ifMap[15]|default:[]) > 0}(să){/if}
       {include "bits/ifArray.tpl" ifArray=$ifMap[15]|default:null}
     </td>
     <td class="form">
@@ -110,12 +110,12 @@
   </tr>
   <tr>
     <td rowspan="3" class="inflection">plural</td>
-    <td class="inflection person">I (noi)</td>    
+    <td class="inflection person">I (noi)</td>
     <td class="form">
       {include "bits/ifArray.tpl" ifArray=$ifMap[10]|default:null}
     </td>
     <td class="form">
-      {if count($ifMap[16]|default:null) > 0}(să){/if}
+      {if count($ifMap[16]|default:[]) > 0}(să){/if}
       {include "bits/ifArray.tpl" ifArray=$ifMap[16]|default:null}
     </td>
     <td class="form">
@@ -129,12 +129,12 @@
     </td>
   </tr>
   <tr>
-    <td class="inflection person">a II-a (voi)</td>    
+    <td class="inflection person">a II-a (voi)</td>
     <td class="form">
       {include "bits/ifArray.tpl" ifArray=$ifMap[11]|default:null}
     </td>
     <td class="form">
-      {if count($ifMap[17]|default:null) > 0}(să){/if}
+      {if count($ifMap[17]|default:[]) > 0}(să){/if}
       {include "bits/ifArray.tpl" ifArray=$ifMap[17]|default:null}
     </td>
     <td class="form">
@@ -148,12 +148,12 @@
     </td>
   </tr>
   <tr>
-    <td class="inflection person">a III-a (ei, ele)</td>    
+    <td class="inflection person">a III-a (ei, ele)</td>
     <td class="form">
       {include "bits/ifArray.tpl" ifArray=$ifMap[12]|default:null}
     </td>
     <td class="form">
-      {if count($ifMap[18]|default:null) > 0}(să){/if}
+      {if count($ifMap[18]|default:[]) > 0}(să){/if}
       {include "bits/ifArray.tpl" ifArray=$ifMap[18]|default:null}
     </td>
     <td class="form">

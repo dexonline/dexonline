@@ -1,7 +1,7 @@
 <?php
 require_once("../phplib/Core.php");
 $list = Request::get('list');
-$locVersions = Request::getCsv('locVersions');
+$versions = Request::getCsv('versions');
 
 switch ($list) {
   case 'base':
@@ -22,7 +22,7 @@ switch ($list) {
 }
 
 $zipUrl = sprintf('%sdownload/scrabble/loc-dif-%s-%s-%s.zip',
-                  Config::get('static.url'), $keyword, $locVersions[0], $locVersions[1]);
+                  Config::get('static.url'), $keyword, $versions[0], $versions[1]);
 $zipFile = tempnam(Config::get('global.tempDir'), 'loc_') . '.zip';
 $txtFile = tempnam(Config::get('global.tempDir'), 'loc_') . '.txt';
 if (!@copy($zipUrl, $zipFile)) {
@@ -46,7 +46,7 @@ foreach (file($txtFile) as $line) {
 
 SmartyWrap::assign('keyword', $keyword);
 SmartyWrap::assign('listType', $listType);
-SmartyWrap::assign('locVersions', $locVersions);
+SmartyWrap::assign('versions', $versions);
 SmartyWrap::assign('diff', $diff);
 SmartyWrap::assign('zipUrl', $zipUrl);
 SmartyWrap::display('scrabble-diferente-loc.tpl');

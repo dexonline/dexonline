@@ -1,7 +1,8 @@
 <?php
 /**
- * Handles Java-style property files. If a property contains URL-style parameters (var=value1&var2=value2&...),
- * we parse_str it and map the property name to the resulting associative array.
+ * Handles Java-style property files. If a property contains URL-style
+ * parameters (var=value1&var2=value2&...), we parse_str it and map the
+ * property name to the resulting associative array.
  */
 
 class Config {
@@ -37,7 +38,8 @@ class Config {
     return self::$config;
   }
 
-  /* Returns an array containing all the variables in the given section, or the empty array if the section does not exist. */
+  /* Returns an array containing all the variables in the given section, or */
+  /* the empty array if the section does not exist. */
   static function getSection($section) {
     return array_key_exists($section, self::$config) ? self::$config[$section] : [];
   }
@@ -45,18 +47,15 @@ class Config {
   static function getLocVersions() {
     if (!self::$locVersions) {
       $result = [];
-      $locParts = self::get('global.locVersions');
-      foreach ($locParts as $part) {
-        $part = trim($part);
-        if ($part) {
-          $versionAndDate = preg_split('/ /', $part);
-          assert(count($versionAndDate == 2));
-          $lv = new LocVersion();
-          $lv->name = trim($versionAndDate[0]);
-          $date = trim($versionAndDate[1]);
-          $lv->freezeTimestamp = ($date == 'current') ? null : strtotime($date);
-          $result[] = $lv;
-        }
+      $versions = self::get('global.locVersions');
+      foreach ($versions as $ver) {
+        $nameAndDate = preg_split('/ /', $ver);
+        assert(count($nameAndDate == 2));
+        $lv = new LocVersion();
+        $lv->name = trim($nameAndDate[0]);
+        $date = trim($nameAndDate[1]);
+        $lv->freezeTimestamp = strtotime($date);
+        $result[] = $lv;
       }
       self::$locVersions = array_reverse($result);
     }

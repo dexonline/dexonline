@@ -35,6 +35,29 @@ class InflectedForm extends BaseObject {
     return $result;
   }
 
+  // Returns an inflected form of $lexeme that has the same formNoAccent as
+  // $chunk. Throws ParadigmException if non exists. Prefers lower-rank
+  // inflections, e.g.  înc'urcă-lume over încurc'ă-lume.
+  static function getByLexemeChunk($lexeme, $chunk, $inflection) {
+    $if = Model::factory('InflectedForm')
+      ->table_alias('if')
+      ->select('if.*')
+      ->join('Inflection', ['if.inflectionId', '=', 'i.id'], 'i')
+      ->where('if.lexemeId', $lexeme->id)
+      ->where('if.formNoAccent', $chunk)
+      ->order_by_asc('i.rank')
+      ->find_one();
+
+    if (!$if) {
+      throw new ParadigmException(
+        $inflection->id,
+        "Lexemul „{$lexeme->form}” nu generează forma „{$chunk}”."
+      );
+    }
+
+    return $if;
+  }
+
   // The inflection ID implies the correct canonical model type
   static function deleteByModelNumberInflectionId($modelNumber, $inflId) {
     // Idiorm doesn't support deletes with joins

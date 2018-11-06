@@ -409,15 +409,7 @@ class Lexeme extends BaseObject implements DatedObject {
       $chunk = $chunks[$i];
 
       if ($frag->declension == Fragment::DEC_INVARIABLE) {
-        // make sure the corresponding chunk of $this->formNoAccent matches
-        // one of the inflected forms of $p
-        $if = InflectedForm::get_by_lexemeId_formNoAccent($p->id, $chunk);
-        if (!$if) {
-          throw new ParadigmException(
-            $infl->id,
-            "Lexemul „{$p->form}” nu generează forma „{$chunk}”."
-          );
-        }
+        $if = InflectedForm::getByLexemeChunk($p, $chunk, $infl);
       } else {
         // Decide what inflection to use for the part from the part's model type and declension.
         // Generate it on the fly (this works even if the part normally restricts that inflection).

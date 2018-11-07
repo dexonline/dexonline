@@ -20,9 +20,8 @@ class Locale {
   }
 
   // Returns the locale as dictated, in order of priority, by
-  // 1. logged in user preference
-  // 2. anonymous user preference (cookie)
-  // 3. config file
+  // 1. anonymous user preference (cookie)
+  // 2. config file
   static function getCurrent() {
     $locale = self::getFromConfig();
 
@@ -40,9 +39,6 @@ class Locale {
 
   private static function set($locale) {
     mb_internal_encoding('UTF-8');
-
-    // TODO read user pref
-
     setlocale(LC_ALL, $locale);
     $domain = "messages";
     bindtextdomain($domain, Core::getRootPath() . '/locale');
@@ -50,18 +46,14 @@ class Locale {
     textdomain($domain);
   }
 
-  // changes the locale and stores it in the user preferences
+  // changes the locale and stores it in a cookie
   static function change($id) {
     if (!isset(self::$available[$id])) {
       return;
     }
 
-    $current = self::getFromConfig();
-
-    // TODO set user pref
-
-    if ($current == $id) {
-      // delete the existing cookie if it matches the config value
+    // delete the existing cookie if it matches the config value
+    if ($id == self::getFromConfig()) {
       Session::unsetCookie(self::COOKIE_NAME);
     } else {
       setcookie(self::COOKIE_NAME, $id, time() + Session::ONE_YEAR_IN_SECONDS, '/');

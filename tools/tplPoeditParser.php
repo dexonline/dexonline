@@ -15,7 +15,7 @@ for ($i = 2; $i < count($argv); $i++) {
     $lineNo++;
     $line = trim($line);
     $matches = array();
-    if (preg_match_all("/\{['\"]([^\}]*)['\"]\|_[^\}]*\}/", $line, $matches)) {
+    if (preg_match_all("/\{['\"](.*)['\"]\|_/U", $line, $matches)) {
       foreach ($matches[1] as $match) {
         if (!array_key_exists($match, $dict)) {
           $dict[$match] = "{$fileName}:{$lineNo}";

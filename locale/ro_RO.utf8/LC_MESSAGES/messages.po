@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-11-07 15:15+0200\n"
-"PO-Revision-Date: 2018-11-07 15:20+0200\n"
+"POT-Creation-Date: 2018-11-07 16:00+0200\n"
+"PO-Revision-Date: 2018-11-07 16:00+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -39,6 +39,10 @@ msgstr ""
 "O parte din date pot fi descărcate liber și gratuit sub Licența Publică "
 "Generală GNU."
 
+#: templates/index.tpl:44
+msgid "Current status: %s definitions, of which %s learned last month."
+msgstr "Starea curentă: %s de definiții, din care %s învățate în ultima lună."
+
 #: wwwbase/changeLocale.php:8
 msgid ""
 "Interface language changed. Definitions are always in Romanian (this cannot "
@@ -46,10 +50,6 @@ msgid ""
 msgstr ""
 "Am schimbat limba interfeței. Definițiile sunt mereu în română (acest lucru "
 "nu poate fi schimbat)."
-
-#: wwwbase/index.php:44
-msgid "abcdef"
-msgstr "romana"
 
 #: wwwbase/search.php:223
 #, php-format

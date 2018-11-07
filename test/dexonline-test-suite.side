@@ -3643,6 +3643,110 @@
       ],
       "value": ""
     }]
+  }, {
+    "id": "17973363-d6b5-4c7f-b2d5-d3d22d042bcc",
+    "name": "localeChange",
+    "commands": [{
+      "id": "4ba579a1-55fb-461c-b213-8164132f641b",
+      "comment": "",
+      "command": "open",
+      "target": ".",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "fe0f54dd-9706-4399-b87f-54d02f9eef21",
+      "comment": "",
+      "command": "click",
+      "target": "css=i.glyphicon.glyphicon-globe",
+      "targets": [
+        ["css=i.glyphicon.glyphicon-globe", "css"],
+        ["css=.glyphicon-globe", "css:finder"],
+        ["xpath=//div[@id='navMenu']/ul[2]/li/a/i", "xpath:idRelative"],
+        ["xpath=//li/a/i", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "5f58f3fd-2d0d-4902-af3a-232b7e8198a4",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=English",
+      "targets": [
+        ["linkText=English", "linkText"],
+        ["css=li.dropdown.open > ul.dropdown-menu > li > a", "css"],
+        ["css=.open li:nth-child(1) > a", "css:finder"],
+        ["xpath=//div[@id='navMenu']/ul[2]/li/ul/li/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/dexonline/wwwbase/changeLocale?id=en_US.utf8')]", "xpath:href"],
+        ["xpath=//ul[2]/li/ul/li/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "55e4f368-0734-44e9-bc30-c459a263e09d",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=.alert",
+      "targets": [
+        ["css=.alert", "css:finder"],
+        ["xpath=//div/div/div/div", "xpath:position"]
+      ],
+      "value": "×\\nInterface language changed. Definitions are always in Romanian (this cannot be changed)."
+    }, {
+      "id": "360c2ec2-02df-49e1-9380-a15456afef81",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=div.tagline",
+      "targets": [
+        ["css=div.tagline", "css"],
+        ["css=.tagline", "css:finder"],
+        ["xpath=//header/div/div", "xpath:position"]
+      ],
+      "value": "Dictionaries of the Romanian language"
+    }, {
+      "id": "42fceccd-0e0b-4700-8d69-47bf556f3987",
+      "comment": "",
+      "command": "click",
+      "target": "css=i.glyphicon.glyphicon-globe",
+      "targets": [
+        ["css=i.glyphicon.glyphicon-globe", "css"],
+        ["css=.glyphicon-globe", "css:finder"],
+        ["xpath=//div[@id='navMenu']/ul[2]/li/a/i", "xpath:idRelative"],
+        ["xpath=//li/a/i", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "b188f087-51a6-42e9-aadb-45ae1f80332f",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=română",
+      "targets": [
+        ["linkText=română", "linkText"],
+        ["css=.open li:nth-child(2) > a", "css:finder"],
+        ["xpath=//div[@id='navMenu']/ul[2]/li/ul/li[2]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/dexonline/wwwbase/changeLocale?id=ro_RO.utf8')]", "xpath:href"],
+        ["xpath=//ul[2]/li/ul/li[2]/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "63338245-84b7-4dde-8b58-f936ee89f97e",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=.alert",
+      "targets": [
+        ["css=.alert", "css:finder"],
+        ["xpath=//div/div/div/div", "xpath:position"]
+      ],
+      "value": "×\\nAm schimbat limba interfeței. Definițiile sunt mereu în română (acest lucru nu poate fi schimbat)."
+    }, {
+      "id": "31febdc8-f009-4d3d-b49f-027cc0d4efe5",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=div.tagline",
+      "targets": [
+        ["css=div.tagline", "css"],
+        ["css=.tagline", "css:finder"],
+        ["xpath=//header/div/div", "xpath:position"]
+      ],
+      "value": "Dicționare ale limbii române"
+    }]
   }],
   "suites": [{
     "id": "8e569eef-5c5a-49f1-ae36-424b7372a393",
@@ -3650,7 +3754,7 @@
     "persistSession": true,
     "parallel": false,
     "timeout": 300,
-    "tests": ["homePage.htm", "searchByInflectedForm.htm", "searchApproximate.htm", "searchRegexp.htm", "searchFullText.htm", "searchByDefinitionId.htm", "searchByLexemeId.htm", "adsLink.htm", "articles.htm", "articlesSearchResults.htm", "commentView.htm", "constraints.htm", "autocomplete.htm", "lexemeSourcesView.htm", "sourcesViewAsAnonymous.htm", "hangman.htm", "loginFakeUser.htm", "bookmarks.htm", "sourcesViewLoggedIn.htm", "sourcesReorder.htm", "sourceEdit.htm", "modelTypesView.htm", "modelTypeAddEditDelete.htm", "inflectionsView.htm", "inflectionsReorder.htm", "inflectionAddDelete.htm", "tagsEdit.htm", "wotdArtistsView.htm", "wotdArtistAddEditDelete.htm", "wotdAssignment.htm", "wotdArtistDeleteAssigned.htm", "definitionRepWhitespace.htm", "redundantLinkWarning.htm", "logout.htm"]
+    "tests": ["homePage.htm", "searchByInflectedForm.htm", "searchApproximate.htm", "searchRegexp.htm", "searchFullText.htm", "searchByDefinitionId.htm", "searchByLexemeId.htm", "adsLink.htm", "articles.htm", "articlesSearchResults.htm", "commentView.htm", "constraints.htm", "autocomplete.htm", "lexemeSourcesView.htm", "sourcesViewAsAnonymous.htm", "hangman.htm", "17973363-d6b5-4c7f-b2d5-d3d22d042bcc", "loginFakeUser.htm", "bookmarks.htm", "sourcesViewLoggedIn.htm", "sourcesReorder.htm", "sourceEdit.htm", "modelTypesView.htm", "modelTypeAddEditDelete.htm", "inflectionsView.htm", "inflectionsReorder.htm", "inflectionAddDelete.htm", "tagsEdit.htm", "wotdArtistsView.htm", "wotdArtistAddEditDelete.htm", "wotdAssignment.htm", "wotdArtistDeleteAssigned.htm", "definitionRepWhitespace.htm", "redundantLinkWarning.htm", "logout.htm"]
   }],
   "urls": ["http://localhost/dexonline/wwwbase/"],
   "plugins": []

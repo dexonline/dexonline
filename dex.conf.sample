@@ -82,7 +82,7 @@ fraction = 0.10
 enabled = false
 
 ; Testing interface language
-locale = en_US.utf8
+locale = ro_RO.utf8
 
 ; Database connection
 ; database = "mysql://user[:password]@host/database"

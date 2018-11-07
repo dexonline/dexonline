@@ -119,6 +119,29 @@
 
       {if !$cfg.global.mirror}
         <ul class="nav navbar-nav navbar-right">
+
+          {* language selector *}
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+              role="button" aria-haspopup="true" aria-expanded="false">
+              <i class="glyphicon glyphicon-globe"></i>
+              <span class="caret"></span>
+            </a>
+
+            <ul class="dropdown-menu">
+              {foreach Locale::getAll() as $id => $name}
+                <li>
+                  <a href="{$wwwRoot}changeLocale?id={$id}">
+                    <i class="glyphicon glyphicon-ok {if $id != Locale::getCurrent()}invisible{/if}">
+                    </i>
+                    {$name}
+                  </a>
+                </li>
+              {/foreach}
+            </ul>
+          </li>
+
+          {* user menu *}
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown"
               role="button" aria-haspopup="true" aria-expanded="false">

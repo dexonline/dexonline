@@ -1,0 +1,58 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2018-11-07 12:49+0200\n"
+"PO-Revision-Date: 2018-11-07 12:49+0200\n"
+"Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
+"Language-Team: \n"
+"Language: ro\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2\n"
+"X-Poedit-Basepath: ../../..\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n==0 || (n!=1 && n%100>=1 && n"
+"%100<=19) ? 1 : 2);\n"
+"X-Poedit-SearchPath-0: templates\n"
+"X-Poedit-SearchPath-1: wwwbase\n"
+"X-Poedit-SearchPathExcluded-0: phplib/third-party\n"
+"X-Poedit-SearchPathExcluded-1: wwwbase/js/merged\n"
+"X-Poedit-SearchPathExcluded-2: wwwbase/js/third-party\n"
+
+#: templates/index.tpl:12
+msgid "Dictionaries of the Romanian language"
+msgstr "Dicționare ale limbii române"
+
+#: templates/index.tpl:38
+msgid "digitizes prestigious dictionaries of the Romanian language."
+msgstr "transpune pe Internet dicționare de prestigiu ale limbii române."
+
+#: templates/index.tpl:39
+msgid "The project is maintained by a team of volunteers."
+msgstr "Proiectul este întreținut de o echipă de voluntari."
+
+#: templates/index.tpl:40
+msgid ""
+"Much of the data can be downloaded freely under the GNU General Public "
+"License."
+msgstr ""
+"O parte din date pot fi descărcate liber și gratuit sub Licența Publică "
+"Generală GNU."
+
+#: wwwbase/search.php:223
+#, php-format
+msgid "We redirected you automatically from <b>%s</b> to <b>%s</b>."
+msgstr "V-am redirecționat automat de la <b>%s</b> la <b>%s</b>."
+
+#~ msgid "Current status: %s definitions, of which %s learned last month."
+#~ msgstr ""
+#~ "Starea curentă: %s de definiții, din care %s învățate în ultima lună."
+
+#~ msgid ""
+#~ "Current status: %s definitions, of which %s learned last\n"
+#~ "      month."
+#~ msgstr ""
+#~ "Starea curentă: %s de definiții, din care %s învățate în ultima lună."
+
+#~ msgid "tagline"
+#~ msgstr "Dicționare ale limbii române"

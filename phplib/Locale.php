@@ -30,6 +30,11 @@ class Locale {
       $locale = $_COOKIE[self::COOKIE_NAME];
     }
 
+    // sanity check
+    if (!isset(self::$available[$locale])) {
+      $locale = self::getFromConfig();
+    }
+
     return $locale;
   }
 
@@ -47,6 +52,10 @@ class Locale {
 
   // changes the locale and stores it in the user preferences
   static function change($id) {
+    if (!isset(self::$available[$id])) {
+      return;
+    }
+
     $current = self::getFromConfig();
 
     // TODO set user pref

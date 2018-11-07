@@ -99,7 +99,7 @@ foreach ($imgs as $img => $ignored) {
     $prefix = sprintf(THUMB_PREFIX, $size);
     if (!isset($thumbs[$size][$img]) &&
         !isset($IGNORED[$img])) {
-      print "Image without a {$size}px thumbnail: {$img}\n";
+      Log::warning("Image without a {$size}px thumbnail: {$img}");
       if ($fix) {
         generateThumbnail($ftp, $img, $size, $prefix);
       }
@@ -112,7 +112,7 @@ foreach ($thumbs as $size => $thumbList) {
   $prefix = sprintf(THUMB_PREFIX, $size);
   foreach ($thumbList as $thumb => $ignored) {
     if (!isset($imgs[$thumb])) {
-      print "{$size}px thumbnail without an image: {$thumb}\n";
+      Log::warning("{$size}px thumbnail without an image: {$thumb}");
       if ($fix) {
         deleteOrphanThumbnail($ftp, $thumb, $prefix);
       }
@@ -123,7 +123,7 @@ foreach ($thumbs as $size => $thumbList) {
 // Report images in WotD records that don't exist on the static server.
 foreach ($used as $u => $ignored) {
   if (!isset($imgs[$u])) {
-    print "Missing image reference: {$u}\n";
+    Log::warning("Missing image reference: {$u}");
   }
 }
 
@@ -132,7 +132,7 @@ foreach ($imgs as $img => $ignored) {
   if (!isset($used[$img]) &&
       !Str::startsWith($img, UNUSED_PREFIX) &&
       !isset($IGNORED[$img])) {
-    print "Unused image: {$img}\n";
+    Log::warning("Unused image: {$img}");
   }
 }
 

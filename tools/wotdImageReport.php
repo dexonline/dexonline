@@ -41,6 +41,9 @@ foreach ($argv as $i => $arg) {
 }
 
 $staticFiles = file(Config::get('static.url') . 'fileList.txt');
+if (!$staticFiles) {
+  OS::errorAndExit('Could not load the static files list.');
+}
 
 // Grab images and thumbs from the static server file list.
 $imgs = [];

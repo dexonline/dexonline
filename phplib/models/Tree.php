@@ -215,7 +215,7 @@ class Tree extends BaseObject implements DatedObject {
    * Excludes duplicate lexemes and lexemes that have a form equal to the tree's description.
    **/
   function getPrintableLexemes() {
-    return Model::factory('Lexeme')
+    $lexemes = Model::factory('Lexeme')
       ->table_alias('l')
       ->select('l.*')
       ->select('el.main')
@@ -223,10 +223,29 @@ class Tree extends BaseObject implements DatedObject {
       ->join('EntryLexeme', ['l.id', '=', 'el.lexemeId'], 'el')
       ->join('TreeEntry', ['el.entryId', '=', 'te.entryId'], 'te')
       ->where('te.treeId', $this->id)
-      ->where_not_equal('l.formNoAccent', $this->getShortDescription())
       ->order_by_desc('el.main')
       ->order_by_asc('l.formNoAccent')
       ->find_many();
+
+    // if any lexemes are verbs, remove participle and long infinitive lexemes
+    $verbs = array_filter($lexemes, function($l) {
+      return in_array($l->modelType, ['V', 'VT']);
+    });
+
+    if (count($verbs)) {
+      $lexemes = array_filter($lexemes, function($l) {
+        return !in_array($l->modelType, ['IL', 'PT']);
+      });
+    }
+
+    // only now remove lexemes equal to the tree's description;
+    // we couldn't do this before because we needed the verbs
+    $shortDesc = $this->getShortDescription();
+    $lexemes =  array_filter($lexemes, function($l) use ($shortDesc) {
+      return $l->formNoAccent != $shortDesc;
+    });
+
+    return $lexemes;
   }
 
   /**

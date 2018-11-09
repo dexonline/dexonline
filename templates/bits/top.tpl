@@ -18,11 +18,14 @@
       <tr class="{cycle values="color1,color2"}">
         <td>{$place+1}</td>
         <td class="nick"><a href="utilizator/{$row->userNick|escape:"url"}">{$row->userNick|escape}</a></td>
-        <td data-text="{$row->numChars}">{$row->numChars|number_format:0:',':'.'}</td>
-        <td data-text="{$row->numDefinitions}">{$row->numDefinitions|number_format:0:',':'.'}</td>
- 
+        <td data-text="{$row->numChars}">{Locale::number($row->numChars)}</td>
+        <td data-text="{$row->numDefinitions}">{Locale::number($row->numDefinitions)}</td>
+
         {math equation="max(255 - days, 0)" days=$row->days assign=color}
-        <td style="color: {$color|string_format:"#%02x0000"}" data-text="{$row->timestamp}">{$row->timestamp|date_format:"%d.%m.%Y"}</td>
+        <td
+          style="color: {$color|string_format:"#%02x0000"}"
+          data-text="{$row->timestamp}"
+        >{$row->timestamp|date_format:"%d.%m.%Y"}</td>
       </tr>
     {/foreach}
   </tbody>

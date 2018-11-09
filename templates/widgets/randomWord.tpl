@@ -1,6 +1,6 @@
 <a id="randomWordLink" class="widget random-word row" href="{$wwwRoot}definitie/">
   <div class="col-lg-8 col-md-12 col-sm-12 col-xs-6">
-    <h4>Cuvânt aleator</h4><br>
+    <h4>{'Random word'|_}</h4><br>
     <script>
      $.ajax({
        url: '{$wwwRoot}ajax/randomWord.php',

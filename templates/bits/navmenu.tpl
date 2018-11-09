@@ -48,7 +48,7 @@
             role="button"
             aria-haspopup="true"
             aria-expanded="false">
-            Despre noi
+            {'About'|_}
             <span class="caret"></span>
           </a>
 
@@ -56,11 +56,11 @@
             <li>
               <a href="https://wiki.dexonline.ro/wiki/Informa%C8%9Bii"
                 target="_blank">
-                Informații
+                {'Information'|_}
               </a>
             </li>
-            <li><a href="{$wwwRoot}contact">Contact</a></li>
-            <li><a href="https://dexonline.blogspot.ro">Blogul nostru</a></li>
+            <li><a href="{$wwwRoot}contact">{'Contact us'|_}</a></li>
+            <li><a href="https://dexonline.blogspot.ro">{'Blog'|_}</a></li>
           </ul>
 
         </li>
@@ -73,15 +73,15 @@
             role="button"
             aria-haspopup="true"
             aria-expanded="false">
-            Implică-te
+            {'Get involved'|_}
             <span class="caret"></span>
           </a>
 
           <ul class="dropdown-menu">
             <li>
-              <a href="https://wiki.dexonline.ro/wiki/Cum_pute%C8%9Bi_ajuta">Cum poți ajuta</a>
+              <a href="https://wiki.dexonline.ro/wiki/Cum_pute%C8%9Bi_ajuta">{'Ways to help'|_}</a>
             </li>
-            <li><a href="{$wwwRoot}top">Topul voluntarilor</a></li>
+            <li><a href="{$wwwRoot}top">{'Volunteer ranking'|_}</a></li>
           </ul>
 
         </li>
@@ -94,24 +94,24 @@
             role="button"
             aria-haspopup="true"
             aria-expanded="false">
-            Articole și resurse
+            {'Resources'|_}
             <span class="caret"></span>
           </a>
 
           <ul class="dropdown-menu">
             <li>
               <a href="https://wiki.dexonline.ro/wiki/Abrevieri" target="_blank">
-                Abrevieri folosite
+                {'Abbreviations table'|_}
               </a>
             </li>
-            <li><a href="{$wwwRoot}articole">Articole lingvistice</a></li>
-            <li><a href="{$wwwRoot}articol/Ghid_de_exprimare_corect%C4%83">Ghid de exprimare</a></li>
-            <li><a href="{$wwwRoot}cuvantul-zilei">Cuvântul zilei</a></li>
-            <li><a href="{$wwwRoot}cuvantul-lunii">Cuvântul lunii</a></li>
-            <li><a href="{$wwwRoot}cuvinte-aleatoare">Cuvinte aleatoare</a></li>
-            <li><a href="{$wwwRoot}scrabble">Scrabble</a></li>
-            <li><a href="{$wwwRoot}unelte">Unelte</a></li>
-            <li><a href="{$wwwRoot}legaturi">Legături externe</a></li>
+            <li><a href="{$wwwRoot}articole">{'Linguistic articles'|_}</a></li>
+            <li><a href="{$wwwRoot}articol/Ghid_de_exprimare_corect%C4%83">{'Grammar guide'|_}</a></li>
+            <li><a href="{$wwwRoot}cuvantul-zilei">{'Word of the day'|_}</a></li>
+            <li><a href="{$wwwRoot}cuvantul-lunii">{'Word of the month'|_}</a></li>
+            <li><a href="{$wwwRoot}cuvinte-aleatoare">{'Random words'|_}</a></li>
+            <li><a href="{$wwwRoot}scrabble">{'Scrabble'|_}</a></li>
+            <li><a href="{$wwwRoot}unelte">{'Tools'|_}</a></li>
+            <li><a href="{$wwwRoot}legaturi">{'External links'|_}</a></li>
           </ul>
 
         </li>
@@ -150,7 +150,7 @@
               {else}
                 <i class="glyphicon glyphicon-user"></i>
               {/if}
-              {User::getActive()|escape|default:'Anonim'}
+              {User::getActive()|escape|default:_('Anonymous')}
               <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
@@ -158,7 +158,7 @@
                 <li>
                   <a href="{$wwwRoot}admin">
                     <i class="glyphicon glyphicon-king"></i>
-                    Pagina moderatorului
+                    {'Moderator page'|_}
                   </a>
                 </li>
               {/if}
@@ -166,7 +166,7 @@
                 <li>
                   <a href="#" data-toggle="modal" data-target="#hotkeysModal">
                     <i class="glyphicon glyphicon-hand-up"></i>
-                    Hotkeys
+                    {'Hotkeys'|_}
                   </a>
                 </li>
               {/if}
@@ -174,40 +174,40 @@
                 <li>
                   <a href="#" id="recentPagesLink" data-toggle="modal" data-target="#recentModal">
                     <i class="glyphicon glyphicon-pushpin"></i>
-                    Pagini vizitate recent
+                    {'Recently viewed pages'|_}
                   </a>
                 </li>
               {/if}
               <li>
                 <a href="{$wwwRoot}preferinte">
                   <i class="glyphicon glyphicon-cog"></i>
-                  Preferințe
+                  {'Preferences'|_}
                 </a>
               </li>
               {if User::getActive()}
                 <li>
                   <a href="{$wwwRoot}utilizator/{User::getActive()}">
                     <i class="glyphicon glyphicon-user"></i>
-                    Profilul meu
+                    {'Profile'|_}
                   </a>
                 </li>
                 <li>
                   <a href="{$wwwRoot}cuvinte-favorite">
                     <i class="glyphicon glyphicon-heart"></i>
-                    Cuvinte favorite
+                    {'Favorite words'|_}
                   </a>
                 </li>
                 <li>
                   <a href="{$wwwRoot}auth/logout">
                     <i class="glyphicon glyphicon-log-out"></i>
-                    Închide sesiunea
+                    {'Log out'|_}
                   </a>
                 </li>
               {else}
                 <li>
                   <a href="{$wwwRoot}auth/login">
                     <i class="glyphicon glyphicon-log-in"></i>
-                    Autentificare
+                    {'Log in'|_}
                   </a>
                 </li>
               {/if}

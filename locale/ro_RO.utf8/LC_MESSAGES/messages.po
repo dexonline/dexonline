@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-11-07 16:00+0200\n"
-"PO-Revision-Date: 2018-11-07 16:00+0200\n"
+"POT-Creation-Date: 2018-11-09 10:53+0200\n"
+"PO-Revision-Date: 2018-11-09 10:53+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -19,19 +19,151 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-1: wwwbase/js/merged\n"
 "X-Poedit-SearchPathExcluded-2: wwwbase/js/third-party\n"
 
+#: templates/bits/navmenu.tpl:51
+msgid "About"
+msgstr "Despre noi"
+
+#: templates/bits/navmenu.tpl:59
+msgid "Information"
+msgstr "Informații"
+
+#: templates/bits/navmenu.tpl:62
+msgid "Contact us"
+msgstr "Contact"
+
+#: templates/bits/navmenu.tpl:63
+msgid "Blog"
+msgstr "Blog"
+
+#: templates/bits/navmenu.tpl:76
+msgid "Get involved"
+msgstr "Implică-te"
+
+#: templates/bits/navmenu.tpl:82
+msgid "Ways to help"
+msgstr "Cum poți ajuta"
+
+#: templates/bits/navmenu.tpl:84
+msgid "Volunteer ranking"
+msgstr "Topul voluntarilor"
+
+#: templates/bits/navmenu.tpl:97
+msgid "Resources"
+msgstr "Resurse"
+
+#: templates/bits/navmenu.tpl:104
+msgid "Abbreviations table"
+msgstr "Abrevieri folosite"
+
+#: templates/bits/navmenu.tpl:107
+msgid "Linguistic articles"
+msgstr "Articole lingvistice"
+
+#: templates/bits/navmenu.tpl:108
+msgid "Grammar guide"
+msgstr "Ghid de exprimare"
+
+#: templates/bits/navmenu.tpl:109 templates/widgets/wotd.tpl:3
+msgid "Word of the day"
+msgstr "Cuvântul zilei"
+
+#: templates/bits/navmenu.tpl:110 templates/widgets/wotm.tpl:3
+msgid "Word of the month"
+msgstr "Cuvântul lunii"
+
+#: templates/bits/navmenu.tpl:111
+msgid "Random words"
+msgstr "Cuvinte aleatorii"
+
+#: templates/bits/navmenu.tpl:112
+msgid "Scrabble"
+msgstr "Scrabble"
+
+#: templates/bits/navmenu.tpl:113
+msgid "Tools"
+msgstr "Unelte"
+
+#: templates/bits/navmenu.tpl:114
+msgid "External links"
+msgstr "Legături externe"
+
+#: templates/bits/navmenu.tpl:161
+msgid "Moderator page"
+msgstr "Pagina moderatorului"
+
+#: templates/bits/navmenu.tpl:169
+msgid "Hotkeys"
+msgstr "Hotkeys"
+
+#: templates/bits/navmenu.tpl:177
+msgid "Recently viewed pages"
+msgstr "Pagini vizitate recent"
+
+#: templates/bits/navmenu.tpl:184
+msgid "Preferences"
+msgstr "Preferințe"
+
+#: templates/bits/navmenu.tpl:191
+msgid "Profile"
+msgstr "Profilul meu"
+
+#: templates/bits/navmenu.tpl:197
+msgid "Favorite words"
+msgstr "Cuvinte favorite"
+
+#: templates/bits/navmenu.tpl:203
+msgid "Log out"
+msgstr "Închide sesiunea"
+
+#: templates/bits/navmenu.tpl:210
+msgid "Log in"
+msgstr "Autentificare"
+
+#: templates/bits/searchForm.tpl:18
+msgid "word"
+msgstr "cuvânt"
+
+#: templates/bits/searchForm.tpl:29
+msgid "search"
+msgstr "caută"
+
+#: templates/bits/searchForm.tpl:36
+msgid "options"
+msgstr "opțiuni"
+
+#: templates/bits/searchForm.tpl:52
+msgid "Full-text search"
+msgstr "Caută în tot textul definițiilor"
+
+#: templates/bits/searchForm.tpl:59
+msgid "help"
+msgstr "ajutor"
+
+#: templates/bits/sourceDropDown.tpl:13
+msgid "All dictionaries"
+msgstr "Toate dicționarele"
+
+#: templates/hosting/hosterion.tpl:1
+msgid "hosted by"
+msgstr "găzduit de"
+
 #: templates/index.tpl:12
 msgid "Dictionaries of the Romanian language"
 msgstr "Dicționare ale limbii române"
 
-#: templates/index.tpl:38
+#: templates/index.tpl:32
+msgid "customize widgets"
+msgstr "personalizare elemente"
+
+#: templates/index.tpl:41
 msgid "digitizes prestigious dictionaries of the Romanian language."
 msgstr "transpune pe Internet dicționare de prestigiu ale limbii române."
 
-#: templates/index.tpl:39
+#: templates/index.tpl:42
 msgid "The project is maintained by a team of volunteers."
 msgstr "Proiectul este întreținut de o echipă de voluntari."
 
-#: templates/index.tpl:40
+#: templates/index.tpl:43
 msgid ""
 "Much of the data can be downloaded freely under the GNU General Public "
 "License."
@@ -39,9 +171,69 @@ msgstr ""
 "O parte din date pot fi descărcate liber și gratuit sub Licența Publică "
 "Generală GNU."
 
-#: templates/index.tpl:44
+#: templates/index.tpl:47
 msgid "Current status: %s definitions, of which %s learned last month."
 msgstr "Starea curentă: %s de definiții, din care %s învățate în ultima lună."
+
+#: templates/layout.tpl:73
+msgid "license"
+msgstr "licență"
+
+#: templates/layout.tpl:74
+msgid "privacy"
+msgstr "confidențialitate"
+
+#: templates/widgets/articleOfTheMonth.tpl:3
+msgid "Article of the month"
+msgstr "Articolul lunii"
+
+#: templates/widgets/games.tpl:3
+msgid "Games"
+msgstr "Jocuri"
+
+#: templates/widgets/games.tpl:5
+msgid "hangman"
+msgstr "spânzurătoarea"
+
+#: templates/widgets/games.tpl:6
+msgid "word mill"
+msgstr "moara cuvintelor"
+
+#: templates/widgets/games.tpl:7
+msgid "word scramble"
+msgstr "omleta cuvintelor"
+
+#: templates/widgets/randomWord.tpl:3
+msgid "Random word"
+msgstr "Cuvânt aleatoriu"
+
+#: templates/widgets/social.tpl:3
+msgid "Follow us on"
+msgstr "Urmărește-ne pe"
+
+#: templates/widgets/social.tpl:11
+msgid "Facebook icon"
+msgstr "Iconiță Facebook"
+
+#: templates/widgets/social.tpl:12
+msgid "Follow us on Facebook"
+msgstr "Urmărește-ne pe Facebook"
+
+#: templates/widgets/social.tpl:21
+msgid "Blogger icon"
+msgstr "Iconiță Blogger"
+
+#: templates/widgets/social.tpl:22
+msgid "Follow us on Blogger"
+msgstr "Urmărește-ne pe Blogger"
+
+#: templates/widgets/social.tpl:31
+msgid "Twitter icon"
+msgstr "Iconiță Twitter"
+
+#: templates/widgets/social.tpl:32
+msgid "Follow us on Twitter"
+msgstr "Urmărește-ne pe Twitter"
 
 #: wwwbase/changeLocale.php:8
 msgid ""

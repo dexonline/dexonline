@@ -10,24 +10,24 @@ if (count($argv) < 3) {
 $dict = [];
 for ($i = 2; $i < count($argv); $i++) {
   $fileName = $argv[$i];
-  $lines = file($fileName);
-  foreach ($lines as $lineNo => $line) {
-    $lineNo++;
-    $line = trim($line);
-    $matches = array();
-    if (preg_match_all("/\{['\"](.*)['\"]\|_/U", $line, $matches)) {
-      foreach ($matches[1] as $match) {
-        if (!array_key_exists($match, $dict)) {
-          $dict[$match] = "{$fileName}:{$lineNo}";
-        }
-      }
+  $contents = file_get_contents($fileName);
+  preg_match_all("/\{['\"]([^|]*)['\"]\|_/Us", $contents, $matches, PREG_OFFSET_CAPTURE);
+
+  // reverse the array to prefer the earliest occurrence of identical strings
+  foreach ($matches[1] as $match) {
+    $text = addslashes($match[0]);
+    $text = str_replace("\n", "\\n", $text);
+
+    if (!isset($dict[$text])) {
+      // get the line number as 1 + the number of newlines up to the offset
+      $lineNo = substr_count($contents, "\n", 0, $match[1]);
+      $dict[$text] = "{$fileName}:{$lineNo}";
     }
   }
 }
 
 $output = '';
 foreach ($dict as $match => $pos) {
-  $match = escape($match);
   $output .= "#: {$pos}\n";
   $output .= "msgid \"{$match}\"\n";
   $output .= "msgstr \"\"\n";
@@ -35,10 +35,3 @@ foreach ($dict as $match => $pos) {
 }
 
 file_put_contents($argv[1], $output);
-
-/****************************************************************************/
-
-function escape($s) {
-  $s = str_replace(array("\\", '"'), array("\\\\", "\\\""), $s);
-  return $s;
-}

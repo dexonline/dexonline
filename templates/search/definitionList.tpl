@@ -8,19 +8,20 @@
     {if $row->source->type == Source::TYPE_SPECIALIZED && !$displayedSpec}
       <br>
       <div class="callout callout-info">
-        <h3>Definiții din dicționare specializate</h3>
+        <h3>{'Definitions from specialized dictionaries'|_}</h3>
         <p class="text-muted">
-          Aceste definiții pot explica numai anumite înțelesuri ale cuvintelor.
+          {'These definitions could explain only certain meanings of words.'|_}
         </p>
       </div>
       {$displayedSpec=true}
     {elseif $row->source->type == Source::TYPE_UNOFFICIAL && !$displayedUnofficial}
       <br>
       <div class="callout callout-info">
-        <h3>Definiții din dicționare neoficiale</h3>
+        <h3>{'Definitions from unofficial dictionaries'|_}</h3>
         <p class="text-muted">
-          Deoarece nu sunt editate de lexicografi, aceste definiții pot conține erori,
-          deci e preferabilă consultarea altor dicționare în paralel.
+          {'Since they are not made by lexicographers, these definitions may
+          contain errors, so we advise you to look at other dictionaries as
+          well.'|_}
         </p>
       </div>
       {$displayedUnofficial=true}
@@ -28,10 +29,10 @@
   {/if}
 
   {include "bits/definition.tpl"
-  showBookmark=1
-  showCourtesyLink=1
-  showFlagTypo=1
-  showHistory=1
-  showWotd=$showWotd}
+    showBookmark=1
+    showCourtesyLink=1
+    showFlagTypo=1
+    showHistory=1
+    showWotd=$showWotd}
 
 {/foreach}

@@ -194,10 +194,7 @@
 
         <p class="text-warning">
           {'If the results are inadequate, you can look up individual words or you can search'|_}
-
-          <a href="{$wwwRoot}text/{$cuv|escape:url}">
-            {'full-text'|_}
-          </a>.
+          <a href="{$wwwRoot}text/{$cuv|escape:url}">{'full-text'|_}</a>.
         </p>
 
         {if !empty($extra.ignoredWords)}

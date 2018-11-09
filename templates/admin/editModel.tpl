@@ -188,12 +188,12 @@
           <label class="control-label">
             <input class="checkbox" type="checkbox" name="shortList" value="1"
                    {if $shortList}checked{/if}>
-            testează modificările pe maxim 10 lexeme
+            testează modificările pe maximum 10 lexeme
           </label>
 
           <p class="text-muted">
-            Toate lexemele vor fi salvate, dar numai (maxim) 10 vor fi testate și
-            afișate. Aceasta poate accelera mult pasul de testare.
+            Toate lexemele vor fi salvate, dar numai (maximum) 10 vor fi
+            testate și afișate. Aceasta poate accelera mult pasul de testare.
           </p>
         </div>
 

@@ -316,9 +316,10 @@ if ($SEARCH_PARAMS[$searchType]['paradigm']) {
       $declensions |= !$isVerb;
     }
   }
-  $declensionText = $conjugations
-                  ? ($declensions ? 'conjugări / declinări' : 'conjugări')
-                  : 'declinări';
+  $declensionText = implode(' / ', array_filter([
+    $conjugations ? _('conjugations') : '',
+    $declensions ? _('declensions') : '',
+  ]));
   SmartyWrap::assign('declensionText', $declensionText);
 
   // Check if any of the inflected forms are unrecommended

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-11-09 10:53+0200\n"
-"PO-Revision-Date: 2018-11-09 10:53+0200\n"
+"POT-Creation-Date: 2018-11-09 11:58+0200\n"
+"PO-Revision-Date: 2018-11-09 11:58+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -18,6 +18,15 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: phplib/third-party\n"
 "X-Poedit-SearchPathExcluded-1: wwwbase/js/merged\n"
 "X-Poedit-SearchPathExcluded-2: wwwbase/js/third-party\n"
+
+# Hack that allows us to translate "50 definitions" to "50 de definiții".
+#: templates/bits/count.tpl:11
+msgid "&#x200b;"
+msgstr "de&nbsp;"
+
+#: templates/bits/count.tpl:15
+msgid "(at most %s shown)"
+msgstr "(cel mult %s afișate)"
 
 #: templates/bits/navmenu.tpl:51
 msgid "About"
@@ -183,6 +192,137 @@ msgstr "licență"
 msgid "privacy"
 msgstr "confidențialitate"
 
+#: templates/search.tpl:4
+msgid "definition"
+msgstr "definiție"
+
+#: templates/search.tpl:6
+msgid "and paradigm"
+msgstr "și paradigmă"
+
+#: templates/search.tpl:26
+msgid "results"
+msgstr "rezultate"
+
+#: templates/search.tpl:41
+msgid "synthesis"
+msgstr "sinteză"
+
+#: templates/search.tpl:56
+msgid "Definition with ID"
+msgstr "Definiția cu ID-ul"
+
+#: templates/search.tpl:69
+msgid "No definitions contain"
+msgstr "Nicio definiție nu conține"
+
+#: templates/search.tpl:70
+msgid "One definition contains"
+msgstr "O definiție conține"
+
+#: templates/search.tpl:71
+msgid "definitions contain"
+msgstr "definiții conțin"
+
+#: templates/search.tpl:72
+msgid "all the words"
+msgstr "toate cuvintele"
+
+#: templates/search.tpl:77
+msgid "The following words were ignored because they are too common:"
+msgstr "Următoarele cuvinte au fost ignorate deoarece sunt prea comune:"
+
+#: templates/search.tpl:93
+msgid "There is no entry with the given ID."
+msgstr "Nu există nicio intrare cu ID-ul căutat."
+
+#: templates/search.tpl:99
+msgid "No definitions"
+msgstr "Nicio definiție"
+
+#: templates/search.tpl:100
+msgid "One definition"
+msgstr "O definiție"
+
+#: templates/search.tpl:101
+msgid "definitions"
+msgstr "definiții"
+
+#: templates/search.tpl:102
+msgid "for"
+msgstr "pentru"
+
+#: templates/search.tpl:121
+msgid "No results"
+msgstr "Niciun rezultat"
+
+#: templates/search.tpl:122
+msgid "One result"
+msgstr "Un rezultat"
+
+#: templates/search.tpl:139
+msgid "entries"
+msgstr "intrări"
+
+#: templates/search.tpl:189
+msgid "No definitions match"
+msgstr "Nicio definiție nu se potrivește"
+
+#: templates/search.tpl:190
+msgid "One definition matches"
+msgstr "O definiție se potrivește"
+
+#: templates/search.tpl:191
+msgid "definitions match"
+msgstr "definiții se potrivesc"
+
+#: templates/search.tpl:192
+msgid "at least two words"
+msgstr "cel puțin două dintre cuvintele căutate"
+
+#: templates/search.tpl:196
+msgid ""
+"If the results are inadequate, you can look up individual words or you can "
+"search"
+msgstr ""
+"Dacă rezultatele nu sunt mulțumitoare, puteți căuta cuvintele separat sau "
+"puteți căuta"
+
+#: templates/search.tpl:199
+msgid "full-text"
+msgstr "în tot textul definițiilor"
+
+#: templates/search.tpl:205
+msgid "At most 5 words are allowed. The following words were ignored:"
+msgstr "Sunt permise maximum 5 cuvinte. Următoarele cuvinte au fost ignorate:"
+
+#: templates/search.tpl:220
+msgid ""
+"The word <strong>%s</strong> is not in the dictionary. Here are some "
+"suggestions:"
+msgstr ""
+"Cuvântul <strong>%s</strong> nu este în dicționar. Iată câteva sugestii:"
+
+#: templates/search.tpl:225
+msgid "No results for <strong>%s</strong>"
+msgstr "Niciun rezultat pentru <strong>%s</strong>"
+
+#: templates/search.tpl:245
+msgid "unrecommended or incorrect form"
+msgstr "formă nerecomandată sau greșită"
+
+#: templates/search.tpl:250
+msgid "show"
+msgstr "arată"
+
+#: templates/search.tpl:256
+msgid "link to this inflected forms page"
+msgstr "legătură către această pagină cu flexiuni"
+
+#: templates/search.tpl:259
+msgid "link to this paradigm"
+msgstr "legătură către această paradigmă"
+
 #: templates/widgets/articleOfTheMonth.tpl:3
 msgid "Article of the month"
 msgstr "Articolul lunii"
@@ -247,3 +387,11 @@ msgstr ""
 #, php-format
 msgid "We redirected you automatically from <b>%s</b> to <b>%s</b>."
 msgstr "V-am redirecționat automat de la <b>%s</b> la <b>%s</b>."
+
+#: wwwbase/search.php:320
+msgid "conjugations"
+msgstr "conjugări"
+
+#: wwwbase/search.php:321
+msgid "declensions"
+msgstr "declinări"

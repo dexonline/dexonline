@@ -15,7 +15,7 @@
 
   {include "paradigm/paradigm.tpl" lexeme=$exponent}
 
-  <h3>Cuvinte care se flexionează conform acestui model (maxim 100 afișate)</h3>
+  <h3>Cuvinte care se flexionează conform acestui model (maximum 100 afișate)</h3>
 
   {include "search/lexemeList.tpl"}
 

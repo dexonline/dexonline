@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-11-09 13:03+0200\n"
-"PO-Revision-Date: 2018-11-09 13:05+0200\n"
+"POT-Creation-Date: 2018-11-09 13:53+0200\n"
+"PO-Revision-Date: 2018-11-09 13:53+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -56,15 +56,19 @@ msgstr "semnalează o greșeală"
 msgid "added to favorites"
 msgstr "adăugată la favorite"
 
-#: templates/bits/definitionMenuProper.tpl:155
+#: templates/bits/definitionMenuProper.tpl:156
+msgid "please wait..."
+msgstr "un moment..."
+
+#: templates/bits/definitionMenuProper.tpl:158
 msgid "add to favorites"
 msgstr "adaugă la favorite"
 
-#: templates/bits/definitionMenuProper.tpl:167
+#: templates/bits/definitionMenuProper.tpl:172
 msgid "remove from favorites"
 msgstr "șterge dintre favorite"
 
-#: templates/bits/definitionMenuProper.tpl:178
+#: templates/bits/definitionMenuProper.tpl:184
 msgid "permalink"
 msgstr "permalink"
 
@@ -191,6 +195,10 @@ msgstr "ajutor"
 #: templates/bits/sourceDropDown.tpl:12
 msgid "All dictionaries"
 msgstr "Toate dicționarele"
+
+#: templates/cuvinte-favorite.tpl:9
+msgid "You have no favorite words."
+msgstr "Nu aveți niciun cuvânt favorit."
 
 #: templates/hosting/hosterion.tpl:0
 msgid "hosted by"

@@ -153,7 +153,11 @@
                 <a class="bookmarkAddButton"
                   href="{$wwwRoot}ajax/bookmarkAdd.php?definitionId={$def->id}">
                   <i class="glyphicon glyphicon-heart"></i>
-                  <span>{'add to favorites'|_}</span>
+                  <span
+                    data-pending-text="{'please wait...'|_}"
+                    data-added-text="{'added to favorites'|_}">
+                    {'add to favorites'|_}
+                  </span>
                 </a>
               </li>
             {/if}
@@ -165,7 +169,9 @@
             <a class="bookmarkRemoveButton"
               href="{$wwwRoot}ajax/bookmarkRemove.php?definitionId={$def->id}">
               <i class="glyphicon glyphicon-remove"></i>
-              <span>{'remove from favorites'|_}</span>
+              <span data-pending-text="{'please wait...'|_}">
+                {'remove from favorites'|_}
+              </span>
             </a>
           </li>
         {/if}

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-11-09 13:53+0200\n"
-"PO-Revision-Date: 2018-11-09 13:53+0200\n"
+"POT-Creation-Date: 2018-11-09 14:21+0200\n"
+"PO-Revision-Date: 2018-11-09 14:21+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -346,28 +346,28 @@ msgstr "Sunt permise maximum 5 cuvinte. Următoarele cuvinte au fost ignorate:"
 
 #: templates/search.tpl:216
 msgid ""
-"The word <strong>%s</strong> is not in the dictionary. Here are some "
-"suggestions:"
+"The word <strong>%s</strong> is not in the dictionary.\n"
+"            Here are some suggestions:"
 msgstr ""
 "Cuvântul <strong>%s</strong> nu este în dicționar. Iată câteva sugestii:"
 
-#: templates/search.tpl:221
+#: templates/search.tpl:222
 msgid "No results for <strong>%s</strong>"
 msgstr "Niciun rezultat pentru <strong>%s</strong>"
 
-#: templates/search.tpl:241
+#: templates/search.tpl:242
 msgid "unrecommended or incorrect form"
 msgstr "formă nerecomandată sau greșită"
 
-#: templates/search.tpl:246
+#: templates/search.tpl:247
 msgid "show"
 msgstr "arată"
 
-#: templates/search.tpl:252
+#: templates/search.tpl:253
 msgid "link to this inflected forms page"
 msgstr "legătură către această pagină cu flexiuni"
 
-#: templates/search.tpl:255
+#: templates/search.tpl:256
 msgid "link to this paradigm"
 msgstr "legătură către această paradigmă"
 
@@ -391,6 +391,64 @@ msgid ""
 msgstr ""
 "Deoarece nu sunt editate de lexicografi, aceste definiții pot conține erori, "
 "deci e preferabilă consultarea altor dicționare în paralel."
+
+#: templates/search/extendToAllSources.tpl:1
+msgid "Repeat your search"
+msgstr "Repetați căutarea"
+
+#: templates/search/extendToAllSources.tpl:2
+msgid "in all dictionaries"
+msgstr "în toate dicționarele"
+
+#: templates/search/fullTextLock.tpl:0
+msgid "Search disabled"
+msgstr "Căutare dezactivată"
+
+#: templates/search/fullTextLock.tpl:3
+msgid ""
+"You cannot currently perform full-text searches because the index is being\n"
+"  regenerated. This typically takes about 10 minutes. We apologize for the\n"
+"  inconvenience."
+msgstr ""
+"Momentan nu puteți căuta prin textul definițiilor, deoarece indexul este în "
+"curs de reconstrucție. Această operație durează de obicei circa 10 minute. "
+"Ne cerem scuze pentru neplăcere."
+
+#: templates/search/gallery.tpl:5
+msgid "images"
+msgstr "imagini"
+
+#: templates/search/missingDefinitionWarnings.tpl:4
+msgid ""
+"There are definitions in unofficial dictionaries, which\n"
+"      <a href=\"%spreferinte\">you have chosen to hide</a>."
+msgstr ""
+"Există definiții din dicționare neoficiale, pe care <a href=\"%spreferinte"
+"\">ați ales să le ascundeți</a>."
+
+#: templates/search/missingDefinitionWarnings.tpl:11
+msgid ""
+"There are definitions in dictionaries for which dexonline has no\n"
+"      publishing rights:"
+msgstr ""
+"Există definiții din dicționare pentru care dexonline nu are drepturi de "
+"redistribuire:"
+
+#: templates/search/showAllLink.tpl:3
+msgid "show all definitions"
+msgstr "arată toate definițiile"
+
+#: templates/search/trees.tpl:22
+msgid "edit"
+msgstr "editează"
+
+#: templates/search/trees.tpl:31
+msgid "etymology"
+msgstr "etimologie"
+
+#: templates/search/wikiArticles.tpl:3
+msgid "Articles on this subject"
+msgstr "Articole pe această temă"
 
 #: templates/widgets/articleOfTheMonth.tpl:2
 msgid "Article of the month"

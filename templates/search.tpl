@@ -214,7 +214,8 @@
       {elseif $searchType == $smarty.const.SEARCH_APPROXIMATE}
         {if count($entries)}
           <h3>
-            {'The word <strong>%s</strong> is not in the dictionary. Here are some suggestions:'|_|sprintf:($cuv|escape)}
+            {'The word <strong>%s</strong> is not in the dictionary.
+            Here are some suggestions:'|_|sprintf:($cuv|escape)}
           </h3>
 
           {include "search/entryList.tpl"}

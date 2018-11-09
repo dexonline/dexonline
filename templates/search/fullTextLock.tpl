@@ -1,7 +1,7 @@
-<h3>Căutare dezactivată</h3>
+<h3>{'Search disabled'|_}</h3>
 
 <p>
-  Momentan nu puteți căuta prin textul definițiilor, deoarece indexul este
-  în curs de reconstrucție. Această operație durează de obicei circa 10 minute.
-  Ne cerem scuze pentru neplăcere.
+  {'You cannot currently perform full-text searches because the index is being
+  regenerated. This typically takes about 10 minutes. We apologize for the
+  inconvenience.'|_}
 </p>

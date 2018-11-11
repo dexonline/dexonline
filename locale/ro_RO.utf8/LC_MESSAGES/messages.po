@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-11-09 14:21+0200\n"
-"PO-Revision-Date: 2018-11-09 14:21+0200\n"
+"POT-Creation-Date: 2018-11-11 10:35+0200\n"
+"PO-Revision-Date: 2018-11-11 10:35+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -80,7 +80,7 @@ msgstr "Despre noi"
 msgid "Information"
 msgstr "Informații"
 
-#: templates/bits/navmenu.tpl:61
+#: templates/bits/navmenu.tpl:61 templates/contact.tpl:6
 msgid "Contact us"
 msgstr "Contact"
 
@@ -195,6 +195,48 @@ msgstr "ajutor"
 #: templates/bits/sourceDropDown.tpl:12
 msgid "All dictionaries"
 msgstr "Toate dicționarele"
+
+#: templates/bits/top.tpl:3
+msgid "Rank"
+msgstr "Loc"
+
+#: templates/bits/top.tpl:4
+msgid "Name"
+msgstr "Nume"
+
+#: templates/bits/top.tpl:5
+msgid "Characters"
+msgstr "Caractere"
+
+#: templates/bits/top.tpl:6
+msgid "Definitions"
+msgstr "Definiții"
+
+#: templates/bits/top.tpl:7
+msgid "Most recent submission"
+msgstr "Data ultimei trimiteri"
+
+#: templates/contact.tpl:15
+msgid "Useful information"
+msgstr "Informații utile"
+
+#: templates/contact.tpl:20
+msgid "What dexonline is <strong>not</strong>"
+msgstr "Ce <strong>nu</strong> este dexonline"
+
+#: templates/contact.tpl:22
+msgid "(ways we cannot help you)."
+msgstr "(când nu vă putem ajuta)."
+
+#: templates/contact.tpl:26
+msgid "You can install dexonline on <a href=\"%s\">your computer or phone</a>."
+msgstr ""
+"Puteți instala dexonline pe <a href=\"%s\">calculatorul sau pe telefonul "
+"dumneavoastră</a>."
+
+#: templates/contact.tpl:31
+msgid "You can download a <a href=\"%s\">copy of the database</a>."
+msgstr "Puteți descărca o <a href=\"%s\">copie a bazei de date</a>."
 
 #: templates/cuvinte-favorite.tpl:9
 msgid "You have no favorite words."
@@ -450,6 +492,28 @@ msgstr "etimologie"
 msgid "Articles on this subject"
 msgstr "Articole pe această temă"
 
+#: templates/top.tpl:5
+msgid "Manual contribution rankings"
+msgstr "Topul contribuțiilor manuale"
+
+#: templates/top.tpl:8
+msgid ""
+"For every user the number of definitions and the total character length\n"
+"    of those definitions are shown. For comparison, the Bible has roughly\n"
+"    3,500,000 characters."
+msgstr ""
+"Pentru fiecare utilizator sunt indicate numărul de definiții trimise și "
+"numărul total de caractere din acele definiții. Comparativ, Biblia are circa "
+"3.500.000 de caractere."
+
+#: templates/top.tpl:15
+msgid "Automated contribution rankings"
+msgstr "Topul contribuțiilor automate"
+
+#: templates/top.tpl:18
+msgid "These include definitions entered using a program."
+msgstr "În această categorie intră definițiile trimise folosind un program."
+
 #: templates/widgets/articleOfTheMonth.tpl:2
 msgid "Article of the month"
 msgstr "Articolul lunii"
@@ -504,11 +568,11 @@ msgstr "Urmărește-ne pe Twitter"
 
 #: wwwbase/changeLocale.php:8
 msgid ""
-"Interface language changed. Definitions are always in Romanian (this cannot "
-"be changed)."
+"Interface language changed. Definition text and external links are always in "
+"Romanian."
 msgstr ""
-"Am schimbat limba interfeței. Definițiile sunt mereu în română (acest lucru "
-"nu poate fi schimbat)."
+"Am schimbat limba interfeței. Textul definițiilor și legăturile externe sunt "
+"mereu în română."
 
 #: wwwbase/search.php:223
 #, php-format

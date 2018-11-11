@@ -59,9 +59,9 @@
           {$row->user->nick|escape}
         </a>
         {if $showDate}
-          , {$def->createDate|date_format:"%e %b %Y"}
+          , {Locale::date($def->createDate)}
         {/if}
-            {/strip}
+        {/strip}
       </li>
     {/if}
   {/if}

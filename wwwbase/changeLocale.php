@@ -6,6 +6,6 @@ $id = Request::get('id');
 Locale::change($id);
 
 FlashMessage::add(_('Interface language changed. ' .
-                    'Definitions are always in Romanian (this cannot be changed).'),
+                    'Definition text and external links are always in Romanian.'),
                   'success');
 Util::redirect(Core::getWwwRoot());

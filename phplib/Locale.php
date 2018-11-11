@@ -69,4 +69,8 @@ class Locale {
       $x, $decimals, $locale['decimal_point'], $locale['thousands_sep']);
   }
 
+  static function date($timestamp, $format = "%e %b %Y") {
+    return strftime($format, $timestamp);
+  }
+
 }

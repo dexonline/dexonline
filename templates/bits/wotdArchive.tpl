@@ -20,13 +20,9 @@
   </caption>
   <thead>
     <tr class="wotdDays">
-      <th>Luni</th>
-      <th>Marți</th>
-      <th>Miercuri</th>
-      <th>Joi</th>
-      <th>Vineri</th>
-      <th>Sâmbătă</th>
-      <th>Duminică</th>
+      {foreach $dayNames as $name}
+        <th>{$name}</th>
+      {/foreach}
     </tr>
   </thead>
   <tbody>

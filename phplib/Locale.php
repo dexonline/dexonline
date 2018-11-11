@@ -62,6 +62,16 @@ class Locale {
     self::set($id);
   }
 
+  // Weeks always start on Monday -- this is not localized yet.
+  static function getWeekDayNames() {
+    $result = [];
+    foreach (range(0, 6) as $d) {
+      // 2018-01-01 fell on a Monday
+      $result[] = strftime('%A', strtotime("2018-01-01 +{$d} days"));
+    }
+    return $result;
+  }
+
   // formats a number according to the current locale
   static function number($x, $decimals = 0) {
     $locale = localeconv();

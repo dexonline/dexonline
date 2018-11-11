@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-11-11 10:35+0200\n"
-"PO-Revision-Date: 2018-11-11 10:35+0200\n"
+"POT-Creation-Date: 2018-11-11 11:25+0200\n"
+"PO-Revision-Date: 2018-11-11 11:28+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -565,6 +565,37 @@ msgstr "Iconiță Twitter"
 #: templates/widgets/social.tpl:31
 msgid "Follow us on Twitter"
 msgstr "Urmărește-ne pe Twitter"
+
+#: templates/wotd.tpl:20
+msgid "Word of the day for %2$s %1$d, %3$d"
+msgstr "Cuvântul zilei, %d %s %d"
+
+#: templates/wotd.tpl:42
+msgid ""
+"<i>dexonline</i> does not directly offer the word of the day by email.\n"
+"        However, there are <a href=\"%s\">many sites</a> that do this for "
+"any RSS feed.\n"
+"        We recommend <a href=\"%s\">IFTTT</a>."
+msgstr ""
+"<i>dexonline</i> nu oferă cuvântul zilei direct prin e-mail. Există însă <a "
+"href=\"%s\">multe site-uri</a> care fac acest lucru pentru orice RSS. Vă "
+"recomandăm <a href=\"%s\">IFTTT</a>."
+
+#: templates/wotd.tpl:95
+msgid "Chosen because:"
+msgstr "Cheia alegerii:"
+
+#: templates/wotd.tpl:102
+msgid "Word of the day archive"
+msgstr "Arhiva cuvintelor zilei"
+
+#: templates/wotd.tpl:108
+msgid "Word of the day for %2$s %1$d in other years:"
+msgstr "Cuvântul zilei de %d %s în alți ani:"
+
+#: templates/wotd.tpl:128
+msgid "Comments"
+msgstr "Comentarii"
 
 #: wwwbase/changeLocale.php:8
 msgid ""

@@ -37,14 +37,14 @@ if ($type == 'rss' || $type == 'blog') {
       'html' => HtmlConverter::convert($def),
     ]);
     if ($type == 'blog') {
-        $curDate = strftime("%e %B", $ts);
-        SmartyWrap::assign('curDate', $curDate);
-        $item['title'] = "{$curDate} – " . $def->lexicon;
-        $item['description'] = SmartyWrap::fetch('bits/wotdRssBlogItem.tpl');
+      $curDate = Locale::date($ts, "%e %B");
+      SmartyWrap::assign('curDate', $curDate);
+      $item['title'] = "{$curDate} – " . $def->lexicon;
+      $item['description'] = SmartyWrap::fetch('bits/wotdRssBlogItem.tpl');
     }
     else {
-        $item['title'] = $def->lexicon;
-        $item['description'] = SmartyWrap::fetch('bits/wotdRssItem.tpl');
+      $item['title'] = $def->lexicon;
+      $item['description'] = SmartyWrap::fetch('bits/wotdRssItem.tpl');
     }
     $item['pubDate'] = date('D, d M Y H:i:s', $ts) . ' EEST';
     $item['link'] = Request::getFullServerUrl() . 'cuvantul-zilei/' . date('Y/m/d', $ts);
@@ -115,7 +115,7 @@ if ($date < $today || User::can(User::PRIV_ADMIN)) {
 // Load the WotD for this day in other years.
 $year = $date->format('Y');
 $month = $date->format('m');
-$monthName = strftime('%B', $date->getTimestamp());
+$monthName = Locale::date($date->getTimestamp(), '%B');
 $day = $date->format('j');
 
 $otherWotds = WordOfTheDay::getWotdsInOtherYears($year, $month, $day);

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-11-11 11:34+0200\n"
-"PO-Revision-Date: 2018-11-11 11:34+0200\n"
+"POT-Creation-Date: 2018-11-11 11:40+0200\n"
+"PO-Revision-Date: 2018-11-11 11:41+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -281,6 +281,10 @@ msgstr "licență"
 #: templates/layout.tpl:73
 msgid "privacy"
 msgstr "confidențialitate"
+
+#: templates/randomWordList.tpl:3
+msgid "%d randomly chosen %s"
+msgstr "%d de %s alese la întâmplare"
 
 #: templates/search.tpl:3
 msgid "definition"
@@ -616,6 +620,14 @@ msgid ""
 msgstr ""
 "Am schimbat limba interfeței. Textul definițiilor și legăturile externe sunt "
 "mereu în română."
+
+#: wwwbase/randomList.php:52
+msgid "words"
+msgstr "cuvinte"
+
+#: wwwbase/randomList.php:55
+msgid "words of the day"
+msgstr "cuvinte ale zilei"
 
 #: wwwbase/search.php:223
 #, php-format

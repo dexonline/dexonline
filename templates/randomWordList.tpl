@@ -1,12 +1,12 @@
 {extends "layout.tpl"}
 
 {block "title"}
-  {$forms|@count} de cuvinte{$wotd} alese la întâmplare
+  {'%d randomly chosen %s'|_|sprintf:count($forms):$type}
 {/block}
 
 {block "content"}
   <h3>
-    {$forms|@count} de cuvinte{$wotd} alese la întâmplare
+    {'%d randomly chosen %s'|_|sprintf:count($forms):$type}
   </h3>
 
   {foreach $forms as $row_id => $form}

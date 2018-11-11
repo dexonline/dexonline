@@ -3,9 +3,9 @@
 }
 
 .millArea .word {
-  font-weight: bold;
   font-size: 26px;
-  text-align: left;
+  font-weight: bold;
+  margin-left: 5px;
   margin-right: 5px;
 }
 

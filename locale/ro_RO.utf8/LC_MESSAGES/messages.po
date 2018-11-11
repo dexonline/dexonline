@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-11-11 11:55+0200\n"
-"PO-Revision-Date: 2018-11-11 11:55+0200\n"
+"POT-Creation-Date: 2018-11-11 12:05+0200\n"
+"PO-Revision-Date: 2018-11-11 12:06+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -209,7 +209,7 @@ msgstr "Nume"
 msgid "Characters"
 msgstr "Caractere"
 
-#: templates/bits/top.tpl:6 templates/hangman.tpl:51
+#: templates/bits/top.tpl:6 templates/hangman.tpl:51 templates/mill.tpl:64
 msgid "Definitions"
 msgstr "Definiții"
 
@@ -259,19 +259,19 @@ msgstr "imagini"
 msgid "Get a clue"
 msgstr "Dă-mi un indiciu"
 
-#: templates/hangman.tpl:40
+#: templates/hangman.tpl:40 templates/mill.tpl:15
 msgid "easy"
 msgstr "ușor"
 
-#: templates/hangman.tpl:41
+#: templates/hangman.tpl:41 templates/mill.tpl:16
 msgid "medium"
 msgstr "mediu"
 
-#: templates/hangman.tpl:42
+#: templates/hangman.tpl:42 templates/mill.tpl:17
 msgid "hard"
 msgstr "dificil"
 
-#: templates/hangman.tpl:43
+#: templates/hangman.tpl:43 templates/mill.tpl:18
 msgid "expert"
 msgstr "expert"
 
@@ -322,6 +322,38 @@ msgstr "licență"
 #: templates/layout.tpl:73
 msgid "privacy"
 msgstr "confidențialitate"
+
+#: templates/mill.tpl:2
+msgid "Word mill"
+msgstr "Moara cuvintelor"
+
+#: templates/mill.tpl:14
+msgid "Level"
+msgstr "Nivel"
+
+#: templates/mill.tpl:22
+msgid "You can also use the keys 1, 2, 3, 4."
+msgstr "Poți folosi și tastele 1, 2, 3, 4."
+
+#: templates/mill.tpl:37
+msgid "The correct definition of <span class=\"word\"></span>:"
+msgstr "Definiția corectă pentru <span class=\"word\"></span>:"
+
+#: templates/mill.tpl:53
+msgid ""
+"Congratulations! You answered <b id=\"answeredCorrect\">0</b> of 10\n"
+"          questions correctly."
+msgstr ""
+"Felicitări! Ai răspuns corect la <b id=\"answeredCorrect\">0</b> din 10 "
+"întrebări."
+
+#: templates/mill.tpl:56
+msgid "new game"
+msgstr "joc nou"
+
+#: templates/mill.tpl:57
+msgid "see all definitions"
+msgstr "arată toate definițiile"
 
 #: templates/randomWordList.tpl:3
 msgid "%d randomly chosen %s"

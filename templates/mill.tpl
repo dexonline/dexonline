@@ -1,26 +1,26 @@
 {extends "layout.tpl"}
 
-{block "title"}Moara cuvintelor{/block}
+{block "title"}{'Word mill'|_}{/block}
 
 {block "search"}{/block}
 
 {block "content"}
   <div class="panel panel-default millArea">
     <div class="panel-heading">
-      <h3 class="panel-title">Moara cuvintelor</h3>
+      <h3 class="panel-title">{'Word mill'|_}</h3>
     </div>
     <div class="panel-body">
       <div id="mainPage">
         <form id="main" action="">
-          <label>Nivel:</label>
-          <button class="btn btn-info" type="button" value="1">Ușor</button>
-          <button class="btn btn-info" type="button" value="2">Mediu</button>
-          <button class="btn btn-info" type="button" value="3">Greu</button>
-          <button class="btn btn-info" type="button" value="4">Foarte greu</button>
+          <label>{'Level'|_}:</label>
+          <button class="btn btn-info" type="button" value="1">{'easy'|_}</button>
+          <button class="btn btn-info" type="button" value="2">{'medium'|_}</button>
+          <button class="btn btn-info" type="button" value="3">{'hard'|_}</button>
+          <button class="btn btn-info" type="button" value="4">{'expert'|_}</button>
         </form>
 
         <p class="text-info">
-          Se poate juca și cu tastatura folosind tastele: 1, 2, 3, 4.
+          {'You can also use the keys 1, 2, 3, 4.'|_}
         </p>
       </div>
 
@@ -35,7 +35,7 @@
         {/section}
 
         <form id="mill" action="">
-          <label>Definiția corectă pentru <span class="word"></span>:</label>
+          <label>{'The correct definition of <span class="word"></span>:'|_}</label>
           {section name=choices start=1 loop=5}
             <button class="btn btn-default btn-block btn-lg"
                     type="button"
@@ -51,17 +51,18 @@
 
       <div id="resultsPage">
         <div class="alert alert-success">
-          Felicitări! Ai răspuns corect la <b id="answeredCorrect">0</b> definiții din 10.
+          {'Congratulations! You answered <b id="answeredCorrect">0</b> of 10
+          questions correctly.'|_}
         </div>
-        <a href="moara" class="btn btn-info">Joc nou</a>
-        <button id="definitionsButton" class="btn btn-info">Vezi toate definițiile</button>
+        <a href="moara" class="btn btn-info">{'new game'|_}</a>
+        <button id="definitionsButton" class="btn btn-info">{'see all definitions'|_}</button>
       </div>
     </div>
   </div>
 
   <div id="defPanel" class="panel panel-default millArea">
     <div class="panel-heading">
-      <h3 class="panel-title">Definiții</h3>
+      <h3 class="panel-title">{'Definitions'|_}</h3>
     </div>
     <div id="definitionsSection" class="panel-body">
     </div>

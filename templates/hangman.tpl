@@ -1,6 +1,6 @@
 {extends "layout.tpl"}
 
-{block "title"}Spânzurătoarea{/block}
+{block "title"}{'Hangman'|_}{/block}
 
 {block "search"}{/block}
 
@@ -12,15 +12,15 @@
 
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h3 class="panel-title">Spânzurătoarea</h3>
+      <h3 class="panel-title">{'Hangman'|_}</h3>
     </div>
     <div class="panel-body">
       <form id="hangman" action="">
 
         <div class="graphics">
-          <label>Vieți rămase: <span id="livesLeft">6</span></label>
+          <label>{'Lives remaining'|_}: <span id="livesLeft">6</span></label>
           <div class="hangmanPic"> </div>
-          <div class="imageLicense">imagini © dexonline.ro</div>
+          <div class="imageLicense">{'images'|_} © dexonline.ro</div>
 
           <div class="output">
             {section name="ignored" start=0 loop=$wordLength}
@@ -33,15 +33,15 @@
           {foreach $letters as $letter}
             <input class="letterButtons btn" type="button" value="{$letter|mb_strtoupper}">
           {/foreach}
-          <input id="hintButton" type="button" value="Dă-mi un indiciu" class="btn">
+          <input id="hintButton" type="button" value="{'Get a clue'|_}" class="btn">
         </div>
 
         <div class="newGameControls">
           <label>Joc nou:</label>
-          <button class="btn btn-info" type="button" data-level="1">ușor</button>
-          <button class="btn btn-info" type="button" data-level="2">mediu</button><br>
-          <button class="btn btn-info" type="button" data-level="3">dificil</button>
-          <button class="btn btn-info" type="button" data-level="4">expert</button>
+          <button class="btn btn-info" type="button" data-level="1">{'easy'|_}</button>
+          <button class="btn btn-info" type="button" data-level="2">{'medium'|_}</button><br>
+          <button class="btn btn-info" type="button" data-level="3">{'hard'|_}</button>
+          <button class="btn btn-info" type="button" data-level="4">{'expert'|_}</button>
         </div>
       </form>
     </div>
@@ -49,7 +49,7 @@
 
   <div id="resultsWrapper" class="panel panel-default">
     <div class="panel-heading">
-      <h3 class="panel-title">Definiții</h3>
+      <h3 class="panel-title">{'Definitions'|_}</h3>
     </div>
     <div class="panel-body">
       {foreach $searchResults as $row}
@@ -63,10 +63,10 @@
       <div class="modal-content">
         <div class="modal-body">
           <div class="win text-success">
-            Felicitări, ai câștigat!
+            {'Congratulations, you win!'|_}
           </div>
           <div class="lose text-danger">
-            Ne pare rău, ai pierdut.
+            {'Sorry, you lose.'|_}
           </div>
         </div>
       </div>

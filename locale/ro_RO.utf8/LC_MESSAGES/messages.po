@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-11-11 11:40+0200\n"
-"PO-Revision-Date: 2018-11-11 11:41+0200\n"
+"POT-Creation-Date: 2018-11-11 11:55+0200\n"
+"PO-Revision-Date: 2018-11-11 11:55+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -13,6 +13,7 @@ msgstr ""
 "X-Poedit-Basepath: ../../..\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n==0 || (n!=1 && n%100>=1 && n"
 "%100<=19) ? 1 : 2);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: templates\n"
 "X-Poedit-SearchPath-1: wwwbase\n"
 "X-Poedit-SearchPathExcluded-0: phplib/third-party\n"
@@ -208,7 +209,7 @@ msgstr "Nume"
 msgid "Characters"
 msgstr "Caractere"
 
-#: templates/bits/top.tpl:6
+#: templates/bits/top.tpl:6 templates/hangman.tpl:51
 msgid "Definitions"
 msgstr "Definiții"
 
@@ -241,6 +242,46 @@ msgstr "Puteți descărca o <a href=\"%s\">copie a bazei de date</a>."
 #: templates/cuvinte-favorite.tpl:9
 msgid "You have no favorite words."
 msgstr "Nu aveți niciun cuvânt favorit."
+
+#: templates/hangman.tpl:2
+msgid "Hangman"
+msgstr "Spânzurătoarea"
+
+#: templates/hangman.tpl:20
+msgid "Lives remaining"
+msgstr "Vieți rămase"
+
+#: templates/hangman.tpl:22 templates/search/gallery.tpl:5
+msgid "images"
+msgstr "imagini"
+
+#: templates/hangman.tpl:35
+msgid "Get a clue"
+msgstr "Dă-mi un indiciu"
+
+#: templates/hangman.tpl:40
+msgid "easy"
+msgstr "ușor"
+
+#: templates/hangman.tpl:41
+msgid "medium"
+msgstr "mediu"
+
+#: templates/hangman.tpl:42
+msgid "hard"
+msgstr "dificil"
+
+#: templates/hangman.tpl:43
+msgid "expert"
+msgstr "expert"
+
+#: templates/hangman.tpl:65
+msgid "Congratulations, you win!"
+msgstr "Felicitări, ai câștigat!"
+
+#: templates/hangman.tpl:68
+msgid "Sorry, you lose."
+msgstr "Ne pare rău, ai pierdut."
 
 #: templates/hosting/hosterion.tpl:0
 msgid "hosted by"
@@ -459,10 +500,6 @@ msgstr ""
 "Momentan nu puteți căuta prin textul definițiilor, deoarece indexul este în "
 "curs de reconstrucție. Această operație durează de obicei circa 10 minute. "
 "Ne cerem scuze pentru neplăcere."
-
-#: templates/search/gallery.tpl:5
-msgid "images"
-msgstr "imagini"
 
 #: templates/search/missingDefinitionWarnings.tpl:4
 msgid ""

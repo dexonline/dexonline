@@ -1,13 +1,13 @@
 {extends "layout.tpl"}
 
-{block "title"}Omleta Cuvintelor{/block}
+{block "title"}{'word scramble'|_|capitalize}{/block}
 
 {block "search"}{/block}
 
 {block "content"}
   <div id="mainMenu" class="panel panel-default">
     <div class="panel-heading">
-      Omleta cuvintelor
+      {'word scramble'|_|capitalize}
     </div>
 
     <div class="panel-body">
@@ -16,7 +16,7 @@
         <div>
           <button id="startGameButton" class="btn btn-success" type="button" disabled>
             <i class="glyphicon glyphicon-play"></i>
-            începe
+            {'start'|_}
           </button>
           <button id="optionsButton"
                   class="btn btn-default"
@@ -24,24 +24,24 @@
                   data-toggle="collapse"
                   data-target="#optionsDiv">
             <i class="glyphicon glyphicon-wrench"></i>
-            opțiuni
+            {'options'|_}
           </button>
         </div>
 
         <div id="optionsDiv" class="voffset3 collapse">
 
           <div class="form-group">
-            <label class="col-sm-2 control-label">mod</label>
+            <label class="col-sm-2 control-label">{'object'|_}</label>
             <div class="col-sm-10">
               <div class="btn-group" data-toggle="buttons">
                 <label class="btn btn-info active">
-                  <input type="radio" name="mode" value="0"> toate cuvintele
+                  <input type="radio" name="mode" value="0"> {'all words'|_}
                 </label>
                 <label class="btn btn-info">
-                  <input type="radio" name="mode" value="1"> o anagramă
+                  <input type="radio" name="mode" value="1"> {'one anagram'|_}
                 </label>
                 <label class="btn btn-info">
-                  <input type="radio" name="mode" value="2"> toate anagramele
+                  <input type="radio" name="mode" value="2"> {'all anagrams'|_}
                 </label>
               </div>
             </div>
@@ -52,129 +52,127 @@
             <div class="col-sm-10">
               <div class="btn-group" data-toggle="buttons">
                 <label class="btn btn-info">
-                  <input type="radio" name="level" value="0"> 4 litere
+                  <input type="radio" name="level" value="0"> {'4 letters'|_}
                 </label>
                 <label class="btn btn-info active">
-                  <input type="radio" name="level" value="1"> 5 litere
+                  <input type="radio" name="level" value="1"> {'5 letters'|_}
                 </label>
                 <label class="btn btn-info">
-                  <input type="radio" name="level" value="2"> 6 litere
+                  <input type="radio" name="level" value="2"> {'6 letters'|_}
                 </label>
                 <label class="btn btn-info">
-                  <input type="radio" name="level" value="3"> 7 litere
+                  <input type="radio" name="level" value="3"> {'7 letters'|_}
                 </label>
               </div>
             </div>
           </div>
 
           <div class="form-group">
-            <label class="col-sm-2 control-label">diacritice</label>
+            <label class="col-sm-2 control-label">{'diacritics'|_}</label>
             <div class="col-sm-10">
               <div class="btn-group" data-toggle="buttons">
                 <label class="btn btn-info active">
-                  <input type="radio" name="useDiacritics" value="0"> nu
+                  <input type="radio" name="useDiacritics" value="0"> {'no'|_}
                 </label>
                 <label class="btn btn-info">
-                  <input type="radio" name="useDiacritics" value="1"> da
+                  <input type="radio" name="useDiacritics" value="1"> {'yes'|_}
                 </label>
               </div>
             </div>
           </div>
 
           <div class="form-group">
-            <label class="col-sm-2 control-label">timp</label>
+            <label class="col-sm-2 control-label">{'time'|_}</label>
             <div class="col-sm-10">
               <div class="btn-group" data-toggle="buttons">
                 <label class="btn btn-info">
-                  <input type="radio" name="seconds" value="0"> un minut
+                  <input type="radio" name="seconds" value="0"> {'one minute'|_}
                 </label>
                 <label class="btn btn-info">
-                  <input type="radio" name="seconds" value="1"> 2 minute
+                  <input type="radio" name="seconds" value="1"> {'2 minutes'|_}
                 </label>
                 <label class="btn btn-info active">
-                  <input type="radio" name="seconds" value="2"> 3 minute
+                  <input type="radio" name="seconds" value="2"> {'3 minutes'|_}
                 </label>
                 <label class="btn btn-info">
-                  <input type="radio" name="seconds" value="3"> 4 minute
+                  <input type="radio" name="seconds" value="3"> {'4 minutes'|_}
                 </label>
                 <label class="btn btn-info">
-                  <input type="radio" name="seconds" value="4"> 5 minute
+                  <input type="radio" name="seconds" value="4"> {'5 minutes'|_}
                 </label>
               </div>
             </div>
           </div>
         </div>
 
-        <h3>Scopul jocului</h3>
+        <h3>{'Object of the game'|_}</h3>
         <p>
-          Formați cât de multe cuvinte puteți cu literele primite,
-          până se termină timpul.
+          {'Find as many words as you can using the given letters, before the
+          time runs out.'|_}
         </p>
 
         <p>
-          Sunt trei moduri de joc:
+          {'There are three game types:'|_}
         </p>
 
         <ol>
           <li>
-            <b>Toate cuvintele:</b>
-            găsiți toate cuvintele de cel puțin trei litere.
+            <b>{'all words'|_|capitalize}:</b>
+            {'find all words having at least three letters.'|_}
           </li>
           <li>
-            <b>O anagramă:</b>
-            găsiți un cuvânt care folosește toate literele, apoi
-            primiți alt set de litere.
+            <b>{'one anagram'|_|capitalize}:</b>
+            {'find a word using all the letters, then receive a new set of
+            letters.'|_}
           </li>
           <li>
-            <b>Toate anagramele:</b>
-            găsiți toate cuvintele care folosesc toate literele, apoi
-            primiți alt set de litere. De exemplu, pentru grupul AINTT
-            trebuie să ghiciți toate cele trei anagrame <i>(tanti, titan, țintă)</i> pentru
-            a trece la următorul set.
+            <b>{'all anagrams'|_|capitalize}:</b>
+            {'find all words using all the letters, then receive a new set of
+            letters. For example, for the set AINTT you must guess all three
+            anagrams (<i>%s</i>) to receive the next set.'|_|sprintf:"tanti, titan, țintă"}
           </li>
         </ol>
 
-        <h3>Instrucțiuni</h3>
+        <h3>Instructions</h3>
         <p>
-          Dacă folosiți tastatura, tastați pur și simplu
-          literele. Dacă folosiți mouse-ul, dați clic pe litere, apoi
-          pe lupă pentru a verifica un cuvânt.
+          {'When using a keyboard, simply type the letters. When using a
+          mouse, click on the letters, then click on the magnifier to check a
+          word.'|_}
         </p>
 
         <p>
-          Cuvintele includ și conjugări (ca <i>lucrez)</i> sau
-          declinări (ca <i>verzi).</i> Dacă ați optat pentru
-          diacritice, atunci literele Ă, Â, Î, Ș și Ț nu pot fi
-          interschimbate cu A, I, S și T.
+          {'Legal words include conjugations (such as <i>lucrez</i>) and declensions
+          (such as <i>verzi</i>). If you opted for diacritics, then the
+          letters %s cannot be interchanged with %s.'|_|sprintf:"ĂÂÎȘȚ":"AIST"}
         </p>
 
         <p>
-          Taste speciale:
+          {'Special keys'|_}:
         </p>
 
         <ul>
-          <li><i>Enter</i> verifică cuvântul;</li>
-          <li><i>Backspace</i> șterge ultima literă;</li>
-          <li><i>Escape</i> șterge toate literele;</li>
-          <li><i>slash (/)</i> amestecă literele.</li>
+          <li><i>Enter</i> {'checks the word'|_};</li>
+          <li><i>Backspace</i> {'deletes the last letter'|_};</li>
+          <li><i>Escape</i> {'deletes all the letters'|_};</li>
+          <li><i>slash (/)</i> {'shuffles the letters'|_}.</li>
         </ul>
 
         <p>
-          Sub zona de joc se află:
+          {'Below the game area there is'|_}:
         </p>
 
         <ul>
           <li>
             <i class="glyphicon glyphicon-hourglass text-big vcenter"></i>
-            timpul rămas;
+            {'time remaining'|_};
           </li>
           <li>
             <i class="glyphicon glyphicon-eye-open text-big vcenter"></i>
-            numărul de cuvinte găsite și totalul de cuvinte posibile;
+            {'number of words found / total number of words'|_};
           </li>
           <li>
             <i class="glyphicon glyphicon-piggy-bank text-big vcenter"></i>
-            scorul (cuvintele mai lungi primesc mai multe puncte).
+            {'score (longer words earn more points)'|_}.
           </li>
         </ul>
 
@@ -184,7 +182,7 @@
 
   <div id="gamePanel" class="panel panel-default">
     <div class="panel-heading">
-      Omleta cuvintelor
+      {'word scramble'|_|capitalize}
     </div>
 
     <div class="panel-body">
@@ -212,7 +210,7 @@
       <div class="text-center" style="clear: both">
         <button id="restartGameButton" class="btn btn-success" type="button">
           <i class="glyphicon glyphicon-repeat"></i>
-          joacă din nou
+          {'play again'|_}
         </button>
       </div>
     </div>
@@ -220,7 +218,7 @@
 
   <div id="wordListPanel" class="panel panel-default">
     <div class="panel-heading">
-      Cuvinte posibile
+      {'Legal words'|_}
     </div>
 
     <div class="panel-body">
@@ -244,9 +242,9 @@
       </a>
 
       <p class="help-block">
-        Puteți trimite această adresă prietenilor dumneavoastră pentru
-        a vă compara scorurile pe exact aceleași combinații de litere.
+        {'You can share this link with your friends to compare scores on the
+        same letter sets.'|_}
       </p>
     </div>
   </div>
-</div>{/block}
+{/block}

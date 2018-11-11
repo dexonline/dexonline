@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-11-11 11:25+0200\n"
-"PO-Revision-Date: 2018-11-11 11:28+0200\n"
+"POT-Creation-Date: 2018-11-11 11:34+0200\n"
+"PO-Revision-Date: 2018-11-11 11:34+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -596,6 +596,18 @@ msgstr "Cuvântul zilei de %d %s în alți ani:"
 #: templates/wotd.tpl:128
 msgid "Comments"
 msgstr "Comentarii"
+
+#: templates/wotm.tpl:3
+msgid "Word of the month for"
+msgstr "Cuvântul lunii"
+
+#: templates/wotm.tpl:24
+msgid "previous"
+msgstr "precedentul"
+
+#: templates/wotm.tpl:31
+msgid "next"
+msgstr "următorul"
 
 #: wwwbase/changeLocale.php:8
 msgid ""

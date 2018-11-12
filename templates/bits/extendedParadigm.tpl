@@ -17,13 +17,13 @@
   <ul class="lexemeMorphology">
     {if $lexeme->hyphenations}
       <li>
-        silabisire: <span class="value">{$lexeme->hyphenations}</span>
+        {'hyphenation'|_}: <span class="value">{$lexeme->hyphenations}</span>
       </li>
     {/if}
 
     {if $lexeme->pronunciations}
       <li>
-        pronunție: <span class="value">{$lexeme->getDisplayPronunciations()}</span>
+        {'pronunciation'|_}: <span class="value">{$lexeme->getDisplayPronunciations()}</span>
       </li>
     {/if}
   </ul>

@@ -1,3 +1,3 @@
 <div class="noParadigm">
-  Nu există informații despre flexiunea acestui cuvânt.
+  {'We have no information on the paradigm of this word.'|_}
 </div>

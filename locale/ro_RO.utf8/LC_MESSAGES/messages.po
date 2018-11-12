@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-11-12 16:54+0200\n"
-"PO-Revision-Date: 2018-11-12 16:54+0200\n"
+"POT-Creation-Date: 2018-11-12 17:42+0200\n"
+"PO-Revision-Date: 2018-11-12 17:42+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -76,6 +76,34 @@ msgstr "șterge dintre favorite"
 #: templates/bits/definitionMenuProper.tpl:184
 msgid "permalink"
 msgstr "permalink"
+
+#: templates/bits/extendedParadigm.tpl:19
+msgid "hyphenation"
+msgstr "silabisire"
+
+#: templates/bits/extendedParadigm.tpl:25
+msgid "pronunciation"
+msgstr "pronunție"
+
+#: templates/bits/lexeme.tpl:5
+msgid "compound"
+msgstr "compus"
+
+#: templates/bits/lexeme.tpl:24
+msgid "Inflection sources"
+msgstr "Surse flexiune"
+
+#: templates/bits/multiParadigm.tpl:4
+msgid "entry"
+msgstr "intrare"
+
+#: templates/bits/multiParadigm.tpl:34
+msgid "hide variants"
+msgstr "ascunde variantele"
+
+#: templates/bits/multiParadigm.tpl:35
+msgid "show variants"
+msgstr "arată variantele"
 
 #: templates/bits/navmenu.tpl:50
 msgid "About"
@@ -489,6 +517,118 @@ msgstr "joc nou"
 #: templates/mill.tpl:57
 msgid "see all definitions"
 msgstr "arată toate definițiile"
+
+#: templates/paradigm/paradigmA.tpl:7
+msgid "masculine"
+msgstr "masculin"
+
+#: templates/paradigm/paradigmA.tpl:8
+msgid "feminine"
+msgstr "feminin"
+
+#: templates/paradigm/paradigmA.tpl:11 templates/paradigm/paradigmSP.tpl:7
+msgid "no article"
+msgstr "nearticulat"
+
+#: templates/paradigm/paradigmA.tpl:12 templates/paradigm/paradigmSP.tpl:8
+msgid "def. article"
+msgstr "articulat"
+
+#: templates/paradigm/paradigmA.tpl:17 templates/paradigm/paradigmSP.tpl:11
+msgid "nominative-accusative"
+msgstr "nominativ-acuzativ"
+
+#: templates/paradigm/paradigmA.tpl:18 templates/paradigm/paradigmSP.tpl:12
+msgid "singular"
+msgstr "singular"
+
+#: templates/paradigm/paradigmA.tpl:33 templates/paradigm/paradigmSP.tpl:21
+msgid "plural"
+msgstr "plural"
+
+#: templates/paradigm/paradigmA.tpl:48 templates/paradigm/paradigmSP.tpl:30
+msgid "genitive-dative"
+msgstr "genitiv-dativ"
+
+#: templates/paradigm/paradigmA.tpl:79 templates/paradigm/paradigmSP.tpl:49
+msgid "vocative"
+msgstr "vocativ"
+
+#: templates/paradigm/paradigmT.tpl:1
+msgid "We have no information on the paradigm of this word."
+msgstr "Nu există informații despre paradigma acestui cuvânt."
+
+#: templates/paradigm/paradigmV.tpl:7
+msgid "infinitive"
+msgstr "infinitiv"
+
+#: templates/paradigm/paradigmV.tpl:8
+msgid "long infinitive"
+msgstr "infinitiv lung"
+
+#: templates/paradigm/paradigmV.tpl:9
+msgid "participle"
+msgstr "participiu"
+
+#: templates/paradigm/paradigmV.tpl:10
+msgid "gerund"
+msgstr "gerunziu"
+
+#: templates/paradigm/paradigmV.tpl:11
+msgid "imperative 2nd person"
+msgstr "imperativ pers. a II-a"
+
+#: templates/paradigm/paradigmV.tpl:44
+msgid "number"
+msgstr "numărul"
+
+#: templates/paradigm/paradigmV.tpl:45
+msgid "person"
+msgstr "persoana"
+
+#: templates/paradigm/paradigmV.tpl:46
+msgid "present"
+msgstr "prezent"
+
+#: templates/paradigm/paradigmV.tpl:47
+msgid "present subjunctive"
+msgstr "conjunctiv prezent"
+
+#: templates/paradigm/paradigmV.tpl:48
+msgid "imperfect"
+msgstr "imperfect"
+
+#: templates/paradigm/paradigmV.tpl:49
+msgid "simple perfect"
+msgstr "perfect simplu"
+
+#: templates/paradigm/paradigmV.tpl:50
+msgid "pluperfect"
+msgstr "mai mult ca perfect"
+
+#: templates/paradigm/paradigmV.tpl:54
+msgid "1st (eu)"
+msgstr "I (eu)"
+
+#: templates/paradigm/paradigmV.tpl:73
+msgid "2nd (tu)"
+msgstr "a II-a (tu)"
+
+#: templates/paradigm/paradigmV.tpl:92
+msgid "3rd (el, ea)"
+msgstr "a III-a (el, ea)"
+
+#: templates/paradigm/paradigmV.tpl:112
+msgid "1st (noi)"
+msgstr "I (noi)"
+
+#: templates/paradigm/paradigmV.tpl:131
+msgid "2nd (voi)"
+msgstr "a II-a (voi)"
+
+#: templates/paradigm/paradigmV.tpl:150
+msgid "3rd (ei, ele)"
+msgstr "a III-a (ei, ele)"
 
 #: templates/randomWordList.tpl:3
 msgid "%d randomly chosen %s"

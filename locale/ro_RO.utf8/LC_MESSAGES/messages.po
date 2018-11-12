@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-11-12 16:28+0200\n"
-"PO-Revision-Date: 2018-11-12 16:32+0200\n"
+"POT-Creation-Date: 2018-11-12 16:54+0200\n"
+"PO-Revision-Date: 2018-11-12 16:54+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -53,7 +53,7 @@ msgstr "adăugată de"
 msgid "actions"
 msgstr "acțiuni"
 
-#: templates/bits/definitionMenuProper.tpl:135
+#: templates/bits/definitionMenuProper.tpl:135 templates/bits/typoForm.tpl:12
 msgid "report a typo"
 msgstr "semnalează o greșeală"
 
@@ -145,6 +145,10 @@ msgstr "Unelte"
 msgid "External links"
 msgstr "Legături externe"
 
+#: templates/bits/navmenu.tpl:152
+msgid "Anonymous"
+msgstr "Anonim"
+
 #: templates/bits/navmenu.tpl:160
 msgid "Moderator page"
 msgstr "Pagina moderatorului"
@@ -228,6 +232,49 @@ msgstr "Definiții"
 #: templates/bits/top.tpl:7
 msgid "Most recent submission"
 msgstr "Data ultimei trimiteri"
+
+#: templates/bits/typoForm.tpl:22
+msgid "please describe the error; at most 400 characters are allowed"
+msgstr "vă rugăm descrieți problema în maximum 400 de caractere"
+
+#: templates/bits/typoForm.tpl:26
+msgid "notes"
+msgstr "note"
+
+#: templates/bits/typoForm.tpl:30
+msgid ""
+"Some dictionaries (such as <em>Scriban</em>) use old\n"
+"                orthographies. This is not a typo."
+msgstr ""
+"Unele dicționare (de exemplu <em>Scriban</em>) folosesc grafia veche. "
+"Aceasta nu este o greșeală de tipar."
+
+#: templates/bits/typoForm.tpl:34
+msgid ""
+"We generally do not change the original text of definitions,\n"
+"                but we can add comments. Please do not report semantic "
+"errors\n"
+"                except in obvious cases."
+msgstr ""
+"În general, preluăm definițiile fără modificări, dar putem face comentarii "
+"pe marginea lor. Vă rugăm să nu ne semnalați greșeli semantice decât în "
+"situații evidente."
+
+#: templates/bits/typoForm.tpl:42
+msgid "submit"
+msgstr "trimite"
+
+#: templates/bits/typoForm.tpl:43
+msgid "cancel"
+msgstr "anulează"
+
+#: templates/bits/typoForm.tpl:62
+msgid "Thank you for your report!"
+msgstr "Vă mulțumim pentru semnalare!"
+
+#: templates/bits/typoForm.tpl:66
+msgid "close"
+msgstr "închide"
 
 #: templates/contact.tpl:15
 msgid "Useful information"

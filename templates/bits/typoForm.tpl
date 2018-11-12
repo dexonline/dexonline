@@ -10,29 +10,38 @@
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
-            <h4 class="modal-title">Semnalează o greșeală</h4>
+            <h4 class="modal-title">{'report a typo'|_|capitalize}</h4>
           </div>
 
           <div class="modal-body">
-            <textarea class="form-control"
-                      id="typoTextarea" cols="40" rows="3" maxlength="400"
-                      placeholder="descrieți problema aici în maximum 400 de caractere..."></textarea>
+            <textarea
+              class="form-control"
+              id="typoTextarea"
+              cols="40"
+              rows="3"
+              maxlength="400"
+              placeholder="{'please describe the error; at most 400 characters are allowed'|_}"
+            ></textarea>
             <input type="hidden" name="definitionId" value="">
 
-            <div>Note:</div>
+            <p class="voffset3">{'notes'|_|capitalize}:</p>
 
             <ul>
-              <li>Unele dicționare (de exemplu <em>Scriban</em>) sunt preluate cu grafia veche. Aceasta nu este o greșeală de tipar.</li>
               <li>
-                În general, preluăm definițiile fără modificări, dar putem face comentarii pe marginea lor. Vă rugăm să nu ne semnalați greșeli semantice decât în
-                situații evidente.
+                {'Some dictionaries (such as <em>Scriban</em>) use old
+                orthographies. This is not a typo.'|_}
+              </li>
+              <li>
+                {'We generally do not change the original text of definitions,
+                but we can add comments. Please do not report semantic errors
+                except in obvious cases.'|_}
               </li>
             </ul>
           </div>
 
           <div class="modal-footer">
-            <button class="btn btn-primary" id="typoSubmit" type="submit">trimite</button>
-            <button class="btn btn-link" data-dismiss="modal">anulează</button>
+            <button class="btn btn-primary" id="typoSubmit" type="submit">{'submit'|_}</button>
+            <button class="btn btn-link" data-dismiss="modal">{'cancel'|_}</button>
           </div>
         </form>
       </div>
@@ -47,15 +56,15 @@
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
-          <h4 class="modal-title">Semnalează o greșeală</h4>
+          <h4 class="modal-title">{'report a typo'|_|capitalize}</h4>
         </div>
 
         <div class="modal-body">
-          Vă mulțumim pentru semnalare!
+          {'Thank you for your report!'|_}
         </div>
 
         <div class="modal-footer">
-          <button class="btn btn-link" data-dismiss="modal">închide</button>
+          <button class="btn btn-link" data-dismiss="modal">{'close'|_}</button>
         </div>
       </div>
     </div>

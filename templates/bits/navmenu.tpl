@@ -150,7 +150,7 @@
               {else}
                 <i class="glyphicon glyphicon-user"></i>
               {/if}
-              {User::getActive()|escape|default:_('Anonymous')}
+              {User::getActive()|escape|default:{'Anonymous'|_}}
               <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">

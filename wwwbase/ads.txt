@@ -1,4 +1,4 @@
-Last updated: 28.09.2018
+#Last updated: 1.11.2018
 appnexus.com, 3153, RESELLER, f5ab79cb980f11d1
 districtm.io, 100750, DIRECT
 adtech.com, 11095, Reseller
@@ -26,7 +26,8 @@ appnexus.com, 3263, RESELLER
 adtech.com, 11315, DIRECT
 aolcloud.net, 11315, DIRECT
 pubmatic.com, 155986, RESELLER, 5d62403b186f2ace
-appnexus.com, 9095, RESELLER, f5ab79cb980f11d1 
+appnexus.com, 9095, RESELLER, f5ab79cb980f11d1
+appnexus.com, 9393, DIRECT 
 google.com, pub-6163857992956964, RESELLER, f08c47fec0942fa0
 adform.com, 1633, RESELLER
 adpone.com, 1992, RESELLER
@@ -120,6 +121,7 @@ atemda.com,389,RESELLER
 contextweb.com,560941,RESELLER,89ff185a4c4e857c
 indexexchange.com, 186163, RESELLER
 indexexchange.com, 187457, DIRECT
+media.net, 8CU3I9461, DIRECT
 appnexus.com, 3623, RESELLER
 improvedigital.com, 1017, RESELLER
 jadserve.postrelease.com, 4735, RESELLER
@@ -194,6 +196,7 @@ appnexus.com,3703,RESELLER,f5ab79cb980f11d1
 sonobi.com, b0d60b5dd6, RESELLER
 rhythmone.com, 1059622079, RESELLER
 contextweb.com, 560606, RESELLER
+coxmt.com, 2000067997702, RESELLER
 appnexus.com, 1019, RESELLER
 appnexus.com, 1360, RESELLER, f5ab79cb980f11d1
 appnexus.com, 2688, RESELLER

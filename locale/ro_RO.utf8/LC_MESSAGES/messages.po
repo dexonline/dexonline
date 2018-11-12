@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-11-12 16:05+0200\n"
-"PO-Revision-Date: 2018-11-12 16:07+0200\n"
+"POT-Creation-Date: 2018-11-12 16:28+0200\n"
+"PO-Revision-Date: 2018-11-12 16:32+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -334,6 +334,82 @@ msgstr "licență"
 #: templates/layout.tpl:73
 msgid "privacy"
 msgstr "confidențialitate"
+
+#: templates/links.tpl:2
+msgid "links"
+msgstr "legături"
+
+#: templates/links.tpl:6
+msgid ""
+"This page contains useful language links. These links are not sponsored;\n"
+"    we consider the useful to our visitors. We are not affiliated with the\n"
+"    respective sites and institutions."
+msgstr ""
+"Această pagină conține legături utile de natură lingvistică. Aceste legături "
+"nu sunt sponsorizate, ci le considerăm utile pentru vizitatorii noștri. Nu "
+"suntem afiliați cu site-urile sau cu instituțiile menționate."
+
+#: templates/links.tpl:11
+msgid "Romanian language"
+msgstr "Limba română"
+
+#: templates/links.tpl:15
+msgid ""
+"Iorgu Iordan - Alexandru Rosetti <a href=\"%s\">Institute of Linguistics</"
+"a>,\n"
+"      Romanian Academy"
+msgstr ""
+"<a href=\"%s\">Institutul de Lingvistică</a> „Iorgu Iordan – Alexandru "
+"Rosetti” al Academiei Române"
+
+#: templates/links.tpl:21
+msgid "why and how to write using diacritics in the Internet"
+msgstr "de ce și cum să scrii cu diacritice pe Internet"
+
+#: templates/links.tpl:24
+msgid ""
+"Sorin Paliga &mdash; volumes in PDF format at\n"
+"      <a href=\"%s\">Academia.edu</a> and <a href=\"%s\">ResearchGate</a>"
+msgstr ""
+"Sorin Paliga &mdash; volume în format PDF la <a href=\"%s\">Academia.edu</a> "
+"și <a href=\"%s\">ResearchGate</a>"
+
+#: templates/links.tpl:31
+msgid "Other languages"
+msgstr "Alte limbi"
+
+#: templates/links.tpl:35
+msgid ""
+"<a href=\"%s\"\">hallo.ro</a> &mdash; bilingual dictionaries between\n"
+"      Romanian and English, French, Spanish, German, Italian"
+msgstr ""
+"<a href=\"%s\"\">hallo.ro</a> &mdash; dicționare bilingve între română și "
+"engleză, franceză, spaniolă, germană, italiană"
+
+#: templates/links.tpl:45
+msgid "The <a href=\"%s\">Romanian Scrabble Federation</a>"
+msgstr "<a href=\"%s\">Federația Română de Scrabble</a>"
+
+#: templates/links.tpl:49
+msgid "<a href=\"%s\">AnaScrab 7</a> &mdash; a seven-letter anagram generator"
+msgstr ""
+"<a href=\"%s\">AnaScrab 7</a> &mdash; un generator de anagrame de șapte "
+"litere"
+
+#: templates/links.tpl:53
+msgid ""
+"<a href=\"%s\">Find words</a> &mdash; a helper for crosswords and Scrabble"
+msgstr ""
+"<a href=\"%s\">Găsește cuvinte</a> &mdash; un ajutor pentru cuvinte "
+"încrucișate și Scrabble"
+
+#: templates/links.tpl:58
+msgid "Programs that use the database of dexonline"
+msgstr "Programe care folosesc baza de date a dexonline"
+
+#: templates/links.tpl:62
+msgid "A <a href=\"%s\">game of Fazan</a> for Android devices"
+msgstr "Un <a href=\"%s\">joc de Fazan</a> pentru dispozitive cu Android"
 
 #: templates/mill.tpl:2
 msgid "Word mill"

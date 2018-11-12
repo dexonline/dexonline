@@ -3,40 +3,40 @@ require_once("../phplib/Core.php");
 
 $clientOptions = [
   'sync' => [
-    'Sincronizare cu dexonline',
-    'Acest client se poate conecta periodic la dexonline pentru a-și transfera definițiile nou adăugate.',
+    _('Synchronization with dexonline'),
+    _('This client connects to dexonline periodically to download updates.'),
   ],
   'vision' => [
-    'Interfață pentru nevăzători',
-    'Acest client are o interfață prietenoasă pentru nevăzători.',
+    _('Interface for visually impaired users'),
+    _('This client has a friendly interface for visually impaired users.')
   ],
   'regexp' => [
-    'Expresii regulate, wildcards',
-    'Acest client acceptă căutări cu expresii regulate și/sau wildcards, cum ar fi «echi*» pentru echilibru, echinocțiu etc.',
+    _('Regular expressions, wildcards'),
+    _('This client accepts searches using regular expressions and/or wildcards, such as «echi*» for echilibru, echinocțiu etc.'),
   ],
   'suggest' => [
-    'Sugestii',
-    'Acest client oferă cele mai apropiate rezultate atunci când cuvântul căutat nu este găsit exact.',
+    _('Suggestions'),
+    _('This client offers the closest matches when an exact match is not found.'),
   ],
   'diacritics' => [
-    'Cu / fără diacritice',
-    'Acest client oferă opțiuni pentru tastarea căutărilor cu sau fără diacritice.',
+    _('Diacritics support'),
+    _('This client supports searching with or without diacritics.'),
   ],
   'full' => [
-    'Căutare full-text',
-    'Acest client poate căuta nu doar cuvintele-titlu, ci și întreg textul definițiilor.',
+    _('Full-text searches'),
+    _('This client can search not just keywords, but the definition body as well.'),
   ],
   'flex' => [
-    'Căutare forme flexionare',
-    'Acest client poate căuta declinări și conjugări ale cuvintelor, cum ar fi «meargă» în loc de «merge».',
+    _('Inflected form search'),
+    _('This client can query declensions and conjugations, such as «lucreze» instead of «lucra».'),
   ],
   'click' => [
-    'Clic pe cuvânt',
-    'Când dați clic pe un cuvânt dintr-o definiție, acest client navighează la definiția acelui cuvânt.',
+    _('Word clicks'),
+    _('When you click a word in a definition, this client goes to the definition for that word.'),
   ],
   'history' => [
-    'Istoria căutărilor',
-    'Acest client ține minte ultimele cuvinte căutate și poate naviga între ele.',
+    _('Search history'),
+    _('This client remembers the most recent searches and can revisit them.'),
   ],
 ];
 
@@ -47,7 +47,7 @@ $clients = [
     'download' => null,
     'os' => ['linux', 'windows'],
     'space' => '490 MB',
-    'requires' => 'Perl, wxWidgets (numai sub Linux)',
+    'requires' => _('Perl, wxWidgets (only under Linux)'),
     'author' => ['Octavian Râșniță', ''],
     'license' => 'GPL',
     'options' => ['vision' => 1, 'sync' => 1, 'regexp' => 1, 'suggest' => 1, 'diacritics' => 1, 'full' => 1, 'flex' => 1, 'click' => 1, 'history' => 1],
@@ -71,7 +71,7 @@ $clients = [
     'download' => null,
     'os' => ['linux', 'windows'],
     'space' => '48 MB',
-    'requires' => 'QT, g++ (numai sub Linux)',
+    'requires' => _('QT, g++ (only under Linux)'),
     'author' => ['Octavian Procopiuc', ''],
     'license' => 'GPL',
     'options' => ['vision' => 0, 'sync' => 1, 'regexp' => 1, 'suggest' => 1, 'diacritics' => 0, 'full' => 0, 'flex' => 0, 'click' => 0, 'history' => 1],

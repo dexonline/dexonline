@@ -14,7 +14,7 @@
 
   <hr>
 
-  <h3>Alte articole lingvistice</h3>
+  <h3>{'Other linguistic articles'|_}</h3>
 
   {foreach $wikiTitles as $section => $articles}
     <h4>{$section|escape:'html'}</h4>

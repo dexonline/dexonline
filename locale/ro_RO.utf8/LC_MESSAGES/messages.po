@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-11-12 14:51+0200\n"
-"PO-Revision-Date: 2018-11-12 14:51+0200\n"
+"POT-Creation-Date: 2018-11-12 16:05+0200\n"
+"PO-Revision-Date: 2018-11-12 16:07+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -19,6 +19,10 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: phplib/third-party\n"
 "X-Poedit-SearchPathExcluded-1: wwwbase/js/merged\n"
 "X-Poedit-SearchPathExcluded-2: wwwbase/js/third-party\n"
+
+#: templates/articole.tpl:2
+msgid "linguistic articles"
+msgstr "articole lingvistice"
 
 # Hack that allows us to translate "50 definitions" to "50 de definiții".
 #: templates/bits/count.tpl:10
@@ -323,7 +327,7 @@ msgstr ""
 msgid "Current status: %s definitions, of which %s learned last month."
 msgstr "Starea curentă: %s de definiții, din care %s învățate în ultima lună."
 
-#: templates/layout.tpl:72
+#: templates/layout.tpl:72 templates/unelte.tpl:83
 msgid "license"
 msgstr "licență"
 
@@ -893,6 +897,114 @@ msgstr "Topul contribuțiilor automate"
 msgid "These include definitions entered using a program."
 msgstr "În această categorie intră definițiile trimise folosind un program."
 
+#: templates/unelte.tpl:2
+msgid "tools"
+msgstr "unelte"
+
+#: templates/unelte.tpl:5
+msgid "off-line clients"
+msgstr "clienți off-line"
+
+#: templates/unelte.tpl:8
+msgid ""
+"These applications download the definitions from <i>dexonline</i> to\n"
+"    your computer or phone. Then you can see them without an Internet\n"
+"    connection."
+msgstr ""
+"Aceste aplicații descarcă definițiile din <i>dexonline</i> pe calculatorul "
+"dumneavoastră personal. Ulterior, le puteți consulta și în absența unei "
+"conexiuni la Internet."
+
+#: templates/unelte.tpl:16
+msgid "Client"
+msgstr "Client"
+
+#: templates/unelte.tpl:29
+msgid "Platforms"
+msgstr "Platforme"
+
+#: templates/unelte.tpl:56
+msgid "Requirements"
+msgstr "Cerințe"
+
+#: templates/unelte.tpl:63
+msgid "Disk space required"
+msgstr "Spațiu pe disc necesar"
+
+#: templates/unelte.tpl:70
+msgid "Author"
+msgstr "Autor"
+
+#: templates/unelte.tpl:98
+msgid "license on the data in this table"
+msgstr "licență pe informațiile din acest tabel"
+
+#: templates/unelte.tpl:108
+msgid ""
+"The information in this table is dual-licensed under the GNU General\n"
+"      Public License (as applicable to the entire site) and the\n"
+"      <a href=\"%s\">Creative Commons Attribution-ShareAlike 3.0</a> "
+"license.\n"
+"      The information can be used (copied, modified, adapted etc.) by the\n"
+"      website http://wikipedia.org. The data are gathered from the mailing\n"
+"      list discutii@dexonline.ro (formerly dictionar@yahoogroups.com) in\n"
+"      collaboration with the application developers."
+msgstr ""
+"Informațiile din acest tabel poartă o dublă licență: Licența Publică "
+"Generală GNU (care se aplică întregului site) și licența <a href=\"%s"
+"\">Creative Commons Attribution-ShareAlike 3.0</a>. Informațiile pot fi "
+"folosite (copiate, modificate, adaptate, etc.) de către siteul http://"
+"wikipedia.org. Datele sunt adunate de pe lista discutii@dexonline.ro (fostă "
+"dictionar@yahoogroups.com) prin colaborare cu dezvoltatorii aplicațiilor."
+
+#: templates/unelte.tpl:119
+msgid "Browser integration"
+msgstr "Integrare în browser"
+
+#: templates/unelte.tpl:123
+msgid "A <a href=\"%s\" onclick=\"%s\">spell checker</a> for Firefox."
+msgstr ""
+"Un <a href=\"%s\" onclick=\"%s\">corector ortografic</a> pentru Firefox."
+
+#: templates/unelte.tpl:129
+msgid ""
+"To use the spell checker, right-click in any text box, check the\n"
+"          <em>Check spelling</em> box, right-click once more and select\n"
+"          <em>Languages > Romanian</em>."
+msgstr ""
+"Pentru a folosi corectorul, faceți clic-dreapta în orice cîmp de text, "
+"bifați opțiunea <em>Verifică ortografia</em>, faceți clic-dreapta din nou și "
+"selectați <em>Limbi > Română</em>."
+
+#: templates/unelte.tpl:137
+msgid ""
+"<a href=\"#\" onclick=\"%s\">Add <i>dexonline</i> to the search engine list</"
+"a>\n"
+"      of your browser. Thanks to Alexandru Lixandru."
+msgstr ""
+"<a href=\"#\" onclick=\"%s\">Adăugați <i>dexonline</i> la motoarele de "
+"căutare</a> ale browserului dumneavoastră. Mulțumiri lui Alexandru Lixandru."
+
+#: templates/unelte.tpl:143
+msgid "A <a href=\"%s\">Chrome extension</a> for right-click searches."
+msgstr ""
+"O <a href=\"%s\">extensie de Chrome</a> pentru căutarea cu clic-dreapta."
+
+#: templates/unelte.tpl:148
+msgid ""
+"A <a href=\"%s\">Firefox plugin</a> for right-click searches. Save the file\n"
+"      in the <tt>searchplugins/</tt> directory of Firefox and restart "
+"Firefox.\n"
+"      Thanks to %s."
+msgstr ""
+"Un <a href=\"%s\">modul de Firefox</a> pentru căutarea cu clic-dreapta."
+"Salvați fișierul în directorul <tt>searchplugins/</tt> al aplicației Firefox "
+"și reporniți Firefox. Mulțumiri lui %s."
+
+#: templates/unelte.tpl:156
+msgid "A <a href=\"%s\">WordPress plugin</a> for your blog."
+msgstr "Un <a href=\"%s\">modul de WordPress</a> pentru blogul dumneavoastră."
+
 #: templates/widgets/articleOfTheMonth.tpl:2
 msgid "Article of the month"
 msgstr "Articolul lunii"
@@ -940,6 +1052,10 @@ msgstr "Iconiță Twitter"
 #: templates/widgets/social.tpl:31
 msgid "Follow us on Twitter"
 msgstr "Urmărește-ne pe Twitter"
+
+#: templates/wikiArticle.tpl:16
+msgid "Other linguistic articles"
+msgstr "Alte articole lingvistice"
 
 #: templates/wotd.tpl:20
 msgid "Word of the day for %2$s %1$d, %3$d"
@@ -1012,3 +1128,104 @@ msgstr "conjugări"
 #: wwwbase/search.php:321
 msgid "declensions"
 msgstr "declinări"
+
+#: wwwbase/unelte.php:6
+msgid "Synchronization with dexonline"
+msgstr "Sincronizare cu dexonline"
+
+#: wwwbase/unelte.php:7
+msgid "This client connects to dexonline periodically to download updates."
+msgstr ""
+"Acest client se poate conecta periodic la dexonline pentru a-și transfera "
+"definițiile nou adăugate."
+
+#: wwwbase/unelte.php:10
+msgid "Interface for visually impaired users"
+msgstr "Interfață pentru nevăzători"
+
+#: wwwbase/unelte.php:11
+msgid "This client has a friendly interface for visually impaired users."
+msgstr "Acest client are o interfață prietenoasă pentru nevăzători."
+
+#: wwwbase/unelte.php:14
+msgid "Regular expressions, wildcards"
+msgstr "Expresii regulate, wildcards"
+
+#: wwwbase/unelte.php:15
+msgid ""
+"This client accepts searches using regular expressions and/or wildcards, "
+"such as «echi*» for echilibru, echinocțiu etc."
+msgstr ""
+"Acest client acceptă căutări cu expresii regulate și/sau wildcards, cum ar "
+"fi «echi*» pentru echilibru, echinocțiu etc."
+
+#: wwwbase/unelte.php:18
+msgid "Suggestions"
+msgstr "Sugestii"
+
+#: wwwbase/unelte.php:19
+msgid ""
+"This client offers the closest matches when an exact match is not found."
+msgstr ""
+"Acest client oferă cele mai apropiate rezultate atunci când cuvântul căutat "
+"nu este găsit exact."
+
+#: wwwbase/unelte.php:22
+msgid "Diacritics support"
+msgstr "Cu / fără diacritice"
+
+#: wwwbase/unelte.php:23
+msgid "This client supports searching with or without diacritics."
+msgstr ""
+"Acest client oferă opțiuni pentru tastarea căutărilor cu sau fără diacritice."
+
+#: wwwbase/unelte.php:26
+msgid "Full-text searches"
+msgstr "Căutare full-text"
+
+#: wwwbase/unelte.php:27
+msgid ""
+"This client can search not just keywords, but the definition body as well."
+msgstr ""
+"Acest client poate căuta nu doar cuvintele-titlu, ci și întreg textul "
+"definițiilor."
+
+#: wwwbase/unelte.php:30
+msgid "Inflected form search"
+msgstr "Căutare forme flexionare"
+
+#: wwwbase/unelte.php:31
+msgid ""
+"This client can query declensions and conjugations, such as «lucreze» "
+"instead of «lucra»."
+msgstr ""
+"Acest client poate căuta declinări și conjugări ale cuvintelor, cum ar fi "
+"«lucreze» în loc de «lucra»."
+
+#: wwwbase/unelte.php:34
+msgid "Word clicks"
+msgstr "Clic pe cuvânt"
+
+#: wwwbase/unelte.php:35
+msgid ""
+"When you click a word in a definition, this client goes to the definition "
+"for that word."
+msgstr ""
+"Când dați clic pe un cuvânt dintr-o definiție, acest client navighează la "
+"definiția acelui cuvânt."
+
+#: wwwbase/unelte.php:38
+msgid "Search history"
+msgstr "Istoria căutărilor"
+
+#: wwwbase/unelte.php:39
+msgid "This client remembers the most recent searches and can revisit them."
+msgstr "Acest client ține minte ultimele cuvinte căutate și le poate revizita."
+
+#: wwwbase/unelte.php:50
+msgid "Perl, wxWidgets (only under Linux)"
+msgstr "Perl, wxWidgets (numai sub Linux)"
+
+#: wwwbase/unelte.php:74
+msgid "QT, g++ (only under Linux)"
+msgstr "QT, g++ (numai sub Linux)"

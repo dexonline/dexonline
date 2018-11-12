@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-11-11 14:38+0200\n"
-"PO-Revision-Date: 2018-11-11 14:41+0200\n"
+"POT-Creation-Date: 2018-11-12 14:51+0200\n"
+"PO-Revision-Date: 2018-11-12 14:51+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -172,6 +172,14 @@ msgstr "Închide sesiunea"
 #: templates/bits/navmenu.tpl:209
 msgid "Log in"
 msgstr "Autentificare"
+
+#: templates/bits/scrabbleResults.tpl:3
+msgid "The form <strong>%s</strong> exists in LOC %s."
+msgstr "Forma <strong>%s</strong> există în LOC %s."
+
+#: templates/bits/scrabbleResults.tpl:9
+msgid "The form <strong>%s</strong> does not exist in LOC %s."
+msgstr "Forma <strong>%s</strong> nu există în LOC %s."
 
 #: templates/bits/searchForm.tpl:17
 msgid "word"
@@ -358,6 +366,121 @@ msgstr "arată toate definițiile"
 #: templates/randomWordList.tpl:3
 msgid "%d randomly chosen %s"
 msgstr "%d de %s alese la întâmplare"
+
+#: templates/scrabble.tpl:8
+msgid "Scrabble lookup"
+msgstr "Verificare Scrabble"
+
+#: templates/scrabble.tpl:14
+msgid ""
+"Are you playing Scrabble and your friends do not believe that <em>kwyjibo</"
+"em> is\n"
+"        a perfectly legal word? Type in your word to show them who the boss "
+"is."
+msgstr ""
+"Joci Scrabble și prietenii tăi nu cred că <em>kwyjibo</em> este un cuvânt "
+"perfect legal? Tastează cuvântul tău ca să le arăți cine e șeful."
+
+#: templates/scrabble.tpl:41
+msgid "in version"
+msgstr "în versiunea"
+
+#: templates/scrabble.tpl:52
+msgid "look up"
+msgstr "verifică"
+
+#: templates/scrabble.tpl:62
+msgid "Official Scrabble word list (LOC)"
+msgstr "Lista Oficială de Cuvinte admise la Scrabble (LOC)"
+
+#: templates/scrabble.tpl:68
+msgid "version"
+msgstr "versiunea"
+
+#: templates/scrabble.tpl:69
+msgid "publication date"
+msgstr "data publicării"
+
+#: templates/scrabble.tpl:70
+msgid "reduced forms"
+msgstr "forme reduse"
+
+#: templates/scrabble.tpl:71
+msgid "base forms"
+msgstr "forme de bază"
+
+#: templates/scrabble.tpl:72
+msgid "inflected forms"
+msgstr "forme flexionare"
+
+#: templates/scrabble.tpl:80
+msgid "download"
+msgstr "descarcă"
+
+#: templates/scrabble.tpl:90
+msgid "a list of words between 2 and 15 letters, without diacritics"
+msgstr "lista de cuvinte între 2 și 15 litere, fără diacritice"
+
+#: templates/scrabble.tpl:93
+msgid "word list in alphabetical order"
+msgstr "lista de cuvinte ordonată alfabetic"
+
+#: templates/scrabble.tpl:95
+msgid "legend of notations"
+msgstr "legenda notațiilor"
+
+#: templates/scrabble.tpl:98
+msgid "list of words and their conjugations/declensions"
+msgstr "lista de cuvinte cu conjugările/declinările lor"
+
+#: templates/scrabble.tpl:102
+msgid ""
+"The last official LOC version is 5.0. Version 6.0 contains changes\n"
+"        to LOC made using the dexonline interface, but not included in the\n"
+"        official version."
+msgstr ""
+"Ultima versiune oficială a LOC este 5.0. Versiunea 6.0 conține modificări "
+"aduse LOC în dexonline, dar neîncorporate în versiunea oficială."
+
+#: templates/scrabble.tpl:110
+msgid "Differences between versions"
+msgstr "Diferențe între versiuni"
+
+#: templates/scrabble.tpl:114
+msgid "Find out what changed between two versions of LOC."
+msgstr "Află ce s-a schimbat între două versiuni ale LOC."
+
+#: templates/scrabble.tpl:119
+msgid "compare"
+msgstr "compară"
+
+#: templates/scrabble.tpl:128
+msgid "between"
+msgstr "între"
+
+#: templates/scrabble.tpl:135
+msgid "version %s and version %s"
+msgstr "versiunea %s și versiunea %s"
+
+#: templates/scrabble.tpl:150
+msgid "Inflection models"
+msgstr "Modele de flexionare"
+
+#: templates/scrabble.tpl:154
+msgid ""
+"<em>%s</em> and <em>%s</em> have similar declensions... but not\n"
+"        <em>%s</em> and <em>%s</em>? Here is why."
+msgstr ""
+"<em>%s</em> și <em>%s</em> se declină la fel... dar <em>%s</em> și <em>%s</"
+"em> nu? Iată de ce."
+
+#: templates/scrabble.tpl:163
+msgid "Show models for"
+msgstr "Arată modelele pentru"
+
+#: templates/scrabble.tpl:171
+msgid "show"
+msgstr "arată"
 
 #: templates/scramble.tpl:2 templates/widgets/games.tpl:6
 msgid "word scramble"
@@ -664,10 +787,6 @@ msgstr "Niciun rezultat pentru <strong>%s</strong>"
 #: templates/search.tpl:242
 msgid "unrecommended or incorrect form"
 msgstr "formă nerecomandată sau greșită"
-
-#: templates/search.tpl:247
-msgid "show"
-msgstr "arată"
 
 #: templates/search.tpl:253
 msgid "link to this inflected forms page"

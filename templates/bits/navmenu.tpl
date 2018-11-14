@@ -18,7 +18,7 @@
           <p class="navbar-btn">
             <a class="btn btn-info" href="{$wwwRoot}doneaza">
               <i class="glyphicon glyphicon-credit-card"></i>
-              {'donate'|_|capitalize}
+              <span>{'donate'|_}</span>
             </a>
           </p>
         </li>
@@ -158,7 +158,7 @@
                 <li>
                   <a href="{$wwwRoot}admin">
                     <i class="glyphicon glyphicon-king"></i>
-                    {'moderator page'|_}
+                    <span>{'moderator page'|_}</span>
                   </a>
                 </li>
               {/if}
@@ -166,7 +166,7 @@
                 <li>
                   <a href="#" data-toggle="modal" data-target="#hotkeysModal">
                     <i class="glyphicon glyphicon-hand-up"></i>
-                    {'hotkeys'|_}
+                    <span>{'hotkeys'|_}</span>
                   </a>
                 </li>
               {/if}
@@ -174,40 +174,40 @@
                 <li>
                   <a href="#" id="recentPagesLink" data-toggle="modal" data-target="#recentModal">
                     <i class="glyphicon glyphicon-pushpin"></i>
-                    {'recently viewed pages'|_}
+                    <span>{'recently viewed pages'|_}</span>
                   </a>
                 </li>
               {/if}
               <li>
                 <a href="{$wwwRoot}preferinte">
                   <i class="glyphicon glyphicon-cog"></i>
-                  {'preferences'|_}
+                  <span>{'preferences'|_}</span>
                 </a>
               </li>
               {if User::getActive()}
                 <li>
                   <a href="{$wwwRoot}utilizator/{User::getActive()}">
                     <i class="glyphicon glyphicon-user"></i>
-                    {'profile'|_}
+                    <span>{'profile'|_}</span>
                   </a>
                 </li>
                 <li>
                   <a href="{$wwwRoot}cuvinte-favorite">
                     <i class="glyphicon glyphicon-heart"></i>
-                    {'favorite words'|_}
+                    <span>{'favorite words'|_}</span>
                   </a>
                 </li>
                 <li>
                   <a href="{$wwwRoot}auth/logout">
                     <i class="glyphicon glyphicon-log-out"></i>
-                    {'log out'|_}
+                    <span>{'log out'|_}</span>
                   </a>
                 </li>
               {else}
                 <li>
                   <a href="{$wwwRoot}auth/login">
                     <i class="glyphicon glyphicon-log-in"></i>
-                    {'log in'|_}
+                    <span>{'log in'|_}</span>
                   </a>
                 </li>
               {/if}

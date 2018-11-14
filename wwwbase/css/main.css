@@ -33,13 +33,20 @@
   margin-left: 20px;
 }
 
+.navbar a::first-letter,
+.navbar a span::first-letter {
+  text-transform: uppercase;
+}
+
+/* this is needed for links with glyphicons, where first-letter is, well, not
+   the first letter */
+.navbar a span {
+  display: inline-block;
+}
+
 .glyphicon-credit-card {
   top: 2px;
   padding-right: 4px;
-}
-
-nav a::first-letter {
-  text-transform: uppercase;
 }
 
 

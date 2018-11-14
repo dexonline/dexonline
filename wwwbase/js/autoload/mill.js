@@ -13,6 +13,15 @@ $(function() {
     $('#main button').click(setDifficulty);
     $('#mill button').click(optionPressed);
     $('#definitionsButton').click(toggleDefinitions);
+
+    document.addEventListener('keypress', function(event) {
+      var c = String.fromCharCode(event.charCode);
+      if (c >= '1' && c <= '4') {
+        // keys 1-4 can either choose the difficulty or choose an answer
+        var formId = ($('#main').is(":visible")) ? 'main' : 'mill';
+        $('#' + formId + ' button[value="' + c + '"]').click();
+      }
+    });
   }
 
   function loadXMLDoc() {
@@ -82,13 +91,6 @@ $(function() {
     loadXMLDoc();
     $('#mainPage').hide();
     $('#questionPage').show();
-
-    document.addEventListener('keypress', function(event) {
-      var c = String.fromCharCode(event.charCode);
-      if (c >= '1' && c <= '4') {
-        optionPressed($('#mill button[value="' + c + '"]'));
-      }
-    });
   }
 
   function toggleDefinitions() {

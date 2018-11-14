@@ -1,13 +1,13 @@
 {extends "layout.tpl"}
 
-{block "title"}{'Word mill'|_}{/block}
+{block "title"}{'word mill'|_|capitalize}{/block}
 
 {block "search"}{/block}
 
 {block "content"}
   <div class="panel panel-default millArea">
     <div class="panel-heading">
-      <h3 class="panel-title">{'Word mill'|_}</h3>
+      <h3 class="panel-title">{'word mill'|_|capitalize}</h3>
     </div>
     <div class="panel-body">
       <div id="mainPage">
@@ -62,7 +62,7 @@
 
   <div id="defPanel" class="panel panel-default millArea">
     <div class="panel-heading">
-      <h3 class="panel-title">{'Definitions'|_}</h3>
+      <h3 class="panel-title">{'definitions'|_|capitalize}</h3>
     </div>
     <div id="definitionsSection" class="panel-body">
     </div>

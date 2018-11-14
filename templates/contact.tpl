@@ -1,10 +1,10 @@
 {extends "layout.tpl"}
 
-{block "title"}Contact{/block}
+{block "title"}{'contact us'|_|capitalize}{/block}
 
 {block "content"}
 
-  <h3>{'Contact us'|_}</h3>
+  <h3>{'contact us'|_|capitalize}</h3>
 
   <p class="text-medium">
     <a href="mailto:{$cfg.global.contact|escape}">

@@ -64,6 +64,10 @@ a.widget,
   display: inline-block;
 }
 
+.widget h4::first-letter {
+  text-transform: uppercase;
+}
+
 /* used in widgets/games.tpl, but only appears on the home page */
 .list-games {
   display: inline-block;

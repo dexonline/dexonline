@@ -1,0 +1,4 @@
+/* make use of the div that tablesorter inserts */
+div.tablesorter-header-inner::first-letter {
+  text-transform: uppercase;
+}

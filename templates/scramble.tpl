@@ -52,16 +52,16 @@
             <div class="col-sm-10">
               <div class="btn-group" data-toggle="buttons">
                 <label class="btn btn-info">
-                  <input type="radio" name="level" value="0"> {'4 letters'|_}
+                  <input type="radio" name="level" value="0"> 4 {'letters'|_}
                 </label>
                 <label class="btn btn-info active">
-                  <input type="radio" name="level" value="1"> {'5 letters'|_}
+                  <input type="radio" name="level" value="1"> 5 {'letters'|_}
                 </label>
                 <label class="btn btn-info">
-                  <input type="radio" name="level" value="2"> {'6 letters'|_}
+                  <input type="radio" name="level" value="2"> 6 {'letters'|_}
                 </label>
                 <label class="btn btn-info">
-                  <input type="radio" name="level" value="3"> {'7 letters'|_}
+                  <input type="radio" name="level" value="3"> 7 {'letters'|_}
                 </label>
               </div>
             </div>
@@ -89,16 +89,16 @@
                   <input type="radio" name="seconds" value="0"> {'one minute'|_}
                 </label>
                 <label class="btn btn-info">
-                  <input type="radio" name="seconds" value="1"> {'2 minutes'|_}
+                  <input type="radio" name="seconds" value="1"> 2 {'minutes'|_}
                 </label>
                 <label class="btn btn-info active">
-                  <input type="radio" name="seconds" value="2"> {'3 minutes'|_}
+                  <input type="radio" name="seconds" value="2"> 3 {'minutes'|_}
                 </label>
                 <label class="btn btn-info">
-                  <input type="radio" name="seconds" value="3"> {'4 minutes'|_}
+                  <input type="radio" name="seconds" value="3"> 4 {'minutes'|_}
                 </label>
                 <label class="btn btn-info">
-                  <input type="radio" name="seconds" value="4"> {'5 minutes'|_}
+                  <input type="radio" name="seconds" value="4"> 5 {'minutes'|_}
                 </label>
               </div>
             </div>

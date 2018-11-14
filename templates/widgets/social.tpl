@@ -1,6 +1,6 @@
 <div class="widget social row multiple-links">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-    <h4>{'Follow us on'|_}</h4>
+    <h4>{'follow us on'|_}</h4>
     <ul class="list-inline">
       <li>
       	<a href="https://www.facebook.com/dexonline">

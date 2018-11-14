@@ -1,6 +1,6 @@
 {extends "layout.tpl"}
 
-{block "title"}{'Hangman'|_}{/block}
+{block "title"}{'hangman'|_|capitalize}{/block}
 
 {block "search"}{/block}
 
@@ -12,7 +12,7 @@
 
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h3 class="panel-title">{'Hangman'|_}</h3>
+      <h3 class="panel-title">{'hangman'|_|capitalize}</h3>
     </div>
     <div class="panel-body">
       <form id="hangman" action="">
@@ -49,7 +49,7 @@
 
   <div id="resultsWrapper" class="panel panel-default">
     <div class="panel-heading">
-      <h3 class="panel-title">{'Definitions'|_}</h3>
+      <h3 class="panel-title">{'definitions'|_|capitalize}</h3>
     </div>
     <div class="panel-body">
       {foreach $searchResults as $row}

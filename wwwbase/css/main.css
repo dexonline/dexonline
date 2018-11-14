@@ -38,6 +38,10 @@
   padding-right: 4px;
 }
 
+nav a::first-letter {
+  text-transform: uppercase;
+}
+
 
 /*********** search form ***********/
 

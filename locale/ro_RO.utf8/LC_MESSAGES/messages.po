@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-11-12 17:42+0200\n"
-"PO-Revision-Date: 2018-11-12 17:42+0200\n"
+"POT-Creation-Date: 2018-11-14 10:29+0200\n"
+"PO-Revision-Date: 2018-11-14 10:30+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -20,7 +20,7 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-1: wwwbase/js/merged\n"
 "X-Poedit-SearchPathExcluded-2: wwwbase/js/third-party\n"
 
-#: templates/articole.tpl:2
+#: templates/articole.tpl:2 templates/bits/navmenu.tpl:106
 msgid "linguistic articles"
 msgstr "articole lingvistice"
 
@@ -105,109 +105,117 @@ msgstr "ascunde variantele"
 msgid "show variants"
 msgstr "arată variantele"
 
+#: templates/bits/navmenu.tpl:5
+msgid "home page"
+msgstr "pagina principală"
+
+#: templates/bits/navmenu.tpl:20
+msgid "donate"
+msgstr "donează"
+
+#: templates/bits/navmenu.tpl:31
+msgid "navigation"
+msgstr "navigare"
+
 #: templates/bits/navmenu.tpl:50
-msgid "About"
-msgstr "Despre noi"
+msgid "about"
+msgstr "despre noi"
 
 #: templates/bits/navmenu.tpl:58
-msgid "Information"
-msgstr "Informații"
+msgid "information"
+msgstr "informații"
 
-#: templates/bits/navmenu.tpl:61 templates/contact.tpl:6
-msgid "Contact us"
-msgstr "Contact"
+#: templates/bits/navmenu.tpl:61 templates/contact.tpl:2
+msgid "contact us"
+msgstr "contact"
 
 #: templates/bits/navmenu.tpl:62
-msgid "Blog"
-msgstr "Blog"
+msgid "blog"
+msgstr "blog"
 
 #: templates/bits/navmenu.tpl:75
-msgid "Get involved"
-msgstr "Implică-te"
+msgid "get involved"
+msgstr "implică-te"
 
 #: templates/bits/navmenu.tpl:81
-msgid "Ways to help"
-msgstr "Cum poți ajuta"
+msgid "ways to help"
+msgstr "cum poți ajuta"
 
 #: templates/bits/navmenu.tpl:83
-msgid "Volunteer ranking"
-msgstr "Topul voluntarilor"
+msgid "volunteer ranking"
+msgstr "topul voluntarilor"
 
 #: templates/bits/navmenu.tpl:96
-msgid "Resources"
-msgstr "Resurse"
+msgid "resources"
+msgstr "resurse"
 
 #: templates/bits/navmenu.tpl:103
-msgid "Abbreviations table"
-msgstr "Abrevieri folosite"
-
-#: templates/bits/navmenu.tpl:106
-msgid "Linguistic articles"
-msgstr "Articole lingvistice"
+msgid "abbreviations table"
+msgstr "abrevieri folosite"
 
 #: templates/bits/navmenu.tpl:107
-msgid "Grammar guide"
-msgstr "Ghid de exprimare"
+msgid "grammar guide"
+msgstr "ghid de exprimare"
 
 #: templates/bits/navmenu.tpl:108 templates/widgets/wotd.tpl:2
-msgid "Word of the day"
-msgstr "Cuvântul zilei"
+msgid "word of the day"
+msgstr "cuvântul zilei"
 
 #: templates/bits/navmenu.tpl:109 templates/widgets/wotm.tpl:2
-msgid "Word of the month"
-msgstr "Cuvântul lunii"
+msgid "word of the month"
+msgstr "cuvântul lunii"
 
 #: templates/bits/navmenu.tpl:110
-msgid "Random words"
-msgstr "Cuvinte aleatorii"
+msgid "random words"
+msgstr "cuvinte aleatorii"
 
 #: templates/bits/navmenu.tpl:111
 msgid "Scrabble"
 msgstr "Scrabble"
 
-#: templates/bits/navmenu.tpl:112
-msgid "Tools"
-msgstr "Unelte"
+#: templates/bits/navmenu.tpl:112 templates/unelte.tpl:2
+msgid "tools"
+msgstr "unelte"
 
 #: templates/bits/navmenu.tpl:113
-msgid "External links"
-msgstr "Legături externe"
+msgid "external links"
+msgstr "legături externe"
 
 #: templates/bits/navmenu.tpl:152
 msgid "Anonymous"
 msgstr "Anonim"
 
 #: templates/bits/navmenu.tpl:160
-msgid "Moderator page"
-msgstr "Pagina moderatorului"
+msgid "moderator page"
+msgstr "pagina moderatorului"
 
 #: templates/bits/navmenu.tpl:168
-msgid "Hotkeys"
-msgstr "Hotkeys"
+msgid "hotkeys"
+msgstr "hotkeys"
 
 #: templates/bits/navmenu.tpl:176
-msgid "Recently viewed pages"
-msgstr "Pagini vizitate recent"
+msgid "recently viewed pages"
+msgstr "pagini vizitate recent"
 
 #: templates/bits/navmenu.tpl:183
-msgid "Preferences"
-msgstr "Preferințe"
+msgid "preferences"
+msgstr "preferințe"
 
 #: templates/bits/navmenu.tpl:190
-msgid "Profile"
-msgstr "Profilul meu"
+msgid "profile"
+msgstr "profilul meu"
 
 #: templates/bits/navmenu.tpl:196
-msgid "Favorite words"
-msgstr "Cuvinte favorite"
+msgid "favorite words"
+msgstr "cuvinte favorite"
 
 #: templates/bits/navmenu.tpl:202
-msgid "Log out"
-msgstr "Închide sesiunea"
+msgid "log out"
+msgstr "închide sesiunea"
 
 #: templates/bits/navmenu.tpl:209
-msgid "Log in"
-msgstr "Autentificare"
+msgid "log in"
+msgstr "autentificare"
 
 #: templates/bits/scrabbleResults.tpl:3
 msgid "The form <strong>%s</strong> exists in LOC %s."
@@ -242,24 +250,25 @@ msgid "All dictionaries"
 msgstr "Toate dicționarele"
 
 #: templates/bits/top.tpl:3
-msgid "Rank"
-msgstr "Loc"
+msgid "rank"
+msgstr "loc"
 
 #: templates/bits/top.tpl:4
-msgid "Name"
-msgstr "Nume"
+msgid "name"
+msgstr "nume"
 
 #: templates/bits/top.tpl:5
-msgid "Characters"
-msgstr "Caractere"
+msgid "characters"
+msgstr "caractere"
 
 #: templates/bits/top.tpl:6 templates/hangman.tpl:51 templates/mill.tpl:64
-msgid "Definitions"
-msgstr "Definiții"
+#: templates/search.tpl:100
+msgid "definitions"
+msgstr "definiții"
 
 #: templates/bits/top.tpl:7
-msgid "Most recent submission"
-msgstr "Data ultimei trimiteri"
+msgid "most recent submission"
+msgstr "data ultimei trimiteri"
 
 #: templates/bits/typoForm.tpl:22
 msgid "please describe the error; at most 400 characters are allowed"
@@ -330,9 +339,9 @@ msgstr "Puteți descărca o <a href=\"%s\">copie a bazei de date</a>."
 msgid "You have no favorite words."
 msgstr "Nu aveți niciun cuvânt favorit."
 
-#: templates/hangman.tpl:2
-msgid "Hangman"
-msgstr "Spânzurătoarea"
+#: templates/hangman.tpl:2 templates/widgets/games.tpl:4
+msgid "hangman"
+msgstr "spânzurătoarea"
 
 #: templates/hangman.tpl:20
 msgid "Lives remaining"
@@ -486,9 +495,9 @@ msgstr "Programe care folosesc baza de date a dexonline"
 msgid "A <a href=\"%s\">game of Fazan</a> for Android devices"
 msgstr "Un <a href=\"%s\">joc de Fazan</a> pentru dispozitive cu Android"
 
-#: templates/mill.tpl:2
-msgid "Word mill"
-msgstr "Moara cuvintelor"
+#: templates/mill.tpl:2 templates/widgets/games.tpl:5
+msgid "word mill"
+msgstr "moara cuvintelor"
 
 #: templates/mill.tpl:14
 msgid "Level"
@@ -774,20 +783,8 @@ msgid "all anagrams"
 msgstr "toate anagramele"
 
 #: templates/scramble.tpl:54
-msgid "4 letters"
-msgstr "4 litere"
-
-#: templates/scramble.tpl:57
-msgid "5 letters"
-msgstr "5 litere"
-
-#: templates/scramble.tpl:60
-msgid "6 letters"
-msgstr "6 litere"
-
-#: templates/scramble.tpl:63
-msgid "7 letters"
-msgstr "7 litere"
+msgid "letters"
+msgstr "litere"
 
 #: templates/scramble.tpl:70
 msgid "diacritics"
@@ -810,20 +807,8 @@ msgid "one minute"
 msgstr "un minut"
 
 #: templates/scramble.tpl:91
-msgid "2 minutes"
-msgstr "2 minute"
-
-#: templates/scramble.tpl:94
-msgid "3 minutes"
-msgstr "3 minute"
-
-#: templates/scramble.tpl:97
-msgid "4 minutes"
-msgstr "4 minute"
-
-#: templates/scramble.tpl:100
-msgid "5 minutes"
-msgstr "5 minute"
+msgid "minutes"
+msgstr "minute"
 
 #: templates/scramble.tpl:107
 msgid "Object of the game"
@@ -987,10 +972,6 @@ msgstr "Nicio definiție"
 #: templates/search.tpl:99
 msgid "One definition"
 msgstr "O definiție"
-
-#: templates/search.tpl:100
-msgid "definitions"
-msgstr "definiții"
 
 #: templates/search.tpl:101
 msgid "for"
@@ -1160,10 +1141,6 @@ msgstr "Topul contribuțiilor automate"
 msgid "These include definitions entered using a program."
 msgstr "În această categorie intră definițiile trimise folosind un program."
 
-#: templates/unelte.tpl:2
-msgid "tools"
-msgstr "unelte"
-
 #: templates/unelte.tpl:5
 msgid "off-line clients"
 msgstr "clienți off-line"
@@ -1269,28 +1246,20 @@ msgid "A <a href=\"%s\">WordPress plugin</a> for your blog."
 msgstr "Un <a href=\"%s\">modul de WordPress</a> pentru blogul dumneavoastră."
 
 #: templates/widgets/articleOfTheMonth.tpl:2
-msgid "Article of the month"
-msgstr "Articolul lunii"
+msgid "article of the month"
+msgstr "articolul lunii"
 
 #: templates/widgets/games.tpl:2
-msgid "Games"
-msgstr "Jocuri"
-
-#: templates/widgets/games.tpl:4
-msgid "hangman"
-msgstr "spânzurătoarea"
-
-#: templates/widgets/games.tpl:5
-msgid "word mill"
-msgstr "moara cuvintelor"
+msgid "games"
+msgstr "jocuri"
 
 #: templates/widgets/randomWord.tpl:2
-msgid "Random word"
-msgstr "Cuvânt aleatoriu"
+msgid "random word"
+msgstr "cuvânt aleatoriu"
 
 #: templates/widgets/social.tpl:2
-msgid "Follow us on"
-msgstr "Urmărește-ne pe"
+msgid "follow us on"
+msgstr "urmărește-ne pe"
 
 #: templates/widgets/social.tpl:10
 msgid "Facebook icon"
@@ -1320,11 +1289,11 @@ msgstr "Urmărește-ne pe Twitter"
 msgid "Other linguistic articles"
 msgstr "Alte articole lingvistice"
 
-#: templates/wotd.tpl:20
+#: templates/wotd.tpl:21
 msgid "Word of the day for %2$s %1$d, %3$d"
 msgstr "Cuvântul zilei, %d %s %d"
 
-#: templates/wotd.tpl:42
+#: templates/wotd.tpl:43
 msgid ""
 "<i>dexonline</i> does not directly offer the word of the day by email.\n"
 "        However, there are <a href=\"%s\">many sites</a> that do this for "
@@ -1335,19 +1304,19 @@ msgstr ""
 "href=\"%s\">multe site-uri</a> care fac acest lucru pentru orice RSS. Vă "
 "recomandăm <a href=\"%s\">IFTTT</a>."
 
-#: templates/wotd.tpl:95
+#: templates/wotd.tpl:96
 msgid "Chosen because:"
 msgstr "Cheia alegerii:"
 
-#: templates/wotd.tpl:102
+#: templates/wotd.tpl:103
 msgid "Word of the day archive"
 msgstr "Arhiva cuvintelor zilei"
 
-#: templates/wotd.tpl:108
+#: templates/wotd.tpl:109
 msgid "Word of the day for %2$s %1$d in other years:"
 msgstr "Cuvântul zilei de %d %s în alți ani:"
 
-#: templates/wotd.tpl:128
+#: templates/wotd.tpl:129
 msgid "Comments"
 msgstr "Comentarii"
 

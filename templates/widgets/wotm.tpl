@@ -1,6 +1,6 @@
 <a href="{$wwwRoot}cuvantul-lunii/{$todayM}" class="widget wotm row">
   <div class="col-lg-8 col-md-12 col-sm-12 col-xs-6">
-    <h4>{'Word of the month'|_}</h4><br>
+    <h4>{'word of the month'|_}</h4><br>
     {if $wotmDef}
       <span class="widget-value">{$wotmDef->lexicon}</span>
     {/if}

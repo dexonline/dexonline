@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-11-14 10:29+0200\n"
-"PO-Revision-Date: 2018-11-14 10:30+0200\n"
+"POT-Creation-Date: 2018-11-14 13:59+0200\n"
+"PO-Revision-Date: 2018-11-14 13:59+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -79,9 +79,13 @@ msgstr "permalink"
 
 #: templates/bits/extendedParadigm.tpl:19
 msgid "hyphenation"
-msgstr "silabisire"
+msgstr "silabație"
 
-#: templates/bits/extendedParadigm.tpl:25
+#: templates/bits/extendedParadigm.tpl:23
+msgid "Hyphenation splits the word into syllables."
+msgstr "Silabația este despărțirea în silabe a cuvântului."
+
+#: templates/bits/extendedParadigm.tpl:30
 msgid "pronunciation"
 msgstr "pronunție"
 

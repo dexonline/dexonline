@@ -34,7 +34,7 @@
           <li>o interfață care găsește cuvinte, în textele indexate anterior, care nu apar în <i>dexonline</i> și le trimite către un lexicograf care să
             le elaboreze definiții;</li>
           <li>confruntarea și unificarea definițiilor pentru același cuvânt, din dicționare diferite, pentru eliminarea redundanței;</li>
-          <li>restructurarea definițiilor pentru a separa silabisirea, pronunția, etimologia, sinonimele și variantele;</li>
+          <li>restructurarea definițiilor pentru a separa silabația, pronunția, etimologia, sinonimele și variantele;</li>
           <li>jocuri bazate pe dicționare, din serie cu <a href="spanzuratoarea">Spânzurătoarea</a> și <a href="moara">Moara cuvintelor</a>.</li>
         </ul>
       </div>

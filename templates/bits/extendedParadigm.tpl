@@ -17,7 +17,12 @@
   <ul class="lexemeMorphology">
     {if $lexeme->hyphenations}
       <li>
-        {'hyphenation'|_}: <span class="value">{$lexeme->hyphenations}</span>
+        {'hyphenation'|_}:
+        <span class="value">{$lexeme->hyphenations}</span>
+        <i
+          class="glyphicon glyphicon-info-sign"
+          title="{'Hyphenation splits the word into syllables.'|_}"
+        ></i>
       </li>
     {/if}
 

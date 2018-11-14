@@ -166,7 +166,7 @@
             {include "bits/fhf.tpl"
               field="hyphenations"
               value=$lexeme->hyphenations
-              label="silabisiri"
+              label="silabații"
               placeholder="opționale, despărțite prin virgule"
               readonly=!$canEdit.hyphenations}
 

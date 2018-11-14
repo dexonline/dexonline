@@ -46,7 +46,12 @@ class Preferences {
     self::PRIVATE_MODE => [
       'enabled' => false,
       'label' => 'Modul confidențial',
-      'comment' => 'Dezactivează caseta Facebook, reclamele AdSense și alte elemente care divulgă informații despre dumneavoastră unor terțe părți. Modul confidențial este disponibil timp de un an celor care <a href="doneaza">donează</a> minim 50 de lei.',
+      'comment' => 'Dezactivează caseta Facebook, reclamele AdSense și alte elemente '
+      . 'care divulgă informații despre dumneavoastră unor terțe părți. '
+      . '<a href="https://wiki.dexonline.ro/wiki/Modul_confiden%C8%9Bial" '
+      . 'target="_blank">Modul confidențial</a> '
+      . 'este disponibil timp de un an celor care <a href="doneaza">donează</a> '
+      . 'minim 50 de lei.',
     ],
     self::NO_TREES => [
       'enabled' => true,

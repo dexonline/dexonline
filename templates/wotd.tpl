@@ -1,7 +1,8 @@
 {extends "layout.tpl"}
 
 {block "title"}
-  Cuvântul zilei ({$day} {$monthName} {$year}): {$searchResult->definition->lexicon}
+  {'word of the day'|_|capitalize}, ({$day} {$monthName} {$year}):
+  {$searchResult->definition->lexicon}
 {/block}
 
 {block "pageDescription"}
@@ -18,14 +19,20 @@
   {assign var="reason" value=$reason|default:''}
 
   <h3 class="clearfix">
-    Cuvântul zilei, {$day} {$monthName} {$year}
+    {'Word of the day for %2$s %1$d, %3$d'|_|sprintf:$day:$monthName:$year}
 
     {if $skinVariables.wotdSubscribe}
       <div id="wotdSocialMedia" class="pull-right">
         <div>
-          <a href="#toggleContents" data-toggle="collapse"><img src="{$imgRoot}/social-media/email-29.png" alt="iconiță email"></a>
-          <a type="application/rss+xml" href="{$wwwRoot}rss/cuvantul-zilei"><img src="{$imgRoot}/social-media/rss-29.png" alt="iconiță RSS"></a>
-          <a href="https://www.facebook.com/dexonline"><img src="{$imgRoot}/social-media/facebook-29.png" alt="iconiță Facebook"></a>
+          <a href="#toggleContents" data-toggle="collapse">
+            <img src="{$imgRoot}/social-media/email-29.png" alt="iconiță email"
+          ></a>
+          <a type="application/rss+xml" href="{$wwwRoot}rss/cuvantul-zilei">
+            <img src="{$imgRoot}/social-media/rss-29.png" alt="iconiță RSS"
+          ></a>
+          <a href="https://www.facebook.com/dexonline">
+            <img src="{$imgRoot}/social-media/facebook-29.png" alt="iconiță Facebook"
+          ></a>
         </div>
       </div>
     {/if}
@@ -34,10 +41,11 @@
   <div id="toggleContents" class="collapse voffset2">
     <div class="panel panel-default">
       <div class="panel-body">
-        <i>dexonline</i> nu oferă cuvântul zilei direct prin email. Există însă
-        <a href="http://www.google.com/search?q=rss+by+email">numeroase site-uri</a>
-        care fac acest lucru pentru orice RSS. Vă recomandăm
-        <a href="https://ifttt.com/recipes/147561-rss-feed-to-email">IFTTT</a> (RSS feed to email).
+        {'<i>dexonline</i> does not directly offer the word of the day by email.
+        However, there are <a href="%s">many sites</a> that do this for any RSS feed.
+        We recommend <a href="%s">IFTTT</a>.'|_|sprintf
+        :"http://www.google.com/search?q=rss+by+email"
+        :"https://ifttt.com/recipes/147561-rss-feed-to-email"}
       </div>
     </div>
   </div>
@@ -86,19 +94,21 @@
     </div>
     {if $reason}
       <div class="panel-footer">
-        <b>Cheia alegerii:</b> {$reason}
+        <b>{'Chosen because:'|_}</b> {$reason}
       </div>
     {/if}
   </div>
 
   {if $skinVariables.wotdArchive}
     <br>
-    <h3>Arhiva cuvintelor zilei</h3>
+    <h3>{'Word of the day archive'|_}</h3>
 
     <div id="wotdArchive" class="wotdArchive"></div>
     <script>loadAjaxContent('{$wwwRoot}arhiva/cuvantul-zilei/{$year}/{$month}','#wotdArchive')</script>
 
-    <h3>Cuvântul zilei de {$day} {$monthName} în alți ani:</h3>
+    <h3>
+      {'Word of the day for %2$s %1$d in other years:'|_|sprintf:$day:$monthName}
+    </h3>
     {foreach $otherYears as $r}
       <div class="panel panel-default">
         <div class="panel-body">
@@ -117,6 +127,6 @@
     {/foreach}
   {/if}
 
-  <h3>Comentarii</h3>
+  <h3>{'Comments'|_}</h3>
   <fb:comments href="https://dexonline.ro/cuvantul-zilei/{$year}/{$month}/{$day}"></fb:comments>
 {/block}

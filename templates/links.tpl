@@ -1,43 +1,67 @@
 {extends "layout.tpl"}
 
-{block "title"}Legături{/block}
+{block "title"}{'links'|_|capitalize}{/block}
 
 {block "content"}
   <p>
-    Această pagină conține legături utile de natură lingvistică. Aceste legături nu sunt sponsorizate, ci le considerăm utile pentru
-    vizitatorii <i>dexonline</i>. Nu suntem afiliați cu site-urile sau instituțiile menționate.
+    {'This page contains useful language links. These links are not sponsored;
+    we consider the useful to our visitors. We are not affiliated with the
+    respective sites and institutions.'|_}
   </p>
 
-  <h3>Limba română</h3>
+  <h3>{'Romanian language'|_}</h3>
 
   <ul>
-    <li><a href="http://www.lingv.ro/">Institutul de Lingvistică</a> „Iorgu Iordan – Alexandru Rosetti” al Academiei Române</li>
-    <li><a href="http://www.xn--scriuromnete-wbb074b.net/">ScriuRomânește.net</a> -- cum și de ce să scrii cu diacritice pe Internet</li>
     <li>
-      Sorin Paliga – volume în format PDF la
-      <a href="https://unibuc.academia.edu/SPaliga">Academia.edu</a>
-      și
-      <a href="https://www.researchgate.net/profile/Sorin_Paliga">ResearchGate</a>
+      {'Iorgu Iordan - Alexandru Rosetti <a href="%s">Institute of Linguistics</a>,
+      Romanian Academy'|_|sprintf
+      :"http://www.lingv.ro/"}
+    </li>
+    <li>
+      <a href="http://www.xn--scriuromnete-wbb074b.net/">ScriuRomânește.net</a>
+      &mdash; {'why and how to write using diacritics in the Internet'|_}
+    </li>
+    <li>
+      {'Sorin Paliga &mdash; volumes in PDF format at
+      <a href="%s">Academia.edu</a> and <a href="%s">ResearchGate</a>'|_|sprintf
+      :"https://unibuc.academia.edu/SPaliga"
+      :"https://www.researchgate.net/profile/Sorin_Paliga"}
     </li>
   </ul>
 
-  <h3>Limbi străine</h3>
+  <h3>{'Other languages'|_}</h3>
 
   <ul>
-    <li><a href="http://hallo.ro/">hallo.ro</a>, dicționare bilingve între română și engleză, franceză, spaniolă, germană, italiană</li>
+    <li>
+      {'<a href="%s"">hallo.ro</a> &mdash; bilingual dictionaries between
+      Romanian and English, French, Spanish, German, Italian'|_|sprintf
+      :"http://hallo.ro/"}
+    </li>
   </ul>
 
   <h3>Scrabble</h3>
 
   <ul>
-    <li><a href="http://www.scrabblero.ro/">Federația Română de Scrabble</a></li>
-    <li><a href="http://www.scrabrom.3x.ro/Anascrab7.html">Anascrab</a>, un generator de anagrame de șapte litere</li>
-    <li><a href="https://play.google.com/store/apps/details?id=com.dance.findwords">Găsește cuvinte</a>, un ajutor pentru cuvinte încrucișate și scrabble</li>
+    <li>
+      {'The <a href="%s">Romanian Scrabble Federation</a>'|_|sprintf
+      :"http://www.scrabblero.ro/"}
+    </li>
+    <li>
+      {'<a href="%s">AnaScrab 7</a> &mdash; a seven-letter anagram generator'|_|sprintf
+      :"http://www.scrabrom.3x.ro/Anascrab7.html"}
+    </li>
+    <li>
+      {'<a href="%s">Find words</a> &mdash; a helper for crosswords and Scrabble'|_|sprintf
+      :"https://play.google.com/store/apps/details?id=com.dance.findwords"}
+    </li>
   </ul>
 
-  <h3>Programe care folosesc baza de date a dexonline</h3>
+  <h3>{'Programs that use the database of dexonline'|_}</h3>
 
   <ul>
-    <li><a href="https://play.google.com/store/apps/details?id=com.kynamar.fazan">Un joc de fazan</a> pentru telefoane și tablete cu Android.</li>
+    <li>
+      {'A <a href="%s">game of Fazan</a> for Android devices'|_|sprintf
+      :"https://play.google.com/store/apps/details?id=com.kynamar.fazan"}
+    </li>
   </ul>
 {/block}

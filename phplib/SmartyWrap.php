@@ -329,12 +329,14 @@ class SmartyWrap {
         self::assign('recentLinks', RecentLink::load());
       }
     }
+    self::registerPlugins();
     self::registerOutputFilters();
     Plugin::notify('cssJsSmarty');
     print self::fetch($templateName);
   }
 
   static function displayWithoutSkin($templateName) {
+    self::registerPlugins();
     self::registerOutputFilters();
     print self::fetch($templateName);
   }
@@ -369,6 +371,10 @@ class SmartyWrap {
     } else {
       self::$theSmarty->assign($arg1, $arg2);
     }
+  }
+
+  static function registerPlugins() {
+    self::$theSmarty->registerPlugin('modifier', 'capitalize', 'Str::capitalize');
   }
 
   static function registerOutputFilters() {

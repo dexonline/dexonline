@@ -2,14 +2,15 @@
 
   {if isset($extra.unofficialHidden)}
     <p class="text-warning">
-      Există definiții din dicționare neoficiale, pe care ați ales
-      <a href="{$wwwRoot}preferinte">să le ascundeți</a>.
+      {'There are definitions in unofficial dictionaries, which
+      <a href="%spreferinte">you have chosen to hide</a>.'|_|sprintf:$wwwRoot}
     </p>
   {/if}
 
   {if isset($extra.sourcesHidden)}
     <p class="text-warning">
-      Există definiții din dicționare pentru care dexonline nu are drepturi de redistribuire:
+      {'There are definitions in dictionaries for which dexonline has no
+      publishing rights:'|_}
     </p>
 
     <ul>
@@ -26,4 +27,3 @@
     </ul>
   {/if}
 {/if}
-

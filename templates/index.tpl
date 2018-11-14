@@ -9,7 +9,7 @@
   <header>
     <div class="siteIdentity">
       <img class='siteLogo' src='{$wwwRoot}img/svg/logo-dexonline.svg' alt='dexonline'>
-      <div class="tagline">Dicționare ale limbii române</div>
+      <div class="tagline">{'Dictionaries of the Romanian language'|_}</div>
     </div>
   </header>
 
@@ -27,7 +27,10 @@
       {/if}
     </div>
     <div class="col-md-12">
-      <a class="btn btn-link customise-widgets pull-right" href="preferinte"><span class="glyphicon glyphicon-cog"></span>personalizare elemente</a>
+      <a class="btn btn-link customise-widgets pull-right" href="preferinte">
+        <i class="glyphicon glyphicon-cog"></i>
+        {'customize widgets'|_}
+      </a>
     </div>
   </section>
 
@@ -35,12 +38,15 @@
   <div class="col-md-6 col-md-offset-3 website-statement text-center">
     <p>
 
-      <i>dexonline</i> transpune pe Internet dicționare de prestigiu ale limbii române.
-      Proiectul este întreținut de un colectiv de voluntari.
-      O parte din definiții pot fi descărcate liber și gratuit sub Licența Publică Generală GNU.<br>
+      <i>dexonline</i> {'digitizes prestigious dictionaries of the Romanian language.'|_}
+      {'The project is maintained by a team of volunteers.'|_}
+      {'Much of the data can be downloaded freely under the GNU General Public License.'|_}
 
-      Starea curentă: {$wordsTotal|number_format:0:',':'.'} de definiții,
-      din care {$wordsLastMonth|number_format:0:',':'.'} învățate în ultima lună.
+      <br>
+
+      {'Current status: %s definitions, of which %s learned last month.'|_|sprintf
+      :{Locale::number($wordsTotal)}
+      :{Locale::number($wordsLastMonth)}}
 
     </p>
   </div>

@@ -15,7 +15,7 @@
               <input type="text"
                      class="form-control"
                      name="cuv"
-                     placeholder="cuvânt"
+                     placeholder="{'word'|_}"
                      id="searchField"
                      value="{$cuv|escape}"
                      maxlength="50">
@@ -26,13 +26,15 @@
             <span class="input-group-btn">
               <button type="submit" value="caută" id="searchButton" class="btn btn-primary">
                 <span class="glyphicon glyphicon-search"></span>
-                caută
+                {'search'|_}
               </button>
             </span>
           </div>
         </div>
         <div class="col-sm-0 col-md-1">
-          <a href="#" id="advancedAnchor" onclick="return toggle('advSearch')">opțiuni</a>
+          <a href="#" id="advancedAnchor" onclick="return toggle('advSearch')">
+            {'options'|_}
+          </a>
         </div>
       </div>
 
@@ -47,14 +49,14 @@
             <input type="checkbox"
                    name="text"
                    {if $text}checked{/if}>
-            Caută în tot textul definițiilor
+            {'Full-text search'|_}
           </label>
 
           <a href="https://wiki.dexonline.ro/wiki/Ajutor_pentru_căutare"
              class="pull-right"
              target="_blank">
             <i class="glyphicon glyphicon-question-sign"></i>
-            ajutor
+            {'help'|_}
           </a>
         </div>
       </div>

@@ -1,5 +1,5 @@
 <?php
-require_once("../phplib/Core.php");
+require_once('../phplib/Core.php');
 
 $widgets = Preferences::getWidgets(User::getActive());
 $numEnabledWidgets = array_reduce($widgets, function($result, $w) { return $result + $w['enabled']; });
@@ -40,5 +40,4 @@ SmartyWrap::assign([
   'todayM' => date('Y/m'),
 ]);
 
-$page = 'index.tpl';
-SmartyWrap::display($page);
+SmartyWrap::display('index.tpl');

@@ -5,11 +5,11 @@
     <td colspan="2" rowspan="3">
       {include "bits/lexeme.tpl" lexeme=$lexeme}
     </td>
-    <td class="inflection">infinitiv</td>
-    <td class="inflection">infinitiv lung</td>
-    <td class="inflection">participiu</td>
-    <td class="inflection">gerunziu</td>
-    <td colspan="2" class="inflection">imperativ pers. a II-a</td>
+    <td class="inflection">{'infinitive'|_}</td>
+    <td class="inflection">{'long infinitive'|_}</td>
+    <td class="inflection">{'participle'|_}</td>
+    <td class="inflection">{'gerund'|_}</td>
+    <td colspan="2" class="inflection">{'imperative 2nd person'|_}</td>
   </tr>
   <tr>
     <td rowspan="2" class="form">
@@ -25,8 +25,8 @@
     <td rowspan="2" class="form">
       {include "bits/ifArray.tpl" ifArray=$ifMap[6]|default:null}
     </td>
-    <td class="inflection">singular</td>
-    <td class="inflection">plural</td>
+    <td class="inflection">{'singular'|_}</td>
+    <td class="inflection">{'plural'|_}</td>
   </tr>
   <tr>
     <td class="form">
@@ -42,17 +42,17 @@
   </tr>
 
   <tr>
-    <td class="inflection">numărul</td>
-    <td class="inflection">persoana</td>
-    <td class="inflection">prezent</td>
-    <td class="inflection">conjunctiv prezent</td>
-    <td class="inflection">imperfect</td>
-    <td class="inflection">perfect simplu</td>
-    <td colspan="2" class="inflection">mai mult ca perfect</td>
+    <td class="inflection">{'number'|_}</td>
+    <td class="inflection">{'person'|_}</td>
+    <td class="inflection">{'present'|_}</td>
+    <td class="inflection">{'present subjunctive'|_}</td>
+    <td class="inflection">{'imperfect'|_}</td>
+    <td class="inflection">{'simple perfect'|_}</td>
+    <td colspan="2" class="inflection">{'pluperfect'|_}</td>
   </tr>
   <tr>
-    <td rowspan="3" class="inflection">singular</td>
-    <td class="inflection person">I (eu)</td>
+    <td rowspan="3" class="inflection">{'singular'|_}</td>
+    <td class="inflection person">{'1st (eu)'|_}</td>
     <td class="form">
       {include "bits/ifArray.tpl" ifArray=$ifMap[7]|default:null}
     </td>
@@ -71,7 +71,7 @@
     </td>
   </tr>
   <tr>
-    <td class="inflection person">a II-a (tu)</td>
+    <td class="inflection person">{'2nd (tu)'|_}</td>
     <td class="form">
       {include "bits/ifArray.tpl" ifArray=$ifMap[8]|default:null}
     </td>
@@ -90,7 +90,7 @@
     </td>
   </tr>
   <tr>
-    <td class="inflection person">a III-a (el, ea)</td>
+    <td class="inflection person">{'3rd (el, ea)'|_}</td>
     <td class="form">
       {include "bits/ifArray.tpl" ifArray=$ifMap[9]|default:null}
     </td>
@@ -109,8 +109,8 @@
     </td>
   </tr>
   <tr>
-    <td rowspan="3" class="inflection">plural</td>
-    <td class="inflection person">I (noi)</td>
+    <td rowspan="3" class="inflection">{'plural'|_}</td>
+    <td class="inflection person">{'1st (noi)'|_}</td>
     <td class="form">
       {include "bits/ifArray.tpl" ifArray=$ifMap[10]|default:null}
     </td>
@@ -129,7 +129,7 @@
     </td>
   </tr>
   <tr>
-    <td class="inflection person">a II-a (voi)</td>
+    <td class="inflection person">{'2nd (voi)'|_}</td>
     <td class="form">
       {include "bits/ifArray.tpl" ifArray=$ifMap[11]|default:null}
     </td>
@@ -148,7 +148,7 @@
     </td>
   </tr>
   <tr>
-    <td class="inflection person">a III-a (ei, ele)</td>
+    <td class="inflection person">{'3rd (ei, ele)'|_}</td>
     <td class="form">
       {include "bits/ifArray.tpl" ifArray=$ifMap[12]|default:null}
     </td>

@@ -19,6 +19,11 @@ developmentMode = 1
 ; Display a maintenance page when true. Requires the DB to exist, but it may be empty.
 maintenanceMode = 0
 
+; Interface language
+locale = ro_RO.utf8
+availableLocales[en_US.utf8] = "English"
+availableLocales[ro_RO.utf8] = "română"
+
 ; Show our web host logo
 hostedBy = ""
 
@@ -75,6 +80,9 @@ fraction = 0.10
 
 ; When true, put the website in testing mode and use the testing database.
 enabled = false
+
+; Testing interface language
+locale = ro_RO.utf8
 
 ; Database connection
 ; database = "mysql://user[:password]@host/database"

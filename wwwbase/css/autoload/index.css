@@ -28,7 +28,7 @@
 a.widget,
 .widget.multiple-links {
   margin: 10px;
-  padding: 15px 10px;
+  padding: 15px 8px;
   border: 1px solid #CCC;
   border-radius: 4px;
   display: block;
@@ -62,6 +62,10 @@ a.widget,
 .widget h4,
 .widget-value {
   display: inline-block;
+}
+
+.widget h4::first-letter {
+  text-transform: uppercase;
 }
 
 /* used in widgets/games.tpl, but only appears on the home page */

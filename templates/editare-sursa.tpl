@@ -150,7 +150,8 @@
               <label>număr de definiții (-1 pentru „necunoscut”)</label>
               <input type="text" name="defCount" value="{$src->defCount}" class="form-control">
               <p class="help-block">
-                din care digitizate: {$src->ourDefCount}; procent de completare: {$src->percentComplete|string_format:"%.2f"}.
+                din care digitizate: {$src->ourDefCount};
+                procent de completare: {Locale::number($src->percentComplete, 2)}.
               </p>
             </div>
 

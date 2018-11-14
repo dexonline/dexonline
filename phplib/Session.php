@@ -34,7 +34,7 @@ class Session {
     if ($cookie) {
       $cookie->delete();
     }
-    setcookie("prefs[lll]", NULL, time() - 3600, '/');
+    self::unsetCookie('prefs[lll]');
     unset($_COOKIE['prefs']['lll']);
     self::kill();
     Util::redirect(Core::getWwwRoot());
@@ -51,7 +51,7 @@ class Session {
         User::setActive($user->id);
       } else {
         // The cookie is invalid.
-        setcookie("prefs[lll]", NULL, time() - 3600, '/');
+        self::unsetCookie('prefs[lll]');
         unset($_COOKIE['prefs']['lll']);
         if ($cookie) {
           $cookie->delete();
@@ -152,6 +152,11 @@ class Session {
     }
   }
 
+  static function unsetCookie($name) {
+    unset($_COOKIE[$name]);
+    setcookie($name, '', time() - 3600, '/');
+  }
+
   static function has($var) {
     return isset($_SESSION) && isset($_SESSION[$var]);
   }
@@ -163,7 +168,7 @@ class Session {
     session_unset();
     @session_destroy();
     if (ini_get("session.use_cookies")) {
-      setcookie(session_name(), '', time() - 3600, '/'); // expire it
+      self::unsetCookie(session_name());
     }
   }
 
@@ -182,7 +187,7 @@ class Session {
       setcookie("prefs[{$cookieName}]", '1', time() + self::ONE_YEAR_IN_SECONDS, '/');
       FlashMessage::add($onMessage, 'success');
     } else {
-      setcookie("prefs[{$cookieName}]", '', time() - 3600, '/');
+      self::unsetCookie("prefs[{$cookieName}]");
       FlashMessage::add($offMessage, 'warning');
     }
   }
@@ -198,7 +203,7 @@ class Session {
     if ($newLevel != DiffUtil::DEFAULT_GRANULARITY) {
       setcookie('prefs[diffGranularity]', $newLevel, time() + self::ONE_YEAR_IN_SECONDS, '/');
     } else {
-      setcookie('prefs[diffGranularity]', '', time() - 3600, '/');
+      self::unsetCookie('prefs[diffGranularity]');
     }
 
     $name = DiffUtil::$GRANULARITY_NAMES[$newLevel];

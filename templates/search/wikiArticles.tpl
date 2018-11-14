@@ -1,7 +1,7 @@
 {if count($wikiArticles)}
   <h3>
     <i class="glyphicon glyphicon-education"></i>
-    Articole pe această temă:
+    {'Articles on this subject'|_}:
   </h3>
 
   <ul>

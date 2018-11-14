@@ -24,9 +24,6 @@ class Core {
   }
 
   static function init() {
-    mb_internal_encoding('UTF-8');
-    setlocale(LC_ALL, 'ro_RO.utf8');
-
     spl_autoload_register(); // clear the autoload stack
     spl_autoload_register('Core::autoload', false, true);
 
@@ -40,6 +37,7 @@ class Core {
       FlashMessage::restoreFromSession();
     }
     SmartyWrap::init();
+    Locale::init();
     DebugInfo::init();
     if (Request::isWeb() && Config::get('global.maintenanceMode')) {
       SmartyWrap::display('maintenance.tpl', true);

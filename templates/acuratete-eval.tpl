@@ -89,18 +89,18 @@
       <dl class="dl-horizontal col-md-6">
         <dt>total</dt>
         <dd>
-          {$project->defCount|number_format:0:',':'.'} definiții,
-          {$project->totalLength|number_format:0:',':'.'} caractere
+          {Locale::number($project->defCount)} definiții,
+          {Locale::number($project->totalLength)} caractere
         </dd>
         <dt>eșantion</dt>
         <dd>
-          {$project->getSampleDefinitions()|number_format:0:',':'.'} definiții,
-          {$project->getSampleLength()|number_format:0:',':'.'} caractere
+          {Locale::number($project->getSampleDefinitions())} definiții,
+          {Locale::number($project->getSampleLength())} caractere
         </dd>
         <dt>evaluate</dt>
         <dd>
-          {$project->getReviewedDefinitions()|number_format:0:',':'.'} definiții,
-          {$project->getReviewedLength()|number_format:0:',':'.'} caractere
+          {Locale::number($project->getReviewedDefinitions())} definiții,
+          {Locale::number($project->getReviewedLength())} caractere
         </dd>
       </dl>
 
@@ -109,13 +109,13 @@
         <dd>{$project->getErrorCount()}</dd>
         <dt>acuratețe</dt>
         <dd>
-          {$project->getAccuracy()|string_format:"%.3f"}%
-          ({$project->getErrorsPerKb()|string_format:"%.2f"} erori / 1.000 caractere)
+          {Locale::number($project->getAccuracy(), 3)}%
+          ({Locale::number($project->getErrorsPerKb(), 2)} erori / 1.000 caractere)
         </dd>
         <dt>viteză</dt>
         <dd>
           {if $project->speed}
-            {$project->getCharactersPerHour()|number_format:0:',':'.'} caractere / oră
+            {Locale::number($project->getCharactersPerHour())} caractere / oră
           {else}
             necunoscută
           {/if}

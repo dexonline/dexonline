@@ -38,6 +38,10 @@
   padding-right: 4px;
 }
 
+nav a::first-letter {
+  text-transform: uppercase;
+}
+
 
 /*********** search form ***********/
 
@@ -130,6 +134,16 @@ header .banner-section {
 
 .fbBottom {
   overflow-x: hidden;
+}
+
+#footerLinks li {
+  padding-left: 0;
+}
+
+#footerLinks li:not(:first-child):before {
+  content: "•";
+  padding-right: 8px;
+  color: #999;
 }
 
 

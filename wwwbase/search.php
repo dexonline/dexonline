@@ -220,7 +220,7 @@ if ($searchType == SEARCH_INFLECTED) {
     $entries = Lexeme::searchApproximate($cuv);
     SmartyWrap::assign('suggestNoBanner', true);
     if (count($entries) == 1) {
-      $msg = sprintf('V-am redirecționat automat de la <b>%s</b> la <b>%s</b>.',
+      $msg = sprintf(_('We redirected you automatically from <b>%s</b> to <b>%s</b>.'),
                      $cuv, $entries[0]->description);
       FlashMessage::add($msg);
     }
@@ -316,9 +316,10 @@ if ($SEARCH_PARAMS[$searchType]['paradigm']) {
       $declensions |= !$isVerb;
     }
   }
-  $declensionText = $conjugations
-                  ? ($declensions ? 'conjugări / declinări' : 'conjugări')
-                  : 'declinări';
+  $declensionText = implode(' / ', array_filter([
+    $conjugations ? _('conjugations') : '',
+    $declensions ? _('declensions') : '',
+  ]));
   SmartyWrap::assign('declensionText', $declensionText);
 
   // Check if any of the inflected forms are unrecommended

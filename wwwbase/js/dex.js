@@ -343,10 +343,11 @@ $(function() {
 
   function addBookmark() {
     var anchor = $(this);
+    var span = anchor.find('span');
     var url = anchor.attr('href');
 
     // show loading message
-    anchor.find('span').text('un moment...');
+    span.text(span.data('pendingText'));
 
     $.ajax({
       url: url,
@@ -363,7 +364,8 @@ $(function() {
   }
 
   function addBookmarkSuccess(anchor) {
-    anchor.find('span').text('adăugat la favorite');
+    var span = anchor.find('span');
+    span.text(span.data('addedText'));
     anchor.closest('li').addClass('disabled');
   }
 
@@ -371,10 +373,11 @@ $(function() {
     evt.preventDefault();
 
     var anchor = $(this);
+    var span = anchor.find('span');
     var url = anchor.attr('href');
 
     // show ajax indicator
-    $(this).text('un moment...');
+    span.text(span.data('pendingText'));
 
     $.ajax({
       url: url,
@@ -391,30 +394,14 @@ $(function() {
   }
 
   function removeBookmarkSuccess(anchor) {
-    var favDefsParent = anchor.closest('.favoriteDef');
-    var idx = favDefsParent.data('idx');
+    var defWrapper = anchor.closest('dd');
+    var allDefs = anchor.closest('dl');
 
-    // get all elements with matching data-dev
-    var favDef = $('[data-idx="' + idx + '"]');
-
-    // remove elements from the DOM
-    favDef.fadeOut(function(){
-      favDef.remove();
-
-      // update favorites index
-      // placed in the fadeout callback so the deleted items
-      // will be removed from the dom before the length assertion
-      var favDefs = favDefsParent.children('dd');
-      if (favDefs.length > 0) {
-        favDefs.each(function(idx, elem){
-          var fav = $(elem);
-          var dd = fav.next();
-          var new_idx = idx + 1;
-
-          fav.children('.count').text(new_idx + '.');
-        });
-      } else {
-        favDefsParent.text('Nu aveți niciun cuvânt favorit.');
+    // remove element from the DOM
+    defWrapper.fadeOut(function() {
+      $(this).remove();
+      if (!allDefs.children('dd').length) {
+        allDefs.text(allDefs.data('noneText'));
       }
     });
   }

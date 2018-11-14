@@ -1,10 +1,10 @@
 {extends "layout.tpl"}
 
-{block "title"}Contact{/block}
+{block "title"}{'contact us'|_|capitalize}{/block}
 
 {block "content"}
 
-  <h3>Contact</h3>
+  <h3>{'contact us'|_|capitalize}</h3>
 
   <p class="text-medium">
     <a href="mailto:{$cfg.global.contact|escape}">
@@ -13,22 +13,24 @@
     </a>
   </p>
 
-  <h3>Informații utile</h3>
+  <h3>{'Useful information'|_}</h3>
 
   <ul>
     <li>
       <a href="https://wiki.dexonline.ro/wiki/Informa%C8%9Bii#Ce_nu_este_dexonline">
-        Ce <b>nu</b> este dexonline
+        {'What dexonline is <strong>not</strong>'|_}
       </a>
-      (când nu vă putem ajuta).
+      {'(ways we cannot help you).'|_}
     </li>
 
     <li>
-      Puteți instala dexonline pe <a href="unelte">calculatorul sau telefonul dumneavoastră</a>.
+      {'You can install dexonline on <a href="%s">your computer or phone</a>.'|_|sprintf
+      :"unelte"}
     </li>
 
     <li>
-      Puteți descărca o <a href="https://wiki.dexonline.ro/wiki/Informa%C8%9Bii#Desc.C4.83rcare">copie a bazei de date</a>.
+      {'You can download a <a href="%s">copy of the database</a>.'|_|sprintf
+      :"https://wiki.dexonline.ro/wiki/Informa%C8%9Bii#Desc.C4.83rcare"}
     </li>
   </ul>
 

@@ -3,7 +3,7 @@
   {$lexeme->getPartOfSpeeech()}
 
   {if $lexeme->compound}
-    compus
+    {'compound'|_}
   {else}
     {strip}
     (
@@ -22,6 +22,6 @@
 {assign var=s value=$lexeme->getSourceNames()}
 {if $s}
   <div class="lexemeSources">
-    Surse flexiune: {$s}
+    {'Inflection sources'|_}: {$s}
   </div>
 {/if}

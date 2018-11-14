@@ -1,9 +1,9 @@
 {extends "layout.tpl"}
 
 {block "title"}
-  {$cuv|escape} - definiție
+  {$cuv|escape} - {'definition'|_}
   {if count($sourceList) == 1}{$sourceList[0]}{/if}
-  {if $searchParams.paradigm}și paradigmă{/if}
+  {if $searchParams.paradigm}{'and paradigm'|_}{/if}
 {/block}
 
 {block "pageDescription"}
@@ -23,7 +23,7 @@
   <ul class="nav nav-tabs" role="tablist">
     <li role="presentation" {if $tab == Constant::TAB_RESULTS}class="active"{/if}>
       <a href="#resultsTab" aria-controls="resultsTab" role="tab" data-toggle="tab">
-        rezultate ({$extra.numResults})
+        {'results'|_} ({$extra.numResults})
       </a>
     </li>
 
@@ -38,7 +38,7 @@
     {if count($trees)}
       <li role="presentation" {if $tab == Constant::TAB_TREE}class="active"{/if}>
         <a href="#treeTab" aria-controls="treeTab" role="tab" data-toggle="tab">
-          sinteză ({count($trees)})
+          {'synthesis'|_} ({count($trees)})
         </a>
       </li>
     {/if}
@@ -53,7 +53,7 @@
 
       {* definition ID search *}
       {if $searchType == $smarty.const.SEARCH_DEF_ID}
-        <h3>Definiția cu ID-ul {$results|array_keys|implode}:</h3>
+        <h3>{'Definition with ID'|_} {$results|array_keys|implode}:</h3>
 
         {include "search/definitionList.tpl"}
 
@@ -66,15 +66,15 @@
             {include "bits/count.tpl"
               displayed=count($results)
               total=$extra.numDefinitionsFullText
-              none="Nicio definiție nu cuprinde"
-              one="O definiție cuprinde"
-              many="definiții cuprind"
-              common="toate cuvintele căutate"}
+              none="{'No definitions contain'|_}"
+              one="{'One definition contains'|_}"
+              many="{'definitions contain'|_}"
+              common="{'all the words'|_}"}
           </h3>
 
           {if !empty($extra.stopWords)}
             <p class="text-warning">
-              Următoarele cuvinte au fost ignorate deoarece sunt prea comune:
+              {'The following words were ignored because they are too common:'|_}
               <strong>
                 {' '|implode:$extra.stopWords|escape}
               </strong>
@@ -90,16 +90,16 @@
         {include "search/gallery.tpl"}
 
         {if !count($entries)}
-          <h3>Nu există nicio intrare cu ID-ul căutat.</h3>
+          <h3>{'There is no entry with the given ID.'|_}</h3>
         {else}
 
           <h3>
             {include "bits/count.tpl"
               displayed=count($results)
-              none="Nicio definiție"
-              one="O definiție"
-              many="definiții"
-              common="pentru"}
+              none="{'No definitions'|_}"
+              one="{'One definition'|_}"
+              many="{'definitions'|_}"
+              common="{'for'|_}"}
 
             {include "bits/entry.tpl" entry=$entries[0] variantList=true tagList=true}
           </h3>
@@ -111,16 +111,16 @@
         {* regular expression search *}
       {elseif $searchType == $smarty.const.SEARCH_REGEXP}
         {capture "common"}
-        pentru <strong>{$cuv|escape}</strong>
+        {'for'|_} <strong>{$cuv|escape}</strong>
         {/capture}
 
         <h3>
           {include "bits/count.tpl"
             displayed=count($lexemes)
             total=$extra.numLexemes|default:0
-            none="Niciun rezultat"
-            one="Un rezultat"
-            many="rezultate"
+            none="{'No results'|_}"
+            one="{'One result'|_}"
+            many="{'results'|_}"
             common=$smarty.capture.common}
         </h3>
 
@@ -136,21 +136,21 @@
         {include "search/gallery.tpl"}
 
         {if count($entries) > 1}
-          <h3>{$entries|count} intrări</h3>
+          <h3>{$entries|count} {'entries'|_}</h3>
 
           {include "search/entryToc.tpl"}
         {else}
           {capture "common"}
-          pentru {include "bits/entry.tpl" entry=$entries[0] variantList=true tagList=true}
+          {'for'|_} {include "bits/entry.tpl" entry=$entries[0] variantList=true tagList=true}
           {/capture}
 
           <h3>
             {include "bits/count.tpl"
               displayed=count($results)
               total=$extra.numDefinitions
-              none="Nicio definiție"
-              one="O definiție"
-              many="definiții"
+              none="{'No definitions'|_}"
+              one="{'One definition'|_}"
+              many="{'definitions'|_}"
               common=$smarty.capture.common}
           </h3>
 
@@ -168,8 +168,8 @@
               displayed=count($results)
               total=$extra.numDefinitions
               none=""
-              one="O definiție"
-              many="definiții"
+              one="{'One definition'|_}"
+              many="{'definitions'|_}"
               common=""}
           </h3>
         {/if}
@@ -186,23 +186,20 @@
           {include "bits/count.tpl"
             displayed=count($results)
             total=$extra.numDefinitions
-            none="Nicio definiție nu se potrivește"
-            one="O definiție se potrivește"
-            many="definiții se potrivesc"
-            common="cu cel puțin doi dintre termenii căutați"}
+            none="{'No definitions match'|_}"
+            one="{'One definition matches'|_}"
+            many="{'definitions match'|_}"
+            common="{'at least two words'|_}"}
         </h3>
 
         <p class="text-warning">
-          Dacă rezultatele nu sunt mulțumitoare, puteți căuta cuvintele separat sau puteți căuta
-
-          <a href="{$wwwRoot}text/{$cuv|escape:url}">
-            în tot corpul definițiilor
-          </a>.
+          {'If the results are inadequate, you can look up individual words or you can search'|_}
+          <a href="{$wwwRoot}text/{$cuv|escape:url}">{'full-text'|_}</a>.
         </p>
 
         {if !empty($extra.ignoredWords)}
           <p class="text-warning">
-            Sunt permise maximum 5 cuvinte. Următoarele cuvinte au fost ignorate:
+            {'At most 5 words are allowed. The following words were ignored:'|_}
             <strong>
               {' '|implode:$extra.ignoredWords|escape}
             </strong>
@@ -217,12 +214,13 @@
       {elseif $searchType == $smarty.const.SEARCH_APPROXIMATE}
         {if count($entries)}
           <h3>
-            Cuvântul <strong>{$cuv|escape}</strong> nu este în dicționar. Iată câteva sugestii:
+            {'The word <strong>%s</strong> is not in the dictionary.
+            Here are some suggestions:'|_|sprintf:($cuv|escape)}
           </h3>
 
           {include "search/entryList.tpl"}
         {else}
-          <h3>Niciun rezultat pentru <strong>{$cuv|escape}</strong></h3>
+          <h3>{'No results for <strong>%s</strong>'|_|sprintf:($cuv|escape)}</h3>
         {/if}
 
       {/if}
@@ -242,21 +240,21 @@
 
         {if $hasUnrecommendedForms}
           <div class="notRecommendedLegend">
-            * Formă nerecomandată sau greșită –
+            * {'unrecommended or incorrect form'|_} –
             <a id="toggleNotRecommended"
               href="#"
               class="doubleText"
               data-other-text="(ascunde)">
-              (arată)
+              ({'show'|_})
             </a>
           </div>
         {/if}
 
         <div class="paradigmLink voffset2">
-          <a title="Link către această pagină, dar cu flexiunile expandate"
+          <a title="{'link to this inflected forms page'|_}"
             href="{$paradigmLink}">
             <i class="glyphicon glyphicon-link"></i>
-            Link către această paradigmă
+            {'link to this paradigm'|_}
           </a>
         </div>
       </div>

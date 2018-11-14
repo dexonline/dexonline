@@ -21,7 +21,7 @@
 <ul class="list-inline dropup">
   {if $showSource}
     <li>
-      sursa:
+      {'source'|_}:
       <a class="ref"
         href="{$wwwRoot}surse"
         title="{$row->source->name|escape}, {$row->source->year|escape}"
@@ -36,7 +36,7 @@
   {if $showCourtesyLink}
     {if $row->source->courtesyLink}
       <li>
-        furnizată de
+        {'provided by'|_}
         <a class="ref" href="{$wwwRoot}spre/{$row->source->courtesyLink}">
           {$row->source->courtesyText}
         </a>
@@ -46,22 +46,22 @@
 
   {if $showStatus}
     <li>
-      starea: {$def->getStatusName()}
+      {'status'|_}: {$def->getStatusName()}
     </li>
   {/if}
 
   {if $showUser}
     {if $row->user->id}
       <li>
-        adăugată de
+        {'added by'|_}
         {strip}
         <a href="{$wwwRoot}utilizator/{$row->user->nick|escape:"url"}">
           {$row->user->nick|escape}
         </a>
         {if $showDate}
-          , {$def->createDate|date_format:"%e %b %Y"}
+          , {Locale::date($def->createDate)}
         {/if}
-            {/strip}
+        {/strip}
       </li>
     {/if}
   {/if}
@@ -120,7 +120,7 @@
   {if $showDropup}
     <li class="dropdown">
       <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-        acțiuni
+        {'actions'|_}
         <span class="caret"></span>
       </a>
 
@@ -133,7 +133,7 @@
                 data-toggle="modal"
                 data-target="#typoModal">
                 <i class="glyphicon glyphicon-flag"></i>
-                semnalează o greșeală
+                {'report a typo'|_}
               </a>
             </li>
           {/if}
@@ -145,7 +145,7 @@
               <li class="disabled">
                 <a href="#">
                   <i class="glyphicon glyphicon-heart"></i>
-                  adăugat la favorite
+                  {'added to favorites'|_}
                 </a>
               </li>
             {else}
@@ -153,7 +153,11 @@
                 <a class="bookmarkAddButton"
                   href="{$wwwRoot}ajax/bookmarkAdd.php?definitionId={$def->id}">
                   <i class="glyphicon glyphicon-heart"></i>
-                  <span>adaugă la favorite</span>
+                  <span
+                    data-pending-text="{'please wait...'|_}"
+                    data-added-text="{'added to favorites'|_}">
+                    {'add to favorites'|_}
+                  </span>
                 </a>
               </li>
             {/if}
@@ -165,7 +169,9 @@
             <a class="bookmarkRemoveButton"
               href="{$wwwRoot}ajax/bookmarkRemove.php?definitionId={$def->id}">
               <i class="glyphicon glyphicon-remove"></i>
-              <span>șterge de la favorite</span>
+              <span data-pending-text="{'please wait...'|_}">
+                {'remove from favorites'|_}
+              </span>
             </a>
           </li>
         {/if}
@@ -176,7 +182,7 @@
               <a href="{$wwwRoot}definitie/{$def->lexicon}/{$def->id}"
                 title="link direct către această definiție">
                 <i class="glyphicon glyphicon-link"></i>
-                permalink
+                {'permalink'|_}
               </a>
             </li>
           {/if}

@@ -1,0 +1,1463 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2018-11-14 10:29+0200\n"
+"PO-Revision-Date: 2018-11-14 10:30+0200\n"
+"Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
+"Language-Team: \n"
+"Language: ro\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2\n"
+"X-Poedit-Basepath: ../../..\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n==0 || (n!=1 && n%100>=1 && n"
+"%100<=19) ? 1 : 2);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: templates\n"
+"X-Poedit-SearchPath-1: wwwbase\n"
+"X-Poedit-SearchPathExcluded-0: phplib/third-party\n"
+"X-Poedit-SearchPathExcluded-1: wwwbase/js/merged\n"
+"X-Poedit-SearchPathExcluded-2: wwwbase/js/third-party\n"
+
+#: templates/articole.tpl:2 templates/bits/navmenu.tpl:106
+msgid "linguistic articles"
+msgstr "articole lingvistice"
+
+# Hack that allows us to translate "50 definitions" to "50 de definiții".
+#: templates/bits/count.tpl:10
+msgid "&#x200b;"
+msgstr "de&nbsp;"
+
+#: templates/bits/count.tpl:14
+msgid "(at most %s shown)"
+msgstr "(cel mult %s afișate)"
+
+#: templates/bits/definitionMenuProper.tpl:23
+msgid "source"
+msgstr "sursa"
+
+#: templates/bits/definitionMenuProper.tpl:38
+msgid "provided by"
+msgstr "furnizată de"
+
+#: templates/bits/definitionMenuProper.tpl:48
+msgid "status"
+msgstr "starea"
+
+#: templates/bits/definitionMenuProper.tpl:55
+msgid "added by"
+msgstr "adăugată de"
+
+#: templates/bits/definitionMenuProper.tpl:122
+msgid "actions"
+msgstr "acțiuni"
+
+#: templates/bits/definitionMenuProper.tpl:135 templates/bits/typoForm.tpl:12
+msgid "report a typo"
+msgstr "semnalează o greșeală"
+
+#: templates/bits/definitionMenuProper.tpl:147
+msgid "added to favorites"
+msgstr "adăugată la favorite"
+
+#: templates/bits/definitionMenuProper.tpl:156
+msgid "please wait..."
+msgstr "un moment..."
+
+#: templates/bits/definitionMenuProper.tpl:158
+msgid "add to favorites"
+msgstr "adaugă la favorite"
+
+#: templates/bits/definitionMenuProper.tpl:172
+msgid "remove from favorites"
+msgstr "șterge dintre favorite"
+
+#: templates/bits/definitionMenuProper.tpl:184
+msgid "permalink"
+msgstr "permalink"
+
+#: templates/bits/extendedParadigm.tpl:19
+msgid "hyphenation"
+msgstr "silabisire"
+
+#: templates/bits/extendedParadigm.tpl:25
+msgid "pronunciation"
+msgstr "pronunție"
+
+#: templates/bits/lexeme.tpl:5
+msgid "compound"
+msgstr "compus"
+
+#: templates/bits/lexeme.tpl:24
+msgid "Inflection sources"
+msgstr "Surse flexiune"
+
+#: templates/bits/multiParadigm.tpl:4
+msgid "entry"
+msgstr "intrare"
+
+#: templates/bits/multiParadigm.tpl:34
+msgid "hide variants"
+msgstr "ascunde variantele"
+
+#: templates/bits/multiParadigm.tpl:35
+msgid "show variants"
+msgstr "arată variantele"
+
+#: templates/bits/navmenu.tpl:5
+msgid "home page"
+msgstr "pagina principală"
+
+#: templates/bits/navmenu.tpl:20
+msgid "donate"
+msgstr "donează"
+
+#: templates/bits/navmenu.tpl:31
+msgid "navigation"
+msgstr "navigare"
+
+#: templates/bits/navmenu.tpl:50
+msgid "about"
+msgstr "despre noi"
+
+#: templates/bits/navmenu.tpl:58
+msgid "information"
+msgstr "informații"
+
+#: templates/bits/navmenu.tpl:61 templates/contact.tpl:2
+msgid "contact us"
+msgstr "contact"
+
+#: templates/bits/navmenu.tpl:62
+msgid "blog"
+msgstr "blog"
+
+#: templates/bits/navmenu.tpl:75
+msgid "get involved"
+msgstr "implică-te"
+
+#: templates/bits/navmenu.tpl:81
+msgid "ways to help"
+msgstr "cum poți ajuta"
+
+#: templates/bits/navmenu.tpl:83
+msgid "volunteer ranking"
+msgstr "topul voluntarilor"
+
+#: templates/bits/navmenu.tpl:96
+msgid "resources"
+msgstr "resurse"
+
+#: templates/bits/navmenu.tpl:103
+msgid "abbreviations table"
+msgstr "abrevieri folosite"
+
+#: templates/bits/navmenu.tpl:107
+msgid "grammar guide"
+msgstr "ghid de exprimare"
+
+#: templates/bits/navmenu.tpl:108 templates/widgets/wotd.tpl:2
+msgid "word of the day"
+msgstr "cuvântul zilei"
+
+#: templates/bits/navmenu.tpl:109 templates/widgets/wotm.tpl:2
+msgid "word of the month"
+msgstr "cuvântul lunii"
+
+#: templates/bits/navmenu.tpl:110
+msgid "random words"
+msgstr "cuvinte aleatorii"
+
+#: templates/bits/navmenu.tpl:111
+msgid "Scrabble"
+msgstr "Scrabble"
+
+#: templates/bits/navmenu.tpl:112 templates/unelte.tpl:2
+msgid "tools"
+msgstr "unelte"
+
+#: templates/bits/navmenu.tpl:113
+msgid "external links"
+msgstr "legături externe"
+
+#: templates/bits/navmenu.tpl:152
+msgid "Anonymous"
+msgstr "Anonim"
+
+#: templates/bits/navmenu.tpl:160
+msgid "moderator page"
+msgstr "pagina moderatorului"
+
+#: templates/bits/navmenu.tpl:168
+msgid "hotkeys"
+msgstr "hotkeys"
+
+#: templates/bits/navmenu.tpl:176
+msgid "recently viewed pages"
+msgstr "pagini vizitate recent"
+
+#: templates/bits/navmenu.tpl:183
+msgid "preferences"
+msgstr "preferințe"
+
+#: templates/bits/navmenu.tpl:190
+msgid "profile"
+msgstr "profilul meu"
+
+#: templates/bits/navmenu.tpl:196
+msgid "favorite words"
+msgstr "cuvinte favorite"
+
+#: templates/bits/navmenu.tpl:202
+msgid "log out"
+msgstr "închide sesiunea"
+
+#: templates/bits/navmenu.tpl:209
+msgid "log in"
+msgstr "autentificare"
+
+#: templates/bits/scrabbleResults.tpl:3
+msgid "The form <strong>%s</strong> exists in LOC %s."
+msgstr "Forma <strong>%s</strong> există în LOC %s."
+
+#: templates/bits/scrabbleResults.tpl:9
+msgid "The form <strong>%s</strong> does not exist in LOC %s."
+msgstr "Forma <strong>%s</strong> nu există în LOC %s."
+
+#: templates/bits/searchForm.tpl:17
+msgid "word"
+msgstr "cuvânt"
+
+#: templates/bits/searchForm.tpl:28
+msgid "search"
+msgstr "caută"
+
+#: templates/bits/searchForm.tpl:35 templates/scramble.tpl:26
+msgid "options"
+msgstr "opțiuni"
+
+#: templates/bits/searchForm.tpl:51
+msgid "Full-text search"
+msgstr "Caută în tot textul definițiilor"
+
+#: templates/bits/searchForm.tpl:58
+msgid "help"
+msgstr "ajutor"
+
+#: templates/bits/sourceDropDown.tpl:12
+msgid "All dictionaries"
+msgstr "Toate dicționarele"
+
+#: templates/bits/top.tpl:3
+msgid "rank"
+msgstr "loc"
+
+#: templates/bits/top.tpl:4
+msgid "name"
+msgstr "nume"
+
+#: templates/bits/top.tpl:5
+msgid "characters"
+msgstr "caractere"
+
+#: templates/bits/top.tpl:6 templates/hangman.tpl:51 templates/mill.tpl:64
+#: templates/search.tpl:100
+msgid "definitions"
+msgstr "definiții"
+
+#: templates/bits/top.tpl:7
+msgid "most recent submission"
+msgstr "data ultimei trimiteri"
+
+#: templates/bits/typoForm.tpl:22
+msgid "please describe the error; at most 400 characters are allowed"
+msgstr "vă rugăm descrieți problema în maximum 400 de caractere"
+
+#: templates/bits/typoForm.tpl:26
+msgid "notes"
+msgstr "note"
+
+#: templates/bits/typoForm.tpl:30
+msgid ""
+"Some dictionaries (such as <em>Scriban</em>) use old\n"
+"                orthographies. This is not a typo."
+msgstr ""
+"Unele dicționare (de exemplu <em>Scriban</em>) folosesc grafia veche. "
+"Aceasta nu este o greșeală de tipar."
+
+#: templates/bits/typoForm.tpl:34
+msgid ""
+"We generally do not change the original text of definitions,\n"
+"                but we can add comments. Please do not report semantic "
+"errors\n"
+"                except in obvious cases."
+msgstr ""
+"În general, preluăm definițiile fără modificări, dar putem face comentarii "
+"pe marginea lor. Vă rugăm să nu ne semnalați greșeli semantice decât în "
+"situații evidente."
+
+#: templates/bits/typoForm.tpl:42
+msgid "submit"
+msgstr "trimite"
+
+#: templates/bits/typoForm.tpl:43
+msgid "cancel"
+msgstr "anulează"
+
+#: templates/bits/typoForm.tpl:62
+msgid "Thank you for your report!"
+msgstr "Vă mulțumim pentru semnalare!"
+
+#: templates/bits/typoForm.tpl:66
+msgid "close"
+msgstr "închide"
+
+#: templates/contact.tpl:15
+msgid "Useful information"
+msgstr "Informații utile"
+
+#: templates/contact.tpl:20
+msgid "What dexonline is <strong>not</strong>"
+msgstr "Ce <strong>nu</strong> este dexonline"
+
+#: templates/contact.tpl:22
+msgid "(ways we cannot help you)."
+msgstr "(când nu vă putem ajuta)."
+
+#: templates/contact.tpl:26
+msgid "You can install dexonline on <a href=\"%s\">your computer or phone</a>."
+msgstr ""
+"Puteți instala dexonline pe <a href=\"%s\">calculatorul sau pe telefonul "
+"dumneavoastră</a>."
+
+#: templates/contact.tpl:31
+msgid "You can download a <a href=\"%s\">copy of the database</a>."
+msgstr "Puteți descărca o <a href=\"%s\">copie a bazei de date</a>."
+
+#: templates/cuvinte-favorite.tpl:9
+msgid "You have no favorite words."
+msgstr "Nu aveți niciun cuvânt favorit."
+
+#: templates/hangman.tpl:2 templates/widgets/games.tpl:4
+msgid "hangman"
+msgstr "spânzurătoarea"
+
+#: templates/hangman.tpl:20
+msgid "Lives remaining"
+msgstr "Vieți rămase"
+
+#: templates/hangman.tpl:22 templates/search/gallery.tpl:5
+msgid "images"
+msgstr "imagini"
+
+#: templates/hangman.tpl:35
+msgid "Get a clue"
+msgstr "Dă-mi un indiciu"
+
+#: templates/hangman.tpl:40 templates/mill.tpl:15
+msgid "easy"
+msgstr "ușor"
+
+#: templates/hangman.tpl:41 templates/mill.tpl:16
+msgid "medium"
+msgstr "mediu"
+
+#: templates/hangman.tpl:42 templates/mill.tpl:17
+msgid "hard"
+msgstr "dificil"
+
+#: templates/hangman.tpl:43 templates/mill.tpl:18
+msgid "expert"
+msgstr "expert"
+
+#: templates/hangman.tpl:65
+msgid "Congratulations, you win!"
+msgstr "Felicitări, ai câștigat!"
+
+#: templates/hangman.tpl:68
+msgid "Sorry, you lose."
+msgstr "Ne pare rău, ai pierdut."
+
+#: templates/hosting/hosterion.tpl:0
+msgid "hosted by"
+msgstr "găzduit de"
+
+#: templates/index.tpl:11
+msgid "Dictionaries of the Romanian language"
+msgstr "Dicționare ale limbii române"
+
+#: templates/index.tpl:31
+msgid "customize widgets"
+msgstr "personalizare elemente"
+
+#: templates/index.tpl:40
+msgid "digitizes prestigious dictionaries of the Romanian language."
+msgstr "transpune pe Internet dicționare de prestigiu ale limbii române."
+
+#: templates/index.tpl:41
+msgid "The project is maintained by a team of volunteers."
+msgstr "Proiectul este întreținut de o echipă de voluntari."
+
+#: templates/index.tpl:42
+msgid ""
+"Much of the data can be downloaded freely under the GNU General Public "
+"License."
+msgstr ""
+"O parte din date pot fi descărcate liber și gratuit sub Licența Publică "
+"Generală GNU."
+
+#: templates/index.tpl:46
+msgid "Current status: %s definitions, of which %s learned last month."
+msgstr "Starea curentă: %s de definiții, din care %s învățate în ultima lună."
+
+#: templates/layout.tpl:72 templates/unelte.tpl:83
+msgid "license"
+msgstr "licență"
+
+#: templates/layout.tpl:73
+msgid "privacy"
+msgstr "confidențialitate"
+
+#: templates/links.tpl:2
+msgid "links"
+msgstr "legături"
+
+#: templates/links.tpl:6
+msgid ""
+"This page contains useful language links. These links are not sponsored;\n"
+"    we consider the useful to our visitors. We are not affiliated with the\n"
+"    respective sites and institutions."
+msgstr ""
+"Această pagină conține legături utile de natură lingvistică. Aceste legături "
+"nu sunt sponsorizate, ci le considerăm utile pentru vizitatorii noștri. Nu "
+"suntem afiliați cu site-urile sau cu instituțiile menționate."
+
+#: templates/links.tpl:11
+msgid "Romanian language"
+msgstr "Limba română"
+
+#: templates/links.tpl:15
+msgid ""
+"Iorgu Iordan - Alexandru Rosetti <a href=\"%s\">Institute of Linguistics</"
+"a>,\n"
+"      Romanian Academy"
+msgstr ""
+"<a href=\"%s\">Institutul de Lingvistică</a> „Iorgu Iordan – Alexandru "
+"Rosetti” al Academiei Române"
+
+#: templates/links.tpl:21
+msgid "why and how to write using diacritics in the Internet"
+msgstr "de ce și cum să scrii cu diacritice pe Internet"
+
+#: templates/links.tpl:24
+msgid ""
+"Sorin Paliga &mdash; volumes in PDF format at\n"
+"      <a href=\"%s\">Academia.edu</a> and <a href=\"%s\">ResearchGate</a>"
+msgstr ""
+"Sorin Paliga &mdash; volume în format PDF la <a href=\"%s\">Academia.edu</a> "
+"și <a href=\"%s\">ResearchGate</a>"
+
+#: templates/links.tpl:31
+msgid "Other languages"
+msgstr "Alte limbi"
+
+#: templates/links.tpl:35
+msgid ""
+"<a href=\"%s\"\">hallo.ro</a> &mdash; bilingual dictionaries between\n"
+"      Romanian and English, French, Spanish, German, Italian"
+msgstr ""
+"<a href=\"%s\"\">hallo.ro</a> &mdash; dicționare bilingve între română și "
+"engleză, franceză, spaniolă, germană, italiană"
+
+#: templates/links.tpl:45
+msgid "The <a href=\"%s\">Romanian Scrabble Federation</a>"
+msgstr "<a href=\"%s\">Federația Română de Scrabble</a>"
+
+#: templates/links.tpl:49
+msgid "<a href=\"%s\">AnaScrab 7</a> &mdash; a seven-letter anagram generator"
+msgstr ""
+"<a href=\"%s\">AnaScrab 7</a> &mdash; un generator de anagrame de șapte "
+"litere"
+
+#: templates/links.tpl:53
+msgid ""
+"<a href=\"%s\">Find words</a> &mdash; a helper for crosswords and Scrabble"
+msgstr ""
+"<a href=\"%s\">Găsește cuvinte</a> &mdash; un ajutor pentru cuvinte "
+"încrucișate și Scrabble"
+
+#: templates/links.tpl:58
+msgid "Programs that use the database of dexonline"
+msgstr "Programe care folosesc baza de date a dexonline"
+
+#: templates/links.tpl:62
+msgid "A <a href=\"%s\">game of Fazan</a> for Android devices"
+msgstr "Un <a href=\"%s\">joc de Fazan</a> pentru dispozitive cu Android"
+
+#: templates/mill.tpl:2 templates/widgets/games.tpl:5
+msgid "word mill"
+msgstr "moara cuvintelor"
+
+#: templates/mill.tpl:14
+msgid "Level"
+msgstr "Nivel"
+
+#: templates/mill.tpl:22
+msgid "You can also use the keys 1, 2, 3, 4."
+msgstr "Poți folosi și tastele 1, 2, 3, 4."
+
+#: templates/mill.tpl:37
+msgid "The correct definition of <span class=\"word\"></span>:"
+msgstr "Definiția corectă pentru <span class=\"word\"></span>:"
+
+#: templates/mill.tpl:53
+msgid ""
+"Congratulations! You answered <b id=\"answeredCorrect\">0</b> of 10\n"
+"          questions correctly."
+msgstr ""
+"Felicitări! Ai răspuns corect la <b id=\"answeredCorrect\">0</b> din 10 "
+"întrebări."
+
+#: templates/mill.tpl:56
+msgid "new game"
+msgstr "joc nou"
+
+#: templates/mill.tpl:57
+msgid "see all definitions"
+msgstr "arată toate definițiile"
+
+#: templates/paradigm/paradigmA.tpl:7
+msgid "masculine"
+msgstr "masculin"
+
+#: templates/paradigm/paradigmA.tpl:8
+msgid "feminine"
+msgstr "feminin"
+
+#: templates/paradigm/paradigmA.tpl:11 templates/paradigm/paradigmSP.tpl:7
+msgid "no article"
+msgstr "nearticulat"
+
+#: templates/paradigm/paradigmA.tpl:12 templates/paradigm/paradigmSP.tpl:8
+msgid "def. article"
+msgstr "articulat"
+
+#: templates/paradigm/paradigmA.tpl:17 templates/paradigm/paradigmSP.tpl:11
+msgid "nominative-accusative"
+msgstr "nominativ-acuzativ"
+
+#: templates/paradigm/paradigmA.tpl:18 templates/paradigm/paradigmSP.tpl:12
+msgid "singular"
+msgstr "singular"
+
+#: templates/paradigm/paradigmA.tpl:33 templates/paradigm/paradigmSP.tpl:21
+msgid "plural"
+msgstr "plural"
+
+#: templates/paradigm/paradigmA.tpl:48 templates/paradigm/paradigmSP.tpl:30
+msgid "genitive-dative"
+msgstr "genitiv-dativ"
+
+#: templates/paradigm/paradigmA.tpl:79 templates/paradigm/paradigmSP.tpl:49
+msgid "vocative"
+msgstr "vocativ"
+
+#: templates/paradigm/paradigmT.tpl:1
+msgid "We have no information on the paradigm of this word."
+msgstr "Nu există informații despre paradigma acestui cuvânt."
+
+#: templates/paradigm/paradigmV.tpl:7
+msgid "infinitive"
+msgstr "infinitiv"
+
+#: templates/paradigm/paradigmV.tpl:8
+msgid "long infinitive"
+msgstr "infinitiv lung"
+
+#: templates/paradigm/paradigmV.tpl:9
+msgid "participle"
+msgstr "participiu"
+
+#: templates/paradigm/paradigmV.tpl:10
+msgid "gerund"
+msgstr "gerunziu"
+
+#: templates/paradigm/paradigmV.tpl:11
+msgid "imperative 2nd person"
+msgstr "imperativ pers. a II-a"
+
+#: templates/paradigm/paradigmV.tpl:44
+msgid "number"
+msgstr "numărul"
+
+#: templates/paradigm/paradigmV.tpl:45
+msgid "person"
+msgstr "persoana"
+
+#: templates/paradigm/paradigmV.tpl:46
+msgid "present"
+msgstr "prezent"
+
+#: templates/paradigm/paradigmV.tpl:47
+msgid "present subjunctive"
+msgstr "conjunctiv prezent"
+
+#: templates/paradigm/paradigmV.tpl:48
+msgid "imperfect"
+msgstr "imperfect"
+
+#: templates/paradigm/paradigmV.tpl:49
+msgid "simple perfect"
+msgstr "perfect simplu"
+
+#: templates/paradigm/paradigmV.tpl:50
+msgid "pluperfect"
+msgstr "mai mult ca perfect"
+
+#: templates/paradigm/paradigmV.tpl:54
+msgid "1st (eu)"
+msgstr "I (eu)"
+
+#: templates/paradigm/paradigmV.tpl:73
+msgid "2nd (tu)"
+msgstr "a II-a (tu)"
+
+#: templates/paradigm/paradigmV.tpl:92
+msgid "3rd (el, ea)"
+msgstr "a III-a (el, ea)"
+
+#: templates/paradigm/paradigmV.tpl:112
+msgid "1st (noi)"
+msgstr "I (noi)"
+
+#: templates/paradigm/paradigmV.tpl:131
+msgid "2nd (voi)"
+msgstr "a II-a (voi)"
+
+#: templates/paradigm/paradigmV.tpl:150
+msgid "3rd (ei, ele)"
+msgstr "a III-a (ei, ele)"
+
+#: templates/randomWordList.tpl:3
+msgid "%d randomly chosen %s"
+msgstr "%d de %s alese la întâmplare"
+
+#: templates/scrabble.tpl:8
+msgid "Scrabble lookup"
+msgstr "Verificare Scrabble"
+
+#: templates/scrabble.tpl:14
+msgid ""
+"Are you playing Scrabble and your friends do not believe that <em>kwyjibo</"
+"em> is\n"
+"        a perfectly legal word? Type in your word to show them who the boss "
+"is."
+msgstr ""
+"Joci Scrabble și prietenii tăi nu cred că <em>kwyjibo</em> este un cuvânt "
+"perfect legal? Tastează cuvântul tău ca să le arăți cine e șeful."
+
+#: templates/scrabble.tpl:41
+msgid "in version"
+msgstr "în versiunea"
+
+#: templates/scrabble.tpl:52
+msgid "look up"
+msgstr "verifică"
+
+#: templates/scrabble.tpl:62
+msgid "Official Scrabble word list (LOC)"
+msgstr "Lista Oficială de Cuvinte admise la Scrabble (LOC)"
+
+#: templates/scrabble.tpl:68
+msgid "version"
+msgstr "versiunea"
+
+#: templates/scrabble.tpl:69
+msgid "publication date"
+msgstr "data publicării"
+
+#: templates/scrabble.tpl:70
+msgid "reduced forms"
+msgstr "forme reduse"
+
+#: templates/scrabble.tpl:71
+msgid "base forms"
+msgstr "forme de bază"
+
+#: templates/scrabble.tpl:72
+msgid "inflected forms"
+msgstr "forme flexionare"
+
+#: templates/scrabble.tpl:80
+msgid "download"
+msgstr "descarcă"
+
+#: templates/scrabble.tpl:90
+msgid "a list of words between 2 and 15 letters, without diacritics"
+msgstr "lista de cuvinte între 2 și 15 litere, fără diacritice"
+
+#: templates/scrabble.tpl:93
+msgid "word list in alphabetical order"
+msgstr "lista de cuvinte ordonată alfabetic"
+
+#: templates/scrabble.tpl:95
+msgid "legend of notations"
+msgstr "legenda notațiilor"
+
+#: templates/scrabble.tpl:98
+msgid "list of words and their conjugations/declensions"
+msgstr "lista de cuvinte cu conjugările/declinările lor"
+
+#: templates/scrabble.tpl:102
+msgid ""
+"The last official LOC version is 5.0. Version 6.0 contains changes\n"
+"        to LOC made using the dexonline interface, but not included in the\n"
+"        official version."
+msgstr ""
+"Ultima versiune oficială a LOC este 5.0. Versiunea 6.0 conține modificări "
+"aduse LOC în dexonline, dar neîncorporate în versiunea oficială."
+
+#: templates/scrabble.tpl:110
+msgid "Differences between versions"
+msgstr "Diferențe între versiuni"
+
+#: templates/scrabble.tpl:114
+msgid "Find out what changed between two versions of LOC."
+msgstr "Află ce s-a schimbat între două versiuni ale LOC."
+
+#: templates/scrabble.tpl:119
+msgid "compare"
+msgstr "compară"
+
+#: templates/scrabble.tpl:128
+msgid "between"
+msgstr "între"
+
+#: templates/scrabble.tpl:135
+msgid "version %s and version %s"
+msgstr "versiunea %s și versiunea %s"
+
+#: templates/scrabble.tpl:150
+msgid "Inflection models"
+msgstr "Modele de flexionare"
+
+#: templates/scrabble.tpl:154
+msgid ""
+"<em>%s</em> and <em>%s</em> have similar declensions... but not\n"
+"        <em>%s</em> and <em>%s</em>? Here is why."
+msgstr ""
+"<em>%s</em> și <em>%s</em> se declină la fel... dar <em>%s</em> și <em>%s</"
+"em> nu? Iată de ce."
+
+#: templates/scrabble.tpl:163
+msgid "Show models for"
+msgstr "Arată modelele pentru"
+
+#: templates/scrabble.tpl:171
+msgid "show"
+msgstr "arată"
+
+#: templates/scramble.tpl:2 templates/widgets/games.tpl:6
+msgid "word scramble"
+msgstr "omleta cuvintelor"
+
+#: templates/scramble.tpl:18
+msgid "start"
+msgstr "începe"
+
+#: templates/scramble.tpl:33
+msgid "object"
+msgstr "mod"
+
+#: templates/scramble.tpl:37
+msgid "all words"
+msgstr "toate cuvintele"
+
+#: templates/scramble.tpl:40
+msgid "one anagram"
+msgstr "o anagramă"
+
+#: templates/scramble.tpl:43
+msgid "all anagrams"
+msgstr "toate anagramele"
+
+#: templates/scramble.tpl:54
+msgid "letters"
+msgstr "litere"
+
+#: templates/scramble.tpl:70
+msgid "diacritics"
+msgstr "diacritice"
+
+#: templates/scramble.tpl:74
+msgid "no"
+msgstr "nu"
+
+#: templates/scramble.tpl:77
+msgid "yes"
+msgstr "da"
+
+#: templates/scramble.tpl:84
+msgid "time"
+msgstr "timp"
+
+#: templates/scramble.tpl:88
+msgid "one minute"
+msgstr "un minut"
+
+#: templates/scramble.tpl:91
+msgid "minutes"
+msgstr "minute"
+
+#: templates/scramble.tpl:107
+msgid "Object of the game"
+msgstr "Scopul jocului"
+
+#: templates/scramble.tpl:109
+msgid ""
+"Find as many words as you can using the given letters, before the\n"
+"          time runs out."
+msgstr ""
+"Formați cât de multe cuvinte puteți cu literele primite, până se termină "
+"timpul."
+
+#: templates/scramble.tpl:114
+msgid "There are three game types:"
+msgstr "Sunt trei moduri de joc:"
+
+#: templates/scramble.tpl:120
+msgid "find all words having at least three letters."
+msgstr "găsiți toate cuvintele de cel puțin trei litere."
+
+#: templates/scramble.tpl:124
+msgid ""
+"find a word using all the letters, then receive a new set of\n"
+"            letters."
+msgstr ""
+"găsiți un cuvânt care folosește toate literele, apoi primiți alt set de "
+"litere."
+
+#: templates/scramble.tpl:129
+msgid ""
+"find all words using all the letters, then receive a new set of\n"
+"            letters. For example, for the set AINTT you must guess all "
+"three\n"
+"            anagrams (<i>%s</i>) to receive the next set."
+msgstr ""
+"găsiți toate cuvintele care folosesc toate literele, apoi primiți alt set de "
+"litere. De exemplu, pentru grupul AINTT trebuie să ghiciți toate cele trei "
+"anagrame (<i>%s</i>) pentru a trece la următorul set."
+
+#: templates/scramble.tpl:137
+msgid ""
+"When using a keyboard, simply type the letters. When using a\n"
+"          mouse, click on the letters, then click on the magnifier to check "
+"a\n"
+"          word."
+msgstr ""
+"Dacă folosiți tastatura, tastați pur și simplu literele. Dacă folosiți mouse-"
+"ul, dați clic pe litere, apoi pe lupă pentru a verifica un cuvânt."
+
+#: templates/scramble.tpl:143
+msgid ""
+"Legal words include conjugations (such as <i>lucrez</i>) and declensions\n"
+"          (such as <i>verzi</i>). If you opted for diacritics, then the\n"
+"          letters %s cannot be interchanged with %s."
+msgstr ""
+"Cuvintele legale includ conjugările (ca <i>lucrez</i>) și declinările (ca "
+"<i>verzi</i>). Dacă ați optat pentru diacritice, atunci literele %s nu pot "
+"fi interschimbate cu %s."
+
+#: templates/scramble.tpl:149
+msgid "Special keys"
+msgstr "Taste speciale"
+
+#: templates/scramble.tpl:153
+msgid "checks the word"
+msgstr "verifică cuvântul"
+
+#: templates/scramble.tpl:154
+msgid "deletes the last letter"
+msgstr "șterge ultima literă"
+
+#: templates/scramble.tpl:155
+msgid "deletes all the letters"
+msgstr "șterge toate literele"
+
+#: templates/scramble.tpl:156
+msgid "shuffles the letters"
+msgstr "amestecă literele"
+
+#: templates/scramble.tpl:160
+msgid "Below the game area there is"
+msgstr "Sub zona de joc se află"
+
+#: templates/scramble.tpl:166
+msgid "time remaining"
+msgstr "timpul rămas"
+
+#: templates/scramble.tpl:170
+msgid "number of words found / total number of words"
+msgstr "numărul de cuvinte găsite / numărul de cuvinte posibile"
+
+#: templates/scramble.tpl:174
+msgid "score (longer words earn more points)"
+msgstr "scorul (cuvintele mai lungi primesc mai multe puncte)"
+
+#: templates/scramble.tpl:212
+msgid "play again"
+msgstr "joacă din nou"
+
+#: templates/scramble.tpl:220
+msgid "Legal words"
+msgstr "Cuvinte posibile"
+
+#: templates/scramble.tpl:244
+msgid ""
+"You can share this link with your friends to compare scores on the\n"
+"        same letter sets."
+msgstr ""
+"Puteți trimite această adresă prietenilor dumneavoastră pentru a vă compara "
+"scorurile pe exact aceleași combinații de litere."
+
+#: templates/search.tpl:3
+msgid "definition"
+msgstr "definiție"
+
+#: templates/search.tpl:5
+msgid "and paradigm"
+msgstr "și paradigmă"
+
+#: templates/search.tpl:25
+msgid "results"
+msgstr "rezultate"
+
+#: templates/search.tpl:40
+msgid "synthesis"
+msgstr "sinteză"
+
+#: templates/search.tpl:55
+msgid "Definition with ID"
+msgstr "Definiția cu ID-ul"
+
+#: templates/search.tpl:68
+msgid "No definitions contain"
+msgstr "Nicio definiție nu conține"
+
+#: templates/search.tpl:69
+msgid "One definition contains"
+msgstr "O definiție conține"
+
+#: templates/search.tpl:70
+msgid "definitions contain"
+msgstr "definiții conțin"
+
+#: templates/search.tpl:71
+msgid "all the words"
+msgstr "toate cuvintele căutate"
+
+#: templates/search.tpl:76
+msgid "The following words were ignored because they are too common:"
+msgstr "Următoarele cuvinte au fost ignorate deoarece sunt prea comune:"
+
+#: templates/search.tpl:92
+msgid "There is no entry with the given ID."
+msgstr "Nu există nicio intrare cu ID-ul căutat."
+
+#: templates/search.tpl:98
+msgid "No definitions"
+msgstr "Nicio definiție"
+
+#: templates/search.tpl:99
+msgid "One definition"
+msgstr "O definiție"
+
+#: templates/search.tpl:101
+msgid "for"
+msgstr "pentru"
+
+#: templates/search.tpl:120
+msgid "No results"
+msgstr "Niciun rezultat"
+
+#: templates/search.tpl:121
+msgid "One result"
+msgstr "Un rezultat"
+
+#: templates/search.tpl:138
+msgid "entries"
+msgstr "intrări"
+
+#: templates/search.tpl:188
+msgid "No definitions match"
+msgstr "Nicio definiție nu se potrivește"
+
+#: templates/search.tpl:189
+msgid "One definition matches"
+msgstr "O definiție se potrivește"
+
+#: templates/search.tpl:190
+msgid "definitions match"
+msgstr "definiții se potrivesc"
+
+#: templates/search.tpl:191
+msgid "at least two words"
+msgstr "cel puțin două dintre cuvintele căutate"
+
+#: templates/search.tpl:195
+msgid ""
+"If the results are inadequate, you can look up individual words or you can "
+"search"
+msgstr ""
+"Dacă rezultatele nu sunt mulțumitoare, puteți căuta cuvintele separat sau "
+"puteți căuta"
+
+#: templates/search.tpl:196
+msgid "full-text"
+msgstr "în tot textul definițiilor"
+
+#: templates/search.tpl:201
+msgid "At most 5 words are allowed. The following words were ignored:"
+msgstr "Sunt permise maximum 5 cuvinte. Următoarele cuvinte au fost ignorate:"
+
+#: templates/search.tpl:216
+msgid ""
+"The word <strong>%s</strong> is not in the dictionary.\n"
+"            Here are some suggestions:"
+msgstr ""
+"Cuvântul <strong>%s</strong> nu este în dicționar. Iată câteva sugestii:"
+
+#: templates/search.tpl:222
+msgid "No results for <strong>%s</strong>"
+msgstr "Niciun rezultat pentru <strong>%s</strong>"
+
+#: templates/search.tpl:242
+msgid "unrecommended or incorrect form"
+msgstr "formă nerecomandată sau greșită"
+
+#: templates/search.tpl:253
+msgid "link to this inflected forms page"
+msgstr "legătură către această pagină cu flexiuni"
+
+#: templates/search.tpl:256
+msgid "link to this paradigm"
+msgstr "legătură către această paradigmă"
+
+#: templates/search/definitionList.tpl:10
+msgid "Definitions from specialized dictionaries"
+msgstr "Definiții din dicționare specializate"
+
+#: templates/search/definitionList.tpl:12
+msgid "These definitions could explain only certain meanings of words."
+msgstr "Aceste definiții pot explica numai anumite înțelesuri ale cuvintelor."
+
+#: templates/search/definitionList.tpl:19
+msgid "Definitions from unofficial dictionaries"
+msgstr "Definiții din dicționare neoficiale"
+
+#: templates/search/definitionList.tpl:21
+msgid ""
+"Since they are not made by lexicographers, these definitions may\n"
+"          contain errors, so we advise you to look at other dictionaries as\n"
+"          well."
+msgstr ""
+"Deoarece nu sunt editate de lexicografi, aceste definiții pot conține erori, "
+"deci e preferabilă consultarea altor dicționare în paralel."
+
+#: templates/search/extendToAllSources.tpl:1
+msgid "Repeat your search"
+msgstr "Repetați căutarea"
+
+#: templates/search/extendToAllSources.tpl:2
+msgid "in all dictionaries"
+msgstr "în toate dicționarele"
+
+#: templates/search/fullTextLock.tpl:0
+msgid "Search disabled"
+msgstr "Căutare dezactivată"
+
+#: templates/search/fullTextLock.tpl:3
+msgid ""
+"You cannot currently perform full-text searches because the index is being\n"
+"  regenerated. This typically takes about 10 minutes. We apologize for the\n"
+"  inconvenience."
+msgstr ""
+"Momentan nu puteți căuta prin textul definițiilor, deoarece indexul este în "
+"curs de reconstrucție. Această operație durează de obicei circa 10 minute. "
+"Ne cerem scuze pentru neplăcere."
+
+#: templates/search/missingDefinitionWarnings.tpl:4
+msgid ""
+"There are definitions in unofficial dictionaries, which\n"
+"      <a href=\"%spreferinte\">you have chosen to hide</a>."
+msgstr ""
+"Există definiții din dicționare neoficiale, pe care <a href=\"%spreferinte"
+"\">ați ales să le ascundeți</a>."
+
+#: templates/search/missingDefinitionWarnings.tpl:11
+msgid ""
+"There are definitions in dictionaries for which dexonline has no\n"
+"      publishing rights:"
+msgstr ""
+"Există definiții din dicționare pentru care dexonline nu are drepturi de "
+"redistribuire:"
+
+#: templates/search/showAllLink.tpl:3
+msgid "show all definitions"
+msgstr "arată toate definițiile"
+
+#: templates/search/trees.tpl:22
+msgid "edit"
+msgstr "editează"
+
+#: templates/search/trees.tpl:31
+msgid "etymology"
+msgstr "etimologie"
+
+#: templates/search/wikiArticles.tpl:3
+msgid "Articles on this subject"
+msgstr "Articole pe această temă"
+
+#: templates/top.tpl:5
+msgid "Manual contribution rankings"
+msgstr "Topul contribuțiilor manuale"
+
+#: templates/top.tpl:8
+msgid ""
+"For every user the number of definitions and the total character length\n"
+"    of those definitions are shown. For comparison, the Bible has roughly\n"
+"    3,500,000 characters."
+msgstr ""
+"Pentru fiecare utilizator sunt indicate numărul de definiții trimise și "
+"numărul total de caractere din acele definiții. Comparativ, Biblia are circa "
+"3.500.000 de caractere."
+
+#: templates/top.tpl:15
+msgid "Automated contribution rankings"
+msgstr "Topul contribuțiilor automate"
+
+#: templates/top.tpl:18
+msgid "These include definitions entered using a program."
+msgstr "În această categorie intră definițiile trimise folosind un program."
+
+#: templates/unelte.tpl:5
+msgid "off-line clients"
+msgstr "clienți off-line"
+
+#: templates/unelte.tpl:8
+msgid ""
+"These applications download the definitions from <i>dexonline</i> to\n"
+"    your computer or phone. Then you can see them without an Internet\n"
+"    connection."
+msgstr ""
+"Aceste aplicații descarcă definițiile din <i>dexonline</i> pe calculatorul "
+"dumneavoastră personal. Ulterior, le puteți consulta și în absența unei "
+"conexiuni la Internet."
+
+#: templates/unelte.tpl:16
+msgid "Client"
+msgstr "Client"
+
+#: templates/unelte.tpl:29
+msgid "Platforms"
+msgstr "Platforme"
+
+#: templates/unelte.tpl:56
+msgid "Requirements"
+msgstr "Cerințe"
+
+#: templates/unelte.tpl:63
+msgid "Disk space required"
+msgstr "Spațiu pe disc necesar"
+
+#: templates/unelte.tpl:70
+msgid "Author"
+msgstr "Autor"
+
+#: templates/unelte.tpl:98
+msgid "license on the data in this table"
+msgstr "licență pe informațiile din acest tabel"
+
+#: templates/unelte.tpl:108
+msgid ""
+"The information in this table is dual-licensed under the GNU General\n"
+"      Public License (as applicable to the entire site) and the\n"
+"      <a href=\"%s\">Creative Commons Attribution-ShareAlike 3.0</a> "
+"license.\n"
+"      The information can be used (copied, modified, adapted etc.) by the\n"
+"      website http://wikipedia.org. The data are gathered from the mailing\n"
+"      list discutii@dexonline.ro (formerly dictionar@yahoogroups.com) in\n"
+"      collaboration with the application developers."
+msgstr ""
+"Informațiile din acest tabel poartă o dublă licență: Licența Publică "
+"Generală GNU (care se aplică întregului site) și licența <a href=\"%s"
+"\">Creative Commons Attribution-ShareAlike 3.0</a>. Informațiile pot fi "
+"folosite (copiate, modificate, adaptate, etc.) de către siteul http://"
+"wikipedia.org. Datele sunt adunate de pe lista discutii@dexonline.ro (fostă "
+"dictionar@yahoogroups.com) prin colaborare cu dezvoltatorii aplicațiilor."
+
+#: templates/unelte.tpl:119
+msgid "Browser integration"
+msgstr "Integrare în browser"
+
+#: templates/unelte.tpl:123
+msgid "A <a href=\"%s\" onclick=\"%s\">spell checker</a> for Firefox."
+msgstr ""
+"Un <a href=\"%s\" onclick=\"%s\">corector ortografic</a> pentru Firefox."
+
+#: templates/unelte.tpl:129
+msgid ""
+"To use the spell checker, right-click in any text box, check the\n"
+"          <em>Check spelling</em> box, right-click once more and select\n"
+"          <em>Languages > Romanian</em>."
+msgstr ""
+"Pentru a folosi corectorul, faceți clic-dreapta în orice cîmp de text, "
+"bifați opțiunea <em>Verifică ortografia</em>, faceți clic-dreapta din nou și "
+"selectați <em>Limbi > Română</em>."
+
+#: templates/unelte.tpl:137
+msgid ""
+"<a href=\"#\" onclick=\"%s\">Add <i>dexonline</i> to the search engine list</"
+"a>\n"
+"      of your browser. Thanks to Alexandru Lixandru."
+msgstr ""
+"<a href=\"#\" onclick=\"%s\">Adăugați <i>dexonline</i> la motoarele de "
+"căutare</a> ale browserului dumneavoastră. Mulțumiri lui Alexandru Lixandru."
+
+#: templates/unelte.tpl:143
+msgid "A <a href=\"%s\">Chrome extension</a> for right-click searches."
+msgstr ""
+"O <a href=\"%s\">extensie de Chrome</a> pentru căutarea cu clic-dreapta."
+
+#: templates/unelte.tpl:148
+msgid ""
+"A <a href=\"%s\">Firefox plugin</a> for right-click searches. Save the file\n"
+"      in the <tt>searchplugins/</tt> directory of Firefox and restart "
+"Firefox.\n"
+"      Thanks to %s."
+msgstr ""
+"Un <a href=\"%s\">modul de Firefox</a> pentru căutarea cu clic-dreapta."
+"Salvați fișierul în directorul <tt>searchplugins/</tt> al aplicației Firefox "
+"și reporniți Firefox. Mulțumiri lui %s."
+
+#: templates/unelte.tpl:156
+msgid "A <a href=\"%s\">WordPress plugin</a> for your blog."
+msgstr "Un <a href=\"%s\">modul de WordPress</a> pentru blogul dumneavoastră."
+
+#: templates/widgets/articleOfTheMonth.tpl:2
+msgid "article of the month"
+msgstr "articolul lunii"
+
+#: templates/widgets/games.tpl:2
+msgid "games"
+msgstr "jocuri"
+
+#: templates/widgets/randomWord.tpl:2
+msgid "random word"
+msgstr "cuvânt aleatoriu"
+
+#: templates/widgets/social.tpl:2
+msgid "follow us on"
+msgstr "urmărește-ne pe"
+
+#: templates/widgets/social.tpl:10
+msgid "Facebook icon"
+msgstr "Iconiță Facebook"
+
+#: templates/widgets/social.tpl:11
+msgid "Follow us on Facebook"
+msgstr "Urmărește-ne pe Facebook"
+
+#: templates/widgets/social.tpl:20
+msgid "Blogger icon"
+msgstr "Iconiță Blogger"
+
+#: templates/widgets/social.tpl:21
+msgid "Follow us on Blogger"
+msgstr "Urmărește-ne pe Blogger"
+
+#: templates/widgets/social.tpl:30
+msgid "Twitter icon"
+msgstr "Iconiță Twitter"
+
+#: templates/widgets/social.tpl:31
+msgid "Follow us on Twitter"
+msgstr "Urmărește-ne pe Twitter"
+
+#: templates/wikiArticle.tpl:16
+msgid "Other linguistic articles"
+msgstr "Alte articole lingvistice"
+
+#: templates/wotd.tpl:21
+msgid "Word of the day for %2$s %1$d, %3$d"
+msgstr "Cuvântul zilei, %d %s %d"
+
+#: templates/wotd.tpl:43
+msgid ""
+"<i>dexonline</i> does not directly offer the word of the day by email.\n"
+"        However, there are <a href=\"%s\">many sites</a> that do this for "
+"any RSS feed.\n"
+"        We recommend <a href=\"%s\">IFTTT</a>."
+msgstr ""
+"<i>dexonline</i> nu oferă cuvântul zilei direct prin e-mail. Există însă <a "
+"href=\"%s\">multe site-uri</a> care fac acest lucru pentru orice RSS. Vă "
+"recomandăm <a href=\"%s\">IFTTT</a>."
+
+#: templates/wotd.tpl:96
+msgid "Chosen because:"
+msgstr "Cheia alegerii:"
+
+#: templates/wotd.tpl:103
+msgid "Word of the day archive"
+msgstr "Arhiva cuvintelor zilei"
+
+#: templates/wotd.tpl:109
+msgid "Word of the day for %2$s %1$d in other years:"
+msgstr "Cuvântul zilei de %d %s în alți ani:"
+
+#: templates/wotd.tpl:129
+msgid "Comments"
+msgstr "Comentarii"
+
+#: templates/wotm.tpl:3
+msgid "Word of the month for"
+msgstr "Cuvântul lunii"
+
+#: templates/wotm.tpl:24
+msgid "previous"
+msgstr "precedentul"
+
+#: templates/wotm.tpl:31
+msgid "next"
+msgstr "următorul"
+
+#: wwwbase/changeLocale.php:8
+msgid ""
+"Interface language changed. Definition text and external links are always in "
+"Romanian."
+msgstr ""
+"Am schimbat limba interfeței. Textul definițiilor și legăturile externe sunt "
+"mereu în română."
+
+#: wwwbase/randomList.php:52
+msgid "words"
+msgstr "cuvinte"
+
+#: wwwbase/randomList.php:55
+msgid "words of the day"
+msgstr "cuvinte ale zilei"
+
+#: wwwbase/search.php:223
+#, php-format
+msgid "We redirected you automatically from <b>%s</b> to <b>%s</b>."
+msgstr "V-am redirecționat automat de la <b>%s</b> la <b>%s</b>."
+
+#: wwwbase/search.php:320
+msgid "conjugations"
+msgstr "conjugări"
+
+#: wwwbase/search.php:321
+msgid "declensions"
+msgstr "declinări"
+
+#: wwwbase/unelte.php:6
+msgid "Synchronization with dexonline"
+msgstr "Sincronizare cu dexonline"
+
+#: wwwbase/unelte.php:7
+msgid "This client connects to dexonline periodically to download updates."
+msgstr ""
+"Acest client se poate conecta periodic la dexonline pentru a-și transfera "
+"definițiile nou adăugate."
+
+#: wwwbase/unelte.php:10
+msgid "Interface for visually impaired users"
+msgstr "Interfață pentru nevăzători"
+
+#: wwwbase/unelte.php:11
+msgid "This client has a friendly interface for visually impaired users."
+msgstr "Acest client are o interfață prietenoasă pentru nevăzători."
+
+#: wwwbase/unelte.php:14
+msgid "Regular expressions, wildcards"
+msgstr "Expresii regulate, wildcards"
+
+#: wwwbase/unelte.php:15
+msgid ""
+"This client accepts searches using regular expressions and/or wildcards, "
+"such as «echi*» for echilibru, echinocțiu etc."
+msgstr ""
+"Acest client acceptă căutări cu expresii regulate și/sau wildcards, cum ar "
+"fi «echi*» pentru echilibru, echinocțiu etc."
+
+#: wwwbase/unelte.php:18
+msgid "Suggestions"
+msgstr "Sugestii"
+
+#: wwwbase/unelte.php:19
+msgid ""
+"This client offers the closest matches when an exact match is not found."
+msgstr ""
+"Acest client oferă cele mai apropiate rezultate atunci când cuvântul căutat "
+"nu este găsit exact."
+
+#: wwwbase/unelte.php:22
+msgid "Diacritics support"
+msgstr "Cu / fără diacritice"
+
+#: wwwbase/unelte.php:23
+msgid "This client supports searching with or without diacritics."
+msgstr ""
+"Acest client oferă opțiuni pentru tastarea căutărilor cu sau fără diacritice."
+
+#: wwwbase/unelte.php:26
+msgid "Full-text searches"
+msgstr "Căutare full-text"
+
+#: wwwbase/unelte.php:27
+msgid ""
+"This client can search not just keywords, but the definition body as well."
+msgstr ""
+"Acest client poate căuta nu doar cuvintele-titlu, ci și întreg textul "
+"definițiilor."
+
+#: wwwbase/unelte.php:30
+msgid "Inflected form search"
+msgstr "Căutare forme flexionare"
+
+#: wwwbase/unelte.php:31
+msgid ""
+"This client can query declensions and conjugations, such as «lucreze» "
+"instead of «lucra»."
+msgstr ""
+"Acest client poate căuta declinări și conjugări ale cuvintelor, cum ar fi "
+"«lucreze» în loc de «lucra»."
+
+#: wwwbase/unelte.php:34
+msgid "Word clicks"
+msgstr "Clic pe cuvânt"
+
+#: wwwbase/unelte.php:35
+msgid ""
+"When you click a word in a definition, this client goes to the definition "
+"for that word."
+msgstr ""
+"Când dați clic pe un cuvânt dintr-o definiție, acest client navighează la "
+"definiția acelui cuvânt."
+
+#: wwwbase/unelte.php:38
+msgid "Search history"
+msgstr "Istoria căutărilor"
+
+#: wwwbase/unelte.php:39
+msgid "This client remembers the most recent searches and can revisit them."
+msgstr "Acest client ține minte ultimele cuvinte căutate și le poate revizita."
+
+#: wwwbase/unelte.php:50
+msgid "Perl, wxWidgets (only under Linux)"
+msgstr "Perl, wxWidgets (numai sub Linux)"
+
+#: wwwbase/unelte.php:74
+msgid "QT, g++ (only under Linux)"
+msgstr "QT, g++ (numai sub Linux)"

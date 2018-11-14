@@ -2,7 +2,7 @@
 
 <div class="panel panel-default paradigmDiv voffset3">
   <div class="panel-heading">
-    Intrare: <strong>{$entry->description}</strong>
+    {'entry'|_|capitalize}: <strong>{$entry->description}</strong>
 
     {if User::can(User::PRIV_EDIT + User::PRIV_STRUCT)}
       <div class="pull-right">
@@ -32,8 +32,8 @@
       <button
         type="button"
         class="btn btn-default toggleVariantParadigms doubleText"
-        data-other-text="ascunde variantele">
-        arată și variantele
+        data-other-text="{'hide variants'|_}">
+        {'show variants'|_}
       </button>
     {/if}
 

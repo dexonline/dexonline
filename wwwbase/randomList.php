@@ -8,7 +8,7 @@ define('DEFAULT_SHOW_LIST', 0);
 
 define('MIN_WOTD_LIST_LENGTH', 5);
 define('MAX_WOTD_LIST_LENGTH', 50);
-define('DEFAULT_WOTD_LIST_LENGTH', 15);
+define('DEFAULT_WOTD_LIST_LENGTH', 20);
 
 //define('RANDOM_WORDS_QUERY', 'select cuv %s from RandomWord where id in (%s)');
 define('RANDOM_WORDS_QUERY', 'select cuv %s from RandomWord order by rand() limit %d');
@@ -47,19 +47,21 @@ if ( !is_int($noSkin) || $noSkin!=1 ){
   $forms = DB::getArrayOfRows($query);
 */
 
-$wotd = '';
 if (is_null($wListLength)) {
   $query = sprintf(RANDOM_WORDS_QUERY, $showSource?SOURCE_PART_RANDOM_WORDS:'', $listLength);
+  $type = _('words');
 } else {
   $query = sprintf(RANDOM_WOTD_QUERY, $wListLength);
-  $wotd = ' ale zilei';
+  $type = _('words of the day');
 }
 $forms = DB::getArrayOfRows($query);
 
 $cnt = count($forms);
 
-SmartyWrap::assign('forms', $forms);
-SmartyWrap::assign('wotd', $wotd);
+SmartyWrap::assign([
+  'forms' => $forms,
+  'type' => $type,
+]);
 if ($noSkin) {
   SmartyWrap::displayWithoutSkin('bits/randomWordListSimple.tpl');
 } else {

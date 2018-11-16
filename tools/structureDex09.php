@@ -15,6 +15,8 @@ define('BATCH_SIZE', 10000);
 define('START_AT', '');
 define('EDIT_URL', 'https://dexonline.ro/admin/definitionEdit.php?definitionId=');
 
+$ABBREVS = Abbrev::loadAbbreviations(SOURCE_ID);
+
 $GRAMMAR = [
   'start' => [
     'entryWithInflectedForms " " reference',   // just a reference to the main form
@@ -210,7 +212,7 @@ $MEANING_GRAMMAR = [
   'word' => [
     '/[^ ;,.]+/',
   ],
-  
+
   'filler' => [
     '/.*/',
   ],
@@ -355,34 +357,49 @@ do {
         ->find_many();
 
   foreach ($defs as $d) {
-    $rep = preprocess($d->internalRep);
-
-    $parsed = $parser->parse($rep);
-    if (!$parsed) {
-      Log::error('Cannot parse: %s %s%d', $rep, EDIT_URL, $d->id);
+    // skip definitions already associated with meanings tagged with DEX '09
+    $structured = Model::factory('Meaning')
+      ->table_alias('m')
+      ->join('MeaningSource', ['m.id', '=', 'ms.meaningId'], 'ms')
+      ->join('TreeEntry', ['m.treeId', '=', 'te.treeId'], 'te')
+      ->join('EntryDefinition', ['te.entryId', '=', 'ed.entryId'], 'ed')
+      ->where('ms.sourceId', SOURCE_ID)
+      ->where('ed.definitionId', $d->id)
+      ->count();
+    if ($structured) {
+      Log::info("Skipping already structured definition «{$d->lexicon}»");
     } else {
-      $meaning = $parsed->findFirst('meaning');
-      $etymology = $parsed->findFirst('etymology');
-      $reference = $parsed->findFirst('reference');
 
-      if ($meaning) {
-        $parsed = $meaningParser->parse($meaning);
-        if ($parsed) {
-          $tuples1 = createMeanings($parsed, $d);
-          $tuples2 = createEtymologies($etymology, $etymologyParser, $d);
-          $tuples = array_merge($tuples1, $tuples2);
-          makeTree($tuples, $d);
-        } else {
-          Log::error('Cannot parse meaning for [%s]: [%s] %s%d',
-                     $d->lexicon, $meaning, EDIT_URL, $d->id);
-        }
-      } else if ($reference) {
-        mergeVariant($d, $reference);
+      $rep = preprocess($d->internalRep);
+
+      $parsed = $parser->parse($rep);
+      if (!$parsed) {
+        Log::error('Cannot parse: %s %s%d', $rep, EDIT_URL, $d->id);
       } else {
-        Log::error('No meaning nor reference: %s %s%d', $rep, EDIT_URL, $d->id);
+        $meaning = $parsed->findFirst('meaning');
+        $etymology = $parsed->findFirst('etymology');
+        $reference = $parsed->findFirst('reference');
+
+        if ($meaning) {
+          $parsed = $meaningParser->parse($meaning);
+          if ($parsed) {
+            $tuples1 = createMeanings($parsed, $d);
+            $tuples2 = createEtymologies($etymology, $etymologyParser, $d);
+            $tuples = array_merge($tuples1, $tuples2);
+            makeTree($tuples, $d);
+            // exit;
+          } else {
+            Log::error('Cannot parse meaning for [%s]: [%s] %s%d',
+                       $d->lexicon, $meaning, EDIT_URL, $d->id);
+          }
+        } else if ($reference) {
+          mergeVariant($d, $reference);
+        } else {
+          Log::error('No meaning nor reference: %s %s%d', $rep, EDIT_URL, $d->id);
+        }
       }
+      // exit;
     }
-    // exit;
   }
 
   $offset += BATCH_SIZE;
@@ -433,8 +450,8 @@ function mergeVariant($def, $reference) {
                ->table_alias('e')
                ->select('e.*')
                ->distinct()
-               ->join('EntryLexem', ['el.entryId', '=', 'e.id'], 'el')
-               ->join('Lexem', ['l.id', '=', 'el.lexemId'], 'l')
+               ->join('EntryLexeme', ['el.entryId', '=', 'e.id'], 'el')
+               ->join('Lexeme', ['l.id', '=', 'el.lexemeId'], 'l')
                ->where_raw('(l.formNoAccent = binary ?)', [ $form ])
                ->find_many();
   if (count($formEntries) != 1) {
@@ -490,7 +507,7 @@ function createMeanings($parsed, $def) {
       $quals = getQualifiers($p0);
       $result[] = makeMeaning($p0, $quals);
 
-      $p1 = AdminStringUtil::capitalize((string)$phrases[1]);
+      $p1 = Str::capitalize((string)$phrases[1]);
       $tags = [ getTag('prin extensiune') ];
       $result[] = makeMeaning($p1, $tags);
 
@@ -541,11 +558,14 @@ function getQualifiers(&$rep) {
 
 // Remove abbreviations from the beginning, while we have tags for them.
 function getAbbreviations(&$rep, &$result) {
+  global $ABBREVS;
+
   do {
     $hash = false;
     if (preg_match('/^(și )?#([^#]+)#,? (.*)$/', $rep, $m)) {
       $abbr = mb_strtolower($m[2]);
-      $exp = AdminStringUtil::getAbbreviation(SOURCE_ID, $abbr);
+      $abbr = Abbrev::bestAbbrevMatch($abbr, array_keys($ABBREVS));
+      $exp = $ABBREVS[$abbr]['internalRep'];
       if (getTag($exp, false)) {
         $result[] = getTag($exp);
         $rep = $m[3];
@@ -564,12 +584,15 @@ function processQualifier($qual) {
 }
 
 function expandAllAbbreviations($s) {
+  global $ABBREVS;
+
   $m = [];
   while (preg_match('/^([^#]*)#([^#]+)#(.*)$/', $s, $m)) {
     $abbr = mb_strtolower($m[2]);
-    $exp = AdminStringUtil::getAbbreviation(SOURCE_ID, $abbr);
+    $abbr = Abbrev::bestAbbrevMatch($abbr, array_keys($ABBREVS));
+    $exp = $ABBREVS[$abbr]['internalRep'];
     if ($abbr != $m[2]) { // is capitalized
-      $exp = AdminStringUtil::capitalize($exp);
+      $exp = Str::capitalize($exp);
     }
     $s = sprintf('%s%s%s', $m[1], $exp, $m[3]);
   }
@@ -839,7 +862,7 @@ function makeTree($tuples, $def) {
   }
 
   $origMeanings = Model::factory('Meaning')
-            ->where('treeId', $tree->id)
+            ->where('treeId', $t->id)
             ->order_by_asc('displayOrder')
             ->find_many();
   $numOrigMeanings = count($origMeanings);
@@ -876,7 +899,6 @@ function makeTree($tuples, $def) {
       $m->userId = MY_USER_ID;
       $m->treeId = $t->id;
       $m->internalRep = $internalRep;
-      $m->htmlRep = AdminStringUtil::htmlize($internalRep, 0);
       $m->displayOrder = ++$order;
       if ($m->type == Meaning::TYPE_MEANING) {
         $m->breadcrumb = "{$primaryMeanings}.";
@@ -907,6 +929,8 @@ function makeTree($tuples, $def) {
 
   foreach ($entries as $e) {
     $e->deleteEmptyTrees();
+
+    $e = Entry::get_by_id($e->id); // clear extra fields so save() doesn't complain
     $e->structStatus = Entry::STRUCT_STATUS_IN_PROGRESS;
     $e->save();
   }
@@ -926,7 +950,7 @@ function getTag($value, $assert = true) {
   if (isset($tagMap[$value])) {
     return $tagMap[$value];
   } else if ($assert) {
-    Log::error("No tag: {$value}");
+    Log::error("No tag: [{$value}]");
     exit;
   } else {
     return null;
@@ -945,8 +969,8 @@ function associateSynonym($meaningId, $form) {
          ->select('t.*')
          ->distinct()
          ->join('TreeEntry', ['t.id', '=', 'te.treeId'], 'te')
-         ->join('EntryLexem', ['te.entryId', '=', 'el.entryId'], 'el')
-         ->join('Lexem', ['el.lexemId', '=', 'l.id'], 'l')
+         ->join('EntryLexeme', ['te.entryId', '=', 'el.entryId'], 'el')
+         ->join('Lexeme', ['el.lexemeId', '=', 'l.id'], 'l')
          ->where('l.formNoAccent', $form)
          ->find_many();
 
@@ -957,8 +981,8 @@ function associateSynonym($meaningId, $form) {
            ->select('t.*')
            ->distinct()
            ->join('TreeEntry', ['t.id', '=', 'te.treeId'], 'te')
-           ->join('EntryLexem', ['te.entryId', '=', 'el.entryId'], 'el')
-           ->join('InflectedForm', ['el.lexemId', '=', 'i.lexemId'], 'i')
+           ->join('EntryLexeme', ['te.entryId', '=', 'el.entryId'], 'el')
+           ->join('InflectedForm', ['el.lexemeId', '=', 'i.lexemeId'], 'i')
            ->where('i.formNoAccent', $form)
            ->find_many();
   }

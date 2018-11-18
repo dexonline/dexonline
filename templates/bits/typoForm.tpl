@@ -10,7 +10,7 @@
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
-            <h4 class="modal-title">{'report a typo'|_|capitalize}</h4>
+            <h4 class="modal-title">{'report a typo'|_|cap}</h4>
           </div>
 
           <div class="modal-body">
@@ -24,7 +24,7 @@
             ></textarea>
             <input type="hidden" name="definitionId" value="">
 
-            <p class="voffset3">{'notes'|_|capitalize}:</p>
+            <p class="voffset3">{'notes'|_|cap}:</p>
 
             <ul>
               <li>
@@ -56,7 +56,7 @@
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
-          <h4 class="modal-title">{'report a typo'|_|capitalize}</h4>
+          <h4 class="modal-title">{'report a typo'|_|cap}</h4>
         </div>
 
         <div class="modal-body">

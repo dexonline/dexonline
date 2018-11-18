@@ -374,7 +374,8 @@ class SmartyWrap {
   }
 
   static function registerPlugins() {
-    self::$theSmarty->registerPlugin('modifier', 'capitalize', 'Str::capitalize');
+    // capitalize is already implemented, but capitalizes every word, which we don't want.
+    self::$theSmarty->registerPlugin('modifier', 'cap', 'Str::capitalize');
   }
 
   static function registerOutputFilters() {

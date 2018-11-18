@@ -1,7 +1,7 @@
 {extends "layout.tpl"}
 
 {block "title"}
-  {'word of the day'|_|capitalize}, ({$day} {$monthName} {$year}):
+  {'word of the day'|_|cap}, ({$day} {$monthName} {$year}):
   {$searchResult->definition->lexicon}
 {/block}
 

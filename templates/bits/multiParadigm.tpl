@@ -2,7 +2,7 @@
 
 <div class="panel panel-default paradigmDiv voffset3">
   <div class="panel-heading">
-    {'entry'|_|capitalize}: <strong>{$entry->description}</strong>
+    {'entry'|_|cap}: <strong>{$entry->description}</strong>
 
     {if User::can(User::PRIV_EDIT + User::PRIV_STRUCT)}
       <div class="pull-right">

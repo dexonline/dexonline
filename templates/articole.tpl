@@ -1,9 +1,9 @@
 {extends "layout.tpl"}
 
-{block "title"}{'linguistic articles'|_|capitalize}{/block}
+{block "title"}{'linguistic articles'|_|cap}{/block}
 
 {block "content"}
-  <h1>{'linguistic articles'|_|capitalize}</h1>
+  <h1>{'linguistic articles'|_|cap}</h1>
 
   <div id="linguisticArticles">
     {foreach $wikiTitles as $section => $articles}

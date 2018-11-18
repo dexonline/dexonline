@@ -1,9 +1,9 @@
 {extends "layout.tpl"}
 
-{block "title"}{'tools'|_|capitalize}{/block}
+{block "title"}{'tools'|_|cap}{/block}
 
 {block "content"}
-  <h3>{'off-line clients'|_|capitalize}</h3>
+  <h3>{'off-line clients'|_|cap}</h3>
 
   <p>
     {'These applications download the definitions from <i>dexonline</i> to
@@ -81,7 +81,7 @@
       </tr>
 
       <tr>
-        <th>{'license'|_|capitalize}</th>
+        <th>{'license'|_|cap}</th>
         {foreach $clients as $c}
           <td>{$c.license}</td>
         {/foreach}
@@ -104,7 +104,7 @@
     <p>
       <i class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></i>
 
-      <strong>{'license'|_|capitalize}:</strong>
+      <strong>{'license'|_|cap}:</strong>
 
       {'The information in this table is dual-licensed under the GNU General
       Public License (as applicable to the entire site) and the

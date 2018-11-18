@@ -1,6 +1,6 @@
 {extends "layout.tpl"}
 
-{block "title"}{'links'|_|capitalize}{/block}
+{block "title"}{'links'|_|cap}{/block}
 
 {block "content"}
   <p>

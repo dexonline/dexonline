@@ -3,7 +3,7 @@
     <div class="navbar-header navbar-left pull-left">
       {if $pageType != 'home'}
         <div class="logo-wrapper">
-          <a class="navbar-brand" href="{$wwwRoot}" title="{'home page'|_|capitalize}">
+          <a class="navbar-brand" href="{$wwwRoot}" title="{'home page'|_|cap}">
             <img id="logo-nav"
               alt="logo dexonline"
               src="{$wwwRoot}img/svg/logo-nav.svg">

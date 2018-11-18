@@ -1,13 +1,13 @@
 {extends "layout.tpl"}
 
-{block "title"}{'word scramble'|_|capitalize}{/block}
+{block "title"}{'word scramble'|_|cap}{/block}
 
 {block "search"}{/block}
 
 {block "content"}
   <div id="mainMenu" class="panel panel-default">
     <div class="panel-heading">
-      {'word scramble'|_|capitalize}
+      {'word scramble'|_|cap}
     </div>
 
     <div class="panel-body">
@@ -117,16 +117,16 @@
 
         <ol>
           <li>
-            <b>{'all words'|_|capitalize}:</b>
+            <b>{'all words'|_|cap}:</b>
             {'find all words having at least three letters.'|_}
           </li>
           <li>
-            <b>{'one anagram'|_|capitalize}:</b>
+            <b>{'one anagram'|_|cap}:</b>
             {'find a word using all the letters, then receive a new set of
             letters.'|_}
           </li>
           <li>
-            <b>{'all anagrams'|_|capitalize}:</b>
+            <b>{'all anagrams'|_|cap}:</b>
             {'find all words using all the letters, then receive a new set of
             letters. For example, for the set AINTT you must guess all three
             anagrams (<i>%s</i>) to receive the next set.'|_|sprintf:"tanti, titan, țintă"}
@@ -182,7 +182,7 @@
 
   <div id="gamePanel" class="panel panel-default">
     <div class="panel-heading">
-      {'word scramble'|_|capitalize}
+      {'word scramble'|_|cap}
     </div>
 
     <div class="panel-body">

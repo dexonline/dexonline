@@ -117,7 +117,7 @@
 
       <form class="form-inline" action="scrabble-diferente-loc" method="get">
         <div class="form-group">
-          {'compare'|_|capitalize}
+          {'compare'|_|cap}
           <select class="form-control" name="list">
             <option value="base">{'base forms'|_}</option>
             <option value="inflected">{'inflected forms'|_}</option>

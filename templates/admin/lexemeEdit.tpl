@@ -360,6 +360,21 @@
               </div>
             </div>
 
+            <div class="form-group">
+              <label class="col-md-2 control-label">apocopă</label>
+
+              <div class="col-md-10">
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox"
+                      name="apocope"
+                      value="1"
+                      {if $lexeme->apocope}checked{/if}>
+                  </label>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>

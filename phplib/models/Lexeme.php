@@ -321,6 +321,7 @@ class Lexeme extends BaseObject implements DatedObject {
         ->order_by_asc('inflectionId')
         ->order_by_asc('variant')
         ->order_by_asc('apheresis')
+        ->order_by_asc('apocope')
         ->find_many();
     }
     return ($this->inflectedForms);
@@ -362,13 +363,13 @@ class Lexeme extends BaseObject implements DatedObject {
 
       }
 
-      $this->appendApheresisForms();
+      $this->appendElisionForms();
     }
 
     return $this->inflectedForms;
   }
 
-  function appendApheresisForms() {
+  function appendElisionForms() {
     if ($this->apheresis) {
       $forms = [];
       foreach ($this->inflectedForms as $if) {

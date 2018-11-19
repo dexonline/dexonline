@@ -9,7 +9,7 @@
     {if !$if->recommended}
       <span class="notRecommended" title="formă nerecomandată">{if $i}, {/if}{$form}*</span>
     {elseif $if->apheresis}
-      <span class="apheresis" title="prin afereză">{if $i}, {/if}{$form}</span>
+      <span class="apheresis" title="prin afereză și/sau eliziune">{if $i}, {/if}{$form}</span>
     {else}
       {if $i}, {/if}{$form}
     {/if}

@@ -40,8 +40,8 @@
               <select class="form-control" name="participleNumber">
                 {foreach $adjModels as $am}
                   <option value="{$am->number}"
-                          {if $pm && $pm->adjectiveModel == $am->number}selected{/if}
-                          >{$am->number} ({$am->exponent})
+                    {if $pm && $pm->adjectiveModel == $am->number}selected{/if}
+                  >{$am->number} ({$am->exponent})
                   </option>
                 {/foreach}
               </select>
@@ -70,8 +70,9 @@
             <div class="col-xs-5">flexiune</div>
             <div class="col-xs-1"></div>
             <div class="col-xs-6 row">
-              <div class="col-xs-10">forme</div>
+              <div class="col-xs-8">forme</div>
               <div class="col-xs-2">recom</div>
+              <div class="col-xs-2">apocopă</div>
             </div>
           </th>
         </tr>
@@ -90,18 +91,25 @@
               <div class="col-xs-6 row">
                 {foreach $f as $i => $tuple}
                   <div class="fieldWrapper">
-                    <div class="col-xs-10">
+                    <div class="col-xs-8">
                       <input class="form-control input-sm"
-                             type="text"
-                             name="forms_{$inflId}_{$i}"
-                             value="{$tuple.form|escape}">
+                        type="text"
+                        name="forms_{$inflId}_{$i}"
+                        value="{$tuple.form|escape}">
                     </div>
                     <div class="col-xs-2">
                       <input class="checkbox"
-                             type="checkbox"
-                             name="recommended_{$inflId}_{$i}"
-                             value="1"
-                             {if $tuple.recommended}checked{/if}>
+                        type="checkbox"
+                        name="recommended_{$inflId}_{$i}"
+                        value="1"
+                        {if $tuple.recommended}checked{/if}>
+                    </div>
+                    <div class="col-xs-2">
+                      <input class="checkbox"
+                        type="checkbox"
+                        name="apocope_{$inflId}_{$i}"
+                        value="1"
+                        {if $tuple.apocope}checked{/if}>
                     </div>
                   </div>
                 {/foreach}
@@ -187,7 +195,7 @@
         <div class="checkbox">
           <label class="control-label">
             <input class="checkbox" type="checkbox" name="shortList" value="1"
-                   {if $shortList}checked{/if}>
+              {if $shortList}checked{/if}>
             testează modificările pe maximum 10 lexeme
           </label>
 

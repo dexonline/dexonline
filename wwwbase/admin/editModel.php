@@ -38,8 +38,11 @@ foreach ($ifs as $i => $if) {
   // This works because $ifs and $mds are both ordered by inflectionId,
   // then by variant
   $inflId = $if->inflectionId;
-  $forms[$inflId][] = ['form' => $if->form,
-                       'recommended' => $mds[$i]->recommended];
+  $forms[$inflId][] = [
+    'form' => $if->form,
+    'recommended' => $mds[$i]->recommended,
+    'apocope' => $mds[$i]->apocope,
+  ];
 }
 
 if (!$previewButton && !$saveButton) {
@@ -153,7 +156,8 @@ if (!$previewButton && !$saveButton) {
       ModelDescription::delete_all_by_modelId_inflectionId($m->id, $inflId);
       foreach ($transformMatrix as $variant => $transforms) {
         $accentShift = array_pop($transforms);
-        if ($accentShift != ModelDescription::UNKNOWN_ACCENT_SHIFT && $accentShift != ModelDescription::NO_ACCENT_SHIFT) {
+        if ($accentShift != ModelDescription::UNKNOWN_ACCENT_SHIFT &&
+            $accentShift != ModelDescription::NO_ACCENT_SHIFT) {
           $accentedVowel = array_pop($transforms);
         } else {
           $accentedVowel = '';
@@ -169,6 +173,7 @@ if (!$previewButton && !$saveButton) {
           $md->variant = $variant;
           $md->applOrder = --$order;
           $md->recommended = false;
+          $md->apocope = false;
           $md->transformId = $t->id;
           $md->accentShift = $accentShift;
           $md->vowel = $accentedVowel;
@@ -177,7 +182,7 @@ if (!$previewButton && !$saveButton) {
       }
     }
 
-    // Set the recommended bit appropriately.
+    // Set the recommended and apocope bits appropriately.
     // Do this separately as the loop above only includes modified forms.
     Log::debug('Saving recommended bits');
     foreach ($nforms as $inflId => $tupleArray) {
@@ -185,6 +190,7 @@ if (!$previewButton && !$saveButton) {
         $md = ModelDescription::get_by_modelId_inflectionId_variant_applOrder(
           $m->id, $inflId, $variant, 0);
         $md->recommended = $tuple['recommended'];
+        $md->apocope = $tuple['apocope'];
         $md->save();
       }
     }
@@ -200,7 +206,8 @@ if (!$previewButton && !$saveButton) {
           foreach ($formArray as $variant => $f) {
             if (ConstraintMap::allows($l->restriction, $inflId, $variant)) {
               $if = InflectedForm::create($f);
-              fputcsv($fp, [$if->form, $if->formNoAccent, $if->formUtf8General, $l->id, $inflId, $variant]);
+              fputcsv($fp, [$if->form, $if->formNoAccent, $if->formUtf8General,
+                            $l->id, $inflId, $variant]);
             }
           }
         }
@@ -298,7 +305,8 @@ SmartyWrap::display('admin/editModel.tpl');
 /****************************************************************************/
 
 /**
- * $a, $b: arrays of ($form, $recommended) tuples. Only compares the forms.
+ * $a, $b: arrays of ($form, $recommended, $apocope) tuples.
+ * Only compares the forms and the apocope bits
  **/
 function equalArrays($a, $b) {
   if (count($a) != count($b)) {
@@ -307,6 +315,9 @@ function equalArrays($a, $b) {
 
   foreach ($a as $key => $tuple) {
     if ($a[$key]['form'] != $b[$key]['form']) {
+      return false;
+    }
+    if ($a[$key]['apocope'] != $b[$key]['apocope']) {
       return false;
     }
   }
@@ -336,32 +347,41 @@ function loadParticiplesForVerbModel($model, $pm) {
 }
 
 /**
- * Read forms and recommended checkboxes from the request.
+ * Read forms, recommended and apocope checkboxes from the request.
  * The map is already populated with all the applicable inflection IDs.
  * InflectionId's and variants are coded in the request parameters.
  **/
 function readRequest(&$map) {
   foreach ($_REQUEST as $name => $value) {
     $parts = preg_split('/_/', $name);
-    if (Str::startsWith($name, 'forms_')) {
+    if (in_array($parts[0], ['forms', 'recommended', 'apocope'])) {
       assert(count($parts) == 3);
       $inflId = $parts[1];
       $variant = $parts[2];
-      $form = trim($value);
-      if ($form) {
-        $map[$inflId][$variant] = ['form' => $form, 'recommended' => false];
-      }
-    } else if (Str::startsWith($name, 'recommended_')) {
-      assert(count($parts) == 3);
-      $inflId = $parts[1];
-      $variant = $parts[2];
-      if (array_key_exists($variant, $map[$inflId])) {
-        $map[$inflId][$variant]['recommended'] = true;
+
+      if ($parts[0] == 'forms') {
+        $form = trim($value);
+        if ($form) {
+          $map[$inflId][$variant] = [
+            'form' => $form,
+            'recommended' => false,
+            'apocope' => false,
+          ];
+        }
+      } else if ($parts[0] == 'recommended') {
+        if (array_key_exists($variant, $map[$inflId])) {
+          $map[$inflId][$variant]['recommended'] = true;
+        }
+      } else { // $parts[0] == 'apocope'
+        if (array_key_exists($variant, $map[$inflId])) {
+          $map[$inflId][$variant]['apocope'] = true;
+        }
       }
     }
   }
 
-  // Now reindex the array, in case the user left, for example, variant 1 empty but filled in variant 2.
+  // Now reindex the array, in case the user left, for example, variant 1
+  // empty but filled in variant 2.
   foreach ($map as $inflId => $variants) {
     $map[$inflId] = array_values($variants);
   }

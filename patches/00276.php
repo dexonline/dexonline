@@ -1,5 +1,7 @@
 <?php
 
+exit;
+
 ini_set('memory_limit', '1G');
 
 // generate apheresis forms for lexemes supporting apheresis

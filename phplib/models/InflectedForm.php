@@ -20,6 +20,9 @@ class InflectedForm extends BaseObject {
   function getHtmlForm() {
     $s = Str::highlightAccent($this->form);
     $s = str_replace("\\'", "'", $s);
+    if ($this->apheresis) {
+      $s = "&#x2011{$s}"; // non-breaking hyphen
+    }
     return $s;
   }
 

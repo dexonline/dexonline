@@ -320,6 +320,7 @@ class Lexeme extends BaseObject implements DatedObject {
         ->where('lexemeId', $this->id)
         ->order_by_asc('inflectionId')
         ->order_by_asc('variant')
+        ->order_by_asc('apheresis')
         ->find_many();
     }
     return ($this->inflectedForms);
@@ -360,9 +361,28 @@ class Lexeme extends BaseObject implements DatedObject {
         }
 
       }
+
+      $this->appendApheresisForms();
     }
 
     return $this->inflectedForms;
+  }
+
+  function appendApheresisForms() {
+    if ($this->apheresis) {
+      $forms = [];
+      foreach ($this->inflectedForms as $if) {
+        if (Str::startsWith($if->formNoAccent, 'î')) {
+          // drops either î or 'î
+          $short = explode('î', $if->form, 2)[1];
+          $new = InflectedForm::create(
+            $short, $this->id, $if->inflectionId, $if->variant, $if->recommended);
+          $new->apheresis = true;
+          $forms[] = $new;
+        }
+      }
+      $this->inflectedForms = array_merge($this->inflectedForms, $forms);
+    }
   }
 
   // for METHOD_GENERATE, throws ParadigmException if any inflection cannot be generated

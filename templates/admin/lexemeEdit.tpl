@@ -345,6 +345,21 @@
               placeholder="explicații despre sursa flexiunii"
               readonly=!$canEdit.tags}
 
+            <div class="form-group">
+              <label class="col-md-2 control-label">afereză</label>
+
+              <div class="col-md-10">
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox"
+                      name="apheresis"
+                      value="1"
+                      {if $lexeme->apheresis}checked{/if}>
+                  </label>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>

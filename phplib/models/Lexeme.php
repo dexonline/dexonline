@@ -282,20 +282,13 @@ class Lexeme extends BaseObject implements DatedObject {
 
   static function countStaleParadigms() {
     return Model::factory('Lexeme')
-      ->table_alias('l')
-      ->join('ModelType', ['l.modelType', '=', 'mt.code'], 'mt')
-      ->join('Model', 'mt.canonical = m.modelType and l.modelNumber = m.number', 'm')
-      ->where_raw('m.modDate >= l.modDate')
+      ->where('staleParadigm', true)
       ->count();
   }
 
-  static function getStaleParadigms($limit = 100) {
+  static function getStaleParadigms($limit = 500) {
     return Model::factory('Lexeme')
-      ->table_alias('l')
-      ->select('l.*')
-      ->join('ModelType', ['l.modelType', '=', 'mt.code'], 'mt')
-      ->join('Model', 'mt.canonical = m.modelType and l.modelNumber = m.number', 'm')
-      ->where_raw('m.modDate >= l.modDate')
+      ->where('staleParadigm', true)
       ->limit($limit)
       ->find_many();
   }
@@ -533,12 +526,14 @@ class Lexeme extends BaseObject implements DatedObject {
 
   /**
    * Deletes the lexeme's old inflected forms, if they exist, then saves the new ones.
+   * Clears the staleParadigm bit and saves the lexeme.
    * Throws ParadigmException if any inflection cannot be generated.
    **/
   function regenerateParadigm() {
-    if ($this->id) {
-      InflectedForm::delete_all_by_lexemeId($this->id);
-    }
+    $this->staleParadigm = false;
+    $this->save();
+    InflectedForm::delete_all_by_lexemeId($this->id);
+
     foreach ($this->generateInflectedForms() as $if) {
       $if->lexemeId = $this->id;
       $if->save();
@@ -753,6 +748,7 @@ class Lexeme extends BaseObject implements DatedObject {
    * Saves a lexeme and its dependants.
    **/
   function deepSave() {
+    $this->staleParadigm = false;
     $this->save();
 
     Fragment::delete_all_by_lexemeId($this->id);

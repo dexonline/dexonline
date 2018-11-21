@@ -42,18 +42,17 @@ if ($saveButton) {
     Log::notice('Saving transforms and model descriptions');
     extractTransforms($m, $forms, true);
 
+    Log::notice('Marking lexemes as stale');
+    updateLexemes($m->modelType, $orig->number, $m->number);
+
     Log::notice('Updating participle models');
     if ($pm && ($pm->adjectiveModel != $origPm->adjectiveModel)) {
       $pm->save();
-
-      $participles = loadParticiplesForVerbModel($orig, $origPm);
-      foreach ($participles as $p) {
-        $p->modelNumber = $pm->adjectiveModel;
-        $p->save();
-      }
+      $participles = updateParticiplesForVerbModel($orig, $origPm, $pm);
     }
 
     if ($orig->number != $m->number) {
+      // this does not change any paradigms; we just need to propagate the new number
       if ($orig->modelType == 'V') {
         Log::notice('Propagating new verb number to ParticipleModel');
         $oldPm = ParticipleModel::loadByVerbModel($orig->number);
@@ -68,16 +67,6 @@ if ($saveButton) {
           $partModel->save();
         }
       }
-
-      Log::notice('Propagating model number change to lexemes');
-      $query = sprintf(
-        'update Lexeme l ' .
-        'join ModelType mt on l.modelType = mt.code ' .
-        'set l.modelNumber = "%s" ' .
-        'where mt.canonical = "%s" ' .
-        'and l.modelNumber = "%s" ',
-        addslashes($m->number), $m->modelType, addslashes($orig->number));
-      DB::execute($query);
     }
 
     $m->save();
@@ -132,24 +121,31 @@ SmartyWrap::display('admin/editModel.tpl');
 /****************************************************************************/
 
 /**
- * Returns all lexemes of model A$pm that have the same form as participle
+ * Modifies all lexemes of model [A,PT]$pm that have the same form as participle
  * InflectedForms of verbs of model VT$model.
  * Assumes that $pm is the correct participle (adjective) model for $model.
  **/
-function loadParticiplesForVerbModel($model, $pm) {
+function updateParticiplesForVerbModel($model, $origPm, $pm) {
+  Log::notice('Changing model from [A,PT]%s to [A,PT]%s for participle lexemes',
+            $origPm->adjectiveModel, $pm->adjectiveModel);
   $infl = Inflection::loadParticiple();
-  return Model::factory('Lexeme')
-    ->table_alias('part')
-    ->select('part.*')
-    ->join('InflectedForm', 'part.formNoAccent = i.formNoAccent', 'i')
-    ->join('Lexeme', 'i.lexemeId = infin.id', 'infin')
-    ->where('infin.modelType', 'VT')
-    ->where('infin.modelNumber', $model->number)
-    ->where('i.inflectionId', $infl->id)
-    ->where('part.modelType', 'A')
-    ->where('part.modelNumber', $pm->adjectiveModel)
-    ->order_by_asc('part.formNoAccent')
-    ->find_many();
+
+  $query = sprintf(
+    'update Lexeme part ' .
+    'join InflectedForm i on part.formNoAccent = i.formNoAccent ' .
+    'join Lexeme infin on i.lexemeId = infin.id ' .
+    'set part.modelNumber = "%s", part.staleParadigm = 1 ' .
+    'where infin.modelType = "VT" ' .
+    'and infin.modelNumber = "%s" ' .
+    'and i.inflectionId = %d ' .
+    'and part.modelType in ("A", "PT") ' .
+    'and part.modelNumber = "%s" ',
+    addslashes($pm->adjectiveModel),
+    addslashes($model->number),
+    $infl->id,
+    addslashes($origPm->adjectiveModel)
+  );
+  DB::execute($query);
 }
 
 /**
@@ -249,4 +245,15 @@ function extractTransforms($m, $forms, $save) {
       }
     }
   }
+}
+
+// Mark lexemes as stale and possibly change their model number
+function updateLexemes($type, $oldNumber, $newNumber) {
+  $query = sprintf('update Lexeme l ' .
+                   'join ModelType mt on l.modelType = mt.code ' .
+                   'set l.staleParadigm = 1, l.modelNumber = "%s" ' .
+                   'where mt.canonical = "%s" ' .
+                   'and l.modelNumber = "%s"',
+                   addslashes($newNumber), $type, addslashes($oldNumber));
+  DB::execute($query);
 }

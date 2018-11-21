@@ -7,7 +7,9 @@ update Model set createDate = 1, modDate = 1;
 
 alter table Lexeme
   add apheresis tinyint not null default 0 after notes,
-  add apocope tinyint not null default 0 after apheresis;
+  add apocope tinyint not null default 0 after apheresis,
+  add staleParadigm tinyint not null default 0 after restriction,
+  add key(staleParadigm);
 
 alter table InflectedForm
   add apheresis tinyint not null default 0 after recommended,
@@ -15,11 +17,11 @@ alter table InflectedForm
 
 -- eu, tu, el, fi, sine, vrea
 update Lexeme
-  set apheresis = 1
+  set apheresis = 1, staleParadigm = 1
   where id in (18468, 19519, 20836, 52656, 59076, 137123);
 
 update Lexeme
-  set apheresis = 1
+  set apheresis = 1, staleParadigm = 1
   where formNoAccent like 'î%';
 
 alter table ModelDescription
@@ -38,7 +40,7 @@ update ModelDescription md
   join ModelType mt on m.modelType = mt.canonical
   join Lexeme l on m.modelType = mt.code and m.number = l.modelNumber
   join InflectedForm f on l.id = f.lexemeId
-  set md.apocope = 1, l.apocope = 1
+  set md.apocope = 1, l.apocope = 1, l.staleParadigm = 1
   where mt.canonical = 'A'
   and md.inflectionId = 29
   and md.applOrder = 0
@@ -51,7 +53,7 @@ update ModelDescription md
   join ModelType mt on m.modelType = mt.canonical
   join Lexeme l on m.modelType = mt.code and m.number = l.modelNumber
   join InflectedForm f on l.id = f.lexemeId
-  set md.apocope = 1, l.apocope = 1
+  set md.apocope = 1, l.apocope = 1, l.staleParadigm = 1
   where mt.canonical = 'M'
   and md.inflectionId = 5
   and md.applOrder = 0
@@ -64,7 +66,7 @@ update ModelDescription md
   join ModelType mt on m.modelType = mt.canonical
   join Lexeme l on m.modelType = mt.code and m.number = l.modelNumber
   join InflectedForm f on l.id = f.lexemeId
-  set md.apocope = 1, l.apocope = 1
+  set md.apocope = 1, l.apocope = 1, l.staleParadigm = 1
   where mt.canonical = 'N'
   and md.inflectionId = 21
   and md.applOrder = 0

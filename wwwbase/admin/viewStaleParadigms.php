@@ -22,12 +22,12 @@ if ($timer) {
     $fixed += count($lexemes);
   } while (count($lexemes) && (DebugInfo::getTimeInMillis() < $deadline));
 
-  FlashMessage::add("{$fixed} paradigme regenerate", 'success');
+  FlashMessage::add("{$fixed} paradigme regenerate.", 'success');
   Variable::poke('Count.staleParadigms', Lexeme::countStaleParadigms());
   Util::redirect('viewStaleParadigms');
 }
 
-$count = Variable::peek('Count.staleParadigms');
+$count = Lexeme::countStaleParadigms();
 $lexemes = Lexeme::getStaleParadigms(MAX_DISPLAYED);
 
 SmartyWrap::assign([

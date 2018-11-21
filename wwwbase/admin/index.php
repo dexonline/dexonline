@@ -79,8 +79,8 @@ $reports = [
    'privilege' => User::PRIV_EDIT
   ],
   ['text' => 'Lexeme cu paradigme învechite',
-   'url' => 'admin/viewObsoleteParadigms',
-   'count' => Variable::peek('Count.obsoleteParadigms'),
+   'url' => 'admin/viewStaleParadigms',
+   'count' => Variable::peek('Count.staleParadigms'),
    'privilege' => User::PRIV_ADMIN
   ],
   ['text' => 'Mențiuni despre arbori nestructurați',

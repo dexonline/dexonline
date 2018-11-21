@@ -131,7 +131,7 @@
 
     <div class="alert alert-warning voffset3">
       Lexemele nu mai sunt salvate imediat, ci vor apărea în
-      <a class="alert-link" href="viewObsoleteParadigms">raportul de paradigme învechite</a>.
+      <a class="alert-link" href="viewStaleParadigms">raportul de paradigme învechite</a>.
       Dacă în model există erori care fac imposibilă regenerarea paradigmei,
       veți primi acele erori cînd încercați regenerarea paradigmei din raport.
     </div>

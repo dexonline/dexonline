@@ -13,7 +13,7 @@ if ($timer) {
   $fixed = 0;
 
   do {
-    $lexemes = Lexeme::getObsoleteParadigms();
+    $lexemes = Lexeme::getStaleParadigms();
     Log::info('loaded %d lexemes', count($lexemes));
     foreach ($lexemes as $l) {
       $l->regenerateParadigm();
@@ -23,12 +23,12 @@ if ($timer) {
   } while (count($lexemes) && (DebugInfo::getTimeInMillis() < $deadline));
 
   FlashMessage::add("{$fixed} paradigme regenerate", 'success');
-  Variable::poke('Count.obsoleteParadigms', Lexeme::countObsoleteParadigms());
-  Util::redirect('viewObsoleteParadigms');
+  Variable::poke('Count.staleParadigms', Lexeme::countStaleParadigms());
+  Util::redirect('viewStaleParadigms');
 }
 
-$count = Variable::peek('Count.obsoleteParadigms');
-$lexemes = Lexeme::getObsoleteParadigms(MAX_DISPLAYED);
+$count = Variable::peek('Count.staleParadigms');
+$lexemes = Lexeme::getStaleParadigms(MAX_DISPLAYED);
 
 SmartyWrap::assign([
   'count' => $count,
@@ -36,4 +36,4 @@ SmartyWrap::assign([
 ]);
 
 SmartyWrap::addCss('admin');
-SmartyWrap::display('admin/viewObsoleteParadigms.tpl');
+SmartyWrap::display('admin/viewStaleParadigms.tpl');

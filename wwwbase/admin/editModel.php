@@ -82,7 +82,7 @@ if ($saveButton) {
 
     $m->save();
     Log::notice("Saving model {$m->id} ({$m}) done");
-    Variable::poke('Count.obsoleteParadigms', Lexeme::countObsoleteParadigms());
+    Variable::poke('Count.staleParadigms', Lexeme::countStaleParadigms());
     FlashMessage::add('Am salvat modificările.', 'success');
     Util::redirect("editModel.php?id={$m->id}");
   }

@@ -280,7 +280,7 @@ class Lexeme extends BaseObject implements DatedObject {
     return Model::factory('Lexeme')->raw_query($query)->find_many();
   }
 
-  static function countObsoleteParadigms() {
+  static function countStaleParadigms() {
     return Model::factory('Lexeme')
       ->table_alias('l')
       ->join('ModelType', ['l.modelType', '=', 'mt.code'], 'mt')
@@ -289,7 +289,7 @@ class Lexeme extends BaseObject implements DatedObject {
       ->count();
   }
 
-  static function getObsoleteParadigms($limit = 100) {
+  static function getStaleParadigms($limit = 100) {
     return Model::factory('Lexeme')
       ->table_alias('l')
       ->select('l.*')

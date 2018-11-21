@@ -158,7 +158,7 @@ class Util {
       'Count.temporaryLexemes', Model::factory('Lexeme')->where('modelType', 'T')->count()
     );
     Variable::poke(
-      'Count.obsoleteParadigms', Lexeme::countObsoleteParadigms()
+      'Count.staleParadigms', Lexeme::countStaleParadigms()
     );
     Variable::poke(
       'Count.treeMentions', Model::factory('Mention')->where('objectType', Mention::TYPE_TREE)->count()

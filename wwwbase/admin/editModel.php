@@ -31,7 +31,7 @@ if ($saveButton) {
   Log::notice('Validating model number');
   if (($m->number != $orig->number) &&
       FlexModel::get_by_modelType_number($m->modelType, $m->number)) {
-    FlashMessage::add("Modelul {$m} există deja.", 'danger');
+    FlashMessage::add("Modelul {$m} există deja.");
   }
 
   Log::notice('Extracting transforms');
@@ -214,8 +214,7 @@ function extractTransforms($m, $forms, $save) {
       if ($transforms === null) {
         FlashMessage::add(sprintf('Nu pot extrage transformările între %s și %s.',
                                   $m->exponent,
-                                  htmlentities($tuple['form'])),
-                          'danger');
+                                  htmlentities($tuple['form'])));
       } else if ($save) {
 
         $accentShift = array_pop($transforms);

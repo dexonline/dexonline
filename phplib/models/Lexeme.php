@@ -530,14 +530,18 @@ class Lexeme extends BaseObject implements DatedObject {
    * Throws ParadigmException if any inflection cannot be generated.
    **/
   function regenerateParadigm() {
-    $this->staleParadigm = false;
-    $this->save();
-    InflectedForm::delete_all_by_lexemeId($this->id);
+    if ($this->id) {
+      InflectedForm::delete_all_by_lexemeId($this->id);
+    }
 
     foreach ($this->generateInflectedForms() as $if) {
       $if->lexemeId = $this->id;
       $if->save();
     }
+
+    // only if no exception was thrown
+    $this->staleParadigm = false;
+    $this->save();
   }
 
   // apply tags required by harmonization rules

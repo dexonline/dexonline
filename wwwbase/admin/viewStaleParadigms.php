@@ -12,15 +12,23 @@ if ($timer) {
   $deadline = DebugInfo::getTimeInMillis() + $timer * 1000;
   $fixed = 0;
 
-  do {
-    $lexemes = Lexeme::getStaleParadigms();
-    Log::info('loaded %d lexemes', count($lexemes));
-    foreach ($lexemes as $l) {
-      $l->regenerateParadigm();
-      $l->save(); // just to update modDate
-    }
-    $fixed += count($lexemes);
-  } while (count($lexemes) && (DebugInfo::getTimeInMillis() < $deadline));
+  try {
+    do {
+      $lexemes = Lexeme::getStaleParadigms();
+      Log::info('loaded %d lexemes', count($lexemes));
+      foreach ($lexemes as $l) {
+        $l->regenerateParadigm();
+        $l->save(); // just to update modDate
+        $fixed++;
+      }
+    } while (count($lexemes) && (DebugInfo::getTimeInMillis() < $deadline));
+  } catch (ParadigmException $pe) {
+    $args = [
+      'lexeme' => $l,
+      'msg' => $pe->getMessage(),
+    ];
+    FlashMessage::addTemplate('regenerateStaleLexeme.tpl', $args);
+  }
 
   FlashMessage::add("{$fixed} paradigme regenerate.", 'success');
   Variable::poke('Count.staleParadigms', Lexeme::countStaleParadigms());

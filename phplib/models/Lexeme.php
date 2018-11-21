@@ -280,6 +280,26 @@ class Lexeme extends BaseObject implements DatedObject {
     return Model::factory('Lexeme')->raw_query($query)->find_many();
   }
 
+  static function countObsoleteParadigms() {
+    return Model::factory('Lexeme')
+      ->table_alias('l')
+      ->join('ModelType', ['l.modelType', '=', 'mt.code'], 'mt')
+      ->join('Model', 'mt.canonical = m.modelType and l.modelNumber = m.number', 'm')
+      ->where_raw('m.modDate >= l.modDate')
+      ->count();
+  }
+
+  static function getObsoleteParadigms($limit = 100) {
+    return Model::factory('Lexeme')
+      ->table_alias('l')
+      ->select('l.*')
+      ->join('ModelType', ['l.modelType', '=', 'mt.code'], 'mt')
+      ->join('Model', 'mt.canonical = m.modelType and l.modelNumber = m.number', 'm')
+      ->where_raw('m.modDate >= l.modDate')
+      ->limit($limit)
+      ->find_many();
+  }
+
   /**
    * Counts lexemes not associated with any entries.
    **/

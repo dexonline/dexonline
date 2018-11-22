@@ -50,7 +50,7 @@ $(function() {
       // In this case evt.target will be .mce-content-body.
       editor.on('keydown', function(evt) { _doc.trigger(evt); });
 
-      // Set fontSize slightly bigger than default 12px
+      // Set fontSize slightly bigger than default 11px
       editor.getBody().style.fontSize = '14px';
 
       // Register a "spaced" format
@@ -131,9 +131,9 @@ $(function() {
     s = s.replace(/%([^%]*)%/g, '<span class="spaced">$1</span>');
     s = s.replace(/~~~SAVE~~~/g, '\\%'); // restore \%
 
-    s = s.replace(/\\#/g, '~~~SAVE~~~'); // move \% out of the way
+    s = s.replace(/\\#/g, '~~~SAVE~~~'); // move \# out of the way
     s = s.replace(/#([^#]*)#/g, '<abbr>$1</abbr>');
-    s = s.replace(/~~~SAVE~~~/g, '\\#'); // restore \%
+    s = s.replace(/~~~SAVE~~~/g, '\\#'); // restore \#
 
     s = s.replace(/\^(\d)/g, '<sup>$1</sup>');
     s = s.replace(/_(\d)/g, '<sub>$1</sub>');

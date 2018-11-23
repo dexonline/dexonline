@@ -286,7 +286,7 @@ class Lexeme extends BaseObject implements DatedObject {
       ->count();
   }
 
-  static function getStaleParadigms($limit = 500) {
+  static function getStaleParadigms($limit = 200) {
     return Model::factory('Lexeme')
       ->where('staleParadigm', true)
       ->limit($limit)

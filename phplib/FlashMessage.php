@@ -12,23 +12,28 @@ class FlashMessage {
    * @param string $type info, success, warning, danger (default)
    */
   static function add($message, $type = 'danger') {
-    self::$messages[] = [
-      'text' => $message,
-      'type' => $type
-    ];
-    self::$hasErrors |= ($type == 'danger');
+    if (Request::isWeb()) {
+      self::$messages[] = [
+        'text' => $message,
+        'type' => $type
+      ];
+      self::$hasErrors |= ($type == 'danger');
+    }
   }
 
   /**
    * Adds a more complex message that requires some templating.
    **/
   static function addTemplate($template, $args, $type = 'danger') {
-    // TODO this overwrites previously assign variables. We really should instantiate a separate Smarty.
-    foreach ($args as $key => $value) {
-      SmartyWrap::assign($key, $value);
+    // TODO this overwrites previously assigned variables. We really should
+    // instantiate a separate Smarty.
+    if (Request::isWeb()) {
+      foreach ($args as $key => $value) {
+        SmartyWrap::assign($key, $value);
+      }
+      $message = SmartyWrap::fetch("alerts/{$template}");
+      self::add($message, $type);
     }
-    $message = SmartyWrap::fetch("alerts/{$template}");
-    self::add($message, $type);
   }
 
   /**

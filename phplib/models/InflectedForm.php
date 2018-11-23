@@ -3,13 +3,17 @@
 class InflectedForm extends BaseObject {
   public static $_table = 'InflectedForm';
 
+  function setForm($form) {
+    $this->form = $form;
+    $this->formNoAccent = preg_replace("/(?<!\\\\)'/", '', $form);
+    $this->formNoAccent = str_replace("\\'", "'", $this->formNoAccent);
+    $this->formUtf8General = $this->formNoAccent;
+  }
+
   static function create($form = null, $lexemeId = null, $inflectionId = null,
                                 $variant = null, $recommended = 1) {
     $if = Model::factory('InflectedForm')->create();
-    $if->form = $form;
-    $if->formNoAccent = preg_replace("/(?<!\\\\)'/", '', $form);
-    $if->formNoAccent = str_replace("\\'", "'", $if->formNoAccent);
-    $if->formUtf8General = $if->formNoAccent;
+    $if->setForm($form);
     $if->lexemeId = $lexemeId;
     $if->inflectionId = $inflectionId;
     $if->variant = $variant;

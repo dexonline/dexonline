@@ -76,9 +76,9 @@ class Lexeme extends BaseObject implements DatedObject {
   function getFragments() {
     if ($this->fragments === null) {
       $this->fragments = Model::factory('Fragment')
-                       ->where('lexemeId', $this->id)
-                       ->order_by_asc('rank')
-                       ->find_many();
+        ->where('lexemeId', $this->id)
+        ->order_by_asc('rank')
+        ->find_many();
     }
     return $this->fragments;
   }
@@ -247,16 +247,16 @@ class Lexeme extends BaseObject implements DatedObject {
       $q = self::getRegexpQuery($regexp, $hasDiacritics, $sourceId);
       if ($count) {
         $result = $q
-                ->select_expr('count(distinct l.id)', 'count')
-                ->find_array();
+          ->select_expr('count(distinct l.id)', 'count')
+          ->find_array();
         $result = $result[0]['count'];
       } else {
         $result = $q
-                ->select('l.*')
-                ->distinct()
-                ->order_by_asc('l.formNoAccent')
-                ->limit(1000)
-                ->find_many();
+          ->select('l.*')
+          ->distinct()
+          ->order_by_asc('l.formNoAccent')
+          ->limit(1000)
+          ->find_many();
       }
     } catch (Exception $e) {
       $result = $count ? 0 : []; // Bad regexp
@@ -309,9 +309,9 @@ class Lexeme extends BaseObject implements DatedObject {
     $fragments = 'select partId as id from Fragment';
     $subquery = "$direct union $fragments";
     $query = 'select l.* ' .
-           'from Lexeme l ' .
-           "left outer join ($subquery) used on l.id = used.id " .
-           'where used.id is null';
+      'from Lexeme l ' .
+      "left outer join ($subquery) used on l.id = used.id " .
+      'where used.id is null';
 
     return Model::factory('Lexeme')->raw_query($query)->find_many();
   }
@@ -350,12 +350,12 @@ class Lexeme extends BaseObject implements DatedObject {
 
         // generate forms for compound lexemes
         $inflections = Model::factory('Inflection')
-                     ->table_alias('i')
-                     ->select('i.*')
-                     ->join('ModelType', ['i.modelType', '=', 'mt.canonical'], 'mt')
-                     ->where('mt.code', $this->modelType)
-                     ->order_by_asc('i.rank')
-                     ->find_many();
+          ->table_alias('i')
+          ->select('i.*')
+          ->join('ModelType', ['i.modelType', '=', 'mt.canonical'], 'mt')
+          ->where('mt.code', $this->modelType)
+          ->order_by_asc('i.rank')
+          ->find_many();
         foreach ($inflections as $inflId => $i) {
           $ifs = $this->generateCompoundForms($i);
           $this->inflectedForms = array_merge($this->inflectedForms, $ifs);
@@ -367,7 +367,7 @@ class Lexeme extends BaseObject implements DatedObject {
 
         $model = FlexModel::loadCanonicalByTypeNumber($this->modelType, $this->modelNumber);
         $inflIds = DB::getArray("select distinct inflectionId from ModelDescription " .
-                               "where modelId = {$model->id} order by inflectionId");
+                                "where modelId = {$model->id} order by inflectionId");
 
         foreach ($inflIds as $inflId) {
           $ifs = $this->generateInflectedFormWithModel($this->form, $inflId, $model->id);
@@ -376,21 +376,53 @@ class Lexeme extends BaseObject implements DatedObject {
 
       }
 
-      $this->appendElisionForms();
+      $this->appendElidedForms();
     }
 
     return $this->inflectedForms;
   }
 
-  function appendElisionForms() {
+  function appendElidedForms() {
+    // collect map of (inflectionId, variant) for all ModelDescriptions that
+    // support apocope
+    $mds = Model::factory('ModelDescription')
+      ->table_alias('md')
+      ->select('md.inflectionId')
+      ->select('md.variant')
+      ->join('Model', ['md.modelId', '=', 'm.id'], 'm')
+      ->join('ModelType', ['m.modelType', '=', 'mt.canonical'], 'mt')
+      ->where('m.number', $this->modelNumber)
+      ->where('mt.code', $this->modelType)
+      ->where('md.apocope', true)
+      ->find_array();
+    $map = [];
+    foreach ($mds as $md) {
+      $map[$md['inflectionId']][$md['variant']] = true;
+    }
+
+    // clone inflected forms that support apocope
+    $forms = [];
+    foreach ($this->inflectedForms as $if) {
+      if (isset($map[$if->inflectionId][$if->variant])) {
+        $short = mb_substr($if->form, 0, -1);
+        $short = rtrim($short, "'"); // trim the trailing accent if there is one
+        $new = $if->parisClone();
+        $new->setForm($short);
+        $new->apocope = true;
+        $forms[] = $new;
+      }
+    }
+    $this->inflectedForms = array_merge($this->inflectedForms, $forms);
+
+    // clone inflected forms starting with [']?î
     if ($this->apheresis) {
       $forms = [];
       foreach ($this->inflectedForms as $if) {
         if (Str::startsWith($if->formNoAccent, 'î')) {
           // drops either î or 'î
           $short = explode('î', $if->form, 2)[1];
-          $new = InflectedForm::create(
-            $short, $this->id, $if->inflectionId, $if->variant, $if->recommended);
+          $new = $if->parisClone();
+          $new->setForm($short);
           $new->apheresis = true;
           $forms[] = $new;
         }
@@ -482,11 +514,11 @@ class Lexeme extends BaseObject implements DatedObject {
 
     $ifs = [];
     $mds = Model::factory('ModelDescription')
-         ->where('modelId', $modelId)
-         ->where('inflectionId', $inflId)
-         ->order_by_asc('variant')
-         ->order_by_asc('applOrder')
-         ->find_many();
+      ->where('modelId', $modelId)
+      ->where('inflectionId', $inflId)
+      ->order_by_asc('variant')
+      ->order_by_asc('applOrder')
+      ->find_many();
 
     $start = 0;
     while ($start < count($mds)) {
@@ -617,10 +649,10 @@ class Lexeme extends BaseObject implements DatedObject {
     foreach ($ifs as $if) {
       // look for an existing lexeme
       $l = Model::factory('Lexeme')
-         ->where('formNoAccent', $if->formNoAccent)
-         ->where_in('modelType', [$genericType, $dedicatedType])
-         ->where('modelNumber', $number)
-         ->find_one();
+        ->where('formNoAccent', $if->formNoAccent)
+        ->where_in('modelType', [$genericType, $dedicatedType])
+        ->where('modelNumber', $number)
+        ->find_one();
       if (!$l) {
         // if a lexeme exists with this form, but a different model, give a warning
         $existing = Lexeme::get_by_formNoAccent($if->formNoAccent);
@@ -684,18 +716,18 @@ class Lexeme extends BaseObject implements DatedObject {
     foreach ($ifs as $if) {
       // Examine all lexemes having one of the above forms and model
       $lexemes = Model::factory('Lexeme')
-              ->where('formNoAccent', $if->formNoAccent)
-              ->where('modelType', $modelType)
-              ->where_in('modelNumber', $modelNumbers)
-              ->find_many();
+        ->where('formNoAccent', $if->formNoAccent)
+        ->where('modelType', $modelType)
+        ->where_in('modelNumber', $modelNumbers)
+        ->find_many();
       foreach ($lexemes as $l) {
         FlashMessage::add("Am șters automat lexemul {$l} și toate intrările asociate.", 'info');
         $entries = Model::factory('Entry')
-                 ->table_alias('e')
-                 ->select('e.*')
-                 ->join('EntryLexeme', ['e.id', '=', 'el.entryId'], 'el')
-                 ->where('el.lexemeId', $l->id)
-                 ->find_many();
+          ->table_alias('e')
+          ->select('e.*')
+          ->join('EntryLexeme', ['e.id', '=', 'el.entryId'], 'el')
+          ->where('el.lexemeId', $l->id)
+          ->find_many();
         foreach ($entries as $e) {
           $e->delete();
         }

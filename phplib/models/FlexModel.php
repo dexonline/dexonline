@@ -1,7 +1,7 @@
 <?php
 
 // Used to be named Model, but that name collided with Idiorm's class.
-class FlexModel extends BaseObject {
+class FlexModel extends BaseObject implements DatedObject {
   public static $_table = 'Model';
 
   static function create($modelType = '', $number = '', $description = '', $exponent = '') {

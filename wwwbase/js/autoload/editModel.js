@@ -20,6 +20,7 @@ $(function() {
     var r = $('.fieldWrapper').first().clone(true).appendTo(target);
     r.find('input').eq(0).attr('name', 'forms_' + suffix).val('');
     r.find('input').eq(1).attr('name', 'recommended_' + suffix);
+    r.find('input').eq(2).attr('name', 'hasApocope_' + suffix);
 
     return false;
   }

@@ -4,8 +4,6 @@
 
 {block "content"}
   {assign var="adjModels" value=$adjModels|default:null}
-  {assign var="participles" value=$participles|default:null}
-  {assign var="regenTransforms" value=$regenTransforms|default:null}
 
   <h3>Editare model {$m->modelType}{$m->number}</h3>
 
@@ -40,8 +38,8 @@
               <select class="form-control" name="participleNumber">
                 {foreach $adjModels as $am}
                   <option value="{$am->number}"
-                          {if $pm && $pm->adjectiveModel == $am->number}selected{/if}
-                          >{$am->number} ({$am->exponent})
+                    {if $pm && $pm->adjectiveModel == $am->number}selected{/if}
+                  >{$am->number} ({$am->exponent})
                   </option>
                 {/foreach}
               </select>
@@ -70,8 +68,9 @@
             <div class="col-xs-5">flexiune</div>
             <div class="col-xs-1"></div>
             <div class="col-xs-6 row">
-              <div class="col-xs-10">forme</div>
+              <div class="col-xs-8">forme</div>
               <div class="col-xs-2">recom</div>
+              <div class="col-xs-2">apocopă</div>
             </div>
           </th>
         </tr>
@@ -90,18 +89,25 @@
               <div class="col-xs-6 row">
                 {foreach $f as $i => $tuple}
                   <div class="fieldWrapper">
-                    <div class="col-xs-10">
+                    <div class="col-xs-8">
                       <input class="form-control input-sm"
-                             type="text"
-                             name="forms_{$inflId}_{$i}"
-                             value="{$tuple.form|escape}">
+                        type="text"
+                        name="forms_{$inflId}_{$i}"
+                        value="{$tuple.form|escape}">
                     </div>
                     <div class="col-xs-2">
                       <input class="checkbox"
-                             type="checkbox"
-                             name="recommended_{$inflId}_{$i}"
-                             value="1"
-                             {if $tuple.recommended}checked{/if}>
+                        type="checkbox"
+                        name="recommended_{$inflId}_{$i}"
+                        value="1"
+                        {if $tuple.recommended}checked{/if}>
+                    </div>
+                    <div class="col-xs-2">
+                      <input class="checkbox"
+                        type="checkbox"
+                        name="hasApocope_{$inflId}_{$i}"
+                        value="1"
+                        {if $tuple.hasApocope}checked{/if}>
                     </div>
                   </div>
                 {/foreach}
@@ -112,106 +118,23 @@
       </table>
     </div>
 
-    {if $previewPassed}
-      {if count($regenTransforms)}
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            Lexeme afectate ({$lexemes|@count})
-          </div>
+    <div>
+      <button class="btn btn-success" type="submit" name="saveButton">
+        <i class="glyphicon glyphicon-floppy-disk"></i>
+        <u>s</u>alvează
+      </button>
 
-          <table class="table table-condensed table-striped">
-
-            <tr>
-              <th>lexem</th>
-              <th>model</th>
-              {foreach $regenTransforms as $inflId => $ignored}
-                <th>{$inflectionMap[$inflId]->description|escape}</th>
-              {/foreach}
-            </tr>
-
-            <tr>
-              <th>{$m->exponent}</th>
-              <th>exponent</th>
-              {foreach $regenTransforms as $inflId => $ignored}
-                {assign var="variantArray" value=$forms[$inflId]}
-                <th>
-                  {strip}
-                  {foreach $variantArray as $i => $tuple}
-                    {if $i}, {/if}
-                    {$tuple.form|escape}
-                  {/foreach}
-                  {if !count($variantArray)}&mdash;{/if}
-                  {/strip}
-                </th>
-              {/foreach}
-            </tr>
-
-            {foreach $lexemes as $lIndex => $l}
-              {assign var="inflArray" value=$regenForms[$lIndex]}
-              <tr>
-                <td>{$l->form|escape}</td>
-                <td>{$l->modelType}{$l->modelNumber}</td>
-                {foreach $inflArray as $variantArray}
-                  <td>
-                    {', '|implode:$variantArray|escape}
-                    {if !count($variantArray)}&mdash;{/if}
-                  </td>
-                {/foreach}
-              </tr>
-            {/foreach}
-          </table>
-        </div>
-      {/if}
-    {/if}
-
-    {if !empty($participles) && !FlashMessage::hasErrors()}
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          Participii regenerate conform modelului A{$pm->adjectiveModel|escape}
-        </div>
-
-        <div class="panel-body">
-          {foreach $participles as $i => $p}
-            {include "paradigm/paradigm.tpl" lexeme=$p}
-          {/foreach}
-        </div>
-      </div>
-    {/if}
-
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        Acțiuni
-      </div>
-
-      <div class="panel-body">
-        <div class="checkbox">
-          <label class="control-label">
-            <input class="checkbox" type="checkbox" name="shortList" value="1"
-                   {if $shortList}checked{/if}>
-            testează modificările pe maximum 10 lexeme
-          </label>
-
-          <p class="text-muted">
-            Toate lexemele vor fi salvate, dar numai (maximum) 10 vor fi
-            testate și afișate. Aceasta poate accelera mult pasul de testare.
-          </p>
-        </div>
-
-        <div class="form-group">
-
-          <button class="btn btn-primary" type="submit" name="previewButton">
-            testează
-          </button>
-
-          {if $previewPassed}
-            <button class="btn btn-success" type="submit" name="saveButton">
-              <i class="glyphicon glyphicon-floppy-disk"></i>
-              <u>s</u>alvează
-            </button>
-          {/if}
-
-        </div>
-      </div>
+      <a href="editModel.php?id={$m->id}" class="btn btn-link">
+        renunță
+      </a>
     </div>
+
+    <div class="alert alert-warning voffset3">
+      Lexemele nu mai sunt salvate imediat, ci vor apărea în
+      <a class="alert-link" href="viewStaleParadigms">raportul de paradigme învechite</a>.
+      Dacă în model există erori care fac imposibilă regenerarea paradigmei,
+      veți primi acele erori cînd încercați regenerarea paradigmei din raport.
+    </div>
+
   </form>
 {/block}

@@ -10,7 +10,7 @@ class DebugInfo {
     self::$startTimestamp = self::$lastClockReset = self::getTimeInMillis();
   }
 
-  private static function getTimeInMillis() {
+  static function getTimeInMillis() {
     $seconds = microtime(true);
     return (int)($seconds * 1000);
   }

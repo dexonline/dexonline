@@ -3,14 +3,13 @@
 {if empty($ifArray)}
   &mdash;
 {else}
-  {strip}
+  <ul class="commaList">
     {foreach $ifArray as $i => $if}
-        {assign var="form" value=$if->getHtmlForm()}
-        {if !$if->recommended}
-          <span class="notRecommended" title="formă nerecomandată">{if $i}, {/if}{$form}*</span>
-        {else}
-            {if $i}, {/if}{$form}
-        {/if}
+      {strip}
+      <li class="{$if->getHtmlClasses()}" title="{$if->getHtmlTitles()}">
+        {$if->getHtmlForm()}
+      </li>
+      {/strip}
     {/foreach}
-  {/strip}
+  </ul>
 {/if}

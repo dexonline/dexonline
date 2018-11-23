@@ -345,6 +345,40 @@
               placeholder="explicații despre sursa flexiunii"
               readonly=!$canEdit.tags}
 
+            <div class="form-group">
+              <div class="col-md-offset-2 col-md-10">
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox"
+                      name="apheresis"
+                      value="1"
+                      {if $lexeme->apheresis}checked{/if}>
+                    născut prin afereză
+                  </label>
+                </div>
+
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox"
+                      name="hasApheresis"
+                      value="1"
+                      {if $lexeme->hasApheresis}checked{/if}>
+                    admite afereză
+                  </label>
+                </div>
+
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox"
+                      name="hasApocope"
+                      value="1"
+                      {if $lexeme->hasApocope}checked{/if}>
+                    admite apocopă
+                  </label>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>

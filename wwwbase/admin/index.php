@@ -78,6 +78,11 @@ $reports = [
    'count' => Variable::peek('Count.temporaryLexemes'),
    'privilege' => User::PRIV_EDIT
   ],
+  ['text' => 'Lexeme cu paradigme învechite',
+   'url' => 'admin/viewStaleParadigms',
+   'count' => Variable::peek('Count.staleParadigms'),
+   'privilege' => User::PRIV_ADMIN
+  ],
   ['text' => 'Mențiuni despre arbori nestructurați',
    'url' => 'admin/viewTreeMentions',
    'count' => Variable::peek('Count.treeMentions'),

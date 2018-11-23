@@ -6,154 +6,228 @@ User::mustHave(User::PRIV_EDIT);
 Util::assertNotMirror();
 DebugInfo::disable();
 
-define('SHORT_LIST_LIMIT', 10);
-
 $id = Request::get('id');
-$previewButton = Request::has('previewButton');
 $saveButton = Request::has('saveButton');
-$shortList = Request::has('shortList');
 
 $m = FlexModel::get_by_id($id);
 $pm = ParticipleModel::loadForModel($m);
 $inflections = Model::factory('Inflection')
-             ->where('modelType', $m->modelType)
-             ->order_by_asc('rank')
-             ->find_many();
+  ->where('modelType', $m->modelType)
+  ->order_by_asc('rank')
+  ->find_many();
 
-// Generate the forms
-$lexeme = Lexeme::create($m->exponent, $m->modelType, $m->number);
-$lexeme->setAnimate(true);
-$ifs = $lexeme->generateInflectedForms();
+if ($saveButton) {
+  Log::notice("Reading form data for model {$m->id} ({$m})");
+  $orig = FlexModel::get_by_id($id); // original, for comparison
+  $m->number = Request::get('number');
+  $m->description = Request::get('description');
+  $m->exponent = Request::get('exponent');
 
-// Load the model descriptions
-$mds = ModelDescription::loadForModel($m->id);
+  $origPm = ParticipleModel::loadForModel($orig);
+  if ($pm) {
+    $pm->adjectiveModel = Request::get('participleNumber');
+  }
 
-// Map the forms by inflectionId and variant. Include inflectionId's that
-// the current model doesn't have
-$forms = [];
-foreach ($inflections as $infl) {
-  $forms[$infl->id] = [];
-}
-foreach ($ifs as $i => $if) {
-  // This works because $ifs and $mds are both ordered by inflectionId,
-  // then by variant
-  $inflId = $if->inflectionId;
-  $forms[$inflId][] = ['form' => $if->form,
-                       'recommended' => $mds[$i]->recommended];
-}
+  Log::notice('Validating model number');
+  if (($m->number != $orig->number) &&
+      FlexModel::get_by_modelType_number($m->modelType, $m->number)) {
+    FlashMessage::add("Modelul {$m} există deja.");
+  }
 
-if (!$previewButton && !$saveButton) {
-  // just viewing the page
-  RecentLink::add("Editare model: {$m}");
-  SmartyWrap::assign('m', $m);
-  SmartyWrap::assign('pm', $pm);
-  SmartyWrap::assign('forms', $forms);
+  Log::notice('Extracting transforms');
+  $forms = readRequest($inflections);
+  extractTransforms($m, $forms, false);
 
+  if (!FlashMessage::hasErrors()) {
+    Log::notice('Saving transforms and model descriptions');
+    extractTransforms($m, $forms, true);
+
+    Log::notice('Marking lexemes as stale');
+    updateLexemes($m->modelType, $orig->number, $m->number);
+
+    Log::notice('Updating participle models');
+    if ($pm && ($pm->adjectiveModel != $origPm->adjectiveModel)) {
+      $pm->save();
+      $participles = updateParticiplesForVerbModel($orig, $origPm, $pm);
+    }
+
+    if ($orig->number != $m->number) {
+      // this does not change any paradigms; we just need to propagate the new number
+      if ($orig->modelType == 'V') {
+        Log::notice('Propagating new verb number to ParticipleModel');
+        $oldPm = ParticipleModel::loadByVerbModel($orig->number);
+        $oldPm->verbModel = $m->number;
+        $oldPm->save();
+      } else if ($m->modelType == 'A') {
+        Log::notice('Replacing adjective number %d with %d in ParticipleModels',
+                    $orig->number, $m->number);
+        $partModels = ParticipleModel::get_all_by_adjectiveModel($orig->number);
+        foreach ($partModels as $partModel) {
+          $partModel->adjectiveModel = $m->number;
+          $partModel->save();
+        }
+      }
+    }
+
+    $m->save();
+    Log::notice("Saving model {$m->id} ({$m}) done");
+    Variable::poke('Count.staleParadigms', Lexeme::countStaleParadigms());
+    FlashMessage::add('Am salvat modificările.', 'success');
+    Util::redirect("editModel.php?id={$m->id}");
+  }
 } else {
-  // Preview or Save button pressed
-  // Read form values
-  $nm = FlexModel::get_by_id($id); // new model
-  $nm->number = Request::get('number');
-  $nm->description = Request::get('description');
-  $nm->exponent = Request::get('exponent');
 
-  $npm = ParticipleModel::loadForModel($m);
-  if ($npm) {
-    $npm->adjectiveModel = Request::get('participleNumber');
-  }
+  // first time loading the page
+  RecentLink::add("Editare model: {$m}");
 
-  $nforms = [];
+  // Generate the exponent's forms
+  $lexeme = Lexeme::create($m->exponent, $m->modelType, $m->number);
+  $lexeme->setAnimate(true);
+
+  // Map the forms by inflectionId and variant. Include inflectionId's that
+  // the current model doesn't have.
+  $forms = [];
   foreach ($inflections as $infl) {
-    $nforms[$infl->id] = [];
+    $forms[$infl->id] = [];
   }
-  readRequest($nforms);
 
-  // calculate transforms
-  if ($nm->number != $m->number) {
-    // disallow duplicate model numbers
-    $dup = FlexModel::loadCanonicalByTypeNumber($nm->modelType, $nm->number);
-    if ($dup) {
-      FlashMessage::add("Modelul {$nm} există deja.");
+  // Load the recommended and apocope bits from ModelDescriptions, mapped by
+  // inflectionId and variant.
+  $mds = ModelDescription::get_all_by_modelId_applOrder($m->id, 0);
+  $map = [];
+  foreach ($mds as $md) {
+    $map[$md->inflectionId][$md->variant] = $md;
+  }
+
+  $ifs = $lexeme->generateInflectedForms();
+  foreach ($ifs as $if) {
+    if (!$if->apheresis && !$if->apocope) {
+      $md = $map[$if->inflectionId][$if->variant];
+      $forms[$if->inflectionId][] = [
+        'form' => $if->form,
+        'recommended' => $md->recommended,
+        'hasApocope' => $md->hasApocope,
+      ];
     }
   }
+}
 
-  // Compare the old and new lists. Extract the transforms where needed.
-  $isPronoun = ($nm->modelType == 'P');
-  $regenTransforms = [];
-  // Recalculate transforms when either the form list or the exponent change.
+SmartyWrap::assign([
+  'm' => $m,
+  'pm' => $pm,
+  'forms' => $forms,
+  'inflectionMap' => Util::mapById($inflections),
+]);
+
+if ($m->modelType == 'V') {
+  SmartyWrap::assign('adjModels', FlexModel::loadByType('A'));
+}
+
+SmartyWrap::addCss('paradigm', 'admin');
+SmartyWrap::display('admin/editModel.tpl');
+
+/****************************************************************************/
+
+/**
+ * Modifies all lexemes of model [A,PT]$pm that have the same form as participle
+ * InflectedForms of verbs of model VT$model.
+ * Assumes that $pm is the correct participle (adjective) model for $model.
+ **/
+function updateParticiplesForVerbModel($model, $origPm, $pm) {
+  Log::notice('Changing model from [A,PT]%s to [A,PT]%s for participle lexemes',
+            $origPm->adjectiveModel, $pm->adjectiveModel);
+  $infl = Inflection::loadParticiple();
+
+  $query = sprintf(
+    'update Lexeme part ' .
+    'join InflectedForm i on part.formNoAccent = i.formNoAccent ' .
+    'join Lexeme infin on i.lexemeId = infin.id ' .
+    'set part.modelNumber = "%s", part.staleParadigm = 1 ' .
+    'where infin.modelType = "VT" ' .
+    'and infin.modelNumber = "%s" ' .
+    'and i.inflectionId = %d ' .
+    'and part.modelType in ("A", "PT") ' .
+    'and part.modelNumber = "%s" ',
+    addslashes($pm->adjectiveModel),
+    addslashes($model->number),
+    $infl->id,
+    addslashes($origPm->adjectiveModel)
+  );
+  DB::execute($query);
+}
+
+/**
+ * Read forms, recommended and apocope checkboxes from the request.
+ * The map is already populated with all the applicable inflection IDs.
+ * InflectionId's and variants are coded in the request parameters.
+ **/
+function readRequest($inflections) {
+  $map = [];
   foreach ($inflections as $infl) {
-    if (!equalArrays($forms[$infl->id], $nforms[$infl->id]) ||
-        $m->exponent != $nm->exponent) {
-      $regenTransforms[$infl->id] = [];
-      foreach ($nforms[$infl->id] as $tuple) {
-        $transforms = FlexStr::extractTransforms($nm->exponent, $tuple['form'], $isPronoun);
-        if ($transforms) {
-          $regenTransforms[$infl->id][] = $transforms;
-        } else {
-          FlashMessage::add(sprintf('Nu pot extrage transformările între %s și %s.',
-                                    $nm->exponent,
-                                    htmlentities($tuple['form'])));
+    $map[$infl->id] = [];
+  }
+
+  foreach ($_REQUEST as $name => $value) {
+    $parts = preg_split('/_/', $name);
+    if (in_array($parts[0], ['forms', 'recommended', 'hasApocope'])) {
+      assert(count($parts) == 3);
+      $inflId = $parts[1];
+      $variant = $parts[2];
+
+      if ($parts[0] == 'forms') {
+        $form = trim($value);
+        if ($form) {
+          $map[$inflId][$variant] = [
+            'form' => $form,
+            'recommended' => false,
+            'hasApocope' => false,
+          ];
+        }
+      } else if ($parts[0] == 'recommended') {
+        if (array_key_exists($variant, $map[$inflId])) {
+          $map[$inflId][$variant]['recommended'] = true;
+        }
+      } else { // $parts[0] == 'hasApocope'
+        if (array_key_exists($variant, $map[$inflId])) {
+          $map[$inflId][$variant]['hasApocope'] = true;
         }
       }
     }
   }
 
-  // Load the affected lexemes. For each lexeme, inflection and transform
-  // list, generate a new form.
-  $limit = ($shortList && !$saveButton) ? SHORT_LIST_LIMIT : 0;
-  $lexemes = Lexeme::loadByCanonicalModel($m->modelType, $m->number, $limit);
-  $regenForms = [];
-  $errorCount = 0; // Do not report thousands of similar errors.
-  foreach ($lexemes as $l) {
-    $regenRow = [];
-    foreach ($regenTransforms as $inflId => $variants) {
-      $regenRow[$inflId] = [];
-      foreach ($variants as $transforms) {
+  // Now reindex the array, in case the user left, for example, variant 1
+  // empty but filled in variant 2.
+  foreach ($map as $inflId => $variants) {
+    $map[$inflId] = array_values($variants);
+  }
+
+  return $map;
+}
+
+// $m: model being edited
+// $forms: map of inflection ID to array of tuples (form, recommended, hasApocope)
+// When $save = true, saves ModelDescriptions.
+// When $save = false, just sets FlashMessages on errors.
+function extractTransforms($m, $forms, $save) {
+  Log::notice('Extracting transforms (save=%d)', $save);
+
+  if ($save) {
+    ModelDescription::delete_all_by_modelId($m->id);
+  }
+
+  $isPronoun = ($m->modelType == 'P');
+  foreach ($forms as $inflId => $variants) {
+    foreach ($variants as $variant => $tuple) {
+      $transforms = FlexStr::extractTransforms($m->exponent, $tuple['form'], $isPronoun);
+      if ($transforms === null) {
+        FlashMessage::add(sprintf('Nu pot extrage transformările între %s și %s.',
+                                  $m->exponent,
+                                  htmlentities($tuple['form'])));
+      } else if ($save) {
+
         $accentShift = array_pop($transforms);
         if ($accentShift != ModelDescription::UNKNOWN_ACCENT_SHIFT &&
             $accentShift != ModelDescription::NO_ACCENT_SHIFT) {
-          $accentedVowel = array_pop($transforms);
-        } else {
-          $accentedVowel = '';
-        }
-        $result = FlexStr::applyTransforms($l->form, $transforms, $accentShift, $accentedVowel);
-        $regenRow[$inflId][] = $result;
-        if (!$result && ($errorCount < 3)) {
-          FlashMessage::add(sprintf('Nu pot calcula una din formele lexemului %s.',
-                                    htmlentities($l->form)));
-          $errorCount++;
-        }
-      }
-    }
-    $regenForms[] = $regenRow;
-  }
-
-  // Now load the affected adjectives if the participle model changed
-  if ($pm && ($pm->adjectiveModel != $npm->adjectiveModel)) {
-    $participles = loadParticiplesForVerbModel($m, $pm);
-    foreach ($participles as $p) {
-      $p->modelNumber = $npm->adjectiveModel;
-      try {
-        $p->generateInflectedFormMap();
-      } catch (ParadigmException $pe) {
-        FlashMessage::add(sprintf('Nu pot declina participiul "%s" conform modelului A%s.',
-                                  htmlentities($p->form), $npm->adjectiveModel));
-      }
-    }
-
-    SmartyWrap::assign('participles', $participles);
-  }
-
-  if ($saveButton) {
-    Log::notice("Saving model {$m->id} ({$m}), this could take a while");
-
-    // Save the transforms and model descriptions
-    Log::debug('Saving transforms and model descriptions');
-    foreach ($regenTransforms as $inflId => $transformMatrix) {
-      ModelDescription::delete_all_by_modelId_inflectionId($m->id, $inflId);
-      foreach ($transformMatrix as $variant => $transforms) {
-        $accentShift = array_pop($transforms);
-        if ($accentShift != ModelDescription::UNKNOWN_ACCENT_SHIFT && $accentShift != ModelDescription::NO_ACCENT_SHIFT) {
           $accentedVowel = array_pop($transforms);
         } else {
           $accentedVowel = '';
@@ -168,7 +242,8 @@ if (!$previewButton && !$saveButton) {
           $md->inflectionId = $inflId;
           $md->variant = $variant;
           $md->applOrder = --$order;
-          $md->recommended = false;
+          $md->recommended = $tuple['recommended'];
+          $md->hasApocope = $tuple['hasApocope'];
           $md->transformId = $t->id;
           $md->accentShift = $accentShift;
           $md->vowel = $accentedVowel;
@@ -176,193 +251,16 @@ if (!$previewButton && !$saveButton) {
         }
       }
     }
-
-    // Set the recommended bit appropriately.
-    // Do this separately as the loop above only includes modified forms.
-    Log::debug('Saving recommended bits');
-    foreach ($nforms as $inflId => $tupleArray) {
-      foreach ($tupleArray as $variant => $tuple) {
-        $md = ModelDescription::get_by_modelId_inflectionId_variant_applOrder(
-          $m->id, $inflId, $variant, 0);
-        $md->recommended = $tuple['recommended'];
-        $md->save();
-      }
-    }
-
-    // Regenerate the affected inflections for every lexeme
-    Log::debug('Regenerating modified inflections');
-    if (count($regenTransforms)) {
-      $fileName = tempnam(Core::getTempPath(), 'editModel_');
-      $fp = fopen($fileName, 'w');
-      foreach ($regenForms as $i => $regenRow) {
-        $l = $lexemes[$i];
-        foreach ($regenRow as $inflId => $formArray) {
-          foreach ($formArray as $variant => $f) {
-            if (ConstraintMap::allows($l->restriction, $inflId, $variant)) {
-              $if = InflectedForm::create($f);
-              fputcsv($fp, [$if->form, $if->formNoAccent, $if->formUtf8General, $l->id, $inflId, $variant]);
-            }
-          }
-        }
-      }
-      foreach ($regenTransforms as $inflId => $ignored) {
-        InflectedForm::deleteByModelNumberInflectionId($m->number, $inflId);
-      }
-      fclose($fp);
-      chmod($fileName, 0666);
-      DB::executeFromOS("
-        load data local infile \"{$fileName}\"
-        into table InflectedForm
-        fields terminated by \",\" optionally enclosed by \"\\\"\"
-        (form, formNoAccent, formUtf8General, lexemeId, inflectionId, variant)
-      ");
-      unlink($fileName);
-    }
-
-    // Propagate the recommended bit from ModelDescription to InflectedForm
-    Log::debug('Propagating the "recommended" bit from ModelDescriptions to InflectedForms');
-    $q = sprintf("
-      update InflectedForm i
-      join Lexeme l on i.lexemeId = l.id
-      join ModelType mt on l.modelType = mt.code
-      join Model m on mt.canonical = m.modelType and l.modelNumber = m.number
-      join ModelDescription md on m.id = md.modelId and i.inflectionId = md.inflectionId and i.variant = md.variant
-      set i.recommended = md.recommended
-      where m.id = %s
-      and md.applOrder = 0
-    ", $m->id);
-    DB::execute($q);
-
-    // Deal with changes in the model number
-    if ($m->number != $nm->number) {
-      Log::debug('Propagating model number change to dependent models');
-      if ($m->modelType == 'V') {
-        $oldPm = ParticipleModel::loadByVerbModel($m->number);
-        $oldPm->verbModel = $nm->number;
-        $oldPm->save();
-      } else if ($modelType == 'A') {
-        // Update all participle models that use this adjective model
-        $models = ParticipleModel::get_all_by_adjectiveModel($m->number);
-        foreach ($models as $m) {
-          $m->adjectiveModel = $nm->number;
-          $m->save();
-        }
-      }
-
-      foreach ($lexemes as $l) {
-        $l->modelNumber = $nm->number;
-        $l->save();
-      }
-    }
-
-    if ($pm && ($pm->adjectiveModel != $npm->adjectiveModel)) {
-      Log::debug('Regenerating participle lexemes');
-      $npm->save();
-
-      foreach ($participles as $p) { // $participles loaded before
-        $p->save();
-        $p->regenerateParadigm();
-      }
-    }
-
-    $nm->save();
-    Log::notice("Saving model {$nm->id} ({$nm}) done");
-    Util::redirect('../admin/index.php');
-  } else { // preview button
-    if (!FlashMessage::hasErrors()) {
-      FlashMessage::add('Examinați modificările și, dacă totul arată normal, apăsați ' .
-                        'butonul „Salvează”. Dacă nu, continuați editarea și apăsați ' .
-                        'din nou butonul „Testează”.', 'info');
-
-    }
   }
-
-  SmartyWrap::assign('m', $nm);
-  SmartyWrap::assign('pm', $npm);
-  SmartyWrap::assign('forms', $nforms);
-  SmartyWrap::assign('lexemes', $lexemes);
-  SmartyWrap::assign('regenForms', $regenForms);
-  SmartyWrap::assign('regenTransforms', $regenTransforms);
 }
 
-if ($m->modelType == 'V') {
-  SmartyWrap::assign('adjModels', FlexModel::loadByType('A'));
-}
-
-SmartyWrap::assign('shortList', $shortList);
-SmartyWrap::assign('inflectionMap', Util::mapById($inflections));
-SmartyWrap::assign('previewPassed', $previewButton && !FlashMessage::hasErrors());
-SmartyWrap::addCss('paradigm', 'admin');
-SmartyWrap::display('admin/editModel.tpl');
-
-/****************************************************************************/
-
-/**
- * $a, $b: arrays of ($form, $recommended) tuples. Only compares the forms.
- **/
-function equalArrays($a, $b) {
-  if (count($a) != count($b)) {
-    return false;
-  }
-
-  foreach ($a as $key => $tuple) {
-    if ($a[$key]['form'] != $b[$key]['form']) {
-      return false;
-    }
-  }
-
-  return true;
-}
-
-/**
- * Returns all lexemes of model A$pm that have the same form as participle
- * InflectedForms of verbs of model VT$model.
- * Assumes that $pm is the correct participle (adjective) model for $model.
- **/
-function loadParticiplesForVerbModel($model, $pm) {
-  $infl = Inflection::loadParticiple();
-  return Model::factory('Lexeme')
-    ->table_alias('part')
-    ->select('part.*')
-    ->join('InflectedForm', 'part.formNoAccent = i.formNoAccent', 'i')
-    ->join('Lexeme', 'i.lexemeId = infin.id', 'infin')
-    ->where('infin.modelType', 'VT')
-    ->where('infin.modelNumber', $model->number)
-    ->where('i.inflectionId', $infl->id)
-    ->where('part.modelType', 'A')
-    ->where('part.modelNumber', $pm->adjectiveModel)
-    ->order_by_asc('part.formNoAccent')
-    ->find_many();
-}
-
-/**
- * Read forms and recommended checkboxes from the request.
- * The map is already populated with all the applicable inflection IDs.
- * InflectionId's and variants are coded in the request parameters.
- **/
-function readRequest(&$map) {
-  foreach ($_REQUEST as $name => $value) {
-    $parts = preg_split('/_/', $name);
-    if (Str::startsWith($name, 'forms_')) {
-      assert(count($parts) == 3);
-      $inflId = $parts[1];
-      $variant = $parts[2];
-      $form = trim($value);
-      if ($form) {
-        $map[$inflId][$variant] = ['form' => $form, 'recommended' => false];
-      }
-    } else if (Str::startsWith($name, 'recommended_')) {
-      assert(count($parts) == 3);
-      $inflId = $parts[1];
-      $variant = $parts[2];
-      if (array_key_exists($variant, $map[$inflId])) {
-        $map[$inflId][$variant]['recommended'] = true;
-      }
-    }
-  }
-
-  // Now reindex the array, in case the user left, for example, variant 1 empty but filled in variant 2.
-  foreach ($map as $inflId => $variants) {
-    $map[$inflId] = array_values($variants);
-  }
+// Mark lexemes as stale and possibly change their model number
+function updateLexemes($type, $oldNumber, $newNumber) {
+  $query = sprintf('update Lexeme l ' .
+                   'join ModelType mt on l.modelType = mt.code ' .
+                   'set l.staleParadigm = 1, l.modelNumber = "%s" ' .
+                   'where mt.canonical = "%s" ' .
+                   'and l.modelNumber = "%s"',
+                   addslashes($newNumber), $type, addslashes($oldNumber));
+  DB::execute($query);
 }

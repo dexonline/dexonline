@@ -75,11 +75,40 @@
   font-size: small;
 }
 
-.notRecommended {
+.commaList {
+  display: inline;
+  list-style: none;
+  padding: 0px;
+}
+
+.commaList li {
+  display: inline;
+}
+
+.commaList li::after {
+  content: ', ';
+}
+
+.commaList li:last-child::after {
+  content: '';
+}
+
+.elision {
+  color: saddlebrown;
+  cursor: help;
+}
+
+li.notRecommended {
   color: #1010c0;
   cursor: help;
+}
+
+li.notRecommendedShown {
+  display: inline;
+}
+
+li.notRecommendedHidden {
   display: none;
-  font-style: italic;
 }
 
 .notRecommendedLegend {

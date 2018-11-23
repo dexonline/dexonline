@@ -41,6 +41,9 @@ class InflectedForm extends BaseObject {
     }
     if ($this->apheresis || $this->apocope) {
       $classes[] = 'elision';
+      $classes[] = User::can(User::PRIV_EDIT)
+        ? 'elisionShown'
+        : 'elisionHidden';
     }
     return implode(' ', $classes);
   }

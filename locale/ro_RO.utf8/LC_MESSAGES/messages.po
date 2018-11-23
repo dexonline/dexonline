@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-11-14 13:59+0200\n"
-"PO-Revision-Date: 2018-11-14 13:59+0200\n"
+"POT-Creation-Date: 2018-11-23 16:27+0200\n"
+"PO-Revision-Date: 2018-11-23 16:27+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -97,15 +97,15 @@ msgstr "compus"
 msgid "Inflection sources"
 msgstr "Surse flexiune"
 
-#: templates/bits/multiParadigm.tpl:4
+#: templates/bits/multiParadigm.tpl:5
 msgid "entry"
 msgstr "intrare"
 
-#: templates/bits/multiParadigm.tpl:34
+#: templates/bits/multiParadigm.tpl:35
 msgid "hide variants"
 msgstr "ascunde variantele"
 
-#: templates/bits/multiParadigm.tpl:35
+#: templates/bits/multiParadigm.tpl:36
 msgid "show variants"
 msgstr "arată variantele"
 
@@ -531,39 +531,39 @@ msgstr "joc nou"
 msgid "see all definitions"
 msgstr "arată toate definițiile"
 
-#: templates/paradigm/paradigmA.tpl:7
+#: templates/paradigm/paradigmA.tpl:7 templates/paradigm/paradigmP.tpl:7
 msgid "masculine"
 msgstr "masculin"
 
-#: templates/paradigm/paradigmA.tpl:8
+#: templates/paradigm/paradigmA.tpl:8 templates/paradigm/paradigmP.tpl:8
 msgid "feminine"
 msgstr "feminin"
 
-#: templates/paradigm/paradigmA.tpl:11 templates/paradigm/paradigmSP.tpl:7
+#: templates/paradigm/paradigmA.tpl:11 templates/paradigm/paradigmN.tpl:7
 msgid "no article"
 msgstr "nearticulat"
 
-#: templates/paradigm/paradigmA.tpl:12 templates/paradigm/paradigmSP.tpl:8
+#: templates/paradigm/paradigmA.tpl:12 templates/paradigm/paradigmN.tpl:8
 msgid "def. article"
 msgstr "articulat"
 
-#: templates/paradigm/paradigmA.tpl:17 templates/paradigm/paradigmSP.tpl:11
+#: templates/paradigm/paradigmA.tpl:17 templates/paradigm/paradigmN.tpl:11
 msgid "nominative-accusative"
 msgstr "nominativ-acuzativ"
 
-#: templates/paradigm/paradigmA.tpl:18 templates/paradigm/paradigmSP.tpl:12
+#: templates/paradigm/paradigmA.tpl:18 templates/paradigm/paradigmN.tpl:12
 msgid "singular"
 msgstr "singular"
 
-#: templates/paradigm/paradigmA.tpl:33 templates/paradigm/paradigmSP.tpl:21
+#: templates/paradigm/paradigmA.tpl:33 templates/paradigm/paradigmN.tpl:21
 msgid "plural"
 msgstr "plural"
 
-#: templates/paradigm/paradigmA.tpl:48 templates/paradigm/paradigmSP.tpl:30
+#: templates/paradigm/paradigmA.tpl:48 templates/paradigm/paradigmN.tpl:30
 msgid "genitive-dative"
 msgstr "genitiv-dativ"
 
-#: templates/paradigm/paradigmA.tpl:79 templates/paradigm/paradigmSP.tpl:49
+#: templates/paradigm/paradigmA.tpl:79 templates/paradigm/paradigmN.tpl:49
 msgid "vocative"
 msgstr "vocativ"
 
@@ -758,7 +758,7 @@ msgstr ""
 msgid "Show models for"
 msgstr "Arată modelele pentru"
 
-#: templates/scrabble.tpl:171
+#: templates/scrabble.tpl:171 templates/search.tpl:247
 msgid "show"
 msgstr "arată"
 
@@ -1040,11 +1040,19 @@ msgstr "Niciun rezultat pentru <strong>%s</strong>"
 msgid "unrecommended or incorrect form"
 msgstr "formă nerecomandată sau greșită"
 
-#: templates/search.tpl:253
+#: templates/search.tpl:246
+msgid "hide"
+msgstr "ascunde"
+
+#: templates/search.tpl:254
+msgid "elisions"
+msgstr "forme elidate"
+
+#: templates/search.tpl:265
 msgid "link to this inflected forms page"
 msgstr "legătură către această pagină cu flexiuni"
 
-#: templates/search.tpl:256
+#: templates/search.tpl:268
 msgid "link to this paradigm"
 msgstr "legătură către această paradigmă"
 

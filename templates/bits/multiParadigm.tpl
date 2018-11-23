@@ -1,4 +1,5 @@
 {assign var="hasUnrecommendedForms" value=$hasUnrecommendedForms|default:false}
+{assign var="hasElisionForms" value=$hasElisionForms|default:false}
 
 <div class="panel panel-default paradigmDiv voffset3">
   <div class="panel-heading">

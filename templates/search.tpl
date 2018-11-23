@@ -244,7 +244,19 @@
             <a id="toggleNotRecommended"
               href="#"
               class="doubleText"
-              data-other-text="(ascunde)">
+              data-other-text="({'hide'|_})">
+              ({'show'|_})
+            </a>
+          </div>
+        {/if}
+
+        {if $hasElisionForms}
+          <div class="elisionLegend">
+            * {'elisions'|_} –
+            <a id="toggleElision"
+              href="#"
+              class="doubleText"
+              data-other-text="({'hide'|_})">
               ({'show'|_})
             </a>
           </div>

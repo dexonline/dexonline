@@ -6,6 +6,11 @@ $(function() {
       return false;
     });
 
+    $('#toggleElision').click(function() {
+      $('li.elision').toggleClass('elisionShown elisionHidden');
+      return false;
+    });
+
     $('.toggleVariantParadigms').click(function() {
       $(this).siblings('.variantParadigm').stop().slideToggle();
     });

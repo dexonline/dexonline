@@ -324,6 +324,7 @@ if ($SEARCH_PARAMS[$searchType]['paradigm']) {
 
   // Check if any of the inflected forms are unrecommended
   $hasUnrecommendedForms = false;
+  $hasElisionForms = false;
   foreach ($entries as $e) {
     foreach ($e->getLexemes() as $l) {
       $l->getModelType();
@@ -332,11 +333,15 @@ if ($SEARCH_PARAMS[$searchType]['paradigm']) {
       foreach ($map as $ifs) {
         foreach ($ifs as $if) {
           $hasUnrecommendedForms |= !$if->recommended;
+          $hasElisionForms |= $if->apheresis || $if->apocope;
         }
       }
     }
   }
-  SmartyWrap::assign('hasUnrecommendedForms', $hasUnrecommendedForms);
+  SmartyWrap::assign([
+    'hasUnrecommendedForms' => $hasUnrecommendedForms,
+    'hasElisionForms' => $hasElisionForms,
+  ]);
 }
 
 // Collect source list to display in meta tags

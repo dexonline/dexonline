@@ -93,9 +93,22 @@
   content: '';
 }
 
-.elision {
+li.elision {
   color: saddlebrown;
   cursor: help;
+}
+
+li.elisionShown {
+  display: inline;
+}
+
+li.elisionHidden {
+  display: none;
+}
+
+.elisionLegend {
+  color: saddlebrown;
+  font-style: italic;
 }
 
 li.notRecommended {
@@ -114,10 +127,6 @@ li.notRecommendedHidden {
 .notRecommendedLegend {
   color: #1010c0;
   font-style: italic;
-}
-
-#toggleNotRecommended {
-  color: blue;
 }
 
 .variantParadigm {

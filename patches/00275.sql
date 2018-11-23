@@ -6,9 +6,11 @@ alter table Model
 update Model set createDate = 1, modDate = 1;
 
 alter table Lexeme
-  add hasApheresis tinyint not null default 0 after notes,
+  add apheresis tinyint not null default 0 after notes,
+  add hasApheresis tinyint not null default 0 after apheresis,
   add hasApocope tinyint not null default 0 after hasApheresis,
   add staleParadigm tinyint not null default 0 after restriction,
+  modify modDate int not null after createDate,
   add key(staleParadigm);
 
 alter table InflectedForm

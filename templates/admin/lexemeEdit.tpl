@@ -346,30 +346,34 @@
               readonly=!$canEdit.tags}
 
             <div class="form-group">
-              <label class="col-md-2 control-label">afereză</label>
+              <div class="col-md-offset-2 col-md-10">
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox"
+                      name="apheresis"
+                      value="1"
+                      {if $lexeme->apheresis}checked{/if}>
+                    născut prin afereză
+                  </label>
+                </div>
 
-              <div class="col-md-10">
                 <div class="checkbox">
                   <label>
                     <input type="checkbox"
                       name="hasApheresis"
                       value="1"
                       {if $lexeme->hasApheresis}checked{/if}>
+                    admite afereză
                   </label>
                 </div>
-              </div>
-            </div>
 
-            <div class="form-group">
-              <label class="col-md-2 control-label">apocopă</label>
-
-              <div class="col-md-10">
                 <div class="checkbox">
                   <label>
                     <input type="checkbox"
                       name="hasApocope"
                       value="1"
                       {if $lexeme->hasApocope}checked{/if}>
+                    admite apocopă
                   </label>
                 </div>
               </div>

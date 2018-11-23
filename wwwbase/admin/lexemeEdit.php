@@ -20,6 +20,7 @@ $renameRelated = Request::has('renameRelated');
 $compound = Request::has('compound');
 $sourceIds = Request::getArray('sourceIds');
 $notes = Request::get('notes');
+$apheresis = Request::has('apheresis');
 $hasApheresis = Request::has('hasApheresis');
 $hasApocope = Request::has('hasApocope');
 
@@ -70,7 +71,7 @@ if ($refreshButton || $saveButton) {
            $needsAccent, $stopWord, $hyphenations, $pronunciations,
            $compound, $modelType, $modelNumber, $restriction, $compoundModelType,
            $compoundRestriction, $partIds, $declensions, $capitalized, $notes,
-           $hasApheresis, $hasApocope, $tagIds);
+           $apheresis, $hasApheresis, $hasApocope, $tagIds);
 
   if (validate($lexeme, $original)) {
     // Case 1: Validation passed
@@ -175,7 +176,7 @@ function populate(&$lexeme, &$original, $lexemeForm, $lexemeNumber, $lexemeDescr
                   $needsAccent, $stopWord, $hyphenations, $pronunciations,
                   $compound, $modelType, $modelNumber, $restriction, $compoundModelType,
                   $compoundRestriction, $partIds, $declensions, $capitalized, $notes,
-                  $hasApheresis, $hasApocope, $tagIds) {
+                  $apheresis, $hasApheresis, $hasApocope, $tagIds) {
   $lexeme->setForm($lexemeForm);
   $lexeme->number = $lexemeNumber;
   $lexeme->description = $lexemeDescription;
@@ -186,6 +187,7 @@ function populate(&$lexeme, &$original, $lexemeForm, $lexemeNumber, $lexemeDescr
 
   $lexeme->compound = $compound;
   $lexeme->notes = $notes;
+  $lexeme->apheresis = $apheresis;
   $lexeme->hasApheresis = $hasApheresis;
   $lexeme->hasApocope = $hasApocope;
 
@@ -234,6 +236,10 @@ function validate($lexeme, $original) {
     FlashMessage::add('Ați indicat că lexemul nu necesită accent, dar forma conține un accent.');
   } else if (!$numAccents && !$lexeme->noAccent) {
     FlashMessage::add('Adăugați un accent sau debifați câmpul „Necesită accent”.');
+  }
+
+  if ($lexeme->apheresis && $lexeme->hasApheresis) {
+    FlashMessage::add('Lexemele născute prin afereză nu pot admite ele însele afereză.');
   }
 
   // Gather all different restriction - model type pairs

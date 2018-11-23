@@ -431,6 +431,14 @@ class Lexeme extends BaseObject implements DatedObject {
       }
       $this->inflectedForms = array_merge($this->inflectedForms, $forms);
     }
+
+    // if the lexeme is born by apheresis, mark all inflected forms as
+    // apheresis so that they are styled correctly in the paradigm
+    if ($this->apheresis) {
+      foreach ($this->inflectedForms as $if) {
+        $if->apheresis = true;
+      }
+    }
   }
 
   // for METHOD_GENERATE, throws ParadigmException if any inflection cannot be generated
@@ -663,6 +671,7 @@ class Lexeme extends BaseObject implements DatedObject {
         }
 
         $l = Lexeme::create($if->form, $dedicatedType, $number, '');
+        $l->apheresis = $if->apheresis;
         $l->deepSave();
         $entry = Entry::createAndSave($if->formNoAccent);
         EntryLexeme::associate($entry->id, $l->id);

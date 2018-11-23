@@ -83,24 +83,32 @@ if ($saveButton) {
   // Generate the exponent's forms
   $lexeme = Lexeme::create($m->exponent, $m->modelType, $m->number);
   $lexeme->setAnimate(true);
-  $ifs = $lexeme->generateInflectedForms();
 
   // Map the forms by inflectionId and variant. Include inflectionId's that
-  // the current model doesn't have
+  // the current model doesn't have.
   $forms = [];
   foreach ($inflections as $infl) {
     $forms[$infl->id] = [];
   }
 
-  $mds = ModelDescription::loadForModel($m->id);
-  foreach ($ifs as $i => $if) {
-    // This works because $ifs and $mds are both ordered by inflectionId,
-    // then by variant
-    $forms[$if->inflectionId][] = [
-      'form' => $if->form,
-      'recommended' => $mds[$i]->recommended,
-      'apocope' => $mds[$i]->apocope,
-    ];
+  // Load the recommended and apocope bits from ModelDescriptions, mapped by
+  // inflectionId and variant.
+  $mds = ModelDescription::get_all_by_modelId_applOrder($m->id, 0);
+  $map = [];
+  foreach ($mds as $md) {
+    $map[$md->inflectionId][$md->variant] = $md;
+  }
+
+  $ifs = $lexeme->generateInflectedForms();
+  foreach ($ifs as $if) {
+    if (!$if->apheresis && !$if->apocope) {
+      $md = $map[$if->inflectionId][$if->variant];
+      $forms[$if->inflectionId][] = [
+        'form' => $if->form,
+        'recommended' => $md->recommended,
+        'apocope' => $md->apocope,
+      ];
+    }
   }
 }
 

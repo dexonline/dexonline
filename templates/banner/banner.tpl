@@ -1,5 +1,5 @@
 {* Banner-related code that goes in the ad spot *}
-{if !$suggestNoBanner && empty($adult)}
+{if !$privateMode && !$suggestNoBanner && empty($adult)}
   <section class="row banner-section" data-placement="{$cfg.banner.placement}">
     <div class="center-block text-center">
       {if $cfg.banner.type == 'revive'}

@@ -251,13 +251,20 @@
         {/if}
 
         {if $hasElisionForms}
+          {if User::can(User::PRIV_EDIT)}
+            {$text1='hide'|_}
+            {$text2='show'|_}
+          {else}
+            {$text1='show'|_}
+            {$text2='hide'|_}
+          {/if}
           <div class="elisionLegend">
             * {'elisions'|_} –
             <a id="toggleElision"
               href="#"
               class="doubleText"
-              data-other-text="({'hide'|_})">
-              ({'show'|_})
+              data-other-text="({$text2})">
+              ({$text1})
             </a>
           </div>
         {/if}

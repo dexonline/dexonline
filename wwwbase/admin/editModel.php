@@ -106,7 +106,7 @@ if ($saveButton) {
       $forms[$if->inflectionId][] = [
         'form' => $if->form,
         'recommended' => $md->recommended,
-        'apocope' => $md->apocope,
+        'hasApocope' => $md->hasApocope,
       ];
     }
   }
@@ -169,7 +169,7 @@ function readRequest($inflections) {
 
   foreach ($_REQUEST as $name => $value) {
     $parts = preg_split('/_/', $name);
-    if (in_array($parts[0], ['forms', 'recommended', 'apocope'])) {
+    if (in_array($parts[0], ['forms', 'recommended', 'hasApocope'])) {
       assert(count($parts) == 3);
       $inflId = $parts[1];
       $variant = $parts[2];
@@ -180,16 +180,16 @@ function readRequest($inflections) {
           $map[$inflId][$variant] = [
             'form' => $form,
             'recommended' => false,
-            'apocope' => false,
+            'hasApocope' => false,
           ];
         }
       } else if ($parts[0] == 'recommended') {
         if (array_key_exists($variant, $map[$inflId])) {
           $map[$inflId][$variant]['recommended'] = true;
         }
-      } else { // $parts[0] == 'apocope'
+      } else { // $parts[0] == 'hasApocope'
         if (array_key_exists($variant, $map[$inflId])) {
-          $map[$inflId][$variant]['apocope'] = true;
+          $map[$inflId][$variant]['hasApocope'] = true;
         }
       }
     }
@@ -205,7 +205,7 @@ function readRequest($inflections) {
 }
 
 // $m: model being edited
-// $forms: map of inflection ID to array of tuples (form, recommended, apocope)
+// $forms: map of inflection ID to array of tuples (form, recommended, hasApocope)
 // When $save = true, saves ModelDescriptions.
 // When $save = false, just sets FlashMessages on errors.
 function extractTransforms($m, $forms, $save) {
@@ -243,7 +243,7 @@ function extractTransforms($m, $forms, $save) {
           $md->variant = $variant;
           $md->applOrder = --$order;
           $md->recommended = $tuple['recommended'];
-          $md->apocope = $tuple['apocope'];
+          $md->hasApocope = $tuple['hasApocope'];
           $md->transformId = $t->id;
           $md->accentShift = $accentShift;
           $md->vowel = $accentedVowel;

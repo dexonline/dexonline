@@ -393,7 +393,7 @@ class Lexeme extends BaseObject implements DatedObject {
       ->join('ModelType', ['m.modelType', '=', 'mt.canonical'], 'mt')
       ->where('m.number', $this->modelNumber)
       ->where('mt.code', $this->modelType)
-      ->where('md.apocope', true)
+      ->where('md.hasApocope', true)
       ->find_array();
     $map = [];
     foreach ($mds as $md) {
@@ -401,21 +401,23 @@ class Lexeme extends BaseObject implements DatedObject {
     }
 
     // clone inflected forms that support apocope
-    $forms = [];
-    foreach ($this->inflectedForms as $if) {
-      if (isset($map[$if->inflectionId][$if->variant])) {
-        $short = mb_substr($if->form, 0, -1);
-        $short = rtrim($short, "'"); // trim the trailing accent if there is one
-        $new = $if->parisClone();
-        $new->setForm($short);
-        $new->apocope = true;
-        $forms[] = $new;
+    if ($this->hasApocope) {
+      $forms = [];
+      foreach ($this->inflectedForms as $if) {
+        if (isset($map[$if->inflectionId][$if->variant])) {
+          $short = mb_substr($if->form, 0, -1);
+          $short = rtrim($short, "'"); // trim the trailing accent if there is one
+          $new = $if->parisClone();
+          $new->setForm($short);
+          $new->apocope = true;
+          $forms[] = $new;
+        }
       }
+      $this->inflectedForms = array_merge($this->inflectedForms, $forms);
     }
-    $this->inflectedForms = array_merge($this->inflectedForms, $forms);
 
     // clone inflected forms starting with [']?î
-    if ($this->apheresis) {
+    if ($this->hasApheresis) {
       $forms = [];
       foreach ($this->inflectedForms as $if) {
         if (Str::startsWith($if->formNoAccent, 'î')) {

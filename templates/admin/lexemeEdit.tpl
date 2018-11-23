@@ -352,9 +352,9 @@
                 <div class="checkbox">
                   <label>
                     <input type="checkbox"
-                      name="apheresis"
+                      name="hasApheresis"
                       value="1"
-                      {if $lexeme->apheresis}checked{/if}>
+                      {if $lexeme->hasApheresis}checked{/if}>
                   </label>
                 </div>
               </div>
@@ -367,9 +367,9 @@
                 <div class="checkbox">
                   <label>
                     <input type="checkbox"
-                      name="apocope"
+                      name="hasApocope"
                       value="1"
-                      {if $lexeme->apocope}checked{/if}>
+                      {if $lexeme->hasApocope}checked{/if}>
                   </label>
                 </div>
               </div>

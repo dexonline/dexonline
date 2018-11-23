@@ -105,9 +105,9 @@
                     <div class="col-xs-2">
                       <input class="checkbox"
                         type="checkbox"
-                        name="apocope_{$inflId}_{$i}"
+                        name="hasApocope_{$inflId}_{$i}"
                         value="1"
-                        {if $tuple.apocope}checked{/if}>
+                        {if $tuple.hasApocope}checked{/if}>
                     </div>
                   </div>
                 {/foreach}

@@ -25,9 +25,35 @@ class InflectedForm extends BaseObject {
     $s = Str::highlightAccent($this->form);
     $s = str_replace("\\'", "'", $s);
     if ($this->apheresis) {
-      $s = "&#x2011{$s}"; // non-breaking hyphen
+      $s = '&#x2011' . $s; // non-breaking hyphens
+    }
+    if ($this->apocope) {
+      $s .= '&#x2011';
     }
     return $s;
+  }
+
+  function getHtmlClasses() {
+    $classes = [];
+    if (!$this->recommended) {
+      $classes[] = 'notRecommended';
+      $classes[] = 'notRecommendedHidden';
+    }
+    if ($this->apheresis || $this->apocope) {
+      $classes[] = 'elision';
+    }
+    return implode(' ', $classes);
+  }
+
+  function getHtmlTitles() {
+    $titles = [];
+    if (!$this->recommended) {
+      $titles[] = 'formă nerecomandată';
+    }
+    if ($this->apheresis || $this->apocope) {
+      $titles[] = 'prin afereză și/sau eliziune';
+    }
+    return implode('; ', $titles);
   }
 
   static function mapByInflectionRank($ifs) {

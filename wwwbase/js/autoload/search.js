@@ -2,7 +2,7 @@ $(function() {
 
   function init() {
     $('#toggleNotRecommended').click(function() {
-      $('span.notRecommended').stop().toggle();
+      $('li.notRecommended').toggleClass('notRecommendedShown notRecommendedHidden');
       return false;
     });
 

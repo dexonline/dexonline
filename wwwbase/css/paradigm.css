@@ -129,6 +129,11 @@ li.notRecommendedHidden {
   font-style: italic;
 }
 
+li.elision::after,
+li.notRecommended::after {
+  content: '*';
+}
+
 .variantParadigm {
   display: none;
 }

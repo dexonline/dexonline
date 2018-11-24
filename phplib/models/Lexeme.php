@@ -231,14 +231,16 @@ class Lexeme extends BaseObject implements DatedObject {
         ->join('EntryDefinition', ['el.entryId', '=', 'ed.entryId'], 'ed')
         ->join('Definition', ['ed.definitionId', '=', 'd.id'], 'd')
         ->where_raw("$field $mysqlRegexp")
-        ->where('d.sourceId', $sourceId);
+        ->where('d.sourceId', $sourceId)
+        ->where('l.apheresis', false);
     } else {
       // even where there is no sourceId, make sure the lexeme has associated entries
       // (fragments don't)
       return @Model::factory('Lexeme')
         ->table_alias('l')
         ->join('EntryLexeme', ['l.id', '=', 'el.lexemeId'], 'el')
-        ->where_raw("$field $mysqlRegexp");
+        ->where_raw("$field $mysqlRegexp")
+        ->where('l.apheresis', false);
     }
   }
 

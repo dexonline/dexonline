@@ -85,11 +85,11 @@
   display: inline;
 }
 
-.commaList li::after {
+.commaList li::before {
   content: ', ';
 }
 
-.commaList li:last-child::after {
+.commaList li:first-child::before {
   content: '';
 }
 

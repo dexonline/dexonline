@@ -21,8 +21,9 @@ maintenanceMode = 0
 
 ; Interface language
 locale = ro_RO.utf8
-availableLocales[en_US.utf8] = "English"
 availableLocales[ro_RO.utf8] = "română"
+availableLocales[en_US.utf8] = "English"
+availableLocales[hu_HU.utf8] = "magyar"
 
 ; Show our web host logo
 hostedBy = ""

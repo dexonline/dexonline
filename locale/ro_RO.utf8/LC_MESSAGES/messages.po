@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-11-23 16:27+0200\n"
-"PO-Revision-Date: 2018-11-23 16:27+0200\n"
+"POT-Creation-Date: 2018-11-26 12:01+0200\n"
+"PO-Revision-Date: 2018-11-26 12:01+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -19,6 +19,10 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: phplib/third-party\n"
 "X-Poedit-SearchPathExcluded-1: wwwbase/js/merged\n"
 "X-Poedit-SearchPathExcluded-2: wwwbase/js/third-party\n"
+
+#: templates/alerts/formIsElision.tpl:1
+msgid "Your query <b>%s</b> is an elision of <b>%s</b>."
+msgstr "Căutarea <b>%s</b> este o formă elidată a lui <b>%s</b>."
 
 #: templates/articole.tpl:2 templates/bits/navmenu.tpl:106
 msgid "linguistic articles"
@@ -539,31 +543,31 @@ msgstr "masculin"
 msgid "feminine"
 msgstr "feminin"
 
-#: templates/paradigm/paradigmA.tpl:11 templates/paradigm/paradigmN.tpl:7
+#: templates/paradigm/paradigmA.tpl:11 templates/paradigm/paradigmM.tpl:7
 msgid "no article"
 msgstr "nearticulat"
 
-#: templates/paradigm/paradigmA.tpl:12 templates/paradigm/paradigmN.tpl:8
+#: templates/paradigm/paradigmA.tpl:12 templates/paradigm/paradigmM.tpl:8
 msgid "def. article"
 msgstr "articulat"
 
-#: templates/paradigm/paradigmA.tpl:17 templates/paradigm/paradigmN.tpl:11
+#: templates/paradigm/paradigmA.tpl:17 templates/paradigm/paradigmM.tpl:11
 msgid "nominative-accusative"
 msgstr "nominativ-acuzativ"
 
-#: templates/paradigm/paradigmA.tpl:18 templates/paradigm/paradigmN.tpl:12
+#: templates/paradigm/paradigmA.tpl:18 templates/paradigm/paradigmM.tpl:12
 msgid "singular"
 msgstr "singular"
 
-#: templates/paradigm/paradigmA.tpl:33 templates/paradigm/paradigmN.tpl:21
+#: templates/paradigm/paradigmA.tpl:33 templates/paradigm/paradigmM.tpl:21
 msgid "plural"
 msgstr "plural"
 
-#: templates/paradigm/paradigmA.tpl:48 templates/paradigm/paradigmN.tpl:30
+#: templates/paradigm/paradigmA.tpl:48 templates/paradigm/paradigmM.tpl:30
 msgid "genitive-dative"
 msgstr "genitiv-dativ"
 
-#: templates/paradigm/paradigmA.tpl:79 templates/paradigm/paradigmN.tpl:49
+#: templates/paradigm/paradigmA.tpl:79 templates/paradigm/paradigmM.tpl:49
 msgid "vocative"
 msgstr "vocativ"
 
@@ -1044,15 +1048,15 @@ msgstr "formă nerecomandată sau greșită"
 msgid "hide"
 msgstr "ascunde"
 
-#: templates/search.tpl:254
+#: templates/search.tpl:261
 msgid "elisions"
 msgstr "forme elidate"
 
-#: templates/search.tpl:265
+#: templates/search.tpl:272
 msgid "link to this inflected forms page"
 msgstr "legătură către această pagină cu flexiuni"
 
-#: templates/search.tpl:268
+#: templates/search.tpl:275
 msgid "link to this paradigm"
 msgstr "legătură către această paradigmă"
 
@@ -1316,7 +1320,7 @@ msgstr ""
 "href=\"%s\">multe site-uri</a> care fac acest lucru pentru orice RSS. Vă "
 "recomandăm <a href=\"%s\">IFTTT</a>."
 
-#: templates/wotd.tpl:96
+#: templates/wotd.tpl:96 templates/wotm.tpl:56
 msgid "Chosen because:"
 msgstr "Cheia alegerii:"
 
@@ -1365,11 +1369,11 @@ msgstr "cuvinte ale zilei"
 msgid "We redirected you automatically from <b>%s</b> to <b>%s</b>."
 msgstr "V-am redirecționat automat de la <b>%s</b> la <b>%s</b>."
 
-#: wwwbase/search.php:320
+#: wwwbase/search.php:331
 msgid "conjugations"
 msgstr "conjugări"
 
-#: wwwbase/search.php:321
+#: wwwbase/search.php:332
 msgid "declensions"
 msgstr "declinări"
 

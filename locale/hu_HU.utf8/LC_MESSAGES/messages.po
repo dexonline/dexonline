@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2018-11-14 13:59+0200\n"
-"PO-Revision-Date: 2018-11-26 13:45+0200\n"
+"PO-Revision-Date: 2018-11-26 13:48+0200\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,7 +21,7 @@ msgstr ""
 
 #: templates/alerts/formIsElision.tpl:1
 msgid "Your query <b>%s</b> is an elision of <b>%s</b>."
-msgstr "A <b>%s</b> keresés a <b>%s</b> hangelnyeléses formája."
+msgstr "A <b>%s</b> keresés a <b>%s</b> hangelnyeléses alakja."
 
 #: templates/articole.tpl:2 templates/bits/navmenu.tpl:106
 msgid "linguistic articles"

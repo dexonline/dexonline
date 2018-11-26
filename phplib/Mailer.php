@@ -7,6 +7,21 @@ require_once 'third-party/PHPMailer/PHPMailer.php';
 require_once 'third-party/PHPMailer/SMTP.php';
 
 class Mailer {
+
+  // dry run by default; real mode must be enabled explicitly
+  private static $dryRun = true;
+
+  // for dry runs - suppress verbose output
+  private static $quiet = false;
+
+  static function setRealMode() {
+    self::$dryRun = false;
+  }
+
+  static function setQuietMode() {
+    self::$quiet = true;
+  }
+
   /**
    * $from: from address; should have corresponding credentials in the config file
    * $to: array of recipient addresses
@@ -58,7 +73,14 @@ class Mailer {
     ];
 
     // ship it!
-    $mail->send();
+    if (!self::$dryRun) {
+      $mail->send();
+    } else if (!self::$quiet) {
+      $mail->Encoding = '8-bit';
+      $mail->preSend();
+      print $mail->getSentMIMEMessage();
+      print $mail->Body;
+    }
   }
 
   /**

@@ -117,16 +117,14 @@ if (count($messages)) {
   SmartyWrap::assign('numDays', NUM_DAYS);
   SmartyWrap::assign('messages', $messages);
   $body = SmartyWrap::fetch('email/checkWotd.tpl');
+
   if ($sendEmail) {
     Log::info("checkWotd: sending email");
-    Mailer::send($sender, $mailTo, $subject, $body);
-  } else if (!$quiet) {
-    print("---- DRY RUN ----\n");
-    printf("Către: %s\nSubiect: %s\n\n%s\n",
-           implode(', ', $mailTo),
-           $subject,
-           $body);
+    Mailer::setRealMode();
+  } else if ($quiet) {
+    Mailer::setQuietMode();
   }
+  Mailer::send($sender, $mailTo, $subject, $body);
 }
 
 Log::notice('finished');

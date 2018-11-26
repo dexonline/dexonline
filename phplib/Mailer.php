@@ -28,9 +28,8 @@ class Mailer {
    * $subject: subject line
    * $textBody: plain text body
    * $htmlBody: HTML body (optional)
-   * $headers: array of headers (optional)
    **/
-  static function send($from, $to, $subject, $textBody, $htmlBody = null, $headers = []) {
+  static function send($from, $to, $subject, $textBody, $htmlBody = null) {
     $info = self::getInfo($from);
 
     // set the from, to and subject fields
@@ -47,14 +46,8 @@ class Mailer {
     if ($htmlBody) {
       $mail->Body    = $htmlBody;
       $mail->AltBody = $textBody;
-      //      $mail->addCustomHeader('Content-Type', 'text/plain; charset=UTF-8');
     } else {
       $mail->Body    = $textBody;
-    }
-
-    // set additional headers
-    foreach ($headers as $key => $value) {
-      $mail->addCustomHeader($key, $value);
     }
 
     // configure SMTP

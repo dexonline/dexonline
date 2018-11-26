@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-11-26 12:01+0200\n"
-"PO-Revision-Date: 2018-11-26 12:01+0200\n"
+"POT-Creation-Date: 2018-11-26 12:25+0200\n"
+"PO-Revision-Date: 2018-11-26 12:25+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -434,7 +434,7 @@ msgstr "legături"
 #: templates/links.tpl:6
 msgid ""
 "This page contains useful language links. These links are not sponsored;\n"
-"    we consider the useful to our visitors. We are not affiliated with the\n"
+"    we consider them useful to our visitors. We are not affiliated with the\n"
 "    respective sites and institutions."
 msgstr ""
 "Această pagină conține legături utile de natură lingvistică. Aceste legături "
@@ -455,7 +455,7 @@ msgstr ""
 "Rosetti” al Academiei Române"
 
 #: templates/links.tpl:21
-msgid "why and how to write using diacritics in the Internet"
+msgid "why and how to write using diacritics on the Internet"
 msgstr "de ce și cum să scrii cu diacritice pe Internet"
 
 #: templates/links.tpl:24

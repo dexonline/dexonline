@@ -5,7 +5,7 @@
 {block "content"}
   <p>
     {'This page contains useful language links. These links are not sponsored;
-    we consider the useful to our visitors. We are not affiliated with the
+    we consider them useful to our visitors. We are not affiliated with the
     respective sites and institutions.'|_}
   </p>
 
@@ -19,7 +19,7 @@
     </li>
     <li>
       <a href="http://www.xn--scriuromnete-wbb074b.net/">ScriuRomânește.net</a>
-      &mdash; {'why and how to write using diacritics in the Internet'|_}
+      &mdash; {'why and how to write using diacritics on the Internet'|_}
     </li>
     <li>
       {'Sorin Paliga &mdash; volumes in PDF format at

@@ -1,6 +1,5 @@
 <?php
 require_once '../phplib/Core.php';
-require_once '../phplib/third-party/PHPMailer/PHPMailer.php';
 
 User::mustHave(User::PRIV_DONATION);
 
@@ -159,20 +158,15 @@ class Donor {
 
   function process() {
     if ($this->sendEmail) {
-      $mail = new PHPMailer\PHPMailer\PHPMailer();
+      $from = Config::get('mail.contact');
+      $subject = 'Mulțumiri';
 
-      $mail->setFrom(Config::get('mail.contact'), 'dexonline');
-      $mail->addAddress($this->email);
-      $mail->isHTML(true);
-      $mail->CharSet = 'utf-8';
-
-      $mail->Subject = 'Mulțumiri';
-      $mail->Body = $this->htmlMessage;
-      $mail->AltBody = $this->textMessage;
-
-      if (!$mail->send()) {
+      try {
+        Mailer::setRealMode();
+        Mailer::send($from, [ $this->email ], $subject, $this->textMessage, $this->htmlMessage);
+      } catch (Exception $e) {
         FlashMessage::add(sprintf('Emailul către %s a eșuat: %s',
-                                  $this->email, $mail->ErrorInfo));
+                                  $this->email, $e->getMessage()));
       }
     }
 

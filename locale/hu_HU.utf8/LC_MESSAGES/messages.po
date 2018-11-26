@@ -1,9 +1,12 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-11-14 13:59+0200\n"
-"PO-Revision-Date: 2018-11-26 12:47+0200\n"
+"Report-Msgid-Bugs-To: BUG-EMAIL-ADDR <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2018-11-26 14:38+0200\n"
+"PO-Revision-Date: 2018-11-26 15:05+0200\n"
+"Last-Translator: \n"
 "Language-Team: \n"
+"Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -11,13 +14,15 @@ msgstr ""
 "X-Poedit-Basepath: ../../..\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"Last-Translator: \n"
-"Language: hu\n"
 "X-Poedit-SearchPath-0: templates\n"
 "X-Poedit-SearchPath-1: wwwbase\n"
 "X-Poedit-SearchPathExcluded-0: phplib/third-party\n"
 "X-Poedit-SearchPathExcluded-1: wwwbase/js/merged\n"
 "X-Poedit-SearchPathExcluded-2: wwwbase/js/third-party\n"
+
+#: templates/alerts/formIsElision.tpl:1
+msgid "Your query <b>%s</b> is an elision of <b>%s</b>."
+msgstr "A <b>%s</b> keresés a <b>%s</b> hangelnyeléses alakja."
 
 #: templates/articole.tpl:2 templates/bits/navmenu.tpl:106
 msgid "linguistic articles"
@@ -74,7 +79,7 @@ msgstr "távolítsd el a kedvencekből"
 
 #: templates/bits/definitionMenuProper.tpl:184
 msgid "permalink"
-msgstr "állandó link"
+msgstr "állandó hivatkozás"
 
 #: templates/bits/extendedParadigm.tpl:19
 msgid "hyphenation"
@@ -96,15 +101,15 @@ msgstr "összetett"
 msgid "Inflection sources"
 msgstr "Ragozási forrás"
 
-#: templates/bits/multiParadigm.tpl:4
+#: templates/bits/multiParadigm.tpl:5
 msgid "entry"
 msgstr "bejegyzés"
 
-#: templates/bits/multiParadigm.tpl:34
+#: templates/bits/multiParadigm.tpl:35
 msgid "hide variants"
 msgstr "variánsok elrejtése"
 
-#: templates/bits/multiParadigm.tpl:35
+#: templates/bits/multiParadigm.tpl:36
 msgid "show variants"
 msgstr "variánsok kimutatása"
 
@@ -431,13 +436,13 @@ msgstr "hivatkozások"
 #: templates/links.tpl:6
 msgid ""
 "This page contains useful language links. These links are not sponsored;\n"
-"    we consider the useful to our visitors. We are not affiliated with the\n"
+"    we consider them useful to our visitors. We are not affiliated with the\n"
 "    respective sites and institutions."
 msgstr ""
-"Ez az oldal nyelvi jellegű hasznos hivatkozásokat tartalmaz. Ezek a "
-"hivatkozások nem szponzoráltak;\n"
-"     mi hasznosnak tartjuk látogatóink számára. Nem vagyunk kapcsolatban a\n"
-"     ezekkel az oldalakkal vagy intézményekkel."
+"Ez az oldal nyelvi jellegű hasznos hivatkozásokat tartalmaz. Ezek a\n"
+"     hivatkozások nem szponzoráltak; mi hasznosnak tartjuk látogatóink "
+"számára.\n"
+"     Nem vagyunk kapcsolatban ezekkel az oldalakkal vagy intézményekkel."
 
 #: templates/links.tpl:11
 msgid "Romanian language"
@@ -453,7 +458,7 @@ msgstr ""
 "       Román akadémia"
 
 #: templates/links.tpl:21
-msgid "why and how to write using diacritics in the Internet"
+msgid "why and how to write using diacritics on the Internet"
 msgstr "miért és hogyan írj ékezetekkel az interneten"
 
 #: templates/links.tpl:24
@@ -532,39 +537,39 @@ msgstr "új játék"
 msgid "see all definitions"
 msgstr "összes meghatározás"
 
-#: templates/paradigm/paradigmA.tpl:7
+#: templates/paradigm/paradigmA.tpl:7 templates/paradigm/paradigmP.tpl:7
 msgid "masculine"
 msgstr "hímnem"
 
-#: templates/paradigm/paradigmA.tpl:8
+#: templates/paradigm/paradigmA.tpl:8 templates/paradigm/paradigmP.tpl:8
 msgid "feminine"
 msgstr "nőnem"
 
-#: templates/paradigm/paradigmA.tpl:11 templates/paradigm/paradigmSP.tpl:7
+#: templates/paradigm/paradigmA.tpl:11 templates/paradigm/paradigmM.tpl:7
 msgid "no article"
 msgstr "határozatlan"
 
-#: templates/paradigm/paradigmA.tpl:12 templates/paradigm/paradigmSP.tpl:8
+#: templates/paradigm/paradigmA.tpl:12 templates/paradigm/paradigmM.tpl:8
 msgid "def. article"
 msgstr "határozott"
 
-#: templates/paradigm/paradigmA.tpl:17 templates/paradigm/paradigmSP.tpl:11
+#: templates/paradigm/paradigmA.tpl:17 templates/paradigm/paradigmM.tpl:11
 msgid "nominative-accusative"
 msgstr "alanyeset-tárgyeset"
 
-#: templates/paradigm/paradigmA.tpl:18 templates/paradigm/paradigmSP.tpl:12
+#: templates/paradigm/paradigmA.tpl:18 templates/paradigm/paradigmM.tpl:12
 msgid "singular"
 msgstr "egyes szám"
 
-#: templates/paradigm/paradigmA.tpl:33 templates/paradigm/paradigmSP.tpl:21
+#: templates/paradigm/paradigmA.tpl:33 templates/paradigm/paradigmM.tpl:21
 msgid "plural"
-msgstr "öbbes szám"
+msgstr "többes szám"
 
-#: templates/paradigm/paradigmA.tpl:48 templates/paradigm/paradigmSP.tpl:30
+#: templates/paradigm/paradigmA.tpl:48 templates/paradigm/paradigmM.tpl:30
 msgid "genitive-dative"
 msgstr "birtokos-részes eset"
 
-#: templates/paradigm/paradigmA.tpl:79 templates/paradigm/paradigmSP.tpl:49
+#: templates/paradigm/paradigmA.tpl:79 templates/paradigm/paradigmM.tpl:49
 msgid "vocative"
 msgstr "megszólító"
 
@@ -763,7 +768,7 @@ msgstr ""
 msgid "Show models for"
 msgstr "Mutasd a mintákat a"
 
-#: templates/scrabble.tpl:171
+#: templates/scrabble.tpl:171 templates/search.tpl:247
 msgid "show"
 msgstr "mutasd"
 
@@ -1051,13 +1056,21 @@ msgstr "Nincs találat <strong>%s</strong> esetében"
 msgid "unrecommended or incorrect form"
 msgstr "nem ajánlott vagy helytelen alak"
 
-#: templates/search.tpl:253
-msgid "link to this inflected forms page"
-msgstr "link erre a ragozott alakok oldalára"
+#: templates/search.tpl:246
+msgid "hide"
+msgstr "elrejt"
 
-#: templates/search.tpl:256
+#: templates/search.tpl:261
+msgid "elisions"
+msgstr "hangelnyeléses alakok"
+
+#: templates/search.tpl:272
+msgid "link to this inflected forms page"
+msgstr "hivatkozás erre a ragozott alakok oldalára"
+
+#: templates/search.tpl:275
 msgid "link to this paradigm"
-msgstr "link erre a ragozási mintára"
+msgstr "hivatkozás erre a ragozási mintára"
 
 #: templates/search/definitionList.tpl:10
 msgid "Definitions from specialized dictionaries"
@@ -1333,7 +1346,7 @@ msgstr ""
 "         RSS-hírcsatornához hasonlóan elvégzik. Javasoljuk az <a href=\"%s"
 "\">IFTTT</a> használatát."
 
-#: templates/wotd.tpl:96
+#: templates/wotd.tpl:96 templates/wotm.tpl:56
 msgid "Chosen because:"
 msgstr "Kiválasztás oka:"
 
@@ -1382,11 +1395,11 @@ msgstr "a napi szavak"
 msgid "We redirected you automatically from <b>%s</b> to <b>%s</b>."
 msgstr "Automatikusan átirányítottunk a <b>%s</b>-tól <b>%s</b>-hoz."
 
-#: wwwbase/search.php:320
+#: wwwbase/search.php:331
 msgid "conjugations"
 msgstr "igeragozások"
 
-#: wwwbase/search.php:321
+#: wwwbase/search.php:332
 msgid "declensions"
 msgstr "ragozások"
 
@@ -1491,3 +1504,18 @@ msgstr "Perl, wxWidgets (csak Linux alatt)"
 #: wwwbase/unelte.php:74
 msgid "QT, g++ (only under Linux)"
 msgstr "QT, g++ (csak Linux alatt)"
+
+#~ msgid ""
+#~ "This page contains useful language links. These links are not sponsored;\n"
+#~ "    we consider the useful to our visitors. We are not affiliated with "
+#~ "the\n"
+#~ "    respective sites and institutions."
+#~ msgstr ""
+#~ "Ez az oldal nyelvi jellegű hasznos hivatkozásokat tartalmaz. Ezek a "
+#~ "hivatkozások nem szponzoráltak;\n"
+#~ "     mi hasznosnak tartjuk látogatóink számára. Nem vagyunk kapcsolatban "
+#~ "a\n"
+#~ "     ezekkel az oldalakkal vagy intézményekkel."
+
+#~ msgid "why and how to write using diacritics in the Internet"
+#~ msgstr "miért és hogyan írj ékezetekkel az interneten"

@@ -7,9 +7,9 @@
   <h3>{'contact us'|_|cap}</h3>
 
   <p class="text-medium">
-    <a href="mailto:{$cfg.global.contact|escape}">
+    <a href="mailto:{$cfg.mail.contact|escape}">
       <i class="glyphicon glyphicon-envelope"></i>
-      {$cfg.global.contact|escape}
+      {$cfg.mail.contact|escape}
     </a>
   </p>
 

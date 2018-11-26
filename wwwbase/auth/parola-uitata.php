@@ -32,16 +32,10 @@ if ($submitButton) {
         'token' => $pt->token,
       ]);
       $body = SmartyWrap::fetch('email/resetPassword.tpl');
-      $ourEmail = Config::get('global.contact');
-      $headers = [
-        "From: dexonline <$ourEmail>",
-        "Reply-To: $ourEmail",
-        'Content-Type: text/plain; charset=UTF-8',
-      ];
-      $result = mail($email,
-                     'Schimbarea parolei pentru dexonline',
-                     $body,
-                     implode("\r\n", $headers));
+      $from = Config::get('mail.contact');
+      $subject = 'Schimbarea parolei pentru dexonline';
+      Mailer::setRealMode();
+      Mailer::send($from, [$email], $subject, $body);
     }
 
     // Display a confirmation even for incorrect addresses.

@@ -161,7 +161,7 @@ class Donor {
     if ($this->sendEmail) {
       $mail = new PHPMailer\PHPMailer\PHPMailer();
 
-      $mail->setFrom(Config::get('global.contact'), 'dexonline');
+      $mail->setFrom(Config::get('mail.contact'), 'dexonline');
       $mail->addAddress($this->email);
       $mail->isHTML(true);
       $mail->CharSet = 'utf-8';

@@ -12,8 +12,6 @@ define('NUM_DAYS', 3);
 $rcptInfo = Config::get('WotD.rcpt-info', []);
 $rcptError = Config::get('WotD.rcpt-error', []);
 $sender = Config::get('WotD.sender', '');
-$replyto = Config::get('WotD.reply-to', '');
-$MAIL_HEADERS = ["From: $sender", "Reply-To: $replyto", 'Content-Type: text/plain; charset=UTF-8'];
 
 $sendEmail = false;
 $quiet = false;
@@ -115,17 +113,19 @@ if (count($messages)) {
     $subject = 'Cuvântul zilei: notă informativă';
     $mailTo = $rcptInfo;
   }
-  $mailTo = implode(', ', $mailTo);
 
   SmartyWrap::assign('numDays', NUM_DAYS);
   SmartyWrap::assign('messages', $messages);
   $body = SmartyWrap::fetch('email/checkWotd.tpl');
   if ($sendEmail) {
     Log::info("checkWotd: sending email");
-    mail($mailTo, $subject, $body, implode("\r\n", $MAIL_HEADERS));
+    Mailer::send($sender, $mailTo, $subject, $body);
   } else if (!$quiet) {
-    print "---- DRY RUN ----\n";
-    print "Către: $mailTo\nSubiect: $subject\n\n$body\n";
+    print("---- DRY RUN ----\n");
+    printf("Către: %s\nSubiect: %s\n\n%s\n",
+           implode(', ', $mailTo),
+           $subject,
+           $body);
   }
 }
 

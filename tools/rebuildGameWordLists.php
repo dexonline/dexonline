@@ -6,6 +6,8 @@
 
 require_once __DIR__ . '/../phplib/Core.php';
 
+ini_set('memory_limit', '1G');
+
 define('STATIC_SERVER_DIR', '/download/scrabble');
 define('DEX09_ID', 27);
 define('MDN_ID', 21);
@@ -27,6 +29,8 @@ $forms = Model::factory('InflectedForm')
   ->where_raw('char_length(if.formNoAccent) between 3 and 7')
   ->where('d.status', Definition::ST_ACTIVE)
   ->where_in('d.sourceId', [ DEX09_ID, MDN_ID ])
+  ->where('if.apheresis', false)
+  ->where('if.apocope', false)
   ->order_by_asc('if.formNoAccent')
   ->find_many();
 $joined = implode("\n", Util::objectProperty($forms, 'formNoAccent'));

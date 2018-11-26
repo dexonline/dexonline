@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: BUG-EMAIL-ADDR <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2018-11-26 14:38+0200\n"
-"PO-Revision-Date: 2018-11-26 14:44+0200\n"
+"PO-Revision-Date: 2018-11-26 14:48+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: hu\n"
@@ -459,7 +459,7 @@ msgstr ""
 
 #: templates/links.tpl:21
 msgid "why and how to write using diacritics on the Internet"
-msgstr "miért és hogyan írhat a ékezetekkel az interneten"
+msgstr "miért és hogyan írj ékezetekkel az interneten"
 
 #: templates/links.tpl:24
 msgid ""

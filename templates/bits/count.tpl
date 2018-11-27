@@ -12,5 +12,5 @@
 {/if}
 
 {if $total > $displayed}
-  {'(at most %s shown)'|_|sprintf:$displayed}
+  {t 1=$displayed}(at most %1 shown){/t}
 {/if}

@@ -178,6 +178,8 @@ class SmartyWrap {
     self::$theSmarty = new Smarty();
     self::$theSmarty->template_dir = Core::getRootPath() . 'templates';
     self::$theSmarty->compile_dir = Core::getRootPath() . 'templates_c';
+    // sufficient for now; generalize if more plugin sources are needed
+    self::$theSmarty->addPluginsDir(__DIR__ . '/third-party/smarty-gettext');
     self::$theSmarty->inheritance_merge_compiled_includes = false; // This allows variable names in {include} tags
     if (Request::isWeb()) {
       self::assign([

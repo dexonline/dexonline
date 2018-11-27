@@ -1,9 +1,9 @@
 {extends "layout.tpl"}
 
 {block "title"}
-  {$cuv|escape} - {'definition'|_}
+  {$cuv|escape} - {t}definition{/t}
   {if count($sourceList) == 1}{$sourceList[0]}{/if}
-  {if $searchParams.paradigm}{'and paradigm'|_}{/if}
+  {if $searchParams.paradigm}{t}and paradigm{/t}{/if}
 {/block}
 
 {block "pageDescription"}
@@ -23,7 +23,7 @@
   <ul class="nav nav-tabs" role="tablist">
     <li role="presentation" {if $tab == Constant::TAB_RESULTS}class="active"{/if}>
       <a href="#resultsTab" aria-controls="resultsTab" role="tab" data-toggle="tab">
-        {'results'|_} ({$extra.numResults})
+        {t}results{/t} ({$extra.numResults})
       </a>
     </li>
 
@@ -38,7 +38,7 @@
     {if count($trees)}
       <li role="presentation" {if $tab == Constant::TAB_TREE}class="active"{/if}>
         <a href="#treeTab" aria-controls="treeTab" role="tab" data-toggle="tab">
-          {'synthesis'|_} ({count($trees)})
+          {t}synthesis{/t} ({count($trees)})
         </a>
       </li>
     {/if}
@@ -53,7 +53,7 @@
 
       {* definition ID search *}
       {if $searchType == $smarty.const.SEARCH_DEF_ID}
-        <h3>{'Definition with ID'|_} {$results|array_keys|implode}:</h3>
+        <h3>{t}Definition with ID{/t} {$results|array_keys|implode}:</h3>
 
         {include "search/definitionList.tpl"}
 
@@ -66,15 +66,15 @@
             {include "bits/count.tpl"
               displayed=count($results)
               total=$extra.numDefinitionsFullText
-              none="{'No definitions contain'|_}"
-              one="{'One definition contains'|_}"
-              many="{'definitions contain'|_}"
-              common="{'all the words'|_}"}
+              none="{t}No definitions contain{/t}"
+              one="{t}One definition contains{/t}"
+              many="{t}definitions contain{/t}"
+              common="{t}all the words{/t}"}
           </h3>
 
           {if !empty($extra.stopWords)}
             <p class="text-warning">
-              {'The following words were ignored because they are too common:'|_}
+              {t}The following words were ignored because they are too common:{/t}
               <strong>
                 {' '|implode:$extra.stopWords|escape}
               </strong>
@@ -90,16 +90,16 @@
         {include "search/gallery.tpl"}
 
         {if !count($entries)}
-          <h3>{'There is no entry with the given ID.'|_}</h3>
+          <h3>{t}There is no entry with the given ID.{/t}</h3>
         {else}
 
           <h3>
             {include "bits/count.tpl"
               displayed=count($results)
-              none="{'No definitions'|_}"
-              one="{'One definition'|_}"
-              many="{'definitions'|_}"
-              common="{'for'|_}"}
+              none="{t}No definitions{/t}"
+              one="{t}One definition{/t}"
+              many="{t}definitions{/t}"
+              common="{t}for{/t}"}
 
             {include "bits/entry.tpl" entry=$entries[0] variantList=true tagList=true}
           </h3>
@@ -111,16 +111,16 @@
         {* regular expression search *}
       {elseif $searchType == $smarty.const.SEARCH_REGEXP}
         {capture "common"}
-        {'for'|_} <strong>{$cuv|escape}</strong>
+        {t}for{/t} <strong>{$cuv|escape}</strong>
         {/capture}
 
         <h3>
           {include "bits/count.tpl"
             displayed=count($lexemes)
             total=$extra.numLexemes|default:0
-            none="{'No results'|_}"
-            one="{'One result'|_}"
-            many="{'results'|_}"
+            none="{t}No results{/t}"
+            one="{t}One result{/t}"
+            many="{t}results{/t}"
             common=$smarty.capture.common}
         </h3>
 
@@ -136,21 +136,21 @@
         {include "search/gallery.tpl"}
 
         {if count($entries) > 1}
-          <h3>{$entries|count} {'entries'|_}</h3>
+          <h3>{$entries|count} {t}entries{/t}</h3>
 
           {include "search/entryToc.tpl"}
         {else}
           {capture "common"}
-          {'for'|_} {include "bits/entry.tpl" entry=$entries[0] variantList=true tagList=true}
+          {t}for{/t} {include "bits/entry.tpl" entry=$entries[0] variantList=true tagList=true}
           {/capture}
 
           <h3>
             {include "bits/count.tpl"
               displayed=count($results)
               total=$extra.numDefinitions
-              none="{'No definitions'|_}"
-              one="{'One definition'|_}"
-              many="{'definitions'|_}"
+              none="{t}No definitions{/t}"
+              one="{t}One definition{/t}"
+              many="{t}definitions{/t}"
               common=$smarty.capture.common}
           </h3>
 
@@ -168,8 +168,8 @@
               displayed=count($results)
               total=$extra.numDefinitions
               none=""
-              one="{'One definition'|_}"
-              many="{'definitions'|_}"
+              one="{t}One definition{/t}"
+              many="{t}definitions{/t}"
               common=""}
           </h3>
         {/if}
@@ -186,20 +186,20 @@
           {include "bits/count.tpl"
             displayed=count($results)
             total=$extra.numDefinitions
-            none="{'No definitions match'|_}"
-            one="{'One definition matches'|_}"
-            many="{'definitions match'|_}"
-            common="{'at least two words'|_}"}
+            none="{t}No definitions match{/t}"
+            one="{t}One definition matches{/t}"
+            many="{t}definitions match{/t}"
+            common="{t}at least two words{/t}"}
         </h3>
 
         <p class="text-warning">
-          {'If the results are inadequate, you can look up individual words or you can search'|_}
-          <a href="{$wwwRoot}text/{$cuv|escape:url}">{'full-text'|_}</a>.
+          {t}If the results are inadequate, you can look up individual words or you can search{/t}
+          <a href="{$wwwRoot}text/{$cuv|escape:url}">{t}full-text{/t}</a>.
         </p>
 
         {if !empty($extra.ignoredWords)}
           <p class="text-warning">
-            {'At most 5 words are allowed. The following words were ignored:'|_}
+            {t}At most 5 words are allowed. The following words were ignored:{/t}
             <strong>
               {' '|implode:$extra.ignoredWords|escape}
             </strong>
@@ -240,12 +240,12 @@
 
         {if $hasUnrecommendedForms}
           <div class="notRecommendedLegend">
-            * {'unrecommended or incorrect form'|_} –
+            * {t}unrecommended or incorrect form{/t} –
             <a id="toggleNotRecommended"
               href="#"
               class="doubleText"
-              data-other-text="({'hide'|_})">
-              ({'show'|_})
+              data-other-text="({t}hide{/t})">
+              ({t}show{/t})
             </a>
           </div>
         {/if}
@@ -259,7 +259,7 @@
             {$text2='hide'|_}
           {/if}
           <div class="elisionLegend">
-            * {'elisions'|_} –
+            * {t}elisions{/t} –
             <a id="toggleElision"
               href="#"
               class="doubleText"
@@ -270,10 +270,10 @@
         {/if}
 
         <div class="paradigmLink voffset2">
-          <a title="{'link to this inflected forms page'|_}"
+          <a title="{t}link to this inflected forms page{/t}"
             href="{$paradigmLink}">
             <i class="glyphicon glyphicon-link"></i>
-            {'link to this paradigm'|_}
+            {t}link to this paradigm{/t}
           </a>
         </div>
       </div>

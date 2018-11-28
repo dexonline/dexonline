@@ -1,7 +1,8 @@
 {extends "layout.tpl"}
 
 {block "title"}
-  {$cuv|escape} - {t}definition{/t}
+  {$cuv=$cuv|escape}
+  {$cuv} - {t}definition{/t}
   {if count($sourceList) == 1}{$sourceList[0]}{/if}
   {if $searchParams.paradigm}{t}and paradigm{/t}{/if}
 {/block}
@@ -63,13 +64,18 @@
           {include "search/fullTextLock.tpl"}
         {else}
           <h3>
-            {include "bits/count.tpl"
-              displayed=count($results)
-              total=$extra.numDefinitionsFullText
-              none="{t}No definitions contain{/t}"
-              one="{t}One definition contains{/t}"
-              many="{t}definitions contain{/t}"
-              common="{t}all the words{/t}"}
+            {if count($results)}
+              {t
+                count=$extra.numDefinitionsFullText
+                1=$extra.numDefinitionsFullText
+                plural="%1 definitions contain all the words"}
+              One definition contains all the words{/t}
+              {if $extra.numDefinitionsFullText > count($results)}
+                {t 1=count($results)}(at most %1 shown){/t}
+              {/if}
+            {else}
+              {t}No definitions contain all the words{/t}
+            {/if}
           </h3>
 
           {if !empty($extra.stopWords)}
@@ -94,14 +100,20 @@
         {else}
 
           <h3>
-            {include "bits/count.tpl"
-              displayed=count($results)
-              none="{t}No definitions{/t}"
-              one="{t}One definition{/t}"
-              many="{t}definitions{/t}"
-              common="{t}for{/t}"}
-
+            {capture "entryText"}
             {include "bits/entry.tpl" entry=$entries[0] variantList=true tagList=true}
+            {/capture}
+
+            {if count($results)}
+              {t
+                count=count($results)
+                1=count($results)
+                2=$smarty.capture.entryText
+                plural="%1 definitions for %2"}
+              One definition for %2{/t}
+            {else}
+              {t 1=$smarty.capture.entryText}No definitions for %1{/t}
+            {/if}
           </h3>
 
           {include "search/missingDefinitionWarnings.tpl"}
@@ -111,17 +123,24 @@
       {* regular expression search *}
       {elseif $searchType == $smarty.const.SEARCH_REGEXP}
         {capture "common"}
-        {t}for{/t} <strong>{$cuv|escape}</strong>
+        {t}for{/t} <strong>{$cuv}</strong>
         {/capture}
 
         <h3>
-          {include "bits/count.tpl"
-            displayed=count($lexemes)
-            total=$extra.numLexemes|default:0
-            none="{t}No results{/t}"
-            one="{t}One result{/t}"
-            many="{t}results{/t}"
-            common=$smarty.capture.common}
+          {if count($lexemes)}
+            {t
+              count=$extra.numLexemes
+              1=$extra.numLexemes
+              2=$cuv
+              plural="%1 results for <strong>%2</strong>"}
+            One result for <strong>%2</strong>{/t}
+          {else}
+            {t 1=$cuv}No results for <strong>%1</strong>{/t}
+          {/if}
+
+          {if $extra.numLexemes > count($lexemes)}
+            {t 1=count($lexemes)}(at most %1 shown){/t}
+          {/if}
         </h3>
 
         {if !count($lexemes) && $sourceId}
@@ -140,18 +159,25 @@
 
           {include "search/entryToc.tpl"}
         {else}
-          {capture "common"}
-          {t}for{/t} {include "bits/entry.tpl" entry=$entries[0] variantList=true tagList=true}
+          {capture "entryText"}
+          {include "bits/entry.tpl" entry=$entries[0] variantList=true tagList=true}
           {/capture}
 
           <h3>
-            {include "bits/count.tpl"
-              displayed=count($results)
-              total=$extra.numDefinitions
-              none="{t}No definitions{/t}"
-              one="{t}One definition{/t}"
-              many="{t}definitions{/t}"
-              common=$smarty.capture.common}
+            {if count($results)}
+              {t
+                count=$extra.numDefinitions
+                1=$extra.numDefinitions
+                2=$smarty.capture.entryText
+                plural="%1 definitions for %2"}
+              One definition for %2{/t}
+            {else}
+              {t 1=$smarty.capture.entryText}No definitions for %1{/t}
+            {/if}
+
+            {if $extra.numDefinitions > count($results)}
+              {t 1=count($results)}(at most %1 shown){/t}
+            {/if}
           </h3>
 
           {if !count($results) && count($entries) && $sourceId}
@@ -164,13 +190,15 @@
         {* another <h3> for the definition list, if needed *}
         {if (count($entries) > 1) && count($results)}
           <h3>
-            {include "bits/count.tpl"
-              displayed=count($results)
-              total=$extra.numDefinitions
-              none=""
-              one="{t}One definition{/t}"
-              many="{t}definitions{/t}"
-              common=""}
+            {t
+              count=$extra.numDefinitions
+              1=$extra.numDefinitions
+              plural="%1 definitions"}
+            One definition{/t}
+
+            {if $extra.numDefinitions > count($results)}
+              {t 1=count($results)}(at most %1 shown){/t}
+            {/if}
           </h3>
         {/if}
 
@@ -183,13 +211,19 @@
       {* multiword search *}
       {elseif $searchType == $smarty.const.SEARCH_MULTIWORD}
         <h3>
-          {include "bits/count.tpl"
-            displayed=count($results)
-            total=$extra.numDefinitions
-            none="{t}No definitions match{/t}"
-            one="{t}One definition matches{/t}"
-            many="{t}definitions match{/t}"
-            common="{t}at least two words{/t}"}
+          {if count($results)}
+            {t
+              count=$extra.numDefinitions
+              1=$extra.numDefinitions
+              plural="%1 definitions match at least two words"}
+            One definition matches at least two words{/t}
+          {else}
+            {t}No definitions match at least two words{/t}
+          {/if}
+
+          {if $extra.numDefinitions > count($results)}
+            {t 1=count($results)}(at most %1 shown){/t}
+          {/if}
         </h3>
 
         <p class="text-warning">

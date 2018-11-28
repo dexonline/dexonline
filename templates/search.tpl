@@ -57,7 +57,7 @@
 
         {include "search/definitionList.tpl"}
 
-        {* full-text search *}
+      {* full-text search *}
       {elseif $searchType == $smarty.const.SEARCH_FULL_TEXT}
         {if isset($extra.fullTextLock)}
           {include "search/fullTextLock.tpl"}
@@ -84,7 +84,7 @@
           {include "search/definitionList.tpl" categories=false}
         {/if}
 
-        {* entry ID search *}
+      {* entry ID search *}
       {elseif $searchType == $smarty.const.SEARCH_ENTRY_ID}
 
         {include "search/gallery.tpl"}
@@ -108,7 +108,7 @@
           {include "search/definitionList.tpl"}
         {/if}
 
-        {* regular expression search *}
+      {* regular expression search *}
       {elseif $searchType == $smarty.const.SEARCH_REGEXP}
         {capture "common"}
         {t}for{/t} <strong>{$cuv|escape}</strong>
@@ -130,7 +130,7 @@
 
         {include "search/lexemeList.tpl"}
 
-        {* normal search (inflected form search) *}
+      {* normal search (inflected form search) *}
       {elseif $searchType == $smarty.const.SEARCH_INFLECTED}
 
         {include "search/gallery.tpl"}
@@ -180,7 +180,7 @@
         {include "search/definitionList.tpl"}
         {include "search/showAllLink.tpl"}
 
-        {* multiword search *}
+      {* multiword search *}
       {elseif $searchType == $smarty.const.SEARCH_MULTIWORD}
         <h3>
           {include "bits/count.tpl"
@@ -210,17 +210,17 @@
         {include "search/definitionList.tpl" categories=false}
         {include "search/showAllLink.tpl"}
 
-        {* approximate search *}
+      {* approximate search *}
       {elseif $searchType == $smarty.const.SEARCH_APPROXIMATE}
         {if count($entries)}
           <h3>
-            {'The word <strong>%s</strong> is not in the dictionary.
-            Here are some suggestions:'|_|sprintf:($cuv|escape)}
+            {t escape="0" 1=$cuv}The word <strong>%1</strong> is not in the dictionary.
+            Here are some suggestions:{/t}
           </h3>
 
           {include "search/entryList.tpl"}
         {else}
-          <h3>{'No results for <strong>%s</strong>'|_|sprintf:($cuv|escape)}</h3>
+          <h3>{t escape="no" 1=$cuv}No results for <strong>%1</strong>{/t}</h3>
         {/if}
 
       {/if}
@@ -252,19 +252,19 @@
 
         {if $hasElisionForms}
           {if User::can(User::PRIV_EDIT)}
-            {$text1='hide'|_}
-            {$text2='show'|_}
+            {capture "text1"}{t}hide{/t}{/capture}
+            {capture "text2"}{t}show{/t}{/capture}
           {else}
-            {$text1='show'|_}
-            {$text2='hide'|_}
+            {capture "text1"}{t}show{/t}{/capture}
+            {capture "text2"}{t}hide{/t}{/capture}
           {/if}
           <div class="elisionLegend">
             * {t}elisions{/t} –
             <a id="toggleElision"
               href="#"
               class="doubleText"
-              data-other-text="({$text2})">
-              ({$text1})
+              data-other-text="({$smarty.capture.text2})">
+              ({$smarty.capture.text1})
             </a>
           </div>
         {/if}

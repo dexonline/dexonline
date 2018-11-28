@@ -1,13 +1,15 @@
 {extends "layout.tpl"}
 
-{block "title"}{'word scramble'|_|cap}{/block}
+{block "title"}
+  {cap}{t}word scramble{/t}{/cap}
+{/block}
 
 {block "search"}{/block}
 
 {block "content"}
   <div id="mainMenu" class="panel panel-default">
     <div class="panel-heading">
-      {'word scramble'|_|cap}
+      {cap}{t}word scramble{/t}{/cap}
     </div>
 
     <div class="panel-body">
@@ -16,7 +18,7 @@
         <div>
           <button id="startGameButton" class="btn btn-success" type="button" disabled>
             <i class="glyphicon glyphicon-play"></i>
-            {'start'|_}
+            {t}start{/t}
           </button>
           <button id="optionsButton"
                   class="btn btn-default"
@@ -24,24 +26,24 @@
                   data-toggle="collapse"
                   data-target="#optionsDiv">
             <i class="glyphicon glyphicon-wrench"></i>
-            {'options'|_}
+            {t}options{/t}
           </button>
         </div>
 
         <div id="optionsDiv" class="voffset3 collapse">
 
           <div class="form-group">
-            <label class="col-sm-2 control-label">{'object'|_}</label>
+            <label class="col-sm-2 control-label">{t}object{/t}</label>
             <div class="col-sm-10">
               <div class="btn-group" data-toggle="buttons">
                 <label class="btn btn-info active">
-                  <input type="radio" name="mode" value="0"> {'all words'|_}
+                  <input type="radio" name="mode" value="0"> {t}all words{/t}
                 </label>
                 <label class="btn btn-info">
-                  <input type="radio" name="mode" value="1"> {'one anagram'|_}
+                  <input type="radio" name="mode" value="1"> {t}one anagram{/t}
                 </label>
                 <label class="btn btn-info">
-                  <input type="radio" name="mode" value="2"> {'all anagrams'|_}
+                  <input type="radio" name="mode" value="2"> {t}all anagrams{/t}
                 </label>
               </div>
             </div>
@@ -52,127 +54,128 @@
             <div class="col-sm-10">
               <div class="btn-group" data-toggle="buttons">
                 <label class="btn btn-info">
-                  <input type="radio" name="level" value="0"> 4 {'letters'|_}
+                  <input type="radio" name="level" value="0"> 4 {t}letters{/t}
                 </label>
                 <label class="btn btn-info active">
-                  <input type="radio" name="level" value="1"> 5 {'letters'|_}
+                  <input type="radio" name="level" value="1"> 5 {t}letters{/t}
                 </label>
                 <label class="btn btn-info">
-                  <input type="radio" name="level" value="2"> 6 {'letters'|_}
+                  <input type="radio" name="level" value="2"> 6 {t}letters{/t}
                 </label>
                 <label class="btn btn-info">
-                  <input type="radio" name="level" value="3"> 7 {'letters'|_}
+                  <input type="radio" name="level" value="3"> 7 {t}letters{/t}
                 </label>
               </div>
             </div>
           </div>
 
           <div class="form-group">
-            <label class="col-sm-2 control-label">{'diacritics'|_}</label>
+            <label class="col-sm-2 control-label">{t}diacritics{/t}</label>
             <div class="col-sm-10">
               <div class="btn-group" data-toggle="buttons">
                 <label class="btn btn-info active">
-                  <input type="radio" name="useDiacritics" value="0"> {'no'|_}
+                  <input type="radio" name="useDiacritics" value="0"> {t}no{/t}
                 </label>
                 <label class="btn btn-info">
-                  <input type="radio" name="useDiacritics" value="1"> {'yes'|_}
+                  <input type="radio" name="useDiacritics" value="1"> {t}yes{/t}
                 </label>
               </div>
             </div>
           </div>
 
           <div class="form-group">
-            <label class="col-sm-2 control-label">{'time'|_}</label>
+            <label class="col-sm-2 control-label">{t}time{/t}</label>
             <div class="col-sm-10">
               <div class="btn-group" data-toggle="buttons">
                 <label class="btn btn-info">
-                  <input type="radio" name="seconds" value="0"> {'one minute'|_}
+                  <input type="radio" name="seconds" value="0"> {t}one minute{/t}
                 </label>
                 <label class="btn btn-info">
-                  <input type="radio" name="seconds" value="1"> 2 {'minutes'|_}
+                  <input type="radio" name="seconds" value="1"> 2 {t}minutes{/t}
                 </label>
                 <label class="btn btn-info active">
-                  <input type="radio" name="seconds" value="2"> 3 {'minutes'|_}
+                  <input type="radio" name="seconds" value="2"> 3 {t}minutes{/t}
                 </label>
                 <label class="btn btn-info">
-                  <input type="radio" name="seconds" value="3"> 4 {'minutes'|_}
+                  <input type="radio" name="seconds" value="3"> 4 {t}minutes{/t}
                 </label>
                 <label class="btn btn-info">
-                  <input type="radio" name="seconds" value="4"> 5 {'minutes'|_}
+                  <input type="radio" name="seconds" value="4"> 5 {t}minutes{/t}
                 </label>
               </div>
             </div>
           </div>
         </div>
 
-        <h3>{'Object of the game'|_}</h3>
+        <h3>{t}Object of the game{/t}</h3>
         <p>
-          {'Find as many words as you can using the given letters, before the
-          time runs out.'|_}
+          {t}Find as many words as you can using the given letters, before the
+          time runs out.{/t}
         </p>
 
         <p>
-          {'There are three game types:'|_}
+          {t}There are three game types:{/t}
         </p>
 
         <ol>
           <li>
-            <b>{'all words'|_|cap}:</b>
-            {'find all words having at least three letters.'|_}
+            <b>{cap}{t}all words{/t}{/cap}:</b>
+            {t}find all words having at least three letters.{/t}
           </li>
           <li>
-            <b>{'one anagram'|_|cap}:</b>
-            {'find a word using all the letters, then receive a new set of
-            letters.'|_}
+            <b>{cap}{t}one anagram{/t}{/cap}:</b>
+            {t}find a word using all the letters, then receive a new set of letters.{/t}
           </li>
           <li>
-            <b>{'all anagrams'|_|cap}:</b>
-            {'find all words using all the letters, then receive a new set of
-            letters. For example, for the set AINTT you must guess all three
-            anagrams (<i>%s</i>) to receive the next set.'|_|sprintf:"tanti, titan, țintă"}
+            <b>{cap}{t}all anagrams{/t}{/cap}:</b>
+
+            {t 1="tanti, titan, țintă"}find all words using all the letters,
+            then receive a new set of letters. For example, for the set AINTT
+            you must guess all three anagrams (<i>%1</i>) to receive the next
+            set.{/t}
           </li>
         </ol>
 
-        <h3>Instructions</h3>
+        <h3>{t}Instructions{/t}</h3>
         <p>
-          {'When using a keyboard, simply type the letters. When using a
+          {t}When using a keyboard, simply type the letters. When using a
           mouse, click on the letters, then click on the magnifier to check a
-          word.'|_}
+          word.{/t}
         </p>
 
         <p>
-          {'Legal words include conjugations (such as <i>lucrez</i>) and declensions
-          (such as <i>verzi</i>). If you opted for diacritics, then the
-          letters %s cannot be interchanged with %s.'|_|sprintf:"ĂÂÎȘȚ":"AIST"}
+          {t 1="ĂÂÎȘȚ" 2="AIST"}Legal words include conjugations (such as <i>lucrez</i>)
+          and declensions (such as <i>verzi</i>). If you opted for diacritics,
+          then the letters %1 cannot be interchanged with %2.{/t}
         </p>
 
         <p>
-          {'Special keys'|_}:
+          {t}Special keys{/t}:
         </p>
 
         <ul>
-          <li><i>Enter</i> {'checks the word'|_};</li>
-          <li><i>Backspace</i> {'deletes the last letter'|_};</li>
-          <li><i>Escape</i> {'deletes all the letters'|_};</li>
-          <li><i>slash (/)</i> {'shuffles the letters'|_}.</li>
+          <li><i>Enter</i> {t}checks the word{/t};</li>
+          <li><i>Backspace</i> {t}deletes the last letter{/t};</li>
+          <li><i>Escape</i> {t}deletes all the letters{/t};</li>
+          <li><i>slash (/)</i> {t}shuffles the letters{/t}.</li>
         </ul>
 
         <p>
-          {'Below the game area there is'|_}:
+          {t}Below the game area there is{/t}:
         </p>
 
         <ul>
           <li>
             <i class="glyphicon glyphicon-hourglass text-big vcenter"></i>
-            {'time remaining'|_};
+            {t}time remaining{/t};
           </li>
           <li>
             <i class="glyphicon glyphicon-eye-open text-big vcenter"></i>
-            {'number of words found / total number of words'|_};
+            {t}number of words found / total number of words{/t};
           </li>
           <li>
             <i class="glyphicon glyphicon-piggy-bank text-big vcenter"></i>
-            {'score (longer words earn more points)'|_}.
+            {t}score (longer words earn more points){/t}.
           </li>
         </ul>
 
@@ -182,7 +185,7 @@
 
   <div id="gamePanel" class="panel panel-default">
     <div class="panel-heading">
-      {'word scramble'|_|cap}
+      {cap}{t}word scramble{/t}{/cap}
     </div>
 
     <div class="panel-body">
@@ -210,7 +213,7 @@
       <div class="text-center" style="clear: both">
         <button id="restartGameButton" class="btn btn-success" type="button">
           <i class="glyphicon glyphicon-repeat"></i>
-          {'play again'|_}
+          {t}play again{/t}
         </button>
       </div>
     </div>
@@ -218,7 +221,7 @@
 
   <div id="wordListPanel" class="panel panel-default">
     <div class="panel-heading">
-      {'Legal words'|_}
+      {t}Legal words{/t}
     </div>
 
     <div class="panel-body">
@@ -242,8 +245,8 @@
       </a>
 
       <p class="help-block">
-        {'You can share this link with your friends to compare scores on the
-        same letter sets.'|_}
+        {t}You can share this link with your friends to compare scores on the
+        same letter sets.{/t}
       </p>
     </div>
   </div>

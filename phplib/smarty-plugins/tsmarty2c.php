@@ -53,10 +53,13 @@ msgstr "Content-Type: text/plain; charset=UTF-8\n"
 ');
 
 // "fix" string - strip slashes, escape and convert new lines to \n
+// Changes made for dexonline: trim string, convert all whitespace to ' ' and
+// compress whitespace.
 function fs($str) {
 	$str = stripslashes($str);
 	$str = str_replace('"', '\"', $str);
-	$str = str_replace("\n", '\n', $str);
+  $str = preg_replace('/\s+/', ' ', $str);
+  $str = trim($str);
 
 	return $str;
 }

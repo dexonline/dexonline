@@ -179,7 +179,7 @@ class SmartyWrap {
     self::$theSmarty->template_dir = Core::getRootPath() . 'templates';
     self::$theSmarty->compile_dir = Core::getRootPath() . 'templates_c';
     // sufficient for now; generalize if more plugin sources are needed
-    self::$theSmarty->addPluginsDir(__DIR__ . '/third-party/smarty-gettext');
+    self::$theSmarty->addPluginsDir(__DIR__ . '/smarty-plugins');
     self::$theSmarty->inheritance_merge_compiled_includes = false; // This allows variable names in {include} tags
     if (Request::isWeb()) {
       self::assign([
@@ -331,14 +331,12 @@ class SmartyWrap {
         self::assign('recentLinks', RecentLink::load());
       }
     }
-    self::registerPlugins();
     self::registerOutputFilters();
     Plugin::notify('cssJsSmarty');
     print self::fetch($templateName);
   }
 
   static function displayWithoutSkin($templateName) {
-    self::registerPlugins();
     self::registerOutputFilters();
     print self::fetch($templateName);
   }
@@ -373,11 +371,6 @@ class SmartyWrap {
     } else {
       self::$theSmarty->assign($arg1, $arg2);
     }
-  }
-
-  static function registerPlugins() {
-    // capitalize is already implemented, but capitalizes every word, which we don't want.
-    self::$theSmarty->registerPlugin('modifier', 'cap', 'Str::capitalize');
   }
 
   static function registerOutputFilters() {

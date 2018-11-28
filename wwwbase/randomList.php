@@ -17,7 +17,7 @@ define('SOURCE_PART_RANDOM_WORDS', ', surse');
 
 $wListLength = (int) Request::get('w');
 if (is_int($wListLength) && $wListLength) {
-  if ($wListLength<=MIN_WOTD_LIST_LENGTH || $wListLength>MAX_WOTD_LIST_LENGTH) {
+  if ($wListLength < MIN_WOTD_LIST_LENGTH || $wListLength > MAX_WOTD_LIST_LENGTH) {
     $wListLength = DEFAULT_WOTD_LIST_LENGTH;
   }
 } else {
@@ -25,7 +25,7 @@ if (is_int($wListLength) && $wListLength) {
 }
 
 $listLength = (int) Request::get('n');
-if (!is_int($listLength) || $listLength<=MIN_LIST_LENGTH || $listLength>MAX_LIST_LENGTH) {
+if (!is_int($listLength) || $listLength < MIN_LIST_LENGTH || $listLength > MAX_LIST_LENGTH) {
   $listLength = DEFAULT_LIST_LENGTH;
 }
 
@@ -49,10 +49,16 @@ if ( !is_int($noSkin) || $noSkin!=1 ){
 
 if (is_null($wListLength)) {
   $query = sprintf(RANDOM_WORDS_QUERY, $showSource?SOURCE_PART_RANDOM_WORDS:'', $listLength);
-  $type = _('words');
+  $title = sprintf(ngettext(
+    'A randomly chosen word',
+    '%d randomly chosen words',
+    $listLength), $listLength);
 } else {
   $query = sprintf(RANDOM_WOTD_QUERY, $wListLength);
-  $type = _('words of the day');
+  $title = sprintf(ngettext(
+    'A randomly chosen word of the day',
+    '%d randomly chosen words of the day',
+    $wListLength), $wListLength);
 }
 $forms = DB::getArrayOfRows($query);
 
@@ -60,7 +66,7 @@ $cnt = count($forms);
 
 SmartyWrap::assign([
   'forms' => $forms,
-  'type' => $type,
+  'title' => $title,
 ]);
 if ($noSkin) {
   SmartyWrap::displayWithoutSkin('bits/randomWordListSimple.tpl');

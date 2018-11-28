@@ -1,0 +1,7 @@
+tsmarty.c.php and block.t.php adapted from
+https://github.com/smarty-gettext/smarty-gettext
+
+Changed the default escaping to none (was html, which converted all newlines
+to <br> tags, which was not desirable).
+
+Trimmed and compressed whitespace in all extracted strings.

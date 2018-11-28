@@ -47,6 +47,7 @@ function smarty_gettext_strarg($str/*, $varargs... */) {
  *
  * Any parameter that is sent to the function will be represented as %n in the translation text,
  * where n is 1 for the first parameter. The following parameters are reserved:
+ * **** changes made for dexonline: NO is the default ****
  *   - escape - sets escape mode:
  *       - 'html' for HTML escaping, this is the default.
  *       - 'js' for javascript escaping.
@@ -67,12 +68,16 @@ function smarty_block_t($params, $text) {
 		return $text;
 	}
 
+  // changes made for dexonline: trim $text and compress whitespace
+  $text = trim(preg_replace('/\s+/', ' ', $text));
+
 	// set escape mode, default html escape
 	if (isset($params['escape'])) {
 		$escape = $params['escape'];
 		unset($params['escape']);
 	} else {
-		$escape = 'html';
+    // change made for dexonline, was 'html'
+		$escape = 'no';
 	}
 
 	// set plural parameters 'plural' and 'count'.

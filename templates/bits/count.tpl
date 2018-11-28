@@ -8,7 +8,7 @@
 {elseif $total % 100 > 0 && $total % 100 < 20}
   {$total} {$many} {$common}
 {else}
-  {$total} {'&#x200b;'|_}{$many} {$common}
+  {$total} {t escape="no"}&#x200b;{/t}{$many} {$common}
 {/if}
 
 {if $total > $displayed}

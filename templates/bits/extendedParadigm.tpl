@@ -17,18 +17,18 @@
   <ul class="lexemeMorphology">
     {if $lexeme->hyphenations}
       <li>
-        {'hyphenation'|_}:
+        {t}hyphenation{/t}:
         <span class="value">{$lexeme->hyphenations}</span>
         <i
           class="glyphicon glyphicon-info-sign"
-          title="{'Hyphenation splits the word into syllables.'|_}"
+          title="{t}Hyphenation splits the word into syllables.{/t}"
         ></i>
       </li>
     {/if}
 
     {if $lexeme->pronunciations}
       <li>
-        {'pronunciation'|_}: <span class="value">{$lexeme->getDisplayPronunciations()}</span>
+        {t}pronunciation{/t}: <span class="value">{$lexeme->getDisplayPronunciations()}</span>
       </li>
     {/if}
   </ul>

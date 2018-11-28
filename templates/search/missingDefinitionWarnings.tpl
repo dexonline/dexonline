@@ -2,15 +2,15 @@
 
   {if isset($extra.unofficialHidden)}
     <p class="text-warning">
-      {'There are definitions in unofficial dictionaries, which
-      <a href="%spreferinte">you have chosen to hide</a>.'|_|sprintf:$wwwRoot}
+      {t 1=$wwwRoot}There are definitions in unofficial dictionaries,
+      which <a href="%1preferinte">you have chosen to hide</a>.{/t}
     </p>
   {/if}
 
   {if isset($extra.sourcesHidden)}
     <p class="text-warning">
-      {'There are definitions in dictionaries for which dexonline has no
-      publishing rights:'|_}
+      {t}There are definitions in dictionaries for which dexonline has no
+      publishing rights:{/t}
     </p>
 
     <ul>

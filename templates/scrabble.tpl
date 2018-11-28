@@ -6,14 +6,14 @@
 
 {block "content"}
   <div class="panel panel-default">
-    <div class="panel-heading">{'Scrabble lookup'|_}</div>
+    <div class="panel-heading">{t}Scrabble lookup{/t}</div>
 
     <div class="panel-body">
       {assign var="form" value=$form|default:""}
 
       <p>
-        {'Are you playing Scrabble and your friends do not believe that <em>kwyjibo</em> is
-        a perfectly legal word? Type in your word to show them who the boss is.'|_}
+        {t}Are you playing Scrabble and your friends do not believe that <em>kwyjibo</em>
+        is a perfectly legal word? Type in your word to show them who the boss is.{/t}
       </p>
 
       <form action="scrabble" method="get">
@@ -39,7 +39,7 @@
           </div>
 
           <div class="form-inline text-center">
-            {'in version'|_}
+            {t}in version{/t}
             <select name="version" class="form-control">
               {foreach $versions as $v}
                 <option
@@ -50,7 +50,7 @@
               {/foreach}
             </select>
 
-            <input type="submit" value="{'look up'|_}" class="btn btn-primary">
+            <input type="submit" value="{t}look up{/t}" class="btn btn-primary">
           </div>
         </div>
       </form>
@@ -60,17 +60,17 @@
   </div>
 
   <div class="panel panel-default">
-    <div class="panel-heading">{'Official Scrabble word list (LOC)'|_}</div>
+    <div class="panel-heading">{t}Official Scrabble word list (LOC){/t}</div>
 
     <div class="panel-body">
       <table class="table table-striped-column-even">
         <thead>
           <tr>
-            <th>{'version'|_}</th>
-            <th>{'publication date'|_}</th>
-            <th>{'reduced forms'|_}</th>
-            <th>{'base forms'|_}</th>
-            <th>{'inflected forms'|_}</th>
+            <th>{t}version{/t}</th>
+            <th>{t}publication date{/t}</th>
+            <th>{t}reduced forms{/t}</th>
+            <th>{t}base forms{/t}</th>
+            <th>{t}inflected forms{/t}</th>
           </tr>
         </thead>
         <tbody>
@@ -78,90 +78,85 @@
             <tr>
               <td>{$v->name|escape}</td>
               <td>{$v->freezeTimestamp|date_format:"%d %B %Y"}</td>
-              <td><a href="{$v->getReducedFormUrl()}">{'download'|_}</a></td>
-              <td><a href="{$v->getBaseFormUrl()}">{'download'|_}</a></td>
-              <td><a href="{$v->getInflectedFormUrl()}">{'download'|_}</a></td>
+              <td><a href="{$v->getReducedFormUrl()}">{t}download{/t}</a></td>
+              <td><a href="{$v->getBaseFormUrl()}">{t}download{/t}</a></td>
+              <td><a href="{$v->getInflectedFormUrl()}">{t}download{/t}</a></td>
             </tr>
           {/foreach}
         </tbody>
       </table>
 
       <dl class="dl-horizontal">
-        <dt>{'reduced forms'|_}</dt>
-        <dd>{'a list of words between 2 and 15 letters, without diacritics'|_}</dd>
-        <dt>{'base forms'|_}</dt>
+        <dt>{t}reduced forms{/t}</dt>
+        <dd>{t}a list of words between 2 and 15 letters, without diacritics{/t}</dd>
+        <dt>{t}base forms{/t}</dt>
         <dd>
-          {'word list in alphabetical order'|_}
+          {t}word list in alphabetical order{/t}
           (<a href="https://wiki.dexonline.ro/wiki/Preciz%C4%83ri_privind_LOC"
-             target="_blank">{'legend of notations'|_}</a>)
+             target="_blank">{t}legend of notations{/t}</a>)
         </dd>
-        <dt>{'inflected forms'|_}</dt>
-        <dd>{'list of words and their conjugations/declensions'|_}</dd>
+        <dt>{t}inflected forms{/t}</dt>
+        <dd>{t}list of words and their conjugations/declensions{/t}</dd>
       </dl>
 
       <div class="alert alert-warning">
-        {'The last official LOC version is 5.0. Version 6.0 contains changes
-        to LOC made using the dexonline interface, but not included in the
-        official version.'|_}
+        {t}The last official LOC version is 5.0. Version 6.0 contains changes to
+        LOC made using the dexonline interface, but not included in the official
+        version.{/t}
       </div>
     </div>
   </div>
 
   <div class="panel panel-default">
-    <div class="panel-heading">{'Differences between versions'|_}</div>
+    <div class="panel-heading">{t}Differences between versions{/t}</div>
 
     <div class="panel-body">
       <p>
-        {'Find out what changed between two versions of LOC.'|_}
+        {t}Find out what changed between two versions of LOC.{/t}
       </p>
 
       <form class="form-inline" action="scrabble-diferente-loc" method="get">
         <div class="form-group">
-          {'compare'|_|cap}
+          {cap}{t}compare{/t}{/cap}
           <select class="form-control" name="list">
-            <option value="base">{'base forms'|_}</option>
-            <option value="inflected">{'inflected forms'|_}</option>
-            <option value="reduced">{'reduced forms'|_}</option>
+            <option value="base">{t}base forms{/t}</option>
+            <option value="inflected">{t}inflected forms{/t}</option>
+            <option value="reduced">{t}reduced forms{/t}</option>
           </select>
         </div>
 
         <div class="form-group">
-          {'between'|_}
+          {t}between{/t}
 
           <select class="form-control" name="versions">
             {foreach $versions as $i => $old}
               {foreach $versions as $j => $new}
                 {if $i > $j}
                   <option value="{$old->name|escape},{$new->name|escape}">
-                    {'version %s and version %s'|_|sprintf
-                    :$old->name
-                    :$new->name}
+                    {t 1=$old->name 2=$new->name}version %1 and version %2{/t}
                   </option>
                 {/if}
               {/foreach}
             {/foreach}
           </select>
         </div>
-        <input type="submit" value="{'compare'|_}" class="btn btn-primary">
+        <input type="submit" value="{t}compare{/t}" class="btn btn-primary">
       </form>
     </div>
   </div>
 
   <div class="panel panel-default">
-    <div class="panel-heading">{'Inflection models'|_}</div>
+    <div class="panel-heading">{t}Inflection models{/t}</div>
 
     <div class="panel-body">
       <p>
-        {"<em>%s</em> and <em>%s</em> have similar declensions... but not
-        <em>%s</em> and <em>%s</em>? Here is why."|_|sprintf
-        :'Stradă, cadă, ladă'
-        :'ogradă'
-        :'baladă'
-        :'livadă'}
+        {t 1="Stradă, cadă, ladă" 2="ogradă" 3="baladă" 4="livadă"}
+        <em>%1</em> and <em>%2</em> have similar declensions... but not
+        <em>%3</em> and <em>%4</em>? Here is why.{/t}
       </p>
 
       <form class="form-inline" action="modele-flexiune">
-        {'Show models for'|_}
+        {t}Show models for{/t}
 
         <select class="form-control" name="modelType">
           {foreach $canonicalModelTypes as $mt}
@@ -169,7 +164,7 @@
           {/foreach}
         </select>
 
-        <input class="btn btn-primary" type="submit" value="{'show'|_}">
+        <input class="btn btn-primary" type="submit" value="{t}show{/t}">
       </form>
     </div>
   </div>

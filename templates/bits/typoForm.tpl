@@ -10,7 +10,7 @@
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
-            <h4 class="modal-title">{'report a typo'|_|cap}</h4>
+            <h4 class="modal-title">{cap}{t}report a typo{/t}{/cap}</h4>
           </div>
 
           <div class="modal-body">
@@ -20,28 +20,28 @@
               cols="40"
               rows="3"
               maxlength="400"
-              placeholder="{'please describe the error; at most 400 characters are allowed'|_}"
+              placeholder="{t}please describe the error; at most 400 characters are allowed{/t}"
             ></textarea>
             <input type="hidden" name="definitionId" value="">
 
-            <p class="voffset3">{'notes'|_|cap}:</p>
+            <p class="voffset3">{cap}{t}notes{/t}{/cap}:</p>
 
             <ul>
               <li>
-                {'Some dictionaries (such as <em>Scriban</em>) use old
-                orthographies. This is not a typo.'|_}
+                {t}Some dictionaries (such as <em>Scriban</em>) use old orthographies.
+                This is not a typo.{/t}
               </li>
               <li>
-                {'We generally do not change the original text of definitions,
-                but we can add comments. Please do not report semantic errors
-                except in obvious cases.'|_}
+                {t}We generally do not change the original text of
+                definitions, but we can add comments. Please do not report
+                semantic errors except in obvious cases.{/t}
               </li>
             </ul>
           </div>
 
           <div class="modal-footer">
-            <button class="btn btn-primary" id="typoSubmit" type="submit">{'submit'|_}</button>
-            <button class="btn btn-link" data-dismiss="modal">{'cancel'|_}</button>
+            <button class="btn btn-primary" id="typoSubmit" type="submit">{t}submit{/t}</button>
+            <button class="btn btn-link" data-dismiss="modal">{t}cancel{/t}</button>
           </div>
         </form>
       </div>
@@ -56,15 +56,15 @@
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
-          <h4 class="modal-title">{'report a typo'|_|cap}</h4>
+          <h4 class="modal-title">{cap}{t}report a typo{/t}{/cap}</h4>
         </div>
 
         <div class="modal-body">
-          {'Thank you for your report!'|_}
+          {t}Thank you for your report!{/t}
         </div>
 
         <div class="modal-footer">
-          <button class="btn btn-link" data-dismiss="modal">{'close'|_}</button>
+          <button class="btn btn-link" data-dismiss="modal">{t}close{/t}</button>
         </div>
       </div>
     </div>

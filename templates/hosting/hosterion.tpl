@@ -1,1 +1,1 @@
-{'hosted by'|_} <a href="https://hosterion.ro/" target="_blank">Hosterion</a>
+{t}hosted by{/t} <a href="https://hosterion.ro/" target="_blank">Hosterion</a>

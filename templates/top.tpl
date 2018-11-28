@@ -3,20 +3,20 @@
 {block "title"}Topul voluntarilor{/block}
 
 {block "content"}
-  <h3>{'Manual contribution rankings'|_}</h3>
+  <h3>{t}Manual contribution rankings{/t}</h3>
 
   <p>
-    {'For every user the number of definitions and the total character length
+    {t}For every user the number of definitions and the total character length
     of those definitions are shown. For comparison, the Bible has roughly
-    3,500,000 characters.'|_}
+    3,500,000 characters.{/t}
   </p>
 
   {include "bits/top.tpl" data=$manualData tableId="manualTop" pager=1}
 
-  <h3>{'Automated contribution rankings'|_}</h3>
+  <h3>{t}Automated contribution rankings{/t}</h3>
 
   <p>
-    {'These include definitions entered using a program.'|_}
+    {t}These include definitions entered using a program.{/t}
   </p>
 
   {include "bits/top.tpl" data=$bulkData tableId="bulkTop" pager=0}

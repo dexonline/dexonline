@@ -1,4 +1,5 @@
 <p>
-  {t}Repeat your search{/t}
-  <a href="{$wwwRoot}definitie/{$cuv|escape}">{t}in all dictionaries{/t}</a>.
+  {$url=`$wwwRoot`definitie/`$cuv|escape`}
+  {t 1=$url}
+  Repeat your search <a href="%1">in all dictionaries</a>.{/t}
 </p>

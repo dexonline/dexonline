@@ -19,10 +19,10 @@
 
   <ul>
     <li>
-      <a href="https://wiki.dexonline.ro/wiki/Informa%C8%9Bii#Ce_nu_este_dexonline">
-        {t}What dexonline is <strong>not</strong>{/t}
-      </a>
-      {t}(ways we cannot help you).{/t}
+      {t 1="https://wiki.dexonline.ro/wiki/Informa%C8%9Bii#Ce_nu_este_dexonline"}
+      <a href="%1">What dexonline is <strong>not</strong></a>
+      (ways we cannot help you).
+      {/t}
     </li>
 
     <li>

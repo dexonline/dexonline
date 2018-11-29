@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-11-29 15:13+0200\n"
-"PO-Revision-Date: 2018-11-29 15:15+0200\n"
+"POT-Creation-Date: 2018-11-29 15:25+0200\n"
+"PO-Revision-Date: 2018-11-29 15:25+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -328,13 +328,13 @@ msgstr "închide"
 msgid "Useful information"
 msgstr "Informații utile"
 
-#: templates/contact.tpl:23
-msgid "What dexonline is <strong>not</strong>"
-msgstr "Ce <strong>nu</strong> este dexonline"
-
-#: templates/contact.tpl:25
-msgid "(ways we cannot help you)."
-msgstr "(când nu vă putem ajuta)."
+#: templates/contact.tpl:22
+msgid ""
+"<a href=\"%1\">What dexonline is <strong>not</strong></a> (ways we cannot "
+"help you)."
+msgstr ""
+"<a href=\"%1\">Ce <strong>nu</strong> este dexonline</a> (când nu vă putem "
+"ajuta)."
 
 #: templates/contact.tpl:29
 msgid "You can install dexonline on <a href=\"%1\">your computer or phone</a>."
@@ -1121,13 +1121,9 @@ msgstr ""
 "Deoarece nu sunt editate de lexicografi, aceste definiții pot conține erori, "
 "deci e preferabilă consultarea altor dicționare în paralel."
 
-#: templates/search/extendToAllSources.tpl:2
-msgid "Repeat your search"
-msgstr "Repetați căutarea"
-
 #: templates/search/extendToAllSources.tpl:3
-msgid "in all dictionaries"
-msgstr "în toate dicționarele"
+msgid "Repeat your search <a href=\"%1\">in all dictionaries</a>."
+msgstr "Repetați căutarea <a href=\"%1\">în toate dicționarele</a>."
 
 #: templates/search/fullTextLock.tpl:1
 msgid "Search disabled"

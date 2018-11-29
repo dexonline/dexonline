@@ -155,7 +155,11 @@
         {include "search/gallery.tpl"}
 
         {if count($entries) > 1}
-          <h3>{$entries|count} {t}entries{/t}</h3>
+          <h3>
+            {* this is always plural, but still needs to be localized *}
+            {t count=count($entries) 1=count($entries) plural="%1 entries"}
+            One entry{/t}
+          </h3>
 
           {include "search/entryToc.tpl"}
         {else}

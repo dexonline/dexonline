@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-11-28 16:07+0200\n"
-"PO-Revision-Date: 2018-11-28 16:11+0200\n"
+"POT-Creation-Date: 2018-11-29 15:13+0200\n"
+"PO-Revision-Date: 2018-11-29 15:15+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -791,8 +791,8 @@ msgstr ""
 msgid "Show models for"
 msgstr "Arată modelele pentru"
 
-#: templates/scrabble.tpl:167 templates/search.tpl:282 templates/search.tpl:290
-#: templates/search.tpl:292
+#: templates/scrabble.tpl:167 templates/search.tpl:286 templates/search.tpl:294
+#: templates/search.tpl:296
 msgid "show"
 msgstr "arată"
 
@@ -988,8 +988,8 @@ msgstr[0] "O definiție conține toate cuvintele căutate"
 msgstr[1] "%1 definiții conțin toate cuvintele căutate"
 msgstr[2] "%1 de definiții conțin toate cuvintele căutate"
 
-#: templates/search.tpl:74 templates/search.tpl:142 templates/search.tpl:179
-#: templates/search.tpl:200 templates/search.tpl:225
+#: templates/search.tpl:74 templates/search.tpl:142 templates/search.tpl:183
+#: templates/search.tpl:204 templates/search.tpl:229
 msgid "(at most %1 shown)"
 msgstr "(cel mult %1 afișate)"
 
@@ -1005,14 +1005,14 @@ msgstr "Următoarele cuvinte au fost ignorate deoarece sunt prea comune:"
 msgid "There is no entry with the given ID."
 msgstr "Nu există nicio intrare cu ID-ul căutat."
 
-#: templates/search.tpl:109 templates/search.tpl:169
+#: templates/search.tpl:109 templates/search.tpl:173
 msgid "One definition for %2"
 msgid_plural "%1 definitions for %2"
 msgstr[0] "O definiție pentru %2"
 msgstr[1] "%1 definiții pentru %2"
 msgstr[2] "%1 de definiții pentru %2"
 
-#: templates/search.tpl:115 templates/search.tpl:175
+#: templates/search.tpl:115 templates/search.tpl:179
 msgid "No definitions for %1"
 msgstr "Nicio definiție pentru %1"
 
@@ -1027,22 +1027,25 @@ msgstr[0] "Un rezultat pentru <strong>%2</strong>"
 msgstr[1] "%1 rezultate pentru <strong>%2</strong>"
 msgstr[2] "%1 de rezultate pentru <strong>%2</strong>"
 
-#: templates/search.tpl:138 templates/search.tpl:257
+#: templates/search.tpl:138 templates/search.tpl:261
 msgid "No results for <strong>%1</strong>"
 msgstr "Niciun rezultat pentru <strong>%1</strong>"
 
-#: templates/search.tpl:158
-msgid "entries"
-msgstr "intrări"
+#: templates/search.tpl:160
+msgid "One entry"
+msgid_plural "%1 entries"
+msgstr[0] "O intrare"
+msgstr[1] "%1 intrări"
+msgstr[2] "%1 de intrări"
 
-#: templates/search.tpl:194
+#: templates/search.tpl:198
 msgid "One definition"
 msgid_plural "%1 definitions"
 msgstr[0] "O definiție"
 msgstr[1] "%1 definiții"
 msgstr[2] "%1 de definiții"
 
-#: templates/search.tpl:216
+#: templates/search.tpl:220
 msgid "One definition matches at least two words"
 msgid_plural "%1 definitions match at least two words"
 msgstr[0] "O definiție se potrivește cu cel puțin două din cuvintele căutate"
@@ -1050,12 +1053,12 @@ msgstr[1] "%1 definiții se potrivesc cu cel puțin două din cuvintele căutate
 msgstr[2] ""
 "%1 de definiții se potrivesc cu cel puțin două din cuvintele căutate"
 
-#: templates/search.tpl:221
+#: templates/search.tpl:225
 msgid "No definitions match at least two words"
 msgstr ""
 "Nicio definiție nu se potrivește cu cel puțin două din cuvintele căutate"
 
-#: templates/search.tpl:230
+#: templates/search.tpl:234
 msgid ""
 "If the results are inadequate, you can look up individual words or you can "
 "search"
@@ -1063,38 +1066,38 @@ msgstr ""
 "Dacă rezultatele nu sunt mulțumitoare, puteți căuta cuvintele separat sau "
 "puteți căuta"
 
-#: templates/search.tpl:231
+#: templates/search.tpl:235
 msgid "full-text"
 msgstr "în tot textul definițiilor"
 
-#: templates/search.tpl:236
+#: templates/search.tpl:240
 msgid "At most 5 words are allowed. The following words were ignored:"
 msgstr "Sunt permise maximum 5 cuvinte. Următoarele cuvinte au fost ignorate:"
 
-#: templates/search.tpl:251
+#: templates/search.tpl:255
 msgid ""
 "The word <strong>%1</strong> is not in the dictionary. Here are some "
 "suggestions:"
 msgstr ""
 "Cuvântul <strong>%1</strong> nu este în dicționar. Iată câteva sugestii:"
 
-#: templates/search.tpl:277
+#: templates/search.tpl:281
 msgid "unrecommended or incorrect form"
 msgstr "formă nerecomandată sau greșită"
 
-#: templates/search.tpl:281 templates/search.tpl:289 templates/search.tpl:293
+#: templates/search.tpl:285 templates/search.tpl:293 templates/search.tpl:297
 msgid "hide"
 msgstr "ascunde"
 
-#: templates/search.tpl:296
+#: templates/search.tpl:300
 msgid "elisions"
 msgstr "forme elidate"
 
-#: templates/search.tpl:307
+#: templates/search.tpl:311
 msgid "link to this inflected forms page"
 msgstr "legătură către această pagină cu flexiuni"
 
-#: templates/search.tpl:310
+#: templates/search.tpl:314
 msgid "link to this paradigm"
 msgstr "legătură către această paradigmă"
 

@@ -1,7 +1,7 @@
 {extends "layout.tpl"}
 
 {block "title"}
-  {'Word of the month for'|_} {$timestamp|date_format:'%B %Y'}:
+  {t}Word of the month for{/t} {$timestamp|date_format:'%B %Y'}:
   {$searchResult->definition->lexicon}
 {/block}
 
@@ -16,20 +16,20 @@
 {/block}
 
 {block "content"}
-  <h3>{'Word of the month for'|_} {$timestamp|date_format:'%B %Y'}</h3>
+  <h3>{t}Word of the month for{/t} {$timestamp|date_format:'%B %Y'}</h3>
   <div class="container panel panel-default">
     <div class="row panel-heading">
 
       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 wotm-navigation">
         {if isset($prevmon)}
-          <a title="{'previous'|_}" href="{$wwwRoot}cuvantul-lunii/{$prevmon}">
+          <a title="{t}previous{/t}" href="{$wwwRoot}cuvantul-lunii/{$prevmon}">
             <span class="glyphicon glyphicon-chevron-left pull-left"></span>
           </a>
         {/if}
       </div>
       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 wotm-navigation">
         {if isset($nextmon)}
-          <a title="{'next'|_}" href="{$wwwRoot}cuvantul-lunii/{$nextmon}">
+          <a title="{t}next{/t}" href="{$wwwRoot}cuvantul-lunii/{$nextmon}">
             <span class="glyphicon glyphicon-chevron-right pull-right"></span>
           </a>
         {/if}
@@ -54,7 +54,7 @@
     </div>
     {if $reason}
       <div class="row panel-footer">
-        <b>{'Chosen because:'|_}</b> {$reason}
+        <b>{t}Chosen because:{/t}</b> {$reason}
       </div>
     {/if}
   </div>

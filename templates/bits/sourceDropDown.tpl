@@ -10,7 +10,7 @@
         style="width: {$width}"
         {if $autosubmit}onchange="this.form.submit();"{/if}>
   {if !$skipAnySource}
-    <option value="">{'All dictionaries'|_}</option>
+    <option value="">{t}All dictionaries{/t}</option>
   {/if}
   {foreach Source::getAll(Source::SORT_SEARCH) as $source}
     {if $urlName}

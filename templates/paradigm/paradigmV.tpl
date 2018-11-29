@@ -5,11 +5,11 @@
     <td colspan="2" rowspan="3">
       {include "bits/lexeme.tpl" lexeme=$lexeme}
     </td>
-    <td class="inflection">{'infinitive'|_}</td>
-    <td class="inflection">{'long infinitive'|_}</td>
-    <td class="inflection">{'participle'|_}</td>
-    <td class="inflection">{'gerund'|_}</td>
-    <td colspan="2" class="inflection">{'imperative 2nd person'|_}</td>
+    <td class="inflection">{t}infinitive{/t}</td>
+    <td class="inflection">{t}long infinitive{/t}</td>
+    <td class="inflection">{t}participle{/t}</td>
+    <td class="inflection">{t}gerund{/t}</td>
+    <td colspan="2" class="inflection">{t}imperative 2nd person{/t}</td>
   </tr>
   <tr>
     <td rowspan="2" class="form">
@@ -25,8 +25,8 @@
     <td rowspan="2" class="form">
       {include "bits/ifArray.tpl" ifArray=$ifMap[6]|default:null}
     </td>
-    <td class="inflection">{'singular'|_}</td>
-    <td class="inflection">{'plural'|_}</td>
+    <td class="inflection">{t}singular{/t}</td>
+    <td class="inflection">{t}plural{/t}</td>
   </tr>
   <tr>
     <td class="form">
@@ -42,17 +42,17 @@
   </tr>
 
   <tr>
-    <td class="inflection">{'number'|_}</td>
-    <td class="inflection">{'person'|_}</td>
-    <td class="inflection">{'present'|_}</td>
-    <td class="inflection">{'present subjunctive'|_}</td>
-    <td class="inflection">{'imperfect'|_}</td>
-    <td class="inflection">{'simple perfect'|_}</td>
-    <td colspan="2" class="inflection">{'pluperfect'|_}</td>
+    <td class="inflection">{t}number{/t}</td>
+    <td class="inflection">{t}person{/t}</td>
+    <td class="inflection">{t}present{/t}</td>
+    <td class="inflection">{t}present subjunctive{/t}</td>
+    <td class="inflection">{t}imperfect{/t}</td>
+    <td class="inflection">{t}simple perfect{/t}</td>
+    <td colspan="2" class="inflection">{t}pluperfect{/t}</td>
   </tr>
   <tr>
-    <td rowspan="3" class="inflection">{'singular'|_}</td>
-    <td class="inflection person">{'1st (eu)'|_}</td>
+    <td rowspan="3" class="inflection">{t}singular{/t}</td>
+    <td class="inflection person">{t}1st (eu){/t}</td>
     <td class="form">
       {include "bits/ifArray.tpl" ifArray=$ifMap[7]|default:null}
     </td>
@@ -71,7 +71,7 @@
     </td>
   </tr>
   <tr>
-    <td class="inflection person">{'2nd (tu)'|_}</td>
+    <td class="inflection person">{t}2nd (tu){/t}</td>
     <td class="form">
       {include "bits/ifArray.tpl" ifArray=$ifMap[8]|default:null}
     </td>
@@ -90,7 +90,7 @@
     </td>
   </tr>
   <tr>
-    <td class="inflection person">{'3rd (el, ea)'|_}</td>
+    <td class="inflection person">{t}3rd (el, ea){/t}</td>
     <td class="form">
       {include "bits/ifArray.tpl" ifArray=$ifMap[9]|default:null}
     </td>
@@ -109,8 +109,8 @@
     </td>
   </tr>
   <tr>
-    <td rowspan="3" class="inflection">{'plural'|_}</td>
-    <td class="inflection person">{'1st (noi)'|_}</td>
+    <td rowspan="3" class="inflection">{t}plural{/t}</td>
+    <td class="inflection person">{t}1st (noi){/t}</td>
     <td class="form">
       {include "bits/ifArray.tpl" ifArray=$ifMap[10]|default:null}
     </td>
@@ -129,7 +129,7 @@
     </td>
   </tr>
   <tr>
-    <td class="inflection person">{'2nd (voi)'|_}</td>
+    <td class="inflection person">{t}2nd (voi){/t}</td>
     <td class="form">
       {include "bits/ifArray.tpl" ifArray=$ifMap[11]|default:null}
     </td>
@@ -148,7 +148,7 @@
     </td>
   </tr>
   <tr>
-    <td class="inflection person">{'3rd (ei, ele)'|_}</td>
+    <td class="inflection person">{t}3rd (ei, ele){/t}</td>
     <td class="form">
       {include "bits/ifArray.tpl" ifArray=$ifMap[12]|default:null}
     </td>

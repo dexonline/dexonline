@@ -1,6 +1,6 @@
 <div class="widget social row multiple-links">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-    <h4>{'follow us on'|_}</h4>
+    <h4>{t}follow us on{/t}</h4>
     <ul class="list-inline">
       <li>
       	<a href="https://www.facebook.com/dexonline">
@@ -8,8 +8,8 @@
             src='./img/svg/facebook.svg'
             width='32'
             height='32'
-            alt="{'Facebook icon'|_}"
-            title="{'Follow us on Facebook'|_}">
+            alt="{t}Facebook icon{/t}"
+            title="{t}Follow us on Facebook{/t}">
       	</a>
       </li>
       <li>
@@ -18,8 +18,8 @@
             src='./img/svg/blogger.svg'
             width='32'
             height='32'
-            alt="{'Blogger icon'|_}"
-            title="{'Follow us on Blogger'|_}">
+            alt="{t}Blogger icon{/t}"
+            title="{t}Follow us on Blogger{/t}">
       	</a>
       </li>
       <li>
@@ -28,8 +28,8 @@
             src='./img/svg/twitter.svg'
             width='32'
             height='32'
-            alt="{'Twitter icon'|_}"
-            title="{'Follow us on Twitter'|_}">
+            alt="{t}Twitter icon{/t}"
+            title="{t}Follow us on Twitter{/t}">
       	</a>
       </li>
     </ul>

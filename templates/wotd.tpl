@@ -1,7 +1,7 @@
 {extends "layout.tpl"}
 
 {block "title"}
-  {'word of the day'|_|cap}, ({$day} {$monthName} {$year}):
+  {cap}{t}word of the day{/t}{/cap} ({$day} {$monthName} {$year}):
   {$searchResult->definition->lexicon}
 {/block}
 
@@ -19,7 +19,7 @@
   {assign var="reason" value=$reason|default:''}
 
   <h3 class="clearfix">
-    {'Word of the day for %2$s %1$d, %3$d'|_|sprintf:$day:$monthName:$year}
+    {t 1=$day 2=$monthName 3=$year}Word of the day for %2 %1, %3{/t}
 
     {if $skinVariables.wotdSubscribe}
       <div id="wotdSocialMedia" class="pull-right">
@@ -41,11 +41,12 @@
   <div id="toggleContents" class="collapse voffset2">
     <div class="panel panel-default">
       <div class="panel-body">
-        {'<i>dexonline</i> does not directly offer the word of the day by email.
-        However, there are <a href="%s">many sites</a> that do this for any RSS feed.
-        We recommend <a href="%s">IFTTT</a>.'|_|sprintf
-        :"http://www.google.com/search?q=rss+by+email"
-        :"https://ifttt.com/recipes/147561-rss-feed-to-email"}
+        {t
+          1="http://www.google.com/search?q=rss+by+email"
+          2="https://ifttt.com/recipes/147561-rss-feed-to-email"
+        }<i>dexonline</i> does not directly offer the word of the day by email.
+        However, there are <a href="%1">many sites</a> that do this for any RSS feed.
+        We recommend <a href="%2">IFTTT</a>.{/t}
       </div>
     </div>
   </div>
@@ -94,20 +95,20 @@
     </div>
     {if $reason}
       <div class="panel-footer">
-        <b>{'Chosen because:'|_}</b> {$reason}
+        <b>{t}Chosen because:{/t}</b> {$reason}
       </div>
     {/if}
   </div>
 
   {if $skinVariables.wotdArchive}
     <br>
-    <h3>{'Word of the day archive'|_}</h3>
+    <h3>{t}Word of the day archive{/t}</h3>
 
     <div id="wotdArchive" class="wotdArchive"></div>
     <script>loadAjaxContent('{$wwwRoot}arhiva/cuvantul-zilei/{$year}/{$month}','#wotdArchive')</script>
 
     <h3>
-      {'Word of the day for %2$s %1$d in other years:'|_|sprintf:$day:$monthName}
+      {t 1=$day 2=$monthName}Word of the day for %2 %1 in other years:{/t}
     </h3>
     {foreach $otherYears as $r}
       <div class="panel panel-default">
@@ -127,6 +128,6 @@
     {/foreach}
   {/if}
 
-  <h3>{'Comments'|_}</h3>
+  <h3>{t}Comments{/t}</h3>
   <fb:comments href="https://dexonline.ro/cuvantul-zilei/{$year}/{$month}/{$day}"></fb:comments>
 {/block}

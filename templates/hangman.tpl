@@ -1,6 +1,6 @@
 {extends "layout.tpl"}
 
-{block "title"}{'hangman'|_|cap}{/block}
+{block "title"}{cap}{t}hangman{/t}{/cap}{/block}
 
 {block "search"}{/block}
 
@@ -12,15 +12,15 @@
 
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h3 class="panel-title">{'hangman'|_|cap}</h3>
+      <h3 class="panel-title">{cap}{t}hangman{/t}{/cap}</h3>
     </div>
     <div class="panel-body">
       <form id="hangman" action="">
 
         <div class="graphics">
-          <label>{'Lives remaining'|_}: <span id="livesLeft">6</span></label>
+          <label>{t}Lives remaining{/t}: <span id="livesLeft">6</span></label>
           <div class="hangmanPic"> </div>
-          <div class="imageLicense">{'images'|_} © dexonline.ro</div>
+          <div class="imageLicense">{t}images{/t} © dexonline.ro</div>
 
           <div class="output">
             {section name="ignored" start=0 loop=$wordLength}
@@ -33,15 +33,15 @@
           {foreach $letters as $letter}
             <input class="letterButtons btn" type="button" value="{$letter|mb_strtoupper}">
           {/foreach}
-          <input id="hintButton" type="button" value="{'Get a clue'|_}" class="btn">
+          <input id="hintButton" type="button" value="{t}Get a clue{/t}" class="btn">
         </div>
 
         <div class="newGameControls">
           <label>Joc nou:</label>
-          <button class="btn btn-info" type="button" data-level="1">{'easy'|_}</button>
-          <button class="btn btn-info" type="button" data-level="2">{'medium'|_}</button><br>
-          <button class="btn btn-info" type="button" data-level="3">{'hard'|_}</button>
-          <button class="btn btn-info" type="button" data-level="4">{'expert'|_}</button>
+          <button class="btn btn-info" type="button" data-level="1">{t}easy{/t}</button>
+          <button class="btn btn-info" type="button" data-level="2">{t}medium{/t}</button><br>
+          <button class="btn btn-info" type="button" data-level="3">{t}hard{/t}</button>
+          <button class="btn btn-info" type="button" data-level="4">{t}expert{/t}</button>
         </div>
       </form>
     </div>
@@ -49,7 +49,7 @@
 
   <div id="resultsWrapper" class="panel panel-default">
     <div class="panel-heading">
-      <h3 class="panel-title">{'definitions'|_|cap}</h3>
+      <h3 class="panel-title">{cap}{t}definitions{/t}{/cap}</h3>
     </div>
     <div class="panel-body">
       {foreach $searchResults as $row}
@@ -63,10 +63,10 @@
       <div class="modal-content">
         <div class="modal-body">
           <div class="win text-success">
-            {'Congratulations, you win!'|_}
+            {t}Congratulations, you win!{/t}
           </div>
           <div class="lose text-danger">
-            {'Sorry, you lose.'|_}
+            {t}Sorry, you lose.{/t}
           </div>
         </div>
       </div>

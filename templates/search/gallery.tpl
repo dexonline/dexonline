@@ -3,7 +3,7 @@
 
   <div id="gallery">
     <div class="panel panel-default">
-      <div class="panel-heading">{'images'|_}</div>
+      <div class="panel-heading">{t}images{/t}</div>
       <div class="panel-body">
         {foreach $images as $i}
           <a class="gallery"

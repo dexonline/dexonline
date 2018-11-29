@@ -1,11 +1,11 @@
 <table id="{$tableId}">
   <thead>
     <tr>
-      <th>{'rank'|_}</th>
-      <th>{'name'|_}</th>
-      <th>{'characters'|_}</th>
-      <th>{'definitions'|_}</th>
-      <th>{'most recent submission'|_}</th>
+      <th>{t}rank{/t}</th>
+      <th>{t}name{/t}</th>
+      <th>{t}characters{/t}</th>
+      <th>{t}definitions{/t}</th>
+      <th>{t}most recent submission{/t}</th>
     </tr>
   </thead>
 

@@ -5,12 +5,12 @@
     <td colspan="2">
       {include "bits/lexeme.tpl" lexeme=$lexeme}
     </td>
-    <td class="inflection">{'masculine'|_}</td>
-    <td class="inflection">{'feminine'|_}</td>
+    <td class="inflection">{t}masculine{/t}</td>
+    <td class="inflection">{t}feminine{/t}</td>
   </tr>
   <tr>
-    <td rowspan="2" class="inflection">{'nominative-accusative'|_}</td>
-    <td class="inflection">{'singular'|_}</td>
+    <td rowspan="2" class="inflection">{t}nominative-accusative{/t}</td>
+    <td class="inflection">{t}singular{/t}</td>
     <td class="form">
       {include "bits/ifArray.tpl" ifArray=$ifMap[1]|default:null}
     </td>
@@ -19,7 +19,7 @@
     </td>
   </tr>
   <tr>
-    <td class="inflection">{'plural'|_}</td>
+    <td class="inflection">{t}plural{/t}</td>
     <td class="form">
       {include "bits/ifArray.tpl" ifArray=$ifMap[3]|default:null}
     </td>
@@ -28,8 +28,8 @@
     </td>
   </tr>
   <tr>
-    <td rowspan="2" class="inflection">{'genitive-dative'|_}</td>
-    <td class="inflection">{'singular'|_}</td>
+    <td rowspan="2" class="inflection">{t}genitive-dative{/t}</td>
+    <td class="inflection">{t}singular{/t}</td>
     <td class="form">
       {include "bits/ifArray.tpl" ifArray=$ifMap[2]|default:null}
     </td>
@@ -38,7 +38,7 @@
     </td>
   </tr>
   <tr>
-    <td class="inflection">{'plural'|_}</td>
+    <td class="inflection">{t}plural{/t}</td>
     <td class="form">
       {include "bits/ifArray.tpl" ifArray=$ifMap[4]|default:null}
     </td>

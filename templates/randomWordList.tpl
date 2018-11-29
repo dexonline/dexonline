@@ -1,13 +1,9 @@
 {extends "layout.tpl"}
 
-{block "title"}
-  {'%d randomly chosen %s'|_|sprintf:count($forms):$type}
-{/block}
+{block "title"}{$title}{/block}
 
 {block "content"}
-  <h3>
-    {'%d randomly chosen %s'|_|sprintf:count($forms):$type}
-  </h3>
+  <h3>{$title}</h3>
 
   {foreach $forms as $row_id => $form}
     {if $row_id}|{/if}

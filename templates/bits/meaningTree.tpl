@@ -56,10 +56,8 @@
                  aria-controls="{$collapseId}">
                 <i class="glyphicon glyphicon-paperclip"></i>
 
-                {include "bits/count.tpl"
-                displayed=count($t.examples)
-                one="un exemplu"
-                many="exemple"}
+                {t count=$t.examples|@count 1=$t.examples|@count plural="%1 examples"}
+                one example{/t}
 
                 <span class="caret"></span>
               </a>

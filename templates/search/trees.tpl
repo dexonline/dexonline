@@ -20,7 +20,7 @@
       <small>
         <a href="{$wwwRoot}editTree.php?id={$t->id}" class="pull-right">
           <i class="glyphicon glyphicon-pencil"></i>
-          {'edit'|_}
+          {t}edit{/t}
         </a>
       </small>
     {/if}
@@ -29,7 +29,7 @@
   <div class="tree-body">
     {include "bits/meaningTree.tpl" meanings=$t->getMeanings()}
 
-    <h4 class="etymology">{'etymology'|_}:</h4>
+    <h4 class="etymology">{t}etymology{/t}:</h4>
     {include "bits/meaningTree.tpl" meanings=$t->getEtymologies() etymologies=true}
   </div>
 {/foreach}

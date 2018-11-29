@@ -9,7 +9,7 @@
   <header>
     <div class="siteIdentity">
       <img class='siteLogo' src='{$wwwRoot}img/svg/logo-dexonline.svg' alt='dexonline'>
-      <div class="tagline">{'Dictionaries of the Romanian language'|_}</div>
+      <div class="tagline">{t}Dictionaries of the Romanian language{/t}</div>
     </div>
   </header>
 
@@ -29,7 +29,7 @@
     <div class="col-md-12">
       <a class="btn btn-link customise-widgets pull-right" href="preferinte">
         <i class="glyphicon glyphicon-cog"></i>
-        {'customize widgets'|_}
+        {t}customize widgets{/t}
       </a>
     </div>
   </section>
@@ -38,16 +38,14 @@
   <div class="col-md-6 col-md-offset-3 website-statement text-center">
     <p>
 
-      <i>dexonline</i> {'digitizes prestigious dictionaries of the Romanian language.'|_}
-      {'The project is maintained by a team of volunteers.'|_}
-      {'Much of the data can be downloaded freely under the GNU General Public License.'|_}
+      <i>dexonline</i> {t}digitizes prestigious dictionaries of the Romanian language.{/t}
+      {t}The project is maintained by a team of volunteers.{/t}
+      {t}Much of the data can be downloaded freely under the GNU General Public License.{/t}
 
       <br>
 
-      {'Current status: %s definitions, of which %s learned last month.'|_|sprintf
-      :{Locale::number($wordsTotal)}
-      :{Locale::number($wordsLastMonth)}}
-
+      {t 1=Locale::number($wordsTotal) 2=Locale::number($wordsLastMonth)}
+      Current status: %1 definitions, of which %2 learned last month.{/t}
     </p>
   </div>
 

@@ -1,7 +1,7 @@
 {if count($wikiArticles)}
   <h3>
     <i class="glyphicon glyphicon-education"></i>
-    {'Articles on this subject'|_}:
+    {t}Articles on this subject{/t}:
   </h3>
 
   <ul>

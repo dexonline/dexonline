@@ -1,4 +1,2 @@
 {$imploded=$baseForms|implode:', '}
-{'Your query <b>%s</b> is an elision of <b>%s</b>.'|_|sprintf
-:$elision
-:$imploded}
+{t 1=$elision 2=$imploded}Your query <b>%1</b> is an elision of <b>%2</b>.{/t}

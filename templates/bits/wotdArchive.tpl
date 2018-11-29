@@ -8,7 +8,7 @@
         &nbsp
       {/if}
 
-      <span id="wotdDate">{$month|cap} {$year}</span>
+      <span id="wotdDate">{cap}{$month}{/cap} {$year}</span>
 
       {if $showNext==1}
         <span onclick="loadAjaxContent('{$wwwRoot}{$nextMonth}', '#wotdArchive');" id="navRight"

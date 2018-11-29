@@ -70,8 +70,8 @@
 
           <div id="footerLinks" class="text-center">
             <ul class="list-inline">
-              <li><a href="{$wwwRoot}licenta">{'license'|_}</a></li>
-              <li><a href="https://wiki.dexonline.ro/wiki/Principii_de_confiden%C8%9Bialitate_dexonline.ro">{'privacy'|_}</a></li>
+              <li><a href="{$wwwRoot}licenta">{t}license{/t}</a></li>
+              <li><a href="https://wiki.dexonline.ro/wiki/Principii_de_confiden%C8%9Bialitate_dexonline.ro">{t}privacy{/t}</a></li>
               {if $cfg.global.hostedBy}
                 <li>{include "hosting/`$cfg.global.hostedBy`.tpl"}</li>
               {/if}

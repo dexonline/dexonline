@@ -1,9 +1,10 @@
 {extends "layout.tpl"}
 
 {block "title"}
-  {$cuv|escape} - {'definition'|_}
+  {$cuv=$cuv|escape}
+  {$cuv} - {t}definition{/t}
   {if count($sourceList) == 1}{$sourceList[0]}{/if}
-  {if $searchParams.paradigm}{'and paradigm'|_}{/if}
+  {if $searchParams.paradigm}{t}and paradigm{/t}{/if}
 {/block}
 
 {block "pageDescription"}
@@ -23,7 +24,7 @@
   <ul class="nav nav-tabs" role="tablist">
     <li role="presentation" {if $tab == Constant::TAB_RESULTS}class="active"{/if}>
       <a href="#resultsTab" aria-controls="resultsTab" role="tab" data-toggle="tab">
-        {'results'|_} ({$extra.numResults})
+        {t}results{/t} ({$extra.numResults})
       </a>
     </li>
 
@@ -38,7 +39,7 @@
     {if count($trees)}
       <li role="presentation" {if $tab == Constant::TAB_TREE}class="active"{/if}>
         <a href="#treeTab" aria-controls="treeTab" role="tab" data-toggle="tab">
-          {'synthesis'|_} ({count($trees)})
+          {t}synthesis{/t} ({count($trees)})
         </a>
       </li>
     {/if}
@@ -53,28 +54,33 @@
 
       {* definition ID search *}
       {if $searchType == $smarty.const.SEARCH_DEF_ID}
-        <h3>{'Definition with ID'|_} {$results|array_keys|implode}:</h3>
+        <h3>{t}Definition with ID{/t} {$results|array_keys|implode}:</h3>
 
         {include "search/definitionList.tpl"}
 
-        {* full-text search *}
+      {* full-text search *}
       {elseif $searchType == $smarty.const.SEARCH_FULL_TEXT}
         {if isset($extra.fullTextLock)}
           {include "search/fullTextLock.tpl"}
         {else}
           <h3>
-            {include "bits/count.tpl"
-              displayed=count($results)
-              total=$extra.numDefinitionsFullText
-              none="{'No definitions contain'|_}"
-              one="{'One definition contains'|_}"
-              many="{'definitions contain'|_}"
-              common="{'all the words'|_}"}
+            {if count($results)}
+              {t
+                count=$extra.numDefinitionsFullText
+                1=$extra.numDefinitionsFullText
+                plural="%1 definitions contain all the words"}
+              One definition contains all the words{/t}
+              {if $extra.numDefinitionsFullText > count($results)}
+                {t 1=count($results)}(at most %1 shown){/t}
+              {/if}
+            {else}
+              {t}No definitions contain all the words{/t}
+            {/if}
           </h3>
 
           {if !empty($extra.stopWords)}
             <p class="text-warning">
-              {'The following words were ignored because they are too common:'|_}
+              {t}The following words were ignored because they are too common:{/t}
               <strong>
                 {' '|implode:$extra.stopWords|escape}
               </strong>
@@ -84,44 +90,57 @@
           {include "search/definitionList.tpl" categories=false}
         {/if}
 
-        {* entry ID search *}
+      {* entry ID search *}
       {elseif $searchType == $smarty.const.SEARCH_ENTRY_ID}
 
         {include "search/gallery.tpl"}
 
         {if !count($entries)}
-          <h3>{'There is no entry with the given ID.'|_}</h3>
+          <h3>{t}There is no entry with the given ID.{/t}</h3>
         {else}
 
           <h3>
-            {include "bits/count.tpl"
-              displayed=count($results)
-              none="{'No definitions'|_}"
-              one="{'One definition'|_}"
-              many="{'definitions'|_}"
-              common="{'for'|_}"}
-
+            {capture "entryText"}
             {include "bits/entry.tpl" entry=$entries[0] variantList=true tagList=true}
+            {/capture}
+
+            {if count($results)}
+              {t
+                count=count($results)
+                1=count($results)
+                2=$smarty.capture.entryText
+                plural="%1 definitions for %2"}
+              One definition for %2{/t}
+            {else}
+              {t 1=$smarty.capture.entryText}No definitions for %1{/t}
+            {/if}
           </h3>
 
           {include "search/missingDefinitionWarnings.tpl"}
           {include "search/definitionList.tpl"}
         {/if}
 
-        {* regular expression search *}
+      {* regular expression search *}
       {elseif $searchType == $smarty.const.SEARCH_REGEXP}
         {capture "common"}
-        {'for'|_} <strong>{$cuv|escape}</strong>
+        {t}for{/t} <strong>{$cuv}</strong>
         {/capture}
 
         <h3>
-          {include "bits/count.tpl"
-            displayed=count($lexemes)
-            total=$extra.numLexemes|default:0
-            none="{'No results'|_}"
-            one="{'One result'|_}"
-            many="{'results'|_}"
-            common=$smarty.capture.common}
+          {if count($lexemes)}
+            {t
+              count=$extra.numLexemes
+              1=$extra.numLexemes
+              2=$cuv
+              plural="%1 results for <strong>%2</strong>"}
+            One result for <strong>%2</strong>{/t}
+          {else}
+            {t 1=$cuv}No results for <strong>%1</strong>{/t}
+          {/if}
+
+          {if $extra.numLexemes > count($lexemes)}
+            {t 1=count($lexemes)}(at most %1 shown){/t}
+          {/if}
         </h3>
 
         {if !count($lexemes) && $sourceId}
@@ -130,28 +149,39 @@
 
         {include "search/lexemeList.tpl"}
 
-        {* normal search (inflected form search) *}
+      {* normal search (inflected form search) *}
       {elseif $searchType == $smarty.const.SEARCH_INFLECTED}
 
         {include "search/gallery.tpl"}
 
         {if count($entries) > 1}
-          <h3>{$entries|count} {'entries'|_}</h3>
+          <h3>
+            {* this is always plural, but still needs to be localized *}
+            {t count=count($entries) 1=count($entries) plural="%1 entries"}
+            One entry{/t}
+          </h3>
 
           {include "search/entryToc.tpl"}
         {else}
-          {capture "common"}
-          {'for'|_} {include "bits/entry.tpl" entry=$entries[0] variantList=true tagList=true}
+          {capture "entryText"}
+          {include "bits/entry.tpl" entry=$entries[0] variantList=true tagList=true}
           {/capture}
 
           <h3>
-            {include "bits/count.tpl"
-              displayed=count($results)
-              total=$extra.numDefinitions
-              none="{'No definitions'|_}"
-              one="{'One definition'|_}"
-              many="{'definitions'|_}"
-              common=$smarty.capture.common}
+            {if count($results)}
+              {t
+                count=$extra.numDefinitions
+                1=$extra.numDefinitions
+                2=$smarty.capture.entryText
+                plural="%1 definitions for %2"}
+              One definition for %2{/t}
+            {else}
+              {t 1=$smarty.capture.entryText}No definitions for %1{/t}
+            {/if}
+
+            {if $extra.numDefinitions > count($results)}
+              {t 1=count($results)}(at most %1 shown){/t}
+            {/if}
           </h3>
 
           {if !count($results) && count($entries) && $sourceId}
@@ -164,13 +194,15 @@
         {* another <h3> for the definition list, if needed *}
         {if (count($entries) > 1) && count($results)}
           <h3>
-            {include "bits/count.tpl"
-              displayed=count($results)
-              total=$extra.numDefinitions
-              none=""
-              one="{'One definition'|_}"
-              many="{'definitions'|_}"
-              common=""}
+            {t
+              count=$extra.numDefinitions
+              1=$extra.numDefinitions
+              plural="%1 definitions"}
+            One definition{/t}
+
+            {if $extra.numDefinitions > count($results)}
+              {t 1=count($results)}(at most %1 shown){/t}
+            {/if}
           </h3>
         {/if}
 
@@ -180,26 +212,32 @@
         {include "search/definitionList.tpl"}
         {include "search/showAllLink.tpl"}
 
-        {* multiword search *}
+      {* multiword search *}
       {elseif $searchType == $smarty.const.SEARCH_MULTIWORD}
         <h3>
-          {include "bits/count.tpl"
-            displayed=count($results)
-            total=$extra.numDefinitions
-            none="{'No definitions match'|_}"
-            one="{'One definition matches'|_}"
-            many="{'definitions match'|_}"
-            common="{'at least two words'|_}"}
+          {if count($results)}
+            {t
+              count=$extra.numDefinitions
+              1=$extra.numDefinitions
+              plural="%1 definitions match at least two words"}
+            One definition matches at least two words{/t}
+          {else}
+            {t}No definitions match at least two words{/t}
+          {/if}
+
+          {if $extra.numDefinitions > count($results)}
+            {t 1=count($results)}(at most %1 shown){/t}
+          {/if}
         </h3>
 
         <p class="text-warning">
-          {'If the results are inadequate, you can look up individual words or you can search'|_}
-          <a href="{$wwwRoot}text/{$cuv|escape:url}">{'full-text'|_}</a>.
+          {t}If the results are inadequate, you can look up individual words or you can search{/t}
+          <a href="{$wwwRoot}text/{$cuv|escape:url}">{t}full-text{/t}</a>.
         </p>
 
         {if !empty($extra.ignoredWords)}
           <p class="text-warning">
-            {'At most 5 words are allowed. The following words were ignored:'|_}
+            {t}At most 5 words are allowed. The following words were ignored:{/t}
             <strong>
               {' '|implode:$extra.ignoredWords|escape}
             </strong>
@@ -210,17 +248,17 @@
         {include "search/definitionList.tpl" categories=false}
         {include "search/showAllLink.tpl"}
 
-        {* approximate search *}
+      {* approximate search *}
       {elseif $searchType == $smarty.const.SEARCH_APPROXIMATE}
         {if count($entries)}
           <h3>
-            {'The word <strong>%s</strong> is not in the dictionary.
-            Here are some suggestions:'|_|sprintf:($cuv|escape)}
+            {t escape="0" 1=$cuv}The word <strong>%1</strong> is not in the dictionary.
+            Here are some suggestions:{/t}
           </h3>
 
           {include "search/entryList.tpl"}
         {else}
-          <h3>{'No results for <strong>%s</strong>'|_|sprintf:($cuv|escape)}</h3>
+          <h3>{t escape="no" 1=$cuv}No results for <strong>%1</strong>{/t}</h3>
         {/if}
 
       {/if}
@@ -240,40 +278,40 @@
 
         {if $hasUnrecommendedForms}
           <div class="notRecommendedLegend">
-            * {'unrecommended or incorrect form'|_} –
+            * {t}unrecommended or incorrect form{/t} –
             <a id="toggleNotRecommended"
               href="#"
               class="doubleText"
-              data-other-text="({'hide'|_})">
-              ({'show'|_})
+              data-other-text="({t}hide{/t})">
+              ({t}show{/t})
             </a>
           </div>
         {/if}
 
         {if $hasElisionForms}
           {if User::can(User::PRIV_EDIT)}
-            {$text1='hide'|_}
-            {$text2='show'|_}
+            {capture "text1"}{t}hide{/t}{/capture}
+            {capture "text2"}{t}show{/t}{/capture}
           {else}
-            {$text1='show'|_}
-            {$text2='hide'|_}
+            {capture "text1"}{t}show{/t}{/capture}
+            {capture "text2"}{t}hide{/t}{/capture}
           {/if}
           <div class="elisionLegend">
-            * {'elisions'|_} –
+            * {t}elisions{/t} –
             <a id="toggleElision"
               href="#"
               class="doubleText"
-              data-other-text="({$text2})">
-              ({$text1})
+              data-other-text="({$smarty.capture.text2})">
+              ({$smarty.capture.text1})
             </a>
           </div>
         {/if}
 
         <div class="paradigmLink voffset2">
-          <a title="{'link to this inflected forms page'|_}"
+          <a title="{t}link to this inflected forms page{/t}"
             href="{$paradigmLink}">
             <i class="glyphicon glyphicon-link"></i>
-            {'link to this paradigm'|_}
+            {t}link to this paradigm{/t}
           </a>
         </div>
       </div>

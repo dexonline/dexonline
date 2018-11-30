@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: BUG-EMAIL-ADDR <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2018-11-29 15:36+0200\n"
-"PO-Revision-Date: 2018-11-29 15:52+0200\n"
+"PO-Revision-Date: 2018-11-30 12:23+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: hu\n"
@@ -63,7 +63,7 @@ msgstr "hozzáadva a kedvencekhez"
 #: templates/bits/definitionMenuProper.tpl:157
 #: templates/bits/definitionMenuProper.tpl:172
 msgid "please wait..."
-msgstr "kérlek várj"
+msgstr "kérlek várj..."
 
 #: templates/bits/definitionMenuProper.tpl:159
 msgid "add to favorites"
@@ -100,8 +100,8 @@ msgstr "Ragozási forrás"
 #: templates/bits/meaningTree.tpl:59
 msgid "one example"
 msgid_plural "%1 examples"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "egy példa"
+msgstr[1] "%1 példa"
 
 #: templates/bits/multiParadigm.tpl:6
 msgid "entry"
@@ -328,12 +328,12 @@ msgid "Useful information"
 msgstr "Hasznos információ"
 
 #: templates/contact.tpl:22
-#, fuzzy
-#| msgid "What dexonline is <strong>not</strong>"
 msgid ""
 "<a href=\"%1\">What dexonline is <strong>not</strong></a> (ways we cannot "
 "help you)."
-msgstr "Mi <strong>nem</strong> a dexonline "
+msgstr ""
+"<a href=\"%1\">Mi <strong>nem</strong> a dexonline</a> (ahogy nem tudunk "
+"segíteni)."
 
 #: templates/contact.tpl:29
 msgid "You can install dexonline on <a href=\"%1\">your computer or phone</a>."
@@ -887,10 +887,8 @@ msgstr ""
 "találnod (<i>%1</i>) hogy megkapd a következő készletet."
 
 #: templates/scramble.tpl:139
-#, fuzzy
-#| msgid "actions"
 msgid "Instructions"
-msgstr "műveletek"
+msgstr "Műveletek"
 
 #: templates/scramble.tpl:141
 msgid ""
@@ -983,12 +981,10 @@ msgid "Definition with ID"
 msgstr "Meghatározás azonosító"
 
 #: templates/search.tpl:69
-#, fuzzy
-#| msgid "One definition contains"
 msgid "One definition contains all the words"
 msgid_plural "%1 definitions contain all the words"
-msgstr[0] "Egy meghatározás tartalmaz"
-msgstr[1] "Egy meghatározás tartalmaz"
+msgstr[0] "Egy meghatározás tartalmazza az összes szót"
+msgstr[1] "%1 meghatározás tartalmazza az összes szót"
 
 #: templates/search.tpl:74 templates/search.tpl:142 templates/search.tpl:183
 #: templates/search.tpl:204 templates/search.tpl:229
@@ -996,10 +992,8 @@ msgid "(at most %1 shown)"
 msgstr "(legfeljebb %1 látható)"
 
 #: templates/search.tpl:77
-#, fuzzy
-#| msgid "No definitions contain"
 msgid "No definitions contain all the words"
-msgstr "Egy meghatározás se tartalmaz"
+msgstr "Egy meghatározás se tartalmaza az összes szót"
 
 #: templates/search.tpl:83
 msgid "The following words were ignored because they are too common:"
@@ -1010,18 +1004,14 @@ msgid "There is no entry with the given ID."
 msgstr "Az adott azonosítóval nincs bejegyzés."
 
 #: templates/search.tpl:109 templates/search.tpl:173
-#, fuzzy
-#| msgid "One definition"
 msgid "One definition for %2"
 msgid_plural "%1 definitions for %2"
-msgstr[0] "Egy meghatározás"
-msgstr[1] "Egy meghatározás"
+msgstr[0] "Egy meghatározás a %2 szóra"
+msgstr[1] "%1 meghatározás a %2 szóra"
 
 #: templates/search.tpl:115 templates/search.tpl:179
-#, fuzzy
-#| msgid "No definitions"
 msgid "No definitions for %1"
-msgstr "Nincsenek meghatározások"
+msgstr "Nincsenek meghatározások a %1 szóra"
 
 #: templates/search.tpl:126
 msgid "for"
@@ -1038,34 +1028,26 @@ msgid "No results for <strong>%1</strong>"
 msgstr "Nincs találat <strong>%1</strong> esetében"
 
 #: templates/search.tpl:160
-#, fuzzy
-#| msgid "entry"
 msgid "One entry"
 msgid_plural "%1 entries"
-msgstr[0] "bejegyzés"
-msgstr[1] "bejegyzés"
+msgstr[0] "Egy bejegyzés"
+msgstr[1] "%1 bejegyzés"
 
 #: templates/search.tpl:198
-#, fuzzy
-#| msgid "One definition"
 msgid "One definition"
 msgid_plural "%1 definitions"
 msgstr[0] "Egy meghatározás"
-msgstr[1] "Egy meghatározás"
+msgstr[1] "%1 meghatározás"
 
 #: templates/search.tpl:220
-#, fuzzy
-#| msgid "One definition matches"
 msgid "One definition matches at least two words"
 msgid_plural "%1 definitions match at least two words"
-msgstr[0] "Egy meghatározás egyezik"
-msgstr[1] "Egy meghatározás egyezik"
+msgstr[0] "Legalább egy meghatározás egyezik a két szóval"
+msgstr[1] "%1 meghatározás egyezik a két szóval"
 
 #: templates/search.tpl:225
-#, fuzzy
-#| msgid "No definitions match"
 msgid "No definitions match at least two words"
-msgstr "Egy meghatározás sem egyezik"
+msgstr "Egy meghatározás sem egyezik legalább két szóval"
 
 #: templates/search.tpl:234
 msgid ""
@@ -1133,7 +1115,7 @@ msgstr ""
 
 #: templates/search/extendToAllSources.tpl:3
 msgid "Repeat your search <a href=\"%1\">in all dictionaries</a>."
-msgstr ""
+msgstr "Ismételje meg keresését <a href=\"%1\">az összes szótárban</a>."
 
 #: templates/search/fullTextLock.tpl:1
 msgid "Search disabled"
@@ -1489,7 +1471,7 @@ msgstr ""
 
 #: wwwbase/unelte.php:30
 msgid "Inflected form search"
-msgstr "ragozott forma keresése"
+msgstr "Ragozott forma keresése"
 
 #: wwwbase/unelte.php:31
 msgid ""

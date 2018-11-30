@@ -13,6 +13,7 @@ JOIN EntryDefinition ED ON EL.entryId=ED.entryId
 JOIN Definition D ON D.id=ED.definitionId
 JOIN Source S ON D.sourceId=S.id
 WHERE S.type=2
+AND L.modelType != 'I'
 AND status=0
 GROUP BY L.formNoAccent;
 

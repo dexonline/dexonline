@@ -181,6 +181,17 @@
           </button>
         {/if}
 
+        {if $def->id}
+          <a id="wikiLink"
+            href="https://wiki.dexonline.ro/wiki/Definiție:{$def->id}?description={$def->lexicon|escape}"
+            class="btn btn-default"
+            title="creează o pagină wiki pentru această definiție"
+            target="_blank">
+            <i class="glyphicon glyphicon-comment"></i>
+            wiki
+          </a>
+        {/if}
+
         <div class="btn-group pull-right" id="tinymceButtonWrapper">
           <span class="btn btn-link">
             {include "bits/definitionMenuProper.tpl"

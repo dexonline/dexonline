@@ -21,7 +21,7 @@ $(function() {
       templateSelection: formatEntryWithEditLink,
     });
 
-    $('#entryIds, #sourceDropDown').change(updateFieldsJson);
+    $('#entryIds, #sourceDropDown[name="source"]').change(updateFieldsJson);
     $('#refreshButton').click(updateFieldsJson);
 
     /****************** popover initialization ******************/

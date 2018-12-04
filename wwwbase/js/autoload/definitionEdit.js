@@ -4,6 +4,9 @@ $(function() {
   var lastDiffClicked = null; // keep track of the last <ins> or <del> the user clicked
 
   function init() {
+
+    checkDefinitionWikiPage();
+
     // Show/hide elements related to the similar source and definition
     var c = $('#similarRecord').html();
 
@@ -21,7 +24,7 @@ $(function() {
       templateSelection: formatEntryWithEditLink,
     });
 
-    $('#entryIds, #sourceDropDown').change(updateFieldsJson);
+    $('#entryIds, #sourceDropDown[name="source"]').change(updateFieldsJson);
     $('#refreshButton').click(updateFieldsJson);
 
     /****************** popover initialization ******************/
@@ -122,6 +125,15 @@ $(function() {
   function diffCancelClick() {
     $('ins, del').popover('hide');
     return false;
+  }
+
+  function checkDefinitionWikiPage() {
+    var definitionId = $('input[name="definitionId"]').val();
+    ifWikiPageExists('Definiție:' + definitionId, function() {
+      $('#wikiLink')
+        .attr('title', 'definiția are o pagină wiki')
+        .toggleClass('btn-default btn-warning');
+    });
   }
 
   init();

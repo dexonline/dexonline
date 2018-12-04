@@ -39,6 +39,12 @@ class Locale {
 
   private static function set($locale) {
     mb_internal_encoding('UTF-8');
+
+    //Workaround for Windows lovers
+    if (OS::getOS() === OS::OS_WIN) {
+      putenv("LC_ALL=$locale");
+    }
+
     setlocale(LC_ALL, $locale);
     $domain = "messages";
     bindtextdomain($domain, Core::getRootPath() . '/locale');

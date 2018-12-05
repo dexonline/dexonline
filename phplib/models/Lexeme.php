@@ -656,7 +656,14 @@ class Lexeme extends BaseObject implements DatedObject {
   }
 
   private function _regenerateDependentLexemesHelper($infl, $genericType, $dedicatedType, $number) {
-    $ifs = InflectedForm::get_all_by_lexemeId_inflectionId($this->id, $infl->id);
+    // process non-apheresis forms first
+    $ifs = Model::factory('InflectedForm')
+      ->where('lexemeId', $this->id)
+      ->where('inflectionId', $infl->id)
+      ->order_by_asc('apheresis')
+      ->find_many();
+
+    $lexemeMap = []; // formNoAccent -> lexeme
 
     foreach ($ifs as $if) {
       // look for an existing lexeme
@@ -665,7 +672,11 @@ class Lexeme extends BaseObject implements DatedObject {
         ->where_in('modelType', [$genericType, $dedicatedType])
         ->where('modelNumber', $number)
         ->find_one();
-      if (!$l) {
+
+      if ($l) {
+        // save the lexeme; we may need to reuse its entries for its apheresis version
+        $lexemeMap[$l->formNoAccent] = $l;
+      } else {
         // if a lexeme exists with this form, but a different model, give a warning
         $existing = Lexeme::get_by_formNoAccent($if->formNoAccent);
         if ($existing) {
@@ -675,7 +686,15 @@ class Lexeme extends BaseObject implements DatedObject {
         $l = Lexeme::create($if->form, $dedicatedType, $number, '');
         $l->apheresis = $if->apheresis;
         $l->deepSave();
-        $entry = Entry::createAndSave($if->formNoAccent);
+
+        if ($l->apheresis) {
+          // for nzăpezit, reuse the entry for înzăpezit
+          $full = $lexemeMap['î' . $l->formNoAccent];
+          $entry = $full->getEntries()[0];
+        } else {
+          $entry = Entry::createAndSave($if->formNoAccent);
+        }
+
         EntryLexeme::associate($entry->id, $l->id);
 
         // copy trees and structure information from one of the lexeme's entries

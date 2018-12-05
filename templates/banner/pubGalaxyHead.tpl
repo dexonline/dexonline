@@ -3,7 +3,8 @@
   src="//dsh7ky7308k4b.cloudfront.net/publishers/dexonlinero.min.js"
 ></script>
 
-{include "banner/pubGalaxyGdpr.tpl"}
+{** disabled while the consent form sets third-party cookies **}
+{** {include "banner/pubGalaxyGdpr.tpl"} **}
 
 <script async='async' src='https://www.googletagservices.com/tag/js/gpt.js'></script>
 <script>

@@ -24,15 +24,15 @@
       // autorefresh for the 728x90 tag, added December 5, 2018
       var refreshSlots = [slot8651];
       setInterval(function RefreshBids() {
-        console.log('Refresh Bids Initialized');
+        // console.log('Refresh Bids Initialized');
         pbjs.que.push(function() {
           pbjs.requestBids({
             timeout: PREBID_TIMEOUT,
             adUnitCodes: ['div-gpt-ad-1522308048586-0'],
             bidsBackHandler: function() {
-              console.log('RefreshBids.bidsBackHandler',refreshSlots);
+              // console.log('RefreshBids.bidsBackHandler',refreshSlots);
               pbjs.setTargetingForGPTAsync(['div-gpt-ad-1522308048586-0']);
-              console.log('Refresh Ads');
+              // console.log('Refresh Ads');
               googletag.pubads().refresh(refreshSlots);
             }
           });

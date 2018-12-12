@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-11-29 15:25+0200\n"
-"PO-Revision-Date: 2018-11-29 15:25+0200\n"
+"POT-Creation-Date: 2018-12-12 15:36+0200\n"
+"PO-Revision-Date: 2018-12-12 15:38+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -572,8 +572,8 @@ msgstr "nominativ-acuzativ"
 #: templates/paradigm/paradigmN.tpl:32 templates/paradigm/paradigmN.tpl:51
 #: templates/paradigm/paradigmP.tpl:13 templates/paradigm/paradigmP.tpl:32
 #: templates/paradigm/paradigmSP.tpl:13 templates/paradigm/paradigmSP.tpl:32
-#: templates/paradigm/paradigmSP.tpl:51 templates/paradigm/paradigmV.tpl:28
-#: templates/paradigm/paradigmV.tpl:54
+#: templates/paradigm/paradigmSP.tpl:51 templates/paradigm/paradigmV.tpl:34
+#: templates/paradigm/paradigmV.tpl:60
 msgid "singular"
 msgstr "singular"
 
@@ -585,8 +585,8 @@ msgstr "singular"
 #: templates/paradigm/paradigmN.tpl:41 templates/paradigm/paradigmN.tpl:57
 #: templates/paradigm/paradigmP.tpl:22 templates/paradigm/paradigmP.tpl:41
 #: templates/paradigm/paradigmSP.tpl:22 templates/paradigm/paradigmSP.tpl:41
-#: templates/paradigm/paradigmSP.tpl:57 templates/paradigm/paradigmV.tpl:29
-#: templates/paradigm/paradigmV.tpl:112
+#: templates/paradigm/paradigmSP.tpl:57 templates/paradigm/paradigmV.tpl:35
+#: templates/paradigm/paradigmV.tpl:118
 msgid "plural"
 msgstr "plural"
 
@@ -626,55 +626,55 @@ msgstr "gerunziu"
 msgid "imperative 2nd person"
 msgstr "imperativ pers. a II-a"
 
-#: templates/paradigm/paradigmV.tpl:45
+#: templates/paradigm/paradigmV.tpl:51
 msgid "number"
 msgstr "numărul"
 
-#: templates/paradigm/paradigmV.tpl:46
+#: templates/paradigm/paradigmV.tpl:52
 msgid "person"
 msgstr "persoana"
 
-#: templates/paradigm/paradigmV.tpl:47
+#: templates/paradigm/paradigmV.tpl:53
 msgid "present"
 msgstr "prezent"
 
-#: templates/paradigm/paradigmV.tpl:48
+#: templates/paradigm/paradigmV.tpl:54
 msgid "present subjunctive"
 msgstr "conjunctiv prezent"
 
-#: templates/paradigm/paradigmV.tpl:49
+#: templates/paradigm/paradigmV.tpl:55
 msgid "imperfect"
 msgstr "imperfect"
 
-#: templates/paradigm/paradigmV.tpl:50
+#: templates/paradigm/paradigmV.tpl:56
 msgid "simple perfect"
 msgstr "perfect simplu"
 
-#: templates/paradigm/paradigmV.tpl:51
+#: templates/paradigm/paradigmV.tpl:57
 msgid "pluperfect"
 msgstr "mai mult ca perfect"
 
-#: templates/paradigm/paradigmV.tpl:55
+#: templates/paradigm/paradigmV.tpl:61
 msgid "1st (eu)"
 msgstr "I (eu)"
 
-#: templates/paradigm/paradigmV.tpl:74
+#: templates/paradigm/paradigmV.tpl:80
 msgid "2nd (tu)"
 msgstr "a II-a (tu)"
 
-#: templates/paradigm/paradigmV.tpl:93
+#: templates/paradigm/paradigmV.tpl:99
 msgid "3rd (el, ea)"
 msgstr "a III-a (el, ea)"
 
-#: templates/paradigm/paradigmV.tpl:113
+#: templates/paradigm/paradigmV.tpl:119
 msgid "1st (noi)"
 msgstr "I (noi)"
 
-#: templates/paradigm/paradigmV.tpl:132
+#: templates/paradigm/paradigmV.tpl:138
 msgid "2nd (voi)"
 msgstr "a II-a (voi)"
 
-#: templates/paradigm/paradigmV.tpl:151
+#: templates/paradigm/paradigmV.tpl:157
 msgid "3rd (ei, ele)"
 msgstr "a III-a (ei, ele)"
 
@@ -1081,7 +1081,7 @@ msgid ""
 msgstr ""
 "Cuvântul <strong>%1</strong> nu este în dicționar. Iată câteva sugestii:"
 
-#: templates/search.tpl:281
+#: templates/search.tpl:281 phplib/models/InflectedForm.php:54
 msgid "unrecommended or incorrect form"
 msgstr "formă nerecomandată sau greșită"
 
@@ -1090,8 +1090,8 @@ msgid "hide"
 msgstr "ascunde"
 
 #: templates/search.tpl:300
-msgid "elisions"
-msgstr "forme elidate"
+msgid "elisions and long verb forms"
+msgstr "forme elidate și forme verbale lungi"
 
 #: templates/search.tpl:311
 msgid "link to this inflected forms page"
@@ -1378,6 +1378,14 @@ msgstr "precedentul"
 #: templates/wotm.tpl:32
 msgid "next"
 msgstr "următorul"
+
+#: phplib/models/InflectedForm.php:57
+msgid "by apheresis and/or elision"
+msgstr "prin afereză și/sau eliziune"
+
+#: phplib/models/InflectedForm.php:60
+msgid "long verb form"
+msgstr "formă verbală lungă"
 
 #: wwwbase/changeLocale.php:8
 msgid ""

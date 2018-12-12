@@ -345,6 +345,7 @@ if ($SEARCH_PARAMS[$searchType]['paradigm']) {
         foreach ($ifs as $if) {
           $hasUnrecommendedForms |= !$if->recommended;
           $hasElisionForms |= $if->apheresis || $if->apocope;
+          $hasElisionForms |= in_array($if->inflectionId, Constant::LONG_VERB_INFLECTION_IDS);
         }
       }
     }

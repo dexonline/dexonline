@@ -297,7 +297,7 @@
             {capture "text2"}{t}hide{/t}{/capture}
           {/if}
           <div class="elisionLegend">
-            * {t}elisions{/t} –
+            * {t}elisions and long verb forms{/t} –
             <a id="toggleElision"
               href="#"
               class="doubleText"

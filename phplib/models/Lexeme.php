@@ -339,7 +339,7 @@ class Lexeme extends BaseObject implements DatedObject {
         ->order_by_asc('apocope')
         ->find_many();
     }
-    return ($this->inflectedForms);
+    return $this->inflectedForms;
   }
 
   // throws ParadigmException if any inflection cannot be generated

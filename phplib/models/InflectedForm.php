@@ -27,7 +27,7 @@ class InflectedForm extends BaseObject {
     if ($this->apheresis) {
       $s = '&#x2011' . $s; // non-breaking hyphens
     }
-    if ($this->apocope) {
+    if ($this->apocope || $this->isLongForm()) {
       $s .= '&#x2011';
     }
     return $s;
@@ -39,7 +39,7 @@ class InflectedForm extends BaseObject {
       $classes[] = 'notRecommended';
       $classes[] = 'notRecommendedHidden';
     }
-    if ($this->apheresis || $this->apocope) {
+    if ($this->apheresis || $this->apocope || $this->isLongForm()) {
       $classes[] = 'elision';
       $classes[] = User::can(User::PRIV_EDIT)
         ? 'elisionShown'
@@ -51,10 +51,13 @@ class InflectedForm extends BaseObject {
   function getHtmlTitles() {
     $titles = [];
     if (!$this->recommended) {
-      $titles[] = 'formă nerecomandată';
+      $titles[] = _('unrecommended or incorrect form');
     }
     if ($this->apheresis || $this->apocope) {
-      $titles[] = 'prin afereză și/sau eliziune';
+      $titles[] = _('by apheresis and/or elision');
+    }
+    if ($this->isLongForm()) {
+      $titles[] = _('long verb form');
     }
     return implode('; ', $titles);
   }
@@ -103,6 +106,10 @@ class InflectedForm extends BaseObject {
       join Lexeme l on i.lexemeId = l.id
       where l.modelNumber = '%s' and i.inflectionId = %d
     ", addslashes($modelNumber), $inflId));
+  }
+
+  function isLongForm() {
+    return in_array($this->inflectionId, Constant::LONG_VERB_INFLECTION_IDS);
   }
 
   static function isStopWord($field, $form) {

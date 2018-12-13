@@ -7,7 +7,6 @@ Log::notice('started');
 DB::execute('truncate table Autocomplete');
 DB::execute('insert into Autocomplete ' .
             'select distinct formNoAccent, formUtf8General ' .
-            'from Lexeme ' .
-            'where not apheresis');
+            'from Lexeme');
 
 Log::notice('finished');

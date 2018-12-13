@@ -87,6 +87,6 @@ SmartyWrap::assign('nextMonth', $nextMonth);
 
 $words = createCalendar($year, $month);
 SmartyWrap::assign('words', $words);
-SmartyWrap::assign('dayNames', Locale::getWeekDayNames());
+SmartyWrap::assign('dayNames', LocaleUtil::getWeekDayNames());
 
 SmartyWrap::displayWithoutSkin('bits/wotdArchive.tpl');

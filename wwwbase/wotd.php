@@ -37,7 +37,7 @@ if ($type == 'rss' || $type == 'blog') {
       'html' => HtmlConverter::convert($def),
     ]);
     if ($type == 'blog') {
-      $curDate = Locale::date($ts, "%e %B");
+      $curDate = LocaleUtil::date($ts, "%e %B");
       SmartyWrap::assign('curDate', $curDate);
       $item['title'] = "{$curDate} – " . $def->lexicon;
       $item['description'] = SmartyWrap::fetch('bits/wotdRssBlogItem.tpl');
@@ -115,7 +115,7 @@ if ($date < $today || User::can(User::PRIV_ADMIN)) {
 // Load the WotD for this day in other years.
 $year = $date->format('Y');
 $month = $date->format('m');
-$monthName = Locale::date($date->getTimestamp(), '%B');
+$monthName = LocaleUtil::date($date->getTimestamp(), '%B');
 $day = $date->format('j');
 
 $otherWotds = WordOfTheDay::getWotdsInOtherYears($year, $month, $day);

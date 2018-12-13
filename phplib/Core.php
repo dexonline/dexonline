@@ -37,7 +37,7 @@ class Core {
       FlashMessage::restoreFromSession();
     }
     SmartyWrap::init();
-    Locale::init();
+    LocaleUtil::init();
     DebugInfo::init();
     if (Request::isWeb() && Config::get('global.maintenanceMode')) {
       SmartyWrap::display('maintenance.tpl', true);

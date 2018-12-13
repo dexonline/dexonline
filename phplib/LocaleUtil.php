@@ -1,6 +1,6 @@
 <?php
 
-class Locale {
+class LocaleUtil {
   const COOKIE_NAME = 'locale';
   private static $available;
 

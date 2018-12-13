@@ -22,15 +22,15 @@
           <a href="utilizator/{$row->userNick|escape:"url"}">{$row->userNick|escape}</a>
         </td>
         <td data-text="{$row->numChars}">
-          {Locale::number($row->numChars)}
+          {LocaleUtil::number($row->numChars)}
         </td>
         <td data-text="{$row->numDefinitions}">
-          {Locale::number($row->numDefinitions)}
+          {LocaleUtil::number($row->numDefinitions)}
         </td>
         <td
           style="color: {$color|string_format:"#%02x0000"}"
           data-text="{$row->timestamp}">
-          {Locale::date($row->timestamp)}
+          {LocaleUtil::date($row->timestamp)}
         </td>
       </tr>
     {/foreach}

@@ -44,7 +44,7 @@
 
       <br>
 
-      {t 1=Locale::number($wordsTotal) 2=Locale::number($wordsLastMonth)}
+      {t 1=LocaleUtil::number($wordsTotal) 2=LocaleUtil::number($wordsLastMonth)}
       Current status: %1 definitions, of which %2 learned last month.{/t}
     </p>
   </div>

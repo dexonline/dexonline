@@ -89,18 +89,18 @@
       <dl class="dl-horizontal col-md-6">
         <dt>total</dt>
         <dd>
-          {Locale::number($project->defCount)} definiții,
-          {Locale::number($project->totalLength)} caractere
+          {LocaleUtil::number($project->defCount)} definiții,
+          {LocaleUtil::number($project->totalLength)} caractere
         </dd>
         <dt>eșantion</dt>
         <dd>
-          {Locale::number($project->getSampleDefinitions())} definiții,
-          {Locale::number($project->getSampleLength())} caractere
+          {LocaleUtil::number($project->getSampleDefinitions())} definiții,
+          {LocaleUtil::number($project->getSampleLength())} caractere
         </dd>
         <dt>evaluate</dt>
         <dd>
-          {Locale::number($project->getReviewedDefinitions())} definiții,
-          {Locale::number($project->getReviewedLength())} caractere
+          {LocaleUtil::number($project->getReviewedDefinitions())} definiții,
+          {LocaleUtil::number($project->getReviewedLength())} caractere
         </dd>
       </dl>
 
@@ -109,13 +109,13 @@
         <dd>{$project->getErrorCount()}</dd>
         <dt>acuratețe</dt>
         <dd>
-          {Locale::number($project->getAccuracy(), 3)}%
-          ({Locale::number($project->getErrorsPerKb(), 2)} erori / 1.000 caractere)
+          {LocaleUtil::number($project->getAccuracy(), 3)}%
+          ({LocaleUtil::number($project->getErrorsPerKb(), 2)} erori / 1.000 caractere)
         </dd>
         <dt>viteză</dt>
         <dd>
           {if $project->speed}
-            {Locale::number($project->getCharactersPerHour())} caractere / oră
+            {LocaleUtil::number($project->getCharactersPerHour())} caractere / oră
           {else}
             necunoscută
           {/if}

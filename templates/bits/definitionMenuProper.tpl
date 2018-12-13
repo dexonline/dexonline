@@ -59,7 +59,7 @@
           {$row->user->nick|escape}
         </a>
         {if $showDate}
-          , {Locale::date($def->createDate)}
+          , {LocaleUtil::date($def->createDate)}
         {/if}
         {/strip}
       </li>

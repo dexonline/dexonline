@@ -129,10 +129,10 @@
             </a>
 
             <ul class="dropdown-menu">
-              {foreach Locale::getAll() as $id => $name}
+              {foreach LocaleUtil::getAll() as $id => $name}
                 <li>
                   <a href="{$wwwRoot}changeLocale?id={$id}">
-                    <i class="glyphicon glyphicon-ok {if $id != Locale::getCurrent()}invisible{/if}">
+                    <i class="glyphicon glyphicon-ok {if $id != LocaleUtil::getCurrent()}invisible{/if}">
                     </i>
                     {$name}
                   </a>

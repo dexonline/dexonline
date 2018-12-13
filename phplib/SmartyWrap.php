@@ -130,7 +130,7 @@ class SmartyWrap {
 			'third-party/jquery.textcomplete.min.js'
 		],
 		'tinymce' => [
-			'third-party/tinymce-4.4.0/tinymce.min.js',
+			'third-party/tinymce-4.9.1/tinymce.min.js',
 			'tinymce.js',
 		],
 		'meaningTree' => [

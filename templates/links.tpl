@@ -5,7 +5,7 @@
 {block "content"}
   <p>
     {'This page contains useful language links. These links are not sponsored;
-    we consider the useful to our visitors. We are not affiliated with the
+    we consider them useful to our visitors. We are not affiliated with the
     respective sites and institutions.'|_}
   </p>
 

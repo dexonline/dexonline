@@ -134,7 +134,7 @@ class Levenshtein {
   }
 
   private static function closestC($query, $maxDistance) {
-    if (PHP_OS_FAMILY != 'Linux') {
+    if (PHP_OS != 'Linux') {
       throw new Exception('Not on GNU/Linux');
     }
 

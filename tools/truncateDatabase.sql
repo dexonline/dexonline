@@ -24,7 +24,6 @@ truncate table MeaningSource;
 -- truncate table Model;
 -- truncate table ModelDescription;
 -- truncate table ModelType;
--- truncate table NGram;
 truncate table ObjectTag;
 truncate table OCR;
 truncate table OCRLot;

@@ -577,7 +577,8 @@ class Lexeme extends BaseObject implements DatedObject {
    **/
   function regenerateParadigm() {
     if ($this->id) {
-      InflectedForm::delete_all_by_lexemeId($this->id);
+      // do NOT delete them one by one -- it's very slow
+      DB::execute("delete from InflectedForm where lexemeId = {$this->id}");
     }
 
     foreach ($this->generateInflectedForms() as $if) {

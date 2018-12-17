@@ -60,16 +60,17 @@ class Levenshtein {
     }
   }
 
-  private static function dist(&$chars, $startRow) {
+  private static function dist(&$chars, $startRow, $maxDistance) {
     // syntactic sugar; also 10-15% faster
     $m = &self::$mat;
     $qc = &self::$queryChars;
     $sd = &self::$symbolDist;
 
     $minRowDist = 0;
+    $d = self::INFTY;
 
     for ($i = min($startRow, self::$prevEndRow);
-         ($i < count($chars)) && ($minRowDist <= self::MAX_DISTANCE);
+         ($i < count($chars)) && ($minRowDist <= $maxDistance);
          $i++) {
       $x = $chars[$i];
       $minRowDist = self::INFTY;
@@ -123,8 +124,8 @@ class Levenshtein {
         Str::unicodeExplode($suffix)
       );
 
-      $d = self::dist($chars, $common);
-      if ($d <= self::MAX_DISTANCE) {
+      $d = self::dist($chars, $common, $maxDistance);
+      if ($d <= $maxDistance) {
         $results[] = [ $d, implode($chars) ];
       }
     }
@@ -138,8 +139,8 @@ class Levenshtein {
     }
 
     $fileName = FileCache::getCompactFormsFileName();
-    $command = sprintf('%s/c/levenshtein %s %d %s',
-                       __DIR__, $query, self::MAX_DISTANCE, $fileName);
+    $command = sprintf('%s/c/levenshtein "%s" %d %s',
+                       __DIR__, addslashes($query), $maxDistance, $fileName);
 
     exec($command, $output, $status);
     if ($status != 0) {

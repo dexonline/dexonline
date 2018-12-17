@@ -215,7 +215,24 @@ class Lexeme extends BaseObject implements DatedObject {
   }
 
   static function searchApproximate($cuv) {
-    return NGram::searchNGram($cuv);
+    $forms = Levenshtein::closest($cuv);
+
+    $entries = [];
+    foreach ($forms as $form) {
+      $formEntries = Model::factory('Entry')
+        ->table_alias('e')
+        ->select('e.*')
+        ->join('EntryLexeme', ['e.id', '=', 'el.entryId'], 'el')
+        ->join('Lexeme', ['el.lexemeId', '=', 'l.id'], 'l')
+        ->where('l.formNoAccent', $form)
+        ->find_many();
+      foreach ($formEntries as $e) {
+        $entries[] = $e;
+      }
+    }
+
+    $entries = array_unique($entries, SORT_REGULAR);
+    return $entries;
   }
 
   static function getRegexpQuery($regexp, $hasDiacritics, $sourceId) {

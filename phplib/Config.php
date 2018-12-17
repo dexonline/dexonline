@@ -50,7 +50,7 @@ class Config {
       $versions = self::get('global.locVersions');
       foreach ($versions as $ver) {
         $nameAndDate = preg_split('/ /', $ver);
-        assert(count($nameAndDate == 2));
+        assert(count($nameAndDate) == 2);
         $lv = new LocVersion();
         $lv->name = trim($nameAndDate[0]);
         $date = trim($nameAndDate[1]);

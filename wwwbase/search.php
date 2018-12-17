@@ -226,6 +226,17 @@ if ($searchType == SEARCH_INFLECTED) {
     }
   }
 
+  if (count($entries)) {
+    $baseForms = InflectedForm::isElision($cuv);
+    if ($baseForms) {
+      FlashMessage::addTemplate(
+        'formIsElision.tpl',
+        [ 'elision' => $cuv, 'baseForms' => $baseForms ],
+        'info'
+      );
+    }
+  }
+
   if (count($entries) == 1) {
     // Convenience redirect when there is only one correct form. We want all pages to be canonical.
     $e = $entries[0];
@@ -334,6 +345,7 @@ if ($SEARCH_PARAMS[$searchType]['paradigm']) {
         foreach ($ifs as $if) {
           $hasUnrecommendedForms |= !$if->recommended;
           $hasElisionForms |= $if->apheresis || $if->apocope;
+          $hasElisionForms |= in_array($if->inflectionId, Constant::LONG_VERB_INFLECTION_IDS);
         }
       }
     }

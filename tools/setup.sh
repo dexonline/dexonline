@@ -35,6 +35,15 @@ chmod 777 wwwbase/img/generated
 # Allow PHP scripts to generate merged CSS/JS files
 chmod 777 wwwbase/css/merged wwwbase/js/merged
 
+# Compile the native Levenshtein binary
+if [ ! -e phplib/c/levenshtein ]; then
+  echo "* compiling phplib/c/levenshtein"
+  gcc -O2 -Wall -o phplib/c/levenshtein phplib/c/levenshtein.c
+  strip phplib/c/levenshtein
+else
+  echo "* phplib/c/levenshtein already exists, skipping"
+fi
+
 # Symlink hooks unless they already exist
 if [ ! -e .git/hooks/pre-commit ]; then
   echo "* symlinking tools/git-hooks/pre-commit.php as .git/hooks/pre-commit"

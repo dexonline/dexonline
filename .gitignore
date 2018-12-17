@@ -8,6 +8,9 @@ wwwbase/sitemap.xml
 wwwbase/sitemap*.xml.gz
 wwwbase/stat/sysstatgraph/data.json
 
+# compiled C programs
+phplib/c/levenshtein
+
 # other
 *.pyc
 *~

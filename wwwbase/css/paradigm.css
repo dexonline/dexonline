@@ -85,11 +85,11 @@
   display: inline;
 }
 
-.commaList li::after {
+.commaList li::before {
   content: ', ';
 }
 
-.commaList li:last-child::after {
+.commaList li:first-child::before {
   content: '';
 }
 
@@ -127,6 +127,11 @@ li.notRecommendedHidden {
 .notRecommendedLegend {
   color: #1010c0;
   font-style: italic;
+}
+
+li.elision::after,
+li.notRecommended::after {
+  content: '*';
 }
 
 .variantParadigm {

@@ -215,7 +215,24 @@ class Lexeme extends BaseObject implements DatedObject {
   }
 
   static function searchApproximate($cuv) {
-    return NGram::searchNGram($cuv);
+    $forms = Levenshtein::closest($cuv);
+
+    $entries = [];
+    foreach ($forms as $form) {
+      $formEntries = Model::factory('Entry')
+        ->table_alias('e')
+        ->select('e.*')
+        ->join('EntryLexeme', ['e.id', '=', 'el.entryId'], 'el')
+        ->join('Lexeme', ['el.lexemeId', '=', 'l.id'], 'l')
+        ->where('l.formNoAccent', $form)
+        ->find_many();
+      foreach ($formEntries as $e) {
+        $entries[] = $e;
+      }
+    }
+
+    $entries = array_unique($entries, SORT_REGULAR);
+    return $entries;
   }
 
   static function getRegexpQuery($regexp, $hasDiacritics, $sourceId) {
@@ -337,7 +354,7 @@ class Lexeme extends BaseObject implements DatedObject {
         ->order_by_asc('apocope')
         ->find_many();
     }
-    return ($this->inflectedForms);
+    return $this->inflectedForms;
   }
 
   // throws ParadigmException if any inflection cannot be generated
@@ -430,14 +447,6 @@ class Lexeme extends BaseObject implements DatedObject {
         }
       }
       $this->inflectedForms = array_merge($this->inflectedForms, $forms);
-    }
-
-    // if the lexeme is born by apheresis, mark all inflected forms as
-    // apheresis so that they are styled correctly in the paradigm
-    if ($this->apheresis) {
-      foreach ($this->inflectedForms as $if) {
-        $if->apheresis = true;
-      }
     }
   }
 
@@ -654,7 +663,9 @@ class Lexeme extends BaseObject implements DatedObject {
   }
 
   private function _regenerateDependentLexemesHelper($infl, $genericType, $dedicatedType, $number) {
-    $ifs = InflectedForm::get_all_by_lexemeId_inflectionId($this->id, $infl->id);
+    // process only non-apheresis forms (do not create a PT lexeme for nzăpezit)
+    $ifs = InflectedForm::get_all_by_lexemeId_inflectionId_apheresis(
+      $this->id, $infl->id, false);
 
     foreach ($ifs as $if) {
       // look for an existing lexeme
@@ -663,6 +674,7 @@ class Lexeme extends BaseObject implements DatedObject {
         ->where_in('modelType', [$genericType, $dedicatedType])
         ->where('modelNumber', $number)
         ->find_one();
+
       if (!$l) {
         // if a lexeme exists with this form, but a different model, give a warning
         $existing = Lexeme::get_by_formNoAccent($if->formNoAccent);
@@ -671,8 +683,8 @@ class Lexeme extends BaseObject implements DatedObject {
         }
 
         $l = Lexeme::create($if->form, $dedicatedType, $number, '');
-        $l->apheresis = $if->apheresis;
         $l->deepSave();
+
         $entry = Entry::createAndSave($if->formNoAccent);
         EntryLexeme::associate($entry->id, $l->id);
 

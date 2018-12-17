@@ -13,10 +13,11 @@ $(function() {
   function tinymceToggle() {
     if (!tinymce.activeEditor) {
       // necessary since CSS and JS files are merged in a different directory
-      tinymce.baseURL = wwwRoot + 'js/third-party/tinymce-4.4.0';
+      tinymce.baseURL = wwwRoot + 'js/third-party/tinymce-4.9.1';
       tinymce.suffix = '.min';
 
       tinymce.init({
+        branding: false,
         content_css: '../css/tinymce.css',
         entity_encoding: 'raw',
         menubar: false,

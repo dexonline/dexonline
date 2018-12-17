@@ -61,7 +61,3 @@ DEXONLINE_PATH=/path/to/DEX
 # Run on: main site
 # Dump the XML database and weekly diffs
 30 5 * * 6 php $DEXONLINE_PATH/tools/dumpDatabaseXml.php
-
-# Run on: main site
-# Regenerate the N-gram table for approximate searches
-0 6 * * 6 php $DEXONLINE_PATH/tools/genNGram.php

@@ -224,7 +224,6 @@ $tag21 = createTag('argou', $tag2->id);
 $tag22 = createTag('familiar', $tag2->id);
 
 // run some preprocessing
-require_once __DIR__ . '/../tools/genNGram.php';
 require_once __DIR__ . '/../tools/rebuildAutocomplete.php';
 require_once __DIR__ . '/../tools/rebuildFullTextIndex.php';
 

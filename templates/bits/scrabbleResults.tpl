@@ -1,15 +1,11 @@
 {if isset($answer)}
   {if $answer}
     <div class="alert alert-success">
-      {'The form <strong>%s</strong> exists in LOC %s.'|_|sprintf
-      :$form
-      :$version}
+      {t 1=$form 2=$version}The form <strong>%1</strong> exists in LOC %2.{/t}
     </div>
   {else}
     <div class="alert alert-danger">
-      {'The form <strong>%s</strong> does not exist in LOC %s.'|_|sprintf
-      :$form
-      :$version}
+      {t 1=$form 2=$version}The form <strong>%1</strong> does not exist in LOC %2.{/t}
     </div>
   {/if}
 {/if}

@@ -3,7 +3,7 @@
     <div class="navbar-header navbar-left pull-left">
       {if $pageType != 'home'}
         <div class="logo-wrapper">
-          <a class="navbar-brand" href="{$wwwRoot}" title="{'home page'|_|cap}">
+          <a class="navbar-brand" href="{$wwwRoot}" title="{cap}{t}home page{/t}{/cap}">
             <img id="logo-nav"
               alt="logo dexonline"
               src="{$wwwRoot}img/svg/logo-nav.svg">
@@ -18,7 +18,7 @@
           <p class="navbar-btn">
             <a class="btn btn-info" href="{$wwwRoot}doneaza">
               <i class="glyphicon glyphicon-credit-card"></i>
-              <span>{'donate'|_}</span>
+              <span>{t}donate{/t}</span>
             </a>
           </p>
         </li>
@@ -29,7 +29,7 @@
         data-toggle="collapse"
         data-target="#navMenu"
         aria-expanded="false">
-        <span class="sr-only">{'navigation'|_}</span>
+        <span class="sr-only">{t}navigation{/t}</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -48,7 +48,7 @@
             role="button"
             aria-haspopup="true"
             aria-expanded="false">
-            {'about'|_}
+            {t}about{/t}
             <span class="caret"></span>
           </a>
 
@@ -56,11 +56,11 @@
             <li>
               <a href="https://wiki.dexonline.ro/wiki/Informa%C8%9Bii"
                 target="_blank">
-                {'information'|_}
+                {t}information{/t}
               </a>
             </li>
-            <li><a href="{$wwwRoot}contact">{'contact us'|_}</a></li>
-            <li><a href="https://dexonline.blogspot.ro">{'blog'|_}</a></li>
+            <li><a href="{$wwwRoot}contact">{t}contact us{/t}</a></li>
+            <li><a href="https://dexonline.blogspot.ro">{t}blog{/t}</a></li>
           </ul>
 
         </li>
@@ -73,15 +73,15 @@
             role="button"
             aria-haspopup="true"
             aria-expanded="false">
-            {'get involved'|_}
+            {t}get involved{/t}
             <span class="caret"></span>
           </a>
 
           <ul class="dropdown-menu">
             <li>
-              <a href="https://wiki.dexonline.ro/wiki/Cum_pute%C8%9Bi_ajuta">{'ways to help'|_}</a>
+              <a href="https://wiki.dexonline.ro/wiki/Cum_pute%C8%9Bi_ajuta">{t}ways to help{/t}</a>
             </li>
-            <li><a href="{$wwwRoot}top">{'volunteer ranking'|_}</a></li>
+            <li><a href="{$wwwRoot}top">{t}volunteer ranking{/t}</a></li>
           </ul>
 
         </li>
@@ -94,24 +94,24 @@
             role="button"
             aria-haspopup="true"
             aria-expanded="false">
-            {'resources'|_}
+            {t}resources{/t}
             <span class="caret"></span>
           </a>
 
           <ul class="dropdown-menu">
             <li>
               <a href="https://wiki.dexonline.ro/wiki/Abrevieri" target="_blank">
-                {'abbreviations table'|_}
+                {t}abbreviations table{/t}
               </a>
             </li>
-            <li><a href="{$wwwRoot}articole">{'linguistic articles'|_}</a></li>
-            <li><a href="{$wwwRoot}articol/Ghid_de_exprimare_corect%C4%83">{'grammar guide'|_}</a></li>
-            <li><a href="{$wwwRoot}cuvantul-zilei">{'word of the day'|_}</a></li>
-            <li><a href="{$wwwRoot}cuvantul-lunii">{'word of the month'|_}</a></li>
-            <li><a href="{$wwwRoot}cuvinte-aleatoare">{'random words'|_}</a></li>
-            <li><a href="{$wwwRoot}scrabble">{'Scrabble'|_}</a></li>
-            <li><a href="{$wwwRoot}unelte">{'tools'|_}</a></li>
-            <li><a href="{$wwwRoot}legaturi">{'external links'|_}</a></li>
+            <li><a href="{$wwwRoot}articole">{t}linguistic articles{/t}</a></li>
+            <li><a href="{$wwwRoot}articol/Ghid_de_exprimare_corect%C4%83">{t}grammar guide{/t}</a></li>
+            <li><a href="{$wwwRoot}cuvantul-zilei">{t}word of the day{/t}</a></li>
+            <li><a href="{$wwwRoot}cuvantul-lunii">{t}word of the month{/t}</a></li>
+            <li><a href="{$wwwRoot}cuvinte-aleatoare">{t}random words{/t}</a></li>
+            <li><a href="{$wwwRoot}scrabble">{t}Scrabble{/t}</a></li>
+            <li><a href="{$wwwRoot}unelte">{t}tools{/t}</a></li>
+            <li><a href="{$wwwRoot}legaturi">{t}external links{/t}</a></li>
           </ul>
 
         </li>
@@ -129,10 +129,10 @@
             </a>
 
             <ul class="dropdown-menu">
-              {foreach Locale::getAll() as $id => $name}
+              {foreach LocaleUtil::getAll() as $id => $name}
                 <li>
                   <a href="{$wwwRoot}changeLocale?id={$id}">
-                    <i class="glyphicon glyphicon-ok {if $id != Locale::getCurrent()}invisible{/if}">
+                    <i class="glyphicon glyphicon-ok {if $id != LocaleUtil::getCurrent()}invisible{/if}">
                     </i>
                     {$name}
                   </a>
@@ -150,7 +150,8 @@
               {else}
                 <i class="glyphicon glyphicon-user"></i>
               {/if}
-              {User::getActive()|escape|default:{'Anonymous'|_}}
+              {capture "anon"}{t}Anonymous{/t}{/capture}
+              {User::getActive()|escape|default:$smarty.capture.anon}
               <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
@@ -158,7 +159,7 @@
                 <li>
                   <a href="{$wwwRoot}admin">
                     <i class="glyphicon glyphicon-king"></i>
-                    <span>{'moderator page'|_}</span>
+                    <span>{t}moderator page{/t}</span>
                   </a>
                 </li>
               {/if}
@@ -166,7 +167,7 @@
                 <li>
                   <a href="#" data-toggle="modal" data-target="#hotkeysModal">
                     <i class="glyphicon glyphicon-hand-up"></i>
-                    <span>{'hotkeys'|_}</span>
+                    <span>{t}hotkeys{/t}</span>
                   </a>
                 </li>
               {/if}
@@ -174,40 +175,40 @@
                 <li>
                   <a href="#" id="recentPagesLink" data-toggle="modal" data-target="#recentModal">
                     <i class="glyphicon glyphicon-pushpin"></i>
-                    <span>{'recently viewed pages'|_}</span>
+                    <span>{t}recently viewed pages{/t}</span>
                   </a>
                 </li>
               {/if}
               <li>
                 <a href="{$wwwRoot}preferinte">
                   <i class="glyphicon glyphicon-cog"></i>
-                  <span>{'preferences'|_}</span>
+                  <span>{t}preferences{/t}</span>
                 </a>
               </li>
               {if User::getActive()}
                 <li>
                   <a href="{$wwwRoot}utilizator/{User::getActive()}">
                     <i class="glyphicon glyphicon-user"></i>
-                    <span>{'profile'|_}</span>
+                    <span>{t}profile{/t}</span>
                   </a>
                 </li>
                 <li>
                   <a href="{$wwwRoot}cuvinte-favorite">
                     <i class="glyphicon glyphicon-heart"></i>
-                    <span>{'favorite words'|_}</span>
+                    <span>{t}favorite words{/t}</span>
                   </a>
                 </li>
                 <li>
                   <a href="{$wwwRoot}auth/logout">
                     <i class="glyphicon glyphicon-log-out"></i>
-                    <span>{'log out'|_}</span>
+                    <span>{t}log out{/t}</span>
                   </a>
                 </li>
               {else}
                 <li>
                   <a href="{$wwwRoot}auth/login">
                     <i class="glyphicon glyphicon-log-in"></i>
-                    <span>{'log in'|_}</span>
+                    <span>{t}log in{/t}</span>
                   </a>
                 </li>
               {/if}

@@ -174,4 +174,7 @@ class Constant {
     self::TAB_PARADIGM => '/paradigma',
     self::TAB_TREE => '/sinteza',
   ];
+
+  // Long participles and gerunds (like dusu- and ducându-) need some special treatment.
+  const LONG_VERB_INFLECTION_IDS = [ 106, 107 ];
 }

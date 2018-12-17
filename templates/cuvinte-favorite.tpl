@@ -1,13 +1,15 @@
 {extends "layout.tpl"}
 
-{block "title"}Cuvinte favorite{/block}
+{block "title"}{cap}{t}favorite words{/t}{/cap}{/block}
 
 {block "content"}
-  <h3>Lista cuvintelor favorite pentru {User::getActive()} ({User::getActive()->name})</h3>
+  <h3>
+    {cap}{t}favorite words{/t}{/cap}
+  </h3>
 
   <dl
     class="favoriteDefs"
-    data-none-text="{'You have no favorite words.'|_}">
+    data-none-text="{t}You have no favorite words.{/t}">
     {foreach $results as $i => $row}
       <dd>
         {include "bits/definition.tpl"
@@ -17,7 +19,7 @@
           showHistory=1}
       </dd>
     {foreachelse}
-      {'You have no favorite words.'|_}
+      {t}You have no favorite words.{/t}
     {/foreach}
   </dl>
 {/block}

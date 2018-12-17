@@ -5,7 +5,7 @@
 
 <p>
   Vă mulțumim pentru donația dumneavoastră generoasă. Asociația dexonline va folosi acești bani
-  pentru unul dintre <a href="{$wwwRoot}doneaza">proiectele noastre</a>.
+  pentru unul dintre <a href="https://dexonline.ro/doneaza">proiectele noastre</a>.
 </p>
 
 <p>
@@ -32,17 +32,17 @@
 <p>
   {if !$donor->user}
     Dacă doriți să beneficiați de premiile virtuale (medalie și/sau pagini fără reclame),
-    aveți nevoie de <a href="{$wwwRoot}auth/login">un cont pe dexonline</a>.
+    aveți nevoie de <a href="https://dexonline.ro/auth/login">un cont pe dexonline</a>.
   {elseif $donor->amount < Donor::AMOUNT_NO_BANNERS}
     V-am acordat medalia în
-    <a href="{$wwwRoot}utilizator/{$donor->user->nick|escape:url}"
+    <a href="https://dexonline.ro/utilizator/{$donor->user->nick|escape:url}"
     >contul dumneavoastră</a>.
     Dacă preferați ca donația dumneavoastră să fie anonimă, vă rugăm să ne
     contactați.
   {else}
     V-am acordat medalia și am ascuns reclamele în
-    <a href="{$wwwRoot}utilizator/{$donor->user->nick|escape:url}"
-    >contul dumneavoastră</a>.
+    <a href="https://dexonline.ro/utilizator/{$donor->user->nick|escape:url}"
+      >contul dumneavoastră</a>.
     Dacă preferați ca donația dumneavoastră să fie anonimă, vă rugăm să ne
     contactați.
   {/if}

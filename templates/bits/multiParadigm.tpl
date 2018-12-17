@@ -3,7 +3,7 @@
 
 <div class="panel panel-default paradigmDiv voffset3">
   <div class="panel-heading">
-    {'entry'|_|cap}: <strong>{$entry->description}</strong>
+    {cap}{t}entry{/t}{/cap}: <strong>{$entry->description}</strong>
 
     {if User::can(User::PRIV_EDIT + User::PRIV_STRUCT)}
       <div class="pull-right">
@@ -33,8 +33,8 @@
       <button
         type="button"
         class="btn btn-default toggleVariantParadigms doubleText"
-        data-other-text="{'hide variants'|_}">
-        {'show variants'|_}
+        data-other-text="{t}hide variants{/t}">
+        {t}show variants{/t}
       </button>
     {/if}
 

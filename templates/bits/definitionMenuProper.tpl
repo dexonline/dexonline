@@ -21,7 +21,7 @@
 <ul class="list-inline dropup">
   {if $showSource}
     <li>
-      {'source'|_}:
+      {t}source{/t}:
       <a class="ref"
         href="{$wwwRoot}surse"
         title="{$row->source->name|escape}, {$row->source->year|escape}"
@@ -36,7 +36,7 @@
   {if $showCourtesyLink}
     {if $row->source->courtesyLink}
       <li>
-        {'provided by'|_}
+        {t}provided by{/t}
         <a class="ref" href="{$wwwRoot}spre/{$row->source->courtesyLink}">
           {$row->source->courtesyText}
         </a>
@@ -46,20 +46,20 @@
 
   {if $showStatus}
     <li>
-      {'status'|_}: {$def->getStatusName()}
+      {t}status{/t}: {$def->getStatusName()}
     </li>
   {/if}
 
   {if $showUser}
     {if $row->user->id}
       <li>
-        {'added by'|_}
+        {t}added by{/t}
         {strip}
         <a href="{$wwwRoot}utilizator/{$row->user->nick|escape:"url"}">
           {$row->user->nick|escape}
         </a>
         {if $showDate}
-          , {Locale::date($def->createDate)}
+          , {LocaleUtil::date($def->createDate)}
         {/if}
         {/strip}
       </li>
@@ -120,7 +120,7 @@
   {if $showDropup}
     <li class="dropdown">
       <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-        {'actions'|_}
+        {t}actions{/t}
         <span class="caret"></span>
       </a>
 
@@ -133,7 +133,7 @@
                 data-toggle="modal"
                 data-target="#typoModal">
                 <i class="glyphicon glyphicon-flag"></i>
-                {'report a typo'|_}
+                {t}report a typo{/t}
               </a>
             </li>
           {/if}
@@ -145,7 +145,7 @@
               <li class="disabled">
                 <a href="#">
                   <i class="glyphicon glyphicon-heart"></i>
-                  {'added to favorites'|_}
+                  {t}added to favorites{/t}
                 </a>
               </li>
             {else}
@@ -154,9 +154,9 @@
                   href="{$wwwRoot}ajax/bookmarkAdd.php?definitionId={$def->id}">
                   <i class="glyphicon glyphicon-heart"></i>
                   <span
-                    data-pending-text="{'please wait...'|_}"
-                    data-added-text="{'added to favorites'|_}">
-                    {'add to favorites'|_}
+                    data-pending-text="{t}please wait...{/t}"
+                    data-added-text="{t}added to favorites{/t}">
+                    {t}add to favorites{/t}
                   </span>
                 </a>
               </li>
@@ -169,8 +169,8 @@
             <a class="bookmarkRemoveButton"
               href="{$wwwRoot}ajax/bookmarkRemove.php?definitionId={$def->id}">
               <i class="glyphicon glyphicon-remove"></i>
-              <span data-pending-text="{'please wait...'|_}">
-                {'remove from favorites'|_}
+              <span data-pending-text="{t}please wait...{/t}">
+                {t}remove from favorites{/t}
               </span>
             </a>
           </li>
@@ -182,7 +182,7 @@
               <a href="{$wwwRoot}definitie/{$def->lexicon}/{$def->id}"
                 title="link direct către această definiție">
                 <i class="glyphicon glyphicon-link"></i>
-                {'permalink'|_}
+                {t}permalink{/t}
               </a>
             </li>
           {/if}

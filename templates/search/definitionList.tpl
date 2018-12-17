@@ -8,20 +8,20 @@
     {if $row->source->type == Source::TYPE_SPECIALIZED && !$displayedSpec}
       <br>
       <div class="callout callout-info">
-        <h3>{'Definitions from specialized dictionaries'|_}</h3>
+        <h3>{t}Definitions from specialized dictionaries{/t}</h3>
         <p class="text-muted">
-          {'These definitions could explain only certain meanings of words.'|_}
+          {t}These definitions could explain only certain meanings of words.{/t}
         </p>
       </div>
       {$displayedSpec=true}
     {elseif $row->source->type == Source::TYPE_UNOFFICIAL && !$displayedUnofficial}
       <br>
       <div class="callout callout-info">
-        <h3>{'Definitions from unofficial dictionaries'|_}</h3>
+        <h3>{t}Definitions from unofficial dictionaries{/t}</h3>
         <p class="text-muted">
-          {'Since they are not made by lexicographers, these definitions may
+          {t}Since they are not made by lexicographers, these definitions may
           contain errors, so we advise you to look at other dictionaries as
-          well.'|_}
+          well.{/t}
         </p>
       </div>
       {$displayedUnofficial=true}

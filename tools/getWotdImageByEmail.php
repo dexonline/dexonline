@@ -119,16 +119,12 @@ Log::notice('finished');
 function replyToEmail($senderAddress, $subject, $message) {
   global $dryRun;
 
-  $sender = Config::get('WotD.sender');
-  $replyto = Config::get('WotD.reply-to');
-  $headers = ["From: $sender", "Reply-To: $replyto", 'Content-Type: text/plain; charset=UTF-8'];
+  $from = Config::get('WotD.sender');
 
-  if ($dryRun) {
-    print "---- DRY RUN ----\n";
-    print "Către: $senderAddress\nSubiect: Re: $subject\n\n$message\n";
-  } else {
-    mail($senderAddress, "Re: $subject", $message, implode("\r\n", $headers));
+  if (!$dryRun) {
+    Mailer::setRealMode();
   }
+  Mailer::send($from, [ $senderAddress ], $subject, $message);
 }
 
 function getWotdFromSubject($subject) {

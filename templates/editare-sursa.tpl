@@ -151,7 +151,7 @@
               <input type="text" name="defCount" value="{$src->defCount}" class="form-control">
               <p class="help-block">
                 din care digitizate: {$src->ourDefCount};
-                procent de completare: {Locale::number($src->percentComplete, 2)}.
+                procent de completare: {LocaleUtil::number($src->percentComplete, 2)}.
               </p>
             </div>
 

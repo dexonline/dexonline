@@ -3,13 +3,13 @@
 {if empty($ifArray)}
   &mdash;
 {else}
+  {strip}
   <ul class="commaList">
     {foreach $ifArray as $i => $if}
-      {strip}
       <li class="{$if->getHtmlClasses()}" title="{$if->getHtmlTitles()}">
         {$if->getHtmlForm()}
       </li>
-      {/strip}
     {/foreach}
   </ul>
+  {/strip}
 {/if}

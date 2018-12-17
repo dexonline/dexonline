@@ -3,9 +3,6 @@
 
 [global]
 
-; Contact email, sprinkled throughout the site
-contact = contact@dexonline.ro
-
 ; Database connection
 ; database = "mysql://user[:password]@host/database"
 database = mysql://root@localhost/DEX
@@ -21,8 +18,9 @@ maintenanceMode = 0
 
 ; Interface language
 locale = ro_RO.utf8
-availableLocales[en_US.utf8] = "English"
 availableLocales[ro_RO.utf8] = "română"
+availableLocales[en_US.utf8] = "English"
+availableLocales[hu_HU.utf8] = "magyar"
 
 ; Show our web host logo
 hostedBy = ""
@@ -223,11 +221,21 @@ log2screen = true
 ; When set, outputs messages to the file specified by crawler_log
 log2file = true
 
+[mail]
+
+; Contact email, sprinkled throughout the site
+contact = contact@dexonline.ro
+
+name['contact@dexonline.ro'] = 'dexonline'
+
+password['contact@dexonline.ro'] = ''
+
+smtpServer = 'tls://host:port';
+
 ; WotD email settings
 [WotD]
 ; Sender of WotD reminders (and receiver of WotD by email)
 sender = sending-user@example.com
-reply-to = reply-to-user@example.com
 
 ; Recipients of WotD reminders (in addition to the targeted WotD artists)
 rcpt-info[] = info-user-1@example.com

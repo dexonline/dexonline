@@ -1,20 +1,20 @@
 {extends "layout.tpl"}
 
-{block "title"}{'tools'|_|cap}{/block}
+{block "title"}{cap}{t}tools{/t}{/cap}{/block}
 
 {block "content"}
-  <h3>{'off-line clients'|_|cap}</h3>
+  <h3>{cap}{t}off-line clients{/t}{/cap}</h3>
 
   <p>
-    {'These applications download the definitions from <i>dexonline</i> to
+    {t}These applications download the definitions from <i>dexonline</i> to
     your computer or phone. Then you can see them without an Internet
-    connection.'|_}
+    connection.{/t}
   </p>
 
   <table class="table table-bordered">
     <tbody>
       <tr class="active">
-        <th>{'Client'|_}</th>
+        <th>{t}Client{/t}</th>
         {foreach $clients as $c}
           <td class="text-center">
             <a href="{$c.url}">{$c.name}</a>
@@ -27,7 +27,7 @@
       </tr>
 
       <tr>
-        <th>{'Platforms'|_}</th>
+        <th>{t}Platforms{/t}</th>
         {foreach $clients as $c}
           <td class="text-center">
             {foreach $c.os as $os}
@@ -54,21 +54,21 @@
       {/foreach}
 
       <tr>
-        <th>{'Requirements'|_}</th>
+        <th>{t}Requirements{/t}</th>
         {foreach $clients as $c}
           <td>{$c.requires}</td>
         {/foreach}
       </tr>
 
       <tr>
-        <th>{'Disk space required'|_}</th>
+        <th>{t}Disk space required{/t}</th>
         {foreach $clients as $c}
           <td>{$c.space}</td>
         {/foreach}
       </tr>
 
       <tr>
-        <th>{'Author'|_}</th>
+        <th>{t}Author{/t}</th>
         {foreach $clients as $c}
           <td>
             {if $c.author.1}
@@ -81,7 +81,7 @@
       </tr>
 
       <tr>
-        <th>{'license'|_|cap}</th>
+        <th>{cap}{t}license{/t}{/cap}</th>
         {foreach $clients as $c}
           <td>{$c.license}</td>
         {/foreach}
@@ -96,7 +96,7 @@
       href="#tableLicense"
       aria-expanded="false"
       aria-controls="tableLicense">
-      {'license on the data in this table'|_}
+      {t}license on the data in this table{/t}
     </a>
   </div>
 
@@ -104,58 +104,59 @@
     <p>
       <i class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></i>
 
-      <strong>{'license'|_|cap}:</strong>
+      <strong>{cap}{t}license{/t}{/cap}:</strong>
 
-      {'The information in this table is dual-licensed under the GNU General
+      {t 1="http://creativecommons.org/licenses/by-sa/3.0/"}
+      The information in this table is dual-licensed under the GNU General
       Public License (as applicable to the entire site) and the
-      <a href="%s">Creative Commons Attribution-ShareAlike 3.0</a> license.
+      <a href="%1">Creative Commons Attribution-ShareAlike 3.0</a> license.
       The information can be used (copied, modified, adapted etc.) by the
       website http://wikipedia.org. The data are gathered from the mailing
       list discutii@dexonline.ro (formerly dictionar@yahoogroups.com) in
-      collaboration with the application developers.'|_|sprintf
-      :"http://creativecommons.org/licenses/by-sa/3.0/"}
+      collaboration with the application developers.{/t}
     </p>
   </div>
 
-  <h3>{'Browser integration'|_}</h3>
+  <h3>{t}Browser integration{/t}</h3>
 
   <ul>
     <li>
-      {'A <a href="%s" onclick="%s">spell checker</a> for Firefox.'|_|sprintf
-      :"{$cfg.static.url}download/dex-ff.xpi"
-      :"return installFirefoxSpellChecker(event);"}
+      {$url="{$cfg.static.url}download/dex-ff.xpi"}
+      {t
+        1=$url
+        2="return installFirefoxSpellChecker(event);"}
+      A <a href="%1" onclick="%2">spell checker</a> for Firefox.{/t}
 
       <ul>
         <li>
-          {'To use the spell checker, right-click in any text box, check the
+          {t}To use the spell checker, right-click in any text box, check the
           <em>Check spelling</em> box, right-click once more and select
-          <em>Languages > Romanian</em>.'|_}
+          <em>Languages > Romanian</em>.{/t}
         </li>
       </ul>
     </li>
 
     <li>
-      {'<a href="#" onclick="%s">Add <i>dexonline</i> to the search engine list</a>
-      of your browser. Thanks to Alexandru Lixandru.'|_|sprintf
-      :"return addProvider('https://dexonline.ro/download/dex.xml')"}
+      {t 1="return addProvider('https://dexonline.ro/download/dex.xml')"}
+      <a href="#" onclick="%1">Add <i>dexonline</i> to the search engine list</a>
+      of your browser. Thanks to Alexandru Lixandru.{/t}
     </li>
 
     <li>
-      {'A <a href="%s">Chrome extension</a> for right-click searches.'|_|sprintf
-      :"https://chrome.google.com/webstore/detail/mfbhbmjeaomdhmkcfhlldgedmohdpeml?hl=ro"}
+      {t 1="https://chrome.google.com/webstore/detail/mfbhbmjeaomdhmkcfhlldgedmohdpeml?hl=ro"}
+      A <a href="%1">Chrome extension</a> for right-click searches.{/t}
     </li>
 
     <li>
-      {'A <a href="%s">Firefox plugin</a> for right-click searches. Save the file
+      {t 1="download/dex-context-search.xml" 2="Radu George Mureșan"}
+      A <a href="%1">Firefox plugin</a> for right-click searches. Save the file
       in the <tt>searchplugins/</tt> directory of Firefox and restart Firefox.
-      Thanks to %s.'|_|sprintf
-      :"download/dex-context-search.xml"
-      :"Radu George Mureșan"}
+      Thanks to %2.{/t}
     </li>
 
     <li>
-      {'A <a href="%s">WordPress plugin</a> for your blog.'|_|sprintf
-      :"https://wordpress.org/plugins/dexonline-searchbox/"}
+      {t 1="https://wordpress.org/plugins/dexonline-searchbox/"}
+      A <a href="%1">WordPress plugin</a> for your blog.{/t}
     </li>
 
   </ul>

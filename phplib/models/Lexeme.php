@@ -303,7 +303,7 @@ class Lexeme extends BaseObject implements DatedObject {
       ->count();
   }
 
-  static function getStaleParadigms($limit = 200) {
+  static function getStaleParadigms($limit = 100) {
     return Model::factory('Lexeme')
       ->where('staleParadigm', true)
       ->limit($limit)
@@ -470,7 +470,7 @@ class Lexeme extends BaseObject implements DatedObject {
 
   // throws ParadigmException if the given inflection cannot be generated
   function generateCompoundForms($infl) {
-    if (!ConstraintMap::validInflection($infl->id, $this->restriction) ||
+    if (!ConstraintMap::validInflectionCached($infl->id, $this->restriction) ||
         ($infl->animate && !$this->isAnimate())) {
       return [];
     }
@@ -525,19 +525,14 @@ class Lexeme extends BaseObject implements DatedObject {
   // We may ignore restrictions when the lexeme is part of a compound lexeme
   // throws ParadigmException if the given inflection cannot be generated
   function generateInflectedFormWithModel($form, $inflId, $modelId, $obeyRestrictions = true) {
-    $inflection = Inflection::get_by_id($inflId);
+    $inflection = Inflection::loadByIdCached($inflId);
     if ($inflection->animate && !$this->isAnimate()) {
       // animate inflections, like the vocative, require the lexeme to be animate
       return [];
     }
 
     $ifs = [];
-    $mds = Model::factory('ModelDescription')
-      ->where('modelId', $modelId)
-      ->where('inflectionId', $inflId)
-      ->order_by_asc('variant')
-      ->order_by_asc('applOrder')
-      ->find_many();
+    $mds = ModelDescription::loadForInflectionCached($modelId, $inflId);
 
     $start = 0;
     while ($start < count($mds)) {
@@ -551,7 +546,7 @@ class Lexeme extends BaseObject implements DatedObject {
       }
 
       if (!$obeyRestrictions ||
-          ConstraintMap::validInflection($inflId, $this->restriction, $variant)) {
+          ConstraintMap::validInflectionCached($inflId, $this->restriction, $variant)) {
         $inflId = $mds[$start]->inflectionId;
         $accentShift = $mds[$start]->accentShift;
         $vowel = $mds[$start]->vowel;
@@ -559,7 +554,7 @@ class Lexeme extends BaseObject implements DatedObject {
         // Load and apply all the transforms from $start to $end - 1.
         $transforms = [];
         for ($i = $end - 1; $i >= $start; $i--) {
-          $transforms[] = Transform::get_by_id($mds[$i]->transformId);
+          $transforms[] = Transform::loadByIdCached($mds[$i]->transformId);
         }
 
         $result = FlexStr::applyTransforms($form, $transforms, $accentShift, $vowel);

@@ -16,12 +16,21 @@ class Inflection extends BaseObject {
   const ARTICLE_NONE = 1;
   const ARTICLE_DEFINITE = 2;
 
+  private static $cache = [];
+
   static function loadParticiple() {
     return Model::factory('Inflection')->where_like('description', '%participiu%')->find_one();
   }
 
   static function loadLongInfinitive() {
     return Model::factory('Inflection')->where_like('description', '%infinitiv lung%')->find_one();
+  }
+
+  static function loadByIdCached($id) {
+    if (!isset(self::$cache[$id])) {
+      self::$cache[$id] = self::get_by_id($id);
+    }
+    return self::$cache[$id];
   }
 
   function delete() {

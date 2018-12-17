@@ -8,19 +8,23 @@ class ConstraintMap extends BaseObject {
    * forbid $inflId.
    **/
   private static $map = null;
+  private static $cache = [];
 
   const ALL_VARIANTS = -1;
 
   /**
    * Given a restriction like 'PT', and an inflection, returns true iff the inflection ID is valid under all the restrictions.
    */
-  static function validInflection($inflId, $restr, $variant = self::ALL_VARIANTS) {
-    $count = Model::factory('ConstraintMap')
-           ->where_raw("locate(code, binary '$restr') > 0")
-           ->where('inflectionId', $inflId)
-           ->where_in('variant', [$variant, self::ALL_VARIANTS])
-           ->count();
-    return !$count;
+  static function validInflectionCached($inflId, $restr, $variant = self::ALL_VARIANTS) {
+    if (!isset(self::$cache[$inflId][$restr][$variant])) {
+      $count = Model::factory('ConstraintMap')
+        ->where_raw("locate(code, binary '$restr') > 0")
+        ->where('inflectionId', $inflId)
+        ->where_in('variant', [$variant, self::ALL_VARIANTS])
+        ->count();
+      self::$cache[$inflId][$restr][$variant] = !$count;
+    }
+    return self::$cache[$inflId][$restr][$variant];
   }
 
   private static function buildMap() {

@@ -581,10 +581,8 @@ class Lexeme extends BaseObject implements DatedObject {
       DB::execute("delete from InflectedForm where lexemeId = {$this->id}");
     }
 
-    foreach ($this->generateInflectedForms() as $if) {
-      $if->lexemeId = $this->id;
-      $if->save();
-    }
+    $ifs = $this->generateInflectedForms();
+    InflectedForm::batchInsert($ifs, $this->id);
 
     // only if no exception was thrown
     $this->staleParadigm = false;
@@ -807,7 +805,7 @@ class Lexeme extends BaseObject implements DatedObject {
     $this->save();
 
     Fragment::delete_all_by_lexemeId($this->id);
-    InflectedForm::delete_all_by_lexemeId($this->id);
+    DB::execute("delete from InflectedForm where lexemeId = {$this->id}");
     ObjectTag::delete_all_by_objectId_objectType($this->id, ObjectTag::TYPE_LEXEME);
 
     foreach ($this->getFragments() as $f) {

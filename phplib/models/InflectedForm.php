@@ -148,6 +148,52 @@ class InflectedForm extends BaseObject {
     }
   }
 
+  // Should be faster than calling $if->save() on every record
+  static function batchInsert($ifs, $lexemeId) {
+    $defaults = [
+      'lexemeId' => $lexemeId,
+      'apheresis' => 0,
+      'apocope' => 0,
+    ];
+
+    // collect column names; ensure lexemeId is included
+    $colNames = ['lexemeId' => true];
+    foreach ($ifs as $if) {
+      foreach ($if->as_array() as $name => $ignored) {
+        $colNames[$name] = true;
+      }
+    }
+    $colNames = array_keys($colNames);
+
+    // linearize the data to insert; ensure all fields are non-null
+    $data = [];
+    foreach ($ifs as $if) {
+      foreach ($colNames as $name) {
+        $value = $if->$name ?? $defaults[$name] ?? null;
+        if ($value === null) {
+          Log::error('No value and no default set for field %s', $name);
+        }
+        $data[] = $value;
+      }
+    }
+
+    // build the SQL query with lots of placeholders
+    $rowPlaces = '(' . implode(', ', array_fill(0, count($colNames), '?')) . ')';
+    $allPlaces = implode(', ', array_fill(0, count($ifs), $rowPlaces));
+    $query = sprintf('insert into InflectedForm (%s) values %s',
+                     implode(', ', $colNames),
+                     $allPlaces);
+
+    // prepere and execute query
+    $stmt = ORM::get_db()->prepare($query);
+
+    try {
+      $stmt->execute($data);
+    } catch (PDOException $e){
+      Log::error('Could not execute batch insert: %s', $e->getMessage());
+    }
+  }
+
   function save() {
     $this->formUtf8General = $this->formNoAccent;
     parent::save();

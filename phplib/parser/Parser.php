@@ -187,6 +187,18 @@ abstract class Parser {
             $state->setMeaningNumber($to);
           }
           break;
+
+        case 'entryWithInflectedForms':
+          $state->setForm($content);
+          break;
+
+        case 'accent':
+          $unknown = strpos($content, '#nct#') !== false;
+          $formHasAccent = preg_match("/(?<!\\\\|\\')'(\p{L})/u", $state->getForm());
+          if ($unknown && $formHasAccent) {
+            $warnings[] = 'Indicație de accent necunoscut, dar forma de bază are accent.';
+          }
+          break;
       }
 
     } else { // leaf

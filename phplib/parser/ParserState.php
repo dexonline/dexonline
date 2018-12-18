@@ -11,6 +11,7 @@ class ParserState {
   private $ruleStack;
   private $errors;
   private $meaningNumber;
+  private $form;
 
   function __construct() {
     $this->inBold = false;
@@ -58,6 +59,14 @@ class ParserState {
 
   function setMeaningNumber($number) {
     $this->meaningNumber = $number;
+  }
+
+  function getForm() {
+    return $this->form;
+  }
+
+  function setForm($form) {
+    $this->form = $form;
   }
 
 }

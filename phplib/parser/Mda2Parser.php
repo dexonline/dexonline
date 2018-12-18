@@ -45,8 +45,8 @@ class Mda2Parser extends Parser {
       '"#Abr#:" ws /\$[^$]+\$/ ws',
     ],
     'accent' => [
+      '("A:"|"#A:#") "#nct#" ws',
       '("A:"|"#A:#"|"#A și:#"|"A și (#înv#):") /[^\/]+/s',
-      '"A: #nct#" ws',
     ],
     'alsoWritten' => [
       '("S:"|"#S:#"|"#S și:#") /[^\/]+/s',

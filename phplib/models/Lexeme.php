@@ -22,6 +22,7 @@ class Lexeme extends BaseObject implements DatedObject {
 
   function setForm($form) {
     $this->form = $form;
+    // keep literal apostrophes, e.g. o\'clock
     $this->formNoAccent = preg_replace("/(?<!\\\\)'/", '', $form);
     $this->formNoAccent = str_replace("\\'", "'", $this->formNoAccent);
     $this->formUtf8General = $this->formNoAccent;
@@ -513,6 +514,11 @@ class Lexeme extends BaseObject implements DatedObject {
         } else {
           $f = Str::capitalize($f);
         }
+      }
+
+      if (!$frag->accented) {
+        // keep literal apostrophes, e.g. o\'clock
+        $f = preg_replace("/(?<!\\\\)'/", '', $f);
       }
 
       $forms[] = $f;

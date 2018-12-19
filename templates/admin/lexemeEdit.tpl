@@ -217,7 +217,7 @@
       <div class="panel-body">
 
         <div class="row">
-          <div class="col-md-6 form-horizontal">
+          <div class="col-md-7 form-horizontal">
 
             <div class="form-group">
               <label class="col-md-3 control-label">lexem compus</label>
@@ -315,7 +315,7 @@
 
           </div>
 
-          <div class="col-md-6 form-horizontal">
+          <div class="col-md-5 form-horizontal">
 
             <div class="form-group">
               <label class="col-md-2 control-label">surse</label>

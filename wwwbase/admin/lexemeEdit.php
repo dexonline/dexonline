@@ -34,6 +34,7 @@ $compoundRestriction = Request::get('compoundRestriction');
 $partIds = Request::getArray('partIds');
 $declensions = Request::getArray('declensions');
 $capitalized = Request::get('capitalized');
+$accented = Request::get('accented');
 
 // Button parameters
 $refreshButton = Request::has('refreshButton');
@@ -69,8 +70,8 @@ if ($refreshButton || $saveButton) {
   populate($lexeme, $original, $lexemeForm, $lexemeNumber, $lexemeDescription,
            $needsAccent, $stopWord, $hyphenations, $pronunciations,
            $compound, $modelType, $modelNumber, $restriction, $compoundModelType,
-           $compoundRestriction, $partIds, $declensions, $capitalized, $notes,
-           $hasApheresis, $hasApocope, $tagIds);
+           $compoundRestriction, $partIds, $declensions, $capitalized, $accented,
+           $notes, $hasApheresis, $hasApocope, $tagIds);
 
   if (validate($lexeme, $original)) {
     // Case 1: Validation passed
@@ -174,8 +175,8 @@ SmartyWrap::display('admin/lexemeEdit.tpl');
 function populate(&$lexeme, &$original, $lexemeForm, $lexemeNumber, $lexemeDescription,
                   $needsAccent, $stopWord, $hyphenations, $pronunciations,
                   $compound, $modelType, $modelNumber, $restriction, $compoundModelType,
-                  $compoundRestriction, $partIds, $declensions, $capitalized, $notes,
-                  $hasApheresis, $hasApocope, $tagIds) {
+                  $compoundRestriction, $partIds, $declensions, $capitalized, $accented,
+                  $notes, $hasApheresis, $hasApocope, $tagIds) {
   $lexeme->setForm($lexemeForm);
   $lexeme->number = $lexemeNumber;
   $lexeme->description = $lexemeDescription;
@@ -196,7 +197,8 @@ function populate(&$lexeme, &$original, $lexemeForm, $lexemeNumber, $lexemeDescr
     // create Fragments
     $fragments = [];
     foreach ($partIds as $i => $partId) {
-      $fragments[] = Fragment::create($partId, $declensions[$i], $capitalized[$i], $i);
+      $fragments[] = Fragment::create(
+        $partId, $declensions[$i], $capitalized[$i], $accented[$i], $i);
     }
     $lexeme->setFragments($fragments);
   } else {

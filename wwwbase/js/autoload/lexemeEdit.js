@@ -47,6 +47,7 @@ $(function() {
     $('#addFragmentButton').click(addFragment);
     $('#autoFragmentButton').click(autoFragment);
     $('#fragmentContainer').on('click', '.capitalized', capitalizedToggle);
+    $('#fragmentContainer').on('click', '.accented', accentedToggle);
     $('#fragmentContainer').on('click', '.deleteFragmentButton', deleteFragment);
 
     initSelect2('.fragment', 'ajax/getLexemesById.php', fragmentOptions);
@@ -93,6 +94,14 @@ $(function() {
       .val(value);
   }
 
+  function accentedToggle() {
+    var value = Number($(this).is(':checked'));
+    $(this)
+      .closest('.fragmentWrapper')
+      .find('input[name="accented[]"]')
+      .val(value);
+  }
+
   function autoFragment() {
     var parts = $('#lexemeForm').val().split(/[-\s]+/);
 
@@ -118,6 +127,11 @@ $(function() {
             .trigger('change');
           if (data.capitalized) {
             $('.capitalized')
+              .eq(i)
+              .trigger('click');
+          }
+          if (data.accented) {
+            $('.accented')
               .eq(i)
               .trigger('click');
           }

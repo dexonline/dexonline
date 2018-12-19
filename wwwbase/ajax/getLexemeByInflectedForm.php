@@ -19,6 +19,7 @@ if ($l) {
     'id' => $l->id,
     'text' => (string)$l,
     'capitalized' => Str::isUppercase($form),
+    'accented' => true,
   ];
 } else {
   $resp = null;

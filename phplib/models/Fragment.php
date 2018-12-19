@@ -51,11 +51,12 @@ class Fragment extends BaseObject implements DatedObject {
     ],
   ];
 
-  static function create($partId, $declension, $capitalized, $rank) {
+  static function create($partId, $declension, $capitalized, $accented, $rank) {
     $f = Model::factory('Fragment')->create();
     $f->partId = $partId;
     $f->declension = $declension;
     $f->capitalized = $capitalized;
+    $f->accented = $accented;
     $f->rank = $rank;
     return $f;
   }

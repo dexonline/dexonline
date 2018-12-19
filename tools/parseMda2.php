@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Structure definitions from DEX '98.
+ * Structure definitions from MDA2.
  **/
 
 require_once __DIR__ . '/../phplib/Core.php';
@@ -39,7 +39,9 @@ do {
     if ($warnings) {
       printf("%s\n", defUrl($d));
       foreach ($warnings as $w) {
-        print "  * {$w}\n";
+        if (!is_array($w)) {
+          print "  * {$w}\n";
+        }
       }
     }
     if ($orig != $d->internalRep) {

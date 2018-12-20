@@ -805,6 +805,9 @@ class Lexeme extends BaseObject implements DatedObject {
 
   /**
    * Saves a lexeme and its dependants.
+   *
+   * WARNING: This DELETES existing DB fragments and tags. Make sure to set
+   * them on the in-memory object before calling this function.
    **/
   function deepSave() {
     $this->staleParadigm = false;

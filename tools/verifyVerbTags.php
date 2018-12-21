@@ -27,7 +27,7 @@ $verbs = Model::factory('Lexeme')
   ->find_many();
 
 foreach ($verbs as $v) {
-  list ($group, $conj) = getExpectedGroupAndConjugation($v);
+  list ($group, $conj) = getExpectedGroupAndConjugation($v, $groupMap, $conjMap);
   if (!$group || !$conj) {
     // skip it
     Log::warning('Nu pot deduce grupa și conjugarea verbului %s', $v);
@@ -100,7 +100,7 @@ function loadForm($lexeme, $inflectionId) {
     $lexeme->id, $inflectionId, 0, 0);
 }
 
-function getExpectedGroupAndConjugation($v) {
+function getExpectedGroupAndConjugation($v, &$groupMap, &$conjMap) {
   // some of these could be null
   $form1sg = loadForm($v, 54);
   $form3sg = loadForm($v, 56);
@@ -170,5 +170,26 @@ function getExpectedGroupAndConjugation($v) {
 
   }
 
-  return [ 0, 0 ];
+  // try to copy the group and conjugation from the model's exponent
+  $model = FlexModel::get_by_modelType_number('V', $v->modelNumber);
+  $exp = $model->getExponentWithParadigm();
+  $tags = $exp->getTags();
+  $group = 0;
+  $conj = 0;
+
+  foreach ($exp->getTags() as $tag) {
+    if (!$group) {
+      $group = array_search($tag, $groupMap) ?? 0;
+    }
+    if (!$conj) {
+      $conj = array_search($tag, $conjMap) ?? 0;
+    }
+  }
+
+  if ($group || $conj) {
+    Log::warning('Copiez grupa %d conjugarea %d de la exponentul lui %s (%s)',
+                 $group, $conj, $v, $exp);
+  }
+
+  return [ $group, $conj ];
 }

@@ -39,12 +39,12 @@ class Core {
     SmartyWrap::init();
     LocaleUtil::init();
     DebugInfo::init();
+    Plugin::init();
     if (Request::isWeb() && Config::get('global.maintenanceMode')) {
       SmartyWrap::display('maintenance.tpl', true);
       exit;
     }
     self::initAdvancedSearchPreference();
-    Plugin::init();
   }
 
   static function initAdvancedSearchPreference() {

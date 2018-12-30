@@ -10,7 +10,6 @@ class FlexModel extends BaseObject implements DatedObject {
     $fm->number = $number;
     $fm->description = $description;
     $fm->exponent = $exponent;
-    $fm->flag = 0;
     return $fm;
   }
 

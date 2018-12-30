@@ -42,5 +42,4 @@ $m->modelType = MODEL_TYPE;
 $m->number = '1';
 $m->description = '';
 $m->exponent = 'exponent';
-$m->flag = 0;
 $m->save();

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2018-12-17 14:29+0200\n"
-"PO-Revision-Date: 2018-12-17 14:38+0200\n"
+"PO-Revision-Date: 2018-12-31 12:19+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: es\n"
@@ -21,7 +21,7 @@ msgstr ""
 
 #: templates/alerts/formIsElision.tpl:2
 msgid "Your query <b>%1</b> is an elision of <b>%2</b>."
-msgstr ""
+msgstr "Su búsqueda <b>%1</b> es una elisión de <b>%2</b>."
 
 #: templates/articole.tpl:3 templates/articole.tpl:6
 #: templates/bits/navmenu.tpl:107
@@ -81,7 +81,7 @@ msgstr "silabación"
 
 #: templates/bits/extendedParadigm.tpl:24
 msgid "Hyphenation splits the word into syllables."
-msgstr "La silabación divide la palabra en sílabas"
+msgstr "La silabación divide la palabra en sílabas."
 
 #: templates/bits/extendedParadigm.tpl:31
 msgid "pronunciation"
@@ -98,8 +98,8 @@ msgstr "Fuentes para la flexión"
 #: templates/bits/meaningTree.tpl:59
 msgid "one example"
 msgid_plural "%1 examples"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "un ejemplo"
+msgstr[1] "%1 ejemplos"
 
 #: templates/bits/multiParadigm.tpl:6
 msgid "entry"
@@ -315,7 +315,7 @@ msgstr "cancele"
 
 #: templates/bits/typoForm.tpl:63
 msgid "Thank you for your report!"
-msgstr "¡Gracias por informarnos! "
+msgstr "¡Gracias por informarnos!"
 
 #: templates/bits/typoForm.tpl:67
 msgid "close"
@@ -326,12 +326,12 @@ msgid "Useful information"
 msgstr "Información útil"
 
 #: templates/contact.tpl:22
-#, fuzzy
-#| msgid "What dexonline is <strong>not</strong>"
 msgid ""
 "<a href=\"%1\">What dexonline is <strong>not</strong></a> (ways we cannot "
 "help you)."
-msgstr "Lo que dexonline <strong>no</strong> es"
+msgstr ""
+"<a href=\"%1\">Lo que dexonline <strong>no</strong> es</a> (maneras en que "
+"no podemos ayudarlo)."
 
 #: templates/contact.tpl:29
 msgid "You can install dexonline on <a href=\"%1\">your computer or phone</a>."
@@ -412,7 +412,7 @@ msgid ""
 "License."
 msgstr ""
 "Los datos en su mayoría se pueden bajar libremente bajo la Licencia Pública "
-"General GNU. "
+"General GNU."
 
 #: templates/index.tpl:47
 msgid "Current status: %1 definitions, of which %2 learned last month."
@@ -553,7 +553,7 @@ msgstr "sin artículo"
 #: templates/paradigm/paradigmF.tpl:9 templates/paradigm/paradigmM.tpl:9
 #: templates/paradigm/paradigmN.tpl:9 templates/paradigm/paradigmSP.tpl:9
 msgid "def. article"
-msgstr "def. artículo"
+msgstr "artículo def."
 
 #: templates/paradigm/paradigmA.tpl:18 templates/paradigm/paradigmF.tpl:12
 #: templates/paradigm/paradigmM.tpl:12 templates/paradigm/paradigmN.tpl:12
@@ -798,7 +798,7 @@ msgstr "muestre"
 #: templates/scramble.tpl:4 templates/scramble.tpl:12
 #: templates/scramble.tpl:188 templates/widgets/games.tpl:7
 msgid "word scramble"
-msgstr "la ruleta de las palabras"
+msgstr "la tortilla de las palabras"
 
 #: templates/scramble.tpl:21
 msgid "start"
@@ -971,7 +971,7 @@ msgstr "y paradigma"
 
 #: templates/search.tpl:27
 msgid "results"
-msgstr "marcadores"
+msgstr "resultados"
 
 #: templates/search.tpl:42
 msgid "synthesis"
@@ -982,12 +982,10 @@ msgid "Definition with ID"
 msgstr "Definición con el ID"
 
 #: templates/search.tpl:69
-#, fuzzy
-#| msgid "One definition contains"
 msgid "One definition contains all the words"
 msgid_plural "%1 definitions contain all the words"
-msgstr[0] "Una sola definición contiene"
-msgstr[1] "Una sola definición contiene"
+msgstr[0] "Una sola definición contiene todas las palabras"
+msgstr[1] "%1 definiciones contienen todas las palabras"
 
 #: templates/search.tpl:74 templates/search.tpl:142 templates/search.tpl:183
 #: templates/search.tpl:204 templates/search.tpl:229
@@ -995,10 +993,8 @@ msgid "(at most %1 shown)"
 msgstr "(máximo %1 mostradas)"
 
 #: templates/search.tpl:77
-#, fuzzy
-#| msgid "No definitions contain"
 msgid "No definitions contain all the words"
-msgstr "Ninguna de las definiciones contiene"
+msgstr "Ninguna de las definiciones contiene todas las palabras"
 
 #: templates/search.tpl:83
 msgid "The following words were ignored because they are too common:"
@@ -1009,30 +1005,24 @@ msgid "There is no entry with the given ID."
 msgstr "No hay ninguna entrada con el ID dado."
 
 #: templates/search.tpl:109 templates/search.tpl:173
-#, fuzzy
-#| msgid "One definition"
 msgid "One definition for %2"
 msgid_plural "%1 definitions for %2"
-msgstr[0] "Una definición"
-msgstr[1] "Una definición"
+msgstr[0] "Una definición por %2"
+msgstr[1] "%1 definiciones por %2"
 
 #: templates/search.tpl:115 templates/search.tpl:179
-#, fuzzy
-#| msgid "No definitions"
 msgid "No definitions for %1"
-msgstr "Ninguna definición"
+msgstr "Ninguna definición por %1"
 
 #: templates/search.tpl:126
 msgid "for"
 msgstr "para"
 
 #: templates/search.tpl:132
-#, fuzzy
-#| msgid "No results for <strong>%s</strong>"
 msgid "One result for <strong>%2</strong>"
 msgid_plural "%1 results for <strong>%2</strong>"
-msgstr[0] "No hay resultados para <strong>%2</strong>"
-msgstr[1] "No hay resultados para <strong>%2</strong>"
+msgstr[0] "Un resultado para <strong>%2</strong>"
+msgstr[1] "%1 resultados para <strong>%2</strong>"
 
 #: templates/search.tpl:138 templates/search.tpl:261
 msgid "No results for <strong>%1</strong>"
@@ -1048,21 +1038,17 @@ msgstr[1] "%1 entradas"
 msgid "One definition"
 msgid_plural "%1 definitions"
 msgstr[0] "Una definición"
-msgstr[1] "%2 definiciones"
+msgstr[1] "%1 definiciones"
 
 #: templates/search.tpl:220
-#, fuzzy
-#| msgid "One definition matches"
 msgid "One definition matches at least two words"
 msgid_plural "%1 definitions match at least two words"
-msgstr[0] "Una definición encontrada"
-msgstr[1] "Una definición encontrada"
+msgstr[0] "Una definición coincide con al menos dos palabras"
+msgstr[1] "%1 definiciones coinciden con al menos dos palabras"
 
 #: templates/search.tpl:225
-#, fuzzy
-#| msgid "No definitions match"
 msgid "No definitions match at least two words"
-msgstr "Ninguna definición encontrada"
+msgstr "Ninguna definición coincide con al menos dos palabras"
 
 #: templates/search.tpl:234
 msgid ""
@@ -1074,7 +1060,7 @@ msgstr ""
 
 #: templates/search.tpl:235
 msgid "full-text"
-msgstr "en todas las definiciones"
+msgstr "en el texto de las definiciones"
 
 #: templates/search.tpl:240
 msgid "At most 5 words are allowed. The following words were ignored:"
@@ -1098,10 +1084,8 @@ msgid "hide"
 msgstr "esconde"
 
 #: templates/search.tpl:300
-#, fuzzy
-#| msgid "version %s and version %s"
 msgid "elisions and long verb forms"
-msgstr "la versión %s y la versión %s"
+msgstr "elisiones y formas largas"
 
 #: templates/search.tpl:311
 msgid "link to this inflected forms page"
@@ -1123,7 +1107,7 @@ msgstr ""
 
 #: templates/search/definitionList.tpl:20
 msgid "Definitions from unofficial dictionaries"
-msgstr "Definiciones de diccionarios no oficiales."
+msgstr "Definiciones de diccionarios no oficiales"
 
 #: templates/search/definitionList.tpl:22
 msgid ""
@@ -1135,7 +1119,7 @@ msgstr ""
 
 #: templates/search/extendToAllSources.tpl:3
 msgid "Repeat your search <a href=\"%1\">in all dictionaries</a>."
-msgstr ""
+msgstr "Buscar de nuevo <a href=\"%1\">en todos los diccionarios</a>."
 
 #: templates/search/fullTextLock.tpl:1
 msgid "Search disabled"
@@ -1148,7 +1132,7 @@ msgid ""
 "inconvenience."
 msgstr ""
 "Ahora mismo no puede buscar dentro de las definiciones porque el índice se "
-"está regenerando. Este proceso lleva normalmente unos10 minutos. Pedimos "
+"está regenerando. Este proceso lleva normalmente unos 10 minutos. Pedimos "
 "disculpas por las molestias."
 
 #: templates/search/missingDefinitionWarnings.tpl:5
@@ -1157,7 +1141,7 @@ msgid ""
 "\"%1preferinte\">you have chosen to hide</a>."
 msgstr ""
 "Hay definiciones en los diccionarios no oficiales que <a href=\"%1preferinte"
-"\">hemos escogido no mostrar</a>."
+"\">ha escogido no mostrar</a>."
 
 #: templates/search/missingDefinitionWarnings.tpl:12
 msgid ""
@@ -1402,19 +1386,17 @@ msgstr ""
 "enlaces externos están siempre en rumano."
 
 #: wwwbase/randomList.php:53
-#, fuzzy, php-format
-#| msgid "%d randomly chosen %s"
+#, php-format
 msgid "A randomly chosen word"
 msgid_plural "%d randomly chosen words"
-msgstr[0] "%1 palabras escogidas aleatoriamente"
-msgstr[1] "%1 palabras escogidas aleatoriamente"
+msgstr[0] "Una palabra escogida aleatoriamente"
+msgstr[1] "%d palabras escogidas aleatoriamente"
 
 #: wwwbase/randomList.php:59
-#, fuzzy, php-format
-#| msgid "%d randomly chosen %s"
+#, php-format
 msgid "A randomly chosen word of the day"
 msgid_plural "%d randomly chosen words of the day"
-msgstr[0] "%d palabras del día escogidas aleatoriamente"
+msgstr[0] "Una palabra del día escogida aleatoriamente"
 msgstr[1] "%d palabras del día escogidas aleatoriamente"
 
 #: wwwbase/search.php:223

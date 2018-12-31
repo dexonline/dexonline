@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: BUG-EMAIL-ADDR <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2018-11-29 15:36+0200\n"
-"PO-Revision-Date: 2018-11-30 12:23+0200\n"
+"POT-Creation-Date: 2018-12-31 12:36+0200\n"
+"PO-Revision-Date: 2018-12-31 12:37+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: hu\n"
@@ -570,8 +570,8 @@ msgstr "alanyeset-tárgyeset"
 #: templates/paradigm/paradigmN.tpl:32 templates/paradigm/paradigmN.tpl:51
 #: templates/paradigm/paradigmP.tpl:13 templates/paradigm/paradigmP.tpl:32
 #: templates/paradigm/paradigmSP.tpl:13 templates/paradigm/paradigmSP.tpl:32
-#: templates/paradigm/paradigmSP.tpl:51 templates/paradigm/paradigmV.tpl:28
-#: templates/paradigm/paradigmV.tpl:54
+#: templates/paradigm/paradigmSP.tpl:51 templates/paradigm/paradigmV.tpl:34
+#: templates/paradigm/paradigmV.tpl:60
 msgid "singular"
 msgstr "egyes szám"
 
@@ -583,8 +583,8 @@ msgstr "egyes szám"
 #: templates/paradigm/paradigmN.tpl:41 templates/paradigm/paradigmN.tpl:57
 #: templates/paradigm/paradigmP.tpl:22 templates/paradigm/paradigmP.tpl:41
 #: templates/paradigm/paradigmSP.tpl:22 templates/paradigm/paradigmSP.tpl:41
-#: templates/paradigm/paradigmSP.tpl:57 templates/paradigm/paradigmV.tpl:29
-#: templates/paradigm/paradigmV.tpl:112
+#: templates/paradigm/paradigmSP.tpl:57 templates/paradigm/paradigmV.tpl:35
+#: templates/paradigm/paradigmV.tpl:118
 msgid "plural"
 msgstr "többes szám"
 
@@ -624,55 +624,55 @@ msgstr "határozói igenév"
 msgid "imperative 2nd person"
 msgstr "felszólító második személy"
 
-#: templates/paradigm/paradigmV.tpl:45
+#: templates/paradigm/paradigmV.tpl:51
 msgid "number"
 msgstr "szám"
 
-#: templates/paradigm/paradigmV.tpl:46
+#: templates/paradigm/paradigmV.tpl:52
 msgid "person"
 msgstr "személy"
 
-#: templates/paradigm/paradigmV.tpl:47
+#: templates/paradigm/paradigmV.tpl:53
 msgid "present"
 msgstr "jelen"
 
-#: templates/paradigm/paradigmV.tpl:48
+#: templates/paradigm/paradigmV.tpl:54
 msgid "present subjunctive"
 msgstr "jelen idejű kötőmód"
 
-#: templates/paradigm/paradigmV.tpl:49
+#: templates/paradigm/paradigmV.tpl:55
 msgid "imperfect"
 msgstr "folyamatos múlt"
 
-#: templates/paradigm/paradigmV.tpl:50
+#: templates/paradigm/paradigmV.tpl:56
 msgid "simple perfect"
 msgstr "elbeszélő múlt"
 
-#: templates/paradigm/paradigmV.tpl:51
+#: templates/paradigm/paradigmV.tpl:57
 msgid "pluperfect"
 msgstr "régmúlt"
 
-#: templates/paradigm/paradigmV.tpl:55
+#: templates/paradigm/paradigmV.tpl:61
 msgid "1st (eu)"
 msgstr "1-ső (én)"
 
-#: templates/paradigm/paradigmV.tpl:74
+#: templates/paradigm/paradigmV.tpl:80
 msgid "2nd (tu)"
 msgstr "2-ik (te)"
 
-#: templates/paradigm/paradigmV.tpl:93
+#: templates/paradigm/paradigmV.tpl:99
 msgid "3rd (el, ea)"
 msgstr "3-ik (ő)"
 
-#: templates/paradigm/paradigmV.tpl:113
+#: templates/paradigm/paradigmV.tpl:119
 msgid "1st (noi)"
 msgstr "1-ső (mi)"
 
-#: templates/paradigm/paradigmV.tpl:132
+#: templates/paradigm/paradigmV.tpl:138
 msgid "2nd (voi)"
 msgstr "2-ik (ti)"
 
-#: templates/paradigm/paradigmV.tpl:151
+#: templates/paradigm/paradigmV.tpl:157
 msgid "3rd (ei, ele)"
 msgstr "3-ik (ők)"
 
@@ -796,7 +796,7 @@ msgid "show"
 msgstr "mutasd"
 
 #: templates/scramble.tpl:4 templates/scramble.tpl:12
-#: templates/scramble.tpl:188 templates/widgets/games.tpl:7
+#: templates/scramble.tpl:179 templates/widgets/games.tpl:7
 msgid "word scramble"
 msgstr "kevert szavak"
 
@@ -808,15 +808,15 @@ msgstr "indíts"
 msgid "object"
 msgstr "tárgy"
 
-#: templates/scramble.tpl:40 templates/scramble.tpl:122
+#: templates/scramble.tpl:40 templates/scramble.tpl:113
 msgid "all words"
 msgstr "összes szó"
 
-#: templates/scramble.tpl:43 templates/scramble.tpl:126
+#: templates/scramble.tpl:43 templates/scramble.tpl:117
 msgid "one anagram"
 msgstr "egy anagramma"
 
-#: templates/scramble.tpl:46 templates/scramble.tpl:130
+#: templates/scramble.tpl:46 templates/scramble.tpl:121
 msgid "all anagrams"
 msgstr "összes anagrammák"
 
@@ -841,20 +841,17 @@ msgstr "igen"
 msgid "time"
 msgstr "idő"
 
-#: templates/scramble.tpl:91
+#: templates/scramble.tpl:93
 msgid "one minute"
-msgstr "egy perc"
+msgid_plural "%1 minutes"
+msgstr[0] "egy perc"
+msgstr[1] "%1 percek"
 
-#: templates/scramble.tpl:94 templates/scramble.tpl:97
-#: templates/scramble.tpl:100 templates/scramble.tpl:103
-msgid "minutes"
-msgstr "percek"
-
-#: templates/scramble.tpl:110
+#: templates/scramble.tpl:101
 msgid "Object of the game"
 msgstr "A játék célja"
 
-#: templates/scramble.tpl:112
+#: templates/scramble.tpl:103
 msgid ""
 "Find as many words as you can using the given letters, before the time runs "
 "out."
@@ -862,21 +859,21 @@ msgstr ""
 "Találj annyi szót amennyit csak tudsz az adott betűkkel, mielőtt elfogy az "
 "idő."
 
-#: templates/scramble.tpl:117
+#: templates/scramble.tpl:108
 msgid "There are three game types:"
 msgstr "Három játéktípus létezik:"
 
-#: templates/scramble.tpl:123
+#: templates/scramble.tpl:114
 msgid "find all words having at least three letters."
 msgstr "találj meg minden olyan szót amely legalább három betűs."
 
-#: templates/scramble.tpl:127
+#: templates/scramble.tpl:118
 msgid "find a word using all the letters, then receive a new set of letters."
 msgstr ""
 "keress egy szót az összes betű felhasználásával, majd kapsz egy új "
 "betűkészletet."
 
-#: templates/scramble.tpl:132
+#: templates/scramble.tpl:123
 msgid ""
 "find all words using all the letters, then receive a new set of letters. For "
 "example, for the set AINTT you must guess all three anagrams (<i>%1</i>) to "
@@ -886,11 +883,11 @@ msgstr ""
 "betűkészletet. Például az AINTT készletnek mindhárom anagrammáját meg kell "
 "találnod (<i>%1</i>) hogy megkapd a következő készletet."
 
-#: templates/scramble.tpl:139
+#: templates/scramble.tpl:130
 msgid "Instructions"
 msgstr "Műveletek"
 
-#: templates/scramble.tpl:141
+#: templates/scramble.tpl:132
 msgid ""
 "When using a keyboard, simply type the letters. When using a mouse, click on "
 "the letters, then click on the magnifier to check a word."
@@ -898,7 +895,7 @@ msgstr ""
 "Billentyűzet használata esetében, egyszerűen írd be a betűket. Egérrel "
 "kattints a betűkre, majd kattints a nagyítóra, hogy ellenőrizd a szót."
 
-#: templates/scramble.tpl:147
+#: templates/scramble.tpl:138
 msgid ""
 "Legal words include conjugations (such as <i>lucrez</i>) and declensions "
 "(such as <i>verzi</i>). If you opted for diacritics, then the letters %1 "
@@ -908,51 +905,51 @@ msgstr ""
 "i>, <i>verzi</i>). Ha az ékezeteket választottad, akkor a a(z) %1 betűk nem "
 "cserélhetők a(z) %2 -val."
 
-#: templates/scramble.tpl:153
+#: templates/scramble.tpl:144
 msgid "Special keys"
 msgstr "Speciális billentyűk"
 
-#: templates/scramble.tpl:157
+#: templates/scramble.tpl:148
 msgid "checks the word"
 msgstr "ellenőrizd a szót"
 
-#: templates/scramble.tpl:158
+#: templates/scramble.tpl:149
 msgid "deletes the last letter"
 msgstr "törli az utolsó betűt"
 
-#: templates/scramble.tpl:159
+#: templates/scramble.tpl:150
 msgid "deletes all the letters"
 msgstr "törli az összes betűt"
 
-#: templates/scramble.tpl:160
+#: templates/scramble.tpl:151
 msgid "shuffles the letters"
 msgstr "keveri a betűket"
 
-#: templates/scramble.tpl:164
+#: templates/scramble.tpl:155
 msgid "Below the game area there is"
 msgstr "A játékterület alatt van a"
 
-#: templates/scramble.tpl:170
+#: templates/scramble.tpl:161
 msgid "time remaining"
 msgstr "hátralévő idő"
 
-#: templates/scramble.tpl:174
+#: templates/scramble.tpl:165
 msgid "number of words found / total number of words"
 msgstr "talált szavak száma / összes szó száma"
 
-#: templates/scramble.tpl:178
+#: templates/scramble.tpl:169
 msgid "score (longer words earn more points)"
 msgstr "pontszám (hosszabb szavak több pontot érnek)"
 
-#: templates/scramble.tpl:216
+#: templates/scramble.tpl:207
 msgid "play again"
 msgstr "játszd újra"
 
-#: templates/scramble.tpl:224
+#: templates/scramble.tpl:215
 msgid "Legal words"
 msgstr "Elfogadott szavak"
 
-#: templates/scramble.tpl:248
+#: templates/scramble.tpl:239
 msgid ""
 "You can share this link with your friends to compare scores on the same "
 "letter sets."
@@ -1072,7 +1069,7 @@ msgid ""
 "suggestions:"
 msgstr "A <strong>%1</strong> szó nincs a szótárban. Íme néhány javaslat:"
 
-#: templates/search.tpl:281
+#: templates/search.tpl:281 phplib/models/InflectedForm.php:54
 msgid "unrecommended or incorrect form"
 msgstr "nem ajánlott vagy helytelen alak"
 
@@ -1081,8 +1078,8 @@ msgid "hide"
 msgstr "elrejt"
 
 #: templates/search.tpl:300
-msgid "elisions"
-msgstr "hangelnyeléses alakok"
+msgid "elisions and long verb forms"
+msgstr ""
 
 #: templates/search.tpl:311
 msgid "link to this inflected forms page"
@@ -1372,6 +1369,14 @@ msgstr "előző"
 #: templates/wotm.tpl:32
 msgid "next"
 msgstr "következő"
+
+#: phplib/models/InflectedForm.php:57
+msgid "by apheresis and/or elision"
+msgstr ""
+
+#: phplib/models/InflectedForm.php:60
+msgid "long verb form"
+msgstr ""
 
 #: wwwbase/changeLocale.php:8
 msgid ""

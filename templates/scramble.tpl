@@ -87,21 +87,12 @@
             <label class="col-sm-2 control-label">{t}time{/t}</label>
             <div class="col-sm-10">
               <div class="btn-group" data-toggle="buttons">
-                <label class="btn btn-info">
-                  <input type="radio" name="seconds" value="0"> {t}one minute{/t}
-                </label>
-                <label class="btn btn-info">
-                  <input type="radio" name="seconds" value="1"> 2 {t}minutes{/t}
-                </label>
-                <label class="btn btn-info active">
-                  <input type="radio" name="seconds" value="2"> 3 {t}minutes{/t}
-                </label>
-                <label class="btn btn-info">
-                  <input type="radio" name="seconds" value="3"> 4 {t}minutes{/t}
-                </label>
-                <label class="btn btn-info">
-                  <input type="radio" name="seconds" value="4"> 5 {t}minutes{/t}
-                </label>
+                {for $time=1 to 5}
+                  <label class="btn btn-info {if $time == 3}active{/if}">
+                    <input type="radio" name="seconds" value="{$time-1}">
+                    {t count=$time 1=$time plural="%1 minutes"}one minute{/t}
+                  </label>
+                {/for}
               </div>
             </div>
           </div>

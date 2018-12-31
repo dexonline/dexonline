@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-12-17 14:29+0200\n"
-"PO-Revision-Date: 2018-12-31 12:19+0200\n"
+"POT-Creation-Date: 2018-12-31 12:35+0200\n"
+"PO-Revision-Date: 2018-12-31 12:36+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: es\n"
@@ -796,7 +796,7 @@ msgid "show"
 msgstr "muestre"
 
 #: templates/scramble.tpl:4 templates/scramble.tpl:12
-#: templates/scramble.tpl:188 templates/widgets/games.tpl:7
+#: templates/scramble.tpl:179 templates/widgets/games.tpl:7
 msgid "word scramble"
 msgstr "la tortilla de las palabras"
 
@@ -808,15 +808,15 @@ msgstr "salida"
 msgid "object"
 msgstr "objeto"
 
-#: templates/scramble.tpl:40 templates/scramble.tpl:122
+#: templates/scramble.tpl:40 templates/scramble.tpl:113
 msgid "all words"
 msgstr "todas las palabras"
 
-#: templates/scramble.tpl:43 templates/scramble.tpl:126
+#: templates/scramble.tpl:43 templates/scramble.tpl:117
 msgid "one anagram"
 msgstr "un anagrama"
 
-#: templates/scramble.tpl:46 templates/scramble.tpl:130
+#: templates/scramble.tpl:46 templates/scramble.tpl:121
 msgid "all anagrams"
 msgstr "todos los anagramas"
 
@@ -841,20 +841,17 @@ msgstr "sí"
 msgid "time"
 msgstr "tiempo"
 
-#: templates/scramble.tpl:91
+#: templates/scramble.tpl:93
 msgid "one minute"
-msgstr "un minuto"
+msgid_plural "%1 minutes"
+msgstr[0] "un minuto"
+msgstr[1] "%1 minutos"
 
-#: templates/scramble.tpl:94 templates/scramble.tpl:97
-#: templates/scramble.tpl:100 templates/scramble.tpl:103
-msgid "minutes"
-msgstr "minutos"
-
-#: templates/scramble.tpl:110
+#: templates/scramble.tpl:101
 msgid "Object of the game"
 msgstr "Objetivo del juego"
 
-#: templates/scramble.tpl:112
+#: templates/scramble.tpl:103
 msgid ""
 "Find as many words as you can using the given letters, before the time runs "
 "out."
@@ -862,21 +859,21 @@ msgstr ""
 "Encuentre tantas palabras como pueda formar con las letras dadas, antes de "
 "que se agote el tiempo."
 
-#: templates/scramble.tpl:117
+#: templates/scramble.tpl:108
 msgid "There are three game types:"
 msgstr "Hay tres tipos de juegos:"
 
-#: templates/scramble.tpl:123
+#: templates/scramble.tpl:114
 msgid "find all words having at least three letters."
 msgstr "encuentre todos las palabras que tengan al menos tres letras."
 
-#: templates/scramble.tpl:127
+#: templates/scramble.tpl:118
 msgid "find a word using all the letters, then receive a new set of letters."
 msgstr ""
 "encuentre una palabra usando todas las letras, luego recibirá un nuevo "
 "conjunto de letras."
 
-#: templates/scramble.tpl:132
+#: templates/scramble.tpl:123
 msgid ""
 "find all words using all the letters, then receive a new set of letters. For "
 "example, for the set AINTT you must guess all three anagrams (<i>%1</i>) to "
@@ -887,11 +884,11 @@ msgstr ""
 "todos los tres anagramas (<i>%1</i>), con tal de poder seguir con el próximo "
 "conjunto de letras."
 
-#: templates/scramble.tpl:139
+#: templates/scramble.tpl:130
 msgid "Instructions"
 msgstr "Acciones"
 
-#: templates/scramble.tpl:141
+#: templates/scramble.tpl:132
 msgid ""
 "When using a keyboard, simply type the letters. When using a mouse, click on "
 "the letters, then click on the magnifier to check a word."
@@ -899,7 +896,7 @@ msgstr ""
 "Al usar el teclado, solo tiene que teclear las letras. A usar el ratón, "
 "clique en las letras, luego clique la lupa para comprobar una palabra."
 
-#: templates/scramble.tpl:147
+#: templates/scramble.tpl:138
 msgid ""
 "Legal words include conjugations (such as <i>lucrez</i>) and declensions "
 "(such as <i>verzi</i>). If you opted for diacritics, then the letters %1 "
@@ -909,51 +906,51 @@ msgstr ""
 "declinaciones (tales como <i>verzi</i>). Si ha optado por los diacríticos, "
 "las letras %1 no se pueden intercambiar con %2."
 
-#: templates/scramble.tpl:153
+#: templates/scramble.tpl:144
 msgid "Special keys"
 msgstr "Teclas especiales"
 
-#: templates/scramble.tpl:157
+#: templates/scramble.tpl:148
 msgid "checks the word"
 msgstr "comprueba la palabra"
 
-#: templates/scramble.tpl:158
+#: templates/scramble.tpl:149
 msgid "deletes the last letter"
 msgstr "borra la última letra"
 
-#: templates/scramble.tpl:159
+#: templates/scramble.tpl:150
 msgid "deletes all the letters"
 msgstr "borra todas las letras"
 
-#: templates/scramble.tpl:160
+#: templates/scramble.tpl:151
 msgid "shuffles the letters"
 msgstr "mezcla las letras"
 
-#: templates/scramble.tpl:164
+#: templates/scramble.tpl:155
 msgid "Below the game area there is"
 msgstr "Debajo del área del juego está"
 
-#: templates/scramble.tpl:170
+#: templates/scramble.tpl:161
 msgid "time remaining"
 msgstr "tiempo restante"
 
-#: templates/scramble.tpl:174
+#: templates/scramble.tpl:165
 msgid "number of words found / total number of words"
 msgstr "número de palabras encontradas / número total de palabras"
 
-#: templates/scramble.tpl:178
+#: templates/scramble.tpl:169
 msgid "score (longer words earn more points)"
 msgstr "marcador (las palabras más largas dan más puntos)"
 
-#: templates/scramble.tpl:216
+#: templates/scramble.tpl:207
 msgid "play again"
 msgstr "juegue otra vez"
 
-#: templates/scramble.tpl:224
+#: templates/scramble.tpl:215
 msgid "Legal words"
 msgstr "Palabras admitidas"
 
-#: templates/scramble.tpl:248
+#: templates/scramble.tpl:239
 msgid ""
 "You can share this link with your friends to compare scores on the same "
 "letter sets."

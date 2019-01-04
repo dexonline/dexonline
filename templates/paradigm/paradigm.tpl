@@ -1,3 +1,3 @@
 {* Argument: $lexeme *}
-{assign var=modelType value=$lexeme->getModelType()}
+{$modelType=$lexeme->getModelType()}
 {include "paradigm/paradigm`$modelType->canonical`.tpl" lexeme=$lexeme}

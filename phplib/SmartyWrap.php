@@ -285,6 +285,16 @@ class SmartyWrap {
     // only handle third-party files; do nothing for data URIs, fonts, own CSS files etc.
     if ((strpos($cssFile, 'third-party') !== false) &&
         !Str::startsWith($url, 'data:')){
+
+      // trim and save the anchor
+      $parts = preg_split('/([#?])/', $url, 2, PREG_SPLIT_DELIM_CAPTURE);
+      if (count($parts) > 1) {
+        $url = $parts[0];
+        $anchor = $parts[1] . $parts[2];
+      } else {
+        $anchor = '';
+      }
+
       // get the absolute and relative source image filename
       $absSrcImage = realpath(dirname($cssFile) . '/' . $url);
       $relImage = basename($absSrcImage);
@@ -304,7 +314,7 @@ class SmartyWrap {
         @mkdir($absImageDir);
         copy($absSrcImage, $absDestImage);
       }
-      $url = $relDestImage;
+      $url = $relDestImage . $anchor;
     }
     return "url($url)";
   }

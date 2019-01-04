@@ -1,13 +1,11 @@
 <?php
 
-use \Kunnu\Dropbox\DropboxApp;
-use \Kunnu\Dropbox\Dropbox;
-use \Kunnu\Dropbox\DropboxFile;
-use \Kunnu\Dropbox\Models\FolderMetadata;
-use \Kunnu\Dropbox\Models\FileMetadata;
-use \Kunnu\Dropbox\Exceptions\DropboxClientException;
-
-elFinder::$netDrivers['dropbox2'] = 'Dropbox2';
+use Kunnu\Dropbox\DropboxApp;
+use Kunnu\Dropbox\Dropbox;
+use Kunnu\Dropbox\DropboxFile;
+use Kunnu\Dropbox\Models\FolderMetadata;
+use Kunnu\Dropbox\Models\FileMetadata;
+use Kunnu\Dropbox\Exceptions\DropboxClientException;
 
 /**
  * Simple elFinder driver for Dropbox
@@ -464,8 +462,8 @@ class elFinderVolumeDropbox2 extends elFinderVolumeDriver
     /*********************************************************************/
 
     /**
-     * Prepare FTP connection
-     * Connect to remote server and check if credentials are correct, if so, store the connection id in $ftp_conn.
+     * Prepare Dropbox connection
+     * Connect to remote server and check if credentials are correct, if so, store the connection id in $this->service.
      *
      * @return bool
      *
@@ -473,14 +471,14 @@ class elFinderVolumeDropbox2 extends elFinderVolumeDriver
      **/
     protected function init()
     {
-        if (empty($options['app_key'])) {
+        if (empty($this->options['app_key'])) {
             if (defined('ELFINDER_DROPBOX_APPKEY') && ELFINDER_DROPBOX_APPKEY) {
                 $this->options['app_key'] = ELFINDER_DROPBOX_APPKEY;
             } else {
                 return $this->setError('Required option "app_key" is undefined.');
             }
         }
-        if (empty($options['app_secret'])) {
+        if (empty($this->options['app_secret'])) {
             if (defined('ELFINDER_DROPBOX_APPSECRET') && ELFINDER_DROPBOX_APPSECRET) {
                 $this->options['app_secret'] = ELFINDER_DROPBOX_APPSECRET;
             } else {
@@ -545,6 +543,9 @@ class elFinderVolumeDropbox2 extends elFinderVolumeDriver
         // 'lsPlSleep' minmum 10 sec
         $this->options['lsPlSleep'] = max(10, $this->options['lsPlSleep']);
 
+        // enable command archive
+        $this->options['useRemoteArchive'] = true;
+
         return true;
     }
 
@@ -561,9 +562,6 @@ class elFinderVolumeDropbox2 extends elFinderVolumeDriver
         if (!$this->tmp && $this->tmbPathWritable) {
             $this->tmp = $this->tmbPath;
         }
-
-        $this->disabled[] = 'archive';
-        $this->disabled[] = 'extract';
 
         if ($this->isMyReload()) {
             //$this->_db_getDirectoryData(false);
@@ -631,7 +629,8 @@ class elFinderVolumeDropbox2 extends elFinderVolumeDriver
      **/
     protected function doSearch($path, $q, $mimes)
     {
-        if ($mimes) {
+        if (!empty($this->doSearchCurrentQuery['matchMethod']) || $mimes) {
+            // has custom match method or mimes, use elFinderVolumeDriver::doSearch()
             return parent::doSearch($path, $q, $mimes);
         }
 
@@ -871,7 +870,7 @@ class elFinderVolumeDropbox2 extends elFinderVolumeDriver
                     return $url;
                 }
             } catch (DropboxClientException $e) {
-                return $this->$this->setError('Dropbox error: '.$e->getMessage());
+                return $this->setError('Dropbox error: '.$e->getMessage());
             }
         }
 
@@ -1109,7 +1108,11 @@ class elFinderVolumeDropbox2 extends elFinderVolumeDriver
             file_put_contents($tmp, $data);
             $size = getimagesize($tmp);
             if ($size) {
-                return $size[0].'x'.$size[1];
+                $ret = array('dim' => $size[0].'x'.$size[1]);
+                $srcfp = fopen($tmp, 'rb');
+                if ($subImgLink = $this->getSubstituteImgLink(elFinder::$currentArgs['target'], $size, $srcfp)) {
+                	$ret['url'] = $subImgLink;
+                }
             }
         }
 
@@ -1210,7 +1213,7 @@ class elFinderVolumeDropbox2 extends elFinderVolumeDriver
      **/
     protected function _mkfile($path, $name)
     {
-        return $this->_save(tmpfile(), $path, $name, []);
+        return $this->_save($this->tmpfile(), $path, $name, []);
     }
 
     /**
@@ -1335,11 +1338,8 @@ class elFinderVolumeDropbox2 extends elFinderVolumeDriver
             }
             $dropboxFile = new DropboxFile($filepath);
             if ($name === '') {
-                $dir = $this->_dirname($path);
-                $name = $this->_basename($path);
                 $fullpath = $path;
             } else {
-                $dir = $path;
                 $fullpath = $this->_db_joinName($path, $name);
             }
 
@@ -1390,7 +1390,14 @@ class elFinderVolumeDropbox2 extends elFinderVolumeDriver
             if (file_put_contents($local, $content, LOCK_EX) !== false
             && ($fp = fopen($local, 'rb'))) {
                 clearstatcache();
-                $res = $this->_save($fp, $path, '', []);
+                $name = '';
+                $stat = $this->stat($path);
+                if ($stat) {
+                    // keep real name
+                    $path = $this->_dirname($path);
+                    $name = $stat['name'];
+                }
+                $res = $this->_save($fp, $path, $name, []);
                 fclose($fp);
             }
             file_exists($local) && unlink($local);

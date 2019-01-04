@@ -1,1 +1,9 @@
 seedrandom.min.js: https://github.com/davidbau/seedrandom
+
+Required jQuery UI components:
+
+* draggable: required by elfinder
+* droppable: required by elfinder
+* resizable: required by elfinder
+* selectable: required by elfinder
+* slider: required by elfinder

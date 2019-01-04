@@ -40,7 +40,7 @@ class elFinderConnector {
 	 * 
 	 * @var string
 	 */
-	protected static $contentType = 'Content-Type: application/json';
+	protected static $contentType = 'Content-Type: application/json; charset=utf-8';
 	
 	/**
 	 * Constructor
@@ -66,7 +66,7 @@ class elFinderConnector {
 	 **/
 	public function run() {
 		$isPost = $this->reqMethod === 'POST';
-		$src    = $isPost ? $_POST : $_GET;
+		$src    = $isPost ? array_merge($_GET, $_POST) : $_GET;
 		$maxInputVars = (! $src || isset($src['targets']))? ini_get('max_input_vars') : null;
 		if ((! $src || $maxInputVars) && $rawPostData = file_get_contents('php://input')) {
 			// for max_input_vars and supports IE XDomainRequest()
@@ -152,7 +152,18 @@ class elFinderConnector {
 			$args['FILES'] = $_FILES;
 		}
 		
-		$this->output($this->elFinder->exec($cmd, $args));
+		try {
+			$this->output($this->elFinder->exec($cmd, $args));
+		} catch (elFinderAbortException $e) {
+			// connection aborted
+			// unlock session data for multiple access
+			$this->elFinder->getSession()->close();
+			// HTTP response code
+			header('HTTP/1.0 204 No Content');
+			// clear output buffer
+			while(ob_get_level() && ob_end_clean()){}
+			exit();
+		}
 	}
 	
 	/**
@@ -249,7 +260,13 @@ class elFinderConnector {
 
 			if ($sendData) {
 				if ($toEnd) {
-					fpassthru($fp);
+					// PHP < 5.6 has a bug of fpassthru
+					// see https://bugs.php.net/bug.php?id=66736
+					if (version_compare(PHP_VERSION, '5.6', '<')) {
+						file_put_contents('php://output', $fp);
+					} else {
+						fpassthru($fp);
+					}
 				} else {
 					$out = fopen('php://output', 'wb');
 					stream_copy_to_stream($fp, $out, $psize);
@@ -317,7 +334,7 @@ class elFinderConnector {
 		
 		unset($data['header']);
 		
-		if (!empty($data['raw']) && !empty($data['error'])) {
+		if (!empty($data['raw']) && isset($data['error'])) {
 			$out = $data['error'];
 		} else {
 			if (isset($data['debug']) && isset($data['debug']['phpErrors'])) {

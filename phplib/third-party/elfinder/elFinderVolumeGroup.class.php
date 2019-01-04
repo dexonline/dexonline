@@ -29,6 +29,7 @@ class elFinderVolumeGroup extends elFinderVolumeDriver {
 		$this->options['tmbPath'] = '';
 		$this->options['disabled'] = array(
 			'archive',
+			'copy',
 			'cut',
 			'duplicate',
 			'edit',
@@ -38,7 +39,6 @@ class elFinderVolumeGroup extends elFinderVolumeDriver {
 			'mkdir',
 			'mkfile',
 			'paste',
-			'rename',
 			'resize',
 			'rm',
 			'upload'
@@ -134,11 +134,7 @@ class elFinderVolumeGroup extends elFinderVolumeDriver {
 	 * {@inheritDoc}
 	 **/
 	protected function _subdirs($path) {
-		$dirs = false;
-		if ($path === '/') {
-			return true;
-		}
-		return $dirs;
+		return false;
 	}
 	
 	/**

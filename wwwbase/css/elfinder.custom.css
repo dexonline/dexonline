@@ -1,0 +1,4 @@
+/* hide green labels showing the file type; to us, it's just noise */
+.elfinder-cwd-icon-image:before {
+  display: none;
+}

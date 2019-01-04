@@ -4,174 +4,175 @@ class SmartyWrap {
   private static $theSmarty = null;
   private static $cssFiles = [];
   private static $jsFiles = [];
-	private static $includedCss = [];
-	private static $includedJs = [];
-	private static $cssMap = [
-		'jqueryui' => [
-			'third-party/smoothness-1.10.4/jquery-ui-1.10.4.custom.min.css'
-		],
-		'bootstrap' => [
-			'third-party/bootstrap.min.css'
-		],
-		'jqgrid' => [
-			'third-party/ui.jqgrid.css'
-		],
-		'tablesorter' => [
-			'third-party/tablesorter/theme.bootstrap.css',
-			'third-party/tablesorter/jquery.tablesorter.pager.min.css',
-		],
-		'elfinder' => [
-			'third-party/elfinder/css/elfinder.min.css',
-			'third-party/elfinder/css/theme.css',
-		],
-		'main' => [
-			'main.css'
-		],
-		'admin' => [
-			'admin.css'
-		],
-		'paradigm' => [
-			'paradigm.css'
-		],
-		'jcrop' => [
-			'third-party/jcrop/jquery.Jcrop.min.css'
-		],
-		'select2' => [
-			'third-party/select2.min.css'
-		],
-		'gallery' => [
-			'third-party/colorbox/colorbox.css',
-			'gallery.css',
-		],
-		'textComplete' => [
-			'third-party/jquery.textcomplete.css'
-		],
-		'tinymce' => [
-			'tinymce.css'
-		],
-		'meaningTree' => [
-			'meaningTree.css'
-		],
-		'editableMeaningTree' => [
-			'editableMeaningTree.css'
-		],
-		'privateMode' => [
-			'opensans.css'
-		],
-		'colorpicker' => [
-			'third-party/bootstrap-colorpicker.min.css'
-		],
-		'diff' => [
-			'diff.css'
-		],
-		'bootstrap-spinedit' => [
-			'third-party/bootstrap-spinedit.css'
-		],
-		'bootstrap-datepicker' => [
-			'third-party/bootstrap-datepicker3.min.css'
-		],
-	];
-	private static $jsMap = [
-		'jquery' => [
-			'third-party/jquery-1.12.4.min.js'
-		],
-		'jqueryui' => [
-			'third-party/jquery-ui-1.10.3.custom.min.js'
-		],
-		'bootstrap' => [
-			'third-party/bootstrap.min.js'
-		],
-		'jqgrid' => [
-			'third-party/grid.locale-en.js',
-			'third-party/jquery.jqgrid.min.js',
-		],
-		'jqTableDnd' => [
-			'third-party/jquery.tablednd.0.8.min.js'
-		],
-		'tablesorter' => [
-			'third-party/tablesorter/jquery.tablesorter.min.js',
-			'third-party/tablesorter/jquery.tablesorter.widgets.js',
-			'third-party/tablesorter/jquery.tablesorter.pager.min.js',
-		],
-		'elfinder' => [
-			'third-party/elfinder.min.js'
-		],
-		'cookie' => [
-			'third-party/jquery.cookie.js'
-		],
-		'dex' => [
-			'dex.js'
-		],
-		'jcrop' => [
-			'third-party/jquery.Jcrop.min.js'
-		],
-		'select2' => [
-			'third-party/select2/select2.min.js',
-			'third-party/select2/i18n/ro.js',
-		],
-		'select2Dev' => [
-			'select2Dev.js'
-		],
-		'jcanvas' => [
-			'third-party/jcanvas.min.js'
-		],
-		'pixijs' => [
-			'third-party/pixi.min.js'
-		],
-		'gallery' => [
-			'third-party/colorbox/jquery.colorbox-min.js',
-			'third-party/colorbox/jquery.colorbox-ro.js',
-			'dexGallery.js',
-		],
-		'modelDropdown' => [
-			'modelDropdown.js'
-		],
-		'textComplete' => [
-			'third-party/jquery.textcomplete.min.js'
-		],
-		'tinymce' => [
-			'third-party/tinymce-4.9.1/tinymce.min.js',
-			'tinymce.js',
-		],
-		'meaningTree' => [
-			'meaningTree.js'
-		],
-		'hotkeys' => [
-			'third-party/jquery.hotkeys.js',
-			'hotkeys.js',
-		],
-		'charmap' => [
-			'charmap.js',
-		],
-		'seedrandom' => [
-			'third-party/seedrandom.min.js'
-		],
-		'colorpicker' => [
-			'third-party/bootstrap-colorpicker.min.js'
-		],
-		'diff' => [
-			'diff.js'
-		],
-		'bootstrap-spinedit' => [
-			'third-party/bootstrap-spinedit.js'
-		],
-		'frequentObjects' => [
-			'frequentObjects.js'
-		],
-		'bootstrap-datepicker' => [
-			'third-party/bootstrap-datepicker.min.js',
-			'third-party/bootstrap-datepicker.ro.min.js',
-		],
-		'adminIndex' => [
-			'adminIndex.js'
-		],
-		'admin' => [
-			'admin.js'
-		],
-		'sprintf' => [
-			'third-party/sprintf.min.js'
-		],
-	];
+  private static $includedCss = [];
+  private static $includedJs = [];
+  private static $cssMap = [
+    'jqueryui' => [
+      'third-party/smoothness-1.12.1/jquery-ui-1.12.1.custom.min.css'
+    ],
+    'bootstrap' => [
+      'third-party/bootstrap.min.css'
+    ],
+    'jqgrid' => [
+      'third-party/ui.jqgrid.css'
+    ],
+    'tablesorter' => [
+      'third-party/tablesorter/theme.bootstrap.css',
+      'third-party/tablesorter/jquery.tablesorter.pager.min.css',
+    ],
+    'elfinder' => [
+      'third-party/elfinder/css/elfinder.min.css',
+      'third-party/elfinder/css/theme.css',
+      'elfinder.custom.css',
+    ],
+    'main' => [
+      'main.css'
+    ],
+    'admin' => [
+      'admin.css'
+    ],
+    'paradigm' => [
+      'paradigm.css'
+    ],
+    'jcrop' => [
+      'third-party/jcrop/jquery.Jcrop.min.css'
+    ],
+    'select2' => [
+      'third-party/select2.min.css'
+    ],
+    'gallery' => [
+      'third-party/colorbox/colorbox.css',
+      'gallery.css',
+    ],
+    'textComplete' => [
+      'third-party/jquery.textcomplete.css'
+    ],
+    'tinymce' => [
+      'tinymce.css'
+    ],
+    'meaningTree' => [
+      'meaningTree.css'
+    ],
+    'editableMeaningTree' => [
+      'editableMeaningTree.css'
+    ],
+    'privateMode' => [
+      'opensans.css'
+    ],
+    'colorpicker' => [
+      'third-party/bootstrap-colorpicker.min.css'
+    ],
+    'diff' => [
+      'diff.css'
+    ],
+    'bootstrap-spinedit' => [
+      'third-party/bootstrap-spinedit.css'
+    ],
+    'bootstrap-datepicker' => [
+      'third-party/bootstrap-datepicker3.min.css'
+    ],
+  ];
+  private static $jsMap = [
+    'jquery' => [
+      'third-party/jquery-1.12.4.min.js'
+    ],
+    'jqueryui' => [
+      'third-party/jquery-ui-1.12.1.custom.min.js'
+    ],
+    'bootstrap' => [
+      'third-party/bootstrap.min.js'
+    ],
+    'jqgrid' => [
+      'third-party/grid.locale-en.js',
+      'third-party/jquery.jqgrid.min.js',
+    ],
+    'jqTableDnd' => [
+      'third-party/jquery.tablednd.0.8.min.js'
+    ],
+    'tablesorter' => [
+      'third-party/tablesorter/jquery.tablesorter.min.js',
+      'third-party/tablesorter/jquery.tablesorter.widgets.js',
+      'third-party/tablesorter/jquery.tablesorter.pager.min.js',
+    ],
+    'elfinder' => [
+      'third-party/elfinder.min.js'
+    ],
+    'cookie' => [
+      'third-party/jquery.cookie.js'
+    ],
+    'dex' => [
+      'dex.js'
+    ],
+    'jcrop' => [
+      'third-party/jquery.Jcrop.min.js'
+    ],
+    'select2' => [
+      'third-party/select2/select2.min.js',
+      'third-party/select2/i18n/ro.js',
+    ],
+    'select2Dev' => [
+      'select2Dev.js'
+    ],
+    'jcanvas' => [
+      'third-party/jcanvas.min.js'
+    ],
+    'pixijs' => [
+      'third-party/pixi.min.js'
+    ],
+    'gallery' => [
+      'third-party/colorbox/jquery.colorbox-min.js',
+      'third-party/colorbox/jquery.colorbox-ro.js',
+      'dexGallery.js',
+    ],
+    'modelDropdown' => [
+      'modelDropdown.js'
+    ],
+    'textComplete' => [
+      'third-party/jquery.textcomplete.min.js'
+    ],
+    'tinymce' => [
+      'third-party/tinymce-4.9.1/tinymce.min.js',
+      'tinymce.js',
+    ],
+    'meaningTree' => [
+      'meaningTree.js'
+    ],
+    'hotkeys' => [
+      'third-party/jquery.hotkeys.js',
+      'hotkeys.js',
+    ],
+    'charmap' => [
+      'charmap.js',
+    ],
+    'seedrandom' => [
+      'third-party/seedrandom.min.js'
+    ],
+    'colorpicker' => [
+      'third-party/bootstrap-colorpicker.min.js'
+    ],
+    'diff' => [
+      'diff.js'
+    ],
+    'bootstrap-spinedit' => [
+      'third-party/bootstrap-spinedit.js'
+    ],
+    'frequentObjects' => [
+      'frequentObjects.js'
+    ],
+    'bootstrap-datepicker' => [
+      'third-party/bootstrap-datepicker.min.js',
+      'third-party/bootstrap-datepicker.ro.min.js',
+    ],
+    'adminIndex' => [
+      'adminIndex.js'
+    ],
+    'admin' => [
+      'admin.js'
+    ],
+    'sprintf' => [
+      'third-party/sprintf.min.js'
+    ],
+  ];
 
 
   static function init() {
@@ -222,15 +223,15 @@ class SmartyWrap {
     self::$jsFiles[] = "plugins/$name";
   }
 
-	static function orderResources($mapping, $selected) {
-		$result = [];
-		foreach ($mapping as $name => $files) {
-			if (isset($selected[$name])) {
-				$result = array_merge($result, $files);
-			}
-		}
-		return $result;
-	}
+  static function orderResources($mapping, $selected) {
+    $result = [];
+    foreach ($mapping as $name => $files) {
+      if (isset($selected[$name])) {
+        $result = array_merge($result, $files);
+      }
+    }
+    return $result;
+  }
 
   static function mergeResources($files, $type) {
     // compute the full file names and get the latest timestamp
@@ -383,25 +384,25 @@ class SmartyWrap {
     self::$theSmarty->registerFilter('output', ['SmartyWrap', 'minifyOutput']);
   }
 
- static function addCss(/* Variable-length argument list */) {
+  static function addCss(/* Variable-length argument list */) {
     // Note the priorities. This allows files to be added in any order, regardless of dependencies
     foreach (func_get_args() as $id) {
-			if (!isset(self::$cssMap[$id])) {
-				FlashMessage::add("Cannot load CSS file {$id}");
-				Util::redirect(Core::getWwwRoot());
-			}
-			self::$includedCss[$id] = true;
+      if (!isset(self::$cssMap[$id])) {
+        FlashMessage::add("Cannot load CSS file {$id}");
+        Util::redirect(Core::getWwwRoot());
+      }
+      self::$includedCss[$id] = true;
     }
   }
 
   static function addJs(/* Variable-length argument list */) {
     // Note the priorities. This allows files to be added in any order, regardless of dependencies
     foreach (func_get_args() as $id) {
-			if (!isset(self::$jsMap[$id])) {
-				FlashMessage::add("Cannot load JS script {$id}");
-				Util::redirect(Core::getWwwRoot());
-			}
-			self::$includedJs[$id] = true;
+      if (!isset(self::$jsMap[$id])) {
+        FlashMessage::add("Cannot load JS script {$id}");
+        Util::redirect(Core::getWwwRoot());
+      }
+      self::$includedJs[$id] = true;
     }
   }
 
@@ -426,34 +427,34 @@ class SmartyWrap {
     // their definitions.
     $_offset = 0;
     if (preg_match_all('#<(script|pre|textarea)[^>]*>.*?</\\1>#is', $source, $matches, PREG_OFFSET_CAPTURE | PREG_SET_ORDER)) {
-        foreach ($matches as $match) {
-            $store[] = $match[0][0];
-            $_length = strlen($match[0][0]);
-            $replace = '@!@SMARTY:' . $_store . ':SMARTY@!@';
-            $source = substr_replace($source, $replace, $match[0][1] - $_offset, $_length);
+      foreach ($matches as $match) {
+        $store[] = $match[0][0];
+        $_length = strlen($match[0][0]);
+        $replace = '@!@SMARTY:' . $_store . ':SMARTY@!@';
+        $source = substr_replace($source, $replace, $match[0][1] - $_offset, $_length);
 
-            $_offset += $_length - strlen($replace);
-            $_store++;
-        }
+        $_offset += $_length - strlen($replace);
+        $_store++;
+      }
     }
 
     $expressions = [
-        '#\n+#Ss' => ' ',
-        '#\s+#Ss' => ' ',
+      '#\n+#Ss' => ' ',
+      '#\s+#Ss' => ' ',
     ];
 
     $source = preg_replace( array_keys($expressions), array_values($expressions), $source );
 
     $_offset = 0;
     if (preg_match_all('#@!@SMARTY:([0-9]+):SMARTY@!@#is', $source, $matches, PREG_OFFSET_CAPTURE | PREG_SET_ORDER)) {
-        foreach ($matches as $match) {
-            $_length = strlen($match[0][0]);
-            $replace = $store[$match[1][0]];
-            $source = substr_replace($source, $replace, $match[0][1] + $_offset, $_length);
+      foreach ($matches as $match) {
+        $_length = strlen($match[0][0]);
+        $replace = $store[$match[1][0]];
+        $source = substr_replace($source, $replace, $match[0][1] + $_offset, $_length);
 
-            $_offset += strlen($replace) - $_length;
-            $_store++;
-        }
+        $_offset += strlen($replace) - $_length;
+        $_store++;
+      }
     }
 
     return $source;

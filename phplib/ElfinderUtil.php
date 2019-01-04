@@ -20,6 +20,7 @@ class ElfinderUtil {
           'path'          => Config::get('static.path') . $subdirectory,
           'timeout'       => Config::get('static.timeout'),
           'URL'           => Config::get('static.url') . $subdirectory,
+          'ssl'           => true,
         ];
         break;
 

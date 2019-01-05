@@ -7,7 +7,7 @@ class FtpUtil {
     $user = Config::get('static.user');
     $pass = Config::get('static.password');
     if ($user && $pass) {
-      $this->conn = ftp_connect(Config::get('static.host'));
+      $this->conn = ftp_ssl_connect(Config::get('static.host'));
       ftp_login($this->conn, $user, $pass);
       ftp_pasv($this->conn, true);
     }

@@ -47,7 +47,7 @@ $(function() {
   }
 
   function optionPressed() {
-    var guessed = (answer == $(this).val());
+    var guessed = +(answer == $(this).val());
 
     if (guessed) {
       $(this).addClass('btn-success');

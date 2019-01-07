@@ -21,24 +21,34 @@
 <ul class="list-inline dropup">
   {if $showSource}
     <li>
-      {t}source{/t}:
-      <a class="ref"
-        href="{$wwwRoot}surse"
-        title="{$row->source->name|escape}, {$row->source->year|escape}"
-      >{$row->source->shortName|escape}
-        {if $row->source->year}
-          ({$row->source->year|regex_replace:"/ .*$/":""})
-        {/if}
-      </a>
+      {t
+        count=count($row->sources)
+        plural="sources"}
+      source{/t}:
+
+      <ul class="list-inline defSourceList">
+        {foreach $row->sources as $src}
+          <li>
+            <a class="ref"
+              href="{$wwwRoot}surse"
+              title="{$src->name|escape}, {$src->year|escape}"
+            >{$src->shortName|escape}
+              {if $src->year}
+                ({$src->year|regex_replace:"/ .*$/":""})
+              {/if}
+            </a>
+          </li>
+        {/foreach}
+      </ul>
     </li>
   {/if}
 
   {if $showCourtesyLink}
-    {if $row->source->courtesyLink}
+    {if $row->sources[0]->courtesyLink}
       <li>
         {t}provided by{/t}
-        <a class="ref" href="{$wwwRoot}spre/{$row->source->courtesyLink}">
-          {$row->source->courtesyText}
+        <a class="ref" href="{$wwwRoot}spre/{$row->sources[0]->courtesyLink}">
+          {$row->sources[0]->courtesyText}
         </a>
       </li>
     {/if}
@@ -188,7 +198,10 @@
           {/if}
         {/if}
 
-        {if $showPageLink && $row->source->hasPageImages && (User::can(User::PRIV_EDIT) || TraineeSource::TraineeCanEditSource(User::getActiveId(), $def->sourceId))}
+        {if $showPageLink &&
+          $row->sources[0]->hasPageImages &&
+          (User::can(User::PRIV_EDIT) ||
+            TraineeSource::TraineeCanEditSource(User::getActiveId(), $def->sourceId))}
           <li>
             <a href="#"
               title="arată pagina originală cu această definiție"
@@ -229,7 +242,9 @@
    Sometimes we need to include the modal separately. For example, nested forms are not
    allowed, so if we are inside a form we cannot include the modal.
 *}
-{if $showPageLink && $showPageModal && $row->source->hasPageImages && (User::can(User::PRIV_EDIT) ||
-    (User::can(User::PRIV_EDIT) || TraineeSource::TraineeCanEditSource(User::getActiveId(), $def->sourceId)))}
+{if $showPageLink &&
+  $showPageModal &&
+  $row->sources[0]->hasPageImages &&
+  (User::can(User::PRIV_EDIT) || TraineeSource::TraineeCanEditSource(User::getActiveId(), $def->sourceId))}
   {include "bits/pageModal.tpl"}
 {/if}

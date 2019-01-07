@@ -273,6 +273,8 @@ $results = SearchResult::mapDefinitionArray($definitions);
 list($extra['unofficialHidden'], $extra['sourcesHidden'])
   = SearchResult::filter($results);
 
+SearchResult::hideIdentical($results);
+
 $extra['numResults'] = count($results) ?: count($entries) ?: count($lexemes);
 
 // Keep only a maximum number of definitions
@@ -359,7 +361,9 @@ if ($SEARCH_PARAMS[$searchType]['paradigm']) {
 // Collect source list to display in meta tags
 $sourceList = [];
 foreach ($results as $row) {
-  $sourceList[$row->source->shortName] = true;
+  foreach ($row->sources as $src) {
+    $sourceList[$src->shortName] = true;
+  }
 }
 $sourceList = array_keys($sourceList);
 SmartyWrap::assign('sourceList', $sourceList);

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-12-31 12:35+0200\n"
-"PO-Revision-Date: 2018-12-31 12:36+0200\n"
+"POT-Creation-Date: 2019-01-07 15:29+0200\n"
+"PO-Revision-Date: 2019-01-07 15:29+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: es\n"
@@ -28,50 +28,52 @@ msgstr "Su búsqueda <b>%1</b> es una elisión de <b>%2</b>."
 msgid "linguistic articles"
 msgstr "artículos lingüísticos"
 
-#: templates/bits/definitionMenuProper.tpl:24
+#: templates/bits/definitionMenuProper.tpl:25
 msgid "source"
-msgstr "fuente"
+msgid_plural "sources"
+msgstr[0] "fuente"
+msgstr[1] "fuentes"
 
-#: templates/bits/definitionMenuProper.tpl:39
+#: templates/bits/definitionMenuProper.tpl:49
 msgid "provided by"
 msgstr "proporcionado por"
 
-#: templates/bits/definitionMenuProper.tpl:49
+#: templates/bits/definitionMenuProper.tpl:59
 msgid "status"
 msgstr "estado"
 
-#: templates/bits/definitionMenuProper.tpl:56
+#: templates/bits/definitionMenuProper.tpl:66
 msgid "added by"
 msgstr "añadida por"
 
-#: templates/bits/definitionMenuProper.tpl:123
+#: templates/bits/definitionMenuProper.tpl:133
 msgid "actions"
 msgstr "acciones"
 
-#: templates/bits/definitionMenuProper.tpl:136 templates/bits/typoForm.tpl:13
+#: templates/bits/definitionMenuProper.tpl:146 templates/bits/typoForm.tpl:13
 #: templates/bits/typoForm.tpl:59
 msgid "report a typo"
 msgstr "comunicar un error"
 
-#: templates/bits/definitionMenuProper.tpl:148
 #: templates/bits/definitionMenuProper.tpl:158
+#: templates/bits/definitionMenuProper.tpl:168
 msgid "added to favorites"
 msgstr "añadido a favoritos"
 
-#: templates/bits/definitionMenuProper.tpl:157
-#: templates/bits/definitionMenuProper.tpl:172
+#: templates/bits/definitionMenuProper.tpl:167
+#: templates/bits/definitionMenuProper.tpl:182
 msgid "please wait..."
 msgstr "espere por favor…"
 
-#: templates/bits/definitionMenuProper.tpl:159
+#: templates/bits/definitionMenuProper.tpl:169
 msgid "add to favorites"
 msgstr "añadir a favoritos"
 
-#: templates/bits/definitionMenuProper.tpl:173
+#: templates/bits/definitionMenuProper.tpl:183
 msgid "remove from favorites"
 msgstr "eliminar de favoritos"
 
-#: templates/bits/definitionMenuProper.tpl:185
+#: templates/bits/definitionMenuProper.tpl:195
 msgid "permalink"
 msgstr "enlace permanente"
 
@@ -272,7 +274,7 @@ msgstr "nombre"
 msgid "characters"
 msgstr "caracteres"
 
-#: templates/bits/top.tpl:7 templates/hangman.tpl:52 templates/mill.tpl:65
+#: templates/bits/top.tpl:7 templates/hangman.tpl:52 templates/mill.tpl:67
 msgid "definitions"
 msgstr "definiciones"
 
@@ -519,7 +521,7 @@ msgstr "Puede usar las claves 1, 2, 3, 4."
 msgid "The correct definition of <span class=\"word\"></span>:"
 msgstr "La definición correcta de <span class=\"word\"></span>:"
 
-#: templates/mill.tpl:54
+#: templates/mill.tpl:56
 msgid ""
 "Congratulations! You answered <b id=\"answeredCorrect\">0</b> of 10 "
 "questions correctly."
@@ -527,11 +529,11 @@ msgstr ""
 "¡Enhorabuena! Ha contestado correctamente <b id=\"answeredCorrect\">0</b> de "
 "10 preguntas."
 
-#: templates/mill.tpl:57
+#: templates/mill.tpl:59
 msgid "new game"
 msgstr "juegue otra vez"
 
-#: templates/mill.tpl:58
+#: templates/mill.tpl:60
 msgid "see all definitions"
 msgstr "vea todas las definiciones"
 
@@ -1401,11 +1403,11 @@ msgstr[1] "%d palabras del día escogidas aleatoriamente"
 msgid "We redirected you automatically from <b>%s</b> to <b>%s</b>."
 msgstr "Ha sido automáticamente redirigido de <b>%s</b> a <b>%s</b>."
 
-#: wwwbase/search.php:331
+#: wwwbase/search.php:333
 msgid "conjugations"
 msgstr "conjugaciones"
 
-#: wwwbase/search.php:332
+#: wwwbase/search.php:334
 msgid "declensions"
 msgstr "declinaciones"
 

@@ -8,7 +8,7 @@ class SearchResult {
 
   public $definition;
   public $user;
-  public $source;
+  public $sources;
   public $typos;
   public $bookmark;
   public $tags;
@@ -28,13 +28,17 @@ class SearchResult {
       $sourceIds[] = $definition->sourceId;
       $userIds[] = $definition->userId;
     }
-    $userMap = Util::mapById(Model::factory('User')->where_in('id', array_unique($userIds))->find_many());
-    $sourceMap = Util::mapById(Model::factory('Source')->where_in('id', array_unique($sourceIds))->find_many());
+    $userMap = Util::mapById(Model::factory('User')
+                             ->where_in('id', array_unique($userIds))
+                             ->find_many());
+    $sourceMap = Util::mapById(Model::factory('Source')
+                               ->where_in('id', array_unique($sourceIds))
+                               ->find_many());
     foreach ($definitionArray as $definition) {
       $result = new SearchResult();
       $result->definition = $definition;
       $result->user = $userMap[$definition->userId];
-      $result->source = $sourceMap[$definition->sourceId];
+      $result->sources = [ $sourceMap[$definition->sourceId] ];
       $result->typos = [];
       $result->wotdType = self::WOTD_NOT_IN_LIST;
       $result->wotdDate = null;
@@ -76,11 +80,15 @@ class SearchResult {
 
       }
 
-      $bookmarks = Model::factory('UserWordBookmark')->where('userId', $suid)->where_in('definitionId', $defIds)->find_many();
+      $bookmarks = Model::factory('UserWordBookmark')
+        ->where('userId', $suid)
+        ->where_in('definitionId', $defIds)
+        ->find_many();
       foreach ($bookmarks as $b) {
         $results[$b->definitionId]->bookmark = true;
       }
     }
+
     return $results;
   }
 
@@ -93,20 +101,55 @@ class SearchResult {
     $excludeUnofficial = Session::userPrefers(Preferences::EXCLUDE_UNOFFICIAL);
 
     foreach ($searchResults as $i => &$sr) {
-      if ($excludeUnofficial && ($sr->source->type == Source::TYPE_UNOFFICIAL)) {
+      if ($excludeUnofficial && ($sr->sources[0]->type == Source::TYPE_UNOFFICIAL)) {
         // hide unofficial definitions
         $unofficialHidden = true;
         unset($searchResults[$i]);
       } else if (!User::can(User::PRIV_VIEW_HIDDEN) &&
-                 (($sr->source->type == Source::TYPE_HIDDEN) ||
+                 (($sr->sources[0]->type == Source::TYPE_HIDDEN) ||
                   ($sr->definition->status == Definition::ST_HIDDEN))) {
         // hide hidden definitions or definitions from hidden sources
-        $sourcesHidden[$sr->source->id] = $sr->source;
+        $sourcesHidden[$sr->sources[0]->id] = $sr->sources[0];
         unset($searchResults[$i]);
       }
     }
 
     return [ $unofficialHidden, $sourcesHidden ];
+  }
+
+  // Collapse identical definitions, enumerating their sources
+  static function hideIdentical(&$searchResults) {
+    // hash all the internalRep's and store them
+    $hashMap = [];
+    foreach ($searchResults as $sr) {
+      $hashMap[$sr->definition->id] = md5($sr->definition->internalRep);
+    }
+
+    // build a map of hash code => list of results
+    $map = [];
+    foreach ($searchResults as $sr) {
+      $hashCode = $hashMap[$sr->definition->id];
+      $map[$hashCode][] = $sr;
+    }
+
+    // sort each list of results by displayOrder
+    // mark for deletion the second and following elements of each list
+    $toDelete = [];
+    foreach ($map as $hashCode => &$srs) {
+      usort($srs, function($a, $b) {
+        return $a->sources[0]->displayOrder - $b->sources[0]->displayOrder;
+      });
+      for ($i = 1; $i < count($srs); $i++) {
+        $toDelete[$srs[$i]->definition->id] = true;
+        $srs[0]->sources[] = $srs[$i]->sources[0];
+      }
+    }
+
+    foreach ($searchResults as $i => &$sr) {
+      if (isset($toDelete[$sr->definition->id])) {
+        unset($searchResults[$i]);
+      }
+    }
   }
 
 }

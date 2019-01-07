@@ -16,7 +16,6 @@
   {include "bits/footnotes.tpl" footnotes=$def->getFootnotes()}
   {include "bits/definitionMenu.tpl"}
 
-
   {if $showTypos}
     {if count($row->typos)}
       <ul>

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-12-31 12:37+0200\n"
-"PO-Revision-Date: 2018-12-31 12:38+0200\n"
+"POT-Creation-Date: 2019-01-07 15:14+0200\n"
+"PO-Revision-Date: 2019-01-07 15:15+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -30,50 +30,53 @@ msgstr "Căutarea <b>%1</b> este o formă elidată a lui <b>%2</b>."
 msgid "linguistic articles"
 msgstr "articole lingvistice"
 
-#: templates/bits/definitionMenuProper.tpl:24
+#: templates/bits/definitionMenuProper.tpl:25
 msgid "source"
-msgstr "sursa"
+msgid_plural "sources"
+msgstr[0] "sursa"
+msgstr[1] "sursele"
+msgstr[2] "sursele"
 
-#: templates/bits/definitionMenuProper.tpl:39
+#: templates/bits/definitionMenuProper.tpl:49
 msgid "provided by"
 msgstr "furnizată de"
 
-#: templates/bits/definitionMenuProper.tpl:49
+#: templates/bits/definitionMenuProper.tpl:59
 msgid "status"
 msgstr "starea"
 
-#: templates/bits/definitionMenuProper.tpl:56
+#: templates/bits/definitionMenuProper.tpl:66
 msgid "added by"
 msgstr "adăugată de"
 
-#: templates/bits/definitionMenuProper.tpl:123
+#: templates/bits/definitionMenuProper.tpl:133
 msgid "actions"
 msgstr "acțiuni"
 
-#: templates/bits/definitionMenuProper.tpl:136 templates/bits/typoForm.tpl:13
+#: templates/bits/definitionMenuProper.tpl:146 templates/bits/typoForm.tpl:13
 #: templates/bits/typoForm.tpl:59
 msgid "report a typo"
 msgstr "semnalează o greșeală"
 
-#: templates/bits/definitionMenuProper.tpl:148
 #: templates/bits/definitionMenuProper.tpl:158
+#: templates/bits/definitionMenuProper.tpl:168
 msgid "added to favorites"
 msgstr "adăugată la favorite"
 
-#: templates/bits/definitionMenuProper.tpl:157
-#: templates/bits/definitionMenuProper.tpl:172
+#: templates/bits/definitionMenuProper.tpl:167
+#: templates/bits/definitionMenuProper.tpl:182
 msgid "please wait..."
 msgstr "un moment..."
 
-#: templates/bits/definitionMenuProper.tpl:159
+#: templates/bits/definitionMenuProper.tpl:169
 msgid "add to favorites"
 msgstr "adaugă la favorite"
 
-#: templates/bits/definitionMenuProper.tpl:173
+#: templates/bits/definitionMenuProper.tpl:183
 msgid "remove from favorites"
 msgstr "șterge dintre favorite"
 
-#: templates/bits/definitionMenuProper.tpl:185
+#: templates/bits/definitionMenuProper.tpl:195
 msgid "permalink"
 msgstr "permalink"
 
@@ -275,7 +278,7 @@ msgstr "nume"
 msgid "characters"
 msgstr "caractere"
 
-#: templates/bits/top.tpl:7 templates/hangman.tpl:52 templates/mill.tpl:65
+#: templates/bits/top.tpl:7 templates/hangman.tpl:52 templates/mill.tpl:67
 msgid "definitions"
 msgstr "definiții"
 
@@ -522,7 +525,7 @@ msgstr "Poți folosi și tastele 1, 2, 3, 4."
 msgid "The correct definition of <span class=\"word\"></span>:"
 msgstr "Definiția corectă pentru <span class=\"word\"></span>:"
 
-#: templates/mill.tpl:54
+#: templates/mill.tpl:56
 msgid ""
 "Congratulations! You answered <b id=\"answeredCorrect\">0</b> of 10 "
 "questions correctly."
@@ -530,11 +533,11 @@ msgstr ""
 "Felicitări! Ai răspuns corect la <b id=\"answeredCorrect\">0</b> din 10 "
 "întrebări."
 
-#: templates/mill.tpl:57
+#: templates/mill.tpl:59
 msgid "new game"
 msgstr "joc nou"
 
-#: templates/mill.tpl:58
+#: templates/mill.tpl:60
 msgid "see all definitions"
 msgstr "arată toate definițiile"
 
@@ -1414,11 +1417,11 @@ msgstr[2] "%d de cuvinte ale zilei alese la întâmplare"
 msgid "We redirected you automatically from <b>%s</b> to <b>%s</b>."
 msgstr "V-am redirecționat automat de la <b>%s</b> la <b>%s</b>."
 
-#: wwwbase/search.php:331
+#: wwwbase/search.php:333
 msgid "conjugations"
 msgstr "conjugări"
 
-#: wwwbase/search.php:332
+#: wwwbase/search.php:334
 msgid "declensions"
 msgstr "declinări"
 

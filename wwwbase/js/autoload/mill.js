@@ -6,7 +6,6 @@ $(function() {
   var round = 1;
   var answeredCorrect = 0;
   var defId = 0;
-  var guessed = 0;
   var definitions = [];
 
   function init() {
@@ -26,43 +25,43 @@ $(function() {
 
   function loadXMLDoc() {
     $.ajax({
-      url: 'ajax/mill.php?d=' + difficulty + '&defId=' + defId +'&guessed=' + guessed,
+      url: 'ajax/mill.php?d=' + difficulty,
       cache: false,
       error: function() {
         alert('Nu pot încărca următoarea întrebare. Vă redirectez la pagina principală.');
         window.location = wwwRoot;
       }
     }).done(function(data) {
-      $('.word').html(data.word);
+      $('.word').html(data.choices[data.answer].term);
       for (var i = 1; i <= 4; i++) {
-        $('#mill button[value="' + i + '"] .def').html(data.definition[i].text);
+        $('#mill button[value="' + i + '"] .def').html(data.choices[i].text);
       }
       answer = data.answer;
       defId = data.defId;
 
-      var terms = definitions.map(function (def) {return def.term;});
       for (i = 1; i <= 4; i++) {
-        definitions.push(data.definition[i]);
+        definitions.push(data.choices[i]);
       }
+      $('#mill button').removeClass('btn-success btn-danger').attr('disabled', false);
     });
   }
 
   function optionPressed() {
-    if (answer == $(this).val()) {
+    var guessed = (answer == $(this).val());
+
+    if (guessed) {
       $(this).addClass('btn-success');
       $('#statusImage' + round).attr('src', wwwRoot + 'img/mill/success.png');
       answeredCorrect++;
-      guessed = 1;
     } else {
       $(this).addClass('btn-danger');
       $('#mill button[value="' + answer + '"]').addClass('btn-success');
-      $('#statusImage'+round).attr('src', wwwRoot + 'img/mill/fail.png');
-      guessed = 0;
+      $('#statusImage' + round).attr('src', wwwRoot + 'img/mill/fail.png');
     }
 
-    for(i = 1; i <= 4; i++) {
-      $('#mill button[value="' + i + '"]').attr('disabled', true);
-    }
+    $.get('ajax/millLog.php?defId=' + defId + '&guessed=' + guessed);
+
+    $('#mill button').attr('disabled', true);
 
     if (round == 10) {
       setTimeout(function() {
@@ -76,12 +75,6 @@ $(function() {
       round++;
       setTimeout(function() {
         loadXMLDoc();
-        for(i = 1; i <= 4; i++) {
-          var button = $('#mill button[value="' + i + '"]');
-          button.removeClass('btn-success');
-          button.removeClass('btn-danger');
-          button.attr('disabled', false);
-        }
       }, 2000);
     }
   }

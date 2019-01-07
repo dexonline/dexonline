@@ -37,9 +37,11 @@
         <form id="mill" action="">
           <label>{t}The correct definition of <span class="word"></span>:{/t}</label>
           {section name=choices start=1 loop=5}
-            <button class="btn btn-default btn-block btn-lg"
-                    type="button"
-                    value="{$smarty.section.choices.index}">
+            <button
+              class="btn btn-default btn-block btn-lg"
+              type="button"
+              disabled
+              value="{$smarty.section.choices.index}">
               <strong>
                 {$smarty.section.choices.index}.
               </strong>

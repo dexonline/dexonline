@@ -181,7 +181,7 @@ if ($isOcr && empty($entryIds)) {
 // create a stub SearchResult so we can show the menu
 $row = new SearchResult();
 $row->definition = $d;
-$row->source = $d->getSource();
+$row->sources = [ $d->getSource() ];
 
 $sources = Model::factory('Source')
          ->where('canModerate', true)

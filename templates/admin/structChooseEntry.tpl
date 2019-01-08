@@ -16,7 +16,7 @@
         {foreach $searchResults[$i] as $row}
           <p>
             {HtmlConverter::convert($row->definition)}
-            <small class="text-muted">{$row->source->shortName}</small>
+            <small class="text-muted">{$row->sources[0]->shortName}</small>
           </p>
         {/foreach}
       </div>

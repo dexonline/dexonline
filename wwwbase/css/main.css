@@ -189,25 +189,6 @@ abbr[title] {
   margin-bottom: 0;
 }
 
-.defSourceList {
-  display: inline;
-  list-style: none;
-  padding: 0px;
-}
-
-.defSourceList li {
-  display: inline;
-  padding-right: 0px;
-}
-
-.defSourceList li:not(:first-child) {
-  padding-left: 0px;
-}
-
-.defSourceList li:not(:first-child):before {
-  content: ', ';
-}
-
 .spaced {
   letter-spacing: 3px;
   padding-left: 2px;

@@ -8,12 +8,13 @@ class SearchResult {
 
   public $definition;
   public $user;
-  public $sources;
+  public $source;
   public $typos;
   public $bookmark;
   public $tags;
   public $wotdType;
   public $wotdDate;
+  public $dependants = [];
 
   static function mapDefinitionArray($definitionArray) {
     if (empty($definitionArray)) {
@@ -38,7 +39,7 @@ class SearchResult {
       $result = new SearchResult();
       $result->definition = $definition;
       $result->user = $userMap[$definition->userId];
-      $result->sources = [ $sourceMap[$definition->sourceId] ];
+      $result->source = $sourceMap[$definition->sourceId];
       $result->typos = [];
       $result->wotdType = self::WOTD_NOT_IN_LIST;
       $result->wotdDate = null;
@@ -101,15 +102,15 @@ class SearchResult {
     $excludeUnofficial = Session::userPrefers(Preferences::EXCLUDE_UNOFFICIAL);
 
     foreach ($searchResults as $i => &$sr) {
-      if ($excludeUnofficial && ($sr->sources[0]->type == Source::TYPE_UNOFFICIAL)) {
+      if ($excludeUnofficial && ($sr->source->type == Source::TYPE_UNOFFICIAL)) {
         // hide unofficial definitions
         $unofficialHidden = true;
         unset($searchResults[$i]);
       } else if (!User::can(User::PRIV_VIEW_HIDDEN) &&
-                 (($sr->sources[0]->type == Source::TYPE_HIDDEN) ||
+                 (($sr->source->type == Source::TYPE_HIDDEN) ||
                   ($sr->definition->status == Definition::ST_HIDDEN))) {
         // hide hidden definitions or definitions from hidden sources
-        $sourcesHidden[$sr->sources[0]->id] = $sr->sources[0];
+        $sourcesHidden[$sr->source->id] = $sr->source;
         unset($searchResults[$i]);
       }
     }
@@ -117,31 +118,29 @@ class SearchResult {
     return [ $unofficialHidden, $sourcesHidden ];
   }
 
-  // Collapse identical definitions, enumerating their sources
-  static function hideIdentical(&$searchResults) {
-    // hash all the internalRep's and store them
-    $hashMap = [];
-    foreach ($searchResults as $sr) {
-      $hashMap[$sr->definition->id] = md5($sr->definition->internalRep);
-    }
+  // Collapse identical definitions: choose a main one to show and put the
+  // others under the dependants field.
+  static function collapseIdentical(&$searchResults){
 
-    // build a map of hash code => list of results
-    $map = [];
+    $hashMap = []; // hash all the internalRep's and store them
+    $map = [];     // build a map of hash code => list of results
     foreach ($searchResults as $sr) {
-      $hashCode = $hashMap[$sr->definition->id];
+      $hashCode = md5($sr->definition->internalRep);
+      $hashMap[$sr->definition->id] = $hashCode;
       $map[$hashCode][] = $sr;
     }
 
     // sort each list of results by displayOrder
+    // create dependant lists
     // mark for deletion the second and following elements of each list
     $toDelete = [];
     foreach ($map as $hashCode => &$srs) {
       usort($srs, function($a, $b) {
-        return $a->sources[0]->displayOrder - $b->sources[0]->displayOrder;
+        return $a->source->displayOrder - $b->source->displayOrder;
       });
       for ($i = 1; $i < count($srs); $i++) {
         $toDelete[$srs[$i]->definition->id] = true;
-        $srs[0]->sources[] = $srs[$i]->sources[0];
+        $srs[0]->dependants[] = $srs[$i];
       }
     }
 

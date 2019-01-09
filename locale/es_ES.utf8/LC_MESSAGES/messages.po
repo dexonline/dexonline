@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2019-01-07 15:29+0200\n"
-"PO-Revision-Date: 2019-01-07 15:29+0200\n"
+"POT-Creation-Date: 2019-01-09 12:01+0200\n"
+"PO-Revision-Date: 2019-01-09 12:02+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: es\n"
@@ -28,54 +28,58 @@ msgstr "Su búsqueda <b>%1</b> es una elisión de <b>%2</b>."
 msgid "linguistic articles"
 msgstr "artículos lingüísticos"
 
-#: templates/bits/definitionMenuProper.tpl:25
+#: templates/bits/definitionMenuProper.tpl:24
 msgid "source"
-msgid_plural "sources"
-msgstr[0] "fuente"
-msgstr[1] "fuentes"
+msgstr "fuente"
 
-#: templates/bits/definitionMenuProper.tpl:49
+#: templates/bits/definitionMenuProper.tpl:39
 msgid "provided by"
 msgstr "proporcionado por"
 
-#: templates/bits/definitionMenuProper.tpl:59
+#: templates/bits/definitionMenuProper.tpl:49
 msgid "status"
 msgstr "estado"
 
-#: templates/bits/definitionMenuProper.tpl:66
+#: templates/bits/definitionMenuProper.tpl:56
 msgid "added by"
 msgstr "añadida por"
 
-#: templates/bits/definitionMenuProper.tpl:133
+#: templates/bits/definitionMenuProper.tpl:123
 msgid "actions"
 msgstr "acciones"
 
-#: templates/bits/definitionMenuProper.tpl:146 templates/bits/typoForm.tpl:13
+#: templates/bits/definitionMenuProper.tpl:136 templates/bits/typoForm.tpl:13
 #: templates/bits/typoForm.tpl:59
 msgid "report a typo"
 msgstr "comunicar un error"
 
+#: templates/bits/definitionMenuProper.tpl:148
 #: templates/bits/definitionMenuProper.tpl:158
-#: templates/bits/definitionMenuProper.tpl:168
 msgid "added to favorites"
 msgstr "añadido a favoritos"
 
-#: templates/bits/definitionMenuProper.tpl:167
-#: templates/bits/definitionMenuProper.tpl:182
+#: templates/bits/definitionMenuProper.tpl:157
+#: templates/bits/definitionMenuProper.tpl:172
 msgid "please wait..."
 msgstr "espere por favor…"
 
-#: templates/bits/definitionMenuProper.tpl:169
+#: templates/bits/definitionMenuProper.tpl:159
 msgid "add to favorites"
 msgstr "añadir a favoritos"
 
-#: templates/bits/definitionMenuProper.tpl:183
+#: templates/bits/definitionMenuProper.tpl:173
 msgid "remove from favorites"
 msgstr "eliminar de favoritos"
 
-#: templates/bits/definitionMenuProper.tpl:195
+#: templates/bits/definitionMenuProper.tpl:185
 msgid "permalink"
 msgstr "enlace permanente"
+
+#: templates/bits/definitionMenuProper.tpl:233
+msgid "+1 identical definition"
+msgid_plural "+%1 identical definitions"
+msgstr[0] "+1 definición idéntica"
+msgstr[1] "+%1 definiciones idénticas"
 
 #: templates/bits/extendedParadigm.tpl:20
 msgid "hyphenation"

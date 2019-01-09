@@ -475,7 +475,7 @@
           {$def=$row->definition}
           <div class="defWrapper
             {if $def->structured}structured{/if}
-            {if $row->sources[0]->structurable}structurable{/if}"
+            {if $row->source->structurable}structurable{/if}"
             id="def_{$def->id}">
             <div>
               <span data-code="0" class="rep internal hiddenRep">{$def->internalRepAbbrev|escape}</span>

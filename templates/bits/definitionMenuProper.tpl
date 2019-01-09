@@ -21,34 +21,24 @@
 <ul class="list-inline dropup">
   {if $showSource}
     <li>
-      {t
-        count=count($row->sources)
-        plural="sources"}
-      source{/t}:
-
-      <ul class="list-inline defSourceList">
-        {foreach $row->sources as $src}
-          <li>
-            <a class="ref"
-              href="{$wwwRoot}surse"
-              title="{$src->name|escape}, {$src->year|escape}"
-            >{$src->shortName|escape}
-              {if $src->year}
-                ({$src->year|regex_replace:"/ .*$/":""})
-              {/if}
-            </a>
-          </li>
-        {/foreach}
-      </ul>
+      {t}source{/t}:
+      <a class="ref"
+        href="{$wwwRoot}surse"
+        title="{$row->source->name|escape}, {$row->source->year|escape}"
+      >{$row->source->shortName|escape}
+        {if $row->source->year}
+          ({$row->source->year|regex_replace:"/ .*$/":""})
+        {/if}
+      </a>
     </li>
   {/if}
 
   {if $showCourtesyLink}
-    {if $row->sources[0]->courtesyLink}
+    {if $row->source->courtesyLink}
       <li>
         {t}provided by{/t}
-        <a class="ref" href="{$wwwRoot}spre/{$row->sources[0]->courtesyLink}">
-          {$row->sources[0]->courtesyText}
+        <a class="ref" href="{$wwwRoot}spre/{$row->source->courtesyLink}">
+          {$row->source->courtesyText}
         </a>
       </li>
     {/if}
@@ -199,7 +189,7 @@
         {/if}
 
         {if $showPageLink &&
-          $row->sources[0]->hasPageImages &&
+          $row->source->hasPageImages &&
           (User::can(User::PRIV_EDIT) ||
             TraineeSource::TraineeCanEditSource(User::getActiveId(), $def->sourceId))}
           <li>
@@ -230,6 +220,24 @@
 
       </ul>
     </li>
+
+    {$numDep=count($row->dependants)}
+    {if $numDep}
+      <li>
+        <button
+          class="btn btn-default btn-sm"
+          data-toggle="collapse"
+          data-target="#identical-{$row->definition->id}">
+          <i class="glyphicon glyphicon-retweet"></i> &nbsp;
+          {t
+            count=$numDep
+            1=$numDep
+            plural="+%1 identical definitions"}
+          +1 identical definition
+          {/t}
+        </button>
+      </li>
+    {/if}
   {/if}
 
 </ul>
@@ -244,7 +252,7 @@
 *}
 {if $showPageLink &&
   $showPageModal &&
-  $row->sources[0]->hasPageImages &&
+  $row->source->hasPageImages &&
   (User::can(User::PRIV_EDIT) || TraineeSource::TraineeCanEditSource(User::getActiveId(), $def->sourceId))}
   {include "bits/pageModal.tpl"}
 {/if}

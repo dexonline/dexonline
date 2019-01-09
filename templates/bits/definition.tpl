@@ -1,5 +1,6 @@
-{$showTypos=$showTypos|default:false}
+{$showFootnotes=$showFootnotes|default:true}
 {$showStructuredWrapper=$showStructuredWrapper|default:false}
+{$showTypos=$showTypos|default:false}
 
 {$def=$row->definition}
 
@@ -13,7 +14,9 @@
     {/foreach}
   </p>
 
-  {include "bits/footnotes.tpl" footnotes=$def->getFootnotes()}
+  {if $showFootnotes}
+    {include "bits/footnotes.tpl" footnotes=$def->getFootnotes()}
+  {/if}
   {include "bits/definitionMenu.tpl"}
 
   {if $showTypos}
@@ -29,8 +32,8 @@
               [{$typo->userName}]
             </span>
             <a href="#"
-               title="Ignoră această raportare"
-               onclick="return ignoreTypo('typo{$typo->id}', {$typo->id});">
+              title="Ignoră această raportare"
+              onclick="return ignoreTypo('typo{$typo->id}', {$typo->id});">
               ignoră
             </a>
 
@@ -40,3 +43,15 @@
     {/if}
   {/if}
 </div>
+
+{if count($row->dependants)}
+  <div class="panel panel-default collapse" id="identical-{$row->definition->id}">
+    <div class="panel-body">
+      {foreach $row->dependants as $dep}
+        {* keep all parameters unchanged, but suppress the footnotes, since by
+           definition they are identical *}
+        {include "bits/definition.tpl" row=$dep showFootnotes=false}
+      {/foreach}
+    </div>
+  </div>
+{/if}

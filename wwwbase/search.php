@@ -273,7 +273,7 @@ $results = SearchResult::mapDefinitionArray($definitions);
 list($extra['unofficialHidden'], $extra['sourcesHidden'])
   = SearchResult::filter($results);
 
-SearchResult::hideIdentical($results);
+SearchResult::collapseIdentical($results);
 
 $extra['numResults'] = count($results) ?: count($entries) ?: count($lexemes);
 
@@ -361,8 +361,9 @@ if ($SEARCH_PARAMS[$searchType]['paradigm']) {
 // Collect source list to display in meta tags
 $sourceList = [];
 foreach ($results as $row) {
-  foreach ($row->sources as $src) {
-    $sourceList[$src->shortName] = true;
+  $sourceList[$row->source->shortName] = true;
+  foreach ($row->dependants as $dep) {
+    $sourceList[$dep->source->shortName] = true;
   }
 }
 $sourceList = array_keys($sourceList);

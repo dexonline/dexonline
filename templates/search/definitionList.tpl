@@ -5,7 +5,7 @@
 {foreach $results as $i => $row}
 
   {if $categories}
-    {if $row->sources[0]->type == Source::TYPE_SPECIALIZED && !$displayedSpec}
+    {if $row->source->type == Source::TYPE_SPECIALIZED && !$displayedSpec}
       <br>
       <div class="callout callout-info">
         <h3>{t}Definitions from specialized dictionaries{/t}</h3>
@@ -14,7 +14,7 @@
         </p>
       </div>
       {$displayedSpec=true}
-    {elseif $row->sources[0]->type == Source::TYPE_UNOFFICIAL && !$displayedUnofficial}
+    {elseif $row->source->type == Source::TYPE_UNOFFICIAL && !$displayedUnofficial}
       <br>
       <div class="callout callout-info">
         <h3>{t}Definitions from unofficial dictionaries{/t}</h3>

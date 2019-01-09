@@ -51,6 +51,7 @@ class Definition extends BaseObject implements DatedObject {
   // Single entry point for sanitizing / extracting lexicon / counting ambigious abbreviations.
   function process($flash = false) {
     $warnings = [];
+    $errors = [];
 
     // sanitize
     list($this->internalRep, $ambiguousAbbreviations)
@@ -63,16 +64,15 @@ class Definition extends BaseObject implements DatedObject {
     $this->extractLexicon();
 
     // pass the definition through the parser
-    $this->parse($warnings);
+    $this->parse($warnings, $errors);
 
     if ($flash) {
       FlashMessage::bulkAdd($warnings, 'warning');
+      FlashMessage::bulkAdd($errors);
     }
   }
 
-  function parse(&$warnings = null) {
-    $warnings = $warnings ?? [];
-
+  function parse(&$warnings = [], &$errors = []) {
     // certain tags explicitly say "don't try to parse this definition"
     $ignoredTagIds = Config::get('parsers.tagsToIgnore');
     $hasIgnoredTags = Model::factory('ObjectTag')
@@ -89,7 +89,14 @@ class Definition extends BaseObject implements DatedObject {
           $this->internalRep = $parser->parse($this, $warnings);
         } catch (Exception $e) {
           $pos = $e->getMessage();
-          $warnings[] = [ 'parsingError.tpl', [] ];
+
+          if (!User::can(User::PRIV_ADMIN) &&
+              in_array($this->status,
+                       [ Definition::ST_ACTIVE, Definition::ST_HIDDEN ])) {
+            $errors[] = [ 'parsingError.tpl', [] ];
+          } else {
+            $warnings[] = [ 'parsingWarning.tpl', [] ];
+          }
           $this->internalRep = Str::insert(
             $this->internalRep,
             Constant::PARSING_ERROR_MARKER,

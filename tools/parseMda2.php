@@ -35,12 +35,17 @@ do {
   foreach ($defs as $d) {
     $orig = $d->internalRep;
     $warnings = [];
-    $d->parse($warnings);
-    if ($warnings) {
+    $d->parse($warnings, $errors);
+    if ($warnings || $errors) {
       printf("%s\n", defUrl($d));
       foreach ($warnings as $w) {
         if (!is_array($w)) {
           print "  * {$w}\n";
+        }
+      }
+      foreach ($errors as $e) {
+        if (!is_array($e)) {
+          print "  * {$e}\n";
         }
       }
     }

@@ -170,6 +170,17 @@ abbr[title] {
   line-height: 1.6;
 }
 
+.hasDependants, .dependantsWrapper {
+  border-left: 3px solid #cecece;
+  font-size: 1.15em;
+  margin-left: -1.6em;
+  padding-left: 1.4em;
+}
+
+.dependantsWrapper {
+  border-left-style: dashed;
+}
+
 .def {
   color: black;
   cursor: pointer;

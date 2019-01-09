@@ -3,8 +3,13 @@
 {$showTypos=$showTypos|default:false}
 
 {$def=$row->definition}
+{$numDeps=count($row->dependants)}
 
-<div class="defWrapper{if $def->structured && $showStructuredWrapper} defStructuredWrapper{/if}">
+<div class="
+  defWrapper
+  {if $def->structured && $showStructuredWrapper}defStructuredWrapper{/if}
+  {if $numDeps}hasDependants{/if}
+  ">
   <p>
     <span class="def" title="Clic pentru a naviga la acest cuvânt">
       {HtmlConverter::convert($def)}
@@ -44,9 +49,9 @@
   {/if}
 </div>
 
-{if count($row->dependants)}
-  <div class="panel panel-default collapse" id="identical-{$row->definition->id}">
-    <div class="panel-body">
+{if $numDeps}
+  <div class="collapse" id="identical-{$row->definition->id}">
+    <div class="dependantsWrapper">
       {foreach $row->dependants as $dep}
         {* keep all parameters unchanged, but suppress the footnotes, since by
            definition they are identical *}

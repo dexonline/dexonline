@@ -172,9 +172,8 @@ abbr[title] {
 
 .hasDependants, .dependantsWrapper {
   border-left: 3px solid #cecece;
-  font-size: 1.15em;
-  margin-left: -1.6em;
-  padding-left: 1.4em;
+  margin-left: -1rem;
+  padding-left: 1rem;
 }
 
 .dependantsWrapper {

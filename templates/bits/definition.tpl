@@ -50,13 +50,11 @@
 </div>
 
 {if $numDeps}
-  <div class="collapse" id="identical-{$row->definition->id}">
-    <div class="dependantsWrapper">
-      {foreach $row->dependants as $dep}
-        {* keep all parameters unchanged, but suppress the footnotes, since by
-           definition they are identical *}
-        {include "bits/definition.tpl" row=$dep showFootnotes=false}
-      {/foreach}
-    </div>
+  <div class="collapse dependantsWrapper" id="identical-{$row->definition->id}">
+    {foreach $row->dependants as $dep}
+      {* keep all parameters unchanged, but suppress the footnotes, since by
+         definition they are identical *}
+      {include "bits/definition.tpl" row=$dep showFootnotes=false}
+    {/foreach}
   </div>
 {/if}

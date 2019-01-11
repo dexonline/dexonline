@@ -180,6 +180,16 @@ abbr[title] {
   border-left-style: dashed;
 }
 
+/* prevent some jitter caused by collapsing margins
+   https://css-tricks.com/what-you-should-know-about-collapsing-margins/ */
+.dependantsWrapper .defWrapper:first-child {
+  margin-top: 0;
+}
+
+.dependantsWrapper .defWrapper:last-child {
+  margin-bottom: 0;
+}
+
 .def {
   color: black;
   cursor: pointer;

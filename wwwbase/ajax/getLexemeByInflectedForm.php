@@ -5,14 +5,16 @@ $form = Request::get('form');
 $field = (strpos($form, "'") === false) ? 'formNoAccent' : 'form';
 
 $l = Model::factory('Lexeme')
-   ->table_alias('l')
-   ->select('l.*')
-   ->join('InflectedForm', ['l.id', '=', 'f.lexemeId'], 'f')
-   ->join('Inflection', ['f.inflectionId', '=', 'i.id'], 'i')
-   ->where("f.{$field}", $form)
-   ->order_by_expr('i.modelType in ("V", "T", "I")')  // avoid some model types
-   ->order_by_asc('i.rank')                // prefer more "basic" inflections
-   ->find_one();
+  ->table_alias('l')
+  ->select('l.*')
+  ->join('InflectedForm', ['l.id', '=', 'f.lexemeId'], 'f')
+  ->join('Inflection', ['f.inflectionId', '=', 'i.id'], 'i')
+  ->where("f.{$field}", $form)
+  ->order_by_expr('i.modelType in ("V", "T", "I")')  // avoid some model types
+  // prefer forms that preserve the case
+  ->order_by_expr(sprintf("(binary f.{$field} = '%s') desc", addslashes($form)))
+  ->order_by_asc('i.rank')                // prefer more "basic" inflections
+  ->find_one();
 
 if ($l) {
   $resp = [

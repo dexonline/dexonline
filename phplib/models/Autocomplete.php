@@ -16,9 +16,7 @@ class Autocomplete extends BaseObject implements DatedObject {
       ->limit($limit)
       ->find_array();
 
-    $forms = array_map(function($rec) {
-      return $rec['formNoAccent'];
-    }, $results);
+    $forms = array_column($results, 'formNoAccent');
 
     return $forms;
   }

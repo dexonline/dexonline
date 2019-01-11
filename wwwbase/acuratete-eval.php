@@ -84,4 +84,5 @@ SmartyWrap::assign([
   'errors' => $errors,
   'definitionData' => $defData,
 ]);
+SmartyWrap::addCss('admin');
 SmartyWrap::display('acuratete-eval.tpl');

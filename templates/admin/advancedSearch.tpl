@@ -25,10 +25,7 @@
         <div class="panel-body panel-admin">
 
           {if $view == 'Entry'}
-            {foreach $data as $e name=entryLoop}
-              {include "bits/entry.tpl" entry=$e editLink=true}
-              {if !$smarty.foreach.entryLoop.last} | {/if}
-            {/foreach}
+            {include "bits/adminEntryList.tpl" entries=$data}
           {elseif $view == 'Lexeme'}
             {include "bits/lexemeList.tpl" lexemes=$data}
           {elseif $view == 'Definition'}
@@ -50,5 +47,5 @@
   {else}
     <h3>Nu există rezultate</h3>
   {/if}
-  
+
 {/block}

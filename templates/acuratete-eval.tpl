@@ -57,18 +57,12 @@
 
         <div>
           intrări asociate:
-          {foreach $def->getEntries() as $e name=entryLoop}
-            {include "bits/entry.tpl" entry=$e editLink=true}
-            {if !$smarty.foreach.entryLoop.last} | {/if}
-          {/foreach}
+          {include "bits/adminEntryList.tpl" entries=$def->getEntries()}
         </div>
 
         {if count($homonyms)}
           intrări omonime:
-          {foreach $homonyms as $h name=homonymLoop}
-            {include "bits/entry.tpl" entry=$h editLink=true}
-            {if !$smarty.foreach.homonymLoop.last} | {/if}
-          {/foreach}
+          {include "bits/adminEntryList.tpl" entries=$homonyms}
         {/if}
 
       </div>

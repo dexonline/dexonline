@@ -149,6 +149,9 @@ class Util {
       'Count.entriesWithDefinitionsToStructure', count(Entry::loadWithDefinitionsToStructure())
     );
     Variable::poke(
+      'Count.entriesWithoutMainLexemes', count(Entry::loadWithoutMainLexemes())
+    );
+    Variable::poke(
       'Count.lexemesWithoutAccent', Model::factory('Lexeme')->where('consistentAccent', 0)->count()
     );
     Variable::poke(

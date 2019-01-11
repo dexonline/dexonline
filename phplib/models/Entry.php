@@ -147,6 +147,27 @@ class Entry extends BaseObject implements DatedObject {
       ->find_many();
   }
 
+  /**
+   * Load entries that have variant lexemes, but no main lexemes.
+   **/
+  static function loadWithoutMainLexemes() {
+    $ids = Model::factory('EntryLexeme')
+      ->select('entryId')
+      ->group_by('entryId')
+      ->having_raw('max(main) = 0')
+      ->find_array();
+    $ids = array_column($ids, 'entryId');
+
+    if (empty($ids)) {
+      return [];
+    } else {
+      return Model::factory('Entry')
+        ->where_in('id', $ids)
+        ->order_by_asc('description')
+        ->find_many();
+    }
+  }
+
   static function searchInflectedForms($cuv, $hasDiacritics) {
     $field = $hasDiacritics ? 'formNoAccent' : 'formUtf8General';
 

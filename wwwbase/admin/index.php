@@ -63,6 +63,11 @@ $reports = [
    'count' => Variable::peek('Count.entriesWithDefinitionsToStructure'),
    'privilege' => User::PRIV_STRUCT
   ],
+  ['text' => 'Intrări fără lexeme principale',
+   'url' => 'admin/viewEntriesWithoutMainLexemes',
+   'count' => Variable::peek('Count.entriesWithoutMainLexemes'),
+   'privilege' => User::PRIV_STRUCT
+  ],
   ['text' => 'Lexeme fără accent',
    'url' => 'admin/viewLexemesWithoutAccents',
    'count' => Variable::peek('Count.lexemesWithoutAccent'),

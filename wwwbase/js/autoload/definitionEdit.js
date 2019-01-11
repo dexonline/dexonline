@@ -26,6 +26,8 @@ $(function() {
 
     $('#entryIds, #sourceDropDown[name="source"]').change(updateFieldsJson);
     $('#refreshButton').click(updateFieldsJson);
+    $('#refreshEntriesButton').click(refreshEntries);
+    $('#clearEntriesButton').click(clearEntries);
 
     /****************** popover initialization ******************/
     $('ins, del').popover({
@@ -133,6 +135,25 @@ $(function() {
       $('#wikiLink')
         .attr('title', 'definiția are o pagină wiki')
         .toggleClass('btn-default btn-warning');
+    });
+  }
+
+  function clearEntries() {
+    $('#entryIds').val(null).trigger('change');
+  }
+
+  function refreshEntries() {
+    var data = {
+      definitionId: $('input[name="definitionId"]').val(),
+      internalRep: internalRep.val(),
+      sourceId: $('#sourceDropDown').val(),
+    };
+    $.post(wwwRoot + 'ajax/getEntriesForLexicon.php', data, function(resp) {
+      $('#entryIds').val(null);
+      for (var i = 0; i < resp.length; i++) {
+        $('#entryIds').append(new Option('', resp[i], true, true));
+      }
+      refreshSelect2('#entryIds', 'ajax/getEntriesById.php');
     });
   }
 

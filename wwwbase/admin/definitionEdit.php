@@ -165,13 +165,15 @@ $typos = Model::factory('Typo')
 if ($isOcr && empty($entryIds)) {
   $d->extractLexicon();
   if ($d->lexicon) {
-      $entries = Model::factory('Definition')
-          ->table_alias('d')
-          ->distinct('e.entryId')
-          ->join('EntryDefinition', ['d.id', '=', 'e.definitionId'], 'e')
-          ->where('d.lexicon', $d->lexicon)
-          ->find_many();
-      $entryIds = array_unique(Util::objectProperty($entries, 'entryId'));
+    $entries = Model::factory('Definition')
+      ->table_alias('d')
+      ->select('ed.entryId')
+      ->distinct()
+      ->join('EntryDefinition', ['d.id', '=', 'ed.definitionId'], 'ed')
+      ->where('d.lexicon', $d->lexicon)
+      ->limit(10)
+      ->find_many();
+    $entryIds = Util::objectProperty($entries, 'entryId');
   }
 }
 

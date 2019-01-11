@@ -99,6 +99,25 @@
                 <option value="{$e}" selected></option>
               {/foreach}
             </select>
+
+            <div class="clearfix">
+              <div class="pull-right voffset">
+                <button
+                  id="refreshEntriesButton"
+                  type="button"
+                  class="btn btn-default btn-xs"
+                  title="recalculează lista de intrări pe baza cuvîntului definit">
+                  <i class="glyphicon glyphicon-refresh"></i>
+                </button>
+                <button
+                  id="clearEntriesButton"
+                  type="button"
+                  class="btn btn-default btn-xs"
+                  title="golește lista de intrări">
+                  <i class="glyphicon glyphicon-trash"></i>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
 

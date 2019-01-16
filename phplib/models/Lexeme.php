@@ -423,12 +423,7 @@ class Lexeme extends BaseObject implements DatedObject {
       $forms = [];
       foreach ($this->inflectedForms as $if) {
         if (isset($map[$if->inflectionId][$if->variant])) {
-          $short = mb_substr($if->form, 0, -1);
-          $short = rtrim($short, "'"); // trim the trailing accent if there is one
-          $new = $if->parisClone();
-          $new->setForm($short);
-          $new->apocope = true;
-          $forms[] = $new;
+          $forms[] = $if->createApocope();
         }
       }
       $this->inflectedForms = array_merge($this->inflectedForms, $forms);
@@ -489,6 +484,7 @@ class Lexeme extends BaseObject implements DatedObject {
     }
 
     $forms = [];
+    $lastFragmentInfo = null;
 
     foreach ($parts as $i => $p) {
       $frag = $fragments[$i];
@@ -503,6 +499,13 @@ class Lexeme extends BaseObject implements DatedObject {
         $model = FlexModel::loadCanonicalByTypeNumber($p->modelType, $p->modelNumber);
         $ifs = $p->generateInflectedFormWithModel($p->form, $partInfl->id, $model->id, false);
         $if = count($ifs) ? $ifs[0] : InflectedForm::create('?');
+        if ($i == count($parts) - 1) {
+          $lastFragmentInfo = [
+            'lexeme' => $p,
+            'model' => $model,
+            'inflection' => $partInfl,
+          ];
+        };
       }
 
       $f = $if->form;
@@ -525,7 +528,25 @@ class Lexeme extends BaseObject implements DatedObject {
     }
 
     $f = implode(Util::interleaveArrays($forms, $delimiters));
-    return [ InflectedForm::create($f, $this->id, $infl->id, 0, true) ];
+    $if = InflectedForm::create($f, $this->id, $infl->id, 0, true);
+    $results = [ $if ];
+
+    // check if we need to add an apocope form
+    if ($this->hasApocope &&
+        $lastFragmentInfo &&
+        $lastFragmentInfo['lexeme']->hasApocope) {
+      $md = Model::factory('ModelDescription')
+        ->where('modelId', $lastFragmentInfo['model']->id)
+        ->where('inflectionId', $lastFragmentInfo['inflection']->id)
+        ->where('variant', 0)
+        ->where('hasApocope', true)
+        ->find_one();
+      if ($md) {
+        $results[] = $if->createApocope();
+      }
+    }
+
+    return $results;
   }
 
   // We may ignore restrictions when the lexeme is part of a compound lexeme

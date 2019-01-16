@@ -21,6 +21,15 @@ class InflectedForm extends BaseObject {
     return $if;
   }
 
+  function createApocope() {
+    $short = mb_substr($this->form, 0, -1);
+    $short = rtrim($short, "'"); // trim the trailing accent if there is one
+    $new = $this->parisClone();
+    $new->setForm($short);
+    $new->apocope = true;
+    return $new;
+  }
+
   function getHtmlForm() {
     $s = Str::highlightAccent($this->form);
     $s = str_replace("\\'", "'", $s);

@@ -546,12 +546,21 @@ class Str {
     return $s;
   }
 
-  // Assumes that the string is trimmed
+  // assumes that the string is trimmed
   static function capitalize($s) {
     if (!$s) {
       return $s;
     }
     return mb_strtoupper(self::getCharAt($s, 0)) . mb_substr($s, 1);
+  }
+
+  // capitalizes a string that may begin with an apostrophe
+  static function capitalizeWithAccent($s) {
+    if (Str::startsWith($s, "'")) {
+      return "'" . Str::capitalize(substr($s, 1));
+    } else {
+      return Str::capitalize($s);
+    }
   }
 
   static function chr($u) {

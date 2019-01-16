@@ -506,12 +506,7 @@ class Lexeme extends BaseObject implements DatedObject {
       $f = $if->form;
 
       if ($frag->capitalized) {
-        // the first symbol could be an apostrophe
-        if (Str::startsWith($f, "'")) {
-          $f = "'" . Str::capitalize(substr($f, 1));
-        } else {
-          $f = Str::capitalize($f);
-        }
+        $f = Str::capitalizeWithAccent($f);
       }
 
       if (!$frag->accented) {

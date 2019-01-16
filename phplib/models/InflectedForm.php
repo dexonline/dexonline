@@ -21,6 +21,15 @@ class InflectedForm extends BaseObject {
     return $if;
   }
 
+  // drops either î or 'î
+  function createApheresis() {
+    $short = explode('î', $this->form, 2)[1];
+    $new = $this->parisClone();
+    $new->setForm($short);
+    $new->apheresis = true;
+    return $new;
+  }
+
   function createApocope() {
     $short = mb_substr($this->form, 0, -1);
     $short = rtrim($short, "'"); // trim the trailing accent if there is one

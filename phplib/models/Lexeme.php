@@ -434,12 +434,7 @@ class Lexeme extends BaseObject implements DatedObject {
       $forms = [];
       foreach ($this->inflectedForms as $if) {
         if (Str::startsWith($if->formNoAccent, 'î')) {
-          // drops either î or 'î
-          $short = explode('î', $if->form, 2)[1];
-          $new = $if->parisClone();
-          $new->setForm($short);
-          $new->apheresis = true;
-          $forms[] = $new;
+          $forms[] = $if->createApheresis();
         }
       }
       $this->inflectedForms = array_merge($this->inflectedForms, $forms);

@@ -199,6 +199,10 @@ abstract class Parser {
             $warnings[] = 'Indicație de accent necunoscut, dar forma de bază are accent.';
           }
           break;
+
+        case 'formattedSlash':
+          $content = $this->fixSlashFormatting($content, $state);
+          break;
       }
 
     } else { // leaf
@@ -219,6 +223,34 @@ abstract class Parser {
     }
 
     return $content;
+  }
+
+  // $s: string containing exactly one slash plus bold and italic markers;
+  // $endState: state at the END of this token.
+  function fixSlashFormatting($s, $endState) {
+    $result = '/';
+
+    $final = [
+      '@' => $endState->isBold(),
+      '$' => $endState->isItalic(),
+    ];
+    $parts = explode('/', $s);
+
+    foreach (['@', '$'] as $char) {
+      // initial parity of $char to the left and right of the slash
+      $left = substr_count($parts[0], $char) & 1;
+      $right = substr_count($parts[1], $char) & 1;
+
+      // desired parity of $char
+      $left = $final[$char] ^ $left ^ $right;
+      $right = $final[$char];
+
+      // note that the initial $left ^ $right is equal to the final $left ^ $right,
+      // so this does not change the parity; the overall definition remains valid
+      $result = str_repeat($char, $left) . $result . str_repeat($char, $right);
+    }
+
+    return $result;
   }
 
 }

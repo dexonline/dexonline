@@ -26,7 +26,7 @@ class Mda2Parser extends Parser {
       '/[$@]*/ "[" attestation (morphology formattedSlash ws?)* etymology "]" /[$@]*/',
     ],
     'attestation' => [
-      '"#At:#" ws /.+?\/(?! ?[\d\w\/])/s ws?',
+      '"#At:#" ws /([^\/]|\/ ?[\d\w])+/s formattedSlash ws',
     ],
     'morphology' => [
       'abbreviation',

@@ -36,7 +36,7 @@ class Mailer {
     $mail = new PHPMailer\PHPMailer\PHPMailer();
     $mail->CharSet = 'UTF-8';
     $mail->Encoding = 'base64';
-    $mail->setFrom($from, $info['name']); // TODO: lookup in cfg
+    $mail->setFrom($from, $info['name']);
     foreach ($to as $recipient) {
       $mail->addAddress($recipient);
     }

@@ -28,9 +28,7 @@ class FlashMessage {
     // TODO this overwrites previously assigned variables. We really should
     // instantiate a separate Smarty.
     if (Request::isWeb()) {
-      foreach ($args as $key => $value) {
-        SmartyWrap::assign($key, $value);
-      }
+      SmartyWrap::assign($args);
       $message = SmartyWrap::fetch("alerts/{$template}");
       self::add($message, $type);
     }

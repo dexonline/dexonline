@@ -600,7 +600,7 @@ class Str {
         $i += 3;
       } else if ($c >> 3 == 30) {
         // 11110vvv 10vvvvvv 10vvvvvv 10vvvvvv
-        $result[] = $s[$i] . $s[$i + 1] . $s[$i + 2] + $s[$i + 3];
+        $result[] = $s[$i] . $s[$i + 1] . $s[$i + 2] . $s[$i + 3];
         $i += 4;
       } else {
         // dunno, skip it

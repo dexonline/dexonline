@@ -33,7 +33,7 @@ class Abbrev {
 
       if (!empty($results)) {
         foreach ($results as $abbrev) {
-          $numWords = 1 + substr_count($abbrev['short'], ' ');
+          $numWords = 1 + substr_count($abbrev['short'], ' ') + substr_count($abbrev['short'], '-');
 
           // must escape main capturing group $regexp as it may containg PCRE regexp syntax!!
           $regexp = preg_quote($abbrev['short'], "/");

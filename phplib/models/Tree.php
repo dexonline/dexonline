@@ -219,10 +219,12 @@ class Tree extends BaseObject implements DatedObject {
       ->table_alias('l')
       ->select('l.*')
       ->select('el.main')
+      ->select_expr('count(*)', 'cnt')
       ->distinct()
       ->join('EntryLexeme', ['l.id', '=', 'el.lexemeId'], 'el')
       ->join('TreeEntry', ['el.entryId', '=', 'te.entryId'], 'te')
       ->where('te.treeId', $this->id)
+      ->group_by('l.formNoAccent')
       ->order_by_desc('el.main')
       ->order_by_asc('l.formNoAccent')
       ->find_many();

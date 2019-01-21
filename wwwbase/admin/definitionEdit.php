@@ -7,7 +7,6 @@ $definitionId = Request::get('definitionId');
 $isOcr = Request::get('isOcr');
 $entryIds = Request::getArray('entryIds');
 $sourceId = Request::get('source');
-$similarSource = Request::has('similarSource');
 $structured = Request::has('structured');
 $internalRep = Request::get('internalRep');
 $status = Request::get('status', null);
@@ -53,7 +52,6 @@ if ($saveButton || $nextOcrBut) {
   $d->internalRep = $internalRep;
   $d->status = (int)$status;
   $d->sourceId = (int)$sourceId;
-  $d->similarSource = $similarSource;
   $d->structured = $structured;
   $d->volume = $volume;
   $d->page = $page;
@@ -226,7 +224,6 @@ function getDefinitionFromOcr($userId) {
   $d->status = getDefaultStatus();
   $d->userId = $userId;
   $d->sourceId = $ocr->sourceId;
-  $d->similarSource = 0;
   $d->structured = 0;
   $d->internalRep = $ocr->ocrText;
   $d->process();

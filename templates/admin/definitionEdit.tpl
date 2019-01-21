@@ -147,13 +147,6 @@
         >{$def->internalRep|escape}</textarea>
 
         {** These aren't logically connected, but we like them vertically compressed **}
-        <div class="checkbox" {if !$sim->source}style="display:none"{/if}>
-          <label>
-            <input type="checkbox" name="similarSource" value="1" {if $def->similarSource}checked{/if}>
-            Definiție identică cu cea din <span class="similarSourceName"></span>
-          </label>
-        </div>
-
         <div class="checkbox">
           <label>
             <input type="checkbox" name="structured" value="1" {if $def->structured}checked{/if}>

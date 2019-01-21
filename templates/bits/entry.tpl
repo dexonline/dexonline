@@ -24,6 +24,7 @@
     {foreach $entry->getPrintableLexemes() as $l}
       <span {if !$l->main}class="text-muted"{/if}>
         {$l->formNoAccent}
+        {if $l->cnt > 1}({$l->cnt}){/if}
       </span>
     {/foreach}
   </span>

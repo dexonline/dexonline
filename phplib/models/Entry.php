@@ -86,17 +86,20 @@ class Entry extends BaseObject implements DatedObject {
 
   /**
    * Returns the list of lexemes sorted with main lexemes first. Excludes duplicate lexemes
-   * and lexemes that have a form equal to the entry's description.
+   * and lexemes that have a form equal to the entry's description. Lexemes with identical
+   * values of formNoAccent are only collected once, but a cnt field is added.
    **/
   function getPrintableLexemes() {
     return Model::factory('Lexeme')
       ->table_alias('l')
       ->select('l.*')
       ->select('el.main')
+      ->select_expr('count(*)', 'cnt')
       ->distinct()
       ->join('EntryLexeme', ['l.id', '=', 'el.lexemeId'], 'el')
       ->where('el.entryId', $this->id)
       ->where_not_equal('l.formNoAccent', $this->getShortDescription())
+      ->group_by('l.formNoAccent')
       ->order_by_desc('el.main')
       ->order_by_asc('l.formNoAccent')
       ->find_many();

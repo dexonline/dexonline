@@ -578,7 +578,11 @@ class Str {
     return str_pad($str, $length + ($len - $mbLen));
   }
 
-  // If you just extract each character with mb_substr, the complexity is O(N^2).
+  // Splits a multibyte string into characters. If we just extract each
+  // character with mb_substr, the complexity is O(N^2). This code runs about
+  // twice as fast as the one-liner:
+  //
+  //   return preg_split('//u', $s, null, PREG_SPLIT_NO_EMPTY);
   static function unicodeExplode($s) {
     $result = [];
     $len = strlen($s);

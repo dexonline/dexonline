@@ -5,7 +5,7 @@ $query = Request::get('term');
 $query = addslashes($query);
 
 $trees = Model::factory('Tree')
-       ->where_like('description', "{$query}%") // case sensitive
+       ->where_like('descriptionSort', "{$query}%") // case sensitive
        ->where('status', Tree::ST_VISIBLE)
        ->order_by_asc('descriptionSort')
        ->limit(10)

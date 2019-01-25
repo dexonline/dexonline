@@ -93,7 +93,8 @@ print("Incorrect glyphs: ---$incorrect---\n");
 if ($verbose) {
   foreach ($defMap as $glyph => $idMap) {
     if ($idMap) {
-      print "Definitions for glyph [$glyph]:\n";
+      printf("Definitions for glyph [%s] (unicode U+%04x):\n",
+             $glyph, Str::unicodeOrd($glyph));
       foreach ($idMap as $id => $ignored) {
         print "  https://dexonline.ro/admin/definitionEdit.php?definitionId=$id\n";
       }

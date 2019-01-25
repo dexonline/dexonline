@@ -91,4 +91,11 @@ class Source extends BaseObject implements DatedObject {
     }
     return $query->find_many();
   }
+
+  static function getBaseGlyphsDisplay() {
+    $s = preg_replace('/a.*z/', 'a-z, ', self::BASE_GLYPHS);
+    $s = preg_replace('/A.*Z/', 'A-Z, ', $s);
+    $s = preg_replace('/0.*9/', '0-9, ', $s);
+    return $s;
+  }
 }

@@ -615,6 +615,28 @@ class Str {
     return $result;
   }
 
+  // same as above, but takes one Unicode character and returns its code
+  static function unicodeOrd($c) {
+    $o = ord($c[0]);
+    if ($o >> 7 == 0) {
+      // 0vvvvvvv
+      return $o;
+    } else if ($o >> 5 == 6) {
+      // 110vvvvv 10vvvvvv
+      return (($o & 0x1f) << 6) | (ord($c[1]) & 0x3f);
+    } else if ($o >> 4 == 14) {
+      // 1110vvvv 10vvvvvv 10vvvvvv
+      return (($o & 0xf) << 12) | ((ord($c[1]) & 0x3f) << 6) | (ord($c[2]) & 0x3f);
+    } else if ($c >> 3 == 30) {
+      // 11110vvv 10vvvvvv 10vvvvvv 10vvvvvv
+      return (($o & 0x7) << 18) | ((ord($c[1]) & 0x3f) << 12) |
+        ((ord($c[2]) & 0x3f) << 6) | (ord($c[3]) & 0x3f);
+    } else {
+      // dunno, skip it
+      return null;
+    }
+  }
+
   static function removeAccents($s) {
     // remove graphic accents
     $s = str_replace(Constant::ACCENTS['accented'], Constant::ACCENTS['unaccented'], $s);

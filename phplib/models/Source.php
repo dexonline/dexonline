@@ -47,6 +47,15 @@ class Source extends BaseObject implements DatedObject {
    **/
   public static $UNKNOWN_PERCENT = -1.0;
 
+  // glyphs expected to be common in all sources
+  const BASE_GLYPHS =
+    'aăâbcdefghiîjklmnopqrsștțuvwxyz' . // lowercase letters
+    'AĂÂBCDEFGHIÎJKLMNOPQRSȘTȚUVWXYZ' . // uppercase letters
+    '0123456789' .                      // digits
+    '@#$%^' .                           // formatting
+    '.,;:-()' .                         // punctuation
+    "\\\n ";                            // other
+
   function getTypeName() {
     return self::$TYPE_NAMES[$this->type];
   }

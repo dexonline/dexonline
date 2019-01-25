@@ -63,9 +63,11 @@ do {
 $searchResults = SearchResult::mapDefinitionArray($defs);
 $word = mb_strtoupper($lexeme->formNoAccent);
 
-SmartyWrap::assign('wordLength', mb_strlen($word));
-SmartyWrap::assign('letters', preg_split('//u', 'aăâbcdefghiîjklmnopqrsștțuvwxyz', null, PREG_SPLIT_NO_EMPTY));
-SmartyWrap::assign('word', $word);
-SmartyWrap::assign('searchResults', $searchResults);
-SmartyWrap::assign('difficulty', $difficulty);
+SmartyWrap::assign([
+  'wordLength' => mb_strlen($word),
+  'letters' => Str::unicodeExplode('aăâbcdefghiîjklmnopqrsștțuvwxyz'),
+  'word' => $word,
+  'searchResults' => $searchResults,
+  'difficulty' => $difficulty
+]);
 SmartyWrap::display("hangman.tpl");

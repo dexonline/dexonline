@@ -14,6 +14,7 @@ if ($id) {
   $tag = Tag::get_by_id($id);
 } else {
   $tag = Model::factory('Tag')->create();
+  $tag->public = 1;
 }
 
 if ($saveButton) {
@@ -24,6 +25,7 @@ if ($saveButton) {
   $tag->icon = Request::get('icon');
   $tag->iconOnly = Request::has('iconOnly');
   $tag->tooltip = Request::get('tooltip');
+  $tag->public = Request::has('public');
 
   $errors = $tag->validate();
   if ($errors) {
@@ -108,17 +110,19 @@ $meanings = Model::factory('Meaning')
           ->limit($MEANING_LIMIT)
           ->find_many();
 
-SmartyWrap::assign('t', $tag);
-SmartyWrap::assign('children', $children);
-SmartyWrap::assign('canDelete', $canDelete);
-SmartyWrap::assign('homonyms', $homonyms);
-SmartyWrap::assign('defCount', $defCount);
-SmartyWrap::assign('searchResults', $searchResults);
-SmartyWrap::assign('lexemeCount', $lexemeCount);
-SmartyWrap::assign('lexemes', $lexemes);
-SmartyWrap::assign('meaningCount', $meaningCount);
-SmartyWrap::assign('meanings', $meanings);
-SmartyWrap::assign('frequentColors', $frequentColors);
+SmartyWrap::assign([
+  't' => $tag,
+  'children' => $children,
+  'canDelete' => $canDelete,
+  'homonyms' => $homonyms,
+  'defCount' => $defCount,
+  'searchResults' => $searchResults,
+  'lexemeCount' => $lexemeCount,
+  'lexemes' => $lexemes,
+  'meaningCount' => $meaningCount,
+  'meanings' => $meanings,
+  'frequentColors' => $frequentColors,
+]);
 SmartyWrap::addCss('admin', 'colorpicker');
 SmartyWrap::addJs('select2Dev', 'colorpicker');
 SmartyWrap::display('eticheta.tpl');

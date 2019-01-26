@@ -62,6 +62,22 @@
               </select>
               {include "bits/fieldErrors.tpl" errors=$errors.parentId|default:null}
             </div>
+
+            <div class="checkbox">
+              <label>
+                <input type="checkbox"
+                  name="public"
+                  value="1"
+                  {if $t->public}checked{/if}>
+                publică
+              </label>
+            </div>
+
+            <p class="help-block">
+              Dacă nu este publică, eticheta este vizibilă doar pentru
+              utilizatorii privilegiați.
+            </p>
+
           </div>
         </div>
 

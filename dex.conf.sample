@@ -296,6 +296,8 @@ animateLexeme[] = "admite vocativul"
 
 partOfSpeech = "parte de vorbire"
 
+rareGlyphsTagId = 416
+
 [parsers]
 
 ; parser[urlName] = ParserClassName (file should reside in phplib/parser/)

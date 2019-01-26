@@ -24,6 +24,7 @@ class HtmlConverter {
 
     if ($obj instanceof Definition) {
       $obj->setFootnotes($footnotes);
+      $html = self::highlightRareGlyphs($html, $obj->rareGlyphs);
     }
     return $html;
   }
@@ -32,6 +33,15 @@ class HtmlConverter {
   static function exportMessages() {
     FlashMessage::bulkAdd(self::$warnings, 'warning');
     FlashMessage::bulkAdd(self::$errors);
+  }
+
+  static function highlightRareGlyphs($s, $rareGlyphs) {
+    if (User::can(User::PRIV_ANY)) {
+      foreach (Str::unicodeExplode($rareGlyphs) as $glyph) {
+        $s = str_replace($glyph,  "<span class=\"rareGlyph\">$glyph</span>", $s);
+      }
+    }
+    return $s;
   }
 
 }

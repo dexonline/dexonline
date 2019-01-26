@@ -233,6 +233,11 @@ abbr[title] {
   text-decoration: underline double;
 }
 
+.rareGlyph {
+  background: red;
+  color: white;
+}
+
 .defWrapper .glyphicon-comment {
   color: #1E83C2;
   padding-right: 10px;

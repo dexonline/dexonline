@@ -58,11 +58,13 @@ if ($saveButton || $nextOcrBut) {
 
   $d->process(true);
   $d->setVolumeAndPage(); // only after we have extracted the lexicon
+  $d->updateRareGlyphs();
 
   HtmlConverter::convert($d);
   HtmlConverter::exportMessages();
 
   checkDeletedStructuredEntries($d, $entryIds);
+  checkRareGlyphsFieldAndTag($d, $tagIds);
 
   if (!FlashMessage::hasErrors()) {
     // Save the new entries, load the rest.
@@ -278,6 +280,31 @@ function checkDeletedStructuredEntries($d, $entryIds) {
 
   if (count($entries)) {
     FlashMessage::addTemplate('dissociateStructuredEntries.tpl', ['entries' => $entries]);
+  }
+}
+
+// if the definition has rare glyphs, then either
+// (1) it should also have a [rare glyphs] tag or
+// (2) it should be saved in ST_PENDING
+function checkRareGlyphsFieldAndTag($d, &$tagIds) {
+  $tag = Tag::get_by_id(Config::get('tags.rareGlyphsTagId'));
+  $hasTag = in_array($tag->id, $tagIds);
+
+  // Rare glyphs, active state and no tag? Complain!
+  if ($d->rareGlyphs && !$hasTag && $d->status != Definition::ST_PENDING) {
+    FlashMessage::addTemplate('rareGlyphsNoTag.tpl', [
+      'definition' => $d,
+      'rareGlyphsTag' => $tag,
+    ]);
+  }
+
+  // No rare glyphs, but tag present? Remove tag.
+  if (!$d->rareGlyphs && $hasTag) {
+    $pos = array_search($tag->id, $tagIds);
+    unset($tagIds[$pos]);
+    FlashMessage::addTemplate('rareGlyphsUnneededTag.tpl',
+                              [ 'rareGlyphsTag' => $tag ],
+                              'warning');
   }
 }
 

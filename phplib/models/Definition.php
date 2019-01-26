@@ -119,6 +119,28 @@ class Definition extends BaseObject implements DatedObject {
     }
   }
 
+  function updateRareGlyphs() {
+    $common = $this->getSource()->commonGlyphs ?? '';
+
+    //  do nothing if the source has no common glyphs defined
+    if ($common) {
+      $common .= Source::BASE_GLYPHS;
+      $commonMap = array_fill_keys(Str::unicodeExplode($common), true);
+
+      $rareMap = [];
+      foreach (Str::unicodeExplode($this->internalRep) as $glyph) {
+        if (!isset($commonMap[$glyph])) {
+          $rareMap[$glyph] = true;
+        }
+      }
+
+      $this->rareGlyphs = implode(array_keys($rareMap));
+    } else {
+      $this->rareGlyphs = '';
+    }
+  }
+
+
   static function loadByEntryIds($entryIds) {
     if (!count($entryIds)) {
       return [];

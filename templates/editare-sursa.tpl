@@ -169,12 +169,12 @@
               <input
                 type="text"
                 name="commonGlyphs"
-                value="{$src->commonGlyphs}"
+                value="{$src->commonGlyphs|escape}"
                 class="form-control">
 
               <p class="help-block">
                 Glife care permit salvarea definiției fără avertismente. Sînt
-                deja incluse glifele <b>{Source::getBaseGlyphsDisplay()}</b>,
+                deja incluse glifele <b>{Source::getBaseGlyphsDisplay()|escape}</b>,
                 comune tuturor surselor.
               </p>
             </div>
@@ -184,7 +184,7 @@
               <input
                 type="text"
                 name="rareGlyphs"
-                value="{$src->rareGlyphs}"
+                value="{$src->rareGlyphs|escape}"
                 class="form-control">
 
               <p class="help-block">

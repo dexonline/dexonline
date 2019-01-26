@@ -7,11 +7,12 @@ define('EXCLUDE_SOURCES', [17, 42, 53]);
 $offset = 0;
 $modified = 0;
 
-$opts = getopt('s:c:r:v');
+$opts = getopt('s:c:r:vw');
 $sourceId = $opts['s'] ?? null;
 $commonThreshold = $opts['c'] ?? null;
 $rareThreshold = $opts['r'] ?? null;
 $verbose = isset($opts['v']);
+$write = isset($opts['w']);
 
 if (!$sourceId || !$commonThreshold || !$rareThreshold) {
   usage('Missing mandatory argument.');
@@ -102,6 +103,12 @@ if ($verbose) {
   }
 }
 
+if ($write) {
+  $source->commonGlyphs = $common;
+  $source->rareGlyphs = $rare;
+  $source->save();
+}
+
 /*************************************************************************/
 
 function usage($errMsg) {
@@ -117,6 +124,7 @@ Mandatory arguments:
 Optional arguments:
 
     -v                  verbose output
+    -w                  write computed glyph sets to the Source fields
 
 
 EOT;

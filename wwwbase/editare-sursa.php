@@ -29,7 +29,6 @@ if ($saveButton) {
   $src->hasPageImages = Request::has('hasPageImages');
   $src->defCount = Request::get('defCount');
   $src->commonGlyphs = Request::get('commonGlyphs');
-  $src->rareGlyphs = Request::get('rareGlyphs');
   $tagIds = Request::getArray('tagIds');
 
   if (validate($src)) {
@@ -82,7 +81,6 @@ function validate($src) {
   // glyph validation
   $base = array_fill_keys(Str::unicodeExplode(Source::BASE_GLYPHS), true);
   $common = array_fill_keys(Str::unicodeExplode($src->commonGlyphs), true);
-  $rare = array_fill_keys(Str::unicodeExplode($src->rareGlyphs), true);
 
   $redundantCommon = '';
   foreach ($common as $glyph => $ignored) {
@@ -94,18 +92,6 @@ function validate($src) {
   if ($redundantCommon) {
     FlashMessage::add("Am eliminat glifele comune <b>$redundantCommon</b>, " .
                       'care sînt incluse automat.', 'warning');
-  }
-
-  $redundantRare = '';
-  foreach ($rare as $glyph => $ignored) {
-    if (isset($base[$glyph]) || isset($common[$glyph])) {
-      $redundantRare .= ' ' . $glyph;
-      $src->rareGlyphs = str_replace($glyph, '', $src->rareGlyphs);
-    }
-  }
-  if ($redundantRare) {
-    FlashMessage::add("Am eliminat glifele rare <b>$redundantRare</b>, " .
-                      'care sînt comune sau incluse automat.', 'warning');
   }
 
   return !FlashMessage::hasErrors();

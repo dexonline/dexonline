@@ -8,13 +8,12 @@ define('EXCLUDE_SOURCES', [17, 42, 53]);
 $opts = getopt('s:c:r:vwd');
 $sourceId = $opts['s'] ?? null;
 $commonThreshold = $opts['c'] ?? null;
-$rareThreshold = $opts['r'] ?? null;
 $verbose = isset($opts['v']);
 $write = isset($opts['w']);
 $updateDefs = isset($opts['d']);
 
 // validation
-if (!$sourceId || !$commonThreshold || !$rareThreshold) {
+if (!$sourceId || !$commonThreshold) {
   usage('Missing mandatory argument.');
 }
 
@@ -22,16 +21,11 @@ if (!($source = Source::get_by_id($sourceId))) {
   usage('Source does not exist.');
 }
 
-if ($commonThreshold < $rareThreshold) {
-  usage('Common threshold must be at least equal to rare threshold.');
-}
-
-// scan the definitions; collect glyph counts and definitions with
-// rare/incorrect glyphs
+// scan the definitions; collect glyph counts and definitions with rare glyphs
 $base = array_fill_keys(Str::unicodeExplode(Source::BASE_GLYPHS), true);
 
 $map = []; // maps glyphs to their frequencies
-$defMap = []; // maps glyphs to sets of definition IDs, for rare and incorrect glyphs
+$defMap = []; // maps glyphs to sets of definition IDs, for rare glyphs
 
 scanDefinitions($source, 'collectGlyphStats');
 
@@ -42,7 +36,7 @@ if ($verbose) {
     printf ("[%s] unicode U+%04x count %d\n", $glyph, Str::unicodeOrd($glyph), $count);
   }
 
-  // report definitions with rare and incorrect glyphs
+  // report definitions with rare glyphs
   foreach ($defMap as $glyph => $idMap) {
     if ($idMap) {
       printf("Definitions for glyph [%s] (unicode U+%04x):\n",
@@ -59,54 +53,33 @@ uksort($map, function($a, $b) {
   return Str::unicodeOrd($a) - Str::unicodeOrd($b);
 });
 
-// assemble the common, rare and incorrect glyph strings
+// assemble the common and rare glyph strings
 $common = [];
 $rare = [];
-$incorrect = [];
 foreach ($map as $glyph => $count) {
   if ($count >= $commonThreshold) {
     $common[$glyph] = true;
-  } else if ($count >= $rareThreshold) {
-    $rare[$glyph] = true;
   } else {
-    $incorrect[$glyph] = true;
+    $rare[$glyph] = true;
   }
 }
 
 $commonString = implode(array_keys($common));
 $rareString = implode(array_keys($rare));
-$incorrectString = implode(array_keys($incorrect));
 
 printf("Common glyphs: ---{$commonString}---\n");
 printf("Rare glyphs: ---{$rareString}---\n");
-printf("Incorrect glyphs: ---{$incorrectString}---\n");
 
-// update the Source record fields
+// update the Source.commonGlyphs field
 if ($write) {
   $source->commonGlyphs = $commonString;
-  $source->rareGlyphs = $rareString;
   $source->save();
 }
 
 if ($updateDefs) {
-  // update the suspiciousGlyphs fields
-  $defIdsForTagging = [];
-  scanDefinitions($source, 'updateDefinition');
-
-  // remove existing [rare glyphs] tags
+  // update the rareGlyphs field and [rare glyphs] tag
   $tagId = Config::get('tags.rareGlyphsTagId');
-  DB::execute(sprintf(
-    'delete ot ' .
-    'from ObjectTag ot ' .
-    'join Definition d on ot.objectType = %d and ot.objectId = d.id ' .
-    'where d.sourceId = %d ' .
-    'and ot.tagId = %d',
-    ObjectTag::TYPE_DEFINITION, $source->id, $tagId));
-
-  // tag newly discovered definitions
-  foreach ($defIdsForTagging as $defId) {
-    ObjectTag::associate(ObjectTag::TYPE_DEFINITION, $defId, $tagId);
-  }
+  scanDefinitions($source, 'updateDefinition');
 }
 
 /*************************************************************************/
@@ -119,13 +92,12 @@ Mandatory arguments:
 
     -s <sourceId>       source ID
     -c <n>              minimum number of occurrences for a ghlyph to be considered common
-    -r <n>              minimum number of occurrences for a ghlyph to be considered rare
 
 Optional arguments:
 
     -v                  verbose output
     -w                  write computed glyph sets to the Source fields
-    -d                  recompute the suspiciousGlyphs field and [rare glyphs] tag on all definitions
+    -d                  recompute the rareGlyphs field and [rare glyphs] tag on all definitions
 
 
 EOT;
@@ -150,30 +122,20 @@ function collectGlyphStats($d, $chars) {
 }
 
 function updateDefinition($d, $chars) {
-  global $rare, $incorrect, $defIdsForTagging;
+  global $rare, $tagId;
 
-  $suspicious = [];
-  $hasIncorrect = false;
-
-  // suspicious glyphs = rare glyphs + incorrect glyphs
+  $rareGlyphs = [];
   foreach ($chars as $c) {
     if (isset($rare[$c])) {
-      $suspicious[$c] = true;
-    } else if (isset($incorrect[$c])) {
-      $suspicious[$c] = true;
-      $hasIncorrect = true;
+      $rareGlyphs[$c] = true;
     }
   }
-  $suspiciousGlyphs = implode(array_keys($suspicious));
-  if ($suspiciousGlyphs != $d->suspiciousGlyphs) {
-    $d->suspiciousGlyphs = $suspiciousGlyphs;
-    $d->save();
-  }
+  $rareGlyphs = implode(array_keys($rareGlyphs));
 
-  // the definition needs the [rare glyphs] tag if it contains rare glyphs,
-  // but no incorrect glyphs
-  if ($d->suspiciousGlyphs && !$hasIncorrect) {
-    $defIdsForTagging[] = $d->id;
+  if ($rareGlyphs != $d->rareGlyphs) {
+    $d->rareGlyphs = $rareGlyphs;
+    $d->save();
+    ObjectTag::dissociate(ObjectTag::TYPE_DEFINITION, $d->id, $tagId);
   }
 }
 

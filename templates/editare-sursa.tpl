@@ -108,14 +108,14 @@
                 {/foreach}
               </select>
             </div>
+          </div>
 
+          <div class="col-md-6">
             <div class="form-group">
               <label>notă</label>
               <input type="text" name="remark" value="{$src->remark}" class="form-control">
             </div>
-          </div>
 
-          <div class="col-md-6">
             <div class="form-group">
               <label>legătura către formatul scanat</label>
               <input type="text" name="link" value="{$src->link}" class="form-control">
@@ -176,21 +176,6 @@
                 Glife care permit salvarea definiției fără avertismente. Sînt
                 deja incluse glifele <b>{Source::getBaseGlyphsDisplay()|escape}</b>,
                 comune tuturor surselor.
-              </p>
-            </div>
-
-            <div class="form-group">
-              <label>glife rare</label>
-              <input
-                type="text"
-                name="rareGlyphs"
-                value="{$src->rareGlyphs|escape}"
-                class="form-control">
-
-              <p class="help-block">
-                Glife care cauzează un avertisment la salvarea
-                definiției. Orice alte glife permit salvarea definiției în
-                starea activă doar de către administratori.
               </p>
             </div>
 

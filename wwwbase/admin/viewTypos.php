@@ -1,10 +1,9 @@
 <?php
-require_once("../../phplib/Core.php");
+require_once '../../phplib/Core.php';
 User::mustHave(User::PRIV_EDIT);
 Util::assertNotMirror();
 
 $sourceClause = '';
-$sourceId = 0;
 $sourceUrlName = Request::get('source');
 if ($sourceUrlName) {
   $source = $sourceUrlName ? Source::get_by_urlName($sourceUrlName) : null;

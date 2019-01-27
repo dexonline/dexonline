@@ -134,6 +134,9 @@ class Util {
       'Count.unassociatedDefinitions', Definition::countUnassociated()
     );
     Variable::poke(
+      'Count.missingRareGlyphsTags', count(Definition::loadMissingRareGlyphsTags())
+    );
+    Variable::poke(
       'Count.unassociatedEntries', count(Entry::loadUnassociated())
     );
     Variable::poke(

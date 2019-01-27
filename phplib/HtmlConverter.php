@@ -36,12 +36,34 @@ class HtmlConverter {
   }
 
   static function highlightRareGlyphs($s, $rareGlyphs) {
-    if (User::can(User::PRIV_ANY)) {
-      foreach (Str::unicodeExplode($rareGlyphs) as $glyph) {
-        $s = str_replace($glyph,  "<span class=\"rareGlyph\">$glyph</span>", $s);
+    if (!User::can(User::PRIV_ANY)) {
+      return $s;
+    }
+
+    // We must assume there is some HTML in the definition. There is no safe
+    // point in time where we can assume there isn't, because (a) we want to
+    // remove footnotes before highlighting rare glyphs and (b) as soon as we
+    // remove a footnote, we insert a <sup>[1]</sup> in its place. Therefore,
+    // the code below must skip HTML tags.
+    $rareMap = array_fill_keys(Str::unicodeExplode($rareGlyphs), true);
+    $result = '';
+    $inTag = false;
+
+    foreach (Str::unicodeExplode($s) as $glyph) {
+      if ($glyph == '<') {
+        $inTag = true;
+      }
+      if (!$inTag && isset($rareMap[$glyph])) {
+        $result .= "<span class=\"rareGlyph\">$glyph</span>";
+      } else {
+        $result .= $glyph;
+      }
+      if ($glyph == '>') {
+        $inTag = false;
       }
     }
-    return $s;
+
+    return $result;
   }
 
 }

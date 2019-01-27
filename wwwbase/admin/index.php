@@ -33,6 +33,11 @@ $reports = [
                       OCR::countAvailable(User::getActiveId())),
    'privilege' => User::PRIV_EDIT | User::PRIV_TRAINEE
   ],
+  ['text' => 'Definiții fără eticheta [glife rare]',
+   'url' => 'admin/viewMissingRareGlyphsTags',
+   'count' => Variable::peek('Count.missingRareGlyphsTags'),
+   'privilege' => User::PRIV_EDIT
+  ],
   ['text' => 'Definiții neasociate cu nicio intrare',
    'url' => 'admin/viewUnassociatedDefinitions',
    'count' => Variable::peek('Count.unassociatedDefinitions'),

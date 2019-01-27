@@ -128,7 +128,9 @@ class Definition extends BaseObject implements DatedObject {
       $commonMap = array_fill_keys(Str::unicodeExplode($common), true);
 
       $rareMap = [];
-      foreach (Str::unicodeExplode($this->internalRep) as $glyph) {
+      // exclude footnotes and hidden comments
+      $rep = preg_replace("/(\{\{.*\}\})|(▶.*◀)/U", '', $this->internalRep);
+      foreach (Str::unicodeExplode($rep) as $glyph) {
         if (!isset($commonMap[$glyph])) {
           $rareMap[$glyph] = true;
         }
@@ -219,6 +221,24 @@ class Definition extends BaseObject implements DatedObject {
       ->where_not_equal('status', self::ST_DELETED)
       ->where('hasAmbiguousAbbreviations', true)
       ->count();
+  }
+
+  static function loadMissingRareGlyphsTags($sourceId = null) {
+    $join = sprintf('(d.id = ot.objectId) and (ot.objectType = %d) and (ot.tagId = %d)',
+                    ObjectTag::TYPE_DEFINITION,
+                    Config::get('tags.rareGlyphsTagId'));
+    $query = Model::factory('Definition')
+      ->table_alias('d')
+      ->select('d.*')
+      ->left_outer_join('ObjectTag', $join, 'ot')
+      ->where_not_equal('d.rareGlyphs', '')
+      ->where_null('ot.id');
+
+    if ($sourceId) {
+      $query = $query->where('d.sourceId', $sourceId);
+    }
+
+    return $query->find_many();
   }
 
   static function loadForEntries(&$entries, $sourceId, $preferredWord) {

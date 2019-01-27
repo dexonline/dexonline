@@ -16,20 +16,18 @@
     <div class="voffset3"></div>
 
     {foreach $searchResults as $row}
-      {include "bits/definition.tpl" showSelectCheckbox=1}
+      {include "bits/definition.tpl" showSelectCheckbox=1 showPageLink=0}
     {/foreach}
 
     {if count($searchResults)}
       <div>
-        <button
-          type="submit"
-          class="btn btn-primary"
-          name="tagButton">
+        <button type="submit" class="btn btn-primary">
+          <i class="glyphicon glyphicon-plus"></i>
           adaugă eticheta [{$tag->value}]
         </button>
       </div>
     {/if}
-    
+
   </form>
 
 {/block}

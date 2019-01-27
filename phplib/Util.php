@@ -137,6 +137,9 @@ class Util {
       'Count.missingRareGlyphsTags', count(Definition::loadMissingRareGlyphsTags())
     );
     Variable::poke(
+      'Count.unneededRareGlyphsTags', count(Definition::loadUnneededRareGlyphsTags())
+    );
+    Variable::poke(
       'Count.unassociatedEntries', count(Entry::loadUnassociated())
     );
     Variable::poke(

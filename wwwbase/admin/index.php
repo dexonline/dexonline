@@ -38,6 +38,11 @@ $reports = [
    'count' => Variable::peek('Count.missingRareGlyphsTags'),
    'privilege' => User::PRIV_EDIT
   ],
+  ['text' => 'Definiții cu eticheta inutilă [glife rare]',
+   'url' => 'admin/viewUnneededRareGlyphsTags',
+   'count' => Variable::peek('Count.unneededRareGlyphsTags'),
+   'privilege' => User::PRIV_EDIT
+  ],
   ['text' => 'Definiții neasociate cu nicio intrare',
    'url' => 'admin/viewUnassociatedDefinitions',
    'count' => Variable::peek('Count.unassociatedDefinitions'),

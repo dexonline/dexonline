@@ -3,24 +3,19 @@ require_once '../../phplib/Core.php';
 User::mustHave(User::PRIV_EDIT);
 Util::assertNotMirror();
 
-$sourceUrlName = Request::get('source');
 $selectedDefIds = Request::getArray('selectedDefIds', []);
 
 $tag = Tag::get_by_id(Config::get('tags.rareGlyphsTagId'));
 
 foreach ($selectedDefIds as $defId) {
-  ObjectTag::associate(ObjectTag::TYPE_DEFINITION, $defId, $tag->id);
+  ObjectTag::dissociate(ObjectTag::TYPE_DEFINITION, $defId, $tag->id);
 }
 
-$source = Source::get_by_urlName($sourceUrlName); // possibly null
-$sourceId = $source->id ?? 0;
-
-$defs = Definition::loadMissingRareGlyphsTags($sourceId);
+$defs = Definition::loadUnneededRareGlyphsTags();
 
 SmartyWrap::assign([
-  'sourceId' => $sourceId,
   'searchResults' => SearchResult::mapDefinitionArray($defs),
   'tag' => $tag,
 ]);
 SmartyWrap::addCss('admin');
-SmartyWrap::display('admin/viewMissingRareGlyphsTags.tpl');
+SmartyWrap::display('admin/viewUnneededRareGlyphsTags.tpl');

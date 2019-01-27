@@ -241,6 +241,17 @@ class Definition extends BaseObject implements DatedObject {
     return $query->find_many();
   }
 
+  static function loadUnneededRareGlyphsTags() {
+    return Model::factory('Definition')
+      ->table_alias('d')
+      ->select('d.*')
+      ->join('ObjectTag', [ 'd.id', '=', 'ot.objectId'], 'ot')
+      ->where('ot.objectType', ObjectTag::TYPE_DEFINITION)
+      ->where('ot.tagId', Config::get('tags.rareGlyphsTagId'))
+      ->where('d.rareGlyphs', '')
+      ->find_many();
+  }
+
   static function loadForEntries(&$entries, $sourceId, $preferredWord) {
     if (!count($entries)) {
       return [];

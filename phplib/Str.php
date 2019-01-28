@@ -627,7 +627,7 @@ class Str {
     } else if ($o >> 4 == 14) {
       // 1110vvvv 10vvvvvv 10vvvvvv
       return (($o & 0xf) << 12) | ((ord($c[1]) & 0x3f) << 6) | (ord($c[2]) & 0x3f);
-    } else if ($c >> 3 == 30) {
+    } else if ($o >> 3 == 30) {
       // 11110vvv 10vvvvvv 10vvvvvv 10vvvvvv
       return (($o & 0x7) << 18) | ((ord($c[1]) & 0x3f) << 12) |
         ((ord($c[2]) & 0x3f) << 6) | (ord($c[3]) & 0x3f);

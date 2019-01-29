@@ -19,7 +19,7 @@ foreach ($config as $section => $vars) {
 
 $root = $config['global']['path'];
 
-define('BATCH_SIZE', 100);
+const BATCH_SIZE = 100;
 $offset = 0;
 
 do {

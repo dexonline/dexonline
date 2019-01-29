@@ -1,8 +1,8 @@
 <?php
 
 // hide reason for newer words
-define('HIDE_REASON', false);
-define('MAX_DATE_FOR_REASON_DISPLAY', '-2 days midnight');
+const HIDE_REASON = false;
+const MAX_DATE_FOR_REASON_DISPLAY = '-2 days midnight';
 
 require_once("../phplib/Core.php");
 $date = Request::get('d');

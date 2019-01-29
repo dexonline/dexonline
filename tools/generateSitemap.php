@@ -4,8 +4,8 @@ require_once __DIR__ . '/../phplib/Core.php';
 // TODO: Add user pages
 // TODO: Add inflection models (from modele-flexiune.php)
 
-define('FILE_SIZE_LIMIT', 9000000);
-define('FILE_URL_LIMIT', 45000);
+const FILE_SIZE_LIMIT = 9000000;
+const FILE_URL_LIMIT = 45000;
 $g_numFiles = 0;
 $g_curFileName = null;
 $g_curFile = null;

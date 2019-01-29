@@ -2,17 +2,17 @@
 
 require_once('../phplib/Core.php');
 
-define('SEARCH_REGEXP', 0);
-define('SEARCH_MULTIWORD', 1);
-define('SEARCH_INFLECTED', 2);
-define('SEARCH_APPROXIMATE', 3);
-define('SEARCH_DEF_ID', 4);
-define('SEARCH_ENTRY_ID', 5);
-define('SEARCH_FULL_TEXT', 6);
-define('SEARCH_LEXEME_ID', 7);
+const SEARCH_REGEXP = 0;
+const SEARCH_MULTIWORD = 1;
+const SEARCH_INFLECTED = 2;
+const SEARCH_APPROXIMATE = 3;
+const SEARCH_DEF_ID = 4;
+const SEARCH_ENTRY_ID = 5;
+const SEARCH_FULL_TEXT = 6;
+const SEARCH_LEXEME_ID = 7;
 
-define('LIMIT_FULLTEXT_DISPLAY', Config::get('limits.limitFulltextSearch', 500));
-define('PREVIEW_LIMIT', 20); // how many definitions to show by default
+const PREVIEW_LIMIT = 20; // how many definitions to show by default
+$limitFullTextDisplay = Config::get('limits.limitFulltextSearch', 500);
 
 // defLimit: how many definitions to display (null = not relevant)
 // paradigm: whether to display the paradigm for $entries
@@ -142,7 +142,7 @@ if ($text) {
     // to 90. Then we print "100 definitions (at most 90 shown)".
     $extra['numDefinitionsFullText'] = count($defIds);
     $extra['stopWords'] = $stopWords;
-    $defIds = array_slice($defIds, 0, LIMIT_FULLTEXT_DISPLAY);
+    $defIds = array_slice($defIds, 0, $limitFullTextDisplay);
 
     // load definitions in the given order
     foreach ($defIds as $id) {

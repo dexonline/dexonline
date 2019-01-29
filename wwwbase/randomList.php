@@ -1,19 +1,19 @@
 <?php
 require_once("../phplib/Core.php");
 
-define('MIN_LIST_LENGTH', 10);
-define('MAX_LIST_LENGTH', 2500);
-define('DEFAULT_LIST_LENGTH', 100);
-define('DEFAULT_SHOW_LIST', 0);
+const MIN_LIST_LENGTH = 10;
+const MAX_LIST_LENGTH = 2500;
+const DEFAULT_LIST_LENGTH = 100;
+const DEFAULT_SHOW_LIST = 0;
 
-define('MIN_WOTD_LIST_LENGTH', 5);
-define('MAX_WOTD_LIST_LENGTH', 50);
-define('DEFAULT_WOTD_LIST_LENGTH', 20);
+const MIN_WOTD_LIST_LENGTH = 5;
+const MAX_WOTD_LIST_LENGTH = 50;
+const DEFAULT_WOTD_LIST_LENGTH = 20;
 
-//define('RANDOM_WORDS_QUERY', 'select cuv %s from RandomWord where id in (%s)');
-define('RANDOM_WORDS_QUERY', 'select cuv %s from RandomWord order by rand() limit %d');
-define('RANDOM_WOTD_QUERY', "select lexicon cuv from WordOfTheDay W join Definition D on W.definitionId=D.id order by rand() limit %d");
-define('SOURCE_PART_RANDOM_WORDS', ', surse');
+//const RANDOM_WORDS_QUERY = 'select cuv %s from RandomWord where id in (%s)';
+const RANDOM_WORDS_QUERY = 'select cuv %s from RandomWord order by rand() limit %d';
+const RANDOM_WOTD_QUERY = 'select lexicon cuv from WordOfTheDay W join Definition D on W.definitionId=D.id order by rand() limit %d';
+const SOURCE_PART_RANDOM_WORDS = ', surse';
 
 $wListLength = (int) Request::get('w');
 if (is_int($wListLength) && $wListLength) {

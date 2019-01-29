@@ -1,5 +1,5 @@
 <?php
-require_once("../../phplib/Core.php"); 
+require_once("../../phplib/Core.php");
 User::mustHave(User::PRIV_ADMIN);
 Util::assertNotMirror();
 
@@ -78,8 +78,7 @@ SmartyWrap::assign("message", $message);
 SmartyWrap::assign("allModeratorSources", Model::factory('Source')->where('canModerate', true)->order_by_asc('displayOrder')->find_many());
 SmartyWrap::assign("allOCRModerators", Model::factory('User')->where_raw('moderator & 4')->order_by_asc('id')->find_many());
 
-define(
-  'OCR_EDITOR_STATS',
+const OCR_EDITOR_STATS =
   "SELECT SQL_CACHE
   U.nick Utilizator,
   SUM(IF(X.status='published', X.cnt, 0)) Număr_de_definiții_publicate,
@@ -91,11 +90,9 @@ FROM (
   FROM OCR GROUP BY editorId, status
 ) X
 JOIN User U on X.editorId=U.id
-GROUP BY U.nick"
-);
+GROUP BY U.nick";
 
-define(
-  'OCR_PREP_STATS',
+const OCR_PREP_STATS =
   "SELECT SQL_CACHE
   U.nick Utilizator,
   S.shortName Dicționar,
@@ -109,8 +106,7 @@ FROM (
 ) X
 JOIN User U ON X.userId=U.id
 JOIN Source S ON X.sourceId=S.id
-GROUP BY U.nick, S.shortName"
-);
+GROUP BY U.nick, S.shortName";
 
 SmartyWrap::assign("statsPrep", DB::execute(OCR_PREP_STATS));
 SmartyWrap::assign("statsEditors", DB::execute(OCR_EDITOR_STATS));

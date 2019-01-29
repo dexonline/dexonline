@@ -2,9 +2,9 @@
 
 require_once __DIR__ . '/../phplib/Core.php';
 
-define('BATCH_SIZE', 10000);
-define('START_ID', 0);
-define('EXCLUDE_SOURCES', [17, 42, 53]);
+const BATCH_SIZE = 10000;
+const START_ID = 0;
+const EXCLUDE_SOURCES = [17, 42, 53];
 $offset = 0;
 $modified = 0;
 

@@ -9,7 +9,7 @@ require_once __DIR__ . '/../../phplib/Core.php';
 $config = parse_ini_file('crawler.conf', true);
 $root = $config['global']['path'];
 
-define('BATCH_SIZE', 100);
+const BATCH_SIZE = 100;
 $offset = 0;
 
 do {

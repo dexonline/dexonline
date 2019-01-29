@@ -2,8 +2,8 @@
 
 require_once __DIR__ . '/../phplib/Core.php';
 
-define('BATCH_SIZE', 10000);
-define('EXCLUDE_SOURCES', [17, 42, 53]);
+const BATCH_SIZE = 10000;
+const EXCLUDE_SOURCES = [17, 42, 53];
 
 $opts = getopt('s:c:r:vwd');
 $sourceId = $opts['s'] ?? null;

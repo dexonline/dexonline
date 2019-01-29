@@ -3,10 +3,10 @@ require_once '../phplib/Core.php';
 
 User::mustHave(User::PRIV_DONATION);
 
-define('OTRS_DONATION_EMAIL_REGEX',
-       '/^Mesaj raspuns: (Approved|SMS Pending Transaction).*' .
-       '^3. PRET: (?<amount>[0-9.]+) RON.*' .
-       '^   EMAIL: (?<email>[^\n]+)$/ms');
+const OTRS_DONATION_EMAIL_REGEX =
+  '/^Mesaj raspuns: (Approved|SMS Pending Transaction).*' .
+  '^3. PRET: (?<amount>[0-9.]+) RON.*' .
+  '^   EMAIL: (?<email>[^\n]+)$/ms';
 
 $previewButton = Request::has('previewButton');
 $processButton = Request::has('processButton');

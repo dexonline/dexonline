@@ -7,8 +7,8 @@ if (!$user) {
   Util::redirect(Core::getWwwRoot());
 }
 
-define('AVATAR_RESOLUTION', 48);
-define('AVATAR_QUALITY', 100);
+const AVATAR_RESOLUTION = 48;
+const AVATAR_QUALITY = 100;
 $avatarRemoteFile = "/img/user/{$user->id}.jpg";
 $avatarRawGlob = Core::getRootPath() . "wwwbase/img/generated/{$user->id}_raw.*";
 

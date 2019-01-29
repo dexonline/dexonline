@@ -1,9 +1,9 @@
 <?php
 
-require_once("../phplib/Core.php"); 
+require_once("../phplib/Core.php");
 User::mustHave(User::PRIV_EDIT);
 
-define('DEBUG', 0);
+const DEBUG = 0;
 
 require_once("../phplib/Core.php");
 $word_start = Request::get('i');

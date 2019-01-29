@@ -3,11 +3,13 @@
 require_once __DIR__ . "/../phplib/Core.php";
 Log::notice('started');
 
-define('WIKI_BASE', 'https://wiki.dexonline.ro');
-define('PREFIX_LISTING_URL', WIKI_BASE . '/api.php?action=query&list=allpages&apprefix=Articol/&aplimit=max&format=json');
-define('PAGE_LISTING_URL', WIKI_BASE . '/api.php?action=query&pageids=%s&prop=info&inprop=url&format=json');
-define('PARSER_URL', WIKI_BASE . '/api.php');
-define('PAGE_RAW_URL', WIKI_BASE . '/index.php?action=raw&curid=%d');
+const WIKI_BASE = 'https://wiki.dexonline.ro';
+const PREFIX_LISTING_URL =
+  WIKI_BASE . '/api.php?action=query&list=allpages&apprefix=Articol/&aplimit=max&format=json';
+const PAGE_LISTING_URL =
+  WIKI_BASE . '/api.php?action=query&pageids=%s&prop=info&inprop=url&format=json';
+const PARSER_URL = WIKI_BASE . '/api.php';
+const PAGE_RAW_URL = WIKI_BASE . '/index.php?action=raw&curid=%d';
 
 $options = getopt('', ['force']);
 $force = array_key_exists('force', $options);

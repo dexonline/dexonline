@@ -2,8 +2,8 @@
 
 require_once __DIR__ . '/../phplib/Core.php';
 
-define('DATABASE_URL', Config::get('static.url') . 'download/mirrorAccess/dex-database.sql.gz');
-define('DATABASE_TMPFILE_GZIP', Config::get('global.tempDir') . '/dex-database.sql.gz');
+$databaseUrl = Config::get('static.url') . 'download/mirrorAccess/dex-database.sql.gz';
+$databaseTmpFileGzip = Config::get('global.tempDir') . '/dex-database.sql.gz';
 
 $doDatabaseCopy = true;
 $doCodeUpdate = true;
@@ -24,17 +24,17 @@ Log::notice('started with databaseCopy:%s codeUpdate:%s',
             ($doCodeUpdate ? 'yes' : 'no'));
 
 if ($doDatabaseCopy) {
-  $wget = sprintf("wget -q -O %s %s" , DATABASE_TMPFILE_GZIP, DATABASE_URL);
+  $wget = sprintf("wget -q -O %s %s" , $databaseTmpFileGzip, $databaseUrl);
   OS::executeAndAssert($wget);
   $mysql = sprintf("zcat %s | mysql -h %s -u %s --password='%s' %s",
-                   DATABASE_TMPFILE_GZIP, DB::$host, DB::$user, DB::$password, DB::$database);
+                   $databaseTmpFileGzip, DB::$host, DB::$user, DB::$password, DB::$database);
   OS::executeAndAssert($mysql);
-  $rm = sprintf("rm -f %s", DATABASE_TMPFILE_GZIP);
+  $rm = sprintf("rm -f %s", $databaseTmpFileGzip);
   OS::executeAndAssert($rm);
 }
 
 if ($doCodeUpdate) {
-  OS::executeAndAssert('cd ' . Core::getRootPath() . '; /usr/bin/git pull --quiet');  
+  OS::executeAndAssert('cd ' . Core::getRootPath() . '; /usr/bin/git pull --quiet');
 }
 
 Log::notice('finished');

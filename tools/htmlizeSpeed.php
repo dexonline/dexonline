@@ -6,8 +6,8 @@
 
 require_once __DIR__ . '/../phplib/Core.php';
 
-define('SAMPLE_SIZE', 100000);
-define('BATCH_SIZE', 10000);
+const SAMPLE_SIZE = 100000;
+const BATCH_SIZE = 10000;
 
 DebugInfo::resetClock();
 

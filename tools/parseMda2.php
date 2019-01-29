@@ -9,10 +9,10 @@ require_once __DIR__ . '/../phplib/third-party/PHP-parsing-tool/Parser.php';
 
 ini_set('memory_limit', '512M');
 
-define('SOURCE_ID', 53);
-define('BATCH_SIZE', 10000);
-define('START_AT', '');
-define('DEBUG', false);
+const SOURCE_ID = 53;
+const BATCH_SIZE = 10000;
+const START_AT = '';
+const DEBUG = false;
 
 $opts = getopt('l:');
 

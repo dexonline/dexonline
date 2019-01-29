@@ -15,8 +15,8 @@
 
 require_once __DIR__ . '/../phplib/Core.php';
 
-define('PATCH_DIR', __DIR__ . '/../patches/');
-define('PATCH_REGEXP', '/^\d{5}\./');
+const PATCH_DIR = __DIR__ . '/../patches/';
+const PATCH_REGEXP = '/^\d{5}\./';
 
 // Make sure we are in not testing mode.
 !Config::get('testing.enabled')

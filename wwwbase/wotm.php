@@ -1,6 +1,6 @@
 <?php
 
-define('WOTM_BIG_BANG', '2012-04-01');
+const WOTM_BIG_BANG = '2012-04-01';
 
 require_once("../phplib/Core.php");
 

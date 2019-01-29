@@ -2,38 +2,38 @@
 
 require_once("../phplib/Core.php");
 
-define('maxFreq', 1);
-define('medium_easy', 0.90);
-define('hard_medium', 0.80);
-define('expert_hard', 0.60);
-define('minFreq', 0.0);
+const MAX_FREQ = 1;
+const MEDIUM_EASY = 0.90;
+const HARD_MEDIUM = 0.80;
+const EXPERT_HARD = 0.60;
+const MIN_FREQ = 0.0;
 
-define('easyLength', 6);
-define('mediumLength', 7);
-define('hardLength', 9);
-define('expertLength', 30);
+const EASY_LENGTH = 6;
+const MEDIUM_LENGTH = 7;
+const HARD_LENGTH = 9;
+const EXPERT_LENGTH = 30;
 
 $difficulty = Request::get('d', 0);
 switch ($difficulty) {
 case 4:
-  $minFreq = minFreq;
-  $maxFreq = expert_hard;
-  $maxLength = expertLength;
+  $minFreq = MIN_FREQ;
+  $maxFreq = EXPERT_HARD;
+  $maxLength = EXPERT_LENGTH;
   break;
 case 3:
-  $minFreq = expert_hard;
-  $maxFreq = hard_medium;
-  $maxLength = hardLength;
+  $minFreq = EXPERT_HARD;
+  $maxFreq = HARD_MEDIUM;
+  $maxLength = HARD_LENGTH;
   break;
 case 2:
-  $minFreq = hard_medium;
-  $maxFreq = medium_easy;
-  $maxLength = mediumLength;
+  $minFreq = HARD_MEDIUM;
+  $maxFreq = MEDIUM_EASY;
+  $maxLength = MEDIUM_LENGTH;
   break;
 default :
-  $minFreq = medium_easy;
-  $maxFreq = maxFreq;
-  $maxLength = easyLength;
+  $minFreq = MEDIUM_EASY;
+  $maxFreq = MAX_FREQ;
+  $maxLength = EASY_LENGTH;
 }
 
 do {

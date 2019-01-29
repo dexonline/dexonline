@@ -2,8 +2,8 @@
 
 require_once __DIR__ . '/../phplib/Core.php';
 
-define('BATCH_SIZE', 10000);
-define('START_ID', 0);
+const BATCH_SIZE = 10000;
+const START_ID = 0;
 $offset = 0;
 $modified = 0;
 

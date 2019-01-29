@@ -3,7 +3,7 @@ require_once("../../phplib/Core.php");
 User::mustHave(User::PRIV_EDIT | User::PRIV_STRUCT);
 Util::assertNotMirror();
 
-define('SECONDS_PER_DAY', 86400);
+const SECONDS_PER_DAY = 86400;
 
 // entry parameters
 $description = Request::get('description');

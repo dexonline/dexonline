@@ -21,10 +21,10 @@
 
 require_once __DIR__ . '/../phplib/Core.php';
 
-define('DEF_CHECKPT_FILE', '/tmp/updateLinksDefCheckpt.txt');
-define('MEANING_CHECKPT_FILE', '/tmp/updateLinksMeaningCheckpt.txt');
-define('CREATE_PATCH_FILE', false);
-define('URL', 'https://dexonline.ro/');
+const DEF_CHECKPT_FILE = '/tmp/updateLinksDefCheckpt.txt';
+const MEANING_CHECKPT_FILE = '/tmp/updateLinksMeaningCheckpt.txt';
+const CREATE_PATCH_FILE = false;
+const URL = 'https://dexonline.ro/';
 
 /* determine name for new patch */
 $lastPatch = scandir(__DIR__ . '/../patches', $sorting_order=SCANDIR_SORT_DESCENDING)[0];

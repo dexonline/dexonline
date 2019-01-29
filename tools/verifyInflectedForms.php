@@ -8,7 +8,7 @@ require_once __DIR__ . '/../phplib/Core.php';
 
 ini_set('memory_limit','8G');
 
-define('START_ID', 0);
+const START_ID = 0;
 
 // pass -f to fix some of the issues encountered
 $opts = getopt('f');

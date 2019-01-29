@@ -7,10 +7,10 @@ RecentLink::add('Asistent cuvântul zilei');
 // Certain old wotds occur commonly as prefixes or suffixes and trigger too
 // many duplicate warnings, so we ignore them. We still report duplicates if
 // the exact word is chosen again.
-define('DUPLICATES_TO_IGNORE', [
+const DUPLICATES_TO_IGNORE = [
   'bas', 'buf', 'bur', 'cid', 'geneză', 'inic', 'inter', 'ion', 'mat', 'oman', 'op',
   'ordie', 'pan', 'pat', 'rec', 'ster', 'tor',
-]);
+];
 
 $nextMonth = date('Y-m', strtotime('+1 month'));
 $yearMonth = Request::get('for', $nextMonth);

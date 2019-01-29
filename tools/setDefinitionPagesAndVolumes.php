@@ -10,7 +10,7 @@
 
 require_once __DIR__ . '/../phplib/Core.php';
 
-define('BATCH_SIZE', 10000);
+const BATCH_SIZE = 10000;
 
 $total = 0;
 

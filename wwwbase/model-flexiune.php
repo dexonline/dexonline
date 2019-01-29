@@ -2,7 +2,7 @@
 
 require_once("../phplib/Core.php");
 
-define('LEXEMES_LIMIT', 100);
+const LEXEMES_LIMIT = 100;
 
 $model = Request::get('model');
 

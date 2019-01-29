@@ -5,8 +5,6 @@
 {block "content"}
   <h3>Pagina moderatorului</h3>
 
-  {include "bits/phpConstants.tpl"}
-
   {if User::can($reportPriv)}
     <div class="panel panel-default">
       <div class="panel-heading">
@@ -111,7 +109,7 @@
                   <div class="col-xs-8">
                     <select name="structStatus" class="form-control">
                       <option value="">oricare</option>
-                      {foreach Entry::$STRUCT_STATUS_NAMES as $i => $s}
+                      {foreach Entry::STRUCT_STATUS_NAMES as $i => $s}
                         <option value="{$i}">{$s}</option>
                       {/foreach}
                     </select>

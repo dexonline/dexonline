@@ -74,7 +74,7 @@ function validate($src) {
   if (!$src->author) {
     FlashMessage::add('Autorul nu poate fi vid.');
   }
-  if ($src->defCount < 0 && $src->defCount != Source::$UNKNOWN_DEF_COUNT) {
+  if ($src->defCount < 0 && $src->defCount != Source::UNKNOWN_DEF_COUNT) {
     FlashMessage::add('Numărul de definiții trebuie să fie pozitiv.');
   }
 

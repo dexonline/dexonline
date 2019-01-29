@@ -9,7 +9,7 @@ class Definition extends BaseObject implements DatedObject {
   const ST_DELETED = 2;
   const ST_HIDDEN = 3;
 
-  public static $STATUS_NAMES = [
+  const STATUS_NAMES = [
     self::ST_ACTIVE  => 'activă',
     self::ST_PENDING => 'temporară',
     self::ST_DELETED => 'ștearsă',
@@ -30,7 +30,7 @@ class Definition extends BaseObject implements DatedObject {
   }
 
   function getStatusName() {
-    return self::$STATUS_NAMES[$this->status];
+    return self::STATUS_NAMES[$this->status];
   }
 
   function getSource() {

@@ -1,9 +1,9 @@
 <?php
 
 class FlexStr {
-  private static $VOWELS = "aăâäåeéiîoöuüùy";
+  const VOWELS = 'aăâäåeéiîoöuüùy';
 
-  private static $SUFFIX_PAIRS = [
+  const SUFFIX_PAIRS = [
     ["'e", "e'a"],
     ["'ă", "'e"],
     ["'ă", "e'a"],
@@ -254,7 +254,7 @@ class FlexStr {
     }
 
     // Try one of the predefined combinations
-    foreach (self::$SUFFIX_PAIRS as $pair) {
+    foreach (self::SUFFIX_PAIRS as $pair) {
       if (Str::startsWith($from, $pair[0]) && Str::startsWith($to, $pair[1])) {
         $transforms[] = Transform::create($pair[0], $pair[1]);
         $places[] = $commonLength;
@@ -367,7 +367,7 @@ class FlexStr {
   }
 
   private static function isVowel($c) {
-    return mb_strpos(self::$VOWELS, $c) !== false;
+    return mb_strpos(self::VOWELS, $c) !== false;
   }
 
   static function applyTransforms($s, $transforms, $accentShift, $accentedVowel) {

@@ -51,7 +51,7 @@ $userData['rank_chars'] = $rankChars + 1;
 SmartyWrap::assign('medals', Medal::loadForUser($user));
 if (User::can(User::PRIV_ADMIN)) {
   // Admins can grant/revoke medals
-  SmartyWrap::assign('allMedals', Medal::$DATA);
+  SmartyWrap::assign('allMedals', Medal::DATA);
 }
 SmartyWrap::assign('user', $user);
 SmartyWrap::assign('userData', $userData);

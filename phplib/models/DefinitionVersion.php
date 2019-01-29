@@ -6,13 +6,8 @@ class DefinitionVersion extends BaseObject {
   const ACTION_UPDATE = 0;
   const ACTION_DELETE = 1;
 
-  static $ACTION_NAMES = [
-    self::ACTION_UPDATE => 'modificare',
-    self::ACTION_DELETE => 'ștergere',
-  ];
-
   function getStatusName() {
-    return Definition::$STATUS_NAMES[$this->status];
+    return Definition::STATUS_NAMES[$this->status];
   }
 
   static function current($def) {

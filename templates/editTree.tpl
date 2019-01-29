@@ -59,7 +59,7 @@
           <label class="col-md-2 control-label">stare</label>
           <div class="col-md-10">
             <select name="status" class="form-control">
-              {foreach $statusNames as $i => $s}
+              {foreach Tree::STATUS_NAMES as $i => $s}
                 <option value="{$i}" {if $i == $t->status}selected{/if}>{$s}</option>
               {/foreach}
             </select>
@@ -216,7 +216,7 @@
                 <strong>{$m->breadcrumb}</strong>
               </td>
               <td>
-                {Relation::$TYPE_NAMES[$m->relationType]}
+                {Relation::getTypeName($m->relationType)}
               </td>
               <td>
                 {HtmlConverter::convert($m)}
@@ -450,7 +450,7 @@
             <label class="col-md-1 control-label">tip</label>
 
             <div class="col-md-11">
-              {foreach Meaning::$FIELD_NAMES as $i => $tn}
+              {foreach Meaning::FIELD_NAMES as $i => $tn}
                 <label class="radio-inline">
                   <input type="radio"
                     name="editorType"
@@ -479,7 +479,7 @@
 
             <div class="col-md-11">
               <div>
-                {foreach Relation::$TYPE_NAMES as $i => $tn}
+                {foreach Relation::TYPE_NAMES as $i => $tn}
                   <label class="radio-inline">
                     <input type="radio"
                       name="relationType"

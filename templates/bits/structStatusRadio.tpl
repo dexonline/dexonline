@@ -3,7 +3,7 @@
 {assign var="selected" value=$selected|default:false}
 {assign var="canEdit" value=$canEdit|default:false}
 
-{foreach Entry::$STRUCT_STATUS_NAMES as $i => $s}
+{foreach Entry::STRUCT_STATUS_NAMES as $i => $s}
   <label class="radio-inline">
     <input type="radio"
            name="{$name}"

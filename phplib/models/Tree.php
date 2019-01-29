@@ -6,7 +6,7 @@ class Tree extends BaseObject implements DatedObject {
   const ST_VISIBLE = 0;
   const ST_HIDDEN = 1;
 
-  public static $STATUS_NAMES = [
+  const STATUS_NAMES = [
     self::ST_VISIBLE  => 'vizibil',
     self::ST_HIDDEN  => 'ascuns',
   ];

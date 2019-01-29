@@ -4,7 +4,7 @@ User::mustHave(User::PRIV_EDIT);
 Util::assertNotMirror();
 
 define('SOURCE_ID', 25); // Dicționarul enciclopedic
-$MODELS_TO_CAPITALIZE = ['I3', 'SP'];
+const MODELS_TO_CAPITALIZE = ['I3', 'SP'];
 
 $definitionId = Request::get('definitionId');
 $jumpPrefix = Request::get('jumpPrefix', '');
@@ -100,7 +100,7 @@ if ($saveButton) {
         $e = $lexeme->getEntries()[0];
       }
 
-      $needsCaps = prefixMatch($m, $MODELS_TO_CAPITALIZE);
+      $needsCaps = prefixMatch($m, MODELS_TO_CAPITALIZE);
       if ($capitalize && $needsCaps) {
         $lexeme->setForm(Str::capitalize($lexeme->form));
         $e->description = Str::capitalize($e->description);

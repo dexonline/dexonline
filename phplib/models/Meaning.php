@@ -9,7 +9,7 @@ class Meaning extends BaseObject implements DatedObject {
   const TYPE_COMMENT = 3;
   const TYPE_DIFF = 4;
 
-  static $DISPLAY_NAMES = [
+  const DISPLAY_NAMES = [
     self::TYPE_MEANING => '',
     self::TYPE_ETYMOLOGY => 'etimologie',
     self::TYPE_EXAMPLE => '',
@@ -17,7 +17,7 @@ class Meaning extends BaseObject implements DatedObject {
     self::TYPE_DIFF => 'diferențiere',
   ];
 
-  static $CSS_CLASS_NAMES = [
+  const CSS_CLASS_NAMES = [
     self::TYPE_MEANING => 'meaningBody',
     self::TYPE_ETYMOLOGY => 'etymologyBody',
     self::TYPE_EXAMPLE => 'exampleBody',
@@ -25,7 +25,7 @@ class Meaning extends BaseObject implements DatedObject {
     self::TYPE_DIFF => 'diffBody',
   ];
 
-  public static $FIELD_NAMES = [
+  const FIELD_NAMES = [
     self::TYPE_MEANING => 'sens',
     self::TYPE_ETYMOLOGY => 'etimologie',
     self::TYPE_EXAMPLE => 'exemplu',
@@ -36,11 +36,11 @@ class Meaning extends BaseObject implements DatedObject {
   private $tree = null;
 
   function getDisplayTypeName() {
-    return self::$DISPLAY_NAMES[$this->type];
+    return self::DISPLAY_NAMES[$this->type];
   }
 
   function getCssClass() {
-    return self::$CSS_CLASS_NAMES[$this->type];
+    return self::CSS_CLASS_NAMES[$this->type];
   }
 
   function getTree() {

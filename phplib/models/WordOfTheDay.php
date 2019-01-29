@@ -5,17 +5,12 @@ class WordOfTheDay extends BaseObject implements DatedObject {
 
   const BIG_BANG = '2011-04-29';
   const DEFAULT_IMAGE = 'generic.jpg';
-  public static $IMAGE_CREDITS_DIR;
 
   // Thumbnail sizes
   const SIZE_S = 48;
   const SIZE_M = 88;
   const SIZE_L = 300;
   const THUMBNAIL_SIZES = [ self::SIZE_S, self::SIZE_M, self::SIZE_L ];
-
-  static function init() {
-    self::$IMAGE_CREDITS_DIR = Core::getRootPath() . 'docs/imageCredits';
-  }
 
   // delay in minutes
   static function getRSSWotD($delay = 0) {
@@ -134,5 +129,3 @@ class WordOfTheDay extends BaseObject implements DatedObject {
     parent::delete();
   }
 }
-
-WordOfTheDay::init();

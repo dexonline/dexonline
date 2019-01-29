@@ -8,16 +8,16 @@ require_once __DIR__ . '/../phplib/Core.php';
 require_once __DIR__ . '/../phplib/third-party/PHP-parsing-tool/Parser.php';
 ini_set('memory_limit', '1024M');
 
-define('SOURCE_ID', 27);
-define('PREVIOUS_SOURCE_ID', 1);
-define('MY_USER_ID', 1);
-define('BATCH_SIZE', 10000);
-define('START_AT', '');
-define('EDIT_URL', 'https://dexonline.ro/admin/definitionEdit.php?definitionId=');
+const SOURCE_ID = 27;
+const PREVIOUS_SOURCE_ID = 1;
+const MY_USER_ID = 1;
+const BATCH_SIZE = 10000;
+const START_AT = '';
+const EDIT_URL = 'https://dexonline.ro/admin/definitionEdit.php?definitionId=';
 
-$ABBREVS = Abbrev::loadAbbreviations(SOURCE_ID);
+$abbrevs = Abbrev::loadAbbreviations(SOURCE_ID);
 
-$GRAMMAR = [
+const GRAMMAR = [
   'start' => [
     'entryWithInflectedForms " " reference',   // just a reference to the main form
     'entryWithInflectedForms " " meaning squareBracket? (" - " etymology)?',
@@ -152,7 +152,7 @@ $GRAMMAR = [
 
 ];
 
-$MEANING_GRAMMAR = [
+const MEANING_GRAMMAR = [
   'start' => [
     'caps+" "',
     'romans',
@@ -218,7 +218,7 @@ $MEANING_GRAMMAR = [
   ],
 ];
 
-$ETYMOLOGY_GRAMMAR = [
+const ETYMOLOGY_GRAMMAR = [
   'start' => [
     'rule+" "',
   ],
@@ -339,9 +339,9 @@ $tagMap['substantivat'] = $tagMap['(și) substantivat'];
 $tagMap['termen bisericesc'] = $tagMap['(termen) bisericesc'];
 $tagMap['termen militar'] = $tagMap['(termen) militar'];
 
-$parser = makeParser($GRAMMAR);
-$meaningParser = makeParser($MEANING_GRAMMAR);
-$etymologyParser = makeParser($ETYMOLOGY_GRAMMAR);
+$parser = makeParser(GRAMMAR);
+$meaningParser = makeParser(MEANING_GRAMMAR);
+$etymologyParser = makeParser(ETYMOLOGY_GRAMMAR);
 
 $offset = 0;
 
@@ -558,14 +558,14 @@ function getQualifiers(&$rep) {
 
 // Remove abbreviations from the beginning, while we have tags for them.
 function getAbbreviations(&$rep, &$result) {
-  global $ABBREVS;
+  global $abbrevs;
 
   do {
     $hash = false;
     if (preg_match('/^(și )?#([^#]+)#,? (.*)$/', $rep, $m)) {
       $abbr = mb_strtolower($m[2]);
-      $abbr = Abbrev::bestAbbrevMatch($abbr, array_keys($ABBREVS));
-      $exp = $ABBREVS[$abbr]['internalRep'];
+      $abbr = Abbrev::bestAbbrevMatch($abbr, array_keys($abbrevs));
+      $exp = $abbrevs[$abbr]['internalRep'];
       if (getTag($exp, false)) {
         $result[] = getTag($exp);
         $rep = $m[3];
@@ -584,13 +584,13 @@ function processQualifier($qual) {
 }
 
 function expandAllAbbreviations($s) {
-  global $ABBREVS;
+  global $abbrevs;
 
   $m = [];
   while (preg_match('/^([^#]*)#([^#]+)#(.*)$/', $s, $m)) {
     $abbr = mb_strtolower($m[2]);
-    $abbr = Abbrev::bestAbbrevMatch($abbr, array_keys($ABBREVS));
-    $exp = $ABBREVS[$abbr]['internalRep'];
+    $abbr = Abbrev::bestAbbrevMatch($abbr, array_keys($abbrevs));
+    $exp = $abbrevs[$abbr]['internalRep'];
     if ($abbr != $m[2]) { // is capitalized
       $exp = Str::capitalize($exp);
     }

@@ -18,7 +18,7 @@ class Medal {
   const MEDAL_VOLUNTEER_4 = 0x4000;
   const MEDAL_VOLUNTEER_5 = 0x8000;
 
-  static $DATA = [
+  const DATA = [
     self::MEDAL_SPONSOR => [
       'name' => 'Donator',
       'description' => '',
@@ -122,11 +122,11 @@ class Medal {
     ],
   ];
 
-  /* Returns a subset of $DATA */
+  /* Returns a subset of DATA */
   static function loadForUser($user) {
     $result = [];
     $medalMask = $user ? $user->medalMask : 0;
-    foreach (self::$DATA as $mask => $params) {
+    foreach (self::DATA as $mask => $params) {
       if ($mask & $medalMask) {
         $result[$mask] = $params;
       }
@@ -136,7 +136,7 @@ class Medal {
 
   /* Returns the canonical mask for a given mask, removing values which are superseded by other values */
   static function getCanonicalMask($mask) {
-    foreach (self::$DATA as $value => $params) {
+    foreach (self::DATA as $value => $params) {
       if ($mask & $value) {
         foreach ($params['supersedes'] as $supersedes) {
           $mask &= ~$supersedes;
@@ -147,6 +147,6 @@ class Medal {
   }
 
   static function getName($medal) {
-    return self::$DATA[$medal]['name'];
+    return self::DATA[$medal]['name'];
   }
 }

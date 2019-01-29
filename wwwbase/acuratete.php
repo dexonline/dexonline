@@ -14,10 +14,10 @@ $p->ownerId = $user->id;
 if ($submitButton) {
   $p->name = Request::get('name');
   $p->userId = Request::get('userId');
-  $p->sourceId = Request::get('sourceId');
+  $p->sourceId = Request::get('sourceId') ?: 0;
   $p->lexiconPrefix = Request::get('lexiconPrefix');
-  $p->startDate = Request::get('startDate');
-  $p->endDate = Request::get('endDate');
+  $p->startDate = Request::get('startDate') ?: '0000-00-00';
+  $p->endDate = Request::get('endDate') ?: '0000-00-00';
   $p->visibility = Request::get('visibility');
 
   if ($p->validate($length)) {

@@ -15,7 +15,7 @@ class DiffUtil {
   const NUM_GRANULARITIES = 4;
   const DEFAULT_GRANULARITY = self::GRANULARITY_WORD;
 
-  public static $GRANULARITY_NAMES = [
+  const GRANULARITY_NAMES = [
     self::GRANULARITY_CHARACTER => 'caracter',
     self::GRANULARITY_WORD => 'cuvânt',
     self::GRANULARITY_SENTENCE => 'propoziție',

@@ -22,7 +22,7 @@
 
           <td>
             <select name="priv_{$user->id}[]" class="form-control" multiple>
-              {foreach User::$PRIV_NAMES as $mask => $privName}
+              {foreach User::PRIV_NAMES as $mask => $privName}
                 <option value="{$mask}" {if $user->moderator & $mask}selected{/if}>
                   {$privName}
                 </option>
@@ -38,7 +38,7 @@
         </td>
         <td>
           <select name="newPriv[]" class="form-control" multiple>
-            {foreach User::$PRIV_NAMES as $mask => $privName}
+            {foreach User::PRIV_NAMES as $mask => $privName}
               <option value="{$mask}">
                 {$privName}
               </option>

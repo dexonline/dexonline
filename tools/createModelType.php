@@ -2,9 +2,9 @@
 
 require_once __DIR__ . '/../phplib/Core.php';
 
-define('MODEL_TYPE', 'SP');
-define('MODEL_TYPE_DESCRIPTION', 'Substantiv propriu');
-$INFLECTIONS = [
+const MODEL_TYPE = 'SP';
+const MODEL_TYPE_DESCRIPTION = 'Substantiv propriu';
+const INFLECTIONS = [
   1 => 'Substantiv propriu, Nominativ-Acuzativ, singular, nearticulat',
   2 => 'Substantiv propriu, Genitiv-Dativ, singular, nearticulat',
   3 => 'Substantiv propriu, Nominativ-Acuzativ, plural, nearticulat',
@@ -29,7 +29,7 @@ $mt->description = MODEL_TYPE_DESCRIPTION;
 $mt->canonical = MODEL_TYPE;
 $mt->save();
 
-foreach ($INFLECTIONS as $rank => $description) {
+foreach (INFLECTIONS as $rank => $description) {
   $i = Model::factory('Inflection')->create();
   $i->description = $description;
   $i->modelType = MODEL_TYPE;

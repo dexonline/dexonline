@@ -6,7 +6,7 @@
   {if $anyOption}
     <option value="">oricare</option>
   {/if}
-  {foreach Definition::$STATUS_NAMES as $submitValue => $displayName}
+  {foreach Definition::STATUS_NAMES as $submitValue => $displayName}
     <option value="{$submitValue|escape}"
             {if (string)$submitValue == (string)$selectedStatus}selected{/if}>
       {$displayName|escape}

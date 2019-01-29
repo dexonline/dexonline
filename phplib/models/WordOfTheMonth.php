@@ -4,7 +4,6 @@ class WordOfTheMonth extends BaseObject implements DatedObject {
   public static $_table = 'WordOfTheMonth';
 
   const DEFAULT_IMAGE = 'generic.jpg';
-  public static $IMAGE_CREDITS_DIR;
 
   static function getWotM($date) {
     return Model::factory('WordOfTheMonth')
@@ -51,5 +50,3 @@ class WordOfTheMonth extends BaseObject implements DatedObject {
   }
 
 }
-
-WordOfTheMonth::$IMAGE_CREDITS_DIR = Core::getRootPath() . 'docs/imageCredits';

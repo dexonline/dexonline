@@ -8,7 +8,7 @@ class AccuracyProject extends BaseObject implements DatedObject {
   const VIS_ADMIN = 1;    // owner and User::PRIV_ADMIN's
   const VIS_EDITOR = 2;   // owner, User::PRIV_ADMIN's and the editor being reviewed
   const VIS_PUBLIC = 3;   // all User::PRIV_ADMIN's and User::PRIV_EDIT's
-  static $VIS_NAMES = [
+  const VIS_NAMES = [
     self::VIS_PRIVATE => 'doar autorul proiectului',
     self::VIS_ADMIN => 'autorul proiectului și administratorii',
     self::VIS_EDITOR => 'autorul proiectului, administratorii și editorul evaluat',

@@ -11,7 +11,7 @@ class Fragment extends BaseObject implements DatedObject {
   const DEC_INVARIABLE = 4;
   const DEC_NOMINATIVE = 5;
 
-  public static $DEC_NAMES = [
+  const DEC_NAMES = [
     self::DEC_INVARIABLE => 'invariabil',
     self::DEC_FULL => 'flexiune completă',
     self::DEC_NO_ARTICLE => 'nearticulat',
@@ -21,7 +21,7 @@ class Fragment extends BaseObject implements DatedObject {
 
   // Helper table that translates compound inflections into fragment inflections.
   // "null" means "the fragment mimics the compound inflection".
-  public static $INV_RULES = [
+  const INV_RULES = [
     self::DEC_INVARIABLE => [
       // special case, handled in Lexeme.php
     ],
@@ -77,7 +77,7 @@ class Fragment extends BaseObject implements DatedObject {
            ->join('ModelType', ['i.modelType', '=', 'mt.canonical'], 'mt')
            ->where('mt.code', $partModelType);
 
-    foreach (self::$INV_RULES[$declension] as $field => $value) {
+    foreach (self::INV_RULES[$declension] as $field => $value) {
       if ($value === null) {
         $value = $infl->$field; // mimic compund inflection
       }

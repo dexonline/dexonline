@@ -176,7 +176,7 @@
         <div class="panel-heading">Privilegii</div>
         <div class="panel-body">
           <ul>
-            {foreach User::$PRIV_NAMES as $mask => $privName}
+            {foreach User::PRIV_NAMES as $mask => $privName}
               {if User::can($mask)}
                 <li>{$privName}</li>
               {/if}

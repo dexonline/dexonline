@@ -8,7 +8,7 @@ class Source extends BaseObject implements DatedObject {
   const TYPE_OFFICIAL = 2;
   const TYPE_HIDDEN = 3;
 
-  public static $TYPE_NAMES = [
+  const TYPE_NAMES = [
     self::TYPE_UNOFFICIAL  => 'neoficial',
     self::TYPE_SPECIALIZED  => 'specializat',
     self::TYPE_OFFICIAL  => 'oficial',
@@ -20,7 +20,7 @@ class Source extends BaseObject implements DatedObject {
   const IMPORT_TYPE_OCR = 2;
   const IMPORT_TYPE_SCRIPT = 3;
 
-  public static $IMPORT_TYPE_LABELS = [
+  const IMPORT_TYPE_LABELS = [
     self::IMPORT_TYPE_MIXED => 'nedefinit',
     self::IMPORT_TYPE_MANUAL => 'manual',
     self::IMPORT_TYPE_OCR => 'via OCR',
@@ -31,7 +31,7 @@ class Source extends BaseObject implements DatedObject {
   const SORT_SEARCH = 1;
   const SORT_SHORT_NAME = 2;
 
-  private static $SORT_CRITERIA = [
+  const SORT_CRITERIA = [
     // prefer the drag-and-drop order in /surse.php
     self::SORT_DISPLAY => [ 'displayOrder asc' ],
 
@@ -41,11 +41,11 @@ class Source extends BaseObject implements DatedObject {
     self::SORT_SHORT_NAME => [ 'shortName asc' ],
   ];
 
-  public static $UNKNOWN_DEF_COUNT = -1.0;
+  const UNKNOWN_DEF_COUNT = -1.0;
   /**
    * percentComplete has a special value of UNKNOWN when the defCount is unknown
    **/
-  public static $UNKNOWN_PERCENT = -1.0;
+  const UNKNOWN_PERCENT = -1.0;
 
   // glyphs expected to be common in all sources
   const BASE_GLYPHS =
@@ -56,24 +56,20 @@ class Source extends BaseObject implements DatedObject {
     '.,;:-()' .                         // punctuation
     "\\\n ";                            // other
 
-  function getTypeName() {
-    return self::$TYPE_NAMES[$this->type];
-  }
-
   function getImportTypeLabel() {
-    return self::$IMPORT_TYPE_LABELS[$this->importType];
+    return self::IMPORT_TYPE_LABELS[$this->importType];
   }
 
   function updatePercentComplete() {
     switch ($this->defCount) {
-    case self::$UNKNOWN_DEF_COUNT: $this->percentComplete = self::$UNKNOWN_PERCENT; break;
-    case 0: $this->percentComplete = 0; break;
-    default: $this->percentComplete = min(100 * $this->ourDefCount / $this->defCount, 100);
+      case self::UNKNOWN_DEF_COUNT: $this->percentComplete = self::UNKNOWN_PERCENT; break;
+      case 0: $this->percentComplete = 0; break;
+      default: $this->percentComplete = min(100 * $this->ourDefCount / $this->defCount, 100);
     }
   }
 
   function isUnknownPercentComplete() {
-    return $this->percentComplete == self::$UNKNOWN_PERCENT;
+    return $this->percentComplete == self::UNKNOWN_PERCENT;
   }
 
   static function getSourcesWithPageImages() {
@@ -86,7 +82,7 @@ class Source extends BaseObject implements DatedObject {
 
   static function getAll($sort = self::SORT_DISPLAY) {
     $query = Model::factory('Source');
-    foreach (self::$SORT_CRITERIA[$sort] as $expr) {
+    foreach (self::SORT_CRITERIA[$sort] as $expr) {
       $query = $query->order_by_expr($expr);
     }
     return $query->find_many();

@@ -13,7 +13,7 @@
   </select>
 
   <select name="declensions[]" class="form-control">
-    {foreach Fragment::$DEC_NAMES as $key => $value}
+    {foreach Fragment::DEC_NAMES as $key => $value}
       <option value="{$key}"
         {if $key == $declension}selected{/if}>
         {$value}

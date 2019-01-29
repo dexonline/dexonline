@@ -6,7 +6,7 @@ class Core {
   private static $rootPath;
   private static $tempPath;
 
-  private static $AUTOLOAD_PATHS = [
+  const AUTOLOAD_PATHS = [
     'phplib',
     'phplib' . DIRECTORY_SEPARATOR . 'models',
     'phplib' . DIRECTORY_SEPARATOR . 'htmlize',
@@ -14,7 +14,7 @@ class Core {
   ];
 
   static function autoload($className) {
-    foreach (self::$AUTOLOAD_PATHS as $path) {
+    foreach (self::AUTOLOAD_PATHS as $path) {
       $filename = self::getRootPath() . $path . DIRECTORY_SEPARATOR . $className . '.php';
       if (file_exists($filename)) {
         require_once $filename;

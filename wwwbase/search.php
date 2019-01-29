@@ -17,31 +17,31 @@ define('PREVIEW_LIMIT', 20); // how many definitions to show by default
 // defLimit: how many definitions to display (null = not relevant)
 // paradigm: whether to display the paradigm for $entries
 // trees: whether to display the entries' trees
-$DEFAULT_SEARCH_PARAMS = [
+const DEFAULT_SEARCH_PARAMS = [
   'defLimit' => null,
   'paradigm' => false,
   'trees' => false,
 ];
 $showTrees = Config::get('search.showTrees') && !Session::userPrefers(Preferences::NO_TREES);
 
-$SEARCH_PARAMS = [
-  SEARCH_REGEXP => $DEFAULT_SEARCH_PARAMS,
-  SEARCH_MULTIWORD => array_replace($DEFAULT_SEARCH_PARAMS, [
+$searchParams = [
+  SEARCH_REGEXP => DEFAULT_SEARCH_PARAMS,
+  SEARCH_MULTIWORD => array_replace(DEFAULT_SEARCH_PARAMS, [
     'defLimit' => PREVIEW_LIMIT,
   ]),
-  SEARCH_INFLECTED => array_replace($DEFAULT_SEARCH_PARAMS, [
+  SEARCH_INFLECTED => array_replace(DEFAULT_SEARCH_PARAMS, [
     'defLimit' => PREVIEW_LIMIT,
     'paradigm' => true,
     'trees' => $showTrees,
   ]),
-  SEARCH_APPROXIMATE => $DEFAULT_SEARCH_PARAMS,
-  SEARCH_DEF_ID => $DEFAULT_SEARCH_PARAMS,
-  SEARCH_ENTRY_ID => array_replace($DEFAULT_SEARCH_PARAMS, [
+  SEARCH_APPROXIMATE => DEFAULT_SEARCH_PARAMS,
+  SEARCH_DEF_ID => DEFAULT_SEARCH_PARAMS,
+  SEARCH_ENTRY_ID => array_replace(DEFAULT_SEARCH_PARAMS, [
     'paradigm' => true,
     'trees' => $showTrees,
   ]),
   // there is a limit for full-text searches, but we handle it separately for memory reasons
-  SEARCH_FULL_TEXT => $DEFAULT_SEARCH_PARAMS,
+  SEARCH_FULL_TEXT => DEFAULT_SEARCH_PARAMS,
 ];
 
 $cuv = Request::getWithApostrophes('cuv');
@@ -278,7 +278,7 @@ SearchResult::collapseIdentical($results);
 $extra['numResults'] = count($results) ?: count($entries) ?: count($lexemes);
 
 // Keep only a maximum number of definitions
-$defLimit = $SEARCH_PARAMS[$searchType]['defLimit'];
+$defLimit = $searchParams[$searchType]['defLimit'];
 if ($defLimit) {
   $extra['numDefinitions'] = count($results);
   if (!$all) {
@@ -292,7 +292,7 @@ if (empty($entries) && empty($lexemes) && empty($results)) {
 
 // Collect meaning trees
 // only display trees when no source is selected
-if ($SEARCH_PARAMS[$searchType]['trees'] && !$sourceId) {
+if ($searchParams[$searchType]['trees'] && !$sourceId) {
   $statuses = [Entry::STRUCT_STATUS_DONE, Entry::STRUCT_STATUS_UNDER_REVIEW];
   foreach ($entries as $e) {
     if (in_array($e->structStatus, $statuses)) {
@@ -317,7 +317,7 @@ if ($SEARCH_PARAMS[$searchType]['trees'] && !$sourceId) {
 // Collect inflected forms
 $conjugations = null;
 $declensions = null;
-if ($SEARCH_PARAMS[$searchType]['paradigm']) {
+if ($searchParams[$searchType]['paradigm']) {
 
   // Compute the text of the link to the paradigm div
   $conjugations = false;
@@ -405,7 +405,7 @@ if (count($images)) {
 }
 
 // We cannot show the paradigm tab by default if there isn't one to show.
-if ($SEARCH_PARAMS[$searchType]['paradigm'] &&
+if ($searchParams[$searchType]['paradigm'] &&
     $tab == Constant::TAB_RESULTS &&
     Session::userPrefers(Preferences::SHOW_PARADIGM)) {
   $tab = Constant::TAB_PARADIGM;
@@ -422,7 +422,7 @@ SmartyWrap::assign('trees', $trees);
 SmartyWrap::assign('extra', $extra);
 SmartyWrap::assign('text', $text);
 SmartyWrap::assign('searchType', $searchType);
-SmartyWrap::assign('searchParams', $SEARCH_PARAMS[$searchType]);
+SmartyWrap::assign('searchParams', $searchParams[$searchType]);
 SmartyWrap::assign('sourceId', $sourceId);
 SmartyWrap::assign('tab', $tab);
 SmartyWrap::assign('paradigmLink', $paradigmLink);

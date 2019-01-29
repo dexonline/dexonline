@@ -13,7 +13,7 @@ class User extends BaseObject {
   const PRIV_TRAINEE = 0x80;
   const NUM_PRIVILEGES = 8;
 
-  static $PRIV_NAMES = [
+  const PRIV_NAMES = [
     self::PRIV_ADMIN => 'administrator',
     self::PRIV_EDIT => 'moderator',
     self::PRIV_WOTD => 'cuvântul zilei',

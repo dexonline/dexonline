@@ -128,7 +128,7 @@
           <div class="col-sm-9">
             {include "bits/dropdown.tpl"
               name="visibility"
-              data=AccuracyProject::$VIS_NAMES
+              data=AccuracyProject::VIS_NAMES
               selected=$p->visibility}
           </div>
         </div>

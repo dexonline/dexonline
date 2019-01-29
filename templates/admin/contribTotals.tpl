@@ -7,8 +7,6 @@
 {block "content"}
   <h3>Contorizare contribuții</h3>
 
-  {include "bits/phpConstants.tpl"}
-
   <form class="form-horizontal" method="post">
 
     <div class="form-group {if isset($errors.userId)}has-error{/if}">

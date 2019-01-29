@@ -89,7 +89,7 @@
             <div class="form-group">
               <label>tipul importului</label>
               <select class="form-control" name="importType">
-                {foreach Source::$IMPORT_TYPE_LABELS as $importType => $label}
+                {foreach Source::IMPORT_TYPE_LABELS as $importType => $label}
                   <option value="{$importType}" {if $src->importType == $importType}selected{/if}>
                     {$label}
                   </option>
@@ -138,7 +138,7 @@
             <div class="form-group">
               <label>tip</label>
               <select class="form-control" name="type">
-                {foreach Source::$TYPE_NAMES as $type => $name}
+                {foreach Source::TYPE_NAMES as $type => $name}
                   <option value="{$type}" {if $src->type == $type}selected{/if}>
                     {$name}
                   </option>

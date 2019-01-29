@@ -206,7 +206,7 @@ class Session {
       self::unsetCookie('prefs[diffGranularity]');
     }
 
-    $name = DiffUtil::$GRANULARITY_NAMES[$newLevel];
+    $name = DiffUtil::GRANULARITY_NAMES[$newLevel];
     FlashMessage::add("Diferențe la nivel de {$name}.", 'warning');
   }
 }

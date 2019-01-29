@@ -3,7 +3,7 @@
   {if !empty($treeList)}
     <span class="tag-group">
       {if $defaultLabel || ($type != Relation::DEFAULT_TYPE)}
-        <span class="text-muted">{Relation::$TYPE_NAMES[$type]}:</span>
+        <span class="text-muted">{Relation::getTypeName($type)}:</span>
       {/if}
       {foreach $treeList as $tree}
         {$entries=$tree->getEntries()}

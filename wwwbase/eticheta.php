@@ -2,9 +2,9 @@
 require_once("../phplib/Core.php");
 User::mustHave(User::PRIV_EDIT);
 
-$DEF_LIMIT = 20;
-$LEXEME_LIMIT = 100;
-$MEANING_LIMIT = 50;
+const DEF_LIMIT = 20;
+const LEXEME_LIMIT = 100;
+const MEANING_LIMIT = 50;
 
 $id = Request::get('id');
 $saveButton = Request::has('saveButton');
@@ -80,7 +80,7 @@ $defs = Model::factory('Definition')
       ->join('ObjectTag', ['ot.objectId', '=', 'd.id'], 'ot')
       ->where('ot.objectType', ObjectTag::TYPE_DEFINITION)
       ->where('ot.tagId', $tag->id)
-      ->limit($DEF_LIMIT)
+      ->limit(DEF_LIMIT)
       ->find_many();
 $searchResults = SearchResult::mapDefinitionArray($defs);
 
@@ -94,7 +94,7 @@ $lexemes = Model::factory('Lexeme')
         ->join('ObjectTag', ['ot.objectId', '=', 'l.id'], 'ot')
         ->where('ot.objectType', ObjectTag::TYPE_LEXEME)
         ->where('ot.tagId', $tag->id)
-        ->limit($LEXEME_LIMIT)
+        ->limit(LEXEME_LIMIT)
         ->find_many();
 
 $meaningCount = Model::factory('ObjectTag')
@@ -107,7 +107,7 @@ $meanings = Model::factory('Meaning')
           ->join('ObjectTag', ['ot.objectId', '=', 'm.id'], 'ot')
           ->where('ot.objectType', ObjectTag::TYPE_MEANING)
           ->where('ot.tagId', $tag->id)
-          ->limit($MEANING_LIMIT)
+          ->limit(MEANING_LIMIT)
           ->find_many();
 
 SmartyWrap::assign([

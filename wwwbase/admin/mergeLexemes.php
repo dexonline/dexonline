@@ -41,7 +41,7 @@ if ($saveButton) {
   Util::redirect("mergeLexemes.php?modelType={$modelType}");
 }
 
-$PLURAL_INFLECTIONS = [3, 11, 19, 27, 35];
+const PLURAL_INFLECTIONS = [3, 11, 19, 27, 35];
 if ($modelType == 'T') {
   $whereClause = 'modelType = "T"';
 } else if ($modelType) {
@@ -66,7 +66,7 @@ foreach ($dbResult as $row) {
     ->distinct()
     ->join('InflectedForm', 'i.lexemeId = l.id', 'i')
     ->where('i.formNoAccent', $lexeme->formNoAccent)
-    ->where_in('i.inflectionId', $PLURAL_INFLECTIONS)
+    ->where_in('i.inflectionId', PLURAL_INFLECTIONS)
     ->where_not_equal('l.id', $lexeme->id)
     ->find_many();
 

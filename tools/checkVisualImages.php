@@ -10,10 +10,10 @@
 
 require_once __DIR__ . '/../phplib/Core.php';
 
-define('IMG_PREFIX', 'img/visual/');
-define('THUMB_PREFIX', 'img/visual/thumb/');
+const IMG_PREFIX = 'img/visual/';
+const THUMB_PREFIX = 'img/visual/thumb/';
 
-$IGNORED = [ 'thumb' ];
+const IGNORED = [ 'thumb' ];
 
 $fix = false;
 foreach ($argv as $i => $arg) {
@@ -45,7 +45,7 @@ foreach ($staticFiles as $file) {
   }
 }
 
-foreach ($IGNORED as $i) {
+foreach (IGNORED as $i) {
   unset($imgs[$i]);
 }
 
@@ -104,7 +104,7 @@ function generateThumbnail($ftp, $img) {
   $extension = strtolower($extension);
   $size = Visual::THUMB_SIZE;
   $tempDir = Core::getTempPath();
-  
+
   if (in_array($extension, [ 'gif', 'jpeg', 'jpg', 'png' ])) {
     Log::info("Generating {$size}x{$size} thumbnail for $img");
     $url = Config::get('static.url') . IMG_PREFIX . $img;

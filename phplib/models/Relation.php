@@ -11,19 +11,16 @@ class Relation extends BaseObject implements DatedObject {
   // for display purposes (the word "synonym" can sometimes be ommitted)
   const DEFAULT_TYPE = self::TYPE_SYNONYM;
 
-  public static $TYPE_NAMES = [
+  const TYPE_NAMES = [
     self::TYPE_SYNONYM  => 'sinonime',
     self::TYPE_ANTONYM  => 'antonime',
     self::TYPE_DIMINUTIVE  => 'diminutive',
     self::TYPE_AUGMENTATIVE  => 'augmentative',
   ];
 
-  public static $SHORT_TYPE_NAMES = [
-    self::TYPE_SYNONYM  => 'sin.',
-    self::TYPE_ANTONYM  => 'ant.',
-    self::TYPE_DIMINUTIVE  => 'dim.',
-    self::TYPE_AUGMENTATIVE  => 'aug.',
-  ];
+  static function getTypeName($type) {
+    return self::TYPE_NAMES[$type];
+  }
 
   // Returns a meaning's related trees, mapped by type
   static function loadByMeaningId($meaningId) {

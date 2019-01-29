@@ -184,7 +184,7 @@ if ($joinLexemeTag) {
   $q = $q->join('ObjectTag', ['l.id', '=', 'lot.objectId'], 'lot');
 }
 
-$VIEW_DATA = [
+const VIEW_DATA = [
   'Definition' => [
     'alias' => 'd',
     'order' => 'd.lexicon',
@@ -203,8 +203,8 @@ $VIEW_DATA = [
 ];
 
 // order the results
-$alias = $VIEW_DATA[$view]['alias'];
-$order = $VIEW_DATA[$view]['order'];
+$alias = VIEW_DATA[$view]['alias'];
+$order = VIEW_DATA[$view]['order'];
 $q = $q->table_alias($alias);
 
 if ($joinEntryTag || $joinLexemeTag) {
@@ -228,7 +228,7 @@ if ($prevPageButton && $page > 1) {
 if ($nextPageButton) {
   $page++;
 }
-$pageSize = $VIEW_DATA[$view]['pageSize'];
+$pageSize = VIEW_DATA[$view]['pageSize'];
 $numPages = floor(($count - 1) / $pageSize) + 1;
 $offset = ($page - 1) * $pageSize;
 

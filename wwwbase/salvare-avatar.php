@@ -9,8 +9,8 @@ if (!$user) {
 
 define('AVATAR_RESOLUTION', 48);
 define('AVATAR_QUALITY', 100);
-$AVATAR_REMOTE_FILE = "/img/user/{$user->id}.jpg";
-$AVATAR_RAW_GLOB = Core::getRootPath() . "wwwbase/img/generated/{$user->id}_raw.*";
+$avatarRemoteFile = "/img/user/{$user->id}.jpg";
+$avatarRawGlob = Core::getRootPath() . "wwwbase/img/generated/{$user->id}_raw.*";
 
 $x0 = Request::get('x0');
 $y0 = Request::get('y0');
@@ -19,14 +19,14 @@ $delete = Request::get('delete');
 
 if ($delete) {
   $f = new FtpUtil();
-  $f->staticServerDelete($AVATAR_REMOTE_FILE);
+  $f->staticServerDelete($avatarRemoteFile);
   $user->hasAvatar = 0;
   $user->save();
   FlashMessage::add('Am șters imaginea.', 'success');
   Util::redirect('preferinte');
 }
 
-$rawFileList = glob($AVATAR_RAW_GLOB);
+$rawFileList = glob($avatarRawGlob);
 if (empty($rawFileList)) {
   FlashMessage::add('Imaginea dumneavoastră de profil nu mai există. Vă rugăm să o reîncărcați.');
   Util::redirect(Core::getWwwRoot());
@@ -40,7 +40,7 @@ sharpenImage($canvas);
 $tmpFileName = tempnam(Config::get('global.tempDir'), 'dex_avatar_');
 imagejpeg($canvas, $tmpFileName, AVATAR_QUALITY);
 $f = new FtpUtil();
-$f->staticServerPut($tmpFileName, $AVATAR_REMOTE_FILE);
+$f->staticServerPut($tmpFileName, $avatarRemoteFile);
 unlink($rawFileName);
 unlink($tmpFileName);
 

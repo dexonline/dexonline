@@ -12,12 +12,12 @@
 
 require_once __DIR__ . '/../phplib/Core.php';
 
-define('IMG_PREFIX', 'img/wotd/');
-define('THUMB_PREFIX', 'img/wotd/thumb%s/');
-define('UNUSED_PREFIX', 'nefolosite/');
-$thumbSizes = WordOfTheDay::THUMBNAIL_SIZES;
+const IMG_PREFIX = 'img/wotd/';
+const THUMB_PREFIX = 'img/wotd/thumb%s/';
+const UNUSED_PREFIX = 'nefolosite/';
+const THUMB_SIZES = WordOfTheDay::THUMBNAIL_SIZES;
 
-$IGNORED = [
+$ignoredMap = [
   'cuvantul-lunii' => 1,
   'cuvantul-lunii/generic.jpg' => 1,
   'generic.jpg' => 1,
@@ -26,8 +26,8 @@ $IGNORED = [
   'misc/papirus.png' => 1,
   'nefolosite' => 1,
 ];
-foreach ($thumbSizes as $size) {
-  $IGNORED['thumb' . $size] = 1;
+foreach (THUMB_SIZES as $size) {
+  $ignoredMap['thumb' . $size] = 1;
 }
 
 $fix = false;
@@ -48,7 +48,7 @@ if (!$staticFiles) {
 // Grab images and thumbs from the static server file list.
 $imgs = [];
 $thumbs = [];
-foreach ($thumbSizes as $size) {
+foreach (THUMB_SIZES as $size) {
   $thumbs[$size] = [];
 }
 
@@ -60,7 +60,7 @@ foreach ($staticFiles as $file) {
   } else {
 
     $isThumb = false;
-    foreach ($thumbSizes as $size) {
+    foreach (THUMB_SIZES as $size) {
       $prefix = sprintf(THUMB_PREFIX, $size);
       if (Str::startsWith($file, $prefix)) {
         $thumbs[$size][substr($file, strlen($prefix))] = 1;
@@ -98,10 +98,10 @@ $ftp = new FtpUtil();
 
 // Report images without thumbnails.
 foreach ($imgs as $img => $ignored) {
-  foreach ($thumbSizes as $size) {
+  foreach (THUMB_SIZES as $size) {
     $prefix = sprintf(THUMB_PREFIX, $size);
     if (!isset($thumbs[$size][$img]) &&
-        !isset($IGNORED[$img])) {
+        !isset($ignoredMap[$img])) {
       Log::warning("Image without a {$size}px thumbnail: {$img}");
       if ($fix) {
         generateThumbnail($ftp, $img, $size, $prefix);
@@ -134,7 +134,7 @@ foreach ($used as $u => $ignored) {
 foreach ($imgs as $img => $ignored) {
   if (!isset($used[$img]) &&
       !Str::startsWith($img, UNUSED_PREFIX) &&
-      !isset($IGNORED[$img])) {
+      !isset($ignoredMap[$img])) {
     Log::warning("Unused image: {$img}");
   }
 }

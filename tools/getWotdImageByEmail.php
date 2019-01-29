@@ -20,11 +20,11 @@ $validWidth = Config::get("WotD.wotdImageWidth") or die("No image width in confi
 $daysInterval = Config::get("WotD.interval")or die("No days interval in config file\n");
 
 $email = file_get_contents('php://stdin');
-$Parser = new MimeMailParser();
-$Parser->setText($email);
+$parser = new MimeMailParser();
+$parser->setText($email);
 
-$sender = $Parser->getHeader('from');
-$subject = imap_utf8($Parser->getHeader('subject'));
+$sender = $parser->getHeader('from');
+$subject = imap_utf8($parser->getHeader('subject'));
 
 $parsedSender = mailparse_rfc822_parse_addresses($sender);
 if (count($parsedSender) != 1) {
@@ -40,7 +40,7 @@ if (!$artist) {
 try {
   $word = getWotdFromSubject($subject);
 
-  $attachments = $Parser->getAttachments();
+  $attachments = $parser->getAttachments();
   if (empty($attachments)) {
     throw new Exception('Mesajul nu conține fișiere atașate.');
   } elseif (count($attachments) > 1) {

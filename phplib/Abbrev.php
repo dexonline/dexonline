@@ -14,7 +14,7 @@ class Abbrev {
   const FOLLOWERS = '([ @$%,;:)\]*"\/\n-]|$)';
 
   // a map of sourceId => list of abbreviations, loaded lazily
-  private static $ABBREVS = [];
+  private static $abbrevMap = [];
 
   /**
    * Creates and caches a map($from, pair($to, $ambiguous)) for this sourceId.
@@ -23,7 +23,7 @@ class Abbrev {
    * Ambiguous abbreviations should be expanded carefully, or with human approval.
    */
     static function loadAbbreviations($sourceId) {
-    if (!array_key_exists($sourceId, self::$ABBREVS)) {
+    if (!array_key_exists($sourceId, self::$abbrevMap)) {
       $abbrevs = [];
 
       $results = Model::factory('Abbreviation')
@@ -64,9 +64,9 @@ class Abbrev {
         // Sort the list by number of words, then by ambiguous
         uasort($abbrevs, 'self::abbrevCmp');
       }
-      self::$ABBREVS[$sourceId] = $abbrevs;
+      self::$abbrevMap[$sourceId] = $abbrevs;
     }
-    return self::$ABBREVS[$sourceId];
+    return self::$abbrevMap[$sourceId];
   }
 
   private static function abbrevCmp($a, $b) {

@@ -2,20 +2,20 @@
 
 require_once __DIR__ . '/../phplib/Core.php';
 
-$SQL_FILE = Config::get('global.tempDir') . '/dex-database.sql';
-$GZ_FILE = Config::get('global.tempDir') . '/dex-database.sql.gz';
-$LICENSE_FILE = Core::getRootPath() . '/tools/dumpDatabaseLicense.txt';
+$sqlFile = Config::get('global.tempDir') . '/dex-database.sql';
+$gzFile = Config::get('global.tempDir') . '/dex-database.sql.gz';
+$licenseFile = Core::getRootPath() . '/tools/dumpDatabaseLicense.txt';
 
 // Skip the username/password here to avoid a Percona warning.
 // Place them in my.cnf.
-$COMMON_COMMAND = sprintf("mysqldump -h %s %s ", DB::$host, DB::$database);
+$commonCommand = sprintf("mysqldump -h %s %s ", DB::$host, DB::$database);
 
 // Tables we never want to export, whether in the public or full dump
-$SKIP_TABLES = [
+const SKIP_TABLES = [
 ];
 
 // Tables whose data is to be filtered and/or altered before dumping
-$FILTER_TABLES = [
+const FILTER_TABLES = [
   'Definition',
   'Source',
   'User',
@@ -23,7 +23,7 @@ $FILTER_TABLES = [
 
 // Tables for which we only dump the schema in both the public and full dump
 // (usually for sensitive information or huge volumes of data)
-$SCHEMA_ONLY_TABLES = [
+const SCHEMA_ONLY_TABLES = [
   'AccuracyProject',
   'AccuracyRecord',
   'Cookie',
@@ -35,7 +35,7 @@ $SCHEMA_ONLY_TABLES = [
 ];
 
 // Tables to be included in the full dump, but schema only in the public dump
-$PRIVATE_TABLES = [
+const PRIVATE_TABLES = [
   'AdsClick',
   'DefinitionSimple',
   'OCR',
@@ -50,29 +50,28 @@ $doFullDump = isset($opts['full']);
 Log::notice('started with argument %s', ($doFullDump ? 'full' : 'public'));
 
 $currentYear = date("Y");
-$license = file_get_contents($LICENSE_FILE);
+$license = file_get_contents($licenseFile);
 $license = sprintf($license, $currentYear);
-file_put_contents($SQL_FILE, $license);
+file_put_contents($sqlFile, $license);
 
 // dump tables with data
 $ignoredTables = $doFullDump
-               ? array_merge($SKIP_TABLES, $SCHEMA_ONLY_TABLES)
-               : array_merge($SKIP_TABLES, $FILTER_TABLES, $SCHEMA_ONLY_TABLES, $PRIVATE_TABLES);
+               ? array_merge(SKIP_TABLES, SCHEMA_ONLY_TABLES)
+               : array_merge(SKIP_TABLES, FILTER_TABLES, SCHEMA_ONLY_TABLES, PRIVATE_TABLES);
 $ignoreString = implode(' ', array_map(function($table) {
   return sprintf('--ignore-table=%s.%s', DB::$database, $table);
 }, $ignoredTables));
 
-$command = "$COMMON_COMMAND $ignoreString >> $SQL_FILE";
-OS::executeAndAssert($command);
+OS::executeAndAssert("$commonCommand $ignoreString >> $sqlFile");
 
 // dump tables with no data (schema only)
 $schemaTables = $doFullDump
-              ? $SCHEMA_ONLY_TABLES
-              : array_merge($SCHEMA_ONLY_TABLES, $PRIVATE_TABLES);
+              ? SCHEMA_ONLY_TABLES
+              : array_merge(SCHEMA_ONLY_TABLES, PRIVATE_TABLES);
 $command = sprintf('%s --no-data %s >> %s',
-                   $COMMON_COMMAND,
+                   $commonCommand,
                    implode(' ', $schemaTables),
-                   $SQL_FILE);
+                   $sqlFile);
 OS::executeAndAssert($command);
 
 if (!$doFullDump) {
@@ -85,7 +84,8 @@ if (!$doFullDump) {
   DB::execute("update _User_Copy set id = 0 where id = 1");
   DB::execute("insert into _User_Copy select * from User where id > 0");
   DB::execute("update _User_Copy set password = md5('1234'), email = concat(id, '@anonymous.com')");
-  OS::executeAndAssert("$COMMON_COMMAND _User_Copy | sed 's/_User_Copy/User/g' >> $SQL_FILE");
+  OS::executeAndAssert(
+    "$commonCommand _User_Copy | sed 's/_User_Copy/User/g' >> $sqlFile");
   DB::execute("drop table _User_Copy");
 
   // Hide links to scanned pages from the Source table
@@ -94,7 +94,8 @@ if (!$doFullDump) {
   DB::execute("create table _Source_Copy like Source");
   DB::execute("insert into _Source_Copy select * from Source");
   DB::execute("update _Source_Copy set link = null");
-  OS::executeAndAssert("$COMMON_COMMAND _Source_Copy | sed 's/_Source_Copy/Source/g' >> $SQL_FILE");
+  OS::executeAndAssert(
+    "$commonCommand _Source_Copy | sed 's/_Source_Copy/Source/g' >> $sqlFile");
   DB::execute("drop table _Source_Copy");
 
   // Dump only the Definitions for which we have redistribution rights
@@ -108,7 +109,8 @@ if (!$doFullDump) {
     where sourceId in (select id from Source where !canDistribute)
 EOT;
   DB::execute($query);
-  OS::executeAndAssert("$COMMON_COMMAND _Definition_Copy | sed 's/_Definition_Copy/Definition/g' >> $SQL_FILE");
+  OS::executeAndAssert(
+    "$commonCommand _Definition_Copy | sed 's/_Definition_Copy/Definition/g' >> $sqlFile");
   DB::execute("drop table _Definition_Copy");
 }
 
@@ -116,9 +118,9 @@ $remoteFile = $doFullDump
   ? '/download/mirrorAccess/dex-database.sql.gz'
   :'/download/dex-database.sql.gz';
 
-OS::executeAndAssert("gzip -f $SQL_FILE");
+OS::executeAndAssert("gzip -f $sqlFile");
 $f = new FtpUtil();
-$f->staticServerPut($GZ_FILE, $remoteFile);
-unlink($GZ_FILE);
+$f->staticServerPut($gzFile, $remoteFile);
+unlink($gzFile);
 
 Log::notice('finished');

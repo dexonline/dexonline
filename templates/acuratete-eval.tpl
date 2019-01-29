@@ -152,7 +152,7 @@
             <div class="col-sm-10">
               {include "bits/dropdown.tpl"
                 name="visibility"
-                data=AccuracyProject::$VIS_NAMES
+                data=AccuracyProject::VIS_NAMES
                 selected=$project->visibility
                 disabled=!$mine}
             </div>

@@ -22,7 +22,7 @@
         </div>
 
         <div class="form-group">
-          {foreach User::$PRIV_NAMES as $privValue => $privName}
+          {foreach User::PRIV_NAMES as $privValue => $privName}
             <div class="checkbox">
               <label>
                 <input type="checkbox" name="priv[]" value="{$privValue}">

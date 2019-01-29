@@ -10,7 +10,7 @@ class Widget {
   const WIDGET_COUNT = 6;
 
   // 'enabled' means "enabled by default". All widgets can later be enabled or disabled based on user prefs.
-  public static $DATA = [
+  const DATA = [
     self::WIDGET_WOTD => [
       'name' => 'Cuvântul zilei',
       'template' => 'wotd.tpl',
@@ -50,7 +50,7 @@ class Widget {
    * we use the widget's default state.
    **/
   static function getWidgets($widgetMask, $widgetCount) {
-    $result = self::$DATA;
+    $result = self::DATA;
     for ($mask = 1; $mask < 1 << $widgetCount; $mask <<= 1) {
       $result[$mask]['enabled'] = ($widgetMask & $mask) ? true : false;
     }
@@ -59,7 +59,7 @@ class Widget {
 
   static function getDefaultWidgetMask() {
     $result = 0;
-    foreach (self::$DATA as $mask => $params) {
+    foreach (self::DATA as $mask => $params) {
       if ($params['enabled']) {
         $result += $mask;
       }

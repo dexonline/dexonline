@@ -1,6 +1,6 @@
 <?php
 
-require_once('../../phplib/Core.php');
+require_once '../../phplib/Core.php';
 User::mustHave(User::PRIV_ADMIN);
 Util::assertNotMirror();
 

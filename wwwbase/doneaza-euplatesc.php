@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /**
  * We received this code from euplatesc.ro. Do not alter unless you really know what you're doing.
@@ -7,7 +7,7 @@
 require_once '../phplib/Core.php';
 $mid = Config::get('euplatesc.euPlatescMid');
 $key = Config::get('euplatesc.euPlatescKey');
-require_once("../phplib/third-party/euplatesc.php");
+require_once '../phplib/third-party/euplatesc.php');
 
 ?>
 
@@ -35,7 +35,7 @@ require_once("../phplib/third-party/euplatesc.php");
     <input TYPE="hidden" NAME="timestamp" SIZE="15" VALUE="<?php echo  $dataAll['timestamp'] ?>">
     <input TYPE="hidden" NAME="nonce" SIZE="35" VALUE="<?php echo  $dataAll['nonce'] ?>">
     <input TYPE="hidden" NAME="fp_hash" SIZE="40" VALUE="<?php echo  $dataAll['fp_hash'] ?>">
-  </form>                                                                 
+  </form>
 
   <p class="tx_red_mic">Transferring to EuPlatesc.ro gateway</p>
   <p><img src="https://www.euplatesc.ro/plati-online/tdsprocess/images/progress.gif" alt="" title="" onload="javascript:document.gateway.submit()"></p>

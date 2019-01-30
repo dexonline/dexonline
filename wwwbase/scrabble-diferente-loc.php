@@ -1,5 +1,5 @@
 <?php
-require_once("../phplib/Core.php");
+require_once '../phplib/Core.php';
 $list = Request::get('list');
 $versions = Request::getCsv('versions');
 

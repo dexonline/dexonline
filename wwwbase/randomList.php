@@ -1,5 +1,5 @@
 <?php
-require_once("../phplib/Core.php");
+require_once '../phplib/Core.php';
 
 const MIN_LIST_LENGTH = 10;
 const MAX_LIST_LENGTH = 2500;

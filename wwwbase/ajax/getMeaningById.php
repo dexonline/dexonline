@@ -1,5 +1,5 @@
 <?php
-require_once("../../phplib/Core.php");
+require_once '../../phplib/Core.php';
 
 $id = Request::get('id');
 $m = Meaning::get_by_id($id);

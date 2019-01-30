@@ -1,6 +1,6 @@
 <?php
 
-require_once("../../phplib/Core.php");
+require_once '../../phplib/Core.php';
 
 $definitionId = Request::get('definitionId');
 

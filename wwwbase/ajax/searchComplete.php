@@ -1,5 +1,5 @@
 <?php
-require_once("../../phplib/Core.php");
+require_once '../../phplib/Core.php';
 header("Content-Type: application/json");
 
 $acEnable = Config::get("search.acEnable");

@@ -1,5 +1,5 @@
 <?php
-require_once('../../phplib/Core.php');
+require_once '../../phplib/Core.php';
 
 $form = Request::get('form');
 $field = (strpos($form, "'") === false) ? 'formNoAccent' : 'form';

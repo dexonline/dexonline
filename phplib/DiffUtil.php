@@ -4,7 +4,7 @@
  * @holds diff specific constants and functions
  */
 
-require_once __DIR__ . '/third-party/FineDiff.php';
+require_once 'third-party/FineDiff.php';
 
 class DiffUtil {
 

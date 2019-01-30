@@ -1,5 +1,5 @@
 <?php
-require_once("../../phplib/Core.php");
+require_once '../../phplib/Core.php';
 
 $codes = Request::getJson('q', []);
 $fuzzy = Request::get('fuzzy');

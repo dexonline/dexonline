@@ -1,5 +1,5 @@
 <?php
-require_once("../phplib/Core.php");
+require_once '../phplib/Core.php';
 
 $email = Request::get('email');
 $name = Request::get('name');

@@ -1,5 +1,5 @@
 <?php
-require_once("../phplib/Core.php");
+require_once '../phplib/Core.php';
 $p = Request::get('p');
 
 switch($p) {

@@ -1,6 +1,6 @@
 <?php
 
-require_once("../phplib/Core.php");
+require_once '../phplib/Core.php';
 
 $year = Request::get('y', date('Y'));
 $month = Request::get('m', date('m'));

@@ -64,7 +64,6 @@ function getPatches($dir, $after) {
 }
 
 function runPatch($fileName, $dryRun) {
-  $fileName = realpath(Str::portable($fileName));
   $extension = strrchr($fileName, '.');
   if ($extension == '.sql') {
     print "$fileName -- executing with MySQL via OS\n";

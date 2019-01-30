@@ -1,5 +1,5 @@
 <?php
-require_once("../../phplib/Core.php");
+require_once '../../phplib/Core.php';
 
 $query = Request::get('term');
 $exclude = Request::get('exclude', 0);

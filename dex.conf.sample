@@ -38,9 +38,6 @@ tempDir = /tmp
 ; Max number of bookmarks/user
 maxBookmarks = 500
 
-; If this site is a mirror, certain features will be disabled: user login, typo reporting etc.
-mirror = 0
-
 protocol = http
 
 ; API formats

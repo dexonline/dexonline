@@ -2,7 +2,6 @@
 
 require_once '../../phplib/Core.php';
 User::mustHave(User::PRIV_ADMIN);
-Util::assertNotMirror();
 
 $action = Request::get('action');
 $abbrevId = Request::get('abbrevId');

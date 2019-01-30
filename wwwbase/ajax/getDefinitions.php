@@ -2,7 +2,6 @@
 
 require_once '../../phplib/Core.php';
 User::mustHave(User::PRIV_WOTD | User::PRIV_EDIT);
-Util::assertNotMirror();
 
 $query = Request::get('term');
 $definitions = Model::factory('Definition')

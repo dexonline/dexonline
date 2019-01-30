@@ -1,7 +1,6 @@
 <?php
 require_once '../../phplib/Core.php';
 User::mustHave(User::PRIV_EDIT | User::PRIV_TRAINEE);
-Util::assertNotMirror();
 
 $def = Model::factory('Definition')->create();
 $def->id = Request::get('definitionId');

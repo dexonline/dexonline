@@ -1,7 +1,6 @@
 <?php
 
 require_once '../../phplib/Core.php';
-Util::assertNotMirror();
 Util::assertNotLoggedIn();
 
 const NICK_REGEXP = '/^([0-9]|\p{L})([-._ 0-9]|\p{L}){2,}$/u';

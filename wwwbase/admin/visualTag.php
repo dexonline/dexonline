@@ -1,7 +1,6 @@
 <?php
 require_once '../../phplib/Core.php';
 User::mustHave(User::PRIV_VISUAL);
-Util::assertNotMirror();
 
 $fileName = Request::get('fileName');
 $id = Request::get('id');

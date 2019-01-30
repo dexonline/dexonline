@@ -2,7 +2,6 @@
 
 require_once '../../phplib/Core.php';
 User::mustHave(User::PRIV_EDIT);
-Util::assertNotMirror();
 
 $mentions = Mention::getDetailedTreeMentions();
 

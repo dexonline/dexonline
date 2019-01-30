@@ -1,6 +1,5 @@
 <?php
 require_once '../../phplib/Core.php';
-Util::assertNotMirror();
 Util::assertNotLoggedIn();
 
 $token = Request::get('token');

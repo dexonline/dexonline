@@ -2,7 +2,6 @@
 
 require_once '../../phplib/Core.php';
 User::mustHave(User::PRIV_ADMIN);
-Util::assertNotMirror();
 
 $sourceId = Request::get('source');
 $saveButton = Request::has('saveButton');

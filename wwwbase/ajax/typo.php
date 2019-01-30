@@ -1,7 +1,6 @@
 <?php
 
 require_once '../../phplib/Core.php';
-Util::assertNotMirror();
 
 $text = Request::get('text');
 $definitionId = Request::get('definitionId');

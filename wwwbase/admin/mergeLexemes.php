@@ -1,7 +1,6 @@
 <?php
 require_once '../../phplib/Core.php';
 User::mustHave(User::PRIV_EDIT);
-Util::assertNotMirror();
 DebugInfo::disable();
 
 $modelType = Request::get('modelType', 'M');

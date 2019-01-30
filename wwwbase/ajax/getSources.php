@@ -2,7 +2,6 @@
 
 require_once '../../phplib/Core.php';
 User::mustHave(User::PRIV_STRUCT | User::PRIV_EDIT);
-Util::assertNotMirror();
 
 $query = Request::get('term');
 // Latin alphabet comparisons - allow Ş or S instead of Ș

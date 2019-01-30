@@ -1,7 +1,6 @@
 <?php
 require_once '../../phplib/Core.php';
 User::mustHave(User::PRIV_EDIT);
-Util::assertNotMirror();
 
 $trees = Model::factory('Tree')
        ->table_alias('t')

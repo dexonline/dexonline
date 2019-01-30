@@ -1,7 +1,6 @@
 <?php
 require_once '../../phplib/Core.php';
 User::mustHave(User::PRIV_WOTD);
-Util::assertNotMirror();
 RecentLink::add('Cuvântul zilei');
 
 // Load the image list

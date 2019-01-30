@@ -2,7 +2,6 @@
 
 require_once '../../phplib/Core.php';
 User::mustHave(User::PRIV_ADMIN | User::PRIV_EDIT);
-Util::assertNotMirror();
 
 FlashMessage::add("Avertisment! În momentul editării unei abrevieri, prin schimbarea "
   . "formei acesteia, sunt afectate și celelalte definiții deja moderate "

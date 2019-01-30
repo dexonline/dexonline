@@ -1,7 +1,6 @@
 <?php
 require_once '../../phplib/Core.php';
 User::mustHave(User::PRIV_EDIT);
-Util::assertNotMirror();
 
 $sourceUrlName = Request::get('source');
 $selectedDefIds = Request::getArray('selectedDefIds', []);

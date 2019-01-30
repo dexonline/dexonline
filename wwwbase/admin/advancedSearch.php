@@ -1,7 +1,6 @@
 <?php
 require_once '../../phplib/Core.php';
 User::mustHave(User::PRIV_EDIT | User::PRIV_STRUCT);
-Util::assertNotMirror();
 
 const SECONDS_PER_DAY = 86400;
 

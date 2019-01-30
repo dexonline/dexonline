@@ -2,7 +2,6 @@
 require_once '../../phplib/Core.php';
 ini_set('max_execution_time', '3600');
 User::mustHave(User::PRIV_ADMIN);
-Util::assertNotMirror();
 DebugInfo::disable();
 
 $modelType = Request::get('modelType');

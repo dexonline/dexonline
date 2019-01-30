@@ -117,105 +117,103 @@
         </li>
       </ul>
 
-      {if !$cfg.global.mirror}
-        <ul class="nav navbar-nav navbar-right">
+      <ul class="nav navbar-nav navbar-right">
 
-          {* language selector *}
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown"
-              role="button" aria-haspopup="true" aria-expanded="false">
-              <i class="glyphicon glyphicon-globe"></i>
-              <span class="caret"></span>
-            </a>
+        {* language selector *}
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+            role="button" aria-haspopup="true" aria-expanded="false">
+            <i class="glyphicon glyphicon-globe"></i>
+            <span class="caret"></span>
+          </a>
 
-            <ul class="dropdown-menu">
-              {foreach LocaleUtil::getAll() as $id => $name}
-                <li>
-                  <a href="{$wwwRoot}changeLocale?id={$id}">
-                    <i class="glyphicon glyphicon-ok {if $id != LocaleUtil::getCurrent()}invisible{/if}">
-                    </i>
-                    {$name}
-                  </a>
-                </li>
-              {/foreach}
-            </ul>
-          </li>
-
-          {* user menu *}
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown"
-              role="button" aria-haspopup="true" aria-expanded="false">
-              {if User::getActive()->hasAvatar|default:false}
-                {include "bits/avatar.tpl" user=User::getActive()}
-              {else}
-                <i class="glyphicon glyphicon-user"></i>
-              {/if}
-              {capture "anon"}{t}Anonymous{/t}{/capture}
-              {User::getActive()|escape|default:$smarty.capture.anon}
-              <span class="caret"></span>
-            </a>
-            <ul class="dropdown-menu">
-              {if User::can(User::PRIV_ANY)}
-                <li>
-                  <a href="{$wwwRoot}admin">
-                    <i class="glyphicon glyphicon-king"></i>
-                    <span>{t}moderator page{/t}</span>
-                  </a>
-                </li>
-              {/if}
-              {if User::can(User::PRIV_ANY)}
-                <li>
-                  <a href="#" data-toggle="modal" data-target="#hotkeysModal">
-                    <i class="glyphicon glyphicon-hand-up"></i>
-                    <span>{t}hotkeys{/t}</span>
-                  </a>
-                </li>
-              {/if}
-              {if isset($recentLinks)}
-                <li>
-                  <a href="#" id="recentPagesLink" data-toggle="modal" data-target="#recentModal">
-                    <i class="glyphicon glyphicon-pushpin"></i>
-                    <span>{t}recently viewed pages{/t}</span>
-                  </a>
-                </li>
-              {/if}
+          <ul class="dropdown-menu">
+            {foreach LocaleUtil::getAll() as $id => $name}
               <li>
-                <a href="{$wwwRoot}preferinte">
-                  <i class="glyphicon glyphicon-cog"></i>
-                  <span>{t}preferences{/t}</span>
+                <a href="{$wwwRoot}changeLocale?id={$id}">
+                  <i class="glyphicon glyphicon-ok {if $id != LocaleUtil::getCurrent()}invisible{/if}">
+                  </i>
+                  {$name}
                 </a>
               </li>
-              {if User::getActive()}
-                <li>
-                  <a href="{$wwwRoot}utilizator/{User::getActive()}">
-                    <i class="glyphicon glyphicon-user"></i>
-                    <span>{t}profile{/t}</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="{$wwwRoot}cuvinte-favorite">
-                    <i class="glyphicon glyphicon-heart"></i>
-                    <span>{t}favorite words{/t}</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="{$wwwRoot}auth/logout">
-                    <i class="glyphicon glyphicon-log-out"></i>
-                    <span>{t}log out{/t}</span>
-                  </a>
-                </li>
-              {else}
-                <li>
-                  <a href="{$wwwRoot}auth/login">
-                    <i class="glyphicon glyphicon-log-in"></i>
-                    <span>{t}log in{/t}</span>
-                  </a>
-                </li>
-              {/if}
-            </ul>
-          </li>
-        </ul>
-      {/if}
+            {/foreach}
+          </ul>
+        </li>
+
+        {* user menu *}
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+            role="button" aria-haspopup="true" aria-expanded="false">
+            {if User::getActive()->hasAvatar|default:false}
+              {include "bits/avatar.tpl" user=User::getActive()}
+            {else}
+              <i class="glyphicon glyphicon-user"></i>
+            {/if}
+            {capture "anon"}{t}Anonymous{/t}{/capture}
+            {User::getActive()|escape|default:$smarty.capture.anon}
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            {if User::can(User::PRIV_ANY)}
+              <li>
+                <a href="{$wwwRoot}admin">
+                  <i class="glyphicon glyphicon-king"></i>
+                  <span>{t}moderator page{/t}</span>
+                </a>
+              </li>
+            {/if}
+            {if User::can(User::PRIV_ANY)}
+              <li>
+                <a href="#" data-toggle="modal" data-target="#hotkeysModal">
+                  <i class="glyphicon glyphicon-hand-up"></i>
+                  <span>{t}hotkeys{/t}</span>
+                </a>
+              </li>
+            {/if}
+            {if isset($recentLinks)}
+              <li>
+                <a href="#" id="recentPagesLink" data-toggle="modal" data-target="#recentModal">
+                  <i class="glyphicon glyphicon-pushpin"></i>
+                  <span>{t}recently viewed pages{/t}</span>
+                </a>
+              </li>
+            {/if}
+            <li>
+              <a href="{$wwwRoot}preferinte">
+                <i class="glyphicon glyphicon-cog"></i>
+                <span>{t}preferences{/t}</span>
+              </a>
+            </li>
+            {if User::getActive()}
+              <li>
+                <a href="{$wwwRoot}utilizator/{User::getActive()}">
+                  <i class="glyphicon glyphicon-user"></i>
+                  <span>{t}profile{/t}</span>
+                </a>
+              </li>
+              <li>
+                <a href="{$wwwRoot}cuvinte-favorite">
+                  <i class="glyphicon glyphicon-heart"></i>
+                  <span>{t}favorite words{/t}</span>
+                </a>
+              </li>
+              <li>
+                <a href="{$wwwRoot}auth/logout">
+                  <i class="glyphicon glyphicon-log-out"></i>
+                  <span>{t}log out{/t}</span>
+                </a>
+              </li>
+            {else}
+              <li>
+                <a href="{$wwwRoot}auth/login">
+                  <i class="glyphicon glyphicon-log-in"></i>
+                  <span>{t}log in{/t}</span>
+                </a>
+              </li>
+            {/if}
+          </ul>
+        </li>
+      </ul>
 
     </div>
   </div>

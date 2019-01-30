@@ -93,9 +93,7 @@ $trees = [];
 $extra = [];
 $adult = false;
 
-$showWotd = Session::isWotdMode()
-  && User::can(User::PRIV_EDIT)
-  && !Config::get('global.mirror');
+$showWotd = Session::isWotdMode() && User::can(User::PRIV_EDIT);
 
 if ($isAllDigits) {
   $d = Definition::getByIdNotHidden($cuv);

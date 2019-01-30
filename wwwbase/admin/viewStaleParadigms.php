@@ -1,7 +1,6 @@
 <?php
 require_once '../../phplib/Core.php';
 User::mustHave(User::PRIV_ADMIN);
-Util::assertNotMirror();
 
 const MAX_DISPLAYED = 1000;
 

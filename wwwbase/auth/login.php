@@ -1,7 +1,6 @@
 <?php
 
 require_once '../../phplib/Core.php';
-Util::assertNotMirror();
 Util::assertNotLoggedIn();
 
 // nick means "nick or email" throughout this form

@@ -75,7 +75,7 @@
   {/if}
 
   {if $showEditLink}
-    {if User::can(User::PRIV_EDIT) && !$cfg.global.mirror}
+    {if User::can(User::PRIV_EDIT)}
       <li>
         <a href="{$wwwRoot}admin/definitionEdit.php?definitionId={$def->id}">
           editează
@@ -126,7 +126,7 @@
 
       <ul class="dropdown-menu">
         {if $showFlagTypo}
-          {if $skinVariables.typo && !$cfg.global.mirror}
+          {if $skinVariables.typo}
             <li>
               <a href="#"
                 data-definition-id="{$def->id}"
@@ -208,7 +208,7 @@
         {/if}
 
         {if $showHistory}
-          {if User::can(User::PRIV_EDIT) && !$cfg.global.mirror}
+          {if User::can(User::PRIV_EDIT)}
             <li>
               <a href="{$wwwRoot}istoria-definitiei?id={$def->id}">
                 <i class="glyphicon glyphicon-time"></i>

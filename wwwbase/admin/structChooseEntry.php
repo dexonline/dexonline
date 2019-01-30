@@ -1,7 +1,6 @@
 <?php
 require_once '../../phplib/Core.php';
 User::mustHave(User::PRIV_STRUCT);
-Util::assertNotMirror();
 
 // Select entries that
 // * are associated with definitions from DEX '98 or DEX '09

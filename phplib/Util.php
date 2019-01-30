@@ -185,13 +185,6 @@ class Util {
     exit;
   }
 
-  static function assertNotMirror() {
-    if (Config::get('global.mirror')) {
-      SmartyWrap::display('mirror_message.tpl');
-      exit;
-    }
-  }
-
   static function assertNotLoggedIn() {
     if (User::getActive()) {
       Util::redirect(Core::getWwwRoot());

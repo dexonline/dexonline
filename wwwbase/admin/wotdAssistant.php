@@ -1,7 +1,6 @@
 <?php
 require_once '../../phplib/Core.php';
 User::mustHave(User::PRIV_WOTD);
-Util::assertNotMirror();
 RecentLink::add('Asistent cuvântul zilei');
 
 // Certain old wotds occur commonly as prefixes or suffixes and trigger too

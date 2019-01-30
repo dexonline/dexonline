@@ -1,7 +1,6 @@
 <?php
 require_once '../../phplib/Core.php';
 User::mustHave(User::PRIV_EDIT);
-Util::assertNotMirror();
 
 const SOURCE_ID = 25; // Dicționarul enciclopedic
 const MODELS_TO_CAPITALIZE = ['I3', 'SP'];

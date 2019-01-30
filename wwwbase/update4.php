@@ -19,9 +19,11 @@ if ($lastClientUpdate == '0') {
   }
 }
 
-SmartyWrap::assign('lastDump', $lastDump);
-SmartyWrap::assign('url', $x->getUrl());
-SmartyWrap::assign('diffs', $x->getDiffsSince($lastClientUpdate));
+SmartyWrap::assign([
+  'lastDump' => $lastDump,
+  'url' => $x->getUrl(),
+  'diffs' => $x->getDiffsSince($lastClientUpdate),
+]);
 
 header('Content-type: text/xml');
 print SmartyWrap::fetch('xml/update4.tpl');

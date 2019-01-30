@@ -139,18 +139,20 @@ $meaningMentions = Mention::getDetailedMeaningMentions($t->id);
 
 $homonyms = $t->getRelatedTrees();
 
-SmartyWrap::assign('t', $t);
-SmartyWrap::assign('entryIds', $entryIds);
-SmartyWrap::assign('tagIds', $tagIds);
-SmartyWrap::assign('modelTypes', $modelTypes);
-// TODO: canEdit if STRUCT_STATUS_IN_PROGRESS) || User::can(User::PRIV_EDIT)
-SmartyWrap::assign('canEdit', true);
-SmartyWrap::assign('canDelete', $t->canDelete());
-SmartyWrap::assign('relatedMeanings', $relatedMeanings);
-SmartyWrap::assign('entryTrees', $entryTrees);
-SmartyWrap::assign('treeMentions', $treeMentions);
-SmartyWrap::assign('meaningMentions', $meaningMentions);
-SmartyWrap::assign('homonyms', $homonyms);
+SmartyWrap::assign([
+  't' => $t,
+  'entryIds' => $entryIds,
+  'tagIds' => $tagIds,
+  'modelTypes' => $modelTypes,
+  // TODO: canEdit if STRUCT_STATUS_IN_PROGRESS || User::can(User::PRIV_EDIT)
+  'canEdit' => true,
+  'canDelete' => $t->canDelete(),
+  'relatedMeanings' => $relatedMeanings,
+  'entryTrees' => $entryTrees,
+  'treeMentions' => $treeMentions,
+  'meaningMentions' => $meaningMentions,
+  'homonyms' => $homonyms,
+]);
 SmartyWrap::addCss('editableMeaningTree', 'textComplete', 'admin');
 SmartyWrap::addJs('select2Dev', 'meaningTree', 'textComplete', 'cookie', 'frequentObjects');
 SmartyWrap::display('editTree.tpl');

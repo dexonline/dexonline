@@ -75,10 +75,12 @@ if ($submitButton) {
   $showChanges = true;
 }
 
-SmartyWrap::assign('userId', $userId);
-SmartyWrap::assign('startDate', $startDate);
-SmartyWrap::assign('endDate', $endDate);
-SmartyWrap::assign('showChanges', $showChanges);
+SmartyWrap::assign([
+  'userId' => $userId,
+  'startDate' => $startDate,
+  'endDate' => $endDate,
+  'showChanges' => $showChanges,
+]);
 SmartyWrap::addCss('admin');
 SmartyWrap::addJs('select2Dev');
 SmartyWrap::display('admin/contribTotals.tpl');

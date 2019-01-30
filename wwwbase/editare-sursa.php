@@ -49,12 +49,26 @@ if ($saveButton) {
 $ots = ObjectTag::getSourceTags($src->id);
 $tagIds = Util::objectProperty($ots, 'tagId');
 
+$managers = Model::factory('User')
+  ->where_raw('moderator & 4')
+  ->order_by_asc('id')
+  ->find_many();
 
-SmartyWrap::assign('src', $src);
-SmartyWrap::assign('tagIds', $tagIds);
-SmartyWrap::assign("managers", Model::factory('User')->where_raw('moderator & 4')->order_by_asc('id')->find_many());
-SmartyWrap::assign("sourceTypes", Model::factory('SourceType')->order_by_asc('id')->find_many());
-SmartyWrap::assign("reforms", Model::factory('OrthographicReforms')->order_by_asc('id')->find_many());
+$sourceTypes = Model::factory('SourceType')
+  ->order_by_asc('id')
+  ->find_many();
+
+$reforms = Model::factory('OrthographicReforms')
+  ->order_by_asc('id')
+  ->find_many();
+
+SmartyWrap::assign([
+  'src' => $src,
+  'tagIds' => $tagIds,
+  'managers' => $managers,
+  'sourceTypes' => $sourceTypes,
+  'reforms' => $reforms,
+]);
 SmartyWrap::addJs('select2Dev');
 SmartyWrap::display('editare-sursa.tpl');
 

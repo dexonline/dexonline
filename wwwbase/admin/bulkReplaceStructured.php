@@ -49,10 +49,12 @@ foreach ($entries as $e) {
 
 DebugInfo::stopClock('BulkReplaceStructured - AfterEntryResults');
 
-SmartyWrap::assign('modUser', User::getActive());
-SmartyWrap::assign('defResults', $defResults);
-SmartyWrap::assign('entryResults', $entryResults);
-SmartyWrap::assign('finished', $finishedReplace);
+SmartyWrap::assign([
+  'modUser' => User::getActive(),
+  'defResults' => $defResults,
+  'entryResults' => $entryResults,
+  'finished' => $finishedReplace,
+]);
 SmartyWrap::addCss('admin', 'diff');
 SmartyWrap::display('admin/bulkReplaceStructured.tpl');
 

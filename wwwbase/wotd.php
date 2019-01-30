@@ -53,11 +53,13 @@ if ($type == 'rss' || $type == 'blog') {
   }
 
   header("Content-type: application/rss+xml; charset=utf-8");
-  SmartyWrap::assign('rss_title', 'Cuvântul zilei');
-  SmartyWrap::assign('rss_link', Request::getFullServerUrl() . 'cuvantul-zilei/');
-  SmartyWrap::assign('rss_description', 'Doza zilnică de cuvinte de la dexonline!');
-  SmartyWrap::assign('rss_pubDate', date('D, d M Y H:i:s') . ' EEST');
-  SmartyWrap::assign('results', $results);
+  SmartyWrap::assign([
+    'rss_title' => 'Cuvântul zilei',
+    'rss_link' => Request::getFullServerUrl() . 'cuvantul-zilei/',
+    'rss_description' => 'Doza zilnică de cuvinte de la dexonline!',
+    'rss_pubDate' => date('D, d M Y H:i:s') . ' EEST',
+    'results' => $results,
+  ]);
   SmartyWrap::displayWithoutSkin('xml/rss.tpl');
   exit;
 }

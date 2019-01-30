@@ -104,11 +104,13 @@ foreach ($lexemes as $l) {
   $searchResults[] = SearchResult::mapDefinitionArray($definitions);
 }
 
-SmartyWrap::assign('suffix', $suffix);
-SmartyWrap::assign('lexemes', $lexemes);
-SmartyWrap::assign('models', $models);
-SmartyWrap::assign('modelTypes', $modelTypes);
-SmartyWrap::assign('searchResults', $searchResults);
-SmartyWrap::assign('lMatrix', $lMatrix);
+SmartyWrap::assign([
+  'suffix' => $suffix,
+  'lexemes' => $lexemes,
+  'models' => $models,
+  'modelTypes' => $modelTypes,
+  'searchResults' => $searchResults,
+  'lMatrix' => $lMatrix,
+]);
 SmartyWrap::addCss('paradigm', 'admin');
 SmartyWrap::display('admin/bulkLabel.tpl');

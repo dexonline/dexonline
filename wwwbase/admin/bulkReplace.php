@@ -148,17 +148,19 @@ if (!empty($structuredIds)) {
 }
 
 /** Finally displaying the template*/
-SmartyWrap::assign('search', $search);
-SmartyWrap::assign('replace', $replace);
-SmartyWrap::assign('target', $target);
-SmartyWrap::assign('targetName', $targetName);
-SmartyWrap::assign('sourceId', $sourceId);
-SmartyWrap::assign('limit', $limit);
-SmartyWrap::assign('remaining', $remaining);
-SmartyWrap::assign('de', Str::getAmountPreposition(count($objects)));
-SmartyWrap::assign('modUser', User::getActive());
-SmartyWrap::assign('objects', $objects);
-SmartyWrap::assign('structuredChanged', count($structuredIds));
+SmartyWrap::assign([
+  'search' => $search,
+  'replace' => $replace,
+  'target' => $target,
+  'targetName' => $targetName,
+  'sourceId' => $sourceId,
+  'limit' => $limit,
+  'remaining' => $remaining,
+  'de' => Str::getAmountPreposition(count($objects)),
+  'modUser' => User::getActive(),
+  'objects' => $objects,
+  'structuredChanged' => count($structuredIds),
+]);
 SmartyWrap::addCss('admin', 'diff');
 SmartyWrap::display('admin/bulkReplace.tpl');
 

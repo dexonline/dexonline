@@ -44,9 +44,11 @@ foreach (file($txtFile) as $line) {
 @unlink($zipFile);
 @unlink($txtFile);
 
-SmartyWrap::assign('keyword', $keyword);
-SmartyWrap::assign('listType', $listType);
-SmartyWrap::assign('versions', $versions);
-SmartyWrap::assign('diff', $diff);
-SmartyWrap::assign('zipUrl', $zipUrl);
+SmartyWrap::assign([
+  'keyword' => $keyword,
+  'listType' => $listType,
+  'versions' => $versions,
+  'diff' => $diff,
+  'zipUrl' => $zipUrl,
+]);
 SmartyWrap::display('scrabble-diferente-loc.tpl');

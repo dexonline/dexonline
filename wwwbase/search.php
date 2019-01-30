@@ -413,21 +413,23 @@ foreach ($entries as $e) {
   $adult |= $e->adult;
 }
 
-SmartyWrap::assign('entries', $entries);
-SmartyWrap::assign('lexemes', $lexemes);
-SmartyWrap::assign('results', $results);
-SmartyWrap::assign('trees', $trees);
-SmartyWrap::assign('extra', $extra);
-SmartyWrap::assign('text', $text);
-SmartyWrap::assign('searchType', $searchType);
-SmartyWrap::assign('searchParams', $searchParams[$searchType]);
-SmartyWrap::assign('sourceId', $sourceId);
-SmartyWrap::assign('tab', $tab);
-SmartyWrap::assign('paradigmLink', $paradigmLink);
-SmartyWrap::assign('allDefinitions', $all);
-SmartyWrap::assign('showWotd', $showWotd);
-SmartyWrap::assign('adult', $adult);
-SmartyWrap::assign('pageType', 'search');
+SmartyWrap::assign([
+  'entries' => $entries,
+  'lexemes' => $lexemes,
+  'results' => $results,
+  'trees' => $trees,
+  'extra' => $extra,
+  'text' => $text,
+  'searchType' => $searchType,
+  'searchParams' => $searchParams[$searchType],
+  'sourceId' => $sourceId,
+  'tab' => $tab,
+  'paradigmLink' => $paradigmLink,
+  'allDefinitions' => $all,
+  'showWotd' => $showWotd,
+  'adult' => $adult,
+  'pageType' => 'search',
+]);
 if ($text || $sourceId) {
   // must show the advanced search menu regardless of preference
   SmartyWrap::assign('advancedSearch', true);

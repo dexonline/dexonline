@@ -74,12 +74,14 @@ foreach ($modelTypes as $mt) {
   $canDelete[] = ($numLexemes == 0) && ($numDependants <= 1);
 }
 
-SmartyWrap::assign('canonicalModelTypes', ModelType::loadCanonical());
-SmartyWrap::assign('modelTypes', $modelTypes);
-SmartyWrap::assign('modelCounts', $modelCounts);
-SmartyWrap::assign('lexemeCounts', $lexemeCounts);
-SmartyWrap::assign('canDelete', $canDelete);
-SmartyWrap::assign('showAddForm', $showAddForm);
+SmartyWrap::assign([
+  'canonicalModelTypes' => ModelType::loadCanonical(),
+  'modelTypes' => $modelTypes,
+  'modelCounts' => $modelCounts,
+  'lexemeCounts' => $lexemeCounts,
+  'canDelete' => $canDelete,
+  'showAddForm' => $showAddForm,
+]);
 SmartyWrap::display('tipuri-modele.tpl');
 
 /***************************************************************************/

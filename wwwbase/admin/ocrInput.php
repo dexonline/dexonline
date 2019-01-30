@@ -72,11 +72,6 @@ if ($_FILES && $_FILES["file"]) {
   }
 }
 
-SmartyWrap::assign("msgClass", $class);
-SmartyWrap::assign("message", $message);
-SmartyWrap::assign("allModeratorSources", Model::factory('Source')->where('canModerate', true)->order_by_asc('displayOrder')->find_many());
-SmartyWrap::assign("allOCRModerators", Model::factory('User')->where_raw('moderator & 4')->order_by_asc('id')->find_many());
-
 const OCR_EDITOR_STATS =
   "SELECT SQL_CACHE
   U.nick Utilizator,
@@ -107,7 +102,23 @@ JOIN User U ON X.userId=U.id
 JOIN Source S ON X.sourceId=S.id
 GROUP BY U.nick, S.shortName";
 
-SmartyWrap::assign("statsPrep", DB::execute(OCR_PREP_STATS));
-SmartyWrap::assign("statsEditors", DB::execute(OCR_EDITOR_STATS));
+$allModeratorSources = Model::factory('Source')
+  ->where('canModerate', true)
+  ->order_by_asc('displayOrder')
+  ->find_many();
+
+$allOcrModerators = Model::factory('User')
+  ->where_raw('moderator & 4')
+  ->order_by_asc('id')
+  ->find_many();
+
+SmartyWrap::assign([
+  'msgClass' => $class,
+  'message' => $message,
+  'allModeratorSources' => $allModeratorSources,
+  'allOCRModerators' => $allOcrModerators,
+  'statsPrep' => DB::execute(OCR_PREP_STATS),
+  'statsEditors' => DB::execute(OCR_EDITOR_STATS),
+]);
 SmartyWrap::addCss('admin');
 SmartyWrap::display('admin/ocrInput.tpl');

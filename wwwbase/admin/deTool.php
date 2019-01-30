@@ -199,10 +199,12 @@ if ($saveButton) {
   SmartyWrap::assign('models', $models);
 }
 
-SmartyWrap::assign('def', $def);
-SmartyWrap::assign('capitalize', $capitalize);
-SmartyWrap::assign('deleteOrphans', $deleteOrphans);
-SmartyWrap::assign('passedTests', $passedTests);
+SmartyWrap::assign([
+  'def' => $def,
+  'capitalize' => $capitalize,
+  'deleteOrphans' => $deleteOrphans,
+  'passedTests' => $passedTests,
+]);
 SmartyWrap::addCss('admin');
 SmartyWrap::addJs('select2Dev');
 SmartyWrap::display('admin/deTool.tpl');

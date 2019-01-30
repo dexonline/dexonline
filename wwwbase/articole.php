@@ -16,11 +16,13 @@ if ($type == 'rss') {
   }
 
   header("Content-type: application/rss+xml");
-  SmartyWrap::assign('rss_title', 'Articole lingvistice - dexonline');
-  SmartyWrap::assign('rss_link', 'http://' . $_SERVER['HTTP_HOST'] . '/rss/articole/');
-  SmartyWrap::assign('rss_description', 'Articole pe teme lingvistice de la dexonline');
-  SmartyWrap::assign('rss_pubDate', date('D, d M Y H:i:s') . ' EEST');
-  SmartyWrap::assign('results', $results);
+  SmartyWrap::assign([
+    'rss_title' => 'Articole lingvistice - dexonline',
+    'rss_link' => 'http://' . $_SERVER['HTTP_HOST'] . '/rss/articole/',
+    'rss_description' => 'Articole pe teme lingvistice de la dexonline',
+    'rss_pubDate' => date('D => d M Y H:i:s') . ' EEST',
+    'results' => $results,
+  ]);
   SmartyWrap::displayWithoutSkin('xml/rss.tpl');
   exit;
 }

@@ -13,17 +13,9 @@ $rcptInfo = Config::get('WotD.rcpt-info', []);
 $rcptError = Config::get('WotD.rcpt-error', []);
 $sender = Config::get('WotD.sender', '');
 
-$sendEmail = false;
-$quiet = false;
-foreach ($argv as $i => $arg) {
-  if ($i) {
-    switch ($arg) {
-    case '--send-email': $sendEmail = true; break;
-    case '--quiet': $quiet = true; break;
-    default: print "Unknown flag $arg -- aborting\n"; exit;
-    }
-  }
-}
+$opts = getopt('', ['send-email', 'quiet']);
+$sendEmail = isset($opts['send-email']);
+$quiet = isset($opts['quiet']);
 
 $staticFiles = file(Config::get('static.url') . 'fileList.txt');
 $messages = [];

@@ -5,15 +5,8 @@ require_once __DIR__ . '/../phplib/third-party/mime-mail-parser/MimeMailParser.c
 
 Log::notice('started');
 
-$dryRun = false;
-foreach ($argv as $i => $arg) {
-  if ($i) {
-    switch ($arg) {
-    case '--dry-run': $dryRun = true; break;
-    default: print "Unknown flag $arg -- aborting\n"; exit;
-    }
-  }
-}
+$opts = getopt('', ['dry-run']);
+$dryRun = isset($opts['dry-run']);
 
 $validHeight = Config::get("WotD.wotdImageHeight") or die("No image height in config file\n");
 $validWidth = Config::get("WotD.wotdImageWidth") or die("No image width in config file\n");

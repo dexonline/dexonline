@@ -5,19 +5,9 @@ require_once __DIR__ . '/../phplib/Core.php';
 $databaseUrl = Config::get('static.url') . 'download/mirrorAccess/dex-database.sql.gz';
 $databaseTmpFileGzip = Config::get('global.tempDir') . '/dex-database.sql.gz';
 
-$doDatabaseCopy = true;
-$doCodeUpdate = true;
-
-for ($i = 1; $i < count($argv); $i++) {
-  $arg = $argv[$i];
-  if ($arg == "-nc") {
-    $doCodeUpdate = false;
-  } else if ($arg == '-nd') {
-    $doDatabaseCopy = false;
-  } else {
-    OS::errorAndExit("Unknown flag: $arg");
-  }
-}
+$opts = getopt('', ['no-code', 'no-data']);
+$doDatabaseCopy = !isset($opts['no-data']);
+$doCodeUpdate = !isset($opts['no-code']);
 
 Log::notice('started with databaseCopy:%s codeUpdate:%s',
             ($doDatabaseCopy ? 'yes' : 'no'),

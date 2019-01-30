@@ -6,15 +6,8 @@
 
 require_once __DIR__ . '/../phplib/Core.php';
 
-$fix = false;
-foreach ($argv as $i => $arg) {
-  if ($i) {
-    switch ($arg) {
-      case '--fix': $fix = true; break;
-      default: print "Unknown flag $arg -- aborting\n"; exit;
-    }
-  }
-}
+$opts = getopt('', ['fix']);
+$fix = isset($opts['fix']);
 
 $files = glob(__DIR__ . '/../phplib/models/*.php');
 

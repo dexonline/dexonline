@@ -30,15 +30,8 @@ foreach (THUMB_SIZES as $size) {
   $ignoredMap['thumb' . $size] = 1;
 }
 
-$fix = false;
-foreach ($argv as $i => $arg) {
-  if ($i) {
-    switch ($arg) {
-      case '--fix': $fix = true; break;
-      default: print "Unknown flag $arg -- aborting\n"; exit;
-    }
-  }
-}
+$opts = getopt('', ['fix']);
+$fix = isset($opts['fix']);
 
 $staticFiles = file(Config::get('static.url') . 'fileList.txt');
 if (!$staticFiles) {

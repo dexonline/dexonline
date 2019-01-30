@@ -22,15 +22,8 @@ const PATCH_REGEXP = '/^\d{5}\./';
 !Config::get('testing.enabled')
   or die("Please set enabled = false in the [testing] section.\n");
 
-$dryRun = false;
-foreach ($argv as $i => $arg) {
-  if ($i) {
-    switch ($arg) {
-    case '--dry-run': $dryRun = true; break;
-    default: print "Unknown flag $arg -- ignored\n"; exit;
-    }
-  }
-}
+$opts = getopt('', ['dry-run']);
+$dryRun = isset($opts['dry-run']);
 
 if ($dryRun) {
   print "---- DRY RUN ONLY ----\n";

@@ -15,15 +15,8 @@ const THUMB_PREFIX = 'img/visual/thumb/';
 
 const IGNORED = [ 'thumb' ];
 
-$fix = false;
-foreach ($argv as $i => $arg) {
-  if ($i) {
-    switch ($arg) {
-      case '--fix': $fix = true; break;
-      default: print "Unknown flag $arg -- aborting\n"; exit;
-    }
-  }
-}
+$opts = getopt('', ['fix']);
+$fix = isset($opts['fix']);
 
 $staticFiles = file(Config::get('static.url') . 'fileList.txt');
 

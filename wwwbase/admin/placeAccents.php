@@ -1,5 +1,5 @@
 <?php
-require_once("../../phplib/Core.php"); 
+require_once("../../phplib/Core.php");
 User::mustHave(User::PRIV_EDIT);
 Util::assertNotMirror();
 
@@ -36,7 +36,7 @@ foreach($lexemes as $l) {
   $form = mb_strtoupper($l->form);
   $len = mb_strlen($form);
   for ($i = 0; $i < $len; $i++) {
-    $c = Str::getCharAt($form, $i);;
+    $c = Str::getCharAt($form, $i);
     $charArray[] = ctype_space($c) ? '&nbsp;' : $c;
   }
   $chars[$l->id] = $charArray;

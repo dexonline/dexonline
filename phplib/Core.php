@@ -8,9 +8,9 @@ class Core {
 
   const AUTOLOAD_PATHS = [
     'phplib',
-    'phplib' . DIRECTORY_SEPARATOR . 'models',
-    'phplib' . DIRECTORY_SEPARATOR . 'htmlize',
-    'phplib' . DIRECTORY_SEPARATOR . 'parser',
+    'phplib/models',
+    'phplib/htmlize',
+    'phplib/parser',
   ];
 
   static function autoload($className) {
@@ -56,14 +56,14 @@ class Core {
     $ds = DIRECTORY_SEPARATOR;
     $fileName = realpath($_SERVER['SCRIPT_FILENAME']);
     $pos = strrpos($fileName, "{$ds}wwwbase{$ds}");
-    // Some offline scripts, such as dict-server.php, run from the tools or phplib directories.
-    if ($pos === FALSE) {
+    // Some scripts run from the tools or phplib directories.
+    if ($pos === false) {
       $pos = strrpos($fileName, "{$ds}tools{$ds}");
     }
-    if ($pos === FALSE) {
+    if ($pos === false) {
       $pos = strrpos($fileName, "{$ds}phplib{$ds}");
     }
-    if ($pos === FALSE) {
+    if ($pos === false) {
       $pos = strrpos($fileName, "{$ds}app{$ds}");
     }
     self::$rootPath = substr($fileName, 0, $pos + 1);
@@ -116,10 +116,10 @@ class Core {
   }
 
   static function requireOtherFiles() {
-    $root = self::getRootPath();
-    require_once Str::portable("$root/phplib/third-party/smarty-3.1.30/Smarty.class.php");
-    require_once Str::portable("$root/phplib/third-party/idiorm/idiorm.php");
-    require_once Str::portable("$root/phplib/third-party/idiorm/paris.php");
+    $tp = __DIR__ . '/third-party';
+    require_once "{$tp}/smarty-3.1.30/Smarty.class.php";
+    require_once "{$tp}/idiorm/idiorm.php";
+    require_once "{$tp}/idiorm/paris.php";
   }
 
   static function getTempPath() {

@@ -23,12 +23,7 @@ abstract class Plugin {
     $names = Config::get('plugins.plugin', []);
 
     foreach ($names as $plugin) {
-      $filename = sprintf('%sphplib%splugins%s%s.php',
-                          Core::getRootPath(),
-                          DIRECTORY_SEPARATOR,
-                          DIRECTORY_SEPARATOR,
-                          $plugin);
-      require_once $filename;
+      require_once __DIR__ . "/plugins/{$plugin}.php";
       self::$plugins[] = new $plugin;
     }
   }

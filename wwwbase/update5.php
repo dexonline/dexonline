@@ -1,5 +1,5 @@
 <?php
-require_once("../phplib/Core.php");
+require_once '../phplib/Core.php';
 
 if (count($_GET) == 0) {
   Util::redirect("https://wiki.dexonline.ro/wiki/Protocol_de_exportare_a_datelor_v5");

@@ -1,5 +1,5 @@
 <?php
-require_once("../../phplib/Core.php");
+require_once '../../phplib/Core.php';
 User::mustHave(User::PRIV_EDIT);
 Util::assertNotMirror();
 

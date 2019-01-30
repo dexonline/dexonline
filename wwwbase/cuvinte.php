@@ -1,11 +1,10 @@
 <?php
 
-require_once("../phplib/Core.php");
+require_once '../phplib/Core.php';
 User::mustHave(User::PRIV_EDIT);
 
 const DEBUG = 0;
 
-require_once("../phplib/Core.php");
 $word_start = Request::get('i');
 $word_end = Request::get('e');
 $sources = Request::get('s');

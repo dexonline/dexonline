@@ -1,5 +1,5 @@
 <?php
-require_once("../phplib/Core.php");
+require_once '../phplib/Core.php';
 
 $file = Request::getFile('avatarFileName');
 $ext = pathinfo($file['name'], PATHINFO_EXTENSION);

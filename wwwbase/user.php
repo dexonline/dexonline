@@ -1,5 +1,5 @@
 <?php
-require_once("../phplib/Core.php");
+require_once '../phplib/Core.php';
 
 // Parse or initialize the GET/POST arguments
 $nick = Request::get('n');

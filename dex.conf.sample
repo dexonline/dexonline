@@ -22,82 +22,12 @@ xmlApi = 1;
 ; Enable JSON response when appending /json to the definition URL
 jsonApi = 1;
 
-[logging]
-
-; Log file name. Can also be "php://stdout" or "php://stderr"
-file = "/var/log/dexonline.log"
-
-; Maximum priority level. See <http://php.net/manual/en/function.syslog.php>.
-level = LOG_DEBUG
-
-[search-log]
-
-; Whether or not to log query-related information
-enabled = 0
-
-; Full name of the log file
-file = /var/log/dex-query.log
-
-; For each query, log at most this many results
-; If set to zero, then log only query information, but not the results
-results = 0
-
-; Log this fraction of queries, sampled uniformly at random
-; Possible values: 0.00 <= fraction <= 1.00
-fraction = 0.10
-
 ; This section handles donations through a third party.
 [euplatesc]
 ; Key for euplatesc.ro or 0 to disable the donation box.
 euPlatescKey = 0
 ; Merchant ID for euplatesc.ro or 0 to disable the donation box.
 euPlatescMid = 0
-
-; Banner settings
-[banner]
-; Type of banner to be served. Choices are "revive", "adsense", "pubgalaxy", "dfp", "fake" or "none".
-; The option "fake" displays a placeholder banner and can be used in development/beta
-; (so as not to steal real impressions from campaigns).
-type = fake
-
-; Strategy for moving the banner using JS. Can be one of:
-; * default: do not move the banner; leave the banner wherever the HTML has it
-; * dynamic: (maybe) move the banner, e.g. between two definitions.
-placement = default
-
-adsense_home = ""
-adsense_search = ""
-adsense_other = ""
-
-dfp_slot_home = ""
-dfp_slot_search = ""
-dfp_slot_other = ""
-dfp_id_home = ""
-dfp_id_search = ""
-dfp_id_other = ""
-
-pgSlot[] = ""
-pgDivId[] = ""
-pgWidth[] = ""
-pgHeight[] = ""
-pgClientMinWidth[] = ""
-pgClientMaxWidth[] = ""
-
-reviveUrl = "https://dexonline.ro/openx/www/delivery/asyncjs.php"
-reviveId = ""
-reviveZoneId1 = ""
-reviveWidth1 = ""
-reviveBreakpoint1 = ""
-reviveZoneId2 = ""
-reviveWidth2 = ""
-reviveBreakpoint2 = ""
-reviveZoneId3 = ""
-reviveWidth3 = ""
-
-[limits]
-
-limitFulltextSearch = 200
-limitTraineePendingDefinitions = 50
 
 [mail]
 
@@ -130,19 +60,6 @@ wotdImageWidth = 300
 
 ; We only accept WotD images for days within $interval days of today.
 interval = 31
-
-; settings for Elfinder, the web file manager
-[elfinder]
-
-; driver can be:
-; * "ftp", which uses the FTP server configuration in the [static] section;
-; * "local", which uses the local path and URL defined below.
-driver = local
-
-; path and URL are only meaningful when driver = local.
-; Path needs to be accessible and writable by the web server.
-path = /srv/http/elfinder/
-url = http://localhost/elfinder/
 
 ; connection info for OTRS (used to process donations automatically)
 ; NOTE: passwords are sent unencrypted. Do not run this from the outside.

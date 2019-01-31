@@ -7,19 +7,19 @@ class ElfinderUtil {
   // $subdirectory: path relative to the volume root
   // $alias: text to display instead of the volume name
   static function getOptions($subdirectory, $alias) {
-    $logger = new ElfinderSimpleLogger(Config::get('logging.file'));
+    $logger = new ElfinderSimpleLogger(Config::LOG_FILE);
 
-    $driver = Config::get('elfinder.driver');
+    $driver = Config::ELFINDER_DRIVER;
     switch ($driver) {
       case 'ftp':
         $root = [
           'driver'        => 'FTP',
-          'host'          => Config::get('static.host'),
-          'user'          => Config::get('static.user'),
-          'pass'          => Config::get('static.password'),
-          'path'          => Config::get('static.path') . $subdirectory,
-          'timeout'       => Config::get('static.timeout'),
-          'URL'           => Config::get('static.url') . $subdirectory,
+          'host'          => Config::FTP_HOST,
+          'user'          => Config::FTP_USER,
+          'pass'          => Config::FTP_PASSWORD,
+          'path'          => Config::FTP_PATH . $subdirectory,
+          'timeout'       => Config::FTP_TIMEOUT,
+          'URL'           => Config::STATIC_URL . $subdirectory,
           'ssl'           => true,
         ];
         break;
@@ -27,8 +27,8 @@ class ElfinderUtil {
       case 'local':
         $root = [
           'driver'        => 'LocalFileSystem',
-          'path'          => Config::get('elfinder.path') . '/' . $subdirectory,
-          'URL'           => Config::get('elfinder.url') . '/' . $subdirectory,
+          'path'          => Config::ELFINDER_PATH . '/' . $subdirectory,
+          'URL'           => Config::ELFINDER_URL . '/' . $subdirectory,
         ];
         @mkdir($root['path'], 0777, true); // make sure the full path exists
         break;

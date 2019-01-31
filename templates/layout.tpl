@@ -55,7 +55,7 @@
         <div class="col-md-12">
 
           {block "footer"}
-            {if $skinVariables.fbLarge && !$privateMode && !User::can(User::PRIV_ANY)}
+            {if Config::SKIN_FACEBOOK && !$privateMode && !User::can(User::PRIV_ANY)}
               <hr>
               {include "bits/facebook.tpl"}
               <hr>

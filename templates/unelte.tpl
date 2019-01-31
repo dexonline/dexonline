@@ -121,7 +121,7 @@
 
   <ul>
     <li>
-      {$url="{$cfg.static.url}download/dex-ff.xpi"}
+      {$url="{Config::STATIC_URL}download/dex-ff.xpi"}
       {t
         1=$url
         2="return installFirefoxSpellChecker(event);"}

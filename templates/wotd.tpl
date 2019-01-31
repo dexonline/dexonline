@@ -21,7 +21,7 @@
   <h3 class="clearfix">
     {t 1=$day 2=$monthName 3=$year}Word of the day for %2 %1, %3{/t}
 
-    {if $skinVariables.wotdSubscribe}
+    {if Config::SKIN_WOTD_SUBSCRIBE}
       <div id="wotdSocialMedia" class="pull-right">
         <div>
           <a href="#toggleContents" data-toggle="collapse">
@@ -100,7 +100,7 @@
     {/if}
   </div>
 
-  {if $skinVariables.wotdArchive}
+  {if Config::SKIN_WOTD_ARCHIVE}
     <br>
     <h3>{t}Word of the day archive{/t}</h3>
 

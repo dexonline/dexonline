@@ -1,14 +1,16 @@
-<ins id="theZone" data-revive-zoneid="" data-revive-id="{$cfg.banner.reviveId}"></ins>
+{$d=Config::BANNER_REVIVE}
+
+<ins id="theZone" data-revive-zoneid="" data-revive-id="{$d.id}"></ins>
 
 <script>
- var reviveZoneId1 = '{$cfg.banner.reviveZoneId1}';
- var reviveWidth1 = '{$cfg.banner.reviveWidth1}';
- var reviveBreakpoint1 = '{$cfg.banner.reviveBreakpoint1}';
- var reviveZoneId2 = '{$cfg.banner.reviveZoneId2}';
- var reviveWidth2 = '{$cfg.banner.reviveWidth2}';
- var reviveBreakpoint2 = '{$cfg.banner.reviveBreakpoint2}';
- var reviveZoneId3 = '{$cfg.banner.reviveZoneId3}';
- var reviveWidth3 = '{$cfg.banner.reviveWidth3}';
- var reviveUrl = '{$cfg.banner.reviveUrl}';
+ var reviveZoneId1 = '{$d.zoneId1}';
+ var reviveWidth1 = '{$d.width1}';
+ var reviveBreakpoint1 = '{$d.breakpoint1}';
+ var reviveZoneId2 = '{$d.zoneId2}';
+ var reviveWidth2 = '{$d.width2}';
+ var reviveBreakpoint2 = '{$d.breakpoint2}';
+ var reviveZoneId3 = '{$d.zoneId3}';
+ var reviveWidth3 = '{$d.width3}';
+ var reviveUrl = '{$d.url}';
  reviveInit();
 </script>

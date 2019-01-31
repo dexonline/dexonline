@@ -126,7 +126,7 @@
 
       <ul class="dropdown-menu">
         {if $showFlagTypo}
-          {if $skinVariables.typo}
+          {if Config::SKIN_TYPO}
             <li>
               <a href="#"
                 data-definition-id="{$def->id}"
@@ -177,7 +177,7 @@
         {/if}
 
         {if $showPermalink}
-          {if $skinVariables.permalink}
+          {if Config::SKIN_PERMALINK}
             <li>
               <a href="{$wwwRoot}definitie/{$def->lexicon}/{$def->id}"
                 title="link direct către această definiție">

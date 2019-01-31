@@ -12,7 +12,6 @@ const SEARCH_FULL_TEXT = 6;
 const SEARCH_LEXEME_ID = 7;
 
 const PREVIEW_LIMIT = 20; // how many definitions to show by default
-$limitFullTextDisplay = Config::get('limits.limitFulltextSearch', 500);
 
 // defLimit: how many definitions to display (null = not relevant)
 // paradigm: whether to display the paradigm for $entries
@@ -22,7 +21,7 @@ const DEFAULT_SEARCH_PARAMS = [
   'paradigm' => false,
   'trees' => false,
 ];
-$showTrees = Config::get('search.showTrees') && !Session::userPrefers(Preferences::NO_TREES);
+$showTrees = Config::SEARCH_SHOW_TREES && !Session::userPrefers(Preferences::NO_TREES);
 
 $searchParams = [
   SEARCH_REGEXP => DEFAULT_SEARCH_PARAMS,
@@ -140,7 +139,7 @@ if ($text) {
     // to 90. Then we print "100 definitions (at most 90 shown)".
     $extra['numDefinitionsFullText'] = count($defIds);
     $extra['stopWords'] = $stopWords;
-    $defIds = array_slice($defIds, 0, $limitFullTextDisplay);
+    $defIds = array_slice($defIds, 0, Config::LIMIT_FULL_TEXT_RESULTS);
 
     // load definitions in the given order
     foreach ($defIds as $id) {
@@ -451,7 +450,7 @@ switch ($format['name']) {
 }
 
 // Logging
-if (Config::get('search-log.enabled')) {
+if (Config::SEARCH_LOG_ENABLED) {
   $logDefinitions = isset($definitions) ? $definitions : [];
   $log = new SearchLog($cuv, $redirectFrom, $searchType, $redirect, $logDefinitions);
   $log->logData();
@@ -462,14 +461,13 @@ if (Config::get('search-log.enabled')) {
 function checkFormat() {
   $path = Request::get('format');
 
-  if ($path) { // '/json' or '/xml'
-    $f = str_replace('/', '', $path);
-    if (Config::get(sprintf('global.%sApi', $f))) {
-      return ['name' => $f, 'tpl_path' => $path];
-    }
+  if ($path == '/json' && Config::SEARCH_JSON_API) {
+    return ['name' => 'json', 'tpl_path' => '/json'];
+  } else if ($path == '/xml' && Config::SEARCH_XML_API) {
+    return ['name' => 'xml', 'tpl_path' => '/xml'];
+  } else {
+    return ['name' => 'html', 'tpl_path' => ''];
   }
-
-  return ['name' => 'html', 'tpl_path' => ''];
 }
 
 function getTab() {

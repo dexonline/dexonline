@@ -16,8 +16,30 @@ class Config {
 
   /******************************* Logging *******************************/
 
+  // Log file name. Can also be "php://stdout" or "php://stderr"
+  const LOG_FILE = '/var/log/dexonline.log';
+
+  // Maximum priority level. See <http://php.net/manual/en/function.syslog.php>.
+  const LOG_LEVEL = LOG_DEBUG;
+
   // Log DB queries at the bottom of each page when this user is logged in.
   const DEBUG_USER = '';
+
+  /****************************** Search log ******************************/
+
+  // Whether or not to log query-related information.
+  const SEARCH_LOG_ENABLED = false;
+
+  // Full name of the search log file.
+  const SEARCH_LOG_FILE = '/var/log/dex-query.log';
+
+  // For each query, log at most this many results.
+  // If set to zero, then log only query information, but not the results.
+  const SEARCH_LOG_RESULTS = 0;
+
+  // Log this fraction of queries, sampled uniformly at random.
+  // Possible values: 0.00 <= fraction <= 1.00.
+  const SEARCH_LOG_FRACTION = 0.10;
 
   /***************************** Localization *****************************/
 
@@ -31,12 +53,16 @@ class Config {
 
   /**************************** Search options ****************************/
 
-  // autocomplete
+  // Autocomplete options
   const SEARCH_AC_ENABLED = true;
   const SEARCH_AC_MIN_CHARS = 3;
   const SEARCH_AC_LIMIT = 10;
 
-  // whether to show meaning trees (on the syntesis tab)
+  // Support JSON/XML responses by appending /json or /xml to definition URLs.
+  const SEARCH_JSON_API = true;
+  const SEARCH_XML_API = true;
+
+  // Whether to show meaning trees (on the syntesis tab)
   const SEARCH_SHOW_TREES = true;
 
   /*********************** Functional test options ***********************/
@@ -49,6 +75,11 @@ class Config {
 
   // Test interface language
   const TEST_LOCALE = 'ro_RO.utf8';
+
+  /**************************** Various limits ****************************/
+
+  const LIMIT_FULL_TEXT_RESULTS = 200;
+  const LIMIT_TRAINEE_PENDING_DEFS = 50;
 
   /**************************** Skin elements ****************************/
 
@@ -78,6 +109,43 @@ class Config {
   const FTP_PASSWORD = '';
   const FTP_PATH = '';
   const FTP_TIMEOUT = 30;
+
+  /************* settings for Elfinder, the web file manager *************/
+
+  // Can be one of:
+  // * 'ftp', which uses the FTP options above;
+  // * 'local', which uses the local path and URL defined below.
+  const ELFINDER_DRIVER = 'local';
+
+  // Path and URL are only meaningful when driver = local.
+  // Path needs to be accessible and writable by the web server.
+  const ELFINDER_PATH = '/srv/http/elfinder/';
+  const ELFINDER_URL = 'http://localhost/elfinder/';
+
+  /**************************** Banner options ****************************/
+
+  // Type of banner to be served. Choices are 'adsense', 'dfp', 'pubgalaxy',
+  // 'revive', 'fake' or 'none'.  The option 'fake' displays a
+  // placeholder banner and can be used in development/beta (so as not to
+  // steal real impressions from campaigns).
+  const BANNER_TYPE = 'revive';
+
+  // Strategy for moving the banner using JS. Can be one of:
+  // * default: do not move the banner; leave the banner wherever the HTML has it;
+  // * dynamic: (maybe) move the banner, e.g. between two definitions.
+  const BANNER_PLACEMENT = 'default';
+
+  // AdSense options
+  const BANNER_ADSENSE = [];
+
+  // DoubleClick for Publishers options
+  const BANNER_DFP = [];
+
+  // PubGalaxy options
+  const BANNER_PG = [];
+
+  // Revive options
+  const BANNER_REVIVE = [];
 
   /******************************* Plugins *******************************/
 

@@ -5,7 +5,7 @@
 
 ; Database connection
 ; database = "mysql://user[:password]@host/database"
-database = mysql://root@localhost/DEX
+database = mysql://root@localhost/dexonline
 
 ; Show some debug information when this user is logged in.
 debugUser = ""
@@ -18,9 +18,10 @@ maintenanceMode = 0
 
 ; Interface language
 locale = ro_RO.utf8
-availableLocales[ro_RO.utf8] = "română"
 availableLocales[en_US.utf8] = "English"
+availableLocales[es_ES.utf8] = "español"
 availableLocales[hu_HU.utf8] = "magyar"
+availableLocales[ro_RO.utf8] = "română"
 
 ; Show our web host logo
 hostedBy = ""
@@ -53,7 +54,7 @@ jsonApi = 1;
 file = "/var/log/dexonline.log"
 
 ; Maximum priority level. See <http://php.net/manual/en/function.syslog.php>.
-level = LOG_INFO
+level = LOG_DEBUG
 
 [search-log]
 

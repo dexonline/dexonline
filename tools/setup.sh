@@ -10,11 +10,11 @@ cd $ROOT_DIR
 echo "The root of your client appears to be $ROOT_DIR"
 
 # Create a copy of the config file unless it already exists
-if [ ! -e dex.conf ]; then
-  echo "* copying dex.conf.sample to dex.conf"
-  cp dex.conf.sample dex.conf
+if [ ! -e phplib/Config.php ]; then
+  echo "* copying phplib/Config.php.sample to phplib/Config.php"
+  cp phplib/Config.php.sample phplib/Config.php
 else
-  echo "* dex.conf already exists, skipping"
+  echo "* phplib/Config.php already exists, skipping"
 fi
 
 # Create a copy of the .htaccess file unless it already exists

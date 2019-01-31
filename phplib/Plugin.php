@@ -20,7 +20,7 @@ abstract class Plugin {
   /* include and instantiate plugins defined in dex.conf */
   static function registerPlugins() {
     self::$plugins = [];
-    $names = Config::get('plugins.plugin', []);
+    $names = Config::PLUGINS;
 
     foreach ($names as $plugin) {
       require_once __DIR__ . "/plugins/{$plugin}.php";

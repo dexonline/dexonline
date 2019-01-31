@@ -1,4 +1,4 @@
-{if !$cfg.global.developmentMode && !$privateMode}
+{if !Config::DEVELOPMENT_MODE && !$privateMode}
   <script>
    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
    document.write(unescape("%3Cscript src='" + gaJsHost +

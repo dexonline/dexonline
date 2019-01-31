@@ -189,7 +189,6 @@ class SmartyWrap {
         'currentYear' => date("Y"),
         'suggestNoBanner' => Util::suggestNoBanner(),
         'privateMode' => Session::userPrefers(Preferences::PRIVATE_MODE),
-        'cfg' => Config::getAll(),
       ]);
     }
   }
@@ -324,7 +323,7 @@ class SmartyWrap {
   static function display($templateName, $hardened = false) {
     self::addCss('main', 'bootstrap', 'select2');
     self::addJs('jquery', 'dex', 'bootstrap', 'select2');
-    if (Config::get('search.acEnable')) {
+    if (Config::SEARCH_AC_ENABLED) {
       self::addCss('jqueryui');
       self::addJs('jqueryui');
     }
@@ -336,7 +335,6 @@ class SmartyWrap {
     }
     self::addSameNameFiles($templateName);
     self::$cssFiles[] = "responsive.css";
-    self::assign('skinVariables', Config::getSection('skin'));
     if (!$hardened) {
       if (User::can(User::PRIV_ANY)) {
         self::assign('recentLinks', RecentLink::load());

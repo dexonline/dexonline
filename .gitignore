@@ -1,5 +1,6 @@
 # config files storing passwords and client-specific options
 dex.conf
+phplib/Config.php
 wwwbase/.htaccess
 tools/crawler/crawler.conf
 

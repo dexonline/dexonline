@@ -1,0 +1,89 @@
+<?php
+
+class Config {
+
+  // Database connection. Format: mysql://user[:password]@host/database
+  const DATABASE = 'mysql://root@localhost/dexonline';
+
+  // When true, hide the Google Analytics code and to allow fake user logins.
+  const DEVELOPMENT_MODE = true;
+
+  // Display a maintenance page when true. The database must exist, but it may be empty.
+  const MAINTENANCE_MODE = false;
+
+  // Folder for temporary data
+  const TEMP_DIR = '/tmp';
+
+  /******************************* Logging *******************************/
+
+  // Log DB queries at the bottom of each page when this user is logged in.
+  const DEBUG_USER = '';
+
+  /***************************** Localization *****************************/
+
+  const LOCALES = [
+    'en_US.utf8' => 'English',
+    'es_ES.utf8' => 'español',
+    'hu_HU.utf8' => 'magyar',
+    'ro_RO.utf8' => 'română',
+  ];
+  const DEFAULT_LOCALE = 'ro_RO.utf8';
+
+  /**************************** Search options ****************************/
+
+  // autocomplete
+  const SEARCH_AC_ENABLED = true;
+  const SEARCH_AC_MIN_CHARS = 3;
+  const SEARCH_AC_LIMIT = 10;
+
+  // whether to show meaning trees (on the syntesis tab)
+  const SEARCH_SHOW_TREES = true;
+
+  /*********************** Functional test options ***********************/
+
+  // When true, use the test database. Only needed to run functional tests.
+  const TEST_MODE = false;
+
+  // Format: mysql://user[:password]@host/database
+  const TEST_DATABASE = 'mysql://root@localhost/dexonline_test';
+
+  // Test interface language
+  const TEST_LOCALE = 'ro_RO.utf8';
+
+  /**************************** Skin elements ****************************/
+
+  const SKIN_BANNER = true;
+  const SKIN_FACEBOOK = true;
+  const SKIN_PERMALINK = true;
+  const SKIN_TYPO = true;
+  const SKIN_WIDGETS = true;
+  const SKIN_WOTD_ARCHIVE = true;
+  const SKIN_WOTD_SUBSCRIBE = true;
+
+  // Web host logo. A value of "foo" should have a corresponding template in
+  // templates/hosting/foo.tpl.
+  const SKIN_HOSTED_BY = '';
+
+  /************************ Static server options ************************/
+
+  const STATIC_URL = 'https://dexonline.ro/static/';
+
+  // URL pattern for page images
+  const PAGE_URL_PATTERN = '';
+
+  /************ FTP access (for uploads to the static server) ************/
+
+  const FTP_HOST = 'static.dexonline.ro';
+  const FTP_USER = '';
+  const FTP_PASSWORD = '';
+  const FTP_PATH = '';
+  const FTP_TIMEOUT = 30;
+
+  /******************************* Plugins *******************************/
+
+  // ; array of class names, each one residing in phplib/plugins and implementing a plugin
+  const PLUGINS = [];
+
+  // Each plugin expects some plugin-specific variables, which should be listed below.
+
+}

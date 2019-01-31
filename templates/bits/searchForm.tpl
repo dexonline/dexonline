@@ -62,8 +62,8 @@
       </div>
     </form>
 
-    {if $cfg.search.acEnable}
-      <div id="autocompleteEnabled" data-min-chars="{$cfg.search.acMinChars}"></div>
+    {if Config::SEARCH_AC_ENABLED}
+      <div id="autocompleteEnabled" data-min-chars="{Config::SEARCH_AC_MIN_CHARS}"></div>
     {/if}
   </div>
 </section>

@@ -193,7 +193,7 @@ class Util {
 
   static function suggestNoBanner() {
     return
-      !Config::get('skin.banner') || // disabled by config file
+      !Config::SKIN_BANNER || // disabled by config file
       (User::getActive() && User::getActive()->noAdsUntil > time()); // user is an active donor
   }
 

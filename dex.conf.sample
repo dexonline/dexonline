@@ -3,38 +3,12 @@
 
 [global]
 
-; Database connection
-; database = "mysql://user[:password]@host/database"
-database = mysql://root@localhost/dexonline
-
-; Show some debug information when this user is logged in.
-debugUser = ""
-
-; True on development installations. Used to hide the Google analytics code and to allow fake user logins
-developmentMode = 1
-
-; Display a maintenance page when true. Requires the DB to exist, but it may be empty.
-maintenanceMode = 0
-
-; Interface language
-locale = ro_RO.utf8
-availableLocales[en_US.utf8] = "English"
-availableLocales[es_ES.utf8] = "español"
-availableLocales[hu_HU.utf8] = "magyar"
-availableLocales[ro_RO.utf8] = "română"
-
-; Show our web host logo
-hostedBy = ""
-
 ; LOC versions (for scrabble users)
 locVersions[] = 4.0 2007-10-09
 locVersions[] = 4.1 2008-01-11
 locVersions[] = 5.0 2011-01-24
 locVersions[] = 6.0 2018-02-11
 defaultLocVersion = 5.0
-
-; Folder for temporary data
-tempDir = /tmp
 
 ; Max number of bookmarks/user
 maxBookmarks = 500
@@ -71,18 +45,6 @@ results = 0
 ; Log this fraction of queries, sampled uniformly at random
 ; Possible values: 0.00 <= fraction <= 1.00
 fraction = 0.10
-
-[testing]
-
-; When true, put the website in testing mode and use the testing database.
-enabled = false
-
-; Testing interface language
-locale = ro_RO.utf8
-
-; Database connection
-; database = "mysql://user[:password]@host/database"
-database = "mysql://root@localhost/DEX_testing"
 
 ; This section handles donations through a third party.
 [euplatesc]
@@ -132,29 +94,10 @@ reviveBreakpoint2 = ""
 reviveZoneId3 = ""
 reviveWidth3 = ""
 
-; Configure skin elements
-[skin]
-banner = true
-fbLarge = true
-fullMenu = true
-permalink = true
-typo = true
-widgets = true
-wotdArchive = true
-wotdSubscribe = true
-
 [limits]
 
 limitFulltextSearch = 200
 limitTraineePendingDefinitions = 50
-
-[search]
-acEnable = true
-acMinChars = 3
-acLimit = 10
-
-; Whether to show meaning trees
-showTrees = false
 
 [mail]
 
@@ -187,21 +130,6 @@ wotdImageWidth = 300
 
 ; We only accept WotD images for days within $interval days of today.
 interval = 31
-
-; settings for the static server
-[static]
-
-url = https://dexonline.ro/static/
-
-; URL pattern for page images
-pageUrlPattern = ""
-
-; the remaining settings are only necessary for FTP upload
-host = static.dexonline.ro
-user = ""
-password = ""
-path = ""
-timeout = 30
 
 ; settings for Elfinder, the web file manager
 [elfinder]
@@ -240,10 +168,3 @@ parser[mda2] = Mda2Parser
 
 tagsToIgnore[] = 404 ; incomplete definition
 tagsToIgnore[] = 405 ; missing etymology
-
-[plugins]
-
-; array of class names, each one residing in phplib/plugins and implementing a plugin
-; plugin[] = ClassName
-
-; Each plugin expects some plugin-specific variables, which should be listed below.

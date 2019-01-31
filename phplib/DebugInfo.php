@@ -28,7 +28,7 @@ class DebugInfo {
     return
       self::$enabled &&
       User::getActive() &&
-      (User::getActive()->nick == Config::get('global.debugUser'));
+      (User::getActive()->nick == Config::DEBUG_USER);
   }
 
   // Measures the time since the last clock reset and appends a message

@@ -223,13 +223,6 @@ class Str {
     return $tpl_output;
   }
 
-  /** Simple wrapper to call parse_str and return the array it produces **/
-  static function parseStr($s) {
-    $result = [];
-    parse_str($s, $result);
-    return $result;
-  }
-
   static function shorten($s, $maxLength) {
     $l = mb_strlen($s);
     if ($l >= $maxLength + 3) {

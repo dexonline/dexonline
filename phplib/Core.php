@@ -40,7 +40,7 @@ class Core {
     LocaleUtil::init();
     DebugInfo::init();
     Plugin::init();
-    if (Request::isWeb() && Config::get('global.maintenanceMode')) {
+    if (Request::isWeb() && Config::MAINTENANCE_MODE) {
       SmartyWrap::display('maintenance.tpl', true);
       exit;
     }
@@ -127,8 +127,8 @@ class Core {
   }
 
   static function defineTempPath() {
-    $temp = Config::get('global.tempDir', sys_get_temp_dir());
-    if ( is_dir( $temp ) && is_writable( $temp ) ) {
+    $temp = Config::TEMP_DIR ?: sys_get_temp_dir();
+    if (is_dir($temp) && is_writable($temp)) {
       self::$tempPath = $temp;
     } else {
       throw new Exception('Directorul temporar specificat nu poate fi accesat.');

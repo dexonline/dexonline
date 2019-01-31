@@ -81,13 +81,13 @@ class WordOfTheDay extends BaseObject implements DatedObject {
 
   function getImageUrl() {
     $pic = $this->image ? $this->image : self::DEFAULT_IMAGE;
-    return Config::get('static.url') . 'img/wotd/' . $pic;
+    return Config::STATIC_URL . 'img/wotd/' . $pic;
   }
 
   function getThumbUrl($size) {
     $pic = $this->image ? $this->image : self::DEFAULT_IMAGE;
     return sprintf('%simg/wotd/thumb%s/%s',
-                   Config::get('static.url'),  $size, $pic);
+                   Config::STATIC_URL,  $size, $pic);
   }
 
   function getSmallThumbUrl() {

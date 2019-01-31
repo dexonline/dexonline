@@ -2,21 +2,13 @@
 
 class LocaleUtil {
   const COOKIE_NAME = 'locale';
-  private static $available;
 
   static function init() {
-    self::$available = Config::get('global.availableLocales');
     self::set(self::getCurrent());
   }
 
-  static function getAll() {
-    return self::$available;
-  }
-
   static function getFromConfig() {
-    return Config::get('testing.enabled')
-      ? Config::get('testing.locale')
-      : Config::get('global.locale');
+    return Config::TEST_MODE ? Config::TEST_LOCALE : Config::DEFAULT_LOCALE;
   }
 
   // Returns the locale as dictated, in order of priority, by
@@ -25,13 +17,9 @@ class LocaleUtil {
   static function getCurrent() {
     $locale = self::getFromConfig();
 
-    if (isset($_COOKIE[self::COOKIE_NAME])) {
-      $locale = $_COOKIE[self::COOKIE_NAME];
-    }
-
-    // sanity check
-    if (!isset(self::$available[$locale])) {
-      $locale = self::getFromConfig();
+    $cookie = $_COOKIE[self::COOKIE_NAME] ?? null;
+    if ($cookie && isset(Config::LOCALES[$cookie])) { // sanity check
+      $locale = $cookie;
     }
 
     return $locale;
@@ -40,7 +28,7 @@ class LocaleUtil {
   private static function set($locale) {
     mb_internal_encoding('UTF-8');
 
-    //Workaround for Windows lovers
+    // workaround for Windows lovers
     if (OS::getOS() === OS::OS_WIN) {
       putenv("LC_ALL=$locale");
     }
@@ -54,7 +42,7 @@ class LocaleUtil {
 
   // changes the locale and stores it in a cookie
   static function change($id) {
-    if (!isset(self::$available[$id])) {
+    if (!isset(Config::LOCALES[$id])) {
       return;
     }
 

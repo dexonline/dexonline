@@ -46,7 +46,7 @@ class FileCache {
   }
 
   private static function getFileName($key) {
-    return Config::get('global.tempDir') . self::CACHE_PREFIX . $key;
+    return Config::TEMP_DIR . self::CACHE_PREFIX . $key;
   }
 
   static function getWordCount() {

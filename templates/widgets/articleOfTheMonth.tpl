@@ -6,7 +6,7 @@
   <div class="col-lg-4 col-md-12 col-sm-12 col-xs-6 widget-thumbnail">
     <img
       alt="{t}article of the month{/t}"
-      src="{$cfg.static.url}img/wotd/thumb88/misc/papirus.png"
+      src="{Config::STATIC_URL}img/wotd/thumb88/misc/papirus.png"
       class="widget-icon">
   </div>
 </a>

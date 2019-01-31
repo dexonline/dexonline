@@ -23,7 +23,7 @@ class WordOfTheMonth extends BaseObject implements DatedObject {
 
   function getImageUrl() {
     if ($this->image) {
-      return Config::get('static.url') . 'img/wotd/cuvantul-lunii/' . $this->image;
+      return Config::STATIC_URL . 'img/wotd/cuvantul-lunii/' . $this->image;
     }
     return null;
   }
@@ -32,7 +32,7 @@ class WordOfTheMonth extends BaseObject implements DatedObject {
   function getThumbUrl($size) {
     $pic = $this->image ? $this->image : self::DEFAULT_IMAGE;
     return sprintf('%simg/wotd/thumb%s/cuvantul-lunii/%s',
-                   Config::get('static.url'),  $size, $pic);
+                   Config::STATIC_URL,  $size, $pic);
   }
 
   function getMediumThumbUrl() {

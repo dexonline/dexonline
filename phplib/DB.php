@@ -8,9 +8,9 @@ class DB {
   static $database;
 
   static function init() {
-    self::$dsn = Config::get('testing.enabled')
-               ? Config::get('testing.database')
-               : Config::get('global.database');
+    self::$dsn = Config::TEST_MODE
+      ? Config::TEST_DATABASE
+      : Config::DATABASE;
     $parts = self::splitDsn(self::$dsn);
     self::$user = $parts['user'];
     self::$password = $parts['password'];

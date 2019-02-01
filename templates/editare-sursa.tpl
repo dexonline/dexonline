@@ -65,7 +65,7 @@
             <div class="form-group">
               <label>tipul sursei</label>
               <select class="form-control" name="sourceTypeId">
-                <option>Fără categorie</option>
+                <option value="0">Fără categorie</option>
                 {foreach $sourceTypes as $type}
                   <option value="{$type->id}" {if $src->sourceTypeId == $type->id}selected{/if}>
                     {$type->name}
@@ -77,7 +77,7 @@
             <div class="form-group">
               <label>managerul dicționarului</label>
               <select class="form-control" name="managerId">
-                <option>Fără moderator</option>
+                <option value="0">Fără moderator</option>
                 {foreach $managers as $manager}
                   <option value="{$manager->id}" {if $src->managerId == $manager->id}selected{/if}>
                     {$manager->name}
@@ -100,7 +100,7 @@
             <div class="form-group">
               <label>reforma ortografică</label>
               <select class="form-control" name="reformId">
-                <option>Fără categorie</option>
+                <option value="0">Fără categorie</option>
                 {foreach $reforms as $reform}
                   <option value="{$reform->id}" {if $src->reformId == $reform->id}selected{/if}>
                     {$reform->name}

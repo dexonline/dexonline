@@ -16,22 +16,44 @@
       "id": "da9fd4ac-3153-429a-9c6f-742056c9c34d",
       "comment": "",
       "command": "verifyElementPresent",
-      "target": "linkText=Despre noi",
-      "targets": [],
+      "target": "linkText=despre noi",
+      "targets": [
+        ["linkText=despre noi", "linkText"],
+        ["css=.nav:nth-child(1) > .dropdown:nth-child(1) > .dropdown-toggle", "css:finder"],
+        ["css=a.dropdown-toggle", "css"],
+        ["xpath=//a[contains(text(),'despre noi')]", "xpath:link"],
+        ["xpath=//div[@id='navMenu']/ul/li/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '#')]", "xpath:href"],
+        ["xpath=//li/a", "xpath:position"]
+      ],
       "value": ""
     }, {
       "id": "9b6ee84e-d339-4d3e-a3b4-b290159aa4f0",
       "comment": "",
       "command": "verifyElementPresent",
-      "target": "linkText=Implică-te",
-      "targets": [],
+      "target": "linkText=implică-te",
+      "targets": [
+        ["linkText=implică-te", "linkText"],
+        ["css=.nav:nth-child(1) > .dropdown:nth-child(2) > .dropdown-toggle", "css:finder"],
+        ["xpath=//a[contains(text(),'implică-te')]", "xpath:link"],
+        ["xpath=//div[@id='navMenu']/ul/li[2]/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '#')])[2]", "xpath:href"],
+        ["xpath=//div[3]/ul/li[2]/a", "xpath:position"]
+      ],
       "value": ""
     }, {
       "id": "c1af77e2-ce20-4360-b26d-5e4af2c70c2b",
       "comment": "",
       "command": "verifyElementPresent",
-      "target": "linkText=Articole și resurse",
-      "targets": [],
+      "target": "linkText=resurse",
+      "targets": [
+        ["linkText=resurse", "linkText"],
+        ["css=.dropdown:nth-child(3) > .dropdown-toggle", "css:finder"],
+        ["xpath=//a[contains(text(),'resurse')]", "xpath:link"],
+        ["xpath=//div[@id='navMenu']/ul/li[3]/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '#')])[3]", "xpath:href"],
+        ["xpath=//div[3]/ul/li[3]/a", "xpath:position"]
+      ],
       "value": ""
     }, {
       "id": "d208ca88-5fce-4d5f-9608-7f15fe480d0c",
@@ -337,8 +359,13 @@
       "comment": "",
       "command": "verifyText",
       "target": "css=h3",
-      "targets": [],
-      "value": "O definiție cuprinde toate cuvintele căutate"
+      "targets": [
+        ["css=h3", "css:finder"],
+        ["css=h3", "css"],
+        ["xpath=//div[@id='resultsTab']/h3", "xpath:idRelative"],
+        ["xpath=//h3", "xpath:position"]
+      ],
+      "value": "O definiție conține toate cuvintele căutate"
     }, {
       "id": "9326315e-4504-4001-8516-efe45349b004",
       "comment": "",
@@ -502,14 +529,25 @@
       "comment": "",
       "command": "verifyText",
       "target": "css=h1",
-      "targets": [],
+      "targets": [
+        ["css=h1", "css:finder"],
+        ["css=h1", "css"],
+        ["xpath=//h1", "xpath:position"]
+      ],
       "value": "Articole lingvistice"
     }, {
       "id": "04842fa2-fd69-44b9-9042-49621b58a06c",
       "comment": "",
       "command": "verifyText",
-      "target": "xpath=(//a[contains(text(),'Ghid de exprimare')])[2]",
-      "targets": [],
+      "target": "linkText=Ghid de exprimare",
+      "targets": [
+        ["linkText=Ghid de exprimare", "linkText"],
+        ["css=ul:nth-child(4) > li:nth-child(1) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Ghid de exprimare')]", "xpath:link"],
+        ["xpath=//div[@id='linguisticArticles']/ul[2]/li/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '/dexonline/wwwbase/articol/Ghid_de_exprimare')])[2]", "xpath:href"],
+        ["xpath=//main/div/div/ul[2]/li/a", "xpath:position"]
+      ],
       "value": "Ghid de exprimare"
     }, {
       "id": "0ce8a642-3f4b-4407-b459-bfbb5d3e73b4",
@@ -533,8 +571,15 @@
       "id": "19bce411-f4d4-4d37-9daf-a0cbd89ef6a6",
       "comment": "",
       "command": "click",
-      "target": "xpath=(//a[contains(text(),'Ghid de exprimare')])[2]",
-      "targets": [],
+      "target": "linkText=Ghid de exprimare",
+      "targets": [
+        ["linkText=Ghid de exprimare", "linkText"],
+        ["css=ul:nth-child(4) > li:nth-child(1) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Ghid de exprimare')]", "xpath:link"],
+        ["xpath=//div[@id='linguisticArticles']/ul[2]/li/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '/dexonline/wwwbase/articol/Ghid_de_exprimare')])[2]", "xpath:href"],
+        ["xpath=//main/div/div/ul[2]/li/a", "xpath:position"]
+      ],
       "value": ""
     }, {
       "id": "ba04da48-ee91-4059-b990-c1d3acc01441",
@@ -600,8 +645,15 @@
       "id": "0fb9247a-482d-4100-a8d2-85752b4cc951",
       "comment": "",
       "command": "verifyText",
-      "target": "xpath=(//a[contains(text(),'Ghid de exprimare')])[2]",
-      "targets": [],
+      "target": "linkText=Ghid de exprimare",
+      "targets": [
+        ["linkText=Ghid de exprimare", "linkText"],
+        ["css=#resultsTab li:nth-child(2) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Ghid de exprimare')]", "xpath:link"],
+        ["xpath=//div[@id='resultsTab']/ul/li[2]/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '/dexonline/wwwbase/articol/Ghid_de_exprimare')])[2]", "xpath:href"],
+        ["xpath=//div/div/div/ul/li[2]/a", "xpath:position"]
+      ],
       "value": "Ghid de exprimare"
     }, {
       "id": "914864a6-f407-4ac8-a56c-fcf562a6c7f3",
@@ -834,7 +886,7 @@
       "command": "verifyText",
       "target": "xpath=//tr[6]/td[3]",
       "targets": [],
-      "value": "ladă, lado"
+      "value": "ladălado"
     }, {
       "id": "7f0ac60b-e50c-41a0-a0d8-cbff9313aeb6",
       "comment": "",
@@ -1170,15 +1222,23 @@
       "id": "7fea537f-c508-4154-84f7-186614194099",
       "comment": "",
       "command": "verifyElementPresent",
-      "target": "linkText=Autentificare",
-      "targets": [],
+      "target": "css=.dropdown-menu > li:nth-child(2) span",
+      "targets": [
+        ["css=.dropdown-menu > li:nth-child(2) span", "css:finder"],
+        ["xpath=//div[@id='navMenu']/ul[2]/li[2]/ul/li[2]/a/span", "xpath:idRelative"],
+        ["xpath=//li[2]/ul/li[2]/a/span", "xpath:position"]
+      ],
       "value": ""
     }, {
       "id": "115b9af6-2cf6-42db-8dd8-4d472e41a37d",
       "comment": "",
       "command": "click",
-      "target": "linkText=Autentificare",
-      "targets": [],
+      "target": "css=.dropdown-menu > li:nth-child(2) span",
+      "targets": [
+        ["css=.dropdown-menu > li:nth-child(2) span", "css:finder"],
+        ["xpath=//div[@id='navMenu']/ul[2]/li[2]/ul/li[2]/a/span", "xpath:idRelative"],
+        ["xpath=//li[2]/ul/li[2]/a/span", "xpath:position"]
+      ],
       "value": ""
     }, {
       "id": "84ab82ee-326f-4d0d-8b79-338753a36733",
@@ -1245,22 +1305,35 @@
       "id": "a48f76a4-bafa-4a06-85d6-26fe2001926b",
       "comment": "",
       "command": "verifyElementPresent",
-      "target": "linkText=Pagina moderatorului",
-      "targets": [],
+      "target": "linkText=pagina moderatorului",
+      "targets": [
+        ["css=.dropdown-menu > li:nth-child(1) span", "css:finder"],
+        ["css=ul.dropdown-menu > li > a > span", "css"],
+        ["xpath=//div[@id='navMenu']/ul[2]/li[2]/ul/li/a/span", "xpath:idRelative"],
+        ["xpath=//li[2]/ul/li/a/span", "xpath:position"]
+      ],
       "value": ""
     }, {
       "id": "ff9eb0fa-fa09-4740-91dc-9d1be9c95966",
       "comment": "",
       "command": "verifyElementPresent",
-      "target": "linkText=Profilul meu",
-      "targets": [],
+      "target": "linkText=profilul meu",
+      "targets": [
+        ["css=li:nth-child(5) span", "css:finder"],
+        ["xpath=//div[@id='navMenu']/ul[2]/li[2]/ul/li[5]/a/span", "xpath:idRelative"],
+        ["xpath=//li[5]/a/span", "xpath:position"]
+      ],
       "value": ""
     }, {
       "id": "f60916dd-5c06-40f4-9d51-a451c3f62fb8",
       "comment": "",
       "command": "verifyElementPresent",
-      "target": "linkText=Închide sesiunea",
-      "targets": [],
+      "target": "linkText=închide sesiunea",
+      "targets": [
+        ["css=li:nth-child(7) span", "css:finder"],
+        ["xpath=//div[@id='navMenu']/ul[2]/li[2]/ul/li[7]/a/span", "xpath:idRelative"],
+        ["xpath=//li[7]/a/span", "xpath:position"]
+      ],
       "value": ""
     }]
   }, {
@@ -1315,7 +1388,7 @@
       "command": "verifyText",
       "target": "css=a.bookmarkAddButton > span",
       "targets": [],
-      "value": "adăugat la favorite"
+      "value": "adăugată la favorite"
     }, {
       "id": "2eb1cfd9-1f68-42df-afb7-e8992375bd94",
       "comment": "",
@@ -1327,7 +1400,7 @@
       "id": "55aebe9b-312e-4f2f-ab7e-c770c0bc160b",
       "comment": "",
       "command": "click",
-      "target": "linkText=Cuvinte favorite",
+      "target": "linkText=cuvinte favorite",
       "targets": [],
       "value": ""
     }, {
@@ -1336,7 +1409,7 @@
       "command": "verifyText",
       "target": "css=h3",
       "targets": [],
-      "value": "Lista cuvintelor favorite pentru john (John Smith)"
+      "value": "Cuvinte favorite"
     }, {
       "id": "8e5eaafb-56c9-4de7-9721-91934b08299d",
       "comment": "",
@@ -1365,7 +1438,7 @@
       "command": "verifyText",
       "target": "css=a.bookmarkRemoveButton > span",
       "targets": [],
-      "value": "șterge de la favorite"
+      "value": "șterge dintre favorite"
     }, {
       "id": "73f46317-fcdb-4437-91d8-6fb25a08b0df",
       "comment": "",
@@ -2715,10 +2788,11 @@
       "id": "cc523792-2d06-4b34-9ea9-ce35085875e5",
       "comment": "",
       "command": "verifyElementPresent",
-      "target": "linkText= argou2",
+      "target": "linkText=argou2",
       "targets": [
-        ["css=span.tag-tooltip > a.label.label-default ", "css"],
+        ["linkText=argou2", "linkText"],
         ["css=.tag-tooltip > .label", "css:finder"],
+        ["css=span.tag-tooltip > a.label.label-default ", "css"],
         ["xpath=//a[contains(text(),'argou2')]", "xpath:link"],
         ["xpath=//a[contains(@href, '/dexonline/wwwbase/eticheta.php?id=3')]", "xpath:href"],
         ["xpath=//span[2]/a", "xpath:position"]
@@ -3620,7 +3694,7 @@
       "id": "e49e1ba2-54b4-4afd-a2c2-30203a41cece",
       "comment": "",
       "command": "click",
-      "target": "linkText=Închide sesiunea",
+      "target": "linkText=închide sesiunea",
       "targets": [
         ["linkText=Închide sesiunea", "linkText"],
         ["css=.open li:nth-child(7) > a", "css:finder"],
@@ -3688,7 +3762,7 @@
         ["css=.alert", "css:finder"],
         ["xpath=//div/div/div/div", "xpath:position"]
       ],
-      "value": "×\\nInterface language changed. Definitions are always in Romanian (this cannot be changed)."
+      "value": "×\\nInterface language changed. Definition text and external links are always in Romanian."
     }, {
       "id": "360c2ec2-02df-49e1-9380-a15456afef81",
       "comment": "",
@@ -3734,7 +3808,7 @@
         ["css=.alert", "css:finder"],
         ["xpath=//div/div/div/div", "xpath:position"]
       ],
-      "value": "×\\nAm schimbat limba interfeței. Definițiile sunt mereu în română (acest lucru nu poate fi schimbat)."
+      "value": "×\\nAm schimbat limba interfeței. Textul definițiilor și legăturile externe sunt mereu în română."
     }, {
       "id": "31febdc8-f009-4d3d-b49f-027cc0d4efe5",
       "comment": "",

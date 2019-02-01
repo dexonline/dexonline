@@ -16,7 +16,7 @@ class SearchLog {
    * @return void
    **/
   function __construct($query, $queryBeforeRedirect, $searchType, $redirect = false, &$results = null) {
-    if (!Config::get('search-log.enabled') || lcg_value() > Config::get('search-log.fraction')) {
+    if (!Config::SEARCH_LOG_ENABLED || lcg_value() > Config::SEARCH_LOG_FRACTION) {
       $this->query = null;
       return false;
     }
@@ -25,7 +25,7 @@ class SearchLog {
     $this->searchType = $searchType;
     if (Session::has('user')) {
       $this->registeredUser = 'y';
-      $this->preferences = $_SESSION['user']->preferences; 
+      $this->preferences = $_SESSION['user']->preferences;
     }
     else {
       $this->registeredUser = 'n';
@@ -34,16 +34,16 @@ class SearchLog {
     $this->resultCount = count($results);
     $this->redirect = ($redirect ? 'y' : 'n');
     $this->resultList = '';
-    
+
     if ($results != null) {
-      $numResultsToLog = min(count($results), Config::get('search-log.results'));
+      $numResultsToLog = min(count($results), Config::SEARCH_LOG_RESULTS);
       $this->resultList = '';
       for ($i = 0; $i < $numResultsToLog; $i++) {
         $this->resultList .= ($this->resultList ? ',' : '') . $results[$i]->id;
       }
     }
   }
-  
+
   /**
    * Saves an entry into the log table
    * @access public
@@ -55,11 +55,11 @@ class SearchLog {
       return false;
     }
     try {
-      $f = fopen(Config::get('search-log.file'), 'at');
+      $f = fopen(Config::SEARCH_LOG_FILE, 'at');
     }
     catch (Exception $e) {
       try {
-        $f = fopen(Config::get('search-log.file'), 'wt');
+        $f = fopen(Config::SEARCH_LOG_FILE, 'wt');
       }
       catch (Exception $e) {
         throw new Exception('Error trying to access the log file', -1, $e);

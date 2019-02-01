@@ -158,7 +158,7 @@ class Donor {
 
   function process() {
     if ($this->sendEmail) {
-      $from = Config::get('mail.contact');
+      $from = Config::CONTACT_EMAIL;
       $subject = 'Mulțumiri';
 
       try {
@@ -305,10 +305,10 @@ class OtrsApiClient {
 
   static function restQuery($page, $params, $method = self::METHOD_GET) {
     // add the login credentials
-    $params['UserLogin'] = Config::get('otrs.login');
-    $params['Password'] = Config::get('otrs.password');
+    $params['UserLogin'] = Config::OTRS_LOGIN;
+    $params['Password'] = Config::OTRS_PASSWORD;
 
-    $url = sprintf('%s/%s', Config::get('otrs.restUrl'), $page);
+    $url = sprintf('%s/%s', Config::OTRS_REST_URL, $page);
 
     if ($method == SELF::METHOD_GET) {
       // URL-encode the params

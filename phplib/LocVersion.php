@@ -6,7 +6,7 @@ class LocVersion {
 
   private function getUrl($type) {
     return sprintf('%sdownload/scrabble/loc-%s-%s.zip',
-                   Config::get('static.url'), $type, $this->name);
+                   Config::STATIC_URL, $type, $this->name);
   }
 
   function getBaseFormUrl() {

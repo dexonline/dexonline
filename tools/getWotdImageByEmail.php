@@ -8,10 +8,6 @@ Log::notice('started');
 $opts = getopt('', ['dry-run']);
 $dryRun = isset($opts['dry-run']);
 
-$validHeight = Config::get("WotD.wotdImageHeight") or die("No image height in config file\n");
-$validWidth = Config::get("WotD.wotdImageWidth") or die("No image width in config file\n");
-$daysInterval = Config::get("WotD.interval")or die("No days interval in config file\n");
-
 $email = file_get_contents('php://stdin');
 $parser = new MimeMailParser();
 $parser->setText($email);
@@ -52,10 +48,13 @@ try {
 
   list($height, $width) = getimagesize($tmpFilePath);
 
-  if ($height != $validHeight || $width != $validWidth) {
-    throw new Exception("Imaginea trebuie să aibă dimensiuni {$validWidth} x {$validHeight}.");
+  if ($height != Config::WOTD_IMAGE_HEIGHT || $width != Config::WOTD_IMAGE_WIDTH) {
+    throw new Exception(sprintf(
+      'Imaginea trebuie să aibă dimensiuni %d x %d',
+      Config::WOTD_IMAGE_WIDTH, Config::WOTD_IMAGE_HEIGHT));
   }
 
+  $daysInterval = Config::WOTD_INTERVAL;
   $dateMin = date('Y-m-d', strtotime("-{$daysInterval} day"));
   $dateMax = date('Y-m-d', strtotime("+{$daysInterval} day"));
   $wotds = Model::factory('WordOfTheDay')
@@ -112,12 +111,10 @@ Log::notice('finished');
 function replyToEmail($senderAddress, $subject, $message) {
   global $dryRun;
 
-  $from = Config::get('WotD.sender');
-
   if (!$dryRun) {
     Mailer::setRealMode();
   }
-  Mailer::send($from, [ $senderAddress ], $subject, $message);
+  Mailer::send(Config::WOTD_SENDER, [ $senderAddress ], $subject, $message);
 }
 
 function getWotdFromSubject($subject) {
@@ -125,7 +122,7 @@ function getWotdFromSubject($subject) {
   if (count($parts) != 2) {
     throw new Exception('Subiectul trebuie să aibă formatul <parolă> <cuvânt desenat>.');
   }
-  if ($parts[0] != Config::get('WotD.password')) {
+  if ($parts[0] != Config::WOTD_PASSWORD) {
     throw new Exception("Parola {$parts[0]} este incorectă.");
   }
   // Transliterate the word to ASCII to avoid some trouble with diacritics.

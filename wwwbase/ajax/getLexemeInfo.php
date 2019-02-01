@@ -8,7 +8,7 @@ $mt = ModelType::get_by_code($l->modelType);
 $m = FlexModel::get_by_modelType_number($mt->canonical, $l->modelNumber);
 
 // load the lexeme's tags and keep those referring to parts of speech
-$posTagName = Config::get('tags.partOfSpeech');
+$posTagName = Config::TAG_PART_OF_SPEECH;
 $posTag = Tag::get_by_value($posTagName);
 
 $posTags = [];

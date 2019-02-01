@@ -4,10 +4,10 @@ class FtpUtil {
   private $conn;
 
   function __construct() {
-    $user = Config::get('static.user');
-    $pass = Config::get('static.password');
+    $user = Config::FTP_USER;
+    $pass = Config::FTP_PASSWORD;
     if ($user && $pass) {
-      $this->conn = ftp_ssl_connect(Config::get('static.host'));
+      $this->conn = ftp_ssl_connect(Config::FTP_HOST);
       ftp_login($this->conn, $user, $pass);
       ftp_pasv($this->conn, true);
     }
@@ -25,7 +25,7 @@ class FtpUtil {
 
   function staticServerGet($remoteFile, $localFile) {
     if ($this->conn) {
-      ftp_get($this->conn, $localFile, Config::get('static.path') . $remoteFile, FTP_BINARY);
+      ftp_get($this->conn, $localFile, Config::FTP_PATH . $remoteFile, FTP_BINARY);
     }
   }
 
@@ -39,28 +39,28 @@ class FtpUtil {
         @ftp_mkdir($this->conn, $partial);
       }
 
-      ftp_put($this->conn, Config::get('static.path') . $remoteFile, $localFile, FTP_BINARY);
+      ftp_put($this->conn, Config::FTP_PATH . $remoteFile, $localFile, FTP_BINARY);
     }
   }
 
   function staticServerPutContents(&$contents, $remoteFile) {
-    $tmpFile = tempnam(Config::get('global.tempDir'), 'ftp_');
+    $tmpFile = tempnam(Config::TEMP_DIR, 'ftp_');
     file_put_contents($tmpFile, $contents);
     $this->staticServerPut($tmpFile, $remoteFile);
     unlink($tmpFile);
   }
 
   function staticServerDelete($remoteFile) {
-    @ftp_delete($this->conn, Config::get('static.path') . $remoteFile);
+    @ftp_delete($this->conn, Config::FTP_PATH . $remoteFile);
   }
 
   function staticServerFileExists($remoteFile) {
-    $listing = @ftp_nlist($this->conn, Config::get('static.path') . $remoteFile);
+    $listing = @ftp_nlist($this->conn, Config::FTP_PATH . $remoteFile);
     return !empty($listing);
   }
 
   function staticServerRelativeFileList($rel_path) {
-    $path = sprintf("%s/%s", Config::get('static.path'), $rel_path);
+    $path = sprintf("%s/%s", Config::FTP_PATH, $rel_path);
     $file_list = ftp_nlist($this->conn, $path);
     return $file_list;
   }

@@ -106,7 +106,7 @@ class Request {
   }
 
   static function getFullServerUrl() {
-    $protocol = Config::get('global.protocol');
+    $protocol = Config::PROTOCOL;
     $host = $_SERVER['SERVER_NAME'];
     $port =  $_SERVER['SERVER_PORT'];
     $path = Core::getWwwRoot();

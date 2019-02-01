@@ -2,8 +2,8 @@
 
 require_once __DIR__ . '/../phplib/Core.php';
 
-$databaseUrl = Config::get('static.url') . 'download/mirrorAccess/dex-database.sql.gz';
-$databaseTmpFileGzip = Config::get('global.tempDir') . '/dex-database.sql.gz';
+const DATABASE_URL = Config::STATIC_URL . 'download/mirrorAccess/dex-database.sql.gz';
+const DATABASE_TMP_FILE_GZIP = Config::TEMP_DIR . '/dex-database.sql.gz';
 
 $opts = getopt('', ['no-code', 'no-data']);
 $doDatabaseCopy = !isset($opts['no-data']);
@@ -14,12 +14,12 @@ Log::notice('started with databaseCopy:%s codeUpdate:%s',
             ($doCodeUpdate ? 'yes' : 'no'));
 
 if ($doDatabaseCopy) {
-  $wget = sprintf("wget -q -O %s %s" , $databaseTmpFileGzip, $databaseUrl);
+  $wget = sprintf("wget -q -O %s %s" , DATABASE_TMP_FILE_GZIP, DATABASE_URL);
   OS::executeAndAssert($wget);
   $mysql = sprintf("zcat %s | mysql -h %s -u %s --password='%s' %s",
-                   $databaseTmpFileGzip, DB::$host, DB::$user, DB::$password, DB::$database);
+                   DATABASE_TMP_FILE_GZIP, DB::$host, DB::$user, DB::$password, DB::$database);
   OS::executeAndAssert($mysql);
-  $rm = sprintf("rm -f %s", $databaseTmpFileGzip);
+  $rm = sprintf("rm -f %s", DATABASE_TMP_FILE_GZIP);
   OS::executeAndAssert($rm);
 }
 

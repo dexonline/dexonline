@@ -31,7 +31,7 @@ if ($submitButton) {
         'token' => $pt->token,
       ]);
       $body = SmartyWrap::fetch('email/resetPassword.tpl');
-      $from = Config::get('mail.contact');
+      $from = Config::CONTACT_EMAIL;
       $subject = 'Schimbarea parolei pentru dexonline';
       Mailer::setRealMode();
       Mailer::send($from, [$email], $subject, $body);

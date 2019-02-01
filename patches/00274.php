@@ -5,9 +5,9 @@ const VERSIONS = [ '4.0', '4.1', '5.0', '6.0' ];
 foreach (VERSIONS as $ver) {
 
   $zipUrl = sprintf('%sdownload/scrabble/loc-reduse-%s.zip',
-                    Config::get('static.url'), $ver);
-  $zipFile = tempnam(Config::get('global.tempDir'), 'loc_') . '.zip';
-  $txtFile = tempnam(Config::get('global.tempDir'), 'loc_') . '.txt';
+                    Config::STATIC_URL, $ver);
+  $zipFile = tempnam(Config::TEMP_DIR, 'loc_') . '.zip';
+  $txtFile = tempnam(Config::TEMP_DIR, 'loc_') . '.txt';
 
   print "Downloading version {$ver} to {$zipFile}\n";
   if (!@copy($zipUrl, $zipFile)) {

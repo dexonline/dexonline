@@ -41,8 +41,8 @@ class Util {
   static function makeRequest($url, $data, $method = 'POST', $useCookies = false) {
     $ch = curl_init($url);
     if ($useCookies) {
-      curl_setopt($ch, CURLOPT_COOKIEFILE, Config::get('global.tempDir') . CURL_COOKIE_FILE);
-      curl_setopt($ch, CURLOPT_COOKIEJAR, Config::get('global.tempDir') . CURL_COOKIE_FILE);
+      curl_setopt($ch, CURLOPT_COOKIEFILE, Config::TEMP_DIR . CURL_COOKIE_FILE);
+      curl_setopt($ch, CURLOPT_COOKIEJAR, Config::TEMP_DIR . CURL_COOKIE_FILE);
     }
     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
     curl_setopt($ch, CURLOPT_POSTFIELDS, $data);

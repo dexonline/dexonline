@@ -25,7 +25,10 @@ class Definition extends BaseObject implements DatedObject {
     if (User::can(User::PRIV_ADMIN)) {
       return parent::get_by_id($id);
     } else {
-      return Model::factory('Definition')->where('id', $id)->where_not_equal('status', self::ST_HIDDEN)->find_one();
+      return Model::factory('Definition')
+        ->where('id', $id)
+        ->where_not_equal('status', self::ST_HIDDEN)
+        ->find_one();
     }
   }
 
@@ -74,7 +77,7 @@ class Definition extends BaseObject implements DatedObject {
 
   function parse(&$warnings = [], &$errors = []) {
     // certain tags explicitly say "don't try to parse this definition"
-    $ignoredTagIds = Config::get('parsers.tagsToIgnore');
+    $ignoredTagIds = Config::PARSER_TAGS_TO_IGNORE;
     $hasIgnoredTags = Model::factory('ObjectTag')
       ->where('objectId', $this->id)
       ->where('objectType', ObjectTag::TYPE_DEFINITION)
@@ -226,7 +229,7 @@ class Definition extends BaseObject implements DatedObject {
   static function loadMissingRareGlyphsTags($sourceId = null) {
     $join = sprintf('(d.id = ot.objectId) and (ot.objectType = %d) and (ot.tagId = %d)',
                     ObjectTag::TYPE_DEFINITION,
-                    Config::get('tags.rareGlyphsTagId'));
+                    Config::TAG_ID_RARE_GLYPHS);
     $query = Model::factory('Definition')
       ->table_alias('d')
       ->select('d.*')
@@ -247,7 +250,7 @@ class Definition extends BaseObject implements DatedObject {
       ->select('d.*')
       ->join('ObjectTag', [ 'd.id', '=', 'ot.objectId'], 'ot')
       ->where('ot.objectType', ObjectTag::TYPE_DEFINITION)
-      ->where('ot.tagId', Config::get('tags.rareGlyphsTagId'))
+      ->where('ot.tagId', Config::TAG_ID_RARE_GLYPHS)
       ->where('d.rareGlyphs', '')
       ->find_many();
   }

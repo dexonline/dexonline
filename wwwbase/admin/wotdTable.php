@@ -5,7 +5,7 @@ RecentLink::add('Cuvântul zilei');
 
 // Load the image list
 $imageList = [''];
-$staticFiles = file(Config::get('static.url') . 'fileList.txt');
+$staticFiles = file(Config::STATIC_URL . 'fileList.txt');
 
 foreach ($staticFiles as $s) {
   $s = trim($s);

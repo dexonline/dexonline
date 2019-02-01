@@ -14,7 +14,7 @@ class Visual extends BaseObject implements DatedObject {
     $v->path = $fileName;
     $v->userId = User::getActiveId();
 
-    $url = Config::get('static.url') . self::STATIC_DIR . $fileName;
+    $url = Config::STATIC_URL . self::STATIC_DIR . $fileName;
     $dim = getimagesize($url);
     $v->width = $dim[0];
     $v->height = $dim[1];
@@ -33,11 +33,11 @@ class Visual extends BaseObject implements DatedObject {
   }
 
   function getImageUrl() {
-    return Config::get('static.url') . self::STATIC_DIR . $this->path;
+    return Config::STATIC_URL . self::STATIC_DIR . $this->path;
   }
 
   function getThumbUrl() {
-    return Config::get('static.url') . self::STATIC_THUMB_DIR . $this->path;
+    return Config::STATIC_URL . self::STATIC_THUMB_DIR . $this->path;
   }
 
   function thumbExists() {
@@ -46,7 +46,7 @@ class Visual extends BaseObject implements DatedObject {
   }
 
   function createThumb() {
-    $url = Config::get('static.url') . self::STATIC_DIR . $this->path;
+    $url = Config::STATIC_URL . self::STATIC_DIR . $this->path;
     $ext = pathinfo($url, PATHINFO_EXTENSION);
     $localFile = Core::getTempPath() ."/a.{$ext}";
     $localThumbFile = Core::getTempPath() ."/thumb.{$ext}";
@@ -91,7 +91,7 @@ class Visual extends BaseObject implements DatedObject {
 
   function delete() {
     // TODO: Delete thumbnail and its directory (if it becomes empty)
-    VisualTag::delete_all_by_imageId($this->id);    
+    VisualTag::delete_all_by_imageId($this->id);
     return parent::delete();
   }
 }

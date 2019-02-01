@@ -40,7 +40,7 @@ Log::info("Memory used: %d MB", round(memory_get_usage() / 1048576, 1));
 $dbResult = DB::execute('select id, internalRep from Definition where status = 0');
 $defsSeen = 0;
 $indexSize = 0;
-$fileName = tempnam(Config::get('global.tempDir'), 'index_');
+$fileName = tempnam(Config::TEMP_DIR, 'index_');
 $handle = fopen($fileName, 'w');
 Log::info("Writing index to file $fileName.");
 DebugInfo::disable();

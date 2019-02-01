@@ -33,7 +33,7 @@ foreach (THUMB_SIZES as $size) {
 $opts = getopt('', ['fix']);
 $fix = isset($opts['fix']);
 
-$staticFiles = file(Config::get('static.url') . 'fileList.txt');
+$staticFiles = file(Config::STATIC_URL . 'fileList.txt');
 if (!$staticFiles) {
   OS::errorAndExit('Could not load the static files list.');
 }
@@ -146,7 +146,7 @@ function generateThumbnail($ftp, $img, $size, $prefix) {
 
   if (in_array($extension, [ 'gif', 'jpeg', 'jpg', 'png' ])) {
     Log::info("Generating {$size}x{$size} thumbnail for $img");
-    $url = Config::get('static.url') . IMG_PREFIX . $img;
+    $url = Config::STATIC_URL . IMG_PREFIX . $img;
     Log::info("Fetching $url");
 
     OS::executeAndAssert("rm -f {$tempDir}/a.{$extension} {$tempDir}/t.{$extension}");
@@ -167,7 +167,7 @@ function generateThumbnail($ftp, $img, $size, $prefix) {
       OS::executeAndAssert("optipng {$tempDir}/t.png");
     }
 
-    Log::info("FTP upload: {$tempDir}/t.{$extension} => " . Config::get('static.url') . $prefix . $img);
+    Log::info("FTP upload: {$tempDir}/t.{$extension} => " . Config::STATIC_URL . $prefix . $img);
     $ftp->staticServerPut("{$tempDir}/t.{$extension}", $prefix . $img);
   }
 }

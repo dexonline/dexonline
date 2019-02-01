@@ -36,7 +36,7 @@ class ParserFactory {
 
   private static function loadSourceMap() {
     if (self::$sourceMap == null) {
-      $cfg = Config::get('parsers.parser');
+      $cfg = Config::PARSERS;
       $sources = Model::factory('Source')
         ->where_in('urlName', array_keys($cfg))
         ->find_many();

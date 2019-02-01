@@ -13,7 +13,7 @@ $fakeUserNick = Request::get('fakeUserNick');
 $priv = Request::getArray('priv');
 $allPriv = Request::get('allPriv');
 
-$devel = Config::get('global.developmentMode');
+$devel = Config::DEVELOPMENT_MODE;
 
 if ($fakeUserNick) {
   if (!$devel) {

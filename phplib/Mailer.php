@@ -52,7 +52,7 @@ class Mailer {
 
     // configure SMTP
     $mail->isSMTP();
-    $mail->Host = Config::get('mail.smtpServer');
+    $mail->Host = Config::SMTP_SERVER;
     $mail->Username = $info['username'];
     $mail->Password = $info['password'];
     $mail->SMTPAuth = true;
@@ -81,26 +81,13 @@ class Mailer {
    * if the values are undefined.
    **/
   static function getInfo($from) {
-    $names = Config::get('mail.name', []);
-    $name = $names[$from] ?? null;
+    $rec = Config::EMAIL_IDENTITIES[$from] ?? null;
 
-    if (!$name) {
-      throw new Exception('No from name found for ' . $from);
+    if (!$rec) {
+      throw new Exception('No email identity found for ' . $from);
     }
 
-    $passwords = Config::get('mail.password', []);
-    $password = $passwords[$from] ?? null;
-
-    if (!$password) {
-      throw new Exception('No credentials found for ' . $from);
-    }
-
-    $username = explode('@', $from)[0];
-
-    return [
-      'username' => $username,
-      'name' => $name,
-      'password' => $password,
-    ];
+    $rec['username'] = explode('@', $from)[0];
+    return $rec;
   }
 }

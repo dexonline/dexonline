@@ -21,7 +21,7 @@ try {
     throw new Exception('Indexul de pagini pentru această sursă este incomplet definit.');
   }
 
-  $urlPattern = Config::get('static.pageUrlPattern');
+  $urlPattern = Config::PAGE_URL_PATTERN;
   if (!$urlPattern) {
     throw new Exception('Adresa paginilor scanate nu este definită în dex.conf.');
   }

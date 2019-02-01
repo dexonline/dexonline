@@ -25,12 +25,12 @@ class XmlDump {
         $this->numDiffFiles = 5;
         break;
     }
-    $this->staticFiles = file(Config::get('static.url') . 'fileList.txt');
+    $this->staticFiles = file(Config::STATIC_URL . 'fileList.txt');
     $this->today = date("Y-m-d");
   }
 
   function getUrl() {
-    return Config::get('static.url') . $this->remoteFolder;
+    return Config::STATIC_URL . $this->remoteFolder;
   }
 
     // Do not return a dump for today, in case it is still being built
@@ -57,7 +57,7 @@ class XmlDump {
       krsort($map);
       $date = key($map); // First key
       return ($map[$date] == $this->numFiles) ? $date : null;
-    } else {  
+    } else {
       return null;
     }
   }

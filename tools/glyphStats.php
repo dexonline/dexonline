@@ -78,7 +78,6 @@ if ($write) {
 
 if ($updateDefs) {
   // update the rareGlyphs field and [rare glyphs] tag
-  $tagId = Config::get('tags.rareGlyphsTagId');
   scanDefinitions($source, 'updateDefinition');
 }
 
@@ -122,7 +121,7 @@ function collectGlyphStats($d, $chars) {
 }
 
 function updateDefinition($d, $chars) {
-  global $rare, $tagId;
+  global $rare;
 
   $rareGlyphs = [];
   foreach ($chars as $c) {
@@ -135,7 +134,7 @@ function updateDefinition($d, $chars) {
   if ($rareGlyphs != $d->rareGlyphs) {
     $d->rareGlyphs = $rareGlyphs;
     $d->save();
-    ObjectTag::dissociate(ObjectTag::TYPE_DEFINITION, $d->id, $tagId);
+    ObjectTag::dissociate(ObjectTag::TYPE_DEFINITION, $d->id, Config::TAG_ID_RARE_GLYPHS);
   }
 }
 

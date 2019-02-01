@@ -172,7 +172,7 @@ class Lexeme extends BaseObject implements DatedObject {
   function isAnimate() {
     if ($this->animate === null) {
       $this->animate = false;
-      $animateValues = Config::get('tags.animateLexeme');
+      $animateValues = Config::TAG_ANIMATE_LEXEME;
       foreach ($this->getTags() as $t) {
         if (in_array($t->value, $animateValues)) {
           $this->animate = true;

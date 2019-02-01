@@ -14,6 +14,8 @@ class Config {
   // Folder for temporary data
   const TEMP_DIR = '/tmp';
 
+  const PROTOCOL = 'http';
+
   /******************************* Logging *******************************/
 
   // Log file name. Can also be "php://stdout" or "php://stderr"
@@ -76,9 +78,38 @@ class Config {
   // Test interface language
   const TEST_LOCALE = 'ro_RO.utf8';
 
+  /**************************** Email options ****************************/
+
+  const CONTACT_EMAIL = 'contact@dexonline.ro';
+
+  // For outgoing emails
+  const SMTP_SERVER = 'tls://server.com:port';
+  const EMAIL_IDENTITIES = [ ];
+
+  /************************** WotD email options **************************/
+
+  // Sender of WotD reminders (and receiver of WotD by email)
+  const WOTD_SENDER = 'wotd@dexonline.ro';
+  const WOTD_REPLY_TO = 'wotd@dexonline.ro';
+
+  // Recipients of WotD reminders (in addition to the targeted WotD artists)
+  const WOTD_RCPT_INFO = [ ];
+  const WOTD_RCPT_ERROR = [ ];
+
+  // Password to be sent with each image
+  const WOTD_PASSWORD = 'foobar';
+
+  // Image size
+  const WOTD_IMAGE_HEIGHT = 300;
+  const WOTD_IMAGE_WIDTH = 300;
+
+  // Only accept WotD images within this many days of today.
+  const WOTD_INTERVAL = 31;
+
   /**************************** Various limits ****************************/
 
   const LIMIT_FULL_TEXT_RESULTS = 200;
+  const LIMIT_BOOKMARKS = 500;
   const LIMIT_TRAINEE_PENDING_DEFS = 50;
 
   /**************************** Skin elements ****************************/
@@ -122,13 +153,25 @@ class Config {
   const ELFINDER_PATH = '/srv/http/elfinder/';
   const ELFINDER_URL = 'http://localhost/elfinder/';
 
+
+  /**** OTRS connection info (used to process donations automatically) ****/
+
+  // NOTE: passwords are sent unencrypted. Do not run this from the outside.
+  const OTRS_REST_URL = '';
+  const OTRS_LOGIN = '';
+  const OTRS_PASSWORD = '';
+
+  /*** Donation middlemen options ***/
+  const EU_PLATESC_MID = '';
+  const EU_PLATESC_KEY = '';
+
   /**************************** Banner options ****************************/
 
   // Type of banner to be served. Choices are 'adsense', 'dfp', 'pubgalaxy',
   // 'revive', 'fake' or 'none'.  The option 'fake' displays a
   // placeholder banner and can be used in development/beta (so as not to
   // steal real impressions from campaigns).
-  const BANNER_TYPE = 'revive';
+  const BANNER_TYPE = 'none';
 
   // Strategy for moving the banner using JS. Can be one of:
   // * default: do not move the banner; leave the banner wherever the HTML has it;
@@ -149,9 +192,44 @@ class Config {
 
   /******************************* Plugins *******************************/
 
-  // ; array of class names, each one residing in phplib/plugins and implementing a plugin
+  // Array of class names, each one residing in phplib/plugins and implementing a plugin.
   const PLUGINS = [];
 
   // Each plugin expects some plugin-specific variables, which should be listed below.
+
+  /*************************** Scrabble options ***************************/
+
+  // Versions of the Official Word List
+  const LOC_VERSIONS = [
+    '6.0' => '2018-02-11',
+    '5.0' => '2011-01-24',
+    '4.1' => '2008-01-11',
+    '4.0' => '2007-10-09',
+  ];
+  const DEFAULT_LOC_VERSION = '5.0';
+
+  /***************************** Object tags *****************************/
+
+  // Lexemes having these tags generate vocative forms.
+  const TAG_ANIMATE_LEXEME = [ 'admite vocativul' ];
+
+  // Ancestor of all part of speech tags.
+  const TAG_PART_OF_SPEECH = 'parte de vorbire';
+
+  // Do not complain about rare glyphs when this tag is present.
+  const TAG_ID_RARE_GLYPHS = 416;
+
+  /************************** Definition parsers **************************/
+
+  // Maps Definition.urlName to ParserClassName (file should reside in phplib/parser/)
+  const PARSERS = [
+    'mda2' => 'Mda2Parser',
+  ];
+
+  // Do not try to parse definitions having these tag IDs
+  const PARSER_TAGS_TO_IGNORE = [
+    404, // incomplete definition
+    405, // missing etymology
+  ];
 
 }

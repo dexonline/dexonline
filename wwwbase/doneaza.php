@@ -2,7 +2,7 @@
 require_once '../phplib/Core.php';
 
 $user = User::getActive();
-$haveEuPlatescCredentials = Config::get('euplatesc.euPlatescMid') && Config::get('euplatesc.euPlatescKey');
+$haveEuPlatescCredentials = Config::EU_PLATESC_MID && Config::EU_PLATESC_KEY;
 
 SmartyWrap::assign('haveEuPlatescCredentials', $haveEuPlatescCredentials);
 SmartyWrap::assign('defaultEmail', $user ? $user->email : '');

@@ -2,7 +2,7 @@
 require_once '../phplib/Core.php';
 
 $form = Request::get('form');
-$version = Request::get('version', Config::get('global.defaultLocVersion'));
+$version = Request::get('version', Config::DEFAULT_LOC_VERSION);
 $ajax = Request::get('ajax');
 
 if ($form) {
@@ -18,7 +18,7 @@ if ($form) {
 SmartyWrap::assign([
   'form' => $form,
   'version' => $version,
-  'versions' => Config::getLocVersions(),
+  'versions' => getLocVersions(),
   'canonicalModelTypes' => ModelType::loadCanonical(),
 ]);
 
@@ -31,4 +31,17 @@ if ($ajax) {
   print json_encode($results);
 } else {
   SmartyWrap::display('scrabble.tpl');
+}
+
+/*************************************************************************/
+
+function getLocVersions() {
+  $result = [];
+  foreach (Config::LOC_VERSIONS as $name => $date) {
+    $lv = new LocVersion();
+    $lv->name = $name;
+    $lv->freezeTimestamp = strtotime($date);
+    $result[] = $lv;
+  }
+  return $result;
 }

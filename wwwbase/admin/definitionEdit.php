@@ -248,7 +248,7 @@ function checkPendingLimit($userId) {
              ->where('userId', $userId)
              ->where('status', Definition::ST_PENDING)
              ->count();
-    $limit = Config::get('limits.limitTraineePendingDefinitions');
+    $limit = Config::LIMIT_TRAINEE_PENDING_DEFS;
     if ($pending >= $limit) {
       FlashMessage::add("Ați atins limita de {$limit} definiții nemoderate.");
       Util::redirect('index.php');
@@ -286,7 +286,7 @@ function checkDeletedStructuredEntries($d, $entryIds) {
 // (1) it should also have a [rare glyphs] tag or
 // (2) it should be saved in ST_PENDING
 function checkRareGlyphsFieldAndTag($d, &$tagIds) {
-  $tag = Tag::get_by_id(Config::get('tags.rareGlyphsTagId'));
+  $tag = Tag::get_by_id(Config::TAG_ID_RARE_GLYPHS);
   $hasTag = in_array($tag->id, $tagIds);
 
   // Rare glyphs, active state and no tag? Complain!

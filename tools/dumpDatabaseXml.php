@@ -6,7 +6,7 @@ ini_set('memory_limit', '512M');
 $TODAY = date("Y-m-d");
 $TODAY_TIMESTAMP = strtotime("$TODAY 00:00:00");
 $REMOTE_FOLDER = 'download/xmldump/v5';
-$STATIC_FILES = file(Config::get('static.url') . 'fileList.txt');
+$STATIC_FILES = file(Config::STATIC_URL . 'fileList.txt');
 $LAST_DUMP = getLastDumpDate($REMOTE_FOLDER);
 $LAST_DUMP_TIMESTAMP = $LAST_DUMP ? strtotime("$LAST_DUMP 00:00:00") : null;
 $USERS = getActiveUsers();
@@ -166,7 +166,7 @@ function dumpDefinitions($query, $remoteFile, $message) {
 
   Log::info($message);
   $results = DB::execute($query);
-  $tmpFile = tempnam(Config::get('global.tempDir'), 'xmldump_');
+  $tmpFile = tempnam(Config::TEMP_DIR, 'xmldump_');
   $file = gzopen($tmpFile, 'wb9');
   gzwrite($file, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
   gzwrite($file, "<Definitions>\n");
@@ -190,7 +190,7 @@ function dumpEntries($query, $remoteFile, $message) {
 
   Log::info($message);
   $results = DB::execute($query);
-  $tmpFile = tempnam(Config::get('global.tempDir'), 'xmldump_');
+  $tmpFile = tempnam(Config::TEMP_DIR, 'xmldump_');
   $file = gzopen($tmpFile, 'wb9');
   gzwrite($file, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
   gzwrite($file, "<Entries>\n");
@@ -210,7 +210,7 @@ function dumpLexemes($query, $remoteFile, $message) {
 
   Log::info($message);
   $results = DB::execute($query);
-  $tmpFile = tempnam(Config::get('global.tempDir'), 'xmldump_');
+  $tmpFile = tempnam(Config::TEMP_DIR, 'xmldump_');
   $file = gzopen($tmpFile, 'wb9');
   gzwrite($file, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
   gzwrite($file, "<Lexems>\n");
@@ -230,7 +230,7 @@ function dumpEd($query, $remoteFile, $message) {
 
   Log::info($message);
   $results = DB::execute($query);
-  $tmpFile = tempnam(Config::get('global.tempDir'), 'xmldump_');
+  $tmpFile = tempnam(Config::TEMP_DIR, 'xmldump_');
   $file = gzopen($tmpFile, 'wb9');
   gzwrite($file, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
   gzwrite($file, "<EntryDefinition>\n");
@@ -248,7 +248,7 @@ function dumpEl($query, $remoteFile, $message) {
 
   Log::info($message);
   $results = DB::execute($query);
-  $tmpFile = tempnam(Config::get('global.tempDir'), 'xmldump_');
+  $tmpFile = tempnam(Config::TEMP_DIR, 'xmldump_');
   $file = gzopen($tmpFile, 'wb9');
   gzwrite($file, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
   gzwrite($file, "<EntryLexem>\n");
@@ -267,11 +267,11 @@ function dumpDiff($oldRemoteFile, $newRemoteFile, $diffRemoteFile, $elementName,
   Log::info($message);
 
   // Transfer the files locally
-  $oldXml = wgetAndGunzip(Config::get('static.url') . '/' . $oldRemoteFile);
-  $newXml = wgetAndGunzip(Config::get('static.url') . '/' . $newRemoteFile);
+  $oldXml = wgetAndGunzip(Config::STATIC_URL . '/' . $oldRemoteFile);
+  $newXml = wgetAndGunzip(Config::STATIC_URL . '/' . $newRemoteFile);
   $output = null;
   exec("diff $oldXml $newXml", $output, $ignored);
-  $tmpFile = tempnam(Config::get('global.tempDir'), 'xmldump_');
+  $tmpFile = tempnam(Config::TEMP_DIR, 'xmldump_');
   $file = gzopen($tmpFile, 'wb9');
   gzwrite($file, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
   gzwrite($file, "<{$elementName}>\n");
@@ -292,7 +292,7 @@ function dumpDiff($oldRemoteFile, $newRemoteFile, $diffRemoteFile, $elementName,
 
 // Returns a file name in tempDir pointing to the unzipped file
 function wgetAndGunzip($url) {
-  $tmpFile = tempnam(Config::get('global.tempDir'), 'xmldump_');
+  $tmpFile = tempnam(Config::TEMP_DIR, 'xmldump_');
   OS::executeAndAssert("wget -q -O $tmpFile.gz $url");
   OS::executeAndAssert("gunzip -f $tmpFile.gz");
   return $tmpFile;

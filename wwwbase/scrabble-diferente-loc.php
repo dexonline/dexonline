@@ -22,9 +22,9 @@ switch ($list) {
 }
 
 $zipUrl = sprintf('%sdownload/scrabble/loc-dif-%s-%s-%s.zip',
-                  Config::get('static.url'), $keyword, $versions[0], $versions[1]);
-$zipFile = tempnam(Config::get('global.tempDir'), 'loc_') . '.zip';
-$txtFile = tempnam(Config::get('global.tempDir'), 'loc_') . '.txt';
+                  Config::STATIC_URL, $keyword, $versions[0], $versions[1]);
+$zipFile = tempnam(Config::TEMP_DIR, 'loc_') . '.zip';
+$txtFile = tempnam(Config::TEMP_DIR, 'loc_') . '.txt';
 if (!@copy($zipUrl, $zipFile)) {
   FlashMessage::add('Ați introdus o listă incorectă.');
   Util::redirect('scrabble');

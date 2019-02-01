@@ -5,8 +5,8 @@
  **/
 
 require_once '../phplib/Core.php';
-$mid = Config::get('euplatesc.euPlatescMid');
-$key = Config::get('euplatesc.euPlatescKey');
+$mid = Config::EU_PLATESC_MID;
+$key = Config::EU_PLATESC_KEY;
 require_once '../phplib/third-party/euplatesc.php';
 
 ?>

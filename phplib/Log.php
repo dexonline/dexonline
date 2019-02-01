@@ -7,8 +7,8 @@ class Log {
   static $level;
 
   static function init() {
-    self::$file = fopen(Config::get('logging.file'), 'a');
-    self::$level = Config::get('logging.level'); // no constant() call needed
+    self::$file = fopen(Config::LOG_FILE, 'a');
+    self::$level = Config::LOG_LEVEL;
   }
 
   private static function write($level, $args) {

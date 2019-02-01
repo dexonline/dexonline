@@ -18,7 +18,7 @@ const IGNORED = [ 'thumb' ];
 $opts = getopt('', ['fix']);
 $fix = isset($opts['fix']);
 
-$staticFiles = file(Config::get('static.url') . 'fileList.txt');
+$staticFiles = file(Config::STATIC_URL . 'fileList.txt');
 
 // Grab images and thumbs from the static server file list.
 $imgs = [];
@@ -100,7 +100,7 @@ function generateThumbnail($ftp, $img) {
 
   if (in_array($extension, [ 'gif', 'jpeg', 'jpg', 'png' ])) {
     Log::info("Generating {$size}x{$size} thumbnail for $img");
-    $url = Config::get('static.url') . IMG_PREFIX . $img;
+    $url = Config::STATIC_URL . IMG_PREFIX . $img;
     Log::info("Fetching $url");
 
     OS::executeAndAssert("rm -f {$tempDir}/a.{$extension} {$tempDir}/t.{$extension}");
@@ -115,7 +115,7 @@ function generateThumbnail($ftp, $img) {
       OS::executeAndAssert("optipng {$tempDir}/t.png");
     }
 
-    Log::info("FTP upload: {$tempDir}/t.{$extension} => " . Config::get('static.url') . THUMB_PREFIX . $img);
+    Log::info("FTP upload: {$tempDir}/t.{$extension} => " . Config::STATIC_URL . THUMB_PREFIX . $img);
     $ftp->staticServerPut("{$tempDir}/t.{$extension}", THUMB_PREFIX . $img);
   }
 }

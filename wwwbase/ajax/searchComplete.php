@@ -2,16 +2,11 @@
 require_once '../../phplib/Core.php';
 header("Content-Type: application/json");
 
-$acEnable = Config::get("search.acEnable");
-$acMinChars = Config::get("search.acMinChars");
-$acLimit = Config::get("search.acLimit");
-
 $term = Request::get('term');
 
-if (!$acEnable || strlen($term) < $acMinChars) {
-  return print(json_encode([]));
-}
+$use = Config::SEARCH_AC_ENABLED &&
+  (mb_strlen($term) >= Config::SEARCH_AC_MIN_CHARS);
 
-$forms = Autocomplete::ac($term, $acLimit);
+$forms = $use ? Autocomplete::ac($term, Config::SEARCH_AC_LIMIT) : [];
 
 print json_encode($forms);

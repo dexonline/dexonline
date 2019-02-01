@@ -9,15 +9,14 @@ Log::notice('started');
 
 const NUM_DAYS = 3;
 
-$rcptInfo = Config::get('WotD.rcpt-info', []);
-$rcptError = Config::get('WotD.rcpt-error', []);
-$sender = Config::get('WotD.sender', '');
+$rcptInfo = Config::WOTD_RCPT_INFO;
+$rcptError = Config::WOTD_RCPT_ERROR;
 
 $opts = getopt('', ['send-email', 'quiet']);
 $sendEmail = isset($opts['send-email']);
 $quiet = isset($opts['quiet']);
 
-$staticFiles = file(Config::get('static.url') . 'fileList.txt');
+$staticFiles = file(Config::STATIC_URL . 'fileList.txt');
 $messages = [];
 $firstErrorDate = null;
 
@@ -116,7 +115,7 @@ if (count($messages)) {
   } else if ($quiet) {
     Mailer::setQuietMode();
   }
-  Mailer::send($sender, $mailTo, $subject, $body);
+  Mailer::send(Config::WOTD_SENDER, $mailTo, $subject, $body);
 }
 
 Log::notice('finished');

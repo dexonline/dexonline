@@ -2,10 +2,10 @@
 
 /**
  * Plugins are classes that may modify parts of a normal page's logic. Plugins
- * are defined in dex.conf and registered at initialization time in Core.php.
- * At various points during the code flow, plugins will be invited to make
- * modifications. All plugins are children of the Plugin class, which by
- * default does nothing.
+ * are defined in phplib/Config.php and registered at initialization time in
+ * Core.php. At various points during the code flow, plugins will be invited
+ * to make modifications. All plugins are children of the Plugin class, which
+ * by default does nothing.
  **/
 
 abstract class Plugin {
@@ -17,7 +17,7 @@ abstract class Plugin {
     self::registerPlugins();
   }
 
-  /* include and instantiate plugins defined in dex.conf */
+  /* include and instantiate plugins defined in phplib/Config.php */
   static function registerPlugins() {
     self::$plugins = [];
     $names = Config::PLUGINS;

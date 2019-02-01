@@ -23,7 +23,7 @@ try {
 
   $urlPattern = Config::PAGE_URL_PATTERN;
   if (!$urlPattern) {
-    throw new Exception('Adresa paginilor scanate nu este definită în dex.conf.');
+    throw new Exception('Adresa paginilor scanate nu este definită în phplib/Config.php.');
   }
 
   header('Content-Type: application/json');

@@ -3,6 +3,15 @@
 /**
  * Call to action for occasional activism. Shown as a top banner colored in
  * red (Bootstrap danger color).
+ *
+ * Sample config:
+ *
+ * const PLUGINS = [
+ *   'CallToAction' => [
+ *     'template' => '2017-02-01.tpl'
+ *   ],
+ * ];
+ *
  **/
 
 class CallToAction extends Plugin {
@@ -13,8 +22,8 @@ class CallToAction extends Plugin {
   /* true if the user hid the banner (cookie-based) */
   private $visible;
 
-  public function __construct() {
-    $this->templateName = Config::get('plugins.callToActionTemplate');
+  public function __construct($cfg) {
+    $this->templateName = $cfg['template'];
     $this->hidden = isset($_COOKIE['hideCallToAction']);
   }
 

@@ -192,10 +192,10 @@ class Config {
 
   /******************************* Plugins *******************************/
 
-  // Array of class names, each one residing in phplib/plugins and implementing a plugin.
+  // Array mapping class names to an array of settings for that plugin.
+  // There should be a corresponding class under phplib/plugins.
+  // Settings for each plugin are exemplified in the plugin's class.
   const PLUGINS = [];
-
-  // Each plugin expects some plugin-specific variables, which should be listed below.
 
   /*************************** Scrabble options ***************************/
 

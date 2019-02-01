@@ -22,9 +22,9 @@ abstract class Plugin {
     self::$plugins = [];
     $names = Config::PLUGINS;
 
-    foreach ($names as $plugin) {
+    foreach ($names as $plugin => $cfg) {
       require_once __DIR__ . "/plugins/{$plugin}.php";
-      self::$plugins[] = new $plugin;
+      self::$plugins[] = new $plugin($cfg);
     }
   }
 

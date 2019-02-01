@@ -2,6 +2,18 @@
 
 /**
  * Custom definitions. Results will be returned as if the corresponding word was searched for.
+ *
+ * Sample config:
+ *
+ * const PLUGINS = [
+ *   'Spoof' => [
+ *     'normalize' => true,
+ *     'words' => [
+ *       'rege' => 'regină',
+ *     ],
+ *   ],
+ * ];
+ *
  **/
 
 class Spoof extends Plugin {
@@ -23,9 +35,9 @@ class Spoof extends Plugin {
   /* true if the spoofed query has diacritics or the user has a preference for them */
   private $hasDiacritics;
 
-  public function __construct() {
-    $this->normalize = Config::get('plugins.spoofNormalize', true);
-    $this->words = Config::get('plugins.spoofWords', []);
+  public function __construct($cfg) {
+    $this->normalize = $cfg['normalize'];
+    $this->words = $cfg['words'];
   }
 
   function replaceSpoofedWord($s) {

@@ -84,7 +84,9 @@ class Config {
 
   // For outgoing emails
   const SMTP_SERVER = 'tls://server.com:port';
-  const EMAIL_IDENTITIES = [ ];
+  const EMAIL_IDENTITIES = [
+    // 'address@domain.com' => [ 'name' => 'John', 'password' => 'foo' ], ...
+  ];
 
   /************************** WotD email options **************************/
 
@@ -130,7 +132,7 @@ class Config {
 
   const STATIC_URL = 'https://dexonline.ro/static/';
 
-  // URL pattern for page images
+  // URL path pattern for page images, relative to STATIC_URL
   const PAGE_URL_PATTERN = '';
 
   /************ FTP access (for uploads to the static server) ************/

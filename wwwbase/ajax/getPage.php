@@ -21,10 +21,11 @@ try {
     throw new Exception('Indexul de pagini pentru această sursă este incomplet definit.');
   }
 
-  $urlPattern = Config::PAGE_URL_PATTERN;
-  if (!$urlPattern) {
+  if (!Config::PAGE_URL_PATTERN) {
     throw new Exception('Adresa paginilor scanate nu este definită în phplib/Config.php.');
   }
+
+  $urlPattern = Config::STATIC_URL . Config::PAGE_URL_PATTERN;
 
   header('Content-Type: application/json');
   print(json_encode([

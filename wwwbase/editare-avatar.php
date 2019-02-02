@@ -29,13 +29,13 @@ if (!$user) {
 }
 
 // Remove any old files (with different extensions)
-$oldFiles = glob(Core::getRootPath() . "wwwbase/img/generated/{$user->id}_raw.*");
+$oldFiles = glob(Config::ROOT . "wwwbase/img/generated/{$user->id}_raw.*");
 foreach ($oldFiles as $oldFile) {
   unlink($oldFile);
 }
 
 $ext = pathinfo($file['name'], PATHINFO_EXTENSION);
-$destFileName = Core::getRootPath() . "wwwbase/img/generated/{$user->id}_raw.{$ext}";
+$destFileName = Config::ROOT . "wwwbase/img/generated/{$user->id}_raw.{$ext}";
 
 if (!move_uploaded_file($file['tmp_name'], $destFileName)) {
   FlashMessage::add('A intervenit o eroare la copierea fișierului.');

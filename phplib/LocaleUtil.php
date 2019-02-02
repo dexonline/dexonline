@@ -35,7 +35,7 @@ class LocaleUtil {
 
     setlocale(LC_ALL, $locale);
     $domain = "messages";
-    bindtextdomain($domain, Core::getRootPath() . '/locale');
+    bindtextdomain($domain, Config::ROOT . '/locale');
     bind_textdomain_codeset($domain, 'UTF-8');
     textdomain($domain);
   }

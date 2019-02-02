@@ -177,8 +177,8 @@ class SmartyWrap {
 
   static function init() {
     self::$theSmarty = new Smarty();
-    self::$theSmarty->template_dir = Core::getRootPath() . 'templates';
-    self::$theSmarty->compile_dir = Core::getRootPath() . 'templates_c';
+    self::$theSmarty->template_dir = Config::ROOT . 'templates';
+    self::$theSmarty->compile_dir = Config::ROOT . 'templates_c';
     // sufficient for now; generalize if more plugin sources are needed
     self::$theSmarty->addPluginsDir(__DIR__ . '/smarty-plugins');
     self::$theSmarty->inheritance_merge_compiled_includes = false; // This allows variable names in {include} tags
@@ -199,14 +199,14 @@ class SmartyWrap {
 
     // Add {$template}.css if the file exists
     $cssFile = "autoload/{$baseName}.css";
-    $fileName = Core::getRootPath() . 'wwwbase/css/' . $cssFile;
+    $fileName = Config::ROOT . 'wwwbase/css/' . $cssFile;
     if (file_exists($fileName)) {
       self::$cssFiles[] = $cssFile;
     }
 
     // Add {$template}.js if the file exists
     $jsFile = "autoload/{$baseName}.js";
-    $fileName = Core::getRootPath() . 'wwwbase/js/' . $jsFile;
+    $fileName = Config::ROOT . 'wwwbase/js/' . $jsFile;
     if (file_exists($fileName)) {
       self::$jsFiles[] = $jsFile;
     }
@@ -237,7 +237,7 @@ class SmartyWrap {
     $full = [];
     $maxTimestamp = 0;
     foreach ($files as $file) {
-      $name = sprintf('%swwwbase/%s/%s', Core::getRootPath(), $type, $file);
+      $name = sprintf('%swwwbase/%s/%s', Config::ROOT, $type, $file);
       $full[] = $name;
       $timestamp = filemtime($name);
       $maxTimestamp = max($maxTimestamp, $timestamp);
@@ -245,7 +245,7 @@ class SmartyWrap {
 
     // compute the output file name
     $hash = md5(implode(',', $full));
-    $outputDir = sprintf('%swwwbase/%s/merged/', Core::getRootPath(), $type);
+    $outputDir = sprintf('%swwwbase/%s/merged/', Config::ROOT, $type);
     $output = sprintf('%s%s.%s', $outputDir, $hash, $type);
 
     // generate the output file if it doesn't exist or if it's too old

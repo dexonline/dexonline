@@ -4,7 +4,7 @@ require_once __DIR__ . '/../phplib/Core.php';
 
 const SQL_FILE = Config::TEMP_DIR . '/dex-database.sql';
 const GZ_FILE = Config::TEMP_DIR . '/dex-database.sql.gz';
-$licenseFile = Core::getRootPath() . '/tools/dumpDatabaseLicense.txt';
+$licenseFile = Config::ROOT . '/tools/dumpDatabaseLicense.txt';
 
 // Skip the username/password here to avoid a Percona warning.
 // Place them in my.cnf.

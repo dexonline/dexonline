@@ -14,7 +14,7 @@ $g_curFileUrl = 0;
 
 Log::notice('started');
 
-chdir(Core::getRootPath());
+chdir(Config::ROOT);
 openNewFile();
 addOtherUrls();
 

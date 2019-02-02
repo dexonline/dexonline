@@ -2,6 +2,9 @@
 
 class Config {
 
+  // Filesystem root of this installation
+  const ROOT = __DIR__ . '/';
+
   // Database connection. Format: mysql://user[:password]@host/database
   const DATABASE = 'mysql://root@localhost/dexonline';
 

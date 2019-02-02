@@ -2,13 +2,13 @@
 <?php
 
 /**
- * Checks whether the developer modified one of the files phplib/Config.php or
+ * Checks whether the developer modified one of the files Config.php or
  * wwwbase/.htaccess. If they did, they should push the same changes to
- * phplib/Config.php.sample and wwwbase/.htaccess.sample respectively.
+ * Config.php.sample and wwwbase/.htaccess.sample respectively.
  *
  * Specifically, we check whether
- * - there are new constants in phplib/Config.php;
- * - some constants changed type in phplib/Config.php;
+ * - there are new constants in Config.php;
+ * - some constants changed type in Config.php;
  * - there are new RewriteRules (commented or not) in wwwbase/.htaccess
  *
  * Checks whether any Selenium IDE tests contain
@@ -17,20 +17,20 @@
  **/
 
 // We should already be at the root of the client
-$sample = getConstants('phplib/Config.php.sample');
-$actual = getConstants('phplib/Config.php');
+$sample = getConstants('Config.php.sample');
+$actual = getConstants('Config.php');
 
 foreach ($actual as $name => $value) {
   if (!array_key_exists($name, $sample)) {
-    error("The constant *** $name *** is defined in lib/Config.php, " .
-          "but not in lib/Config.php.sample. Please add it to lib/Config.php.sample.");
+    error("The constant *** $name *** is defined in Config.php, " .
+          "but not in Config.php.sample. Please add it to Config.php.sample.");
   }
 
   $actualType = gettype($value);
   $sampleType = getType($sample[$name]);
   if ($sampleType != $actualType) {
-    error("The constant *** $name *** has type '$actualType' in lib/Config.php, " .
-          "but type '$sampleType' in lib/Config.php.sample. Please reconcile them.");
+    error("The constant *** $name *** has type '$actualType' in Config.php, " .
+          "but type '$sampleType' in Config.php.sample. Please reconcile them.");
   }
 }
 

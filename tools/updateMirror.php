@@ -24,7 +24,7 @@ if ($doDatabaseCopy) {
 }
 
 if ($doCodeUpdate) {
-  OS::executeAndAssert('cd ' . Core::getRootPath() . '; /usr/bin/git pull --quiet');
+  OS::executeAndAssert('cd ' . Config::ROOT . '; /usr/bin/git pull --quiet');
 }
 
 Log::notice('finished');

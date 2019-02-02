@@ -3,7 +3,6 @@
 class Core {
 
   private static $wwwRoot;
-  private static $rootPath;
   private static $tempPath;
 
   const AUTOLOAD_PATHS = [
@@ -15,7 +14,7 @@ class Core {
 
   static function autoload($className) {
     foreach (self::AUTOLOAD_PATHS as $path) {
-      $filename = self::getRootPath() . $path . DIRECTORY_SEPARATOR . $className . '.php';
+      $filename = Config::ROOT . $path . '/' . $className . '.php';
       if (file_exists($filename)) {
         require_once $filename;
         return;
@@ -24,10 +23,11 @@ class Core {
   }
 
   static function init() {
+    require_once __DIR__ . '/../Config.php';
+
     spl_autoload_register(); // clear the autoload stack
     spl_autoload_register('Core::autoload', false, true);
 
-    self::defineRootPath();
     self::defineWwwRoot();
     self::defineTempPath();
     self::requireOtherFiles();
@@ -50,30 +50,6 @@ class Core {
   static function initAdvancedSearchPreference() {
     $advancedSearch = Session::userPrefers(Preferences::SHOW_ADVANCED);
     SmartyWrap::assign('advancedSearch', $advancedSearch);
-  }
-
-  static function defineRootPath() {
-    $ds = DIRECTORY_SEPARATOR;
-    $fileName = realpath($_SERVER['SCRIPT_FILENAME']);
-    $pos = strrpos($fileName, "{$ds}wwwbase{$ds}");
-    // Some scripts run from the tools or phplib directories.
-    if ($pos === false) {
-      $pos = strrpos($fileName, "{$ds}tools{$ds}");
-    }
-    if ($pos === false) {
-      $pos = strrpos($fileName, "{$ds}phplib{$ds}");
-    }
-    if ($pos === false) {
-      $pos = strrpos($fileName, "{$ds}app{$ds}");
-    }
-    self::$rootPath = substr($fileName, 0, $pos + 1);
-  }
-
-  /**
-   * Returns the absolute path of the dexonline folder in the file system.
-   */
-  static function getRootPath() {
-    return self::$rootPath;
   }
 
   /**

@@ -9,7 +9,7 @@ $displayDate = Request::get('displayDate');
 $noYear = Request::get('noYear');
 $priority = Request::get('priority');
 $definitionId = Request::get('definitionId');
-$image = Request::getRaw('image'); // do not convert e.g. ş to ș
+$image = Request::get('image');
 $description = Request::get('description');
 
 switch ($oper) {

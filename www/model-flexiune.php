@@ -16,8 +16,8 @@ if (!$model) {
 $exponent = $model->getExponentWithParadigm();
 $lexemes = Lexeme::loadByCanonicalModel($model->modelType, $model->number, LEXEMES_LIMIT);
 
-SmartyWrap::addCss('paradigm');
-SmartyWrap::assign('model', $model);
-SmartyWrap::assign('exponent', $exponent);
-SmartyWrap::assign('lexemes', $lexemes);
-SmartyWrap::display('model-flexiune.tpl');
+Smart::addCss('paradigm');
+Smart::assign('model', $model);
+Smart::assign('exponent', $exponent);
+Smart::assign('lexemes', $lexemes);
+Smart::display('model-flexiune.tpl');

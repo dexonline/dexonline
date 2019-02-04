@@ -9,6 +9,6 @@ $lexemes = Model::factory('Lexeme')
   ->limit(1000)
   ->find_many();
 
-SmartyWrap::assign('lexemes', $lexemes);
-SmartyWrap::addCss('admin');
-SmartyWrap::display('admin/viewLexemesWithoutAccents.tpl');
+Smart::assign('lexemes', $lexemes);
+Smart::addCss('admin');
+Smart::display('admin/viewLexemesWithoutAccents.tpl');

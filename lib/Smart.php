@@ -2,7 +2,7 @@
 
 require_once 'third-party/smarty-3.1.30/Smarty.class.php';
 
-class SmartyWrap {
+class Smart {
   private static $theSmarty = null;
   private static $cssFiles = [];
   private static $jsFiles = [];
@@ -390,7 +390,7 @@ class SmartyWrap {
     if (Session::userPrefers(Preferences::OLD_ORTHOGRAPHY)) {
       self::$theSmarty->registerFilter('output', ['Str', 'replace_ai']);
     }
-    self::$theSmarty->registerFilter('output', ['SmartyWrap', 'minifyOutput']);
+    self::$theSmarty->registerFilter('output', ['Smart', 'minifyOutput']);
   }
 
   static function addCss(/* Variable-length argument list */) {

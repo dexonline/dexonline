@@ -6,13 +6,13 @@ Util::assertNotLoggedIn();
 $email = Request::get('email');
 $submitButton = Request::has('submitButton');
 
-SmartyWrap::assign('email', $email);
+Smart::assign('email', $email);
 
 if ($submitButton) {
   $errors = validate($email);
 
   if ($errors) {
-    SmartyWrap::assign('errors', $errors);
+    Smart::assign('errors', $errors);
   } else {
 
     $user = User::get_by_email($email);
@@ -26,11 +26,11 @@ if ($submitButton) {
       $pt->save();
 
       // Send email
-      SmartyWrap::assign([
+      Smart::assign([
         'homePage' => Config::URL_HOST . Config::URL_PREFIX,
         'token' => $pt->token,
       ]);
-      $body = SmartyWrap::fetch('email/resetPassword.tpl');
+      $body = Smart::fetch('email/resetPassword.tpl');
       $from = Config::CONTACT_EMAIL;
       $subject = 'Schimbarea parolei pentru dexonline';
       Mailer::setRealMode();
@@ -38,12 +38,12 @@ if ($submitButton) {
     }
 
     // Display a confirmation even for incorrect addresses.
-    SmartyWrap::display('auth/passwordRecoveryEmailSent.tpl');
+    Smart::display('auth/passwordRecoveryEmailSent.tpl');
     exit;
   }
 }
 
-SmartyWrap::display('auth/parola-uitata.tpl');
+Smart::display('auth/parola-uitata.tpl');
 
 /*************************************************************************/
 

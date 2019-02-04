@@ -121,8 +121,8 @@ function dumpSources($remoteFile) {
   global $FTP;
 
   Log::info("dumping sources");
-  SmartyWrap::assign('sources', Model::factory('Source')->order_by_asc('id')->find_many());
-  $xml = SmartyWrap::fetch('xml/xmldump/sources.tpl');
+  Smart::assign('sources', Model::factory('Source')->order_by_asc('id')->find_many());
+  $xml = Smart::fetch('xml/xmldump/sources.tpl');
   $gzip = gzencode($xml);
   $FTP->staticServerPutContents($gzip, $remoteFile);
 }
@@ -131,8 +131,8 @@ function dumpInflections($remoteFile) {
   global $FTP;
 
   Log::info("dumping inflections");
-  SmartyWrap::assign('inflections', Model::factory('Inflection')->order_by_asc('id')->find_many());
-  $xml = SmartyWrap::fetch('xml/xmldump/inflections.tpl');
+  Smart::assign('inflections', Model::factory('Inflection')->order_by_asc('id')->find_many());
+  $xml = Smart::fetch('xml/xmldump/inflections.tpl');
   $gzip = gzencode($xml);
   $FTP->staticServerPutContents($gzip, $remoteFile);
 }
@@ -153,8 +153,8 @@ function dumpAbbrevs($remoteFile) {
     $map[$sourceId] = Abbrev::loadAbbreviations($sourceId);
   }
 
-  SmartyWrap::assign('map', $map);
-  $xml = SmartyWrap::fetch('xml/xmldump/abbrev.tpl');
+  Smart::assign('map', $map);
+  $xml = Smart::fetch('xml/xmldump/abbrev.tpl');
   $gzip = gzencode($xml);
   $FTP->staticServerPutContents($gzip, $remoteFile);
 }
@@ -173,9 +173,9 @@ function dumpDefinitions($query, $remoteFile, $message) {
   foreach ($results as $row) {
     $def = Model::factory('Definition')->create($row);
     $def->internalRep = Str::xmlize($def->internalRep);
-    SmartyWrap::assign('def', $def);
-    SmartyWrap::assign('nick', $USERS[$def->userId]);
-    gzwrite($file, SmartyWrap::fetch('xml/xmldump/definition.tpl'));
+    Smart::assign('def', $def);
+    Smart::assign('nick', $USERS[$def->userId]);
+    gzwrite($file, Smart::fetch('xml/xmldump/definition.tpl'));
   }
   gzwrite($file, "</Definitions>\n");
   gzclose($file);
@@ -196,8 +196,8 @@ function dumpEntries($query, $remoteFile, $message) {
   gzwrite($file, "<Entries>\n");
   foreach($results as $row) {
     $entry = Model::factory('Entry')->create($row);
-    SmartyWrap::assign('entry', $entry);
-    gzwrite($file, SmartyWrap::fetch('xml/xmldump/entry.tpl'));
+    Smart::assign('entry', $entry);
+    gzwrite($file, Smart::fetch('xml/xmldump/entry.tpl'));
   }
   gzwrite($file, "</Entries>\n");
   gzclose($file);
@@ -216,8 +216,8 @@ function dumpLexemes($query, $remoteFile, $message) {
   gzwrite($file, "<Lexems>\n");
   foreach($results as $row) {
     $lexeme = Model::factory('Lexeme')->create($row);
-    SmartyWrap::assign('lexeme', $lexeme);
-    gzwrite($file, SmartyWrap::fetch('xml/xmldump/lexeme.tpl'));
+    Smart::assign('lexeme', $lexeme);
+    gzwrite($file, Smart::fetch('xml/xmldump/lexeme.tpl'));
   }
   gzwrite($file, "</Lexems>\n");
   gzclose($file);

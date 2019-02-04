@@ -61,14 +61,14 @@ function createCalendar($year, $month) {
   return $weeks;
 }
 
-SmartyWrap::assign('month', strftime("%B", strtotime("$year-$month-01")));
-SmartyWrap::assign('year', $year);
+Smart::assign('month', strftime("%B", strtotime("$year-$month-01")));
+Smart::assign('year', $year);
 
 $showPrev = (($year > 2011) || (($year == 2011) && ($month > 5))) ? 1 : 0;
 $showNext = User::can(User::PRIV_ADMIN) || (time() >= mktime(0, 0, 0, $month + 1, 1, $year));
 
-SmartyWrap::assign('showPrev', $showPrev);
-SmartyWrap::assign('showNext', $showNext);
+Smart::assign('showPrev', $showPrev);
+Smart::assign('showNext', $showNext);
 $prefix = 'arhiva/cuvantul-zilei';
 if ($month == '01') {
   $prevMonth = $prefix . '/' . ($year - 1) . '/12';
@@ -82,11 +82,11 @@ if ($month == '12') {
   $m = sprintf("%02d",(int) $month + 1);
   $nextMonth = "{$prefix}/{$year}/{$m}";
 }
-SmartyWrap::assign('prevMonth', $prevMonth);
-SmartyWrap::assign('nextMonth', $nextMonth);
+Smart::assign('prevMonth', $prevMonth);
+Smart::assign('nextMonth', $nextMonth);
 
 $words = createCalendar($year, $month);
-SmartyWrap::assign('words', $words);
-SmartyWrap::assign('dayNames', LocaleUtil::getWeekDayNames());
+Smart::assign('words', $words);
+Smart::assign('dayNames', LocaleUtil::getWeekDayNames());
 
-SmartyWrap::displayWithoutSkin('bits/wotdArchive.tpl');
+Smart::displayWithoutSkin('bits/wotdArchive.tpl');

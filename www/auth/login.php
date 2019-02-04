@@ -44,22 +44,22 @@ if ($submitButton) {
   if ($user) {
     Session::login($user, $remember);
   } else {
-    SmartyWrap::assign('errors', $errors);
+    Smart::assign('errors', $errors);
   }
 }
 
 if ($devel) {
-  SmartyWrap::assign([
+  Smart::assign([
     'allowFakeUsers' => true,
     'fakeUserNick' => 'test' . rand(10000, 99999),
   ]);
 }
 
-SmartyWrap::assign([
+Smart::assign([
   'nick' => $nick,
   'remember' => $remember,
 ]);
-SmartyWrap::display('auth/login.tpl');
+Smart::display('auth/login.tpl');
 
 /*************************************************************************/
 

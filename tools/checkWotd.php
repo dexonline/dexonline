@@ -105,9 +105,9 @@ if (count($messages)) {
     $mailTo = $rcptInfo;
   }
 
-  SmartyWrap::assign('numDays', NUM_DAYS);
-  SmartyWrap::assign('messages', $messages);
-  $body = SmartyWrap::fetch('email/checkWotd.tpl');
+  Smart::assign('numDays', NUM_DAYS);
+  Smart::assign('messages', $messages);
+  $body = Smart::fetch('email/checkWotd.tpl');
 
   if ($sendEmail) {
     Log::info("checkWotd: sending email");

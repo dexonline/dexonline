@@ -1,6 +1,6 @@
 <?php
 require_once '../lib/Core.php';
 
-SmartyWrap::assign('tags', Tag::loadTree());
-SmartyWrap::addCss('admin');
-SmartyWrap::display('etichete.tpl');
+Smart::assign('tags', Tag::loadTree());
+Smart::addCss('admin');
+Smart::display('etichete.tpl');

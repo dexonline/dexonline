@@ -11,6 +11,6 @@ foreach ($dbResult as $row) {
   $stats[] = [$row['s'], $row['c']];
 }
 
-SmartyWrap::assign('stats', $stats);
-SmartyWrap::addCss('admin');
-SmartyWrap::display('admin/bulkLabelSelectSuffix.tpl');
+Smart::assign('stats', $stats);
+Smart::addCss('admin');
+Smart::display('admin/bulkLabelSelectSuffix.tpl');

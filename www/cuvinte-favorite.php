@@ -14,5 +14,5 @@ $definitions = Model::factory('Definition')
   ->find_many();
 $results = SearchResult::mapDefinitionArray($definitions);
 
-SmartyWrap::assign('results', $results);
-SmartyWrap::display('cuvinte-favorite.tpl');
+Smart::assign('results', $results);
+Smart::display('cuvinte-favorite.tpl');

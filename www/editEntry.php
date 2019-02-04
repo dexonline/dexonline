@@ -148,8 +148,8 @@ if ($saveButton) {
 
   $errors = $e->validate($original);
   if ($errors) {
-    SmartyWrap::assign('errors', $errors);
-    SmartyWrap::assign('renameTrees', $renameTrees);
+    Smart::assign('errors', $errors);
+    Smart::assign('renameTrees', $renameTrees);
   } else {
     // Possibly overwrite the structuristId according to the structStatus change
     if (($original->structStatus == Entry::STRUCT_STATUS_NEW) &&
@@ -220,7 +220,7 @@ $canDelete = ($e->structuristId == User::getActiveId()) || !$e->structuristId;
 
 $homonyms = Entry::getHomonyms([ $e ]);
 
-SmartyWrap::assign([
+Smart::assign([
   'e' => $e,
   'searchResults' => $searchResults,
   'mainLexemeIds' => $mainLexemeIds,
@@ -233,6 +233,6 @@ SmartyWrap::assign([
   'homonyms' => $homonyms,
   'structurists' => User::getStructurists($e->structuristId),
 ]);
-SmartyWrap::addCss('editableMeaningTree', 'admin');
-SmartyWrap::addJs('select2Dev', 'meaningTree', 'textComplete');
-SmartyWrap::display('editEntry.tpl');
+Smart::addCss('editableMeaningTree', 'admin');
+Smart::addJs('select2Dev', 'meaningTree', 'textComplete');
+Smart::display('editEntry.tpl');

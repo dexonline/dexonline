@@ -28,7 +28,7 @@ if ($deleteButton) {
   Util::redirect('index.php');
 }
 
-SmartyWrap::assign('modelType', $modelType);
-SmartyWrap::assign('modelNumber', $modelNumber);
-SmartyWrap::assign('lexemes', $lexemes);
-SmartyWrap::display('admin/deleteModel.tpl');
+Smart::assign('modelType', $modelType);
+Smart::assign('modelNumber', $modelNumber);
+Smart::assign('lexemes', $lexemes);
+Smart::display('admin/deleteModel.tpl');

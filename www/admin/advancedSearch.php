@@ -256,14 +256,14 @@ $stats = [
   'numResults' => $count,
 ];
 
-SmartyWrap::assign([
+Smart::assign([
   'view' => $view,
   'data' => $data,
   'args' => $args,
   'stats' => $stats,
 ]);
-SmartyWrap::addCss('admin');
-SmartyWrap::display('admin/advancedSearch.tpl');
+Smart::addCss('admin');
+Smart::display('admin/advancedSearch.tpl');
 
 /*************************************************************************/
 

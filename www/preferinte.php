@@ -17,7 +17,7 @@ if ($saveButton) {
     : null;
 
   if ($errors) {
-    SmartyWrap::assign('errors', $errors);
+    Smart::assign('errors', $errors);
   } else {
     // fields applicable only to logged in users
     if ($user) {
@@ -51,7 +51,7 @@ $detailsVisible = Preferences::getDetailsVisible($user);
 $userPrefs = Preferences::getUserPrefs($user);
 $widgets = Preferences::getWidgets($user);
 
-SmartyWrap::assign([
+Smart::assign([
   'detailsVisible' => $detailsVisible,
   'userPrefs' => $userPrefs,
   'widgets' => $widgets,
@@ -62,7 +62,7 @@ SmartyWrap::assign([
   'newPassword' => $newPassword,
   'newPassword2' => $newPassword2,
 ]);
-SmartyWrap::display('preferinte.tpl');
+Smart::display('preferinte.tpl');
 
 /*************************************************************************/
 

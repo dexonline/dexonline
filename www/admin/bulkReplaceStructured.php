@@ -49,14 +49,14 @@ foreach ($entries as $e) {
 
 DebugInfo::stopClock('BulkReplaceStructured - AfterEntryResults');
 
-SmartyWrap::assign([
+Smart::assign([
   'modUser' => User::getActive(),
   'defResults' => $defResults,
   'entryResults' => $entryResults,
   'finished' => $finishedReplace,
 ]);
-SmartyWrap::addCss('admin', 'diff');
-SmartyWrap::display('admin/bulkReplaceStructured.tpl');
+Smart::addCss('admin', 'diff');
+Smart::display('admin/bulkReplaceStructured.tpl');
 
 Log::notice((memory_get_usage() - $startMemory).' bytes used');
 

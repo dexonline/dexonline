@@ -23,10 +23,10 @@ $assistantDates = [
   strtotime("+3 month"),
 ];
 
-SmartyWrap::assign([
+Smart::assign([
   'imageList' => $imageList,
   'assistantDates' => $assistantDates,
 ]);
-SmartyWrap::addCss('jqgrid', 'jqueryui', 'admin', 'bootstrap-datepicker');
-SmartyWrap::addJs('jqgrid', 'jqueryui', 'select2Dev', 'bootstrap-datepicker');
-SmartyWrap::display('admin/wotdTable.tpl');
+Smart::addCss('jqgrid', 'jqueryui', 'admin', 'bootstrap-datepicker');
+Smart::addJs('jqgrid', 'jqueryui', 'select2Dev', 'bootstrap-datepicker');
+Smart::display('admin/wotdTable.tpl');

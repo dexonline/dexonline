@@ -16,10 +16,10 @@ $sourceId = $source->id ?? 0;
 
 $defs = Definition::loadMissingRareGlyphsTags($sourceId);
 
-SmartyWrap::assign([
+Smart::assign([
   'sourceId' => $sourceId,
   'searchResults' => SearchResult::mapDefinitionArray($defs),
   'tag' => $tag,
 ]);
-SmartyWrap::addCss('admin');
-SmartyWrap::display('admin/viewMissingRareGlyphsTags.tpl');
+Smart::addCss('admin');
+Smart::display('admin/viewMissingRareGlyphsTags.tpl');

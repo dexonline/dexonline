@@ -7,7 +7,7 @@ $sourceUrlName = Request::get('source');
 if ($sourceUrlName) {
   $source = $sourceUrlName ? Source::get_by_urlName($sourceUrlName) : null;
   $sourceId = $source ? $source->id : 0;
-  SmartyWrap::assign('sourceId', $sourceId);
+  Smart::assign('sourceId', $sourceId);
 }
 
 $ip = $_SERVER['REMOTE_ADDR'];
@@ -27,6 +27,6 @@ $defs = $defs
 
 $searchResults = SearchResult::mapDefinitionArray($defs);
 
-SmartyWrap::assign('searchResults', $searchResults);
-SmartyWrap::addCss('admin');
-SmartyWrap::display('admin/viewPendingDefinitions.tpl');
+Smart::assign('searchResults', $searchResults);
+Smart::addCss('admin');
+Smart::display('admin/viewPendingDefinitions.tpl');

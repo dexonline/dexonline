@@ -62,11 +62,11 @@ if ($saveHarmonizeModelButton) {
   }
 }
 
-SmartyWrap::assign([
+Smart::assign([
   'harmonizeTags' => HarmonizeTag::getAll(),
   'harmonizeModels' => HarmonizeModel::getAll(),
   'modelTypes' => ModelType::getAll(),
 ]);
-SmartyWrap::addCss('admin');
-SmartyWrap::addJs('select2Dev', 'modelDropdown');
-SmartyWrap::display('admin/harmonize.tpl');
+Smart::addCss('admin');
+Smart::addJs('select2Dev', 'modelDropdown');
+Smart::display('admin/harmonize.tpl');

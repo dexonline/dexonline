@@ -28,6 +28,6 @@ if ($sourceId) {
           ->find_many();
 }
 
-SmartyWrap::assign('lexemes', $lexemes);
-SmartyWrap::addCss('admin');
-SmartyWrap::display('admin/viewTemporaryLexemes.tpl');
+Smart::assign('lexemes', $lexemes);
+Smart::addCss('admin');
+Smart::display('admin/viewTemporaryLexemes.tpl');

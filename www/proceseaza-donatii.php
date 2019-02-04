@@ -41,30 +41,30 @@ if ($processButton) {
   if ($includeOtrs) {
     $odp = new OtrsDonationProvider();
     $odp->prepareDonors();
-    SmartyWrap::assign('otrsDonors', $odp->getDonors());
+    Smart::assign('otrsDonors', $odp->getDonors());
   }
 
   $mdp = readManualDonorData();
   $mdp->prepareDonors();
-  SmartyWrap::assign('manualDonors', $mdp->getDonors());
-  SmartyWrap::assign('includeOtrs', $includeOtrs);
+  Smart::assign('manualDonors', $mdp->getDonors());
+  Smart::assign('includeOtrs', $includeOtrs);
 
   if (FlashMessage::hasErrors()) {
-    SmartyWrap::display('proceseaza-donatii.tpl');
+    Smart::display('proceseaza-donatii.tpl');
   } else {
-    SmartyWrap::display('proceseaza-donatii2.tpl');
+    Smart::display('proceseaza-donatii2.tpl');
   }
 
 } else if ($backButton) {
 
   $mdp = readManualDonorData();
-  SmartyWrap::assign('manualDonors', $mdp->getDonors());
-  SmartyWrap::assign('includeOtrs', $includeOtrs);
-  SmartyWrap::display('proceseaza-donatii.tpl');
+  Smart::assign('manualDonors', $mdp->getDonors());
+  Smart::assign('includeOtrs', $includeOtrs);
+  Smart::display('proceseaza-donatii.tpl');
 
 } else {
 
-  SmartyWrap::display('proceseaza-donatii.tpl');
+  Smart::display('proceseaza-donatii.tpl');
 
 }
 
@@ -148,11 +148,11 @@ class Donor {
   function prepare() {
     $this->user = User::get_by_email($this->email);
 
-    SmartyWrap::assign('donor', $this);
+    Smart::assign('donor', $this);
 
     if ($this->amount >= self::AMOUNT_MEDAL) {
-      $this->textMessage = SmartyWrap::fetch('email/donationThankYouTxt.tpl');
-      $this->htmlMessage = SmartyWrap::fetch('email/donationThankYouHtml.tpl');
+      $this->textMessage = Smart::fetch('email/donationThankYouTxt.tpl');
+      $this->htmlMessage = Smart::fetch('email/donationThankYouHtml.tpl');
     }
   }
 

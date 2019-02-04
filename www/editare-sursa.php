@@ -62,15 +62,15 @@ $reforms = Model::factory('OrthographicReforms')
   ->order_by_asc('id')
   ->find_many();
 
-SmartyWrap::assign([
+Smart::assign([
   'src' => $src,
   'tagIds' => $tagIds,
   'managers' => $managers,
   'sourceTypes' => $sourceTypes,
   'reforms' => $reforms,
 ]);
-SmartyWrap::addJs('select2Dev');
-SmartyWrap::display('editare-sursa.tpl');
+Smart::addJs('select2Dev');
+Smart::display('editare-sursa.tpl');
 
 /**
  * Returns true on success, false on errors.

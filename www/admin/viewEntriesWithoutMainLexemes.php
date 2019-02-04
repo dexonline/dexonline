@@ -4,6 +4,6 @@ User::mustHave(User::PRIV_STRUCT);
 
 $entries = Entry::loadWithoutMainLexemes();
 
-SmartyWrap::assign('entries', $entries);
-SmartyWrap::addCss('admin');
-SmartyWrap::display('admin/viewEntriesWithoutMainLexemes.tpl');
+Smart::assign('entries', $entries);
+Smart::addCss('admin');
+Smart::display('admin/viewEntriesWithoutMainLexemes.tpl');

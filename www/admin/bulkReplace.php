@@ -148,7 +148,7 @@ if (!empty($structuredIds)) {
 }
 
 /** Finally displaying the template*/
-SmartyWrap::assign([
+Smart::assign([
   'search' => $search,
   'replace' => $replace,
   'target' => $target,
@@ -161,8 +161,8 @@ SmartyWrap::assign([
   'objects' => $objects,
   'structuredChanged' => count($structuredIds),
 ]);
-SmartyWrap::addCss('admin', 'diff');
-SmartyWrap::display('admin/bulkReplace.tpl');
+Smart::addCss('admin', 'diff');
+Smart::display('admin/bulkReplace.tpl');
 
 Log::notice((memory_get_usage() - $startMemory).' bytes used');
 

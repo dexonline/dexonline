@@ -37,10 +37,10 @@ if ($timer) {
 $count = Lexeme::countStaleParadigms();
 $lexemes = Lexeme::getStaleParadigms(MAX_DISPLAYED);
 
-SmartyWrap::assign([
+Smart::assign([
   'count' => $count,
   'lexemes' => $lexemes,
 ]);
 
-SmartyWrap::addCss('admin');
-SmartyWrap::display('admin/viewStaleParadigms.tpl');
+Smart::addCss('admin');
+Smart::display('admin/viewStaleParadigms.tpl');

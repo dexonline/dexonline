@@ -5,6 +5,6 @@ User::mustHave(User::PRIV_EDIT);
 
 $mentions = Mention::getDetailedTreeMentions();
 
-SmartyWrap::assign('mentions', $mentions);
-SmartyWrap::addCss('admin');
-SmartyWrap::display('admin/viewTreeMentions.tpl');
+Smart::assign('mentions', $mentions);
+Smart::addCss('admin');
+Smart::display('admin/viewTreeMentions.tpl');

@@ -11,4 +11,4 @@ switch($p) {
   default: exit;
 }
 
-SmartyWrap::display("$p.tpl");
+Smart::display("$p.tpl");

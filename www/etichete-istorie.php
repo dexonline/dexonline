@@ -40,9 +40,9 @@ if (!$next) {
 
 $change = DefinitionVersion::compare($dv, $next);
 
-SmartyWrap::assign('def', $def);
-SmartyWrap::assign('dv', $dv);
-SmartyWrap::assign('change', $change);
-SmartyWrap::addCss('diff');
-SmartyWrap::addJs('select2Dev', 'diff');
-SmartyWrap::display('etichete-istorie.tpl');
+Smart::assign('def', $def);
+Smart::assign('dv', $dv);
+Smart::assign('change', $change);
+Smart::addCss('diff');
+Smart::addJs('select2Dev', 'diff');
+Smart::display('etichete-istorie.tpl');

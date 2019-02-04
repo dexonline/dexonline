@@ -111,7 +111,7 @@ if ($saveButton) {
   }
 }
 
-SmartyWrap::assign([
+Smart::assign([
   'm' => $m,
   'pm' => $pm,
   'forms' => $forms,
@@ -119,11 +119,11 @@ SmartyWrap::assign([
 ]);
 
 if ($m->modelType == 'V') {
-  SmartyWrap::assign('adjModels', FlexModel::loadByType('A'));
+  Smart::assign('adjModels', FlexModel::loadByType('A'));
 }
 
-SmartyWrap::addCss('paradigm', 'admin');
-SmartyWrap::display('admin/editModel.tpl');
+Smart::addCss('paradigm', 'admin');
+Smart::display('admin/editModel.tpl');
 
 /****************************************************************************/
 

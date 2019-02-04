@@ -12,6 +12,6 @@ if ($sourceId) {
                   ->find_many();
 }
 
-SmartyWrap::assign('sourceId', $sourceId);
-SmartyWrap::assign('results', $abbrevs);
-SmartyWrap::display('ajax/getAbbreviations.tpl');
+Smart::assign('sourceId', $sourceId);
+Smart::assign('results', $abbrevs);
+Smart::display('ajax/getAbbreviations.tpl');

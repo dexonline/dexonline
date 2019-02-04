@@ -4,7 +4,7 @@ require_once '../lib/Core.php';
 $widgets = Preferences::getWidgets(User::getActive());
 $numEnabledWidgets = array_reduce($widgets, function($result, $w) { return $result + $w['enabled']; });
 
-SmartyWrap::assign([
+Smart::assign([
   'pageType' => 'home',
   'wordsTotal' => Definition::getWordCount(),
   'wordsLastMonth' => Definition::getWordCountLastMonth(),
@@ -21,7 +21,7 @@ if (!$wotd) {
   $wotd = Model::factory('WordOfTheDay')->create(); // generic WotD
 }
 $def = Definition::get_by_id_status($wotd->definitionId, Definition::ST_ACTIVE);
-SmartyWrap::assign([
+Smart::assign([
   'thumbUrl' => $wotd->getMediumThumbUrl(),
   'wotdDef' => $def,
 ]);
@@ -32,10 +32,10 @@ if (!$wotm) {
   $wotm = Model::factory('WordOfTheMonth')->create(); // generic WotM
 }
 $def = Model::factory('Definition')->where('id', $wotm->definitionId)->where('status', Definition::ST_ACTIVE)->find_one();
-SmartyWrap::assign([
+Smart::assign([
   'thumbUrlM' => $wotm->getMediumThumbUrl(),
   'articol' => $wotm->article,
   'wotmDef' => $def,
 ]);
 
-SmartyWrap::display('index.tpl');
+Smart::display('index.tpl');

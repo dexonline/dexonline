@@ -27,7 +27,7 @@ if ($user && $submitButton) {
   $errors = validate($password, $password2);
 
   if ($errors) {
-    SmartyWrap::assign('errors', $errors);
+    Smart::assign('errors', $errors);
   } else {
     $user->password = md5($password);
     $user->save();
@@ -38,13 +38,13 @@ if ($user && $submitButton) {
 
 }
 
-SmartyWrap::assign([
+Smart::assign([
   'token' => $token,
   'user' => $user,
   'password' => $password,
   'password2' => $password2,
 ]);
-SmartyWrap::display('auth/passwordRecovery.tpl');
+Smart::display('auth/passwordRecovery.tpl');
 
 /*************************************************************************/
 

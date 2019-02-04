@@ -48,11 +48,11 @@ while ($rankChars < $numUsers && $topChars[$rankChars]->userNick != $nick) {
 }
 
 $userData['rank_chars'] = $rankChars + 1;
-SmartyWrap::assign('medals', Medal::loadForUser($user));
+Smart::assign('medals', Medal::loadForUser($user));
 if (User::can(User::PRIV_ADMIN)) {
   // Admins can grant/revoke medals
-  SmartyWrap::assign('allMedals', Medal::DATA);
+  Smart::assign('allMedals', Medal::DATA);
 }
-SmartyWrap::assign('user', $user);
-SmartyWrap::assign('userData', $userData);
-SmartyWrap::display('user.tpl');
+Smart::assign('user', $user);
+Smart::assign('userData', $userData);
+Smart::display('user.tpl');

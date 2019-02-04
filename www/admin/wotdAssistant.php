@@ -72,14 +72,14 @@ foreach ($data as &$rec) {
     empty($rec['duplicates']);
 }
 
-SmartyWrap::assign([
+Smart::assign([
   'data' => $data,
   'yearMonth' => $yearMonth,
   'enMonthName' => Str::getEnglishMonthName($yearMonth),
 ]);
-SmartyWrap::addCss('admin', 'bootstrap-datepicker');
-SmartyWrap::addJs('bootstrap-datepicker');
-SmartyWrap::display('admin/wotdAssistant.tpl');
+Smart::addCss('admin', 'bootstrap-datepicker');
+Smart::addJs('bootstrap-datepicker');
+Smart::display('admin/wotdAssistant.tpl');
 
 /*************************************************************************/
 

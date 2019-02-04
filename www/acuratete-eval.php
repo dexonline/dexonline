@@ -72,17 +72,17 @@ if ($defId) {
 
 if ($def) {
   $homonyms = Entry::getHomonyms($def->getEntries());
-  SmartyWrap::assign('homonyms', $homonyms);
+  Smart::assign('homonyms', $homonyms);
 }
 
 $defData = $project->getDefinitionData();
 
-SmartyWrap::assign([
+Smart::assign([
   'project' => $project,
   'mine' => $mine,
   'def' => $def,
   'errors' => $errors,
   'definitionData' => $defData,
 ]);
-SmartyWrap::addCss('admin');
-SmartyWrap::display('acuratete-eval.tpl');
+Smart::addCss('admin');
+Smart::display('acuratete-eval.tpl');

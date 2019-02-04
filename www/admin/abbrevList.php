@@ -11,5 +11,5 @@ $allSources = Model::factory('Source')
                      ->order_by_asc('displayOrder')
                      ->find_many();
 
-SmartyWrap::assign('allSources', $allSources);
-SmartyWrap::display('admin/abbrevList.tpl');
+Smart::assign('allSources', $allSources);
+Smart::display('admin/abbrevList.tpl');

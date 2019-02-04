@@ -12,7 +12,7 @@ $canonical = Request::get('canonical');
 $description = Request::get('description');
 
 if ($showAddForm) {
-  SmartyWrap::assign('addModelType', Model::factory('ModelType')->create());
+  Smart::assign('addModelType', Model::factory('ModelType')->create());
 }
 
 if ($saveButton && !$id) {
@@ -28,7 +28,7 @@ if ($saveButton && !$id) {
     Util::redirect('tipuri-modele.php');
   } else {
     $showAddForm = true;
-    SmartyWrap::assign('addModelType', $mt);
+    Smart::assign('addModelType', $mt);
   }
 }
 
@@ -42,13 +42,13 @@ if ($saveButton && $id) {
     FlashMessage::add('Am salvat descrierea.', 'success');
     Util::redirect('tipuri-modele.php');
   } else {
-    SmartyWrap::assign('editModelType', $mt);
+    Smart::assign('editModelType', $mt);
   }
 }
 
 if ($editId) {
   // Load model type to be edited
-  SmartyWrap::assign('editModelType', ModelType::get_by_id($editId));
+  Smart::assign('editModelType', ModelType::get_by_id($editId));
 }
 
 if ($deleteId) {
@@ -74,7 +74,7 @@ foreach ($modelTypes as $mt) {
   $canDelete[] = ($numLexemes == 0) && ($numDependants <= 1);
 }
 
-SmartyWrap::assign([
+Smart::assign([
   'canonicalModelTypes' => ModelType::loadCanonical(),
   'modelTypes' => $modelTypes,
   'modelCounts' => $modelCounts,
@@ -82,7 +82,7 @@ SmartyWrap::assign([
   'canDelete' => $canDelete,
   'showAddForm' => $showAddForm,
 ]);
-SmartyWrap::display('tipuri-modele.tpl');
+Smart::display('tipuri-modele.tpl');
 
 /***************************************************************************/
 

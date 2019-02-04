@@ -29,7 +29,7 @@ if ($type == 'rss' || $type == 'blog') {
     $def = $w->getDefinition();
     $source = Source::get_by_id($def->sourceId);
 
-    SmartyWrap::assign([
+    Smart::assign([
       'def' => $def,
       'source' => $source,
       'reason' => Str::htmlize($w->description)[0],
@@ -38,13 +38,13 @@ if ($type == 'rss' || $type == 'blog') {
     ]);
     if ($type == 'blog') {
       $curDate = LocaleUtil::date($ts, "%e %B");
-      SmartyWrap::assign('curDate', $curDate);
+      Smart::assign('curDate', $curDate);
       $item['title'] = "{$curDate} – " . $def->lexicon;
-      $item['description'] = SmartyWrap::fetch('bits/wotdRssBlogItem.tpl');
+      $item['description'] = Smart::fetch('bits/wotdRssBlogItem.tpl');
     }
     else {
       $item['title'] = $def->lexicon;
-      $item['description'] = SmartyWrap::fetch('bits/wotdRssItem.tpl');
+      $item['description'] = Smart::fetch('bits/wotdRssItem.tpl');
     }
     $item['pubDate'] = date('D, d M Y H:i:s', $ts) . ' EEST';
     $item['link'] = sprintf('%s%scuvantul-zilei/%s',
@@ -55,14 +55,14 @@ if ($type == 'rss' || $type == 'blog') {
   }
 
   header("Content-type: application/rss+xml; charset=utf-8");
-  SmartyWrap::assign([
+  Smart::assign([
     'rss_title' => 'Cuvântul zilei',
     'rss_link' => Config::URL_HOST . Config::URL_PREFIX . 'cuvantul-zilei/',
     'rss_description' => 'Doza zilnică de cuvinte de la dexonline!',
     'rss_pubDate' => date('D, d M Y H:i:s') . ' EEST',
     'results' => $results,
   ]);
-  SmartyWrap::displayWithoutSkin('xml/rss.tpl');
+  Smart::displayWithoutSkin('xml/rss.tpl');
   exit;
 }
 
@@ -87,16 +87,16 @@ $reason = '';
 if ($wotd) {
   $reason = Str::htmlize($wotd->description)[0];
   if (User::can(User::PRIV_WOTD) || ($date <= $maxReasonDate)) {
-    SmartyWrap::assign('reason', $reason);
+    Smart::assign('reason', $reason);
   }
 }
 
 $def = Definition::get_by_id($wotd->definitionId);
 
 if ($type == 'url') {
-  SmartyWrap::assign('today', $today);
-  SmartyWrap::assign('title', $def->lexicon);
-  SmartyWrap::displayWithoutSkin('bits/wotdurl.tpl');
+  Smart::assign('today', $today);
+  Smart::assign('title', $def->lexicon);
+  Smart::displayWithoutSkin('bits/wotdurl.tpl');
   exit;
 }
 
@@ -104,16 +104,16 @@ $searchResults = SearchResult::mapDefinitionArray([$def]);
 
 if ($date > $bigBang) {
   $prevDay = $date->sub(new DateInterval('P1D'))->format('Y/m/d');
-  SmartyWrap::assign('prevDay', $prevDay);
+  Smart::assign('prevDay', $prevDay);
 } else {
-  SmartyWrap::assign('prevDay', false);
+  Smart::assign('prevDay', false);
 }
 
 if ($date < $today || User::can(User::PRIV_ADMIN)) {
   $nextDay = $date->add(new DateInterval('P1D'))->format('Y/m/d');
-  SmartyWrap::assign('nextDay', $nextDay);
+  Smart::assign('nextDay', $nextDay);
 } else {
-  SmartyWrap::assign('nextDay', false);
+  Smart::assign('nextDay', false);
 }
 
 // Load the WotD for this day in other years.
@@ -134,7 +134,7 @@ foreach ($otherWotds as $w) {
   ];
 }
 
-SmartyWrap::assign([
+Smart::assign([
   'wotd' => $wotd,
   'year' => $year,
   'month' => $month,
@@ -144,4 +144,4 @@ SmartyWrap::assign([
   'searchResult' => array_pop($searchResults),
 ]);
 
-SmartyWrap::display('wotd.tpl');
+Smart::display('wotd.tpl');

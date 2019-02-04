@@ -11,19 +11,19 @@ $lastDump = $x->getLastDumpDate();
 $lastClientUpdate = Request::get('last', '0');
 if ($lastClientUpdate == '0') {
   if (!$lastDump) {
-    SmartyWrap::assign('noFullDump', true);
+    Smart::assign('noFullDump', true);
   } else {
     // Dump the freshest full dump we have
-    SmartyWrap::assign('serveFullDump', true);
+    Smart::assign('serveFullDump', true);
     $lastClientUpdate = $lastDump;
   }
 }
 
-SmartyWrap::assign([
+Smart::assign([
   'lastDump' => $lastDump,
   'url' => $x->getUrl(),
   'diffs' => $x->getDiffsSince($lastClientUpdate),
 ]);
 
 header('Content-type: text/xml');
-print SmartyWrap::fetch('xml/update4.tpl');
+print Smart::fetch('xml/update4.tpl');

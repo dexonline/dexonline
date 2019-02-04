@@ -25,10 +25,10 @@ if(DEBUG) {
 
 $s = "[" . ($sources ? implode($sources, ",") : "") . "]";
 
-SmartyWrap::assign([
+Smart::assign([
   'results' => $searchResults,
   's' => $s,
   'i' => $word_start,
   'e' => $word_end,
 ]);
-SmartyWrap::display('cuvinte.tpl');
+Smart::display('cuvinte.tpl');

@@ -187,27 +187,27 @@ if ($saveButton) {
   } catch (Exception $e) {
     FlashMessage::add($e->getMessage());
   }
-  SmartyWrap::assign('lexemeIds', $lexemeIds);
-  SmartyWrap::assign('models', $models);
+  Smart::assign('lexemeIds', $lexemeIds);
+  Smart::assign('models', $models);
 } else {
   $models = [];
   foreach ($dbl as $l) {
     $models[] = "{$l->modelType}{$l->modelNumber}";
   }
 
-  SmartyWrap::assign('lexemeIds', $dblIds);
-  SmartyWrap::assign('models', $models);
+  Smart::assign('lexemeIds', $dblIds);
+  Smart::assign('models', $models);
 }
 
-SmartyWrap::assign([
+Smart::assign([
   'def' => $def,
   'capitalize' => $capitalize,
   'deleteOrphans' => $deleteOrphans,
   'passedTests' => $passedTests,
 ]);
-SmartyWrap::addCss('admin');
-SmartyWrap::addJs('select2Dev');
-SmartyWrap::display('admin/deTool.tpl');
+Smart::addCss('admin');
+Smart::addJs('select2Dev');
+Smart::display('admin/deTool.tpl');
 
 /*************************************************************************/
 

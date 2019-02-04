@@ -64,13 +64,13 @@ $sources = Model::factory('Source')
   ->order_by_asc('s.displayOrder')
   ->find_many();
 
-SmartyWrap::assign([
+Smart::assign([
   'def' => $def,
   'sourceId' => $sourceId,
   'sources' => $sources,
 ]);
-SmartyWrap::addCss('admin');
-SmartyWrap::display('admin/randomAbbrevReview.tpl');
+Smart::addCss('admin');
+Smart::display('admin/randomAbbrevReview.tpl');
 
 /**
  * Sort matches from last to first

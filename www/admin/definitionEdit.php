@@ -189,7 +189,7 @@ $sources = Model::factory('Source')
          ->order_by_asc('displayOrder')
          ->find_many();
 
-SmartyWrap::assign([
+Smart::assign([
   'isOcr' => $isOcr,
   'def' => $d,
   'row' => $row,
@@ -203,9 +203,9 @@ SmartyWrap::assign([
   'canEditStatus' => canEditStatus($d),
   'allModeratorSources' => $sources,
 ]);
-SmartyWrap::addCss('tinymce', 'admin', 'diff');
-SmartyWrap::addJs('select2Dev', 'tinymce', 'cookie', 'frequentObjects');
-SmartyWrap::display('admin/definitionEdit.tpl');
+Smart::addCss('tinymce', 'admin', 'diff');
+Smart::addJs('select2Dev', 'tinymce', 'cookie', 'frequentObjects');
+Smart::display('admin/definitionEdit.tpl');
 
 /*************************************************************************/
 

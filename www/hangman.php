@@ -63,11 +63,11 @@ do {
 $searchResults = SearchResult::mapDefinitionArray($defs);
 $word = mb_strtoupper($lexeme->formNoAccent);
 
-SmartyWrap::assign([
+Smart::assign([
   'wordLength' => mb_strlen($word),
   'letters' => Str::unicodeExplode('aăâbcdefghiîjklmnopqrsștțuvwxyz'),
   'word' => $word,
   'searchResults' => $searchResults,
   'difficulty' => $difficulty
 ]);
-SmartyWrap::display("hangman.tpl");
+Smart::display("hangman.tpl");

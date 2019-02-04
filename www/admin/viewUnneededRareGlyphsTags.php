@@ -12,9 +12,9 @@ foreach ($selectedDefIds as $defId) {
 
 $defs = Definition::loadUnneededRareGlyphsTags();
 
-SmartyWrap::assign([
+Smart::assign([
   'searchResults' => SearchResult::mapDefinitionArray($defs),
   'tag' => $tag,
 ]);
-SmartyWrap::addCss('admin');
-SmartyWrap::display('admin/viewUnneededRareGlyphsTags.tpl');
+Smart::addCss('admin');
+Smart::display('admin/viewUnneededRareGlyphsTags.tpl');

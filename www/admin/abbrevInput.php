@@ -73,12 +73,12 @@ if ($cancelButton) {
 // create Abbreviation objects so we can use the HtmlConverter
 $abbrevs = csv_to_objects($csv, $sourceId, $userId);
 
-SmartyWrap::assign([
+Smart::assign([
   'abbrevs' => $abbrevs,
   'modUser' => User::getActive(),
 ]);
-SmartyWrap::addCss('admin');
-SmartyWrap::display('admin/abbrevInput.tpl');
+Smart::addCss('admin');
+Smart::display('admin/abbrevInput.tpl');
 
 /*************************************************************************/
 

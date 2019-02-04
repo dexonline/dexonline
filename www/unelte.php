@@ -115,7 +115,7 @@ $osNames = [
   'Windows Phone',
 ];
 
-SmartyWrap::assign('clients', $clients);
-SmartyWrap::assign('clientOptions', $clientOptions);
-SmartyWrap::assign('osNames', $osNames);
-SmartyWrap::display('unelte.tpl');
+Smart::assign('clients', $clients);
+Smart::assign('clientOptions', $clientOptions);
+Smart::assign('osNames', $osNames);
+Smart::display('unelte.tpl');

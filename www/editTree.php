@@ -82,7 +82,7 @@ if ($saveButton) {
   $errors = $t->validate();
   if ($errors) {
     FlashMessage::add('Nu pot salva arborele datorită erorilor de mai jos.');
-    SmartyWrap::assign('errors', $errors);
+    Smart::assign('errors', $errors);
     // TODO fix logic here - individual meanings can give errors too (e.g. due to abbreviations)
     $t->setMeanings(Meaning::convertTree($meanings));
   } else {
@@ -139,7 +139,7 @@ $meaningMentions = Mention::getDetailedMeaningMentions($t->id);
 
 $homonyms = $t->getRelatedTrees();
 
-SmartyWrap::assign([
+Smart::assign([
   't' => $t,
   'entryIds' => $entryIds,
   'tagIds' => $tagIds,
@@ -153,6 +153,6 @@ SmartyWrap::assign([
   'meaningMentions' => $meaningMentions,
   'homonyms' => $homonyms,
 ]);
-SmartyWrap::addCss('editableMeaningTree', 'textComplete', 'admin');
-SmartyWrap::addJs('select2Dev', 'meaningTree', 'textComplete', 'cookie', 'frequentObjects');
-SmartyWrap::display('editTree.tpl');
+Smart::addCss('editableMeaningTree', 'textComplete', 'admin');
+Smart::addJs('select2Dev', 'meaningTree', 'textComplete', 'cookie', 'frequentObjects');
+Smart::display('editTree.tpl');

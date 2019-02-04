@@ -9,13 +9,13 @@ if ($form) {
   $answer = Loc::lookup($form, $version);
   $class = 'has-feedback ' . ($answer ? 'has-success' : 'has-error');
 
-  SmartyWrap::assign([
+  Smart::assign([
     'answer' => $answer,
     'class' => $class,
   ]);
 }
 
-SmartyWrap::assign([
+Smart::assign([
   'form' => $form,
   'version' => $version,
   'versions' => getLocVersions(),
@@ -25,12 +25,12 @@ SmartyWrap::assign([
 if ($ajax) {
   $results = [
     'answer' => $answer,
-    'template' => SmartyWrap::fetch('bits/scrabbleResults.tpl'),
+    'template' => Smart::fetch('bits/scrabbleResults.tpl'),
   ];
   header("Content-Type: application/json");
   print json_encode($results);
 } else {
-  SmartyWrap::display('scrabble.tpl');
+  Smart::display('scrabble.tpl');
 }
 
 /*************************************************************************/

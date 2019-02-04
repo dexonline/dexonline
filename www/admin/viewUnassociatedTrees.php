@@ -10,6 +10,6 @@ $trees = Model::factory('Tree')
        ->order_by_asc('t.descriptionSort')
        ->find_many();
 
-SmartyWrap::assign('trees', $trees);
-SmartyWrap::addCss('admin', 'meaningTree');
-SmartyWrap::display('admin/viewUnassociatedTrees.tpl');
+Smart::assign('trees', $trees);
+Smart::addCss('admin', 'meaningTree');
+Smart::display('admin/viewUnassociatedTrees.tpl');

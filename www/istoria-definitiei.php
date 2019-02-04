@@ -35,7 +35,7 @@ if ($prev) {
 $changeSets = array_filter($changeSets); // remove NOPs
 $changeSets = array_reverse($changeSets); // newest changes first
 
-SmartyWrap::assign('def', $def);
-SmartyWrap::assign('changeSets', $changeSets);
-SmartyWrap::addCss('diff');
-SmartyWrap::display('istoria-definitiei.tpl');
+Smart::assign('def', $def);
+Smart::assign('changeSets', $changeSets);
+Smart::addCss('diff');
+Smart::display('istoria-definitiei.tpl');

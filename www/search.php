@@ -77,7 +77,7 @@ $source = $sourceUrlName ? Source::get_by_urlName($sourceUrlName) : null;
 $sourceId = $source ? $source->id : null;
 
 if ($cuv) {
-  SmartyWrap::assign('cuv', $cuv);
+  Smart::assign('cuv', $cuv);
   $hasDiacritics |= Str::hasDiacritics($cuv);
   $hasRegexp = Str::hasRegexp($cuv);
   $isAllDigits = Str::isAllDigits($cuv);
@@ -164,7 +164,7 @@ if ($entryId) {
   $entry = Entry::get_by_id($entryId);
   if ($entry) {
     $entries = [$entry];
-    SmartyWrap::assign('cuv', $entry->getShortDescription());
+    Smart::assign('cuv', $entry->getShortDescription());
     $definitions = Definition::searchEntry($entry);
     Plugin::notify('searchEntryId', $definitions);
   }
@@ -186,7 +186,7 @@ if ($searchType == SEARCH_INFLECTED) {
   if (count($entries)) {
     $definitions = Definition::loadForEntries($entries, $sourceId, $cuv);
     Plugin::notify('searchInflected', $definitions, $sourceId);
-    SmartyWrap::assign('wikiArticles', WikiArticle::loadForEntries($entries));
+    Smart::assign('wikiArticles', WikiArticle::loadForEntries($entries));
 
     // Add a warning if this word is in WotD
     if ($showWotd) {
@@ -215,7 +215,7 @@ if ($searchType == SEARCH_INFLECTED) {
   if (empty($entries) && empty($definitions)) {
     $searchType = SEARCH_APPROXIMATE;
     $entries = Lexeme::searchApproximate($cuv);
-    SmartyWrap::assign('suggestNoBanner', true);
+    Smart::assign('suggestNoBanner', true);
     if (count($entries) == 1) {
       $msg = sprintf(_('We redirected you automatically from <b>%s</b> to <b>%s</b>.'),
                      $cuv, $entries[0]->description);
@@ -306,7 +306,7 @@ if ($searchParams[$searchType]['trees'] && !$sourceId) {
   }
 
   if (count($trees)) {
-    SmartyWrap::addCss('meaningTree');
+    Smart::addCss('meaningTree');
     usort($trees, [new TreeComparator($cuv), 'cmp']);
   }
 }
@@ -330,7 +330,7 @@ if ($searchParams[$searchType]['paradigm']) {
     $conjugations ? _('conjugations') : '',
     $declensions ? _('declensions') : '',
   ]));
-  SmartyWrap::assign('declensionText', $declensionText);
+  Smart::assign('declensionText', $declensionText);
 
   // Check if any of the inflected forms are unrecommended
   $hasUnrecommendedForms = false;
@@ -349,7 +349,7 @@ if ($searchParams[$searchType]['paradigm']) {
       }
     }
   }
-  SmartyWrap::assign([
+  Smart::assign([
     'hasUnrecommendedForms' => $hasUnrecommendedForms,
     'hasElisionForms' => $hasElisionForms,
   ]);
@@ -364,7 +364,7 @@ foreach ($results as $row) {
   }
 }
 $sourceList = array_keys($sourceList);
-SmartyWrap::assign('sourceList', $sourceList);
+Smart::assign('sourceList', $sourceList);
 
 // META tags - TODO move in a dedicated file
 if ($cuv) {
@@ -390,15 +390,15 @@ if ($cuv) {
     $pageDescription .= " din dicționarele: " . implode(", ", $sourceList);
   }
 
-  SmartyWrap::assign('pageDescription', $pageDescription);
+  Smart::assign('pageDescription', $pageDescription);
 }
 
 // Gallery images
 $images = empty($entries) ? [] : Visual::loadAllForEntries($entries);
-SmartyWrap::assign('images', $images);
+Smart::assign('images', $images);
 if (count($images)) {
-  SmartyWrap::addCss('gallery');
-  SmartyWrap::addJs('gallery', 'jcanvas');
+  Smart::addCss('gallery');
+  Smart::addJs('gallery', 'jcanvas');
 }
 
 // We cannot show the paradigm tab by default if there isn't one to show.
@@ -412,7 +412,7 @@ foreach ($entries as $e) {
   $adult |= $e->adult;
 }
 
-SmartyWrap::assign([
+Smart::assign([
   'entries' => $entries,
   'lexemes' => $lexemes,
   'results' => $results,
@@ -431,22 +431,22 @@ SmartyWrap::assign([
 ]);
 if ($text || $sourceId) {
   // must show the advanced search menu regardless of preference
-  SmartyWrap::assign('advancedSearch', true);
+  Smart::assign('advancedSearch', true);
 }
 
 switch ($format['name']) {
   case 'xml':
     header('Content-type: text/xml');
-    SmartyWrap::displayWithoutSkin('xml/search.tpl');
+    Smart::displayWithoutSkin('xml/search.tpl');
     break;
   case 'json':
     header('Content-type: application/json');
-    SmartyWrap::displayWithoutSkin('json/search.tpl');
+    Smart::displayWithoutSkin('json/search.tpl');
     break;
   case 'html':
   default:
-    SmartyWrap::addCss('paradigm');
-    SmartyWrap::display('search.tpl');
+    Smart::addCss('paradigm');
+    Smart::display('search.tpl');
 }
 
 // Logging

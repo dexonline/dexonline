@@ -26,16 +26,16 @@ class Core {
     spl_autoload_register('Core::autoload', false, true);
 
     DB::init();
-    Session::init(); // init Session before SmartyWrap: SmartyWrap caches the person's nickname.
+    Session::init(); // init Session before Smart: Smart caches the person's nickname.
     if (!Request::isAjax()) {
       FlashMessage::restoreFromSession();
     }
-    SmartyWrap::init();
+    Smart::init();
     LocaleUtil::init();
     DebugInfo::init();
     Plugin::init();
     if (Request::isWeb() && Config::MAINTENANCE_MODE) {
-      SmartyWrap::display('maintenance.tpl', true);
+      Smart::display('maintenance.tpl', true);
       exit;
     }
   }

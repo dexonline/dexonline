@@ -31,8 +31,8 @@ if ($saveButton) {
   }
 }
 
-SmartyWrap::assign('artist', $artist);
-SmartyWrap::display('editare-autor-imagini.tpl');
+Smart::assign('artist', $artist);
+Smart::display('editare-autor-imagini.tpl');
 
 /**
  * Returns true on success, false on errors.

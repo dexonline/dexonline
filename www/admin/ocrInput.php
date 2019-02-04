@@ -112,7 +112,7 @@ $allOcrModerators = Model::factory('User')
   ->order_by_asc('id')
   ->find_many();
 
-SmartyWrap::assign([
+Smart::assign([
   'msgClass' => $class,
   'message' => $message,
   'allModeratorSources' => $allModeratorSources,
@@ -120,5 +120,5 @@ SmartyWrap::assign([
   'statsPrep' => DB::execute(OCR_PREP_STATS),
   'statsEditors' => DB::execute(OCR_EDITOR_STATS),
 ]);
-SmartyWrap::addCss('admin');
-SmartyWrap::display('admin/ocrInput.tpl');
+Smart::addCss('admin');
+Smart::display('admin/ocrInput.tpl');

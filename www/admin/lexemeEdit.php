@@ -120,7 +120,7 @@ if ($refreshButton || $saveButton) {
   }
 
   // Case 1-2: Page was submitted
-  SmartyWrap::assign('renameRelated', $renameRelated);
+  Smart::assign('renameRelated', $renameRelated);
 
 } else {
   // Case 3: First time loading this page
@@ -154,7 +154,7 @@ $homonyms = Model::factory('Lexeme')
           ->where_not_equal('id', $lexeme->id)
           ->find_many();
 
-SmartyWrap::assign([
+Smart::assign([
   'lexeme' => $lexeme,
   'entryIds' => $entryIds,
   'sourceIds' => $sourceIds,
@@ -164,9 +164,9 @@ SmartyWrap::assign([
   'models' => $models,
   'canEdit' => $canEdit,
 ]);
-SmartyWrap::addCss('paradigm', 'admin');
-SmartyWrap::addJs('select2Dev', 'modelDropdown', 'cookie', 'frequentObjects');
-SmartyWrap::display('admin/lexemeEdit.tpl');
+Smart::addCss('paradigm', 'admin');
+Smart::addJs('select2Dev', 'modelDropdown', 'cookie', 'frequentObjects');
+Smart::display('admin/lexemeEdit.tpl');
 
 /**************************************************************************/
 

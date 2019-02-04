@@ -86,10 +86,10 @@ foreach ($dbResult as $row) {
   }
 }
 
-SmartyWrap::assign('modelType', $modelType);
-SmartyWrap::assign('lexemes', $lexemes);
-SmartyWrap::addCss('admin');
-SmartyWrap::display('admin/mergeLexemes.tpl');
+Smart::assign('modelType', $modelType);
+Smart::assign('lexemes', $lexemes);
+Smart::addCss('admin');
+Smart::display('admin/mergeLexemes.tpl');
 
 
 /***************************************************/

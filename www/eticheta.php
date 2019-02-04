@@ -29,7 +29,7 @@ if ($saveButton) {
 
   $errors = $tag->validate();
   if ($errors) {
-    SmartyWrap::assign('errors', $errors);
+    Smart::assign('errors', $errors);
   } else {
     $tag->save();
 
@@ -110,7 +110,7 @@ $meanings = Model::factory('Meaning')
           ->limit(MEANING_LIMIT)
           ->find_many();
 
-SmartyWrap::assign([
+Smart::assign([
   't' => $tag,
   'children' => $children,
   'canDelete' => $canDelete,
@@ -123,6 +123,6 @@ SmartyWrap::assign([
   'meanings' => $meanings,
   'frequentColors' => $frequentColors,
 ]);
-SmartyWrap::addCss('admin', 'colorpicker');
-SmartyWrap::addJs('select2Dev', 'colorpicker');
-SmartyWrap::display('eticheta.tpl');
+Smart::addCss('admin', 'colorpicker');
+Smart::addJs('select2Dev', 'colorpicker');
+Smart::display('eticheta.tpl');

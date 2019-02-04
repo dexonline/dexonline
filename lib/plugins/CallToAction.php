@@ -29,15 +29,15 @@ class CallToAction extends Plugin {
 
   function bodyStart() {
     if (!$this->hidden) {
-      print SmartyWrap::fetch('plugins/callToAction/' . $this->templateName);
+      print Smart::fetch('plugins/callToAction/' . $this->templateName);
     }
   }
 
   function cssJsSmarty() {
     if (!$this->hidden) {
-      SmartyWrap::addPluginCss('callToAction/callToAction.css');
-      SmartyWrap::addPluginJs('callToAction/callToAction.js');
-      SmartyWrap::addJs('cookie');
+      Smart::addPluginCss('callToAction/callToAction.css');
+      Smart::addPluginJs('callToAction/callToAction.js');
+      Smart::addJs('cookie');
     }
   }
 }

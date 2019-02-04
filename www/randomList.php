@@ -64,12 +64,12 @@ $forms = DB::getArrayOfRows($query);
 
 $cnt = count($forms);
 
-SmartyWrap::assign([
+Smart::assign([
   'forms' => $forms,
   'title' => $title,
 ]);
 if ($noSkin) {
-  SmartyWrap::displayWithoutSkin('bits/randomWordListSimple.tpl');
+  Smart::displayWithoutSkin('bits/randomWordListSimple.tpl');
 } else {
-  SmartyWrap::display('randomWordList.tpl');
+  Smart::display('randomWordList.tpl');
 }

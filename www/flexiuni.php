@@ -47,8 +47,8 @@ foreach ($inflections as $infl) {
   $infl->canDelete = !in_array($infl->id, $usedInflectionIds);
 }
 
-SmartyWrap::assign('inflections', $inflections);
-SmartyWrap::assign('modelTypes', ModelType::loadCanonical());
-SmartyWrap::addCss('admin');
-SmartyWrap::addJs('jqTableDnd');
-SmartyWrap::display('flexiuni.tpl');
+Smart::assign('inflections', $inflections);
+Smart::assign('modelTypes', ModelType::loadCanonical());
+Smart::addCss('admin');
+Smart::addJs('jqTableDnd');
+Smart::display('flexiuni.tpl');

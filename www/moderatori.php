@@ -42,6 +42,6 @@ $moderators = Model::factory('User')
   ->order_by_asc('nick')
   ->find_many();
 
-SmartyWrap::assign('users', $moderators);
-SmartyWrap::addCss('admin');
-SmartyWrap::display('moderatori.tpl');
+Smart::assign('users', $moderators);
+Smart::addCss('admin');
+Smart::display('moderatori.tpl');

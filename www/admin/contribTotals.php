@@ -13,7 +13,7 @@ if ($submitButton) {
 
   $errors = validate($userId, $startDate, $endDate);
   if ($errors) {
-    SmartyWrap::assign('errors', $errors);
+    Smart::assign('errors', $errors);
   } else {
 
     // Compute the definition totals for the given parameters
@@ -37,8 +37,8 @@ if ($submitButton) {
       $sumLength += $row->length;
     }
 
-    SmartyWrap::assign('results', $results);
-    SmartyWrap::assign('sumLength', $sumLength);
+    Smart::assign('results', $results);
+    Smart::assign('sumLength', $sumLength);
 
     if ($showChanges) {
       // Load each definition and compare it with the OCR version (if available)
@@ -65,8 +65,8 @@ if ($submitButton) {
         }
       }
 
-      SmartyWrap::assign('changes', $changes);
-      SmartyWrap::assign('sumChanges', $sumChanges);
+      Smart::assign('changes', $changes);
+      Smart::assign('sumChanges', $sumChanges);
     }
   }
 } else {
@@ -75,15 +75,15 @@ if ($submitButton) {
   $showChanges = true;
 }
 
-SmartyWrap::assign([
+Smart::assign([
   'userId' => $userId,
   'startDate' => $startDate,
   'endDate' => $endDate,
   'showChanges' => $showChanges,
 ]);
-SmartyWrap::addCss('admin');
-SmartyWrap::addJs('select2Dev');
-SmartyWrap::display('admin/contribTotals.tpl');
+Smart::addCss('admin');
+Smart::addJs('select2Dev');
+Smart::display('admin/contribTotals.tpl');
 
 /*************************************************************************/
 

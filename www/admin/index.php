@@ -184,7 +184,7 @@ $wotdAssistantDates = [
   strtotime("+3 month"),
 ];
 
-SmartyWrap::assign([
+Smart::assign([
   'structurists' => User::getStructurists(),
   'reports' => $reports,
   'reportPriv' => $reportPriv,
@@ -195,10 +195,10 @@ SmartyWrap::assign([
   'timeAgo' => $timeAgo,
   'wotdAssistantDates' => $wotdAssistantDates,
 ]);
-SmartyWrap::addCss('admin', 'bootstrap-spinedit', 'bootstrap-datepicker');
-SmartyWrap::addJs('select2Dev', 'adminIndex', 'modelDropdown', 'bootstrap-spinedit',
+Smart::addCss('admin', 'bootstrap-spinedit', 'bootstrap-datepicker');
+Smart::addJs('select2Dev', 'adminIndex', 'modelDropdown', 'bootstrap-spinedit',
                   'bootstrap-datepicker');
-SmartyWrap::display('admin/index.tpl');
+Smart::display('admin/index.tpl');
 
 /*************************************************************************/
 

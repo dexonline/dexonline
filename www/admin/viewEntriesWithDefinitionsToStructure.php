@@ -4,6 +4,6 @@ User::mustHave(User::PRIV_STRUCT);
 
 $entries = Entry::loadWithDefinitionsToStructure();
 
-SmartyWrap::assign('entries', $entries);
-SmartyWrap::addCss('admin');
-SmartyWrap::display('admin/viewEntriesWithDefinitionsToStructure.tpl');
+Smart::assign('entries', $entries);
+Smart::addCss('admin');
+Smart::display('admin/viewEntriesWithDefinitionsToStructure.tpl');

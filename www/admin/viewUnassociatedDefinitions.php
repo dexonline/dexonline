@@ -29,6 +29,6 @@ $defs = Model::factory('Definition')
       ->where_null('ed.id')
       ->find_many();
 
-SmartyWrap::assign('searchResults', SearchResult::mapDefinitionArray($defs));
-SmartyWrap::addCss('admin');
-SmartyWrap::display('admin/viewUnassociatedDefinitions.tpl');
+Smart::assign('searchResults', SearchResult::mapDefinitionArray($defs));
+Smart::addCss('admin');
+Smart::display('admin/viewUnassociatedDefinitions.tpl');

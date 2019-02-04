@@ -2,5 +2,5 @@
 
 require_once '../lib/Core.php';
 
-SmartyWrap::addJs('pixijs', 'seedrandom', 'cookie');
-SmartyWrap::display("scramble.tpl");
+Smart::addJs('pixijs', 'seedrandom', 'cookie');
+Smart::display("scramble.tpl");

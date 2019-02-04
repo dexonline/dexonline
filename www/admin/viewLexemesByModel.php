@@ -8,8 +8,8 @@ $lexemes = Lexeme::loadByCanonicalModel($modelType, $modelNumber);
 
 RecentLink::add("Lexeme pentru modelul: {$modelType}{$modelNumber}");
 
-SmartyWrap::assign('lexemes', $lexemes);
-SmartyWrap::assign('modelType', $modelType);
-SmartyWrap::assign('modelNumber', $modelNumber);
-SmartyWrap::addCss('admin');
-SmartyWrap::display('admin/viewLexemesByModel.tpl');
+Smart::assign('lexemes', $lexemes);
+Smart::assign('modelType', $modelType);
+Smart::assign('modelNumber', $modelNumber);
+Smart::addCss('admin');
+Smart::display('admin/viewLexemesByModel.tpl');

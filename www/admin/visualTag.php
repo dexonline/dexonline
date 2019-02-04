@@ -48,9 +48,9 @@ if ($addTagButton) {
   Util::redirect("?id={$v->id}");
 }
 
-SmartyWrap::assign('visual', $v);
-SmartyWrap::assign('entry', Entry::get_by_id($v->entryId));
+Smart::assign('visual', $v);
+Smart::assign('entry', Entry::get_by_id($v->entryId));
 
-SmartyWrap::addCss('jqueryui', 'jcrop', 'jqgrid', 'gallery', 'admin');
-SmartyWrap::addJs('jqueryui', 'jcrop', 'select2Dev', 'jqgrid', 'gallery', 'jcanvas'); 
-SmartyWrap::display('admin/visualTag.tpl');
+Smart::addCss('jqueryui', 'jcrop', 'jqgrid', 'gallery', 'admin');
+Smart::addJs('jqueryui', 'jcrop', 'select2Dev', 'jqgrid', 'gallery', 'jcanvas'); 
+Smart::display('admin/visualTag.tpl');

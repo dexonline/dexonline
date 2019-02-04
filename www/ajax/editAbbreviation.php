@@ -59,9 +59,9 @@ switch ($action) {
     $abbrev->save();
 
     /** Prepare the tableRow from template */
-    SmartyWrap::assign('row', $abbrev);
-    SmartyWrap::assign('labelEdited', 'primary');
-    $html = SmartyWrap::fetch('bits/abbrevRow.tpl');
+    Smart::assign('row', $abbrev);
+    Smart::assign('labelEdited', 'primary');
+    $html = Smart::fetch('bits/abbrevRow.tpl');
     $status = 'finished';
     break;
 

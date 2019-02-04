@@ -19,9 +19,9 @@ $wotm = WordOfTheMonth::getWotM($mysqlDate);
 $def = Definition::get_by_id($wotm->definitionId);
 
 if ($type == 'url') {
-  SmartyWrap::assign('today', $today);
-  SmartyWrap::assign('title', $def->lexicon);
-  SmartyWrap::displayWithoutSkin('bits/wotmurl.tpl');
+  Smart::assign('today', $today);
+  Smart::assign('title', $def->lexicon);
+  Smart::displayWithoutSkin('bits/wotmurl.tpl');
   exit;
 }
 
@@ -33,13 +33,13 @@ $nextTS = mktime(0, 0, 0, $cMonth + 1, 1, $cYear);
 $prevTS = mktime(0, 0, 0, $cMonth - 1, 1, $cYear);
 
 if ($mysqlDate > WOTM_BIG_BANG) {
-  SmartyWrap::assign('prevmon', date('Y/m', $prevTS));
+  Smart::assign('prevmon', date('Y/m', $prevTS));
 }
 if ($mysqlDate < $today || User::can(User::PRIV_WOTD)) {
-  SmartyWrap::assign('nextmon', date('Y/m', $nextTS));
+  Smart::assign('nextmon', date('Y/m', $nextTS));
 }
 
-SmartyWrap::assign([
+Smart::assign([
   'imageUrl' => $wotm->getLargeThumbUrl(),
   'artist' => $wotm->getArtist(),
   'reason' => $wotm->description,
@@ -47,4 +47,4 @@ SmartyWrap::assign([
   'searchResult' => array_pop($searchResults),
 ]);
 
-SmartyWrap::display('wotm.tpl');
+Smart::display('wotm.tpl');

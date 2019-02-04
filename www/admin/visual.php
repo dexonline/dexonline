@@ -3,6 +3,6 @@ require_once '../../lib/Core.php';
 User::mustHave(User::PRIV_VISUAL);
 RecentLink::add('Dicționarul vizual');
 
-SmartyWrap::addCss('elfinder', 'jqueryui', 'admin');
-SmartyWrap::addJs('elfinder', 'jqueryui');
-SmartyWrap::display('admin/visual.tpl');
+Smart::addCss('elfinder', 'jqueryui', 'admin');
+Smart::addJs('elfinder', 'jqueryui');
+Smart::display('admin/visual.tpl');

@@ -26,8 +26,8 @@ if (User::can(User::PRIV_VIEW_HIDDEN)) {
            ->find_many();
 }
 
-SmartyWrap::assign('src', $sources);
-SmartyWrap::assign('editable', User::can(User::PRIV_ADMIN));
-SmartyWrap::addCss('admin');
-SmartyWrap::addJs('jqTableDnd', 'tablesorter');
-SmartyWrap::display('surse.tpl');
+Smart::assign('src', $sources);
+Smart::assign('editable', User::can(User::PRIV_ADMIN));
+Smart::addCss('admin');
+Smart::addJs('jqTableDnd', 'tablesorter');
+Smart::display('surse.tpl');

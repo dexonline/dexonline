@@ -15,15 +15,15 @@
 class Typewriter extends Plugin {
 
   function htmlHead() {
-    print SmartyWrap::fetch('plugins/typewriter/typewriterHead.tpl');
+    print Smart::fetch('plugins/typewriter/typewriterHead.tpl');
   }
 
   function afterBody() {
-    print SmartyWrap::fetch('plugins/typewriter/typewriterBody.tpl');
+    print Smart::fetch('plugins/typewriter/typewriterBody.tpl');
   }
 
   function cssJsSmarty() {
-    SmartyWrap::addPluginCss('typewriter/run.css');
-    SmartyWrap::addPluginJs('typewriter/typewriter.js');
+    Smart::addPluginCss('typewriter/run.css');
+    Smart::addPluginJs('typewriter/typewriter.js');
   }
 }

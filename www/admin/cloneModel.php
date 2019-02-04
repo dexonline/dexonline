@@ -72,11 +72,11 @@ if ($saveButton) {
 
 $lexemes = Lexeme::loadByCanonicalModel($modelType, $modelNumber);
 
-SmartyWrap::assign([
+Smart::assign([
   'modelType' => $modelType,
   'modelNumber' => $modelNumber,
   'newModelNumber' => $newModelNumber,
   'lexemes' => $lexemes,
 ]);
-SmartyWrap::addCss('admin');
-SmartyWrap::display('admin/cloneModel.tpl');
+Smart::addCss('admin');
+Smart::display('admin/cloneModel.tpl');

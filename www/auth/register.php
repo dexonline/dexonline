@@ -17,7 +17,7 @@ if ($submitButton) {
   $errors = validate($nick, $password, $password2, $email);
 
   if ($errors) {
-    SmartyWrap::assign('errors', $errors);
+    Smart::assign('errors', $errors);
   } else {
 
     $user = Model::factory('User')->create();
@@ -30,7 +30,7 @@ if ($submitButton) {
   }
 }
 
-SmartyWrap::assign([
+Smart::assign([
   'nick' => $nick,
   'email' => $email,
   'name' => $name,
@@ -38,7 +38,7 @@ SmartyWrap::assign([
   'password2' => $password2,
   'remember' => $remember,
 ]);
-SmartyWrap::display('auth/register.tpl');
+Smart::display('auth/register.tpl');
 
 /*************************************************************************/
 

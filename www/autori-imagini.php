@@ -22,5 +22,5 @@ foreach ($artists as $a) {
   $a->canDelete = !$count && !$hasWotm;
 }
 
-SmartyWrap::assign('artists', $artists);
-SmartyWrap::display('autori-imagini.tpl');
+Smart::assign('artists', $artists);
+Smart::display('autori-imagini.tpl');

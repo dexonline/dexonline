@@ -56,12 +56,12 @@ foreach ($aps as $ap) {
   $projects[$ap->id] = $ap;
 }
 
-SmartyWrap::assign([
+Smart::assign([
   'projects' => $projects,
   'p' => $p,
   'length' => $length,
   'includePublic' => $includePublic,
 ]);
-SmartyWrap::addCss('admin', 'tablesorter');
-SmartyWrap::addJs('select2Dev', 'tablesorter');
-SmartyWrap::display('acuratete.tpl');
+Smart::addCss('admin', 'tablesorter');
+Smart::addJs('select2Dev', 'tablesorter');
+Smart::display('acuratete.tpl');

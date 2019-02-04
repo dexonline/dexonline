@@ -44,8 +44,8 @@ foreach($lexemes as $l) {
   $searchResults[$l->id] = SearchResult::mapDefinitionArray($definitions);
 }
 
-SmartyWrap::assign('lexemes', $lexemes);
-SmartyWrap::assign('chars', $chars);
-SmartyWrap::assign('searchResults', $searchResults);
-SmartyWrap::addCss('admin');
-SmartyWrap::display('admin/placeAccents.tpl');
+Smart::assign('lexemes', $lexemes);
+Smart::assign('chars', $chars);
+Smart::assign('searchResults', $searchResults);
+Smart::addCss('admin');
+Smart::display('admin/placeAccents.tpl');

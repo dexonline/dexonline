@@ -49,7 +49,7 @@ abstract class Plugin {
   function afterBody() {
   }
 
-  /* called before SmartyWrap::fetch(); plugins may include CSS/JS and assign Smarty variables */
+  /* called before Smart::fetch(); plugins may include CSS/JS and assign Smarty variables */
   function cssJsSmarty() {
   }
 

@@ -20,8 +20,8 @@ $footnotes = $d->getFootnotes();
 
 $sim = SimilarRecord::create($d, $entryIds);
 
-SmartyWrap::assign('footnotes', $footnotes);
-$footnoteHtml = SmartyWrap::fetch('bits/footnotes.tpl');
+Smart::assign('footnotes', $footnotes);
+$footnoteHtml = Smart::fetch('bits/footnotes.tpl');
 
 $data = $sim->getJsonFriendly();
 $data['html'] = $html;

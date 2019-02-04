@@ -15,10 +15,10 @@ $sources = Model::factory('Source')
   ->find_many();
 $sourceMap = Util::mapById($sources);
 
-SmartyWrap::assign([
+Smart::assign([
   'defs' => $defs,
   'sourceMap' => $sourceMap,
 ]);
-SmartyWrap::addCss('tablesorter');
-SmartyWrap::addJs('tablesorter');
-SmartyWrap::display('traineeDefinitions.tpl');
+Smart::addCss('tablesorter');
+Smart::addJs('tablesorter');
+Smart::display('traineeDefinitions.tpl');

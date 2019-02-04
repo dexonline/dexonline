@@ -2,7 +2,7 @@
 
 class Config {
 
-  // Filesystem root of this installation
+  // Filesystem root of this installation. Include a trailing slash.
   const ROOT = __DIR__ . '/';
 
   // The concatenation URL_HOST + URL_PREFIX should yield the URL of the home
@@ -28,7 +28,7 @@ class Config {
 
   /******************************* Logging *******************************/
 
-  // Log file name. Can also be "php://stdout" or "php://stderr"
+  // Log file name. Can also be 'php://stdout' or 'php://stderr'
   const LOG_FILE = '/var/log/dexonline.log';
 
   // Maximum priority level. See <http://php.net/manual/en/function.syslog.php>.
@@ -134,7 +134,7 @@ class Config {
   const SKIN_WOTD_ARCHIVE = true;
   const SKIN_WOTD_SUBSCRIBE = true;
 
-  // Web host logo. A value of "foo" should have a corresponding template in
+  // Web host logo. A value of 'foo' should have a corresponding template in
   // templates/hosting/foo.tpl.
   const SKIN_HOSTED_BY = '';
 
@@ -143,7 +143,7 @@ class Config {
   const STATIC_URL = 'https://dexonline.ro/static/';
 
   // URL path pattern for page images, relative to STATIC_URL
-  const PAGE_URL_PATTERN = '';
+  const PAGE_URL_PATTERN = 'pages/%03d/vol%02d/%04d.png';
 
   /************ FTP access (for uploads to the static server) ************/
 
@@ -174,8 +174,8 @@ class Config {
   const OTRS_PASSWORD = '';
 
   /*** Donation middlemen options ***/
-  const EU_PLATESC_MID = '';
   const EU_PLATESC_KEY = '';
+  const EU_PLATESC_MID = '';
 
   /**************************** Banner options ****************************/
 

@@ -1,4 +1,3 @@
-{assign var="advancedSearch" value=$advancedSearch|default:false}
 {assign var="cuv" value=$cuv|default:''}
 {assign var="text" value=$text|default:false}
 

@@ -1,5 +1,7 @@
 <?php
 
+require_once 'third-party/smarty-3.1.30/Smarty.class.php';
+
 class SmartyWrap {
   private static $theSmarty = null;
   private static $cssFiles = [];
@@ -187,6 +189,7 @@ class SmartyWrap {
         'currentYear' => date("Y"),
         'suggestNoBanner' => Util::suggestNoBanner(),
         'privateMode' => Session::userPrefers(Preferences::PRIVATE_MODE),
+        'advancedSearch' => Session::userPrefers(Preferences::SHOW_ADVANCED),
       ]);
     }
   }

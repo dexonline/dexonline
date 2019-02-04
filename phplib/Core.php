@@ -25,7 +25,6 @@ class Core {
     spl_autoload_register(); // clear the autoload stack
     spl_autoload_register('Core::autoload', false, true);
 
-    self::requireOtherFiles();
     DB::init();
     Session::init(); // init Session before SmartyWrap: SmartyWrap caches the person's nickname.
     if (!Request::isAjax()) {
@@ -39,19 +38,6 @@ class Core {
       SmartyWrap::display('maintenance.tpl', true);
       exit;
     }
-    self::initAdvancedSearchPreference();
-  }
-
-  static function initAdvancedSearchPreference() {
-    $advancedSearch = Session::userPrefers(Preferences::SHOW_ADVANCED);
-    SmartyWrap::assign('advancedSearch', $advancedSearch);
-  }
-
-  static function requireOtherFiles() {
-    $tp = __DIR__ . '/third-party';
-    require_once "{$tp}/smarty-3.1.30/Smarty.class.php";
-    require_once "{$tp}/idiorm/idiorm.php";
-    require_once "{$tp}/idiorm/paris.php";
   }
 
 }

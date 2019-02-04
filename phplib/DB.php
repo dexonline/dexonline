@@ -1,5 +1,8 @@
 <?php
 
+require_once 'third-party/idiorm/idiorm.php';
+require_once 'third-party/idiorm/paris.php';
+
 class DB {
   static $dsn;
   static $user;

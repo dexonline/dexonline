@@ -31,8 +31,8 @@ if ($saveButton) {
 
     // fields applicable to logged in and anonymous users
     $detailsVisible = Request::has('detailsVisible');
-    $userPrefs = Request::get('userPrefs');
-    $widgets = Request::get('widgets');
+    $userPrefs = Request::getArray('userPrefs');
+    $widgets = Request::getArray('widgets');
     Preferences::set($user, $detailsVisible, array_sum($userPrefs), array_sum($widgets));
 
     FlashMessage::add('Am salvat preferințele.', 'success');

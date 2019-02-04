@@ -23,8 +23,8 @@ class Config {
   // Display a maintenance page when true. The database must exist, but it may be empty.
   const MAINTENANCE_MODE = false;
 
-  // Folder for temporary data
-  const TEMP_DIR = '/tmp';
+  // Folder for temporary data. Include a trailing slash.
+  const TEMP_DIR = '/tmp/';
 
   /******************************* Logging *******************************/
 

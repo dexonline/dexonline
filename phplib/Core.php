@@ -2,8 +2,6 @@
 
 class Core {
 
-  private static $tempPath;
-
   const AUTOLOAD_PATHS = [
     'phplib',
     'phplib/models',
@@ -27,7 +25,6 @@ class Core {
     spl_autoload_register(); // clear the autoload stack
     spl_autoload_register('Core::autoload', false, true);
 
-    self::defineTempPath();
     self::requireOtherFiles();
     DB::init();
     Session::init(); // init Session before SmartyWrap: SmartyWrap caches the person's nickname.
@@ -57,18 +54,6 @@ class Core {
     require_once "{$tp}/idiorm/paris.php";
   }
 
-  static function getTempPath() {
-    return self::$tempPath;
-  }
-
-  static function defineTempPath() {
-    $temp = Config::TEMP_DIR ?: sys_get_temp_dir();
-    if (is_dir($temp) && is_writable($temp)) {
-      self::$tempPath = $temp;
-    } else {
-      throw new Exception('Directorul temporar specificat nu poate fi accesat.');
-    }
-  }
 }
 
 Core::init();

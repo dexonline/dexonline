@@ -248,7 +248,7 @@ class SmartyWrap {
 
     // generate the output file if it doesn't exist or if it's too old
     if (!file_exists($output) || (filemtime($output) < $maxTimestamp)) {
-      $tmpFile = tempnam(Core::getTempPath(), 'merge_');
+      $tmpFile = tempnam(Config::TEMP_DIR, 'merge_');
       foreach ($full as $f) {
         $contents = file_get_contents($f);
         if ($type == 'css') {

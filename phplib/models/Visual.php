@@ -48,8 +48,8 @@ class Visual extends BaseObject implements DatedObject {
   function createThumb() {
     $url = Config::STATIC_URL . self::STATIC_DIR . $this->path;
     $ext = pathinfo($url, PATHINFO_EXTENSION);
-    $localFile = Core::getTempPath() ."/a.{$ext}";
-    $localThumbFile = Core::getTempPath() ."/thumb.{$ext}";
+    $localFile = Config::TEMP_DIR ."a.{$ext}";
+    $localThumbFile = Config::TEMP_DIR ."thumb.{$ext}";
     $contents = file_get_contents($url);
     file_put_contents($localFile, $contents);
     $command = sprintf("convert -strip -geometry %sx%s -sharpen 1x1 '%s' '%s'",

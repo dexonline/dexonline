@@ -12,7 +12,7 @@ class Config {
   const URL_HOST = 'http://localhost';
 
   // URL path relative to URL_HOST. Include a trailing slash.
-  const URL_PREFIX = '/dexonline/wwwbase/';
+  const URL_PREFIX = '/dexonline/www/';
 
   // Database connection. Format: mysql://user[:password]@host/database
   const DATABASE = 'mysql://root@localhost/dexonline';

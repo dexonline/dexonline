@@ -10,7 +10,7 @@ if (!$user) {
 const AVATAR_RESOLUTION = 48;
 const AVATAR_QUALITY = 100;
 $avatarRemoteFile = "/img/user/{$user->id}.jpg";
-$avatarRawGlob = Config::ROOT . "wwwbase/img/generated/{$user->id}_raw.*";
+$avatarRawGlob = Config::ROOT . "www/img/generated/{$user->id}_raw.*";
 
 $x0 = Request::get('x0');
 $y0 = Request::get('y0');

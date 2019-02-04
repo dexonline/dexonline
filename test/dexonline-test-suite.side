@@ -1,7 +1,7 @@
 {
   "id": "335079ed-3579-4207-8cfc-68ab2509c3f3",
   "name": "dexonline-test-suite",
-  "url": "http://localhost/dexonline/wwwbase/",
+  "url": "http://localhost/dexonline/www/",
   "tests": [{
     "id": "homePage.htm",
     "name": "homePage",
@@ -138,7 +138,7 @@
         ["css=.dropup > li:nth-child(2) > a", "css:finder"],
         ["xpath=(//a[contains(text(),'john')])[2]", "xpath:link"],
         ["xpath=//div[@id='resultsTab']/div/div[2]/ul/li[2]/a", "xpath:idRelative"],
-        ["xpath=(//a[contains(@href, '/dexonline/wwwbase/utilizator/john')])[3]", "xpath:href"],
+        ["xpath=(//a[contains(@href, '/dexonline/www/utilizator/john')])[3]", "xpath:href"],
         ["xpath=//div[2]/ul/li[2]/a", "xpath:position"]
       ],
       "value": "john"
@@ -181,7 +181,7 @@
         ["css=a[title=\"link direct către această definiție\"]", "css"],
         ["css=.open li:nth-child(3) > a", "css:finder"],
         ["xpath=//div[@id='resultsTab']/div/div[2]/ul/li[3]/ul/li[3]/a", "xpath:idRelative"],
-        ["xpath=//a[contains(@href, '/dexonline/wwwbase/definitie/brânză/1')]", "xpath:href"],
+        ["xpath=//a[contains(@href, '/dexonline/www/definitie/brânză/1')]", "xpath:href"],
         ["xpath=//div[2]/ul/li[3]/ul/li[3]/a", "xpath:position"]
       ],
       "value": ""
@@ -545,7 +545,7 @@
         ["css=ul:nth-child(4) > li:nth-child(1) > a", "css:finder"],
         ["xpath=//a[contains(text(),'Ghid de exprimare')]", "xpath:link"],
         ["xpath=//div[@id='linguisticArticles']/ul[2]/li/a", "xpath:idRelative"],
-        ["xpath=(//a[contains(@href, '/dexonline/wwwbase/articol/Ghid_de_exprimare')])[2]", "xpath:href"],
+        ["xpath=(//a[contains(@href, '/dexonline/www/articol/Ghid_de_exprimare')])[2]", "xpath:href"],
         ["xpath=//main/div/div/ul[2]/li/a", "xpath:position"]
       ],
       "value": "Ghid de exprimare"
@@ -577,7 +577,7 @@
         ["css=ul:nth-child(4) > li:nth-child(1) > a", "css:finder"],
         ["xpath=//a[contains(text(),'Ghid de exprimare')]", "xpath:link"],
         ["xpath=//div[@id='linguisticArticles']/ul[2]/li/a", "xpath:idRelative"],
-        ["xpath=(//a[contains(@href, '/dexonline/wwwbase/articol/Ghid_de_exprimare')])[2]", "xpath:href"],
+        ["xpath=(//a[contains(@href, '/dexonline/www/articol/Ghid_de_exprimare')])[2]", "xpath:href"],
         ["xpath=//main/div/div/ul[2]/li/a", "xpath:position"]
       ],
       "value": ""
@@ -651,7 +651,7 @@
         ["css=#resultsTab li:nth-child(2) > a", "css:finder"],
         ["xpath=//a[contains(text(),'Ghid de exprimare')]", "xpath:link"],
         ["xpath=//div[@id='resultsTab']/ul/li[2]/a", "xpath:idRelative"],
-        ["xpath=(//a[contains(@href, '/dexonline/wwwbase/articol/Ghid_de_exprimare')])[2]", "xpath:href"],
+        ["xpath=(//a[contains(@href, '/dexonline/www/articol/Ghid_de_exprimare')])[2]", "xpath:href"],
         ["xpath=//div/div/div/ul/li[2]/a", "xpath:position"]
       ],
       "value": "Ghid de exprimare"
@@ -2706,7 +2706,7 @@
         ["css=ul:nth-child(3) > li:nth-child(1) .label", "css:finder"],
         ["xpath=//a[contains(text(),'argou')]", "xpath:link"],
         ["xpath=//div[@id='tagTree']/ul/li[2]/ul/li/span/a", "xpath:idRelative"],
-        ["xpath=//a[contains(@href, '/dexonline/wwwbase/eticheta.php?id=3')]", "xpath:href"],
+        ["xpath=//a[contains(@href, '/dexonline/www/eticheta.php?id=3')]", "xpath:href"],
         ["xpath=//li[2]/ul/li/span/a", "xpath:position"]
       ],
       "value": ""
@@ -2794,7 +2794,7 @@
         ["css=.tag-tooltip > .label", "css:finder"],
         ["css=span.tag-tooltip > a.label.label-default ", "css"],
         ["xpath=//a[contains(text(),'argou2')]", "xpath:link"],
-        ["xpath=//a[contains(@href, '/dexonline/wwwbase/eticheta.php?id=3')]", "xpath:href"],
+        ["xpath=//a[contains(@href, '/dexonline/www/eticheta.php?id=3')]", "xpath:href"],
         ["xpath=//span[2]/a", "xpath:position"]
       ],
       "value": ""
@@ -3638,7 +3638,7 @@
         ["css=.list-inline > li:nth-child(4) > a", "css:finder"],
         ["xpath=//a[contains(text(),'editează')]", "xpath:link"],
         ["xpath=//div[@id='resultsTab']/div/div/ul/li[4]/a", "xpath:idRelative"],
-        ["xpath=(//a[contains(@href, '/dexonline/wwwbase/admin/definitionEdit.php?definitionId=5')])[2]", "xpath:href"],
+        ["xpath=(//a[contains(@href, '/dexonline/www/admin/definitionEdit.php?definitionId=5')])[2]", "xpath:href"],
         ["xpath=//div/div/div/div/div/ul/li[4]/a", "xpath:position"]
       ],
       "value": ""
@@ -3699,7 +3699,7 @@
         ["linkText=Închide sesiunea", "linkText"],
         ["css=.open li:nth-child(7) > a", "css:finder"],
         ["xpath=//div[@id='navMenu']/ul[2]/li/ul/li[7]/a", "xpath:idRelative"],
-        ["xpath=//a[contains(@href, '/dexonline/wwwbase/auth/logout')]", "xpath:href"],
+        ["xpath=//a[contains(@href, '/dexonline/www/auth/logout')]", "xpath:href"],
         ["xpath=//ul[2]/li/ul/li[7]/a", "xpath:position"]
       ],
       "value": ""
@@ -3749,7 +3749,7 @@
         ["css=li.dropdown.open > ul.dropdown-menu > li > a", "css"],
         ["css=.open li:nth-child(1) > a", "css:finder"],
         ["xpath=//div[@id='navMenu']/ul[2]/li/ul/li/a", "xpath:idRelative"],
-        ["xpath=//a[contains(@href, '/dexonline/wwwbase/changeLocale?id=en_US.utf8')]", "xpath:href"],
+        ["xpath=//a[contains(@href, '/dexonline/www/changeLocale?id=en_US.utf8')]", "xpath:href"],
         ["xpath=//ul[2]/li/ul/li/a", "xpath:position"]
       ],
       "value": ""
@@ -3795,7 +3795,7 @@
         ["linkText=română", "linkText"],
         ["css=.open li:nth-child(2) > a", "css:finder"],
         ["xpath=//div[@id='navMenu']/ul[2]/li/ul/li[2]/a", "xpath:idRelative"],
-        ["xpath=//a[contains(@href, '/dexonline/wwwbase/changeLocale?id=ro_RO.utf8')]", "xpath:href"],
+        ["xpath=//a[contains(@href, '/dexonline/www/changeLocale?id=ro_RO.utf8')]", "xpath:href"],
         ["xpath=//ul[2]/li/ul/li[2]/a", "xpath:position"]
       ],
       "value": ""
@@ -3830,6 +3830,6 @@
     "timeout": 300,
     "tests": ["homePage.htm", "searchByInflectedForm.htm", "searchApproximate.htm", "searchRegexp.htm", "searchFullText.htm", "searchByDefinitionId.htm", "searchByLexemeId.htm", "adsLink.htm", "articles.htm", "articlesSearchResults.htm", "commentView.htm", "constraints.htm", "autocomplete.htm", "lexemeSourcesView.htm", "sourcesViewAsAnonymous.htm", "hangman.htm", "17973363-d6b5-4c7f-b2d5-d3d22d042bcc", "loginFakeUser.htm", "bookmarks.htm", "sourcesViewLoggedIn.htm", "sourcesReorder.htm", "sourceEdit.htm", "modelTypesView.htm", "modelTypeAddEditDelete.htm", "inflectionsView.htm", "inflectionsReorder.htm", "inflectionAddDelete.htm", "tagsEdit.htm", "wotdArtistsView.htm", "wotdArtistAddEditDelete.htm", "wotdAssignment.htm", "wotdArtistDeleteAssigned.htm", "definitionRepWhitespace.htm", "redundantLinkWarning.htm", "logout.htm"]
   }],
-  "urls": ["http://localhost/dexonline/wwwbase/"],
+  "urls": ["http://localhost/dexonline/www/"],
   "plugins": []
 }

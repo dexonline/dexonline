@@ -3,13 +3,13 @@
 
 /**
  * Checks whether the developer modified one of the files Config.php or
- * wwwbase/.htaccess. If they did, they should push the same changes to
- * Config.php.sample and wwwbase/.htaccess.sample respectively.
+ * www/.htaccess. If they did, they should push the same changes to
+ * Config.php.sample and www/.htaccess.sample respectively.
  *
  * Specifically, we check whether
  * - there are new constants in Config.php;
  * - some constants changed type in Config.php;
- * - there are new RewriteRules (commented or not) in wwwbase/.htaccess
+ * - there are new RewriteRules (commented or not) in www/.htaccess
  *
  * Checks whether any Selenium IDE tests contain
  * - a hard-coded base URL or
@@ -34,13 +34,13 @@ foreach ($actual as $name => $value) {
   }
 }
 
-$htaccess = readRewriteRules('wwwbase/.htaccess');
-$htaccessSample = readRewriteRules('wwwbase/.htaccess.sample');
+$htaccess = readRewriteRules('www/.htaccess');
+$htaccessSample = readRewriteRules('www/.htaccess.sample');
 
 foreach ($htaccess as $rule) {
   if (!in_array($rule, $htaccessSample)) {
-    error("The RewriteRule *** $rule *** is defined in wwwbase/.htaccess, " .
-          "but not in wwwbase/.htaccess.sample. Please reconcile the files.");
+    error("The RewriteRule *** $rule *** is defined in www/.htaccess, " .
+          "but not in www/.htaccess.sample. Please reconcile the files.");
   }
 }
 

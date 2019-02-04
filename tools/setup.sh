@@ -18,11 +18,11 @@ else
 fi
 
 # Create a copy of the .htaccess file unless it already exists
-if [ ! -e wwwbase/.htaccess ]; then
-  echo "* copying wwwbase/.htaccess.sample to wwwbase/.htaccess"
-  cp wwwbase/.htaccess.sample wwwbase/.htaccess
+if [ ! -e www/.htaccess ]; then
+  echo "* copying www/.htaccess.sample to www/.htaccess"
+  cp www/.htaccess.sample www/.htaccess
 else
-  echo "* wwwbase/.htaccess already exists, skipping"
+  echo "* www/.htaccess already exists, skipping"
 fi
 
 # Make the Smarty compiled templates directory world-writable
@@ -30,10 +30,10 @@ echo "* making some directories and files world-writable"
 chmod 777 templates_c
 
 # Allow the webserver to store images here (e.g. for Elfinder thumbs).
-chmod 777 wwwbase/img/generated
+chmod 777 www/img/generated
 
 # Allow PHP scripts to generate merged CSS/JS files
-chmod 777 wwwbase/css/merged wwwbase/js/merged
+chmod 777 www/css/merged www/js/merged
 
 # Compile the native Levenshtein binary
 if [ ! -e phplib/c/levenshtein ]; then

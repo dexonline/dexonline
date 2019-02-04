@@ -8,7 +8,7 @@ Allow from all
 RewriteEngine on
 Options -MultiViews
 # Uncomment the next line when running dexonline from within a user directory
-# RewriteBase /~cata/DEX/wwwbase/
+# RewriteBase /~username/dexonline/www/
 
 # Note: this directive only works for actually broken URLS.
 # Once Apache passes control to PHP, we are responsible for providing the content of the 404 page as well.

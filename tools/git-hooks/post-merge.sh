@@ -13,7 +13,7 @@ changed_files="$(git diff-tree -r --name-only --no-commit-id HEAD@{1} HEAD)"
 messages=()
 
 check_run Config.php.sample "Please reconcile your Config.php with Config.php.sample"
-check_run wwwbase/.htaccess.sample "Please reconcile your wwwbase/.htaccess with wwwbase/.htaccess.sample and/or Nginx"
+check_run www/.htaccess.sample "Please reconcile your www/.htaccess with www/.htaccess.sample and/or Nginx"
 check_run tools/setup.sh "Please rerun tools/setup.sh on your client"
 check_run patches/ 'The database schema has changed. Please run "php tools/migration.php"'
 

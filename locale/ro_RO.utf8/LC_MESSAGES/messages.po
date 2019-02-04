@@ -1,25 +1,25 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2019-01-09 11:58+0200\n"
-"PO-Revision-Date: 2019-01-09 11:59+0200\n"
+"POT-Creation-Date: 2019-02-04 14:37+0200\n"
+"PO-Revision-Date: 2019-02-04 14:37+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2\n"
+"X-Generator: Poedit 2.2.1\n"
 "X-Poedit-Basepath: ../../..\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n==0 || (n!=1 && n%100>=1 && n"
 "%100<=19) ? 1 : 2);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: phplib\n"
 "X-Poedit-SearchPath-1: templates\n"
-"X-Poedit-SearchPath-2: wwwbase\n"
+"X-Poedit-SearchPath-2: www\n"
 "X-Poedit-SearchPathExcluded-0: phplib/third-party\n"
-"X-Poedit-SearchPathExcluded-1: wwwbase/js/merged\n"
-"X-Poedit-SearchPathExcluded-2: wwwbase/js/third-party\n"
+"X-Poedit-SearchPathExcluded-1: www/js/merged\n"
+"X-Poedit-SearchPathExcluded-2: www/js/third-party\n"
 
 #: templates/alerts/formIsElision.tpl:2
 msgid "Your query <b>%1</b> is an elision of <b>%2</b>."
@@ -201,40 +201,40 @@ msgstr "unelte"
 msgid "external links"
 msgstr "legături externe"
 
-#: templates/bits/navmenu.tpl:153
+#: templates/bits/navmenu.tpl:152
 msgid "Anonymous"
 msgstr "Anonim"
 
-#: templates/bits/navmenu.tpl:162
+#: templates/bits/navmenu.tpl:161
 msgid "moderator page"
 msgstr "pagina moderatorului"
 
-#: templates/bits/navmenu.tpl:170
+#: templates/bits/navmenu.tpl:169
 msgid "hotkeys"
 msgstr "hotkeys"
 
-#: templates/bits/navmenu.tpl:178
+#: templates/bits/navmenu.tpl:177
 msgid "recently viewed pages"
 msgstr "pagini vizitate recent"
 
-#: templates/bits/navmenu.tpl:185
+#: templates/bits/navmenu.tpl:184
 msgid "preferences"
 msgstr "preferințe"
 
-#: templates/bits/navmenu.tpl:192
+#: templates/bits/navmenu.tpl:191
 msgid "profile"
 msgstr "profilul meu"
 
-#: templates/bits/navmenu.tpl:198 templates/cuvinte-favorite.tpl:3
+#: templates/bits/navmenu.tpl:197 templates/cuvinte-favorite.tpl:3
 #: templates/cuvinte-favorite.tpl:7
 msgid "favorite words"
 msgstr "cuvinte favorite"
 
-#: templates/bits/navmenu.tpl:204
+#: templates/bits/navmenu.tpl:203
 msgid "log out"
 msgstr "închide sesiunea"
 
-#: templates/bits/navmenu.tpl:211
+#: templates/bits/navmenu.tpl:210
 msgid "log in"
 msgstr "autentificare"
 
@@ -246,23 +246,23 @@ msgstr "Forma <strong>%1</strong> există în LOC %2."
 msgid "The form <strong>%1</strong> does not exist in LOC %2."
 msgstr "Forma <strong>%1</strong> nu există în LOC %2."
 
-#: templates/bits/searchForm.tpl:18
+#: templates/bits/searchForm.tpl:17
 msgid "word"
 msgstr "cuvânt"
 
-#: templates/bits/searchForm.tpl:29
+#: templates/bits/searchForm.tpl:28
 msgid "search"
 msgstr "caută"
 
-#: templates/bits/searchForm.tpl:36 templates/scramble.tpl:29
+#: templates/bits/searchForm.tpl:35 templates/scramble.tpl:29
 msgid "options"
 msgstr "opțiuni"
 
-#: templates/bits/searchForm.tpl:52
+#: templates/bits/searchForm.tpl:51
 msgid "Full-text search"
 msgstr "Caută în tot textul definițiilor"
 
-#: templates/bits/searchForm.tpl:59
+#: templates/bits/searchForm.tpl:58
 msgid "help"
 msgstr "ajutor"
 
@@ -1086,7 +1086,7 @@ msgid ""
 msgstr ""
 "Cuvântul <strong>%1</strong> nu este în dicționar. Iată câteva sugestii:"
 
-#: templates/search.tpl:281 phplib/models/InflectedForm.php:54
+#: templates/search.tpl:281 phplib/models/InflectedForm.php:72
 msgid "unrecommended or incorrect form"
 msgstr "formă nerecomandată sau greșită"
 
@@ -1164,11 +1164,11 @@ msgstr ""
 msgid "show all definitions"
 msgstr "arată toate definițiile"
 
-#: templates/search/trees.tpl:23
+#: templates/search/trees.tpl:24
 msgid "edit"
 msgstr "editează"
 
-#: templates/search/trees.tpl:32
+#: templates/search/trees.tpl:33
 msgid "etymology"
 msgstr "etimologie"
 
@@ -1364,11 +1364,11 @@ msgstr "Cheia alegerii:"
 msgid "Word of the day archive"
 msgstr "Arhiva cuvintelor zilei"
 
-#: templates/wotd.tpl:111
+#: templates/wotd.tpl:115
 msgid "Word of the day for %2 %1 in other years:"
 msgstr "Cuvântul zilei de %1 %2 în alți ani:"
 
-#: templates/wotd.tpl:131
+#: templates/wotd.tpl:135
 msgid "Comments"
 msgstr "Comentarii"
 
@@ -1384,15 +1384,15 @@ msgstr "precedentul"
 msgid "next"
 msgstr "următorul"
 
-#: phplib/models/InflectedForm.php:57
+#: phplib/models/InflectedForm.php:75
 msgid "by apheresis and/or elision"
 msgstr "prin afereză și/sau eliziune"
 
-#: phplib/models/InflectedForm.php:60
+#: phplib/models/InflectedForm.php:78
 msgid "long verb form"
 msgstr "formă verbală lungă"
 
-#: wwwbase/changeLocale.php:8
+#: www/changeLocale.php:8
 msgid ""
 "Interface language changed. Definition text and external links are always in "
 "Romanian."
@@ -1400,7 +1400,7 @@ msgstr ""
 "Am schimbat limba interfeței. Textul definițiilor și legăturile externe sunt "
 "mereu în română."
 
-#: wwwbase/randomList.php:53
+#: www/randomList.php:53
 #, php-format
 msgid "A randomly chosen word"
 msgid_plural "%d randomly chosen words"
@@ -1408,7 +1408,7 @@ msgstr[0] "Un cuvânt ales la întâmplare"
 msgstr[1] "%d cuvinte alese la întâmplare"
 msgstr[2] "%d de cuvinte alese la întâmplare"
 
-#: wwwbase/randomList.php:59
+#: www/randomList.php:59
 #, php-format
 msgid "A randomly chosen word of the day"
 msgid_plural "%d randomly chosen words of the day"
@@ -1416,42 +1416,42 @@ msgstr[0] "Un cuvânt al zilei ales la întâmplare"
 msgstr[1] "%d cuvinte ale zilei alese la întâmplare"
 msgstr[2] "%d de cuvinte ale zilei alese la întâmplare"
 
-#: wwwbase/search.php:223
+#: www/search.php:220
 #, php-format
 msgid "We redirected you automatically from <b>%s</b> to <b>%s</b>."
 msgstr "V-am redirecționat automat de la <b>%s</b> la <b>%s</b>."
 
-#: wwwbase/search.php:333
+#: www/search.php:330
 msgid "conjugations"
 msgstr "conjugări"
 
-#: wwwbase/search.php:334
+#: www/search.php:331
 msgid "declensions"
 msgstr "declinări"
 
-#: wwwbase/unelte.php:6
+#: www/unelte.php:6
 msgid "Synchronization with dexonline"
 msgstr "Sincronizare cu dexonline"
 
-#: wwwbase/unelte.php:7
+#: www/unelte.php:7
 msgid "This client connects to dexonline periodically to download updates."
 msgstr ""
 "Acest client se poate conecta periodic la dexonline pentru a-și transfera "
 "definițiile nou adăugate."
 
-#: wwwbase/unelte.php:10
+#: www/unelte.php:10
 msgid "Interface for visually impaired users"
 msgstr "Interfață pentru nevăzători"
 
-#: wwwbase/unelte.php:11
+#: www/unelte.php:11
 msgid "This client has a friendly interface for visually impaired users."
 msgstr "Acest client are o interfață prietenoasă pentru nevăzători."
 
-#: wwwbase/unelte.php:14
+#: www/unelte.php:14
 msgid "Regular expressions, wildcards"
 msgstr "Expresii regulate, wildcards"
 
-#: wwwbase/unelte.php:15
+#: www/unelte.php:15
 msgid ""
 "This client accepts searches using regular expressions and/or wildcards, "
 "such as «echi*» for echilibru, echinocțiu etc."
@@ -1459,42 +1459,42 @@ msgstr ""
 "Acest client acceptă căutări cu expresii regulate și/sau wildcards, cum ar "
 "fi «echi*» pentru echilibru, echinocțiu etc."
 
-#: wwwbase/unelte.php:18
+#: www/unelte.php:18
 msgid "Suggestions"
 msgstr "Sugestii"
 
-#: wwwbase/unelte.php:19
+#: www/unelte.php:19
 msgid ""
 "This client offers the closest matches when an exact match is not found."
 msgstr ""
 "Acest client oferă cele mai apropiate rezultate atunci când cuvântul căutat "
 "nu este găsit exact."
 
-#: wwwbase/unelte.php:22
+#: www/unelte.php:22
 msgid "Diacritics support"
 msgstr "Cu / fără diacritice"
 
-#: wwwbase/unelte.php:23
+#: www/unelte.php:23
 msgid "This client supports searching with or without diacritics."
 msgstr ""
 "Acest client oferă opțiuni pentru tastarea căutărilor cu sau fără diacritice."
 
-#: wwwbase/unelte.php:26
+#: www/unelte.php:26
 msgid "Full-text searches"
 msgstr "Căutare full-text"
 
-#: wwwbase/unelte.php:27
+#: www/unelte.php:27
 msgid ""
 "This client can search not just keywords, but the definition body as well."
 msgstr ""
 "Acest client poate căuta nu doar cuvintele-titlu, ci și întreg textul "
 "definițiilor."
 
-#: wwwbase/unelte.php:30
+#: www/unelte.php:30
 msgid "Inflected form search"
 msgstr "Căutare forme flexionare"
 
-#: wwwbase/unelte.php:31
+#: www/unelte.php:31
 msgid ""
 "This client can query declensions and conjugations, such as «lucreze» "
 "instead of «lucra»."
@@ -1502,11 +1502,11 @@ msgstr ""
 "Acest client poate căuta declinări și conjugări ale cuvintelor, cum ar fi "
 "«lucreze» în loc de «lucra»."
 
-#: wwwbase/unelte.php:34
+#: www/unelte.php:34
 msgid "Word clicks"
 msgstr "Clic pe cuvânt"
 
-#: wwwbase/unelte.php:35
+#: www/unelte.php:35
 msgid ""
 "When you click a word in a definition, this client goes to the definition "
 "for that word."
@@ -1514,18 +1514,18 @@ msgstr ""
 "Când dați clic pe un cuvânt dintr-o definiție, acest client navighează la "
 "definiția acelui cuvânt."
 
-#: wwwbase/unelte.php:38
+#: www/unelte.php:38
 msgid "Search history"
 msgstr "Istoria căutărilor"
 
-#: wwwbase/unelte.php:39
+#: www/unelte.php:39
 msgid "This client remembers the most recent searches and can revisit them."
 msgstr "Acest client ține minte ultimele cuvinte căutate și le poate revizita."
 
-#: wwwbase/unelte.php:50
+#: www/unelte.php:50
 msgid "Perl, wxWidgets (only under Linux)"
 msgstr "Perl, wxWidgets (numai sub Linux)"
 
-#: wwwbase/unelte.php:74
+#: www/unelte.php:74
 msgid "QT, g++ (only under Linux)"
 msgstr "QT, g++ (numai sub Linux)"

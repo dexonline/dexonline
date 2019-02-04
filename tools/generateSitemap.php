@@ -84,7 +84,7 @@ function closeCurrentFile() {
 
   fprintf($g_curFile, "</urlset>\n");
   fclose($g_curFile);
-  OS::executeAndAssert("gzip - < {$g_curFileName} > wwwbase/sitemap{$g_numFiles}.xml.gz");
+  OS::executeAndAssert("gzip - < {$g_curFileName} > www/sitemap{$g_numFiles}.xml.gz");
   OS::deleteFile($g_curFileName);
 }
 
@@ -110,7 +110,7 @@ function generateIndexFile() {
   global $g_numFiles;
 
   Log::info("Writing sitemap index sitemap.xml");
-  $f = fopen('wwwbase/sitemap.xml', 'w');
+  $f = fopen('www/sitemap.xml', 'w');
   fprintf($f, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
   fprintf($f, "<sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n");
 

@@ -162,11 +162,11 @@ function searchInitAutocomplete(acMinChars){
 }
 
 function getWwwRoot() {
-  var pos = window.location.href.indexOf('/wwwbase/');
+  var pos = window.location.href.indexOf('/www/');
   if (pos == -1) {
     return '/';
   } else {
-    return window.location.href.substr(0, pos + 9);
+    return window.location.href.substr(0, pos + 5);
   }
 }
 

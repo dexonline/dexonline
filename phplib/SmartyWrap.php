@@ -200,14 +200,14 @@ class SmartyWrap {
 
     // Add {$template}.css if the file exists
     $cssFile = "autoload/{$baseName}.css";
-    $fileName = Config::ROOT . 'wwwbase/css/' . $cssFile;
+    $fileName = Config::ROOT . 'www/css/' . $cssFile;
     if (file_exists($fileName)) {
       self::$cssFiles[] = $cssFile;
     }
 
     // Add {$template}.js if the file exists
     $jsFile = "autoload/{$baseName}.js";
-    $fileName = Config::ROOT . 'wwwbase/js/' . $jsFile;
+    $fileName = Config::ROOT . 'www/js/' . $jsFile;
     if (file_exists($fileName)) {
       self::$jsFiles[] = $jsFile;
     }
@@ -238,7 +238,7 @@ class SmartyWrap {
     $full = [];
     $maxTimestamp = 0;
     foreach ($files as $file) {
-      $name = sprintf('%swwwbase/%s/%s', Config::ROOT, $type, $file);
+      $name = sprintf('%swww/%s/%s', Config::ROOT, $type, $file);
       $full[] = $name;
       $timestamp = filemtime($name);
       $maxTimestamp = max($maxTimestamp, $timestamp);
@@ -246,7 +246,7 @@ class SmartyWrap {
 
     // compute the output file name
     $hash = md5(implode(',', $full));
-    $outputDir = sprintf('%swwwbase/%s/merged/', Config::ROOT, $type);
+    $outputDir = sprintf('%swww/%s/merged/', Config::ROOT, $type);
     $output = sprintf('%s%s.%s', $outputDir, $hash, $type);
 
     // generate the output file if it doesn't exist or if it's too old

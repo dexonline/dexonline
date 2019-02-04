@@ -3,7 +3,7 @@
  * This script deletes spammy definitions sent in bulk
  **/
 
-require_once __DIR__ . '/../phplib/util.php';
+require_once __DIR__ . '/../lib/util.php';
 
 $defs = Model::factory('Definition')
       ->where('userId', 0)

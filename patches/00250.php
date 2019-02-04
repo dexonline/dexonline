@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../phplib/third-party/parseIniFile.php';
+require_once __DIR__ . '/../lib/third-party/parseIniFile.php';
 
 // special case of some sources
 const HTML_QIQ_PATTERN = [
@@ -14,7 +14,7 @@ $userId = User::getActiveId(); // useless, as it is running from cli
 
 $ini = new parseIniFile(true);
 
-$raw = $ini->readConfig(Core::getRootPath() . "docs/abbrev/abbrev.conf", true);
+$raw = $ini->readConfig(Config::ROOT . "docs/abbrev/abbrev.conf", true);
 foreach ($raw['sources'] as $sourceId => $sectionList) {
   $ABBREV_INDEX[$sourceId] = preg_split('/, */', $sectionList);
 }
@@ -28,7 +28,7 @@ foreach (array_keys($ABBREV_INDEX) as $sourceId) {
   $list = [];
 
   foreach ($ABBREV_INDEX[$sourceId] as $section) {
-    $raw = $ini->readConfig(Core::getRootPath() . "docs/abbrev/{$section}.conf");
+    $raw = $ini->readConfig(Config::ROOT . "docs/abbrev/{$section}.conf");
 
     // If an abbreviation is defined in several sections, use the one that's defined later
     if (is_array($raw)) {

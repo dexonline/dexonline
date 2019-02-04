@@ -246,7 +246,7 @@
           {foreach $treeMentions as $m}
             <tr>
               <td>
-                <a href="{$wwwRoot}editTree.php?id={$m->srcId}">{$m->srcDesc}</a>
+                <a href="?id={$m->srcId}">{$m->srcDesc}</a>
               </td>
               <td><b>{$m->breadcrumb}</b> {HtmlConverter::convert($m)}</td>
             </tr>
@@ -276,7 +276,7 @@
           {foreach $meaningMentions as $m}
             <tr>
               <td>
-                <a href="{$wwwRoot}editTree.php?id={$m->tsrcId}">{$m->tsrcDesc}</a>
+                <a href="?id={$m->tsrcId}">{$m->tsrcDesc}</a>
               </td>
               <td><b>{$m->srcBreadcrumb}</b> {HtmlConverter::convert($m)}</td>
               <td><b>{$m->destBreadcrumb}</b></td>

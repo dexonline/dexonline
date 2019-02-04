@@ -1,10 +1,10 @@
 <?php
 
-require_once __DIR__ . '/../phplib/Core.php';
+require_once __DIR__ . '/../lib/Core.php';
 
-$sqlFile = Config::get('global.tempDir') . '/dex-database.sql';
-$gzFile = Config::get('global.tempDir') . '/dex-database.sql.gz';
-$licenseFile = Core::getRootPath() . '/tools/dumpDatabaseLicense.txt';
+const SQL_FILE = Config::TEMP_DIR . '/dex-database.sql';
+const GZ_FILE = Config::TEMP_DIR . '/dex-database.sql.gz';
+$licenseFile = Config::ROOT . '/tools/dumpDatabaseLicense.txt';
 
 // Skip the username/password here to avoid a Percona warning.
 // Place them in my.cnf.
@@ -52,7 +52,7 @@ Log::notice('started with argument %s', ($doFullDump ? 'full' : 'public'));
 $currentYear = date("Y");
 $license = file_get_contents($licenseFile);
 $license = sprintf($license, $currentYear);
-file_put_contents($sqlFile, $license);
+file_put_contents(SQL_FILE, $license);
 
 // dump tables with data
 $ignoredTables = $doFullDump
@@ -62,7 +62,7 @@ $ignoreString = implode(' ', array_map(function($table) {
   return sprintf('--ignore-table=%s.%s', DB::$database, $table);
 }, $ignoredTables));
 
-OS::executeAndAssert("$commonCommand $ignoreString >> $sqlFile");
+OS::executeAndAssert(sprintf('%s %s >> %s', $commonCommand, $ignoreString, SQL_FILE));
 
 // dump tables with no data (schema only)
 $schemaTables = $doFullDump
@@ -71,7 +71,7 @@ $schemaTables = $doFullDump
 $command = sprintf('%s --no-data %s >> %s',
                    $commonCommand,
                    implode(' ', $schemaTables),
-                   $sqlFile);
+                   SQL_FILE);
 OS::executeAndAssert($command);
 
 if (!$doFullDump) {
@@ -84,8 +84,8 @@ if (!$doFullDump) {
   DB::execute("update _User_Copy set id = 0 where id = 1");
   DB::execute("insert into _User_Copy select * from User where id > 0");
   DB::execute("update _User_Copy set password = md5('1234'), email = concat(id, '@anonymous.com')");
-  OS::executeAndAssert(
-    "$commonCommand _User_Copy | sed 's/_User_Copy/User/g' >> $sqlFile");
+  OS::executeAndAssert(sprintf(
+    "%s _User_Copy | sed 's/_User_Copy/User/g' >> %s", $commonCommand, SQL_FILE));
   DB::execute("drop table _User_Copy");
 
   // Hide links to scanned pages from the Source table
@@ -94,8 +94,8 @@ if (!$doFullDump) {
   DB::execute("create table _Source_Copy like Source");
   DB::execute("insert into _Source_Copy select * from Source");
   DB::execute("update _Source_Copy set link = null");
-  OS::executeAndAssert(
-    "$commonCommand _Source_Copy | sed 's/_Source_Copy/Source/g' >> $sqlFile");
+  OS::executeAndAssert(sprintf(
+    "%s _Source_Copy | sed 's/_Source_Copy/Source/g' >> %s", $commonCommand, SQL_FILE));
   DB::execute("drop table _Source_Copy");
 
   // Dump only the Definitions for which we have redistribution rights
@@ -109,8 +109,8 @@ if (!$doFullDump) {
     where sourceId in (select id from Source where !canDistribute)
 EOT;
   DB::execute($query);
-  OS::executeAndAssert(
-    "$commonCommand _Definition_Copy | sed 's/_Definition_Copy/Definition/g' >> $sqlFile");
+  OS::executeAndAssert(sprintf(
+    "%s _Definition_Copy | sed 's/_Definition_Copy/Definition/g' >> %s", $commonCommand, SQL_FILE));
   DB::execute("drop table _Definition_Copy");
 }
 
@@ -118,9 +118,9 @@ $remoteFile = $doFullDump
   ? '/download/mirrorAccess/dex-database.sql.gz'
   :'/download/dex-database.sql.gz';
 
-OS::executeAndAssert("gzip -f $sqlFile");
+OS::executeAndAssert('gzip -f ' . SQL_FILE);
 $f = new FtpUtil();
-$f->staticServerPut($gzFile, $remoteFile);
-unlink($gzFile);
+$f->staticServerPut(GZ_FILE, $remoteFile);
+unlink(GZ_FILE);
 
 Log::notice('finished');

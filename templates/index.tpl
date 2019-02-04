@@ -8,7 +8,7 @@
 {block "content"}
   <header>
     <div class="siteIdentity">
-      <img class='siteLogo' src='{$wwwRoot}img/svg/logo-dexonline.svg' alt='dexonline'>
+      <img class='siteLogo' src='img/svg/logo-dexonline.svg' alt='dexonline'>
       <div class="tagline">{t}Dictionaries of the Romanian language{/t}</div>
     </div>
   </header>
@@ -18,7 +18,7 @@
 
   <section class="row widgets">
     <div class="col-md-12">
-      {if $numEnabledWidgets && $skinVariables.widgets}
+      {if $numEnabledWidgets && Config::SKIN_WIDGETS}
         {foreach $widgets as $params}
           {if $params.enabled}
             <div class="col-sm-4 col-xs-12">{include "widgets/`$params.template`"}</div>

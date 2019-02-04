@@ -3,7 +3,7 @@
  * Load entries having multiple trees and try to split them into single-tree entries.
  **/
 
-require_once __DIR__ . '/../phplib/Core.php';
+require_once __DIR__ . '/../lib/Core.php';
 
 Log::notice('started');
 

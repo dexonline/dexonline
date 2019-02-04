@@ -3,7 +3,7 @@
  * This script grants code, e-mail and volunteer medals.
  **/
 
-require_once __DIR__ . '/../phplib/Core.php';
+require_once __DIR__ . '/../lib/Core.php';
 
 const OTRS_MAP = [
   'cata' => 1,

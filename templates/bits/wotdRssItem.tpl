@@ -10,7 +10,7 @@
   Sursa:
   <a
     class="ref"
-    href="{$wwwRoot}surse"
+    href="{Config::URL_PREFIX}surse"
     title="{$source->name|escape}, {$source->year|escape}">
     {$source->shortName|escape}
 

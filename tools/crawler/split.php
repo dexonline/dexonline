@@ -4,7 +4,7 @@
  * Split articles into phrases
  **/
 
-require_once __DIR__ . '/../../phplib/Core.php';
+require_once __DIR__ . '/../../lib/Core.php';
 
 $config = parse_ini_file('crawler.conf', true);
 $root = $config['global']['path'];

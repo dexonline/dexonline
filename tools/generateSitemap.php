@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../phplib/Core.php';
+require_once __DIR__ . '/../lib/Core.php';
 
 // TODO: Add user pages
 // TODO: Add inflection models (from modele-flexiune.php)
@@ -14,7 +14,7 @@ $g_curFileUrl = 0;
 
 Log::notice('started');
 
-chdir(Core::getRootPath());
+chdir(Config::ROOT);
 openNewFile();
 addOtherUrls();
 
@@ -84,7 +84,7 @@ function closeCurrentFile() {
 
   fprintf($g_curFile, "</urlset>\n");
   fclose($g_curFile);
-  OS::executeAndAssert("gzip - < {$g_curFileName} > wwwbase/sitemap{$g_numFiles}.xml.gz");
+  OS::executeAndAssert("gzip - < {$g_curFileName} > www/sitemap{$g_numFiles}.xml.gz");
   OS::deleteFile($g_curFileName);
 }
 
@@ -96,7 +96,7 @@ function openNewFile() {
   global $g_curFileUrl;
 
   $g_numFiles++;
-  $g_curFileName = tempnam(Config::get('global.tempDir'), 'sitemap_');
+  $g_curFileName = tempnam(Config::TEMP_DIR, 'sitemap_');
   $g_curFile = fopen($g_curFileName, 'w');
   $g_curFileSize = 0;
   $g_curFileUrl = 0;
@@ -110,7 +110,7 @@ function generateIndexFile() {
   global $g_numFiles;
 
   Log::info("Writing sitemap index sitemap.xml");
-  $f = fopen('wwwbase/sitemap.xml', 'w');
+  $f = fopen('www/sitemap.xml', 'w');
   fprintf($f, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
   fprintf($f, "<sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n");
 

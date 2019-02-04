@@ -8,7 +8,7 @@
       {foreach $treeList as $tree}
         {$entries=$tree->getEntries()}
         <span class="label label-relation-{$type}">
-          <a href="{$wwwRoot}intrare/{$tree->description}/{$entries[0]->id}">
+          <a href="{Config::URL_PREFIX}intrare/{$tree->description}/{$entries[0]->id}">
             {$tree->description}
           </a>
         </span>

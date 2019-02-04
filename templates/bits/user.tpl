@@ -1,5 +1,5 @@
 {if $u}
-  <a href="{$wwwRoot}utilizator/{$u->nick}">
+  <a href="{Config::URL_PREFIX}utilizator/{$u->nick}">
     {$u->nick}
   </a>
 {else}

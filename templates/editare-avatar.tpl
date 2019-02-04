@@ -12,7 +12,7 @@
 
   <div id="rawAvatarContainer">
     <img id="jcropTarget"
-         src="{$imgRoot}/generated/{$rawFileName}?cb={1000000000|rand:9999999999}"
+         src="img/generated/{$rawFileName}?cb={1000000000|rand:9999999999}"
          alt="imaginea utilizatorului {User::getActive()|escape}">
   </div>
 
@@ -24,7 +24,11 @@
 
   <form id="avatarForm" action="salvare-avatar" method="post">
     <div id="avatarPreviewContainer">
-      <img id="jcropPreview" src="{$imgRoot}/generated/{$rawFileName}?cb={1000000000|rand:9999999999}" alt="previzualizare" class="jcrop-preview">
+      <img
+        id="jcropPreview"
+        src="img/generated/{$rawFileName}?cb={1000000000|rand:9999999999}"
+        alt="previzualizare"
+        class="jcrop-preview">
     </div>
     <input type="hidden" name="x0" value="">
     <input type="hidden" name="y0" value="">

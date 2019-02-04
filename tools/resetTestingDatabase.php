@@ -1,19 +1,19 @@
 <?php
 
-require_once __DIR__ . '/../phplib/Core.php';
+require_once __DIR__ . '/../lib/Core.php';
 
-// Make sure we are in testing mode.
-Config::get('testing.enabled')
-  or die("Please set enabled = true in the [testing] section.\n");
+// Make sure we are in test mode.
+Config::TEST_MODE
+  or die("Please set TEST_MODE = true in Config.php.\n");
 
 // Make sure we are in development mode. We need fake logins.
-Config::get('global.developmentMode')
-  or die("Please set developmentMode = 1 in the [global] section.\n");
+Config::DEVELOPMENT_MODE
+  or die("Please set DEVELOPMENT_MODE = true in Config.php.\n");
 
-// Drop and recreate the testing DB.
+// Drop and recreate the test DB.
 // Execute this at PDO level, since idiorm cannot connect to a non-existing DB.
-$gdsn = DB::splitDsn(Config::get('global.database'));
-$tdsn = DB::splitDsn(Config::get('testing.database'));
+$gdsn = DB::splitDsn(Config::DATABASE);
+$tdsn = DB::splitDsn(Config::TEST_DATABASE);
 
 $pdo = new PDO('mysql:host=' . $tdsn['host'], $tdsn['user'], $tdsn['password']);
 $pdo->query('drop database if exists ' . $tdsn['database']);

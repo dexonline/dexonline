@@ -1,8 +1,8 @@
 <?php
 
-require_once __DIR__ . '/../../phplib/Core.php';
-require_once __DIR__ . '/../../phplib/third-party/simple_html_dom.php';
-require_once __DIR__ . '/../../phplib/third-party/phpuri.php';
+require_once __DIR__ . '/../../lib/Core.php';
+require_once __DIR__ . '/../../lib/third-party/simple_html_dom.php';
+require_once __DIR__ . '/../../lib/third-party/phpuri.php';
 
 $config = parse_ini_file('crawler.conf', true);
 

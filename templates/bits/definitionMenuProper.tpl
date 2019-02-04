@@ -23,7 +23,7 @@
     <li>
       {t}source{/t}:
       <a class="ref"
-        href="{$wwwRoot}surse"
+        href="{Config::URL_PREFIX}surse"
         title="{$row->source->name|escape}, {$row->source->year|escape}"
       >{$row->source->shortName|escape}
         {if $row->source->year}
@@ -37,7 +37,7 @@
     {if $row->source->courtesyLink}
       <li>
         {t}provided by{/t}
-        <a class="ref" href="{$wwwRoot}spre/{$row->source->courtesyLink}">
+        <a class="ref" href="{Config::URL_PREFIX}spre/{$row->source->courtesyLink}">
           {$row->source->courtesyText}
         </a>
       </li>
@@ -55,7 +55,7 @@
       <li>
         {t}added by{/t}
         {strip}
-        <a href="{$wwwRoot}utilizator/{$row->user->nick|escape:"url"}">
+        <a href="{Config::URL_PREFIX}utilizator/{$row->user->nick|escape:"url"}">
           {$row->user->nick|escape}
         </a>
         {if $showDate}
@@ -77,7 +77,7 @@
   {if $showEditLink}
     {if User::can(User::PRIV_EDIT)}
       <li>
-        <a href="{$wwwRoot}admin/definitionEdit.php?definitionId={$def->id}">
+        <a href="{Config::URL_PREFIX}admin/definitionEdit.php?definitionId={$def->id}">
           editează
         </a>
       </li>
@@ -90,7 +90,7 @@
       {if $def->status == Definition::ST_HIDDEN}
         definiție ascunsă
       {else if $row->wotdType == SearchResult::WOTD_NOT_IN_LIST}
-        <a href="{$wwwRoot}wotdAdd.php?defId={$def->id}">
+        <a href="{Config::URL_PREFIX}wotdAdd.php?defId={$def->id}">
           adaugă WotD
         </a>
       {else if $row->wotdType == SearchResult::WOTD_IN_LIST}
@@ -126,7 +126,7 @@
 
       <ul class="dropdown-menu">
         {if $showFlagTypo}
-          {if $skinVariables.typo}
+          {if Config::SKIN_TYPO}
             <li>
               <a href="#"
                 data-definition-id="{$def->id}"
@@ -151,7 +151,7 @@
             {else}
               <li>
                 <a class="bookmarkAddButton"
-                  href="{$wwwRoot}ajax/bookmarkAdd.php?definitionId={$def->id}">
+                  href="{Config::URL_PREFIX}ajax/bookmarkAdd.php?definitionId={$def->id}">
                   <i class="glyphicon glyphicon-heart"></i>
                   <span
                     data-pending-text="{t}please wait...{/t}"
@@ -167,7 +167,7 @@
         {if $showRemoveBookmark}
           <li>
             <a class="bookmarkRemoveButton"
-              href="{$wwwRoot}ajax/bookmarkRemove.php?definitionId={$def->id}">
+              href="{Config::URL_PREFIX}ajax/bookmarkRemove.php?definitionId={$def->id}">
               <i class="glyphicon glyphicon-remove"></i>
               <span data-pending-text="{t}please wait...{/t}">
                 {t}remove from favorites{/t}
@@ -177,9 +177,9 @@
         {/if}
 
         {if $showPermalink}
-          {if $skinVariables.permalink}
+          {if Config::SKIN_PERMALINK}
             <li>
-              <a href="{$wwwRoot}definitie/{$def->lexicon}/{$def->id}"
+              <a href="{Config::URL_PREFIX}definitie/{$def->lexicon}/{$def->id}"
                 title="link direct către această definiție">
                 <i class="glyphicon glyphicon-link"></i>
                 {t}permalink{/t}
@@ -210,7 +210,7 @@
         {if $showHistory}
           {if User::can(User::PRIV_EDIT)}
             <li>
-              <a href="{$wwwRoot}istoria-definitiei?id={$def->id}">
+              <a href="{Config::URL_PREFIX}istoria-definitiei?id={$def->id}">
                 <i class="glyphicon glyphicon-time"></i>
                 istoria definiției
               </a>

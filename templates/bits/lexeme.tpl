@@ -7,7 +7,7 @@
   {else}
     {strip}
     (
-    <a href="{$wwwRoot}model-flexiune/{$lexeme->modelType}{$lexeme->modelNumber}">
+    <a href="{Config::URL_PREFIX}model-flexiune/{$lexeme->modelType}{$lexeme->modelNumber}">
       {$lexeme->modelType}{$lexeme->modelNumber}
     </a>
     )

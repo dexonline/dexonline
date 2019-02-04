@@ -13,14 +13,14 @@
  * executing anything.
  **/
 
-require_once __DIR__ . '/../phplib/Core.php';
+require_once __DIR__ . '/../lib/Core.php';
 
 const PATCH_DIR = __DIR__ . '/../patches/';
 const PATCH_REGEXP = '/^\d{5}\./';
 
-// Make sure we are in not testing mode.
-!Config::get('testing.enabled')
-  or die("Please set enabled = false in the [testing] section.\n");
+// Make sure we are in not test mode.
+!Config::TEST_MODE
+  or die("Please set TEST_MODE = false in Config.php.\n");
 
 $opts = getopt('', ['dry-run']);
 $dryRun = isset($opts['dry-run']);

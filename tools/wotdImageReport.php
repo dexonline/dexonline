@@ -10,7 +10,7 @@
  *   table;
  **/
 
-require_once __DIR__ . '/../phplib/Core.php';
+require_once __DIR__ . '/../lib/Core.php';
 
 const IMG_PREFIX = 'img/wotd/';
 const THUMB_PREFIX = 'img/wotd/thumb%s/';
@@ -33,7 +33,7 @@ foreach (THUMB_SIZES as $size) {
 $opts = getopt('', ['fix']);
 $fix = isset($opts['fix']);
 
-$staticFiles = file(Config::get('static.url') . 'fileList.txt');
+$staticFiles = file(Config::STATIC_URL . 'fileList.txt');
 if (!$staticFiles) {
   OS::errorAndExit('Could not load the static files list.');
 }
@@ -142,33 +142,33 @@ function generateThumbnail($ftp, $img, $size, $prefix) {
 
   $extension = @pathinfo($img)['extension']; // may be missing entirely
   $extension = strtolower($extension);
-  $tempDir = Core::getTempPath();
+  $tempDir = Config::TEMP_DIR;
 
   if (in_array($extension, [ 'gif', 'jpeg', 'jpg', 'png' ])) {
     Log::info("Generating {$size}x{$size} thumbnail for $img");
-    $url = Config::get('static.url') . IMG_PREFIX . $img;
+    $url = Config::STATIC_URL . IMG_PREFIX . $img;
     Log::info("Fetching $url");
 
-    OS::executeAndAssert("rm -f {$tempDir}/a.{$extension} {$tempDir}/t.{$extension}");
-    OS::executeAndAssert("wget -q -O {$tempDir}/a.{$extension} '$url'");
+    OS::executeAndAssert("rm -f {$tempDir}a.{$extension} {$tempDir}t.{$extension}");
+    OS::executeAndAssert("wget -q -O {$tempDir}a.{$extension} '$url'");
 
-    $output = OS::executeAndReturnOutput("identify -format '%wx%h' {$tempDir}/a.{$extension}");
+    $output = OS::executeAndReturnOutput("identify -format '%wx%h' {$tempDir}a.{$extension}");
     $resolution = $output[0];
 
     if ($resolution == "{$size}x{$size}") {
-      copy("{$tempDir}/a.{$extension}", "{$tempDir}/t.{$extension}");
+      copy("{$tempDir}a.{$extension}", "{$tempDir}t.{$extension}");
     } else {
       OS::executeAndAssert(
         "convert -strip -geometry {$size}x{$size} -sharpen 1x1 " .
-        "{$tempDir}/a.{$extension} {$tempDir}/t.{$extension}");
+        "{$tempDir}a.{$extension} {$tempDir}t.{$extension}");
     }
 
     if ($extension == 'png') {
-      OS::executeAndAssert("optipng {$tempDir}/t.png");
+      OS::executeAndAssert("optipng {$tempDir}t.png");
     }
 
-    Log::info("FTP upload: {$tempDir}/t.{$extension} => " . Config::get('static.url') . $prefix . $img);
-    $ftp->staticServerPut("{$tempDir}/t.{$extension}", $prefix . $img);
+    Log::info("FTP upload: {$tempDir}t.{$extension} => " . Config::STATIC_URL . $prefix . $img);
+    $ftp->staticServerPut("{$tempDir}t.{$extension}", $prefix . $img);
   }
 }
 

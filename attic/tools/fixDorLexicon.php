@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../../phplib/util.php';
+require_once __DIR__ . '/../../lib/util.php';
 
 $DOR_SOURCE_ID = 38;
 

@@ -218,7 +218,7 @@
     <div class="panel-body">
       <div id="legalWords" class="row">
         <div id="wordStem" class="col-xs-6 col-sm-3 col-md-2">
-          <a href="{$wwwRoot}definitie/" target="_blank" class="text-danger">
+          <a href="definitie/" target="_blank" class="text-danger">
             <i class="glyphicon glyphicon-remove"></i>
             <span></span>
           </a>

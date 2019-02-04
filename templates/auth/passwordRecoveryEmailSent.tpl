@@ -14,6 +14,6 @@
   </p>
 
   <p>
-    Apoi, poți reveni la <a href="{$wwwRoot}auth/login">pagina de autentificare</a>.
+    Apoi, poți reveni la <a href="login">pagina de autentificare</a>.
   </p>
 {/block}

@@ -16,7 +16,7 @@
       {foreach $users as $user}
         <tr>
           <td class="userNick">
-            <a href="{$wwwRoot}utilizator/{$user->nick}">{$user->nick}</a>
+            <a href="utilizator/{$user->nick}">{$user->nick}</a>
             <input type="hidden" name="userIds[]" value="{$user->id}">
           </td>
 

@@ -1,10 +1,14 @@
 {$accent=$accent|default:false}
 {$class=$class|default:''}
 {$model=$model|default:true}
+
 {strip}
-  <a href="{$wwwRoot}admin/lexemeEdit.php?lexemeId={$lexeme->id}" class="{$class}" title="editează">
-    {include "bits/lexemeName.tpl"}
-  </a>
+<a
+  href="{Config::URL_PREFIX}admin/lexemeEdit.php?lexemeId={$lexeme->id}"
+  class="{$class}"
+  title="editează">
+  {include "bits/lexemeName.tpl"}
+</a>
 {/strip}
 
 {if $model}

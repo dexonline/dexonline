@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../../phplib/Core.php';
+require_once __DIR__ . '/../../lib/Core.php';
 
 $shortopts = "f:u:s:t:x:p:hvidbcC";
 $options = getopt($shortopts);

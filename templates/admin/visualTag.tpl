@@ -16,7 +16,7 @@
 
   <div class="row">
     <div class="col-md-6 imageHolder">
-      <img id="jcrop" src="{$cfg.static.url}/img/visual/{$visual->path}">
+      <img id="jcrop" src="{Config::STATIC_URL}/img/visual/{$visual->path}">
     </div>
 
     <div class="col-md-6">

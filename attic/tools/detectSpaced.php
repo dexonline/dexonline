@@ -4,7 +4,7 @@
  * Detect spaced text that's written as f o o b a r instead of %foobar%.
  **/
 
-require_once __DIR__ . '/../phplib/Core.php';
+require_once __DIR__ . '/../lib/Core.php';
 
 const START_ID = 0;
 const BATCH_SIZE = 10000;

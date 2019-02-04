@@ -29,7 +29,7 @@
   </div>
 
   <div id="pageModalSpinner">
-    <img src="{$imgRoot}/spinning-circles.svg">
+    <img src="{Config::URL_PREFIX}img/spinning-circles.svg">
   </div>
 
 {/if}

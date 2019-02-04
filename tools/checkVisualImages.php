@@ -8,7 +8,7 @@
  * - images on the static server that don't appear in the Visual table.
  **/
 
-require_once __DIR__ . '/../phplib/Core.php';
+require_once __DIR__ . '/../lib/Core.php';
 
 const IMG_PREFIX = 'img/visual/';
 const THUMB_PREFIX = 'img/visual/thumb/';
@@ -18,7 +18,7 @@ const IGNORED = [ 'thumb' ];
 $opts = getopt('', ['fix']);
 $fix = isset($opts['fix']);
 
-$staticFiles = file(Config::get('static.url') . 'fileList.txt');
+$staticFiles = file(Config::STATIC_URL . 'fileList.txt');
 
 // Grab images and thumbs from the static server file list.
 $imgs = [];
@@ -96,27 +96,27 @@ function generateThumbnail($ftp, $img) {
   $extension = @pathinfo($img)['extension']; // may be missing entirely
   $extension = strtolower($extension);
   $size = Visual::THUMB_SIZE;
-  $tempDir = Core::getTempPath();
+  $tempDir = Config::TEMP_DIR;
 
   if (in_array($extension, [ 'gif', 'jpeg', 'jpg', 'png' ])) {
     Log::info("Generating {$size}x{$size} thumbnail for $img");
-    $url = Config::get('static.url') . IMG_PREFIX . $img;
+    $url = Config::STATIC_URL . IMG_PREFIX . $img;
     Log::info("Fetching $url");
 
-    OS::executeAndAssert("rm -f {$tempDir}/a.{$extension} {$tempDir}/t.{$extension}");
-    OS::executeAndAssert("wget -q -O {$tempDir}/a.{$extension} '$url'");
+    OS::executeAndAssert("rm -f {$tempDir}a.{$extension} {$tempDir}t.{$extension}");
+    OS::executeAndAssert("wget -q -O {$tempDir}a.{$extension} '$url'");
 
     OS::executeAndAssert(
       "convert -strip -geometry {$size}x{$size} -sharpen 1x1 " .
-      "{$tempDir}/a.{$extension} {$tempDir}/t.{$extension}");
+      "{$tempDir}a.{$extension} {$tempDir}t.{$extension}");
 
 
     if ($extension == 'png') {
-      OS::executeAndAssert("optipng {$tempDir}/t.png");
+      OS::executeAndAssert("optipng {$tempDir}t.png");
     }
 
-    Log::info("FTP upload: {$tempDir}/t.{$extension} => " . Config::get('static.url') . THUMB_PREFIX . $img);
-    $ftp->staticServerPut("{$tempDir}/t.{$extension}", THUMB_PREFIX . $img);
+    Log::info("FTP upload: {$tempDir}t.{$extension} => " . Config::STATIC_URL . THUMB_PREFIX . $img);
+    $ftp->staticServerPut("{$tempDir}t.{$extension}", THUMB_PREFIX . $img);
   }
 }
 

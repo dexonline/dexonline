@@ -9,9 +9,9 @@
   <h3>{cap}{t}contact us{/t}{/cap}</h3>
 
   <p class="text-medium">
-    <a href="mailto:{$cfg.mail.contact|escape}">
+    <a href="mailto:{Config::CONTACT_EMAIL|escape}">
       <i class="glyphicon glyphicon-envelope"></i>
-      {$cfg.mail.contact|escape}
+      {Config::CONTACT_EMAIL|escape}
     </a>
   </p>
 

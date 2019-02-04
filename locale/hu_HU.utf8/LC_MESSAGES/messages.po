@@ -2,24 +2,24 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: BUG-EMAIL-ADDR <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2018-12-31 12:36+0200\n"
-"PO-Revision-Date: 2018-12-31 12:37+0200\n"
+"POT-Creation-Date: 2019-02-04 14:57+0200\n"
+"PO-Revision-Date: 2019-02-04 14:57+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2\n"
+"X-Generator: Poedit 2.2.1\n"
 "X-Poedit-Basepath: ../../..\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: templates\n"
-"X-Poedit-SearchPath-1: wwwbase\n"
-"X-Poedit-SearchPath-2: phplib\n"
-"X-Poedit-SearchPathExcluded-0: phplib/third-party\n"
-"X-Poedit-SearchPathExcluded-1: wwwbase/js/merged\n"
-"X-Poedit-SearchPathExcluded-2: wwwbase/js/third-party\n"
+"X-Poedit-SearchPath-1: www\n"
+"X-Poedit-SearchPath-2: lib\n"
+"X-Poedit-SearchPathExcluded-0: lib/third-party\n"
+"X-Poedit-SearchPathExcluded-1: www/js/merged\n"
+"X-Poedit-SearchPathExcluded-2: www/js/third-party\n"
 
 #: templates/alerts/formIsElision.tpl:2
 msgid "Your query <b>%1</b> is an elision of <b>%2</b>."
@@ -76,6 +76,12 @@ msgstr "távolítsd el a kedvencekből"
 #: templates/bits/definitionMenuProper.tpl:185
 msgid "permalink"
 msgstr "állandó hivatkozás"
+
+#: templates/bits/definitionMenuProper.tpl:233
+msgid "+1 identical definition"
+msgid_plural "+%1 identical definitions"
+msgstr[0] ""
+msgstr[1] ""
 
 #: templates/bits/extendedParadigm.tpl:20
 msgid "hyphenation"
@@ -193,40 +199,40 @@ msgstr "eszközök"
 msgid "external links"
 msgstr "külső hivatkozások"
 
-#: templates/bits/navmenu.tpl:153
+#: templates/bits/navmenu.tpl:152
 msgid "Anonymous"
 msgstr "Ismeretlen"
 
-#: templates/bits/navmenu.tpl:162
+#: templates/bits/navmenu.tpl:161
 msgid "moderator page"
 msgstr "a szerkesztő oldala"
 
-#: templates/bits/navmenu.tpl:170
+#: templates/bits/navmenu.tpl:169
 msgid "hotkeys"
 msgstr "gyorsbillentyűk"
 
-#: templates/bits/navmenu.tpl:178
+#: templates/bits/navmenu.tpl:177
 msgid "recently viewed pages"
 msgstr "nemrég megtekintett oldalak"
 
-#: templates/bits/navmenu.tpl:185
+#: templates/bits/navmenu.tpl:184
 msgid "preferences"
 msgstr "beállitások"
 
-#: templates/bits/navmenu.tpl:192
+#: templates/bits/navmenu.tpl:191
 msgid "profile"
 msgstr "profil"
 
-#: templates/bits/navmenu.tpl:198 templates/cuvinte-favorite.tpl:3
+#: templates/bits/navmenu.tpl:197 templates/cuvinte-favorite.tpl:3
 #: templates/cuvinte-favorite.tpl:7
 msgid "favorite words"
 msgstr "kedvenc szavak"
 
-#: templates/bits/navmenu.tpl:204
+#: templates/bits/navmenu.tpl:203
 msgid "log out"
 msgstr "kilépés"
 
-#: templates/bits/navmenu.tpl:211
+#: templates/bits/navmenu.tpl:210
 msgid "log in"
 msgstr "belépés"
 
@@ -238,23 +244,23 @@ msgstr "A(z) <strong>%1</strong> alak létezik a %2 LOC-ban."
 msgid "The form <strong>%1</strong> does not exist in LOC %2."
 msgstr "A(z) <strong>%1</strong> alak nem létezik a %2 LOC-ban."
 
-#: templates/bits/searchForm.tpl:18
+#: templates/bits/searchForm.tpl:17
 msgid "word"
 msgstr "szó"
 
-#: templates/bits/searchForm.tpl:29
+#: templates/bits/searchForm.tpl:28
 msgid "search"
 msgstr "keress"
 
-#: templates/bits/searchForm.tpl:36 templates/scramble.tpl:29
+#: templates/bits/searchForm.tpl:35 templates/scramble.tpl:29
 msgid "options"
 msgstr "opciók"
 
-#: templates/bits/searchForm.tpl:52
+#: templates/bits/searchForm.tpl:51
 msgid "Full-text search"
 msgstr "Teljes szöveges keresés"
 
-#: templates/bits/searchForm.tpl:59
+#: templates/bits/searchForm.tpl:58
 msgid "help"
 msgstr "segítség"
 
@@ -274,7 +280,7 @@ msgstr "név"
 msgid "characters"
 msgstr "betük"
 
-#: templates/bits/top.tpl:7 templates/hangman.tpl:52 templates/mill.tpl:65
+#: templates/bits/top.tpl:7 templates/hangman.tpl:52 templates/mill.tpl:67
 msgid "definitions"
 msgstr "meghatározások"
 
@@ -520,7 +526,7 @@ msgstr "Használhatja az 1, 2, 3, 4 gombokat is."
 msgid "The correct definition of <span class=\"word\"></span>:"
 msgstr "A <span class = \"word\"></span> helyes meghatározása:"
 
-#: templates/mill.tpl:54
+#: templates/mill.tpl:56
 msgid ""
 "Congratulations! You answered <b id=\"answeredCorrect\">0</b> of 10 "
 "questions correctly."
@@ -528,11 +534,11 @@ msgstr ""
 "Gratulálunk! Ön <b id=\"answerCorrect\">0</b> kérdésre a 10-böl helyesen "
 "válaszolt."
 
-#: templates/mill.tpl:57
+#: templates/mill.tpl:59
 msgid "new game"
 msgstr "új játék"
 
-#: templates/mill.tpl:58
+#: templates/mill.tpl:60
 msgid "see all definitions"
 msgstr "összes meghatározás"
 
@@ -1069,7 +1075,7 @@ msgid ""
 "suggestions:"
 msgstr "A <strong>%1</strong> szó nincs a szótárban. Íme néhány javaslat:"
 
-#: templates/search.tpl:281 phplib/models/InflectedForm.php:54
+#: templates/search.tpl:281 lib/models/InflectedForm.php:72
 msgid "unrecommended or incorrect form"
 msgstr "nem ajánlott vagy helytelen alak"
 
@@ -1148,11 +1154,11 @@ msgstr ""
 msgid "show all definitions"
 msgstr "mutasd az összes meghatározást"
 
-#: templates/search/trees.tpl:23
+#: templates/search/trees.tpl:24
 msgid "edit"
 msgstr "szerkesztés"
 
-#: templates/search/trees.tpl:32
+#: templates/search/trees.tpl:33
 msgid "etymology"
 msgstr "etimológia"
 
@@ -1350,11 +1356,11 @@ msgstr "Kiválasztás oka:"
 msgid "Word of the day archive"
 msgstr "A nap szava archívuma"
 
-#: templates/wotd.tpl:111
+#: templates/wotd.tpl:115
 msgid "Word of the day for %2 %1 in other years:"
 msgstr "A nap szava, %1 %2 más években:"
 
-#: templates/wotd.tpl:131
+#: templates/wotd.tpl:135
 msgid "Comments"
 msgstr "Hozzászólások"
 
@@ -1370,15 +1376,15 @@ msgstr "előző"
 msgid "next"
 msgstr "következő"
 
-#: phplib/models/InflectedForm.php:57
+#: lib/models/InflectedForm.php:75
 msgid "by apheresis and/or elision"
 msgstr ""
 
-#: phplib/models/InflectedForm.php:60
+#: lib/models/InflectedForm.php:78
 msgid "long verb form"
 msgstr ""
 
-#: wwwbase/changeLocale.php:8
+#: www/changeLocale.php:8
 msgid ""
 "Interface language changed. Definition text and external links are always in "
 "Romanian."
@@ -1386,58 +1392,58 @@ msgstr ""
 "Az felület nyelve megváltozott. A meghatározások szövege és a külső "
 "hivatkozások mindig románul vannak."
 
-#: wwwbase/randomList.php:53
+#: www/randomList.php:53
 #, php-format
 msgid "A randomly chosen word"
 msgid_plural "%d randomly chosen words"
 msgstr[0] "%d véletlenszerűen kiválasztott"
 msgstr[1] "%d véletlenszerűen kiválasztott"
 
-#: wwwbase/randomList.php:59
+#: www/randomList.php:59
 #, php-format
 msgid "A randomly chosen word of the day"
 msgid_plural "%d randomly chosen words of the day"
 msgstr[0] "%d véletlenszerűen kiválasztott"
 msgstr[1] "%d véletlenszerűen kiválasztott"
 
-#: wwwbase/search.php:223
+#: www/search.php:220
 #, php-format
 msgid "We redirected you automatically from <b>%s</b> to <b>%s</b>."
 msgstr "Automatikusan átirányítottunk a <b>%s</b>-tól <b>%s</b>-hoz."
 
-#: wwwbase/search.php:331
+#: www/search.php:330
 msgid "conjugations"
 msgstr "igeragozások"
 
-#: wwwbase/search.php:332
+#: www/search.php:331
 msgid "declensions"
 msgstr "ragozások"
 
-#: wwwbase/unelte.php:6
+#: www/unelte.php:6
 msgid "Synchronization with dexonline"
 msgstr "Szinkronizálás a dexonline-nal"
 
-#: wwwbase/unelte.php:7
+#: www/unelte.php:7
 msgid "This client connects to dexonline periodically to download updates."
 msgstr ""
 "Ez a kliens rendszeresen csatlakozik a dexonline rendszerhez a frissítések "
 "letöltéséhez."
 
-#: wwwbase/unelte.php:10
+#: www/unelte.php:10
 msgid "Interface for visually impaired users"
 msgstr "Felhasználói felület a látássérülteknek"
 
-#: wwwbase/unelte.php:11
+#: www/unelte.php:11
 msgid "This client has a friendly interface for visually impaired users."
 msgstr ""
 "Ez az ügyfél barátságos felületet biztosít a látássérült felhasználók "
 "számára."
 
-#: wwwbase/unelte.php:14
+#: www/unelte.php:14
 msgid "Regular expressions, wildcards"
 msgstr "Szabályos kifejezések, helyettesítő karakterek"
 
-#: wwwbase/unelte.php:15
+#: www/unelte.php:15
 msgid ""
 "This client accepts searches using regular expressions and/or wildcards, "
 "such as «echi*» for echilibru, echinocțiu etc."
@@ -1445,40 +1451,40 @@ msgstr ""
 "Ez az kliens elfogadja a reguláris kifejezéseket és/vagy helyettesítő "
 "karaktereket, például «echi*» az echilibru, echinocţiu stb."
 
-#: wwwbase/unelte.php:18
+#: www/unelte.php:18
 msgid "Suggestions"
 msgstr "Javaslatok"
 
-#: wwwbase/unelte.php:19
+#: www/unelte.php:19
 msgid ""
 "This client offers the closest matches when an exact match is not found."
 msgstr ""
 "Ez a kliens a legközelebbi megfelelőt kínálja, ha nem talál pontos egyezést."
 
-#: wwwbase/unelte.php:22
+#: www/unelte.php:22
 msgid "Diacritics support"
 msgstr "Ékezet támogatás"
 
-#: wwwbase/unelte.php:23
+#: www/unelte.php:23
 msgid "This client supports searching with or without diacritics."
 msgstr "Ez a kliens támogatja az ékezettel vagy anélküli keresést."
 
-#: wwwbase/unelte.php:26
+#: www/unelte.php:26
 msgid "Full-text searches"
 msgstr "Teljes szöveges keresések"
 
-#: wwwbase/unelte.php:27
+#: www/unelte.php:27
 msgid ""
 "This client can search not just keywords, but the definition body as well."
 msgstr ""
 "Ez a kliens nem csak kulcsszavakat keres, hanem a meghatározásoknak a teljes "
 "szövegét is."
 
-#: wwwbase/unelte.php:30
+#: www/unelte.php:30
 msgid "Inflected form search"
 msgstr "Ragozott forma keresése"
 
-#: wwwbase/unelte.php:31
+#: www/unelte.php:31
 msgid ""
 "This client can query declensions and conjugations, such as «lucreze» "
 "instead of «lucra»."
@@ -1486,11 +1492,11 @@ msgstr ""
 "Ez a kliens képes lekérdezni a ragozásokat, például a \"lucreze\" kifejezést "
 "a \"lucra\" helyett."
 
-#: wwwbase/unelte.php:34
+#: www/unelte.php:34
 msgid "Word clicks"
 msgstr "Szó kattintások"
 
-#: wwwbase/unelte.php:35
+#: www/unelte.php:35
 msgid ""
 "When you click a word in a definition, this client goes to the definition "
 "for that word."
@@ -1498,19 +1504,19 @@ msgstr ""
 "Amikor egy kifejezésre kattintsz egy meghatározásban, akkor a kliens a szó "
 "meghatározásához vezet."
 
-#: wwwbase/unelte.php:38
+#: www/unelte.php:38
 msgid "Search history"
 msgstr "Keresési előzmények"
 
-#: wwwbase/unelte.php:39
+#: www/unelte.php:39
 msgid "This client remembers the most recent searches and can revisit them."
 msgstr ""
 "Ez a kliens emlékszik a legfrissebb keresésekre, és újra megtekintheted őket."
 
-#: wwwbase/unelte.php:50
+#: www/unelte.php:50
 msgid "Perl, wxWidgets (only under Linux)"
 msgstr "Perl, wxWidgets (csak Linux alatt)"
 
-#: wwwbase/unelte.php:74
+#: www/unelte.php:74
 msgid "QT, g++ (only under Linux)"
 msgstr "QT, g++ (csak Linux alatt)"

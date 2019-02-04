@@ -3,10 +3,10 @@
     <div class="navbar-header navbar-left pull-left">
       {if $pageType != 'home'}
         <div class="logo-wrapper">
-          <a class="navbar-brand" href="{$wwwRoot}" title="{cap}{t}home page{/t}{/cap}">
+          <a class="navbar-brand" href="{Config::URL_PREFIX}" title="{cap}{t}home page{/t}{/cap}">
             <img id="logo-nav"
               alt="logo dexonline"
-              src="{$wwwRoot}img/svg/logo-nav.svg">
+              src="{Config::URL_PREFIX}img/svg/logo-nav.svg">
           </a>
         </div>
       {/if}
@@ -16,7 +16,7 @@
       <ul class="nav navbar-nav pull-left">
         <li>
           <p class="navbar-btn">
-            <a class="btn btn-info" href="{$wwwRoot}doneaza">
+            <a class="btn btn-info" href="{Config::URL_PREFIX}doneaza">
               <i class="glyphicon glyphicon-credit-card"></i>
               <span>{t}donate{/t}</span>
             </a>
@@ -59,7 +59,7 @@
                 {t}information{/t}
               </a>
             </li>
-            <li><a href="{$wwwRoot}contact">{t}contact us{/t}</a></li>
+            <li><a href="{Config::URL_PREFIX}contact">{t}contact us{/t}</a></li>
             <li><a href="https://dexonline.blogspot.ro">{t}blog{/t}</a></li>
           </ul>
 
@@ -81,7 +81,7 @@
             <li>
               <a href="https://wiki.dexonline.ro/wiki/Cum_pute%C8%9Bi_ajuta">{t}ways to help{/t}</a>
             </li>
-            <li><a href="{$wwwRoot}top">{t}volunteer ranking{/t}</a></li>
+            <li><a href="{Config::URL_PREFIX}top">{t}volunteer ranking{/t}</a></li>
           </ul>
 
         </li>
@@ -104,14 +104,14 @@
                 {t}abbreviations table{/t}
               </a>
             </li>
-            <li><a href="{$wwwRoot}articole">{t}linguistic articles{/t}</a></li>
-            <li><a href="{$wwwRoot}articol/Ghid_de_exprimare_corect%C4%83">{t}grammar guide{/t}</a></li>
-            <li><a href="{$wwwRoot}cuvantul-zilei">{t}word of the day{/t}</a></li>
-            <li><a href="{$wwwRoot}cuvantul-lunii">{t}word of the month{/t}</a></li>
-            <li><a href="{$wwwRoot}cuvinte-aleatoare">{t}random words{/t}</a></li>
-            <li><a href="{$wwwRoot}scrabble">{t}Scrabble{/t}</a></li>
-            <li><a href="{$wwwRoot}unelte">{t}tools{/t}</a></li>
-            <li><a href="{$wwwRoot}legaturi">{t}external links{/t}</a></li>
+            <li><a href="{Config::URL_PREFIX}articole">{t}linguistic articles{/t}</a></li>
+            <li><a href="{Config::URL_PREFIX}articol/Ghid_de_exprimare_corect%C4%83">{t}grammar guide{/t}</a></li>
+            <li><a href="{Config::URL_PREFIX}cuvantul-zilei">{t}word of the day{/t}</a></li>
+            <li><a href="{Config::URL_PREFIX}cuvantul-lunii">{t}word of the month{/t}</a></li>
+            <li><a href="{Config::URL_PREFIX}cuvinte-aleatoare">{t}random words{/t}</a></li>
+            <li><a href="{Config::URL_PREFIX}scrabble">{t}Scrabble{/t}</a></li>
+            <li><a href="{Config::URL_PREFIX}unelte">{t}tools{/t}</a></li>
+            <li><a href="{Config::URL_PREFIX}legaturi">{t}external links{/t}</a></li>
           </ul>
 
         </li>
@@ -128,9 +128,9 @@
           </a>
 
           <ul class="dropdown-menu">
-            {foreach LocaleUtil::getAll() as $id => $name}
+            {foreach Config::LOCALES as $id => $name}
               <li>
-                <a href="{$wwwRoot}changeLocale?id={$id}">
+                <a href="{Config::URL_PREFIX}changeLocale?id={$id}">
                   <i class="glyphicon glyphicon-ok {if $id != LocaleUtil::getCurrent()}invisible{/if}">
                   </i>
                   {$name}
@@ -156,7 +156,7 @@
           <ul class="dropdown-menu">
             {if User::can(User::PRIV_ANY)}
               <li>
-                <a href="{$wwwRoot}admin">
+                <a href="{Config::URL_PREFIX}admin">
                   <i class="glyphicon glyphicon-king"></i>
                   <span>{t}moderator page{/t}</span>
                 </a>
@@ -179,33 +179,33 @@
               </li>
             {/if}
             <li>
-              <a href="{$wwwRoot}preferinte">
+              <a href="{Config::URL_PREFIX}preferinte">
                 <i class="glyphicon glyphicon-cog"></i>
                 <span>{t}preferences{/t}</span>
               </a>
             </li>
             {if User::getActive()}
               <li>
-                <a href="{$wwwRoot}utilizator/{User::getActive()}">
+                <a href="{Config::URL_PREFIX}utilizator/{User::getActive()}">
                   <i class="glyphicon glyphicon-user"></i>
                   <span>{t}profile{/t}</span>
                 </a>
               </li>
               <li>
-                <a href="{$wwwRoot}cuvinte-favorite">
+                <a href="{Config::URL_PREFIX}cuvinte-favorite">
                   <i class="glyphicon glyphicon-heart"></i>
                   <span>{t}favorite words{/t}</span>
                 </a>
               </li>
               <li>
-                <a href="{$wwwRoot}auth/logout">
+                <a href="{Config::URL_PREFIX}auth/logout">
                   <i class="glyphicon glyphicon-log-out"></i>
                   <span>{t}log out{/t}</span>
                 </a>
               </li>
             {else}
               <li>
-                <a href="{$wwwRoot}auth/login">
+                <a href="{Config::URL_PREFIX}auth/login">
                   <i class="glyphicon glyphicon-log-in"></i>
                   <span>{t}log in{/t}</span>
                 </a>
@@ -255,11 +255,26 @@
           <h4>Salt la pagină</h4>
 
           <ul>
-            <li><a href="{$wwwRoot}admin/">Alt-A</a> = pagina moderatorului</li>
-            <li><a href="{$wwwRoot}admin/definitionEdit.php">Alt-N</a> = adaugă o definiție</li>
-            <li><a href="{$wwwRoot}admin/wotdTable.php">Alt-C</a> = cuvintele zilei</li>
-            <li><a href="{$wwwRoot}alocare-autori.php">Alt-X</a> = asignare autori</li>
-            <li><a href="{$wwwRoot}admin/wotdImages.php">Alt-Z</a> = imaginile cuvintelor zilei</li>
+            <li>
+              <a href="{Config::URL_PREFIX}admin/">Alt-A</a>
+              = pagina moderatorului
+            </li>
+            <li>
+              <a href="{Config::URL_PREFIX}admin/definitionEdit.php">Alt-N</a>
+              = adaugă o definiție
+            </li>
+            <li>
+              <a href="{Config::URL_PREFIX}admin/wotdTable.php">Alt-C</a>
+              = cuvintele zilei
+            </li>
+            <li>
+              <a href="{Config::URL_PREFIX}alocare-autori.php">Alt-X</a>
+              = asignare autori
+            </li>
+            <li>
+              <a href="{Config::URL_PREFIX}admin/wotdImages.php">Alt-Z</a>
+              = imaginile cuvintelor zilei
+            </li>
           </ul>
 
           <h4>Pagina moderatorului</h4>

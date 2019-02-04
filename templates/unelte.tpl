@@ -31,7 +31,7 @@
         {foreach $clients as $c}
           <td class="text-center">
             {foreach $c.os as $os}
-              <img src="{$imgRoot}/os/{$os}.png" alt="{$os}" title="{$osNames[$os]}">
+              <img src="img/os/{$os}.png" alt="{$os}" title="{$osNames[$os]}">
             {/foreach}
           </td>
         {/foreach}
@@ -121,7 +121,7 @@
 
   <ul>
     <li>
-      {$url="{$cfg.static.url}download/dex-ff.xpi"}
+      {$url="{Config::STATIC_URL}download/dex-ff.xpi"}
       {t
         1=$url
         2="return installFirefoxSpellChecker(event);"}

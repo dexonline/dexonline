@@ -3,7 +3,7 @@
 {block "title"}Istoria definiției {$def->lexicon}{/block}
 
 {block "content"}
-  <h3>Istoria definiției <a href="{$wwwRoot}definitie/{$def->id}">{$def->lexicon}</a></h3>
+  <h3>Istoria definiției <a href="definitie/{$def->id}">{$def->lexicon}</a></h3>
 
   {foreach $changeSets as $c}
     {include "bits/definitionChange.tpl"}

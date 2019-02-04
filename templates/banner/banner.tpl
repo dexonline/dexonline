@@ -1,20 +1,16 @@
 {* Banner-related code that goes in the ad spot *}
 {if !$privateMode && !$suggestNoBanner && empty($adult) && !User::can(User::PRIV_ANY)}
-  <section class="row banner-section" data-placement="{$cfg.banner.placement}">
+  <section class="row banner-section" data-placement="{Config::BANNER_PLACEMENT}">
     <div class="center-block text-center">
-      {if $cfg.banner.type == 'revive'}
+      {if Config::BANNER_TYPE == 'revive'}
         {include "banner/revive.tpl"}
-      {elseif $cfg.banner.type == 'adsense'}
-        {** Expects corresponding values in the [banner] section of dex.conf. **}
-        {$key="adsense_`$pageType`"}
-        {if $cfg.banner.$key}
-          {include "banner/adsense.tpl" adUnitId=$cfg.banner.$key}
-        {/if}
-      {elseif $cfg.banner.type == 'dfp'}
+      {elseif Config::BANNER_TYPE == 'adsense'}
+        {include "banner/adsense.tpl"}
+      {elseif Config::BANNER_TYPE == 'dfp'}
         {include "banner/dfp.tpl"}
-      {elseif $cfg.banner.type == 'pubgalaxy'}
+      {elseif Config::BANNER_TYPE == 'pubgalaxy'}
         {include "banner/pubGalaxy.tpl"}
-      {elseif $cfg.banner.type == 'fake'}
+      {elseif Config::BANNER_TYPE == 'fake'}
         <div class="center-block fakeBanner">
           Banner fals
         </div>

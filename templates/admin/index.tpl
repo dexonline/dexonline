@@ -30,7 +30,7 @@
           {if $r.count && User::can($r.privilege)}
             <tr>
               <td>{$r.text}</td>
-              <td><a href="{$wwwRoot}{$r.url}">{$r.count}</a></td>
+              <td><a href="../{$r.url}">{$r.count}</a></td>
             </tr>
           {/if}
         {/foreach}
@@ -52,7 +52,7 @@
         </div>
 
         <div class="col-lg-4 col-md-6 col-sm-6">
-          <form action="{$wwwRoot}editEntry.php">
+          <form action="../editEntry.php">
             <select id="entryId" name="id"></select>
           </form>
         </div>
@@ -64,13 +64,13 @@
         </div>
 
         <div class="col-lg-4 col-md-6 col-sm-6">
-          <form action="{$wwwRoot}editTree.php">
+          <form action="../editTree.php">
             <select id="treeId" name="id"></select>
           </form>
         </div>
 
         <div class="col-lg-4 col-md-6 col-sm-6">
-          <form action="{$wwwRoot}eticheta.php">
+          <form action="../eticheta.php">
             <select id="labelId" name="id"></select>
           </form>
         </div>
@@ -330,7 +330,7 @@
         <div class="voffset2"></div>
 
         <p>
-          <a href="../admin/mergeLexemes.php">unificare plural-singular</a>
+          <a href="mergeLexemes.php">unificare plural-singular</a>
 
           <span class="text-muted">
             pentru familiile de plante și animale și pentru alte lexeme care apar
@@ -339,7 +339,7 @@
         </p>
 
         <p>
-          <a href="../admin/bulkLabelSelectSuffix.php">etichetare în masă a lexemelor</a>
+          <a href="bulkLabelSelectSuffix.php">etichetare în masă a lexemelor</a>
 
           <span class="text-muted">
             pe baza sufixului
@@ -466,7 +466,7 @@
           {foreach $links as $l}
             {if User::can($l.privilege)}
               <div class="col-lg-3 col-md-4 col-sm-6">
-                <a href="{$wwwRoot}{$l.url}">{$l.text}</a>
+                <a href="../{$l.url}">{$l.text}</a>
               </div>
             {/if}
           {/foreach}
@@ -485,7 +485,7 @@
         <ul>
           {if User::can(User::PRIV_EDIT)}
             <li>
-              <a href="../admin/deTool.php">reasociere D. Enciclopedic</a>
+              <a href="deTool.php">reasociere D. Enciclopedic</a>
               <span class="text-muted">
                 o interfață mai rapidă pentru asocierea de lexeme și modificarea modelelor
                 acestora
@@ -493,20 +493,20 @@
             </li>
 
             <li>
-              <a href="../admin/placeAccents.php">plasarea asistată a accentelor</a>
+              <a href="placeAccents.php">plasarea asistată a accentelor</a>
               <span class="text-muted">
                 pentru lexeme alese la întâmplare
               </span>
             </li>
 
             <li>
-              <a href="{$wwwRoot}acuratete">verificarea acurateței editorilor</a>
+              <a href="../acuratete">verificarea acurateței editorilor</a>
             </li>
           {/if}
 
           {if User::can(User::PRIV_DONATION)}
             <li>
-              <a href="{$wwwRoot}proceseaza-donatii">procesează donații</a>
+              <a href="../proceseaza-donatii">procesează donații</a>
             </li>
           {/if}
         </ul>
@@ -540,7 +540,7 @@
       </div>
 
       <div class="panel-body">
-        <a href="{$wwwRoot}admin/visual.php">dicționarul vizual</a>
+        <a href="visual.php">dicționarul vizual</a>
       </div>
     </div>
   {/if}

@@ -4,12 +4,12 @@
  * Replaces şŞţŢ with șȘțȚ in all fields of all tables.
  **/
 
-require_once __DIR__ . '/../phplib/Core.php';
+require_once __DIR__ . '/../lib/Core.php';
 
 $opts = getopt('', ['fix']);
 $fix = isset($opts['fix']);
 
-$files = glob(__DIR__ . '/../phplib/models/*.php');
+$files = glob(__DIR__ . '/../lib/models/*.php');
 
 foreach ($files as $file) {
   $parts = explode('/', $file);

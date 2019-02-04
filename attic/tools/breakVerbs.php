@@ -3,7 +3,7 @@
  * Break verbs into entries for the verb, the long infinitive and the participle.
  **/
 
-require_once __DIR__ . '/../phplib/Core.php';
+require_once __DIR__ . '/../lib/Core.php';
 
 Log::notice('started');
 

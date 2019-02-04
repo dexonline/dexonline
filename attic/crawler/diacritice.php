@@ -1,8 +1,8 @@
 <?php
 
-require_once '../phplib/Core.php';
-require_once '../phplib/AppLog.php';
-require_once '../phplib/MemoryManagement.php';
+require_once '../lib/Core.php';
+require_once '../lib/AppLog.php';
+require_once '../lib/MemoryManagement.php';
 
 
 DB::init();
@@ -329,15 +329,15 @@ if (strstr( $_SERVER['SCRIPT_NAME'], 'diacritice.php')) {
 
 	if (isset($_POST['text']) && $_POST['text'] != '') {
 
-		SmartyWrap::assign('textarea', '<div id="textInput">'.$obj->fix($_POST['text']).'</div>');
-		SmartyWrap::assign('hiddenText', '<input type="hidden" name="hiddenText" value="'.$obj->getHiddenText().'">');
+		Smart::assign('textarea', '<div id="textInput">'.$obj->fix($_POST['text']).'</div>');
+		Smart::assign('hiddenText', '<input type="hidden" name="hiddenText" value="'.$obj->getHiddenText().'">');
 	}
 	else {
 
-		SmartyWrap::assign('textarea', '<textarea name="text" id="textInput" placeholder="introduceți textul aici">'.$obj->replaceDiacritics().'</textarea>');
-		SmartyWrap::assign('hiddenText', '<input type="hidden" name="hiddenText" value="">');
+		Smart::assign('textarea', '<textarea name="text" id="textInput" placeholder="introduceți textul aici">'.$obj->replaceDiacritics().'</textarea>');
+		Smart::assign('hiddenText', '<input type="hidden" name="hiddenText" value="">');
 	}
 
 
-	SmartyWrap::display('diacritics_fix/diacritics_fix.tpl');
+	Smart::display('diacritics_fix/diacritics_fix.tpl');
 }

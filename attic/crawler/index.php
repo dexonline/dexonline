@@ -1,6 +1,6 @@
 <?php
 
-require_once '../../phplib/Core.php';
+require_once '../../lib/Core.php';
 
 //User::require(User::PRIV_ADMIN);
 
@@ -18,9 +18,9 @@ foreach($rows as $obj) {
 	array_push($values,$obj->domain);
 }
 
-SmartyWrap::assign('values', $values);
-SmartyWrap::assign('options', $options);
+Smart::assign('values', $values);
+Smart::assign('options', $options);
 
-//SmartyWrap::display('crawler/crawler.tpl');
-SmartyWrap::assign('jqueryLibPath', '../js/jquery-1.8.3.min.js');
-SmartyWrap::displayWithoutSkin('crawler/crawler.tpl');
+//Smart::display('crawler/crawler.tpl');
+Smart::assign('jqueryLibPath', '../js/jquery-1.8.3.min.js');
+Smart::displayWithoutSkin('crawler/crawler.tpl');

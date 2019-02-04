@@ -2,14 +2,14 @@ Testing procedure:
 
 ### One-time setup
 
-1. Configure your testing database in the `[testing]` section of `dex.conf`.
-2. Install the Selenium IDE addon [for Firefox](https://addons.mozilla.org/en-US/firefox/addon/selenium-ide/) or [for Google](https://chrome.google.com/webstore/detail/selenium-ide/mooikfkahbdckldjjndioackbalphokd). 
+1. Configure your testing database in `Config.php::TEST_DATABASE`.
+2. Install the Selenium IDE addon [for Firefox](https://addons.mozilla.org/en-US/firefox/addon/selenium-ide/) or [for Google](https://chrome.google.com/webstore/detail/selenium-ide/mooikfkahbdckldjjndioackbalphokd).
 3. Open the Selenium IDE.
-4. Set the Base URL to the root URL of your dexonline installation (e.g. `http://localhost/dexonline/wwwbase/`). That default value is hard-coded in the test suite but it may be different for your installation.
+4. Set the Base URL to the root URL of your dexonline installation (e.g. `http://localhost/dexonline/www/`). That default value is hard-coded in the test suite but it may be different for your installation.
 
 ### Running the test suite
 
-1. Set `[testing] enabled = true` and `[global] developmentMode = true` in `dex.conf`.
+1. Set `TEST_MODE = true` and `DEVELOPMENT_MODE = true` in `Config.php`.
 2. Run `php tools/resetTestingDatabase.php` to, well, reset the testing database.
 3. Open the Selenium IDE.
 4. Open the test suite `test/dexonline-test-suite.side`.

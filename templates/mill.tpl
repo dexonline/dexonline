@@ -28,7 +28,7 @@
         {section name=round start=1 loop=11} {* Yes, Smarty, 11 means 10 *}
           <span class="questionImage">
             <img id="statusImage{$smarty.section.round.index}"
-                 src="{$imgRoot}/mill/pending.png"
+                 src="img/mill/pending.png"
                  alt="imagine pentru runda {$smarty.section.round.index}">
             <span class="questionNumber">{$smarty.section.round.index}</span>
           </span>

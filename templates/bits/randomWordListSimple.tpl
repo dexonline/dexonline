@@ -2,7 +2,7 @@
   {foreach $forms as $form}
     <tr>
       <td>
-        <a href="{$wwwRoot}definitie/{$form.0}">{$form.0}</a>
+        <a href="{Config::URL_PREFIX}definitie/{$form.0}">{$form.0}</a>
       </td>
       <td>
         {$form.surse}

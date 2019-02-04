@@ -1,6 +1,6 @@
 <?php
 
-require_once("../phplib/Core.php");
+require_once("../lib/Core.php");
 User::mustHave(User::PRIV_EDIT);
 
 # Select random definition to search.
@@ -70,11 +70,11 @@ foreach($rezultate as $iter) {
 }
 
 
-SmartyWrap::assign('definition', $definition);
+Smart::assign('definition', $definition);
 
-SmartyWrap::assign('listAll', $listAll);
-SmartyWrap::assign('alert', $messageAlert);
+Smart::assign('listAll', $listAll);
+Smart::assign('alert', $messageAlert);
 
 # Print Blacklist items if any
-SmartyWrap::assign("blackList", $blackList);
-SmartyWrap::display("siteClones.tpl");
+Smart::assign("blackList", $blackList);
+Smart::display("siteClones.tpl");

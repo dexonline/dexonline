@@ -4,7 +4,7 @@
  * marks and once without them.
  **/
 
-require_once __DIR__ . '/../phplib/Core.php';
+require_once __DIR__ . '/../lib/Core.php';
 
 ini_set('memory_limit', '1G');
 
@@ -13,8 +13,6 @@ const DEX09_ID = 27;
 const MDN_ID = 21;
 
 Log::notice('started');
-
-$tempDir = Core::getTempPath();
 
 Log::info('collecting forms');
 $forms = Model::factory('InflectedForm')
@@ -35,12 +33,12 @@ $forms = Model::factory('InflectedForm')
   ->find_many();
 $joined = implode("\n", Util::objectProperty($forms, 'formNoAccent'));
 
-$diaFileName = $tempDir.'/game-word-list-dia.txt';
+$diaFileName = Config::TEMP_DIR . 'game-word-list-dia.txt';
 Log::info('writing forms to %s', $diaFileName);
 file_put_contents($diaFileName, $joined);
 
-$tmpFileName = $tempDir.'/game-word-list-tmp.txt';
-$noDiaFileName = $tempDir.'/game-word-list.txt';
+$tmpFileName = Config::TEMP_DIR . 'game-word-list-tmp.txt';
+$noDiaFileName = Config::TEMP_DIR . 'game-word-list.txt';
 Log::info('writing Latin forms to %s', $noDiaFileName);
 $latin = Str::unicodeToLatin($joined);
 file_put_contents($tmpFileName, $latin);

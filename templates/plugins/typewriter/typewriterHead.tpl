@@ -1,1 +1,1 @@
-<link rel="prefetch" href="{$wwwRoot}fonts/plugins/typewriter/FuckinGwenhwyfar.ttf">
+<link rel="prefetch" href="{Config::URL_PREFIX}fonts/plugins/typewriter/FuckinGwenhwyfar.ttf">

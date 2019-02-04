@@ -4,7 +4,7 @@
  * Converts a sample of definitions to HTML and outputs a speed report.
  **/
 
-require_once __DIR__ . '/../phplib/Core.php';
+require_once __DIR__ . '/../lib/Core.php';
 
 const SAMPLE_SIZE = 100000;
 const BATCH_SIZE = 10000;

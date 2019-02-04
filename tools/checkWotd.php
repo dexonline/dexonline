@@ -3,21 +3,20 @@
  * This script checks whether exactly one WotD is set and whether it has an image, for the upcoming N days.
  **/
 
-require_once __DIR__ . '/../phplib/Core.php';
+require_once __DIR__ . '/../lib/Core.php';
 
 Log::notice('started');
 
 const NUM_DAYS = 3;
 
-$rcptInfo = Config::get('WotD.rcpt-info', []);
-$rcptError = Config::get('WotD.rcpt-error', []);
-$sender = Config::get('WotD.sender', '');
+$rcptInfo = Config::WOTD_RCPT_INFO;
+$rcptError = Config::WOTD_RCPT_ERROR;
 
 $opts = getopt('', ['send-email', 'quiet']);
 $sendEmail = isset($opts['send-email']);
 $quiet = isset($opts['quiet']);
 
-$staticFiles = file(Config::get('static.url') . 'fileList.txt');
+$staticFiles = file(Config::STATIC_URL . 'fileList.txt');
 $messages = [];
 $firstErrorDate = null;
 
@@ -106,9 +105,9 @@ if (count($messages)) {
     $mailTo = $rcptInfo;
   }
 
-  SmartyWrap::assign('numDays', NUM_DAYS);
-  SmartyWrap::assign('messages', $messages);
-  $body = SmartyWrap::fetch('email/checkWotd.tpl');
+  Smart::assign('numDays', NUM_DAYS);
+  Smart::assign('messages', $messages);
+  $body = Smart::fetch('email/checkWotd.tpl');
 
   if ($sendEmail) {
     Log::info("checkWotd: sending email");
@@ -116,7 +115,7 @@ if (count($messages)) {
   } else if ($quiet) {
     Mailer::setQuietMode();
   }
-  Mailer::send($sender, $mailTo, $subject, $body);
+  Mailer::send(Config::WOTD_SENDER, $mailTo, $subject, $body);
 }
 
 Log::notice('finished');

@@ -1,10 +1,10 @@
 <?php
-require_once __DIR__ . '/../phplib/Core.php';
+require_once __DIR__ . '/../lib/Core.php';
 
 Log::notice('started');
-$tmpDir = tempnam(Config::get('global.tempDir'), 'xpi_');
+$tmpDir = tempnam(Config::TEMP_DIR, 'xpi_');
 Log::info('Setting up directories');
-chdir(Core::getRootPath());
+chdir(Config::ROOT);
 OS::executeAndAssert("rm $tmpDir");
 OS::executeAndAssert("mkdir $tmpDir");
 OS::executeAndAssert("mkdir $tmpDir/chrome");
@@ -12,7 +12,7 @@ OS::executeAndAssert("mkdir $tmpDir/dictionaries");
 OS::executeAndAssert("echo 'SET UTF-8' > $tmpDir/dictionaries/ro-dex.aff");
 OS::executeAndAssert("cp docs/install.rdf $tmpDir/");
 
-$mysqlFile = tempnam(Config::get('global.tempDir'), 'mysql_');
+$mysqlFile = tempnam(Config::TEMP_DIR, 'mysql_');
 unlink($mysqlFile);
 $query = "select distinct formNoAccent from InflectedForm where formNoAccent rlike '^[a-zăâîșț]+$' into outfile '$mysqlFile'";
 Log::info("Running mysql query: [$query]");

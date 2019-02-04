@@ -3,7 +3,7 @@
  * Replace genus abbreviations in DFL with full names, so that the lexicon is properly extracted.
  **/
 
-require_once __DIR__ . '/../phplib/Core.php';
+require_once __DIR__ . '/../lib/Core.php';
 
 define('SOURCE_ID', 63);
 

@@ -1,10 +1,9 @@
-{assign var="advancedSearch" value=$advancedSearch|default:false}
 {assign var="cuv" value=$cuv|default:''}
 {assign var="text" value=$text|default:false}
 
 <section class="row search">
   <div class="col-md-12">
-    <form action="{$wwwRoot}search.php"
+    <form action="{Config::URL_PREFIX}search.php"
           name="frm"
           onsubmit="return searchSubmit()"
           id="searchForm">
@@ -62,8 +61,8 @@
       </div>
     </form>
 
-    {if $cfg.search.acEnable}
-      <div id="autocompleteEnabled" data-min-chars="{$cfg.search.acMinChars}"></div>
+    {if Config::SEARCH_AC_ENABLED}
+      <div id="autocompleteEnabled" data-min-chars="{Config::SEARCH_AC_MIN_CHARS}"></div>
     {/if}
   </div>
 </section>

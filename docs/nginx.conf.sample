@@ -1,7 +1,7 @@
 server {
   listen 80;
   server_name localhost;
-  root /var/www/DEX/wwwbase;
+  root /srv/http/dexonline/www;
   index index.php index.html;
   # rewrite_log on;
 

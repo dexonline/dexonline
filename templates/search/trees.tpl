@@ -19,7 +19,7 @@
 
     {if User::can(User::PRIV_EDIT + User::PRIV_STRUCT)}
       <small>
-        <a href="{$wwwRoot}editTree.php?id={$t->id}" class="pull-right">
+        <a href="{Config::URL_PREFIX}editTree.php?id={$t->id}" class="pull-right">
           <i class="glyphicon glyphicon-pencil"></i>
           {t}edit{/t}
         </a>

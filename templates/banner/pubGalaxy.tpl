@@ -5,20 +5,16 @@
     var clientWidth = getWidth();
   </script>
 
-  {foreach $cfg.banner.pgDivId as $i => $divId}
-    {$width=$cfg.banner.pgWidth.$i}
-    {$height=$cfg.banner.pgHeight.$i}
-    {$clientMinWidth=$cfg.banner.pgClientMinWidth.$i}
-    {$clientMaxWidth=$cfg.banner.pgClientMaxWidth.$i}
+  {foreach Config::BANNER_PG as $r}
     <div
-      id='{$divId}'
-      style='height:{$height}px; width:{$width}px; margin: 0 auto;'>
+      id='{$r.divId}'
+      style='height:{$r.height}px; width:{$r.width}px; margin: 0 auto;'>
       <script>
-        var d = document.getElementById('{$divId}');
-        if ((clientWidth >= {$clientMinWidth}) &&
-            (clientWidth <= {$clientMaxWidth})) {
-          googletag.cmd.push(function() { googletag.display('{$divId}'); });
-          pgWrapper.style.height = '{$height}px';
+        var d = document.getElementById('{$r.divId}');
+        if ((clientWidth >= {$r.clientMinWidth}) &&
+            (clientWidth <= {$r.clientMaxWidth})) {
+          googletag.cmd.push(function() { googletag.display('{$r.divId}'); });
+          pgWrapper.style.height = '{$r.height}px';
         } else {
           d.style.display = 'none';
         }

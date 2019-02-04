@@ -4,8 +4,8 @@
  * All sorts of cleanup and sanity checks for existing CrawlerUrls.
  **/
 
-require_once __DIR__ . '/../../phplib/Core.php';
-require_once __DIR__ . '/../../phplib/third-party/simple_html_dom.php';
+require_once __DIR__ . '/../../lib/Core.php';
+require_once __DIR__ . '/../../lib/third-party/simple_html_dom.php';
 
 $varMap = []; // map of siteIDs to variables
 

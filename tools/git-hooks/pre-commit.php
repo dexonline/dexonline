@@ -2,13 +2,14 @@
 <?php
 
 /**
- * Checks whether the developer modified one of the files dex.conf or wwwbase/.htaccess.
- * If they did, they should push the same changes to dex.conf.sample and wwwbase/.htaccess.sample respectively.
+ * Checks whether the developer modified one of the files Config.php or
+ * www/.htaccess. If they did, they should push the same changes to
+ * Config.php.sample and www/.htaccess.sample respectively.
+ *
  * Specifically, we check whether
- * - there are new sections in dex.conf
- * - there are new variables in dex.conf
- * - some variables changed type in dex.conf
- * - there are new RewriteRules (commented or not) in wwwbase/.htaccess
+ * - there are new constants in Config.php;
+ * - some constants changed type in Config.php;
+ * - there are new RewriteRules (commented or not) in www/.htaccess
  *
  * Checks whether any Selenium IDE tests contain
  * - a hard-coded base URL or
@@ -16,54 +17,56 @@
  **/
 
 // We should already be at the root of the client
-if (($dexConf = parse_ini_file('dex.conf', true)) === false) {
-  error('Cannot read dex.conf');
-}
-if (($dexConfSample = parse_ini_file('dex.conf.sample', true)) === false) {
-  error('Cannot read dex.conf');
-}
+$sample = getConstants('Config.php.sample');
+$actual = getConstants('Config.php');
 
-foreach ($dexConf as $sectionTitle => $sectionVars) {
-  // Check that no new sections are defined
-  if (!array_key_exists($sectionTitle, $dexConfSample)) {
-    error("The section *** [$sectionTitle] *** is defined in dex.conf, but not in dex.conf.sample. Please add it to dex.conf.sample.");
+foreach ($actual as $name => $value) {
+  if (!array_key_exists($name, $sample)) {
+    error("The constant *** $name *** is defined in Config.php, " .
+          "but not in Config.php.sample. Please add it to Config.php.sample.");
   }
 
-  foreach ($sectionVars as $key => $value) {
-    // Check that no new variables are defined
-    if (!array_key_exists($key, $dexConfSample[$sectionTitle])) {
-      error("The variable *** [$sectionTitle].$key *** is defined in dex.conf, but not in dex.conf.sample. Please add it to dex.conf.sample.");
-    }
-
-    // Check that variable types haven't changed
-    $typeDexConf = gettype($value);
-    $typeDexConfSample = getType($dexConfSample[$sectionTitle][$key]);
-    if ($typeDexConf != $typeDexConfSample) {
-      error("The variable *** [$sectionTitle].$key *** has type '$typeDexConf' in dex.conf, but type '$typeDexConfSample' in dex.conf.sample. Please reconcile them.");
-    }
+  $actualType = gettype($value);
+  $sampleType = getType($sample[$name]);
+  if ($sampleType != $actualType) {
+    error("The constant *** $name *** has type '$actualType' in Config.php, " .
+          "but type '$sampleType' in Config.php.sample. Please reconcile them.");
   }
 }
 
-if (($htaccess = readRewriteRules('wwwbase/.htaccess')) === false) {
-  error('Cannot read wwwbase/.htaccess');
-}
-if (($htaccessSample = readRewriteRules('wwwbase/.htaccess.sample')) === false) {
-  error('Cannot read wwwbase/.htaccess.sample');
-}
+$htaccess = readRewriteRules('www/.htaccess');
+$htaccessSample = readRewriteRules('www/.htaccess.sample');
 
 foreach ($htaccess as $rule) {
   if (!in_array($rule, $htaccessSample)) {
-    error("The RewriteRule *** $rule *** is defined in wwwbase/.htaccess, but not in wwwbase/.htaccess.sample. Please reconcile the files.");
+    error("The RewriteRule *** $rule *** is defined in www/.htaccess, " .
+          "but not in www/.htaccess.sample. Please reconcile the files.");
   }
 }
 
 /***************************************************************************/
 
+// We cannot simply include both files because they declare the same class.
+// Ugliness follows.
+function getConstants($filename) {
+  if (!file_exists($filename)) {
+    error("Cannot read {$filename}");
+  }
+
+  $newName = 'c' . md5($filename);
+  $code = file_get_contents($filename);
+  $code = str_replace('class Config', "class {$newName}", $code);
+  eval('?>' . $code);
+
+  $reflectionClass = new ReflectionClass($newName);
+  return $reflectionClass->getConstants();
+}
+
 // Reads the file, retains only the lines containing RewriteRule statements
 // and strips the comments
 function readRewriteRules($filename) {
   if (($lines = file($filename)) === false) {
-    return false;
+    error("Cannot read $filename");
   }
 
   $result = [];

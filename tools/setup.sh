@@ -10,19 +10,19 @@ cd $ROOT_DIR
 echo "The root of your client appears to be $ROOT_DIR"
 
 # Create a copy of the config file unless it already exists
-if [ ! -e dex.conf ]; then
-  echo "* copying dex.conf.sample to dex.conf"
-  cp dex.conf.sample dex.conf
+if [ ! -e Config.php ]; then
+  echo "* copying Config.php.sample to Config.php"
+  cp Config.php.sample Config.php
 else
-  echo "* dex.conf already exists, skipping"
+  echo "* Config.php already exists, skipping"
 fi
 
 # Create a copy of the .htaccess file unless it already exists
-if [ ! -e wwwbase/.htaccess ]; then
-  echo "* copying wwwbase/.htaccess.sample to wwwbase/.htaccess"
-  cp wwwbase/.htaccess.sample wwwbase/.htaccess
+if [ ! -e www/.htaccess ]; then
+  echo "* copying www/.htaccess.sample to www/.htaccess"
+  cp www/.htaccess.sample www/.htaccess
 else
-  echo "* wwwbase/.htaccess already exists, skipping"
+  echo "* www/.htaccess already exists, skipping"
 fi
 
 # Make the Smarty compiled templates directory world-writable
@@ -30,18 +30,18 @@ echo "* making some directories and files world-writable"
 chmod 777 templates_c
 
 # Allow the webserver to store images here (e.g. for Elfinder thumbs).
-chmod 777 wwwbase/img/generated
+chmod 777 www/img/generated
 
 # Allow PHP scripts to generate merged CSS/JS files
-chmod 777 wwwbase/css/merged wwwbase/js/merged
+chmod 777 www/css/merged www/js/merged
 
 # Compile the native Levenshtein binary
-if [ ! -e phplib/c/levenshtein ]; then
-  echo "* compiling phplib/c/levenshtein"
-  gcc -O2 -Wall -o phplib/c/levenshtein phplib/c/levenshtein.c
-  strip phplib/c/levenshtein
+if [ ! -e lib/c/levenshtein ]; then
+  echo "* compiling lib/c/levenshtein"
+  gcc -O2 -Wall -o lib/c/levenshtein lib/c/levenshtein.c
+  strip lib/c/levenshtein
 else
-  echo "* phplib/c/levenshtein already exists, skipping"
+  echo "* lib/c/levenshtein already exists, skipping"
 fi
 
 # Symlink hooks unless they already exist

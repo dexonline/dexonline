@@ -47,15 +47,17 @@ if ($type == 'rss' || $type == 'blog') {
       $item['description'] = SmartyWrap::fetch('bits/wotdRssItem.tpl');
     }
     $item['pubDate'] = date('D, d M Y H:i:s', $ts) . ' EEST';
-    $item['link'] = Request::getFullServerUrl() . 'cuvantul-zilei/' . date('Y/m/d', $ts);
-
+    $item['link'] = sprintf('%s%scuvantul-zilei/%s',
+                            Config::URL_HOST,
+                            Config::URL_PREFIX,
+                            date('Y/m/d', $ts));
     $results[] = $item;
   }
 
   header("Content-type: application/rss+xml; charset=utf-8");
   SmartyWrap::assign([
     'rss_title' => 'Cuvântul zilei',
-    'rss_link' => Request::getFullServerUrl() . 'cuvantul-zilei/',
+    'rss_link' => Config::URL_HOST . Config::URL_PREFIX . 'cuvantul-zilei/',
     'rss_description' => 'Doza zilnică de cuvinte de la dexonline!',
     'rss_pubDate' => date('D, d M Y H:i:s') . ' EEST',
     'results' => $results,

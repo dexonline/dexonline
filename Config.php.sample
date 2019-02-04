@@ -26,8 +26,6 @@ class Config {
   // Folder for temporary data
   const TEMP_DIR = '/tmp';
 
-  const PROTOCOL = 'http';
-
   /******************************* Logging *******************************/
 
   // Log file name. Can also be "php://stdout" or "php://stderr"

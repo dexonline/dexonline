@@ -27,7 +27,7 @@ if ($submitButton) {
 
       // Send email
       SmartyWrap::assign([
-        'homePage' => Request::getFullServerUrl(),
+        'homePage' => Config::URL_HOST . Config::URL_PREFIX,
         'token' => $pt->token,
       ]);
       $body = SmartyWrap::fetch('email/resetPassword.tpl');

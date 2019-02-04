@@ -105,17 +105,6 @@ class Request {
       Str::startsWith($_SERVER['REQUEST_URI'], Config::URL_PREFIX . 'ajax/');
   }
 
-  static function getFullServerUrl() {
-    $protocol = Config::PROTOCOL;
-    $host = $_SERVER['SERVER_NAME'];
-    $port =  $_SERVER['SERVER_PORT'];
-    $path = Config::URL_PREFIX;
-
-    return ($port == '80')
-      ? "{$protocol}://{$host}{$path}"
-      : "{$protocol}://{$host}:{$port}{$path}";
-  }
-
   /**
    * Search engine friendly URLs used for the search page:
    * 1) https://dexonline.ro/definitie[-<sursa>]/<cuvânt>[/<defId>][/paradigma]

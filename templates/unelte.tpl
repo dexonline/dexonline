@@ -31,7 +31,7 @@
         {foreach $clients as $c}
           <td class="text-center">
             {foreach $c.os as $os}
-              <img src="{$imgRoot}/os/{$os}.png" alt="{$os}" title="{$osNames[$os]}">
+              <img src="img/os/{$os}.png" alt="{$os}" title="{$osNames[$os]}">
             {/foreach}
           </td>
         {/foreach}

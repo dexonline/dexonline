@@ -187,7 +187,7 @@ class Util {
 
   static function assertNotLoggedIn() {
     if (User::getActive()) {
-      Util::redirect(Core::getWwwRoot());
+      Util::redirect(Config::URL_PREFIX);
     }
   }
 

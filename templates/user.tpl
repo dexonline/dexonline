@@ -13,7 +13,7 @@
       {include "bits/avatar.tpl" user=$user}
       <span>{$user->nick|escape}</span>
       {if $user->id == User::getActiveId()}
-        <a class="btn btn-default btn-sm pull-right" href="{$wwwRoot}preferinte">editează profilul</a>
+        <a class="btn btn-default btn-sm pull-right" href="../preferinte">editează profilul</a>
       {/if}
 
     </div>
@@ -88,7 +88,10 @@
       {if $medals}
         <div class="text-center">
           {foreach $medals as $params}
-            <img src="{$imgRoot}/medals/{$params.pic}" alt="{$params.name}" title="{$params.name} {$params.description}">
+            <img
+              src="../img/medals/{$params.pic}"
+              alt="{$params.name}"
+              title="{$params.name} {$params.description}">
           {/foreach}
         </div>
       {else}

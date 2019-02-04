@@ -56,7 +56,7 @@
         wiki
       </a>
 
-      <a class="btn btn-default" href="{$wwwRoot}definitie/{$lexeme->formNoAccent}">
+      <a class="btn btn-default" href="../definitie/{$lexeme->formNoAccent}">
         <i class="glyphicon glyphicon-search"></i>
         caută
       </a>

@@ -1,4 +1,4 @@
-<a class="widget aotm row" href="{$wwwRoot}articol/{$articol}">
+<a class="widget aotm row" href="articol/{$articol}">
   <div class="col-lg-8 col-md-12 col-sm-12 col-xs-6">
     <h4>{t}article of the month{/t}</h4><br>
     <span class="widget-value">{$articol|urldecode|replace:'_':' '}</span>

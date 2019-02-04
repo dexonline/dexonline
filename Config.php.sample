@@ -5,6 +5,15 @@ class Config {
   // Filesystem root of this installation
   const ROOT = __DIR__ . '/';
 
+  // The concatenation URL_HOST + URL_PREFIX should yield the URL of the home
+  // page of your installation.
+
+  // protocol://host[:port] . No trailing slash.
+  const URL_HOST = 'http://localhost';
+
+  // URL path relative to URL_HOST. Include a trailing slash.
+  const URL_PREFIX = '/dexonline/wwwbase/';
+
   // Database connection. Format: mysql://user[:password]@host/database
   const DATABASE = 'mysql://root@localhost/dexonline';
 

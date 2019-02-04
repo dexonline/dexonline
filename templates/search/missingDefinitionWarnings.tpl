@@ -2,7 +2,7 @@
 
   {if isset($extra.unofficialHidden)}
     <p class="text-warning">
-      {t 1=$wwwRoot}There are definitions in unofficial dictionaries,
+      {t 1=Config::URL_PREFIX}There are definitions in unofficial dictionaries,
       which <a href="%1preferinte">you have chosen to hide</a>.{/t}
     </p>
   {/if}

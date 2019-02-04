@@ -28,5 +28,5 @@ switch ($mode) {
 
 $target = isset($_SERVER['HTTP_REFERER'])
         ? $_SERVER['HTTP_REFERER']
-        : Core::getWwwRoot();
+        : Config::URL_PREFIX;
 Util::redirect($target);

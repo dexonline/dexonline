@@ -4,7 +4,7 @@
 
 <section class="row search">
   <div class="col-md-12">
-    <form action="{$wwwRoot}search.php"
+    <form action="{Config::URL_PREFIX}search.php"
           name="frm"
           onsubmit="return searchSubmit()"
           id="searchForm">

@@ -7,7 +7,7 @@
 
     {if User::can(User::PRIV_EDIT + User::PRIV_STRUCT)}
       <div class="pull-right">
-        <a href="{$wwwRoot}editEntry.php?id={$entry->id}">
+        <a href="{Config::URL_PREFIX}editEntry.php?id={$entry->id}">
           <i class="glyphicon glyphicon-pencil"></i>
           editează
         </a>

@@ -12,7 +12,7 @@ $timestamp = $date ? strtotime($date) : time();
 $mysqlDate = date("Y-m-01", $timestamp);
 
 if ($mysqlDate < WOTM_BIG_BANG || (($mysqlDate > $today) && !User::can(User::PRIV_WOTD))) {
-  Util::redirect(Core::getWwwRoot() . 'cuvantul-lunii');
+  Util::redirect(Config::URL_PREFIX . 'cuvantul-lunii');
 }
 
 $wotm = WordOfTheMonth::getWotM($mysqlDate);

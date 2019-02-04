@@ -24,7 +24,6 @@ $def = Definition::get_by_id_status($wotd->definitionId, Definition::ST_ACTIVE);
 SmartyWrap::assign([
   'thumbUrl' => $wotd->getMediumThumbUrl(),
   'wotdDef' => $def,
-  'today' => date('Y/m/d'),
 ]);
 
 /* WotM part */
@@ -37,7 +36,6 @@ SmartyWrap::assign([
   'thumbUrlM' => $wotm->getMediumThumbUrl(),
   'articol' => $wotm->article,
   'wotmDef' => $def,
-  'todayM' => date('Y/m'),
 ]);
 
 SmartyWrap::display('index.tpl');

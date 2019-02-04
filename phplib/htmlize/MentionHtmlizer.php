@@ -47,7 +47,7 @@ class MentionHtmlizer extends Htmlizer {
 
       if ($entry) {
         $href = sprintf('%sintrare/%s/%d/sinteza#meaning%d',
-                        Core::getWwwRoot(),
+                        Config::URL_PREFIX,
                         $entry->getShortDescription(),
                         $entry->id,
                         $meaningId);

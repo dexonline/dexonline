@@ -1,4 +1,4 @@
-<a class="widget wotd row" href="{$wwwRoot}cuvantul-zilei/{$today}">
+<a class="widget wotd row" href="cuvantul-zilei/{$smarty.now|date_format:'%Y/%m/%d'}">
   <div class="col-lg-8 col-md-12 col-sm-12 col-xs-6">
     <h4>{t}word of the day{/t}</h4><br>
     {if $wotdDef}

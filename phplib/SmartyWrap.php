@@ -184,8 +184,6 @@ class SmartyWrap {
     self::$theSmarty->inheritance_merge_compiled_includes = false; // This allows variable names in {include} tags
     if (Request::isWeb()) {
       self::assign([
-        'wwwRoot' => Core::getWwwRoot(),
-        'imgRoot' => Core::getImgRoot(),
         'currentYear' => date("Y"),
         'suggestNoBanner' => Util::suggestNoBanner(),
         'privateMode' => Session::userPrefers(Preferences::PRIVATE_MODE),
@@ -269,7 +267,7 @@ class SmartyWrap {
     }
 
     // return the URL path and the timestamp
-    $path = sprintf('%s%s/merged/%s.%s', Core::getWwwRoot(), $type, $hash, $type);
+    $path = sprintf('%s%s/merged/%s.%s', Config::URL_PREFIX, $type, $hash, $type);
     $date = date('YmdHis', filemtime($output));
     return [
       'path' => $path,
@@ -397,7 +395,7 @@ class SmartyWrap {
     foreach (func_get_args() as $id) {
       if (!isset(self::$cssMap[$id])) {
         FlashMessage::add("Cannot load CSS file {$id}");
-        Util::redirect(Core::getWwwRoot());
+        Util::redirect(Config::URL_PREFIX);
       }
       self::$includedCss[$id] = true;
     }
@@ -408,7 +406,7 @@ class SmartyWrap {
     foreach (func_get_args() as $id) {
       if (!isset(self::$jsMap[$id])) {
         FlashMessage::add("Cannot load JS script {$id}");
-        Util::redirect(Core::getWwwRoot());
+        Util::redirect(Config::URL_PREFIX);
       }
       self::$includedJs[$id] = true;
     }

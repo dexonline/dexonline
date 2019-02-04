@@ -102,14 +102,14 @@ class Request {
 
   static function isAjax() {
     return isset($_SERVER['REQUEST_URI']) &&
-      Str::startsWith($_SERVER['REQUEST_URI'], Core::getWwwRoot() . 'ajax/');
+      Str::startsWith($_SERVER['REQUEST_URI'], Config::URL_PREFIX . 'ajax/');
   }
 
   static function getFullServerUrl() {
     $protocol = Config::PROTOCOL;
     $host = $_SERVER['SERVER_NAME'];
     $port =  $_SERVER['SERVER_PORT'];
-    $path = Core::getWwwRoot();
+    $path = Config::URL_PREFIX;
 
     return ($port == '80')
       ? "{$protocol}://{$host}{$path}"
@@ -147,21 +147,21 @@ class Request {
     } else if ($entryId) {
       $e = Entry::get_by_id($entryId);
       if (!$e) {
-        Util::redirect(Core::getWwwRoot());
+        Util::redirect(Config::URL_PREFIX);
       }
       $short = $e->getShortDescription();
       $url = "intrare{$sourcePart}/{$short}/{$e->id}{$tabPart}";
     } else if ($lexemeId) {
       $l = Lexeme::get_by_id($lexemeId);
       if (!$l) {
-        Util::redirect(Core::getWwwRoot());
+        Util::redirect(Config::URL_PREFIX);
       }
       $url = "lexem/{$l->formNoAccent}/{$l->id}";
     } else {
       $url = "definitie{$sourcePart}/{$cuv}{$tabPart}";
     }
 
-    Util::redirect(Core::getWwwRoot() . $url . $allPart);
+    Util::redirect(Config::URL_PREFIX . $url . $allPart);
   }
 
 }

@@ -13,7 +13,7 @@ if ($id) {
   $t = Tree::get_by_id($id);
   if (!$t) {
     FlashMessage::add('Arborele nu există.');
-    Util::redirect(Core::getWwwRoot());
+    Util::redirect(Config::URL_PREFIX);
   }
 } else {
   $t = Model::factory('Tree')->create();
@@ -68,7 +68,7 @@ if ($delete) {
   if ($te) {
     Util::redirect("editEntry.php?id={$te->entryId}");
   } else {
-    Util::redirect(Core::getWwwRoot());
+    Util::redirect(Config::URL_PREFIX);
   }
 }
 

@@ -2,7 +2,6 @@
 
 class Core {
 
-  private static $wwwRoot;
   private static $tempPath;
 
   const AUTOLOAD_PATHS = [
@@ -28,7 +27,6 @@ class Core {
     spl_autoload_register(); // clear the autoload stack
     spl_autoload_register('Core::autoload', false, true);
 
-    self::defineWwwRoot();
     self::defineTempPath();
     self::requireOtherFiles();
     DB::init();
@@ -50,45 +48,6 @@ class Core {
   static function initAdvancedSearchPreference() {
     $advancedSearch = Session::userPrefers(Preferences::SHOW_ADVANCED);
     SmartyWrap::assign('advancedSearch', $advancedSearch);
-  }
-
-  /**
-   * Returns the home page URL path.
-   * Algorithm: compare the current URL with the absolute file name.
-   * Travel up both paths until we encounter /wwwbase/ in the file name.
-   **/
-  static function defineWwwRoot() {
-    $scriptName = $_SERVER['SCRIPT_NAME'];
-    $fileName = realpath($_SERVER['SCRIPT_FILENAME']);
-    $pos = strrpos($fileName, '/wwwbase/');
-
-    if ($pos === false) {
-      $result = '/';     // This shouldn't be the case
-    } else {
-      $tail = substr($fileName, $pos + strlen('/wwwbase/'));
-      $lenTail = strlen($tail);
-      if ($tail == substr($scriptName, -$lenTail)) {
-        $result = substr($scriptName, 0, -$lenTail);
-      } else {
-        $result = '/';
-      }
-    }
-    self::$wwwRoot = $result;
-  }
-
-  /**
-   * Returns the root URL for dexonline (since it could be running in a subdirectory).
-   */
-  static function getWwwRoot() {
-    return self::$wwwRoot;
-  }
-
-  static function getImgRoot() {
-    return self::getWwwRoot() . 'img';
-  }
-
-  static function getCssRoot() {
-    return self::getWwwRoot() . 'css';
   }
 
   static function requireOtherFiles() {

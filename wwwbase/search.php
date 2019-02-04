@@ -97,7 +97,7 @@ $showWotd = Session::isWotdMode() && User::can(User::PRIV_EDIT);
 if ($isAllDigits) {
   $d = Definition::getByIdNotHidden($cuv);
   if ($d) {
-    Util::redirect(Core::getWwwRoot() . "definitie/{$d->lexicon}/{$d->id}" . $format['tpl_path']);
+    Util::redirect(Config::URL_PREFIX . "definitie/{$d->lexicon}/{$d->id}" . $format['tpl_path']);
   }
 }
 
@@ -118,10 +118,10 @@ if ($lexemeId) {
   $searchType = SEARCH_LEXEME_ID;
   $l = Lexeme::get_by_id($lexemeId);
   if (!$l || empty($l->getEntries())) {
-    Util::redirect(Core::getWwwRoot());
+    Util::redirect(Config::URL_PREFIX);
   }
   $e = $l->getEntries()[0];
-  Util::redirect(sprintf('%sintrare/%s/%s', Core::getWwwRoot(), $e->getShortDescription(), $e->id));
+  Util::redirect(sprintf('%sintrare/%s/%s', Config::URL_PREFIX, $e->getShortDescription(), $e->id));
 }
 
 // Full-text search
@@ -248,14 +248,14 @@ if ($searchType == SEARCH_INFLECTED) {
       if (count($candidates) == 1) {
         $sourcePart = $source ? "-{$source->urlName}" : '';
         Util::redirect(sprintf('%sdefinitie%s/%s%s',
-                               Core::getWwwRoot(),
+                               Config::URL_PREFIX,
                                $sourcePart,
                                $l->formNoAccent,
                                $format['tpl_path']));
       } else if (!$sourceId) {
         // if the source is set, then the lesser evil is to just leave the search word unaltered
         Util::redirect(sprintf('%sintrare/%s/%s%s',
-                               Core::getWwwRoot(),
+                               Config::URL_PREFIX,
                                $e->getShortDescription(),
                                $e->id,
                                $format['tpl_path']));

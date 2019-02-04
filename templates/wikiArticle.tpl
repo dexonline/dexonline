@@ -22,7 +22,7 @@
       {foreach $articles as $wa}
         {if $wa->title != $title}
           <li>
-            <a href="{$wwwRoot}articol/{$wa->getUrlTitle()}">{$wa->title}</a>
+            <a href="{$wa->getUrlTitle()}">{$wa->title}</a>
           </li>
         {/if}
       {/foreach}

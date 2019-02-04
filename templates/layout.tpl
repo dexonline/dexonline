@@ -9,10 +9,10 @@
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=3.0, user-scalable=yes" name="viewport">
     {block "pageDescription"}{/block}
     {block "openGraph"}
-      <meta property="og:image" content="{$imgRoot}/logo/logo-og.png">
+      <meta property="og:image" content="{Config::URL_PREFIX}img/logo/logo-og.png">
       <meta property="og:type" content="website">
       <meta property="og:title" content="dexonline">
-      <link rel="image_src" href="{$imgRoot}/logo/logo-og.png">
+      <link rel="image_src" href="{Config::URL_PREFIX}img/logo/logo-og.png">
     {/block}
     {if !$privateMode}
       <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,b,i,bi"
@@ -23,7 +23,7 @@
     <link rel="search" type="application/opensearchdescription+xml" href="https://dexonline.ro/download/dex.xml" title="Căutare dexonline.ro">
     <link href="https://plus.google.com/100407552237543221945" rel="publisher">
     <link rel="alternate" type="application/rss+xml" title="Cuvântul zilei" href="https://dexonline.ro/rss/cuvantul-zilei">
-    <link rel="apple-touch-icon" href="{$imgRoot}/apple-touch-icon.png">
+    <link rel="apple-touch-icon" href="{Config::URL_PREFIX}img/apple-touch-icon.png">
     {Plugin::notify('htmlHead')}
     {block "bannerHead"}
       {include "banner/bannerHead.tpl"}
@@ -70,7 +70,7 @@
 
           <div id="footerLinks" class="text-center">
             <ul class="list-inline">
-              <li><a href="{$wwwRoot}licenta">{t}license{/t}</a></li>
+              <li><a href="{Config::URL_PREFIX}licenta">{t}license{/t}</a></li>
               <li><a href="https://wiki.dexonline.ro/wiki/Principii_de_confiden%C8%9Bialitate_dexonline.ro">{t}privacy{/t}</a></li>
 
               {$host=Config::SKIN_HOSTED_BY}

@@ -5,7 +5,7 @@
 {block "content"}
   <h3>
     Etichete pe istoria definiției
-    <a href="{$wwwRoot}definitie/{$def->id}">{$def->lexicon}</a>
+    <a href="definitie/{$def->id}">{$def->lexicon}</a>
   </h3>
 
   {include "bits/definitionChange.tpl" c=$change tagLink=false}

@@ -8,7 +8,7 @@
 {block "content"}
   <header>
     <div class="siteIdentity">
-      <img class='siteLogo' src='{$wwwRoot}img/svg/logo-dexonline.svg' alt='dexonline'>
+      <img class='siteLogo' src='img/svg/logo-dexonline.svg' alt='dexonline'>
       <div class="tagline">{t}Dictionaries of the Romanian language{/t}</div>
     </div>
   </header>

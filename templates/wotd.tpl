@@ -25,13 +25,13 @@
       <div id="wotdSocialMedia" class="pull-right">
         <div>
           <a href="#toggleContents" data-toggle="collapse">
-            <img src="{$imgRoot}/social-media/email-29.png" alt="iconiță email"
+            <img src="{Config::URL_PREFIX}img/social-media/email-29.png" alt="iconiță email"
           ></a>
-          <a type="application/rss+xml" href="{$wwwRoot}rss/cuvantul-zilei">
-            <img src="{$imgRoot}/social-media/rss-29.png" alt="iconiță RSS"
+          <a type="application/rss+xml" href="{Config::URL_PREFIX}rss/cuvantul-zilei">
+            <img src="{Config::URL_PREFIX}img/social-media/rss-29.png" alt="iconiță RSS"
           ></a>
           <a href="https://www.facebook.com/dexonline">
-            <img src="{$imgRoot}/social-media/facebook-29.png" alt="iconiță Facebook"
+            <img src="{Config::URL_PREFIX}img/social-media/facebook-29.png" alt="iconiță Facebook"
           ></a>
         </div>
       </div>
@@ -55,14 +55,14 @@
     <div class="panel-heading clearfix">
       <div class="wotd-navigation pull-left">
         {if $prevDay}
-          <a href="{$wwwRoot}cuvantul-zilei/{$prevDay}">
+          <a href="{Config::URL_PREFIX}cuvantul-zilei/{$prevDay}">
             <span class="glyphicon glyphicon-chevron-left"></span>
           </a>
         {/if}
       </div>
       <div class="wotd-navigation pull-right">
         {if $nextDay}
-          <a href="{$wwwRoot}cuvantul-zilei/{$nextDay}">
+          <a href="{Config::URL_PREFIX}cuvantul-zilei/{$nextDay}">
             <span class="glyphicon glyphicon-chevron-right pull-right">
             </span>
           </a>
@@ -105,7 +105,11 @@
     <h3>{t}Word of the day archive{/t}</h3>
 
     <div id="wotdArchive" class="wotdArchive"></div>
-    <script>loadAjaxContent('{$wwwRoot}arhiva/cuvantul-zilei/{$year}/{$month}','#wotdArchive')</script>
+    <script>
+      loadAjaxContent(
+        '{Config::URL_PREFIX}arhiva/cuvantul-zilei/{$year}/{$month}',
+        '#wotdArchive');
+    </script>
 
     <h3>
       {t 1=$day 2=$monthName}Word of the day for %2 %1 in other years:{/t}
@@ -118,7 +122,7 @@
                alt="iconița cuvântului zilei">
           <p>
             <strong>{$r.wotd->displayDate|date_format:'%Y'}</strong>:
-            <a href="{$wwwRoot}cuvantul-zilei/{$r.wotd->getUrlDate()}">
+            <a href="{Config::URL_PREFIX}cuvantul-zilei/{$r.wotd->getUrlDate()}">
               {$r.word}
             </a>
           </p>

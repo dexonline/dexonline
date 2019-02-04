@@ -5,9 +5,13 @@
   Vom încerca să răsplătim generozitatea voastră în mod simbolic:
 
   <ul>
-    <li>20 de lei donați - o medalie (virtuală) pentru donatori. <i>dexonline</i> oferă aceste medalii pentru diverse tipuri de contribuții: financiare,
-    inginerești, lingvistice etc. Puteți vedea <a href="{$wwwRoot}utilizator/raduborza">câteva</a> <a
-    href="{$wwwRoot}utilizator/cata">exemple</a>.</li>
+    <li>
+      20 de lei donați - o medalie (virtuală) pentru donatori. <i>dexonline</i>
+      oferă aceste medalii pentru diverse tipuri de contribuții: financiare,
+      inginerești, lingvistice etc. Puteți vedea
+      <a href="{Config::URL_PREFIX}utilizator/raduborza">câteva</a>
+      <a href="{Config::URL_PREFIX}utilizator/cata">exemple</a>.
+    </li>
 
     <li>50 de lei donați - în plus, pagini fără reclame timp de un an.</li>
 

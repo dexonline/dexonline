@@ -232,7 +232,7 @@
 
         <p class="text-warning">
           {t}If the results are inadequate, you can look up individual words or you can search{/t}
-          <a href="{$wwwRoot}text/{$cuv|escape:url}">{t}full-text{/t}</a>.
+          <a href="{Config::URL_PREFIX}text/{$cuv|escape:url}">{t}full-text{/t}</a>.
         </p>
 
         {if !empty($extra.ignoredWords)}

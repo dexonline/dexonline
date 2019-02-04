@@ -395,7 +395,7 @@ class SmartyWrap {
     foreach (func_get_args() as $id) {
       if (!isset(self::$cssMap[$id])) {
         FlashMessage::add("Cannot load CSS file {$id}");
-        Util::redirect(Config::URL_PREFIX);
+        Util::redirectToHome();
       }
       self::$includedCss[$id] = true;
     }
@@ -406,7 +406,7 @@ class SmartyWrap {
     foreach (func_get_args() as $id) {
       if (!isset(self::$jsMap[$id])) {
         FlashMessage::add("Cannot load JS script {$id}");
-        Util::redirect(Config::URL_PREFIX);
+        Util::redirectToHome();
       }
       self::$includedJs[$id] = true;
     }

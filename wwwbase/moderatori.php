@@ -29,7 +29,7 @@ if ($saveButton) {
       Log::warning("Granted permissions {$user->moderator} to user {$user->id} ({$user->nick})");
     } else {
       FlashMessage::add("Numele de utilizator „{$newNick}” nu există");
-      Util::redirect("moderatori");
+      Util::redirect('moderatori');
     }
   }
 

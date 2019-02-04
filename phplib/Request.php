@@ -136,14 +136,14 @@ class Request {
     } else if ($entryId) {
       $e = Entry::get_by_id($entryId);
       if (!$e) {
-        Util::redirect(Config::URL_PREFIX);
+        Util::redirectToHome();
       }
       $short = $e->getShortDescription();
       $url = "intrare{$sourcePart}/{$short}/{$e->id}{$tabPart}";
     } else if ($lexemeId) {
       $l = Lexeme::get_by_id($lexemeId);
       if (!$l) {
-        Util::redirect(Config::URL_PREFIX);
+        Util::redirectToHome();
       }
       $url = "lexem/{$l->formNoAccent}/{$l->id}";
     } else {

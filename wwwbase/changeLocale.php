@@ -8,4 +8,4 @@ LocaleUtil::change($id);
 FlashMessage::add(_('Interface language changed. ' .
                     'Definition text and external links are always in Romanian.'),
                   'success');
-Util::redirect(Config::URL_PREFIX);
+Util::redirectToHome();

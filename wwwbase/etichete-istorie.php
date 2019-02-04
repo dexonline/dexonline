@@ -9,7 +9,7 @@ $saveButton = Request::has('saveButton');
 $dv = DefinitionVersion::get_by_id($id);
 if (!$dv) {
   FlashMessage::add("Nu există nicio înregistrare istorică cu ID-ul {$id}.");
-  Util::redirect("index.php");
+  Util::redirectToHome();
 }
 
 $def = Definition::get_by_id($dv->definitionId);

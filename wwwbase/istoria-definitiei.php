@@ -8,7 +8,7 @@ $def = Definition::get_by_id($id);
 
 if (!$def) {
   FlashMessage::add("Nu există nicio definiție cu ID-ul {$id}.");
-  Util::redirect("index.php");
+  Util::redirectToHome();
 }
 
 $prev = null;

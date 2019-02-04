@@ -18,7 +18,7 @@ if ($id) {
   $e = Entry::get_by_id($id);
   if (!$e) {
     FlashMessage::add('Intrarea nu există.');
-    Util::redirect(Config::URL_PREFIX);
+    Util::redirectToHome();
   }
   // Keep a copy so we can test whether certain fields have changed
   $original = Entry::get_by_id($id);
@@ -61,7 +61,7 @@ if ($mergeButton) {
     Util::redirect("?id={$e->id}");
   } else if (!$e->id) {
     FlashMessage::add('Nu puteți face unificarea la momentul creării.');
-    Util::redirect(Config::URL_PREFIX);
+    Util::redirectToHome();
   } else if ($other->id == $e->id) {
     FlashMessage::add('Nu puteți unifica intrarea cu ea însăși (serios!).');
     Util::redirect("?id={$e->id}");
@@ -89,7 +89,7 @@ if ($cloneButton) {
 if ($createTree) {
   if (!$id) {
     FlashMessage::add('Nu puteți crea un arbore de sensuri înainte să salvați intrarea.');
-    Util::redirect(Config::URL_PREFIX);
+    Util::redirectToHome();
   }
   $t = Tree::createAndSave($e->description);
   TreeEntry::associate($t->id, $e->id);
@@ -113,7 +113,7 @@ if ($deleteTreeId) {
 if ($delete) {
   $e->delete();
   FlashMessage::add('Am șters intrarea.', 'success');
-  Util::redirect(Config::URL_PREFIX);
+  Util::redirectToHome();
 }
 
 // Delete the entry, its T1 lexemes and its empty trees.
@@ -132,7 +132,7 @@ if ($deleteExt) {
 
   $e->delete();
   FlashMessage::add('Am șters intrarea extinsă.', 'success');
-  Util::redirect(Config::URL_PREFIX);
+  Util::redirectToHome();
 }
 
 if ($saveButton) {

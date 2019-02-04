@@ -13,14 +13,14 @@ $project = AccuracyProject::get_by_id($projectId);
 
 if (!$project) {
   FlashMessage::add('Proiectul nu există.', 'danger');
-  Util::redirect('index.php');
+  Util::redirectToHome();
 }
 
 $mine = User::getActiveId() == $project->ownerId;
 
 if (!$project->visibleTo(User::getActive())) {
   FlashMessage::add('Nu aveți dreptul să vedeți acest proiect.', 'danger');
-  Util::redirect('index.php');
+  Util::redirectToHome();
 }
 
 if ($deleteButton) {

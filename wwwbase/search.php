@@ -118,7 +118,7 @@ if ($lexemeId) {
   $searchType = SEARCH_LEXEME_ID;
   $l = Lexeme::get_by_id($lexemeId);
   if (!$l || empty($l->getEntries())) {
-    Util::redirect(Config::URL_PREFIX);
+    Util::redirectToHome();
   }
   $e = $l->getEntries()[0];
   Util::redirect(sprintf('%sintrare/%s/%s', Config::URL_PREFIX, $e->getShortDescription(), $e->id));

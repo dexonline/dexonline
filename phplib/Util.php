@@ -185,6 +185,10 @@ class Util {
     exit;
   }
 
+  static function redirectToHome() {
+    self::redirect(Config::URL_PREFIX);
+  }
+
   static function assertNotLoggedIn() {
     if (User::getActive()) {
       Util::redirect(Config::URL_PREFIX);

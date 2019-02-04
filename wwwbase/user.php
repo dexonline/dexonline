@@ -18,7 +18,7 @@ if ($medalSaveButton) {
 $user = User::get_by_nick($nick);
 if (!$user) {
   FlashMessage::add('Utilizatorul ' . htmlspecialchars($nick) . ' nu există.');
-  Util::redirect(Config::URL_PREFIX);
+  Util::redirectToHome();
 }
 
 $userData = [];

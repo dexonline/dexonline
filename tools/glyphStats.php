@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../phplib/Core.php';
+require_once __DIR__ . '/../lib/Core.php';
 
 const BATCH_SIZE = 10000;
 const EXCLUDE_SOURCES = [17, 42, 53];

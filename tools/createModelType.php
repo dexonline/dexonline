@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../phplib/Core.php';
+require_once __DIR__ . '/../lib/Core.php';
 
 const MODEL_TYPE = 'SP';
 const MODEL_TYPE_DESCRIPTION = 'Substantiv propriu';

@@ -2,7 +2,7 @@
 
 const WOTM_BIG_BANG = '2012-04-01';
 
-require_once '../phplib/Core.php';
+require_once '../lib/Core.php';
 
 $date = Request::get('d');
 $type = Request::get('t');

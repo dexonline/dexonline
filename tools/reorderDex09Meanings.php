@@ -4,7 +4,7 @@
  * Issue #752
  **/
 
-require_once __DIR__ . '/../phplib/Core.php';
+require_once __DIR__ . '/../lib/Core.php';
 
 const SOURCE_ID_98 = 1;
 const SOURCE_ID_09 = 27;

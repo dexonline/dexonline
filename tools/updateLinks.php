@@ -19,7 +19,7 @@
  * `php tools/updateLinks.php 2> /dev/null`
  */
 
-require_once __DIR__ . '/../phplib/Core.php';
+require_once __DIR__ . '/../lib/Core.php';
 
 const DEF_CHECKPT_FILE = '/tmp/updateLinksDefCheckpt.txt';
 const MEANING_CHECKPT_FILE = '/tmp/updateLinksMeaningCheckpt.txt';

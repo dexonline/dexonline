@@ -1,6 +1,6 @@
 <?php
 
-require_once '../../phplib/Core.php';
+require_once '../../lib/Core.php';
 User::mustHave(User::PRIV_ADMIN | User::PRIV_EDIT);
 
 FlashMessage::add("Avertisment! În momentul editării unei abrevieri, prin schimbarea "

@@ -1,6 +1,6 @@
 <?php
 
-require_once '../../phplib/Core.php';
+require_once '../../lib/Core.php';
 Util::assertNotLoggedIn();
 
 // nick means "nick or email" throughout this form

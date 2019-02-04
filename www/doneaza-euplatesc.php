@@ -4,10 +4,10 @@
  * We received this code from euplatesc.ro. Do not alter unless you really know what you're doing.
  **/
 
-require_once '../phplib/Core.php';
+require_once '../lib/Core.php';
 $mid = Config::EU_PLATESC_MID;
 $key = Config::EU_PLATESC_KEY;
-require_once '../phplib/third-party/euplatesc.php';
+require_once '../lib/third-party/euplatesc.php';
 
 ?>
 

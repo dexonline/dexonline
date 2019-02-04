@@ -1,5 +1,5 @@
 <?php
-require_once '../../phplib/Core.php';
+require_once '../../lib/Core.php';
 header("Content-Type: application/json");
 
 $term = Request::get('term');

@@ -3,7 +3,7 @@
  * Create proper entries and compound lexemes for species.
  **/
 
-require_once __DIR__ . '/../phplib/Core.php';
+require_once __DIR__ . '/../lib/Core.php';
 
 define('SOURCE_ID', 63);
 define('START_AT', '');

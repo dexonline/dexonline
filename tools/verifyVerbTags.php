@@ -5,7 +5,7 @@
  * incorrect tags and add missing tags.
  **/
 
-require_once __DIR__ . '/../phplib/Core.php';
+require_once __DIR__ . '/../lib/Core.php';
 
 ini_set('memory_limit', '512M');
 

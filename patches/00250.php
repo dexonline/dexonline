@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../phplib/third-party/parseIniFile.php';
+require_once __DIR__ . '/../lib/third-party/parseIniFile.php';
 
 // special case of some sources
 const HTML_QIQ_PATTERN = [

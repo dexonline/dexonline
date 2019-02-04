@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../phplib/Core.php';
+require_once __DIR__ . '/../lib/Core.php';
 
 Log::notice('started');
 $tmpDir = tempnam(Config::TEMP_DIR, 'xpi_');

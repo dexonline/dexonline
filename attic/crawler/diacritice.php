@@ -1,8 +1,8 @@
 <?php
 
-require_once '../phplib/Core.php';
-require_once '../phplib/AppLog.php';
-require_once '../phplib/MemoryManagement.php';
+require_once '../lib/Core.php';
+require_once '../lib/AppLog.php';
+require_once '../lib/MemoryManagement.php';
 
 
 DB::init();

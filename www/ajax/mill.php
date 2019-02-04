@@ -1,6 +1,6 @@
 <?php
 
-require_once '../../phplib/Core.php';
+require_once '../../lib/Core.php';
 
 // word frequency for each difficulty
 const DIFF_FREQUENCY = [

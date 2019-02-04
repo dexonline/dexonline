@@ -3,11 +3,11 @@
 /**
  * Keyboard-aware implementation of the Levenshtein distance.
  *
- * If on Linux, this attempts to call the C prograp phplib/c/levenshtein. If
+ * If on Linux, this attempts to call the C prograp lib/c/levenshtein. If
  * that fails, it falls back to the PHP implementation, which is 100 times
  * slower.
  *
- * Refer to phplib/c/levenshtein.c for details on the Levenshtein
+ * Refer to lib/c/levenshtein.c for details on the Levenshtein
  * implementation.
  **/
 class Levenshtein {

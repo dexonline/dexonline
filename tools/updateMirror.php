@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../phplib/Core.php';
+require_once __DIR__ . '/../lib/Core.php';
 
 const DATABASE_URL = Config::STATIC_URL . 'download/mirrorAccess/dex-database.sql.gz';
 const DATABASE_TMP_FILE_GZIP = Config::TEMP_DIR . '/dex-database.sql.gz';

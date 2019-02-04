@@ -3,7 +3,7 @@
  * Confront genus / species names with data from theplantlist.org.
  **/
 
-require_once __DIR__ . '/../phplib/Core.php';
+require_once __DIR__ . '/../lib/Core.php';
 
 define('SOURCE_ID', 63);
 define('WITNESS_CSV', '/tmp/species.csv');

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2019-02-04 14:37+0200\n"
-"PO-Revision-Date: 2019-02-04 14:37+0200\n"
+"POT-Creation-Date: 2019-02-04 14:55+0200\n"
+"PO-Revision-Date: 2019-02-04 14:55+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -14,10 +14,10 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n==0 || (n!=1 && n%100>=1 && n"
 "%100<=19) ? 1 : 2);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-SearchPath-0: phplib\n"
+"X-Poedit-SearchPath-0: lib\n"
 "X-Poedit-SearchPath-1: templates\n"
 "X-Poedit-SearchPath-2: www\n"
-"X-Poedit-SearchPathExcluded-0: phplib/third-party\n"
+"X-Poedit-SearchPathExcluded-0: lib/third-party\n"
 "X-Poedit-SearchPathExcluded-1: www/js/merged\n"
 "X-Poedit-SearchPathExcluded-2: www/js/third-party\n"
 
@@ -1086,7 +1086,7 @@ msgid ""
 msgstr ""
 "Cuvântul <strong>%1</strong> nu este în dicționar. Iată câteva sugestii:"
 
-#: templates/search.tpl:281 phplib/models/InflectedForm.php:72
+#: templates/search.tpl:281 lib/models/InflectedForm.php:72
 msgid "unrecommended or incorrect form"
 msgstr "formă nerecomandată sau greșită"
 
@@ -1384,11 +1384,11 @@ msgstr "precedentul"
 msgid "next"
 msgstr "următorul"
 
-#: phplib/models/InflectedForm.php:75
+#: lib/models/InflectedForm.php:75
 msgid "by apheresis and/or elision"
 msgstr "prin afereză și/sau eliziune"
 
-#: phplib/models/InflectedForm.php:78
+#: lib/models/InflectedForm.php:78
 msgid "long verb form"
 msgstr "formă verbală lungă"
 

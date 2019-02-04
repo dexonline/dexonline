@@ -1,5 +1,5 @@
 <?php
-require_once '../../phplib/Core.php';
+require_once '../../lib/Core.php';
 User::mustHave(User::PRIV_ADMIN);
 
 const MAX_DISPLAYED = 1000;

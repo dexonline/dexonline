@@ -4,7 +4,7 @@
  * Rename some poorly named trees after the DEX '98 structure.
  **/
 
-require_once __DIR__ . '/../phplib/util.php';
+require_once __DIR__ . '/../lib/util.php';
 
 define('SOURCE_ID', 1);
 define('MY_USER_ID', 1);

@@ -4,7 +4,7 @@
  * Report objects that have two labels A and B where A is an ancestor of B.
  **/
 
-require_once __DIR__ . '/../phplib/Core.php';
+require_once __DIR__ . '/../lib/Core.php';
 
 $tags = Model::factory('Tag')->find_many();
 

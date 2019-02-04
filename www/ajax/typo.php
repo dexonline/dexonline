@@ -1,6 +1,6 @@
 <?php
 
-require_once '../../phplib/Core.php';
+require_once '../../lib/Core.php';
 
 $text = Request::get('text');
 $definitionId = Request::get('definitionId');

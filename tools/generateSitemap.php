@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../phplib/Core.php';
+require_once __DIR__ . '/../lib/Core.php';
 
 // TODO: Add user pages
 // TODO: Add inflection models (from modele-flexiune.php)

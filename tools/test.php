@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../phplib/Core.php';
+require_once __DIR__ . '/../lib/Core.php';
 assert_options(ASSERT_BAIL, 1);
 
 function fail($message) {

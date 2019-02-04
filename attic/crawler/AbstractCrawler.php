@@ -3,10 +3,10 @@
  * Alin Ungureanu, 2013
  * alyn.cti@gmail.com
  */
-require_once __DIR__ . '/../phplib/Core.php';
-require_once Core::getRootPath() . 'phplib/third-party/simple_html_dom.php';
-require_once Core::getRootPath() . 'phplib/AppLog.php';
-require_once Core::getRootPath() . 'phplib/MemoryManagement.php';
+require_once __DIR__ . '/../lib/Core.php';
+require_once Core::getRootPath() . 'lib/third-party/simple_html_dom.php';
+require_once Core::getRootPath() . 'lib/AppLog.php';
+require_once Core::getRootPath() . 'lib/MemoryManagement.php';
 
 abstract class AbstractCrawler {
   protected $ch;

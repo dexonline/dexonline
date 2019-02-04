@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2019-02-04 14:37+0200\n"
-"PO-Revision-Date: 2019-02-04 14:38+0200\n"
+"POT-Creation-Date: 2019-02-04 14:56+0200\n"
+"PO-Revision-Date: 2019-02-04 14:57+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: es\n"
@@ -13,9 +13,10 @@ msgstr ""
 "X-Poedit-Basepath: ../../..\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-SearchPath-0: templates\n"
-"X-Poedit-SearchPath-1: www\n"
-"X-Poedit-SearchPathExcluded-0: phplib/third-party\n"
+"X-Poedit-SearchPath-0: lib\n"
+"X-Poedit-SearchPath-1: templates\n"
+"X-Poedit-SearchPath-2: www\n"
+"X-Poedit-SearchPathExcluded-0: lib/third-party\n"
 "X-Poedit-SearchPathExcluded-1: www/js/merged\n"
 "X-Poedit-SearchPathExcluded-2: www/js/third-party\n"
 
@@ -1078,7 +1079,7 @@ msgstr ""
 "El término <strong>%1</strong> no se encuentra en el diccionario. Le damos "
 "las siguientes sugerencias:"
 
-#: templates/search.tpl:281
+#: templates/search.tpl:281 lib/models/InflectedForm.php:72
 msgid "unrecommended or incorrect form"
 msgstr "forma no recomendada o incorrecta"
 
@@ -1379,6 +1380,14 @@ msgstr "anterior"
 #: templates/wotm.tpl:32
 msgid "next"
 msgstr "siguiente"
+
+#: lib/models/InflectedForm.php:75
+msgid "by apheresis and/or elision"
+msgstr ""
+
+#: lib/models/InflectedForm.php:78
+msgid "long verb form"
+msgstr "forma larga"
 
 #: www/changeLocale.php:8
 msgid ""

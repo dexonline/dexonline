@@ -1,6 +1,6 @@
 <?php
 
-require_once '../../phplib/Core.php';
+require_once '../../lib/Core.php';
 
 $defId = Request::get('defId');
 $guessed = Request::get('guessed');

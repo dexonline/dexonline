@@ -9,7 +9,7 @@ www/sitemap*.xml.gz
 www/stat/sysstatgraph/data.json
 
 # compiled C programs
-phplib/c/levenshtein
+lib/c/levenshtein
 
 # other
 *.pyc

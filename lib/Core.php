@@ -3,10 +3,10 @@
 class Core {
 
   const AUTOLOAD_PATHS = [
-    'phplib',
-    'phplib/models',
-    'phplib/htmlize',
-    'phplib/parser',
+    'lib',
+    'lib/models',
+    'lib/htmlize',
+    'lib/parser',
   ];
 
   static function autoload($className) {

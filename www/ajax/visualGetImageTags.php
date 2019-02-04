@@ -1,6 +1,6 @@
 <?php
 
-require_once '../../phplib/Core.php';
+require_once '../../lib/Core.php';
 
 $visualId = Request::get('visualId');
 $page = Request::get('page');

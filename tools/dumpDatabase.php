@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../phplib/Core.php';
+require_once __DIR__ . '/../lib/Core.php';
 
 const SQL_FILE = Config::TEMP_DIR . '/dex-database.sql';
 const GZ_FILE = Config::TEMP_DIR . '/dex-database.sql.gz';

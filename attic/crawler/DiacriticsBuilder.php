@@ -3,10 +3,10 @@
  * Alin Ungureanu, 2013
  * alyn.cti@gmail.com
  */
-require_once '../phplib/Core.php';
+require_once '../lib/Core.php';
 
-require_once Core::getRootPath() . 'phplib/AppLog.php';
-require_once Core::getRootPath() . 'phplib/MemoryManagement.php';
+require_once Core::getRootPath() . 'lib/AppLog.php';
+require_once Core::getRootPath() . 'lib/MemoryManagement.php';
 
 $logFile = Config::get('app_log.diacritics_log');
 

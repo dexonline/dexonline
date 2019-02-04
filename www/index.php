@@ -1,5 +1,5 @@
 <?php
-require_once '../phplib/Core.php';
+require_once '../lib/Core.php';
 
 $widgets = Preferences::getWidgets(User::getActive());
 $numEnabledWidgets = array_reduce($widgets, function($result, $w) { return $result + $w['enabled']; });

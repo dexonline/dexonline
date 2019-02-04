@@ -1,6 +1,6 @@
 <?php
 
-require_once '../phplib/Core.php';
+require_once '../lib/Core.php';
 
 $id = Request::get('id');
 LocaleUtil::change($id);

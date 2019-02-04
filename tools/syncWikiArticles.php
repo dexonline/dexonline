@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../phplib/Core.php';
+require_once __DIR__ . '/../lib/Core.php';
 Log::notice('started');
 
 const WIKI_BASE = 'https://wiki.dexonline.ro';

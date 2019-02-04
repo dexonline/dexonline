@@ -2,7 +2,7 @@
 
 // Merges entries like 'ntrare', having only apheresis lexemes, into the non-apheresis form
 
-require_once __DIR__ . '/../phplib/Core.php';
+require_once __DIR__ . '/../lib/Core.php';
 
 $aphLexemes = Model::factory('Lexeme')
   ->where('apheresis', true)

@@ -8,7 +8,7 @@
  * - images on the static server that don't appear in the Visual table.
  **/
 
-require_once __DIR__ . '/../phplib/Core.php';
+require_once __DIR__ . '/../lib/Core.php';
 
 const IMG_PREFIX = 'img/visual/';
 const THUMB_PREFIX = 'img/visual/thumb/';

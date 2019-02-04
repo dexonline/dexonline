@@ -205,7 +205,7 @@ class Config {
   /******************************* Plugins *******************************/
 
   // Array mapping class names to an array of settings for that plugin.
-  // There should be a corresponding class under phplib/plugins.
+  // There should be a corresponding class under lib/plugins.
   // Settings for each plugin are exemplified in the plugin's class.
   const PLUGINS = [];
 
@@ -233,7 +233,7 @@ class Config {
 
   /************************** Definition parsers **************************/
 
-  // Maps Definition.urlName to ParserClassName (file should reside in phplib/parser/)
+  // Maps Definition.urlName to ParserClassName (file should reside in lib/parser/)
   const PARSERS = [
     'mda2' => 'Mda2Parser',
   ];

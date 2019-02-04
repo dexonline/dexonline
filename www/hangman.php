@@ -1,6 +1,6 @@
 <?php
 
-require_once '../phplib/Core.php';
+require_once '../lib/Core.php';
 
 const MAX_FREQ = 1;
 const MEDIUM_EASY = 0.90;

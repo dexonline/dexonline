@@ -1,7 +1,7 @@
 <?php
 $startMemory = memory_get_usage();
 
-require_once '../../phplib/Core.php';
+require_once '../../lib/Core.php';
 ini_set('max_execution_time', '3600');
 User::mustHave(User::PRIV_ADMIN);
 

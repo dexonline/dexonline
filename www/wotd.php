@@ -4,7 +4,7 @@
 const HIDE_REASON = false;
 const MAX_DATE_FOR_REASON_DISPLAY = '-2 days midnight';
 
-require_once '../phplib/Core.php';
+require_once '../lib/Core.php';
 $date = Request::get('d');
 $type = Request::get('t');
 $delay = Request::get('h', 0); //delay in minutes

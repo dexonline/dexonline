@@ -10,7 +10,7 @@
  *   table;
  **/
 
-require_once __DIR__ . '/../phplib/Core.php';
+require_once __DIR__ . '/../lib/Core.php';
 
 const IMG_PREFIX = 'img/wotd/';
 const THUMB_PREFIX = 'img/wotd/thumb%s/';

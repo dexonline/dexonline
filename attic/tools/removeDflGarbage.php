@@ -5,7 +5,7 @@
  * Species lexemes by themselves should not have entries (only genus+species pairs).
  **/
 
-require_once __DIR__ . '/../phplib/Core.php';
+require_once __DIR__ . '/../lib/Core.php';
 
 $query = <<<EOD
   select * from Entry e where id not in (

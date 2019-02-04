@@ -1,7 +1,7 @@
 <?php
 
-require_once '../../phplib/Core.php';
-require_once '../../phplib/third-party/elfinder/autoload.php';
+require_once '../../lib/Core.php';
+require_once '../../lib/third-party/elfinder/autoload.php';
 
 /**
  * Triggers for some commands.

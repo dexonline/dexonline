@@ -4,8 +4,8 @@
  * Structure definitions from MDA2.
  **/
 
-require_once __DIR__ . '/../phplib/Core.php';
-require_once __DIR__ . '/../phplib/third-party/PHP-parsing-tool/Parser.php';
+require_once __DIR__ . '/../lib/Core.php';
+require_once __DIR__ . '/../lib/third-party/PHP-parsing-tool/Parser.php';
 
 ini_set('memory_limit', '512M');
 

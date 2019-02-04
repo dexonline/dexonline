@@ -1,7 +1,7 @@
 <?php
 $startMemory = memory_get_usage();
 
-require_once '../../phplib/Core.php';
+require_once '../../lib/Core.php';
 User::mustHave(User::PRIV_ADMIN);
 
 $structuredIds = Session::get('structuredIds');

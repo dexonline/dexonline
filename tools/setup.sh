@@ -36,12 +36,12 @@ chmod 777 www/img/generated
 chmod 777 www/css/merged www/js/merged
 
 # Compile the native Levenshtein binary
-if [ ! -e phplib/c/levenshtein ]; then
-  echo "* compiling phplib/c/levenshtein"
-  gcc -O2 -Wall -o phplib/c/levenshtein phplib/c/levenshtein.c
-  strip phplib/c/levenshtein
+if [ ! -e lib/c/levenshtein ]; then
+  echo "* compiling lib/c/levenshtein"
+  gcc -O2 -Wall -o lib/c/levenshtein lib/c/levenshtein.c
+  strip lib/c/levenshtein
 else
-  echo "* phplib/c/levenshtein already exists, skipping"
+  echo "* lib/c/levenshtein already exists, skipping"
 fi
 
 # Symlink hooks unless they already exist

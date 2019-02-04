@@ -4,7 +4,7 @@
  * marks and once without them.
  **/
 
-require_once __DIR__ . '/../phplib/Core.php';
+require_once __DIR__ . '/../lib/Core.php';
 
 ini_set('memory_limit', '1G');
 

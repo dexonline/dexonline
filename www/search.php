@@ -1,6 +1,6 @@
 <?php
 
-require_once '../phplib/Core.php';
+require_once '../lib/Core.php';
 
 const SEARCH_REGEXP = 0;
 const SEARCH_MULTIWORD = 1;

@@ -1,5 +1,5 @@
 <?php
-require_once '../phplib/Core.php';
+require_once '../lib/Core.php';
 
 $form = Request::get('form');
 $version = Request::get('version', Config::DEFAULT_LOC_VERSION);

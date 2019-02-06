@@ -108,10 +108,10 @@ abstract class Parser {
     return $rep;
   }
 
-  // move tildes (~) inside formatting (@ and $)
+  // move tildes (~) and dashes (-) inside formatting (@ and $)
   private function migrateTildes($rep) {
-    $rep = preg_replace('/ ~([$@]+)/', ' $1~', $rep);
-    $rep = preg_replace('/([$@]+)~ /', '~$1 ', $rep);
+    $rep = preg_replace('/ ([-~])([$@]+)/', ' $2$1', $rep);
+    $rep = preg_replace('/([$@]+)([-~]) /', '$2$1 ', $rep);
     return $rep;
   }
 

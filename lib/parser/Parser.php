@@ -35,6 +35,7 @@ abstract class Parser {
     $warnings = $warnings ?? [];
 
     $s = $def->internalRep;
+    $s = $this->migrateTildes($s);
     list($rep, $comments) = $this->extractComments($s);
 
     $tree = $this->baseParser->parse($rep);
@@ -104,6 +105,13 @@ abstract class Parser {
 
     $rep = str_replace('@, @', ', ', $rep);
     $rep = str_replace('@' . self::COMMENT_MARKER . '@', self::COMMENT_MARKER, $rep);
+    return $rep;
+  }
+
+  // move tildes (~) inside formatting (@ and $)
+  private function migrateTildes($rep) {
+    $rep = preg_replace('/ ~([$@]+)/', ' $1~', $rep);
+    $rep = preg_replace('/([$@]+)~ /', '~$1 ', $rep);
     return $rep;
   }
 

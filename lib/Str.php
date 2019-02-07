@@ -363,8 +363,9 @@ class Str {
     }
   }
 
-  // Move closing formatting chars left past whitespace. Move opening formatting chars right
-  // past whitespace. This simplifies the parser.
+  // Move closing formatting chars left past whitespace. Move opening
+  // formatting chars right past whitespace. Move formatting outside of
+  // numeric superscripts / subscripts. This simplifies the parser.
   static function migrateFormatChars($s) {
 
     $class = self::characterClasses($s);
@@ -388,6 +389,9 @@ class Str {
 
     // collapse consecutive spaces and trim the string
     $s = trim(preg_replace('/  +/', ' ', $s));
+
+    // move $@ outside of ^{num}
+    $s = preg_replace('/([^_])\{([@$]*)(\d+)([@$]*)\}/', '$2$1{$3}$4', $s);
 
     return $s;
   }

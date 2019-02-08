@@ -2,16 +2,18 @@
 
 class Mda2Parser extends Parser {
   const PARTS_OF_SPEECH = [
-    'a', 'ad', 'ada', 'af', 'afi', 'afp', 'afpt', 'afs', 'ai', 'ain', 'am', 'amp', 'an', 'anh',
-    'apr', 'ard', 'arh', 'arp', 'art', 'arti', 'as', 'av', 'avi', 'avr', 'c', 'ec', 'i', 'la', 'lav',
-    'lc', 'ls', 'nc', 'ncv', 'nf', 'no', 'nof', 'pd', 'pdf', 'pdm', 'pin', 'pir', 'pî', 'pnh', 'pnhi',
-    'pp', 'ppl', 'ppr', 'prl', 'prli', 'prn', 's', 'sa', 'sf', 'sfa', 'sfi', 'sfm', 'sfn', 'sfp',
-    'sfpa', 'sfs', 'sfsa', 'si', 'sm', 'sma', 'smf', 'smi', 'smn', 'smnf', 'smp', 'sms', 'smsa',
-    'sn', 'sna', 'snf', 'sni', 'snm', 'snp', 'sns', 'ssg', 'ssga', 'ssp', 'v', 'va', 'vi',
-    'vi(a)', 'vif', 'vim', 'vir', 'virp', 'virt', 'vit', 'vit(a)', 'vitr', 'viu', 'vp', 'vr',
-    'vr(a)', 'vra', 'vri', 'vrim', 'vrp', 'vrr', 'vrt', 'vru', 'vt', 'vt(a)', 'vta', 'vt(f)',
-    'vtf', 'vtfr', 'vti', 'vti(a)', 'vtir', 'vtr', 'vtr(a)', 'vtra', 'vtrf', 'vtri', 'vtrp',
-    'vtrr', 'vu',
+    'a', 'ad', 'ada', 'af', 'afi', 'afp', 'afpt', 'afs', 'ai', 'ain', 'am',
+    'amp', 'an', 'anh', 'apr', 'ard', 'arh', 'arp', 'art', 'arti', 'as', 'av',
+    'avi', 'avr', 'c', 'ec', 'i', 'la', 'lav', 'lc', 'ls', 'nc', 'ncv', 'nf',
+    'no', 'nof', 'pd', 'pdf', 'pdm', 'pin', 'pir', 'pî', 'png', 'pnh', 'pnhi',
+    'pp', 'ppl', 'ppr', 'prl', 'prli', 'prn', 's', 'sa', 'sf', 'sfa', 'sfi',
+    'sfm', 'sfn', 'sfp', 'sfpa', 'sfs', 'sfsa', 'si', 'sm', 'sma', 'smf',
+    'smi', 'smn', 'smnf', 'smp', 'sms', 'smsa', 'sn', 'sna', 'snf', 'sni',
+    'snm', 'snp', 'sns', 'ssg', 'ssga', 'ssp', 'v', 'va', 'vi', 'vi(a)', 'vif',
+    'vim', 'vir', 'virp', 'virt', 'vit', 'vit(a)', 'vitr', 'viu', 'vp', 'vr',
+    'vr(a)', 'vra', 'vri', 'vrim', 'vrp', 'vrr', 'vrt', 'vru', 'vt', 'vt(a)',
+    'vta', 'vt(f)', 'vtf', 'vtfr', 'vti', 'vti(a)', 'vtir', 'vtr', 'vtr(a)',
+    'vtra', 'vtrf', 'vtri', 'vtrp', 'vtrr', 'vu',
   ];
 
   const GRAMMAR = [

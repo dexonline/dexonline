@@ -4,7 +4,7 @@ class Mda2Parser extends Parser {
   const PARTS_OF_SPEECH = [
     'a', 'ad', 'ada', 'af', 'afi', 'afp', 'afpt', 'afs', 'ai', 'ain', 'am', 'amp', 'an', 'anh',
     'apr', 'ard', 'arh', 'arp', 'art', 'arti', 'as', 'av', 'avi', 'avr', 'c', 'ec', 'i', 'la', 'lav',
-    'lc', 'ls', 'nc', 'ncv', 'nf', 'no', 'pd', 'pdf', 'pdm', 'pin', 'pir', 'pî', 'pnh', 'pnhi',
+    'lc', 'ls', 'nc', 'ncv', 'nf', 'no', 'nof', 'pd', 'pdf', 'pdm', 'pin', 'pir', 'pî', 'pnh', 'pnhi',
     'pp', 'ppl', 'ppr', 'prl', 'prli', 'prn', 's', 'sa', 'sf', 'sfa', 'sfi', 'sfm', 'sfn', 'sfp',
     'sfpa', 'sfs', 'sfsa', 'si', 'sm', 'sma', 'smf', 'smi', 'smn', 'smnf', 'smp', 'sms', 'smsa',
     'sn', 'sna', 'snf', 'sni', 'snm', 'snp', 'sns', 'ssg', 'ssga', 'ssp', 'v', 'va', 'vi',
@@ -33,7 +33,7 @@ class Mda2Parser extends Parser {
       'accent',
       'alsoWritten',
       'cases',
-      'plural',
+      'number',
       'tenses',
       'pronunciation',
       'variants',
@@ -54,8 +54,8 @@ class Mda2Parser extends Parser {
     'cases' => [
       '("#Ac#:"|"#D:#"|"#G-D#:"|"#Vc#:") /[^\/]+/s',
     ],
-    'plural' => [
-      '("#Pl:#"|"#Pl#:"|"#Pl# și:") /[^\/]+/s',
+    'number' => [
+      '("#Pl:#"|"#Pl#:"|"#Pl# și:"|"#Sg#:") /[^\/]+/s',
     ],
     'pronunciation' => [
       '("#P:#"|"#P și:#") ws pronunciationList+/( și )|( )/ ws'
@@ -176,5 +176,80 @@ class Mda2Parser extends Parser {
     $g['posNoHash'] = $pos;
 
     return $g;
+  }
+
+  function prepare($rep) {
+    $rep = $this->migrateTildes($rep);
+    $rep = $this->unformatSlashes($rep);
+    return $rep;
+  }
+
+  // move tildes (~) and dashes (-) inside formatting (@ and $)
+  private function migrateTildes($rep) {
+    $rep = preg_replace('/ ([$@]*)([-~])([$@]+)(?=(\p{L}|\'))/', ' $1$3$2', $rep);
+    $rep = preg_replace('/(?<=\p{L})([$@]+)([-~])([$@]*) /', '$2$1$3 ', $rep);
+    return $rep;
+  }
+
+  // ensure the square brackets and the slashes inside them are not formatted
+  private function unformatSlashes($rep) {
+    $chunks = preg_split('|([\[\]/])|', $rep, -1, PREG_SPLIT_DELIM_CAPTURE);
+    $len = count($chunks);
+
+    for ($i = 0; $i < $len; $i += 2 /* skip delimiters */) {
+
+      // pad each chunk so it has an even number of markers
+      foreach (['@', '$'] as $sym) {
+        $missing = substr_count($chunks[$i], $sym) % 2;
+        if ($missing) {
+          // add a marker here
+          $chunks[$i] .= $sym;
+          if ($i + 2 < $len) {
+            $chunks[$i + 2] = $sym . $chunks[$i + 2];
+          }
+        }
+      }
+
+      // reorder formatting chars at both ends and remove duplicates, but
+      // keep the original order whenever possible
+      $chunks[$i] = preg_replace_callback(
+        '/^[ $@]+/',
+        [ $this, 'reorderHead' ],
+        $chunks[$i]);
+      $chunks[$i] = preg_replace_callback(
+        '/[ $@]+$/',
+        [ $this, 'reorderTail' ],
+        $chunks[$i]);
+    }
+
+    return implode($chunks);
+  }
+
+  private function reorderHead($match) {
+    return $this->reorderSpacesAndMarkers($match[0], true);
+  }
+
+  private function reorderTail($match) {
+    return $this->reorderSpacesAndMarkers($match[0], false);
+  }
+
+  private function reorderSpacesAndMarkers($s, $beginning) {
+    // check if there are spaces and remove them
+    $s = str_replace(' ', '', $s, $spcCount);
+
+    if ($s) {
+      // $s only contains @ and $
+      $sym = $s[0];
+      $s = str_replace($sym, '', $s, $symCount);
+      // now $s only has the other kind of marker
+      $s = (($symCount % 2) ? $sym : '') .
+        ((strlen($s) % 2) ? $s[0] : '');
+    }
+
+    if ($spcCount) {
+      $s = $beginning ? (' ' . $s) : ($s . ' ');
+    }
+
+    return $s;
   }
 }

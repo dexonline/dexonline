@@ -14,6 +14,8 @@ abstract class Parser {
   // defined as a function, not as a constant, because we may need to do some string manipulation
   abstract function getGrammar();
 
+  abstract function prepare($rep);
+
   // instantiates a base parser and compiles the grammar
   function __construct() {
     $grammar = $this->getGrammar();
@@ -35,7 +37,7 @@ abstract class Parser {
     $warnings = $warnings ?? [];
 
     $s = $def->internalRep;
-    $s = $this->migrateTildes($s);
+    $s = $this->prepare($s);
     list($rep, $comments) = $this->extractComments($s);
 
     $tree = $this->baseParser->parse($rep);
@@ -105,13 +107,6 @@ abstract class Parser {
 
     $rep = str_replace('@, @', ', ', $rep);
     $rep = str_replace('@' . self::COMMENT_MARKER . '@', self::COMMENT_MARKER, $rep);
-    return $rep;
-  }
-
-  // move tildes (~) and dashes (-) inside formatting (@ and $)
-  private function migrateTildes($rep) {
-    $rep = preg_replace('/ ([$@]*)([-~])([$@]+)(?=(\p{L}|\'))/', ' $1$3$2', $rep);
-    $rep = preg_replace('/(?<=\p{L})([$@]+)([-~])([$@]*) /', '$2$1$3 ', $rep);
     return $rep;
   }
 

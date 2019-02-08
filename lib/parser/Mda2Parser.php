@@ -186,8 +186,8 @@ class Mda2Parser extends Parser {
 
   // move tildes (~) and dashes (-) inside formatting (@ and $)
   private function migrateTildes($rep) {
-    $rep = preg_replace('/ ([$@]*)([-~])([$@]+)(?=(\p{L}|\'))/', ' $1$3$2', $rep);
-    $rep = preg_replace('/(?<=\p{L})([$@]+)([-~])([$@]*) /', '$2$1$3 ', $rep);
+    $rep = preg_replace('/ ([$@]*)([-~])([$@]+)(?=(\p{L}|[\'#]))/', ' $1$3$2', $rep);
+    $rep = preg_replace('/(?<=\p{L})([$@]+)([-~])([$@,]*) /', '$2$1$3 ', $rep);
     return $rep;
   }
 

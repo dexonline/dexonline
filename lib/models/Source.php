@@ -6,13 +6,11 @@ class Source extends BaseObject implements DatedObject {
   const TYPE_UNOFFICIAL = 0;
   const TYPE_SPECIALIZED = 1;
   const TYPE_OFFICIAL = 2;
-  const TYPE_HIDDEN = 3;
 
   const TYPE_NAMES = [
     self::TYPE_UNOFFICIAL  => 'neoficial',
     self::TYPE_SPECIALIZED  => 'specializat',
     self::TYPE_OFFICIAL  => 'oficial',
-    self::TYPE_HIDDEN  => 'ascuns',
   ];
 
   const IMPORT_TYPE_MIXED = 0;

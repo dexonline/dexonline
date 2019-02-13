@@ -107,7 +107,7 @@ class SearchResult {
         $unofficialHidden = true;
         unset($searchResults[$i]);
       } else if (!User::can(User::PRIV_VIEW_HIDDEN) &&
-                 (($sr->source->type == Source::TYPE_HIDDEN) ||
+                 ($sr->source->hidden ||
                   ($sr->definition->status == Definition::ST_HIDDEN))) {
         // hide hidden definitions or definitions from hidden sources
         $sourcesHidden[$sr->source->id] = $sr->source;

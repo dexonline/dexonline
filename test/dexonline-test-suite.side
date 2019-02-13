@@ -1746,7 +1746,7 @@
       "id": "1a95229f-26ae-4564-aef8-10d772161d94",
       "comment": "",
       "command": "click",
-      "target": "name=isActive",
+      "target": "name=hidden",
       "targets": [],
       "value": ""
     }, {
@@ -1844,12 +1844,12 @@
       "id": "f34f0cf1-65b9-4de2-8803-692a50373643",
       "comment": "",
       "command": "verifyNotChecked",
-      "target": "name=isActive",
+      "target": "name=hidden",
       "targets": [
-        ["name=isActive", "name"],
-        ["css=input[name=\"isActive\"]", "css"],
+        ["name=hidden", "name"],
+        ["css=input[name=\"hidden\"]", "css"],
         ["css=.checkbox:nth-child(8) input", "css:finder"],
-        ["xpath=//input[@name='isActive']", "xpath:attributes"],
+        ["xpath=//input[@name='hidden']", "xpath:attributes"],
         ["xpath=//label/input", "xpath:position"]
       ],
       "value": ""
@@ -1941,7 +1941,7 @@
       "id": "ce911e79-4bd8-46b3-9746-94affd678df2",
       "comment": "",
       "command": "click",
-      "target": "name=isActive",
+      "target": "name=hidden",
       "targets": [],
       "value": ""
     }, {

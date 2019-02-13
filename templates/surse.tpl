@@ -34,50 +34,48 @@
       </thead>
       <tbody>
         {foreach $src as $s}
-          {if $s->isActive || User::can(User::PRIV_EDIT)}
-            <tr>
-              <td class="abbreviation">
-                {if $s->link && User::can(User::PRIV_EDIT)}
-                  <a href="{$s->link}" target="_blank"><span class="sourceShortName">{$s->shortName}</span></a>
-                {else}
-                  <span class="sourceShortName">{$s->shortName}</span>
-                {/if}
-              </td>
-              {if $editable}
+          <tr>
+            <td class="abbreviation">
+              {if $s->link && User::can(User::PRIV_EDIT)}
+                <a href="{$s->link}" target="_blank"><span class="sourceShortName">{$s->shortName}</span></a>
+              {else}
+                <span class="sourceShortName">{$s->shortName}</span>
+              {/if}
+            </td>
+            {if $editable}
               <td class="type">
                 <span class="sourceType">{if $s->sourceTypeId}{SourceType::getField('name', $s->sourceTypeId)}{else}{/if}</span>
               </td>
               <td class="manager">
                 <span class="sourceManager">{if $s->managerId}{User::getField('name', $s->managerId)}{else}{/if}</span>
               </td>
-              {/if}
-              <td class="nick">
-                <input type="hidden" name="ids[]" value="{$s->id}">
-                <span class="sourceName">
-                  {$s->name}
-                  <div class="popover bottom">
-                    <div class="arrow"></div>
-                    <h3 class="popover-title">{$s->name}</h3>
-                    <div class="popover-content">
-                      Autor: {$s->author}<br>
-                      Editură: {$s->publisher}<br>
-                      Anul apariției: {$s->year}<br>
-                      {if $editable}
-                        {if $s->importType}
-                      <br>
-                      Import {$s->getImportTypeLabel()}
-                        {/if}
+            {/if}
+            <td class="nick">
+              <input type="hidden" name="ids[]" value="{$s->id}">
+              <span class="sourceName">
+                {$s->name}
+                <div class="popover bottom">
+                  <div class="arrow"></div>
+                  <h3 class="popover-title">{$s->name}</h3>
+                  <div class="popover-content">
+                    Autor: {$s->author}<br>
+                    Editură: {$s->publisher}<br>
+                    Anul apariției: {$s->year}<br>
+                    {if $editable}
+                      {if $s->importType}
+                        <br>
+                        Import {$s->getImportTypeLabel()}
                       {/if}
-                    </div>
+                    {/if}
                   </div>
-                </span>
-              </td>
-              <td data-text="{$s->percentComplete}">{include "bits/sourcePercentComplete.tpl" s=$s}</td>
-              {if $editable}
-                <td><a href="editare-sursa?id={$s->id}">editează</a></td>
-              {/if}
-            </tr>
-          {/if}
+                </div>
+              </span>
+            </td>
+            <td data-text="{$s->percentComplete}">{include "bits/sourcePercentComplete.tpl" s=$s}</td>
+            {if $editable}
+              <td><a href="editare-sursa?id={$s->id}">editează</a></td>
+            {/if}
+          </tr>
         {/foreach}
       </tbody>
     </table>

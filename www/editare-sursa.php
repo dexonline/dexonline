@@ -21,7 +21,7 @@ if ($saveButton) {
   $src->link = Request::get('link');
   $src->courtesyLink = Request::get('courtesyLink');
   $src->courtesyText = Request::get('courtesyText');
-  $src->isActive = Request::has('isActive');
+  $src->hidden = Request::has('hidden');
   $src->type = Request::get('type');
   $src->canModerate = Request::has('canModerate');
   $src->canDistribute = Request::has('canDistribute');

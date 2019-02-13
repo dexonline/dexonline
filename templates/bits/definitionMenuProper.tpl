@@ -19,6 +19,19 @@
 {$def=$row->definition}
 
 <ul class="list-inline dropup">
+  {if $row->source->hidden || $def->status == Definition::ST_HIDDEN}
+    <li>
+      <span class="label label-default">
+        <i class="glyphicon glyphicon-eye-close"></i>
+        {if $row->source->hidden}
+          sursă ascunsă
+        {else}
+          definiție ascunsă
+        {/if}
+      </span>
+    </li>
+  {/if}
+
   {if $showSource}
     <li>
       {t}source{/t}:
@@ -87,13 +100,13 @@
   {if $showWotd}
     <li>
       <i class="glyphicon glyphicon-calendar"></i>
-      {if $def->status == Definition::ST_HIDDEN}
+      {if $def->status == Definition::ST_HIDDEN || $row->source->hidden}
         definiție ascunsă
-      {else if $row->wotdType == SearchResult::WOTD_NOT_IN_LIST}
+      {elseif $row->wotdType == SearchResult::WOTD_NOT_IN_LIST}
         <a href="{Config::URL_PREFIX}wotdAdd.php?defId={$def->id}">
           adaugă WotD
         </a>
-      {else if $row->wotdType == SearchResult::WOTD_IN_LIST}
+      {elseif $row->wotdType == SearchResult::WOTD_IN_LIST}
         în lista de WotD {if $row->wotdDate}({$row->wotdDate}){/if}
       {else} {* a related definition is in WotD *}
         <span class="text-warning">

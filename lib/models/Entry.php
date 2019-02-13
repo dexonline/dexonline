@@ -191,15 +191,15 @@ class Entry extends BaseObject implements DatedObject {
 
     // load entries for the above lexemes
     $query = 'select distinct e.* ' .
-           'from Entry e ' .
-           'join EntryLexeme el on e.id = el.entryId ' .
-           "join ({$subquery}) l on el.lexemeId = l.id";
+      'from Entry e ' .
+      'join EntryLexeme el on e.id = el.entryId ' .
+      "join ({$subquery}) l on el.lexemeId = l.id " .
+      'order by (e.description != :form), ' . // exact match
+      '(e.description not like concat (:form, " (%")), ' . // partial match
+      'e.description';
 
     $entries = Model::factory('Entry')
              ->raw_query($query, ['form' => $cuv])
-             ->order_by_expr("(e.description != '{$cuv}')") // exact match
-             ->order_by_expr("(e.description not like concat ('{$cuv}', ' (%'))") // partial match
-             ->order_by_asc('e.description')
              ->find_many();
 
     return $entries;

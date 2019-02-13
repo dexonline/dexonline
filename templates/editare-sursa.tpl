@@ -181,8 +181,8 @@
 
             <div class="checkbox">
               <label>
-                <input type="checkbox" name="isActive" {if $src->isActive}checked{/if}>
-                sursă activă și vizibilă tuturor utilizatorilor
+                <input type="checkbox" name="hidden" {if $src->hidden}checked{/if}>
+                sursă ascunsă, vizibilă doar administratorilor
               </label>
             </div>
 
@@ -221,6 +221,10 @@
           <i class="glyphicon glyphicon-floppy-disk"></i>
           <u>s</u>alvează
         </button>
+        <a class="btn btn-default" href="surse">
+          <i class="glyphicon glyphicon-arrow-left"></i>
+          înapoi la lista de surse
+        </a>
         <a class="btn btn-link" href="">renunță</a>
       </form>
     </div>

@@ -21,9 +21,9 @@ if (User::can(User::PRIV_VIEW_HIDDEN)) {
   $sources = Source::getAll();
 } else {
   $sources = Model::factory('Source')
-           ->where_not_equal('type', Source::TYPE_HIDDEN)
-           ->order_by_asc('displayOrder')
-           ->find_many();
+    ->where('hidden', false)
+    ->order_by_asc('displayOrder')
+    ->find_many();
 }
 
 Smart::assign('src', $sources);

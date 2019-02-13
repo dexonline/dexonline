@@ -6,7 +6,7 @@ User::mustHave(User::PRIV_STRUCT | User::PRIV_EDIT);
 $query = Request::get('term');
 // Latin alphabet comparisons - allow Ş or S instead of Ș
 $sources = Model::factory('Source')
-         ->where_raw("shortName collate utf8_general_ci like '{$query}%'")
+         ->where_raw("shortName collate utf8mb4_general_ci like '{$query}%'")
          ->limit(10)
          ->find_many();
 

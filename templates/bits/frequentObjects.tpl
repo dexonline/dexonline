@@ -8,11 +8,12 @@
 {$focusTarget=$focusTarget|default:$target}
 {$pull=$pull|default:'pull-right'}
 <div class="clearfix">
-  <div class="btn-toolbar {$pull} voffset frequentObjects"
-       data-name="{$name}"
-       data-type="{$type}"
-       data-target="{$target}"
-       data-focus-target="{$focusTarget}">
+  <div
+    class="btn-toolbar {$pull} voffset frequentObjects"
+    data-name="{$name}"
+    data-type="{$type}"
+    data-target="{$target}"
+    data-focus-target="{$focusTarget}">
 
     <div class="btn-group btn-group-xs frequentObjectAddDiv">
       <button type="button"

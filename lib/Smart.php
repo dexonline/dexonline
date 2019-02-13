@@ -73,6 +73,9 @@ class Smart {
     'bootstrap-datepicker' => [
       'third-party/bootstrap-datepicker3.min.css'
     ],
+    'frequentObjects' => [
+      'frequentObjects.css'
+    ],
   ];
   private static $jsMap = [
     'jquery' => [

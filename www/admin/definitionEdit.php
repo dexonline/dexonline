@@ -203,7 +203,7 @@ Smart::assign([
   'canEditStatus' => canEditStatus($d),
   'allModeratorSources' => $sources,
 ]);
-Smart::addCss('tinymce', 'admin', 'diff');
+Smart::addCss('tinymce', 'admin', 'diff', 'frequentObjects');
 Smart::addJs('select2Dev', 'tinymce', 'cookie', 'frequentObjects');
 Smart::display('admin/definitionEdit.tpl');
 

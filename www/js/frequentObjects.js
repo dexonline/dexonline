@@ -21,6 +21,11 @@ $(function() {
 
     $('#frequentObjectModal').on('shown.bs.modal', modalOpen);
     $('#frequentObjectModal').on('hidden.bs.modal', modalClose);
+
+    $('.frequentObjects').sortable({
+      cancel: '',                // otherwise buttons are not sortable.
+      items: '> div:not(:last)', // don't let the user drag the + button :-)
+    });
   }
 
   function modalOpen(e) {

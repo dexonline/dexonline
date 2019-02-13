@@ -1,0 +1,3 @@
+.frequentObjects .btn-group {
+  display: flex; /* prevent the name + trash icon from wrapping during drag */
+}

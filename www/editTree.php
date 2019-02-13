@@ -153,6 +153,6 @@ Smart::assign([
   'meaningMentions' => $meaningMentions,
   'homonyms' => $homonyms,
 ]);
-Smart::addCss('editableMeaningTree', 'textComplete', 'admin');
-Smart::addJs('select2Dev', 'meaningTree', 'textComplete', 'cookie', 'frequentObjects');
+Smart::addCss('editableMeaningTree', 'textComplete', 'admin', 'frequentObjects');
+Smart::addJs('select2Dev', 'meaningTree', 'textComplete', 'cookie', 'frequentObjects', 'jqueryui');
 Smart::display('editTree.tpl');

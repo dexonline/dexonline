@@ -1843,7 +1843,7 @@
     }, {
       "id": "f34f0cf1-65b9-4de2-8803-692a50373643",
       "comment": "",
-      "command": "verifyNotChecked",
+      "command": "verifyChecked",
       "target": "name=hidden",
       "targets": [
         ["name=hidden", "name"],

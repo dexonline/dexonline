@@ -49,6 +49,5 @@ foreach ($inflections as $infl) {
 
 Smart::assign('inflections', $inflections);
 Smart::assign('modelTypes', ModelType::loadCanonical());
-Smart::addCss('admin');
-Smart::addJs('jqTableDnd');
+Smart::addResources('admin', 'jqTableDnd');
 Smart::display('flexiuni.tpl');

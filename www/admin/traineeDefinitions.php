@@ -19,6 +19,5 @@ Smart::assign([
   'defs' => $defs,
   'sourceMap' => $sourceMap,
 ]);
-Smart::addCss('tablesorter');
-Smart::addJs('tablesorter');
+Smart::addResources('tablesorter');
 Smart::display('traineeDefinitions.tpl');

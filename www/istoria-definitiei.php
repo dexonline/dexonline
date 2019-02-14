@@ -37,5 +37,5 @@ $changeSets = array_reverse($changeSets); // newest changes first
 
 Smart::assign('def', $def);
 Smart::assign('changeSets', $changeSets);
-Smart::addCss('diff');
+Smart::addResources('diff');
 Smart::display('istoria-definitiei.tpl');

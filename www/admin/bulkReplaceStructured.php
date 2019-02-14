@@ -55,7 +55,7 @@ Smart::assign([
   'entryResults' => $entryResults,
   'finished' => $finishedReplace,
 ]);
-Smart::addCss('admin', 'diff');
+Smart::addResources('admin', 'diff');
 Smart::display('admin/bulkReplaceStructured.tpl');
 
 Log::notice((memory_get_usage() - $startMemory).' bytes used');

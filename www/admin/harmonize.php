@@ -67,6 +67,5 @@ Smart::assign([
   'harmonizeModels' => HarmonizeModel::getAll(),
   'modelTypes' => ModelType::getAll(),
 ]);
-Smart::addCss('admin');
-Smart::addJs('select2Dev', 'modelDropdown');
+Smart::addResources('admin', 'select2Dev', 'modelDropdown');
 Smart::display('admin/harmonize.tpl');

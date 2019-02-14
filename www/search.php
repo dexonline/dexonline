@@ -306,7 +306,7 @@ if ($searchParams[$searchType]['trees'] && !$sourceId) {
   }
 
   if (count($trees)) {
-    Smart::addCss('meaningTree');
+    Smart::addResources('meaningTree');
     usort($trees, [new TreeComparator($cuv), 'cmp']);
   }
 }
@@ -397,8 +397,7 @@ if ($cuv) {
 $images = empty($entries) ? [] : Visual::loadAllForEntries($entries);
 Smart::assign('images', $images);
 if (count($images)) {
-  Smart::addCss('gallery');
-  Smart::addJs('gallery', 'jcanvas');
+  Smart::addResources('gallery');
 }
 
 // We cannot show the paradigm tab by default if there isn't one to show.
@@ -445,7 +444,7 @@ switch ($format['name']) {
     break;
   case 'html':
   default:
-    Smart::addCss('paradigm');
+    Smart::addResources('paradigm');
     Smart::display('search.tpl');
 }
 

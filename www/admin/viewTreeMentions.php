@@ -6,5 +6,5 @@ User::mustHave(User::PRIV_EDIT);
 $mentions = Mention::getDetailedTreeMentions();
 
 Smart::assign('mentions', $mentions);
-Smart::addCss('admin');
+Smart::addResources('admin');
 Smart::display('admin/viewTreeMentions.tpl');

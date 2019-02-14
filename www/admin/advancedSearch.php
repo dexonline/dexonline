@@ -262,7 +262,7 @@ Smart::assign([
   'args' => $args,
   'stats' => $stats,
 ]);
-Smart::addCss('admin');
+Smart::addResources('admin');
 Smart::display('admin/advancedSearch.tpl');
 
 /*************************************************************************/

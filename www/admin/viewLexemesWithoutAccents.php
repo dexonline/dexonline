@@ -1,5 +1,5 @@
 <?php
-require_once '../../lib/Core.php'; 
+require_once '../../lib/Core.php';
 ini_set('memory_limit', '512M');
 User::mustHave(User::PRIV_EDIT);
 
@@ -10,5 +10,5 @@ $lexemes = Model::factory('Lexeme')
   ->find_many();
 
 Smart::assign('lexemes', $lexemes);
-Smart::addCss('admin');
+Smart::addResources('admin');
 Smart::display('admin/viewLexemesWithoutAccents.tpl');

@@ -77,8 +77,7 @@ Smart::assign([
   'yearMonth' => $yearMonth,
   'enMonthName' => Str::getEnglishMonthName($yearMonth),
 ]);
-Smart::addCss('admin', 'bootstrap-datepicker');
-Smart::addJs('bootstrap-datepicker');
+Smart::addResources('admin', 'bootstrap-datepicker');
 Smart::display('admin/wotdAssistant.tpl');
 
 /*************************************************************************/

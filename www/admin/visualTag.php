@@ -51,6 +51,5 @@ if ($addTagButton) {
 Smart::assign('visual', $v);
 Smart::assign('entry', Entry::get_by_id($v->entryId));
 
-Smart::addCss('jqueryui', 'jcrop', 'jqgrid', 'gallery', 'admin');
-Smart::addJs('jqueryui', 'jcrop', 'select2Dev', 'jqgrid', 'gallery', 'jcanvas'); 
+Smart::addResources('jcrop', 'jqgrid', 'gallery', 'admin', 'select2Dev');
 Smart::display('admin/visualTag.tpl');

@@ -28,6 +28,5 @@ if (User::can(User::PRIV_VIEW_HIDDEN)) {
 
 Smart::assign('src', $sources);
 Smart::assign('editable', User::can(User::PRIV_ADMIN));
-Smart::addCss('admin');
-Smart::addJs('jqTableDnd', 'tablesorter');
+Smart::addResources('admin', 'jqTableDnd', 'tablesorter');
 Smart::display('surse.tpl');

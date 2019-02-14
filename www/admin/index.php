@@ -195,9 +195,9 @@ Smart::assign([
   'timeAgo' => $timeAgo,
   'wotdAssistantDates' => $wotdAssistantDates,
 ]);
-Smart::addCss('admin', 'bootstrap-spinedit', 'bootstrap-datepicker');
-Smart::addJs('select2Dev', 'adminIndex', 'modelDropdown', 'bootstrap-spinedit',
-                  'bootstrap-datepicker');
+Smart::addResources(
+  'admin', 'adminIndex', 'bootstrap-datepicker', 'modelDropdown', 'select2Dev'
+);
 Smart::display('admin/index.tpl');
 
 /*************************************************************************/

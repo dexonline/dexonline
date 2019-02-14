@@ -40,9 +40,10 @@ if (!$next) {
 
 $change = DefinitionVersion::compare($dv, $next);
 
-Smart::assign('def', $def);
-Smart::assign('dv', $dv);
-Smart::assign('change', $change);
-Smart::addCss('diff');
-Smart::addJs('select2Dev', 'diff');
+Smart::assign([
+  'def' => $def,
+  'dv' => $dv,
+  'change' => $change,
+]);
+Smart::addResources('diff', 'select2Dev');
 Smart::display('etichete-istorie.tpl');

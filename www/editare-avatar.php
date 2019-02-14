@@ -43,7 +43,6 @@ if (!move_uploaded_file($file['tmp_name'], $destFileName)) {
 }
 chmod($destFileName, 0666);
 
-Smart::addCss('jcrop');
-Smart::addJs('jcrop');
+Smart::addResources('jcrop');
 Smart::assign('rawFileName', "{$user->id}_raw.{$ext}");
 Smart::display('editare-avatar.tpl');

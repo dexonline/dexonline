@@ -29,5 +29,5 @@ if ($sourceId) {
 }
 
 Smart::assign('lexemes', $lexemes);
-Smart::addCss('admin');
+Smart::addResources('admin');
 Smart::display('admin/viewTemporaryLexemes.tpl');

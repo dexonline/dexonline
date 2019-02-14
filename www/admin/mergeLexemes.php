@@ -88,7 +88,7 @@ foreach ($dbResult as $row) {
 
 Smart::assign('modelType', $modelType);
 Smart::assign('lexemes', $lexemes);
-Smart::addCss('admin');
+Smart::addResources('admin');
 Smart::display('admin/mergeLexemes.tpl');
 
 

@@ -37,7 +37,7 @@ class CallToAction extends Plugin {
     if (!$this->hidden) {
       Smart::addPluginCss('callToAction/callToAction.css');
       Smart::addPluginJs('callToAction/callToAction.js');
-      Smart::addJs('cookie');
+      Smart::addResources('cookie');
     }
   }
 }

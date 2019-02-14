@@ -77,7 +77,7 @@ Smart::assign([
   'abbrevs' => $abbrevs,
   'modUser' => User::getActive(),
 ]);
-Smart::addCss('admin');
+Smart::addResources('admin');
 Smart::display('admin/abbrevInput.tpl');
 
 /*************************************************************************/

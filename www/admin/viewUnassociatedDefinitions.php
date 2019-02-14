@@ -30,5 +30,5 @@ $defs = Model::factory('Definition')
       ->find_many();
 
 Smart::assign('searchResults', SearchResult::mapDefinitionArray($defs));
-Smart::addCss('admin');
+Smart::addResources('admin');
 Smart::display('admin/viewUnassociatedDefinitions.tpl');

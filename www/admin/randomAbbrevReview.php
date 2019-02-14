@@ -69,7 +69,7 @@ Smart::assign([
   'sourceId' => $sourceId,
   'sources' => $sources,
 ]);
-Smart::addCss('admin');
+Smart::addResources('admin');
 Smart::display('admin/randomAbbrevReview.tpl');
 
 /**

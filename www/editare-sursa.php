@@ -69,7 +69,7 @@ Smart::assign([
   'sourceTypes' => $sourceTypes,
   'reforms' => $reforms,
 ]);
-Smart::addJs('select2Dev');
+Smart::addResources('select2Dev');
 Smart::display('editare-sursa.tpl');
 
 /**

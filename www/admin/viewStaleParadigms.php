@@ -42,5 +42,5 @@ Smart::assign([
   'lexemes' => $lexemes,
 ]);
 
-Smart::addCss('admin');
+Smart::addResources('admin');
 Smart::display('admin/viewStaleParadigms.tpl');

@@ -123,6 +123,5 @@ Smart::assign([
   'meanings' => $meanings,
   'frequentColors' => $frequentColors,
 ]);
-Smart::addCss('admin', 'colorpicker');
-Smart::addJs('select2Dev', 'colorpicker');
+Smart::addResources('admin', 'colorpicker', 'select2Dev');
 Smart::display('eticheta.tpl');

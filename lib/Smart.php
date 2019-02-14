@@ -3,182 +3,11 @@
 require_once 'third-party/smarty-3.1.30/Smarty.class.php';
 
 class Smart {
+
   private static $theSmarty = null;
   private static $cssFiles = [];
   private static $jsFiles = [];
-  private static $includedCss = [];
-  private static $includedJs = [];
-  private static $cssMap = [
-    'jqueryui' => [
-      'third-party/smoothness-1.12.1/jquery-ui-1.12.1.custom.min.css'
-    ],
-    'bootstrap' => [
-      'third-party/bootstrap.min.css'
-    ],
-    'jqgrid' => [
-      'third-party/ui.jqgrid.css'
-    ],
-    'tablesorter' => [
-      'third-party/tablesorter/theme.bootstrap.css',
-      'third-party/tablesorter/jquery.tablesorter.pager.min.css',
-    ],
-    'elfinder' => [
-      'third-party/elfinder/css/elfinder.min.css',
-      'third-party/elfinder/css/theme.css',
-      'elfinder.custom.css',
-    ],
-    'main' => [
-      'main.css'
-    ],
-    'admin' => [
-      'admin.css'
-    ],
-    'paradigm' => [
-      'paradigm.css'
-    ],
-    'jcrop' => [
-      'third-party/jcrop/jquery.Jcrop.min.css'
-    ],
-    'select2' => [
-      'third-party/select2.min.css'
-    ],
-    'gallery' => [
-      'third-party/colorbox/colorbox.css',
-      'gallery.css',
-    ],
-    'textComplete' => [
-      'third-party/jquery.textcomplete.css'
-    ],
-    'tinymce' => [
-      'tinymce.css'
-    ],
-    'meaningTree' => [
-      'meaningTree.css'
-    ],
-    'editableMeaningTree' => [
-      'editableMeaningTree.css'
-    ],
-    'privateMode' => [
-      'opensans.css'
-    ],
-    'colorpicker' => [
-      'third-party/bootstrap-colorpicker.min.css'
-    ],
-    'diff' => [
-      'diff.css'
-    ],
-    'bootstrap-spinedit' => [
-      'third-party/bootstrap-spinedit.css'
-    ],
-    'bootstrap-datepicker' => [
-      'third-party/bootstrap-datepicker3.min.css'
-    ],
-    'frequentObjects' => [
-      'frequentObjects.css'
-    ],
-  ];
-  private static $jsMap = [
-    'jquery' => [
-      'third-party/jquery-1.12.4.min.js'
-    ],
-    'jqueryui' => [
-      'third-party/jquery-ui-1.12.1.custom.min.js'
-    ],
-    'bootstrap' => [
-      'third-party/bootstrap.min.js'
-    ],
-    'jqgrid' => [
-      'third-party/grid.locale-en.js',
-      'third-party/jquery.jqgrid.min.js',
-    ],
-    'jqTableDnd' => [
-      'third-party/jquery.tablednd.0.8.min.js'
-    ],
-    'tablesorter' => [
-      'third-party/tablesorter/jquery.tablesorter.min.js',
-      'third-party/tablesorter/jquery.tablesorter.widgets.js',
-      'third-party/tablesorter/jquery.tablesorter.pager.min.js',
-    ],
-    'elfinder' => [
-      'third-party/elfinder.min.js'
-    ],
-    'cookie' => [
-      'third-party/jquery.cookie.js'
-    ],
-    'dex' => [
-      'dex.js'
-    ],
-    'jcrop' => [
-      'third-party/jquery.Jcrop.min.js'
-    ],
-    'select2' => [
-      'third-party/select2/select2.min.js',
-      'third-party/select2/i18n/ro.js',
-    ],
-    'select2Dev' => [
-      'select2Dev.js'
-    ],
-    'jcanvas' => [
-      'third-party/jcanvas.min.js'
-    ],
-    'pixijs' => [
-      'third-party/pixi.min.js'
-    ],
-    'gallery' => [
-      'third-party/colorbox/jquery.colorbox-min.js',
-      'third-party/colorbox/jquery.colorbox-ro.js',
-      'dexGallery.js',
-    ],
-    'modelDropdown' => [
-      'modelDropdown.js'
-    ],
-    'textComplete' => [
-      'third-party/jquery.textcomplete.min.js'
-    ],
-    'tinymce' => [
-      'third-party/tinymce-4.9.1/tinymce.min.js',
-      'tinymce.js',
-    ],
-    'meaningTree' => [
-      'meaningTree.js'
-    ],
-    'hotkeys' => [
-      'third-party/jquery.hotkeys.js',
-      'hotkeys.js',
-    ],
-    'charmap' => [
-      'charmap.js',
-    ],
-    'seedrandom' => [
-      'third-party/seedrandom.min.js'
-    ],
-    'colorpicker' => [
-      'third-party/bootstrap-colorpicker.min.js'
-    ],
-    'diff' => [
-      'diff.js'
-    ],
-    'bootstrap-spinedit' => [
-      'third-party/bootstrap-spinedit.js'
-    ],
-    'frequentObjects' => [
-      'frequentObjects.js'
-    ],
-    'bootstrap-datepicker' => [
-      'third-party/bootstrap-datepicker.min.js',
-      'third-party/bootstrap-datepicker.ro.min.js',
-    ],
-    'adminIndex' => [
-      'adminIndex.js'
-    ],
-    'admin' => [
-      'admin.js'
-    ],
-    'sprintf' => [
-      'third-party/sprintf.min.js'
-    ],
-  ];
-
+  private static $includedResources = [];
 
   static function init() {
     self::$theSmarty = new Smarty();
@@ -186,10 +15,13 @@ class Smart {
     self::$theSmarty->compile_dir = Config::ROOT . 'templates_c';
     // sufficient for now; generalize if more plugin sources are needed
     self::$theSmarty->addPluginsDir(__DIR__ . '/smarty-plugins');
-    self::$theSmarty->inheritance_merge_compiled_includes = false; // This allows variable names in {include} tags
+
+    // This allows variable names in {include} tags
+    self::$theSmarty->inheritance_merge_compiled_includes = false;
+
     if (Request::isWeb()) {
       self::assign([
-        'currentYear' => date("Y"),
+        'currentYear' => date('Y'),
         'suggestNoBanner' => Util::suggestNoBanner(),
         'privateMode' => Session::userPrefers(Preferences::PRIVATE_MODE),
         'advancedSearch' => Session::userPrefers(Preferences::SHOW_ADVANCED),
@@ -226,14 +58,43 @@ class Smart {
     self::$jsFiles[] = "plugins/$name";
   }
 
-  static function orderResources($mapping, $selected) {
-    $result = [];
-    foreach ($mapping as $name => $files) {
-      if (isset($selected[$name])) {
-        $result = array_merge($result, $files);
+  // Returns lists of css and js files to include. Selects CSS and JS files
+  // from the included resources and RESOURCE_MAP and adds self::$cssFiles
+  // and self::$jsFiles at the end.
+  static function orderResources() {
+    // first add all dependencies
+    $map = [];
+    while ($key = array_pop(self::$includedResources)) {
+      $map[$key] = true;
+      $deps = Constant::RESOURCE_MAP[$key]['deps'] ?? [];
+      foreach ($deps as $dep) {
+        if (!isset($map[$dep])) {
+          self::$includedResources[] = $dep;
+        }
       }
     }
-    return $result;
+
+    // now collect CSS and JS files in map order
+    $resultCss = [];
+    $resultJs = [];
+    foreach (Constant::RESOURCE_MAP as $key => $data) {
+      if (isset($map[$key])) {
+        $list = $data['css'] ?? [];
+        foreach ($list as $css) {
+          $resultCss[] = $css;
+        }
+
+        $list = $data['js'] ?? [];
+        foreach ($list as $js) {
+          $resultJs[] = $js;
+        }
+      }
+    }
+
+    // finally, append $cssFiles and $jsFiles
+    $resultCss = array_merge($resultCss, self::$cssFiles);
+    $resultJs = array_merge($resultJs, self::$jsFiles);
+    return [ $resultCss, $resultJs ];
   }
 
   static function mergeResources($files, $type) {
@@ -325,17 +186,15 @@ class Smart {
   /* Prepare and display a template. */
   /* $hardened = assume nothing about the availability of the database */
   static function display($templateName, $hardened = false) {
-    self::addCss('main', 'bootstrap', 'select2');
-    self::addJs('jquery', 'dex', 'bootstrap', 'select2');
+    self::addResources('main', 'jquery', 'bootstrap', 'select2');
     if (Config::SEARCH_AC_ENABLED) {
-      self::addCss('jqueryui');
-      self::addJs('jqueryui');
+      self::addResources('jqueryui');
     }
     if (User::can(User::PRIV_ANY)) {
-      self::addJs('admin', 'hotkeys', 'cookie', 'charmap', 'sprintf');
+      self::addResources('admin', 'charmap', 'sprintf');
     }
     if (Session::userPrefers(Preferences::PRIVATE_MODE)) {
-      self::addCss('privateMode');
+      self::addResources('privateMode');
     }
     self::addSameNameFiles($templateName);
     self::$cssFiles[] = "responsive.css";
@@ -355,17 +214,9 @@ class Smart {
   }
 
   static function fetch($templateName) {
-    self::$cssFiles = array_merge(
-      self::orderResources(self::$cssMap, self::$includedCss),
-      self::$cssFiles
-    );
-    self::assign('cssFile', self::mergeResources(self::$cssFiles, 'css'));
-
-    self::$jsFiles = array_merge(
-      self::orderResources(self::$jsMap, self::$includedJs),
-      self::$jsFiles
-    );
-    self::assign('jsFile', self::mergeResources(self::$jsFiles, 'js'));
+    list ($cssFiles, $jsFiles) = self::orderResources();
+    self::assign('cssFile', self::mergeResources($cssFiles, 'css'));
+    self::assign('jsFile', self::mergeResources($jsFiles, 'js'));
 
     self::assign('flashMessages', FlashMessage::getMessages());
     return self::$theSmarty->fetch($templateName);
@@ -396,25 +247,15 @@ class Smart {
     self::$theSmarty->registerFilter('output', ['Smart', 'minifyOutput']);
   }
 
-  static function addCss(/* Variable-length argument list */) {
-    // Note the priorities. This allows files to be added in any order, regardless of dependencies
-    foreach (func_get_args() as $id) {
-      if (!isset(self::$cssMap[$id])) {
-        FlashMessage::add("Cannot load CSS file {$id}");
+  // Marks required CSS and JS files for inclusion.
+  // $keys: array of keys in Constant::RESOURCE_MAP
+  static function addResources(...$keys) {
+    foreach ($keys as $key) {
+      if (!isset(Constant::RESOURCE_MAP[$key])) {
+        FlashMessage::add("Unknown resource ID {$key}");
         Util::redirectToHome();
       }
-      self::$includedCss[$id] = true;
-    }
-  }
-
-  static function addJs(/* Variable-length argument list */) {
-    // Note the priorities. This allows files to be added in any order, regardless of dependencies
-    foreach (func_get_args() as $id) {
-      if (!isset(self::$jsMap[$id])) {
-        FlashMessage::add("Cannot load JS script {$id}");
-        Util::redirectToHome();
-      }
-      self::$includedJs[$id] = true;
+      self::$includedResources[] = $key;
     }
   }
 

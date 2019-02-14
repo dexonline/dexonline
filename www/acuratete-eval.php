@@ -84,5 +84,5 @@ Smart::assign([
   'errors' => $errors,
   'definitionData' => $defData,
 ]);
-Smart::addCss('admin');
+Smart::addResources('admin');
 Smart::display('acuratete-eval.tpl');

@@ -205,8 +205,7 @@ Smart::assign([
   'deleteOrphans' => $deleteOrphans,
   'passedTests' => $passedTests,
 ]);
-Smart::addCss('admin');
-Smart::addJs('select2Dev');
+Smart::addResources('admin', 'select2Dev');
 Smart::display('admin/deTool.tpl');
 
 /*************************************************************************/

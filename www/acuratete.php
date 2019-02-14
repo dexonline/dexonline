@@ -62,6 +62,5 @@ Smart::assign([
   'length' => $length,
   'includePublic' => $includePublic,
 ]);
-Smart::addCss('admin', 'tablesorter');
-Smart::addJs('select2Dev', 'tablesorter');
+Smart::addResources('admin', 'tablesorter', 'select2Dev');
 Smart::display('acuratete.tpl');

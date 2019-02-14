@@ -16,5 +16,5 @@ Smart::assign([
   'searchResults' => SearchResult::mapDefinitionArray($defs),
   'tag' => $tag,
 ]);
-Smart::addCss('admin');
+Smart::addResources('admin');
 Smart::display('admin/viewUnneededRareGlyphsTags.tpl');

@@ -1,5 +1,5 @@
 <?php
-require_once '../../lib/Core.php'; 
+require_once '../../lib/Core.php';
 
 // Select suffixes and counts for temporary lexemes.
 $dbResult = DB::execute("select reverse(substring(reverse, 1, 4)) as s, count(*) as c " .
@@ -12,5 +12,5 @@ foreach ($dbResult as $row) {
 }
 
 Smart::assign('stats', $stats);
-Smart::addCss('admin');
+Smart::addResources('admin');
 Smart::display('admin/bulkLabelSelectSuffix.tpl');

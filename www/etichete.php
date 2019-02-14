@@ -2,5 +2,5 @@
 require_once '../lib/Core.php';
 
 Smart::assign('tags', Tag::loadTree());
-Smart::addCss('admin');
+Smart::addResources('admin');
 Smart::display('etichete.tpl');

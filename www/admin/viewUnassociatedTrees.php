@@ -11,5 +11,5 @@ $trees = Model::factory('Tree')
        ->find_many();
 
 Smart::assign('trees', $trees);
-Smart::addCss('admin', 'meaningTree');
+Smart::addResources('admin', 'meaningTree');
 Smart::display('admin/viewUnassociatedTrees.tpl');

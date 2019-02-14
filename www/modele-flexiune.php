@@ -16,8 +16,10 @@ foreach ($models as $m) {
   $lexemes[] = $m->getExponentWithParadigm();
 }
 
-Smart::addCss('paradigm');
-Smart::assign('models', $models);
-Smart::assign('lexemes', $lexemes);
-Smart::assign('modelType', $modelType);
+Smart::addResources('paradigm');
+Smart::assign([
+  'models' => $models,
+  'lexemes' => $lexemes,
+  'modelType' => $modelType,
+]);
 Smart::display('modele-flexiune.tpl');

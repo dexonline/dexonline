@@ -112,5 +112,5 @@ Smart::assign([
   'searchResults' => $searchResults,
   'lMatrix' => $lMatrix,
 ]);
-Smart::addCss('paradigm', 'admin');
+Smart::addResources('paradigm', 'admin');
 Smart::display('admin/bulkLabel.tpl');

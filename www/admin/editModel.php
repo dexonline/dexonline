@@ -122,7 +122,7 @@ if ($m->modelType == 'V') {
   Smart::assign('adjModels', FlexModel::loadByType('A'));
 }
 
-Smart::addCss('paradigm', 'admin');
+Smart::addResources('paradigm', 'admin');
 Smart::display('admin/editModel.tpl');
 
 /****************************************************************************/

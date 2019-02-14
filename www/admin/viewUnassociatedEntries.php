@@ -6,5 +6,5 @@ User::mustHave(User::PRIV_EDIT);
 $entries = Entry::loadUnassociated();
 
 Smart::assign('entries', $entries);
-Smart::addCss('admin');
+Smart::addResources('admin');
 Smart::display('admin/viewUnassociatedEntries.tpl');

@@ -60,8 +60,8 @@
   </form>
 
   <script>
-   $(document).ready(function() {
-     $("#inflections").tableDnD();
-   });
+    $(function() {
+      $("#inflections").tableDnD();
+    });
   </script>
 {/block}

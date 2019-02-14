@@ -161,7 +161,7 @@ Smart::assign([
   'objects' => $objects,
   'structuredChanged' => count($structuredIds),
 ]);
-Smart::addCss('admin', 'diff');
+Smart::addResources('admin', 'diff');
 Smart::display('admin/bulkReplace.tpl');
 
 Log::notice((memory_get_usage() - $startMemory).' bytes used');

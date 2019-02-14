@@ -120,5 +120,5 @@ Smart::assign([
   'statsPrep' => DB::execute(OCR_PREP_STATS),
   'statsEditors' => DB::execute(OCR_EDITOR_STATS),
 ]);
-Smart::addCss('admin');
+Smart::addResources('admin');
 Smart::display('admin/ocrInput.tpl');

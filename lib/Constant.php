@@ -177,4 +177,164 @@ class Constant {
 
   // Long participles and gerunds (like dusu- and ducându-) need some special treatment.
   const LONG_VERB_INFLECTION_IDS = [ 106, 107 ];
+  // Map of CSS files, JS files and dependencies for our resources.
+  // Entries must be listed in the order in which they should be loaded.
+
+  const RESOURCE_MAP = [
+    'jquery' => [
+      'js' => [ 'third-party/jquery-1.12.4.min.js' ],
+    ],
+    'jqueryui' => [
+      'css' => [ 'third-party/smoothness-1.12.1/jquery-ui-1.12.1.custom.min.css' ],
+      'js' => [ 'third-party/jquery-ui-1.12.1.custom.min.js' ],
+    ],
+    'bootstrap' => [
+      'css' => [ 'third-party/bootstrap.min.css' ],
+      'js' => [ 'third-party/bootstrap.min.js' ],
+    ],
+    'jqgrid' => [
+      'css' => [ 'third-party/ui.jqgrid.css' ],
+      'js' => [
+        'third-party/grid.locale-en.js',
+        'third-party/jquery.jqgrid.min.js',
+      ],
+      'deps' => [ 'jqueryui' ],
+    ],
+    'jqTableDnd' => [
+      'js' => [ 'third-party/jquery.tablednd.0.8.min.js' ],
+    ],
+    'tablesorter' => [
+      'css' => [
+        'third-party/tablesorter/theme.bootstrap.css',
+        'third-party/tablesorter/jquery.tablesorter.pager.min.css',
+      ],
+      'js' => [
+        'third-party/tablesorter/jquery.tablesorter.min.js',
+        'third-party/tablesorter/jquery.tablesorter.widgets.js',
+        'third-party/tablesorter/jquery.tablesorter.pager.min.js',
+      ],
+    ],
+    'elfinder' => [
+      'css' => [
+        'third-party/elfinder/css/elfinder.min.css',
+        'third-party/elfinder/css/theme.css',
+        'elfinder.custom.css',
+      ],
+      'js' => [ 'third-party/elfinder.min.js' ],
+      'deps' => [ 'jqueryui' ],
+    ],
+    'cookie' => [
+      'js' => [ 'third-party/jquery.cookie.js' ],
+    ],
+    'main' => [
+      'css' => [ 'main.css' ],
+      'js' => [ 'dex.js' ],
+    ],
+    'paradigm' => [
+      'css' => [ 'paradigm.css' ],
+    ],
+    'jcrop' => [
+      'css' => [ 'third-party/jcrop/jquery.Jcrop.min.css' ],
+      'js' => [ 'third-party/jquery.Jcrop.min.js' ],
+    ],
+    'select2' => [
+      'css' => [ 'third-party/select2.min.css' ],
+      'js' => [
+        'third-party/select2/select2.min.js',
+        'third-party/select2/i18n/ro.js',
+      ],
+    ],
+    'select2Dev' => [
+      'js' => [ 'select2Dev.js' ],
+      'deps' => [ 'jqueryui', 'select2' ],
+    ],
+    'jcanvas' => [
+      'js' => [ 'third-party/jcanvas.min.js' ],
+    ],
+    'pixijs' => [
+      'js' => [ 'third-party/pixi.min.js' ],
+    ],
+    'gallery' => [
+      'css' => [
+        'third-party/colorbox/colorbox.css',
+        'gallery.css',
+      ],
+      'js' => [
+        'third-party/colorbox/jquery.colorbox-min.js',
+        'third-party/colorbox/jquery.colorbox-ro.js',
+        'dexGallery.js',
+      ],
+      'deps' => [ 'jcanvas' ],
+    ],
+    'modelDropdown' => [
+      'js' => [ 'modelDropdown.js' ],
+    ],
+    'textComplete' => [
+      'css' => [ 'third-party/jquery.textcomplete.css' ],
+      'js' => [ 'third-party/jquery.textcomplete.min.js' ],
+    ],
+    'tinymce' => [
+      'css' => [ 'tinymce.css' ],
+      'js' => [
+        'third-party/tinymce-4.9.1/tinymce.min.js',
+        'tinymce.js',
+      ],
+      'deps' => [ 'cookie' ],
+    ],
+    'meaningTree' => [
+      'css' => [ 'meaningTree.css' ],
+      'js' => [ 'meaningTree.js' ],
+    ],
+    'editableMeaningTree' => [
+      'css' => [ 'editableMeaningTree.css' ],
+    ],
+    'hotkeys' => [
+      'js' => [
+        'third-party/jquery.hotkeys.js',
+        'hotkeys.js',
+      ],
+    ],
+    'charmap' => [
+      'js' => [ 'charmap.js' ],
+      'deps' => [ 'cookie' ],
+    ],
+    'seedrandom' => [
+      'js' => [ 'third-party/seedrandom.min.js' ],
+    ],
+    'privateMode' => [
+      'css' => [ 'opensans.css' ],
+    ],
+    'colorpicker' => [
+      'css' => [ 'third-party/bootstrap-colorpicker.min.css' ],
+      'js' => [ 'third-party/bootstrap-colorpicker.min.js' ],
+    ],
+    'diff' => [
+      'css' => [ 'diff.css' ],
+      'js' => [ 'diff.js' ],
+    ],
+    'bootstrap-datepicker' => [
+      'css' => [ 'third-party/bootstrap-datepicker3.min.css' ],
+      'js' => [
+        'third-party/bootstrap-datepicker.min.js',
+        'third-party/bootstrap-datepicker.ro.min.js',
+      ],
+    ],
+    'frequentObjects' => [
+      'css' => [ 'frequentObjects.css' ],
+      'js' => [ 'frequentObjects.js' ],
+      'deps' => [ 'jqueryui', 'cookie' ],
+    ],
+    'admin' => [
+      'css' => [ 'admin.css' ],
+      'js' => [ 'admin.js' ],
+      'deps' => [ 'hotkeys' ],
+    ],
+    'adminIndex' => [
+      'js' => [ 'adminIndex.js' ],
+    ],
+    'sprintf' => [
+      'js' => [ 'third-party/sprintf.min.js' ],
+    ],
+  ];
+
 }

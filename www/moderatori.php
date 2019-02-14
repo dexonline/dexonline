@@ -43,5 +43,5 @@ $moderators = Model::factory('User')
   ->find_many();
 
 Smart::assign('users', $moderators);
-Smart::addCss('admin');
+Smart::addResources('admin');
 Smart::display('moderatori.tpl');

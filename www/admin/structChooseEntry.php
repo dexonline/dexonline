@@ -27,5 +27,5 @@ foreach ($entries as $e) {
 
 Smart::assign('entries', $entries);
 Smart::assign('searchResults', $searchResults);
-Smart::addCss('admin');
+Smart::addResources('admin');
 Smart::display('admin/structChooseEntry.tpl');

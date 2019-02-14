@@ -81,8 +81,7 @@ Smart::assign([
   'endDate' => $endDate,
   'showChanges' => $showChanges,
 ]);
-Smart::addCss('admin');
-Smart::addJs('select2Dev');
+Smart::addResources('admin', 'select2Dev');
 Smart::display('admin/contribTotals.tpl');
 
 /*************************************************************************/

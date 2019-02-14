@@ -28,5 +28,5 @@ $defs = $defs
 $searchResults = SearchResult::mapDefinitionArray($defs);
 
 Smart::assign('searchResults', $searchResults);
-Smart::addCss('admin');
+Smart::addResources('admin');
 Smart::display('admin/viewPendingDefinitions.tpl');

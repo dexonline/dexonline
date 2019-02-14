@@ -335,6 +335,10 @@ class Constant {
     'sprintf' => [
       'js' => [ 'third-party/sprintf.min.js' ],
     ],
+    'scrollTop' => [
+      'css' => [ 'scrollTop.css' ],
+      'js' => [ 'scrollTop.js' ],
+    ],
   ];
 
 }

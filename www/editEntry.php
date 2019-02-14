@@ -233,5 +233,5 @@ Smart::assign([
   'homonyms' => $homonyms,
   'structurists' => User::getStructurists($e->structuristId),
 ]);
-Smart::addResources('editableMeaningTree', 'admin', 'select2Dev', 'meaningTree');
+Smart::addResources('editableMeaningTree', 'admin', 'select2Dev', 'meaningTree', 'scrollTop');
 Smart::display('editEntry.tpl');

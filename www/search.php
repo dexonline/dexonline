@@ -185,6 +185,7 @@ if ($searchType == SEARCH_INFLECTED) {
   // successful search
   if (count($entries)) {
     $definitions = Definition::loadForEntries($entries, $sourceId, $cuv);
+    Smart::assign('sourceTypes', SourceType::getDictTypes());
     Plugin::notify('searchInflected', $definitions, $sourceId);
     Smart::assign('wikiArticles', WikiArticle::loadForEntries($entries));
 

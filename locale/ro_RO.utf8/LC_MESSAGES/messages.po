@@ -1107,24 +1107,60 @@ msgid "link to this paradigm"
 msgstr "legătură către această paradigmă"
 
 #: templates/search/definitionList.tpl:11
-msgid "Definitions from specialized dictionaries"
-msgstr "Definiții din dicționare specializate"
+msgid "General use dictionaries"
+msgstr "Dicționare explicative"
 
-#: templates/search/definitionList.tpl:13
-msgid "These definitions could explain only certain meanings of words."
+msgid "Morphological dictionaries"
+msgstr "Dicționare morfologice"
+
+msgid "Relational dictionaries"
+msgstr "Dicționare relaționale"
+
+msgid "Etymological dictionaries"
+msgstr "Dicționare etimologice"
+
+msgid "Specialized dictionaries"
+msgstr "Dicționare specializate"
+
+msgid "Encyclopedic dictionaries"
+msgstr "Dicționare enciclopedice"
+
+msgid "Slang dictionaries"
+msgstr "Dicționare de argou"
+
+msgid  "Other dictionaries"
+msgstr "Dicționare neclasificate"
+
+msgid  "Unverified dictionaries"
+msgstr "Definiții din dicționare neverificate"
+
+#: templates/search/definitionList.tpl:14
+msgid  "The most common sense of the words are explained."
+msgstr "Explică cele mai întâlnite sensuri ale cuvintelor."
+
+msgid  "The correspondences between lemma and lexical forms of words."
+msgstr "Se indică corespondența dintre forma de bază a unui cuvânt și flexiunile sale."
+
+msgid  "These are not definitions, but relations between words."
+msgstr "Nu reprezintă definiții, ci se indică relații între cuvinte."
+
+msgid  "The etymology of (family of) words are explained."
+msgstr "Se explică etimologiile cuvintelor sau familiilor de cuvinte."
+
+msgid "These definitions usually explain only specialized meanings of words."
+msgstr "Aceste definiții explică de obicei numai înțelesuri specializate ale cuvintelor."
+
+msgid  "Encyclopedic definitions."
+msgstr "Definiții enciclopedice."
+
+msgid  "Only slang words or senses are defined."
+msgstr "Se explică doar sensurile argotice ale cuvintelor."
+
+msgid  "These definitions could explain only certain meanings of words."
 msgstr "Aceste definiții pot explica numai anumite înțelesuri ale cuvintelor."
 
-#: templates/search/definitionList.tpl:20
-msgid "Definitions from unofficial dictionaries"
-msgstr "Definiții din dicționare neoficiale"
-
-#: templates/search/definitionList.tpl:22
-msgid ""
-"Since they are not made by lexicographers, these definitions may contain "
-"errors, so we advise you to look at other dictionaries as well."
-msgstr ""
-"Deoarece nu sunt editate de lexicografi, aceste definiții pot conține erori, "
-"deci e preferabilă consultarea altor dicționare în paralel."
+msgid  "Since they are not made by lexicographers, these definitions may contain errors."
+msgstr "Deoarece nu sunt editate de lexicografi, aceste definiții pot conține erori."
 
 #: templates/search/extendToAllSources.tpl:3
 msgid "Repeat your search <a href=\"%1\">in all dictionaries</a>."

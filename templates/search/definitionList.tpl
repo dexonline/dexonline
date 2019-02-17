@@ -3,28 +3,16 @@
 {$displayedSpec=false}
 
 {foreach $results as $i => $row}
-
   {if $categories}
-    {if $row->source->type == Source::TYPE_SPECIALIZED && !$displayedSpec}
+    {if $row->source->sourceTypeId > 0  && !$displayedSpec[$row->source->sourceTypeId]}
       <br>
       <div class="callout callout-info">
-        <h3>{t}Definitions from specialized dictionaries{/t}</h3>
+        <h3>{t}{$sourceTypes['label'][$row->source->sourceTypeId]}{/t}</h3>
         <p class="text-muted">
-          {t}These definitions could explain only certain meanings of words.{/t}
+          {t}{$sourceTypes['desc'][$row->source->sourceTypeId]}{/t}
         </p>
       </div>
-      {$displayedSpec=true}
-    {elseif $row->source->type == Source::TYPE_UNOFFICIAL && !$displayedUnofficial}
-      <br>
-      <div class="callout callout-info">
-        <h3>{t}Definitions from unofficial dictionaries{/t}</h3>
-        <p class="text-muted">
-          {t}Since they are not made by lexicographers, these definitions may
-          contain errors, so we advise you to look at other dictionaries as
-          well.{/t}
-        </p>
-      </div>
-      {$displayedUnofficial=true}
+      {$displayedSpec[$row->source->sourceTypeId]=true}
     {/if}
   {/if}
 

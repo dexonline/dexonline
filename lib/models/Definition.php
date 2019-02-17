@@ -275,7 +275,7 @@ class Definition extends BaseObject implements DatedObject {
       $query = $query->where('s.id', $sourceId);
     }
     $ids = $query
-      ->order_by_desc('s.type')
+      ->order_by_asc('s.sourceTypeId')
       ->order_by_expr(sprintf("d.lexicon = '%s' desc", addslashes($preferredWord)))
       ->order_by_asc('s.displayOrder')
       ->order_by_asc('d.lexicon')

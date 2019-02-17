@@ -154,5 +154,5 @@ Smart::assign([
   'homonyms' => $homonyms,
 ]);
 Smart::addResources('admin', 'editableMeaningTree', 'frequentObjects',
-                    'meaningTree', 'select2Dev', 'textComplete');
+                    'meaningTree', 'select2Dev', 'textComplete', 'scrollTop');
 Smart::display('editTree.tpl');

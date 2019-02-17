@@ -164,7 +164,8 @@ Smart::assign([
   'models' => $models,
   'canEdit' => $canEdit,
 ]);
-Smart::addResources('paradigm', 'admin', 'frequentObjects', 'select2Dev', 'modelDropdown');
+Smart::addResources('paradigm', 'admin', 'frequentObjects',
+                    'select2Dev', 'modelDropdown', 'scrollTop');
 Smart::display('admin/lexemeEdit.tpl');
 
 /**************************************************************************/

@@ -13,6 +13,9 @@ class HtmlConverter {
   private static $errors = [];
   private static $warnings = [];
 
+  // for reporting script conflicts, generated lazily
+  private static $scriptMap = null;
+
   static function convert($obj) {
     if (!$obj) {
       return null;

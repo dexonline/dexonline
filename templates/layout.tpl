@@ -30,7 +30,7 @@
     {/block}
   </head>
 
-  <body>
+  <body class="{$pageType}">
 
     {Plugin::notify('bodyStart')}
 

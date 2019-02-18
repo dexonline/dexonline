@@ -3,6 +3,11 @@
   margin-bottom: 0;
 }
 
+body.search section.search,
+body.other section.search {
+  margin-top: 20px;
+}
+
 .panel-admin .defWrapper {
   padding: 0 3px;
   font-size: 1em;

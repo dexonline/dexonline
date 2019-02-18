@@ -1,18 +1,16 @@
 {$categories=$categories|default:true}
-{$displayedUnofficial=false}
-{$displayedSpec=false}
+{$displayedSpec=[]}
 
 {foreach $results as $i => $row}
   {if $categories}
-    {if $row->source->sourceTypeId > 0  && !$displayedSpec[$row->source->sourceTypeId]}
+    {$tid=$row->source->sourceTypeId}
+    {if $tid > 0  && !isset($displayedSpec[$tid])}
       <br>
       <div class="callout callout-info">
-        <h3>{t}{$sourceTypes['label'][$row->source->sourceTypeId]}{/t}</h3>
-        <p class="text-muted">
-          {t}{$sourceTypes['desc'][$row->source->sourceTypeId]}{/t}
-        </p>
+        <h3>{SourceType::getName($tid)}</h3>
+        <p class="text-muted">{SourceType::getDescription($tid)}</p>
       </div>
-      {$displayedSpec[$row->source->sourceTypeId]=true}
+      {$displayedSpec[$tid]=true}
     {/if}
   {/if}
 

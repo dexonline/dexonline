@@ -1,5 +1,5 @@
-Am întîlnit caractere alăturate din alfabete diferite, evidențiate mai jos
-cu verde, pe care le-am înlocuit cu succes astfel:
+Am întîlnit caractere alăturate din alfabete diferite pe care le-am înlocuit
+cu succes astfel:
 
 <ul class="voffset3">
   {foreach $fixedConflicts as $c}
@@ -10,4 +10,3 @@ cu verde, pe care le-am înlocuit cu succes astfel:
     </li>
   {/foreach}
 </ul>
-

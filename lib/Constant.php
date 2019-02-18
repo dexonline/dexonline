@@ -127,7 +127,12 @@ class Constant {
   // If glyph $from is surrounded by two glyphs in the $script script, replace it by $to.
   const FIXABLE_UNICODE_CONFLICTS = [
     'a' => ['chirilic' => 'а'],
-    'o' => ['chirilic' => 'о'],
+    'c' => ['chirilic' => 'с'],
+    'e' => ['chirilic' => 'е'],
+    'o' => ['chirilic' => 'о', 'greek' => 'ο'],
+    'p' => ['chirilic' => 'р'],
+    'x' => ['chirilic' => 'х'],
+    'y' => ['chirilic' => 'у'],
   ];
 
   // prefixes which should be followed by 'î', not 'â'

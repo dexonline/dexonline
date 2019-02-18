@@ -123,6 +123,13 @@ class Constant {
     'chirilic' => [ [0x400, 0x4ff], [0xa640, 0xa69f] ],
   ];
 
+  // <from> => [<script> => <to>, ...], ...
+  // If glyph $from is surrounded by two glyphs in the $script script, replace it by $to.
+  const FIXABLE_UNICODE_CONFLICTS = [
+    'a' => ['chirilic' => 'а'],
+    'o' => ['chirilic' => 'о'],
+  ];
+
   // prefixes which should be followed by 'î', not 'â'
   const I_PREFIXES = [
     'auto',

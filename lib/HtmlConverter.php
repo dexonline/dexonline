@@ -13,9 +13,6 @@ class HtmlConverter {
   private static $errors = [];
   private static $warnings = [];
 
-  // for reporting script conflicts, generated lazily
-  private static $scriptMap = null;
-
   static function convert($obj) {
     if (!$obj) {
       return null;
@@ -39,23 +36,8 @@ class HtmlConverter {
     FlashMessage::bulkAdd(self::$errors);
   }
 
-  static function buildScriptMap() {
-    if (self::$scriptMap === null) {
-      self::$scriptMap = [];
-
-      foreach (Constant::UNICODE_SCRIPTS as $scriptName => $scriptRanges) {
-        foreach ($scriptRanges as $range) {
-          for ($code = $range[0]; $code <= $range[1]; $code++) {
-            self::$scriptMap[Str::chr($code)] = $scriptName;
-          }
-        }
-      }
-
-    }
-  }
-
   static function highlightScriptConflicts($s) {
-    self::buildScriptMap();
+    $scriptMap = Str::getScriptMap();
 
     $prev2 = null;
     $prev2Script = null;
@@ -67,10 +49,9 @@ class HtmlConverter {
     $glyphs = Str::unicodeExplode($s);
 
     foreach ($glyphs as $glyph) {
-      $script = self::$scriptMap[$glyph] ?? null;
+      $script = $scriptMap[$glyph] ?? null;
 
-      // wrap $prev if it contains a different script than the current glyph
-      // of the glyph before $prev
+      // wrap $prev if it contains a different script than the glyph before or after it
       if ($prevScript &&
           (($prev2Script && ($prev2Script != $prevScript)) ||
            ($script && ($script != $prevScript)))) {

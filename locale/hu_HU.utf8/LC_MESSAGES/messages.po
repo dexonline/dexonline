@@ -1096,25 +1096,60 @@ msgid "link to this paradigm"
 msgstr "hivatkozás erre a ragozási mintára"
 
 #: templates/search/definitionList.tpl:11
-msgid "Definitions from specialized dictionaries"
+msgid "General use dictionaries"
+msgstr "Dicționare explicative"
+
+msgid "Morphological dictionaries"
+msgstr "Dicționare morfologice"
+
+msgid "Relational dictionaries"
+msgstr "Dicționare relaționale"
+
+msgid "Etymological dictionaries"
+msgstr "Dicționare etimologice"
+
+msgid "Specialized dictionaries"
 msgstr "Szakkifejezések meghatározása"
 
-#: templates/search/definitionList.tpl:13
-msgid "These definitions could explain only certain meanings of words."
-msgstr ""
-"Ezek a meghatározások csak a szavak bizonyos jelentéseit magyarázhatják."
+msgid "Encyclopedic dictionaries"
+msgstr "Dicționare enciclopedice"
 
-#: templates/search/definitionList.tpl:20
-msgid "Definitions from unofficial dictionaries"
-msgstr "Nem hivatalos szótárak meghatározása"
+msgid "Slang dictionaries"
+msgstr "Dicționare de argou"
 
-#: templates/search/definitionList.tpl:22
-msgid ""
-"Since they are not made by lexicographers, these definitions may contain "
-"errors, so we advise you to look at other dictionaries as well."
-msgstr ""
-"Mivel nem nyelvészek szerkesztették ezeket, a meghatározások hibákat "
-"tartalmazhatnak, ezért javasoljuk hogy tekintsd át a többi szótárat is."
+msgid  "Other dictionaries"
+msgstr "Dicționare neclasificate"
+
+msgid  "Unverified dictionaries"
+msgstr "Szótárak meghatározása""
+
+#: templates/search/definitionList.tpl:14
+msgid  "The most common sense of the words are explained."
+msgstr "Explică cele mai întâlnite sensuri ale cuvintelor."
+
+msgid  "The correspondences between lemma and lexical forms of words."
+msgstr "Se indică corespondența dintre forma de bază a unui cuvânt și flexiunile sale."
+
+msgid  "These are not definitions, but relations between words."
+msgstr "Nu reprezintă definiții, ci se indică relații între cuvinte."
+
+msgid  "The etymology of (family of) words are explained."
+msgstr "Se explică etimologiile cuvintelor sau familiilor de cuvinte."
+
+msgid "These definitions usually explain only specialized meanings of words."
+msgstr "Aceste definiții explică de obicei numai înțelesuri specializate ale cuvintelor."
+
+msgid  "Encyclopedic definitions."
+msgstr "Definiții enciclopedice."
+
+msgid  "Only slang words or senses are defined."
+msgstr "Se explică doar sensurile argotice ale cuvintelor."
+
+msgid  "These definitions could explain only certain meanings of words."
+msgstr "Ezek a meghatározások csak a szavak bizonyos jelentéseit magyarázhatják."
+
+msgid  "Since they are not made by lexicographers, these definitions may contain errors."
+msgstr "Mivel nem nyelvészek szerkesztették ezeket, a meghatározások hibákat tartalmazhatnak."
 
 #: templates/search/extendToAllSources.tpl:3
 msgid "Repeat your search <a href=\"%1\">in all dictionaries</a>."

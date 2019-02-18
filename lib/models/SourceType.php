@@ -13,39 +13,53 @@ class SourceType extends BaseObject {
   const TYPE_DICT_OTHER = 999;
   const TYPE_DICT_UNVERIFIED = 1000;
 
-  const SOURCE_TYPE_NAMES = array(
-    self::TYPE_DICT_GENERAL_USE => 'General use dictionaries',
-    self::TYPE_DICT_MORPHOLOGICAL => 'Morphological dictionaries',
-    self::TYPE_DICT_RELATIONAL => 'Relational dictionaries',
-    self::TYPE_DICT_ETYMOLOGICAL => 'Etymological dictionaries',
-    self::TYPE_DICT_SPECIALIZED => 'Specialized dictionaries',
-    self::TYPE_DICT_ENCYCLOPEDIC => 'Encyclopedic dictionaries',
-    self::TYPE_DICT_SLANG => 'Slang dictionaries',
-    self::TYPE_DICT_OTHER => 'Other dictionaries',
-    self::TYPE_DICT_UNVERIFIED => 'Unverified dictionaries'
-  );
+  const ALL_TYPES = [
+    self::TYPE_DICT_GENERAL_USE,
+    self::TYPE_DICT_MORPHOLOGICAL,
+    self::TYPE_DICT_RELATIONAL,
+    self::TYPE_DICT_ETYMOLOGICAL,
+    self::TYPE_DICT_SPECIALIZED,
+    self::TYPE_DICT_ENCYCLOPEDIC,
+    self::TYPE_DICT_SLANG,
+    self::TYPE_DICT_OTHER,
+    self::TYPE_DICT_UNVERIFIED,
+  ];
 
-  const SOURCE_TYPE_DESCRIPTION = array(
-    self::TYPE_DICT_GENERAL_USE => 'The most common sense of the words are explained.',
-    self::TYPE_DICT_MORPHOLOGICAL => 'The correspondences between lemma and lexical forms of words.',
-    self::TYPE_DICT_RELATIONAL => 'These are not definitions, but relations between words.',
-    self::TYPE_DICT_ETYMOLOGICAL => 'The etymology of (family of) words are explained.',
-    self::TYPE_DICT_SPECIALIZED => 'These definitions usually explain only specialized meanings of words.',
-    self::TYPE_DICT_ENCYCLOPEDIC => 'Encyclopedic definitions',
-    self::TYPE_DICT_SLANG => 'Only slang words or senses are defined.',
-    self::TYPE_DICT_OTHER => 'These definitions could explain only certain meanings of words.',
-    self::TYPE_DICT_UNVERIFIED => 'Since they are not made by lexicographers, these definitions may contain errors.'
-  );
-
-  static function getDictTypes() {
-    return array(
-      'label' => self::SOURCE_TYPE_NAMES,
-      'desc'  => self::SOURCE_TYPE_DESCRIPTION
-    );
+  static function getName($typeId) {
+    switch ($typeId) {
+      case self::TYPE_DICT_GENERAL_USE:   return _('General use dictionaries');
+      case self::TYPE_DICT_MORPHOLOGICAL: return _('Morphological dictionaries');
+      case self::TYPE_DICT_RELATIONAL:    return _('Relational dictionaries');
+      case self::TYPE_DICT_ETYMOLOGICAL:  return _('Etymological dictionaries');
+      case self::TYPE_DICT_SPECIALIZED:   return _('Specialized dictionaries');
+      case self::TYPE_DICT_ENCYCLOPEDIC:  return _('Encyclopedic dictionaries');
+      case self::TYPE_DICT_SLANG:         return _('Slang dictionaries');
+      case self::TYPE_DICT_OTHER:         return _('Other dictionaries');
+      case self::TYPE_DICT_UNVERIFIED:    return _('Unverified dictionaries');
+    }
   }
 
-  static function getAll() {
-    $query = Model::factory(SourceType::$_table);
-    return $query->find_many();
+  static function getDescription($typeId) {
+    switch ($typeId) {
+      case self::TYPE_DICT_GENERAL_USE:
+        return _('The most common sense of the words are explained.');
+      case self::TYPE_DICT_MORPHOLOGICAL:
+        return _('The correspondences between lemma and lexical forms of words.');
+      case self::TYPE_DICT_RELATIONAL:
+        return _('These are not definitions, but relations between words.');
+      case self::TYPE_DICT_ETYMOLOGICAL:
+        return _('The etymology of (family of) words are explained.');
+      case self::TYPE_DICT_SPECIALIZED:
+        return _('These definitions usually explain only specialized meanings of words.');
+      case self::TYPE_DICT_ENCYCLOPEDIC:
+        return _('Encyclopedic definitions');
+      case self::TYPE_DICT_SLANG:
+        return _('Only slang words or senses are defined.');
+      case self::TYPE_DICT_OTHER:
+        return _('These definitions could explain only certain meanings of words.');
+      case self::TYPE_DICT_UNVERIFIED:
+        return _('Since they are not made by lexicographers, these definitions may contain errors.');
+    }
   }
+
 }

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2019-02-04 14:56+0200\n"
-"PO-Revision-Date: 2019-02-04 14:57+0200\n"
+"POT-Creation-Date: 2019-02-18 11:21+0200\n"
+"PO-Revision-Date: 2019-02-18 11:21+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: es\n"
@@ -29,54 +29,54 @@ msgstr "Su búsqueda <b>%1</b> es una elisión de <b>%2</b>."
 msgid "linguistic articles"
 msgstr "artículos lingüísticos"
 
-#: templates/bits/definitionMenuProper.tpl:24
+#: templates/bits/definitionMenuProper.tpl:37
 msgid "source"
 msgstr "fuente"
 
-#: templates/bits/definitionMenuProper.tpl:39
+#: templates/bits/definitionMenuProper.tpl:52
 msgid "provided by"
 msgstr "proporcionado por"
 
-#: templates/bits/definitionMenuProper.tpl:49
+#: templates/bits/definitionMenuProper.tpl:62
 msgid "status"
 msgstr "estado"
 
-#: templates/bits/definitionMenuProper.tpl:56
+#: templates/bits/definitionMenuProper.tpl:69
 msgid "added by"
 msgstr "añadida por"
 
-#: templates/bits/definitionMenuProper.tpl:123
+#: templates/bits/definitionMenuProper.tpl:136
 msgid "actions"
 msgstr "acciones"
 
-#: templates/bits/definitionMenuProper.tpl:136 templates/bits/typoForm.tpl:13
+#: templates/bits/definitionMenuProper.tpl:149 templates/bits/typoForm.tpl:13
 #: templates/bits/typoForm.tpl:59
 msgid "report a typo"
 msgstr "comunicar un error"
 
-#: templates/bits/definitionMenuProper.tpl:148
-#: templates/bits/definitionMenuProper.tpl:158
+#: templates/bits/definitionMenuProper.tpl:161
+#: templates/bits/definitionMenuProper.tpl:171
 msgid "added to favorites"
 msgstr "añadido a favoritos"
 
-#: templates/bits/definitionMenuProper.tpl:157
-#: templates/bits/definitionMenuProper.tpl:172
+#: templates/bits/definitionMenuProper.tpl:170
+#: templates/bits/definitionMenuProper.tpl:185
 msgid "please wait..."
 msgstr "espere por favor…"
 
-#: templates/bits/definitionMenuProper.tpl:159
+#: templates/bits/definitionMenuProper.tpl:172
 msgid "add to favorites"
 msgstr "añadir a favoritos"
 
-#: templates/bits/definitionMenuProper.tpl:173
+#: templates/bits/definitionMenuProper.tpl:186
 msgid "remove from favorites"
 msgstr "eliminar de favoritos"
 
-#: templates/bits/definitionMenuProper.tpl:185
+#: templates/bits/definitionMenuProper.tpl:198
 msgid "permalink"
 msgstr "enlace permanente"
 
-#: templates/bits/definitionMenuProper.tpl:233
+#: templates/bits/definitionMenuProper.tpl:246
 msgid "+1 identical definition"
 msgid_plural "+%1 identical definitions"
 msgstr[0] "+1 definición idéntica"
@@ -1099,62 +1099,6 @@ msgstr "enlace a la página de las formas flexionadas"
 msgid "link to this paradigm"
 msgstr "enlace al paradigma"
 
-#: templates/search/definitionList.tpl:11
-msgid "General use dictionaries"
-msgstr "Dicționare explicative"
-
-msgid "Morphological dictionaries"
-msgstr "Dicționare morfologice"
-
-msgid "Relational dictionaries"
-msgstr "Dicționare relaționale"
-
-msgid "Etymological dictionaries"
-msgstr "Dicționare etimologice"
-
-msgid "Specialized dictionaries"
-msgstr "Diccionarios especializados"
-
-msgid "Encyclopedic dictionaries"
-msgstr "Dicționare enciclopedice"
-
-msgid "Slang dictionaries"
-msgstr "Dicționare de argou"
-
-msgid  "Other dictionaries"
-msgstr "Dicționare neclasificate"
-
-msgid  "Unverified dictionaries"
-msgstr "Definiții din dicționare neverificate"
-
-#: templates/search/definitionList.tpl:14
-msgid  "The most common sense of the words are explained."
-msgstr "Explică cele mai întâlnite sensuri ale cuvintelor."
-
-msgid  "The correspondences between lemma and lexical forms of words."
-msgstr "Se indică corespondența dintre forma de bază a unui cuvânt și flexiunile sale."
-
-msgid  "These are not definitions, but relations between words."
-msgstr "Nu reprezintă definiții, ci se indică relații între cuvinte."
-
-msgid  "The etymology of (family of) words are explained."
-msgstr "Se explică etimologiile cuvintelor sau familiilor de cuvinte."
-
-msgid "These definitions usually explain only specialized meanings of words."
-msgstr "Aceste definiții explică de obicei numai înțelesuri specializate ale cuvintelor."
-
-msgid  "Encyclopedic definitions."
-msgstr "Definiții enciclopedice."
-
-msgid  "Only slang words or senses are defined."
-msgstr "Se explică doar sensurile argotice ale cuvintelor."
-
-msgid  "These definitions could explain only certain meanings of words."
-msgstr "Estos diccionarios pueden explicar solo algunos de los significados de las palabras."
-
-msgid  "Since they are not made by lexicographers, these definitions may contain errors."
-msgstr "Ya que no se definieron por lexicógrafos, estas definiciones pueden contener errores."
-
 #: templates/search/extendToAllSources.tpl:3
 msgid "Repeat your search <a href=\"%1\">in all dictionaries</a>."
 msgstr "Buscar de nuevo <a href=\"%1\">en todos los diccionarios</a>."
@@ -1422,6 +1366,84 @@ msgstr ""
 #: lib/models/InflectedForm.php:78
 msgid "long verb form"
 msgstr "forma larga"
+
+#: lib/models/SourceType.php:30
+msgid "General use dictionaries"
+msgstr ""
+
+#: lib/models/SourceType.php:31
+msgid "Morphological dictionaries"
+msgstr ""
+
+#: lib/models/SourceType.php:32
+msgid "Relational dictionaries"
+msgstr ""
+
+#: lib/models/SourceType.php:33
+msgid "Etymological dictionaries"
+msgstr ""
+
+#: lib/models/SourceType.php:34
+msgid "Specialized dictionaries"
+msgstr "Diccionarios especializados"
+
+#: lib/models/SourceType.php:35
+msgid "Encyclopedic dictionaries"
+msgstr ""
+
+#: lib/models/SourceType.php:36
+msgid "Slang dictionaries"
+msgstr ""
+
+#: lib/models/SourceType.php:37
+msgid "Other dictionaries"
+msgstr ""
+
+#: lib/models/SourceType.php:38
+msgid "Unverified dictionaries"
+msgstr ""
+
+#: lib/models/SourceType.php:45
+msgid "The most common sense of the words are explained."
+msgstr ""
+
+#: lib/models/SourceType.php:47
+msgid "The correspondences between lemma and lexical forms of words."
+msgstr ""
+
+#: lib/models/SourceType.php:49
+msgid "These are not definitions, but relations between words."
+msgstr ""
+
+#: lib/models/SourceType.php:51
+msgid "The etymology of (family of) words are explained."
+msgstr ""
+
+#: lib/models/SourceType.php:53
+msgid "These definitions usually explain only specialized meanings of words."
+msgstr ""
+
+#: lib/models/SourceType.php:55
+msgid "Encyclopedic definitions"
+msgstr "Definiciones enciclopedicas"
+
+#: lib/models/SourceType.php:57
+msgid "Only slang words or senses are defined."
+msgstr ""
+
+#: lib/models/SourceType.php:59
+msgid "These definitions could explain only certain meanings of words."
+msgstr ""
+"Estos diccionarios pueden explicar solo algunos de los significados de las "
+"palabras."
+
+#: lib/models/SourceType.php:61
+msgid ""
+"Since they are not made by lexicographers, these definitions may contain "
+"errors."
+msgstr ""
+"Ya que no se definieron por lexicógrafos, estas definiciones pueden contener "
+"errores."
 
 #: www/changeLocale.php:8
 msgid ""

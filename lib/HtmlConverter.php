@@ -13,6 +13,9 @@ class HtmlConverter {
   private static $errors = [];
   private static $warnings = [];
 
+  // for reporting script conflicts, generated lazily
+  private static $scriptMap = null;
+
   static function convert($obj) {
     if (!$obj) {
       return null;
@@ -25,6 +28,7 @@ class HtmlConverter {
     if ($obj instanceof Definition) {
       $obj->setFootnotes($footnotes);
       $html = self::highlightRareGlyphs($html, $obj->rareGlyphs);
+      $html = self::highlightScriptConflicts($html);
     }
     return $html;
   }
@@ -33,6 +37,65 @@ class HtmlConverter {
   static function exportMessages() {
     FlashMessage::bulkAdd(self::$warnings, 'warning');
     FlashMessage::bulkAdd(self::$errors);
+  }
+
+  static function buildScriptMap() {
+    if (self::$scriptMap === null) {
+      self::$scriptMap = [];
+
+      foreach (Constant::UNICODE_SCRIPTS as $scriptName => $scriptRanges) {
+        foreach ($scriptRanges as $range) {
+          for ($code = $range[0]; $code <= $range[1]; $code++) {
+            self::$scriptMap[Str::chr($code)] = $scriptName;
+          }
+        }
+      }
+
+    }
+  }
+
+  static function highlightScriptConflicts($s) {
+    self::buildScriptMap();
+
+    $prev2 = null;
+    $prev2Script = null;
+    $prev = null;
+    $prevScript = null;
+    $result = '';
+    $conflicts = [];
+
+    $glyphs = Str::unicodeExplode($s);
+
+    foreach ($glyphs as $glyph) {
+      $script = self::$scriptMap[$glyph] ?? null;
+
+      // wrap $prev if it contains a different script than the current glyph
+      // of the glyph before $prev
+      if ($prevScript &&
+          (($prev2Script && ($prev2Script != $prevScript)) ||
+           ($script && ($script != $prevScript)))) {
+        $result .= "<span class=\"conflictingScripts\">$prev</span>";
+        $conflicts[] = ['glyph' => $prev, 'script' => $prevScript];
+      } else {
+        $result .= $prev;
+      }
+
+      $prev2 = $prev;
+      $prev2Script = $prevScript;
+      $prev = $glyph;
+      $prevScript = $script;
+    }
+
+    // never wrap the final glyph
+    $result .= array_pop($glyphs);
+
+    if (count($conflicts)) {
+      FlashMessage::addTemplate('conflictingScripts.tpl',
+                                [ 'conflicts' => $conflicts],
+                                'warning');
+    }
+
+    return $result;
   }
 
   static function highlightRareGlyphs($s, $rareGlyphs) {

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2019-02-18 11:02+0200\n"
-"PO-Revision-Date: 2019-02-18 11:03+0200\n"
+"POT-Creation-Date: 2019-02-18 11:21+0200\n"
+"PO-Revision-Date: 2019-02-18 11:21+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: es\n"
@@ -1369,19 +1369,19 @@ msgstr "forma larga"
 
 #: lib/models/SourceType.php:30
 msgid "General use dictionaries"
-msgstr "Dicționare explicative"
+msgstr ""
 
 #: lib/models/SourceType.php:31
 msgid "Morphological dictionaries"
-msgstr "Dicționare morfologice"
+msgstr ""
 
 #: lib/models/SourceType.php:32
 msgid "Relational dictionaries"
-msgstr "Dicționare relaționale"
+msgstr ""
 
 #: lib/models/SourceType.php:33
 msgid "Etymological dictionaries"
-msgstr "Dicționare etimologice"
+msgstr ""
 
 #: lib/models/SourceType.php:34
 msgid "Specialized dictionaries"
@@ -1389,43 +1389,39 @@ msgstr "Diccionarios especializados"
 
 #: lib/models/SourceType.php:35
 msgid "Encyclopedic dictionaries"
-msgstr "Dicționare enciclopedice"
+msgstr ""
 
 #: lib/models/SourceType.php:36
 msgid "Slang dictionaries"
-msgstr "Dicționare de argou"
+msgstr ""
 
 #: lib/models/SourceType.php:37
 msgid "Other dictionaries"
-msgstr "Dicționare neclasificate"
+msgstr ""
 
 #: lib/models/SourceType.php:38
 msgid "Unverified dictionaries"
-msgstr "Definiții din dicționare neverificate"
+msgstr ""
 
 #: lib/models/SourceType.php:45
 msgid "The most common sense of the words are explained."
-msgstr "Explică cele mai întâlnite sensuri ale cuvintelor."
+msgstr ""
 
 #: lib/models/SourceType.php:47
 msgid "The correspondences between lemma and lexical forms of words."
 msgstr ""
-"Se indică corespondența dintre forma de bază a unui cuvânt și flexiunile "
-"sale."
 
 #: lib/models/SourceType.php:49
 msgid "These are not definitions, but relations between words."
-msgstr "Nu reprezintă definiții, ci se indică relații între cuvinte."
+msgstr ""
 
 #: lib/models/SourceType.php:51
 msgid "The etymology of (family of) words are explained."
-msgstr "Se explică etimologiile cuvintelor sau familiilor de cuvinte."
+msgstr ""
 
 #: lib/models/SourceType.php:53
 msgid "These definitions usually explain only specialized meanings of words."
 msgstr ""
-"Aceste definiții explică de obicei numai înțelesuri specializate ale "
-"cuvintelor."
 
 #: lib/models/SourceType.php:55
 msgid "Encyclopedic definitions"
@@ -1433,7 +1429,7 @@ msgstr "Definiciones enciclopedicas"
 
 #: lib/models/SourceType.php:57
 msgid "Only slang words or senses are defined."
-msgstr "Se explică doar sensurile argotice ale cuvintelor."
+msgstr ""
 
 #: lib/models/SourceType.php:59
 msgid "These definitions could explain only certain meanings of words."

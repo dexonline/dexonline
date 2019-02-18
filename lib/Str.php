@@ -2,6 +2,9 @@
 
 class Str {
 
+  // for fixing and reporting script conflicts, generated lazily
+  private static $scriptMap = null;
+
   // Convert old (î) orthography to new (â) orthography.
   // Assumes $s uses diacritics (if needed).
   static function convertOrthography($s) {
@@ -308,7 +311,9 @@ class Str {
       $ambiguousAbbrevs = [];
     }
 
-    self::reportSanitizationErrors($s, $warnings);
+    $chars = self::unicodeExplode($s);
+    self::reportSanitizationErrors($chars, $warnings);
+    $s = self::fixScriptConflicts($chars, $warnings);
 
     $s = self::attributeFootnotes($s);
 
@@ -318,8 +323,7 @@ class Str {
   // Checks that various pairs of characters are nested properly in $s.
   // Some pairs contain the same character for opening and closing blocks (e.g. '@').
   // We cannot check the nesting of () due the use of ) in "a), b), c)".
-  static function reportSanitizationErrors($s, &$errors) {
-    $chars = self::unicodeExplode($s);
+  static function reportSanitizationErrors($chars, &$errors) {
     self::sanitizationStackTest($chars, $errors, '@$%#', ['{}']);
     self::sanitizationStackTest($chars, $errors, '', ['[]']);
     self::sanitizationStackTest($chars, $errors, '"', ['«»']);
@@ -459,6 +463,74 @@ class Str {
     }
 
     return $class;
+  }
+
+  static function getScriptMap() {
+    if (self::$scriptMap === null) {
+      self::$scriptMap = [];
+
+      foreach (Constant::UNICODE_SCRIPTS as $scriptName => $scriptRanges) {
+        foreach ($scriptRanges as $range) {
+          for ($code = $range[0]; $code <= $range[1]; $code++) {
+            self::$scriptMap[Str::chr($code)] = $scriptName;
+          }
+        }
+      }
+
+    }
+
+    return self::$scriptMap;
+  }
+
+  static function fixScriptConflicts($chars, &$warnings) {
+    $scriptMap = self::getScriptMap();
+
+    $prev2 = null;
+    $prev2Script = null;
+    $prev = null;
+    $prevScript = null;
+    $result = '';
+    $fixedConflicts = [];
+
+    foreach ($chars as $glyph) {
+      $script = $scriptMap[$glyph] ?? null;
+      $to = Constant::FIXABLE_UNICODE_CONFLICTS[$prev][$script] ?? null;
+
+      // fix $prev if it is a known fixable glyph, e.g. a (Latin) --> а (Cyrillic)
+      if ($prev2Script && $script &&
+          ($prev2Script == $script) && // same scripts before and after
+          $to) { // glyph has a correspondent in the surrounding script
+          $fixedConflicts[] = [
+            'glyphFrom' => $prev,
+            'glyphTo' => $to,
+            'scriptFrom' => $prevScript,
+            'scriptTo' => $script,
+            'context' => $prev2 . $prev . $glyph,
+          ];
+          $prevScript = $script;
+          $prev = $to;
+      }
+
+      $result .= $prev;
+
+      $prev2 = $prev;
+      $prev2Script = $prevScript;
+      $prev = $glyph;
+      $prevScript = $script;
+    }
+
+    // never wrap the final glyph
+    $result .= $chars[count($chars) - 1];
+
+    if (count($fixedConflicts)) {
+      $warnings[] = [
+        'conflictingScriptsFixed.tpl',
+        [ 'fixedConflicts' => $fixedConflicts],
+      ];
+    }
+
+    return $result;
+
   }
 
   // append /userId to {{footnotes}} that don't have one

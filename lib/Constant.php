@@ -116,6 +116,13 @@ class Constant {
     ],
   ];
 
+  const UNICODE_SCRIPTS = [
+    // script names not localized -- for editor eyes only
+    'latin' => [ [0x41, 0x5a], [0x61, 0x7a], [0xc0, 0xff], [0x100, 0x17f] ],
+    'grec' => [ [0x370, 0x3ff], [0x1f00, 0x1fff] ],
+    'chirilic' => [ [0x400, 0x4ff], [0xa640, 0xa69f] ],
+  ];
+
   // prefixes which should be followed by 'î', not 'â'
   const I_PREFIXES = [
     'auto',

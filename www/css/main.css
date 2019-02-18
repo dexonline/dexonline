@@ -233,6 +233,11 @@ abbr[title] {
   text-decoration: underline double;
 }
 
+.conflictingScripts {
+  background: red;
+  color: white;
+}
+
 .rareGlyph {
   background: red;
   color: white;

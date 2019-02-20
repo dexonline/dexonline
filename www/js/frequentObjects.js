@@ -24,6 +24,7 @@ $(function() {
 
     $('.frequentObjects').sortable({
       cancel: '',                // otherwise buttons are not sortable.
+      distance: 30,                // prevent unwanted drags when intending to click
       items: '> div:not(:last)', // don't let the user drag the + button :-)
       stop: function() {
         saveToCookie($(this).closest('.frequentObjects'));

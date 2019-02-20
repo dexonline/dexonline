@@ -502,7 +502,7 @@ class Str {
         $fixed = false;
         if ((count($scripts) == 2) && isset($scripts['latin'])) {
           unset($scripts['latin']);
-          $otherScript = array_key_first($scripts);
+          $otherScript = key($scripts);
 
           // check if every Latin character has a lookalike in the other script
           $k = $i;

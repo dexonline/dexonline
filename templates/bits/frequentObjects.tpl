@@ -17,11 +17,19 @@
 
     <div class="btn-group btn-group-xs frequentObjectAddDiv">
       <button type="button"
-              class="btn btn-default"
-              data-toggle="modal"
-              data-target="#frequentObjectModal"
-              title="adaugă o valoare folosită frecvent">
+        class="btn btn-default"
+        data-toggle="modal"
+        data-target="#frequentObjectModal"
+        title="adaugă o valoare folosită frecvent">
         <i class="glyphicon glyphicon-plus"></i>
+      </button>
+    </div>
+
+    <div class="btn-group btn-group-xs frequentObjectTrash">
+      <button type="button"
+        class="btn btn-default"
+        title="trageți valori aici pentru a le șterge">
+        <i class="glyphicon glyphicon-trash"></i>
       </button>
     </div>
   </div>
@@ -63,11 +71,6 @@
 
   <div id="frequentObjectStem" class="btn-group btn-group-xs">
     <button class="btn btn-default frequentObject" type="button">
-    </button>
-    <button type="button"
-            class="btn btn-default frequentObjectDelete"
-            title="șterge valoarea din listă">
-      <i class="glyphicon glyphicon-trash"></i>
     </button>
   </div>
 {/if}

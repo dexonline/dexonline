@@ -15,20 +15,23 @@ $(function() {
 
     /* use on() so that cloned copies of stem also respond */
     $('.frequentObjects').on('click', '.frequentObject', frequentObjectClick);
-    $('.frequentObjects').on('click', '.frequentObjectDelete', frequentObjectDelete);
 
     $('#frequentObjectAdd').click(frequentObjectAddClick);
 
     $('#frequentObjectModal').on('shown.bs.modal', modalOpen);
     $('#frequentObjectModal').on('hidden.bs.modal', modalClose);
 
-    $('.frequentObjects').sortable({
-      cancel: '',                // otherwise buttons are not sortable.
-      distance: 30,                // prevent unwanted drags when intending to click
-      items: '> div:not(:last)', // don't let the user drag the + button :-)
+    $('.frequentObjects').draggable().sortable({
+      cancel: '',                    // otherwise buttons are not sortable.
+      distance: 20,                  // prevent unwanted drags when intending to click
+      items: '> div:nth-last-child(n+3)', // don't let the user drag the + and - buttons :-)
       stop: function() {
         saveToCookie($(this).closest('.frequentObjects'));
       }
+    });
+
+    $( ".frequentObjectTrash" ).droppable({
+      drop: frequentObjectDelete,
     });
   }
 
@@ -135,10 +138,12 @@ $(function() {
     div.insertBefore(target.find('.frequentObjectAddDiv'));
   }
 
-  function frequentObjectDelete() {
+  function frequentObjectDelete(event, ui) {
     var target = $(this).closest('.frequentObjects');
-    $(this).closest('.btn-group').remove();
-    saveToCookie(target);
+    ui.draggable.fadeOut(function(){
+      $(this).remove();
+      saveToCookie(target);
+    });
   }
 
   init();

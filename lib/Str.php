@@ -485,52 +485,64 @@ class Str {
   static function fixScriptConflicts($chars, &$warnings) {
     $scriptMap = self::getScriptMap();
 
-    $prev2 = null;
-    $prev2Script = null;
-    $prev = null;
-    $prevScript = null;
-    $result = '';
-    $fixedConflicts = [];
+    $chars[] = '.'; // ensure there is a non-letter at the end
+    $i = 0;
+    while ($i < count($chars)) {
+      $j = $i;
+      $scripts = [];
 
-    foreach ($chars as $glyph) {
-      $script = $scriptMap[$glyph] ?? null;
-      $to = Constant::FIXABLE_UNICODE_CONFLICTS[$prev][$script] ?? null;
-
-      // fix $prev if it is a known fixable glyph, e.g. a (Latin) --> а (Cyrillic)
-      if ($prev2Script && $script &&
-          ($prev2Script == $script) && // same scripts before and after
-          $to) { // glyph has a correspondent in the surrounding script
-          $fixedConflicts[] = [
-            'glyphFrom' => $prev,
-            'glyphTo' => $to,
-            'scriptFrom' => $prevScript,
-            'scriptTo' => $script,
-            'context' => $prev2 . $prev . $glyph,
-          ];
-          $prevScript = $script;
-          $prev = $to;
+      // collect word letters and set of scripts they use
+      while (isset($scriptMap[$chars[$j]])) {
+        $scripts[$scriptMap[$chars[$j]]] = true;
+        $j++;
       }
 
-      $result .= $prev;
+      if (($j > $i) && (count($scripts) > 1)) {
+        // Examine word from $i to $j - 1. Either fix it or complain that it should be fixed.
+        $fixed = false;
+        if ((count($scripts) == 2) && isset($scripts['latin'])) {
+          unset($scripts['latin']);
+          $otherScript = array_key_first($scripts);
 
-      $prev2 = $prev;
-      $prev2Script = $prevScript;
-      $prev = $glyph;
-      $prevScript = $script;
+          // check if every Latin character has a lookalike in the other script
+          $k = $i;
+          while (($k < $j) &&
+                 (($scriptMap[$chars[$k]] != 'latin') ||
+                  isset(Constant::FIXABLE_UNICODE_CONFLICTS[$chars[$k]][$otherScript]))) {
+            $k++;
+          }
+
+          if ($k == $j) {
+            // hooray, fix it
+            for ($k = $i; $k < $j; $k++) {
+              if ($scriptMap[$chars[$k]] == 'latin') {
+                $chars[$k] = Constant::FIXABLE_UNICODE_CONFLICTS[$chars[$k]][$otherScript];
+              }
+            }
+            $warnings[] = [ 'conflictingScriptsFixed.tpl', [
+              'scriptTo' => $otherScript,
+              'stringTo' => implode(array_slice($chars, $i, $j - $i)),
+            ]];
+            $fixed = true;
+          }
+        }
+
+        if (!$fixed) {
+          // either there are multiple non-Latin scripts or some characters
+          // don't have lookalikes in $otherScript
+          $warnings[] = [ 'conflictingScripts.tpl', [
+            'chars' => array_slice($chars, $i, $j - $i),
+            'scriptMap' => $scriptMap,
+          ]];
+        }
+      }
+
+      $i = $j + 1;
     }
 
-    // never wrap the final glyph
-    $result .= $chars[count($chars) - 1];
+    array_pop($chars); // remove the non-letter
 
-    if (count($fixedConflicts)) {
-      $warnings[] = [
-        'conflictingScriptsFixed.tpl',
-        [ 'fixedConflicts' => $fixedConflicts],
-      ];
-    }
-
-    return $result;
-
+    return implode($chars);
   }
 
   // append /userId to {{footnotes}} that don't have one

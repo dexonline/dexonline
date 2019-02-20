@@ -1,11 +1,10 @@
-Definiția conține caractere alăturate din alfabete diferite, evidențiate cu
-roșu mai jos. Vă rugăm să încercați să folosiți litere din alfabetul potrivit.
+Șirul <strong>{$chars|implode}</strong> conține un amestec de litere din
+alfabete diferite. Vă rugăm să verificați corectitudinea.
 
 <ul class="voffset3">
-  {foreach $conflicts as $c}
+  {foreach $chars as $c}
     <li>
-      litera <strong>{$c.glyph}</strong> din alfabetul {$c.script}
+      litera <strong>{$c}</strong> din alfabetul {$scriptMap[$c]}
     </li>
   {/foreach}
 </ul>
-

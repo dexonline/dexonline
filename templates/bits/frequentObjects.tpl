@@ -24,14 +24,6 @@
         <i class="glyphicon glyphicon-plus"></i>
       </button>
     </div>
-
-    <div class="btn-group btn-group-xs frequentObjectTrash">
-      <button type="button"
-        class="btn btn-default"
-        title="trageți valori aici pentru a le șterge">
-        <i class="glyphicon glyphicon-trash"></i>
-      </button>
-    </div>
   </div>
 </div>
 
@@ -65,6 +57,12 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <div id="frequentObjectsTrash">
+    <button class="btn btn-lg btn-danger">
+      <i class="glyphicon glyphicon-trash"></i>
+    </button>
   </div>
 
   {* stem object (to be cloned for additions) *}

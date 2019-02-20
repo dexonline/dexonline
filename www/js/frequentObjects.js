@@ -24,13 +24,20 @@ $(function() {
     $('.frequentObjects').draggable().sortable({
       cancel: '',                    // otherwise buttons are not sortable.
       distance: 20,                  // prevent unwanted drags when intending to click
-      items: '> div:nth-last-child(n+3)', // don't let the user drag the + and - buttons :-)
+      items: '> div:not(:last)', // don't let the user drag the + and - buttons :-)
+      start: function() {
+        $('#frequentObjectsTrash').stop().fadeIn();
+      },
       stop: function() {
+        $('#frequentObjectsTrash').stop().fadeOut();
         saveToCookie($(this).closest('.frequentObjects'));
       }
     });
 
-    $( ".frequentObjectTrash" ).droppable({
+    $( "#frequentObjectsTrash" ).droppable({
+      classes: {
+        'ui-droppable-hover': 'frequentObjectsTrashActive',
+      },
       drop: frequentObjectDelete,
     });
   }
@@ -139,7 +146,7 @@ $(function() {
   }
 
   function frequentObjectDelete(event, ui) {
-    var target = $(this).closest('.frequentObjects');
+    var target = ui.draggable.closest('.frequentObjects');
     ui.draggable.fadeOut(function(){
       $(this).remove();
       saveToCookie(target);

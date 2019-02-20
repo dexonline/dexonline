@@ -2,7 +2,15 @@
   display: flex; /* prevent the name + trash icon from wrapping during drag */
 }
 
-.frequentObjectTrash button.btn {
-  padding-left: 20px;
-  padding-right: 20px;
+#frequentObjectsTrash {
+  display: none;
+  left: 20px;
+  position: fixed;
+  top: 50%;
+  z-index: 99;
+}
+
+.frequentObjectsTrashActive button {
+  transition: font-size 0.2s linear;
+  font-size: 180%;
 }

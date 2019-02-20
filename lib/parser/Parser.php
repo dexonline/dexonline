@@ -173,7 +173,7 @@ abstract class Parser {
 
         case 'meaningNumber':
           $old = $state->getMeaningNumber();
-          $new = substr($content, 1, -1);
+          $new = explode('@', $content)[1];
           $parts = explode('-', $new);
           if (count($parts) > 2) {
             $warnings[] = "Număr de sens incorect: «{$new}».";

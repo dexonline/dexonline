@@ -89,11 +89,17 @@
         <div class="form-group">
           <label class="col-md-2 control-label">etichete</label>
           <div class="col-md-10">
-            <select name="tagIds[]" class="form-control select2Tags" multiple>
+            <select id="tagIds" name="tagIds[]" class="form-control select2Tags" multiple>
               {foreach $tagIds as $tagId}
                 <option value="{$tagId}" selected></option>
               {/foreach}
             </select>
+
+            {include "bits/frequentObjects.tpl"
+              name="treeTags"
+              type="tags"
+              target="#tagIds"}
+
           </div>
         </div>
 

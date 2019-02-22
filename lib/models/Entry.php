@@ -328,26 +328,6 @@ class Entry extends BaseObject implements DatedObject {
     return $errors;
   }
 
-  // delete empty trees that are not associated with any other entries
-  // if $otherTreeId is set, transfer existing Relations from this tree to that one.
-  function deleteEmptyTrees($otherTreeId = null) {
-    foreach ($this->getTrees() as $t) {
-      $meaning = Meaning::get_by_treeId($t->id);
-      if (!$meaning) {
-
-        $otherAssoc = Model::factory('TreeEntry')
-                    ->where('treeId', $t->id)
-                    ->where_not_equal('entryId', $this->id)
-                    ->find_one();
-
-        if (!$otherAssoc) {
-          $t->transferRelations($otherTreeId);
-          $t->delete();
-        }
-      }
-    }
-  }
-
   // delete associated lexemes if
   // 1. they are temporary (model type T);
   // 2. they are only associated with this entry, no other entries;
@@ -373,10 +353,12 @@ class Entry extends BaseObject implements DatedObject {
   }
 
   function mergeInto($otherId) {
-    // transfer the relations to one of the other entry's trees, if any
-    $te = TreeEntry::get_by_entryId($otherId);
-    $otherTreeId = $te ? $te->treeId : null;
-    $this->deleteEmptyTrees($otherTreeId);
+    // delete trees that are safe to delete
+    foreach ($this->getTrees() as $t) {
+      if ($t->canDelete()) {
+        $t->delete();
+      }
+    }
 
     EntryDefinition::copy($this->id, $otherId, 1);
     EntryLexeme::copy($this->id, $otherId, 1, ['main' => true]);

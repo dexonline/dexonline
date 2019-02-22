@@ -101,8 +101,10 @@ if ($deleteTreeId) {
   $t = Tree::get_by_id($deleteTreeId);
   if (!$t) {
     FlashMessage::add("Arborele cu ID-ul {$deleteTreeId} nu există.", 'danger');
-  } else if ($t->hasMeanings()) {
-    FlashMessage::add("Arborele cu ID-ul {$deleteTreeId} nu este gol.", 'danger');
+  } else if (!$t->canDelete()) {
+    FlashMessage::add(
+      "Arborele cu ID-ul {$deleteTreeId} are sensuri, relații sau mențiuni.",
+      'danger');
   } else {
     $t->delete();
     FlashMessage::add('Am șters arborele.', 'success');
@@ -116,7 +118,7 @@ if ($delete) {
   Util::redirectToHome();
 }
 
-// Delete the entry, its T1 lexemes and its empty trees.
+// Delete the entry, its T1 lexemes and its deletable trees.
 if ($deleteExt) {
   foreach ($e->getLexemes() as $l) {
     if (($l->modelType == 'T') &&
@@ -125,7 +127,7 @@ if ($deleteExt) {
     }
   }
   foreach ($e->getTrees() as $t) {
-    if (!$t->hasMeanings()) {
+    if ($t->canDelete()) {
       $t->delete();
     }
   }

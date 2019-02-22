@@ -425,7 +425,7 @@
               editează
             </a>
             <a href="?id={$e->id}&amp;deleteTreeId={$t->id}"
-              class="btn btn-sm btn-danger {if $t->hasMeanings()}disabled{/if}">
+              class="btn btn-sm btn-danger {if !$t->canDelete()}disabled{/if}">
               <i class="glyphicon glyphicon-trash"></i>
               șterge
             </a>

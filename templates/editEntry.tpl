@@ -333,9 +333,21 @@
           </div>
 
           <div class="modal-footer">
-            <button type="submit" class="btn btn-primary" name="associateButton">
+            <button
+              type="submit"
+              class="btn btn-primary"
+              name="associateButton"
+              title="asociază definițiile cu noua intrare și lasă-le asociate și aici">
               <i class="glyphicon glyphicon-resize-small"></i>
-              asociază
+              copiază
+            </button>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              name="moveButton"
+              title="asociază definițiile cu noua intrare și disociază-le de aici">
+              <i class="glyphicon glyphicon-share-alt"></i>
+              mută
             </button>
             <button type="button" class="btn btn-link" data-dismiss="modal">renunță</button>
           </div>

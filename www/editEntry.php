@@ -8,6 +8,7 @@ $saveButton = Request::has('saveButton');
 $mergeButton = Request::has('mergeButton');
 $cloneButton = Request::has('cloneButton');
 $associateButton = Request::has('associateButton');
+$moveButton = Request::has('moveButton');
 $dissociateButton = Request::has('dissociateButton');
 $createTree = Request::has('createTree');
 $deleteTreeId = Request::get('deleteTreeId');
@@ -27,28 +28,39 @@ if ($id) {
   $original = Model::factory('Entry')->create();
 }
 
-if ($associateButton) {
-  $defIds = Request::get('associateDefinitionIds');
-  $defIds = array_filter(explode(',', $defIds));
-  $entryIds = Request::getArray('associateEntryIds');
-  foreach ($defIds as $defId) {
-    foreach ($entryIds as $entryId) {
-      EntryDefinition::associate($entryId, $defId);
-      Log::info("Associated entry {$entryId} with definition {$defId}");
-    }
-  }
-  FlashMessage::add(sprintf('Am asociat %d definiții cu %d intrări.',
-                            count($defIds), count($entryIds)),
-                    'success');
-  Util::redirect("?id={$e->id}");
-}
+if ($associateButton || $moveButton || $dissociateButton) {
+  // data can be coming from two different forms
+  if ($dissociateButton) {
+    // get the definition IDs
+    $defIds = Request::getArray('selectedDefIds');
+  } else {
+    // get the definition IDs and perform the associations
+    $defIds = Request::get('associateDefinitionIds');
+    $defIds = array_filter(explode(',', $defIds));
+    $entryIds = Request::getArray('associateEntryIds');
 
-if ($dissociateButton) {
-  $defIds = Request::getArray('selectedDefIds');
-  foreach ($defIds as $defId) {
-    EntryDefinition::dissociate($e->id, $defId);
-    Log::info("Dissociated entry {$e->id} ({$e->description}) from definition {$defId}");
+    foreach ($defIds as $defId) {
+      foreach ($entryIds as $entryId) {
+        EntryDefinition::associate($entryId, $defId);
+        Log::info("Associated entry {$entryId} with definition {$defId}");
+      }
+    }
+    FlashMessage::add(sprintf('Am asociat %d definiții cu %d intrări.',
+                              count($defIds), count($entryIds)),
+                      'success');
   }
+
+  if ($dissociateButton || $moveButton) {
+    // perform the disassociations
+    foreach ($defIds as $defId) {
+      EntryDefinition::dissociate($e->id, $defId);
+      Log::info("Dissociated entry {$e->id} ({$e->description}) from definition {$defId}");
+    }
+    FlashMessage::add(sprintf('Am disociat %d definiții de intrarea curentă..',
+                              count($defIds)),
+                      'success');
+  }
+
   Util::redirect("?id={$e->id}");
 }
 

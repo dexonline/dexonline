@@ -129,7 +129,7 @@ class Constant {
     'a' => ['chirilic' => 'а'],
     'c' => ['chirilic' => 'с'],
     'e' => ['chirilic' => 'е'],
-    'o' => ['chirilic' => 'о', 'greek' => 'ο'],
+    'o' => ['chirilic' => 'о', 'grec' => 'ο'],
     'p' => ['chirilic' => 'р'],
     'x' => ['chirilic' => 'х'],
     'y' => ['chirilic' => 'у'],

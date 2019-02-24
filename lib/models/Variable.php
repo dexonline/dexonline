@@ -17,4 +17,18 @@ class Variable extends BaseObject implements DatedObject {
     $v->value = $value;
     $v->save();
   }
+
+  // returns an array of name => value
+  static function loadCounts() {
+    $vars = Model::factory('Variable')
+      ->where_like('name', 'Count.%')
+      ->find_many();
+
+    $result = [];
+    foreach ($vars as $var) {
+      $name = str_replace('Count.', '', $var->name);
+      $result[$name] = (int)$var->value;
+    }
+    return $result;
+  }
 }

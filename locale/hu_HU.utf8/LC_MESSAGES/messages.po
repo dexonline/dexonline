@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: BUG-EMAIL-ADDR <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2019-02-18 11:12+0200\n"
-"PO-Revision-Date: 2019-02-18 11:14+0200\n"
+"PO-Revision-Date: 2019-02-24 11:32+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: hu\n"
@@ -80,8 +80,8 @@ msgstr "állandó hivatkozás"
 #: templates/bits/definitionMenuProper.tpl:246
 msgid "+1 identical definition"
 msgid_plural "+%1 identical definitions"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "+1 azonos meghatározás"
+msgstr[1] "+%1 azonos meghatározások"
 
 #: templates/bits/extendedParadigm.tpl:20
 msgid "hyphenation"
@@ -1085,7 +1085,7 @@ msgstr "elrejt"
 
 #: templates/search.tpl:300
 msgid "elisions and long verb forms"
-msgstr ""
+msgstr "hangelnyelések és hosszú ige formák"
 
 #: templates/search.tpl:311
 msgid "link to this inflected forms page"
@@ -1357,85 +1357,91 @@ msgstr "következő"
 
 #: lib/models/InflectedForm.php:75
 msgid "by apheresis and/or elision"
-msgstr ""
+msgstr "aferézis vagy/és hangelnyelés által"
 
 #: lib/models/InflectedForm.php:78
 msgid "long verb form"
-msgstr ""
+msgstr "hosszú ige forma"
 
 #: lib/models/SourceType.php:30
 msgid "General use dictionaries"
-msgstr ""
+msgstr "Általános felhasználási szótárak"
 
 #: lib/models/SourceType.php:31
 msgid "Morphological dictionaries"
-msgstr ""
+msgstr "Morfológiai szótárak"
 
 #: lib/models/SourceType.php:32
 msgid "Relational dictionaries"
-msgstr ""
+msgstr "Rokon értelmű szavak szótárai"
 
 #: lib/models/SourceType.php:33
 msgid "Etymological dictionaries"
-msgstr ""
+msgstr "Etimológiai szótárak"
 
 #: lib/models/SourceType.php:34
 msgid "Specialized dictionaries"
-msgstr ""
+msgstr "Szakszótárak"
 
 #: lib/models/SourceType.php:35
 msgid "Encyclopedic dictionaries"
-msgstr ""
+msgstr "Enciklopédikus szótárak"
 
 #: lib/models/SourceType.php:36
 msgid "Slang dictionaries"
-msgstr ""
+msgstr "Szlengszótárak"
 
 #: lib/models/SourceType.php:37
 msgid "Other dictionaries"
-msgstr ""
+msgstr "Más szótárak"
 
 #: lib/models/SourceType.php:38
 msgid "Unverified dictionaries"
-msgstr ""
+msgstr "Nem hivatalos szótárak"
 
 #: lib/models/SourceType.php:45
 msgid "The most common sense of the words are explained."
-msgstr ""
+msgstr "Megmagyarázzák a szavak leggyakoribb értelmét."
 
 #: lib/models/SourceType.php:47
 msgid "The correspondences between lemma and lexical forms of words."
-msgstr ""
+msgstr "A tőszó és más lexikai formák közötti összefüggések."
 
 #: lib/models/SourceType.php:49
 msgid "These are not definitions, but relations between words."
-msgstr ""
+msgstr "Ezek nem meghatározások, csak szavak közötti összefüggések."
 
 #: lib/models/SourceType.php:51
 msgid "The etymology of (family of) words are explained."
-msgstr ""
+msgstr "Megmagyarázzák a szó (család) etimológiáját."
 
 #: lib/models/SourceType.php:53
 msgid "These definitions usually explain only specialized meanings of words."
 msgstr ""
+"Ezek a meghatározások csak a szavak bizonyos szaknyelvi jelentéseit "
+"magyarázhatják."
 
 #: lib/models/SourceType.php:55
 msgid "Encyclopedic definitions"
-msgstr ""
+msgstr "Lexikonszerű enciklopédikus meghatározások"
 
 #: lib/models/SourceType.php:57
 msgid "Only slang words or senses are defined."
 msgstr ""
+"Csak argó szavak (úgymond tolvajnyelv) vagy ezeknek az értelmeit magyarázzák."
 
 #: lib/models/SourceType.php:59
 msgid "These definitions could explain only certain meanings of words."
 msgstr ""
+"Ezek a meghatározások csak a szavak bizonyos jelentéseit magyarázhatják."
 
 #: lib/models/SourceType.php:61
 msgid ""
 "Since they are not made by lexicographers, these definitions may contain "
 "errors."
 msgstr ""
+"Mivel nem nyelvészek szerkesztették ezeket, a meghatározások hibákat "
+"tartalmazhatnak, ezért javasoljuk hogy tekintsd át a többi szótárat is."
 
 #: www/changeLocale.php:8
 msgid ""

@@ -37,8 +37,8 @@ abstract class Parser {
     $warnings = $warnings ?? [];
 
     $s = $def->internalRep;
-    $s = $this->prepare($s);
     list($rep, $comments) = $this->extractComments($s);
+    $rep = $this->prepare($rep);
 
     $tree = $this->baseParser->parse($rep);
     if (!$tree) {

@@ -20,7 +20,11 @@
     {/if}
     <link href="{$cssFile.path}?v={$cssFile.date}" rel="stylesheet" type="text/css">
     <script src="{$jsFile.path}?v={$jsFile.date}"></script>
-    <link rel="search" type="application/opensearchdescription+xml" href="https://dexonline.ro/download/dex.xml" title="Căutare dexonline.ro">
+    <link
+      rel="search"
+      type="application/opensearchdescription+xml"
+      href="{Config::STATIC_URL}download/dex.xml"
+      title="Căutare dexonline.ro">
     <link href="https://plus.google.com/100407552237543221945" rel="publisher">
     <link rel="alternate" type="application/rss+xml" title="Cuvântul zilei" href="https://dexonline.ro/rss/cuvantul-zilei">
     <link rel="apple-touch-icon" href="{Config::URL_PREFIX}img/apple-touch-icon.png">

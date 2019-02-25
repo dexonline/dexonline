@@ -137,7 +137,8 @@
     </li>
 
     <li>
-      {t 1="return addProvider('https://dexonline.ro/download/dex.xml')"}
+      {$url="{Config::STATIC_URL}download/dex.xml"}
+      {t 1="return addProvider('{$url}')"}
       <a href="#" onclick="%1">Add <i>dexonline</i> to the search engine list</a>
       of your browser. Thanks to Alexandru Lixandru.{/t}
     </li>
@@ -148,7 +149,8 @@
     </li>
 
     <li>
-      {t 1="download/dex-context-search.xml" 2="Radu George Mureșan"}
+      {$url="{Config::STATIC_URL}download/dex-context-search.xml"}
+      {t 1=$url 2="Radu George Mureșan"}
       A <a href="%1">Firefox plugin</a> for right-click searches. Save the file
       in the <tt>searchplugins/</tt> directory of Firefox and restart Firefox.
       Thanks to %2.{/t}

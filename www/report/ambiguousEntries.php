@@ -6,4 +6,4 @@ $entries = Entry::loadAmbiguous();
 
 Smart::assign('entries', $entries);
 Smart::addResources('admin');
-Smart::display('admin/viewAmbiguousEntries.tpl');
+Smart::display('report/ambiguousEntries.tpl');

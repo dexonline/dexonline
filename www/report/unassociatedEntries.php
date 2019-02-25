@@ -7,4 +7,4 @@ $entries = Entry::loadUnassociated();
 
 Smart::assign('entries', $entries);
 Smart::addResources('admin');
-Smart::display('admin/viewUnassociatedEntries.tpl');
+Smart::display('report/unassociatedEntries.tpl');

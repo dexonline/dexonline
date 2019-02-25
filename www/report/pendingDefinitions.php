@@ -29,4 +29,4 @@ $searchResults = SearchResult::mapDefinitionArray($defs);
 
 Smart::assign('searchResults', $searchResults);
 Smart::addResources('admin');
-Smart::display('admin/viewPendingDefinitions.tpl');
+Smart::display('report/pendingDefinitions.tpl');

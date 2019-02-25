@@ -70,7 +70,7 @@ Smart::assign([
   'sources' => $sources,
 ]);
 Smart::addResources('admin');
-Smart::display('admin/randomAbbrevReview.tpl');
+Smart::display('report/randomAbbrevReview.tpl');
 
 /**
  * Sort matches from last to first

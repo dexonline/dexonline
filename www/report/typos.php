@@ -16,4 +16,4 @@ $defs = Model::factory('Definition')
 
 Smart::assign('searchResults', SearchResult::mapDefinitionArray($defs));
 Smart::addResources('admin');
-Smart::display('admin/viewTypos.tpl');
+Smart::display('report/typos.tpl');

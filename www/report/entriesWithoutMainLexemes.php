@@ -6,4 +6,4 @@ $entries = Entry::loadWithoutMainLexemes();
 
 Smart::assign('entries', $entries);
 Smart::addResources('admin');
-Smart::display('admin/viewEntriesWithoutMainLexemes.tpl');
+Smart::display('report/entriesWithoutMainLexemes.tpl');

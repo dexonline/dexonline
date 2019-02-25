@@ -30,4 +30,4 @@ if ($sourceId) {
 
 Smart::assign('lexemes', $lexemes);
 Smart::addResources('admin');
-Smart::display('admin/viewTemporaryLexemes.tpl');
+Smart::display('report/temporaryLexemes.tpl');

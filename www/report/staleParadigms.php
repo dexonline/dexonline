@@ -43,4 +43,4 @@ Smart::assign([
 ]);
 
 Smart::addResources('admin');
-Smart::display('admin/viewStaleParadigms.tpl');
+Smart::display('report/staleParadigms.tpl');

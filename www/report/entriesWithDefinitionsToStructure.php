@@ -6,4 +6,4 @@ $entries = Entry::loadWithDefinitionsToStructure();
 
 Smart::assign('entries', $entries);
 Smart::addResources('admin');
-Smart::display('admin/viewEntriesWithDefinitionsToStructure.tpl');
+Smart::display('report/entriesWithDefinitionsToStructure.tpl');

@@ -7,4 +7,4 @@ $mentions = Mention::getDetailedTreeMentions();
 
 Smart::assign('mentions', $mentions);
 Smart::addResources('admin');
-Smart::display('admin/viewTreeMentions.tpl');
+Smart::display('report/treeMentions.tpl');

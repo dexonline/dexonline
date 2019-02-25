@@ -12,4 +12,4 @@ $trees = Model::factory('Tree')
 
 Smart::assign('trees', $trees);
 Smart::addResources('admin', 'meaningTree');
-Smart::display('admin/viewUnassociatedTrees.tpl');
+Smart::display('report/unassociatedTrees.tpl');

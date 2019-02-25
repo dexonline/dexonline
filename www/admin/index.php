@@ -14,17 +14,17 @@ $counts = Variable::loadCounts();
 
 $reports = [
   ['text' => 'Definiții nemoderate',
-   'url' => 'admin/viewPendingDefinitions',
+   'url' => 'report/pendingDefinitions',
    'count' => $counts['pendingDefinitions'],
    'privilege' => User::PRIV_EDIT
   ],
   ['text' => 'Definiții cu greșeli de tipar',
-   'url' => 'admin/viewTypos',
+   'url' => 'report/typos',
    'count' => $counts['definitionsWithTypos'],
    'privilege' => User::PRIV_EDIT
   ],
   ['text' => 'Definiții cu abrevieri ambigue',
-   'url' => 'admin/randomAbbrevReview',
+   'url' => 'report/randomAbbrevReview',
    'count' => $counts['ambiguousAbbrevs'],
    'privilege' => User::PRIV_EDIT
   ],
@@ -36,72 +36,72 @@ $reports = [
    'privilege' => User::PRIV_EDIT | User::PRIV_TRAINEE
   ],
   ['text' => 'Definiții fără eticheta [glife rare]',
-   'url' => 'admin/viewMissingRareGlyphsTags',
+   'url' => 'report/missingRareGlyphsTags',
    'count' => $counts['missingRareGlyphsTags'],
    'privilege' => User::PRIV_EDIT
   ],
   ['text' => 'Definiții cu eticheta inutilă [glife rare]',
-   'url' => 'admin/viewUnneededRareGlyphsTags',
+   'url' => 'report/unneededRareGlyphsTags',
    'count' => $counts['unneededRareGlyphsTags'],
    'privilege' => User::PRIV_EDIT
   ],
   ['text' => 'Definiții neasociate cu nicio intrare',
-   'url' => 'admin/viewUnassociatedDefinitions',
+   'url' => 'report/unassociatedDefinitions',
    'count' => $counts['unassociatedDefinitions'],
    'privilege' => User::PRIV_EDIT
   ],
   ['text' => 'Intrări neasociate cu definiții / lexeme',
-   'url' => 'admin/viewUnassociatedEntries',
+   'url' => 'report/unassociatedEntries',
    'count' => $counts['unassociatedEntries'],
    'privilege' => User::PRIV_EDIT
   ],
   ['text' => 'Lexeme neasociate cu nicio intrare',
-   'url' => 'admin/viewUnassociatedLexemes',
+   'url' => 'report/unassociatedLexemes',
    'count' => $counts['unassociatedLexemes'],
    'privilege' => User::PRIV_EDIT
   ],
   ['text' => 'Arbori neasociați cu nicio intrare',
-   'url' => 'admin/viewUnassociatedTrees',
+   'url' => 'report/unassociatedTrees',
    'count' => $counts['unassociatedTrees'],
    'privilege' => User::PRIV_EDIT
   ],
   ['text' => 'Intrări ambigue',
-   'url' => 'admin/viewAmbiguousEntries',
+   'url' => 'report/ambiguousEntries',
    'count' => $counts['ambiguousEntries'],
    'privilege' => User::PRIV_EDIT
   ],
   ['text' => 'Intrări cu definiții de structurat',
-   'url' => 'admin/viewEntriesWithDefinitionsToStructure',
+   'url' => 'report/entriesWithDefinitionsToStructure',
    'count' => $counts['entriesWithDefinitionsToStructure'],
    'privilege' => User::PRIV_STRUCT
   ],
   ['text' => 'Intrări fără lexeme principale',
-   'url' => 'admin/viewEntriesWithoutMainLexemes',
+   'url' => 'report/entriesWithoutMainLexemes',
    'count' => $counts['entriesWithoutMainLexemes'],
    'privilege' => User::PRIV_STRUCT
   ],
   ['text' => 'Lexeme fără accent',
-   'url' => 'admin/viewLexemesWithoutAccents',
+   'url' => 'report/lexemesWithoutAccent',
    'count' => $counts['lexemesWithoutAccent'],
    'privilege' => User::PRIV_EDIT
   ],
   ['text' => 'Lexeme ambigue',
-   'url' => 'admin/viewAmbiguousLexemes',
+   'url' => 'report/ambiguousLexemes',
    'count' => $counts['ambiguousLexemes'],
    'privilege' => User::PRIV_EDIT
   ],
   ['text' => 'Lexeme fără paradigme',
-   'url' => 'admin/viewTemporaryLexemes',
+   'url' => 'report/temporaryLexemes',
    'count' => $counts['temporaryLexemes'],
    'privilege' => User::PRIV_EDIT
   ],
   ['text' => 'Lexeme cu paradigme învechite',
-   'url' => 'admin/viewStaleParadigms',
+   'url' => 'report/staleParadigms',
    'count' => $counts['staleParadigms'],
    'privilege' => User::PRIV_ADMIN
   ],
   ['text' => 'Mențiuni despre arbori nestructurați',
-   'url' => 'admin/viewTreeMentions',
+   'url' => 'report/treeMentions',
    'count' => $counts['treeMentions'],
    'privilege' => User::PRIV_EDIT
   ],

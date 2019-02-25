@@ -11,4 +11,4 @@ $lexemes = Model::factory('Lexeme')
 
 Smart::assign('lexemes', $lexemes);
 Smart::addResources('admin');
-Smart::display('admin/viewLexemesWithoutAccents.tpl');
+Smart::display('report/lexemesWithoutAccent.tpl');

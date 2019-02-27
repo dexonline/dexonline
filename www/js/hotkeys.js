@@ -31,7 +31,7 @@ $(function() {
   }
 
   function redirectToAdmin() {
-    window.location = wwwRoot + 'admin';
+    window.location = wwwRoot + 'admin/';
   }
 
   function redirectToNewDefinition() {

@@ -156,7 +156,7 @@
           <ul class="dropdown-menu">
             {if User::can(User::PRIV_ANY)}
               <li>
-                <a href="{Config::URL_PREFIX}admin">
+                <a href="{Config::URL_PREFIX}admin/">
                   <i class="glyphicon glyphicon-king"></i>
                   <span>{t}moderator page{/t}</span>
                 </a>

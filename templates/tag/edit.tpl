@@ -161,7 +161,7 @@
       <u>s</u>alvează
     </button>
 
-    <a class="btn btn-default" href="etichete">
+    <a class="btn btn-default" href="{Router::link('tag/list')}">
       <i class="glyphicon glyphicon-arrow-left"></i>
       înapoi la lista de etichete
     </a>

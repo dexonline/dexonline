@@ -1,6 +1,4 @@
 <?php
-require_once '../lib/Core.php';
-
 User::mustHave(User::PRIV_EDIT);
 
 $id = Request::get('id');
@@ -26,7 +24,7 @@ if ($saveButton) {
   }
   Log::notice("Saved new tags on DefinitionVersion {$dv->id}");
   FlashMessage::add('Am salvat etichetele.', 'success');
-  Util::redirect("etichete-istorie?id={$dv->id}");
+  Util::redirect("?id={$dv->id}");
 }
 
 $next = Model::factory('DefinitionVersion')
@@ -46,4 +44,4 @@ Smart::assign([
   'change' => $change,
 ]);
 Smart::addResources('diff', 'select2Dev');
-Smart::display('etichete-istorie.tpl');
+Smart::display('tag/definition-version.tpl');

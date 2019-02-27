@@ -56,7 +56,7 @@
 
     {if $tagLink}
       <div class="pull-right">
-        <a href="etichete-istorie?id={$c.old->id}">
+        <a href="{Router::link('tag/definition-version')}?id={$c.old->id}">
           etichetează această modificare
         </a>
       </div>

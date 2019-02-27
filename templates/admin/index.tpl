@@ -70,7 +70,7 @@
         </div>
 
         <div class="col-lg-4 col-md-6 col-sm-6">
-          <form action="../eticheta.php">
+          <form action="{Router::link('tag/edit')}">
             <select id="labelId" name="id"></select>
           </form>
         </div>

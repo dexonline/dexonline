@@ -1,4 +1,3 @@
-/* TODO: watch out for conflicts between index.tpl and admin/index.tpl */
 .siteIdentity {
     max-width: 316px;
     margin: 30px auto 35px;
@@ -140,18 +139,4 @@ a.widget,
 .customise-widgets .glyphicon {
   margin-right: 3px;
   color: #999;
-}
-
-/* Admin index page styles */
-.quickNav form {
-  margin-bottom: 5px;
-}
-
-.form-control.calendar {
-  width: 45%;
-}
-
-ul.list-inline {
-  display: inline;
-  margin-left: 2px;
 }

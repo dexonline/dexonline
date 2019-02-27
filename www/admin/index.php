@@ -122,7 +122,7 @@ $links = [
     'privilege' => User::PRIV_ADMIN,
   ],
   [
-    'url' => '../etichete',
+    'url' => Router::link('tag/list'),
     'text' => 'etichete',
     'privilege' => User::PRIV_EDIT,
   ],

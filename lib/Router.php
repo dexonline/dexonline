@@ -36,6 +36,20 @@ class Router {
       'ro_RO.utf8' => 'editare-sursa',
     ],
 
+    // tags
+    'tag/list' => [
+      'en_US.utf8' => 'tags',
+      'ro_RO.utf8' => 'etichete',
+    ],
+    'tag/edit' => [
+      'en_US.utf8' => 'edit-tag',
+      'ro_RO.utf8' => 'editare-eticheta',
+    ],
+    'tag/definition-version' => [
+      'en_US.utf8' => 'definition-version-tags',
+      'ro_RO.utf8' => 'etichete-istorie',
+    ],
+
     // visuals
     'visual/elfinder' => [ 'en_US.utf8' => 'visual-elfinder' ],
     'visual/list' => [ 'en_US.utf8' => 'visuals' ],

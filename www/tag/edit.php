@@ -1,5 +1,4 @@
 <?php
-require_once '../lib/Core.php';
 User::mustHave(User::PRIV_EDIT);
 
 const DEF_LIMIT = 20;
@@ -57,7 +56,7 @@ if ($deleteButton) {
   if ($canDelete) {
     $tag->delete();
     FlashMessage::add("Am șters eticheta «{$tag->value}».", 'success');
-    Util::redirect('etichete');
+    Util::redirectToRoute('tag/list');
   } else {
     FlashMessage::add('Nu puteți șterge eticheta deoarece (1) are descendenți sau (2) este folosită',
                       'danger');
@@ -124,4 +123,4 @@ Smart::assign([
   'frequentColors' => $frequentColors,
 ]);
 Smart::addResources('admin', 'colorpicker', 'select2Dev');
-Smart::display('eticheta.tpl');
+Smart::display('tag/edit.tpl');

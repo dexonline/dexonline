@@ -8,7 +8,7 @@
   {strip}
   <span {if $t->tooltip}class="tag-tooltip"{/if} title="{$t->tooltip}">
     <a
-      href="{Config::URL_PREFIX}eticheta.php?id={$t->id}"
+      href="{Router::link('tag/edit')}?id={$t->id}"
       class="label label-default {if !$link}disabled{/if}"
       {if !$link} disabled tabindex="-1"{/if}
       {if $colors} style="{$style}"{/if}>

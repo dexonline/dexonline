@@ -3,7 +3,7 @@
     <h4>{t}follow us on{/t}</h4>
     <ul class="list-inline">
       <li>
-      	<a href="https://www.facebook.com/dexonline">
+      	<a href="https://www.facebook.com/groups/comunitatea.dexonline/">
       		<img
             src='./img/svg/facebook.svg'
             width='32'

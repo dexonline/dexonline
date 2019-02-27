@@ -26,6 +26,9 @@ class Router {
       'en_US.utf8' => 'rss/articles',
       'ro_RO.utf8' => 'rss/articole',
     ],
+    'visual/elfinder' => [ 'en_US.utf8' => 'visualElfinder' ],
+    'visual/list' => [ 'en_US.utf8' => 'visuals' ],
+    'visual/tagger' => [ 'en_US.utf8' => 'visualTagger' ],
   ];
 
   // file => list of parameters expected in the URL (none by default)

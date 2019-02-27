@@ -6,7 +6,7 @@
   <h3>Etichetare imagine {$visual->path}</h3>
 
   <p>
-    <a class="btn btn-default" href="visual.php">
+    <a class="btn btn-default" href="{Router::link('visual/list')}">
       <i class="glyphicon glyphicon-arrow-left"></i>
       înapoi la pagina de imagini
     </a>

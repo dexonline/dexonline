@@ -1,5 +1,4 @@
 <?php
-require_once '../../lib/Core.php';
 User::mustHave(User::PRIV_VISUAL);
 
 $fileName = Request::get('fileName');
@@ -52,4 +51,4 @@ Smart::assign('visual', $v);
 Smart::assign('entry', Entry::get_by_id($v->entryId));
 
 Smart::addResources('jcrop', 'jqgrid', 'gallery', 'admin', 'select2Dev');
-Smart::display('admin/visualTag.tpl');
+Smart::display('visual/tagger.tpl');

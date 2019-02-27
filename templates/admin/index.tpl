@@ -540,7 +540,7 @@
       </div>
 
       <div class="panel-body">
-        <a href="visual.php">dicționarul vizual</a>
+        <a href="{Router::link('visual/list')}">dicționarul vizual</a>
       </div>
     </div>
   {/if}

@@ -50,8 +50,8 @@ class ElfinderUtil {
           'imgLib'        => 'gd',
 
           // Thumbnails are still stored locally
-          'tmbPath'       => '../img/generated',
-          'tmbURL'        => '../img/generated',
+          'tmbPath'       => Config::ROOT . 'www/img/generated',
+          'tmbURL'        => Config::URL_PREFIX . 'img/generated',
         ]),
       ],
     ];

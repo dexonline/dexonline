@@ -31,7 +31,7 @@ class Smart {
 
   // Add $template.css and $template.js to the file lists, if they exist.
   static function addSameNameFiles($template) {
-    $baseName = pathinfo($template)['filename'];
+    $baseName = str_replace('.tpl', '', $template);
 
     // Add {$template}.css if the file exists
     $cssFile = "autoload/{$baseName}.css";

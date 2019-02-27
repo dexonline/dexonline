@@ -466,7 +466,7 @@
           {foreach $links as $l}
             {if User::can($l.privilege)}
               <div class="col-lg-3 col-md-4 col-sm-6">
-                <a href="../{$l.url}">{$l.text}</a>
+                <a href="{$l.url}">{$l.text}</a>
               </div>
             {/if}
           {/foreach}

@@ -1,5 +1,4 @@
 <?php
-require_once '../lib/Core.php';
 
 $saveButton = Request::has('saveButton');
 
@@ -14,7 +13,7 @@ if ($saveButton) {
   }
   Log::info('Reordered sources');
   FlashMessage::add('Am salvat ordinea.', 'success');
-  Util::redirect('surse');
+  Util::redirectToRoute('source/list');
 }
 
 if (User::can(User::PRIV_VIEW_HIDDEN)) {
@@ -29,4 +28,4 @@ if (User::can(User::PRIV_VIEW_HIDDEN)) {
 Smart::assign('src', $sources);
 Smart::assign('editable', User::can(User::PRIV_ADMIN));
 Smart::addResources('admin', 'jqTableDnd', 'tablesorter');
-Smart::display('surse.tpl');
+Smart::display('source/list.tpl');

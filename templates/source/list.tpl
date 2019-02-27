@@ -16,7 +16,7 @@
     {/if}
   </div>
 
-  <form method="post" action="surse">
+  <form method="post">
     <table id="sources" class="table table-striped ">
       <thead>
         <tr>
@@ -73,7 +73,7 @@
             </td>
             <td data-text="{$s->percentComplete}">{include "bits/sourcePercentComplete.tpl" s=$s}</td>
             {if $editable}
-              <td><a href="editare-sursa?id={$s->id}">editează</a></td>
+              <td><a href="{Router::link('source/edit')}?id={$s->id}">editează</a></td>
             {/if}
           </tr>
         {/foreach}
@@ -86,7 +86,7 @@
         <u>s</u>alvează
       </button>
 
-      <a class="btn btn-default" href="editare-sursa">
+      <a class="btn btn-default" href="{Router::link('source/edit')}">
         <i class="glyphicon glyphicon-plus"></i>
         adaugă o sursă
       </a>

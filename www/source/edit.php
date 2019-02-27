@@ -42,7 +42,7 @@ if ($saveButton) {
 
     Log::notice("Added/saved source {$src->id} ({$src->shortName})");
     FlashMessage::add('Am salvat modificările.', 'success');
-    Util::redirect("editare-sursa?id={$src->id}");
+    Util::redirect("?id={$src->id}");
   }
 }
 
@@ -70,7 +70,7 @@ Smart::assign([
   'reforms' => $reforms,
 ]);
 Smart::addResources('select2Dev');
-Smart::display('editare-sursa.tpl');
+Smart::display('source/edit.tpl');
 
 /**
  * Returns true on success, false on errors.

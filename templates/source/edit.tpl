@@ -13,12 +13,14 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       {if $src->name}Editare sursă: {$src->name}{else}Adăugare sursă{/if}
-      <a class="btn btn-xs btn-default pull-right" href="surse">înapoi la lista de surse</a>
+      <a class="btn btn-xs btn-default pull-right" href="{Router::link('source/list')}">
+        înapoi la lista de surse
+      </a>
     </div>
 
     <div class="panel-body">
 
-      <form method="post" action="editare-sursa">
+      <form method="post">
         <input type="hidden" name="id" value="{$src->id}">
 
         <div class="row">
@@ -221,7 +223,7 @@
           <i class="glyphicon glyphicon-floppy-disk"></i>
           <u>s</u>alvează
         </button>
-        <a class="btn btn-default" href="surse">
+        <a class="btn btn-default" href="{Router::link('source/list')}">
           <i class="glyphicon glyphicon-arrow-left"></i>
           înapoi la lista de surse
         </a>

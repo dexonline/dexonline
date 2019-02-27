@@ -36,7 +36,7 @@
     <li>
       {t}source{/t}:
       <a class="ref"
-        href="{Config::URL_PREFIX}surse"
+        href="{Router::link('source/list')}"
         title="{$row->source->name|escape}, {$row->source->year|escape}"
       >{$row->source->shortName|escape}
         {if $row->source->year}

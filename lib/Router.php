@@ -19,16 +19,27 @@ class Router {
     ],
     'article/view' => [
       'en_US.utf8' => 'article',
-      'es_ES.utf8' => 'articulo',
       'ro_RO.utf8' => 'articol',
     ],
     'article/rss' => [
       'en_US.utf8' => 'rss/articles',
       'ro_RO.utf8' => 'rss/articole',
     ],
-    'visual/elfinder' => [ 'en_US.utf8' => 'visualElfinder' ],
+
+    // sources
+    'source/list' => [
+      'en_US.utf8' => 'sources',
+      'ro_RO.utf8' => 'surse',
+    ],
+    'source/edit' => [
+      'en_US.utf8' => 'edit-source',
+      'ro_RO.utf8' => 'editare-sursa',
+    ],
+
+    // visuals
+    'visual/elfinder' => [ 'en_US.utf8' => 'visual-elfinder' ],
     'visual/list' => [ 'en_US.utf8' => 'visuals' ],
-    'visual/tagger' => [ 'en_US.utf8' => 'visualTagger' ],
+    'visual/tagger' => [ 'en_US.utf8' => 'visual-tagger' ],
   ];
 
   // file => list of parameters expected in the URL (none by default)

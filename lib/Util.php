@@ -185,6 +185,10 @@ class Util {
     exit;
   }
 
+  static function redirectToRoute($route) {
+    self::redirect(Router::link($route));
+  }
+
   static function redirectToHome() {
     self::redirect(Config::URL_PREFIX);
   }

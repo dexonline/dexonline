@@ -112,62 +112,62 @@ $reportPriv = array_reduce($reports, 'orReducer', 0);
 
 $links = [
   [
-    'url' => 'moderatori',
+    'url' => '../moderatori',
     'text' => 'moderatori',
     'privilege' => User::PRIV_ADMIN,
   ],
   [
-    'url' => 'surse',
+    'url' => Router::link('source/list'),
     'text' => 'surse',
     'privilege' => User::PRIV_ADMIN,
   ],
   [
-    'url' => 'etichete',
+    'url' => '../etichete',
     'text' => 'etichete',
     'privilege' => User::PRIV_EDIT,
   ],
   [
-    'url' => 'tipuri-modele',
+    'url' => '../tipuri-modele',
     'text' => 'tipuri de model',
     'privilege' => User::PRIV_EDIT,
   ],
   [
-    'url' => 'flexiuni',
+    'url' => '../flexiuni',
     'text' => 'flexiuni',
     'privilege' => User::PRIV_ADMIN,
   ],
   [
-    'url' => 'admin/ocrInput',
+    'url' => 'ocrInput',
     'text' => 'adaugă definiții OCR',
     'privilege' => User::PRIV_ADMIN,
   ],
   [
-    'url' => 'admin/contribTotals',
+    'url' => 'contribTotals',
     'text' => 'contorizare contribuții',
     'privilege' => User::PRIV_ADMIN,
   ],
   [
-    'url' => 'admin/abbrevInput',
+    'url' => 'abbrevInput',
     'text' => 'adaugă abrevieri',
     'privilege' => User::PRIV_ADMIN,
   ],
   [
-    'url' => 'admin/abbrevList',
+    'url' => 'abbrevList',
     'text' => 'abrevieri',
     'privilege' => User::PRIV_ADMIN | User::PRIV_EDIT,
   ],
   [
-    'url' => 'admin/definitionEdit',
+    'url' => 'definitionEdit',
     'text' => 'adaugă o definiție',
     'privilege' => User::PRIV_EDIT | User::PRIV_TRAINEE,
   ],
   [
-    'url' => 'admin/traineeDefinitions',
+    'url' => 'traineeDefinitions',
     'text' => 'definițiile mele',
     'privilege' => User::PRIV_TRAINEE,
   ],
   [
-    'url' => 'admin/harmonize',
+    'url' => 'harmonize',
     'text' => 'armonizare lexem-etichetă',
     'privilege' => User::PRIV_ADMIN,
   ],

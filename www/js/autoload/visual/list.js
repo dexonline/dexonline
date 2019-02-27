@@ -7,7 +7,7 @@ $().ready(function() {
       var hash = this.files()[0].hash;
       var url = this.fm.options.url + '?' + 'cmd=tagimage&target=' + hash;
       $.get(url, function(data) {
-        window.location = wwwRoot + 'visualTagger?fileName=' + data.path;
+        window.location = wwwRoot + 'visual-tagger?fileName=' + data.path;
       });
     }
     this.getstate = function() {
@@ -18,7 +18,7 @@ $().ready(function() {
   }
 
   $('#fileManager').elfinder({
-    url: 'visualElfinder',
+    url: 'visual-elfinder',
     lang: 'en',
     uiOptions: {
       toolbar: [

@@ -10,7 +10,7 @@
   Sursa:
   <a
     class="ref"
-    href="{Config::URL_PREFIX}surse"
+    href="{Router::link('source/list')}"
     title="{$source->name|escape}, {$source->year|escape}">
     {$source->shortName|escape}
 

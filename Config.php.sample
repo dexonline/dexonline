@@ -63,6 +63,11 @@ class Config {
   ];
   const DEFAULT_LOCALE = 'ro_RO.utf8';
 
+  // When a file cannot be mapped to a URL in the current locale, use this
+  // locale instead. This locale should be fully defined in Router::ROUTES for
+  // all files and should match the language in which our PHP files are named.
+  const DEFAULT_ROUTING_LOCALE = 'en_US.utf8';
+
   /**************************** Search options ****************************/
 
   // Autocomplete options

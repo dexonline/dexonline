@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2019-02-18 11:21+0200\n"
-"PO-Revision-Date: 2019-02-18 11:21+0200\n"
+"POT-Creation-Date: 2019-02-25 23:49+0200\n"
+"PO-Revision-Date: 2019-02-25 23:50+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: es\n"
@@ -24,10 +24,14 @@ msgstr ""
 msgid "Your query <b>%1</b> is an elision of <b>%2</b>."
 msgstr "Su búsqueda <b>%1</b> es una elisión de <b>%2</b>."
 
-#: templates/articole.tpl:3 templates/articole.tpl:6
+#: templates/article/list.tpl:3 templates/article/list.tpl:6
 #: templates/bits/navmenu.tpl:107
 msgid "linguistic articles"
 msgstr "artículos lingüísticos"
+
+#: templates/article/view.tpl:17
+msgid "Other linguistic articles"
+msgstr "Otros artículos lingüísticos"
 
 #: templates/bits/definitionMenuProper.tpl:37
 msgid "source"
@@ -427,11 +431,11 @@ msgstr ""
 "Estado actual: %1 definiciones, de las cuales %2 aprendidas durante el "
 "último mes."
 
-#: templates/layout.tpl:73 templates/unelte.tpl:84 templates/unelte.tpl:107
+#: templates/layout.tpl:77 templates/unelte.tpl:84 templates/unelte.tpl:107
 msgid "license"
 msgstr "licencia"
 
-#: templates/layout.tpl:74
+#: templates/layout.tpl:78
 msgid "privacy"
 msgstr "privacidad"
 
@@ -1244,7 +1248,7 @@ msgstr ""
 "de texto, marque la casilla <em>Corrector ortográfico</em>, haga clic "
 "derecho otra vez y seleccione <em>Idiomas > Rumano</em>."
 
-#: templates/unelte.tpl:140
+#: templates/unelte.tpl:142
 msgid ""
 "<a href=\"#\" onclick=\"%1\">Add <i>dexonline</i> to the search engine list</"
 "a> of your browser. Thanks to Alexandru Lixandru."
@@ -1252,13 +1256,13 @@ msgstr ""
 "<a href=\"#\" onclick=\"%1\">Añada <i>dexonline</i> a la lista de motores de "
 "búsqueda</a> de su navegador. Gracias a Alexandru Lixandru."
 
-#: templates/unelte.tpl:146
+#: templates/unelte.tpl:148
 msgid "A <a href=\"%1\">Chrome extension</a> for right-click searches."
 msgstr ""
 "Una <a href=\"%1\">extensión para Chrome</a> para búsquedas con el clic "
 "derecho."
 
-#: templates/unelte.tpl:151
+#: templates/unelte.tpl:154
 msgid ""
 "A <a href=\"%1\">Firefox plugin</a> for right-click searches. Save the file "
 "in the <tt>searchplugins/</tt> directory of Firefox and restart Firefox. "
@@ -1268,7 +1272,7 @@ msgstr ""
 "derecho. Guarde el fichero en la carpeta <tt>searchplugins/</tt> de Firefox "
 "y reinicia Firefox. Agradecimientos a %2."
 
-#: templates/unelte.tpl:158
+#: templates/unelte.tpl:161
 msgid "A <a href=\"%1\">WordPress plugin</a> for your blog."
 msgstr "Un <a href=\"%1\">plugin de WordPress</a> para su blog."
 
@@ -1312,10 +1316,6 @@ msgstr "Icono de Twitter"
 #: templates/widgets/social.tpl:32
 msgid "Follow us on Twitter"
 msgstr "Síganos en Twitter"
-
-#: templates/wikiArticle.tpl:17
-msgid "Other linguistic articles"
-msgstr "Otros artículos lingüísticos"
 
 #: templates/wotd.tpl:22
 msgid "Word of the day for %2 %1, %3"

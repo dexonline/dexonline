@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2019-02-18 11:01+0200\n"
-"PO-Revision-Date: 2019-02-18 11:01+0200\n"
+"POT-Creation-Date: 2019-02-25 23:49+0200\n"
+"PO-Revision-Date: 2019-02-25 23:49+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -25,10 +25,14 @@ msgstr ""
 msgid "Your query <b>%1</b> is an elision of <b>%2</b>."
 msgstr "Căutarea <b>%1</b> este o formă elidată a lui <b>%2</b>."
 
-#: templates/articole.tpl:3 templates/articole.tpl:6
+#: templates/article/list.tpl:3 templates/article/list.tpl:6
 #: templates/bits/navmenu.tpl:107
 msgid "linguistic articles"
 msgstr "articole lingvistice"
+
+#: templates/article/view.tpl:17
+msgid "Other linguistic articles"
+msgstr "Alte articole lingvistice"
 
 #: templates/bits/definitionMenuProper.tpl:37
 msgid "source"
@@ -430,11 +434,11 @@ msgstr ""
 msgid "Current status: %1 definitions, of which %2 learned last month."
 msgstr "Starea curentă: %1 de definiții, din care %2 învățate în ultima lună."
 
-#: templates/layout.tpl:73 templates/unelte.tpl:84 templates/unelte.tpl:107
+#: templates/layout.tpl:77 templates/unelte.tpl:84 templates/unelte.tpl:107
 msgid "license"
 msgstr "licență"
 
-#: templates/layout.tpl:74
+#: templates/layout.tpl:78
 msgid "privacy"
 msgstr "confidențialitate"
 
@@ -1250,7 +1254,7 @@ msgstr ""
 "bifați opțiunea <em>Verifică ortografia</em>, faceți clic-dreapta din nou și "
 "selectați <em>Limbi > Română</em>."
 
-#: templates/unelte.tpl:140
+#: templates/unelte.tpl:142
 msgid ""
 "<a href=\"#\" onclick=\"%1\">Add <i>dexonline</i> to the search engine list</"
 "a> of your browser. Thanks to Alexandru Lixandru."
@@ -1258,12 +1262,12 @@ msgstr ""
 "<a href=\"#\" onclick=\"%1\">Adăugați <i>dexonline</i> la motoarele de "
 "căutare</a> ale browserului dumneavoastră. Mulțumiri lui Alexandru Lixandru."
 
-#: templates/unelte.tpl:146
+#: templates/unelte.tpl:148
 msgid "A <a href=\"%1\">Chrome extension</a> for right-click searches."
 msgstr ""
 "O <a href=\"%1\">extensie de Chrome</a> pentru căutarea cu clic-dreapta."
 
-#: templates/unelte.tpl:151
+#: templates/unelte.tpl:154
 msgid ""
 "A <a href=\"%1\">Firefox plugin</a> for right-click searches. Save the file "
 "in the <tt>searchplugins/</tt> directory of Firefox and restart Firefox. "
@@ -1273,7 +1277,7 @@ msgstr ""
 "Salvați fișierul în directorul <tt>searchplugins/</tt> al aplicației Firefox "
 "și reporniți Firefox. Mulțumiri lui %2."
 
-#: templates/unelte.tpl:158
+#: templates/unelte.tpl:161
 msgid "A <a href=\"%1\">WordPress plugin</a> for your blog."
 msgstr "Un <a href=\"%1\">modul de WordPress</a> pentru blogul dumneavoastră."
 
@@ -1317,10 +1321,6 @@ msgstr "Iconiță Twitter"
 #: templates/widgets/social.tpl:32
 msgid "Follow us on Twitter"
 msgstr "Urmărește-ne pe Twitter"
-
-#: templates/wikiArticle.tpl:17
-msgid "Other linguistic articles"
-msgstr "Alte articole lingvistice"
 
 #: templates/wotd.tpl:22
 msgid "Word of the day for %2 %1, %3"

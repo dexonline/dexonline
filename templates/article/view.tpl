@@ -6,7 +6,7 @@
   {assign var="wa" scope=global value=$wa|default:null}
   {assign var="title" value=$wa->title|default:'Articol inexistent'}
 
-  <h3>{$wa->title}</h3>
+  <h3>{$wa->title|default:''}</h3>
 
   <div>
     {$wa->htmlContents|default:'Articolul pe care îl căutați nu există.'}

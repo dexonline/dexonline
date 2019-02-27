@@ -11,7 +11,7 @@
       <ul>
         {foreach $articles as $wa}
           <li>
-            <a href="articol/{$wa->getUrlTitle()}">{$wa->title}</a>
+            <a href="{Router::link('article/view')}/{$wa->getUrlTitle()}">{$wa->title}</a>
           </li>
         {/foreach}
       </ul>

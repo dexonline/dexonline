@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: BUG-EMAIL-ADDR <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2019-02-18 11:12+0200\n"
-"PO-Revision-Date: 2019-02-24 11:32+0200\n"
+"POT-Creation-Date: 2019-02-25 23:50+0200\n"
+"PO-Revision-Date: 2019-02-25 23:50+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: hu\n"
@@ -25,10 +25,14 @@ msgstr ""
 msgid "Your query <b>%1</b> is an elision of <b>%2</b>."
 msgstr "A <b>%1</b> keresés a <b>%2</b> hangelnyeléses alakja."
 
-#: templates/articole.tpl:3 templates/articole.tpl:6
+#: templates/article/list.tpl:3 templates/article/list.tpl:6
 #: templates/bits/navmenu.tpl:107
 msgid "linguistic articles"
 msgstr "nyelvi cikkek"
+
+#: templates/article/view.tpl:17
+msgid "Other linguistic articles"
+msgstr "Egyéb nyelvi cikkek"
 
 #: templates/bits/definitionMenuProper.tpl:37
 msgid "source"
@@ -429,11 +433,11 @@ msgid "Current status: %1 definitions, of which %2 learned last month."
 msgstr ""
 "Aktuális állapot: %1 meghatározások, amelyekböl %2 a múlt hónapban tanultak."
 
-#: templates/layout.tpl:73 templates/unelte.tpl:84 templates/unelte.tpl:107
+#: templates/layout.tpl:77 templates/unelte.tpl:84 templates/unelte.tpl:107
 msgid "license"
 msgstr "licenc"
 
-#: templates/layout.tpl:74
+#: templates/layout.tpl:78
 msgid "privacy"
 msgstr "adatvédelem"
 
@@ -1239,7 +1243,7 @@ msgstr ""
 "szövegmezőbe, pipázd ki a <em>Helyesírás ellenőrzése</em> mezőt, kattints "
 "jobb egérgombbal ujra, majd válaszd ki <em>Nyelvek > román</em>."
 
-#: templates/unelte.tpl:140
+#: templates/unelte.tpl:142
 msgid ""
 "<a href=\"#\" onclick=\"%1\">Add <i>dexonline</i> to the search engine list</"
 "a> of your browser. Thanks to Alexandru Lixandru."
@@ -1247,13 +1251,13 @@ msgstr ""
 "<a href=\"#\" onclick=\"%1\"> A <i>dexonline</i> hozzáadása a keresőmotor "
 "listájához</a> a böngésződben. Köszönet Alexandru Lixandrunak."
 
-#: templates/unelte.tpl:146
+#: templates/unelte.tpl:148
 msgid "A <a href=\"%1\">Chrome extension</a> for right-click searches."
 msgstr ""
 "<a href=\"%1\">Chrome-kiterjesztés</a> a jobb egérgombbal végzett "
 "keresésekhez."
 
-#: templates/unelte.tpl:151
+#: templates/unelte.tpl:154
 msgid ""
 "A <a href=\"%1\">Firefox plugin</a> for right-click searches. Save the file "
 "in the <tt>searchplugins/</tt> directory of Firefox and restart Firefox. "
@@ -1263,7 +1267,7 @@ msgstr ""
 "Mentsd el a fájlt a Firefox <tt>searchplugins/</tt> könyvtárában és indítsd "
 "újra a Firefoxot. Köszönet %2-nek."
 
-#: templates/unelte.tpl:158
+#: templates/unelte.tpl:161
 msgid "A <a href=\"%1\">WordPress plugin</a> for your blog."
 msgstr "<a href=\"%1\">WordPress bővítmény</a> a bloghoz."
 
@@ -1307,10 +1311,6 @@ msgstr "Twitter ikon"
 #: templates/widgets/social.tpl:32
 msgid "Follow us on Twitter"
 msgstr "Kövess minket a Twitteren"
-
-#: templates/wikiArticle.tpl:17
-msgid "Other linguistic articles"
-msgstr "Egyéb nyelvi cikkek"
 
 #: templates/wotd.tpl:22
 msgid "Word of the day for %2 %1, %3"

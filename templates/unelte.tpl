@@ -138,7 +138,8 @@
 
     <li>
       {$url="{Config::STATIC_URL}download/dex.xml"}
-      {t 1="return addProvider('{$url}')"}
+      {$js="return addProvider('{$url}')"}
+      {t 1=$js}
       <a href="#" onclick="%1">Add <i>dexonline</i> to the search engine list</a>
       of your browser. Thanks to Alexandru Lixandru.{/t}
     </li>

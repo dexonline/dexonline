@@ -22,9 +22,6 @@ server {
     rewrite ^/intrare(-([^/]+))?/([^/]+)(/([0-9]+))?(/(paradigma|sinteza))?(/xml|/json)?$ /search.php?cuv=$3&source=$2&entryId=$5&tab=$7&format=$8 last;
     rewrite ^/lexem/([^/]+)(/([0-9]+))?$ /search.php?cuv=$1&lexemeId=$3 last;
 
-    # Rewrites for old syntax used by dex-online.ro
-    rewrite ^/([^/]+)/cauta/?$ /definitie/$1 last;
-
     rewrite ^/flexiune/lexem/(.*)$ /paradigm.php?lexemeId=$1 last;
     rewrite ^/(declinare|conjugare)/lexem/(.*)$ /paradigm.php?lexemeId=$2&type=$1 last;
     rewrite ^/model-flexiune/(.*)$ /model-flexiune.php?model=$1 last;
@@ -51,14 +48,9 @@ server {
     rewrite ^/contact$ /simple.php?p=contact last;
     rewrite ^/informatii$ https://wiki.dexonline.ro/wiki/Informații last;
     rewrite ^/legaturi$ /simple.php?p=links last;
-    rewrite ^/articol/(.*)$ /wikiArticle.php?title=$1 last;
-    rewrite ^/rss/articole$ /articole.php?t=rss last;
     rewrite ^/spanzuratoarea$ /hangman.php last;
     rewrite ^/moara$ /mill.php last;
     rewrite ^/omleta$ /scramble.php last;
-
-    # Redirect old php pages to new ones (only where we care about the link / pagerank)
-    rewrite ^/ghid-exprimare$ /articol/Ghid_de_exprimare_corectă permanent;
 
     if (-f $document_root/$uri.php) {
       rewrite ^(.*)$ $uri.php last;
@@ -90,7 +82,6 @@ server {
     # Redirect old php pages to new ones (only where we care about the link / pagerank)
     rewrite ^/faq.php$ https://wiki.dexonline.ro/wiki/Informații permanent;
     rewrite ^/contact.php$ /contact permanent;
-    rewrite ^/corect.php$ /articol/Ghid_de_exprimare_corectă permanent;
     rewrite ^/tools.php$ /unelte permanent;
   }
 

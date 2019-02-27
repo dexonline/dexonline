@@ -27,6 +27,9 @@
       title="Căutare dexonline.ro">
     <link href="https://plus.google.com/100407552237543221945" rel="publisher">
     <link rel="alternate" type="application/rss+xml" title="Cuvântul zilei" href="https://dexonline.ro/rss/cuvantul-zilei">
+    {foreach Router::getRelAlternate() as $lang => $url}
+      <link rel="alternate" hreflang="{$lang}" href="{$url}">
+    {/foreach}
     <link rel="apple-touch-icon" href="{Config::URL_PREFIX}img/apple-touch-icon.png">
     {Plugin::notify('htmlHead')}
     {block "bannerHead"}

@@ -3,6 +3,8 @@
 class LocaleUtil {
   const COOKIE_NAME = 'locale';
 
+  static $current = null;
+
   static function init() {
     self::set(self::getCurrent());
   }
@@ -15,14 +17,16 @@ class LocaleUtil {
   // 1. anonymous user preference (cookie)
   // 2. config file
   static function getCurrent() {
-    $locale = self::getFromConfig();
+    if (!self::$current) {
+      self::$current = self::getFromConfig();
 
-    $cookie = $_COOKIE[self::COOKIE_NAME] ?? null;
-    if ($cookie && isset(Config::LOCALES[$cookie])) { // sanity check
-      $locale = $cookie;
+      $cookie = $_COOKIE[self::COOKIE_NAME] ?? null;
+      if ($cookie && isset(Config::LOCALES[$cookie])) { // sanity check
+        self::$current = $cookie;
+      }
     }
 
-    return $locale;
+    return self::$current;
   }
 
   private static function set($locale) {

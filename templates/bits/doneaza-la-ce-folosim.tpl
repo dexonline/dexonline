@@ -128,9 +128,12 @@
 
         <p>
           <strong>Motiv:</strong>
-          Dorim să ne îmbogățim <a href="articole">colecția de articole</a> pe teme lingvistice (exprimare, pronunție, împrumuturi din alte
-          limbi etc.). Uneori putem scrie singuri câteva paragrafe, dar, pentru a nu rămâne la un nivel de diletanți, avem nevoie de colaborări cu
-          profesioniști în domeniu.
+          Dorim să ne îmbogățim
+          <a href="{Router::link('article/list')}">colecția de articole</a>
+          pe teme lingvistice (exprimare, pronunție, împrumuturi din alte
+          limbi etc.). Uneori putem scrie singuri câteva paragrafe, dar,
+          pentru a nu rămâne la un nivel de diletanți, avem nevoie de
+          colaborări cu profesioniști în domeniu.
         </p>
 
         <p>

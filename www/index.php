@@ -34,7 +34,7 @@ if (!$wotm) {
 $def = Model::factory('Definition')->where('id', $wotm->definitionId)->where('status', Definition::ST_ACTIVE)->find_one();
 Smart::assign([
   'thumbUrlM' => $wotm->getMediumThumbUrl(),
-  'articol' => $wotm->article,
+  'articleTitle' => $wotm->article,
   'wotmDef' => $def,
 ]);
 

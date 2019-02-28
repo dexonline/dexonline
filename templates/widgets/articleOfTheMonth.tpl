@@ -1,7 +1,7 @@
-<a class="widget aotm row" href="articol/{$articol}">
+<a class="widget aotm row" href="{Router::link('article/view')}/{$articleTitle}">
   <div class="col-lg-8 col-md-12 col-sm-12 col-xs-6">
     <h4>{t}article of the month{/t}</h4><br>
-    <span class="widget-value">{$articol|urldecode|replace:'_':' '}</span>
+    <span class="widget-value">{$articleTitle|urldecode|replace:'_':' '}</span>
   </div>
   <div class="col-lg-4 col-md-12 col-sm-12 col-xs-6 widget-thumbnail">
     <img

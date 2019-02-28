@@ -22,14 +22,14 @@
 
       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 wotm-navigation">
         {if isset($prevmon)}
-          <a title="{t}previous{/t}" href="{Config::URL_PREFIX}cuvantul-lunii/{$prevmon}">
+          <a title="{t}previous{/t}" href="{Router::link('wotm/view')}/{$prevmon}">
             <span class="glyphicon glyphicon-chevron-left pull-left"></span>
           </a>
         {/if}
       </div>
       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 wotm-navigation">
         {if isset($nextmon)}
-          <a title="{t}next{/t}" href="{Config::URL_PREFIX}cuvantul-lunii/{$nextmon}">
+          <a title="{t}next{/t}" href="{Router::link('wotm/view')}/{$nextmon}">
             <span class="glyphicon glyphicon-chevron-right pull-right"></span>
           </a>
         {/if}

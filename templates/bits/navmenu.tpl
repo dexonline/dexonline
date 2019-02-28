@@ -107,7 +107,7 @@
             <li><a href="{Router::link('article/list')}">{t}linguistic articles{/t}</a></li>
             <li><a href="{Config::URL_PREFIX}articol/Ghid_de_exprimare_corect%C4%83">{t}grammar guide{/t}</a></li>
             <li><a href="{Router::link('wotd/view')}">{t}word of the day{/t}</a></li>
-            <li><a href="{Config::URL_PREFIX}cuvantul-lunii">{t}word of the month{/t}</a></li>
+            <li><a href="{Router::link('wotm/view')}">{t}word of the month{/t}</a></li>
             <li><a href="{Config::URL_PREFIX}cuvinte-aleatoare">{t}random words{/t}</a></li>
             <li><a href="{Config::URL_PREFIX}scrabble">{t}Scrabble{/t}</a></li>
             <li><a href="{Config::URL_PREFIX}unelte">{t}tools{/t}</a></li>

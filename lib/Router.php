@@ -82,6 +82,12 @@ class Router {
       'en_US.utf8' => 'word-of-the-day',
       'ro_RO.utf8' => 'cuvantul-zilei',
     ],
+
+    // word of the month
+    'wotm/view' => [
+      'en_US.utf8' => 'word-of-the-month',
+      'ro_RO.utf8' => 'cuvantul-lunii',
+    ],
   ];
 
   // file => list of parameters expected in the URL (none by default)
@@ -89,6 +95,7 @@ class Router {
     'article/view' => [ 'title' ],
     'wotd/archive' => [ 'year', 'month' ],
     'wotd/view' => [ 'year', 'month', 'day' ],
+    'wotm/view' => [ 'year', 'month' ],
   ];
 
   private static $fwdRoutes = [];

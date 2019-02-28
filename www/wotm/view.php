@@ -2,28 +2,23 @@
 
 const WOTM_BIG_BANG = '2012-04-01';
 
-require_once '../lib/Core.php';
+$year = (int)Request::get('year', date('Y'));
+$month = (int)Request::get('month', date('m'));
 
-$date = Request::get('d');
-$type = Request::get('t');
+if (!checkDate($month, 1, $year)) {
+  Util::redirectToRoute('wotm/view'); // current month
+}
 
 $today = date('Y-m-01', time()); // Always use the first of the month
-$timestamp = $date ? strtotime($date) : time();
-$mysqlDate = date("Y-m-01", $timestamp);
+$timestamp = strtotime("{$year}-{$month}");
+$mysqlDate = sprintf('%s-%02s-01', $year, $month);
 
 if ($mysqlDate < WOTM_BIG_BANG || (($mysqlDate > $today) && !User::can(User::PRIV_WOTD))) {
-  Util::redirect(Config::URL_PREFIX . 'cuvantul-lunii');
+  Util::redirectToRoute('wotm/view');
 }
 
 $wotm = WordOfTheMonth::getWotM($mysqlDate);
 $def = Definition::get_by_id($wotm->definitionId);
-
-if ($type == 'url') {
-  Smart::assign('today', $today);
-  Smart::assign('title', $def->lexicon);
-  Smart::displayWithoutSkin('bits/wotmurl.tpl');
-  exit;
-}
 
 $searchResults = SearchResult::mapDefinitionArray([$def]);
 
@@ -47,4 +42,4 @@ Smart::assign([
   'searchResult' => array_pop($searchResults),
 ]);
 
-Smart::display('wotm.tpl');
+Smart::display('wotm/view.tpl');

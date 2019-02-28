@@ -27,8 +27,6 @@ server {
     rewrite ^/model-flexiune/(.*)$ /model-flexiune.php?model=$1 last;
     rewrite ^/modele-flexiune/(.*)$ /modele-flexiune.php?modelType=$1 last;
     rewrite ^/(declinare|conjugare)/(.*)$ /paradigm.php?cuv=$2&type=$1 last;
-    rewrite ^/cuvantul-lunii$ /wotm.php last;
-    rewrite ^/cuvantul-lunii/(\d*)/(\d*)$ /wotm.php?d=$1-$2 last;
     rewrite ^/cuvinte-aleatoare$ /randomList.php last;
     rewrite ^/cuvinte-aleatoare/(\d+)$ /randomList.php?n=$1 last;
     rewrite ^/lista/cuvinte-aleatoare$ /randomList.php?k=1 last;

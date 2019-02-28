@@ -29,7 +29,7 @@
         <ul class="list-inline">
           {foreach $assistantDates as $timestamp}
             <li>
-              <a href="wotdAssistant.php?for={$timestamp|date_format:"%Y-%m"}">
+              <a href="{Router::link('wotd/assistant')}?for={$timestamp|date_format:"%Y-%m"}">
                 {$timestamp|date_format:"%B %Y"}
               </a>
             </li>
@@ -38,7 +38,7 @@
       </li>
 
       <li class="list-group-item">
-        <a href="wotdImages.php">imagini pentru cuvântul zilei</a>
+        <a href="{Router::link('wotd/images')}">imagini pentru cuvântul zilei</a>
       </li>
 
       <li class="list-group-item">

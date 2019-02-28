@@ -61,13 +61,7 @@ class WordOfTheDay extends BaseObject implements DatedObject {
   }
 
   function getDefinition() {
-    return Model::factory('Definition')
-      ->table_alias('d')
-      ->select('d.*')
-      ->join('WordOfTheDay', ['d.id', '=', 'w.definitionId'], 'w')
-      ->where('w.id', $this->id)
-      ->where('d.status', Definition::ST_ACTIVE)
-      ->find_one();
+    return Definition::get_by_id_status($this->definitionId, Definition::ST_ACTIVE);
   }
 
   function getUrlDate() {

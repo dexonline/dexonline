@@ -1,4 +1,4 @@
-/* used from bits/wotdArchive.tpl, but only included (via Ajax) in wotd.tpl */
+/* used from wotd/archive.tpl, but only included (via Ajax) in wotd/view.tpl */
 .wotdArchiveTable {
   table-layout: fixed;
   text-align: center;

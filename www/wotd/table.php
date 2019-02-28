@@ -1,5 +1,4 @@
 <?php
-require_once '../../lib/Core.php';
 User::mustHave(User::PRIV_WOTD);
 RecentLink::add('Cuvântul zilei');
 
@@ -28,4 +27,4 @@ Smart::assign([
   'assistantDates' => $assistantDates,
 ]);
 Smart::addResources('jqgrid', 'admin', 'bootstrap-datepicker', 'select2Dev');
-Smart::display('admin/wotdTable.tpl');
+Smart::display('wotd/table.tpl');

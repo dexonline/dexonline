@@ -103,7 +103,7 @@
       {if $def->status == Definition::ST_HIDDEN || $row->source->hidden}
         definiție ascunsă
       {elseif $row->wotdType == SearchResult::WOTD_NOT_IN_LIST}
-        <a href="{Config::URL_PREFIX}wotdAdd.php?defId={$def->id}">
+        <a href="{Router::link('wotd/add')}?defId={$def->id}">
           adaugă WotD
         </a>
       {elseif $row->wotdType == SearchResult::WOTD_IN_LIST}
@@ -111,7 +111,15 @@
       {else} {* a related definition is in WotD *}
         <span class="text-warning">
           o definiție similară este în WotD
-          {if $row->wotdDate}(<a href="/cuvantul-zilei/{$row->wotdDate|replace:'-':'/'}">{$row->wotdDate}</a>){/if}
+          {if $row->wotdDate}
+            {strip}
+            (
+            <a href="{Router::link('wotd/view')}/{$row->wotdDate|replace:'-':'/'}">
+              {$row->wotdDate}
+            </a>
+            )
+            {/strip}
+          {/if}
         </span>
       {/if}
     </li>

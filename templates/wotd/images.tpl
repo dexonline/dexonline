@@ -13,12 +13,12 @@
   <ul>
 
     <li>
-      <a href="wotdTable.php">lista cuvintelor zilei</a>
+      <a href="{Router::link('wotd/table')}">lista cuvintelor zilei</a>
     </li>
 
     <li>
       <a href="https://wiki.dexonline.ro/wiki/Imagini_pentru_cuv%C3%A2ntul_zilei"
-         >instrucțiuni</a>
+      >instrucțiuni</a>
     </li>
 
   </ul>

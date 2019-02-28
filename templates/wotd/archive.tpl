@@ -3,7 +3,7 @@
     <div id="wotdArchiveHeader">
       {if $showPrev==1}
         <span
-          onclick="loadAjaxContent('{Config::URL_PREFIX}{$prevMonth}', '#wotdArchive');"
+          onclick="loadAjaxContent('{Router::link('wotd/archive')}/{$prevMonth}', '#wotdArchive');"
           id="navLeft"
           class="glyphicon glyphicon-chevron-left pull-left"></span>
       {else}
@@ -14,7 +14,7 @@
 
       {if $showNext==1}
         <span
-          onclick="loadAjaxContent('{Config::URL_PREFIX}{$nextMonth}', '#wotdArchive');"
+          onclick="loadAjaxContent('{Router::link('wotd/archive')}/{$nextMonth}', '#wotdArchive');"
           id="navRight"
           class="glyphicon glyphicon-chevron-right pull-right"></span>
       {else}
@@ -38,7 +38,7 @@
               <div class="wotdDoM">{$day.dayOfMonth}</div>
               <div class="wotd-link">
                 {if $day.visible}
-                  <a href="{Config::URL_PREFIX}cuvantul-zilei/{$day.wotd->getUrlDate()}">
+                  <a href="{Router::link('wotd/view')}/{$day.wotd->getUrlDate()}">
                     {$day.def->lexicon}
                   </a>
                 {else}
@@ -47,7 +47,7 @@
               </div>
               <div class="thumb">
                 {if $day.wotd && $day.wotd->image && $day.visible}
-                  <a href="{Config::URL_PREFIX}cuvantul-zilei/{$day.wotd->getUrlDate()}">
+                  <a href="{Router::link('wotd/view')}/{$day.wotd->getUrlDate()}">
                     <img src="{$day.wotd->getMediumThumbUrl()}"
                       alt="thumbnail {$day.def->lexicon}">
                   </a>

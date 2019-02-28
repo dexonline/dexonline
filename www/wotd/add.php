@@ -1,6 +1,5 @@
 <?php
 
-require_once '../lib/Core.php';
 User::mustHave(User::PRIV_WOTD);
 
 $defId = Request::get('defId');

@@ -39,11 +39,11 @@ $(function() {
   }
 
   function redirectToWotDTable() {
-    window.location = wwwRoot + 'admin/wotdTable.php';
+    window.location = wwwRoot + 'tabel-cz';
   }
 
   function redirectToWotDImage() {
-    window.location = wwwRoot + 'admin/wotdImages.php';
+    window.location = wwwRoot + 'imagini-cz';
   }
 
   function redirectToWotDAuthorAssign() {

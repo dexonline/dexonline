@@ -1,5 +1,4 @@
 <?php
-require_once '../../lib/Core.php';
 User::mustHave(User::PRIV_WOTD);
 RecentLink::add('Asistent cuvântul zilei');
 
@@ -78,7 +77,7 @@ Smart::assign([
   'enMonthName' => Str::getEnglishMonthName($yearMonth),
 ]);
 Smart::addResources('admin', 'bootstrap-datepicker');
-Smart::display('admin/wotdAssistant.tpl');
+Smart::display('wotd/assistant.tpl');
 
 /*************************************************************************/
 

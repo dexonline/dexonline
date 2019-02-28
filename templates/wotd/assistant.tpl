@@ -79,7 +79,7 @@
               {/if}
               <b>{$dup.oldLexicon}</b>, a fost programat pe
               {strip}
-              <a href="../cuvantul-zilei/{$dup.oldDate}" class="alert-link">
+              <a href="{Router::link('wotd/view')}/{$dup.oldDate}" class="alert-link">
                 {$dup.oldDate|date_format:'%d %B %Y'}
               </a>.
               {/strip}

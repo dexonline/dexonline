@@ -193,7 +193,7 @@
         <p>
           <strong>Motiv:</strong>
           Lumea iubește concursurile de aptitudini, iar cele lingvistice nu fac excepție. Pentru <i>dexonline,</i> organizarea de
-          concursuri ar fi un prilej bun de a stimula oamenii să învețe lucruri noi și de a-i ține aproape de site. De exemplu, <a href="cuvantul-zilei">Cuvântul zilei</a> este ales în fiecare zi în legătură cu un eveniment notabil din acea zi (în anul curent sau în anii
+          concursuri ar fi un prilej bun de a stimula oamenii să învețe lucruri noi și de a-i ține aproape de site. De exemplu, <a href="{Router::link('wotd/view')}">cuvântul zilei</a> este ales în fiecare zi în legătură cu un eveniment notabil din acea zi (în anul curent sau în anii
           trecuți). Voi câte din aceste evenimente puteți identifica?
         </p>
       </div>

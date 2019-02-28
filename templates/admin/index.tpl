@@ -553,8 +553,8 @@
 
       <div class="panel-body">
         <ul>
-          <li><a href="wotdTable.php">cuvântul zilei</a></li>
-          <li><a href="wotdImages.php">imaginea zilei</a></li>
+          <li><a href="{Router::link('wotd/table')}">cuvântul zilei</a></li>
+          <li><a href="{Router::link('wotd/images')}">imaginea zilei</a></li>
           <li><a href="../autori-imagini.php">autori</a></li>
           <li><a href="../alocare-autori.php">alocarea autorilor</a></li>
           <li>
@@ -562,7 +562,7 @@
             <ul class="list-inline">
               {foreach $wotdAssistantDates as $timestamp}
                 <li>
-                  <a href="wotdAssistant.php?for={$timestamp|date_format:"%Y-%m"}">
+                  <a href="{Router::link('wotd/assistant')}?for={$timestamp|date_format:"%Y-%m"}">
                     {$timestamp|date_format:"%B %Y"}
                   </a>
                 </li>

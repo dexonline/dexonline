@@ -1,9 +1,11 @@
 <?php
 
-require_once '../lib/Core.php';
+$year = (int)Request::get('year', date('Y'));
+$month = (int)Request::get('month', date('m'));
 
-$year = Request::get('y', date('Y'));
-$month = Request::get('m', date('m'));
+if (!checkDate($month, 1, $year)) {
+  Util::redirectToRoute('wotd/archive'); // current month
+}
 
 function getDaysOfMonth($year, $month) {
   return date('t', mktime(0, 0, 0, $month, 1, $year));
@@ -61,32 +63,27 @@ function createCalendar($year, $month) {
   return $weeks;
 }
 
-Smart::assign('month', strftime("%B", strtotime("$year-$month-01")));
-Smart::assign('year', $year);
-
-$showPrev = (($year > 2011) || (($year == 2011) && ($month > 5))) ? 1 : 0;
+$showPrev = ($year > 2011) || (($year == 2011) && ($month > 5));
 $showNext = User::can(User::PRIV_ADMIN) || (time() >= mktime(0, 0, 0, $month + 1, 1, $year));
 
-Smart::assign('showPrev', $showPrev);
-Smart::assign('showNext', $showNext);
-$prefix = 'arhiva/cuvantul-zilei';
-if ($month == '01') {
-  $prevMonth = $prefix . '/' . ($year - 1) . '/12';
-} else {
-  $m = sprintf("%02d",(int) $month - 1);
-  $prevMonth = "{$prefix}/{$year}/{$m}";
-}
-if ($month == '12') {
-  $nextMonth = $prefix . '/' . ($year + 1) . '/01';
-} else {
-  $m = sprintf("%02d",(int) $month + 1);
-  $nextMonth = "{$prefix}/{$year}/{$m}";
-}
-Smart::assign('prevMonth', $prevMonth);
-Smart::assign('nextMonth', $nextMonth);
+$prevMonth = ($month == '01')
+  ? sprintf('%d/12', $year - 1)
+  : sprintf('%d/%02d', $year, $month - 1);
+
+$nextMonth = ($month == '12')
+  ? sprintf('%d/01', $year + 1)
+  : sprintf('%d/%02d', $year, $month + 1);
 
 $words = createCalendar($year, $month);
-Smart::assign('words', $words);
-Smart::assign('dayNames', LocaleUtil::getWeekDayNames());
 
-Smart::displayWithoutSkin('bits/wotdArchive.tpl');
+Smart::assign([
+  'month' => strftime("%B", strtotime("$year-$month-01")),
+  'year' => $year,
+  'showPrev' => $showPrev,
+  'showNext' => $showNext,
+  'prevMonth' => $prevMonth,
+  'nextMonth' => $nextMonth,
+  'words' => $words,
+  'dayNames' => LocaleUtil::getWeekDayNames(),
+]);
+Smart::displayWithoutSkin('wotd/archive.tpl');

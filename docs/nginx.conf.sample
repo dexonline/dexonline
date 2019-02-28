@@ -27,15 +27,8 @@ server {
     rewrite ^/model-flexiune/(.*)$ /model-flexiune.php?model=$1 last;
     rewrite ^/modele-flexiune/(.*)$ /modele-flexiune.php?modelType=$1 last;
     rewrite ^/(declinare|conjugare)/(.*)$ /paradigm.php?cuv=$2&type=$1 last;
-    rewrite ^/cuvantul-zilei$ /wotd.php last;
-    rewrite ^/cuvantul-zilei/(.*)$ /wotd.php?d=$1 last;
     rewrite ^/cuvantul-lunii$ /wotm.php last;
     rewrite ^/cuvantul-lunii/(\d*)/(\d*)$ /wotm.php?d=$1-$2 last;
-    rewrite ^/da-mi/cuvantul-zilei$ /wotd.php?t=url last;
-    rewrite ^/rss/cuvantul-zilei$ /wotd.php?t=rss last;
-    rewrite ^/rss/cuvântul-zilei/(\d+)$ /wotd.php?t=blog&h=$1 last;
-    rewrite ^/arhiva/cuvantul-zilei/(\d+)/(\d+)/?$ /wotdArchive.php?y=$1&m=$2 last;
-    rewrite ^/arhiva/cuvantul-zilei/$ /wotdArchive.php last;
     rewrite ^/cuvinte-aleatoare$ /randomList.php last;
     rewrite ^/cuvinte-aleatoare/(\d+)$ /randomList.php?n=$1 last;
     rewrite ^/lista/cuvinte-aleatoare$ /randomList.php?k=1 last;

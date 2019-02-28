@@ -17,48 +17,78 @@ class Router {
       'en_US.utf8' => 'articles',
       'ro_RO.utf8' => 'articole',
     ],
-    'article/view' => [
-      'en_US.utf8' => 'article',
-      'ro_RO.utf8' => 'articol',
-    ],
     'article/rss' => [
       'en_US.utf8' => 'rss/articles',
       'ro_RO.utf8' => 'rss/articole',
     ],
+    'article/view' => [
+      'en_US.utf8' => 'article',
+      'ro_RO.utf8' => 'articol',
+    ],
 
     // sources
-    'source/list' => [
-      'en_US.utf8' => 'sources',
-      'ro_RO.utf8' => 'surse',
-    ],
     'source/edit' => [
       'en_US.utf8' => 'edit-source',
       'ro_RO.utf8' => 'editare-sursa',
     ],
+    'source/list' => [
+      'en_US.utf8' => 'sources',
+      'ro_RO.utf8' => 'surse',
+    ],
 
     // tags
-    'tag/list' => [
-      'en_US.utf8' => 'tags',
-      'ro_RO.utf8' => 'etichete',
+    'tag/definition-version' => [
+      'en_US.utf8' => 'definition-version-tags',
+      'ro_RO.utf8' => 'etichete-istorie',
     ],
     'tag/edit' => [
       'en_US.utf8' => 'edit-tag',
       'ro_RO.utf8' => 'editare-eticheta',
     ],
-    'tag/definition-version' => [
-      'en_US.utf8' => 'definition-version-tags',
-      'ro_RO.utf8' => 'etichete-istorie',
+    'tag/list' => [
+      'en_US.utf8' => 'tags',
+      'ro_RO.utf8' => 'etichete',
     ],
 
     // visuals
     'visual/elfinder' => [ 'en_US.utf8' => 'visual-elfinder' ],
     'visual/list' => [ 'en_US.utf8' => 'visuals' ],
     'visual/tagger' => [ 'en_US.utf8' => 'visual-tagger' ],
+
+    // word of the day
+    'wotd/add' => [ 'en_US.utf8' => 'wotd-add' ],
+    'wotd/archive' => [
+      'en_US.utf8' => 'word-of-the-day-archive',
+      'ro_RO.utf8' => 'arhiva-cuvantul-zilei',
+    ],
+    'wotd/assistant' => [
+      'en_US.utf8' => 'wotd-assistant',
+      'ro_RO.utf8' => 'asistent-cz',
+    ],
+    'wotd/elfinder' => [ 'en_US.utf8' => 'wotd-elfinder' ],
+    'wotd/images' => [
+      'en_US.utf8' => 'wotd-images',
+      'ro_RO.utf8' => 'imagini-cz',
+    ],
+    'wotd/rss' => [
+      'en_US.utf8' => 'rss/word-of-the-day',
+      'ro_RO.utf8' => 'rss/cuvantul-zilei',
+    ],
+    'wotd/table' => [
+      'en_US.utf8' => 'wotd-table',
+      'ro_RO.utf8' => 'tabel-cz',
+    ],
+    'wotd/view' => [
+      'en_US.utf8' => 'word-of-the-day',
+      'ro_RO.utf8' => 'cuvantul-zilei',
+    ],
   ];
 
   // file => list of parameters expected in the URL (none by default)
   const PARAMS = [
     'article/view' => [ 'title' ],
+    'wotd/archive' => [ 'year', 'month', 'day' ],
+    'wotd/view' => [ 'year', 'month', 'day' ],
   ];
 
   private static $fwdRoutes = [];
@@ -111,13 +141,14 @@ class Router {
   }
 
   // Returns a human-readable URL for this file.
-  static function link($file) {
+  static function link($file, $absolute = false) {
     $routes = self::ROUTES[$file];
     $rel = $routes[LocaleUtil::getCurrent()]     // current locale
       ?? $routes[Config::DEFAULT_ROUTING_LOCALE] // or default locale
       ?? '';                                     // or home page
 
-    return Config::URL_PREFIX . $rel;
+    $url = ($absolute ? Config::URL_HOST : '') . Config::URL_PREFIX . $rel;
+    return $url;
   }
 
   // Collect URLs for localized versions of this page.

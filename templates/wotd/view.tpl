@@ -27,7 +27,7 @@
           <a href="#toggleContents" data-toggle="collapse">
             <img src="{Config::URL_PREFIX}img/social-media/email-29.png" alt="iconiță email"
           ></a>
-          <a type="application/rss+xml" href="{Config::URL_PREFIX}rss/cuvantul-zilei">
+          <a type="application/rss+xml" href="{Router::link('wotd/rss')}">
             <img src="{Config::URL_PREFIX}img/social-media/rss-29.png" alt="iconiță RSS"
           ></a>
           <a href="https://www.facebook.com/dexonline">
@@ -55,14 +55,14 @@
     <div class="panel-heading clearfix">
       <div class="wotd-navigation pull-left">
         {if $prevDay}
-          <a href="{Config::URL_PREFIX}cuvantul-zilei/{$prevDay}">
+          <a href="{Router::link('wotd/view')}/{$prevDay}">
             <span class="glyphicon glyphicon-chevron-left"></span>
           </a>
         {/if}
       </div>
       <div class="wotd-navigation pull-right">
         {if $nextDay}
-          <a href="{Config::URL_PREFIX}cuvantul-zilei/{$nextDay}">
+          <a href="{Router::link('wotd/view')}/{$nextDay}">
             <span class="glyphicon glyphicon-chevron-right pull-right">
             </span>
           </a>
@@ -107,7 +107,7 @@
     <div id="wotdArchive" class="wotdArchive"></div>
     <script>
       loadAjaxContent(
-        '{Config::URL_PREFIX}arhiva/cuvantul-zilei/{$year}/{$month}',
+        "{Router::link('wotd/archive')}/{$year}/{$month}",
         '#wotdArchive');
     </script>
 
@@ -122,7 +122,7 @@
                alt="iconița cuvântului zilei">
           <p>
             <strong>{$r.wotd->displayDate|date_format:'%Y'}</strong>:
-            <a href="{Config::URL_PREFIX}cuvantul-zilei/{$r.wotd->getUrlDate()}">
+            <a href="{Router::link('wotd/view')}/{$r.wotd->getUrlDate()}">
               {$r.word}
             </a>
           </p>
@@ -133,5 +133,5 @@
   {/if}
 
   <h3>{t}Comments{/t}</h3>
-  <fb:comments href="https://dexonline.ro/cuvantul-zilei/{$year}/{$month}/{$day}"></fb:comments>
+  <fb:comments href="{Router::link('wotd/view', true)}/{$year}/{$month}/{$day}"></fb:comments>
 {/block}

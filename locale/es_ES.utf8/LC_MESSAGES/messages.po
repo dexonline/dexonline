@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2019-02-25 23:49+0200\n"
-"PO-Revision-Date: 2019-02-25 23:50+0200\n"
+"POT-Creation-Date: 2019-02-28 20:05+0200\n"
+"PO-Revision-Date: 2019-02-28 20:05+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: es\n"
@@ -49,38 +49,38 @@ msgstr "estado"
 msgid "added by"
 msgstr "añadida por"
 
-#: templates/bits/definitionMenuProper.tpl:136
+#: templates/bits/definitionMenuProper.tpl:144
 msgid "actions"
 msgstr "acciones"
 
-#: templates/bits/definitionMenuProper.tpl:149 templates/bits/typoForm.tpl:13
+#: templates/bits/definitionMenuProper.tpl:157 templates/bits/typoForm.tpl:13
 #: templates/bits/typoForm.tpl:59
 msgid "report a typo"
 msgstr "comunicar un error"
 
-#: templates/bits/definitionMenuProper.tpl:161
-#: templates/bits/definitionMenuProper.tpl:171
+#: templates/bits/definitionMenuProper.tpl:169
+#: templates/bits/definitionMenuProper.tpl:179
 msgid "added to favorites"
 msgstr "añadido a favoritos"
 
-#: templates/bits/definitionMenuProper.tpl:170
-#: templates/bits/definitionMenuProper.tpl:185
+#: templates/bits/definitionMenuProper.tpl:178
+#: templates/bits/definitionMenuProper.tpl:193
 msgid "please wait..."
 msgstr "espere por favor…"
 
-#: templates/bits/definitionMenuProper.tpl:172
+#: templates/bits/definitionMenuProper.tpl:180
 msgid "add to favorites"
 msgstr "añadir a favoritos"
 
-#: templates/bits/definitionMenuProper.tpl:186
+#: templates/bits/definitionMenuProper.tpl:194
 msgid "remove from favorites"
 msgstr "eliminar de favoritos"
 
-#: templates/bits/definitionMenuProper.tpl:198
+#: templates/bits/definitionMenuProper.tpl:206
 msgid "permalink"
 msgstr "enlace permanente"
 
-#: templates/bits/definitionMenuProper.tpl:246
+#: templates/bits/definitionMenuProper.tpl:254
 msgid "+1 identical definition"
 msgid_plural "+%1 identical definitions"
 msgstr[0] "+1 definición idéntica"
@@ -178,7 +178,7 @@ msgid "grammar guide"
 msgstr "guía gramatical"
 
 #: templates/bits/navmenu.tpl:109 templates/widgets/wotd.tpl:3
-#: templates/wotd.tpl:4
+#: templates/wotd/view.tpl:4
 msgid "word of the day"
 msgstr "la palabra del día"
 
@@ -431,11 +431,11 @@ msgstr ""
 "Estado actual: %1 definiciones, de las cuales %2 aprendidas durante el "
 "último mes."
 
-#: templates/layout.tpl:77 templates/unelte.tpl:84 templates/unelte.tpl:107
+#: templates/layout.tpl:84 templates/unelte.tpl:84 templates/unelte.tpl:107
 msgid "license"
 msgstr "licencia"
 
-#: templates/layout.tpl:78
+#: templates/layout.tpl:85
 msgid "privacy"
 msgstr "privacidad"
 
@@ -1317,11 +1317,11 @@ msgstr "Icono de Twitter"
 msgid "Follow us on Twitter"
 msgstr "Síganos en Twitter"
 
-#: templates/wotd.tpl:22
+#: templates/wotd/view.tpl:22
 msgid "Word of the day for %2 %1, %3"
 msgstr "Palabra del día para %2 %1, %3"
 
-#: templates/wotd.tpl:45
+#: templates/wotd/view.tpl:45
 msgid ""
 "<i>dexonline</i> does not directly offer the word of the day by email. "
 "However, there are <a href=\"%1\">many sites</a> that do this for any RSS "
@@ -1331,19 +1331,19 @@ msgstr ""
 "obstante, existen <a href=\"%1\">varios webs</a> que lo hacen para cualquier "
 "feed RSS. Le sugerimos <a href=\"%2\">IFTTT</a>."
 
-#: templates/wotd.tpl:98 templates/wotm.tpl:57
+#: templates/wotd/view.tpl:98 templates/wotm.tpl:57
 msgid "Chosen because:"
 msgstr "Escogido porque:"
 
-#: templates/wotd.tpl:105
+#: templates/wotd/view.tpl:105
 msgid "Word of the day archive"
 msgstr "El archivo de las palabras del día"
 
-#: templates/wotd.tpl:115
+#: templates/wotd/view.tpl:115
 msgid "Word of the day for %2 %1 in other years:"
 msgstr "La palabra del día para %2 %1 en otros años:"
 
-#: templates/wotd.tpl:135
+#: templates/wotd/view.tpl:135
 msgid "Comments"
 msgstr "Notas"
 

@@ -18,8 +18,8 @@ class Router {
       'ro_RO.utf8' => 'articole',
     ],
     'article/rss' => [
-      'en_US.utf8' => 'rss/articles',
-      'ro_RO.utf8' => 'rss/articole',
+      'en_US.utf8' => 'rss-articles',
+      'ro_RO.utf8' => 'rss-articole',
     ],
     'article/view' => [
       'en_US.utf8' => 'article',
@@ -71,8 +71,8 @@ class Router {
       'ro_RO.utf8' => 'imagini-cz',
     ],
     'wotd/rss' => [
-      'en_US.utf8' => 'rss/word-of-the-day',
-      'ro_RO.utf8' => 'rss/cuvantul-zilei',
+      'en_US.utf8' => 'rss-word-of-the-day',
+      'ro_RO.utf8' => 'rss-cuvantul-zilei',
     ],
     'wotd/table' => [
       'en_US.utf8' => 'wotd-table',
@@ -87,7 +87,7 @@ class Router {
   // file => list of parameters expected in the URL (none by default)
   const PARAMS = [
     'article/view' => [ 'title' ],
-    'wotd/archive' => [ 'year', 'month', 'day' ],
+    'wotd/archive' => [ 'year', 'month' ],
     'wotd/view' => [ 'year', 'month', 'day' ],
   ];
 

@@ -1,5 +1,4 @@
 <?php
-require_once '../lib/Core.php';
 User::mustHave(User::PRIV_WOTD);
 
 $id = Request::get('id');
@@ -13,7 +12,7 @@ if ($deleteId) {
   WotdArtist::delete_all_by_id($deleteId);
   Log::info("Deleted author {$deleteId}");
   FlashMessage::add('Am șters autorul.', 'success');
-  Util::redirect('autori-imagini.php');
+  Util::redirectToRoute('artist/list');
 }
 
 if ($saveButton) {
@@ -27,12 +26,12 @@ if ($saveButton) {
     $artist->save();
     Log::info("Added/saved author {$artist->id} ({$artist->name})");
     FlashMessage::add('Am salvat modificările.', 'success');
-    Util::redirect('autori-imagini.php');
+    Util::redirectToRoute('artist/list');
   }
 }
 
 Smart::assign('artist', $artist);
-Smart::display('editare-autor-imagini.tpl');
+Smart::display('artist/edit.tpl');
 
 /**
  * Returns true on success, false on errors.

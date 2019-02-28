@@ -52,7 +52,7 @@
           <i class="glyphicon glyphicon-floppy-disk"></i>
           <u>s</u>alvează
         </button>
-        <a class="btn btn-link" href="autori-imagini.php">înapoi la lista de autori</a>
+        <a class="btn btn-link" href="{Router::link('artist/list')}">înapoi la lista de autori</a>
 
       </form>
     </div>

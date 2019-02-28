@@ -555,8 +555,8 @@
         <ul>
           <li><a href="{Router::link('wotd/table')}">cuvântul zilei</a></li>
           <li><a href="{Router::link('wotd/images')}">imaginea zilei</a></li>
-          <li><a href="../autori-imagini.php">autori</a></li>
-          <li><a href="../alocare-autori.php">alocarea autorilor</a></li>
+          <li><a href="{Router::link('artist/list')}">autori</a></li>
+          <li><a href="{Router::link('artist/assign')}">alocarea autorilor</a></li>
           <li>
             asistent:
             <ul class="list-inline">

@@ -268,7 +268,7 @@
               = cuvintele zilei
             </li>
             <li>
-              <a href="{Config::URL_PREFIX}alocare-autori.php">Alt-X</a>
+              <a href="{Router::link('artist/assign')}">Alt-X</a>
               = asignare autori
             </li>
             <li>

@@ -13,6 +13,7 @@ class Router {
   // compute the forward routes upon initialization. Files have an implicit
   // .php extension.
   const ROUTES = [
+    // articles
     'article/list' => [
       'en_US.utf8' => 'articles',
       'ro_RO.utf8' => 'articole',
@@ -24,6 +25,20 @@ class Router {
     'article/view' => [
       'en_US.utf8' => 'article',
       'ro_RO.utf8' => 'articol',
+    ],
+
+    // WotD artists
+    'artist/assign' => [
+      'en_US.utf8' => 'assign-artists',
+      'ro_RO.utf8' => 'alocare-autori',
+    ],
+    'artist/edit' => [
+      'en_US.utf8' => 'edit-artist',
+      'ro_RO.utf8' => 'editare-autor',
+    ],
+    'artist/list' => [
+      'en_US.utf8' => 'artists',
+      'ro_RO.utf8' => 'autori-imagini',
     ],
 
     // sources

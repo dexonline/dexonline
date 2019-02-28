@@ -1,5 +1,4 @@
 <?php
-require_once '../lib/Core.php';
 User::mustHave(User::PRIV_WOTD);
 
 $artists = Model::factory('WotdArtist')
@@ -23,4 +22,4 @@ foreach ($artists as $a) {
 }
 
 Smart::assign('artists', $artists);
-Smart::display('autori-imagini.tpl');
+Smart::display('artist/list.tpl');

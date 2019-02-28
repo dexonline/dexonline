@@ -47,7 +47,7 @@ $(function() {
   }
 
   function redirectToWotDAuthorAssign() {
-    window.location = wwwRoot + 'alocare-autori.php';
+    window.location = wwwRoot + 'alocare-autori';
   }
 
   function toggleMode(mode) {

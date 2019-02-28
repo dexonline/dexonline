@@ -19,16 +19,16 @@
         <td>{$a->email}</td>
         <td>{$a->label}</td>
         <td>
-          <a href="editare-autor-imagini.php?id={$a->id}">editează</a>
+          <a href="{Router::link('artist/edit')}?id={$a->id}">editează</a>
           {if $a->canDelete}
-            <a href="editare-autor-imagini.php?deleteId={$a->id}">șterge</a>
+            <a href="{Router::link('artist/edit')}?deleteId={$a->id}">șterge</a>
           {/if}
         </td>
       </tr>
     {/foreach}
   </table>
 
-  <a class="btn btn-default" href="editare-autor-imagini.php">
+  <a class="btn btn-default" href="{Router::link('artist/edit')}">
     <i class="glyphicon glyphicon-plus"></i>
     adaugă un autor
   </a>

@@ -110,7 +110,7 @@
 
               {foreach $homonyms as $h}
                 <div>
-                  <a href="editTree.php?id={$h->id}">{$h->description}</a>
+                  <a href="{Router::link('tree/edit')}?id={$h->id}">{$h->description}</a>
                 </div>
               {/foreach}
 
@@ -214,7 +214,7 @@
           {foreach $relatedMeanings as $m}
             <tr>
               <td>
-                <a href="editTree.php?id={$m->getTree()->id}">
+                <a href="{Router::link('tree/edit')}?id={$m->getTree()->id}">
                   {$m->getTree()->description}
                 </a>
               </td>

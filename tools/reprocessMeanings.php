@@ -40,5 +40,5 @@ Log::info("$offset meanings reprocessed, $modified modified.");
 /*************************************************************************/
 
 function treeUrl($treeId) {
-  return "https://dexonline.ro/editTree.php?id={$treeId}";
+  return Router::link('tree/edit', true) . "?id={$treeId}";
 }

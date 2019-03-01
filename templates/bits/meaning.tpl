@@ -3,7 +3,7 @@
     <strong>{$m->breadcrumb}</strong>
     {HtmlConverter::convert($m)}
     <div class="small text-muted">
-      <a href="{Config::URL_PREFIX}editTree.php?id={$m->treeId}">
+      <a href="{Router::link('tree/edit')}?id={$m->treeId}">
         editează
       </a>
     </div>

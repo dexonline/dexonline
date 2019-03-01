@@ -64,7 +64,7 @@
         </div>
 
         <div class="col-lg-4 col-md-6 col-sm-6">
-          <form action="../editTree.php">
+          <form action="{Router::link('tree/edit')}">
             <select id="treeId" name="id"></select>
           </form>
         </div>

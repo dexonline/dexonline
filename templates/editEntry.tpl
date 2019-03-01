@@ -432,7 +432,7 @@
           </span>
 
           <div class="btn-group pull-right">
-            <a href="editTree.php?id={$t->id}" class="btn btn-sm btn-default">
+            <a href="{Router::link('tree/edit')}?id={$t->id}" class="btn btn-sm btn-default">
               <i class="glyphicon glyphicon-pencil"></i>
               editează
             </a>

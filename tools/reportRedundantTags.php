@@ -47,7 +47,7 @@ foreach ($tags as $t) {
             break;
           case ObjectTag::TYPE_MEANING:
             $m = Meaning::get_by_id($o->objectId);
-            $url = "https://dexonline.ro/editTree.php?id={$m->treeId}";
+            $url = "https://dexonline.ro/edit-tree?id={$m->treeId}";
             break;
           default:
             die("Not sure how to fix object of type {$o->objectType}\n");

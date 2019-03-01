@@ -131,6 +131,12 @@ class Router {
       'ro_RO.utf8' => 'etichete',
     ],
 
+    // trees
+    'tree/edit' => [
+      'en_US.utf8' => 'edit-tree',
+      'ro_RO.utf8' => 'editare-arbore',
+    ],
+
     // visuals
     'visual/elfinder' => [ 'en_US.utf8' => 'visual-elfinder' ],
     'visual/list' => [ 'en_US.utf8' => 'visuals' ],

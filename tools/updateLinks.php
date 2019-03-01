@@ -52,7 +52,7 @@ function updateEntity($e, $isDefinition)
       fprintf(STDERR, "[definiție](" . URL . "definitie/" . $e->id . "),");
       fprintf(STDERR, "[editează](" . URL . "admin/definitionEdit.php?definitionId=" . $e->id . ")\n");
     } else {
-      fprintf(STDERR, "[arbore](". URL . "editTree.php?id=" . $e->treeId . ")\n");
+      fprintf(STDERR, "[arbore](". URL . "edit-tree?id=" . $e->treeId . ")\n");
     }
 
     $originalLink = "|" . $link["original_word"] . "|" . $link["linked_lexeme"] . "|";

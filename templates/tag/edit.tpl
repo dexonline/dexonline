@@ -236,7 +236,7 @@
         {foreach $meanings as $m}
           <tr>
             <td>
-              <a href="editTree.php?id={$m->getTree()->id}">
+              <a href="{Router::link('tree/edit')}?id={$m->getTree()->id}">
                 {$m->getTree()->description}
               </a>
             </td>

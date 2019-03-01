@@ -149,7 +149,7 @@ class Meaning extends BaseObject implements DatedObject {
     return $results;
   }
 
-  /* Save a tree produced by the tree editor in editTree.php */
+  /* Save a tree produced by the tree editor in tree/edit.php */
   static function saveTree($meanings, $tree) {
     $seenMeaningIds = [];
 

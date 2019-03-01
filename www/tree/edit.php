@@ -1,6 +1,4 @@
 <?php
-require_once '../lib/Core.php';
-
 User::mustHave(User::PRIV_EDIT | User::PRIV_STRUCT);
 
 $id = Request::get('id');
@@ -155,4 +153,4 @@ Smart::assign([
 ]);
 Smart::addResources('admin', 'editableMeaningTree', 'frequentObjects',
                     'meaningTree', 'select2Dev', 'textComplete', 'scrollTop');
-Smart::display('editTree.tpl');
+Smart::display('tree/edit.tpl');

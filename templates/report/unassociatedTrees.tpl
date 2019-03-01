@@ -12,7 +12,7 @@
         {$t->description}
 
         <div class="pull-right">
-          <a href="../editTree.php?id={$t->id}" class="btn btn-default btn-xs">
+          <a href="{Router::link('tree/edit')}?id={$t->id}" class="btn btn-default btn-xs">
             <i class="glyphicon glyphicon-pencil"></i>
             editează
           </a>

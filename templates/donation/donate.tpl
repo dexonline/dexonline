@@ -22,7 +22,11 @@
               <i class="glyphicon glyphicon-info-sign"></i>
             </div>
             <div class="panel-body">
-              <form id="donateOnline" action="doneaza-euplatesc.php" method="post" enctype="multipart/form-data">
+              <form
+                id="donateOnline"
+                action="{Router::link('donation/donateEP')}"
+                method="post"
+                enctype="multipart/form-data">
                 <div class="form-group">
                   <label for="donateOnlineAmount" class="donate-labels">Suma</label>
                   <select id="donateOnlineAmount" name="amount" class="form-control select-donated-sum">

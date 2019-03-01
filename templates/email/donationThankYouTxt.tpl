@@ -35,7 +35,7 @@ Din partea echipei dexonline,
 {User::getActive()->name}
 
 ----
-[1] https://dexonline.ro/doneaza
+[1] {Router::link('donation/donate', true)}
 [2] https://wiki.dexonline.ro/wiki/Modul_confiden%C8%9Bial
 {if $donor->user}
 [3] https://dexonline.ro/utilizator/{$donor->user->nick|escape:url}

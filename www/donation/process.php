@@ -1,6 +1,4 @@
 <?php
-require_once '../lib/Core.php';
-
 User::mustHave(User::PRIV_DONATION);
 
 const OTRS_DONATION_EMAIL_REGEX =
@@ -35,7 +33,7 @@ if ($processButton) {
                     'medalii și/sau scutiri de bannere, nu uitați să goliți parțial cache-ul ' .
                     'lui Varnish: <b>sudo varnishadm ban req.url "~" ^/utilizator</b>',
                     'success');
-  Util::redirect('proceseaza-donatii.php');
+  Util::redirectToRoute('donation/process');
 
 } else if ($previewButton) {
   if ($includeOtrs) {
@@ -50,9 +48,9 @@ if ($processButton) {
   Smart::assign('includeOtrs', $includeOtrs);
 
   if (FlashMessage::hasErrors()) {
-    Smart::display('proceseaza-donatii.tpl');
+    Smart::display('donation/process.tpl');
   } else {
-    Smart::display('proceseaza-donatii2.tpl');
+    Smart::display('donation/process2.tpl');
   }
 
 } else if ($backButton) {
@@ -60,11 +58,11 @@ if ($processButton) {
   $mdp = readManualDonorData();
   Smart::assign('manualDonors', $mdp->getDonors());
   Smart::assign('includeOtrs', $includeOtrs);
-  Smart::display('proceseaza-donatii.tpl');
+  Smart::display('donation/process.tpl');
 
 } else {
 
-  Smart::display('proceseaza-donatii.tpl');
+  Smart::display('donation/process.tpl');
 
 }
 

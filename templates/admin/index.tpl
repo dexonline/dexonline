@@ -506,7 +506,7 @@
 
           {if User::can(User::PRIV_DONATION)}
             <li>
-              <a href="../proceseaza-donatii">procesează donații</a>
+              <a href="{Router::link('donation/process')}">procesează donații</a>
             </li>
           {/if}
         </ul>

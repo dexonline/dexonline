@@ -16,7 +16,7 @@
       <ul class="nav navbar-nav pull-left">
         <li>
           <p class="navbar-btn">
-            <a class="btn btn-info" href="{Config::URL_PREFIX}doneaza">
+            <a class="btn btn-info" href="{Router::link('donation/donate')}">
               <i class="glyphicon glyphicon-credit-card"></i>
               <span>{t}donate{/t}</span>
             </a>

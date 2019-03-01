@@ -5,7 +5,7 @@
 
 <p>
   Vă mulțumim pentru donația dumneavoastră generoasă. Asociația dexonline va folosi acești bani
-  pentru unul dintre <a href="https://dexonline.ro/doneaza">proiectele noastre</a>.
+  pentru unul dintre <a href="{Router::link('donation/donate', true)}">proiectele noastre</a>.
 </p>
 
 <p>

@@ -63,6 +63,22 @@ class Router {
       'ro_RO.utf8' => 'autori-imagini',
     ],
 
+    // donations
+    'donation/donate' => [
+      'en_US.utf8' => 'donate',
+      'ro_RO.utf8' => 'doneaza',
+    ],
+
+    'donation/donateEP' => [
+      'en_US.utf8' => 'donate-ep',
+      'ro_RO.utf8' => 'doneaza-ep',
+    ],
+
+    'donation/process' => [
+      'en_US.utf8' => 'process-donations',
+      'ro_RO.utf8' => 'proceseaza-donatii',
+    ],
+
     // games
     'games/hangman' => [
       'en_US.utf8' => 'hangman',

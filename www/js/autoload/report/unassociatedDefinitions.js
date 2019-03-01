@@ -1,4 +1,4 @@
-/* Duplicates some code from editEntry.js */
+/* Duplicates some code from entry/edit.js */
 $(function() {
 
   function init() {

@@ -8,7 +8,7 @@
 {strip}
 {if $editLink}
   <a
-    href="{Config::URL_PREFIX}editEntry.php?id={$entry->id}"
+    href="{Router::link('entry/edit')}?id={$entry->id}"
     class="{$editLinkClass}"
     title="editează"
     target="{$target}">

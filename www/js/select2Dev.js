@@ -186,7 +186,7 @@ function formatEntryWithEditLink(entry) {
     var link = '';
   } else {
     var link = ' <a class="glyphicon glyphicon-pencil" href="' + wwwRoot +
-      'editEntry.php?id=' + entry.id + '"></a>';
+      'editare-intrare?id=' + entry.id + '"></a>';
   }
 
   return $('<span>' + entry.text + link + '</span>');

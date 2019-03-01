@@ -79,6 +79,12 @@ class Router {
       'ro_RO.utf8' => 'proceseaza-donatii',
     ],
 
+    // trees
+    'entry/edit' => [
+      'en_US.utf8' => 'edit-entry',
+      'ro_RO.utf8' => 'editare-intrare',
+    ],
+
     // games
     'games/hangman' => [
       'en_US.utf8' => 'hangman',

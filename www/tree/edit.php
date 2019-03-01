@@ -64,7 +64,7 @@ if ($delete) {
   FlashMessage::add('Am șters arborele.', 'success');
 
   if ($te) {
-    Util::redirect("editEntry.php?id={$te->entryId}");
+    Util::redirect(Router::link('entry/edit') . "?id={$te->entryId}");
   } else {
     Util::redirectToHome();
   }

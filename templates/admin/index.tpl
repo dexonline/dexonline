@@ -52,7 +52,7 @@
         </div>
 
         <div class="col-lg-4 col-md-6 col-sm-6">
-          <form action="../editEntry.php">
+          <form action="{Router::link('entry/edit')}">
             <select id="entryId" name="id"></select>
           </form>
         </div>

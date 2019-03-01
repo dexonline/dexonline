@@ -1,6 +1,4 @@
 <?php
-require_once '../lib/Core.php';
-
 User::mustHave(User::PRIV_EDIT | User::PRIV_STRUCT);
 
 $id = Request::get('id');
@@ -248,4 +246,4 @@ Smart::assign([
   'structurists' => User::getStructurists($e->structuristId),
 ]);
 Smart::addResources('editableMeaningTree', 'admin', 'select2Dev', 'meaningTree', 'scrollTop');
-Smart::display('editEntry.tpl');
+Smart::display('entry/edit.tpl');

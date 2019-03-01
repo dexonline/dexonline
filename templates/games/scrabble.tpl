@@ -115,7 +115,7 @@
         {t}Find out what changed between two versions of LOC.{/t}
       </p>
 
-      <form class="form-inline" action="{Router::link('games/scrabble-loc-differences')}">
+      <form class="form-inline" action="{Router::link('games/scrabbleLocDifferences')}">
         <div class="form-group">
           {cap}{t}compare{/t}{/cap}
           <select class="form-control" name="list">

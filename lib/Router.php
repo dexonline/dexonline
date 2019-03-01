@@ -76,7 +76,7 @@ class Router {
       'en_US.utf8' => 'scrabble',
       'ro_RO.utf8' => 'scrabble',
     ],
-    'games/scrabble-loc-differences' => [
+    'games/scrabbleLocDifferences' => [
       'en_US.utf8' => 'scrabble-loc-differences',
       'ro_RO.utf8' => 'scrabble-diferente-loc',
     ],
@@ -96,7 +96,7 @@ class Router {
     ],
 
     // tags
-    'tag/definition-version' => [
+    'tag/definitionVersion' => [
       'en_US.utf8' => 'definition-version-tags',
       'ro_RO.utf8' => 'etichete-istorie',
     ],

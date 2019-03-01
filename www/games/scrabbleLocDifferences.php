@@ -50,4 +50,4 @@ Smart::assign([
   'diff' => $diff,
   'zipUrl' => $zipUrl,
 ]);
-Smart::display('games/scrabble-loc-differences.tpl');
+Smart::display('games/scrabbleLocDifferences.tpl');

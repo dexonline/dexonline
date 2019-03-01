@@ -44,4 +44,4 @@ Smart::assign([
   'change' => $change,
 ]);
 Smart::addResources('diff', 'select2Dev');
-Smart::display('tag/definition-version.tpl');
+Smart::display('tag/definitionVersion.tpl');

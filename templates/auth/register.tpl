@@ -103,7 +103,7 @@
             înregistrare
           </button>
 
-          <a class="btn btn-link pull-right" href="login">
+          <a class="btn btn-link pull-right" href="{Router::link('auth/login')}">
             am deja un cont
           </a>
         </form>

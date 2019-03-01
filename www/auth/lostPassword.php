@@ -1,6 +1,4 @@
 <?php
-
-require_once '../../lib/Core.php';
 Util::assertNotLoggedIn();
 
 $email = Request::get('email');
@@ -43,7 +41,7 @@ if ($submitButton) {
   }
 }
 
-Smart::display('auth/parola-uitata.tpl');
+Smart::display('auth/lostPassword.tpl');
 
 /*************************************************************************/
 

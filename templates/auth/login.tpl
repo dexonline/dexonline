@@ -61,7 +61,7 @@
             autentificare
           </button>
 
-          <a class="btn btn-link pull-right" href="parola-uitata">
+          <a class="btn btn-link pull-right" href="{Router::link('auth/lostPassword')}">
             mi-am uitat parola
           </a>
         </form>
@@ -69,7 +69,7 @@
     </div>
 
     <p>
-      <a href="register">vreau să îmi creez un cont</a>
+      <a href="{Router::link('auth/register')}">vreau să îmi creez un cont</a>
       <a href="#openidInfo" class="pull-right" data-toggle="collapse">
         informații despre OpenID
       </a>
@@ -100,7 +100,7 @@
           De aceea am luat decizia să revenim la modelul clasic, de conturi cu
           nume și parolă doar pentru dexonline. Dacă aveți un cont la noi, vă
           puteți recupera parola accesând link-ul
-          <a href="parola-uitata">mi-am uitat parola</a>.
+          <a href="{Router::link('auth/lostPassword')}">mi-am uitat parola</a>.
         </p>
 
         <p>

@@ -32,7 +32,7 @@
 <p>
   {if !$donor->user}
     Dacă doriți să beneficiați de premiile virtuale (medalie și/sau pagini fără reclame),
-    aveți nevoie de <a href="https://dexonline.ro/auth/login">un cont pe dexonline</a>.
+    aveți nevoie de <a href="{Router::link('auth/login', true)}">un cont pe dexonline</a>.
   {elseif $donor->amount < Donor::AMOUNT_NO_BANNERS}
     V-am acordat medalia în
     <a href="https://dexonline.ro/utilizator/{$donor->user->nick|escape:url}"

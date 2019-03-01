@@ -1,9 +1,5 @@
 Order Deny,Allow
 Allow from all
-<IfModule mod_php5.c>
-  php_value error_reporting 32767
-  php_flag display_errors on
-</IfModule>
 
 RewriteEngine on
 Options -MultiViews

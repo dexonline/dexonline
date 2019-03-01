@@ -40,5 +40,5 @@ Din partea echipei dexonline,
 {if $donor->user}
 [3] https://dexonline.ro/utilizator/{$donor->user->nick|escape:url}
 {else}
-[3] https://dexonline.ro/auth/login
+[3] {Router::link('auth/login', true)}
 {/if}

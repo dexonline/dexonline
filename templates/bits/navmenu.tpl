@@ -198,14 +198,14 @@
                 </a>
               </li>
               <li>
-                <a href="{Config::URL_PREFIX}auth/logout">
+                <a href="{Router::link('auth/logout')}">
                   <i class="glyphicon glyphicon-log-out"></i>
                   <span>{t}log out{/t}</span>
                 </a>
               </li>
             {else}
               <li>
-                <a href="{Config::URL_PREFIX}auth/login">
+                <a href="{Router::link('auth/login')}">
                   <i class="glyphicon glyphicon-log-in"></i>
                   <span>{t}log in{/t}</span>
                 </a>

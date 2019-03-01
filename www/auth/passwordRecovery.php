@@ -1,5 +1,4 @@
 <?php
-require_once '../../lib/Core.php';
 Util::assertNotLoggedIn();
 
 $token = Request::get('token');

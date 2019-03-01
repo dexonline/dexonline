@@ -27,6 +27,28 @@ class Router {
       'ro_RO.utf8' => 'articol',
     ],
 
+    // auth
+    'auth/login' => [
+      'en_US.utf8' => 'login',
+      'ro_RO.utf8' => 'autentificare',
+    ],
+    'auth/logout' => [
+      'en_US.utf8' => 'logout',
+      'ro_RO.utf8' => 'deconectare',
+    ],
+    'auth/lostPassword' => [
+      'en_US.utf8' => 'lost-password',
+      'ro_RO.utf8' => 'parola-uitata',
+    ],
+    'auth/passwordRecovery' => [
+      'en_US.utf8' => 'password-recovery',
+      'ro_RO.utf8' => 'recuperare-parola',
+    ],
+    'auth/register' => [
+      'en_US.utf8' => 'register',
+      'ro_RO.utf8' => 'inregistrare',
+    ],
+
     // WotD artists
     'artist/assign' => [
       'en_US.utf8' => 'assign-artists',

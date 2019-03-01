@@ -3,7 +3,7 @@ require_once '../lib/Core.php';
 
 $user = User::getActive();
 if (!$user) {
-  Util::redirect('auth/login');
+  Util::redirectToRoute('auth/login');
 }
 $definitions = Model::factory('Definition')
   ->table_alias('d')

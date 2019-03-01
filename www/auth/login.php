@@ -1,6 +1,4 @@
 <?php
-
-require_once '../../lib/Core.php';
 Util::assertNotLoggedIn();
 
 // nick means "nick or email" throughout this form
@@ -18,7 +16,7 @@ $devel = Config::DEVELOPMENT_MODE;
 if ($fakeUserNick) {
   if (!$devel) {
     FlashMessage::add('Conectarea cu utilizatori de test este permisă doar în development.');
-    Util::redirect('login');
+    Util::redirectToRoute('auth/login');
   }
   $user = User::get_by_nick($fakeUserNick);
   if (!$user) {

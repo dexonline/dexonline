@@ -14,6 +14,6 @@
   </p>
 
   <p>
-    Apoi, poți reveni la <a href="login">pagina de autentificare</a>.
+    Apoi, poți reveni la <a href="{Router::link('auth/login', true)}">pagina de autentificare</a>.
   </p>
 {/block}

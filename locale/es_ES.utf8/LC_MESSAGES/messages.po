@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2019-02-28 20:05+0200\n"
-"PO-Revision-Date: 2019-02-28 20:05+0200\n"
+"POT-Creation-Date: 2019-03-01 23:27+0200\n"
+"PO-Revision-Date: 2019-03-01 23:28+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: es\n"
@@ -182,7 +182,7 @@ msgstr "guía gramatical"
 msgid "word of the day"
 msgstr "la palabra del día"
 
-#: templates/bits/navmenu.tpl:110 templates/widgets/wotm.tpl:3
+#: templates/bits/navmenu.tpl:110 templates/widgets/wotm.tpl:5
 msgid "word of the month"
 msgstr "la palabra del mes"
 
@@ -255,7 +255,7 @@ msgstr "palabra"
 msgid "search"
 msgstr "búsqueda"
 
-#: templates/bits/searchForm.tpl:35 templates/scramble.tpl:29
+#: templates/bits/searchForm.tpl:35 templates/games/scramble.tpl:29
 msgid "options"
 msgstr "opciones"
 
@@ -283,7 +283,8 @@ msgstr "nombre"
 msgid "characters"
 msgstr "caracteres"
 
-#: templates/bits/top.tpl:7 templates/hangman.tpl:52 templates/mill.tpl:67
+#: templates/bits/top.tpl:7 templates/games/hangman.tpl:52
+#: templates/games/mill.tpl:67
 msgid "definitions"
 msgstr "definiciones"
 
@@ -356,46 +357,362 @@ msgstr "Puede bajarse una <a href=\"%1\">copia de la base de datos</a>."
 msgid "You have no favorite words."
 msgstr "No tiene ninguna palabra favorita."
 
-#: templates/hangman.tpl:3 templates/hangman.tpl:15
+#: templates/games/hangman.tpl:3 templates/games/hangman.tpl:15
 #: templates/widgets/games.tpl:5
 msgid "hangman"
 msgstr "el colgado"
 
-#: templates/hangman.tpl:21
+#: templates/games/hangman.tpl:21
 msgid "Lives remaining"
 msgstr "Vidas restantes"
 
-#: templates/hangman.tpl:23 templates/search/gallery.tpl:6
+#: templates/games/hangman.tpl:23 templates/search/gallery.tpl:6
 msgid "images"
 msgstr "imágenes"
 
-#: templates/hangman.tpl:36
+#: templates/games/hangman.tpl:36
 msgid "Get a clue"
 msgstr "Obtenga una pista"
 
-#: templates/hangman.tpl:41 templates/mill.tpl:16
+#: templates/games/hangman.tpl:41 templates/games/mill.tpl:16
 msgid "easy"
 msgstr "fácil"
 
-#: templates/hangman.tpl:42 templates/mill.tpl:17
+#: templates/games/hangman.tpl:42 templates/games/mill.tpl:17
 msgid "medium"
 msgstr "medio"
 
-#: templates/hangman.tpl:43 templates/mill.tpl:18
+#: templates/games/hangman.tpl:43 templates/games/mill.tpl:18
 msgid "hard"
 msgstr "difícil"
 
-#: templates/hangman.tpl:44 templates/mill.tpl:19
+#: templates/games/hangman.tpl:44 templates/games/mill.tpl:19
 msgid "expert"
 msgstr "experto"
 
-#: templates/hangman.tpl:66
+#: templates/games/hangman.tpl:66
 msgid "Congratulations, you win!"
 msgstr "¡Enhorabuena, ha ganado!"
 
-#: templates/hangman.tpl:69
+#: templates/games/hangman.tpl:69
 msgid "Sorry, you lose."
 msgstr "Lo sentimos, ha perdido."
+
+#: templates/games/mill.tpl:3 templates/games/mill.tpl:10
+#: templates/widgets/games.tpl:6
+msgid "word mill"
+msgstr "la ruleta de las palabras"
+
+#: templates/games/mill.tpl:15
+msgid "Level"
+msgstr "Nivel"
+
+#: templates/games/mill.tpl:23
+msgid "You can also use the keys 1, 2, 3, 4."
+msgstr "Puede usar las claves 1, 2, 3, 4."
+
+#: templates/games/mill.tpl:38
+msgid "The correct definition of <span class=\"word\"></span>:"
+msgstr "La definición correcta de <span class=\"word\"></span>:"
+
+#: templates/games/mill.tpl:56
+msgid ""
+"Congratulations! You answered <b id=\"answeredCorrect\">0</b> of 10 "
+"questions correctly."
+msgstr ""
+"¡Enhorabuena! Ha contestado correctamente <b id=\"answeredCorrect\">0</b> de "
+"10 preguntas."
+
+#: templates/games/mill.tpl:59
+msgid "new game"
+msgstr "juegue otra vez"
+
+#: templates/games/mill.tpl:60
+msgid "see all definitions"
+msgstr "vea todas las definiciones"
+
+#: templates/games/scrabble.tpl:9
+msgid "Scrabble lookup"
+msgstr "Verificar Scrabble"
+
+#: templates/games/scrabble.tpl:15
+msgid ""
+"Are you playing Scrabble and your friends do not believe that <em>kwyjibo</"
+"em> is a perfectly legal word? Type in your word to show them who the boss "
+"is."
+msgstr ""
+"Está jugando al Scrabble y sus amigos ¿no creen que <em>kwyjibo</em> es una "
+"palabra perfectamente correcta? Introduzca su palabra para que sepan ¡quién "
+"manda aquí!"
+
+#: templates/games/scrabble.tpl:42
+msgid "in version"
+msgstr "en la versión"
+
+#: templates/games/scrabble.tpl:53
+msgid "look up"
+msgstr "verificar"
+
+#: templates/games/scrabble.tpl:63
+msgid "Official Scrabble word list (LOC)"
+msgstr "Listado oficial de palabras de Scrabble (LOC)"
+
+#: templates/games/scrabble.tpl:69
+msgid "version"
+msgstr "versión"
+
+#: templates/games/scrabble.tpl:70
+msgid "publication date"
+msgstr "fecha de publicación"
+
+#: templates/games/scrabble.tpl:71 templates/games/scrabble.tpl:90
+#: templates/games/scrabble.tpl:124
+msgid "reduced forms"
+msgstr "formas reducidas"
+
+#: templates/games/scrabble.tpl:72 templates/games/scrabble.tpl:92
+#: templates/games/scrabble.tpl:122
+msgid "base forms"
+msgstr "forma de base"
+
+#: templates/games/scrabble.tpl:73 templates/games/scrabble.tpl:98
+#: templates/games/scrabble.tpl:123
+msgid "inflected forms"
+msgstr "formas flexionadas"
+
+#: templates/games/scrabble.tpl:81 templates/games/scrabble.tpl:82
+#: templates/games/scrabble.tpl:83
+msgid "download"
+msgstr "descargar"
+
+#: templates/games/scrabble.tpl:91
+msgid "a list of words between 2 and 15 letters, without diacritics"
+msgstr "un listado de palabras de entre 2 y 15 letras, sin diacríticos"
+
+#: templates/games/scrabble.tpl:94
+msgid "word list in alphabetical order"
+msgstr "listado de palabras en orden alfabético"
+
+#: templates/games/scrabble.tpl:96
+msgid "legend of notations"
+msgstr "leyenda de las notaciones"
+
+#: templates/games/scrabble.tpl:99
+msgid "list of words and their conjugations/declensions"
+msgstr "listado de palabras y su conjugación/declinación"
+
+#: templates/games/scrabble.tpl:103
+msgid ""
+"The last official LOC version is 5.0. Version 6.0 contains changes to LOC "
+"made using the dexonline interface, but not included in the official version."
+msgstr ""
+"La última versión oficial del LOC es 5.0. La versión 6.0 contiene cambios en "
+"el LOC hechos mediante la interfaz dexonline, pero sin estar incluidos en la "
+"versión oficial."
+
+#: templates/games/scrabble.tpl:111
+msgid "Differences between versions"
+msgstr "Diferencias entre las versiones"
+
+#: templates/games/scrabble.tpl:115
+msgid "Find out what changed between two versions of LOC."
+msgstr "Descubra los cambios entre dos versiones del LOC."
+
+#: templates/games/scrabble.tpl:120 templates/games/scrabble.tpl:143
+msgid "compare"
+msgstr "compare"
+
+#: templates/games/scrabble.tpl:129
+msgid "between"
+msgstr "entre"
+
+#: templates/games/scrabble.tpl:136
+msgid "version %1 and version %2"
+msgstr "la versión %1 y la versión %2"
+
+#: templates/games/scrabble.tpl:149
+msgid "Inflection models"
+msgstr "Modelos de inflexión"
+
+#: templates/games/scrabble.tpl:153
+msgid ""
+"<em>%1</em> and <em>%2</em> have similar declensions... but not <em>%3</em> "
+"and <em>%4</em>? Here is why."
+msgstr ""
+"<em>%1</em> y <em>%2</em> tienen declinaciones parecidas… sin embargo ¿<em>"
+"%3</em> y <em>%4</em> no? He aquí por qué."
+
+#: templates/games/scrabble.tpl:159
+msgid "Show models for"
+msgstr "Muestre los modelos para"
+
+#: templates/games/scrabble.tpl:167 templates/search.tpl:286
+#: templates/search.tpl:294 templates/search.tpl:296
+msgid "show"
+msgstr "muestre"
+
+#: templates/games/scramble.tpl:4 templates/games/scramble.tpl:12
+#: templates/games/scramble.tpl:179 templates/widgets/games.tpl:7
+msgid "word scramble"
+msgstr "la tortilla de las palabras"
+
+#: templates/games/scramble.tpl:21
+msgid "start"
+msgstr "salida"
+
+#: templates/games/scramble.tpl:36
+msgid "object"
+msgstr "objeto"
+
+#: templates/games/scramble.tpl:40 templates/games/scramble.tpl:113
+msgid "all words"
+msgstr "todas las palabras"
+
+#: templates/games/scramble.tpl:43 templates/games/scramble.tpl:117
+msgid "one anagram"
+msgstr "un anagrama"
+
+#: templates/games/scramble.tpl:46 templates/games/scramble.tpl:121
+msgid "all anagrams"
+msgstr "todos los anagramas"
+
+#: templates/games/scramble.tpl:57 templates/games/scramble.tpl:60
+#: templates/games/scramble.tpl:63 templates/games/scramble.tpl:66
+msgid "letters"
+msgstr "letras"
+
+#: templates/games/scramble.tpl:73
+msgid "diacritics"
+msgstr "diacríticos"
+
+#: templates/games/scramble.tpl:77
+msgid "no"
+msgstr "no"
+
+#: templates/games/scramble.tpl:80
+msgid "yes"
+msgstr "sí"
+
+#: templates/games/scramble.tpl:87
+msgid "time"
+msgstr "tiempo"
+
+#: templates/games/scramble.tpl:93
+msgid "one minute"
+msgid_plural "%1 minutes"
+msgstr[0] "un minuto"
+msgstr[1] "%1 minutos"
+
+#: templates/games/scramble.tpl:101
+msgid "Object of the game"
+msgstr "Objetivo del juego"
+
+#: templates/games/scramble.tpl:103
+msgid ""
+"Find as many words as you can using the given letters, before the time runs "
+"out."
+msgstr ""
+"Encuentre tantas palabras como pueda formar con las letras dadas, antes de "
+"que se agote el tiempo."
+
+#: templates/games/scramble.tpl:108
+msgid "There are three game types:"
+msgstr "Hay tres tipos de juegos:"
+
+#: templates/games/scramble.tpl:114
+msgid "find all words having at least three letters."
+msgstr "encuentre todos las palabras que tengan al menos tres letras."
+
+#: templates/games/scramble.tpl:118
+msgid "find a word using all the letters, then receive a new set of letters."
+msgstr ""
+"encuentre una palabra usando todas las letras, luego recibirá un nuevo "
+"conjunto de letras."
+
+#: templates/games/scramble.tpl:123
+msgid ""
+"find all words using all the letters, then receive a new set of letters. For "
+"example, for the set AINTT you must guess all three anagrams (<i>%1</i>) to "
+"receive the next set."
+msgstr ""
+"encuentre todas las palabras con todas las letras, luego recibirá un nuevo "
+"conjunto de letras. Por ejemplo, para el conjunto AINTT, tiene que encontrar "
+"todos los tres anagramas (<i>%1</i>), con tal de poder seguir con el próximo "
+"conjunto de letras."
+
+#: templates/games/scramble.tpl:130
+msgid "Instructions"
+msgstr "Acciones"
+
+#: templates/games/scramble.tpl:132
+msgid ""
+"When using a keyboard, simply type the letters. When using a mouse, click on "
+"the letters, then click on the magnifier to check a word."
+msgstr ""
+"Al usar el teclado, solo tiene que teclear las letras. A usar el ratón, "
+"clique en las letras, luego clique la lupa para comprobar una palabra."
+
+#: templates/games/scramble.tpl:138
+msgid ""
+"Legal words include conjugations (such as <i>lucrez</i>) and declensions "
+"(such as <i>verzi</i>). If you opted for diacritics, then the letters %1 "
+"cannot be interchanged with %2."
+msgstr ""
+"Las palabras admitidas incluyen conjugaciones (tales como <i>lucrez</i>) y "
+"declinaciones (tales como <i>verzi</i>). Si ha optado por los diacríticos, "
+"las letras %1 no se pueden intercambiar con %2."
+
+#: templates/games/scramble.tpl:144
+msgid "Special keys"
+msgstr "Teclas especiales"
+
+#: templates/games/scramble.tpl:148
+msgid "checks the word"
+msgstr "comprueba la palabra"
+
+#: templates/games/scramble.tpl:149
+msgid "deletes the last letter"
+msgstr "borra la última letra"
+
+#: templates/games/scramble.tpl:150
+msgid "deletes all the letters"
+msgstr "borra todas las letras"
+
+#: templates/games/scramble.tpl:151
+msgid "shuffles the letters"
+msgstr "mezcla las letras"
+
+#: templates/games/scramble.tpl:155
+msgid "Below the game area there is"
+msgstr "Debajo del área del juego está"
+
+#: templates/games/scramble.tpl:161
+msgid "time remaining"
+msgstr "tiempo restante"
+
+#: templates/games/scramble.tpl:165
+msgid "number of words found / total number of words"
+msgstr "número de palabras encontradas / número total de palabras"
+
+#: templates/games/scramble.tpl:169
+msgid "score (longer words earn more points)"
+msgstr "marcador (las palabras más largas dan más puntos)"
+
+#: templates/games/scramble.tpl:207
+msgid "play again"
+msgstr "juegue otra vez"
+
+#: templates/games/scramble.tpl:215
+msgid "Legal words"
+msgstr "Palabras admitidas"
+
+#: templates/games/scramble.tpl:239
+msgid ""
+"You can share this link with your friends to compare scores on the same "
+"letter sets."
+msgstr ""
+"Puede compartir el enlace con sus amigos para comparar los marcadores con "
+"los mismos conjuntos de letras."
 
 #: templates/hosting/hosterion.tpl:1
 msgid "hosted by"
@@ -513,38 +830,6 @@ msgstr "Programas que usan la base de datos de dexonline"
 #: templates/links.tpl:64
 msgid "A <a href=\"%1\">game of Fazan</a> for Android devices"
 msgstr "El <a href=\"%1\">juego \"Fazan\"</a> para dispositivos Android"
-
-#: templates/mill.tpl:3 templates/mill.tpl:10 templates/widgets/games.tpl:6
-msgid "word mill"
-msgstr "la ruleta de las palabras"
-
-#: templates/mill.tpl:15
-msgid "Level"
-msgstr "Nivel"
-
-#: templates/mill.tpl:23
-msgid "You can also use the keys 1, 2, 3, 4."
-msgstr "Puede usar las claves 1, 2, 3, 4."
-
-#: templates/mill.tpl:38
-msgid "The correct definition of <span class=\"word\"></span>:"
-msgstr "La definición correcta de <span class=\"word\"></span>:"
-
-#: templates/mill.tpl:56
-msgid ""
-"Congratulations! You answered <b id=\"answeredCorrect\">0</b> of 10 "
-"questions correctly."
-msgstr ""
-"¡Enhorabuena! Ha contestado correctamente <b id=\"answeredCorrect\">0</b> de "
-"10 preguntas."
-
-#: templates/mill.tpl:59
-msgid "new game"
-msgstr "juegue otra vez"
-
-#: templates/mill.tpl:60
-msgid "see all definitions"
-msgstr "vea todas las definiciones"
 
 #: templates/paradigm/paradigmA.tpl:8 templates/paradigm/paradigmP.tpl:8
 msgid "masculine"
@@ -685,289 +970,6 @@ msgstr "2ª (voi)"
 #: templates/paradigm/paradigmV.tpl:157
 msgid "3rd (ei, ele)"
 msgstr "3ª (ei, ele)"
-
-#: templates/scrabble.tpl:9
-msgid "Scrabble lookup"
-msgstr "Verificar Scrabble"
-
-#: templates/scrabble.tpl:15
-msgid ""
-"Are you playing Scrabble and your friends do not believe that <em>kwyjibo</"
-"em> is a perfectly legal word? Type in your word to show them who the boss "
-"is."
-msgstr ""
-"Está jugando al Scrabble y sus amigos ¿no creen que <em>kwyjibo</em> es una "
-"palabra perfectamente correcta? Introduzca su palabra para que sepan ¡quién "
-"manda aquí!"
-
-#: templates/scrabble.tpl:42
-msgid "in version"
-msgstr "en la versión"
-
-#: templates/scrabble.tpl:53
-msgid "look up"
-msgstr "verificar"
-
-#: templates/scrabble.tpl:63
-msgid "Official Scrabble word list (LOC)"
-msgstr "Listado oficial de palabras de Scrabble (LOC)"
-
-#: templates/scrabble.tpl:69
-msgid "version"
-msgstr "versión"
-
-#: templates/scrabble.tpl:70
-msgid "publication date"
-msgstr "fecha de publicación"
-
-#: templates/scrabble.tpl:71 templates/scrabble.tpl:90
-#: templates/scrabble.tpl:124
-msgid "reduced forms"
-msgstr "formas reducidas"
-
-#: templates/scrabble.tpl:72 templates/scrabble.tpl:92
-#: templates/scrabble.tpl:122
-msgid "base forms"
-msgstr "forma de base"
-
-#: templates/scrabble.tpl:73 templates/scrabble.tpl:98
-#: templates/scrabble.tpl:123
-msgid "inflected forms"
-msgstr "formas flexionadas"
-
-#: templates/scrabble.tpl:81 templates/scrabble.tpl:82
-#: templates/scrabble.tpl:83
-msgid "download"
-msgstr "descargar"
-
-#: templates/scrabble.tpl:91
-msgid "a list of words between 2 and 15 letters, without diacritics"
-msgstr "un listado de palabras de entre 2 y 15 letras, sin diacríticos"
-
-#: templates/scrabble.tpl:94
-msgid "word list in alphabetical order"
-msgstr "listado de palabras en orden alfabético"
-
-#: templates/scrabble.tpl:96
-msgid "legend of notations"
-msgstr "leyenda de las notaciones"
-
-#: templates/scrabble.tpl:99
-msgid "list of words and their conjugations/declensions"
-msgstr "listado de palabras y su conjugación/declinación"
-
-#: templates/scrabble.tpl:103
-msgid ""
-"The last official LOC version is 5.0. Version 6.0 contains changes to LOC "
-"made using the dexonline interface, but not included in the official version."
-msgstr ""
-"La última versión oficial del LOC es 5.0. La versión 6.0 contiene cambios en "
-"el LOC hechos mediante la interfaz dexonline, pero sin estar incluidos en la "
-"versión oficial."
-
-#: templates/scrabble.tpl:111
-msgid "Differences between versions"
-msgstr "Diferencias entre las versiones"
-
-#: templates/scrabble.tpl:115
-msgid "Find out what changed between two versions of LOC."
-msgstr "Descubra los cambios entre dos versiones del LOC."
-
-#: templates/scrabble.tpl:120 templates/scrabble.tpl:143
-msgid "compare"
-msgstr "compare"
-
-#: templates/scrabble.tpl:129
-msgid "between"
-msgstr "entre"
-
-#: templates/scrabble.tpl:136
-msgid "version %1 and version %2"
-msgstr "la versión %1 y la versión %2"
-
-#: templates/scrabble.tpl:149
-msgid "Inflection models"
-msgstr "Modelos de inflexión"
-
-#: templates/scrabble.tpl:153
-msgid ""
-"<em>%1</em> and <em>%2</em> have similar declensions... but not <em>%3</em> "
-"and <em>%4</em>? Here is why."
-msgstr ""
-"<em>%1</em> y <em>%2</em> tienen declinaciones parecidas… sin embargo ¿<em>"
-"%3</em> y <em>%4</em> no? He aquí por qué."
-
-#: templates/scrabble.tpl:159
-msgid "Show models for"
-msgstr "Muestre los modelos para"
-
-#: templates/scrabble.tpl:167 templates/search.tpl:286 templates/search.tpl:294
-#: templates/search.tpl:296
-msgid "show"
-msgstr "muestre"
-
-#: templates/scramble.tpl:4 templates/scramble.tpl:12
-#: templates/scramble.tpl:179 templates/widgets/games.tpl:7
-msgid "word scramble"
-msgstr "la tortilla de las palabras"
-
-#: templates/scramble.tpl:21
-msgid "start"
-msgstr "salida"
-
-#: templates/scramble.tpl:36
-msgid "object"
-msgstr "objeto"
-
-#: templates/scramble.tpl:40 templates/scramble.tpl:113
-msgid "all words"
-msgstr "todas las palabras"
-
-#: templates/scramble.tpl:43 templates/scramble.tpl:117
-msgid "one anagram"
-msgstr "un anagrama"
-
-#: templates/scramble.tpl:46 templates/scramble.tpl:121
-msgid "all anagrams"
-msgstr "todos los anagramas"
-
-#: templates/scramble.tpl:57 templates/scramble.tpl:60
-#: templates/scramble.tpl:63 templates/scramble.tpl:66
-msgid "letters"
-msgstr "letras"
-
-#: templates/scramble.tpl:73
-msgid "diacritics"
-msgstr "diacríticos"
-
-#: templates/scramble.tpl:77
-msgid "no"
-msgstr "no"
-
-#: templates/scramble.tpl:80
-msgid "yes"
-msgstr "sí"
-
-#: templates/scramble.tpl:87
-msgid "time"
-msgstr "tiempo"
-
-#: templates/scramble.tpl:93
-msgid "one minute"
-msgid_plural "%1 minutes"
-msgstr[0] "un minuto"
-msgstr[1] "%1 minutos"
-
-#: templates/scramble.tpl:101
-msgid "Object of the game"
-msgstr "Objetivo del juego"
-
-#: templates/scramble.tpl:103
-msgid ""
-"Find as many words as you can using the given letters, before the time runs "
-"out."
-msgstr ""
-"Encuentre tantas palabras como pueda formar con las letras dadas, antes de "
-"que se agote el tiempo."
-
-#: templates/scramble.tpl:108
-msgid "There are three game types:"
-msgstr "Hay tres tipos de juegos:"
-
-#: templates/scramble.tpl:114
-msgid "find all words having at least three letters."
-msgstr "encuentre todos las palabras que tengan al menos tres letras."
-
-#: templates/scramble.tpl:118
-msgid "find a word using all the letters, then receive a new set of letters."
-msgstr ""
-"encuentre una palabra usando todas las letras, luego recibirá un nuevo "
-"conjunto de letras."
-
-#: templates/scramble.tpl:123
-msgid ""
-"find all words using all the letters, then receive a new set of letters. For "
-"example, for the set AINTT you must guess all three anagrams (<i>%1</i>) to "
-"receive the next set."
-msgstr ""
-"encuentre todas las palabras con todas las letras, luego recibirá un nuevo "
-"conjunto de letras. Por ejemplo, para el conjunto AINTT, tiene que encontrar "
-"todos los tres anagramas (<i>%1</i>), con tal de poder seguir con el próximo "
-"conjunto de letras."
-
-#: templates/scramble.tpl:130
-msgid "Instructions"
-msgstr "Acciones"
-
-#: templates/scramble.tpl:132
-msgid ""
-"When using a keyboard, simply type the letters. When using a mouse, click on "
-"the letters, then click on the magnifier to check a word."
-msgstr ""
-"Al usar el teclado, solo tiene que teclear las letras. A usar el ratón, "
-"clique en las letras, luego clique la lupa para comprobar una palabra."
-
-#: templates/scramble.tpl:138
-msgid ""
-"Legal words include conjugations (such as <i>lucrez</i>) and declensions "
-"(such as <i>verzi</i>). If you opted for diacritics, then the letters %1 "
-"cannot be interchanged with %2."
-msgstr ""
-"Las palabras admitidas incluyen conjugaciones (tales como <i>lucrez</i>) y "
-"declinaciones (tales como <i>verzi</i>). Si ha optado por los diacríticos, "
-"las letras %1 no se pueden intercambiar con %2."
-
-#: templates/scramble.tpl:144
-msgid "Special keys"
-msgstr "Teclas especiales"
-
-#: templates/scramble.tpl:148
-msgid "checks the word"
-msgstr "comprueba la palabra"
-
-#: templates/scramble.tpl:149
-msgid "deletes the last letter"
-msgstr "borra la última letra"
-
-#: templates/scramble.tpl:150
-msgid "deletes all the letters"
-msgstr "borra todas las letras"
-
-#: templates/scramble.tpl:151
-msgid "shuffles the letters"
-msgstr "mezcla las letras"
-
-#: templates/scramble.tpl:155
-msgid "Below the game area there is"
-msgstr "Debajo del área del juego está"
-
-#: templates/scramble.tpl:161
-msgid "time remaining"
-msgstr "tiempo restante"
-
-#: templates/scramble.tpl:165
-msgid "number of words found / total number of words"
-msgstr "número de palabras encontradas / número total de palabras"
-
-#: templates/scramble.tpl:169
-msgid "score (longer words earn more points)"
-msgstr "marcador (las palabras más largas dan más puntos)"
-
-#: templates/scramble.tpl:207
-msgid "play again"
-msgstr "juegue otra vez"
-
-#: templates/scramble.tpl:215
-msgid "Legal words"
-msgstr "Palabras admitidas"
-
-#: templates/scramble.tpl:239
-msgid ""
-"You can share this link with your friends to compare scores on the same "
-"letter sets."
-msgstr ""
-"Puede compartir el enlace con sus amigos para comparar los marcadores con "
-"los mismos conjuntos de letras."
 
 #: templates/search.tpl:5
 msgid "definition"
@@ -1331,7 +1333,7 @@ msgstr ""
 "obstante, existen <a href=\"%1\">varios webs</a> que lo hacen para cualquier "
 "feed RSS. Le sugerimos <a href=\"%2\">IFTTT</a>."
 
-#: templates/wotd/view.tpl:98 templates/wotm.tpl:57
+#: templates/wotd/view.tpl:98 templates/wotm/view.tpl:57
 msgid "Chosen because:"
 msgstr "Escogido porque:"
 
@@ -1347,15 +1349,15 @@ msgstr "La palabra del día para %2 %1 en otros años:"
 msgid "Comments"
 msgstr "Notas"
 
-#: templates/wotm.tpl:4 templates/wotm.tpl:19
+#: templates/wotm/view.tpl:4 templates/wotm/view.tpl:19
 msgid "Word of the month for"
 msgstr "La palabra del mes para"
 
-#: templates/wotm.tpl:25
+#: templates/wotm/view.tpl:25
 msgid "previous"
 msgstr "anterior"
 
-#: templates/wotm.tpl:32
+#: templates/wotm/view.tpl:32
 msgid "next"
 msgstr "siguiente"
 

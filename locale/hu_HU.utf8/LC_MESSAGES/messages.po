@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: BUG-EMAIL-ADDR <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2019-02-28 20:05+0200\n"
-"PO-Revision-Date: 2019-02-28 20:05+0200\n"
+"POT-Creation-Date: 2019-03-01 23:28+0200\n"
+"PO-Revision-Date: 2019-03-01 23:28+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: hu\n"
@@ -183,7 +183,7 @@ msgstr "nyelvtani útmutató"
 msgid "word of the day"
 msgstr "a nap szava"
 
-#: templates/bits/navmenu.tpl:110 templates/widgets/wotm.tpl:3
+#: templates/bits/navmenu.tpl:110 templates/widgets/wotm.tpl:5
 msgid "word of the month"
 msgstr "a hónap szava"
 
@@ -256,7 +256,7 @@ msgstr "szó"
 msgid "search"
 msgstr "keress"
 
-#: templates/bits/searchForm.tpl:35 templates/scramble.tpl:29
+#: templates/bits/searchForm.tpl:35 templates/games/scramble.tpl:29
 msgid "options"
 msgstr "opciók"
 
@@ -284,7 +284,8 @@ msgstr "név"
 msgid "characters"
 msgstr "betük"
 
-#: templates/bits/top.tpl:7 templates/hangman.tpl:52 templates/mill.tpl:67
+#: templates/bits/top.tpl:7 templates/games/hangman.tpl:52
+#: templates/games/mill.tpl:67
 msgid "definitions"
 msgstr "meghatározások"
 
@@ -359,46 +360,360 @@ msgstr "Letöltheted az <a href=\"%1\">adatbázis másolatát</a>."
 msgid "You have no favorite words."
 msgstr "Nincsenek kedvenc szavak."
 
-#: templates/hangman.tpl:3 templates/hangman.tpl:15
+#: templates/games/hangman.tpl:3 templates/games/hangman.tpl:15
 #: templates/widgets/games.tpl:5
 msgid "hangman"
 msgstr "akasztófa"
 
-#: templates/hangman.tpl:21
+#: templates/games/hangman.tpl:21
 msgid "Lives remaining"
 msgstr "Megmaradt élet"
 
-#: templates/hangman.tpl:23 templates/search/gallery.tpl:6
+#: templates/games/hangman.tpl:23 templates/search/gallery.tpl:6
 msgid "images"
 msgstr "képek"
 
-#: templates/hangman.tpl:36
+#: templates/games/hangman.tpl:36
 msgid "Get a clue"
 msgstr "Nyomravezető"
 
-#: templates/hangman.tpl:41 templates/mill.tpl:16
+#: templates/games/hangman.tpl:41 templates/games/mill.tpl:16
 msgid "easy"
 msgstr "könnyű"
 
-#: templates/hangman.tpl:42 templates/mill.tpl:17
+#: templates/games/hangman.tpl:42 templates/games/mill.tpl:17
 msgid "medium"
 msgstr "közepes"
 
-#: templates/hangman.tpl:43 templates/mill.tpl:18
+#: templates/games/hangman.tpl:43 templates/games/mill.tpl:18
 msgid "hard"
 msgstr "nehéz"
 
-#: templates/hangman.tpl:44 templates/mill.tpl:19
+#: templates/games/hangman.tpl:44 templates/games/mill.tpl:19
 msgid "expert"
 msgstr "szakértő"
 
-#: templates/hangman.tpl:66
+#: templates/games/hangman.tpl:66
 msgid "Congratulations, you win!"
 msgstr "Gratulálok, nyertél!"
 
-#: templates/hangman.tpl:69
+#: templates/games/hangman.tpl:69
 msgid "Sorry, you lose."
 msgstr "Sajnálom, veszítettél."
+
+#: templates/games/mill.tpl:3 templates/games/mill.tpl:10
+#: templates/widgets/games.tpl:6
+msgid "word mill"
+msgstr "szómalom"
+
+#: templates/games/mill.tpl:15
+msgid "Level"
+msgstr "Szint"
+
+#: templates/games/mill.tpl:23
+msgid "You can also use the keys 1, 2, 3, 4."
+msgstr "Használhatja az 1, 2, 3, 4 gombokat is."
+
+#: templates/games/mill.tpl:38
+msgid "The correct definition of <span class=\"word\"></span>:"
+msgstr "A <span class = \"word\"></span> helyes meghatározása:"
+
+#: templates/games/mill.tpl:56
+msgid ""
+"Congratulations! You answered <b id=\"answeredCorrect\">0</b> of 10 "
+"questions correctly."
+msgstr ""
+"Gratulálunk! Ön <b id=\"answerCorrect\">0</b> kérdésre a 10-böl helyesen "
+"válaszolt."
+
+#: templates/games/mill.tpl:59
+msgid "new game"
+msgstr "új játék"
+
+#: templates/games/mill.tpl:60
+msgid "see all definitions"
+msgstr "összes meghatározás"
+
+#: templates/games/scrabble.tpl:9
+msgid "Scrabble lookup"
+msgstr "Scrabble keresés"
+
+#: templates/games/scrabble.tpl:15
+msgid ""
+"Are you playing Scrabble and your friends do not believe that <em>kwyjibo</"
+"em> is a perfectly legal word? Type in your word to show them who the boss "
+"is."
+msgstr ""
+"Scrabble-t játszol és barátaid nem hiszik hogy <em>kwyjibo</em> tökéletesen "
+"elfogadható szó? Írd be a szót és mutasd meg nekik ki a főnök."
+
+#: templates/games/scrabble.tpl:42
+msgid "in version"
+msgstr "verzióban"
+
+#: templates/games/scrabble.tpl:53
+msgid "look up"
+msgstr "keresés"
+
+#: templates/games/scrabble.tpl:63
+msgid "Official Scrabble word list (LOC)"
+msgstr "Hivatalos scrabble szavak listája (LOC)"
+
+#: templates/games/scrabble.tpl:69
+msgid "version"
+msgstr "verzió"
+
+#: templates/games/scrabble.tpl:70
+msgid "publication date"
+msgstr "közzétételi dátum"
+
+#: templates/games/scrabble.tpl:71 templates/games/scrabble.tpl:90
+#: templates/games/scrabble.tpl:124
+msgid "reduced forms"
+msgstr "leszűkített formák"
+
+#: templates/games/scrabble.tpl:72 templates/games/scrabble.tpl:92
+#: templates/games/scrabble.tpl:122
+msgid "base forms"
+msgstr "alap formák"
+
+#: templates/games/scrabble.tpl:73 templates/games/scrabble.tpl:98
+#: templates/games/scrabble.tpl:123
+msgid "inflected forms"
+msgstr "ragozott formák"
+
+#: templates/games/scrabble.tpl:81 templates/games/scrabble.tpl:82
+#: templates/games/scrabble.tpl:83
+msgid "download"
+msgstr "letöltés"
+
+#: templates/games/scrabble.tpl:91
+msgid "a list of words between 2 and 15 letters, without diacritics"
+msgstr "2-töl 15-ig terjedő betűs szavak listája, ékezetek nélkül"
+
+#: templates/games/scrabble.tpl:94
+msgid "word list in alphabetical order"
+msgstr "lista szójegyzék betűrendben"
+
+#: templates/games/scrabble.tpl:96
+msgid "legend of notations"
+msgstr "jelölések jelmagyarázata"
+
+#: templates/games/scrabble.tpl:99
+msgid "list of words and their conjugations/declensions"
+msgstr "a szavak listája és azok ragozásai"
+
+#: templates/games/scrabble.tpl:103
+msgid ""
+"The last official LOC version is 5.0. Version 6.0 contains changes to LOC "
+"made using the dexonline interface, but not included in the official version."
+msgstr ""
+"Az utolsó hivatalos LOC verzió az 5.0-ás. A 6.0-ás verzió változásokat "
+"tartalmaz a dexonline felületén készült bevitt adatokkal, de ezek nem "
+"szerepelnek a hivatalos verzióban."
+
+#: templates/games/scrabble.tpl:111
+msgid "Differences between versions"
+msgstr "A verziók közötti különbségek"
+
+#: templates/games/scrabble.tpl:115
+msgid "Find out what changed between two versions of LOC."
+msgstr "Tudd meg mi változott a LOC két verziója között."
+
+#: templates/games/scrabble.tpl:120 templates/games/scrabble.tpl:143
+msgid "compare"
+msgstr "hasonlítsd össze"
+
+#: templates/games/scrabble.tpl:129
+msgid "between"
+msgstr "között"
+
+#: templates/games/scrabble.tpl:136
+msgid "version %1 and version %2"
+msgstr "%1 verzió és %2 verzió"
+
+#: templates/games/scrabble.tpl:149
+msgid "Inflection models"
+msgstr "Ragozási minták"
+
+#: templates/games/scrabble.tpl:153
+msgid ""
+"<em>%1</em> and <em>%2</em> have similar declensions... but not <em>%3</em> "
+"and <em>%4</em>? Here is why."
+msgstr ""
+"<em>%1</em> és <em>%2</em> hasonló ragozásaik vannak... de nem <em>%3</em> "
+"és <em>%4</em>? Lásd miért."
+
+#: templates/games/scrabble.tpl:159
+msgid "Show models for"
+msgstr "Mutasd a mintákat a"
+
+#: templates/games/scrabble.tpl:167 templates/search.tpl:286
+#: templates/search.tpl:294 templates/search.tpl:296
+msgid "show"
+msgstr "mutasd"
+
+#: templates/games/scramble.tpl:4 templates/games/scramble.tpl:12
+#: templates/games/scramble.tpl:179 templates/widgets/games.tpl:7
+msgid "word scramble"
+msgstr "kevert szavak"
+
+#: templates/games/scramble.tpl:21
+msgid "start"
+msgstr "indíts"
+
+#: templates/games/scramble.tpl:36
+msgid "object"
+msgstr "tárgy"
+
+#: templates/games/scramble.tpl:40 templates/games/scramble.tpl:113
+msgid "all words"
+msgstr "összes szó"
+
+#: templates/games/scramble.tpl:43 templates/games/scramble.tpl:117
+msgid "one anagram"
+msgstr "egy anagramma"
+
+#: templates/games/scramble.tpl:46 templates/games/scramble.tpl:121
+msgid "all anagrams"
+msgstr "összes anagrammák"
+
+#: templates/games/scramble.tpl:57 templates/games/scramble.tpl:60
+#: templates/games/scramble.tpl:63 templates/games/scramble.tpl:66
+msgid "letters"
+msgstr "betűk"
+
+#: templates/games/scramble.tpl:73
+msgid "diacritics"
+msgstr "ékezetek"
+
+#: templates/games/scramble.tpl:77
+msgid "no"
+msgstr "nem"
+
+#: templates/games/scramble.tpl:80
+msgid "yes"
+msgstr "igen"
+
+#: templates/games/scramble.tpl:87
+msgid "time"
+msgstr "idő"
+
+#: templates/games/scramble.tpl:93
+msgid "one minute"
+msgid_plural "%1 minutes"
+msgstr[0] "egy perc"
+msgstr[1] "%1 percek"
+
+#: templates/games/scramble.tpl:101
+msgid "Object of the game"
+msgstr "A játék célja"
+
+#: templates/games/scramble.tpl:103
+msgid ""
+"Find as many words as you can using the given letters, before the time runs "
+"out."
+msgstr ""
+"Találj annyi szót amennyit csak tudsz az adott betűkkel, mielőtt elfogy az "
+"idő."
+
+#: templates/games/scramble.tpl:108
+msgid "There are three game types:"
+msgstr "Három játéktípus létezik:"
+
+#: templates/games/scramble.tpl:114
+msgid "find all words having at least three letters."
+msgstr "találj meg minden olyan szót amely legalább három betűs."
+
+#: templates/games/scramble.tpl:118
+msgid "find a word using all the letters, then receive a new set of letters."
+msgstr ""
+"keress egy szót az összes betű felhasználásával, majd kapsz egy új "
+"betűkészletet."
+
+#: templates/games/scramble.tpl:123
+msgid ""
+"find all words using all the letters, then receive a new set of letters. For "
+"example, for the set AINTT you must guess all three anagrams (<i>%1</i>) to "
+"receive the next set."
+msgstr ""
+"találd meg az összes szót az összes betű használatával, majd kapsz egy új "
+"betűkészletet. Például az AINTT készletnek mindhárom anagrammáját meg kell "
+"találnod (<i>%1</i>) hogy megkapd a következő készletet."
+
+#: templates/games/scramble.tpl:130
+msgid "Instructions"
+msgstr "Műveletek"
+
+#: templates/games/scramble.tpl:132
+msgid ""
+"When using a keyboard, simply type the letters. When using a mouse, click on "
+"the letters, then click on the magnifier to check a word."
+msgstr ""
+"Billentyűzet használata esetében, egyszerűen írd be a betűket. Egérrel "
+"kattints a betűkre, majd kattints a nagyítóra, hogy ellenőrizd a szót."
+
+#: templates/games/scramble.tpl:138
+msgid ""
+"Legal words include conjugations (such as <i>lucrez</i>) and declensions "
+"(such as <i>verzi</i>). If you opted for diacritics, then the letters %1 "
+"cannot be interchanged with %2."
+msgstr ""
+"Az elfogadott szavak tartalmazzák a ragozott formákat (például <i>lucrez</"
+"i>, <i>verzi</i>). Ha az ékezeteket választottad, akkor a a(z) %1 betűk nem "
+"cserélhetők a(z) %2 -val."
+
+#: templates/games/scramble.tpl:144
+msgid "Special keys"
+msgstr "Speciális billentyűk"
+
+#: templates/games/scramble.tpl:148
+msgid "checks the word"
+msgstr "ellenőrizd a szót"
+
+#: templates/games/scramble.tpl:149
+msgid "deletes the last letter"
+msgstr "törli az utolsó betűt"
+
+#: templates/games/scramble.tpl:150
+msgid "deletes all the letters"
+msgstr "törli az összes betűt"
+
+#: templates/games/scramble.tpl:151
+msgid "shuffles the letters"
+msgstr "keveri a betűket"
+
+#: templates/games/scramble.tpl:155
+msgid "Below the game area there is"
+msgstr "A játékterület alatt van a"
+
+#: templates/games/scramble.tpl:161
+msgid "time remaining"
+msgstr "hátralévő idő"
+
+#: templates/games/scramble.tpl:165
+msgid "number of words found / total number of words"
+msgstr "talált szavak száma / összes szó száma"
+
+#: templates/games/scramble.tpl:169
+msgid "score (longer words earn more points)"
+msgstr "pontszám (hosszabb szavak több pontot érnek)"
+
+#: templates/games/scramble.tpl:207
+msgid "play again"
+msgstr "játszd újra"
+
+#: templates/games/scramble.tpl:215
+msgid "Legal words"
+msgstr "Elfogadott szavak"
+
+#: templates/games/scramble.tpl:239
+msgid ""
+"You can share this link with your friends to compare scores on the same "
+"letter sets."
+msgstr ""
+"Megoszthatod ezt a hivatkozást barátaiddal a pontszámok összehasonlításához "
+"ugyanazzal a betűlkészlettel."
 
 #: templates/hosting/hosterion.tpl:1
 msgid "hosted by"
@@ -513,38 +828,6 @@ msgstr "A dexonline adatbázisát használó programok"
 #: templates/links.tpl:64
 msgid "A <a href=\"%1\">game of Fazan</a> for Android devices"
 msgstr "A <a href=\"%1\">Fazan játék</a> Android eszközök számára"
-
-#: templates/mill.tpl:3 templates/mill.tpl:10 templates/widgets/games.tpl:6
-msgid "word mill"
-msgstr "szómalom"
-
-#: templates/mill.tpl:15
-msgid "Level"
-msgstr "Szint"
-
-#: templates/mill.tpl:23
-msgid "You can also use the keys 1, 2, 3, 4."
-msgstr "Használhatja az 1, 2, 3, 4 gombokat is."
-
-#: templates/mill.tpl:38
-msgid "The correct definition of <span class=\"word\"></span>:"
-msgstr "A <span class = \"word\"></span> helyes meghatározása:"
-
-#: templates/mill.tpl:56
-msgid ""
-"Congratulations! You answered <b id=\"answeredCorrect\">0</b> of 10 "
-"questions correctly."
-msgstr ""
-"Gratulálunk! Ön <b id=\"answerCorrect\">0</b> kérdésre a 10-böl helyesen "
-"válaszolt."
-
-#: templates/mill.tpl:59
-msgid "new game"
-msgstr "új játék"
-
-#: templates/mill.tpl:60
-msgid "see all definitions"
-msgstr "összes meghatározás"
 
 #: templates/paradigm/paradigmA.tpl:8 templates/paradigm/paradigmP.tpl:8
 msgid "masculine"
@@ -685,287 +968,6 @@ msgstr "2-ik (ti)"
 #: templates/paradigm/paradigmV.tpl:157
 msgid "3rd (ei, ele)"
 msgstr "3-ik (ők)"
-
-#: templates/scrabble.tpl:9
-msgid "Scrabble lookup"
-msgstr "Scrabble keresés"
-
-#: templates/scrabble.tpl:15
-msgid ""
-"Are you playing Scrabble and your friends do not believe that <em>kwyjibo</"
-"em> is a perfectly legal word? Type in your word to show them who the boss "
-"is."
-msgstr ""
-"Scrabble-t játszol és barátaid nem hiszik hogy <em>kwyjibo</em> tökéletesen "
-"elfogadható szó? Írd be a szót és mutasd meg nekik ki a főnök."
-
-#: templates/scrabble.tpl:42
-msgid "in version"
-msgstr "verzióban"
-
-#: templates/scrabble.tpl:53
-msgid "look up"
-msgstr "keresés"
-
-#: templates/scrabble.tpl:63
-msgid "Official Scrabble word list (LOC)"
-msgstr "Hivatalos scrabble szavak listája (LOC)"
-
-#: templates/scrabble.tpl:69
-msgid "version"
-msgstr "verzió"
-
-#: templates/scrabble.tpl:70
-msgid "publication date"
-msgstr "közzétételi dátum"
-
-#: templates/scrabble.tpl:71 templates/scrabble.tpl:90
-#: templates/scrabble.tpl:124
-msgid "reduced forms"
-msgstr "leszűkített formák"
-
-#: templates/scrabble.tpl:72 templates/scrabble.tpl:92
-#: templates/scrabble.tpl:122
-msgid "base forms"
-msgstr "alap formák"
-
-#: templates/scrabble.tpl:73 templates/scrabble.tpl:98
-#: templates/scrabble.tpl:123
-msgid "inflected forms"
-msgstr "ragozott formák"
-
-#: templates/scrabble.tpl:81 templates/scrabble.tpl:82
-#: templates/scrabble.tpl:83
-msgid "download"
-msgstr "letöltés"
-
-#: templates/scrabble.tpl:91
-msgid "a list of words between 2 and 15 letters, without diacritics"
-msgstr "2-töl 15-ig terjedő betűs szavak listája, ékezetek nélkül"
-
-#: templates/scrabble.tpl:94
-msgid "word list in alphabetical order"
-msgstr "lista szójegyzék betűrendben"
-
-#: templates/scrabble.tpl:96
-msgid "legend of notations"
-msgstr "jelölések jelmagyarázata"
-
-#: templates/scrabble.tpl:99
-msgid "list of words and their conjugations/declensions"
-msgstr "a szavak listája és azok ragozásai"
-
-#: templates/scrabble.tpl:103
-msgid ""
-"The last official LOC version is 5.0. Version 6.0 contains changes to LOC "
-"made using the dexonline interface, but not included in the official version."
-msgstr ""
-"Az utolsó hivatalos LOC verzió az 5.0-ás. A 6.0-ás verzió változásokat "
-"tartalmaz a dexonline felületén készült bevitt adatokkal, de ezek nem "
-"szerepelnek a hivatalos verzióban."
-
-#: templates/scrabble.tpl:111
-msgid "Differences between versions"
-msgstr "A verziók közötti különbségek"
-
-#: templates/scrabble.tpl:115
-msgid "Find out what changed between two versions of LOC."
-msgstr "Tudd meg mi változott a LOC két verziója között."
-
-#: templates/scrabble.tpl:120 templates/scrabble.tpl:143
-msgid "compare"
-msgstr "hasonlítsd össze"
-
-#: templates/scrabble.tpl:129
-msgid "between"
-msgstr "között"
-
-#: templates/scrabble.tpl:136
-msgid "version %1 and version %2"
-msgstr "%1 verzió és %2 verzió"
-
-#: templates/scrabble.tpl:149
-msgid "Inflection models"
-msgstr "Ragozási minták"
-
-#: templates/scrabble.tpl:153
-msgid ""
-"<em>%1</em> and <em>%2</em> have similar declensions... but not <em>%3</em> "
-"and <em>%4</em>? Here is why."
-msgstr ""
-"<em>%1</em> és <em>%2</em> hasonló ragozásaik vannak... de nem <em>%3</em> "
-"és <em>%4</em>? Lásd miért."
-
-#: templates/scrabble.tpl:159
-msgid "Show models for"
-msgstr "Mutasd a mintákat a"
-
-#: templates/scrabble.tpl:167 templates/search.tpl:286 templates/search.tpl:294
-#: templates/search.tpl:296
-msgid "show"
-msgstr "mutasd"
-
-#: templates/scramble.tpl:4 templates/scramble.tpl:12
-#: templates/scramble.tpl:179 templates/widgets/games.tpl:7
-msgid "word scramble"
-msgstr "kevert szavak"
-
-#: templates/scramble.tpl:21
-msgid "start"
-msgstr "indíts"
-
-#: templates/scramble.tpl:36
-msgid "object"
-msgstr "tárgy"
-
-#: templates/scramble.tpl:40 templates/scramble.tpl:113
-msgid "all words"
-msgstr "összes szó"
-
-#: templates/scramble.tpl:43 templates/scramble.tpl:117
-msgid "one anagram"
-msgstr "egy anagramma"
-
-#: templates/scramble.tpl:46 templates/scramble.tpl:121
-msgid "all anagrams"
-msgstr "összes anagrammák"
-
-#: templates/scramble.tpl:57 templates/scramble.tpl:60
-#: templates/scramble.tpl:63 templates/scramble.tpl:66
-msgid "letters"
-msgstr "betűk"
-
-#: templates/scramble.tpl:73
-msgid "diacritics"
-msgstr "ékezetek"
-
-#: templates/scramble.tpl:77
-msgid "no"
-msgstr "nem"
-
-#: templates/scramble.tpl:80
-msgid "yes"
-msgstr "igen"
-
-#: templates/scramble.tpl:87
-msgid "time"
-msgstr "idő"
-
-#: templates/scramble.tpl:93
-msgid "one minute"
-msgid_plural "%1 minutes"
-msgstr[0] "egy perc"
-msgstr[1] "%1 percek"
-
-#: templates/scramble.tpl:101
-msgid "Object of the game"
-msgstr "A játék célja"
-
-#: templates/scramble.tpl:103
-msgid ""
-"Find as many words as you can using the given letters, before the time runs "
-"out."
-msgstr ""
-"Találj annyi szót amennyit csak tudsz az adott betűkkel, mielőtt elfogy az "
-"idő."
-
-#: templates/scramble.tpl:108
-msgid "There are three game types:"
-msgstr "Három játéktípus létezik:"
-
-#: templates/scramble.tpl:114
-msgid "find all words having at least three letters."
-msgstr "találj meg minden olyan szót amely legalább három betűs."
-
-#: templates/scramble.tpl:118
-msgid "find a word using all the letters, then receive a new set of letters."
-msgstr ""
-"keress egy szót az összes betű felhasználásával, majd kapsz egy új "
-"betűkészletet."
-
-#: templates/scramble.tpl:123
-msgid ""
-"find all words using all the letters, then receive a new set of letters. For "
-"example, for the set AINTT you must guess all three anagrams (<i>%1</i>) to "
-"receive the next set."
-msgstr ""
-"találd meg az összes szót az összes betű használatával, majd kapsz egy új "
-"betűkészletet. Például az AINTT készletnek mindhárom anagrammáját meg kell "
-"találnod (<i>%1</i>) hogy megkapd a következő készletet."
-
-#: templates/scramble.tpl:130
-msgid "Instructions"
-msgstr "Műveletek"
-
-#: templates/scramble.tpl:132
-msgid ""
-"When using a keyboard, simply type the letters. When using a mouse, click on "
-"the letters, then click on the magnifier to check a word."
-msgstr ""
-"Billentyűzet használata esetében, egyszerűen írd be a betűket. Egérrel "
-"kattints a betűkre, majd kattints a nagyítóra, hogy ellenőrizd a szót."
-
-#: templates/scramble.tpl:138
-msgid ""
-"Legal words include conjugations (such as <i>lucrez</i>) and declensions "
-"(such as <i>verzi</i>). If you opted for diacritics, then the letters %1 "
-"cannot be interchanged with %2."
-msgstr ""
-"Az elfogadott szavak tartalmazzák a ragozott formákat (például <i>lucrez</"
-"i>, <i>verzi</i>). Ha az ékezeteket választottad, akkor a a(z) %1 betűk nem "
-"cserélhetők a(z) %2 -val."
-
-#: templates/scramble.tpl:144
-msgid "Special keys"
-msgstr "Speciális billentyűk"
-
-#: templates/scramble.tpl:148
-msgid "checks the word"
-msgstr "ellenőrizd a szót"
-
-#: templates/scramble.tpl:149
-msgid "deletes the last letter"
-msgstr "törli az utolsó betűt"
-
-#: templates/scramble.tpl:150
-msgid "deletes all the letters"
-msgstr "törli az összes betűt"
-
-#: templates/scramble.tpl:151
-msgid "shuffles the letters"
-msgstr "keveri a betűket"
-
-#: templates/scramble.tpl:155
-msgid "Below the game area there is"
-msgstr "A játékterület alatt van a"
-
-#: templates/scramble.tpl:161
-msgid "time remaining"
-msgstr "hátralévő idő"
-
-#: templates/scramble.tpl:165
-msgid "number of words found / total number of words"
-msgstr "talált szavak száma / összes szó száma"
-
-#: templates/scramble.tpl:169
-msgid "score (longer words earn more points)"
-msgstr "pontszám (hosszabb szavak több pontot érnek)"
-
-#: templates/scramble.tpl:207
-msgid "play again"
-msgstr "játszd újra"
-
-#: templates/scramble.tpl:215
-msgid "Legal words"
-msgstr "Elfogadott szavak"
-
-#: templates/scramble.tpl:239
-msgid ""
-"You can share this link with your friends to compare scores on the same "
-"letter sets."
-msgstr ""
-"Megoszthatod ezt a hivatkozást barátaiddal a pontszámok összehasonlításához "
-"ugyanazzal a betűlkészlettel."
 
 #: templates/search.tpl:5
 msgid "definition"
@@ -1327,7 +1329,7 @@ msgstr ""
 "hírcsatornához hasonlóan elvégzik. Javasoljuk az <a href=\"%2\">IFTTT</a> "
 "használatát."
 
-#: templates/wotd/view.tpl:98 templates/wotm.tpl:57
+#: templates/wotd/view.tpl:98 templates/wotm/view.tpl:57
 msgid "Chosen because:"
 msgstr "Kiválasztás oka:"
 
@@ -1343,15 +1345,15 @@ msgstr "A nap szava, %1 %2 más években:"
 msgid "Comments"
 msgstr "Hozzászólások"
 
-#: templates/wotm.tpl:4 templates/wotm.tpl:19
+#: templates/wotm/view.tpl:4 templates/wotm/view.tpl:19
 msgid "Word of the month for"
 msgstr "A hónap szava"
 
-#: templates/wotm.tpl:25
+#: templates/wotm/view.tpl:25
 msgid "previous"
 msgstr "előző"
 
-#: templates/wotm.tpl:32
+#: templates/wotm/view.tpl:32
 msgid "next"
 msgstr "következő"
 

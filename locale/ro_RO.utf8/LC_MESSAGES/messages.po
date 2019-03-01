@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2019-02-28 20:04+0200\n"
-"PO-Revision-Date: 2019-02-28 20:04+0200\n"
+"POT-Creation-Date: 2019-03-01 23:25+0200\n"
+"PO-Revision-Date: 2019-03-01 23:25+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -185,7 +185,7 @@ msgstr "ghid de exprimare"
 msgid "word of the day"
 msgstr "cuvântul zilei"
 
-#: templates/bits/navmenu.tpl:110 templates/widgets/wotm.tpl:3
+#: templates/bits/navmenu.tpl:110 templates/widgets/wotm.tpl:5
 msgid "word of the month"
 msgstr "cuvântul lunii"
 
@@ -258,7 +258,7 @@ msgstr "cuvânt"
 msgid "search"
 msgstr "caută"
 
-#: templates/bits/searchForm.tpl:35 templates/scramble.tpl:29
+#: templates/bits/searchForm.tpl:35 templates/games/scramble.tpl:29
 msgid "options"
 msgstr "opțiuni"
 
@@ -286,7 +286,8 @@ msgstr "nume"
 msgid "characters"
 msgstr "caractere"
 
-#: templates/bits/top.tpl:7 templates/hangman.tpl:52 templates/mill.tpl:67
+#: templates/bits/top.tpl:7 templates/games/hangman.tpl:52
+#: templates/games/mill.tpl:67
 msgid "definitions"
 msgstr "definiții"
 
@@ -361,46 +362,360 @@ msgstr "Puteți descărca o <a href=\"%1\">copie a bazei de date</a>."
 msgid "You have no favorite words."
 msgstr "Nu aveți niciun cuvânt favorit."
 
-#: templates/hangman.tpl:3 templates/hangman.tpl:15
+#: templates/games/hangman.tpl:3 templates/games/hangman.tpl:15
 #: templates/widgets/games.tpl:5
 msgid "hangman"
 msgstr "spânzurătoarea"
 
-#: templates/hangman.tpl:21
+#: templates/games/hangman.tpl:21
 msgid "Lives remaining"
 msgstr "Vieți rămase"
 
-#: templates/hangman.tpl:23 templates/search/gallery.tpl:6
+#: templates/games/hangman.tpl:23 templates/search/gallery.tpl:6
 msgid "images"
 msgstr "imagini"
 
-#: templates/hangman.tpl:36
+#: templates/games/hangman.tpl:36
 msgid "Get a clue"
 msgstr "Dă-mi un indiciu"
 
-#: templates/hangman.tpl:41 templates/mill.tpl:16
+#: templates/games/hangman.tpl:41 templates/games/mill.tpl:16
 msgid "easy"
 msgstr "ușor"
 
-#: templates/hangman.tpl:42 templates/mill.tpl:17
+#: templates/games/hangman.tpl:42 templates/games/mill.tpl:17
 msgid "medium"
 msgstr "mediu"
 
-#: templates/hangman.tpl:43 templates/mill.tpl:18
+#: templates/games/hangman.tpl:43 templates/games/mill.tpl:18
 msgid "hard"
 msgstr "dificil"
 
-#: templates/hangman.tpl:44 templates/mill.tpl:19
+#: templates/games/hangman.tpl:44 templates/games/mill.tpl:19
 msgid "expert"
 msgstr "expert"
 
-#: templates/hangman.tpl:66
+#: templates/games/hangman.tpl:66
 msgid "Congratulations, you win!"
 msgstr "Felicitări, ai câștigat!"
 
-#: templates/hangman.tpl:69
+#: templates/games/hangman.tpl:69
 msgid "Sorry, you lose."
 msgstr "Ne pare rău, ai pierdut."
+
+#: templates/games/mill.tpl:3 templates/games/mill.tpl:10
+#: templates/widgets/games.tpl:6
+msgid "word mill"
+msgstr "moara cuvintelor"
+
+#: templates/games/mill.tpl:15
+msgid "Level"
+msgstr "Nivel"
+
+#: templates/games/mill.tpl:23
+msgid "You can also use the keys 1, 2, 3, 4."
+msgstr "Poți folosi și tastele 1, 2, 3, 4."
+
+#: templates/games/mill.tpl:38
+msgid "The correct definition of <span class=\"word\"></span>:"
+msgstr "Definiția corectă pentru <span class=\"word\"></span>:"
+
+#: templates/games/mill.tpl:56
+msgid ""
+"Congratulations! You answered <b id=\"answeredCorrect\">0</b> of 10 "
+"questions correctly."
+msgstr ""
+"Felicitări! Ai răspuns corect la <b id=\"answeredCorrect\">0</b> din 10 "
+"întrebări."
+
+#: templates/games/mill.tpl:59
+msgid "new game"
+msgstr "joc nou"
+
+#: templates/games/mill.tpl:60
+msgid "see all definitions"
+msgstr "arată toate definițiile"
+
+#: templates/games/scrabble.tpl:9
+msgid "Scrabble lookup"
+msgstr "Verificare Scrabble"
+
+#: templates/games/scrabble.tpl:15
+msgid ""
+"Are you playing Scrabble and your friends do not believe that <em>kwyjibo</"
+"em> is a perfectly legal word? Type in your word to show them who the boss "
+"is."
+msgstr ""
+"Joci Scrabble și prietenii tăi nu cred că <em>kwyjibo</em> este un cuvânt "
+"perfect legal? Tastează cuvântul tău ca să le arăți cine e șeful."
+
+#: templates/games/scrabble.tpl:42
+msgid "in version"
+msgstr "în versiunea"
+
+#: templates/games/scrabble.tpl:53
+msgid "look up"
+msgstr "verifică"
+
+#: templates/games/scrabble.tpl:63
+msgid "Official Scrabble word list (LOC)"
+msgstr "Lista Oficială de Cuvinte admise la Scrabble (LOC)"
+
+#: templates/games/scrabble.tpl:69
+msgid "version"
+msgstr "versiunea"
+
+#: templates/games/scrabble.tpl:70
+msgid "publication date"
+msgstr "data publicării"
+
+#: templates/games/scrabble.tpl:71 templates/games/scrabble.tpl:90
+#: templates/games/scrabble.tpl:124
+msgid "reduced forms"
+msgstr "forme reduse"
+
+#: templates/games/scrabble.tpl:72 templates/games/scrabble.tpl:92
+#: templates/games/scrabble.tpl:122
+msgid "base forms"
+msgstr "forme de bază"
+
+#: templates/games/scrabble.tpl:73 templates/games/scrabble.tpl:98
+#: templates/games/scrabble.tpl:123
+msgid "inflected forms"
+msgstr "forme flexionare"
+
+#: templates/games/scrabble.tpl:81 templates/games/scrabble.tpl:82
+#: templates/games/scrabble.tpl:83
+msgid "download"
+msgstr "descarcă"
+
+#: templates/games/scrabble.tpl:91
+msgid "a list of words between 2 and 15 letters, without diacritics"
+msgstr "lista de cuvinte între 2 și 15 litere, fără diacritice"
+
+#: templates/games/scrabble.tpl:94
+msgid "word list in alphabetical order"
+msgstr "lista de cuvinte ordonată alfabetic"
+
+#: templates/games/scrabble.tpl:96
+msgid "legend of notations"
+msgstr "legenda notațiilor"
+
+#: templates/games/scrabble.tpl:99
+msgid "list of words and their conjugations/declensions"
+msgstr "lista de cuvinte cu conjugările/declinările lor"
+
+#: templates/games/scrabble.tpl:103
+msgid ""
+"The last official LOC version is 5.0. Version 6.0 contains changes to LOC "
+"made using the dexonline interface, but not included in the official version."
+msgstr ""
+"Ultima versiune oficială a LOC este 5.0. Versiunea 6.0 conține modificări "
+"aduse LOC în dexonline, dar neîncorporate în versiunea oficială."
+
+#: templates/games/scrabble.tpl:111
+msgid "Differences between versions"
+msgstr "Diferențe între versiuni"
+
+#: templates/games/scrabble.tpl:115
+msgid "Find out what changed between two versions of LOC."
+msgstr "Află ce s-a schimbat între două versiuni ale LOC."
+
+#: templates/games/scrabble.tpl:120 templates/games/scrabble.tpl:143
+msgid "compare"
+msgstr "compară"
+
+#: templates/games/scrabble.tpl:129
+msgid "between"
+msgstr "între"
+
+#: templates/games/scrabble.tpl:136
+msgid "version %1 and version %2"
+msgstr "versiunea %1 și versiunea %2"
+
+#: templates/games/scrabble.tpl:149
+msgid "Inflection models"
+msgstr "Modele de flexionare"
+
+#: templates/games/scrabble.tpl:153
+msgid ""
+"<em>%1</em> and <em>%2</em> have similar declensions... but not <em>%3</em> "
+"and <em>%4</em>? Here is why."
+msgstr ""
+"<em>%1</em> și <em>%2</em> se declină la fel... dar <em>%3</em> și <em>%4</"
+"em> nu? Iată de ce."
+
+#: templates/games/scrabble.tpl:159
+msgid "Show models for"
+msgstr "Arată modelele pentru"
+
+#: templates/games/scrabble.tpl:167 templates/search.tpl:286
+#: templates/search.tpl:294 templates/search.tpl:296
+msgid "show"
+msgstr "arată"
+
+#: templates/games/scramble.tpl:4 templates/games/scramble.tpl:12
+#: templates/games/scramble.tpl:179 templates/widgets/games.tpl:7
+msgid "word scramble"
+msgstr "omleta cuvintelor"
+
+#: templates/games/scramble.tpl:21
+msgid "start"
+msgstr "începe"
+
+#: templates/games/scramble.tpl:36
+msgid "object"
+msgstr "mod"
+
+#: templates/games/scramble.tpl:40 templates/games/scramble.tpl:113
+msgid "all words"
+msgstr "toate cuvintele"
+
+#: templates/games/scramble.tpl:43 templates/games/scramble.tpl:117
+msgid "one anagram"
+msgstr "o anagramă"
+
+#: templates/games/scramble.tpl:46 templates/games/scramble.tpl:121
+msgid "all anagrams"
+msgstr "toate anagramele"
+
+#: templates/games/scramble.tpl:57 templates/games/scramble.tpl:60
+#: templates/games/scramble.tpl:63 templates/games/scramble.tpl:66
+msgid "letters"
+msgstr "litere"
+
+#: templates/games/scramble.tpl:73
+msgid "diacritics"
+msgstr "diacritice"
+
+#: templates/games/scramble.tpl:77
+msgid "no"
+msgstr "nu"
+
+#: templates/games/scramble.tpl:80
+msgid "yes"
+msgstr "da"
+
+#: templates/games/scramble.tpl:87
+msgid "time"
+msgstr "timp"
+
+#: templates/games/scramble.tpl:93
+msgid "one minute"
+msgid_plural "%1 minutes"
+msgstr[0] "un minut"
+msgstr[1] "%1 minute"
+msgstr[2] "%1 de minute"
+
+#: templates/games/scramble.tpl:101
+msgid "Object of the game"
+msgstr "Scopul jocului"
+
+#: templates/games/scramble.tpl:103
+msgid ""
+"Find as many words as you can using the given letters, before the time runs "
+"out."
+msgstr ""
+"Formați cât de multe cuvinte puteți cu literele primite, până se termină "
+"timpul."
+
+#: templates/games/scramble.tpl:108
+msgid "There are three game types:"
+msgstr "Sunt trei moduri de joc:"
+
+#: templates/games/scramble.tpl:114
+msgid "find all words having at least three letters."
+msgstr "găsiți toate cuvintele de cel puțin trei litere."
+
+#: templates/games/scramble.tpl:118
+msgid "find a word using all the letters, then receive a new set of letters."
+msgstr ""
+"găsiți un cuvânt care folosește toate literele, apoi primiți alt set de "
+"litere."
+
+#: templates/games/scramble.tpl:123
+msgid ""
+"find all words using all the letters, then receive a new set of letters. For "
+"example, for the set AINTT you must guess all three anagrams (<i>%1</i>) to "
+"receive the next set."
+msgstr ""
+"găsiți toate cuvintele care folosesc toate literele, apoi primiți alt set de "
+"litere. De exemplu, pentru grupul AINTT trebuie să ghiciți toate cele trei "
+"anagrame (<i>%1</i>) pentru a trece la următorul set."
+
+#: templates/games/scramble.tpl:130
+msgid "Instructions"
+msgstr "Instrucțiuni"
+
+#: templates/games/scramble.tpl:132
+msgid ""
+"When using a keyboard, simply type the letters. When using a mouse, click on "
+"the letters, then click on the magnifier to check a word."
+msgstr ""
+"Dacă folosiți tastatura, tastați pur și simplu literele. Dacă folosiți mouse-"
+"ul, dați clic pe litere, apoi pe lupă pentru a verifica un cuvânt."
+
+#: templates/games/scramble.tpl:138
+msgid ""
+"Legal words include conjugations (such as <i>lucrez</i>) and declensions "
+"(such as <i>verzi</i>). If you opted for diacritics, then the letters %1 "
+"cannot be interchanged with %2."
+msgstr ""
+"Cuvintele legale includ conjugările (ca <i>lucrez</i>) și declinările (ca "
+"<i>verzi</i>). Dacă ați optat pentru diacritice, atunci literele %1 nu pot "
+"fi interschimbate cu %2."
+
+#: templates/games/scramble.tpl:144
+msgid "Special keys"
+msgstr "Taste speciale"
+
+#: templates/games/scramble.tpl:148
+msgid "checks the word"
+msgstr "verifică cuvântul"
+
+#: templates/games/scramble.tpl:149
+msgid "deletes the last letter"
+msgstr "șterge ultima literă"
+
+#: templates/games/scramble.tpl:150
+msgid "deletes all the letters"
+msgstr "șterge toate literele"
+
+#: templates/games/scramble.tpl:151
+msgid "shuffles the letters"
+msgstr "amestecă literele"
+
+#: templates/games/scramble.tpl:155
+msgid "Below the game area there is"
+msgstr "Sub zona de joc se află"
+
+#: templates/games/scramble.tpl:161
+msgid "time remaining"
+msgstr "timpul rămas"
+
+#: templates/games/scramble.tpl:165
+msgid "number of words found / total number of words"
+msgstr "numărul de cuvinte găsite / numărul de cuvinte posibile"
+
+#: templates/games/scramble.tpl:169
+msgid "score (longer words earn more points)"
+msgstr "scorul (cuvintele mai lungi primesc mai multe puncte)"
+
+#: templates/games/scramble.tpl:207
+msgid "play again"
+msgstr "joacă din nou"
+
+#: templates/games/scramble.tpl:215
+msgid "Legal words"
+msgstr "Cuvinte posibile"
+
+#: templates/games/scramble.tpl:239
+msgid ""
+"You can share this link with your friends to compare scores on the same "
+"letter sets."
+msgstr ""
+"Puteți trimite această adresă prietenilor dumneavoastră pentru a vă compara "
+"scorurile pe exact aceleași combinații de litere."
 
 #: templates/hosting/hosterion.tpl:1
 msgid "hosted by"
@@ -516,38 +831,6 @@ msgstr "Programe care folosesc baza de date a dexonline"
 #: templates/links.tpl:64
 msgid "A <a href=\"%1\">game of Fazan</a> for Android devices"
 msgstr "Un <a href=\"%1\">joc de Fazan</a> pentru dispozitive cu Android"
-
-#: templates/mill.tpl:3 templates/mill.tpl:10 templates/widgets/games.tpl:6
-msgid "word mill"
-msgstr "moara cuvintelor"
-
-#: templates/mill.tpl:15
-msgid "Level"
-msgstr "Nivel"
-
-#: templates/mill.tpl:23
-msgid "You can also use the keys 1, 2, 3, 4."
-msgstr "Poți folosi și tastele 1, 2, 3, 4."
-
-#: templates/mill.tpl:38
-msgid "The correct definition of <span class=\"word\"></span>:"
-msgstr "Definiția corectă pentru <span class=\"word\"></span>:"
-
-#: templates/mill.tpl:56
-msgid ""
-"Congratulations! You answered <b id=\"answeredCorrect\">0</b> of 10 "
-"questions correctly."
-msgstr ""
-"Felicitări! Ai răspuns corect la <b id=\"answeredCorrect\">0</b> din 10 "
-"întrebări."
-
-#: templates/mill.tpl:59
-msgid "new game"
-msgstr "joc nou"
-
-#: templates/mill.tpl:60
-msgid "see all definitions"
-msgstr "arată toate definițiile"
 
 #: templates/paradigm/paradigmA.tpl:8 templates/paradigm/paradigmP.tpl:8
 msgid "masculine"
@@ -688,287 +971,6 @@ msgstr "a II-a (voi)"
 #: templates/paradigm/paradigmV.tpl:157
 msgid "3rd (ei, ele)"
 msgstr "a III-a (ei, ele)"
-
-#: templates/scrabble.tpl:9
-msgid "Scrabble lookup"
-msgstr "Verificare Scrabble"
-
-#: templates/scrabble.tpl:15
-msgid ""
-"Are you playing Scrabble and your friends do not believe that <em>kwyjibo</"
-"em> is a perfectly legal word? Type in your word to show them who the boss "
-"is."
-msgstr ""
-"Joci Scrabble și prietenii tăi nu cred că <em>kwyjibo</em> este un cuvânt "
-"perfect legal? Tastează cuvântul tău ca să le arăți cine e șeful."
-
-#: templates/scrabble.tpl:42
-msgid "in version"
-msgstr "în versiunea"
-
-#: templates/scrabble.tpl:53
-msgid "look up"
-msgstr "verifică"
-
-#: templates/scrabble.tpl:63
-msgid "Official Scrabble word list (LOC)"
-msgstr "Lista Oficială de Cuvinte admise la Scrabble (LOC)"
-
-#: templates/scrabble.tpl:69
-msgid "version"
-msgstr "versiunea"
-
-#: templates/scrabble.tpl:70
-msgid "publication date"
-msgstr "data publicării"
-
-#: templates/scrabble.tpl:71 templates/scrabble.tpl:90
-#: templates/scrabble.tpl:124
-msgid "reduced forms"
-msgstr "forme reduse"
-
-#: templates/scrabble.tpl:72 templates/scrabble.tpl:92
-#: templates/scrabble.tpl:122
-msgid "base forms"
-msgstr "forme de bază"
-
-#: templates/scrabble.tpl:73 templates/scrabble.tpl:98
-#: templates/scrabble.tpl:123
-msgid "inflected forms"
-msgstr "forme flexionare"
-
-#: templates/scrabble.tpl:81 templates/scrabble.tpl:82
-#: templates/scrabble.tpl:83
-msgid "download"
-msgstr "descarcă"
-
-#: templates/scrabble.tpl:91
-msgid "a list of words between 2 and 15 letters, without diacritics"
-msgstr "lista de cuvinte între 2 și 15 litere, fără diacritice"
-
-#: templates/scrabble.tpl:94
-msgid "word list in alphabetical order"
-msgstr "lista de cuvinte ordonată alfabetic"
-
-#: templates/scrabble.tpl:96
-msgid "legend of notations"
-msgstr "legenda notațiilor"
-
-#: templates/scrabble.tpl:99
-msgid "list of words and their conjugations/declensions"
-msgstr "lista de cuvinte cu conjugările/declinările lor"
-
-#: templates/scrabble.tpl:103
-msgid ""
-"The last official LOC version is 5.0. Version 6.0 contains changes to LOC "
-"made using the dexonline interface, but not included in the official version."
-msgstr ""
-"Ultima versiune oficială a LOC este 5.0. Versiunea 6.0 conține modificări "
-"aduse LOC în dexonline, dar neîncorporate în versiunea oficială."
-
-#: templates/scrabble.tpl:111
-msgid "Differences between versions"
-msgstr "Diferențe între versiuni"
-
-#: templates/scrabble.tpl:115
-msgid "Find out what changed between two versions of LOC."
-msgstr "Află ce s-a schimbat între două versiuni ale LOC."
-
-#: templates/scrabble.tpl:120 templates/scrabble.tpl:143
-msgid "compare"
-msgstr "compară"
-
-#: templates/scrabble.tpl:129
-msgid "between"
-msgstr "între"
-
-#: templates/scrabble.tpl:136
-msgid "version %1 and version %2"
-msgstr "versiunea %1 și versiunea %2"
-
-#: templates/scrabble.tpl:149
-msgid "Inflection models"
-msgstr "Modele de flexionare"
-
-#: templates/scrabble.tpl:153
-msgid ""
-"<em>%1</em> and <em>%2</em> have similar declensions... but not <em>%3</em> "
-"and <em>%4</em>? Here is why."
-msgstr ""
-"<em>%1</em> și <em>%2</em> se declină la fel... dar <em>%3</em> și <em>%4</"
-"em> nu? Iată de ce."
-
-#: templates/scrabble.tpl:159
-msgid "Show models for"
-msgstr "Arată modelele pentru"
-
-#: templates/scrabble.tpl:167 templates/search.tpl:286 templates/search.tpl:294
-#: templates/search.tpl:296
-msgid "show"
-msgstr "arată"
-
-#: templates/scramble.tpl:4 templates/scramble.tpl:12
-#: templates/scramble.tpl:179 templates/widgets/games.tpl:7
-msgid "word scramble"
-msgstr "omleta cuvintelor"
-
-#: templates/scramble.tpl:21
-msgid "start"
-msgstr "începe"
-
-#: templates/scramble.tpl:36
-msgid "object"
-msgstr "mod"
-
-#: templates/scramble.tpl:40 templates/scramble.tpl:113
-msgid "all words"
-msgstr "toate cuvintele"
-
-#: templates/scramble.tpl:43 templates/scramble.tpl:117
-msgid "one anagram"
-msgstr "o anagramă"
-
-#: templates/scramble.tpl:46 templates/scramble.tpl:121
-msgid "all anagrams"
-msgstr "toate anagramele"
-
-#: templates/scramble.tpl:57 templates/scramble.tpl:60
-#: templates/scramble.tpl:63 templates/scramble.tpl:66
-msgid "letters"
-msgstr "litere"
-
-#: templates/scramble.tpl:73
-msgid "diacritics"
-msgstr "diacritice"
-
-#: templates/scramble.tpl:77
-msgid "no"
-msgstr "nu"
-
-#: templates/scramble.tpl:80
-msgid "yes"
-msgstr "da"
-
-#: templates/scramble.tpl:87
-msgid "time"
-msgstr "timp"
-
-#: templates/scramble.tpl:93
-msgid "one minute"
-msgid_plural "%1 minutes"
-msgstr[0] "un minut"
-msgstr[1] "%1 minute"
-msgstr[2] "%1 de minute"
-
-#: templates/scramble.tpl:101
-msgid "Object of the game"
-msgstr "Scopul jocului"
-
-#: templates/scramble.tpl:103
-msgid ""
-"Find as many words as you can using the given letters, before the time runs "
-"out."
-msgstr ""
-"Formați cât de multe cuvinte puteți cu literele primite, până se termină "
-"timpul."
-
-#: templates/scramble.tpl:108
-msgid "There are three game types:"
-msgstr "Sunt trei moduri de joc:"
-
-#: templates/scramble.tpl:114
-msgid "find all words having at least three letters."
-msgstr "găsiți toate cuvintele de cel puțin trei litere."
-
-#: templates/scramble.tpl:118
-msgid "find a word using all the letters, then receive a new set of letters."
-msgstr ""
-"găsiți un cuvânt care folosește toate literele, apoi primiți alt set de "
-"litere."
-
-#: templates/scramble.tpl:123
-msgid ""
-"find all words using all the letters, then receive a new set of letters. For "
-"example, for the set AINTT you must guess all three anagrams (<i>%1</i>) to "
-"receive the next set."
-msgstr ""
-"găsiți toate cuvintele care folosesc toate literele, apoi primiți alt set de "
-"litere. De exemplu, pentru grupul AINTT trebuie să ghiciți toate cele trei "
-"anagrame (<i>%1</i>) pentru a trece la următorul set."
-
-#: templates/scramble.tpl:130
-msgid "Instructions"
-msgstr "Instrucțiuni"
-
-#: templates/scramble.tpl:132
-msgid ""
-"When using a keyboard, simply type the letters. When using a mouse, click on "
-"the letters, then click on the magnifier to check a word."
-msgstr ""
-"Dacă folosiți tastatura, tastați pur și simplu literele. Dacă folosiți mouse-"
-"ul, dați clic pe litere, apoi pe lupă pentru a verifica un cuvânt."
-
-#: templates/scramble.tpl:138
-msgid ""
-"Legal words include conjugations (such as <i>lucrez</i>) and declensions "
-"(such as <i>verzi</i>). If you opted for diacritics, then the letters %1 "
-"cannot be interchanged with %2."
-msgstr ""
-"Cuvintele legale includ conjugările (ca <i>lucrez</i>) și declinările (ca "
-"<i>verzi</i>). Dacă ați optat pentru diacritice, atunci literele %1 nu pot "
-"fi interschimbate cu %2."
-
-#: templates/scramble.tpl:144
-msgid "Special keys"
-msgstr "Taste speciale"
-
-#: templates/scramble.tpl:148
-msgid "checks the word"
-msgstr "verifică cuvântul"
-
-#: templates/scramble.tpl:149
-msgid "deletes the last letter"
-msgstr "șterge ultima literă"
-
-#: templates/scramble.tpl:150
-msgid "deletes all the letters"
-msgstr "șterge toate literele"
-
-#: templates/scramble.tpl:151
-msgid "shuffles the letters"
-msgstr "amestecă literele"
-
-#: templates/scramble.tpl:155
-msgid "Below the game area there is"
-msgstr "Sub zona de joc se află"
-
-#: templates/scramble.tpl:161
-msgid "time remaining"
-msgstr "timpul rămas"
-
-#: templates/scramble.tpl:165
-msgid "number of words found / total number of words"
-msgstr "numărul de cuvinte găsite / numărul de cuvinte posibile"
-
-#: templates/scramble.tpl:169
-msgid "score (longer words earn more points)"
-msgstr "scorul (cuvintele mai lungi primesc mai multe puncte)"
-
-#: templates/scramble.tpl:207
-msgid "play again"
-msgstr "joacă din nou"
-
-#: templates/scramble.tpl:215
-msgid "Legal words"
-msgstr "Cuvinte posibile"
-
-#: templates/scramble.tpl:239
-msgid ""
-"You can share this link with your friends to compare scores on the same "
-"letter sets."
-msgstr ""
-"Puteți trimite această adresă prietenilor dumneavoastră pentru a vă compara "
-"scorurile pe exact aceleași combinații de litere."
 
 #: templates/search.tpl:5
 msgid "definition"
@@ -1336,7 +1338,7 @@ msgstr ""
 "href=\"%1\">multe site-uri</a> care fac acest lucru pentru orice RSS. Vă "
 "recomandăm <a href=\"%1\">IFTTT</a>."
 
-#: templates/wotd/view.tpl:98 templates/wotm.tpl:57
+#: templates/wotd/view.tpl:98 templates/wotm/view.tpl:57
 msgid "Chosen because:"
 msgstr "Cheia alegerii:"
 
@@ -1352,15 +1354,15 @@ msgstr "Cuvântul zilei de %1 %2 în alți ani:"
 msgid "Comments"
 msgstr "Comentarii"
 
-#: templates/wotm.tpl:4 templates/wotm.tpl:19
+#: templates/wotm/view.tpl:4 templates/wotm/view.tpl:19
 msgid "Word of the month for"
 msgstr "Cuvântul lunii"
 
-#: templates/wotm.tpl:25
+#: templates/wotm/view.tpl:25
 msgid "previous"
 msgstr "precedentul"
 
-#: templates/wotm.tpl:32
+#: templates/wotm/view.tpl:32
 msgid "next"
 msgstr "următorul"
 

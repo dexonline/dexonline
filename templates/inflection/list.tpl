@@ -10,9 +10,7 @@
     <em>Salvează</em>. Puteți șterge doar flexiunile nefolosite (de obicei, cele nou create).
   </p>
 
-
-
-  <form method="post" action="flexiuni">
+  <form method="post">
     <table id="inflections" class="table table-bordered table-hover table-condensed table-striped">
       <thead>
         <tr>

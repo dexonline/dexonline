@@ -132,7 +132,7 @@ $links = [
     'privilege' => User::PRIV_EDIT,
   ],
   [
-    'url' => '../flexiuni',
+    'url' => Router::link('inflection/list'),
     'text' => 'flexiuni',
     'privilege' => User::PRIV_ADMIN,
   ],

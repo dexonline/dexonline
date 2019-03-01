@@ -12,7 +12,7 @@ if ($deleteInflectionId) {
   $infl = Inflection::get_by_id($deleteInflectionId);
   Log::warning("Deleting inflection {$infl->id} ({$infl->description})");
   $infl->delete();
-  Util::redirect('flexiuni');
+  Util::redirectToRoute('inflection/list');
 }
 
 if ($saveButton) {
@@ -37,7 +37,7 @@ if ($saveButton) {
     Log::info("Created inflection {$infl->id} ({$infl->description})");
   }
 
-  Util::redirect('flexiuni');
+  Util::redirectToRoute('inflection/list');
 }
 
 // Tag inflections which can be safely deleted (only those that aren't being used by any model)
@@ -50,4 +50,4 @@ foreach ($inflections as $infl) {
 Smart::assign('inflections', $inflections);
 Smart::assign('modelTypes', ModelType::loadCanonical());
 Smart::addResources('admin', 'jqTableDnd');
-Smart::display('flexiuni.tpl');
+Smart::display('inflection/list.tpl');

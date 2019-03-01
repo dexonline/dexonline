@@ -101,6 +101,12 @@ class Router {
       'ro_RO.utf8' => 'omleta',
     ],
 
+    // inflections
+    'inflection/list' => [
+      'en_US.utf8' => 'inflections',
+      'ro_RO.utf8' => 'flexiuni',
+    ],
+
     // sources
     'source/edit' => [
       'en_US.utf8' => 'edit-source',

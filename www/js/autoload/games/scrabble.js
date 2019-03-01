@@ -1,6 +1,6 @@
 (function(){
 
-  function scrabbleAutoSearch(){
+  function scrabbleAutoSearch() {
 
     function clearSearch() {
       searchInput.val(null);
@@ -15,7 +15,7 @@
       return el;
     }
 
-    var searchForm = $('form[action="scrabble"]');
+    var searchForm = $('#scrabbleForm');
     var searchInput = $('input.scrabbleSearchField', searchForm);
     var version = $('select', searchForm);
     var results = $('#scrabble-results');
@@ -27,7 +27,7 @@
     var nextSearch;
     var searchCache = {};
 
-    var queryURL = wwwRoot + 'scrabble.php';
+    var queryURL = wwwRoot + 'scrabble';
 
     function updatePage(data) {
       // update feedback indicators
@@ -82,7 +82,7 @@
 
     // execute queued search
     function runner() {
-      if (nextSearch){
+      if (nextSearch) {
         doSearch(nextSearch.key, nextSearch.params);
       }
     }
@@ -93,6 +93,6 @@
     setInterval(runner, 500);
   }
 
-  window.addEventListener('load', scrabbleAutoSearch)
+  window.addEventListener('load', scrabbleAutoSearch);
 
 })();

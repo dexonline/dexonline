@@ -56,7 +56,7 @@
           {t}Congratulations! You answered <b id="answeredCorrect">0</b> of 10
           questions correctly.{/t}
         </div>
-        <a href="moara" class="btn btn-info">{t}new game{/t}</a>
+        <a href="{Router::link('games/mill')}" class="btn btn-info">{t}new game{/t}</a>
         <button id="definitionsButton" class="btn btn-info">{t}see all definitions{/t}</button>
       </div>
     </div>

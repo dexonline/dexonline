@@ -10,7 +10,7 @@ $model = FlexModel::loadCanonical($model);
 
 if (!$model) {
   FlashMessage::add('Date incorecte.');
-  Util::redirect('scrabble');
+  Util::redirectToRoute('games/scrabble');
 }
 
 $exponent = $model->getExponentWithParadigm();

@@ -35,7 +35,7 @@
             le elaboreze definiții;</li>
           <li>confruntarea și unificarea definițiilor pentru același cuvânt, din dicționare diferite, pentru eliminarea redundanței;</li>
           <li>restructurarea definițiilor pentru a separa silabația, pronunția, etimologia, sinonimele și variantele;</li>
-          <li>jocuri bazate pe dicționare, din serie cu <a href="spanzuratoarea">Spânzurătoarea</a> și <a href="moara">Moara cuvintelor</a>.</li>
+          <li>jocuri bazate pe dicționare, din serie cu <a href="{Router::link('games/hangman')}">Spânzurătoarea</a> și <a href="{Router::link('games/mill')}">Moara cuvintelor</a>.</li>
         </ul>
       </div>
     </div>

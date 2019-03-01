@@ -7,7 +7,7 @@ $modelType = ModelType::get_by_code($modelType); // Use the ModelType object fro
 
 if (!$modelType) {
   FlashMessage::add('Date incorecte.');
-  Util::redirect('scrabble');
+  Util::redirectToRoute('games/scrabble');
 }
 $models = FlexModel::loadByType($modelType->code);
 

@@ -109,7 +109,7 @@
             <li><a href="{Router::link('wotd/view')}">{t}word of the day{/t}</a></li>
             <li><a href="{Router::link('wotm/view')}">{t}word of the month{/t}</a></li>
             <li><a href="{Config::URL_PREFIX}cuvinte-aleatoare">{t}random words{/t}</a></li>
-            <li><a href="{Config::URL_PREFIX}scrabble">{t}Scrabble{/t}</a></li>
+            <li><a href="{Router::link('games/scrabble')}">{t}Scrabble{/t}</a></li>
             <li><a href="{Config::URL_PREFIX}unelte">{t}tools{/t}</a></li>
             <li><a href="{Config::URL_PREFIX}legaturi">{t}external links{/t}</a></li>
           </ul>

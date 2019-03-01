@@ -1,5 +1,4 @@
 <?php
-require_once '../lib/Core.php';
 $list = Request::get('list');
 $versions = Request::getCsv('versions');
 
@@ -18,7 +17,7 @@ switch ($list) {
     break;
   default:
     FlashMessage::add('Ați introdus o listă incorectă.');
-    Util::redirect('scrabble');
+    Util::redirectToRoute('games/scrabble');
 }
 
 $zipUrl = sprintf('%sdownload/scrabble/loc-dif-%s-%s-%s.zip',
@@ -27,7 +26,7 @@ $zipFile = tempnam(Config::TEMP_DIR, 'loc_') . '.zip';
 $txtFile = tempnam(Config::TEMP_DIR, 'loc_') . '.txt';
 if (!@copy($zipUrl, $zipFile)) {
   FlashMessage::add('Ați introdus o listă incorectă.');
-  Util::redirect('scrabble');
+  Util::redirectToRoute('games/scrabble');
 }
 OS::executeAndAssert("unzip -p $zipFile > $txtFile");
 
@@ -51,4 +50,4 @@ Smart::assign([
   'diff' => $diff,
   'zipUrl' => $zipUrl,
 ]);
-Smart::display('scrabble-diferente-loc.tpl');
+Smart::display('games/scrabble-loc-differences.tpl');

@@ -16,7 +16,7 @@
         is a perfectly legal word? Type in your word to show them who the boss is.{/t}
       </p>
 
-      <form action="scrabble" method="get">
+      <form id="scrabbleForm">
 
         <div class="scrabbleSearchDiv">
           <div class="form-group {$class|default:''}">
@@ -115,7 +115,7 @@
         {t}Find out what changed between two versions of LOC.{/t}
       </p>
 
-      <form class="form-inline" action="scrabble-diferente-loc" method="get">
+      <form class="form-inline" action="{Router::link('games/scrabble-loc-differences')}">
         <div class="form-group">
           {cap}{t}compare{/t}{/cap}
           <select class="form-control" name="list">

@@ -39,9 +39,6 @@ server {
     rewrite ^/contact$ /simple.php?p=contact last;
     rewrite ^/informatii$ https://wiki.dexonline.ro/wiki/Informații last;
     rewrite ^/legaturi$ /simple.php?p=links last;
-    rewrite ^/spanzuratoarea$ /hangman.php last;
-    rewrite ^/moara$ /mill.php last;
-    rewrite ^/omleta$ /scramble.php last;
 
     if (-f $document_root/$uri.php) {
       rewrite ^(.*)$ $uri.php last;

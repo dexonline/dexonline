@@ -41,6 +41,28 @@ class Router {
       'ro_RO.utf8' => 'autori-imagini',
     ],
 
+    // games
+    'games/hangman' => [
+      'en_US.utf8' => 'hangman',
+      'ro_RO.utf8' => 'spanzuratoarea',
+    ],
+    'games/mill' => [
+      'en_US.utf8' => 'mill',
+      'ro_RO.utf8' => 'moara',
+    ],
+    'games/scrabble' => [
+      'en_US.utf8' => 'scrabble',
+      'ro_RO.utf8' => 'scrabble',
+    ],
+    'games/scrabble-loc-differences' => [
+      'en_US.utf8' => 'scrabble-loc-differences',
+      'ro_RO.utf8' => 'scrabble-diferente-loc',
+    ],
+    'games/scramble' => [
+      'en_US.utf8' => 'scramble',
+      'ro_RO.utf8' => 'omleta',
+    ],
+
     // sources
     'source/edit' => [
       'en_US.utf8' => 'edit-source',

@@ -1,7 +1,5 @@
 <?php
 
-require_once '../lib/Core.php';
-
 const MAX_FREQ = 1;
 const MEDIUM_EASY = 0.90;
 const HARD_MEDIUM = 0.80;
@@ -70,4 +68,4 @@ Smart::assign([
   'searchResults' => $searchResults,
   'difficulty' => $difficulty
 ]);
-Smart::display("hangman.tpl");
+Smart::display('games/hangman.tpl');

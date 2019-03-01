@@ -1,5 +1,4 @@
 <?php
-require_once '../lib/Core.php';
 
 $form = Request::get('form');
 $version = Request::get('version', Config::DEFAULT_LOC_VERSION);
@@ -30,7 +29,7 @@ if ($ajax) {
   header("Content-Type: application/json");
   print json_encode($results);
 } else {
-  Smart::display('scrabble.tpl');
+  Smart::display('games/scrabble.tpl');
 }
 
 /*************************************************************************/

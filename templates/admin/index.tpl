@@ -500,7 +500,7 @@
             </li>
 
             <li>
-              <a href="../acuratete">verificarea acurateței editorilor</a>
+              <a href="{Router::link('accuracy/projects')}">verificarea acurateței editorilor</a>
             </li>
           {/if}
 

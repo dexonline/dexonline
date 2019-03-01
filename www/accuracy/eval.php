@@ -1,5 +1,4 @@
 <?php
-require_once '../lib/Core.php';
 User::mustHave(User::PRIV_EDIT | User::PRIV_ADMIN);
 
 $projectId = Request::get('projectId');
@@ -28,7 +27,7 @@ if ($deleteButton) {
     $project->delete();
   }
   FlashMessage::add('Am șters proiectul.', 'success');
-  Util::redirect('acuratete');
+  Util::redirectToRoute('accuracy/projects');
 }
 
 if ($editProjectButton) {
@@ -85,4 +84,4 @@ Smart::assign([
   'definitionData' => $defData,
 ]);
 Smart::addResources('admin');
-Smart::display('acuratete-eval.tpl');
+Smart::display('accuracy/eval.tpl');

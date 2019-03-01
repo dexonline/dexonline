@@ -250,7 +250,7 @@
   <form method="post">
     <input type="hidden" name="projectId" value="{$project->id}">
 
-    <a class="btn btn-default" href="acuratete">
+    <a class="btn btn-default" href="{Router::link('accuracy/projects')}">
       <i class="glyphicon glyphicon-arrow-left"></i>
       înapoi la lista de proiecte
     </a>

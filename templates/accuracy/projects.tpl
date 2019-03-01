@@ -37,7 +37,7 @@
       <tbody>
         {foreach $projects as $proj}
           <tr>
-            <td><a href="acuratete-eval?projectId={$proj->id}">{$proj->name}</a></td>
+            <td><a href="{Router::link('accuracy/eval')}?projectId={$proj->id}">{$proj->name}</a></td>
             <td>{$proj->getOwner()}</td>
             <td>{$proj->getUser()}</td>
             <td>{$proj->getSource()->shortName|default:'&mdash;'}</td>

@@ -5,7 +5,7 @@ $(function() {
     theme: 'bootstrap',
     widgets : [ "uitheme" ],
   });
-  
+
   $('#projectTable').tablesorterPager({
     container: $("#projectPager"),
     output: '{page}/{totalPages}',
@@ -14,9 +14,9 @@ $(function() {
 
   $('#includePublic').change(function() {
     if ($(this).prop('checked')) {
-      window.location = 'acuratete?includePublic=1';
+      window.location = '?includePublic=1';
     } else {
-      window.location = 'acuratete';
+      window.location = '?includePublic=0';
     }
   });
 

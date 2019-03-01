@@ -1,5 +1,4 @@
 <?php
-require_once '../lib/Core.php';
 User::mustHave(User::PRIV_EDIT | User::PRIV_ADMIN);
 
 $includePublic = Request::has('includePublic');
@@ -25,7 +24,7 @@ if ($submitButton) {
       $p->computeSpeedData();
       $p->save();
       $p->sampleDefinitions($length);
-      Util::redirect("acuratete-eval?projectId={$p->id}");
+      Util::redirect(Route::link('accuracy/eval') . "?projectId={$p->id}");
     } else {
       FlashMessage::add('lungimea trebuie să fie > 0');
     }
@@ -63,4 +62,4 @@ Smart::assign([
   'includePublic' => $includePublic,
 ]);
 Smart::addResources('admin', 'tablesorter', 'select2Dev');
-Smart::display('acuratete.tpl');
+Smart::display('accuracy/projects.tpl');

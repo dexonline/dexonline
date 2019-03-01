@@ -13,6 +13,16 @@ class Router {
   // compute the forward routes upon initialization. Files have an implicit
   // .php extension.
   const ROUTES = [
+    // accuracy
+    'accuracy/projects' => [
+      'en_US.utf8' => 'accuracy-projects',
+      'ro_RO.utf8' => 'proiecte-acuratete',
+    ],
+    'accuracy/eval' => [
+      'en_US.utf8' => 'accuracy-eval',
+      'ro_RO.utf8' => 'evaluare-acuratete',
+    ],
+
     // articles
     'article/list' => [
       'en_US.utf8' => 'articles',

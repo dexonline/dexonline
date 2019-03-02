@@ -15,7 +15,7 @@ class Preferences {
   static $allPrefs = [
     self::CEDILLA_BELOW => [
       'enabled' => true,
-      'label' => 'Folosește ş și ţ cu sedilă (în loc de virguliță)',
+      'label' => 'Folosește ş și ţ cu sedilă (în loc de virgulă)',
       'comment' => 'Scrierea corectă este cu &#x219; și &#x21b; în loc de ş și ţ, dar este posibil ca aceste simboluri să nu fie afișate corect în browserul dumneavoastră.',
     ],
     self::FORCE_DIACRITICS => [

@@ -2,14 +2,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2019-03-01 23:27+0200\n"
-"PO-Revision-Date: 2019-03-01 23:28+0200\n"
+"PO-Revision-Date: 2019-03-02 14:02+0100\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Poedit 2.2\n"
 "X-Poedit-Basepath: ../../..\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -138,7 +138,7 @@ msgstr "navegación"
 
 #: templates/bits/navmenu.tpl:51
 msgid "about"
-msgstr "sobre"
+msgstr "sobre nosotros"
 
 #: templates/bits/navmenu.tpl:59
 msgid "information"
@@ -155,7 +155,7 @@ msgstr "blog"
 
 #: templates/bits/navmenu.tpl:76
 msgid "get involved"
-msgstr "implíquese"
+msgstr "colabore"
 
 #: templates/bits/navmenu.tpl:82
 msgid "ways to help"
@@ -1363,27 +1363,27 @@ msgstr "siguiente"
 
 #: lib/models/InflectedForm.php:75
 msgid "by apheresis and/or elision"
-msgstr ""
+msgstr "por aféresis y/o elisión"
 
 #: lib/models/InflectedForm.php:78
 msgid "long verb form"
-msgstr "forma larga"
+msgstr "forma larga verbal"
 
 #: lib/models/SourceType.php:30
 msgid "General use dictionaries"
-msgstr ""
+msgstr "Diccionarios de uso general"
 
 #: lib/models/SourceType.php:31
 msgid "Morphological dictionaries"
-msgstr ""
+msgstr "Diccionarios morfológicos"
 
 #: lib/models/SourceType.php:32
 msgid "Relational dictionaries"
-msgstr ""
+msgstr "Diccionarios relacionales"
 
 #: lib/models/SourceType.php:33
 msgid "Etymological dictionaries"
-msgstr ""
+msgstr "Diccionarios etimológicos"
 
 #: lib/models/SourceType.php:34
 msgid "Specialized dictionaries"
@@ -1391,39 +1391,42 @@ msgstr "Diccionarios especializados"
 
 #: lib/models/SourceType.php:35
 msgid "Encyclopedic dictionaries"
-msgstr ""
+msgstr "Diccionarios enciclopédicos"
 
 #: lib/models/SourceType.php:36
 msgid "Slang dictionaries"
-msgstr ""
+msgstr "Diccionarios de jerga"
 
 #: lib/models/SourceType.php:37
 msgid "Other dictionaries"
-msgstr ""
+msgstr "Otros diccionarios"
 
 #: lib/models/SourceType.php:38
 msgid "Unverified dictionaries"
-msgstr ""
+msgstr "Diccionarios sin comprobar"
 
 #: lib/models/SourceType.php:45
 msgid "The most common sense of the words are explained."
-msgstr ""
+msgstr "Se explica el sentido primario de las palabras."
 
 #: lib/models/SourceType.php:47
 msgid "The correspondences between lemma and lexical forms of words."
 msgstr ""
+"Las correspondencias entre el lema y las formas léxicas de las palabras."
 
 #: lib/models/SourceType.php:49
 msgid "These are not definitions, but relations between words."
-msgstr ""
+msgstr "No son definiciones, sino relaciones entre las palabras."
 
 #: lib/models/SourceType.php:51
 msgid "The etymology of (family of) words are explained."
-msgstr ""
+msgstr "Se explican las etimologías de las (familias de) palabras."
 
 #: lib/models/SourceType.php:53
 msgid "These definitions usually explain only specialized meanings of words."
 msgstr ""
+"Estas definiciones explican normalmente solo las acepciones especializadas "
+"de las palabras."
 
 #: lib/models/SourceType.php:55
 msgid "Encyclopedic definitions"
@@ -1431,12 +1434,12 @@ msgstr "Definiciones enciclopedicas"
 
 #: lib/models/SourceType.php:57
 msgid "Only slang words or senses are defined."
-msgstr ""
+msgstr "Se definen solo las voces jergales."
 
 #: lib/models/SourceType.php:59
 msgid "These definitions could explain only certain meanings of words."
 msgstr ""
-"Estos diccionarios pueden explicar solo algunos de los significados de las "
+"Estas definiciones pueden explicar solo algunas de las acepciones de las "
 "palabras."
 
 #: lib/models/SourceType.php:61

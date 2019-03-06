@@ -1,5 +1,4 @@
 <?php
-require_once '../../lib/Core.php';
 ini_set('memory_limit', '256M');
 
 $modelType = Request::get('modelType');
@@ -14,4 +13,4 @@ Smart::assign([
   'modelNumber' => $modelNumber,
 ]);
 Smart::addResources('admin');
-Smart::display('admin/viewLexemesByModel.tpl');
+Smart::display('model/listLexemes.tpl');

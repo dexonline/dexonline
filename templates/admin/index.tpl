@@ -303,7 +303,7 @@
 
       <div class="panel-body">
 
-        <form class="form-inline" action="dispatchModelAction.php">
+        <form class="form-inline" action="{Router::link('model/dispatch')}">
           <div class="form-group">
             {include "bits/modelDropDown.tpl" modelTypes=$canonicalModelTypes}
 

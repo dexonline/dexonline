@@ -127,7 +127,7 @@ $links = [
     'privilege' => User::PRIV_EDIT,
   ],
   [
-    'url' => '../tipuri-modele',
+    'url' => Router::link('model/listTypes'),
     'text' => 'tipuri de model',
     'privilege' => User::PRIV_EDIT,
   ],

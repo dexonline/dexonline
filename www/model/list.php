@@ -1,5 +1,4 @@
 <?php
-require_once '../lib/Core.php';
 
 $modelType = Request::get('modelType');
 
@@ -22,4 +21,4 @@ Smart::assign([
   'lexemes' => $lexemes,
   'modelType' => $modelType,
 ]);
-Smart::display('modele-flexiune.tpl');
+Smart::display('model/list.tpl');

@@ -2,7 +2,7 @@
 require_once __DIR__ . '/../lib/Core.php';
 
 // TODO: Add user pages
-// TODO: Add inflection models (from modele-flexiune.php)
+// TODO: Add inflection models (from model/list.php)
 
 const FILE_SIZE_LIMIT = 9000000;
 const FILE_URL_LIMIT = 45000;

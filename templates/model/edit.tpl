@@ -124,14 +124,15 @@
         <u>s</u>alvează
       </button>
 
-      <a href="editModel.php?id={$m->id}" class="btn btn-link">
+      <a href="?id={$m->id}" class="btn btn-link">
         renunță
       </a>
     </div>
 
     <div class="alert alert-warning voffset3">
       Lexemele nu mai sunt salvate imediat, ci vor apărea în
-      <a class="alert-link" href="viewStaleParadigms">raportul de paradigme învechite</a>.
+      <a class="alert-link" href="{Config::URL_PREFIX}report/staleParadigms">
+        raportul de paradigme învechite</a>.
       Dacă în model există erori care fac imposibilă regenerarea paradigmei,
       veți primi acele erori cînd încercați regenerarea paradigmei din raport.
     </div>

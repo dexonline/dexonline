@@ -1,5 +1,4 @@
 <?php
-require_once '../lib/Core.php';
 User::mustHave(User::PRIV_EDIT);
 
 $showAddForm = Request::get('add');
@@ -25,7 +24,7 @@ if ($saveButton && !$id) {
     $mt->save();
     Log::notice("Created model type {$mt->code} ({$mt->description})");
     FlashMessage::add("Am adăugat tipul de model '{$mt->code}'.", 'success');
-    Util::redirect('tipuri-modele.php');
+    Util::redirectToRoute('model/listTypes');
   } else {
     $showAddForm = true;
     Smart::assign('addModelType', $mt);
@@ -40,7 +39,7 @@ if ($saveButton && $id) {
     $mt->save();
     Log::notice("Changed description for model type {$mt->code} ({$mt->description})");
     FlashMessage::add('Am salvat descrierea.', 'success');
-    Util::redirect('tipuri-modele.php');
+    Util::redirectToRoute('model/listTypes');
   } else {
     Smart::assign('editModelType', $mt);
   }
@@ -57,7 +56,7 @@ if ($deleteId) {
     FlashMessage::add("Am șters tipul de model '{$mt->code}'.", 'success');
     Log::notice("Deleted model type {$mt->code} ({$mt->description})");
     $mt->delete();
-    Util::redirect('tipuri-modele.php');
+    Util::redirectToRoute('model/listTypes');
   }
 }
 
@@ -82,7 +81,7 @@ Smart::assign([
   'canDelete' => $canDelete,
   'showAddForm' => $showAddForm,
 ]);
-Smart::display('tipuri-modele.tpl');
+Smart::display('model/listTypes.tpl');
 
 /***************************************************************************/
 

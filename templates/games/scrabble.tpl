@@ -155,7 +155,7 @@
         <em>%3</em> and <em>%4</em>? Here is why.{/t}
       </p>
 
-      <form class="form-inline" action="modele-flexiune">
+      <form class="form-inline" action="{Router::link('model/list')}">
         {t}Show models for{/t}
 
         <select class="form-control" name="modelType">

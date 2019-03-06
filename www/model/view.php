@@ -1,7 +1,5 @@
 <?php
 
-require_once '../lib/Core.php';
-
 const LEXEMES_LIMIT = 100;
 
 $model = Request::get('model');
@@ -22,4 +20,4 @@ Smart::assign([
   'exponent' => $exponent,
   'lexemes' => $lexemes,
 ]);
-Smart::display('model-flexiune.tpl');
+Smart::display('model/view.tpl');

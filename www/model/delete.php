@@ -1,5 +1,4 @@
 <?php
-require_once '../../lib/Core.php';
 ini_set('max_execution_time', '3600');
 User::mustHave(User::PRIV_ADMIN);
 DebugInfo::disable();
@@ -31,4 +30,4 @@ if ($deleteButton) {
 Smart::assign('modelType', $modelType);
 Smart::assign('modelNumber', $modelNumber);
 Smart::assign('lexemes', $lexemes);
-Smart::display('admin/deleteModel.tpl');
+Smart::display('model/delete.tpl');

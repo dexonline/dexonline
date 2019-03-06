@@ -9,10 +9,11 @@
       <div class="panel-body">
 
         <p>
-          Notă: prin această interfață nu se pot crea tipuri de model canonice, ci doar redirectări la alte tipuri.
+          Notă: prin această interfață nu se pot crea tipuri de model
+          canonice, ci doar redirectări la alte tipuri.
         </p>
 
-        <form method="post" action="tipuri-modele.php">
+        <form method="post">
           <input type="hidden" name="id" value="0">
           <div class="form-group">
             <label>cod</label>
@@ -38,7 +39,7 @@
             <u>s</u>alvează
           </button>
 
-          <a class="btn btn-link" href="tipuri-modele">renunță</a>
+          <a class="btn btn-link" href="{Router::link('model/listTypes')}">renunță</a>
 
         </form>
       </div>
@@ -50,7 +51,7 @@
       <div class="panel-heading">Editează tipul de model {$editModelType->code}</div>
       <div class="panel-body">
 
-        <form method="post" action="tipuri-modele.php">
+        <form method="post">
           <input type="hidden" name="id" value="{$editModelType->id}">
 
           <div class="form-group">
@@ -75,7 +76,7 @@
             <u>s</u>alvează
           </button>
 
-          <a class="btn btn-link" href="tipuri-modele">renunță</a>
+          <a class="btn btn-link" href="{Router::link('model/listTypes')}">renunță</a>
         </form>
       </div>
     </div>

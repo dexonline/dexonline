@@ -1,5 +1,4 @@
 <?php
-require_once '../../lib/Core.php';
 ini_set('max_execution_time', '3600');
 ini_set('memory_limit','256M');
 User::mustHave(User::PRIV_ADMIN);
@@ -64,7 +63,7 @@ if ($saveButton) {
       // It is not necessary to regenerate the paradigm for now, since
       // the inflected forms are identical.
     }
-    Util::redirect("editModel.php?id={$cloneModel->id}");
+    Util::redirect(Router::link('model/edit') . "?id={$cloneModel->id}");
   }
 } else {
   $newModelNumber = $modelNumber . '.1';
@@ -79,4 +78,4 @@ Smart::assign([
   'lexemes' => $lexemes,
 ]);
 Smart::addResources('admin');
-Smart::display('admin/cloneModel.tpl');
+Smart::display('model/clone.tpl');

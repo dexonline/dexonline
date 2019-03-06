@@ -1,5 +1,4 @@
 <?php
-require_once '../../lib/Core.php';
 ini_set('memory_limit', '512M');
 ini_set('max_execution_time', '3600');
 User::mustHave(User::PRIV_EDIT);
@@ -72,7 +71,7 @@ if ($saveButton) {
     Log::notice("Saving model {$m->id} ({$m}) done");
     Variable::poke('Count.staleParadigms', Lexeme::countStaleParadigms());
     FlashMessage::add('Am salvat modificările.', 'success');
-    Util::redirect("editModel.php?id={$m->id}");
+    Util::redirect("?id={$m->id}");
   }
 } else {
 
@@ -123,7 +122,7 @@ if ($m->modelType == 'V') {
 }
 
 Smart::addResources('paradigm', 'admin');
-Smart::display('admin/editModel.tpl');
+Smart::display('model/edit.tpl');
 
 /****************************************************************************/
 

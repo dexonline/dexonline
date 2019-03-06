@@ -1,5 +1,4 @@
 <?php
-require_once '../../lib/Core.php'; 
 User::mustHave(User::PRIV_EDIT);
 
 $modelType = Request::get('modelType');
@@ -14,13 +13,13 @@ $args = sprintf("modelType=%s&modelNumber=%s",
                 urlencode($modelNumber));
 
 if ($showLexemesButton) {
-  Util::redirect("viewLexemesByModel.php?$args");
+  Util::redirect(Router::link('model/listLexemes') . "?$args");
 } else if ($editModelButton) {
   $modelType = ModelType::canonicalize($modelType);
   $m = FlexModel::get_by_modelType_number($modelType, $modelNumber);
-  Util::redirect("editModel.php?id={$m->id}");
+  Util::redirect(Router::link('model/edit') . "?id={$m->id}");
 } else if ($cloneModelButton) {
-  Util::redirect("cloneModel.php?$args");
+  Util::redirect(Router::link('model/clone') . "?$args");
 } else if ($deleteModelButton) {
-  Util::redirect("deleteModel.php?$args");
+  Util::redirect(Router::link('model/delete') . "?$args");
 }

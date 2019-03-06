@@ -99,7 +99,7 @@ class Router {
       'ro_RO.utf8' => 'proceseaza-donatii',
     ],
 
-    // trees
+    // entries
     'entry/edit' => [
       'en_US.utf8' => 'edit-entry',
       'ro_RO.utf8' => 'editare-intrare',
@@ -131,6 +131,39 @@ class Router {
     'inflection/list' => [
       'en_US.utf8' => 'inflections',
       'ro_RO.utf8' => 'flexiuni',
+    ],
+
+    // models
+    'model/clone' => [
+      'en_US.utf8' => 'clone-model',
+      'ro_RO.utf8' => 'clonare-model',
+    ],
+    'model/delete' => [
+      'en_US.utf8' => 'delete-model',
+      'ro_RO.utf8' => 'stergere-model',
+    ],
+    'model/dispatch' => [
+      'en_US.utf8' => 'dispatch-model-action',
+    ],
+    'model/edit' => [
+      'en_US.utf8' => 'edit-model',
+      'ro_RO.utf8' => 'editare-model',
+    ],
+    'model/list' => [
+      'en_US.utf8' => 'inflection-models',
+      'ro_RO.utf8' => 'modele-flexiune',
+    ],
+    'model/listLexemes' => [
+      'en_US.utf8' => 'list-model-lexemes',
+      'ro_RO.utf8' => 'lista-lexeme-model',
+    ],
+    'model/listTypes' => [
+      'en_US.utf8' => 'model-types',
+      'ro_RO.utf8' => 'tipuri-model',
+    ],
+    'model/view' => [
+      'en_US.utf8' => 'inflection-model',
+      'ro_RO.utf8' => 'model-flexiune',
     ],
 
     // sources
@@ -206,6 +239,8 @@ class Router {
   // file => list of parameters expected in the URL (none by default)
   const PARAMS = [
     'article/view' => [ 'title' ],
+    'model/list' => [ 'modelType' ],
+    'model/view' => [ 'model' ],
     'wotd/archive' => [ 'year', 'month' ],
     'wotd/view' => [ 'year', 'month', 'day' ],
     'wotm/view' => [ 'year', 'month' ],

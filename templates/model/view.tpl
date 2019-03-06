@@ -20,12 +20,12 @@
   {include "search/lexemeList.tpl"}
 
   <p>
-    <a class="btn btn-default" href="../modele-flexiune/{$model->modelType}">
+    <a class="btn btn-default" href="{Router::link('model/list')}/{$model->modelType}">
       <i class="glyphicon glyphicon-chevron-left"></i>
       toate modelele de tip {$model->modelType}
     </a>
     {if User::can(User::PRIV_EDIT)}
-      <a class="btn btn-default" href="../admin/editModel.php?id={$model->id}">
+      <a class="btn btn-default" href="{Router::link('model/edit')}?id={$model->id}">
         <i class="glyphicon glyphicon-pencil"></i>
         editează modelul
       </a>

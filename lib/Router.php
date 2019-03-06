@@ -13,6 +13,16 @@ class Router {
   // compute the forward routes upon initialization. Files have an implicit
   // .php extension.
   const ROUTES = [
+    // abbreviations
+    'abbreviation/list' => [
+      'en_US.utf8' => 'abbreviations',
+      'ro_RO.utf8' => 'abrevieri',
+    ],
+    'abbreviation/upload' => [
+      'en_US.utf8' => 'upload-abbreviations',
+      'ro_RO.utf8' => 'incarca-abrevieri',
+    ],
+
     // accuracy
     'accuracy/projects' => [
       'en_US.utf8' => 'accuracy-projects',

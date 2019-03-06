@@ -147,12 +147,12 @@ $links = [
     'privilege' => User::PRIV_ADMIN,
   ],
   [
-    'url' => 'abbrevInput',
+    'url' => Router::link('abbreviation/upload'),
     'text' => 'adaugă abrevieri',
     'privilege' => User::PRIV_ADMIN,
   ],
   [
-    'url' => 'abbrevList',
+    'url' => Router::link('abbreviation/list'),
     'text' => 'abrevieri',
     'privilege' => User::PRIV_ADMIN | User::PRIV_EDIT,
   ],

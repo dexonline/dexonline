@@ -1,6 +1,4 @@
 <?php
-
-require_once '../../lib/Core.php';
 User::mustHave(User::PRIV_ADMIN);
 
 $sourceId = Request::get('source');
@@ -78,7 +76,7 @@ Smart::assign([
   'modUser' => User::getActive(),
 ]);
 Smart::addResources('admin');
-Smart::display('admin/abbrevInput.tpl');
+Smart::display('abbreviation/upload.tpl');
 
 /*************************************************************************/
 

@@ -1,6 +1,4 @@
 <?php
-
-require_once '../../lib/Core.php';
 User::mustHave(User::PRIV_ADMIN | User::PRIV_EDIT);
 
 FlashMessage::add("Avertisment! În momentul editării unei abrevieri, prin schimbarea "
@@ -12,4 +10,4 @@ $allSources = Model::factory('Source')
                      ->find_many();
 
 Smart::assign('allSources', $allSources);
-Smart::display('admin/abbrevList.tpl');
+Smart::display('abbreviation/list.tpl');

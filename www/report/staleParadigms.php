@@ -31,7 +31,7 @@ if ($timer) {
 
   FlashMessage::add("{$fixed} paradigme regenerate.", 'success');
   Variable::poke('Count.staleParadigms', Lexeme::countStaleParadigms());
-  Util::redirect('viewStaleParadigms');
+  Util::redirect(Config::URL_PREFIX . 'report/staleParadigms');
 }
 
 $count = Lexeme::countStaleParadigms();

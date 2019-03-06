@@ -18,7 +18,7 @@ if ($associateButton) {
   FlashMessage::add(sprintf('Am asociat %d definiții cu %d intrări.',
                             count($defIds), count($entryIds)),
                     'success');
-  Util::redirect("viewUnassociatedDefinitions.php");
+  Util::redirect(Config::URL_PREFIX . 'report/unassociatedDefinitions');
 }
 
 $defs = Model::factory('Definition')

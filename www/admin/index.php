@@ -112,7 +112,7 @@ $reportPriv = array_reduce($reports, 'orReducer', 0);
 
 $links = [
   [
-    'url' => '../moderatori',
+    'url' => Router::link('user/list'),
     'text' => 'moderatori',
     'privilege' => User::PRIV_ADMIN,
   ],

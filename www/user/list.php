@@ -1,5 +1,5 @@
 <?php
-require_once '../lib/Core.php';
+
 User::mustHave(User::PRIV_ADMIN);
 
 $userIds = Request::getArray('userIds');
@@ -28,13 +28,13 @@ if ($saveButton) {
       $user->save();
       Log::warning("Granted permissions {$user->moderator} to user {$user->id} ({$user->nick})");
     } else {
-      FlashMessage::add("Numele de utilizator „{$newNick}” nu există");
-      Util::redirect('moderatori');
+      FlashMessage::add("Numele de utilizator „{$newNick}” nu există.");
+      Util::redirectToRoute('user/list');
     }
   }
 
   FlashMessage::add('Am salvat modificările.', 'success');
-  Util::redirect('moderatori');
+  Util::redirectToRoute('user/list');
 }
 
 $moderators = Model::factory('User')
@@ -44,4 +44,4 @@ $moderators = Model::factory('User')
 
 Smart::assign('users', $moderators);
 Smart::addResources('admin');
-Smart::display('moderatori.tpl');
+Smart::display('user/list.tpl');

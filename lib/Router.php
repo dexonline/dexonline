@@ -279,6 +279,10 @@ class Router {
     ],
 
     // users
+    'user/list' => [
+      'en_US.utf8' => 'moderators',
+      'ro_RO.utf8' => 'moderatori',
+    ],
     'user/view' => [
       'en_US.utf8' => 'user',
       'ro_RO.utf8' => 'utilizator',

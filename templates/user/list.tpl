@@ -5,7 +5,7 @@
 {block "content"}
   <h3>Moderatori</h3>
 
-  <form method="post" action="moderatori">
+  <form method="post">
     <table class="table table-condensed table-striped table-bordered">
 
       <tr>

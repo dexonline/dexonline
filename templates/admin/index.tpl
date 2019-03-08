@@ -330,7 +330,7 @@
         <div class="voffset2"></div>
 
         <p>
-          <a href="mergeLexemes.php">unificare plural-singular</a>
+          <a href="{Router::link('lexeme/mergeTool')}">unificare plural-singular</a>
 
           <span class="text-muted">
             pentru familiile de plante și animale și pentru alte lexeme care apar
@@ -495,7 +495,7 @@
             </li>
 
             <li>
-              <a href="placeAccents.php">plasarea asistată a accentelor</a>
+              <a href="{Router::link('lexeme/accentTool')}">plasarea asistată a accentelor</a>
               <span class="text-muted">
                 pentru lexeme alese la întâmplare
               </span>

@@ -1,5 +1,5 @@
 <?php
-require_once '../../lib/Core.php';
+
 User::mustHave(User::PRIV_EDIT);
 DebugInfo::disable();
 
@@ -37,7 +37,7 @@ if ($saveButton) {
   foreach ($lexemesToDelete as $lexeme) {
     $lexeme->delete();
   }
-  Util::redirect("mergeLexemes.php?modelType={$modelType}");
+  Util::redirect("?modelType={$modelType}");
 }
 
 const PLURAL_INFLECTIONS = [3, 11, 19, 27, 35];
@@ -89,7 +89,7 @@ foreach ($dbResult as $row) {
 Smart::assign('modelType', $modelType);
 Smart::assign('lexemes', $lexemes);
 Smart::addResources('admin');
-Smart::display('admin/mergeLexemes.tpl');
+Smart::display('lexeme/mergeTool.tpl');
 
 
 /***************************************************/

@@ -172,6 +172,10 @@ class Router {
     ],
 
     // lexemes
+    'lexeme/accentTool' => [
+      'en_US.utf8' => 'accent-helper',
+      'ro_RO.utf8' => 'asistent-accente',
+    ],
     'lexeme/bulkLabel' => [
       'en_US.utf8' => 'bulk-label',
       'ro_RO.utf8' => 'etichetare-in-masa',
@@ -179,6 +183,10 @@ class Router {
     'lexeme/bulkLabelSelectSuffix' => [
       'en_US.utf8' => 'bulk-label-select-suffix',
       'ro_RO.utf8' => 'etichetare-in-masa-alege-sufix',
+    ],
+    'lexeme/mergeTool' => [
+      'en_US.utf8' => 'merge-helper',
+      'ro_RO.utf8' => 'asistent-unificare',
     ],
 
     // models

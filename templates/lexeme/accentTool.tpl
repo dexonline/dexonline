@@ -18,7 +18,7 @@
   </div>
 
 
-  <form action="placeAccents.php" method="post">
+  <form method="post">
     {foreach $lexemes as $l}
       {assign var=lexemeId value=$l->id}
       {assign var=charArray value=$chars[$lexemeId]}

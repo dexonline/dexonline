@@ -270,9 +270,10 @@
 {*
    Sometimes we need to include the modal separately. For example, nested forms are not
    allowed, so if we are inside a form we cannot include the modal.
-*}
+  *}
 {if $showPageLink &&
   $showPageModal &&
+  $showDropup &&
   $row->source->hasPageImages &&
   (User::can(User::PRIV_EDIT) || TraineeSource::TraineeCanEditSource(User::getActiveId(), $def->sourceId))}
   {include "bits/pageModal.tpl"}

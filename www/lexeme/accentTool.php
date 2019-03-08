@@ -1,5 +1,5 @@
 <?php
-require_once '../../lib/Core.php';
+
 User::mustHave(User::PRIV_EDIT);
 
 $saveButton = Request::has('saveButton');
@@ -23,7 +23,7 @@ if ($saveButton) {
       }
     }
   }
-  Util::redirect("placeAccents.php");
+  Util::redirectToRoute('lexeme/accentTool');
 }
 
 $chars = [];
@@ -50,4 +50,4 @@ Smart::assign([
   'searchResults' => $searchResults,
 ]);
 Smart::addResources('admin');
-Smart::display('admin/placeAccents.tpl');
+Smart::display('lexeme/accentTool.tpl');

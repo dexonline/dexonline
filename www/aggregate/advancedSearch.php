@@ -1,5 +1,5 @@
 <?php
-require_once '../../lib/Core.php';
+
 User::mustHave(User::PRIV_EDIT | User::PRIV_STRUCT);
 
 const SECONDS_PER_DAY = 86400;
@@ -263,7 +263,7 @@ Smart::assign([
   'stats' => $stats,
 ]);
 Smart::addResources('admin');
-Smart::display('admin/advancedSearch.tpl');
+Smart::display('aggregate/advancedSearch.tpl');
 
 /*************************************************************************/
 

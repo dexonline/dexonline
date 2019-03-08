@@ -85,7 +85,10 @@
       </div>
 
       <div class="panel-body">
-        <form class="form-horizontal" action="advancedSearch.php" method="post">
+        <form
+          class="form-horizontal"
+          action="{Router::link('aggregate/advancedSearch')}"
+          method="post">
 
           <div class="row">
 

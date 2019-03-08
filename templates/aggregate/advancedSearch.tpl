@@ -19,7 +19,7 @@
 
       <div class="panel panel-default voffset2">
         <div class="panel-heading">
-          {include "admin/advancedSearchToolbar.tpl"}
+          {include "bits/advancedSearchToolbar.tpl"}
         </div>
 
         <div class="panel-body panel-admin">
@@ -38,7 +38,7 @@
 
         {if $stats.numPages > 1}
           <div class="panel-footer">
-            {include "admin/advancedSearchToolbar.tpl"}
+            {include "bits/advancedSearchToolbar.tpl"}
           </div>
         {/if}
       </div>

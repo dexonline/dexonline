@@ -38,6 +38,10 @@ class Router {
       'en_US.utf8' => 'harmonize',
       'ro_RO.utf8' => 'armonizare',
     ],
+    'aggregate/advancedSearch' => [
+      'en_US.utf8' => 'advanced-search',
+      'ro_RO.utf8' => 'cautare-avansata',
+    ],
 
     // articles
     'article/list' => [

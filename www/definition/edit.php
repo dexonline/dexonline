@@ -1,5 +1,4 @@
 <?php
-require_once '../../lib/Core.php';
 User::mustHave(User::PRIV_EDIT | User::PRIV_TRAINEE);
 
 $definitionId = Request::get('definitionId');
@@ -130,9 +129,9 @@ if ($saveButton || $nextOcrBut) {
 
     if ($nextOcrBut) {
       // cause the next OCR definition to load
-      Util::redirect('definitionEdit.php?isOcr=1');
+      Util::redirect('?isOcr=1');
     } else {
-      $url = "definitionEdit.php?definitionId={$d->id}";
+      $url = "?definitionId={$d->id}";
       if ($isOcr) {
         // carry this around so the user can click "Save" any number of times, then "next OCR".
         $url .= "&isOcr=1";
@@ -204,7 +203,7 @@ Smart::assign([
   'allModeratorSources' => $sources,
 ]);
 Smart::addResources('tinymce', 'admin', 'diff', 'frequentObjects', 'select2Dev');
-Smart::display('admin/definitionEdit.tpl');
+Smart::display('definition/edit.tpl');
 
 /*************************************************************************/
 
@@ -237,7 +236,7 @@ function getDefinitionFromOcr($userId) {
 
   Log::notice("Imported definition {$d->id} ({$d->lexicon}) from OCR {$ocr->id}");
 
-  Util::redirect("definitionEdit.php?definitionId={$d->id}&isOcr=1");
+  Util::redirect("?definitionId={$d->id}&isOcr=1");
 }
 
 // check the pending definitions limit for trainees

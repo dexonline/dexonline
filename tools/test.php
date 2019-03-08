@@ -819,7 +819,7 @@ assertEquals(4, Util::findSnippet([[1, 2, 10],
 
 /************************* Test for DiffUtil.php *************************/
 
-// diff actions are used in definitionEdit.php. The user can click on the highlight
+// diff actions are used in definition/edit.php. The user can click on the highlight
 // differences (red = deleted, green = inserted) to remove them from the definition
 // or to insert them in the similar definition from the previous edition
 function assertDiffAction($from, $to, $rank, $action, $expectedFrom, $expectedTo) {

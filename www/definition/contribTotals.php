@@ -1,6 +1,5 @@
 <?php
 
-require_once '../../lib/Core.php';
 User::mustHave(User::PRIV_ADMIN);
 
 $submitButton = Request::has('submitButton');
@@ -82,7 +81,7 @@ Smart::assign([
   'showChanges' => $showChanges,
 ]);
 Smart::addResources('admin', 'select2Dev');
-Smart::display('admin/contribTotals.tpl');
+Smart::display('definition/contribTotals.tpl');
 
 /*************************************************************************/
 

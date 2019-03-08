@@ -1,6 +1,4 @@
 <?php
-require_once '../lib/Core.php';
-
 User::mustHave(User::PRIV_EDIT);
 
 $id = Request::get('id');
@@ -38,4 +36,4 @@ $changeSets = array_reverse($changeSets); // newest changes first
 Smart::assign('def', $def);
 Smart::assign('changeSets', $changeSets);
 Smart::addResources('diff');
-Smart::display('istoria-definitiei.tpl');
+Smart::display('definition/history.tpl');

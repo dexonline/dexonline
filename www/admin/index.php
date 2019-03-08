@@ -29,7 +29,7 @@ $reports = [
    'privilege' => User::PRIV_EDIT
   ],
   ['text' => 'Definiții OCR neverificate',
-   'url' => 'admin/definitionEdit?isOcr=1',
+   'url' => 'editare-definitie?isOcr=1',
    'count' => sprintf('%d (alocate dvs.: %d)',
                       $counts['rawOcrDefinitions'],
                       OCR::countAvailable(User::getActiveId())),
@@ -137,12 +137,12 @@ $links = [
     'privilege' => User::PRIV_ADMIN,
   ],
   [
-    'url' => 'ocrInput',
+    'url' => Router::link('definition/ocrUpload'),
     'text' => 'adaugă definiții OCR',
     'privilege' => User::PRIV_ADMIN,
   ],
   [
-    'url' => 'contribTotals',
+    'url' => Router::link('definition/contribTotals'),
     'text' => 'contorizare contribuții',
     'privilege' => User::PRIV_ADMIN,
   ],
@@ -157,12 +157,12 @@ $links = [
     'privilege' => User::PRIV_ADMIN | User::PRIV_EDIT,
   ],
   [
-    'url' => 'definitionEdit',
+    'url' => Router::link('definition/edit'),
     'text' => 'adaugă o definiție',
     'privilege' => User::PRIV_EDIT | User::PRIV_TRAINEE,
   ],
   [
-    'url' => 'traineeDefinitions',
+    'url' => Router::link('definition/trainee'),
     'text' => 'definițiile mele',
     'privilege' => User::PRIV_TRAINEE,
   ],

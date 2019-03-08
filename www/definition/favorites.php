@@ -1,5 +1,4 @@
 <?php
-require_once '../lib/Core.php';
 
 $user = User::getActive();
 if (!$user) {
@@ -15,4 +14,4 @@ $definitions = Model::factory('Definition')
 $results = SearchResult::mapDefinitionArray($definitions);
 
 Smart::assign('results', $results);
-Smart::display('cuvinte-favorite.tpl');
+Smart::display('definition/favorites.tpl');

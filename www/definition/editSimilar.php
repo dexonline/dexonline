@@ -1,7 +1,5 @@
 <?php
 
-require_once '../../lib/Core.php';
-
 User::mustHave(User::PRIV_EDIT);
 
 $defId = Request::get('defId');
@@ -16,4 +14,4 @@ $mod = DiffUtil::diffAction($similar, $def, $rank, $action);
 $mod->process();
 $mod->save();
 
-Util::redirect("definitionEdit.php?definitionId={$defId}");
+Util::redirect(Router::link('definition/edit') . "?definitionId={$defId}");

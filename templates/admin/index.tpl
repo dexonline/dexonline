@@ -46,7 +46,7 @@
 
       <div class="panel-body">
         <div class="col-lg-4 col-md-6 col-sm-6">
-          <form action="definitionEdit.php">
+          <form action="{Router::link('definition/edit')}">
             <select id="definitionId" name="definitionId"></select>
           </form>
         </div>
@@ -485,7 +485,7 @@
         <ul>
           {if User::can(User::PRIV_EDIT)}
             <li>
-              <a href="deTool.php">reasociere D. Enciclopedic</a>
+              <a href="{Router::link('definition/associateDE')}">reasociere D. Enciclopedic</a>
               <span class="text-muted">
                 o interfață mai rapidă pentru asocierea de lexeme și modificarea modelelor
                 acestora

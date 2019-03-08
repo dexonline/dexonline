@@ -22,7 +22,7 @@
     </span>
   </h3>
 
-  <form action="definitionEdit.php" method="post" class="form-horizontal">
+  <form method="post" class="form-horizontal">
     <input type="hidden" name="definitionId" value="{$def->id}">
     <input type="hidden" name="isOcr" value="{$isOcr}">
 

@@ -24,7 +24,7 @@ if ($submitButton) {
       $p->computeSpeedData();
       $p->save();
       $p->sampleDefinitions($length);
-      Util::redirect(Route::link('accuracy/eval') . "?projectId={$p->id}");
+      Util::redirect(Router::link('accuracy/eval') . "?projectId={$p->id}");
     } else {
       FlashMessage::add('lungimea trebuie să fie > 0');
     }

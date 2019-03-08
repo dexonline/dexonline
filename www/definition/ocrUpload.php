@@ -1,5 +1,4 @@
 <?php
-require_once '../../lib/Core.php';
 User::mustHave(User::PRIV_ADMIN);
 
 $sourceId = Request::get('source');
@@ -121,4 +120,4 @@ Smart::assign([
   'statsEditors' => DB::execute(OCR_EDITOR_STATS),
 ]);
 Smart::addResources('admin');
-Smart::display('admin/ocrInput.tpl');
+Smart::display('definition/ocrUpload.tpl');

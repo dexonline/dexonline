@@ -8,7 +8,7 @@
 
 class Router {
 
-  // Reverse routes definitions, mapping file names to localized URLs. We
+  // Reverse route definitions, mapping file names to localized URLs. We
   // prefer this format in order to group all information about one file. We
   // compute the forward routes upon initialization. Files have an implicit
   // .php extension.
@@ -83,17 +83,51 @@ class Router {
       'ro_RO.utf8' => 'autori-imagini',
     ],
 
+    // definitions
+    'definition/associateDE' => [
+      'en_US.utf8' => 'associate-de',
+      'ro_RO.utf8' => 'asociere-de',
+    ],
+    'definition/contribTotals' => [
+      'en_US.utf8' => 'contribution-totals',
+      'ro_RO.utf8' => 'totaluri-contributii',
+    ],
+    'definition/edit' => [
+      'en_US.utf8' => 'edit-definition',
+      'ro_RO.utf8' => 'editare-definitie',
+    ],
+    'definition/editSimilar' => [
+      'en_US.utf8' => 'edit-similar-definition',
+    ],
+    'definition/favorites' => [
+      'en_US.utf8' => 'favorite-words',
+      'ro_RO.utf8' => 'cuvinte-favorite',
+    ],
+    'definition/history' => [
+      'en_US.utf8' => 'definition-history',
+      'ro_RO.utf8' => 'istoria-definitiei',
+    ],
+    'definition/ocrUpload' => [
+      'en_US.utf8' => 'upload-ocr-definitions',
+    ],
+    'definition/rangeSearch' => [
+      'en_US.utf8' => 'words',
+      'ro_RO.utf8' => 'cuvinte',
+    ],
+    'definition/trainee' => [
+      'en_US.utf8' => 'trainee-definitions',
+      'ro_RO.utf8' => 'definitii-stagiar',
+    ],
+
     // donations
     'donation/donate' => [
       'en_US.utf8' => 'donate',
       'ro_RO.utf8' => 'doneaza',
     ],
-
     'donation/donateEP' => [
       'en_US.utf8' => 'donate-ep',
       'ro_RO.utf8' => 'doneaza-ep',
     ],
-
     'donation/process' => [
       'en_US.utf8' => 'process-donations',
       'ro_RO.utf8' => 'proceseaza-donatii',

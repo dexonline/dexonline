@@ -1,5 +1,4 @@
 <?php
-require_once '../../lib/Core.php';
 User::mustHave(User::PRIV_EDIT);
 
 const SOURCE_ID = 25; // Dicționarul enciclopedic
@@ -206,7 +205,7 @@ Smart::assign([
   'passedTests' => $passedTests,
 ]);
 Smart::addResources('admin', 'select2Dev');
-Smart::display('admin/deTool.tpl');
+Smart::display('definition/associateDE.tpl');
 
 /*************************************************************************/
 

@@ -119,7 +119,7 @@ $(function() {
     var similarId = similarRecord.sim.id;
     var action = $(this).data('insert');
 
-    var pattern = '%sadmin/editSimilarDefinition.php?defId=%s&similarId=%s&rank=%s&action=%s';
+    var pattern = '%sedit-similar-definition?defId=%s&similarId=%s&rank=%s&action=%s';
     var url = sprintf(pattern, wwwRoot, defId, similarId, lastDiffClicked, action);
     window.location = url;
   }

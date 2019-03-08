@@ -42,7 +42,7 @@ if ($verbose) {
       printf("Definitions for glyph [%s] (unicode U+%04x):\n",
              $glyph, Str::unicodeOrd($glyph));
       foreach ($idMap as $id => $ignored) {
-        print "  https://dexonline.ro/admin/definitionEdit.php?definitionId=$id\n";
+        print "  https://dexonline.ro/editare-definitie?definitionId=$id\n";
       }
     }
   }

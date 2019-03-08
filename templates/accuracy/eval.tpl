@@ -14,7 +14,7 @@
         {/if}
 
         <a class="btn btn-default btn-xs pull-right"
-          href="admin/definitionEdit.php?definitionId={$def->id}">
+          href="{Router::link('definition/edit')}?definitionId={$def->id}">
           <i class="glyphicon glyphicon-pencil"></i>
           editează
         </a>

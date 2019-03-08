@@ -1,6 +1,5 @@
 <?php
 
-require_once '../lib/Core.php';
 User::mustHave(User::PRIV_EDIT);
 
 const DEBUG = 0;
@@ -31,4 +30,4 @@ Smart::assign([
   'i' => $word_start,
   'e' => $word_end,
 ]);
-Smart::display('cuvinte.tpl');
+Smart::display('definition/rangeSearch.tpl');

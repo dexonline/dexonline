@@ -35,7 +35,7 @@ $(function() {
   }
 
   function redirectToNewDefinition() {
-    window.location = wwwRoot + 'admin/definitionEdit.php';
+    window.location = wwwRoot + 'editare-definitie';
   }
 
   function redirectToWotDTable() {

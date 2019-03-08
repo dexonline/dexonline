@@ -90,7 +90,7 @@
   {if $showEditLink}
     {if User::can(User::PRIV_EDIT)}
       <li>
-        <a href="{Config::URL_PREFIX}admin/definitionEdit.php?definitionId={$def->id}">
+        <a href="{Router::link('definition/edit')}?definitionId={$def->id}">
           editează
         </a>
       </li>
@@ -231,7 +231,7 @@
         {if $showHistory}
           {if User::can(User::PRIV_EDIT)}
             <li>
-              <a href="{Config::URL_PREFIX}istoria-definitiei?id={$def->id}">
+              <a href="{Router::link('definition/history')}?id={$def->id}">
                 <i class="glyphicon glyphicon-time"></i>
                 istoria definiției
               </a>

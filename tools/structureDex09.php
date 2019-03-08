@@ -13,7 +13,7 @@ const PREVIOUS_SOURCE_ID = 1;
 const MY_USER_ID = 1;
 const BATCH_SIZE = 10000;
 const START_AT = '';
-const EDIT_URL = 'https://dexonline.ro/admin/definitionEdit.php?definitionId=';
+const EDIT_URL = 'https://dexonline.ro/editare-definitie?definitionId=';
 
 $abbrevs = Abbrev::loadAbbreviations(SOURCE_ID);
 

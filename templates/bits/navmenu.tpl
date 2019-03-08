@@ -192,7 +192,7 @@
                 </a>
               </li>
               <li>
-                <a href="{Config::URL_PREFIX}cuvinte-favorite">
+                <a href="{Router::link('definition/favorites')}">
                   <i class="glyphicon glyphicon-heart"></i>
                   <span>{t}favorite words{/t}</span>
                 </a>
@@ -260,7 +260,7 @@
               = pagina moderatorului
             </li>
             <li>
-              <a href="{Config::URL_PREFIX}admin/definitionEdit.php">Alt-N</a>
+              <a href="{Router::link('definition/edit')}">Alt-N</a>
               = adaugă o definiție
             </li>
             <li>

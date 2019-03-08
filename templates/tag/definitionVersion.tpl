@@ -43,7 +43,7 @@
         <u>s</u>alvează
       </button>
 
-      <a class="btn btn-default" href="istoria-definitiei.php?id={$def->id}">
+      <a class="btn btn-default" href="{Router::link('definition/history')}?id={$def->id}">
         <i class="glyphicon glyphicon-arrow-left"></i>
         înapoi la istoria definiției
       </a>

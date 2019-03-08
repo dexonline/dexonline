@@ -1,6 +1,4 @@
 <?php
-
-require_once '../../lib/Core.php';
 User::mustHave(User::PRIV_EDIT | User::PRIV_TRAINEE);
 
 $defs = Model::factory('Definition')
@@ -20,4 +18,4 @@ Smart::assign([
   'sourceMap' => $sourceMap,
 ]);
 Smart::addResources('tablesorter');
-Smart::display('traineeDefinitions.tpl');
+Smart::display('definition/trainee.tpl');

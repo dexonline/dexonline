@@ -93,6 +93,15 @@ class Request {
   }
 
   /**
+   * $default: value to return if $name is not defined at all;
+   * $min, $max: lower and upper limits for the value.
+   **/
+  static function getInRange($name, $default, $min, $max) {
+    $val = self::get($name, $default);
+    return min($max, max($min, $val));
+  }
+
+  /**
    * Returns true if this script is running in response to a web request, false
    * otherwise.
    */

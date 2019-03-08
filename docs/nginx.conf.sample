@@ -25,12 +25,6 @@ server {
     rewrite ^/flexiune/lexem/(.*)$ /paradigm.php?lexemeId=$1 last;
     rewrite ^/(declinare|conjugare)/lexem/(.*)$ /paradigm.php?lexemeId=$2&type=$1 last;
     rewrite ^/(declinare|conjugare)/(.*)$ /paradigm.php?cuv=$2&type=$1 last;
-    rewrite ^/cuvinte-aleatoare$ /randomList.php last;
-    rewrite ^/cuvinte-aleatoare/(\d+)$ /randomList.php?n=$1 last;
-    rewrite ^/lista/cuvinte-aleatoare$ /randomList.php?k=1 last;
-    rewrite ^/lista/cuvinte-aleatoare/(\d+)$ /randomList.php?n=$1&k=1 last;
-    rewrite ^/lista/cuvintele-zilei-aleatoare$ /randomList.php?w=15 last;
-    rewrite ^/lista/cuvintele-zilei-aleatoare/(\d+)$ /randomList.php?w=$1 last;
 
     # Non-search pages
     rewrite ^/404$ /simple.php?p=404 last;

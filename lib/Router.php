@@ -171,7 +171,7 @@ class Router {
       'ro_RO.utf8' => 'flexiuni',
     ],
 
-    // lexemes
+    // lexemes (including RandomWord's)
     'lexeme/accentTool' => [
       'en_US.utf8' => 'accent-helper',
       'ro_RO.utf8' => 'asistent-accente',
@@ -191,6 +191,10 @@ class Router {
     'lexeme/mergeTool' => [
       'en_US.utf8' => 'merge-helper',
       'ro_RO.utf8' => 'asistent-unificare',
+    ],
+    'lexeme/random' => [
+      'en_US.utf8' => 'random-words',
+      'ro_RO.utf8' => 'cuvinte-aleatorii',
     ],
 
     // models
@@ -276,6 +280,11 @@ class Router {
       'en_US.utf8' => 'wotd-images',
       'ro_RO.utf8' => 'imagini-cz',
     ],
+    'wotd/random' => [
+      'en_US.utf8' => 'random-words-of-the-day',
+      'ro_RO.utf8' => 'cuvintele-zilei-aleatorii',
+    ],
+
     'wotd/rss' => [
       'en_US.utf8' => 'rss-word-of-the-day',
       'ro_RO.utf8' => 'rss-cuvantul-zilei',
@@ -299,9 +308,11 @@ class Router {
   // file => list of parameters expected in the URL (none by default)
   const PARAMS = [
     'article/view' => [ 'title' ],
+    'lexeme/random' => [ 'count', 'skin' ],
     'model/list' => [ 'modelType' ],
     'model/view' => [ 'model' ],
     'wotd/archive' => [ 'year', 'month' ],
+    'wotd/random' => [ 'count', 'skin' ],
     'wotd/view' => [ 'year', 'month', 'day' ],
     'wotm/view' => [ 'year', 'month' ],
   ];

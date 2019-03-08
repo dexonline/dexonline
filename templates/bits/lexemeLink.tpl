@@ -4,7 +4,7 @@
 
 {strip}
 <a
-  href="{Config::URL_PREFIX}admin/lexemeEdit.php?lexemeId={$lexeme->id}"
+  href="{Router::link('lexeme/edit')}?lexemeId={$lexeme->id}"
   class="{$class}"
   title="editează">
   {include "bits/lexemeName.tpl"}

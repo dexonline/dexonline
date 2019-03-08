@@ -184,6 +184,10 @@ class Router {
       'en_US.utf8' => 'bulk-label-select-suffix',
       'ro_RO.utf8' => 'etichetare-in-masa-alege-sufix',
     ],
+    'lexeme/edit' => [
+      'en_US.utf8' => 'edit-lexeme',
+      'ro_RO.utf8' => 'editare-lexem',
+    ],
     'lexeme/mergeTool' => [
       'en_US.utf8' => 'merge-helper',
       'ro_RO.utf8' => 'asistent-unificare',

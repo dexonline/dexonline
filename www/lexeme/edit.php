@@ -1,5 +1,5 @@
 <?php
-require_once '../../lib/Core.php';
+
 User::mustHave(User::PRIV_EDIT | User::PRIV_STRUCT);
 
 // Lexeme parameters
@@ -47,7 +47,7 @@ $original = Lexeme::get_by_id($lexemeId); // Keep a copy so we can test whether 
 if ($cloneButton) {
   $newLexeme = $lexeme->_clone();
   Log::notice("Cloned lexeme {$lexeme->id} ({$lexeme->formNoAccent}), new id is {$newLexeme->id}");
-  Util::redirect("lexemeEdit.php?lexemeId={$newLexeme->id}");
+  Util::redirect("?lexemeId={$newLexeme->id}");
 }
 
 if ($deleteButton) {
@@ -113,7 +113,7 @@ if ($refreshButton || $saveButton) {
       }
 
       Log::notice("Saved lexeme {$lexeme->id} ({$lexeme->formNoAccent})");
-      Util::redirect("lexemeEdit.php?lexemeId={$lexeme->id}");
+      Util::redirect("?lexemeId={$lexeme->id}");
     }
   } else {
     // Case 2: Validation failed
@@ -166,7 +166,7 @@ Smart::assign([
 ]);
 Smart::addResources('paradigm', 'admin', 'frequentObjects',
                     'select2Dev', 'modelDropdown', 'scrollTop');
-Smart::display('admin/lexemeEdit.tpl');
+Smart::display('lexeme/edit.tpl');
 
 /**************************************************************************/
 

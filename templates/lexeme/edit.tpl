@@ -21,7 +21,7 @@
     canEdit = { 'paradigm': {$canEdit.paradigm} };
   </script>
 
-  <form action="lexemeEdit.php" method="post">
+  <form method="post">
     <div class="form-group">
 
       <button type="submit"
@@ -56,7 +56,7 @@
         wiki
       </a>
 
-      <a class="btn btn-default" href="../definitie/{$lexeme->formNoAccent}">
+      <a class="btn btn-default" href="definitie/{$lexeme->formNoAccent}">
         <i class="glyphicon glyphicon-search"></i>
         caută
       </a>

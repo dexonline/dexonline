@@ -58,7 +58,7 @@
         </div>
 
         <div class="col-lg-4 col-md-6 col-sm-6">
-          <form action="lexemeEdit.php">
+          <form action="{Router::link('lexeme/edit')}">
             <select id="lexemeId" name="lexemeId"></select>
           </form>
         </div>

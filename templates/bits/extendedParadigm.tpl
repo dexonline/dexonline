@@ -7,7 +7,7 @@
     {/foreach}
 
     {if User::can(User::PRIV_EDIT + User::PRIV_STRUCT)}
-      <a class="btn btn-link" href="{Config::URL_PREFIX}admin/lexemeEdit.php?lexemeId={$lexeme->id}">
+      <a class="btn btn-link" href="{Router::link('lexeme/edit')}?lexemeId={$lexeme->id}">
         <i class="glyphicon glyphicon-pencil"></i>
         editează
       </a>

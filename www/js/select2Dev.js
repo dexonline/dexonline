@@ -167,7 +167,7 @@ function formatLexemeWithEditLink(lexeme) {
   } else {
     html = lexeme.text +
       ' <a class="glyphicon glyphicon-pencil" href="' + wwwRoot +
-      'admin/lexemeEdit.php?lexemeId=' + lexeme.id + '"></a>';
+      'editare-lexem?lexemeId=' + lexeme.id + '"></a>';
   }
 
   if ((lexeme.consistentAccent == '0') ||

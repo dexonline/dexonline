@@ -15,7 +15,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
         Există {$lexemes|@count} lexem(e) etichetate cu acest model. Dacă
-        apăsați butonul "Confirmă", ele vor fi reetichetate cu modelul T1.
+        apăsați butonul „Confirmă”, ele vor fi reetichetate cu modelul T1.
       </div>
     {else}
       <p>
@@ -28,7 +28,7 @@
       {include "bits/lexemeName.tpl" lexeme=$l}
       <small class="text-muted">({$l->modelType}{$l->modelNumber})</small>
       &nbsp;&nbsp;
-      <a href="../admin/lexemeEdit.php?lexemeId={$l->id}">editează</a>
+      <a href="{Router::link('lexeme/edit')}?lexemeId={$l->id}">editează</a>
       <br>
     {/foreach}
     <br>

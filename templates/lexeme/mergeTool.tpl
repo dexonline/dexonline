@@ -43,7 +43,7 @@
         <div class="panel-heading">
           {$lIter+1}. <strong>{$l->form|escape}</strong>
           {$l->modelType}{$l->modelNumber}{$l->restriction}
-          <a href="../admin/lexemeEdit.php?lexemeId={$l->id}" class="btn btn-link">
+          <a href="{Router::link('lexeme/edit')}?lexemeId={$l->id}" class="btn btn-link">
             <i class="glyphicon glyphicon-pencil"></i>
             editează
           </a>
@@ -70,7 +70,7 @@
                   {$match->modelType}{$match->modelNumber}{$match->restriction}
                 </label>
 
-                <a href="../admin/lexemeEdit.php?lexemeId={$match->id}" class="btn btn-link">
+                <a href="{Router::link('lexeme/edit')}?lexemeId={$match->id}" class="btn btn-link">
                   <i class="glyphicon glyphicon-pencil"></i>
                   editează
                 </a>

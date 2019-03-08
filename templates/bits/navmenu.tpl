@@ -179,7 +179,7 @@
               </li>
             {/if}
             <li>
-              <a href="{Config::URL_PREFIX}preferinte">
+              <a href="{Router::link('user/preferences')}">
                 <i class="glyphicon glyphicon-cog"></i>
                 <span>{t}preferences{/t}</span>
               </a>

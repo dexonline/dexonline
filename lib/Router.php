@@ -283,6 +283,10 @@ class Router {
       'en_US.utf8' => 'moderators',
       'ro_RO.utf8' => 'moderatori',
     ],
+    'user/preferences' => [
+      'en_US.utf8' => 'preferences',
+      'ro_RO.utf8' => 'preferinte',
+    ],
     'user/top' => [
       'en_US.utf8' => 'top',
     ],

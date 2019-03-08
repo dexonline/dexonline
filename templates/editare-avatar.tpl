@@ -34,7 +34,7 @@
     <input type="hidden" name="y0" value="">
     <input type="hidden" name="side" value="">
     <input class="btn btn-primary" type="submit" name="submit" value="Salvează">
-    <a class="btn btn-link" href="preferinte">renunță</a>
+    <a class="btn btn-link" href="{Router::link('user/preferences')}">renunță</a>
   </form>
 
   <script>

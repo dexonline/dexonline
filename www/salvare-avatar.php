@@ -23,7 +23,7 @@ if ($delete) {
   $user->hasAvatar = 0;
   $user->save();
   FlashMessage::add('Am șters imaginea.', 'success');
-  Util::redirect('preferinte');
+  Util::redirectToRoute('user/preferences');
 }
 
 $rawFileList = glob($avatarRawGlob);
@@ -48,7 +48,7 @@ $user->hasAvatar = 1;
 $user->save();
 
 FlashMessage::add('Am salvat imaginea.', 'success');
-Util::redirect('preferinte');
+Util::redirectToRoute('user/preferences');
 
 /****************************************************************************/
 

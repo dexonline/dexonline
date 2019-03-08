@@ -27,7 +27,9 @@
       {/if}
     </div>
     <div class="col-md-12">
-      <a class="btn btn-link customise-widgets pull-right" href="preferinte">
+      <a
+        class="btn btn-link customise-widgets pull-right"
+        href="{Router::link('user/preferences')}">
         <i class="glyphicon glyphicon-cog"></i>
         {t}customize widgets{/t}
       </a>

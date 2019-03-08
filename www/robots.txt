@@ -5,6 +5,7 @@ Disallow:
 
 User-agent: *
 Crawl-delay: 2
+Disallow: /preferences
 Disallow: /preferinte
 Disallow: /stat
 Disallow: /openx

@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2019-03-01 23:27+0200\n"
-"PO-Revision-Date: 2019-03-02 14:02+0100\n"
+"POT-Creation-Date: 2019-03-08 17:47+0200\n"
+"PO-Revision-Date: 2019-03-08 17:48+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2\n"
+"X-Generator: Poedit 2.2.1\n"
 "X-Poedit-Basepath: ../../..\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -226,8 +226,8 @@ msgstr "preferencias"
 msgid "profile"
 msgstr "perfil"
 
-#: templates/bits/navmenu.tpl:197 templates/cuvinte-favorite.tpl:3
-#: templates/cuvinte-favorite.tpl:7
+#: templates/bits/navmenu.tpl:197 templates/definition/favorites.tpl:3
+#: templates/definition/favorites.tpl:7
 msgid "favorite words"
 msgstr "palabras favoritas"
 
@@ -353,7 +353,7 @@ msgstr "Puede instalar dexonline en <a href=\"%1\">su ordenador o móvil</a>."
 msgid "You can download a <a href=\"%1\">copy of the database</a>."
 msgstr "Puede bajarse una <a href=\"%1\">copia de la base de datos</a>."
 
-#: templates/cuvinte-favorite.tpl:12 templates/cuvinte-favorite.tpl:22
+#: templates/definition/favorites.tpl:12 templates/definition/favorites.tpl:22
 msgid "You have no favorite words."
 msgstr "No tiene ninguna palabra favorita."
 
@@ -722,19 +722,19 @@ msgstr "alojado por"
 msgid "Dictionaries of the Romanian language"
 msgstr "Diccionarios de la lengua rumana"
 
-#: templates/index.tpl:32
+#: templates/index.tpl:34
 msgid "customize widgets"
 msgstr "personalizar widgets"
 
-#: templates/index.tpl:41
+#: templates/index.tpl:43
 msgid "digitizes prestigious dictionaries of the Romanian language."
 msgstr "digitaliza diccionarios de prestigio de la lengua rumana."
 
-#: templates/index.tpl:42
+#: templates/index.tpl:44
 msgid "The project is maintained by a team of volunteers."
 msgstr "El proyecto está mantenido por un equipo de voluntarios."
 
-#: templates/index.tpl:43
+#: templates/index.tpl:45
 msgid ""
 "Much of the data can be downloaded freely under the GNU General Public "
 "License."
@@ -742,7 +742,7 @@ msgstr ""
 "Los datos en su mayoría se pueden bajar libremente bajo la Licencia Pública "
 "General GNU."
 
-#: templates/index.tpl:47
+#: templates/index.tpl:49
 msgid "Current status: %1 definitions, of which %2 learned last month."
 msgstr ""
 "Estado actual: %1 definiciones, de las cuales %2 aprendidas durante el "
@@ -1123,15 +1123,15 @@ msgstr ""
 "está regenerando. Este proceso lleva normalmente unos 10 minutos. Pedimos "
 "disculpas por las molestias."
 
-#: templates/search/missingDefinitionWarnings.tpl:5
+#: templates/search/missingDefinitionWarnings.tpl:6
 msgid ""
-"There are definitions in unofficial dictionaries, which <a href="
-"\"%1preferinte\">you have chosen to hide</a>."
+"There are definitions in unofficial dictionaries, which <a href=\"%1\">you "
+"have chosen to hide</a>."
 msgstr ""
-"Hay definiciones en los diccionarios no oficiales que <a href=\"%1preferinte"
-"\">ha escogido no mostrar</a>."
+"Hay definiciones en los diccionarios no oficiales que <a href=\"%1\">ha "
+"escogido no mostrar</a>."
 
-#: templates/search/missingDefinitionWarnings.tpl:12
+#: templates/search/missingDefinitionWarnings.tpl:13
 msgid ""
 "There are definitions in dictionaries for which dexonline has no publishing "
 "rights:"
@@ -1154,28 +1154,6 @@ msgstr "etimología"
 #: templates/search/wikiArticles.tpl:4
 msgid "Articles on this subject"
 msgstr "Artículos con este tema"
-
-#: templates/top.tpl:6
-msgid "Manual contribution rankings"
-msgstr "Ranking de las contribuciones manuales"
-
-#: templates/top.tpl:9
-msgid ""
-"For every user the number of definitions and the total character length of "
-"those definitions are shown. For comparison, the Bible has roughly 3,500,000 "
-"characters."
-msgstr ""
-"Para cada usuario, se muestra el número de las definiciones y la longitud "
-"total de los caracteres de estas definiciones. Comparativamente, la Biblia "
-"tiene aproximadamente 3,500,000 caracteres."
-
-#: templates/top.tpl:16
-msgid "Automated contribution rankings"
-msgstr "Ranking de las contribuciones automáticas"
-
-#: templates/top.tpl:19
-msgid "These include definitions entered using a program."
-msgstr "Incluye las definiciones introducidas mediante programas."
 
 #: templates/unelte.tpl:6
 msgid "off-line clients"
@@ -1277,6 +1255,28 @@ msgstr ""
 #: templates/unelte.tpl:161
 msgid "A <a href=\"%1\">WordPress plugin</a> for your blog."
 msgstr "Un <a href=\"%1\">plugin de WordPress</a> para su blog."
+
+#: templates/user/top.tpl:6
+msgid "Manual contribution rankings"
+msgstr "Ranking de las contribuciones manuales"
+
+#: templates/user/top.tpl:9
+msgid ""
+"For every user the number of definitions and the total character length of "
+"those definitions are shown. For comparison, the Bible has roughly 3,500,000 "
+"characters."
+msgstr ""
+"Para cada usuario, se muestra el número de las definiciones y la longitud "
+"total de los caracteres de estas definiciones. Comparativamente, la Biblia "
+"tiene aproximadamente 3,500,000 caracteres."
+
+#: templates/user/top.tpl:16
+msgid "Automated contribution rankings"
+msgstr "Ranking de las contribuciones automáticas"
+
+#: templates/user/top.tpl:19
+msgid "These include definitions entered using a program."
+msgstr "Incluye las definiciones introducidas mediante programas."
 
 #: templates/widgets/articleOfTheMonth.tpl:3
 #: templates/widgets/articleOfTheMonth.tpl:8
@@ -1458,19 +1458,12 @@ msgstr ""
 "El idioma de la interfaz ha cambiado. El texto de las definiciones y los "
 "enlaces externos están siempre en rumano."
 
-#: www/randomList.php:53
+#: www/lexeme/random.php:24
 #, php-format
 msgid "A randomly chosen word"
 msgid_plural "%d randomly chosen words"
 msgstr[0] "Una palabra escogida aleatoriamente"
 msgstr[1] "%d palabras escogidas aleatoriamente"
-
-#: www/randomList.php:59
-#, php-format
-msgid "A randomly chosen word of the day"
-msgid_plural "%d randomly chosen words of the day"
-msgstr[0] "Una palabra del día escogida aleatoriamente"
-msgstr[1] "%d palabras del día escogidas aleatoriamente"
 
 #: www/search.php:220
 #, php-format
@@ -1587,3 +1580,10 @@ msgstr "Perl, wxWidgets (sólo en Linux)"
 #: www/unelte.php:74
 msgid "QT, g++ (only under Linux)"
 msgstr "QT, g++ (sólo en Linux)"
+
+#: www/wotd/random.php:22
+#, php-format
+msgid "A randomly chosen word of the day"
+msgid_plural "%d randomly chosen words of the day"
+msgstr[0] "Una palabra del día escogida aleatoriamente"
+msgstr[1] "%d palabras del día escogidas aleatoriamente"

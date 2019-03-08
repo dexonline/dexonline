@@ -1,5 +1,4 @@
 <?php
-require_once '../lib/Core.php';
 
 $email = Request::get('email');
 $name = Request::get('name');
@@ -36,7 +35,7 @@ if ($saveButton) {
     Preferences::set($user, $detailsVisible, array_sum($userPrefs), array_sum($widgets));
 
     FlashMessage::add('Am salvat preferințele.', 'success');
-    Util::redirect('preferinte');
+    Util::redirectToRoute('user/preferences');
   }
 } else {
 
@@ -62,7 +61,7 @@ Smart::assign([
   'newPassword' => $newPassword,
   'newPassword2' => $newPassword2,
 ]);
-Smart::display('preferinte.tpl');
+Smart::display('user/preferences.tpl');
 
 /*************************************************************************/
 

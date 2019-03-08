@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: BUG-EMAIL-ADDR <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2019-03-01 23:28+0200\n"
-"PO-Revision-Date: 2019-03-01 23:28+0200\n"
+"POT-Creation-Date: 2019-03-08 17:48+0200\n"
+"PO-Revision-Date: 2019-03-08 17:48+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: hu\n"
@@ -227,8 +227,8 @@ msgstr "beállitások"
 msgid "profile"
 msgstr "profil"
 
-#: templates/bits/navmenu.tpl:197 templates/cuvinte-favorite.tpl:3
-#: templates/cuvinte-favorite.tpl:7
+#: templates/bits/navmenu.tpl:197 templates/definition/favorites.tpl:3
+#: templates/definition/favorites.tpl:7
 msgid "favorite words"
 msgstr "kedvenc szavak"
 
@@ -356,7 +356,7 @@ msgstr ""
 msgid "You can download a <a href=\"%1\">copy of the database</a>."
 msgstr "Letöltheted az <a href=\"%1\">adatbázis másolatát</a>."
 
-#: templates/cuvinte-favorite.tpl:12 templates/cuvinte-favorite.tpl:22
+#: templates/definition/favorites.tpl:12 templates/definition/favorites.tpl:22
 msgid "You have no favorite words."
 msgstr "Nincsenek kedvenc szavak."
 
@@ -723,19 +723,19 @@ msgstr "házigazda"
 msgid "Dictionaries of the Romanian language"
 msgstr "A román nyelvű szótárak"
 
-#: templates/index.tpl:32
+#: templates/index.tpl:34
 msgid "customize widgets"
 msgstr "személyreszabható kisalkalmazások"
 
-#: templates/index.tpl:41
+#: templates/index.tpl:43
 msgid "digitizes prestigious dictionaries of the Romanian language."
 msgstr "digitalizálja a román nyelv rangos szótárait."
 
-#: templates/index.tpl:42
+#: templates/index.tpl:44
 msgid "The project is maintained by a team of volunteers."
 msgstr "A projektet egy önkéntes csapat tartja fenn."
 
-#: templates/index.tpl:43
+#: templates/index.tpl:45
 msgid ""
 "Much of the data can be downloaded freely under the GNU General Public "
 "License."
@@ -743,7 +743,7 @@ msgstr ""
 "Az adatok nagy része a GNU Általános Nyilvános Licenc alatt szabadon "
 "letölthetőek."
 
-#: templates/index.tpl:47
+#: templates/index.tpl:49
 msgid "Current status: %1 definitions, of which %2 learned last month."
 msgstr ""
 "Aktuális állapot: %1 meghatározások, amelyekböl %2 a múlt hónapban tanultak."
@@ -1119,15 +1119,15 @@ msgstr ""
 "regenerálódik. Ez általában körülbelül 10 percet vesz igénybe. Elnézést "
 "kérünk a kellemetlenségért."
 
-#: templates/search/missingDefinitionWarnings.tpl:5
+#: templates/search/missingDefinitionWarnings.tpl:6
 msgid ""
-"There are definitions in unofficial dictionaries, which <a href="
-"\"%1preferinte\">you have chosen to hide</a>."
+"There are definitions in unofficial dictionaries, which <a href=\"%1\">you "
+"have chosen to hide</a>."
 msgstr ""
 "Vannak meghatározások a nem hivatalos szótárakban, amelyeket <a href="
-"\"%1preferinte\">elrejtettél</a>."
+"\"%1\">elrejtettél</a>."
 
-#: templates/search/missingDefinitionWarnings.tpl:12
+#: templates/search/missingDefinitionWarnings.tpl:13
 msgid ""
 "There are definitions in dictionaries for which dexonline has no publishing "
 "rights:"
@@ -1150,28 +1150,6 @@ msgstr "etimológia"
 #: templates/search/wikiArticles.tpl:4
 msgid "Articles on this subject"
 msgstr "Cikkek ebben a témában"
-
-#: templates/top.tpl:6
-msgid "Manual contribution rankings"
-msgstr "Kézi hozzájárulások rangsorolása"
-
-#: templates/top.tpl:9
-msgid ""
-"For every user the number of definitions and the total character length of "
-"those definitions are shown. For comparison, the Bible has roughly 3,500,000 "
-"characters."
-msgstr ""
-"Minden felhasználó számára megadják a meghatározások számát és a "
-"meghatározások teljes betű-számát. Összehasonlításképpen a Biblia körülbelül "
-"3.500.000 betűt tartalmaz."
-
-#: templates/top.tpl:16
-msgid "Automated contribution rankings"
-msgstr "Automatizált hozzájárulások rangsorolása"
-
-#: templates/top.tpl:19
-msgid "These include definitions entered using a program."
-msgstr "Ezek közé tartozik a program segítségével megadott meghatározások."
 
 #: templates/unelte.tpl:6
 msgid "off-line clients"
@@ -1272,6 +1250,28 @@ msgstr ""
 #: templates/unelte.tpl:161
 msgid "A <a href=\"%1\">WordPress plugin</a> for your blog."
 msgstr "<a href=\"%1\">WordPress bővítmény</a> a bloghoz."
+
+#: templates/user/top.tpl:6
+msgid "Manual contribution rankings"
+msgstr "Kézi hozzájárulások rangsorolása"
+
+#: templates/user/top.tpl:9
+msgid ""
+"For every user the number of definitions and the total character length of "
+"those definitions are shown. For comparison, the Bible has roughly 3,500,000 "
+"characters."
+msgstr ""
+"Minden felhasználó számára megadják a meghatározások számát és a "
+"meghatározások teljes betű-számát. Összehasonlításképpen a Biblia körülbelül "
+"3.500.000 betűt tartalmaz."
+
+#: templates/user/top.tpl:16
+msgid "Automated contribution rankings"
+msgstr "Automatizált hozzájárulások rangsorolása"
+
+#: templates/user/top.tpl:19
+msgid "These include definitions entered using a program."
+msgstr "Ezek közé tartozik a program segítségével megadott meghatározások."
 
 #: templates/widgets/articleOfTheMonth.tpl:3
 #: templates/widgets/articleOfTheMonth.tpl:8
@@ -1453,17 +1453,10 @@ msgstr ""
 "Az felület nyelve megváltozott. A meghatározások szövege és a külső "
 "hivatkozások mindig románul vannak."
 
-#: www/randomList.php:53
+#: www/lexeme/random.php:24
 #, php-format
 msgid "A randomly chosen word"
 msgid_plural "%d randomly chosen words"
-msgstr[0] "%d véletlenszerűen kiválasztott"
-msgstr[1] "%d véletlenszerűen kiválasztott"
-
-#: www/randomList.php:59
-#, php-format
-msgid "A randomly chosen word of the day"
-msgid_plural "%d randomly chosen words of the day"
 msgstr[0] "%d véletlenszerűen kiválasztott"
 msgstr[1] "%d véletlenszerűen kiválasztott"
 
@@ -1581,3 +1574,10 @@ msgstr "Perl, wxWidgets (csak Linux alatt)"
 #: www/unelte.php:74
 msgid "QT, g++ (only under Linux)"
 msgstr "QT, g++ (csak Linux alatt)"
+
+#: www/wotd/random.php:22
+#, php-format
+msgid "A randomly chosen word of the day"
+msgid_plural "%d randomly chosen words of the day"
+msgstr[0] "%d véletlenszerűen kiválasztott"
+msgstr[1] "%d véletlenszerűen kiválasztott"

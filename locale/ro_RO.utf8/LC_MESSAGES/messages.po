@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2019-03-01 23:25+0200\n"
-"PO-Revision-Date: 2019-03-01 23:25+0200\n"
+"POT-Creation-Date: 2019-03-08 17:43+0200\n"
+"PO-Revision-Date: 2019-03-08 17:43+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -229,8 +229,8 @@ msgstr "preferințe"
 msgid "profile"
 msgstr "profilul meu"
 
-#: templates/bits/navmenu.tpl:197 templates/cuvinte-favorite.tpl:3
-#: templates/cuvinte-favorite.tpl:7
+#: templates/bits/navmenu.tpl:197 templates/definition/favorites.tpl:3
+#: templates/definition/favorites.tpl:7
 msgid "favorite words"
 msgstr "cuvinte favorite"
 
@@ -358,7 +358,7 @@ msgstr ""
 msgid "You can download a <a href=\"%1\">copy of the database</a>."
 msgstr "Puteți descărca o <a href=\"%1\">copie a bazei de date</a>."
 
-#: templates/cuvinte-favorite.tpl:12 templates/cuvinte-favorite.tpl:22
+#: templates/definition/favorites.tpl:12 templates/definition/favorites.tpl:22
 msgid "You have no favorite words."
 msgstr "Nu aveți niciun cuvânt favorit."
 
@@ -725,19 +725,19 @@ msgstr "găzduit de"
 msgid "Dictionaries of the Romanian language"
 msgstr "Dicționare ale limbii române"
 
-#: templates/index.tpl:32
+#: templates/index.tpl:34
 msgid "customize widgets"
 msgstr "personalizare elemente"
 
-#: templates/index.tpl:41
+#: templates/index.tpl:43
 msgid "digitizes prestigious dictionaries of the Romanian language."
 msgstr "transpune pe Internet dicționare de prestigiu ale limbii române."
 
-#: templates/index.tpl:42
+#: templates/index.tpl:44
 msgid "The project is maintained by a team of volunteers."
 msgstr "Proiectul este întreținut de o echipă de voluntari."
 
-#: templates/index.tpl:43
+#: templates/index.tpl:45
 msgid ""
 "Much of the data can be downloaded freely under the GNU General Public "
 "License."
@@ -745,7 +745,7 @@ msgstr ""
 "O parte din date pot fi descărcate liber și gratuit sub Licența Publică "
 "Generală GNU."
 
-#: templates/index.tpl:47
+#: templates/index.tpl:49
 msgid "Current status: %1 definitions, of which %2 learned last month."
 msgstr "Starea curentă: %1 de definiții, din care %2 învățate în ultima lună."
 
@@ -1130,15 +1130,15 @@ msgstr ""
 "curs de reconstrucție. Această operație durează de obicei circa 10 minute. "
 "Ne cerem scuze pentru neplăcere."
 
-#: templates/search/missingDefinitionWarnings.tpl:5
+#: templates/search/missingDefinitionWarnings.tpl:6
 msgid ""
-"There are definitions in unofficial dictionaries, which <a href="
-"\"%1preferinte\">you have chosen to hide</a>."
+"There are definitions in unofficial dictionaries, which <a href=\"%1\">you "
+"have chosen to hide</a>."
 msgstr ""
-"Există definiții din dicționare neoficiale, pe care <a href=\"%1preferinte"
-"\">ați ales să le ascundeți</a>."
+"Există definiții din dicționare neoficiale, pe care <a href=\"%1\">ați ales "
+"să le ascundeți</a>."
 
-#: templates/search/missingDefinitionWarnings.tpl:12
+#: templates/search/missingDefinitionWarnings.tpl:13
 msgid ""
 "There are definitions in dictionaries for which dexonline has no publishing "
 "rights:"
@@ -1161,28 +1161,6 @@ msgstr "etimologie"
 #: templates/search/wikiArticles.tpl:4
 msgid "Articles on this subject"
 msgstr "Articole pe această temă"
-
-#: templates/top.tpl:6
-msgid "Manual contribution rankings"
-msgstr "Topul contribuțiilor manuale"
-
-#: templates/top.tpl:9
-msgid ""
-"For every user the number of definitions and the total character length of "
-"those definitions are shown. For comparison, the Bible has roughly 3,500,000 "
-"characters."
-msgstr ""
-"Pentru fiecare utilizator sunt indicate numărul de definiții trimise și "
-"numărul total de caractere din acele definiții. Comparativ, Biblia are circa "
-"3.500.000 de caractere."
-
-#: templates/top.tpl:16
-msgid "Automated contribution rankings"
-msgstr "Topul contribuțiilor automate"
-
-#: templates/top.tpl:19
-msgid "These include definitions entered using a program."
-msgstr "În această categorie intră definițiile trimise folosind un program."
 
 #: templates/unelte.tpl:6
 msgid "off-line clients"
@@ -1282,6 +1260,28 @@ msgstr ""
 #: templates/unelte.tpl:161
 msgid "A <a href=\"%1\">WordPress plugin</a> for your blog."
 msgstr "Un <a href=\"%1\">modul de WordPress</a> pentru blogul dumneavoastră."
+
+#: templates/user/top.tpl:6
+msgid "Manual contribution rankings"
+msgstr "Topul contribuțiilor manuale"
+
+#: templates/user/top.tpl:9
+msgid ""
+"For every user the number of definitions and the total character length of "
+"those definitions are shown. For comparison, the Bible has roughly 3,500,000 "
+"characters."
+msgstr ""
+"Pentru fiecare utilizator sunt indicate numărul de definiții trimise și "
+"numărul total de caractere din acele definiții. Comparativ, Biblia are circa "
+"3.500.000 de caractere."
+
+#: templates/user/top.tpl:16
+msgid "Automated contribution rankings"
+msgstr "Topul contribuțiilor automate"
+
+#: templates/user/top.tpl:19
+msgid "These include definitions entered using a program."
+msgstr "În această categorie intră definițiile trimise folosind un program."
 
 #: templates/widgets/articleOfTheMonth.tpl:3
 #: templates/widgets/articleOfTheMonth.tpl:8
@@ -1461,21 +1461,13 @@ msgstr ""
 "Am schimbat limba interfeței. Textul definițiilor și legăturile externe sunt "
 "mereu în română."
 
-#: www/randomList.php:53
+#: www/lexeme/random.php:24
 #, php-format
 msgid "A randomly chosen word"
 msgid_plural "%d randomly chosen words"
 msgstr[0] "Un cuvânt ales la întâmplare"
 msgstr[1] "%d cuvinte alese la întâmplare"
 msgstr[2] "%d de cuvinte alese la întâmplare"
-
-#: www/randomList.php:59
-#, php-format
-msgid "A randomly chosen word of the day"
-msgid_plural "%d randomly chosen words of the day"
-msgstr[0] "Un cuvânt al zilei ales la întâmplare"
-msgstr[1] "%d cuvinte ale zilei alese la întâmplare"
-msgstr[2] "%d de cuvinte ale zilei alese la întâmplare"
 
 #: www/search.php:220
 #, php-format
@@ -1590,3 +1582,11 @@ msgstr "Perl, wxWidgets (numai sub Linux)"
 #: www/unelte.php:74
 msgid "QT, g++ (only under Linux)"
 msgstr "QT, g++ (numai sub Linux)"
+
+#: www/wotd/random.php:22
+#, php-format
+msgid "A randomly chosen word of the day"
+msgid_plural "%d randomly chosen words of the day"
+msgstr[0] "Un cuvânt al zilei ales la întâmplare"
+msgstr[1] "%d cuvinte ale zilei alese la întâmplare"
+msgstr[2] "%d de cuvinte ale zilei alese la întâmplare"

@@ -19,7 +19,7 @@ if (!$file) {
 
 if ($error) {
   FlashMessage::add($error);
-  Util::redirect('preferinte');
+  Util::redirectToRoute('user/preferences');
 }
 
 $user = User::getActive();
@@ -39,7 +39,7 @@ $destFileName = Config::ROOT . "www/img/generated/{$user->id}_raw.{$ext}";
 
 if (!move_uploaded_file($file['tmp_name'], $destFileName)) {
   FlashMessage::add('A intervenit o eroare la copierea fișierului.');
-  Util::redirect('preferinte');
+  Util::redirectToRoute('user/preferences');
 }
 chmod($destFileName, 0666);
 

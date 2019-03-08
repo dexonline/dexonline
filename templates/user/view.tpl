@@ -13,7 +13,9 @@
       {include "bits/avatar.tpl" user=$user}
       <span>{$user->nick|escape}</span>
       {if $user->id == User::getActiveId()}
-        <a class="btn btn-default btn-sm pull-right" href="../preferinte">editează profilul</a>
+        <a
+          class="btn btn-default btn-sm pull-right"
+          href="{Router::link('user/preferences')}">editează profilul</a>
       {/if}
 
     </div>

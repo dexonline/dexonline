@@ -215,7 +215,7 @@ function getDefinitionFromOcr($userId) {
   $ocr = OCR::getNext($userId);
   if (!$ocr) {
     FlashMessage::add('Lista cu definiții OCR este goală.', 'warning');
-    Util::redirect('index.php');
+    Util::redirect('admin/index.php');
   }
 
   // Found one, create the Definition and update the OCR.
@@ -249,7 +249,7 @@ function checkPendingLimit($userId) {
     $limit = Config::LIMIT_TRAINEE_PENDING_DEFS;
     if ($pending >= $limit) {
       FlashMessage::add("Ați atins limita de {$limit} definiții nemoderate.");
-      Util::redirect('index.php');
+      Util::redirect('admin/index.php');
     }
   }
 }

@@ -6,7 +6,7 @@
   <h3>Etichetare sufix -{$suffix}</h3>
 
   <p>
-    <a class="btn btn-default" href="bulkLabelSelectSuffix.php">
+    <a class="btn btn-default" href="{Router::link('lexeme/bulkLabelSelectSuffix')}">
       <i class="glyphicon glyphicon-arrow-left"></i>
       înapoi la lista de sufixe
     </a>

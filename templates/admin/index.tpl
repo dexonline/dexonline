@@ -339,7 +339,9 @@
         </p>
 
         <p>
-          <a href="bulkLabelSelectSuffix.php">etichetare în masă a lexemelor</a>
+          <a href="{Router::link('lexeme/bulkLabelSelectSuffix')}">
+            etichetare în masă a lexemelor
+          </a>
 
           <span class="text-muted">
             pe baza sufixului

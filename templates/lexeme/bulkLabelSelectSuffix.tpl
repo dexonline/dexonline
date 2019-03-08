@@ -11,7 +11,7 @@
     numărul de lexeme care au sufixul ales.
   </p>
 
-  <form class="form-inline" action="bulkLabel.php">
+  <form class="form-inline" action="{Router::link('lexeme/bulkLabel')}">
     <div class="form-group">
       <label>sufix</label>
 

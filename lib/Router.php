@@ -171,6 +171,16 @@ class Router {
       'ro_RO.utf8' => 'flexiuni',
     ],
 
+    // lexemes
+    'lexeme/bulkLabel' => [
+      'en_US.utf8' => 'bulk-label',
+      'ro_RO.utf8' => 'etichetare-in-masa',
+    ],
+    'lexeme/bulkLabelSelectSuffix' => [
+      'en_US.utf8' => 'bulk-label-select-suffix',
+      'ro_RO.utf8' => 'etichetare-in-masa-alege-sufix',
+    ],
+
     // models
     'model/clone' => [
       'en_US.utf8' => 'clone-model',

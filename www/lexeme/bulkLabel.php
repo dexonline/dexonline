@@ -1,5 +1,5 @@
 <?php
-require_once '../../lib/Core.php';
+
 User::mustHave(User::PRIV_EDIT);
 
 $suffix = Request::get('suffix');
@@ -24,7 +24,7 @@ if ($saveButton) {
       }
     }
   }
-  Util::redirect("bulkLabel.php?suffix=$suffix");
+  Util::redirect("?suffix=$suffix");
 }
 
 $reverseSuffix = Str::reverse($suffix);
@@ -113,4 +113,4 @@ Smart::assign([
   'lMatrix' => $lMatrix,
 ]);
 Smart::addResources('paradigm', 'admin');
-Smart::display('admin/bulkLabel.tpl');
+Smart::display('lexeme/bulkLabel.tpl');

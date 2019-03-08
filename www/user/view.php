@@ -1,8 +1,6 @@
 <?php
-require_once '../lib/Core.php';
 
-// Parse or initialize the GET/POST arguments
-$nick = Request::get('n');
+$nick = Request::get('nick');
 $medalSaveButton = Request::get('medalSaveButton');
 $userId = Request::get('userId');
 $medalsGranted = Request::get('medalsGranted');
@@ -12,7 +10,7 @@ if ($medalSaveButton) {
   $user = User::get_by_id($userId);
   $user->medalMask = Medal::getCanonicalMask(array_sum($medalsGranted));
   $user->save();
-  Util::redirect(Config::URL_PREFIX . "utilizator/{$user->nick}");
+  Util::redirect(Router::link('user/view') . "/{$user->nick}");
 }
 
 $user = User::get_by_nick($nick);
@@ -55,4 +53,4 @@ if (User::can(User::PRIV_ADMIN)) {
 }
 Smart::assign('user', $user);
 Smart::assign('userData', $userData);
-Smart::display('user.tpl');
+Smart::display('user/view.tpl');

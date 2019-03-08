@@ -19,7 +19,8 @@
       <tr class="{cycle values="color1,color2"}">
         <td>{$place+1}</td>
         <td class="nick">
-          <a href="utilizator/{$row->userNick|escape:"url"}">{$row->userNick|escape}</a>
+          <a href="{Router::link('user/view')}/{$row->userNick|escape:"url"}">
+            {$row->userNick|escape}</a>
         </td>
         <td data-text="{$row->numChars}">
           {LocaleUtil::number($row->numChars)}

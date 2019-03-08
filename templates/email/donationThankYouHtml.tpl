@@ -35,14 +35,14 @@
     aveți nevoie de <a href="{Router::link('auth/login', true)}">un cont pe dexonline</a>.
   {elseif $donor->amount < Donor::AMOUNT_NO_BANNERS}
     V-am acordat medalia în
-    <a href="https://dexonline.ro/utilizator/{$donor->user->nick|escape:url}"
+    <a href="{Router::link('user/view', true)}/{$donor->user->nick|escape:url}"
     >contul dumneavoastră</a>.
     Dacă preferați ca donația dumneavoastră să fie anonimă, vă rugăm să ne
     contactați.
   {else}
     V-am acordat medalia și am ascuns reclamele în
-    <a href="https://dexonline.ro/utilizator/{$donor->user->nick|escape:url}"
-      >contul dumneavoastră</a>.
+    <a href="{Router::link('user/view', true)}/{$donor->user->nick|escape:url}"
+    >contul dumneavoastră</a>.
     Dacă preferați ca donația dumneavoastră să fie anonimă, vă rugăm să ne
     contactați.
   {/if}

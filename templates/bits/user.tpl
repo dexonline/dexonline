@@ -1,5 +1,5 @@
 {if $u}
-  <a href="{Config::URL_PREFIX}utilizator/{$u->nick}">
+  <a href="{Router::link('user/view')}/{$u->nick}">
     {$u->nick}
   </a>
 {else}

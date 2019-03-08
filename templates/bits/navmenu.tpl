@@ -186,7 +186,7 @@
             </li>
             {if User::getActive()}
               <li>
-                <a href="{Config::URL_PREFIX}utilizator/{User::getActive()}">
+                <a href="{Router::link('user/view')}/{User::getActive()}">
                   <i class="glyphicon glyphicon-user"></i>
                   <span>{t}profile{/t}</span>
                 </a>

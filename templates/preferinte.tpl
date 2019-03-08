@@ -83,7 +83,7 @@
               datele mele sunt vizibile public
               <span class="help-block">
                 Poți afișa sau ascunde numele și adresa de email în
-                <a href="utilizator/{User::getActive()}">profilul tău</a>.
+                <a href="{Router::link('user/view')}/{User::getActive()}">profilul tău</a>.
               </span>
             </label>
           </div>
@@ -191,7 +191,8 @@
       salvează
     </button>
     {if User::getActive()}
-      <a class="btn btn-link" href="utilizator/{User::getActive()|escape}">renunță</a>
+      <a class="btn btn-link" href="{Router::link('user/view')}/{User::getActive()|escape}">
+        renunță</a>
     {/if}
 
   </form>

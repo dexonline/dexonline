@@ -16,7 +16,6 @@ server {
 
     rewrite ^/text(-([^/]+))?/(.*)$ /search.php?cuv=$3&source=$2&text=1 last;
     rewrite ^/spre/(.*)$ /goto.php?key=$1 last;
-    rewrite ^/utilizator/(.*)$ /user.php?n=$1 last;
 
     rewrite ^/definitie(-([^/]+))?/([^/]+)(/([0-9]+))?(/expandat)?(/(paradigma|sinteza))?(/xml|/json)?$ /search.php?cuv=$3&source=$2&defId=$5&tab=$8&all=$6&format=$9 last;
     rewrite ^/intrare(-([^/]+))?/([^/]+)(/([0-9]+))?(/(paradigma|sinteza))?(/xml|/json)?$ /search.php?cuv=$3&source=$2&entryId=$5&tab=$7&format=$8 last;

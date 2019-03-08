@@ -9,8 +9,8 @@
       20 de lei donați - o medalie (virtuală) pentru donatori. <i>dexonline</i>
       oferă aceste medalii pentru diverse tipuri de contribuții: financiare,
       inginerești, lingvistice etc. Puteți vedea
-      <a href="{Config::URL_PREFIX}utilizator/raduborza">câteva</a>
-      <a href="{Config::URL_PREFIX}utilizator/cata">exemple</a>.
+      <a href="{Router::link('user/view')}/raduborza">câteva</a>
+      <a href="{Router::link('user/view')}/cata">exemple</a>.
     </li>
 
     <li>50 de lei donați - în plus, pagini fără reclame timp de un an.</li>

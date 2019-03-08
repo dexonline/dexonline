@@ -68,7 +68,7 @@
       <li>
         {t}added by{/t}
         {strip}
-        <a href="{Config::URL_PREFIX}utilizator/{$row->user->nick|escape:"url"}">
+        <a href="{Router::link('user/view')}/{$row->user->nick|escape:"url"}">
           {$row->user->nick|escape}
         </a>
         {if $showDate}

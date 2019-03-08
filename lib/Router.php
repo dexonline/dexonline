@@ -278,6 +278,12 @@ class Router {
       'ro_RO.utf8' => 'editare-arbore',
     ],
 
+    // users
+    'user/view' => [
+      'en_US.utf8' => 'user',
+      'ro_RO.utf8' => 'utilizator',
+    ],
+
     // visuals
     'visual/elfinder' => [ 'en_US.utf8' => 'visual-elfinder' ],
     'visual/list' => [ 'en_US.utf8' => 'visuals' ],
@@ -333,6 +339,7 @@ class Router {
     'wotd/random' => [ 'count', 'skin' ],
     'wotd/view' => [ 'year', 'month', 'day' ],
     'wotm/view' => [ 'year', 'month' ],
+    'user/view' => [ 'nick' ],
   ];
 
   private static $fwdRoutes = [];

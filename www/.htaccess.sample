@@ -15,7 +15,6 @@ ErrorDocument 404 /404
 RewriteRule ^text(-([^/]+))?/(.*)$ search.php?cuv=$3&source=$2&text=1 [L]
 
 RewriteRule ^spre/(.*)$ goto.php?key=$1 [PT,L]
-RewriteRule ^utilizator/(.*)$ user.php?n=$1 [PT,L]
 
 RewriteRule ^definitie(-([^/]+))?/([^/]+)(/([0-9]+))?(/expandat)?(/(paradigma|sinteza))?(/xml|/json)?$ search.php?cuv=$3&source=$2&defId=$5&tab=$8&all=$6&format=$9 [PT,L]
 RewriteRule ^intrare(-([^/]+))?/([^/]+)(/([0-9]+))?(/(paradigma|sinteza))?(/xml|/json)?$ search.php?cuv=$3&source=$2&entryId=$5&tab=$7&format=$8 [PT,L]

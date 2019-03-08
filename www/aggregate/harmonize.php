@@ -1,6 +1,5 @@
 <?php
 
-require_once '../../lib/Core.php';
 User::mustHave(User::PRIV_ADMIN);
 
 $deleteHarmonizeTagId = Request::get('deleteHarmonizeTagId');
@@ -13,27 +12,27 @@ $saveHarmonizeModelButton = Request::has('saveHarmonizeModelButton');
 if ($deleteHarmonizeTagId) {
   HarmonizeTag::delete_all_by_id($deleteHarmonizeTagId);
   FlashMessage::add('Am șters regula.', 'success');
-  Util::redirect('harmonize');
+  Util::redirectToRoute('aggregate/harmonize');
 }
 
 if ($deleteHarmonizeModelId) {
   HarmonizeModel::delete_all_by_id($deleteHarmonizeModelId);
   FlashMessage::add('Am șters regula.', 'success');
-  Util::redirect('harmonize');
+  Util::redirectToRoute('aggregate/harmonize');
 }
 
 if ($applyHarmonizeTagId) {
   $ht = HarmonizeTag::get_by_id($applyHarmonizeTagId);
   $ht->apply();
   FlashMessage::add('Am aplicat regula.', 'success');
-  Util::redirect('harmonize');
+  Util::redirectToRoute('aggregate/harmonize');
 }
 
 if ($applyHarmonizeModelId) {
   $hm = HarmonizeModel::get_by_id($applyHarmonizeModelId);
   $hm->apply();
   FlashMessage::add('Am aplicat regula.', 'success');
-  Util::redirect('harmonize');
+  Util::redirectToRoute('aggregate/harmonize');
 }
 
 if ($saveHarmonizeTagButton) {
@@ -44,7 +43,7 @@ if ($saveHarmonizeTagButton) {
   if ($ht->validate()) {
     $ht->save();
     FlashMessage::add('Am adăugat regula.', 'success');
-    Util::redirect('harmonize');
+    Util::redirectToRoute('aggregate/harmonize');
   }
 }
 
@@ -58,7 +57,7 @@ if ($saveHarmonizeModelButton) {
   if ($hm->validate()) {
     $hm->save();
     FlashMessage::add('Am adăugat regula.', 'success');
-    Util::redirect('harmonize');
+    Util::redirectToRoute('aggregate/harmonize');
   }
 }
 
@@ -68,4 +67,4 @@ Smart::assign([
   'modelTypes' => ModelType::getAll(),
 ]);
 Smart::addResources('admin', 'select2Dev', 'modelDropdown');
-Smart::display('admin/harmonize.tpl');
+Smart::display('aggregate/harmonize.tpl');

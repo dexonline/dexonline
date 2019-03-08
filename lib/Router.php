@@ -33,6 +33,12 @@ class Router {
       'ro_RO.utf8' => 'evaluare-acuratete',
     ],
 
+    // aggregate - pages relying heavily on several model types
+    'aggregate/harmonize' => [
+      'en_US.utf8' => 'harmonize',
+      'ro_RO.utf8' => 'armonizare',
+    ],
+
     // articles
     'article/list' => [
       'en_US.utf8' => 'articles',

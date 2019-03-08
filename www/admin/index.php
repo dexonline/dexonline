@@ -167,7 +167,7 @@ $links = [
     'privilege' => User::PRIV_TRAINEE,
   ],
   [
-    'url' => 'harmonize',
+    'url' => Router::link('aggregate/harmonize'),
     'text' => 'armonizare lexem-etichetă',
     'privilege' => User::PRIV_ADMIN,
   ],

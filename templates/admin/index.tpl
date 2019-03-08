@@ -523,7 +523,7 @@
       <div class="panel-body">
         <ul>
           <li>
-            <a href="structChooseEntry.php">Intrări ușor de structurat</a>
+            <a href="{Router::link('entry/easyStructure')}">Intrări ușor de structurat</a>
             <span class="text-muted">
               100 de cuvinte din DEX cu definiții cât mai scurte
             </span>

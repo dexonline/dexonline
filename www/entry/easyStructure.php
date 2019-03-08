@@ -1,5 +1,5 @@
 <?php
-require_once '../../lib/Core.php';
+
 User::mustHave(User::PRIV_STRUCT);
 
 // Select entries that
@@ -28,4 +28,4 @@ foreach ($entries as $e) {
 Smart::assign('entries', $entries);
 Smart::assign('searchResults', $searchResults);
 Smart::addResources('admin');
-Smart::display('admin/structChooseEntry.tpl');
+Smart::display('entry/easyStructure.tpl');

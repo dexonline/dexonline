@@ -134,6 +134,10 @@ class Router {
     ],
 
     // entries
+    'entry/easyStructure' => [
+      'en_US.utf8' => 'easy-structure-entries',
+      'ro_RO.utf8' => 'intrari-usor-de-structurat',
+    ],
     'entry/edit' => [
       'en_US.utf8' => 'edit-entry',
       'ro_RO.utf8' => 'editare-intrare',

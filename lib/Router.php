@@ -34,13 +34,21 @@ class Router {
     ],
 
     // aggregate - pages relying heavily on several model types
-    'aggregate/harmonize' => [
-      'en_US.utf8' => 'harmonize',
-      'ro_RO.utf8' => 'armonizare',
-    ],
     'aggregate/advancedSearch' => [
       'en_US.utf8' => 'advanced-search',
       'ro_RO.utf8' => 'cautare-avansata',
+    ],
+    'aggregate/bulkReplace' => [
+      'en_US.utf8' => 'bulk-replace',
+      'ro_RO.utf8' => 'inlocuire-in-masa',
+    ],
+    'aggregate/bulkReplaceStructured' => [
+      'en_US.utf8' => 'bulk-replace-structured',
+      'ro_RO.utf8' => 'inlocuire-in-masa-structurate',
+    ],
+    'aggregate/harmonize' => [
+      'en_US.utf8' => 'harmonize',
+      'ro_RO.utf8' => 'armonizare',
     ],
 
     // articles

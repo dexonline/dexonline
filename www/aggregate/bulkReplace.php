@@ -1,9 +1,9 @@
 <?php
-$startMemory = memory_get_usage();
 
-require_once '../../lib/Core.php';
-ini_set('max_execution_time', '3600');
 User::mustHave(User::PRIV_ADMIN);
+
+$startMemory = memory_get_usage();
+ini_set('max_execution_time', '3600');
 
 $search = Request::getRaw('search');
 $replace = Request::getRaw('replace');
@@ -44,7 +44,7 @@ if (!$saveButton) {
   // no records? we should not go any further
   if (!$numCount) {
     FlashMessage::add("Nu există {$targetName} care să conțină: [{$search}]", 'warning');
-    Util::redirect('index.php');
+    Util::redirect('admin/index.php');
   }
 
   // some records? setting up session variables
@@ -98,10 +98,11 @@ if ($saveButton) {
     FlashMessage::add($msg, 'success');
     if (!empty($structuredIds)) {
       Session::set('finishedReplace', true);
-      Util::redirect('bulkReplaceStructured.php'); // case history of changed structured definitions
+      // case history of changed structured definitions
+      Util::redirectToRoute('aggregate/bulkReplaceStructured');
     } else {
       unsetVars(['structuredIds', 'finishedReplace']); // we don't need them anymore
-      Util::redirect('index.php'); // nothing else to do
+      Util::redirect('admin/index.php'); // nothing else to do
     }
   }
   $remainingIds = array_splice($remainingIds, $limit);
@@ -162,7 +163,7 @@ Smart::assign([
   'structuredChanged' => count($structuredIds),
 ]);
 Smart::addResources('admin', 'diff');
-Smart::display('admin/bulkReplace.tpl');
+Smart::display('aggregate/bulkReplace.tpl');
 
 Log::notice((memory_get_usage() - $startMemory).' bytes used');
 

@@ -361,7 +361,10 @@
       </div>
 
       <div class="panel-body">
-        <form class="form-horizontal" action="bulkReplace.php" method="post">
+        <form
+          class="form-horizontal"
+          action="{Router::link('aggregate/bulkReplace')}"
+          method="post">
 
           <div class="row">
 

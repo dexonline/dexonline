@@ -33,18 +33,18 @@
           {else}
             {$objId=$row->id}
           {/if}
-          
+
           {if $target == 1}{* display the checkbox only for definitions *}
             <div class="btn pull-right checkbox-hidden">
               <label class="btn btn-xs{if $row->definition->structured} btn-primary{else} btn-default{/if}">
-                <input class="objCheckbox{if $row->definition->structured} structured{else} unstructured{/if}" 
-                       type="checkbox" 
-                       value="{$objId}" 
+                <input class="objCheckbox{if $row->definition->structured} structured{else} unstructured{/if}"
+                       type="checkbox"
+                       value="{$objId}"
                        checked>
                 <i class="glyphicon glyphicon-ok"></i>
               </label>
             </div>
-          {/if}                     
+          {/if}
 
           {if $target == 1}
             {include "bits/definition.tpl" showStatus=1 showFlagTypo=1 showUser=0 showStructuredWrapper=0}
@@ -91,7 +91,10 @@
       înapoi la pagina moderatorului
     </a>
     {if $structuredChanged}
-      <a href="bulkReplaceStructured.php" class="btn btn-primary pull-right" target="_blank">
+      <a
+        href="{Router::link('aggregate/bulkReplaceStructured')}"
+        class="btn btn-primary pull-right"
+        target="_blank">
         <i class="glyphicon glyphicon-list"></i>
         definiții structurate modificate
       </a>

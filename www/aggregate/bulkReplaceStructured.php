@@ -1,8 +1,8 @@
 <?php
-$startMemory = memory_get_usage();
 
-require_once '../../lib/Core.php';
 User::mustHave(User::PRIV_ADMIN);
+
+$startMemory = memory_get_usage();
 
 $structuredIds = Session::get('structuredIds');
 $finishedReplace = Session::get('finishedReplace');
@@ -10,7 +10,7 @@ $finishedReplace = Session::get('finishedReplace');
 if ($structuredIds == null) {
   $msg = 'Nu am primit niciun parametru pentru a putea afișa lista definițiilor structurate modificate.';
   FlashMessage::add($msg, 'danger');
-  Util::redirect('index.php'); // nothing else to do
+  Util::redirect('admin/index.php'); // nothing else to do
 }
 
 DebugInfo::init();
@@ -56,7 +56,7 @@ Smart::assign([
   'finished' => $finishedReplace,
 ]);
 Smart::addResources('admin', 'diff');
-Smart::display('admin/bulkReplaceStructured.tpl');
+Smart::display('aggregate/bulkReplaceStructured.tpl');
 
 Log::notice((memory_get_usage() - $startMemory).' bytes used');
 

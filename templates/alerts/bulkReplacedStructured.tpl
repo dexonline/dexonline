@@ -1,5 +1,5 @@
 {strip} {* silly spaces in links *}
-<a class="alert-link" href="{Config::URL_PREFIX}admin/bulkReplaceStructured.php" target="_blank">
+<a class="alert-link" href="{Router::link('aggregate/bulkReplaceStructured')}" target="_blank">
   {$count} {$prep} definiții structurate
 </a>
 {/strip}

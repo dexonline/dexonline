@@ -44,7 +44,7 @@
     </div>
   </div>
   {if $finished}
-  <a href="index.php" class="btn btn-primary">
+  <a href="admin/index.php" class="btn btn-primary">
       <i class="glyphicon glyphicon-step-backward"></i>
       înapoi la pagina moderatorului
   </a>

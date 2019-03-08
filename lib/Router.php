@@ -283,6 +283,9 @@ class Router {
       'en_US.utf8' => 'moderators',
       'ro_RO.utf8' => 'moderatori',
     ],
+    'user/top' => [
+      'en_US.utf8' => 'top',
+    ],
     'user/view' => [
       'en_US.utf8' => 'user',
       'ro_RO.utf8' => 'utilizator',

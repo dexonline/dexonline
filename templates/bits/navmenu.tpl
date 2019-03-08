@@ -81,7 +81,7 @@
             <li>
               <a href="https://wiki.dexonline.ro/wiki/Cum_pute%C8%9Bi_ajuta">{t}ways to help{/t}</a>
             </li>
-            <li><a href="{Config::URL_PREFIX}top">{t}volunteer ranking{/t}</a></li>
+            <li><a href="{Router::link('user/top')}">{t}volunteer ranking{/t}</a></li>
           </ul>
 
         </li>

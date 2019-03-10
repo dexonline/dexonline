@@ -38,7 +38,6 @@ RewriteRule (.*)$ $1.php [L]
 
 # Special case for index.php
 RewriteRule ^$ index.php [L]
-RewriteRule ^admin/$ admin/index.php [L]
 
 # Pass everything else through the router
 RewriteCond %{REQUEST_FILENAME} !-f

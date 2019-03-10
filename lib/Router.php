@@ -46,6 +46,10 @@ class Router {
       'en_US.utf8' => 'bulk-replace-structured',
       'ro_RO.utf8' => 'inlocuire-in-masa-structurate',
     ],
+    'aggregate/dashboard' => [
+      'en_US.utf8' => 'dashboard',
+      'ro_RO.utf8' => 'admin',
+    ],
     'aggregate/harmonize' => [
       'en_US.utf8' => 'harmonize',
       'ro_RO.utf8' => 'armonizare',

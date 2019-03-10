@@ -1,4 +1,3 @@
-// We cannot place this in autoload/index.js because the /index.php page would also load it.
 $(function() {
   function init() {
     $('#lexemeId').select2({

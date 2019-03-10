@@ -10,15 +10,15 @@ $(function() {
     $(document).bind('keydown', 'alt+d', quickNavDefFocus);
     $(document).bind('keydown', 'alt+i', quickNavEntryFocus);
 
-    $(document).bind('keydown', 'alt+a', redirectToAdmin);
-    $(document).bind('keydown', 'alt+n', redirectToNewDefinition);
+    $(document).bind('keydown', 'alt+a', function() { redirect('admin'); });
+    $(document).bind('keydown', 'alt+n', function() { redirect('editare-definitie'); });
     $(document).bind('keydown', 'alt+r', clickRefreshButton);
     $(document).bind('keydown', 'alt+s', clickSaveButton);
     $(document).bind('keydown', 'alt+v', clickRecentPagesLink);
 
-    $(document).bind('keydown', 'alt+c', redirectToWotDTable);
-    $(document).bind('keydown', 'alt+z', redirectToWotDImage);
-    $(document).bind('keydown', 'alt+x', redirectToWotDAuthorAssign);
+    $(document).bind('keydown', 'alt+c', function() { redirect('tabel-cz'); });
+    $(document).bind('keydown', 'alt+z', function() { redirect('imagini-cz'); });
+    $(document).bind('keydown', 'alt+x', function() { redirect('alocare-autori'); });
     $(document).bind('keydown', 'alt+t', function() { toggleMode('structure'); });
     $(document).bind('keydown', 'alt+w', function() { toggleMode('wotd'); });
     $(document).bind('keydown', 'alt+shift+w', function() { toggleMode('granularity'); });
@@ -30,24 +30,8 @@ $(function() {
     $('a.hotkeyLink').click(hotkeyLinkClick);
   }
 
-  function redirectToAdmin() {
-    window.location = wwwRoot + 'admin/';
-  }
-
-  function redirectToNewDefinition() {
-    window.location = wwwRoot + 'editare-definitie';
-  }
-
-  function redirectToWotDTable() {
-    window.location = wwwRoot + 'tabel-cz';
-  }
-
-  function redirectToWotDImage() {
-    window.location = wwwRoot + 'imagini-cz';
-  }
-
-  function redirectToWotDAuthorAssign() {
-    window.location = wwwRoot + 'alocare-autori';
+  function redirect(path) {
+    window.location = wwwRoot + path;
   }
 
   function toggleMode(mode) {

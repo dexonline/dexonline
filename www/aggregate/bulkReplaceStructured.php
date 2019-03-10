@@ -10,7 +10,7 @@ $finishedReplace = Session::get('finishedReplace');
 if ($structuredIds == null) {
   $msg = 'Nu am primit niciun parametru pentru a putea afișa lista definițiilor structurate modificate.';
   FlashMessage::add($msg, 'danger');
-  Util::redirect('admin/index.php'); // nothing else to do
+  Util::redirectToRoute('aggregate/dashboard'); // nothing else to do
 }
 
 DebugInfo::init();

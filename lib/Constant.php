@@ -348,9 +348,6 @@ class Constant {
       'js' => [ 'admin.js' ],
       'deps' => [ 'hotkeys' ],
     ],
-    'adminIndex' => [
-      'js' => [ 'adminIndex.js' ],
-    ],
     'sprintf' => [
       'js' => [ 'third-party/sprintf.min.js' ],
     ],

@@ -38,11 +38,11 @@ if ($isOcr && !$definitionId) {
   $d = Definition::get_by_id($definitionId);
   if (!$d) {
     FlashMessage::add("Nu există nicio definiție cu ID-ul {$definitionId}.");
-    Util::redirect('index.php');
+    Util::redirectToRoute('aggregate/dashboard');
   }
   if (User::isTrainee() && $userId != $d->userId) {
     FlashMessage::add("Nu aveți suficiente drepturi pentru a accesa definiția cu ID-ul {$definitionId}.");
-    Util::redirect('index.php');
+    Util::redirectToRoute('aggregate/dashboard');
   }
 }
 
@@ -215,7 +215,7 @@ function getDefinitionFromOcr($userId) {
   $ocr = OCR::getNext($userId);
   if (!$ocr) {
     FlashMessage::add('Lista cu definiții OCR este goală.', 'warning');
-    Util::redirect('admin/index.php');
+    Util::redirectToRoute('aggregate/dashboard');
   }
 
   // Found one, create the Definition and update the OCR.
@@ -249,7 +249,7 @@ function checkPendingLimit($userId) {
     $limit = Config::LIMIT_TRAINEE_PENDING_DEFS;
     if ($pending >= $limit) {
       FlashMessage::add("Ați atins limita de {$limit} definiții nemoderate.");
-      Util::redirect('admin/index.php');
+      Util::redirectToRoute('aggregate/dashboard');
     }
   }
 }

@@ -44,7 +44,7 @@ if (!$saveButton) {
   // no records? we should not go any further
   if (!$numCount) {
     FlashMessage::add("Nu există {$targetName} care să conțină: [{$search}]", 'warning');
-    Util::redirect('admin/index.php');
+    Util::redirectToRoute('aggregate/dashboard');
   }
 
   // some records? setting up session variables
@@ -102,7 +102,7 @@ if ($saveButton) {
       Util::redirectToRoute('aggregate/bulkReplaceStructured');
     } else {
       unsetVars(['structuredIds', 'finishedReplace']); // we don't need them anymore
-      Util::redirect('admin/index.php'); // nothing else to do
+      Util::redirectToRoute('aggregate/dashboard'); // nothing else to do
     }
   }
   $remainingIds = array_splice($remainingIds, $limit);

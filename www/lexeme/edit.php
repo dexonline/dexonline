@@ -61,7 +61,7 @@ if ($deleteButton) {
     Util::redirect("?lexemeId={$homonym->id}");
   } else {
     FlashMessage::add('Am șters lexemul.', 'success');
-    Util::redirect('admin/index.php');
+    Util::redirectToRoute('aggregate/dashboard');
   }
 }
 

@@ -86,7 +86,7 @@
       <i class="glyphicon glyphicon-floppy-disk"></i>
       <u>s</u>alvează {if $objects|count != $remaining} și încarcă următoarele {/if}
     </button>
-    <a href="index.php" class="btn btn-primary">
+    <a href="{Router::link('aggregate/dashboard')}" class="btn btn-primary">
       <i class="glyphicon glyphicon-step-backward"></i>
       înapoi la pagina moderatorului
     </a>

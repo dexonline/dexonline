@@ -1,12 +1,12 @@
 <?php
-require_once '../../lib/Core.php';
+
 User::mustHave(User::PRIV_ANY);
 
 $recountButton = Request::has('recountButton');
 
 if ($recountButton) {
   Util::recount();
-  Util::redirect('index.php');
+  Util::redirectToRoute('aggregate/dashboard');
 }
 
 // single query instead of ~20 distinct queries
@@ -199,9 +199,9 @@ Smart::assign([
   'wotdAssistantDates' => $wotdAssistantDates,
 ]);
 Smart::addResources(
-  'admin', 'adminIndex', 'bootstrap-datepicker', 'modelDropdown', 'select2Dev'
+  'admin', 'bootstrap-datepicker', 'modelDropdown', 'select2Dev'
 );
-Smart::display('admin/index.tpl');
+Smart::display('aggregate/dashboard.tpl');
 
 /*************************************************************************/
 

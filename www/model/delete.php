@@ -24,7 +24,7 @@ if ($deleteButton) {
   Log::warning("Deleting model {$model->id} ({$model})");
   $model->delete();
   FlashMessage::add('Am șters modelul.', 'success');
-  Util::redirect('admin/index.php');
+  Util::redirectToRoute('aggregate/dashboard');
 }
 
 Smart::assign('modelType', $modelType);

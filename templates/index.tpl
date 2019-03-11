@@ -17,15 +17,15 @@
   {include "banner/banner.tpl"}
 
   <section class="row widgets">
-    <div class="col-md-12">
-      {if $numEnabledWidgets && Config::SKIN_WIDGETS}
+    {if Config::SKIN_WIDGETS}
+      <div class="col-md-12">
         {foreach $widgets as $params}
           {if $params.enabled}
             <div class="col-sm-4 col-xs-12">{include "widgets/`$params.template`"}</div>
           {/if}
         {/foreach}
-      {/if}
-    </div>
+      </div>
+    {/if}
     <div class="col-md-12">
       <a
         class="btn btn-link customise-widgets pull-right"

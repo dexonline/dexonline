@@ -2,14 +2,12 @@
 require_once '../lib/Core.php';
 
 $widgets = Preferences::getWidgets(User::getActive());
-$numEnabledWidgets = array_reduce($widgets, function($result, $w) { return $result + $w['enabled']; });
 
 Smart::assign([
   'pageType' => 'home',
   'wordsTotal' => Definition::getWordCount(),
   'wordsLastMonth' => Definition::getWordCountLastMonth(),
   'widgets' => $widgets,
-  'numEnabledWidgets' => $numEnabledWidgets,
 ]);
 
 /* WotD part */
@@ -20,10 +18,10 @@ if (!$wotd) {
 if (!$wotd) {
   $wotd = Model::factory('WordOfTheDay')->create(); // generic WotD
 }
-$def = Definition::get_by_id_status($wotd->definitionId, Definition::ST_ACTIVE);
+$wotdDef = Definition::get_by_id_status($wotd->definitionId, Definition::ST_ACTIVE);
 Smart::assign([
   'thumbUrl' => $wotd->getMediumThumbUrl(),
-  'wotdDef' => $def,
+  'wotdDef' => $wotdDef,
 ]);
 
 /* WotM part */
@@ -31,11 +29,11 @@ $wotm = WordOfTheMonth::getCurrentWotM();
 if (!$wotm) {
   $wotm = Model::factory('WordOfTheMonth')->create(); // generic WotM
 }
-$def = Model::factory('Definition')->where('id', $wotm->definitionId)->where('status', Definition::ST_ACTIVE)->find_one();
+$wotmDef = Definition::get_by_id_status($wotm->definitionId, Definition::ST_ACTIVE);
 Smart::assign([
   'thumbUrlM' => $wotm->getMediumThumbUrl(),
   'articleTitle' => $wotm->article,
-  'wotmDef' => $def,
+  'wotmDef' => $wotmDef,
 ]);
 
 Smart::display('index.tpl');

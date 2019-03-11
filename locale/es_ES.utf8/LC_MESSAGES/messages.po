@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2019-03-08 17:47+0200\n"
-"PO-Revision-Date: 2019-03-08 17:48+0200\n"
+"POT-Creation-Date: 2019-03-11 15:57+0200\n"
+"PO-Revision-Date: 2019-03-11 15:57+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: es\n"
@@ -14,8 +14,9 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: lib\n"
-"X-Poedit-SearchPath-1: templates\n"
-"X-Poedit-SearchPath-2: www\n"
+"X-Poedit-SearchPath-1: routes\n"
+"X-Poedit-SearchPath-2: templates\n"
+"X-Poedit-SearchPath-3: www\n"
 "X-Poedit-SearchPathExcluded-0: lib/third-party\n"
 "X-Poedit-SearchPathExcluded-1: www/js/merged\n"
 "X-Poedit-SearchPathExcluded-2: www/js/third-party\n"
@@ -144,8 +145,8 @@ msgstr "sobre nosotros"
 msgid "information"
 msgstr "información"
 
-#: templates/bits/navmenu.tpl:62 templates/contact.tpl:4
-#: templates/contact.tpl:9
+#: templates/bits/navmenu.tpl:62 templates/simple/contact.tpl:4
+#: templates/simple/contact.tpl:9
 msgid "contact us"
 msgstr "contáctenos"
 
@@ -194,7 +195,7 @@ msgstr "palabras aleatorias"
 msgid "Scrabble"
 msgstr "Scrabble"
 
-#: templates/bits/navmenu.tpl:113 templates/unelte.tpl:3
+#: templates/bits/navmenu.tpl:113 templates/simple/tools.tpl:3
 msgid "tools"
 msgstr "herramientas"
 
@@ -332,26 +333,6 @@ msgstr "¡Gracias por informarnos!"
 #: templates/bits/typoForm.tpl:67
 msgid "close"
 msgstr "cierre"
-
-#: templates/contact.tpl:18
-msgid "Useful information"
-msgstr "Información útil"
-
-#: templates/contact.tpl:22
-msgid ""
-"<a href=\"%1\">What dexonline is <strong>not</strong></a> (ways we cannot "
-"help you)."
-msgstr ""
-"<a href=\"%1\">Lo que dexonline <strong>no</strong> es</a> (maneras en que "
-"no podemos ayudarlo)."
-
-#: templates/contact.tpl:29
-msgid "You can install dexonline on <a href=\"%1\">your computer or phone</a>."
-msgstr "Puede instalar dexonline en <a href=\"%1\">su ordenador o móvil</a>."
-
-#: templates/contact.tpl:35
-msgid "You can download a <a href=\"%1\">copy of the database</a>."
-msgstr "Puede bajarse una <a href=\"%1\">copia de la base de datos</a>."
 
 #: templates/definition/favorites.tpl:12 templates/definition/favorites.tpl:22
 msgid "You have no favorite words."
@@ -748,88 +729,14 @@ msgstr ""
 "Estado actual: %1 definiciones, de las cuales %2 aprendidas durante el "
 "último mes."
 
-#: templates/layout.tpl:84 templates/unelte.tpl:84 templates/unelte.tpl:107
+#: templates/layout.tpl:84 templates/simple/tools.tpl:84
+#: templates/simple/tools.tpl:107
 msgid "license"
 msgstr "licencia"
 
 #: templates/layout.tpl:85
 msgid "privacy"
 msgstr "privacidad"
-
-#: templates/links.tpl:3
-msgid "links"
-msgstr "enlaces"
-
-#: templates/links.tpl:7
-msgid ""
-"This page contains useful language links. These links are not sponsored; we "
-"consider them useful to our visitors. We are not affiliated with the "
-"respective sites and institutions."
-msgstr ""
-"Esta página contiene enlaces lingüísticos útiles. Estos enlaces no están "
-"patrocinados; los consideramos útiles para nuestros visitantes. No estamos "
-"afiliados con sus respectivos webs o instituciones."
-
-#: templates/links.tpl:12
-msgid "Romanian language"
-msgstr "Rumano"
-
-#: templates/links.tpl:16
-msgid ""
-"Iorgu Iordan - Alexandru Rosetti <a href=\"%1\">Institute of Linguistics</"
-"a>, Romanian Academy"
-msgstr ""
-"Iorgu Iordan - Alexandru Rosetti <a href=\"%1\">Instituto de Lingüística</"
-"a>, Academia Rumana"
-
-#: templates/links.tpl:22
-msgid "why and how to write using diacritics on the Internet"
-msgstr "por qué y cómo escribir usando los diacríticos en el Internet"
-
-#: templates/links.tpl:26
-msgid ""
-"Sorin Paliga &mdash; volumes in PDF format at <a href=\"%1\">Academia.edu</"
-"a> and <a href=\"%2\">ResearchGate</a>"
-msgstr ""
-"Sorin Paliga &mdash; volúmenes en el formato PDF en <a href=\"%1\">Academia."
-"edu</a> y <a href=\"%2\">ResearchGate</a>"
-
-#: templates/links.tpl:33
-msgid "Other languages"
-msgstr "Otros idiomas"
-
-#: templates/links.tpl:37
-msgid ""
-"<a href=\"%1\">hallo.ro</a> &mdash; bilingual dictionaries between Romanian "
-"and English, French, Spanish, German, Italian"
-msgstr ""
-"<a href=\"%1\"\">hallo.ro</a> &mdash; diccionarios bilingües entre rumano e "
-"inglés, francés, español, alemán, italiano"
-
-#: templates/links.tpl:47
-msgid "The <a href=\"%1\">Romanian Scrabble Federation</a>"
-msgstr "La <a href=\"%1\">Federación Rumana de Scrabble</a>"
-
-#: templates/links.tpl:51
-msgid "<a href=\"%1\">AnaScrab 7</a> &mdash; a seven-letter anagram generator"
-msgstr ""
-"<a href=\"%1\">AnaScrab 7</a> &mdash; un generador de anagramas de palabras "
-"de siete letras"
-
-#: templates/links.tpl:55
-msgid ""
-"<a href=\"%1\">Find words</a> &mdash; a helper for crosswords and Scrabble"
-msgstr ""
-"<a href=\"%1\">Encuentre palabras</a> &mdash; una aplicación útil para "
-"crucigramas y Scrabble"
-
-#: templates/links.tpl:60
-msgid "Programs that use the database of dexonline"
-msgstr "Programas que usan la base de datos de dexonline"
-
-#: templates/links.tpl:64
-msgid "A <a href=\"%1\">game of Fazan</a> for Android devices"
-msgstr "El <a href=\"%1\">juego \"Fazan\"</a> para dispositivos Android"
 
 #: templates/paradigm/paradigmA.tpl:8 templates/paradigm/paradigmP.tpl:8
 msgid "masculine"
@@ -1155,11 +1062,106 @@ msgstr "etimología"
 msgid "Articles on this subject"
 msgstr "Artículos con este tema"
 
-#: templates/unelte.tpl:6
+#: templates/simple/contact.tpl:18
+msgid "Useful information"
+msgstr "Información útil"
+
+#: templates/simple/contact.tpl:22
+msgid ""
+"<a href=\"%1\">What dexonline is <strong>not</strong></a> (ways we cannot "
+"help you)."
+msgstr ""
+"<a href=\"%1\">Lo que dexonline <strong>no</strong> es</a> (maneras en que "
+"no podemos ayudarlo)."
+
+#: templates/simple/contact.tpl:29
+msgid "You can install dexonline on <a href=\"%1\">your computer or phone</a>."
+msgstr "Puede instalar dexonline en <a href=\"%1\">su ordenador o móvil</a>."
+
+#: templates/simple/contact.tpl:35
+msgid "You can download a <a href=\"%1\">copy of the database</a>."
+msgstr "Puede bajarse una <a href=\"%1\">copia de la base de datos</a>."
+
+#: templates/simple/links.tpl:3
+msgid "links"
+msgstr "enlaces"
+
+#: templates/simple/links.tpl:7
+msgid ""
+"This page contains useful language links. These links are not sponsored; we "
+"consider them useful to our visitors. We are not affiliated with the "
+"respective sites and institutions."
+msgstr ""
+"Esta página contiene enlaces lingüísticos útiles. Estos enlaces no están "
+"patrocinados; los consideramos útiles para nuestros visitantes. No estamos "
+"afiliados con sus respectivos webs o instituciones."
+
+#: templates/simple/links.tpl:12
+msgid "Romanian language"
+msgstr "Rumano"
+
+#: templates/simple/links.tpl:16
+msgid ""
+"Iorgu Iordan - Alexandru Rosetti <a href=\"%1\">Institute of Linguistics</"
+"a>, Romanian Academy"
+msgstr ""
+"Iorgu Iordan - Alexandru Rosetti <a href=\"%1\">Instituto de Lingüística</"
+"a>, Academia Rumana"
+
+#: templates/simple/links.tpl:22
+msgid "why and how to write using diacritics on the Internet"
+msgstr "por qué y cómo escribir usando los diacríticos en el Internet"
+
+#: templates/simple/links.tpl:26
+msgid ""
+"Sorin Paliga &mdash; volumes in PDF format at <a href=\"%1\">Academia.edu</"
+"a> and <a href=\"%2\">ResearchGate</a>"
+msgstr ""
+"Sorin Paliga &mdash; volúmenes en el formato PDF en <a href=\"%1\">Academia."
+"edu</a> y <a href=\"%2\">ResearchGate</a>"
+
+#: templates/simple/links.tpl:33
+msgid "Other languages"
+msgstr "Otros idiomas"
+
+#: templates/simple/links.tpl:37
+msgid ""
+"<a href=\"%1\">hallo.ro</a> &mdash; bilingual dictionaries between Romanian "
+"and English, French, Spanish, German, Italian"
+msgstr ""
+"<a href=\"%1\"\">hallo.ro</a> &mdash; diccionarios bilingües entre rumano e "
+"inglés, francés, español, alemán, italiano"
+
+#: templates/simple/links.tpl:47
+msgid "The <a href=\"%1\">Romanian Scrabble Federation</a>"
+msgstr "La <a href=\"%1\">Federación Rumana de Scrabble</a>"
+
+#: templates/simple/links.tpl:51
+msgid "<a href=\"%1\">AnaScrab 7</a> &mdash; a seven-letter anagram generator"
+msgstr ""
+"<a href=\"%1\">AnaScrab 7</a> &mdash; un generador de anagramas de palabras "
+"de siete letras"
+
+#: templates/simple/links.tpl:55
+msgid ""
+"<a href=\"%1\">Find words</a> &mdash; a helper for crosswords and Scrabble"
+msgstr ""
+"<a href=\"%1\">Encuentre palabras</a> &mdash; una aplicación útil para "
+"crucigramas y Scrabble"
+
+#: templates/simple/links.tpl:60
+msgid "Programs that use the database of dexonline"
+msgstr "Programas que usan la base de datos de dexonline"
+
+#: templates/simple/links.tpl:64
+msgid "A <a href=\"%1\">game of Fazan</a> for Android devices"
+msgstr "El <a href=\"%1\">juego \"Fazan\"</a> para dispositivos Android"
+
+#: templates/simple/tools.tpl:6
 msgid "off-line clients"
 msgstr "clientes off-cine"
 
-#: templates/unelte.tpl:9
+#: templates/simple/tools.tpl:9
 msgid ""
 "These applications download the definitions from <i>dexonline</i> to your "
 "computer or phone. Then you can see them without an Internet connection."
@@ -1168,31 +1170,31 @@ msgstr ""
 "ordenador o móvil. A continuación, las puede ver sin necesidad de tener "
 "conexión a Internet."
 
-#: templates/unelte.tpl:17
+#: templates/simple/tools.tpl:17
 msgid "Client"
 msgstr "Cliente"
 
-#: templates/unelte.tpl:30
+#: templates/simple/tools.tpl:30
 msgid "Platforms"
 msgstr "Platformas"
 
-#: templates/unelte.tpl:57
+#: templates/simple/tools.tpl:57
 msgid "Requirements"
 msgstr "Requerimientos"
 
-#: templates/unelte.tpl:64
+#: templates/simple/tools.tpl:64
 msgid "Disk space required"
 msgstr "Espacio de disco necesario"
 
-#: templates/unelte.tpl:71
+#: templates/simple/tools.tpl:71
 msgid "Author"
 msgstr "Autor"
 
-#: templates/unelte.tpl:99
+#: templates/simple/tools.tpl:99
 msgid "license on the data in this table"
 msgstr "licencia sobre los datos en esta tabla"
 
-#: templates/unelte.tpl:109
+#: templates/simple/tools.tpl:109
 msgid ""
 "The information in this table is dual-licensed under the GNU General Public "
 "License (as applicable to the entire site) and the <a href=\"%1\">Creative "
@@ -1209,16 +1211,16 @@ msgstr ""
 "dictionar@yahoogroups.com) gracias a la colaboración con los desarrolladores "
 "de las aplicaciones."
 
-#: templates/unelte.tpl:120
+#: templates/simple/tools.tpl:120
 msgid "Browser integration"
 msgstr "Integración en el navegador"
 
-#: templates/unelte.tpl:126
+#: templates/simple/tools.tpl:126
 msgid "A <a href=\"%1\" onclick=\"%2\">spell checker</a> for Firefox."
 msgstr ""
 "Un <a href=\"%1\" onclick=\"%2\">corrector ortográfico</a> para Firefox."
 
-#: templates/unelte.tpl:132
+#: templates/simple/tools.tpl:132
 msgid ""
 "To use the spell checker, right-click in any text box, check the <em>Check "
 "spelling</em> box, right-click once more and select <em>Languages > "
@@ -1228,7 +1230,7 @@ msgstr ""
 "de texto, marque la casilla <em>Corrector ortográfico</em>, haga clic "
 "derecho otra vez y seleccione <em>Idiomas > Rumano</em>."
 
-#: templates/unelte.tpl:142
+#: templates/simple/tools.tpl:142
 msgid ""
 "<a href=\"#\" onclick=\"%1\">Add <i>dexonline</i> to the search engine list</"
 "a> of your browser. Thanks to Alexandru Lixandru."
@@ -1236,13 +1238,13 @@ msgstr ""
 "<a href=\"#\" onclick=\"%1\">Añada <i>dexonline</i> a la lista de motores de "
 "búsqueda</a> de su navegador. Gracias a Alexandru Lixandru."
 
-#: templates/unelte.tpl:148
+#: templates/simple/tools.tpl:148
 msgid "A <a href=\"%1\">Chrome extension</a> for right-click searches."
 msgstr ""
 "Una <a href=\"%1\">extensión para Chrome</a> para búsquedas con el clic "
 "derecho."
 
-#: templates/unelte.tpl:154
+#: templates/simple/tools.tpl:154
 msgid ""
 "A <a href=\"%1\">Firefox plugin</a> for right-click searches. Save the file "
 "in the <tt>searchplugins/</tt> directory of Firefox and restart Firefox. "
@@ -1252,7 +1254,7 @@ msgstr ""
 "derecho. Guarde el fichero en la carpeta <tt>searchplugins/</tt> de Firefox "
 "y reinicia Firefox. Agradecimientos a %2."
 
-#: templates/unelte.tpl:161
+#: templates/simple/tools.tpl:161
 msgid "A <a href=\"%1\">WordPress plugin</a> for your blog."
 msgstr "Un <a href=\"%1\">plugin de WordPress</a> para su blog."
 
@@ -1450,7 +1452,7 @@ msgstr ""
 "Ya que no se definieron por lexicógrafos, estas definiciones pueden contener "
 "errores."
 
-#: www/changeLocale.php:8
+#: routes/helpers/changeLocale.php:6
 msgid ""
 "Interface language changed. Definition text and external links are always in "
 "Romanian."
@@ -1458,12 +1460,122 @@ msgstr ""
 "El idioma de la interfaz ha cambiado. El texto de las definiciones y los "
 "enlaces externos están siempre en rumano."
 
-#: www/lexeme/random.php:24
+#: routes/lexeme/random.php:24
 #, php-format
 msgid "A randomly chosen word"
 msgid_plural "%d randomly chosen words"
 msgstr[0] "Una palabra escogida aleatoriamente"
 msgstr[1] "%d palabras escogidas aleatoriamente"
+
+#: routes/simple/tools.php:5
+msgid "Synchronization with dexonline"
+msgstr "Sincronización con dexonline"
+
+#: routes/simple/tools.php:6
+msgid "This client connects to dexonline periodically to download updates."
+msgstr ""
+"El cliente se conecta periódicamente con dexonline para bajarse "
+"actualizaciones."
+
+#: routes/simple/tools.php:9
+msgid "Interface for visually impaired users"
+msgstr "Interfaz para usuarios con deficiencias visuales"
+
+#: routes/simple/tools.php:10
+msgid "This client has a friendly interface for visually impaired users."
+msgstr ""
+"El cliente ofrece una interfaz amistosa para usuarios con deficiencias "
+"visuales."
+
+#: routes/simple/tools.php:13
+msgid "Regular expressions, wildcards"
+msgstr "Expresiones regulares, comodines"
+
+#: routes/simple/tools.php:14
+msgid ""
+"This client accepts searches using regular expressions and/or wildcards, "
+"such as «echi*» for echilibru, echinocțiu etc."
+msgstr ""
+"El cliente acepta búsquedas con expresiones regulares y/o comodines, como "
+"«echi*» para echilibru, echinocțiu etc."
+
+#: routes/simple/tools.php:17
+msgid "Suggestions"
+msgstr "Sugerencias"
+
+#: routes/simple/tools.php:18
+msgid ""
+"This client offers the closest matches when an exact match is not found."
+msgstr ""
+"El cliente ofrece los resultados más cercanos, cuando no haya una "
+"coincidencia total."
+
+#: routes/simple/tools.php:21
+msgid "Diacritics support"
+msgstr "Con / sin diacríticos"
+
+#: routes/simple/tools.php:22
+msgid "This client supports searching with or without diacritics."
+msgstr "El cliente permite buscar con o sin diacríticos."
+
+#: routes/simple/tools.php:25
+msgid "Full-text searches"
+msgstr "Búsquedas en todas las definiciones"
+
+#: routes/simple/tools.php:26
+msgid ""
+"This client can search not just keywords, but the definition body as well."
+msgstr ""
+"El cliente puede buscar no solo entradas, sino también el cuerpo de las "
+"definiciones."
+
+#: routes/simple/tools.php:29
+msgid "Inflected form search"
+msgstr "Búsqueda de formas flexionadas"
+
+#: routes/simple/tools.php:30
+msgid ""
+"This client can query declensions and conjugations, such as «lucreze» "
+"instead of «lucra»."
+msgstr ""
+"El cliente puede interrogar declinaciones y conjugaciones, como «lucreze» en "
+"vez de «lucra»."
+
+#: routes/simple/tools.php:33
+msgid "Word clicks"
+msgstr "Clica la palabra"
+
+#: routes/simple/tools.php:34
+msgid ""
+"When you click a word in a definition, this client goes to the definition "
+"for that word."
+msgstr ""
+"Al clicar una palabra dentro de una definición, el cliente le redirige a la "
+"definición de dicha palabra."
+
+#: routes/simple/tools.php:37
+msgid "Search history"
+msgstr "Historial de búsqueda"
+
+#: routes/simple/tools.php:38
+msgid "This client remembers the most recent searches and can revisit them."
+msgstr ""
+"El cliente guarda las búsquedas más recientes y las puede volver a visitar."
+
+#: routes/simple/tools.php:49
+msgid "Perl, wxWidgets (only under Linux)"
+msgstr "Perl, wxWidgets (sólo en Linux)"
+
+#: routes/simple/tools.php:73
+msgid "QT, g++ (only under Linux)"
+msgstr "QT, g++ (sólo en Linux)"
+
+#: routes/wotd/random.php:22
+#, php-format
+msgid "A randomly chosen word of the day"
+msgid_plural "%d randomly chosen words of the day"
+msgstr[0] "Una palabra del día escogida aleatoriamente"
+msgstr[1] "%d palabras del día escogidas aleatoriamente"
 
 #: www/search.php:220
 #, php-format
@@ -1477,113 +1589,3 @@ msgstr "conjugaciones"
 #: www/search.php:331
 msgid "declensions"
 msgstr "declinaciones"
-
-#: www/unelte.php:6
-msgid "Synchronization with dexonline"
-msgstr "Sincronización con dexonline"
-
-#: www/unelte.php:7
-msgid "This client connects to dexonline periodically to download updates."
-msgstr ""
-"El cliente se conecta periódicamente con dexonline para bajarse "
-"actualizaciones."
-
-#: www/unelte.php:10
-msgid "Interface for visually impaired users"
-msgstr "Interfaz para usuarios con deficiencias visuales"
-
-#: www/unelte.php:11
-msgid "This client has a friendly interface for visually impaired users."
-msgstr ""
-"El cliente ofrece una interfaz amistosa para usuarios con deficiencias "
-"visuales."
-
-#: www/unelte.php:14
-msgid "Regular expressions, wildcards"
-msgstr "Expresiones regulares, comodines"
-
-#: www/unelte.php:15
-msgid ""
-"This client accepts searches using regular expressions and/or wildcards, "
-"such as «echi*» for echilibru, echinocțiu etc."
-msgstr ""
-"El cliente acepta búsquedas con expresiones regulares y/o comodines, como "
-"«echi*» para echilibru, echinocțiu etc."
-
-#: www/unelte.php:18
-msgid "Suggestions"
-msgstr "Sugerencias"
-
-#: www/unelte.php:19
-msgid ""
-"This client offers the closest matches when an exact match is not found."
-msgstr ""
-"El cliente ofrece los resultados más cercanos, cuando no haya una "
-"coincidencia total."
-
-#: www/unelte.php:22
-msgid "Diacritics support"
-msgstr "Con / sin diacríticos"
-
-#: www/unelte.php:23
-msgid "This client supports searching with or without diacritics."
-msgstr "El cliente permite buscar con o sin diacríticos."
-
-#: www/unelte.php:26
-msgid "Full-text searches"
-msgstr "Búsquedas en todas las definiciones"
-
-#: www/unelte.php:27
-msgid ""
-"This client can search not just keywords, but the definition body as well."
-msgstr ""
-"El cliente puede buscar no solo entradas, sino también el cuerpo de las "
-"definiciones."
-
-#: www/unelte.php:30
-msgid "Inflected form search"
-msgstr "Búsqueda de formas flexionadas"
-
-#: www/unelte.php:31
-msgid ""
-"This client can query declensions and conjugations, such as «lucreze» "
-"instead of «lucra»."
-msgstr ""
-"El cliente puede interrogar declinaciones y conjugaciones, como «lucreze» en "
-"vez de «lucra»."
-
-#: www/unelte.php:34
-msgid "Word clicks"
-msgstr "Clica la palabra"
-
-#: www/unelte.php:35
-msgid ""
-"When you click a word in a definition, this client goes to the definition "
-"for that word."
-msgstr ""
-"Al clicar una palabra dentro de una definición, el cliente le redirige a la "
-"definición de dicha palabra."
-
-#: www/unelte.php:38
-msgid "Search history"
-msgstr "Historial de búsqueda"
-
-#: www/unelte.php:39
-msgid "This client remembers the most recent searches and can revisit them."
-msgstr ""
-"El cliente guarda las búsquedas más recientes y las puede volver a visitar."
-
-#: www/unelte.php:50
-msgid "Perl, wxWidgets (only under Linux)"
-msgstr "Perl, wxWidgets (sólo en Linux)"
-
-#: www/unelte.php:74
-msgid "QT, g++ (only under Linux)"
-msgstr "QT, g++ (sólo en Linux)"
-
-#: www/wotd/random.php:22
-#, php-format
-msgid "A randomly chosen word of the day"
-msgid_plural "%d randomly chosen words of the day"
-msgstr[0] "Una palabra del día escogida aleatoriamente"
-msgstr[1] "%d palabras del día escogidas aleatoriamente"

@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: BUG-EMAIL-ADDR <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2019-03-08 17:48+0200\n"
-"PO-Revision-Date: 2019-03-08 17:48+0200\n"
+"POT-Creation-Date: 2019-03-11 15:58+0200\n"
+"PO-Revision-Date: 2019-03-11 15:58+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: hu\n"
@@ -14,9 +14,10 @@ msgstr ""
 "X-Poedit-Basepath: ../../..\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-SearchPath-0: templates\n"
-"X-Poedit-SearchPath-1: www\n"
-"X-Poedit-SearchPath-2: lib\n"
+"X-Poedit-SearchPath-0: lib\n"
+"X-Poedit-SearchPath-1: routes\n"
+"X-Poedit-SearchPath-2: templates\n"
+"X-Poedit-SearchPath-3: www\n"
 "X-Poedit-SearchPathExcluded-0: lib/third-party\n"
 "X-Poedit-SearchPathExcluded-1: www/js/merged\n"
 "X-Poedit-SearchPathExcluded-2: www/js/third-party\n"
@@ -145,8 +146,8 @@ msgstr "magunkról"
 msgid "information"
 msgstr "felvilágosítás"
 
-#: templates/bits/navmenu.tpl:62 templates/contact.tpl:4
-#: templates/contact.tpl:9
+#: templates/bits/navmenu.tpl:62 templates/simple/contact.tpl:4
+#: templates/simple/contact.tpl:9
 msgid "contact us"
 msgstr "kapcsolatfelvétel"
 
@@ -195,7 +196,7 @@ msgstr "szavak találomra"
 msgid "Scrabble"
 msgstr "Scrabble"
 
-#: templates/bits/navmenu.tpl:113 templates/unelte.tpl:3
+#: templates/bits/navmenu.tpl:113 templates/simple/tools.tpl:3
 msgid "tools"
 msgstr "eszközök"
 
@@ -333,28 +334,6 @@ msgstr "Köszönjük a jelentését!"
 #: templates/bits/typoForm.tpl:67
 msgid "close"
 msgstr "bezár"
-
-#: templates/contact.tpl:18
-msgid "Useful information"
-msgstr "Hasznos információ"
-
-#: templates/contact.tpl:22
-msgid ""
-"<a href=\"%1\">What dexonline is <strong>not</strong></a> (ways we cannot "
-"help you)."
-msgstr ""
-"<a href=\"%1\">Mi <strong>nem</strong> a dexonline</a> (ahogy nem tudunk "
-"segíteni)."
-
-#: templates/contact.tpl:29
-msgid "You can install dexonline on <a href=\"%1\">your computer or phone</a>."
-msgstr ""
-"Telepítheted a dexonline-ot a <a href=\"%1\">számítógépedre vagy "
-"telefonodra</a>."
-
-#: templates/contact.tpl:35
-msgid "You can download a <a href=\"%1\">copy of the database</a>."
-msgstr "Letöltheted az <a href=\"%1\">adatbázis másolatát</a>."
 
 #: templates/definition/favorites.tpl:12 templates/definition/favorites.tpl:22
 msgid "You have no favorite words."
@@ -748,86 +727,14 @@ msgid "Current status: %1 definitions, of which %2 learned last month."
 msgstr ""
 "Aktuális állapot: %1 meghatározások, amelyekböl %2 a múlt hónapban tanultak."
 
-#: templates/layout.tpl:84 templates/unelte.tpl:84 templates/unelte.tpl:107
+#: templates/layout.tpl:84 templates/simple/tools.tpl:84
+#: templates/simple/tools.tpl:107
 msgid "license"
 msgstr "licenc"
 
 #: templates/layout.tpl:85
 msgid "privacy"
 msgstr "adatvédelem"
-
-#: templates/links.tpl:3
-msgid "links"
-msgstr "hivatkozások"
-
-#: templates/links.tpl:7
-msgid ""
-"This page contains useful language links. These links are not sponsored; we "
-"consider them useful to our visitors. We are not affiliated with the "
-"respective sites and institutions."
-msgstr ""
-"Ez az oldal nyelvi jellegű hasznos hivatkozásokat tartalmaz. Ezek a "
-"hivatkozások nem szponzoráltak; mi hasznosnak tartjuk látogatóink számára. "
-"Nem vagyunk kapcsolatban ezekkel az oldalakkal vagy intézményekkel."
-
-#: templates/links.tpl:12
-msgid "Romanian language"
-msgstr "Román nyelv"
-
-#: templates/links.tpl:16
-msgid ""
-"Iorgu Iordan - Alexandru Rosetti <a href=\"%1\">Institute of Linguistics</"
-"a>, Romanian Academy"
-msgstr ""
-"Iorgu Iordan - Alexandru Rosetti <a href=\"%1\">Nyelvtudományi Intézet</a>, "
-"Román akadémia"
-
-#: templates/links.tpl:22
-msgid "why and how to write using diacritics on the Internet"
-msgstr "miért és hogyan írj ékezetekkel az interneten"
-
-#: templates/links.tpl:26
-msgid ""
-"Sorin Paliga &mdash; volumes in PDF format at <a href=\"%1\">Academia.edu</"
-"a> and <a href=\"%2\">ResearchGate</a>"
-msgstr ""
-"Sorin Paliga &mdash; PDF formátumban az <a href=\"%1\">Academia.edu</a> és "
-"<a href=\"%2\">ResearchGate</a> oldalakon"
-
-#: templates/links.tpl:33
-msgid "Other languages"
-msgstr "Más nyelvek"
-
-#: templates/links.tpl:37
-msgid ""
-"<a href=\"%1\">hallo.ro</a> &mdash; bilingual dictionaries between Romanian "
-"and English, French, Spanish, German, Italian"
-msgstr ""
-"<a href=\"%1\">hallo.ro</a> &mdash; kétnyelvű szótárak Román és angol, "
-"francia, spanyol, német, olasz"
-
-#: templates/links.tpl:47
-msgid "The <a href=\"%1\">Romanian Scrabble Federation</a>"
-msgstr "A <a href=\"%1\">Román Scrabble Szövetség</a>"
-
-#: templates/links.tpl:51
-msgid "<a href=\"%1\">AnaScrab 7</a> &mdash; a seven-letter anagram generator"
-msgstr "<a href=\"%1\">AnaScrab 7</a> &mdash; egy hét betűs anagrammagenerátor"
-
-#: templates/links.tpl:55
-msgid ""
-"<a href=\"%1\">Find words</a> &mdash; a helper for crosswords and Scrabble"
-msgstr ""
-"<a href=\"%1\">Találj szavakat</a> &mdash; segédeszköz a "
-"keresztrejtvényekhez és a Scrabble-hez"
-
-#: templates/links.tpl:60
-msgid "Programs that use the database of dexonline"
-msgstr "A dexonline adatbázisát használó programok"
-
-#: templates/links.tpl:64
-msgid "A <a href=\"%1\">game of Fazan</a> for Android devices"
-msgstr "A <a href=\"%1\">Fazan játék</a> Android eszközök számára"
 
 #: templates/paradigm/paradigmA.tpl:8 templates/paradigm/paradigmP.tpl:8
 msgid "masculine"
@@ -1151,11 +1058,106 @@ msgstr "etimológia"
 msgid "Articles on this subject"
 msgstr "Cikkek ebben a témában"
 
-#: templates/unelte.tpl:6
+#: templates/simple/contact.tpl:18
+msgid "Useful information"
+msgstr "Hasznos információ"
+
+#: templates/simple/contact.tpl:22
+msgid ""
+"<a href=\"%1\">What dexonline is <strong>not</strong></a> (ways we cannot "
+"help you)."
+msgstr ""
+"<a href=\"%1\">Mi <strong>nem</strong> a dexonline</a> (ahogy nem tudunk "
+"segíteni)."
+
+#: templates/simple/contact.tpl:29
+msgid "You can install dexonline on <a href=\"%1\">your computer or phone</a>."
+msgstr ""
+"Telepítheted a dexonline-ot a <a href=\"%1\">számítógépedre vagy "
+"telefonodra</a>."
+
+#: templates/simple/contact.tpl:35
+msgid "You can download a <a href=\"%1\">copy of the database</a>."
+msgstr "Letöltheted az <a href=\"%1\">adatbázis másolatát</a>."
+
+#: templates/simple/links.tpl:3
+msgid "links"
+msgstr "hivatkozások"
+
+#: templates/simple/links.tpl:7
+msgid ""
+"This page contains useful language links. These links are not sponsored; we "
+"consider them useful to our visitors. We are not affiliated with the "
+"respective sites and institutions."
+msgstr ""
+"Ez az oldal nyelvi jellegű hasznos hivatkozásokat tartalmaz. Ezek a "
+"hivatkozások nem szponzoráltak; mi hasznosnak tartjuk látogatóink számára. "
+"Nem vagyunk kapcsolatban ezekkel az oldalakkal vagy intézményekkel."
+
+#: templates/simple/links.tpl:12
+msgid "Romanian language"
+msgstr "Román nyelv"
+
+#: templates/simple/links.tpl:16
+msgid ""
+"Iorgu Iordan - Alexandru Rosetti <a href=\"%1\">Institute of Linguistics</"
+"a>, Romanian Academy"
+msgstr ""
+"Iorgu Iordan - Alexandru Rosetti <a href=\"%1\">Nyelvtudományi Intézet</a>, "
+"Román akadémia"
+
+#: templates/simple/links.tpl:22
+msgid "why and how to write using diacritics on the Internet"
+msgstr "miért és hogyan írj ékezetekkel az interneten"
+
+#: templates/simple/links.tpl:26
+msgid ""
+"Sorin Paliga &mdash; volumes in PDF format at <a href=\"%1\">Academia.edu</"
+"a> and <a href=\"%2\">ResearchGate</a>"
+msgstr ""
+"Sorin Paliga &mdash; PDF formátumban az <a href=\"%1\">Academia.edu</a> és "
+"<a href=\"%2\">ResearchGate</a> oldalakon"
+
+#: templates/simple/links.tpl:33
+msgid "Other languages"
+msgstr "Más nyelvek"
+
+#: templates/simple/links.tpl:37
+msgid ""
+"<a href=\"%1\">hallo.ro</a> &mdash; bilingual dictionaries between Romanian "
+"and English, French, Spanish, German, Italian"
+msgstr ""
+"<a href=\"%1\">hallo.ro</a> &mdash; kétnyelvű szótárak Román és angol, "
+"francia, spanyol, német, olasz"
+
+#: templates/simple/links.tpl:47
+msgid "The <a href=\"%1\">Romanian Scrabble Federation</a>"
+msgstr "A <a href=\"%1\">Román Scrabble Szövetség</a>"
+
+#: templates/simple/links.tpl:51
+msgid "<a href=\"%1\">AnaScrab 7</a> &mdash; a seven-letter anagram generator"
+msgstr "<a href=\"%1\">AnaScrab 7</a> &mdash; egy hét betűs anagrammagenerátor"
+
+#: templates/simple/links.tpl:55
+msgid ""
+"<a href=\"%1\">Find words</a> &mdash; a helper for crosswords and Scrabble"
+msgstr ""
+"<a href=\"%1\">Találj szavakat</a> &mdash; segédeszköz a "
+"keresztrejtvényekhez és a Scrabble-hez"
+
+#: templates/simple/links.tpl:60
+msgid "Programs that use the database of dexonline"
+msgstr "A dexonline adatbázisát használó programok"
+
+#: templates/simple/links.tpl:64
+msgid "A <a href=\"%1\">game of Fazan</a> for Android devices"
+msgstr "A <a href=\"%1\">Fazan játék</a> Android eszközök számára"
+
+#: templates/simple/tools.tpl:6
 msgid "off-line clients"
 msgstr "nem elérhető ügyfelek"
 
-#: templates/unelte.tpl:9
+#: templates/simple/tools.tpl:9
 msgid ""
 "These applications download the definitions from <i>dexonline</i> to your "
 "computer or phone. Then you can see them without an Internet connection."
@@ -1164,31 +1166,31 @@ msgstr ""
 "le a számítógépre vagy a telefonra. Ezután böngészheted őket internet "
 "kapcsolat nélkül is."
 
-#: templates/unelte.tpl:17
+#: templates/simple/tools.tpl:17
 msgid "Client"
 msgstr "Kliens"
 
-#: templates/unelte.tpl:30
+#: templates/simple/tools.tpl:30
 msgid "Platforms"
 msgstr "Operációs rendszer"
 
-#: templates/unelte.tpl:57
+#: templates/simple/tools.tpl:57
 msgid "Requirements"
 msgstr "Követelmények"
 
-#: templates/unelte.tpl:64
+#: templates/simple/tools.tpl:64
 msgid "Disk space required"
 msgstr "Szükséges lemezterület"
 
-#: templates/unelte.tpl:71
+#: templates/simple/tools.tpl:71
 msgid "Author"
 msgstr "Szerző"
 
-#: templates/unelte.tpl:99
+#: templates/simple/tools.tpl:99
 msgid "license on the data in this table"
 msgstr "engedély a táblázatban szereplő adatokra"
 
-#: templates/unelte.tpl:109
+#: templates/simple/tools.tpl:109
 msgid ""
 "The information in this table is dual-licensed under the GNU General Public "
 "License (as applicable to the entire site) and the <a href=\"%1\">Creative "
@@ -1205,15 +1207,15 @@ msgstr ""
 "együttműködve a discutii@dexonline.ro (korábban dictionar@yahoogroups.com) "
 "levelező listából gyűjtik össze."
 
-#: templates/unelte.tpl:120
+#: templates/simple/tools.tpl:120
 msgid "Browser integration"
 msgstr "Böngésző beilleszkedés"
 
-#: templates/unelte.tpl:126
+#: templates/simple/tools.tpl:126
 msgid "A <a href=\"%1\" onclick=\"%2\">spell checker</a> for Firefox."
 msgstr "<a href=\"%1\" onclick=\"%2\">helyesírás-ellenőrző</a> a Firefoxhoz."
 
-#: templates/unelte.tpl:132
+#: templates/simple/tools.tpl:132
 msgid ""
 "To use the spell checker, right-click in any text box, check the <em>Check "
 "spelling</em> box, right-click once more and select <em>Languages > "
@@ -1223,7 +1225,7 @@ msgstr ""
 "szövegmezőbe, pipázd ki a <em>Helyesírás ellenőrzése</em> mezőt, kattints "
 "jobb egérgombbal ujra, majd válaszd ki <em>Nyelvek > román</em>."
 
-#: templates/unelte.tpl:142
+#: templates/simple/tools.tpl:142
 msgid ""
 "<a href=\"#\" onclick=\"%1\">Add <i>dexonline</i> to the search engine list</"
 "a> of your browser. Thanks to Alexandru Lixandru."
@@ -1231,13 +1233,13 @@ msgstr ""
 "<a href=\"#\" onclick=\"%1\"> A <i>dexonline</i> hozzáadása a keresőmotor "
 "listájához</a> a böngésződben. Köszönet Alexandru Lixandrunak."
 
-#: templates/unelte.tpl:148
+#: templates/simple/tools.tpl:148
 msgid "A <a href=\"%1\">Chrome extension</a> for right-click searches."
 msgstr ""
 "<a href=\"%1\">Chrome-kiterjesztés</a> a jobb egérgombbal végzett "
 "keresésekhez."
 
-#: templates/unelte.tpl:154
+#: templates/simple/tools.tpl:154
 msgid ""
 "A <a href=\"%1\">Firefox plugin</a> for right-click searches. Save the file "
 "in the <tt>searchplugins/</tt> directory of Firefox and restart Firefox. "
@@ -1247,7 +1249,7 @@ msgstr ""
 "Mentsd el a fájlt a Firefox <tt>searchplugins/</tt> könyvtárában és indítsd "
 "újra a Firefoxot. Köszönet %2-nek."
 
-#: templates/unelte.tpl:161
+#: templates/simple/tools.tpl:161
 msgid "A <a href=\"%1\">WordPress plugin</a> for your blog."
 msgstr "<a href=\"%1\">WordPress bővítmény</a> a bloghoz."
 
@@ -1445,7 +1447,7 @@ msgstr ""
 "Mivel nem nyelvészek szerkesztették ezeket, a meghatározások hibákat "
 "tartalmazhatnak, ezért javasoljuk hogy tekintsd át a többi szótárat is."
 
-#: www/changeLocale.php:8
+#: routes/helpers/changeLocale.php:6
 msgid ""
 "Interface language changed. Definition text and external links are always in "
 "Romanian."
@@ -1453,10 +1455,119 @@ msgstr ""
 "Az felület nyelve megváltozott. A meghatározások szövege és a külső "
 "hivatkozások mindig románul vannak."
 
-#: www/lexeme/random.php:24
+#: routes/lexeme/random.php:24
 #, php-format
 msgid "A randomly chosen word"
 msgid_plural "%d randomly chosen words"
+msgstr[0] "%d véletlenszerűen kiválasztott"
+msgstr[1] "%d véletlenszerűen kiválasztott"
+
+#: routes/simple/tools.php:5
+msgid "Synchronization with dexonline"
+msgstr "Szinkronizálás a dexonline-nal"
+
+#: routes/simple/tools.php:6
+msgid "This client connects to dexonline periodically to download updates."
+msgstr ""
+"Ez a kliens rendszeresen csatlakozik a dexonline rendszerhez a frissítések "
+"letöltéséhez."
+
+#: routes/simple/tools.php:9
+msgid "Interface for visually impaired users"
+msgstr "Felhasználói felület a látássérülteknek"
+
+#: routes/simple/tools.php:10
+msgid "This client has a friendly interface for visually impaired users."
+msgstr ""
+"Ez az ügyfél barátságos felületet biztosít a látássérült felhasználók "
+"számára."
+
+#: routes/simple/tools.php:13
+msgid "Regular expressions, wildcards"
+msgstr "Szabályos kifejezések, helyettesítő karakterek"
+
+#: routes/simple/tools.php:14
+msgid ""
+"This client accepts searches using regular expressions and/or wildcards, "
+"such as «echi*» for echilibru, echinocțiu etc."
+msgstr ""
+"Ez az kliens elfogadja a reguláris kifejezéseket és/vagy helyettesítő "
+"karaktereket, például «echi*» az echilibru, echinocţiu stb."
+
+#: routes/simple/tools.php:17
+msgid "Suggestions"
+msgstr "Javaslatok"
+
+#: routes/simple/tools.php:18
+msgid ""
+"This client offers the closest matches when an exact match is not found."
+msgstr ""
+"Ez a kliens a legközelebbi megfelelőt kínálja, ha nem talál pontos egyezést."
+
+#: routes/simple/tools.php:21
+msgid "Diacritics support"
+msgstr "Ékezet támogatás"
+
+#: routes/simple/tools.php:22
+msgid "This client supports searching with or without diacritics."
+msgstr "Ez a kliens támogatja az ékezettel vagy anélküli keresést."
+
+#: routes/simple/tools.php:25
+msgid "Full-text searches"
+msgstr "Teljes szöveges keresések"
+
+#: routes/simple/tools.php:26
+msgid ""
+"This client can search not just keywords, but the definition body as well."
+msgstr ""
+"Ez a kliens nem csak kulcsszavakat keres, hanem a meghatározásoknak a teljes "
+"szövegét is."
+
+#: routes/simple/tools.php:29
+msgid "Inflected form search"
+msgstr "Ragozott forma keresése"
+
+#: routes/simple/tools.php:30
+msgid ""
+"This client can query declensions and conjugations, such as «lucreze» "
+"instead of «lucra»."
+msgstr ""
+"Ez a kliens képes lekérdezni a ragozásokat, például a \"lucreze\" kifejezést "
+"a \"lucra\" helyett."
+
+#: routes/simple/tools.php:33
+msgid "Word clicks"
+msgstr "Szó kattintások"
+
+#: routes/simple/tools.php:34
+msgid ""
+"When you click a word in a definition, this client goes to the definition "
+"for that word."
+msgstr ""
+"Amikor egy kifejezésre kattintsz egy meghatározásban, akkor a kliens a szó "
+"meghatározásához vezet."
+
+#: routes/simple/tools.php:37
+msgid "Search history"
+msgstr "Keresési előzmények"
+
+#: routes/simple/tools.php:38
+msgid "This client remembers the most recent searches and can revisit them."
+msgstr ""
+"Ez a kliens emlékszik a legfrissebb keresésekre, és újra megtekintheted őket."
+
+#: routes/simple/tools.php:49
+msgid "Perl, wxWidgets (only under Linux)"
+msgstr "Perl, wxWidgets (csak Linux alatt)"
+
+#: routes/simple/tools.php:73
+msgid "QT, g++ (only under Linux)"
+msgstr "QT, g++ (csak Linux alatt)"
+
+#: routes/wotd/random.php:22
+#, php-format
+msgid "A randomly chosen word of the day"
+msgid_plural "%d randomly chosen words of the day"
 msgstr[0] "%d véletlenszerűen kiválasztott"
 msgstr[1] "%d véletlenszerűen kiválasztott"
 
@@ -1472,112 +1583,3 @@ msgstr "igeragozások"
 #: www/search.php:331
 msgid "declensions"
 msgstr "ragozások"
-
-#: www/unelte.php:6
-msgid "Synchronization with dexonline"
-msgstr "Szinkronizálás a dexonline-nal"
-
-#: www/unelte.php:7
-msgid "This client connects to dexonline periodically to download updates."
-msgstr ""
-"Ez a kliens rendszeresen csatlakozik a dexonline rendszerhez a frissítések "
-"letöltéséhez."
-
-#: www/unelte.php:10
-msgid "Interface for visually impaired users"
-msgstr "Felhasználói felület a látássérülteknek"
-
-#: www/unelte.php:11
-msgid "This client has a friendly interface for visually impaired users."
-msgstr ""
-"Ez az ügyfél barátságos felületet biztosít a látássérült felhasználók "
-"számára."
-
-#: www/unelte.php:14
-msgid "Regular expressions, wildcards"
-msgstr "Szabályos kifejezések, helyettesítő karakterek"
-
-#: www/unelte.php:15
-msgid ""
-"This client accepts searches using regular expressions and/or wildcards, "
-"such as «echi*» for echilibru, echinocțiu etc."
-msgstr ""
-"Ez az kliens elfogadja a reguláris kifejezéseket és/vagy helyettesítő "
-"karaktereket, például «echi*» az echilibru, echinocţiu stb."
-
-#: www/unelte.php:18
-msgid "Suggestions"
-msgstr "Javaslatok"
-
-#: www/unelte.php:19
-msgid ""
-"This client offers the closest matches when an exact match is not found."
-msgstr ""
-"Ez a kliens a legközelebbi megfelelőt kínálja, ha nem talál pontos egyezést."
-
-#: www/unelte.php:22
-msgid "Diacritics support"
-msgstr "Ékezet támogatás"
-
-#: www/unelte.php:23
-msgid "This client supports searching with or without diacritics."
-msgstr "Ez a kliens támogatja az ékezettel vagy anélküli keresést."
-
-#: www/unelte.php:26
-msgid "Full-text searches"
-msgstr "Teljes szöveges keresések"
-
-#: www/unelte.php:27
-msgid ""
-"This client can search not just keywords, but the definition body as well."
-msgstr ""
-"Ez a kliens nem csak kulcsszavakat keres, hanem a meghatározásoknak a teljes "
-"szövegét is."
-
-#: www/unelte.php:30
-msgid "Inflected form search"
-msgstr "Ragozott forma keresése"
-
-#: www/unelte.php:31
-msgid ""
-"This client can query declensions and conjugations, such as «lucreze» "
-"instead of «lucra»."
-msgstr ""
-"Ez a kliens képes lekérdezni a ragozásokat, például a \"lucreze\" kifejezést "
-"a \"lucra\" helyett."
-
-#: www/unelte.php:34
-msgid "Word clicks"
-msgstr "Szó kattintások"
-
-#: www/unelte.php:35
-msgid ""
-"When you click a word in a definition, this client goes to the definition "
-"for that word."
-msgstr ""
-"Amikor egy kifejezésre kattintsz egy meghatározásban, akkor a kliens a szó "
-"meghatározásához vezet."
-
-#: www/unelte.php:38
-msgid "Search history"
-msgstr "Keresési előzmények"
-
-#: www/unelte.php:39
-msgid "This client remembers the most recent searches and can revisit them."
-msgstr ""
-"Ez a kliens emlékszik a legfrissebb keresésekre, és újra megtekintheted őket."
-
-#: www/unelte.php:50
-msgid "Perl, wxWidgets (only under Linux)"
-msgstr "Perl, wxWidgets (csak Linux alatt)"
-
-#: www/unelte.php:74
-msgid "QT, g++ (only under Linux)"
-msgstr "QT, g++ (csak Linux alatt)"
-
-#: www/wotd/random.php:22
-#, php-format
-msgid "A randomly chosen word of the day"
-msgid_plural "%d randomly chosen words of the day"
-msgstr[0] "%d véletlenszerűen kiválasztott"
-msgstr[1] "%d véletlenszerűen kiválasztott"

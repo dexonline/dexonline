@@ -2020,7 +2020,7 @@
       "id": "0d0894a1-45c4-4f15-b04c-735daead5086",
       "comment": "",
       "command": "open",
-      "target": "./tipuri-modele",
+      "target": "./tipuri-model",
       "targets": [],
       "value": ""
     }, {
@@ -2170,7 +2170,7 @@
       "id": "fe7276ee-0a35-4d35-94f8-e9ed0cc7ff90",
       "comment": "",
       "command": "open",
-      "target": "./tipuri-modele",
+      "target": "./tipuri-model",
       "targets": [],
       "value": ""
     }, {

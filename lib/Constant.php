@@ -249,6 +249,9 @@ class Constant {
       'css' => [ 'main.css' ],
       'js' => [ 'dex.js' ],
     ],
+    'loggedIn' => [
+      'js' => [ 'loggedIn.js' ],
+    ],
     'paradigm' => [
       'css' => [ 'paradigm.css' ],
     ],

@@ -190,6 +190,9 @@ class Smart {
     if (Config::SEARCH_AC_ENABLED) {
       self::addResources('jqueryui');
     }
+    if (User::getActiveId()) {
+      self::addResources('loggedIn');
+    }
     if (User::can(User::PRIV_ANY)) {
       self::addResources('admin', 'charmap', 'sprintf');
     }

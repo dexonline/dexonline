@@ -187,6 +187,18 @@ class Router {
       'ro_RO.utf8' => 'omleta',
     ],
 
+    // helpers
+    'helpers/changeLocale' => [
+      'en_US.utf8' => 'changeLocale',
+    ],
+    'helpers/goto' => [
+      'en_US.utf8' => 'goto',
+      'ro_RO.utf8' => 'spre',
+    ],
+    'helpers/toggleMode' => [
+      'en_US.utf8' => 'toggleMode',
+    ],
+
     // inflections
     'inflection/list' => [
       'en_US.utf8' => 'inflections',
@@ -250,6 +262,24 @@ class Router {
     'model/view' => [
       'en_US.utf8' => 'inflection-model',
       'ro_RO.utf8' => 'model-flexiune',
+    ],
+
+    // simple - pages that use (almost) no object models at all
+    'simple/contact' => [
+      'en_US.utf8' => 'contact',
+      'ro_RO.utf8' => 'contact',
+    ],
+    'simple/license' => [
+      'en_US.utf8' => 'license',
+      'ro_RO.utf8' => 'licenta',
+    ],
+    'simple/links' => [
+      'en_US.utf8' => 'links',
+      'ro_RO.utf8' => 'legaturi',
+    ],
+    'simple/tools' => [
+      'en_US.utf8' => 'tools',
+      'ro_RO.utf8' => 'unelte',
     ],
 
     // sources
@@ -347,6 +377,7 @@ class Router {
   // file => list of parameters expected in the URL (none by default)
   const PARAMS = [
     'article/view' => [ 'title' ],
+    'helpers/goto' => [ 'key' ],
     'lexeme/random' => [ 'count', 'skin' ],
     'model/list' => [ 'modelType' ],
     'model/view' => [ 'model' ],

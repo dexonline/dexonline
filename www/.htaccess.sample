@@ -11,25 +11,14 @@ Options -MultiViews
 # See http://stackoverflow.com/questions/437256/why-wont-my-php-app-send-a-404-error
 ErrorDocument 404 /404
 
-# SEO rewrites
+# search pages
 RewriteRule ^text(-([^/]+))?/(.*)$ search.php?cuv=$3&source=$2&text=1 [L]
-
-RewriteRule ^spre/(.*)$ goto.php?key=$1 [PT,L]
-
 RewriteRule ^definitie(-([^/]+))?/([^/]+)(/([0-9]+))?(/expandat)?(/(paradigma|sinteza))?(/xml|/json)?$ search.php?cuv=$3&source=$2&defId=$5&tab=$8&all=$6&format=$9 [PT,L]
 RewriteRule ^intrare(-([^/]+))?/([^/]+)(/([0-9]+))?(/(paradigma|sinteza))?(/xml|/json)?$ search.php?cuv=$3&source=$2&entryId=$5&tab=$7&format=$8 [PT,L]
 RewriteRule ^lexem/([^/]+)(/([0-9]+))?$ search.php?cuv=$1&lexemeId=$3 [PT,L]
 
 # Non-search pages
-RewriteRule ^404$ simple.php?p=404 [PT,L]
-RewriteRule ^contact$ simple.php?p=contact [PT,L]
 RewriteRule ^informatii$ https://wiki.dexonline.ro/wiki/Informații [R,L]
-RewriteRule ^legaturi$ simple.php?p=links [PT,L]
-
-# Redirect old php pages to new ones (only where we care about the link / pagerank)
-RewriteRule ^faq.php$ https://wiki.dexonline.ro/wiki/Informații [R=301,L]
-RewriteRule ^contact.php$ /contact [R=301,L]
-RewriteRule ^tools.php$ /unelte [R=301,L]
 
 # Append .php when a file by that name exists
 RewriteCond %{REQUEST_URI} /[-a-zA-Z]+$

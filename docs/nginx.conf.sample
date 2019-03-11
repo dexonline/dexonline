@@ -15,8 +15,6 @@ server {
   location / {
 
     rewrite ^/text(-([^/]+))?/(.*)$ /search.php?cuv=$3&source=$2&text=1 last;
-    rewrite ^/spre/(.*)$ /goto.php?key=$1 last;
-
     rewrite ^/definitie(-([^/]+))?/([^/]+)(/([0-9]+))?(/expandat)?(/(paradigma|sinteza))?(/xml|/json)?$ /search.php?cuv=$3&source=$2&defId=$5&tab=$8&all=$6&format=$9 last;
     rewrite ^/intrare(-([^/]+))?/([^/]+)(/([0-9]+))?(/(paradigma|sinteza))?(/xml|/json)?$ /search.php?cuv=$3&source=$2&entryId=$5&tab=$7&format=$8 last;
     rewrite ^/lexem/([^/]+)(/([0-9]+))?$ /search.php?cuv=$1&lexemeId=$3 last;
@@ -26,10 +24,7 @@ server {
     rewrite ^/(declinare|conjugare)/(.*)$ /paradigm.php?cuv=$2&type=$1 last;
 
     # Non-search pages
-    rewrite ^/404$ /simple.php?p=404 last;
-    rewrite ^/contact$ /simple.php?p=contact last;
     rewrite ^/informatii$ https://wiki.dexonline.ro/wiki/Informații last;
-    rewrite ^/legaturi$ /simple.php?p=links last;
 
     if (-f $document_root/$uri.php) {
       rewrite ^(.*)$ $uri.php last;
@@ -57,11 +52,6 @@ server {
     if ($cors) {
       add_header Access-Control-Allow-Origin *;
     }
-
-    # Redirect old php pages to new ones (only where we care about the link / pagerank)
-    rewrite ^/faq.php$ https://wiki.dexonline.ro/wiki/Informații permanent;
-    rewrite ^/contact.php$ /contact permanent;
-    rewrite ^/tools.php$ /unelte permanent;
   }
 
 }

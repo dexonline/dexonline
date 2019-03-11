@@ -4,7 +4,7 @@
 {block "bannerHead"}{/block}
 {block "search"}{/block}
 {block "content"}
-	{include "admin/charmap.tpl"}
+	{include "bits/charmap.tpl"}
 	{$smarty.block.child}
 {/block}
 {block "footer"}{/block}

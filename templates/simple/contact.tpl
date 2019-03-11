@@ -26,7 +26,7 @@
     </li>
 
     <li>
-      {t 1="unelte"}
+      {t 1=Router::link('simple/tools')}
       You can install dexonline on <a href="%1">your computer or phone</a>.
       {/t}
     </li>

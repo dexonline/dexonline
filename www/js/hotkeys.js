@@ -35,7 +35,7 @@ $(function() {
   }
 
   function toggleMode(mode) {
-    window.location = wwwRoot + 'admin/toggleMode.php?mode=' + mode;
+    window.location = wwwRoot + 'toggleMode?mode=' + mode;
   }
 
   function quickNavLexemeFocus() {

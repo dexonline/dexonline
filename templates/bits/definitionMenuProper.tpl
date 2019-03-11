@@ -50,7 +50,7 @@
     {if $row->source->courtesyLink}
       <li>
         {t}provided by{/t}
-        <a class="ref" href="{Config::URL_PREFIX}spre/{$row->source->courtesyLink}">
+        <a class="ref" href="{Router::link('helpers/goto')}/{$row->source->courtesyLink}">
           {$row->source->courtesyText}
         </a>
       </li>

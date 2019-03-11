@@ -59,7 +59,7 @@
                 {t}information{/t}
               </a>
             </li>
-            <li><a href="{Config::URL_PREFIX}contact">{t}contact us{/t}</a></li>
+            <li><a href="{Router::link('simple/contact')}">{t}contact us{/t}</a></li>
             <li><a href="https://dexonline.blogspot.ro">{t}blog{/t}</a></li>
           </ul>
 
@@ -108,10 +108,10 @@
             <li><a href="{Router::link('article/view')}/Ghid_de_exprimare_corect%C4%83">{t}grammar guide{/t}</a></li>
             <li><a href="{Router::link('wotd/view')}">{t}word of the day{/t}</a></li>
             <li><a href="{Router::link('wotm/view')}">{t}word of the month{/t}</a></li>
-            <li><a href="{Config::URL_PREFIX}cuvinte-aleatoare">{t}random words{/t}</a></li>
+            <li><a href="{Router::link('lexeme/random')}">{t}random words{/t}</a></li>
             <li><a href="{Router::link('games/scrabble')}">{t}Scrabble{/t}</a></li>
-            <li><a href="{Config::URL_PREFIX}unelte">{t}tools{/t}</a></li>
-            <li><a href="{Config::URL_PREFIX}legaturi">{t}external links{/t}</a></li>
+            <li><a href="{Router::link('simple/tools')}">{t}tools{/t}</a></li>
+            <li><a href="{Router::link('simple/links')}">{t}external links{/t}</a></li>
           </ul>
 
         </li>
@@ -130,7 +130,7 @@
           <ul class="dropdown-menu">
             {foreach Config::LOCALES as $id => $name}
               <li>
-                <a href="{Config::URL_PREFIX}changeLocale?id={$id}">
+                <a href="{Router::link('helpers/changeLocale')}?id={$id}">
                   <i class="glyphicon glyphicon-ok {if $id != LocaleUtil::getCurrent()}invisible{/if}">
                   </i>
                   {$name}
@@ -256,7 +256,7 @@
 
           <ul>
             <li>
-              <a href="{Config::URL_PREFIX}admin/">Alt-A</a>
+              <a href="{Router::link('aggregate/dashboard')}">Alt-A</a>
               = pagina moderatorului
             </li>
             <li>

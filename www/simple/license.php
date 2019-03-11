@@ -1,5 +1,4 @@
 <?php
-require_once '../lib/Core.php';
 
 $restrictedSources = Model::factory('Source')
   ->where('canDistribute', 0)
@@ -8,4 +7,4 @@ $restrictedSources = Model::factory('Source')
   ->find_many();
 
 Smart::assign('restrictedSources', $restrictedSources);
-Smart::display('licenta.tpl');
+Smart::display('simple/license.tpl');

@@ -1,5 +1,4 @@
 <?php
-require_once '../lib/Core.php';
 
 $clientOptions = [
   'sync' => [
@@ -118,4 +117,4 @@ $osNames = [
 Smart::assign('clients', $clients);
 Smart::assign('clientOptions', $clientOptions);
 Smart::assign('osNames', $osNames);
-Smart::display('unelte.tpl');
+Smart::display('simple/tools.tpl');

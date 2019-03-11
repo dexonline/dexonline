@@ -1,7 +1,5 @@
 <?php
 
-require_once '../../lib/Core.php';
-
 $mode = Request::get('mode');
 
 switch ($mode) {

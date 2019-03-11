@@ -460,10 +460,14 @@ class Router {
 
   // Returns a human-readable URL for this file.
   static function link($file, $absolute = false) {
-    $routes = self::ROUTES[$file];
-    $rel = $routes[LocaleUtil::getCurrent()]     // current locale
-      ?? $routes[Config::DEFAULT_ROUTING_LOCALE] // or default locale
-      ?? '';                                     // or home page
+    if (isset(self::ROUTES[$file])) {
+      $routes = self::ROUTES[$file];
+      $rel = $routes[LocaleUtil::getCurrent()]     // current locale
+        ?? $routes[Config::DEFAULT_ROUTING_LOCALE] // or default locale
+        ?? '';                                     // or home page
+    } else {
+      $rel = $file;
+    }
 
     $url = ($absolute ? Config::URL_HOST : '') . Config::URL_PREFIX . $rel;
     return $url;

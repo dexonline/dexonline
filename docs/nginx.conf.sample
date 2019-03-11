@@ -23,9 +23,6 @@ server {
     rewrite ^/(declinare|conjugare)/lexem/(.*)$ /paradigm.php?lexemeId=$2&type=$1 last;
     rewrite ^/(declinare|conjugare)/(.*)$ /paradigm.php?cuv=$2&type=$1 last;
 
-    # Non-search pages
-    rewrite ^/informatii$ https://wiki.dexonline.ro/wiki/Informații last;
-
     if (-f $document_root/$uri.php) {
       rewrite ^(.*)$ $uri.php last;
     }

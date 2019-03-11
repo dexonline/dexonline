@@ -1,6 +1,5 @@
 <?php
 
-require_once __DIR__ . '/../../lib/Core.php';
 require_once __DIR__ . '/../../lib/third-party/elfinder/autoload.php';
 
 /**

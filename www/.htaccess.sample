@@ -17,9 +17,6 @@ RewriteRule ^definitie(-([^/]+))?/([^/]+)(/([0-9]+))?(/expandat)?(/(paradigma|si
 RewriteRule ^intrare(-([^/]+))?/([^/]+)(/([0-9]+))?(/(paradigma|sinteza))?(/xml|/json)?$ search.php?cuv=$3&source=$2&entryId=$5&tab=$7&format=$8 [PT,L]
 RewriteRule ^lexem/([^/]+)(/([0-9]+))?$ search.php?cuv=$1&lexemeId=$3 [PT,L]
 
-# Non-search pages
-RewriteRule ^informatii$ https://wiki.dexonline.ro/wiki/Informații [R,L]
-
 # Append .php when a file by that name exists
 RewriteCond %{REQUEST_URI} /[-a-zA-Z]+$
 RewriteCond %{REQUEST_FILENAME}.php -f

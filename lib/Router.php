@@ -422,27 +422,40 @@ class Router {
       $route .= '/' . array_shift($parts);
     }
 
-    if (!isset(self::$fwdRoutes[$route])) {
-      Log::debug('no route found for %s', $path);
-      return null;
+    if (isset(self::$fwdRoutes[$route])) {
+
+      // get the PHP file
+      $rec = self::$fwdRoutes[$route];
+      $file = $rec . '.php';
+
+      // save any alternate versions in case we need to print them in header tags
+      self::setRelAlternate($route, $uri);
+
+    } else {
+
+      // fallback: look for a file by the same name under routes/
+      $file = $path . '.php';
+      $rec = '';
+
     }
 
-    // get the PHP file
-    $rec = self::$fwdRoutes[$route];
-    $file = $rec . '.php';
-    Log::debug('routing %s to %s', $path, $file);
+    $absolute = Config::ROOT . 'routes/' . $file;
+    if (file_exists($absolute)) {
 
-    // save any alternate versions in case we need to print them in header tags
-    self::setRelAlternate($route, $uri);
+      // set additional params if the file expects them and the URL has them
+      $params = self::PARAMS[$rec] ?? [];
+      for ($i = 0; $i < min(count($params), count($parts)); $i++) {
+        $_REQUEST[$params[$i]] = urldecode($parts[$i]);
+      }
 
-    // set additional params if the file expects them and the URL has them
-    $params = self::PARAMS[$rec] ?? [];
-    for ($i = 0; $i < min(count($params), count($parts)); $i++) {
-      $_REQUEST[$params[$i]] = urldecode($parts[$i]);
+      Log::debug('routing %s to %s', $path, $file);
+
+      require_once $absolute;
+      exit;
     }
 
-    require_once Config::ROOT . 'routes/' . $file;
-    exit;
+    Log::debug('no route found for %s', $path);
+    return null;
   }
 
   // Returns a human-readable URL for this file.

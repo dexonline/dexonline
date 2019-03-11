@@ -30,7 +30,7 @@
           {if $r.count && User::can($r.privilege)}
             <tr>
               <td>{$r.text}</td>
-              <td><a href="../{$r.url}">{$r.count}</a></td>
+              <td><a href="{Config::URL_PREFIX}{$r.url}">{$r.count}</a></td>
             </tr>
           {/if}
         {/foreach}

@@ -441,7 +441,7 @@ class Router {
       $_REQUEST[$params[$i]] = urldecode($parts[$i]);
     }
 
-    require_once $file;
+    require_once Config::ROOT . 'routes/' . $file;
     exit;
   }
 

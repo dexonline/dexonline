@@ -313,6 +313,10 @@ class Router {
     ],
 
     // users
+    'user/editAvatar' => [
+      'en_US.utf8' => 'edit-avatar',
+      'ro_RO.utf8' => 'editare-avatar',
+    ],
     'user/list' => [
       'en_US.utf8' => 'moderators',
       'ro_RO.utf8' => 'moderatori',
@@ -320,6 +324,10 @@ class Router {
     'user/preferences' => [
       'en_US.utf8' => 'preferences',
       'ro_RO.utf8' => 'preferinte',
+    ],
+    'user/saveAvatar' => [
+      'en_US.utf8' => 'save-avatar',
+      'ro_RO.utf8' => 'salvare-avatar',
     ],
     'user/top' => [
       'en_US.utf8' => 'top',

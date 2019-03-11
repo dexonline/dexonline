@@ -1,5 +1,4 @@
 <?php
-require_once '../lib/Core.php';
 
 $file = Request::getFile('avatarFileName');
 $ext = pathinfo($file['name'], PATHINFO_EXTENSION);
@@ -45,4 +44,4 @@ chmod($destFileName, 0666);
 
 Smart::addResources('jcrop');
 Smart::assign('rawFileName', "{$user->id}_raw.{$ext}");
-Smart::display('editare-avatar.tpl');
+Smart::display('user/editAvatar.tpl');

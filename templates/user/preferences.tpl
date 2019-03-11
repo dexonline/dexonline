@@ -9,7 +9,7 @@
     <div class="panel panel-default">
       <div class="panel-heading">Imagine</div>
       <div class="panel-body">
-        <form action="editare-avatar" method="post" enctype="multipart/form-data">
+        <form action="{Router::link('user/editAvatar')}" method="post" enctype="multipart/form-data">
           {include "bits/avatar.tpl" user=User::getActive()}
           <br>
           <br>
@@ -22,7 +22,7 @@
             editează
           </button>
           {if User::getActive()->hasAvatar}
-            <a href="salvare-avatar?delete=1"
+            <a href="{Router::link('user/saveAvatar')}?delete=1"
               class="btn btn-danger"
               onclick="return confirm('Confirmați ștergerea imaginii?');">
               <i class="glyphicon glyphicon-trash"></i>

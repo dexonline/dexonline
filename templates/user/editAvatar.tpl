@@ -22,7 +22,7 @@
     Rezultatul selecției dumneavoastră apare aici. Dacă totul arată bine, apăsați butonul Salvează.
   </p>
 
-  <form id="avatarForm" action="salvare-avatar" method="post">
+  <form id="avatarForm" action="{Router::link('user/saveAvatar')}" method="post">
     <div id="avatarPreviewContainer">
       <img
         id="jcropPreview"

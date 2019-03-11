@@ -35,7 +35,7 @@ if ($saveButton) {
     Preferences::set($user, $detailsVisible, array_sum($userPrefs), array_sum($widgets));
 
     FlashMessage::add('Am salvat preferințele.', 'success');
-    Util::redirectToRoute('user/preferences');
+    Util::redirectToSelf();
   }
 } else {
 

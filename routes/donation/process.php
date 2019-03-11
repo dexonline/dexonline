@@ -33,7 +33,7 @@ if ($processButton) {
                     'medalii și/sau scutiri de bannere, nu uitați să goliți parțial cache-ul ' .
                     'lui Varnish: <b>sudo varnishadm ban req.url "~" ^/utilizator</b>',
                     'success');
-  Util::redirectToRoute('donation/process');
+  Util::redirectToSelf();
 
 } else if ($previewButton) {
   if ($includeOtrs) {

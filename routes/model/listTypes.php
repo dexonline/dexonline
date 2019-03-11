@@ -24,7 +24,7 @@ if ($saveButton && !$id) {
     $mt->save();
     Log::notice("Created model type {$mt->code} ({$mt->description})");
     FlashMessage::add("Am adăugat tipul de model '{$mt->code}'.", 'success');
-    Util::redirectToRoute('model/listTypes');
+    Util::redirectToSelf();
   } else {
     $showAddForm = true;
     Smart::assign('addModelType', $mt);
@@ -39,7 +39,7 @@ if ($saveButton && $id) {
     $mt->save();
     Log::notice("Changed description for model type {$mt->code} ({$mt->description})");
     FlashMessage::add('Am salvat descrierea.', 'success');
-    Util::redirectToRoute('model/listTypes');
+    Util::redirectToSelf();
   } else {
     Smart::assign('editModelType', $mt);
   }
@@ -56,7 +56,7 @@ if ($deleteId) {
     FlashMessage::add("Am șters tipul de model '{$mt->code}'.", 'success');
     Log::notice("Deleted model type {$mt->code} ({$mt->description})");
     $mt->delete();
-    Util::redirectToRoute('model/listTypes');
+    Util::redirectToSelf();
   }
 }
 

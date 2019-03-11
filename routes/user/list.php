@@ -29,12 +29,12 @@ if ($saveButton) {
       Log::warning("Granted permissions {$user->moderator} to user {$user->id} ({$user->nick})");
     } else {
       FlashMessage::add("Numele de utilizator „{$newNick}” nu există.");
-      Util::redirectToRoute('user/list');
+      Util::redirectToSelf();
     }
   }
 
   FlashMessage::add('Am salvat modificările.', 'success');
-  Util::redirectToRoute('user/list');
+  Util::redirectToSelf();
 }
 
 $moderators = Model::factory('User')

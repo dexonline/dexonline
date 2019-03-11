@@ -12,7 +12,7 @@ if ($deleteInflectionId) {
   $infl = Inflection::get_by_id($deleteInflectionId);
   Log::warning("Deleting inflection {$infl->id} ({$infl->description})");
   $infl->delete();
-  Util::redirectToRoute('inflection/list');
+  Util::redirectToSelf();
 }
 
 if ($saveButton) {
@@ -37,7 +37,7 @@ if ($saveButton) {
     Log::info("Created inflection {$infl->id} ({$infl->description})");
   }
 
-  Util::redirectToRoute('inflection/list');
+  Util::redirectToSelf();
 }
 
 // Tag inflections which can be safely deleted (only those that aren't being used by any model)

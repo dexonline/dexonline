@@ -177,8 +177,9 @@ class Util {
   static function redirect($location) {
     // Fix an Android issue with redirects caused by diacritics
     $location = str_replace(
-      ['ă', 'â', 'î', 'ș', 'ț', 'Ă', 'Â', 'Î', 'Ș', 'Ț'], ['%C4%83', '%C3%A2', '%C3%AE', '%C8%99', '%C8%9B',
-      '%C4%82', '%C3%82', '%C3%8E', '%C8%98', '%C8%9A'], $location);
+      ['ă', 'â', 'î', 'ș', 'ț', 'Ă', 'Â', 'Î', 'Ș', 'Ț'],
+      ['%C4%83', '%C3%A2', '%C3%AE', '%C8%99', '%C8%9B',
+       '%C4%82', '%C3%82', '%C3%8E', '%C8%98', '%C8%9A'], $location);
     FlashMessage::saveToSession();
     header("HTTP/1.1 301 Moved Permanently");
     header("Location: $location");
@@ -191,6 +192,14 @@ class Util {
 
   static function redirectToHome() {
     self::redirect(Config::URL_PREFIX);
+  }
+
+  // Redirects to the same page, stripping any GET parameters but preserving
+  // any slash-delimited arguments.
+  static function redirectToSelf() {
+    $uri = $_SERVER['REQUEST_URI'];
+    $path = parse_url($uri, PHP_URL_PATH);
+    self::redirect($path);
   }
 
   static function assertNotLoggedIn() {

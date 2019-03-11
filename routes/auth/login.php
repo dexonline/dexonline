@@ -16,7 +16,7 @@ $devel = Config::DEVELOPMENT_MODE;
 if ($fakeUserNick) {
   if (!$devel) {
     FlashMessage::add('Conectarea cu utilizatori de test este permisă doar în development.');
-    Util::redirectToRoute('auth/login');
+    Util::redirectToSelf();
   }
   $user = User::get_by_nick($fakeUserNick);
   if (!$user) {

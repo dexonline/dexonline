@@ -10,7 +10,7 @@ if ($medalSaveButton) {
   $user = User::get_by_id($userId);
   $user->medalMask = Medal::getCanonicalMask(array_sum($medalsGranted));
   $user->save();
-  Util::redirect(Router::link('user/view') . "/{$user->nick}");
+  Util::redirectToSelf(); // including /nick
 }
 
 $user = User::get_by_nick($nick);

@@ -23,7 +23,7 @@ if ($saveButton) {
       }
     }
   }
-  Util::redirectToRoute('lexeme/accentTool');
+  Util::redirectToSelf();
 }
 
 $chars = [];

@@ -13,7 +13,7 @@ if ($saveButton) {
   }
   Log::info('Reordered sources');
   FlashMessage::add('Am salvat ordinea.', 'success');
-  Util::redirectToRoute('source/list');
+  Util::redirectToSelf();
 }
 
 if (User::can(User::PRIV_VIEW_HIDDEN)) {

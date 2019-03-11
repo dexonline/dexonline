@@ -21,7 +21,7 @@
       {foreach $defs as $d}
         <tr>
           <td>
-            <a href="{Router::link('definition/edit')}?definitionId={$d->id}">
+            <a href="{Router::link('definition/edit')}/{$d->id}">
               {$d->lexicon|default:'[nedefinit]'}
             </a>
           </td>

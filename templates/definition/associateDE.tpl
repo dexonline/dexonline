@@ -17,7 +17,7 @@
   <div class="panel panel-default">
     <div class="panel-body">
       {HtmlConverter::convert($def)}
-      <a href="{Router::link('definition/edit')}?definitionId={$def->id}">
+      <a href="{Router::link('definition/edit')}/{$def->id}">
         <i class="glyphicon glyphicon-pencil"></i>
         editează
       </a>

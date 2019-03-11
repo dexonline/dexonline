@@ -385,6 +385,7 @@ class Router {
   // file => list of parameters expected in the URL (none by default)
   const PARAMS = [
     'article/view' => [ 'title' ],
+    'definition/edit' => [ 'definitionId' ],
     'helpers/goto' => [ 'key' ],
     'lexeme/random' => [ 'count', 'skin' ],
     'model/list' => [ 'modelType' ],

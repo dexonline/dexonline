@@ -6,9 +6,10 @@ Options -MultiViews
 # Uncomment the next line when running dexonline from within a user directory
 # RewriteBase /~username/dexonline/www/
 
-# Note: this directive only works for actually broken URLS.
-# Once Apache passes control to PHP, we are responsible for providing the content of the 404 page as well.
-# See http://stackoverflow.com/questions/437256/why-wont-my-php-app-send-a-404-error
+# Note: this directive only works for actually broken URLS.  Once Apache
+# passes control to PHP, we are responsible for providing the content of the
+# 404 page as well.  See
+# http://stackoverflow.com/questions/437256/why-wont-my-php-app-send-a-404-error
 ErrorDocument 404 /404
 
 # search pages

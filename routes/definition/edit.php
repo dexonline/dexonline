@@ -129,12 +129,12 @@ if ($saveButton || $nextOcrBut) {
 
     if ($nextOcrBut) {
       // cause the next OCR definition to load
-      Util::redirect('?isOcr=1');
+      Util::redirect(Router::link('definition/edit') . '?isOcr=1');
     } else {
-      $url = "?definitionId={$d->id}";
+      $url = Router::link('definition/edit') . '/' . $d->id;
       if ($isOcr) {
         // carry this around so the user can click "Save" any number of times, then "next OCR".
-        $url .= "&isOcr=1";
+        $url .= "?isOcr=1";
       }
       Util::redirect($url);
     }
@@ -236,7 +236,7 @@ function getDefinitionFromOcr($userId) {
 
   Log::notice("Imported definition {$d->id} ({$d->lexicon}) from OCR {$ocr->id}");
 
-  Util::redirect("?definitionId={$d->id}&isOcr=1");
+  Util::redirect(Router::link('definition/edit') . "/{$d->id}?isOcr=1");
 }
 
 // check the pending definitions limit for trainees

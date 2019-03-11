@@ -90,7 +90,7 @@
   {if $showEditLink}
     {if User::can(User::PRIV_EDIT)}
       <li>
-        <a href="{Router::link('definition/edit')}?definitionId={$def->id}">
+        <a href="{Router::link('definition/edit')}/{$def->id}">
           editează
         </a>
       </li>

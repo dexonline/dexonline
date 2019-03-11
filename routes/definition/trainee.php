@@ -8,9 +8,13 @@ $defs = Model::factory('Definition')
   ->find_many();
 
 $sourceIds = array_unique(Util::objectProperty($defs, 'sourceId'));
-$sources = Model::factory('Source')
-  ->where_in('id', $sourceIds)
-  ->find_many();
+if ($sourceIds) {
+  $sources = Model::factory('Source')
+    ->where_in('id', $sourceIds)
+    ->find_many();
+} else {
+  $sources = [];
+}
 $sourceMap = Util::mapById($sources);
 
 Smart::assign([

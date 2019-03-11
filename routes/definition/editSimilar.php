@@ -14,4 +14,4 @@ $mod = DiffUtil::diffAction($similar, $def, $rank, $action);
 $mod->process();
 $mod->save();
 
-Util::redirect(Router::link('definition/edit') . "?definitionId={$defId}");
+Util::redirect(Router::link('definition/edit') . '/' . $defId);

@@ -40,7 +40,7 @@
           <u>s</u>alvează
         </button>
 
-        <a class="btn btn-link" href="{Router::link('definition/edit')}?definitionId={$def->id}">
+        <a class="btn btn-link" href="{Router::link('definition/edit')}/{$def->id}">
           <i class="glyphicon glyphicon-pencil"></i>
           editează
         </a>

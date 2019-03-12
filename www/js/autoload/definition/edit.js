@@ -69,7 +69,7 @@ $(function() {
     }
     if (data.sim) {
       $('#similarDefinitionEdit').show();
-      $('#similarDefinitionEdit').attr('href', '?definitionId=' + data.sim.id);
+      $('#similarDefinitionEdit').attr('href', data.sim.id);
       $('#similarRep').html(data.simHtml);
     } else {
       $('#similarDefinitionEdit').hide();

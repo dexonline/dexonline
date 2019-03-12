@@ -251,7 +251,11 @@
 
       <div class="panel-heading">
         Definiția corespunzătoare din <span class="similarSourceName"></span>
-        <a class="pull-right" id="similarDefinitionEdit" href="?definitionId={$sim->definition->id|default:''}" target="_blank">
+        <a
+          class="pull-right"
+          id="similarDefinitionEdit"
+          href="{$sim->definition->id|default:''}"
+          target="_blank">
           <i class="glyphicon glyphicon-pencil"></i>
           editează
         </a>

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2019-03-11 15:55+0200\n"
-"PO-Revision-Date: 2019-03-11 15:55+0200\n"
+"POT-Creation-Date: 2019-03-14 18:28+0200\n"
+"PO-Revision-Date: 2019-03-14 18:28+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -1303,20 +1303,20 @@ msgid "follow us on"
 msgstr "urmărește-ne pe"
 
 #: templates/widgets/social.tpl:11
+msgid "Blog icon"
+msgstr "Iconiță blog"
+
+#: templates/widgets/social.tpl:12
+msgid "Follow our blog"
+msgstr "Urmărește blogul nostru"
+
+#: templates/widgets/social.tpl:21
 msgid "Facebook icon"
 msgstr "Iconiță Facebook"
 
-#: templates/widgets/social.tpl:12
+#: templates/widgets/social.tpl:22
 msgid "Follow us on Facebook"
 msgstr "Urmărește-ne pe Facebook"
-
-#: templates/widgets/social.tpl:21
-msgid "Blogger icon"
-msgstr "Iconiță Blogger"
-
-#: templates/widgets/social.tpl:22
-msgid "Follow us on Blogger"
-msgstr "Urmărește-ne pe Blogger"
 
 #: templates/widgets/social.tpl:31
 msgid "Twitter icon"

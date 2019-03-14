@@ -13,7 +13,7 @@
       	</a>
       </li>
       <li>
-      	<a href="https://dexonline.blogspot.ro">
+      	<a href="https://blog.dexonline.ro">
       		<img
             src='./img/svg/blogger.svg'
             width='32'

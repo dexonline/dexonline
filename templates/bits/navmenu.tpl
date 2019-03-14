@@ -60,7 +60,7 @@
               </a>
             </li>
             <li><a href="{Router::link('simple/contact')}">{t}contact us{/t}</a></li>
-            <li><a href="https://dexonline.blogspot.ro">{t}blog{/t}</a></li>
+            <li><a href="https://blog.dexonline.ro">{t}blog{/t}</a></li>
           </ul>
 
         </li>

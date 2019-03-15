@@ -39,6 +39,7 @@
     {block "bannerHead"}
       {include "banner/bannerHead.tpl"}
     {/block}
+    {include "bits/analytics.tpl"}
   </head>
 
   <body class="{$pageType}">
@@ -99,7 +100,6 @@
         </div>
       </footer>
     </div>
-    {include "bits/analytics.tpl"}
     {include "bits/debugInfo.tpl"}
   </body>
 

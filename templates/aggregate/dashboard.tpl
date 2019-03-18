@@ -226,6 +226,7 @@
                   <div class="col-xs-8">
                     {include "bits/statusDropDown.tpl"
                       name="status"
+                      selectedStatus=Definition::ST_ACTIVE
                       anyOption=true}
                   </div>
                 </div>

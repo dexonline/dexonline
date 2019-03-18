@@ -5,11 +5,15 @@ User::mustHave(User::PRIV_WOTD | User::PRIV_EDIT);
 
 $query = Request::get('term');
 $definitions = Model::factory('Definition')
-             ->where('status', Definition::ST_ACTIVE)
-             ->where_like('lexicon', "{$query}%")
-             ->order_by_asc('lexicon')
-             ->limit(20)
-             ->find_many();
+  ->table_alias('d')
+  ->select('d.*')
+  ->join('Source', ['d.sourceId', '=', 's.id'], 's')
+  ->where('d.status', Definition::ST_ACTIVE)
+  ->where_like('d.lexicon', "{$query}%")
+  ->order_by_asc('d.lexicon')
+  ->order_by_asc('s.displayOrder')
+  ->limit(20)
+  ->find_many();
 
 $resp = ['results' => []];
 foreach ($definitions as $d) {

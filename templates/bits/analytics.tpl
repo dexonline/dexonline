@@ -10,6 +10,7 @@
     pageTracker._trackPageview();
   </script>
 
+  {*
   <!-- Matomo -->
   <script type="text/javascript">
     var _paq = window._paq || [];
@@ -25,4 +26,5 @@
     })();
   </script>
   <!-- End Matomo Code -->
+  *}
 {/if}

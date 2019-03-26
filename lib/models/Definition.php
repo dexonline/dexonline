@@ -297,7 +297,7 @@ class Definition extends BaseObject implements DatedObject {
       ->join('Source', ['d.sourceId', '=', 's.id'], 's')
       ->where('ed.entryId', $entry->id)
       ->where_in('d.status', [self::ST_ACTIVE, self::ST_HIDDEN])
-      ->order_by_desc('s.type')
+      ->order_by_desc('s.sourceTypeId')
       ->order_by_expr("d.lexicon = '{$shortDesc}' desc")
       ->order_by_asc('s.displayOrder')
       ->order_by_asc('d.lexicon')

@@ -23,6 +23,7 @@ $(function() {
   }
 
   function modalShown(event) {
+    console.log("click!");
     $(document).bind('keydown', 'left', prevPageClick);
     $(document).bind('keydown', 'right', nextPageClick);
 

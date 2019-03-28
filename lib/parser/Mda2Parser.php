@@ -3,8 +3,8 @@
 class Mda2Parser extends Parser {
   const PARTS_OF_SPEECH = [
     'a', 'ad', 'ada', 'af', 'afi', 'afp', 'afpt', 'afs', 'ai', 'ain', 'am', 'amp',
-    'an', 'anh', 'anhi', 'ap', 'apr', 'ard', 'arh', 'arp', 'art', 'arti', 'as', 'av',
-    'avi', 'avr', 'c', 'ec', 'i', 'la', 'lav', 'lc', 'ls', 'nc', 'ncv', 'nf',
+    'an', 'ang', 'anh', 'anhi', 'ap', 'apr', 'ard', 'arh', 'arp', 'art', 'arti', 'as',
+    'av', 'avi', 'avr', 'c', 'ec', 'i', 'la', 'lav', 'lc', 'ls', 'nc', 'ncv', 'nf',
     'no', 'nof', 'pd', 'pdf', 'pdm', 'pin', 'pir', 'pî', 'png', 'pnh', 'pnhi',
     'pp', 'ppl', 'ppr', 'prl', 'prli', 'prn', 's', 'sa', 'sf', 'sfa', 'sfi',
     'sfm', 'sfn', 'sfp', 'sfpa', 'sfs', 'sfsa', 'si', 'sm', 'sma', 'smf',

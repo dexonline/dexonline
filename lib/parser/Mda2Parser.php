@@ -3,10 +3,10 @@
 class Mda2Parser extends Parser {
   const PARTS_OF_SPEECH = [
     'a', 'ad', 'ada', 'af', 'afi', 'afp', 'afpt', 'afs', 'ai', 'ain', 'am', 'amp',
-    'an', 'ang', 'anh', 'anhi', 'ap', 'apr', 'ard', 'arh', 'arp', 'art', 'arti', 'as',
-    'av', 'avi', 'avr', 'c', 'ec', 'i', 'la', 'lav', 'lc', 'ls', 'nc', 'ncv', 'nf',
-    'no', 'nof', 'pd', 'pdf', 'pdm', 'pin', 'pir', 'pî', 'png', 'pnh', 'pnhi',
-    'pp', 'ppl', 'ppr', 'prl', 'prli', 'prn', 's', 'sa', 'sf', 'sfa', 'sfi',
+    'an', 'ang', 'anh', 'anhi', 'ap', 'apr', 'aps', 'ard', 'arh', 'arp', 'art', 'arti',
+    'as', 'av', 'avi', 'avr', 'c', 'ec', 'i', 'la', 'lav', 'lc', 'ls', 'nc', 'ncv',
+    'nf', 'no', 'nof', 'pd', 'pdf', 'pdm', 'pin', 'pir', 'pî', 'png', 'pnh', 'pnhi',
+    'pp', 'ppl', 'ppr', 'pps', 'prl', 'prli', 'prn', 's', 'sa', 'sf', 'sfa', 'sfi',
     'sfm', 'sfn', 'sfp', 'sfpa', 'sfs', 'sfsa', 'si', 'sm', 'sma', 'smf',
     'smi', 'smn', 'smnf', 'smp', 'sms', 'smsa', 'sn', 'sna', 'snf', 'sni',
     'snm', 'snp', 'sns', 'ssg', 'ssga', 'ssp', 'v', 'va', 'vi', 'vi(a)', 'vif',

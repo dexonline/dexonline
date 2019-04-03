@@ -1,0 +1,1 @@
+update Source set type=0 where id not in (19, 27);

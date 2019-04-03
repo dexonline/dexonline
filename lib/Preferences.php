@@ -30,8 +30,8 @@ class Preferences {
     ],
     self::EXCLUDE_UNOFFICIAL => [
       'enabled' => true,
-      'label' => 'Ascunde definițiile neoficiale',
-      'comment' => 'Sursele neoficiale nu au girul niciunei instituții acreditate de Academia Română sau al vreunei edituri de prestigiu.',
+      'label' => 'Afișează doar dicționarele canonice',
+      'comment' => 'Afișează doar dicționarele canonice editate de Institutul de Lingvistică din cadrul Academiei Române (ultimele ediții ale DEX și DOOM, considerate normative).',
     ],
     self::SHOW_PARADIGM => [
       'enabled' => true,

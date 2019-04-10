@@ -32,11 +32,21 @@
             bidsBackHandler: function() {
               // console.log('RefreshBids.bidsBackHandler',refreshSlots);
               pbjs.setTargetingForGPTAsync(['div-gpt-ad-1522308048586-0']);
-              // console.log('Refresh Ads');
-              googletag.pubads().refresh(refreshSlots);
             }
-          });
-        });
+          })
+        }),
+        apstag.fetchBids({
+          slots: [{
+            slotID: 'div-gpt-ad-1522308048586-0',
+            slotName: '/8095840/.2_8651.3_dexonline.ro_tier1',
+            sizes: [[728, 90]]
+          }],
+          timeout: PREBID_TIMEOUT,
+        }, function (bids) {
+          apstag.setDisplayBids();
+        }),
+        // console.log('Refresh Ads');
+        googletag.pubads().refresh(refreshSlots);
       }, 90000);
 
     }

@@ -10,6 +10,7 @@ class SourceType extends BaseObject {
   const TYPE_DICT_SPECIALIZED = 5;
   const TYPE_DICT_ENCYCLOPEDIC = 6;
   const TYPE_DICT_SLANG = 7;
+  const TYPE_DICT_REGIONAL = 8;
   const TYPE_DICT_OTHER = 999;
   const TYPE_DICT_UNVERIFIED = 1000;
 
@@ -21,6 +22,7 @@ class SourceType extends BaseObject {
     self::TYPE_DICT_SPECIALIZED,
     self::TYPE_DICT_ENCYCLOPEDIC,
     self::TYPE_DICT_SLANG,
+    self::TYPE_DICT_REGIONAL,
     self::TYPE_DICT_OTHER,
     self::TYPE_DICT_UNVERIFIED,
   ];
@@ -34,6 +36,7 @@ class SourceType extends BaseObject {
       case self::TYPE_DICT_SPECIALIZED:   return _('Specialized dictionaries');
       case self::TYPE_DICT_ENCYCLOPEDIC:  return _('Encyclopedic dictionaries');
       case self::TYPE_DICT_SLANG:         return _('Slang dictionaries');
+      case self::TYPE_DICT_REGIONAL:      return _('Regional dictionaries');
       case self::TYPE_DICT_OTHER:         return _('Other dictionaries');
       case self::TYPE_DICT_UNVERIFIED:    return _('Unverified dictionaries');
     }
@@ -55,6 +58,8 @@ class SourceType extends BaseObject {
         return _('Encyclopedic definitions');
       case self::TYPE_DICT_SLANG:
         return _('Only slang words or senses are defined.');
+      case self::TYPE_DICT_REGIONAL:
+        return _('Only regional (or archaic) words or senses are defined.');
       case self::TYPE_DICT_OTHER:
         return _('These definitions could explain only certain meanings of words.');
       case self::TYPE_DICT_UNVERIFIED:

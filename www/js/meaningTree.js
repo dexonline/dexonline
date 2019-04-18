@@ -13,8 +13,8 @@ $(function() {
   function init() {
     if (editable) {
       initEditable();
+      renumber();
     }
-    renumber();
   }
 
   function initEditable() {

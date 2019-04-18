@@ -6,7 +6,7 @@
         <div class="meaningContainer"
              data-meaning-id="{$t.meaning->id}"
              {if !$t.canDelete}data-no-delete{/if}>
-          <span class="bc"></span>
+          <span class="bc">{$t.meaning->breadcrumb}</span>
           <span class="type">{$t.meaning->type}</span>
           <span class="typeName">{$t.meaning->getDisplayTypeName()}</span>
           <span class="tags">

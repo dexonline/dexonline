@@ -142,6 +142,7 @@ class Constant {
     'bun',
     'cap',
     'co',
+    'con',
     'de',
     'dez', // false positive: "dezânoaie"
     'ex',

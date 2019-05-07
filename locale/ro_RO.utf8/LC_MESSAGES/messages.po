@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2019-04-18 16:20+0300\n"
-"PO-Revision-Date: 2019-04-18 16:21+0300\n"
+"POT-Creation-Date: 2019-05-07 15:08+0300\n"
+"PO-Revision-Date: 2019-05-07 15:08+0300\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -1262,6 +1262,14 @@ msgstr ""
 #: templates/simple/tools.tpl:161
 msgid "A <a href=\"%1\">WordPress plugin</a> for your blog."
 msgstr "Un <a href=\"%1\">modul de WordPress</a> pentru blogul dumneavoastră."
+
+#: templates/simple/tools.tpl:167
+msgid "Dictionaries in StarDict format"
+msgstr "Dicționare în formatul StarDict"
+
+#: templates/simple/tools.tpl:197
+msgid "all of the above"
+msgstr "toate cele de mai sus"
 
 #: templates/user/top.tpl:6
 msgid "Manual contribution rankings"

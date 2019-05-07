@@ -163,4 +163,39 @@
     </li>
 
   </ul>
+
+  <h3>{t}Dictionaries in StarDict format{/t}</h3>
+
+  <ul>
+    <li>
+      <a href="https://www.dropbox.com/sh/wcwy218thme2wm4/AAASdxnPdCLJ0jNa2hfR6_AWa?dl=1">
+        DEX 2009
+      </a>
+    </li>
+    <li>
+      <a href="https://www.dropbox.com/sh/gbm1ka3xhoh0og1/AABzd0Fc2aOkq6EYHjR8GYtga?dl=1">
+        MDN 2000
+      </a>
+    </li>
+    <li>
+      <a href="https://www.dropbox.com/sh/85owi52m9s7uddz/AADTgVw5o0WNzdbVk8Nu1QeRa?dl=1">
+        MDN 2008
+      </a>
+    </li>
+    <li>
+      <a href="https://www.dropbox.com/sh/4e3djhod4fznyfw/AABPaQ9w8NlDnx5hHnvJfUwUa?dl=1">
+        DLRLC 1955-1957
+      </a>
+    </li>
+    <li>
+      <a href="https://www.dropbox.com/sh/2dd7i4px3yvpyjm/AABas5FASZx5T7JlV6zQCsYza?dl=1">
+        Șăineanu 1929
+      </a>
+    </li>
+    <li>
+      <a href="https://www.dropbox.com/sh/57vuu2axdtg9jr2/AAAf8WcKbCftc8dFpB_21Ok_a?dl=1">
+        {t}all of the above{/t}
+      </a>
+    </li>
+  </ul>
 {/block}

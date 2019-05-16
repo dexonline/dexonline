@@ -174,12 +174,7 @@
     </li>
     <li>
       <a href="https://www.dropbox.com/sh/gbm1ka3xhoh0og1/AABzd0Fc2aOkq6EYHjR8GYtga?dl=1">
-        MDN 2000
-      </a>
-    </li>
-    <li>
-      <a href="https://www.dropbox.com/sh/85owi52m9s7uddz/AADTgVw5o0WNzdbVk8Nu1QeRa?dl=1">
-        MDN 2008
+        MDN 2000 + 2008
       </a>
     </li>
     <li>

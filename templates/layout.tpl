@@ -4,6 +4,9 @@
 <html>
 
   <head>
+    {block "bannerHead"}
+      {include "banner/bannerHead.tpl"}
+    {/block}
     <title>{block "title"}Dicționare ale limbii române{/block} | dexonline</title>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=3.0, user-scalable=yes" name="viewport">
@@ -36,9 +39,6 @@
     {/foreach}
     <link rel="apple-touch-icon" href="{Config::URL_PREFIX}img/apple-touch-icon.png">
     {Plugin::notify('htmlHead')}
-    {block "bannerHead"}
-      {include "banner/bannerHead.tpl"}
-    {/block}
     {include "bits/analytics.tpl"}
   </head>
 

@@ -1,9 +1,9 @@
+{include "banner/pubGalaxyGdpr.tpl"}
+
 <script
   type="text/javascript"
   src="//dsh7ky7308k4b.cloudfront.net/publishers/dexonlinero.min.js"
 ></script>
-
-{include "banner/pubGalaxyGdpr.tpl"}
 
 <script async='async' src='https://www.googletagservices.com/tag/js/gpt.js'></script>
 <script>

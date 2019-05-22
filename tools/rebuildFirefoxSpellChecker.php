@@ -24,8 +24,7 @@ OS::executeAndAssert("cat $mysqlFile >> $tmpDir/dictionaries/ro-dex.dic");
 
 Log::info("Zipping");
 OS::executeAndAssert("cd $tmpDir && zip -r dex-ff.xpi *");
-$f = new FtpUtil();
-$f->staticServerPut("$tmpDir/dex-ff.xpi", '/download/dex-ff.xpi');
+StaticUtil::move("$tmpDir/dex-ff.xpi", 'download/dex-ff.xpi');
 
 OS::executeAndAssert("rm -rf $tmpDir");
 Log::notice('finished');

@@ -6,11 +6,10 @@ ini_set('memory_limit', '512M');
 $TODAY = date("Y-m-d");
 $TODAY_TIMESTAMP = strtotime("$TODAY 00:00:00");
 $REMOTE_FOLDER = 'download/xmldump/v5';
-$STATIC_FILES = file(Config::STATIC_URL . 'fileList.txt');
+$STATIC_FILES = file(Config::STATIC_PATH . 'fileList.txt');
 $LAST_DUMP = getLastDumpDate($REMOTE_FOLDER);
 $LAST_DUMP_TIMESTAMP = $LAST_DUMP ? strtotime("$LAST_DUMP 00:00:00") : null;
 $USERS = getActiveUsers();
-$FTP = new FtpUtil();
 
 Log::notice("generating dump for $TODAY; previous dump is " . ($LAST_DUMP ? $LAST_DUMP : '-never-'));
 
@@ -118,28 +117,22 @@ function getLastDumpDate($folder) {
 }
 
 function dumpSources($remoteFile) {
-  global $FTP;
-
   Log::info("dumping sources");
   Smart::assign('sources', Model::factory('Source')->order_by_asc('id')->find_many());
   $xml = Smart::fetch('xml/xmldump/sources.tpl');
   $gzip = gzencode($xml);
-  $FTP->staticServerPutContents($gzip, $remoteFile);
+  StaticUtil::putContents($gzip, $remoteFile);
 }
 
 function dumpInflections($remoteFile) {
-  global $FTP;
-
   Log::info("dumping inflections");
   Smart::assign('inflections', Model::factory('Inflection')->order_by_asc('id')->find_many());
   $xml = Smart::fetch('xml/xmldump/inflections.tpl');
   $gzip = gzencode($xml);
-  $FTP->staticServerPutContents($gzip, $remoteFile);
+  StaticUtil::putContents($gzip, $remoteFile);
 }
 
 function dumpAbbrevs($remoteFile) {
-  global $FTP;
-
   Log::info("dumping abbreviations");
 
   $sourceIds = Model::factory('Abbreviation')
@@ -156,11 +149,11 @@ function dumpAbbrevs($remoteFile) {
   Smart::assign('map', $map);
   $xml = Smart::fetch('xml/xmldump/abbrev.tpl');
   $gzip = gzencode($xml);
-  $FTP->staticServerPutContents($gzip, $remoteFile);
+  StaticUtil::putContents($gzip, $remoteFile);
 }
 
 function dumpDefinitions($query, $remoteFile, $message) {
-  global $FTP, $USERS;
+  global $USERS;
 
   DB::setBuffering(false);
 
@@ -179,15 +172,12 @@ function dumpDefinitions($query, $remoteFile, $message) {
   }
   gzwrite($file, "</Definitions>\n");
   gzclose($file);
-  $FTP->staticServerPut($tmpFile, $remoteFile);
-  unlink($tmpFile);
+  StaticUtil::move($tmpFile, $remoteFile);
 
   DB::setBuffering(true);
 }
 
 function dumpEntries($query, $remoteFile, $message) {
-  global $FTP;
-
   Log::info($message);
   $results = DB::execute($query);
   $tmpFile = tempnam(Config::TEMP_DIR, 'xmldump_');
@@ -201,13 +191,10 @@ function dumpEntries($query, $remoteFile, $message) {
   }
   gzwrite($file, "</Entries>\n");
   gzclose($file);
-  $FTP->staticServerPut($tmpFile, $remoteFile);
-  unlink($tmpFile);
+  StaticUtil::move($tmpFile, $remoteFile);
 }
 
 function dumpLexemes($query, $remoteFile, $message) {
-  global $FTP;
-
   Log::info($message);
   $results = DB::execute($query);
   $tmpFile = tempnam(Config::TEMP_DIR, 'xmldump_');
@@ -221,13 +208,10 @@ function dumpLexemes($query, $remoteFile, $message) {
   }
   gzwrite($file, "</Lexems>\n");
   gzclose($file);
-  $FTP->staticServerPut($tmpFile, $remoteFile);
-  unlink($tmpFile);
+  StaticUtil::move($tmpFile, $remoteFile);
 }
 
 function dumpEd($query, $remoteFile, $message) {
-  global $FTP;
-
   Log::info($message);
   $results = DB::execute($query);
   $tmpFile = tempnam(Config::TEMP_DIR, 'xmldump_');
@@ -239,13 +223,10 @@ function dumpEd($query, $remoteFile, $message) {
   }
   gzwrite($file, "</EntryDefinition>\n");
   gzclose($file);
-  $FTP->staticServerPut($tmpFile, $remoteFile);
-  unlink($tmpFile);
+  StaticUtil::move($tmpFile, $remoteFile);
 }
 
 function dumpEl($query, $remoteFile, $message) {
-  global $FTP;
-
   Log::info($message);
   $results = DB::execute($query);
   $tmpFile = tempnam(Config::TEMP_DIR, 'xmldump_');
@@ -257,18 +238,15 @@ function dumpEl($query, $remoteFile, $message) {
   }
   gzwrite($file, "</EntryLexem>\n");
   gzclose($file);
-  $FTP->staticServerPut($tmpFile, $remoteFile);
-  unlink($tmpFile);
+  StaticUtil::move($tmpFile, $remoteFile);
 }
 
 function dumpDiff($oldRemoteFile, $newRemoteFile, $diffRemoteFile, $elementName, $message) {
-  global $FTP;
-
   Log::info($message);
 
-  // Transfer the files locally
-  $oldXml = wgetAndGunzip(Config::STATIC_URL . '/' . $oldRemoteFile);
-  $newXml = wgetAndGunzip(Config::STATIC_URL . '/' . $newRemoteFile);
+  // gunzip the files
+  $oldXml = gunzip(Config::STATIC_PATH . $oldRemoteFile);
+  $newXml = gunzip(Config::STATIC_PATH . $newRemoteFile);
   $output = null;
   exec("diff $oldXml $newXml", $output, $ignored);
   $tmpFile = tempnam(Config::TEMP_DIR, 'xmldump_');
@@ -284,23 +262,21 @@ function dumpDiff($oldRemoteFile, $newRemoteFile, $diffRemoteFile, $elementName,
   }
   gzwrite($file, "</{$elementName}>\n");
   gzclose($file);
-  $FTP->staticServerPut($tmpFile, $diffRemoteFile);
-  unlink($tmpFile);
+  StaticUtil::move($tmpFile, $diffRemoteFile);
   unlink($oldXml);
   unlink($newXml);
 }
 
 // Returns a file name in tempDir pointing to the unzipped file
-function wgetAndGunzip($url) {
+function gunzip($file) {
   $tmpFile = tempnam(Config::TEMP_DIR, 'xmldump_');
-  OS::executeAndAssert("wget -q -O $tmpFile.gz $url");
-  OS::executeAndAssert("gunzip -f $tmpFile.gz");
+  OS::executeAndAssert("zcat $file > $tmpFile");
   return $tmpFile;
 }
 
 // Delete all dumps other than current one and previous one. Keep the diffs
 function removeOldDumps($folder, $today, $lastDump) {
-  global $FTP, $STATIC_FILES;
+  global $STATIC_FILES;
 
   Log::info('removing old dumps');
   foreach ($STATIC_FILES as $file) {
@@ -312,7 +288,7 @@ function removeOldDumps($folder, $today, $lastDump) {
       $date = $matches[1];
       if ($date != $today && $date != $lastDump) {
         Log::info("  deleting $file");
-        $FTP->staticServerDelete($file);
+        StaticUtil::delete($file);
       }
     }
   }

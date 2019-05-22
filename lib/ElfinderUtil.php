@@ -9,37 +9,17 @@ class ElfinderUtil {
   static function getOptions($subdirectory, $alias) {
     $logger = new ElfinderSimpleLogger(Config::LOG_FILE);
 
-    $driver = Config::ELFINDER_DRIVER;
-    switch ($driver) {
-      case 'ftp':
-        $root = [
-          'driver'        => 'FTP',
-          'host'          => Config::FTP_HOST,
-          'user'          => Config::FTP_USER,
-          'pass'          => Config::FTP_PASSWORD,
-          'path'          => Config::FTP_PATH . $subdirectory,
-          'timeout'       => Config::FTP_TIMEOUT,
-          'URL'           => Config::STATIC_URL . $subdirectory,
-          'ssl'           => true,
-        ];
-        break;
-
-      case 'local':
-        $root = [
-          'driver'        => 'LocalFileSystem',
-          'path'          => Config::ELFINDER_PATH . '/' . $subdirectory,
-          'URL'           => Config::ELFINDER_URL . '/' . $subdirectory,
-        ];
-        @mkdir($root['path'], 0777, true); // make sure the full path exists
-        break;
-
-      default:
-        $root = [];
-    }
+    $root = [
+      'driver'        => 'LocalFileSystem',
+      'path'          => Config::STATIC_PATH . $subdirectory,
+      'URL'           => Config::STATIC_URL . $subdirectory,
+    ];
+    @mkdir($root['path'], 0777, true); // make sure the full path exists
 
     $opts = [
       'bind'  => [
         'mkdir mkfile rename duplicate upload rm paste' => [$logger, 'log'],
+        'mkdir mkfile rename duplicate upload rm paste' => ['StaticUtil::generateStaticFileList'],
         'upload.presave' => ['ElfinderUtil::cleanupFileName'],
       ],
       'roots' => [

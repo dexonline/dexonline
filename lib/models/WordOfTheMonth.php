@@ -31,6 +31,10 @@ class WordOfTheMonth extends BaseObject implements DatedObject {
   // TODO: this duplicates code from WordOfTheDay.php
   function getThumbUrl($size) {
     $pic = $this->image ? $this->image : self::DEFAULT_IMAGE;
+    StaticUtil::ensureThumb(
+      "img/wotd/cuvantul-lunii/{$pic}",
+      "img/wotd/thumb{$size}/cuvantul-lunii/{$pic}",
+      $size);
     return sprintf('%simg/wotd/thumb%s/cuvantul-lunii/%s',
                    Config::STATIC_URL,  $size, $pic);
   }

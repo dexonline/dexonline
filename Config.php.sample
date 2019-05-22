@@ -145,31 +145,20 @@ class Config {
 
   /************************ Static server options ************************/
 
+  // With the default settings you will see resources on the production static
+  // server, but you won't be able to modify them. So components like elfinder
+  // or editing user avatars will break. If you plan to work on those
+  // components specifically, set STATIC_URL and STATIC_PATH for local use.
+
+  // Web address of the static resource server. Include a trailing slash.
   const STATIC_URL = 'https://dexonline.ro/static/';
+
+  // Storage path, for uploads to the static server. Should be writable by the
+  // web server user. Include a trailing slash.
+  const STATIC_PATH = '/srv/http/static.dexonline.ro/';
 
   // URL path pattern for page images, relative to STATIC_URL
   const PAGE_URL_PATTERN = 'pages/%03d/vol%02d/%04d.png';
-
-  /************ FTP access (for uploads to the static server) ************/
-
-  const FTP_HOST = 'static.dexonline.ro';
-  const FTP_USER = '';
-  const FTP_PASSWORD = '';
-  const FTP_PATH = '';
-  const FTP_TIMEOUT = 30;
-
-  /************* settings for Elfinder, the web file manager *************/
-
-  // Can be one of:
-  // * 'ftp', which uses the FTP options above;
-  // * 'local', which uses the local path and URL defined below.
-  const ELFINDER_DRIVER = 'local';
-
-  // Path and URL are only meaningful when driver = local.
-  // Path needs to be accessible and writable by the web server.
-  const ELFINDER_PATH = '/srv/http/elfinder/';
-  const ELFINDER_URL = 'http://localhost/elfinder/';
-
 
   /**** OTRS connection info (used to process donations automatically) ****/
 

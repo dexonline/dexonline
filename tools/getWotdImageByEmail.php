@@ -91,10 +91,8 @@ try {
   $wotdDisplayDate = new DateTime($wotd->displayDate);
   $wotd->image = sprintf('%s/%s.%s', $wotdDisplayDate->format('Y/m'), $word, $imageExtension);
   $wotd->save();
-  $wotdImagePath = '/img/wotd/' . $wotd->image;
-  $f = new FtpUtil();
-  $f->staticServerPut($tmpFilePath, $wotdImagePath);
-  unlink($tmpFilePath);
+  $wotdImagePath = 'img/wotd/' . $wotd->image;
+  StaticUtil::move($tmpFilePath, $wotdImagePath);
 
   replyToEmail($sender, $subject, "Succes epic! Am adăugat imaginea pentru '{$word}'.");
 

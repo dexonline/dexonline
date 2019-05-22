@@ -33,7 +33,7 @@ foreach (THUMB_SIZES as $size) {
 $opts = getopt('', ['fix']);
 $fix = isset($opts['fix']);
 
-$staticFiles = file(Config::STATIC_URL . 'fileList.txt');
+$staticFiles = file(Config::STATIC_PATH . 'fileList.txt');
 if (!$staticFiles) {
   OS::errorAndExit('Could not load the static files list.');
 }
@@ -87,8 +87,6 @@ foreach ($wotms as $w) {
   }
 }
 
-$ftp = new FtpUtil();
-
 // Report images without thumbnails.
 foreach ($imgs as $img => $ignored) {
   foreach (THUMB_SIZES as $size) {
@@ -97,7 +95,7 @@ foreach ($imgs as $img => $ignored) {
         !isset($ignoredMap[$img])) {
       Log::warning("Image without a {$size}px thumbnail: {$img}");
       if ($fix) {
-        generateThumbnail($ftp, $img, $size, $prefix);
+        generateThumbnail($img, $size, $prefix);
       }
     }
   }
@@ -110,7 +108,7 @@ foreach ($thumbs as $size => $thumbList) {
     if (!isset($imgs[$thumb])) {
       Log::warning("{$size}px thumbnail without an image: {$thumb}");
       if ($fix) {
-        deleteOrphanThumbnail($ftp, $thumb, $prefix);
+        deleteOrphanThumbnail($thumb, $prefix);
       }
     }
   }
@@ -134,56 +132,27 @@ foreach ($imgs as $img => $ignored) {
 
 /*************************************************************************/
 
-function generateThumbnail($ftp, $img, $size, $prefix) {
-  if (!$ftp->connected()) {
-    Log::error("Cannot connect to FTP server - skipping thumb generation.");
-    return;
-  }
-
+function generateThumbnail($img, $size, $prefix) {
   $extension = @pathinfo($img)['extension']; // may be missing entirely
   $extension = strtolower($extension);
   $tempDir = Config::TEMP_DIR;
 
   if (in_array($extension, [ 'gif', 'jpeg', 'jpg', 'png' ])) {
     Log::info("Generating {$size}x{$size} thumbnail for $img");
-    $url = Config::STATIC_URL . IMG_PREFIX . $img;
-    Log::info("Fetching $url");
-
-    OS::executeAndAssert("rm -f {$tempDir}a.{$extension} {$tempDir}t.{$extension}");
-    OS::executeAndAssert("wget -q -O {$tempDir}a.{$extension} '$url'");
-
-    $output = OS::executeAndReturnOutput("identify -format '%wx%h' {$tempDir}a.{$extension}");
-    $resolution = $output[0];
-
-    if ($resolution == "{$size}x{$size}") {
-      copy("{$tempDir}a.{$extension}", "{$tempDir}t.{$extension}");
-    } else {
-      OS::executeAndAssert(
-        "convert -strip -geometry {$size}x{$size} -sharpen 1x1 " .
-        "{$tempDir}a.{$extension} {$tempDir}t.{$extension}");
-    }
-
-    if ($extension == 'png') {
-      OS::executeAndAssert("optipng {$tempDir}t.png");
-    }
-
-    Log::info("FTP upload: {$tempDir}t.{$extension} => " . Config::STATIC_URL . $prefix . $img);
-    $ftp->staticServerPut("{$tempDir}t.{$extension}", $prefix . $img);
+    StaticUtil::ensureThumb(
+      "img/wotd/{$img}",
+      "{$prefix}{$img}",
+      $size);
   }
 }
 
-function deleteOrphanThumbnail($ftp, $thumb, $prefix) {
-  if (!$ftp->connected()) {
-    Log::error("Cannot connect to FTP server - skipping orphan thumb deletion.");
-    return;
-  }
-
+function deleteOrphanThumbnail($thumb, $prefix) {
   $extension = @pathinfo($thumb)['extension']; // may be missing entirely
   $extension = strtolower($extension);
 
   if (in_array($extension, [ 'gif', 'jpeg', 'jpg', 'png' ])) {
     Log::info("Deleting %s%s", $prefix, $thumb);
-    $ftp->staticServerDelete($prefix . $thumb);
+    StaticUtil::delete($prefix . $thumb);
   }
 }
 

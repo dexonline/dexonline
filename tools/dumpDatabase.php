@@ -115,12 +115,10 @@ EOT;
 }
 
 $remoteFile = $doFullDump
-  ? '/download/mirrorAccess/dex-database.sql.gz'
-  :'/download/dex-database.sql.gz';
+  ? 'download/mirrorAccess/dex-database.sql.gz'
+  :'download/dex-database.sql.gz';
 
 OS::executeAndAssert('gzip -f ' . SQL_FILE);
-$f = new FtpUtil();
-$f->staticServerPut(GZ_FILE, $remoteFile);
-unlink(GZ_FILE);
+StaticUtil::move(GZ_FILE, $remoteFile);
 
 Log::notice('finished');

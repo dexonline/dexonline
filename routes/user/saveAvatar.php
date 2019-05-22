@@ -8,7 +8,7 @@ if (!$user) {
 
 const AVATAR_RESOLUTION = 48;
 const AVATAR_QUALITY = 100;
-$avatarRemoteFile = "/img/user/{$user->id}.jpg";
+$avatarRemoteFile = "img/user/{$user->id}.jpg";
 $avatarRawGlob = Config::ROOT . "www/img/generated/{$user->id}_raw.*";
 
 $x0 = Request::get('x0');
@@ -17,8 +17,7 @@ $side = Request::get('side');
 $delete = Request::get('delete');
 
 if ($delete) {
-  $f = new FtpUtil();
-  $f->staticServerDelete($avatarRemoteFile);
+  StaticUtil::delete($avatarRemoteFile);
   $user->hasAvatar = 0;
   $user->save();
   FlashMessage::add('Am șters imaginea.', 'success');
@@ -38,10 +37,8 @@ imagecopyresampled($canvas, $image, 0, 0, $x0, $y0, AVATAR_RESOLUTION, AVATAR_RE
 sharpenImage($canvas);
 $tmpFileName = tempnam(Config::TEMP_DIR, 'dex_avatar_');
 imagejpeg($canvas, $tmpFileName, AVATAR_QUALITY);
-$f = new FtpUtil();
-$f->staticServerPut($tmpFileName, $avatarRemoteFile);
+StaticUtil::move($tmpFileName, $avatarRemoteFile);
 unlink($rawFileName);
-unlink($tmpFileName);
 
 $user->hasAvatar = 1;
 $user->save();

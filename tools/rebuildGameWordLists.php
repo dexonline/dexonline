@@ -45,13 +45,10 @@ file_put_contents($tmpFileName, $latin);
 exec("sort $tmpFileName | uniq > $noDiaFileName");
 
 Log::info('uploading files to static server');
-$f = new FtpUtil();
-$f->staticServerPut($diaFileName, 'download/game-word-list-dia.txt');
-$f->staticServerPut($noDiaFileName, 'download/game-word-list.txt');
+StaticUtil::move($diaFileName, 'download/game-word-list-dia.txt');
+StaticUtil::move($noDiaFileName, 'download/game-word-list.txt');
 
 // cleanup
-unlink($diaFileName);
 unlink($tmpFileName);
-unlink($noDiaFileName);
 
 Log::notice('finished');

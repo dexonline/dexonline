@@ -12,14 +12,18 @@ class OS {
     exit($exitCode);
   }
 
-  static function executeAndAssert($command) {
-    $exit_code = 0;
-    $output = null;
-    Log::info("Executing $command");
-    exec($command, $output, $exit_code);
-    if ($exit_code) {
-      Log::error('Output: ' . implode("\n", $output));
-      self::errorAndExit("Failed command: $command (code $exit_code)");
+  static function execute($command, &$output = null) {
+    Log::info('Executing %s', $command);
+    exec($command, $output, $exitCode);
+    $output = implode("\n", $output);
+    return $exitCode;
+  }
+
+  static function executeAndAssert($command, &$output = null) {
+    $exitCode = self::execute($command, $output);
+    if ($exitCode) {
+      Log::error('Output: %s', $output);
+      self::errorAndExit("Failed command: $command (code $exitCode)");
     }
   }
 

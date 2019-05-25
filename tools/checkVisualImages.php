@@ -101,8 +101,8 @@ function deleteOrphanThumbnail($thumb) {
   $extension = strtolower($extension);
 
   if (in_array($extension, [ 'gif', 'jpeg', 'jpg', 'png' ])) {
-    Log::info("Deleting %s%s", THUMB_PREFIX, $thumb);
-    StaticUtil::delete(THUMB_PREFIX . $thumb);
+    Log::info("Deleting %s%s", Visual::STATIC_THUMB_DIR, $thumb);
+    StaticUtil::delete(Visual::STATIC_THUMB_DIR . $thumb);
   }
 }
 

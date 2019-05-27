@@ -480,12 +480,12 @@ class Definition extends BaseObject implements DatedObject {
    * special cases to deal with the formatting.
    */
   function extractLexicon() {
-    if (!preg_match('/^[^@]*@([^@,]+)/', $this->internalRep, $matches)) {
+    if (!preg_match('/(?:[\pL ])+(?:[\pL])/', $this->internalRep, $matches)) {
       $this->lexicon = '';
       return '';
     }
 
-    $s = $matches[1];
+    $s = $matches[0];
     $s = Str::removeAccents($s);
 
     $s = preg_replace('# (-|\X)+/$#', '', $s); // strip pronunciations (MDN)

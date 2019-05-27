@@ -25,11 +25,8 @@ try {
     throw new Exception('Adresa paginilor scanate nu este definită în Config.php.');
   }
 
-  $urlPattern = Config::STATIC_URL . Config::PAGE_URL_PATTERN;
-
   header('Content-Type: application/json');
   print(json_encode([
-    'urlPattern' => $urlPattern,
     'volume' => $pi->volume,
     'page' => $pi->page,
   ]));

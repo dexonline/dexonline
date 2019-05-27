@@ -7,7 +7,7 @@ class Mda2Parser extends Parser {
     'as', 'av', 'avi', 'avr', 'c', 'ec', 'i', 'la', 'lav', 'lc', 'ls', 'nc', 'ncv',
     'nf', 'no', 'nof', 'pd', 'pdf', 'pdm', 'pin', 'pir', 'pî', 'png', 'pnh', 'pnhi',
     'pp', 'ppl', 'ppr', 'pps', 'prl', 'prli', 'prn', 's', 'sa', 'sf', 'sfa', 'sfi',
-    'sfm', 'sfn', 'sfp', 'sfpa', 'sfs', 'sfsa', 'si', 'sm', 'sma', 'smf',
+    'sfm', 'sfn', 'sfp', 'sfpa', 'sfs', 'sfsa', 'si', 'sm', 'sma', 'smf', 'smfi',
     'smi', 'smn', 'smnf', 'smp', 'sms', 'smsa', 'sn', 'sna', 'snf', 'sni',
     'snm', 'snp', 'sns', 'ssg', 'ssga', 'ssp', 'v', 'va', 'vi', 'vi(a)', 'vif',
     'vim', 'vir', 'virp', 'virt', 'vit', 'vit(a)', 'vitr', 'viu', 'vp', 'vr',

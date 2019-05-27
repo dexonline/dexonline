@@ -1,9 +1,10 @@
 $(function() {
   /* Page modal code (loading and displaying original (scanned) images of dictionary pages) */
-  var urlPattern;
   var sourceId;
   var volume;
   var page;
+  var word;
+  var urlPattern;
 
   function init() {
     // move the modal outside of any tabs
@@ -28,29 +29,18 @@ $(function() {
 
     var link = $(event.relatedTarget); // link that triggered the modal
     sourceId = link.attr('data-sourceId');
-    var word = link.attr('data-word');
-    var linkVolume = link.attr('data-volume');
-    var linkPage = link.attr('data-page');
+    word = link.attr('data-word');
+    volume = link.attr('data-volume');
+    page = link.attr('data-page');
+    urlPattern = link.attr('url-pattern');
 
     $('#pageModal .sourceDropDown').val(sourceId).trigger('change');
 
-    // resolve the sourceId + word to a volume + page
-    $.get(wwwRoot + 'ajax/getPage.php', { sourceId: sourceId, word: word, })
-      .done(function(data) {
-        urlPattern = data.urlPattern;
-        if (linkVolume > 0 && linkPage > 0) {
-          volume = linkVolume;
-          page = linkPage;
-        } else {
-          volume = data.volume;
-          page = data.page;
-        }
-        loadPage();
-      })
-      .fail(function(e) {
-        $('#pageImage').hide();
-        $('#pageModal .alert').text(e.responseText).show();
-      });
+    if (volume === 0 || page === 0) {
+      getPageVolume();
+    } else {
+      loadPage();
+    }
   }
 
   function modalHidden() {
@@ -69,42 +59,57 @@ $(function() {
   }
 
   function pageForWordKeypress(e) {
-    if (e.which == 13) {
-      var word = $(this).val().trim();
+    if (e.which === 13) {
+      word = $(this).val().trim();
       sourceId = $(this).siblings('.sourceDropDown').val();
 
       if (word) {
-        $.get(wwwRoot + 'ajax/getPage.php', { sourceId: sourceId, word: word, })
-          .done(function(data) {
-            volume = data.volume;
-            page = data.page;
-            loadPage();
-          })
-          .fail(function(e) {
-            $('#pageImage').hide();
-            $('#pageModal .alert').text(e.responseText).show();
-          });
+        getPageVolume();
       }
 
       return false;
     }
   }
 
+  function getPageVolume() {
+    showLoading();
+
+    // resolve the sourceId + word to a volume + page
+    $.get(wwwRoot + 'ajax/getPage.php', { sourceId: sourceId, word: word, })
+    .done(function(data) {
+      volume = data.volume;
+      page = data.page;
+      loadPage();
+    })
+    .fail(function(e) {
+      showAlert(e.responseText);
+    });
+  }
+
   function loadPage() {
-    $('#pageModal .alert').hide();
-    $('#pageModalSpinner').show();
+    showLoading();
+
     $('#pageModal .sourceDropDown').val(sourceId).trigger('change');
 
-    var url = sprintf(urlPattern, sourceId, volume, page);
+    var url = sprintf(URL_PATTERN, sourceId, volume, page);
 
     $('#pageImage').one('load', function() {
+      $('#loading').hide();
       $('#pageImage').show();
-      $('#pageModalSpinner').hide();
     }).one('error', function() {
-      $('#pageImage').hide();
-      $('#pageModal .alert').text('Pagina cerută nu există.').show();
-      $('#pageModalSpinner').hide();
+      showAlert('Imaginea cerută nu există.');
     }).attr('src', url);
+  }
+
+  function showLoading() {
+    $('#pageModal .alert').hide();
+    $('#loading').show();
+  }
+
+  function showAlert(message) {
+    $('#loading').hide();
+    $('#pageImage').hide();
+    $('#pageModal .alert').text(message).show();
   }
 
   init();

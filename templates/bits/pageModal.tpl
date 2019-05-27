@@ -1,5 +1,8 @@
 {if !isset($PAGE_MODAL_ONCE)}
   {$PAGE_MODAL_ONCE=1 scope="global"}
+  <script>
+    const URL_PATTERN = '{Config::STATIC_URL}' + '{Config::PAGE_URL_PATTERN}';
+  </script>
 
   <div id="pageModal" class="modal" tabindex="-1" role="dialog">
     <div class="modal-dialog">
@@ -14,8 +17,11 @@
         </div>
 
         <div class="modal-body text-center">
-          <img id="pageImage">
-          <div class="alert alert-danger" role="alert"></div>
+          <div class="pageScan">
+            {include "bits/loading.tpl"}
+            <img id="pageImage">
+            <div class="alert alert-danger" role="alert"></div>
+          </div>
         </div>
 
         <div class="modal-footer">
@@ -26,10 +32,6 @@
 
       </div>
     </div>
-  </div>
-
-  <div id="pageModalSpinner">
-    <img src="{Config::URL_PREFIX}img/spinning-circles.svg">
   </div>
 
 {/if}

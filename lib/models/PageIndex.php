@@ -12,8 +12,10 @@ class PageIndex extends BaseObject {
     }
 
     // source-specific fixes
-    if ($sourceId == 42) {
-      // Șăineanu disregards diacritics when sorting, so convert the word as well.
+    $sources = array(42, 82); // Șăineanu and IVO-III
+    if (in_array($sourceId, $sources)) {
+      // Șăineanu and other dictionaries disregard diacritics when sorting,
+      // so convert the word as well.
       $word = Str::unicodeToLatin($word);
     }
 

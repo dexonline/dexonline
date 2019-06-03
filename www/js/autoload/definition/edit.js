@@ -57,7 +57,7 @@ $(function() {
     var data = {
       definitionId: $('input[name="definitionId"]').val(),
       internalRep: internalRep.val(),
-      sourceId: $('#sourceDropDown').val(),
+      sourceId: getSourceId(),
       entryIds: $('#entryIds').val(),
     };
     $.post(wwwRoot + 'ajax/getSimilarRecord.php', data, updateFields, 'json');
@@ -146,7 +146,7 @@ $(function() {
     var data = {
       definitionId: $('input[name="definitionId"]').val(),
       internalRep: internalRep.val(),
-      sourceId: $('#sourceDropDown').val(),
+      sourceId: getSourceId(),
     };
     $.post(wwwRoot + 'ajax/getEntriesForLexicon.php', data, function(resp) {
       $('#entryIds').val(null);
@@ -155,6 +155,11 @@ $(function() {
       }
       refreshSelect2('#entryIds', 'ajax/getEntriesById.php');
     });
+  }
+
+  function getSourceId() {
+    var sourceId = $('input[name=source]').length ? $('input[name=source]') : $('#sourceDropDown');
+    return sourceId.val();
   }
 
   init();

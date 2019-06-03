@@ -76,7 +76,7 @@ class Mda2Parser extends Parser {
       '/[-~]*/ fragment+/[- ]/ /[-~]*/'
     ],
     'tenses' => [
-      '("#Cj#:"|"#Cnd#:"|"#Grz#:"|"#Im#:"|"#Imt#:"|"#In#:"|"#Mp#:"|"#Par#:"|"#Ps:#"|"#Pzi:#") /[^\/]+/s',
+      '("#Cj#:"|"#Cj# și:"|"#Cnd#:"|"#Grz#:"|"#Im#:"|"#Imt#:"|"#In#:"|"#Mp#:"|"#Par#:"|"#Ps:#"|"#Pzi:#") /[^\/]+/s',
     ],
     'variants' => [
       '"#V:#" ws variantsList+" " ws',

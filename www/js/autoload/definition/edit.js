@@ -159,7 +159,6 @@ $(function() {
 
   function getSourceId() {
     var sourceId = $('input[name=source]').length ? $('input[name=source]') : $('#sourceDropDown');
-    alert(sourceId.val());
     return sourceId.val();
   }
 

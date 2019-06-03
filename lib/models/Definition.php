@@ -480,12 +480,20 @@ class Definition extends BaseObject implements DatedObject {
    * special cases to deal with the formatting.
    */
   function extractLexicon() {
-    if (!preg_match('/(?:[\pL ])+(?:[\pL])/', $this->internalRep, $matches)) {
+    // First strip non-abbreviation marker and parser error marker
+    // sometimes forced into lexicon fields
+    $s = str_replace(['##', Constant::PARSING_ERROR_MARKER], '', $this->internalRep);
+
+    $s = preg_replace('/▶(.*?)◀/sU', '', $s); // strip hidden comments
+    $s = preg_replace('/\{{2}(.+)\}{2}/U', '', $s); // strip possible comments
+
+    // Look for possible lexicon (once the minor cleaning is done)
+    if (!preg_match('/^(?:\P{L})+(\X+?)[@,]/u', $s, $matches)) {
       $this->lexicon = '';
       return '';
     }
 
-    $s = $matches[0];
+    $s = $matches[1];
     $s = Str::removeAccents($s);
 
     $s = preg_replace('# (-|\X)+/$#', '', $s); // strip pronunciations (MDN)
@@ -495,13 +503,15 @@ class Definition extends BaseObject implements DatedObject {
     $s = preg_replace('/^[-!*]+/', '', $s);
     $s = str_replace("\\'", "'", $s);
     $s = str_replace(['$', '\\|', '|'], '', $s); // Onomastic uses |
-    $s = preg_replace('/[_^]{?[0-9]+}?/', '', $s); // strip homonym numbering and subscripts
+
+    // strip homonym superscripts/subscripts, practically everything in super/sub
+    $s = preg_replace('/[_^]{?[0-9®]+}?/', '', $s);
 
     $s = preg_replace('/^[-* 0-9).]+/', '', $s); // strip homonyms and asterisks (Scriban)
 
     if (in_array($this->sourceId, [7, 9, 38, 62])) {
       // Strip 'a ', 'a se ' etc. from verbs
-      $s = preg_replace('/^(a se |a \(se\) |a-și |a )/i', '', $s);
+      $s = preg_replace('/^(a \(?se\)? |a-și |a )/i', '', $s);
     }
 
     if ($this->sourceId == 9) {
@@ -528,7 +538,7 @@ class Definition extends BaseObject implements DatedObject {
     // strip some more characters
     $s = preg_replace('/[-:]+$/', '', $s);
     $s = preg_replace('/ [1i]\.$/', '', $s);
-    $s = str_replace(['(', ')', '®', '!', '#', '\\'], '', $s);
+    $s = str_replace(['(', ')', '®', '!', '#', '\\', '"'], '', $s);
 
     // if there is only one final dot, strip it
     $s = preg_replace("/^([^.]+)\.$/", '$1', $s);

@@ -24,7 +24,7 @@
             data-value="1" data-order="1" data-other-text="html">text</a>
         | <a href="#" class="toggleRepLink doubleText" title="contractează sau expandează abrevierile"
             data-value="1" data-order="2" data-other-text="abreviat">expandat</a>
-
+        | <a href="#" class="toggleTypoLink doubleText" title="semnalează erori" data-other-text="anulează">semnalează</a>
         |
         <a href="#"
           title="comută definiția între structurată și nestructurată"

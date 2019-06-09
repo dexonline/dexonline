@@ -61,7 +61,7 @@
   border-bottom-left-radius: 4px;
 }
 
-#searchClear {
+[id*="Clear"] {
   color: #761818;
   cursor: pointer;
   pointer-events: auto;
@@ -248,6 +248,11 @@ abbr[title] {
   padding-right: 10px;
 }
 
+.defWrapper .typo {
+  padding: 10px 0;
+  border-bottom: #CCC 1px dashed;
+}
+
 sup.footnote {
   cursor: auto;
   font-style: normal; /* do not inherit bold/italic */
@@ -297,6 +302,9 @@ sup.footnote {
   color: #1e83c2;
 }
 
+[id*="typoSent"] {
+  color: #5cb85c;
+}
 
 /************** labels inside headers **************/
 

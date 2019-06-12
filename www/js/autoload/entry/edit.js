@@ -164,6 +164,7 @@ $(function() {
     return false;
   }
 
+  // TODO this duplicates some code from main.js:searchClickedWord()
   function prepareTypo(evt) {
     var id = evt.data.param;
     //if ($(event.target).is('abbr')) return false;
@@ -207,20 +208,6 @@ $(function() {
     $('#typoText_'+id).val(txt + sel);
 
   }
-
-  function getDefinitionTypoForm(id, parent) {
-    $.ajax({
-      type: "GET",
-      url: wwwRoot + "ajax/getDefinitionTypoForm.php",
-      data: "id="+id,
-      dataType: "json",
-      success: function (response)
-      {
-        parent.append(response.html);
-      }
-    });
-  }
-
 
   function treeFilterChange() {
     $('.tree').stop().slideDown();

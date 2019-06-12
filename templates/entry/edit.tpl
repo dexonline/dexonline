@@ -529,6 +529,7 @@
 
     {/if}
   {/if}
+  {include "bits/definitionTypoForm.tpl"}
 
   {include "bits/pageModal.tpl"}
 {/block}

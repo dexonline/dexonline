@@ -42,6 +42,7 @@ $(function() {
     $('#description').on('change input paste', showRenameDiv);
 
     $('.toggleRepLink').click(toggleRepClick);
+    $('.toggleTypoLink').click(toggleTypoClick);
     $('.toggleRepSelect').click(toggleRepChange);
     $('.toggleStructuredLink').click(toggleStructuredClick);
     $('#defFilterSelect, #structurableFilter').click(defFilterChange);
@@ -112,6 +113,100 @@ $(function() {
     $(this).toggle();
 
     return false;
+  }
+
+  /* Definitions has typos :)
+   * easy clicking report sending. */
+  function toggleTypoClick() {
+    // Get definition id
+    var parent = $(this).closest('.defWrapper');
+    var id = parent.attr('id').split('_')[1];
+
+    // text of link is changing before this fires, so we need to check the changed value
+    if ($(this).attr('data-other-text') === 'anulează'){
+      $('#typo_' + id).slideToggle('normal', function() {
+        $(this).remove();
+        $('#def_'+ id+' .rep').off('click', prepareTypo);
+      });
+    } else {
+      // clone the sending form and attach it to the def_[id] div
+      $('#typo').clone(true).appendTo(parent).prop('id', 'typo_' + id ).slideToggle('normal', function(){
+        $(this).find("[id]").each(function() {
+          this.id += '_' + id;
+        });
+
+        // hooking needed events
+        $('#typoSend_'+ id).on('click', { param: id }, submitTypo);
+        $('#def_'+ id +' .rep').on('click', { param: id }, prepareTypo);
+        $('#typoClear_'+ id).click(function(){
+          $('#typoText_'+ id).val('');
+        });
+      });
+    }
+
+    return false;
+  }
+
+  function submitTypo(evt) {
+    var id = evt.data.param;
+    var text = $('#typoText_' + id).val();
+
+    $.post(wwwRoot + 'ajax/typo.php',
+         { definitionId: id, text: text }, function() {
+           $('#typoClear_' + id).toggleClass('collapse');
+           $('#typoSent_' + id).toggleClass('collapse');
+
+           setTimeout(function() {
+                $('#def_' + id).find('.toggleTypoLink').trigger('click');
+            }, 1000);
+         });
+
+    return false;
+  }
+
+  // TODO this duplicates some code from main.js:searchClickedWord()
+  function prepareTypo(evt) {
+    var id = evt.data.param;
+    //if ($(event.target).is('abbr')) return false;
+    var s = window.getSelection();
+
+    //if (!s.isCollapsed) return false;
+    var begin = /^\s/;
+    var end = /\s$/;
+
+    var	d = document,
+        nA = s.anchorNode,
+        oA = s.anchorOffset,
+        nF = s.focusNode,
+        oF = s.focusOffset,
+        range = d.createRange();
+
+    range.setStart(nA,oA);
+    range.setEnd(nF,oF);
+
+    // Extend range to the next space or end of node
+    while(range.endOffset < range.endContainer.textContent.length &&
+          !end.test(range.toString())){
+            range.setEnd(range.endContainer, range.endOffset + 1);
+          }
+    // Extend range to the previous space or start of node
+    while(range.startOffset > 0 &&
+          !begin.test(range.toString())){
+            range.setStart(range.startContainer, range.startOffset - 1);
+          }
+
+    // Remove spaces
+    if(end.test(range.toString()) && range.endOffset > 0)
+      range.setEnd(range.endContainer, range.endOffset - 1);
+    if(begin.test(range.toString()))
+      range.setStart(range.startContainer, range.startOffset + 1);
+
+    // Assign range to selection
+    var sel = range.toString();
+    var txt = $('#typoText_'+id).val();
+    txt += txt ? '; ' : '';
+    $('#typoText_'+id).val(txt + sel);
+
   }
 
   function treeFilterChange() {

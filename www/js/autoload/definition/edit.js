@@ -139,7 +139,7 @@ $(function() {
   }
 
   function clearEntries() {
-    $('#entryIds').val(null).trigger('change');
+    $('#entryIds').empty().trigger('change');
   }
 
   function refreshEntries() {
@@ -149,7 +149,7 @@ $(function() {
       sourceId: getSourceId(),
     };
     $.post(wwwRoot + 'ajax/getEntriesForLexicon.php', data, function(resp) {
-      $('#entryIds').val(null);
+      $('#entryIds').empty();
       for (var i = 0; i < resp.length; i++) {
         $('#entryIds').append(new Option('', resp[i], true, true));
       }

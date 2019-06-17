@@ -1,5 +1,10 @@
 /* stylesheet for dexonline custom style. Do Not include here responsive tweaks, use responsive.css instead */
 
+/*********** needed for tonic accents fi ***********/
+body {
+  font-variant-ligatures: no-common-ligatures;
+}
+
 /*********** navbar and its elements ***********/
 
 .navbar-brand > img {

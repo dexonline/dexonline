@@ -1,7 +1,11 @@
 /* stylesheet for dexonline custom style. Do Not include here responsive tweaks, use responsive.css instead */
 
-/*********** needed for tonic accents fi ***********/
+/* prevent ligatures for the following reasons:
+* 1. tonic accent (underline) is not displayed in ~fi~ segments
+* 2. %fig.%, %refl.% etc. look bad when spaced.                 */
+
 body {
+  -webkit-font-variant-ligatures: no-common-ligatures;
   font-variant-ligatures: no-common-ligatures;
 }
 
@@ -217,9 +221,6 @@ abbr[title] {
 .spaced {
   letter-spacing: 3px;
   padding-left: 2px;
-  /* prevent ligatures, since %fig.%, %refl.% etc. look bad when spaced. */
-  -webkit-font-variant-ligatures: no-common-ligatures;
-  font-variant-ligatures: no-common-ligatures;
 }
 
 .deemph {

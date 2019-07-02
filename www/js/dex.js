@@ -81,21 +81,17 @@ function formatSource(item) {
 
 function reviveInit() {
   if ($('#theZone').length) {
-    var w = $(window).width(), zoneId, width;
+    var w = $(window).width(), zoneId;
     if (w > reviveBreakpoint1) {
       zoneId = reviveZoneId1;
-      width = reviveWidth1;
       // single zone invocation since we have no banners for other resolutions
       // TODO move these lines outside the if once we have more banners
       $('#theZone').attr('data-revive-zoneid', zoneId);
-      $('.banner-section').width(width);
       $.getScript(reviveUrl);
     } else if (w > reviveBreakpoint2) {
       zoneId = reviveZoneId2;
-      width = reviveWidth2;
     } else {
       zoneId = reviveZoneId3;
-      width = reviveWidth3;
     }
   }
 }

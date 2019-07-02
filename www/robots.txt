@@ -8,7 +8,7 @@ Crawl-delay: 2
 Disallow: /preferences
 Disallow: /preferinte
 Disallow: /stat
-Disallow: /openx
+Disallow: /revive
 # Do not crawl queries with square brackets. There are about 30.000 of these per day from GoogleBot.
 # For the syntax, see https://developers.google.com/webmasters/control-crawl-index/docs/robots_txt
 Disallow: /definitie/*%5B

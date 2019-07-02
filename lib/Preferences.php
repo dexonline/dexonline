@@ -84,6 +84,12 @@ class Preferences {
     if ($user && $user->noAdsUntil > time()) {
       $copy[self::PRIVATE_MODE]['enabled'] = true;
     }
+
+    if (Config::GLOBAL_PRIVATE_MODE) {
+      $copy[self::PRIVATE_MODE]['comment'] .=
+        '<br><b>Notă</b>: Modul confidențial este de acum activat automat pentru toți utilizatorii.';
+    }
+
     return $copy;
   }
 

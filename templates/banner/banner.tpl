@@ -1,5 +1,5 @@
 {* Banner-related code that goes in the ad spot *}
-{if !$privateMode && !$suggestNoBanner && empty($adult) && !User::can(User::PRIV_ANY)}
+{if Util::isBannerVisible()}
   <section class="row banner-section" data-placement="{Config::BANNER_PLACEMENT}">
     <div class="center-block text-center">
       {if Config::BANNER_TYPE == 'revive'}

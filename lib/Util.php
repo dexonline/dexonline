@@ -7,6 +7,8 @@ class Util {
   const CURL_COOKIE_FILE = '/dexonline_cookie.txt';
   const INFINITY = 1000000000;
 
+  private static $hiddenThirdPartyBanners = false;
+
   /* Returns $obj->$prop for every $obj in $a */
   static function objectProperty($a, $prop) {
     $results = [];
@@ -208,10 +210,38 @@ class Util {
     }
   }
 
-  static function suggestNoBanner() {
-    return
-      !Config::SKIN_BANNER || // disabled by config file
-      (User::getActive() && User::getActive()->noAdsUntil > time()); // user is an active donor
+  static function isPrivateMode() {
+    return Config::GLOBAL_PRIVATE_MODE ||
+      Session::userPrefers(Preferences::PRIVATE_MODE);
+  }
+
+  // Any part of the program can call us to indicate that third party banners
+  // should not be displayed (e.g. search.php if it detects adult definitions).
+  // Then templates will call Util::isBannerVisible() at the end.
+  static function hideThirdPartyBanners() {
+    self::$hiddenThirdPartyBanners = true;
+  }
+
+  static function isBannerVisible() {
+    $user = User::getActive();
+
+    // cases that require us to block all banners
+    if (!Config::SKIN_BANNER ||                   // disabled by config file
+        User::can(User::PRIV_ANY) ||              // user is privileged
+        ($user && $user->noAdsUntil > time())) {  // user is a donor
+      return false;
+    }
+
+    // cases that require us to block third-party banners
+    $isThirdPartyBanner = !in_array(Config::BANNER_TYPE, ['revive', 'fake', 'none']);
+
+    if ($isThirdPartyBanner &&
+        (self::$hiddenThirdPartyBanners ||  // some other code requested no 3rd party banners
+         self::isPrivateMode())) {          // in private mode
+      return false;
+    }
+
+    return true;
   }
 
   /**

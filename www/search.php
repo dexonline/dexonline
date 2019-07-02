@@ -215,7 +215,7 @@ if ($searchType == SEARCH_INFLECTED) {
   if (empty($entries) && empty($definitions)) {
     $searchType = SEARCH_APPROXIMATE;
     $entries = Lexeme::searchApproximate($cuv);
-    Smart::assign('suggestNoBanner', true);
+    Util::hideThirdPartyBanners();
     if (count($entries) == 1) {
       $msg = sprintf(_('We redirected you automatically from <b>%s</b> to <b>%s</b>.'),
                      $cuv, $entries[0]->description);
@@ -410,6 +410,9 @@ if ($searchParams[$searchType]['paradigm'] &&
 foreach ($entries as $e) {
   $adult |= $e->adult;
 }
+if ($adult) {
+  Util::hideThirdPartyBanners();
+}
 
 Smart::assign([
   'entries' => $entries,
@@ -425,7 +428,6 @@ Smart::assign([
   'paradigmLink' => $paradigmLink,
   'allDefinitions' => $all,
   'showWotd' => $showWotd,
-  'adult' => $adult,
   'pageType' => 'search',
 ]);
 if ($text || $sourceId) {

@@ -22,8 +22,7 @@ class Smart {
     if (Request::isWeb()) {
       self::assign([
         'currentYear' => date('Y'),
-        'suggestNoBanner' => Util::suggestNoBanner(),
-        'privateMode' => Session::userPrefers(Preferences::PRIVATE_MODE),
+        'privateMode' => Util::isPrivateMode(),
         'advancedSearch' => Session::userPrefers(Preferences::SHOW_ADVANCED),
       ]);
     }
@@ -196,7 +195,7 @@ class Smart {
     if (User::can(User::PRIV_ANY)) {
       self::addResources('admin', 'charmap', 'sprintf');
     }
-    if (Session::userPrefers(Preferences::PRIVATE_MODE)) {
+    if (Util::isPrivateMode()) {
       self::addResources('privateMode');
     }
     self::addSameNameFiles($templateName);

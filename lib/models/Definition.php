@@ -387,7 +387,9 @@ class Definition extends BaseObject implements DatedObject {
         ->join('Lexeme', ['i1.lexemeId', '=', 'l.id'], 'l')
         ->left_outer_join('InflectedForm', ['i2.lexemeId', '=', 'l.id'], 'i2')
         ->where('l.stopWord', 0)
-        ->where('i1.formUtf8General', $key)
+        // Queries hang if $key is passed as an int, e.g. "where i1.formUtf8General = 0".
+        // This can happen if the query includes a term like 0.
+        ->where('i1.formUtf8General', (string)$key)
         ->find_many();
       foreach ($forms as $f) {
         // catch accents in both forms ('a and á) as both can be present in

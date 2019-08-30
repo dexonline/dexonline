@@ -35,9 +35,8 @@ class Core {
     DebugInfo::init();
     Plugin::init();
     Router::init();
-    if (Request::isWeb() && Config::MAINTENANCE_MODE) {
-      Smart::display('maintenance.tpl', true);
-      exit;
+    if (Request::isWeb()) {
+      Plugin::notify('coreInit');
     }
   }
 

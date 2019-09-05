@@ -87,7 +87,7 @@ $(function() {
       });
     });
 
-    $.cookie(cookieName, JSON.stringify(dict), { expires: 3650, path: '/' });
+    $.cookie(cookieName, JSON.stringify(dict), { expires: 365, path: '/' });
   }
 
   function frequentObjectClick() {

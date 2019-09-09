@@ -84,15 +84,14 @@ function reviveInit() {
     var w = $(window).width(), zoneId;
     if (w > reviveBreakpoint1) {
       zoneId = reviveZoneId1;
-      // single zone invocation since we have no banners for other resolutions
-      // TODO move these lines outside the if once we have more banners
-      $('#theZone').attr('data-revive-zoneid', zoneId);
-      $.getScript(reviveUrl);
     } else if (w > reviveBreakpoint2) {
       zoneId = reviveZoneId2;
     } else {
       zoneId = reviveZoneId3;
     }
+
+    $('#theZone').attr('data-revive-zoneid', zoneId);
+    $.getScript(reviveUrl);
   }
 }
 

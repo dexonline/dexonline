@@ -94,12 +94,12 @@ try {
   $wotdImagePath = 'img/wotd/' . $wotd->image;
   StaticUtil::move($tmpFilePath, $wotdImagePath);
 
-  replyToEmail($sender, $subject, "Succes epic! Am adăugat imaginea pentru '{$word}'.");
+  replyToEmail($from, $subject, "Succes epic! Am adăugat imaginea pentru '{$word}'.");
 
 } catch (Exception $e) {
   @unlink($tmpFilePath); // may not be defined
   Log::error($e->getMessage());
-  replyToEmail($sender, $subject, $e->getMessage());
+  replyToEmail($from, $subject, $e->getMessage());
 }
 
 Log::notice('finished');

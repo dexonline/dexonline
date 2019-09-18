@@ -12,7 +12,7 @@
  *     'startDate' => 'Tue 10 Sep 2019 00:00:00 AM EEST',
  *     'endDate' => 'Tue 10 Sep 2019 11:59:59 PM EEST',
  *   ],
- * ],
+ * ];
  *
  **/
 
@@ -43,7 +43,7 @@ class Strike extends Plugin {
     $to = strtotime($cfg['endDate']);
     $now = time();
 
-    
+
     $this->active =
       ($now >= $from) &&
       ($now < $to) &&

@@ -28,11 +28,29 @@
       episoadele din trecut.
       <a href="https://www.theguardian.com/science/2019/jul/24/scientific-consensus-on-humans-causing-global-warming-passes-99" target="_blank">Majoritatea covârșitoare</a>
       a oamenilor de știință cred că schimbările din prezent sunt cauzate de
-      activități omenești. Emisiile de gaze cu efect de seră (în special bioxidul
-      de carbon, CO2) cauzate de industrie și de agricultură schimbă planeta
-      noastră, singura casă pe care o avem, amenințând să o facă incompatibilă cu
-      civilizația omenească.
+      activități omenești:
     </p>
+
+    <ul>
+      <li>
+        Emisiile de gaze cu efect de seră (bioxidul de carbon, CO<sub>2</sub>,
+        dar și metanul și altele) cauzate de industrie și de agricultură
+        schimbă planeta noastră, singura casă pe care o avem, amenințând să o
+        facă incompatibilă cu civilizația omenească.
+      </li>
+      <li>
+        <a href="https://www.theguardian.com/environment/2019/sep/12/deforestation-world-losing-area-forest-size-of-uk-each-year-report-finds" target="_blank">Defrișările în masă</a>
+        împiedică pădurile să absoarbă bioxidul de carbon din atmosferă și
+        afectează grav ecosistemele (de remarcat că națiunile s-au angajat în
+        2014 să înjumătățească defrișările pînă în 2020, dar ele continuă să
+        crească).
+      </li>
+      <li>
+        <a href="https://www.scientificamerican.com/article/population-growth-climate-change/" target="_blank">Creșterea populației</a>
+        se corelează cu distrugerea mediului. Mai mulți oameni emit mai multe
+        gaze cu efect de seră, consumă mai multe resurse și mai mult spațiu.
+      </li>
+    </ul>
 
     <h3>Care sunt efectele schimbărilor climatice?</h3>
 
@@ -155,18 +173,20 @@
 
     <p>
       Măsurile politice înțelepte ar putea rezolva problema, dar absența
-      măsurilor ne dă semnalul (fals) că ne putem continua nederanjați traiul de
-      până acum. Uităm că trăim pe resurse împrumutate, că ne agonisim bogăția
-      jefuind planeta pe care o vom lăsa urmașilor noștri. Ne ducem copiii cu
-      mașina la școală, preocupându-ne de educația lor în timp ce le otrăvim
-      atmosfera. Ne mutăm în afara orașului „pentru aer mai curat”,
+      măsurilor ne dă semnalul (fals) că ne putem continua nederanjați traiul
+      de până acum. Uităm că trăim pe resurse împrumutate, că ne agonisim
+      bogăția jefuind planeta pe care o vom lăsa urmașilor noștri. Ne ducem
+      copiii cu mașina la școală, preocupându-ne de educația lor în timp ce le
+      otrăvim atmosfera. Ne mutăm în afara orașului „pentru aer mai curat”,
       consolidându-ne sclavia față de mașină. Ne creștem orașele pe orizontală
       în loc de verticală, restrângând palmă cu palmă teritoriul de drept al
       naturii. Aruncăm reciclabilele la gunoi pentru că „oricum tot acolo
       ajung”. Cumpărăm cadouri neinspirate unor oameni care nu și le
-      doresc. Milităm pentru autostrăzi, iar reabilitarea căilor ferate nu o mai
-      cere nimeni. Deplângem scăderea populației, fără să luăm în calcul
-      efectele devastatoare ale unei populații scăpate de sub control.
+      doresc. Milităm pentru autostrăzi, iar reabilitarea căilor ferate nu o
+      mai cere nimeni. Deplângem scăderea populației, fără să luăm în calcul
+      efectele devastatoare ale unei populații scăpate de sub control. Este
+      nevoie de acțiunea concertată a guvernelor și a noastră, a tuturor,
+      pentru a opri acest consumerism galopant.
     </p>
 
     <p>

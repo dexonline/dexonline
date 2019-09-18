@@ -35,8 +35,6 @@ class StaticUtil {
         "convert -strip -geometry %sx%s -sharpen 1x1 '%s' '%s'",
         $size, $size, $fullSrc, $fullDest);
       OS::execute($command);
-      var_dump($fullSrc);
-      var_dump($fullDest);
       chmod($fullDest, 0644);
     }
   }

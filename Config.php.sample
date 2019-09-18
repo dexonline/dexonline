@@ -154,9 +154,10 @@ class Config {
   // Web address of the static resource server. Include a trailing slash.
   const STATIC_URL = 'https://dexonline.ro/static/';
 
-  // Storage path, for uploads to the static server. Should be writable by the
-  // web server user. Include a trailing slash.
-  const STATIC_PATH = '/srv/http/static.dexonline.ro/';
+  // Storage path, for uploads to the static server. If empty, we won't
+  // attempt to write anything (e.g. generate thumbnails). If not empty, then
+  // it should be writable by the web server user. Include a trailing slash.
+  const STATIC_PATH = null;
 
   // URL path pattern for page images, relative to STATIC_URL
   const PAGE_URL_PATTERN = 'pages/%03d/vol%02d/%04d.png';

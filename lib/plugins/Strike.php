@@ -9,8 +9,8 @@
  * const PLUGINS = [
  *   'Strike' => [
  *     // make sure to include a timezone
- *     'startDate' => 'Tue 10 Sep 2019 00:00:00 AM EEST',
- *     'endDate' => 'Tue 10 Sep 2019 11:59:59 PM EEST',
+ *     'startDate' => '20/Sep/2019:00:00:00 GMT+0300',
+ *     'endDate' => '20/Sep/2019:23:59:59 GMT+0300',
  *   ],
  * ];
  *

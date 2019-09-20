@@ -47,6 +47,7 @@ class Strike extends Plugin {
     $this->active =
       ($now >= $from) &&
       ($now < $to) &&
+      Request::isWeb() &&
       !$this->isAllowedRoute() &&
       !User::can(User::PRIV_ANY);
   }

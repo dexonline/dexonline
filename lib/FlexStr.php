@@ -55,7 +55,8 @@ class FlexStr {
     ['î', 'a'], // vârî, coborî
     ['k', 'c'], // tadjik / tadjici
     ['k', ''], // gobseck / gobseci
-    ['l', 'i'],
+    ['l', 'i'], // cal
+    ['l', ''], // călișor / căișori
     ['n', 's'], // pune, rămâne
     ['o', 'oa'],
     ['o', 'e'], // sombrero

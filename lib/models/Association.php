@@ -148,19 +148,30 @@ abstract class Association extends BaseObject {
     // iterate the array, creating or updating records
     $rank = 1;
     foreach ($right as $id) {
-      if (isset($map[$id])) {
-        // existing association, update the order
-        $map[$id]->set(static::$ranks[1 - $swap], $rank);
-        $map[$id]->save();
-        unset($map[$id]);
+      // ensure that the object still exists (e.g. that it wasn't deleted in
+      // another browser tab)
+      $className = static::$classes[1 - $swap];
+      $obj = Model::factory($className)->where('id', $id)->find_one();
+
+      if (!$obj) {
+        Log::info("Underlying {$className} ID {$id} is gone");
       } else {
-        // create new association
-        $a = $swap
-           ? self::create($id, $left, $payload, $rank, self::LAST)
-           : self::create($left, $id, $payload, self::LAST, $rank);
-        $a->save();
+
+        if (isset($map[$id])) {
+          // existing association, update the order
+          $map[$id]->set(static::$ranks[1 - $swap], $rank);
+          $map[$id]->save();
+          unset($map[$id]);
+        } else {
+          // create new association
+          $a = $swap
+            ? self::create($id, $left, $payload, $rank, self::LAST)
+            : self::create($left, $id, $payload, self::LAST, $rank);
+          $a->save();
+        }
+        $rank++;
       }
-      $rank++;
+
     }
 
     // delete leftover associations

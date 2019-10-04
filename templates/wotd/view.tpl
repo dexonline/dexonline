@@ -43,10 +43,10 @@
       <div class="panel-body">
         {t
           1="http://www.google.com/search?q=rss+by+email"
-          2="https://ifttt.com/recipes/147561-rss-feed-to-email"
+          2="https://blogtrottr.com/"
         }<i>dexonline</i> does not directly offer the word of the day by email.
         However, there are <a href="%1">many sites</a> that do this for any RSS feed.
-        We recommend <a href="%2">IFTTT</a>.{/t}
+        We recommend <a href="%2">Blogtrottr</a>.{/t}
       </div>
     </div>
   </div>

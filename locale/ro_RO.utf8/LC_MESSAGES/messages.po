@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2019-05-07 15:08+0300\n"
-"PO-Revision-Date: 2019-05-07 15:08+0300\n"
+"POT-Creation-Date: 2019-10-04 11:15+0300\n"
+"PO-Revision-Date: 2019-10-04 11:16+0300\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -271,7 +271,7 @@ msgstr "Caută în tot textul definițiilor"
 msgid "help"
 msgstr "ajutor"
 
-#: templates/bits/sourceDropDown.tpl:13
+#: templates/bits/sourceDropDown.tpl:14
 msgid "All dictionaries"
 msgstr "Toate dicționarele"
 
@@ -1267,7 +1267,7 @@ msgstr "Un <a href=\"%1\">modul de WordPress</a> pentru blogul dumneavoastră."
 msgid "Dictionaries in StarDict format"
 msgstr "Dicționare în formatul StarDict"
 
-#: templates/simple/tools.tpl:197
+#: templates/simple/tools.tpl:192
 msgid "all of the above"
 msgstr "toate cele de mai sus"
 
@@ -1342,11 +1342,11 @@ msgstr "Cuvântul zilei, %1 %2 %3"
 msgid ""
 "<i>dexonline</i> does not directly offer the word of the day by email. "
 "However, there are <a href=\"%1\">many sites</a> that do this for any RSS "
-"feed. We recommend <a href=\"%2\">IFTTT</a>."
+"feed. We recommend <a href=\"%2\">Blogtrottr</a>."
 msgstr ""
 "<i>dexonline</i> nu oferă cuvântul zilei direct prin e-mail. Există însă <a "
 "href=\"%1\">multe site-uri</a> care fac acest lucru pentru orice RSS. Vă "
-"recomandăm <a href=\"%1\">IFTTT</a>."
+"recomandăm <a href=\"%2\">Blogtrottr</a>."
 
 #: templates/wotd/view.tpl:98 templates/wotm/view.tpl:57
 msgid "Chosen because:"

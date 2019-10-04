@@ -1,18 +1,19 @@
-{assign var="name" value=$name|default:'source'}
-{assign var="skipAnySource" value=$skipAnySource|default:''}
-{assign var="sourceId" value=$sourceId|default:null}
-{assign var="urlName" value=$urlName|default:false}
-{assign var="width" value=$width|default:'100%'}
-{assign var="autosubmit" value=$autosubmit|default:false}
+{$name=$name|default:'source'}
+{$skipAnySource=$skipAnySource|default:''}
+{$sourceId=$sourceId|default:null}
+{$urlName=$urlName|default:false}
+{$width=$width|default:'100%'}
+{$autosubmit=$autosubmit|default:false}
+{$sources=$sources|default:Source::getAll(Source::SORT_SEARCH)}
 <select name="{$name}"
-        id="sourceDropDown"
-        class="form-control sourceDropDown"
-        style="width: {$width}"
-        {if $autosubmit}onchange="this.form.submit();"{/if}>
+  id="sourceDropDown"
+  class="form-control sourceDropDown"
+  style="width: {$width}"
+  {if $autosubmit}onchange="this.form.submit();"{/if}>
   {if !$skipAnySource}
     <option value="">{t}All dictionaries{/t}</option>
   {/if}
-  {foreach Source::getAll(Source::SORT_SEARCH) as $source}
+  {foreach $sources as $source}
     {if $urlName}
       {assign var="submitValue" value=$source->urlName}
     {else}

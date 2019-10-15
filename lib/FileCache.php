@@ -65,14 +65,16 @@ class FileCache {
     self::put(self::CKEY_WORDS_LAST_MONTH, $value);
   }
 
-  static function getTop($manual, $hidden = false) {
+  static function getTop($manual, $hidden = false, $lastyear = false) {
     $var = $hidden ? self::CKEY_TOP_ALL : self::CKEY_TOP;
-    return self::get($var . ($manual ? '1' : '0'));
+    $key = $var . ($manual ? '1' : '0') . ($lastyear ? 'y' : '');
+    return self::get($key);
   }
 
-  static function putTop($value, $manual, $hidden = false) {
+  static function putTop($value, $manual, $hidden = false, $lastyear = false) {
     $var = $hidden ?  self::CKEY_TOP_ALL : self::CKEY_TOP;
-    self::put($var . ($manual ? '1' : '0'), $value);
+    $key = $var . ($manual ? '1' : '0') . ($lastyear ? 'y' : '');
+    self::put($key, $value);
   }
 
   // exposing this publicly breaks the abstraction, but is needed for the C

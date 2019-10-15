@@ -2,15 +2,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: BUG-EMAIL-ADDR <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2019-03-11 15:58+0200\n"
-"PO-Revision-Date: 2019-03-11 15:58+0200\n"
+"POT-Creation-Date: 2019-10-15 03:47+0300\n"
+"PO-Revision-Date: 2019-10-15 03:51+0300\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Poedit 2.0.6\n"
 "X-Poedit-Basepath: ../../..\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -269,7 +269,7 @@ msgstr "Teljes szöveges keresés"
 msgid "help"
 msgstr "segítség"
 
-#: templates/bits/sourceDropDown.tpl:13
+#: templates/bits/sourceDropDown.tpl:14
 msgid "All dictionaries"
 msgstr "Összes szótár"
 
@@ -727,12 +727,12 @@ msgid "Current status: %1 definitions, of which %2 learned last month."
 msgstr ""
 "Aktuális állapot: %1 meghatározások, amelyekböl %2 a múlt hónapban tanultak."
 
-#: templates/layout.tpl:84 templates/simple/tools.tpl:84
+#: templates/layout.tpl:85 templates/simple/tools.tpl:84
 #: templates/simple/tools.tpl:107
 msgid "license"
 msgstr "licenc"
 
-#: templates/layout.tpl:85
+#: templates/layout.tpl:86
 msgid "privacy"
 msgstr "adatvédelem"
 
@@ -1253,6 +1253,16 @@ msgstr ""
 msgid "A <a href=\"%1\">WordPress plugin</a> for your blog."
 msgstr "<a href=\"%1\">WordPress bővítmény</a> a bloghoz."
 
+#: templates/simple/tools.tpl:167
+msgid "Dictionaries in StarDict format"
+msgstr ""
+
+#: templates/simple/tools.tpl:192
+#, fuzzy
+#| msgid "article of the month"
+msgid "all of the above"
+msgstr "a hónap cikke"
+
 #: templates/user/top.tpl:6
 msgid "Manual contribution rankings"
 msgstr "Kézi hozzájárulások rangsorolása"
@@ -1267,11 +1277,23 @@ msgstr ""
 "meghatározások teljes betű-számát. Összehasonlításképpen a Biblia körülbelül "
 "3.500.000 betűt tartalmaz."
 
-#: templates/user/top.tpl:16
+#: templates/user/top.tpl:14
+#, fuzzy
+#| msgid "volunteer ranking"
+msgid "Last year ranking"
+msgstr "önkéntes rangsorolás"
+
+#: templates/user/top.tpl:18
+#, fuzzy
+#| msgid "volunteer ranking"
+msgid "Global ranking"
+msgstr "önkéntes rangsorolás"
+
+#: templates/user/top.tpl:22
 msgid "Automated contribution rankings"
 msgstr "Automatizált hozzájárulások rangsorolása"
 
-#: templates/user/top.tpl:19
+#: templates/user/top.tpl:25
 msgid "These include definitions entered using a program."
 msgstr "Ezek közé tartozik a program segítségével megadott meghatározások."
 
@@ -1293,20 +1315,24 @@ msgid "follow us on"
 msgstr "kövess minket"
 
 #: templates/widgets/social.tpl:11
+#, fuzzy
+#| msgid "Blogger icon"
+msgid "Blog icon"
+msgstr "Blogger ikon"
+
+#: templates/widgets/social.tpl:12
+#, fuzzy
+#| msgid "Follow us on Blogger"
+msgid "Follow our blog"
+msgstr "Kövessen minket a Bloggeren"
+
+#: templates/widgets/social.tpl:21
 msgid "Facebook icon"
 msgstr "Facebook ikon"
 
-#: templates/widgets/social.tpl:12
+#: templates/widgets/social.tpl:22
 msgid "Follow us on Facebook"
 msgstr "Kövess minket Facebookon"
-
-#: templates/widgets/social.tpl:21
-msgid "Blogger icon"
-msgstr "Blogger ikon"
-
-#: templates/widgets/social.tpl:22
-msgid "Follow us on Blogger"
-msgstr "Kövessen minket a Bloggeren"
 
 #: templates/widgets/social.tpl:31
 msgid "Twitter icon"
@@ -1321,10 +1347,15 @@ msgid "Word of the day for %2 %1, %3"
 msgstr "A nap szava, %3, %1 %2"
 
 #: templates/wotd/view.tpl:45
+#, fuzzy
+#| msgid ""
+#| "<i>dexonline</i> does not directly offer the word of the day by email. "
+#| "However, there are <a href=\"%1\">many sites</a> that do this for any RSS "
+#| "feed. We recommend <a href=\"%2\">IFTTT</a>."
 msgid ""
 "<i>dexonline</i> does not directly offer the word of the day by email. "
 "However, there are <a href=\"%1\">many sites</a> that do this for any RSS "
-"feed. We recommend <a href=\"%2\">IFTTT</a>."
+"feed. We recommend <a href=\"%2\">Blogtrottr</a>."
 msgstr ""
 "A <i>dexonline</i> nem kűldi közvetlen e-mailben a nap szavát. Vannak "
 "azonban <a href=\"%1\">sok weblapok</a>, amelyek ezt bármely RSS-"
@@ -1367,79 +1398,92 @@ msgstr "aferézis vagy/és hangelnyelés által"
 msgid "long verb form"
 msgstr "hosszú ige forma"
 
-#: lib/models/SourceType.php:30
+#: lib/models/SourceType.php:32
 msgid "General use dictionaries"
 msgstr "Általános felhasználási szótárak"
 
-#: lib/models/SourceType.php:31
+#: lib/models/SourceType.php:33
 msgid "Morphological dictionaries"
 msgstr "Morfológiai szótárak"
 
-#: lib/models/SourceType.php:32
+#: lib/models/SourceType.php:34
 msgid "Relational dictionaries"
 msgstr "Rokon értelmű szavak szótárai"
 
-#: lib/models/SourceType.php:33
+#: lib/models/SourceType.php:35
 msgid "Etymological dictionaries"
 msgstr "Etimológiai szótárak"
 
-#: lib/models/SourceType.php:34
+#: lib/models/SourceType.php:36
 msgid "Specialized dictionaries"
 msgstr "Szakszótárak"
 
-#: lib/models/SourceType.php:35
+#: lib/models/SourceType.php:37
 msgid "Encyclopedic dictionaries"
 msgstr "Enciklopédikus szótárak"
 
-#: lib/models/SourceType.php:36
+#: lib/models/SourceType.php:38
 msgid "Slang dictionaries"
 msgstr "Szlengszótárak"
 
-#: lib/models/SourceType.php:37
+#: lib/models/SourceType.php:39
+#, fuzzy
+#| msgid "Relational dictionaries"
+msgid "Regional dictionaries"
+msgstr "Rokon értelmű szavak szótárai"
+
+#: lib/models/SourceType.php:40
 msgid "Other dictionaries"
 msgstr "Más szótárak"
 
-#: lib/models/SourceType.php:38
+#: lib/models/SourceType.php:41
 msgid "Unverified dictionaries"
 msgstr "Nem hivatalos szótárak"
 
-#: lib/models/SourceType.php:45
+#: lib/models/SourceType.php:48
 msgid "The most common sense of the words are explained."
 msgstr "Megmagyarázzák a szavak leggyakoribb értelmét."
 
-#: lib/models/SourceType.php:47
+#: lib/models/SourceType.php:50
 msgid "The correspondences between lemma and lexical forms of words."
 msgstr "A tőszó és más lexikai formák közötti összefüggések."
 
-#: lib/models/SourceType.php:49
+#: lib/models/SourceType.php:52
 msgid "These are not definitions, but relations between words."
 msgstr "Ezek nem meghatározások, csak szavak közötti összefüggések."
 
-#: lib/models/SourceType.php:51
+#: lib/models/SourceType.php:54
 msgid "The etymology of (family of) words are explained."
 msgstr "Megmagyarázzák a szó (család) etimológiáját."
 
-#: lib/models/SourceType.php:53
+#: lib/models/SourceType.php:56
 msgid "These definitions usually explain only specialized meanings of words."
 msgstr ""
 "Ezek a meghatározások csak a szavak bizonyos szaknyelvi jelentéseit "
 "magyarázhatják."
 
-#: lib/models/SourceType.php:55
+#: lib/models/SourceType.php:58
 msgid "Encyclopedic definitions"
 msgstr "Lexikonszerű enciklopédikus meghatározások"
 
-#: lib/models/SourceType.php:57
+#: lib/models/SourceType.php:60
 msgid "Only slang words or senses are defined."
 msgstr ""
 "Csak argó szavak (úgymond tolvajnyelv) vagy ezeknek az értelmeit magyarázzák."
 
-#: lib/models/SourceType.php:59
+#: lib/models/SourceType.php:62
+#, fuzzy
+#| msgid "Only slang words or senses are defined."
+msgid "Only regional (or archaic) words or senses are defined."
+msgstr ""
+"Csak argó szavak (úgymond tolvajnyelv) vagy ezeknek az értelmeit magyarázzák."
+
+#: lib/models/SourceType.php:64
 msgid "These definitions could explain only certain meanings of words."
 msgstr ""
 "Ezek a meghatározások csak a szavak bizonyos jelentéseit magyarázhatják."
 
-#: lib/models/SourceType.php:61
+#: lib/models/SourceType.php:66
 msgid ""
 "Since they are not made by lexicographers, these definitions may contain "
 "errors."

@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2019-03-11 15:57+0200\n"
-"PO-Revision-Date: 2019-03-11 15:57+0200\n"
+"POT-Creation-Date: 2019-10-15 03:47+0300\n"
+"PO-Revision-Date: 2019-10-15 03:52+0300\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Poedit 2.0.6\n"
 "X-Poedit-Basepath: ../../..\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -268,7 +268,7 @@ msgstr "Búsqueda en el texto de las definiciones"
 msgid "help"
 msgstr "ayuda"
 
-#: templates/bits/sourceDropDown.tpl:13
+#: templates/bits/sourceDropDown.tpl:14
 msgid "All dictionaries"
 msgstr "Todos los diccionarios"
 
@@ -729,12 +729,12 @@ msgstr ""
 "Estado actual: %1 definiciones, de las cuales %2 aprendidas durante el "
 "último mes."
 
-#: templates/layout.tpl:84 templates/simple/tools.tpl:84
+#: templates/layout.tpl:85 templates/simple/tools.tpl:84
 #: templates/simple/tools.tpl:107
 msgid "license"
 msgstr "licencia"
 
-#: templates/layout.tpl:85
+#: templates/layout.tpl:86
 msgid "privacy"
 msgstr "privacidad"
 
@@ -1258,6 +1258,16 @@ msgstr ""
 msgid "A <a href=\"%1\">WordPress plugin</a> for your blog."
 msgstr "Un <a href=\"%1\">plugin de WordPress</a> para su blog."
 
+#: templates/simple/tools.tpl:167
+msgid "Dictionaries in StarDict format"
+msgstr ""
+
+#: templates/simple/tools.tpl:192
+#, fuzzy
+#| msgid "article of the month"
+msgid "all of the above"
+msgstr "artículo del mes"
+
 #: templates/user/top.tpl:6
 msgid "Manual contribution rankings"
 msgstr "Ranking de las contribuciones manuales"
@@ -1272,11 +1282,23 @@ msgstr ""
 "total de los caracteres de estas definiciones. Comparativamente, la Biblia "
 "tiene aproximadamente 3,500,000 caracteres."
 
-#: templates/user/top.tpl:16
+#: templates/user/top.tpl:14
+#, fuzzy
+#| msgid "volunteer ranking"
+msgid "Last year ranking"
+msgstr "ranking de los voluntarios"
+
+#: templates/user/top.tpl:18
+#, fuzzy
+#| msgid "volunteer ranking"
+msgid "Global ranking"
+msgstr "ranking de los voluntarios"
+
+#: templates/user/top.tpl:22
 msgid "Automated contribution rankings"
 msgstr "Ranking de las contribuciones automáticas"
 
-#: templates/user/top.tpl:19
+#: templates/user/top.tpl:25
 msgid "These include definitions entered using a program."
 msgstr "Incluye las definiciones introducidas mediante programas."
 
@@ -1298,20 +1320,24 @@ msgid "follow us on"
 msgstr "síganos en"
 
 #: templates/widgets/social.tpl:11
+#, fuzzy
+#| msgid "Blogger icon"
+msgid "Blog icon"
+msgstr "Icono de Blogger"
+
+#: templates/widgets/social.tpl:12
+#, fuzzy
+#| msgid "Follow us on Blogger"
+msgid "Follow our blog"
+msgstr "Síganos en Blogger"
+
+#: templates/widgets/social.tpl:21
 msgid "Facebook icon"
 msgstr "Icono de Facebook"
 
-#: templates/widgets/social.tpl:12
+#: templates/widgets/social.tpl:22
 msgid "Follow us on Facebook"
 msgstr "Follow us on Facebook"
-
-#: templates/widgets/social.tpl:21
-msgid "Blogger icon"
-msgstr "Icono de Blogger"
-
-#: templates/widgets/social.tpl:22
-msgid "Follow us on Blogger"
-msgstr "Síganos en Blogger"
 
 #: templates/widgets/social.tpl:31
 msgid "Twitter icon"
@@ -1326,10 +1352,15 @@ msgid "Word of the day for %2 %1, %3"
 msgstr "Palabra del día para %2 %1, %3"
 
 #: templates/wotd/view.tpl:45
+#, fuzzy
+#| msgid ""
+#| "<i>dexonline</i> does not directly offer the word of the day by email. "
+#| "However, there are <a href=\"%1\">many sites</a> that do this for any RSS "
+#| "feed. We recommend <a href=\"%2\">IFTTT</a>."
 msgid ""
 "<i>dexonline</i> does not directly offer the word of the day by email. "
 "However, there are <a href=\"%1\">many sites</a> that do this for any RSS "
-"feed. We recommend <a href=\"%2\">IFTTT</a>."
+"feed. We recommend <a href=\"%2\">Blogtrottr</a>."
 msgstr ""
 "<i>dexonline</i> no permite recibir la palabra del día por correo. No "
 "obstante, existen <a href=\"%1\">varios webs</a> que lo hacen para cualquier "
@@ -1371,80 +1402,92 @@ msgstr "por aféresis y/o elisión"
 msgid "long verb form"
 msgstr "forma larga verbal"
 
-#: lib/models/SourceType.php:30
+#: lib/models/SourceType.php:32
 msgid "General use dictionaries"
 msgstr "Diccionarios de uso general"
 
-#: lib/models/SourceType.php:31
+#: lib/models/SourceType.php:33
 msgid "Morphological dictionaries"
 msgstr "Diccionarios morfológicos"
 
-#: lib/models/SourceType.php:32
+#: lib/models/SourceType.php:34
 msgid "Relational dictionaries"
 msgstr "Diccionarios relacionales"
 
-#: lib/models/SourceType.php:33
+#: lib/models/SourceType.php:35
 msgid "Etymological dictionaries"
 msgstr "Diccionarios etimológicos"
 
-#: lib/models/SourceType.php:34
+#: lib/models/SourceType.php:36
 msgid "Specialized dictionaries"
 msgstr "Diccionarios especializados"
 
-#: lib/models/SourceType.php:35
+#: lib/models/SourceType.php:37
 msgid "Encyclopedic dictionaries"
 msgstr "Diccionarios enciclopédicos"
 
-#: lib/models/SourceType.php:36
+#: lib/models/SourceType.php:38
 msgid "Slang dictionaries"
 msgstr "Diccionarios de jerga"
 
-#: lib/models/SourceType.php:37
+#: lib/models/SourceType.php:39
+#, fuzzy
+#| msgid "Relational dictionaries"
+msgid "Regional dictionaries"
+msgstr "Diccionarios relacionales"
+
+#: lib/models/SourceType.php:40
 msgid "Other dictionaries"
 msgstr "Otros diccionarios"
 
-#: lib/models/SourceType.php:38
+#: lib/models/SourceType.php:41
 msgid "Unverified dictionaries"
 msgstr "Diccionarios sin comprobar"
 
-#: lib/models/SourceType.php:45
+#: lib/models/SourceType.php:48
 msgid "The most common sense of the words are explained."
 msgstr "Se explica el sentido primario de las palabras."
 
-#: lib/models/SourceType.php:47
+#: lib/models/SourceType.php:50
 msgid "The correspondences between lemma and lexical forms of words."
 msgstr ""
 "Las correspondencias entre el lema y las formas léxicas de las palabras."
 
-#: lib/models/SourceType.php:49
+#: lib/models/SourceType.php:52
 msgid "These are not definitions, but relations between words."
 msgstr "No son definiciones, sino relaciones entre las palabras."
 
-#: lib/models/SourceType.php:51
+#: lib/models/SourceType.php:54
 msgid "The etymology of (family of) words are explained."
 msgstr "Se explican las etimologías de las (familias de) palabras."
 
-#: lib/models/SourceType.php:53
+#: lib/models/SourceType.php:56
 msgid "These definitions usually explain only specialized meanings of words."
 msgstr ""
 "Estas definiciones explican normalmente solo las acepciones especializadas "
 "de las palabras."
 
-#: lib/models/SourceType.php:55
+#: lib/models/SourceType.php:58
 msgid "Encyclopedic definitions"
 msgstr "Definiciones enciclopedicas"
 
-#: lib/models/SourceType.php:57
+#: lib/models/SourceType.php:60
 msgid "Only slang words or senses are defined."
 msgstr "Se definen solo las voces jergales."
 
-#: lib/models/SourceType.php:59
+#: lib/models/SourceType.php:62
+#, fuzzy
+#| msgid "Only slang words or senses are defined."
+msgid "Only regional (or archaic) words or senses are defined."
+msgstr "Se definen solo las voces jergales."
+
+#: lib/models/SourceType.php:64
 msgid "These definitions could explain only certain meanings of words."
 msgstr ""
 "Estas definiciones pueden explicar solo algunas de las acepciones de las "
 "palabras."
 
-#: lib/models/SourceType.php:61
+#: lib/models/SourceType.php:66
 msgid ""
 "Since they are not made by lexicographers, these definitions may contain "
 "errors."

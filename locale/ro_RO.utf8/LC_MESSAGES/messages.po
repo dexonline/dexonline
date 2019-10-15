@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2019-10-04 11:15+0300\n"
-"PO-Revision-Date: 2019-10-04 11:16+0300\n"
+"POT-Creation-Date: 2019-10-15 03:47+0300\n"
+"PO-Revision-Date: 2019-10-15 03:49+0300\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Poedit 2.0.6\n"
 "X-Poedit-Basepath: ../../..\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n==0 || (n!=1 && n%100>=1 && n"
 "%100<=19) ? 1 : 2);\n"
@@ -1285,11 +1285,19 @@ msgstr ""
 "numărul total de caractere din acele definiții. Comparativ, Biblia are circa "
 "3.500.000 de caractere."
 
-#: templates/user/top.tpl:16
+#: templates/user/top.tpl:14
+msgid "Last year ranking"
+msgstr "Contribuțiile ultimului an"
+
+#: templates/user/top.tpl:18
+msgid "Global ranking"
+msgstr "Clasamentul global"
+
+#: templates/user/top.tpl:22
 msgid "Automated contribution rankings"
 msgstr "Topul contribuțiilor automate"
 
-#: templates/user/top.tpl:19
+#: templates/user/top.tpl:25
 msgid "These include definitions entered using a program."
 msgstr "În această categorie intră definițiile trimise folosind un program."
 

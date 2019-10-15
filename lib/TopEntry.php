@@ -12,7 +12,7 @@ class TopEntry {
   public $timestamp; // of last submission
   public $days; // since last submission
 
-  private static function getSqlStatement($manual) {
+  private static function getSqlStatement($manual, $lastyear = false) {
 /*
  *    nick            source (short)     createDate              1:ratio (3-> 33%, 4 -> 25%)
  */
@@ -58,18 +58,26 @@ class TopEntry {
       $statusClause = sprintf("status = %d", Definition::ST_ACTIVE);
     }
 
+    if ($lastyear) {
+      $timewindow = 'createDate > unix_timestamp(date_sub(curdate(), interval 1 year))';
+    } else {
+      $timewindow = '1=1';
+    }
+
     $query = "select nick, count(*) as NumDefinitions, sum(length(internalRep)) as NumChars, max(createDate) as Timestamp 
     from Definition, User 
     where userId = User.id 
     and $statusClause
-    and $clause group by nick";
+    and $clause
+    and $timewindow 
+    group by nick";
 
     return $query;
   }
 
-  private static function loadUnsortedTopData($manual) {
-    $statement = self::getSqlStatement($manual);
-    
+  private static function loadUnsortedTopData($manual, $lastyear) {
+    $statement = self::getSqlStatement($manual, $lastyear);
+
     $dbResult = DB::execute($statement);
     $topEntries = [];
     $now = time();
@@ -88,16 +96,17 @@ class TopEntry {
   }
 
     //for debugging purposes only
-  private static function __getUnsortedTopData($manual) {
-      return TopEntry::loadUnsortedTopData($manual);
+  private static function __getUnsortedTopData($manual, $lastyear) {
+      return TopEntry::loadUnsortedTopData($manual, $lastyear);
   }
 
-  private static function getUnsortedTopData($manual) {
+  private static function getUnsortedTopData($manual, $lastyear) {
     $allowHidden = User::can(User::PRIV_VIEW_HIDDEN);
-    $data = FileCache::getTop($manual, $allowHidden);
+    $data = FileCache::getTop($manual, $allowHidden, $lastyear);
+
     if (!$data) {
-      $data = TopEntry::loadUnsortedTopData($manual);
-      FileCache::putTop($data, $manual, $allowHidden);
+      $data = TopEntry::loadUnsortedTopData($manual, $lastyear);
+      FileCache::putTop($data, $manual, $allowHidden, $lastyear);
     }
     return $data;
   }
@@ -108,9 +117,11 @@ class TopEntry {
    *
    * @param crit  Criterion to sorty by
    * @param ord  Order to sort in (ascending/descending)
+   * @param manual If true it is counted only manual contributions
+   * @param lastyear If true it is counted only contributions from last year
    */
-  static function getTopData($crit, $ord, $manual) {
-    $topEntries = TopEntry::getUnsortedTopData($manual);
+  static function getTopData($crit, $ord, $manual, $lastyear = false) {
+    $topEntries = TopEntry::getUnsortedTopData($manual, $lastyear);
 
     $nick = [];
     $numWords = [];
@@ -122,7 +133,7 @@ class TopEntry {
       $numChars[] = $topEntry->numChars;
       $date[] = $topEntry->timestamp;
     }
-    
+
     $ord = (int) $ord;
     if ($crit == self::SORT_CHARS) {
       array_multisort($numChars, SORT_NUMERIC, $ord, $nick, SORT_ASC,
@@ -135,7 +146,7 @@ class TopEntry {
     } else /* $crit == self::SORT_DATE */ {
       array_multisort($date, SORT_NUMERIC, $ord, $nick, SORT_ASC, $topEntries);
     }
-    
+
     return $topEntries;
   }
 }

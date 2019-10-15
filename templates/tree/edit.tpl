@@ -329,6 +329,15 @@
               <i class="glyphicon glyphicon-triangle-bottom"></i>
               subsens
             </button>
+            <button type="button"
+              class="btn btn-add-typed btn-color1 btn-sm meaningAction"
+              id="addExampleButton"
+              disabled
+              data-type="{Meaning::TYPE_EXAMPLE}"
+              title="Adaugă un subsens-exemplu la sensul selectat. Dacă sensul selectat este el însuși exemplu, adaugă un frate.">
+              <i class="glyphicon glyphicon-paperclip"></i>
+              exemplu
+            </button>
           </div>
 
           <div class="btn-group">
@@ -364,7 +373,7 @@
 
           <div class="btn-group">
             <button type="button"
-              class="btn btn-add-typed btn-sm meaningAction"
+              class="btn btn-add-typed btn-color1 btn-sm meaningAction"
               id="addEtymologyButton"
               disabled
               data-type="{Meaning::TYPE_ETYMOLOGY}"
@@ -373,16 +382,7 @@
               etimologie
             </button>
             <button type="button"
-              class="btn btn-add-typed btn-sm meaningAction"
-              id="addExampleButton"
-              disabled
-              data-type="{Meaning::TYPE_EXAMPLE}"
-              title="Adaugă un subsens-exemplu la sensul selectat. Dacă sensul selectat este el însuși exemplu, adaugă un frate.">
-              <i class="glyphicon glyphicon-paperclip"></i>
-              exemplu
-            </button>
-            <button type="button"
-              class="btn btn-add-typed btn-sm meaningAction"
+              class="btn btn-add-typed btn-color2 btn-sm meaningAction"
               id="addCommentButton"
               disabled
               data-type="{Meaning::TYPE_COMMENT}"
@@ -391,7 +391,7 @@
               comentariu
             </button>
             <button type="button"
-              class="btn btn-add-typed btn-sm meaningAction"
+              class="btn btn-add-typed btn-color3 btn-sm meaningAction"
               id="addDiffButton"
               disabled
               data-type="{Meaning::TYPE_DIFF}"

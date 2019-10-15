@@ -8,12 +8,32 @@
   max-width: 100%;
 }
 
-.btn-add-typed {
+.btn-color1 {
   border-color: #efd4b4;
   background-color: bisque;
 }
 
-.btn-add-typed:not([disabled]):hover {
+.btn-color1:not([disabled]):hover {
   border-color: #dfc4a4;
   background-color: #ecd1b1;
+}
+
+.btn-color2 {
+  border-color: #ac7f7f;
+  background-color: rosybrown;
+}
+
+.btn-color2:not([disabled]):hover {
+  border-color: #996c6c;
+  background-color: #a97c7c;
+}
+
+.btn-color3 {
+  border-color: #90421d;
+  background-color: sienna;
+}
+
+.btn-color3:not([disabled]):hover {
+  border-color: #7d2f0a;
+  background-color: #8d3f1a;
 }

@@ -87,7 +87,8 @@ if ($refreshButton || $saveButton) {
       $lexeme->regenerateDependentLexemes();
       $lexeme->harmonizeTags();
       LexemeSource::update($lexeme->id, $sourceIds);
-      EntryLexeme::update($entryIds, $lexeme->id);
+
+      updateEntries($lexeme, $entryIds);
 
       if ($renameRelated) {
         // Grab all the entries
@@ -269,4 +270,21 @@ function validate($lexeme, $original) {
   }
 
   return !FlashMessage::hasErrors();
+}
+
+// create new entries for $entryIds starting with '@', then update the associations
+function updateEntries($lexeme, $entryIds) {
+  $entries = [];
+  foreach ($entryIds as $entryId) {
+    if (Str::startsWith($entryId, '@')) {
+      // create a new entry
+      $form = substr($entryId, 1);
+      $e = Entry::createAndSave($form, true);
+    } else {
+      $e = Entry::get_by_id($entryId);
+    }
+    $entries[] = $e;
+  }
+
+  EntryLexeme::update(Util::objectProperty($entries, 'id'), $lexeme->id);
 }

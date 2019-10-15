@@ -28,7 +28,9 @@ $(function() {
 
     initSelect2('#entryIds', 'ajax/getEntriesById.php', {
       ajax: { url: wwwRoot + 'ajax/getEntries.php' },
+      createTag: allowNewOptions,
       minimumInputLength: 1,
+      tags: true,
       templateSelection: formatEntryWithEditLink,
       width: '100%',
     });

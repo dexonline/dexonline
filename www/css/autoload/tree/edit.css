@@ -7,3 +7,13 @@
 .popover {
   max-width: 100%;
 }
+
+.btn-add-typed {
+  border-color: #efd4b4;
+  background-color: bisque;
+}
+
+.btn-add-typed:not([disabled]):hover {
+  border-color: #dfc4a4;
+  background-color: #ecd1b1;
+}

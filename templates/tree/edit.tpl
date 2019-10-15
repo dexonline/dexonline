@@ -329,46 +329,6 @@
               <i class="glyphicon glyphicon-triangle-bottom"></i>
               subsens
             </button>
-            <button type="button"
-              class="btn btn-warning btn-sm meaningAction"
-              id="addExampleButton"
-              disabled
-              title="Adaugă un subsens-exemplu la sensul selectat. Dacă sensul selectat este el însuși exemplu, adaugă un frate.">
-              <i class="glyphicon glyphicon-paperclip"></i>
-              exemplu
-            </button>
-            <button type="button"
-              class="btn btn-default btn-sm meaningAction"
-              id="cloneMeaningButton"
-              disabled
-              title="Clonează sensul selectat">
-              <i class="glyphicon glyphicon-duplicate"></i>
-              clonează sens
-            </button>
-            <button type="button"
-              class="btn btn-danger btn-sm meaningAction"
-              id="deleteMeaningButton"
-              data-toggle="popover"
-              role="button"
-              tabindex="0"
-              disabled>
-              <i class="glyphicon glyphicon-trash"></i>
-              șterge sens
-            </button>
-
-            <div id="deletePopoverContent" style="display: none">
-              <button type="button"
-                class="btn btn-danger btn-sm meaningAction deleteMeaningConfirmButton">
-                <i class="glyphicon glyphicon-trash"></i>
-                confirm
-              </button>
-              <button type="button"
-                class="btn btn-default btn-sm meaningAction deleteMeaningCancelButton">
-                <i class="glyphicon glyphicon-remove"></i>
-                m-am răzgândit
-              </button>
-            </div>
-
           </div>
 
           <div class="btn-group">
@@ -401,6 +361,83 @@
               <i class="glyphicon glyphicon-arrow-up"></i>
             </button>
           </div>
+
+          <div class="btn-group">
+            <button type="button"
+              class="btn btn-add-typed btn-sm meaningAction"
+              id="addEtymologyButton"
+              disabled
+              data-type="{Meaning::TYPE_ETYMOLOGY}"
+              title="Adaugă un subsens-etimologie la sensul selectat. Dacă sensul selectat este el însuși etimologie, adaugă un frate.">
+              <i class="glyphicon glyphicon-ruble"></i>
+              etimologie
+            </button>
+            <button type="button"
+              class="btn btn-add-typed btn-sm meaningAction"
+              id="addExampleButton"
+              disabled
+              data-type="{Meaning::TYPE_EXAMPLE}"
+              title="Adaugă un subsens-exemplu la sensul selectat. Dacă sensul selectat este el însuși exemplu, adaugă un frate.">
+              <i class="glyphicon glyphicon-paperclip"></i>
+              exemplu
+            </button>
+            <button type="button"
+              class="btn btn-add-typed btn-sm meaningAction"
+              id="addCommentButton"
+              disabled
+              data-type="{Meaning::TYPE_COMMENT}"
+              title="Adaugă un subsens-comentariu la sensul selectat. Dacă sensul selectat este el însuși comentariu, adaugă un frate.">
+              <i class="glyphicon glyphicon-comment"></i>
+              comentariu
+            </button>
+            <button type="button"
+              class="btn btn-add-typed btn-sm meaningAction"
+              id="addDiffButton"
+              disabled
+              data-type="{Meaning::TYPE_DIFF}"
+              title="Adaugă un subsens-diferențiere la sensul selectat. Dacă sensul selectat este el însuși diferențiere, adaugă un frate.">
+              <i class="glyphicon glyphicon-resize-horizontal"></i>
+              diferențiere
+            </button>
+          </div>
+
+          <div class="btn-group">
+            <button type="button"
+              class="btn btn-default btn-sm meaningAction"
+              id="cloneMeaningButton"
+              disabled
+              title="Clonează sensul selectat">
+              <i class="glyphicon glyphicon-duplicate"></i>
+              clonează sens
+            </button>
+          </div>
+
+          <div class="btn-group">
+            <button type="button"
+              class="btn btn-danger btn-sm meaningAction"
+              id="deleteMeaningButton"
+              data-toggle="popover"
+              role="button"
+              tabindex="0"
+              disabled>
+              <i class="glyphicon glyphicon-trash"></i>
+              șterge sens
+            </button>
+          </div>
+
+          <div id="deletePopoverContent" style="display: none">
+            <button type="button"
+              class="btn btn-danger btn-sm meaningAction deleteMeaningConfirmButton">
+              <i class="glyphicon glyphicon-trash"></i>
+              confirm
+            </button>
+            <button type="button"
+              class="btn btn-default btn-sm meaningAction deleteMeaningCancelButton">
+              <i class="glyphicon glyphicon-remove"></i>
+              m-am răzgândit
+            </button>
+          </div>
+
         {/if}
       </div>
     </div>

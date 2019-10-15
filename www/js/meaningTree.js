@@ -21,7 +21,7 @@ $(function() {
     $('#meaningTree li, #stemNode li').click(meaningClick);
     $('#addMeaningButton').click(addMeaning);
     $('#addSubmeaningButton').click(addSubmeaning);
-    $('#addExampleButton').click(addExample);
+    $('.btn-add-typed').click(addTypedMeaning);
     $('#cloneMeaningButton').click(cloneMeaning);
     $(document).on('click', '.deleteMeaningConfirmButton', deleteMeaning);
     $(document).on('click', '.deleteMeaningCancelButton', hidePopover);
@@ -213,17 +213,18 @@ $(function() {
     visit(rec.node);
   }
 
-  // the "add example" button can add a meaning or a submeaning, depending on
-  // the selected node type
-  function addExample() {
+  // the "add typed meaning" buttons can add a meaning or a submeaning,
+  // depending on the selected node type
+  function addTypedMeaning() {
     var rec = createNode();
-    var type = rec.sel.find('> .meaningContainer > .type').html();
+    var selType = rec.sel.find('> .meaningContainer > .type').html();
+    var buttonType = $(this).data('type');
 
-    if (type == EXAMPLE_TYPE) {
+    if (selType == buttonType) {
       _addMeaning(rec.sel, rec.node);
     } else {
       _addSubmeaning(rec.sel, rec.node);
-      rec.node.find('.type').html(EXAMPLE_TYPE);
+      rec.node.find('.type').html(buttonType);
     }
 
     visit(rec.node);

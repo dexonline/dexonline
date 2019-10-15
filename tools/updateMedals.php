@@ -1,6 +1,6 @@
 <?php
 /**
- * This script grants code, e-mail and volunteer medals.
+ * This script grants code, e-mail and editor medals.
  **/
 
 require_once __DIR__ . '/../lib/Core.php';
@@ -11,12 +11,12 @@ const OTRS_MAP = [
   'radu_borza' => 471,
 ];
 
-const VOLUNTEER_LEVELS = [
-  Medal::MEDAL_VOLUNTEER_5 => 10000000,
-  Medal::MEDAL_VOLUNTEER_4 => 1000000,
-  Medal::MEDAL_VOLUNTEER_3 => 100000,
-  Medal::MEDAL_VOLUNTEER_2 => 10000,
-  Medal::MEDAL_VOLUNTEER_1 => 1000,
+const EDITOR_LEVELS = [
+  Medal::MEDAL_EDITOR_5 => 10000000,
+  Medal::MEDAL_EDITOR_4 => 1000000,
+  Medal::MEDAL_EDITOR_3 => 100000,
+  Medal::MEDAL_EDITOR_2 => 10000,
+  Medal::MEDAL_EDITOR_1 => 1000,
 ];
 
 const MIN_DONATION_FOR_MEDAL = 20;
@@ -27,14 +27,52 @@ const MUST_SEE_BANNERS = [ 1 ];
 
 Log::notice('started');
 
-$opts = getopt('dnov');
+$opts = getopt('adeno');
+$skipArtists = isset($opts['a']);
 $skipDonors = isset($opts['d']);
+$skipEditors = isset($opts['e']);
 $skipOtrs = isset($opts['o']);
-$skipVolunteers = isset($opts['v']);
 $dryRun = isset($opts['n']);
 
 if ($dryRun) {
   print "---- DRY RUN ----\n";
+}
+
+// Artist credits
+if (!$skipArtists) {
+  $today = date('Y-m-d');
+
+  $stats = Model::factory('User')
+    ->table_alias('u')
+    ->select('u.id')
+    ->select_expr('count(*)', 'c')
+    ->join('WotdArtist', ['a.userId', '=', 'u.id'], 'a')
+    ->join('WotdAssignment', ['s.artistId', '=', 'a.id'], 's')
+    ->where_lte('s.date', $today)
+    ->group_by('u.id')
+    ->find_array();
+  foreach ($stats as $r) {
+    $user = User::get_by_id($r['id']);
+
+    if ($r['c'] >= 500) {
+      $medal = Medal::MEDAL_ARTIST_3;
+    } else if ($r['c'] >= 100) {
+      $medal = Medal::MEDAL_ARTIST_2;
+    } else if ($r['c'] >= 10) {
+      $medal = Medal::MEDAL_ARTIST_1;
+    } else {
+      $medal = 0;
+    }
+
+    if ($medal && !($user->medalMask & $medal)) {
+      Log::info("Granting {$user->id} {$user->nick} an artist medal {$medal}");
+      $user->medalMask |= $medal;
+      $user->medalMask = Medal::getCanonicalMask($user->medalMask);
+      if (!$dryRun) {
+        $user->save();
+      }
+    }
+  }
 }
 
 // OTRS medals
@@ -75,9 +113,9 @@ if (!$skipOtrs) {
   }
 }
 
-// Volunteer medals
-if (!$skipVolunteers) {
-  $l = VOLUNTEER_LEVELS;
+// Editor medals
+if (!$skipEditors) {
+  $l = EDITOR_LEVELS;
   $minCharsForMedal = end($l);
   $topData = TopEntry::getTopData(TopEntry::SORT_CHARS, SORT_DESC, true);
 

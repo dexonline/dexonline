@@ -12,11 +12,14 @@ class Medal {
   const MEDAL_EMAIL_1 = 0x100;
   const MEDAL_EMAIL_2 = 0x200;
   const MEDAL_EMAIL_3 = 0x400;
-  const MEDAL_VOLUNTEER_1 = 0x800;
-  const MEDAL_VOLUNTEER_2 = 0x1000;
-  const MEDAL_VOLUNTEER_3 = 0x2000;
-  const MEDAL_VOLUNTEER_4 = 0x4000;
-  const MEDAL_VOLUNTEER_5 = 0x8000;
+  const MEDAL_EDITOR_1 = 0x800;
+  const MEDAL_EDITOR_2 = 0x1000;
+  const MEDAL_EDITOR_3 = 0x2000;
+  const MEDAL_EDITOR_4 = 0x4000;
+  const MEDAL_EDITOR_5 = 0x8000;
+  const MEDAL_ARTIST_1 = 0x10000;
+  const MEDAL_ARTIST_2 = 0x20000;
+  const MEDAL_ARTIST_3 = 0x40000;
 
   const DATA = [
     self::MEDAL_SPONSOR => [
@@ -85,40 +88,58 @@ class Medal {
       'pic' => 'email3.png',
       'supersedes' => [self::MEDAL_EMAIL_1, self::MEDAL_EMAIL_2],
     ],
-    self::MEDAL_VOLUNTEER_1 => [
-      'name' => 'Voluntar (nivel 1)',
+    self::MEDAL_EDITOR_1 => [
+      'name' => 'Editor (nivel 1)',
       'description' => 'peste 1.000 de caractere trimise',
-      'pic' => 'volunteer1.png',
+      'pic' => 'editor1.png',
       'supersedes' => [],
     ],
-    self::MEDAL_VOLUNTEER_2 => [
-      'name' => 'Voluntar (nivel 2)',
+    self::MEDAL_EDITOR_2 => [
+      'name' => 'Editor (nivel 2)',
       'description' => 'peste 10.000 de caractere trimise',
-      'pic' => 'volunteer2.png',
-      'supersedes' => [self::MEDAL_VOLUNTEER_1],
+      'pic' => 'editor2.png',
+      'supersedes' => [self::MEDAL_EDITOR_1],
     ],
-    self::MEDAL_VOLUNTEER_3 => [
-      'name' => 'Voluntar (nivel 3)',
+    self::MEDAL_EDITOR_3 => [
+      'name' => 'Editor (nivel 3)',
       'description' => 'peste 100.000 de caractere trimise',
-      'pic' => 'volunteer3.png',
-      'supersedes' => [self::MEDAL_VOLUNTEER_1, self::MEDAL_VOLUNTEER_2],
+      'pic' => 'editor3.png',
+      'supersedes' => [self::MEDAL_EDITOR_1, self::MEDAL_EDITOR_2],
     ],
-    self::MEDAL_VOLUNTEER_4 => [
-      'name' => 'Voluntar (nivel 4)',
+    self::MEDAL_EDITOR_4 => [
+      'name' => 'Editor (nivel 4)',
       'description' => 'peste 1.000.000 de caractere trimise',
-      'pic' => 'volunteer4.png',
-      'supersedes' => [self::MEDAL_VOLUNTEER_1, self::MEDAL_VOLUNTEER_2, self::MEDAL_VOLUNTEER_3],
+      'pic' => 'editor4.png',
+      'supersedes' => [self::MEDAL_EDITOR_1, self::MEDAL_EDITOR_2, self::MEDAL_EDITOR_3],
     ],
-    self::MEDAL_VOLUNTEER_5 => [
-      'name' => 'Voluntar (nivel 5)',
+    self::MEDAL_EDITOR_5 => [
+      'name' => 'Editor (nivel 5)',
       'description' => 'peste 10.000.000 de caractere trimise',
-      'pic' => 'volunteer5.png',
+      'pic' => 'editor5.png',
       'supersedes' => [
-        self::MEDAL_VOLUNTEER_1,
-        self::MEDAL_VOLUNTEER_2,
-        self::MEDAL_VOLUNTEER_3,
-        self::MEDAL_VOLUNTEER_4,
+        self::MEDAL_EDITOR_1,
+        self::MEDAL_EDITOR_2,
+        self::MEDAL_EDITOR_3,
+        self::MEDAL_EDITOR_4,
       ],
+    ],
+    self::MEDAL_ARTIST_1 => [
+      'name' => 'Desenator al cuvântului zilei (nivel 1)',
+      'description' => 'minimum 10 cuvinte ilustrate',
+      'pic' => 'artist1.png',
+      'supersedes' => [],
+    ],
+    self::MEDAL_ARTIST_2 => [
+      'name' => 'Desenator al cuvântului zilei (nivel 2)',
+      'description' => 'minimum 100 cuvinte ilustrate',
+      'pic' => 'artist2.png',
+      'supersedes' => [self::MEDAL_ARTIST_1],
+    ],
+    self::MEDAL_ARTIST_3 => [
+      'name' => 'Desenator al cuvântului zilei (nivel 3)',
+      'description' => 'minimum 100 cuvinte ilustrate',
+      'pic' => 'artist3.png',
+      'supersedes' => [self::MEDAL_ARTIST_1, self::MEDAL_ARTIST_2],
     ],
   ];
 

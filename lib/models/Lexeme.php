@@ -847,13 +847,15 @@ class Lexeme extends BaseObject implements DatedObject {
 
   function _clone() {
     $clone = $this->parisClone();
-    $clone->description = ($this->description) ? "CLONĂ {$this->description}" : "CLONĂ";
     $clone->compound = false;
     $clone->modelType = 'T';
     $clone->modelNumber = '1';
     $clone->restriction = '';
     $clone->notes = '';
     $clone->deepSave();
+
+    EntryLexeme::copy($this->id, $clone->id, 2, ['main' => true]);
+    EntryLexeme::copy($this->id, $clone->id, 2, ['main' => false]);
 
     return $clone;
   }

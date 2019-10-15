@@ -47,6 +47,7 @@ $original = Lexeme::get_by_id($lexemeId); // Keep a copy so we can test whether 
 if ($cloneButton) {
   $newLexeme = $lexeme->_clone();
   Log::notice("Cloned lexeme {$lexeme->id} ({$lexeme->formNoAccent}), new id is {$newLexeme->id}");
+  FlashMessage::add('Am clonat lexemul. Aceasta este pagina clonei.', 'success');
   Util::redirect("?lexemeId={$newLexeme->id}");
 }
 
@@ -113,6 +114,7 @@ if ($refreshButton || $saveButton) {
       }
 
       Log::notice("Saved lexeme {$lexeme->id} ({$lexeme->formNoAccent})");
+      FlashMessage::add('Am salvat lexemul.', 'success');
       Util::redirect("?lexemeId={$lexeme->id}");
     }
   } else {

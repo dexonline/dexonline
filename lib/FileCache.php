@@ -66,14 +66,12 @@ class FileCache {
   }
 
   static function getTop($manual, $hidden = false, $lastyear = false) {
-    $var = $hidden ? self::CKEY_TOP_ALL : self::CKEY_TOP;
-    $key = $var . ($manual ? '1' : '0') . ($lastyear ? 'y' : '');
+    $key = self::getCacheKey($hidden, $manual, $lastyear);
     return self::get($key);
   }
 
   static function putTop($value, $manual, $hidden = false, $lastyear = false) {
-    $var = $hidden ?  self::CKEY_TOP_ALL : self::CKEY_TOP;
-    $key = $var . ($manual ? '1' : '0') . ($lastyear ? 'y' : '');
+    $key = self::getCacheKey($hidden, $manual, $lastyear);
     self::put($key, $value);
   }
 
@@ -85,5 +83,10 @@ class FileCache {
 
   static function putCompactForms($s) {
     self::put(self::CKEY_COMPACT_FORMS, $s, false);
+  }
+
+  static function getCacheKey($hidden, $manual, $lastyear) {
+    $var = $hidden ?  self::CKEY_TOP_ALL : self::CKEY_TOP;
+    $key = $var . ($manual ? '1' : '0') . ($lastyear ? 'y' : '');
   }
 }

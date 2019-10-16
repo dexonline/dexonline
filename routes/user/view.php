@@ -49,7 +49,7 @@ $userData['rank_chars'] = $rankChars + 1;
 Smart::assign('medals', Medal::loadForUser($user));
 if (User::can(User::PRIV_ADMIN)) {
   // Admins can grant/revoke medals
-  Smart::assign('allMedals', Medal::DATA);
+  Smart::assign('allMedals', Medal::getData());
 }
 Smart::assign('user', $user);
 Smart::assign('userData', $userData);

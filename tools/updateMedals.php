@@ -11,14 +11,6 @@ const OTRS_MAP = [
   'radu_borza' => 471,
 ];
 
-const EDITOR_LEVELS = [
-  Medal::MEDAL_EDITOR_5 => 10000000,
-  Medal::MEDAL_EDITOR_4 => 1000000,
-  Medal::MEDAL_EDITOR_3 => 100000,
-  Medal::MEDAL_EDITOR_2 => 10000,
-  Medal::MEDAL_EDITOR_1 => 1000,
-];
-
 const MIN_DONATION_FOR_MEDAL = 20;
 const MIN_DONATION_FOR_HIDDEN_BANNERS = 50;
 
@@ -54,11 +46,11 @@ if (!$skipArtists) {
   foreach ($stats as $r) {
     $user = User::get_by_id($r['id']);
 
-    if ($r['c'] >= 500) {
+    if ($r['c'] >= Medal::ARTIST_LEVELS[Medal::MEDAL_ARTIST_3]) {
       $medal = Medal::MEDAL_ARTIST_3;
-    } else if ($r['c'] >= 100) {
+    } else if ($r['c'] >= Medal::ARTIST_LEVELS[Medal::MEDAL_ARTIST_2]) {
       $medal = Medal::MEDAL_ARTIST_2;
-    } else if ($r['c'] >= 10) {
+    } else if ($r['c'] >= Medal::ARTIST_LEVELS[Medal::MEDAL_ARTIST_1]) {
       $medal = Medal::MEDAL_ARTIST_1;
     } else {
       $medal = 0;
@@ -89,17 +81,17 @@ if (!$skipOtrs) {
     if (array_key_exists($r['login'], OTRS_MAP)) {
       $user = User::get_by_id(OTRS_MAP[$r['login']]);
       if ($user && $user->id) {
-        if (($r['count'] >= 1000) &&
+        if (($r['count'] >= Medal::EMAIL_LEVELS[Medal::MEDAL_EMAIL_3]) &&
             (!($user->medalMask & Medal::MEDAL_EMAIL_3))) {
           Log::info("Granting {$user->id} {$user->nick} a MEDAL_EMAIL_3");
           $user->medalMask |= Medal::MEDAL_EMAIL_3;
-        } else if (($r['count'] < 1000) &&
-                   ($r['count'] >= 500) &&
+        } else if (($r['count'] < Medal::EMAIL_LEVELS[Medal::MEDAL_EMAIL_3]) &&
+                   ($r['count'] >= Medal::EMAIL_LEVELS[Medal::MEDAL_EMAIL_2]) &&
                    (!($user->medalMask & Medal::MEDAL_EMAIL_2))) {
           Log::info("Granting {$user->id} {$user->nick} a MEDAL_EMAIL_2");
           $user->medalMask |= Medal::MEDAL_EMAIL_2;
-        } else if (($r['count'] < 500) &&
-                   ($r['count'] >= 100) &&
+        } else if (($r['count'] < Medal::EMAIL_LEVELS[Medal::MEDAL_EMAIL_2]) &&
+                   ($r['count'] >= Medal::EMAIL_LEVELS[Medal::MEDAL_EMAIL_1]) &&
                    (!($user->medalMask & Medal::MEDAL_EMAIL_1))) {
           Log::info("Granting {$user->id} {$user->nick} a MEDAL_EMAIL_1");
           $user->medalMask |= Medal::MEDAL_EMAIL_1;
@@ -115,7 +107,7 @@ if (!$skipOtrs) {
 
 // Editor medals
 if (!$skipEditors) {
-  $l = EDITOR_LEVELS;
+  $l = Medal::EDITOR_LEVELS;
   $minCharsForMedal = end($l);
   $topData = TopEntry::getTopData(TopEntry::SORT_CHARS, SORT_DESC, true);
 

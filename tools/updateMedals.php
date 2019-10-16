@@ -51,45 +51,32 @@ if (!$skipArtists) {
     while ($r['c'] < current($levels)) {
       next($levels);
     }
-    $medal = key($levels); // possibly null
+    $medal = key($levels);
     grant($user, $medal);
   }
 }
 
 // OTRS medals
 if (!$skipOtrs) {
+  $levels = Medal::EMAIL_LEVELS;
 
   $query = 'select users.login, count(*) as count ' .
     'from otrs.users ' .
     'join otrs.article on users.id = article.change_by ' .
     'where users.id != 1 ' .
     'group by users.id';
-
   $dbResult = DB::execute($query, PDO::FETCH_ASSOC);
+
   foreach ($dbResult as $r) {
     if (array_key_exists($r['login'], OTRS_MAP)) {
       $user = User::get_by_id(OTRS_MAP[$r['login']]);
-      if ($user && $user->id) {
-        if (($r['count'] >= Medal::EMAIL_LEVELS[Medal::MEDAL_EMAIL_3]) &&
-            (!($user->medalMask & Medal::MEDAL_EMAIL_3))) {
-          Log::info("Granting {$user->id} {$user->nick} a MEDAL_EMAIL_3");
-          $user->medalMask |= Medal::MEDAL_EMAIL_3;
-        } else if (($r['count'] < Medal::EMAIL_LEVELS[Medal::MEDAL_EMAIL_3]) &&
-                   ($r['count'] >= Medal::EMAIL_LEVELS[Medal::MEDAL_EMAIL_2]) &&
-                   (!($user->medalMask & Medal::MEDAL_EMAIL_2))) {
-          Log::info("Granting {$user->id} {$user->nick} a MEDAL_EMAIL_2");
-          $user->medalMask |= Medal::MEDAL_EMAIL_2;
-        } else if (($r['count'] < Medal::EMAIL_LEVELS[Medal::MEDAL_EMAIL_2]) &&
-                   ($r['count'] >= Medal::EMAIL_LEVELS[Medal::MEDAL_EMAIL_1]) &&
-                   (!($user->medalMask & Medal::MEDAL_EMAIL_1))) {
-          Log::info("Granting {$user->id} {$user->nick} a MEDAL_EMAIL_1");
-          $user->medalMask |= Medal::MEDAL_EMAIL_1;
-        }
-        $user->medalMask = Medal::getCanonicalMask($user->medalMask);
-        if (!$dryRun) {
-          $user->save();
-        }
+
+      reset($levels);
+      while ($r['count'] < current($levels)) {
+        next($levels);
       }
+      $medal = key($levels);
+      grant($user, $medal);
     }
   }
 }

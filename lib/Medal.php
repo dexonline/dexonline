@@ -196,7 +196,8 @@ class Medal {
     return $result;
   }
 
-  /* Returns the canonical mask for a given mask, removing values which are superseded by other values */
+  /* Returns the canonical mask for a given mask, removing values which are
+     superseded by other values */
   static function getCanonicalMask($mask) {
     foreach (self::getData() as $value => $params) {
       if ($mask & $value) {

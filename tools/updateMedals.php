@@ -30,9 +30,12 @@ if ($dryRun) {
   print "---- DRY RUN ----\n";
 }
 
+$medalData = Medal::getData();
+
 // Artist credits
 if (!$skipArtists) {
   $today = date('Y-m-d');
+  $levels = Medal::ARTIST_LEVELS;
 
   $stats = Model::factory('User')
     ->table_alias('u')
@@ -43,27 +46,14 @@ if (!$skipArtists) {
     ->where_lte('s.date', $today)
     ->group_by('u.id')
     ->find_array();
+
   foreach ($stats as $r) {
-    $user = User::get_by_id($r['id']);
-
-    if ($r['c'] >= Medal::ARTIST_LEVELS[Medal::MEDAL_ARTIST_3]) {
-      $medal = Medal::MEDAL_ARTIST_3;
-    } else if ($r['c'] >= Medal::ARTIST_LEVELS[Medal::MEDAL_ARTIST_2]) {
-      $medal = Medal::MEDAL_ARTIST_2;
-    } else if ($r['c'] >= Medal::ARTIST_LEVELS[Medal::MEDAL_ARTIST_1]) {
-      $medal = Medal::MEDAL_ARTIST_1;
-    } else {
-      $medal = 0;
+    reset($levels);
+    while ($r['c'] < current($levels)) {
+      next($levels);
     }
-
-    if ($medal && !($user->medalMask & $medal)) {
-      Log::info("Granting {$user->id} {$user->nick} an artist medal {$medal}");
-      $user->medalMask |= $medal;
-      $user->medalMask = Medal::getCanonicalMask($user->medalMask);
-      if (!$dryRun) {
-        $user->save();
-      }
-    }
+    $medal = key($levels); // possibly null
+    grant($r['id'], $medal);
   }
 }
 
@@ -179,3 +169,25 @@ if (!$skipDonors) {
 }
 
 Log::notice('finished');
+
+/*************************************************************************/
+
+/* Grants the user a medal. If the medal is null or the user already has the
+   medal, does nothing. */
+function grant($userId, $medal) {
+  global $dryRun, $medalData;
+
+  $user = User::get_by_id($userId);
+
+  if ($medal && !($user->medalMask & $medal)) {
+    Log::info("Granting %s (user ID %d) medal %s",
+              $user->nick, $user->id, $medalData[$medal]['name']);
+
+    $user->medalMask |= $medal;
+    $user->medalMask = Medal::getCanonicalMask($user->medalMask);
+
+    if (!$dryRun) {
+      $user->save();
+    }
+  }
+}

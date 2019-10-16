@@ -210,6 +210,6 @@ class Medal {
   }
 
   static function getName($medal) {
-    return self::DATA[$medal]['name'];
+    return self::getData()[$medal]['name'];
   }
 }

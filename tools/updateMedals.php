@@ -1,6 +1,6 @@
 <?php
 /**
- * This script grants code, e-mail and editor medals.
+ * This script grants artist, code, e-mail and editor medals.
  **/
 
 require_once __DIR__ . '/../lib/Core.php';
@@ -30,8 +30,6 @@ if ($dryRun) {
   print "---- DRY RUN ----\n";
 }
 
-$medalData = Medal::getData();
-
 // Artist credits
 if (!$skipArtists) {
   $today = date('Y-m-d');
@@ -48,12 +46,13 @@ if (!$skipArtists) {
     ->find_array();
 
   foreach ($stats as $r) {
+    $user = User::get_by_id($r['id']);
     reset($levels);
     while ($r['c'] < current($levels)) {
       next($levels);
     }
     $medal = key($levels); // possibly null
-    grant($r['id'], $medal);
+    grant($user, $medal);
   }
 }
 
@@ -97,30 +96,17 @@ if (!$skipOtrs) {
 
 // Editor medals
 if (!$skipEditors) {
-  $l = Medal::EDITOR_LEVELS;
-  $minCharsForMedal = end($l);
+  $levels = Medal::EDITOR_LEVELS;
   $topData = TopEntry::getTopData(TopEntry::SORT_CHARS, SORT_DESC, true);
 
   foreach ($topData as $e) {
     $user = User::get_by_nick($e->userNick);
-    if ($user && $user->id && $e->numChars >= $minCharsForMedal) {
-      // determine the current medal level
-      reset($l);
-      while ($e->numChars < current($l)) {
-        next($l);
-      }
-      $medal = key($l);
-
-      // grant it if the user doesn't have it
-      if (!($user->medalMask & $medal)) {
-        Log::info('Granting %s %s a medal for %s', $user->id, $user->nick, Medal::getName($medal));
-        $user->medalMask |= $medal;
-        $user->medalMask = Medal::getCanonicalMask($user->medalMask);
-        if (!$dryRun) {
-          $user->save();
-        }
-      }
+    reset($levels);
+    while ($e->numChars < current($levels)) {
+      next($levels);
     }
+    $medal = key($levels);
+    grant($user, $medal);
   }
 }
 
@@ -174,14 +160,12 @@ Log::notice('finished');
 
 /* Grants the user a medal. If the medal is null or the user already has the
    medal, does nothing. */
-function grant($userId, $medal) {
-  global $dryRun, $medalData;
-
-  $user = User::get_by_id($userId);
+function grant($user, $medal) {
+  global $dryRun;
 
   if ($medal && !($user->medalMask & $medal)) {
     Log::info("Granting %s (user ID %d) medal %s",
-              $user->nick, $user->id, $medalData[$medal]['name']);
+              $user->nick, $user->id, Medal::getName($medal));
 
     $user->medalMask |= $medal;
     $user->medalMask = Medal::getCanonicalMask($user->medalMask);

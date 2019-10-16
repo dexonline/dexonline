@@ -1,8 +1,7 @@
 $(function() {
 
-  // when adding (sub)meanings of this type, we'll copy some extra
-  // information from the selected meaning.
-  const EXAMPLE_TYPE = 2;
+  // define a fake meaning type to distinguish the meaning and submeaning buttons
+  const TYPE_SUBMEANING = -1;
 
   var stem = null;
   var anyChanges = false;
@@ -19,9 +18,7 @@ $(function() {
 
   function initEditable() {
     $('#meaningTree li, #stemNode li').click(meaningClick);
-    $('#addMeaningButton').click(addMeaning);
-    $('#addSubmeaningButton').click(addSubmeaning);
-    $('.btn-add-typed').click(addTypedMeaning);
+    $('.btn-add-meaning').click(addMeaning);
     $('#cloneMeaningButton').click(cloneMeaning);
     $(document).on('click', '.deleteMeaningConfirmButton', deleteMeaning);
     $(document).on('click', '.deleteMeaningCancelButton', hidePopover);
@@ -177,7 +174,7 @@ $(function() {
     var type = src.find('> .meaningContainer > .type').html();
     dest.find('.type').html(type);
 
-    if (type == EXAMPLE_TYPE) {
+    if (type == TYPE_EXAMPLE) {
       const classes = [ '.sources', '.sourceIds'];
       classes.forEach(function(x) {
         var html = src.find('> .meaningContainer > ' + x).html();
@@ -186,7 +183,7 @@ $(function() {
     };
   }
 
-  function _addMeaning(sel, node) {
+  function addSibling(sel, node) {
     if (sel.length) {
       copyMeaningData(sel, node);
       node.insertAfter(sel);
@@ -195,38 +192,51 @@ $(function() {
     }
   }
 
-  function addMeaning() {
-    var rec = createNode();
-    _addMeaning(rec.sel, rec.node);
-    visit(rec.node);
-  }
-
-  function _addSubmeaning(sel, node) {
+  function addChild(sel, node) {
     copyMeaningData(sel, node);
     var ul = ensureUl(sel);
     node.prependTo(ul);
   }
 
-  function addSubmeaning() {
-    var rec = createNode();
-    _addSubmeaning(rec.sel, rec.node);
-    visit(rec.node);
-  }
-
-  // the "add typed meaning" buttons can add a meaning or a submeaning,
-  // depending on the selected node type
-  function addTypedMeaning() {
+  function addMeaning() {
     var rec = createNode();
     var selType = rec.sel.find('> .meaningContainer > .type').html();
     var buttonType = $(this).data('type');
+    var extButtonType = $(this).data('submeaning')
+        ? TYPE_SUBMEANING : buttonType;
 
-    if (selType == buttonType) {
-      _addMeaning(rec.sel, rec.node);
+    // decide where to position the new meaning: sibling, child or uncle
+    var pos = 'child';
+    if (selType == TYPE_MEANING) {
+      if (extButtonType == TYPE_MEANING || extButtonType == TYPE_ETYMOLOGY) {
+        pos = 'sibling';
+      }
     } else {
-      _addSubmeaning(rec.sel, rec.node);
-      rec.node.find('.type').html(buttonType);
+      if (extButtonType == TYPE_SUBMEANING || extButtonType == selType) {
+        pos = 'sibling';
+      } else if (extButtonType == TYPE_MEANING) {
+        pos = 'uncle';
+      }
     }
 
+    // change 'uncle' to 'sibling' if at root level
+    var topLevel = rec.sel.parentsUntil('#meaningTree', 'li').length == 0;
+    if ((pos == 'uncle') && topLevel) {
+      pos = 'sibling';
+    }
+
+    // add the actual node
+    if (pos == 'child') {
+      addChild(rec.sel, rec.node);
+    } else if (pos == 'sibling') {
+      addSibling(rec.sel, rec.node);
+    } else { // pos == 'uncle'
+      var parent = rec.sel.parent().parent('li');
+      addSibling(parent, rec.node);
+    }
+
+    // set the node type and visit the node
+    rec.node.find('.type').html(buttonType);
     visit(rec.node);
   }
 

@@ -315,23 +315,23 @@
         {if $canEdit}
           <div class="btn-group">
             <button type="button"
-              class="btn btn-default btn-sm"
-              id="addMeaningButton"
+              class="btn btn-sm btn-default btn-add-meaning"
+              data-type="{Meaning::TYPE_MEANING}"
               title="Adaugă un sens ca frate al sensului selectat. Dacă nici un sens nu este selectat, adaugă un sens la sfârșitul listei.">
               <i class="glyphicon glyphicon-plus"></i>
               sens
             </button>
             <button type="button"
-              class="btn btn-default btn-sm meaningAction"
-              id="addSubmeaningButton"
+              class="btn btn-sm btn-default btn-add-meaning meaningAction"
               disabled
+              data-type="{Meaning::TYPE_MEANING}"
+              data-submeaning="1"
               title="Adaugă un sens ca primul fiu al sensului selectat">
               <i class="glyphicon glyphicon-triangle-bottom"></i>
               subsens
             </button>
             <button type="button"
-              class="btn btn-add-typed btn-color1 btn-sm meaningAction"
-              id="addExampleButton"
+              class="btn btn-sm btn-add-meaning btn-color1 meaningAction"
               disabled
               data-type="{Meaning::TYPE_EXAMPLE}"
               title="Adaugă un subsens-exemplu la sensul selectat. Dacă sensul selectat este el însuși exemplu, adaugă un frate.">
@@ -342,28 +342,28 @@
 
           <div class="btn-group">
             <button type="button"
-              class="btn btn-default btn-sm meaningAction"
+              class="btn btn-sm btn-default meaningAction"
               id="meaningLeftButton"
               disabled
               title="Sensul devine fratele următor al tatălui său.">
               <i class="glyphicon glyphicon-arrow-left"></i>
             </button>
             <button type="button"
-              class="btn btn-default btn-sm meaningAction"
+              class="btn btn-sm btn-default meaningAction"
               id="meaningRightButton"
               disabled
               title="Sensul devine fiu al fratelui său anterior.">
               <i class="glyphicon glyphicon-arrow-right"></i>
             </button>
             <button type="button"
-              class="btn btn-default btn-sm meaningAction"
+              class="btn btn-sm btn-default meaningAction"
               id="meaningDownButton"
               disabled
               title="Sensul schimbă locurile cu fratele său următor.">
               <i class="glyphicon glyphicon-arrow-down"></i>
             </button>
             <button type="button"
-              class="btn btn-default btn-sm meaningAction"
+              class="btn btn-sm btn-default meaningAction"
               id="meaningUpButton"
               disabled
               title="Sensul schimbă locurile cu fratele său anterior.">
@@ -373,8 +373,7 @@
 
           <div class="btn-group">
             <button type="button"
-              class="btn btn-add-typed btn-color1 btn-sm meaningAction"
-              id="addEtymologyButton"
+              class="btn btn-sm btn-add-meaning btn-color1 meaningAction"
               disabled
               data-type="{Meaning::TYPE_ETYMOLOGY}"
               title="Adaugă un subsens-etimologie la sensul selectat. Dacă sensul selectat este el însuși etimologie, adaugă un frate.">
@@ -382,8 +381,7 @@
               etimologie
             </button>
             <button type="button"
-              class="btn btn-add-typed btn-color2 btn-sm meaningAction"
-              id="addCommentButton"
+              class="btn btn-sm btn-add-meaning btn-color2 meaningAction"
               disabled
               data-type="{Meaning::TYPE_COMMENT}"
               title="Adaugă un subsens-comentariu la sensul selectat. Dacă sensul selectat este el însuși comentariu, adaugă un frate.">
@@ -391,8 +389,7 @@
               comentariu
             </button>
             <button type="button"
-              class="btn btn-add-typed btn-color3 btn-sm meaningAction"
-              id="addDiffButton"
+              class="btn btn-sm btn-add-meaning btn-color3 meaningAction"
               disabled
               data-type="{Meaning::TYPE_DIFF}"
               title="Adaugă un subsens-diferențiere la sensul selectat. Dacă sensul selectat este el însuși diferențiere, adaugă un frate.">
@@ -403,7 +400,7 @@
 
           <div class="btn-group">
             <button type="button"
-              class="btn btn-default btn-sm meaningAction"
+              class="btn btn-sm btn-default meaningAction"
               id="cloneMeaningButton"
               disabled
               title="Clonează sensul selectat">
@@ -414,7 +411,7 @@
 
           <div class="btn-group">
             <button type="button"
-              class="btn btn-danger btn-sm meaningAction"
+              class="btn btn-sm btn-danger meaningAction"
               id="deleteMeaningButton"
               data-toggle="popover"
               role="button"
@@ -427,12 +424,12 @@
 
           <div id="deletePopoverContent" style="display: none">
             <button type="button"
-              class="btn btn-danger btn-sm meaningAction deleteMeaningConfirmButton">
+              class="btn btn-sm btn-danger meaningAction deleteMeaningConfirmButton">
               <i class="glyphicon glyphicon-trash"></i>
               confirm
             </button>
             <button type="button"
-              class="btn btn-default btn-sm meaningAction deleteMeaningCancelButton">
+              class="btn btn-sm btn-default meaningAction deleteMeaningCancelButton">
               <i class="glyphicon glyphicon-remove"></i>
               m-am răzgândit
             </button>

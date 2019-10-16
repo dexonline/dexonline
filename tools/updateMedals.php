@@ -101,37 +101,33 @@ if (!$skipEditors) {
 if (!$skipDonors) {
   // Grant medals to users who don't have one, but have donated enough
   $needMedals = Model::factory('User')
-              ->table_alias('u')
-              ->select('u.*')
-              ->select_expr('sum(d.amount)', 'total')
-              ->distinct()
-              ->join('Donation', ['d.email', '=', 'u.email'], 'd')
-              ->where('anonymousDonor', 0)
-              ->where_raw('!(medalMask & ?)', Medal::MEDAL_SPONSOR)
-              ->group_by('u.id')
-              ->having_raw('total >= ?', MIN_DONATION_FOR_MEDAL)
-              ->find_many();
+    ->table_alias('u')
+    ->select('u.*')
+    ->select_expr('sum(d.amount)', 'total')
+    ->distinct()
+    ->join('Donation', ['d.email', '=', 'u.email'], 'd')
+    ->where('anonymousDonor', 0)
+    ->where_raw('!(medalMask & ?)', Medal::MEDAL_SPONSOR)
+    ->group_by('u.id')
+    ->having_raw('total >= ?', MIN_DONATION_FOR_MEDAL)
+    ->find_many();
   foreach ($needMedals as $u) {
-    Log::info("Granting {$u->id} {$u->nick} a sponsor medal");
-    $u->medalMask |= Medal::MEDAL_SPONSOR;
-    if (!$dryRun) {
-      $u->save();
-    }
+    grant($u, Medal::MEDAL_SPONSOR);
   }
 
   // Hide banners for users who have donated recently (since their banners were last hidden)
   $oneYearFromNow = strtotime('+1 year');
   $noBanners = Model::factory('User')
-             ->table_alias('u')
-             ->select('u.*')
-             ->select_expr('sum(d.amount)', 'total')
-             ->distinct()
-             ->join('Donation', ['d.email', '=', 'u.email'], 'd')
-             ->where_not_in('u.id', MUST_SEE_BANNERS)
-             ->where_raw('d.createDate >= u.noAdsUntil')
-             ->group_by('u.id')
-             ->having_raw('total >= ?', MIN_DONATION_FOR_HIDDEN_BANNERS)
-             ->find_many();
+    ->table_alias('u')
+    ->select('u.*')
+    ->select_expr('sum(d.amount)', 'total')
+    ->distinct()
+    ->join('Donation', ['d.email', '=', 'u.email'], 'd')
+    ->where_not_in('u.id', MUST_SEE_BANNERS)
+    ->where_raw('d.createDate >= u.noAdsUntil')
+    ->group_by('u.id')
+    ->having_raw('total >= ?', MIN_DONATION_FOR_HIDDEN_BANNERS)
+    ->find_many();
   foreach ($noBanners as $u) {
     Log::info("Hiding banners for {$u->id} {$u->nick}");
     $u->noAdsUntil = $oneYearFromNow;

@@ -87,6 +87,6 @@ class FileCache {
 
   static function getCacheKey($hidden, $manual, $lastyear) {
     $var = $hidden ?  self::CKEY_TOP_ALL : self::CKEY_TOP;
-    $key = $var . ($manual ? '1' : '0') . ($lastyear ? 'y' : '');
+    return $var . ($manual ? '1' : '0') . ($lastyear ? 'y' : '');
   }
 }

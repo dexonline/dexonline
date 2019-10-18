@@ -52,6 +52,13 @@
           {$userData.num_chars|default:0} caractere
           {if isset($userData.num_chars)}(locul {$userData.rank_chars}){/if}
         </dd>
+
+        {if isset($userData.last_submission)}
+        <dt>Ultima contribuție</dt>
+        <dd>
+          {$userData.last_submission|date_format:"%d %B %Y"}
+        </dd>
+        {/if}
       </dl>
     </div>
   </div>

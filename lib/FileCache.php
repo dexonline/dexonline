@@ -8,6 +8,7 @@ class FileCache {
   const CKEY_WORDS_ALL = 'wordsTotal';
   const CKEY_WORDS_LAST_MONTH = 'wordsLastMonth';
   const CKEY_COMPACT_FORMS = 'compactForms';
+  const CKEY_ARTISTS_TOP = 'topArtists';
 
   private static function openFileForRead($fileName) {
     if (!file_exists($fileName)) {

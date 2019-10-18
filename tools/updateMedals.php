@@ -32,18 +32,9 @@ if ($dryRun) {
 
 // Artist credits
 if (!$skipArtists) {
-  $today = date('Y-m-d');
   $levels = Medal::ARTIST_LEVELS;
 
-  $stats = Model::factory('User')
-    ->table_alias('u')
-    ->select('u.id')
-    ->select_expr('count(*)', 'c')
-    ->join('WotdArtist', ['a.userId', '=', 'u.id'], 'a')
-    ->join('WotdAssignment', ['s.artistId', '=', 'a.id'], 's')
-    ->where_lte('s.date', $today)
-    ->group_by('u.id')
-    ->find_array();
+  $stats = UserStats::getTopArtists();
 
   foreach ($stats as $r) {
     $user = User::get_by_id($r['id']);
@@ -60,14 +51,9 @@ if (!$skipArtists) {
 if (!$skipOtrs) {
   $levels = Medal::EMAIL_LEVELS;
 
-  $query = 'select users.login, count(*) as count ' .
-    'from otrs.users ' .
-    'join otrs.article on users.id = article.change_by ' .
-    'where users.id != 1 ' .
-    'group by users.id';
-  $dbResult = DB::execute($query, PDO::FETCH_ASSOC);
+  $otrsResults = UserStats::getEmailContribution();
 
-  foreach ($dbResult as $r) {
+  foreach ($otrsResults as $r) {
     if (array_key_exists($r['login'], OTRS_MAP)) {
       $user = User::get_by_id(OTRS_MAP[$r['login']]);
 
@@ -100,34 +86,16 @@ if (!$skipEditors) {
 // Donor perks
 if (!$skipDonors) {
   // Grant medals to users who don't have one, but have donated enough
-  $needMedals = Model::factory('User')
-    ->table_alias('u')
-    ->select('u.*')
-    ->select_expr('sum(d.amount)', 'total')
-    ->distinct()
-    ->join('Donation', ['d.email', '=', 'u.email'], 'd')
-    ->where('anonymousDonor', 0)
-    ->where_raw('!(medalMask & ?)', Medal::MEDAL_SPONSOR)
-    ->group_by('u.id')
-    ->having_raw('total >= ?', MIN_DONATION_FOR_MEDAL)
-    ->find_many();
+  $needMedals = UserStats::getDonors(MIN_DONATION_FOR_MEDAL);
+
   foreach ($needMedals as $u) {
     grant($u, Medal::MEDAL_SPONSOR);
   }
 
   // Hide banners for users who have donated recently (since their banners were last hidden)
   $oneYearFromNow = strtotime('+1 year');
-  $noBanners = Model::factory('User')
-    ->table_alias('u')
-    ->select('u.*')
-    ->select_expr('sum(d.amount)', 'total')
-    ->distinct()
-    ->join('Donation', ['d.email', '=', 'u.email'], 'd')
-    ->where_not_in('u.id', MUST_SEE_BANNERS)
-    ->where_raw('d.createDate >= u.noAdsUntil')
-    ->group_by('u.id')
-    ->having_raw('total >= ?', MIN_DONATION_FOR_HIDDEN_BANNERS)
-    ->find_many();
+  $noBanners = UserStats::getBannerFreeAccounts(MIN_DONATION_FOR_HIDDEN_BANNERS, MUST_SEE_BANNERS);
+
   foreach ($noBanners as $u) {
     Log::info("Hiding banners for {$u->id} {$u->nick}");
     $u->noAdsUntil = $oneYearFromNow;

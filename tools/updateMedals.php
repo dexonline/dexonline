@@ -35,6 +35,8 @@ if (!$skipArtists) {
   $levels = Medal::ARTIST_LEVELS;
 
   $stats = UserStats::getTopArtists();
+  // update artists in cache
+  FileCache::putArtistTop($stats);
 
   foreach ($stats as $r) {
     $user = User::get_by_id($r['id']);

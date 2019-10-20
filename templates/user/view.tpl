@@ -59,6 +59,13 @@
           {$userData.last_submission|date_format:"%d %B %Y"}
         </dd>
         {/if}
+
+          {if $userData.num_images}
+            <dt>Ilustrații desenate</dt>
+            <dd>
+                {$userData.num_images} ilustrații
+            </dd>
+          {/if}
       </dl>
     </div>
   </div>

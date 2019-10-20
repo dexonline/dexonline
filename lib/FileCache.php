@@ -90,4 +90,12 @@ class FileCache {
     $var = $hidden ?  self::CKEY_TOP_ALL : self::CKEY_TOP;
     return $var . ($manual ? '1' : '0') . ($lastyear ? 'y' : '');
   }
+
+  static function getArtistTop() {
+    return self::get(self::CKEY_ARTISTS_TOP);
+  }
+
+  static function putArtistTop($value) {
+    self::put(self::CKEY_ARTISTS_TOP, $value);
+  }
 }

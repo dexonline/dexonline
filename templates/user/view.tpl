@@ -36,39 +36,39 @@
     {/if}
   </div>
 
-  <div class="panel panel-default">
-    <div class="panel-heading">Contribuții</div>
-    <div class="panel-body">
-      <dl class="dl-horizontal">
+  {if isset($userData.numDefinitions) || isset($userData.numImages)}
+    <div class="panel panel-default">
+      <div class="panel-heading">Contribuții</div>
+      <div class="panel-body">
+        <dl class="dl-horizontal">
 
-        <dt>Definiții trimise</dt>
-        <dd>
-          {$userData.numDefinitions|default:0}
-          {if isset($userData.numDefinitions)}(locul {$userData.rankDefinitions}){/if}
-        </dd>
-
-        <dt>Lungime totală</dt>
-        <dd>
-          {$userData.numChars|default:0} caractere
-          {if isset($userData.numChars)}(locul {$userData.rankChars}){/if}
-        </dd>
-
-        {if isset($userData.lastSubmission)}
-        <dt>Ultima contribuție</dt>
-        <dd>
-          {$userData.lastSubmission|date_format:"%d %B %Y"}
-        </dd>
-        {/if}
-
-          {if $userData.numImages}
-            <dt>Ilustrații desenate</dt>
+          {if isset($userData.numDefinitions)}
+            <dt>Definiții trimise</dt>
             <dd>
-                {$userData.numImages} ilustrații
+              {$userData.numDefinitions} (locul {$userData.rankDefinitions})
+            </dd>
+
+            <dt>Lungime totală</dt>
+            <dd>
+              {$userData.numChars} caractere (locul {$userData.rankChars})
+            </dd>
+
+            <dt>Ultima contribuție</dt>
+            <dd>
+              {$userData.lastSubmission|date_format:"%d %B %Y"}
             </dd>
           {/if}
-      </dl>
+
+          {if isset($userData.numImages)}
+            <dt>Ilustrații desenate</dt>
+            <dd>
+              {$userData.numImages} ilustrații
+            </dd>
+          {/if}
+        </dl>
+      </div>
     </div>
-  </div>
+  {/if}
 
   <div class="panel panel-default">
     <div class="panel-heading">

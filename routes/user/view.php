@@ -25,7 +25,9 @@ $user->email = Str::scrambleEmail($user->email);
 // find number of WotD images drawn
 $topArtists = UserStats::getTopArtists();
 $rank = lookup($user->id, $topArtists, 'id');
-$userData['numImages'] = ($rank === false) ? 0 : $topArtists[$rank]['c'];
+if ($rank !== false) {
+  $userData['numImages'] = $topArtists[$rank]['c'];
+}
 
 // find number of definitions and characters submitted and respective ranks
 $topDefs = TopEntry::getTopData(TopEntry::SORT_DEFINITIONS, SORT_DESC, true);

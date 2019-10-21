@@ -11,6 +11,7 @@ class UserStats {
       ->join('WotdAssignment', ['s.artistId', '=', 'a.id'], 's')
       ->where_lte('s.date', $today)
       ->group_by('u.id')
+      ->order_by_desc('c')
       ->find_array();
 
     return $topArtists;

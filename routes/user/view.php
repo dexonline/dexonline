@@ -22,42 +22,30 @@ if (!$user) {
 $userData = [];
 $user->email = Str::scrambleEmail($user->email);
 
-// Find the rank of this user by number of words and number of characters
-$topWords = TopEntry::getTopData(TopEntry::SORT_WORDS, SORT_DESC, true);
-$numUsers = count($topWords);
-
+// find number of WotD images drawn
 $topArtists = FileCache::getArtistTop();
 if (!$topArtists) {
   $topArtists = UserStats::getTopArtists();
   FileCache::putArtistTop($topArtists);
 }
-$artists = [];
-foreach ($topArtists as $r) {
-  $artists[$r['id']] = $r['c'];
+$rank = lookup($user->id, $topArtists, 'id');
+$userData['num_images'] = ($rank === false) ? 0 : $topArtists[$rank]['c'];
+
+// find number of definitions and characters submitted and respective ranks
+$topWords = TopEntry::getTopData(TopEntry::SORT_WORDS, SORT_DESC, true);
+$rank = lookup($user->nick, $topWords, 'userNick');
+if ($rank !== false) {
+  $row = $topWords[$rank];
+  $userData['rank_words'] = $rank + 1;
+  $userData['last_submission'] = $row->timestamp;
+  $userData['num_words'] = $row->numDefinitions;
+  $userData['num_chars'] = $row->numChars;
+
+  // also look up the rank by characters in the respective top
+  $topChars = TopEntry::getTopData(TopEntry::SORT_CHARS, SORT_DESC, true);
+  $userData['rank_chars'] = 1 + lookup($user->nick, $topChars, 'userNick');
 }
 
-$rankWords = 0;
-while ($rankWords < $numUsers && $topWords[$rankWords]->userNick != $nick) {
-  $rankWords++;
-}
-
-$userData['rank_words'] = $rankWords + 1;
-if ($rankWords < $numUsers || array_key_exists($user->id, $artists)) {
-  $topEntry = $topWords[$rankWords];
-  $userData['last_submission'] = $topEntry->timestamp;
-  $userData['num_words'] = $topEntry->numDefinitions;
-  $userData['num_chars'] = $topEntry->numChars;
-  $userData['num_images'] = array_key_exists($user->id, $artists) ? $artists[$user->id] : 0;
-}
-
-$topChars = TopEntry::getTopData(TopEntry::SORT_CHARS, SORT_DESC, true);
-$numUsers = count($topChars);
-$rankChars = 0;
-while ($rankChars < $numUsers && $topChars[$rankChars]->userNick != $nick) {
-  $rankChars++;
-}
-
-$userData['rank_chars'] = $rankChars + 1;
 Smart::assign('medals', Medal::loadForUser($user));
 if (User::can(User::PRIV_ADMIN)) {
   // Admins can grant/revoke medals
@@ -66,3 +54,11 @@ if (User::can(User::PRIV_ADMIN)) {
 Smart::assign('user', $user);
 Smart::assign('userData', $userData);
 Smart::display('user/view.tpl');
+
+/*************************************************************************/
+
+// Syntactic sugar. Returns the rank of $value in $array[0][$column],
+// $array[1][$column], ...
+function lookup($value, $array, $column) {
+  return array_search($value, array_column($array, $column));
+}

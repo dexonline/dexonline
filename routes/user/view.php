@@ -23,11 +23,7 @@ $userData = [];
 $user->email = Str::scrambleEmail($user->email);
 
 // find number of WotD images drawn
-$topArtists = FileCache::getArtistTop();
-if (!$topArtists) {
-  $topArtists = UserStats::getTopArtists();
-  FileCache::putArtistTop($topArtists);
-}
+$topArtists = UserStats::getTopArtists();
 $rank = lookup($user->id, $topArtists, 'id');
 $userData['num_images'] = ($rank === false) ? 0 : $topArtists[$rank]['c'];
 

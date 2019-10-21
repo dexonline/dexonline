@@ -25,21 +25,21 @@ $user->email = Str::scrambleEmail($user->email);
 // find number of WotD images drawn
 $topArtists = UserStats::getTopArtists();
 $rank = lookup($user->id, $topArtists, 'id');
-$userData['num_images'] = ($rank === false) ? 0 : $topArtists[$rank]['c'];
+$userData['numImages'] = ($rank === false) ? 0 : $topArtists[$rank]['c'];
 
 // find number of definitions and characters submitted and respective ranks
-$topWords = TopEntry::getTopData(TopEntry::SORT_WORDS, SORT_DESC, true);
-$rank = lookup($user->nick, $topWords, 'userNick');
+$topDefs = TopEntry::getTopData(TopEntry::SORT_DEFINITIONS, SORT_DESC, true);
+$rank = lookup($user->nick, $topDefs, 'userNick');
 if ($rank !== false) {
-  $row = $topWords[$rank];
-  $userData['rank_words'] = $rank + 1;
-  $userData['last_submission'] = $row->timestamp;
-  $userData['num_words'] = $row->numDefinitions;
-  $userData['num_chars'] = $row->numChars;
+  $row = $topDefs[$rank];
+  $userData['rankDefinitions'] = $rank + 1;
+  $userData['lastSubmission'] = $row->timestamp;
+  $userData['numDefinitions'] = $row->numDefinitions;
+  $userData['numChars'] = $row->numChars;
 
   // also look up the rank by characters in the respective top
   $topChars = TopEntry::getTopData(TopEntry::SORT_CHARS, SORT_DESC, true);
-  $userData['rank_chars'] = 1 + lookup($user->nick, $topChars, 'userNick');
+  $userData['rankChars'] = 1 + lookup($user->nick, $topChars, 'userNick');
 }
 
 Smart::assign('medals', Medal::loadForUser($user));

@@ -2,7 +2,7 @@
 
 class TopEntry {
   const SORT_CHARS = 1;
-  const SORT_WORDS = 2;
+  const SORT_DEFINITIONS = 2;
   const SORT_NICK = 3;
   const SORT_DATE = 4;
 
@@ -64,12 +64,12 @@ class TopEntry {
       $timewindow = '1=1';
     }
 
-    $query = "select nick, count(*) as NumDefinitions, sum(length(internalRep)) as NumChars, max(createDate) as Timestamp 
-    from Definition, User 
-    where userId = User.id 
+    $query = "select nick, count(*) as NumDefinitions, sum(length(internalRep)) as NumChars, max(createDate) as Timestamp
+    from Definition, User
+    where userId = User.id
     and $statusClause
     and $clause
-    and $timewindow 
+    and $timewindow
     group by nick";
 
     return $query;
@@ -138,7 +138,7 @@ class TopEntry {
     if ($crit == self::SORT_CHARS) {
       array_multisort($numChars, SORT_NUMERIC, $ord, $nick, SORT_ASC,
               $topEntries);
-    } else if ($crit == self::SORT_WORDS) {
+    } else if ($crit == self::SORT_DEFINITIONS) {
       array_multisort($numWords, SORT_NUMERIC, $ord, $nick, SORT_ASC,
               $topEntries);
     } else if ($crit == self::SORT_NICK) {

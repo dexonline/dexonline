@@ -43,27 +43,27 @@
 
         <dt>Definiții trimise</dt>
         <dd>
-          {$userData.num_words|default:0}
-          {if isset($userData.num_words)}(locul {$userData.rank_words}){/if}
+          {$userData.numDefinitions|default:0}
+          {if isset($userData.numDefinitions)}(locul {$userData.rankDefinitions}){/if}
         </dd>
 
         <dt>Lungime totală</dt>
         <dd>
-          {$userData.num_chars|default:0} caractere
-          {if isset($userData.num_chars)}(locul {$userData.rank_chars}){/if}
+          {$userData.numChars|default:0} caractere
+          {if isset($userData.numChars)}(locul {$userData.rankChars}){/if}
         </dd>
 
-        {if isset($userData.last_submission)}
+        {if isset($userData.lastSubmission)}
         <dt>Ultima contribuție</dt>
         <dd>
-          {$userData.last_submission|date_format:"%d %B %Y"}
+          {$userData.lastSubmission|date_format:"%d %B %Y"}
         </dd>
         {/if}
 
-          {if $userData.num_images}
+          {if $userData.numImages}
             <dt>Ilustrații desenate</dt>
             <dd>
-                {$userData.num_images} ilustrații
+                {$userData.numImages} ilustrații
             </dd>
           {/if}
       </dl>

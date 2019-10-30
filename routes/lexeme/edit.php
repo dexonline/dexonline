@@ -94,21 +94,23 @@ if ($refreshButton || $saveButton) {
         // Grab all the entries
         foreach ($lexeme->getEntries() as $e) {
           if ($e->description == $original->formNoAccent) {
-            FlashMessage::addTemplate('entryRenamed.tpl', [
-              'entry' => $e,
-              'newDescription' => $lexeme->formNoAccent,
-            ], 'warning');
             $e->description = $lexeme->formNoAccent;
             $e->save();
+            FlashMessage::addTemplate('entryRenamed.tpl', [
+              'entry' => $e,
+              'oldDescription' => $original->formNoAccent,
+            ], 'warning');
+
           }
           foreach ($e->getTrees() as $t) {
             if ($t->description == $original->formNoAccent) {
-              FlashMessage::addTemplate('treeRenamed.tpl', [
-                't' => $t,
-                'newDescription' => $lexeme->formNoAccent,
-              ], 'warning');
               $t->description = $lexeme->formNoAccent;
               $t->save();
+              FlashMessage::addTemplate('treeRenamed.tpl', [
+                't' => $t,
+                'oldDescription' => $original->formNoAccent,
+              ], 'warning');
+
             }
           }
         }

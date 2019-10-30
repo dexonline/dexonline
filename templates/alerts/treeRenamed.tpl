@@ -1,2 +1,2 @@
-Am redenumit arborele {include "bits/tree.tpl" link=true class="alert-link"}
-în {$newDescription}.
+Am redenumit arborele <strong>{$oldDescription}</strong>
+în {include "bits/tree.tpl" link=true class="alert-link"}.

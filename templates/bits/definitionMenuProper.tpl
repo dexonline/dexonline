@@ -36,7 +36,7 @@
     <li>
       {t}source{/t}:
       <a class="ref"
-        href="{Router::link('source/list')}"
+        href="{Router::link('source/list')}/{$row->source->id}"
         title="{$row->source->name|escape}, {$row->source->year|escape}"
       >{$row->source->shortName|escape}
         {if $row->source->year}

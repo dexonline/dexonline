@@ -1,5 +1,6 @@
 <?php
 
+$highlightSourceId = Request::get('highlightSourceId');
 $saveButton = Request::has('saveButton');
 
 if ($saveButton) {
@@ -25,7 +26,10 @@ if (User::can(User::PRIV_VIEW_HIDDEN)) {
     ->find_many();
 }
 
-Smart::assign('src', $sources);
-Smart::assign('editable', User::can(User::PRIV_ADMIN));
+Smart::assign([
+  'src' => $sources,
+  'highlightSourceId' => $highlightSourceId,
+  'editable' => User::can(User::PRIV_ADMIN),
+]);
 Smart::addResources('admin', 'jqTableDnd', 'tablesorter');
 Smart::display('source/list.tpl');

@@ -34,7 +34,7 @@
       </thead>
       <tbody>
         {foreach $src as $s}
-          <tr>
+          <tr {if $s->id == $highlightSourceId}id="highlightedSource" class="info"{/if}>
             <td class="abbreviation">
               {if $s->link && User::can(User::PRIV_EDIT)}
                 <a href="{$s->link}" target="_blank"><span class="sourceShortName">{$s->shortName}</span></a>

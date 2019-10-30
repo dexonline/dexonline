@@ -390,6 +390,7 @@ class Router {
     'lexeme/random' => [ 'count', 'skin' ],
     'model/list' => [ 'modelType' ],
     'model/view' => [ 'model' ],
+    'source/list' => [ 'highlightSourceId' ],
     'wotd/archive' => [ 'year', 'month' ],
     'wotd/random' => [ 'count', 'skin' ],
     'wotd/view' => [ 'year', 'month', 'day' ],

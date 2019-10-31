@@ -101,6 +101,7 @@ class Entry extends BaseObject implements DatedObject {
       ->where_not_equal('l.formNoAccent', $this->getShortDescription())
       ->group_by('l.formNoAccent')
       ->order_by_desc('el.main')
+      ->order_by_asc('el.lexemeRank')
       ->order_by_asc('l.formNoAccent')
       ->find_many();
     return $results;

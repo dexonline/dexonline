@@ -1,5 +1,5 @@
 /*!
- * jqGrid 4.15.4 - free jqGrid: https://github.com/free-jqgrid/jqGrid 
+ * jqGrid 4.15.4 - free jqGrid: https://github.com/free-jqgrid/jqGrid
  * Date: 2018-04-02
  */
 
@@ -298,7 +298,7 @@
 }
 .ui-jqgrid .ui-jqgrid-htable .ui-jqgrid-labels th div.ui-jqgrid-rotate {
 	-webkit-transform: translateX(-50%) translateY(0) rotate(-90deg);
-	-moz-transform: translateX(-50%) translateY(0) (-90deg);
+	-moz-transform: translateX(-50%) translateY(0) rotate(-90deg);
 	-o-transform: translateX(-50%) translateY(0) rotate(-90deg);
 	-ms-transform: translateX(-50%) translateY(0) rotate(-90deg);
 	transform: translateX(-50%) translateY(0) rotate(-90deg);
@@ -385,7 +385,7 @@
 	margin: 1px 0 0 0;
 }
 
-/* Grig body */ 
+/* Grig body */
 .ui-jqgrid .ui-jqgrid-bdiv {
 	min-height: 1px;
 	position: relative;
@@ -1148,7 +1148,7 @@ a.clearsearchclass {
 .ui-menu-jqueryui .ui-jqgrid-menu-item .g-menu-item:hover {
 	font-weight: normal;
 }
- 
+
 .ui-search-oper {
 	padding: 0;
 }

@@ -226,6 +226,7 @@ class Tree extends BaseObject implements DatedObject {
       ->where('te.treeId', $this->id)
       ->group_by('l.formNoAccent')
       ->order_by_desc('el.main')
+      ->order_by_asc('el.lexemeRank')
       ->order_by_asc('l.formNoAccent')
       ->find_many();
 

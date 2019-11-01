@@ -27,10 +27,22 @@ class Medal {
     Medal::MEDAL_PROGRAMMER_3 => 10000,
   ];
 
+  const PROGRAMMER_TEMPLATE = [
+    'name' => 'Programator (nivel %d)',
+    'description' => 'peste %s de linii de cod',
+    'pic' => 'programmer%d.png',
+  ];
+
   const EMAIL_LEVELS = [
     Medal::MEDAL_EMAIL_1 => 100,
     Medal::MEDAL_EMAIL_2 => 500,
     Medal::MEDAL_EMAIL_3 => 1000,
+  ];
+
+  const EMAIL_TEMPLATE = [
+    'name' => 'Responsabil e-mail (nivel %d)',
+    'description' => 'peste %s de mesaje procesate',
+    'pic' => 'email%d.png',
   ];
 
   const EDITOR_LEVELS = [
@@ -41,10 +53,22 @@ class Medal {
     Medal::MEDAL_EDITOR_5 => 10000000,
   ];
 
+  const EDITOR_TEMPLATE = [
+    'name' => 'Editor (nivel %d)',
+    'description' => 'peste %s de caractere trimise',
+    'pic' => 'editor%d.png',
+  ];
+
   const ARTIST_LEVELS = [
     Medal::MEDAL_ARTIST_1 => 10,
     Medal::MEDAL_ARTIST_2 => 100,
     Medal::MEDAL_ARTIST_3 => 500,
+  ];
+
+  const ARTIST_TEMPLATE = [
+    'name' => 'Desenator al cuvântului zilei (nivel %d)',
+    'description' => 'minimum %s cuvinte ilustrate',
+    'pic' => 'artist%d.png',
   ];
 
   static function getData() {
@@ -84,73 +108,53 @@ class Medal {
     ];
     $medalData += $simpleMedals;
 
-    $programmerTemplate = [
-      'name' => 'Programator (nivel %d)',
-      'description' => 'peste %s de linii de cod',
-      'pic' => 'programmer%d.png',
-    ];
     $level = 0;
     $programmerMedals = [];
     foreach (self::PROGRAMMER_LEVELS as $key => $value) {
       $level++;
       $levelData = [];
-      $levelData['name'] = sprintf($programmerTemplate['name'], $level);
-      $levelData['description'] = sprintf($programmerTemplate['description'], number_format($value, 0, '', '.'));
-      $levelData['pic'] = sprintf($programmerTemplate['pic'], $level);
+      $levelData['name'] = sprintf(self::PROGRAMMER_TEMPLATE['name'], $level);
+      $levelData['description'] = sprintf(self::PROGRAMMER_TEMPLATE['description'], number_format($value, 0, '', '.'));
+      $levelData['pic'] = sprintf(self::PROGRAMMER_TEMPLATE['pic'], $level);
       $levelData['supersedes'] = array_keys($programmerMedals);
       $programmerMedals[$key] = $levelData;
     }
     $medalData += $programmerMedals;
 
-    $emailTemplate = [
-      'name' => 'Responsabil e-mail (nivel %d)',
-      'description' => 'peste %s de mesaje procesate',
-      'pic' => 'email%d.png',
-    ];
     $level = 0;
     $emailMedals = [];
     foreach (self::EMAIL_LEVELS as $key => $value) {
       $level++;
       $levelData = [];
-      $levelData['name'] = sprintf($emailTemplate['name'], $level);
-      $levelData['description'] = sprintf($emailTemplate['description'], number_format($value, 0, '', '.'));
-      $levelData['pic'] = sprintf($emailTemplate['pic'], $level);
+      $levelData['name'] = sprintf(self::EMAIL_TEMPLATE['name'], $level);
+      $levelData['description'] = sprintf(self::EMAIL_TEMPLATE['description'], number_format($value, 0, '', '.'));
+      $levelData['pic'] = sprintf(self::EMAIL_TEMPLATE['pic'], $level);
       $levelData['supersedes'] = array_keys($emailMedals);
       $emailMedals[$key] = $levelData;
     }
     $medalData += $emailMedals;
 
-    $editorTemplate = [
-      'name' => 'Editor (nivel %d)',
-      'description' => 'peste %s de caractere trimise',
-      'pic' => 'editor%d.png',
-    ];
     $level = 0;
     $editorMedals = [];
     foreach (self::EDITOR_LEVELS as $key => $value) {
       $level++;
       $levelData = [];
-      $levelData['name'] = sprintf($editorTemplate['name'], $level);
-      $levelData['description'] = sprintf($editorTemplate['description'], number_format($value, 0, '', '.'));
-      $levelData['pic'] = sprintf($editorTemplate['pic'], $level);
+      $levelData['name'] = sprintf(self::EDITOR_TEMPLATE['name'], $level);
+      $levelData['description'] = sprintf(self::EDITOR_TEMPLATE['description'], number_format($value, 0, '', '.'));
+      $levelData['pic'] = sprintf(self::EDITOR_TEMPLATE['pic'], $level);
       $levelData['supersedes'] = array_keys($editorMedals);
       $editorMedals[$key] = $levelData;
     }
     $medalData += $editorMedals;
 
-    $artistTemplate = [
-      'name' => 'Desenator al cuvântului zilei (nivel %d)',
-      'description' => 'minimum %s cuvinte ilustrate',
-      'pic' => 'artist%d.png',
-    ];
     $level = 0;
     $artistMedals = [];
     foreach (self::ARTIST_LEVELS as $key => $value) {
       $level++;
       $levelData = [];
-      $levelData['name'] = sprintf($artistTemplate['name'], $level);
-      $levelData['description'] = sprintf($artistTemplate['description'], number_format($value, 0, '', '.'));
-      $levelData['pic'] = sprintf($artistTemplate['pic'], $level);
+      $levelData['name'] = sprintf(self::ARTIST_TEMPLATE['name'], $level);
+      $levelData['description'] = sprintf(self::ARTIST_TEMPLATE['description'], number_format($value, 0, '', '.'));
+      $levelData['pic'] = sprintf(self::ARTIST_TEMPLATE['pic'], $level);
       $levelData['supersedes'] = array_keys($artistMedals);
       $artistMedals[$key] = $levelData;
     }

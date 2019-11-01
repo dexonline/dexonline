@@ -21,34 +21,36 @@ class Medal {
   const MEDAL_ARTIST_2 = 0x20000;
   const MEDAL_ARTIST_3 = 0x40000;
 
-  const EDITOR_LEVELS = [
-    Medal::MEDAL_EDITOR_5 => 10000000,
-    Medal::MEDAL_EDITOR_4 => 1000000,
-    Medal::MEDAL_EDITOR_3 => 100000,
-    Medal::MEDAL_EDITOR_2 => 10000,
-    Medal::MEDAL_EDITOR_1 => 1000,
-  ];
-
-  const ARTIST_LEVELS = [
-    Medal::MEDAL_ARTIST_3 => 500,
-    Medal::MEDAL_ARTIST_2 => 100,
-    Medal::MEDAL_ARTIST_1 => 10,
+  const PROGRAMMER_LEVELS = [
+    Medal::MEDAL_PROGRAMMER_1 => 100,
+    Medal::MEDAL_PROGRAMMER_2 => 1000,
+    Medal::MEDAL_PROGRAMMER_3 => 10000,
   ];
 
   const EMAIL_LEVELS = [
-    Medal::MEDAL_EMAIL_3 => 1000,
-    Medal::MEDAL_EMAIL_2 => 500,
     Medal::MEDAL_EMAIL_1 => 100,
+    Medal::MEDAL_EMAIL_2 => 500,
+    Medal::MEDAL_EMAIL_3 => 1000,
   ];
 
-  const PROGRAMMER_LEVELS = [
-    Medal::MEDAL_PROGRAMMER_3 => 10000,
-    Medal::MEDAL_PROGRAMMER_2 => 1000,
-    Medal::MEDAL_PROGRAMMER_1 => 100,
+  const EDITOR_LEVELS = [
+    Medal::MEDAL_EDITOR_1 => 1000,
+    Medal::MEDAL_EDITOR_2 => 10000,
+    Medal::MEDAL_EDITOR_3 => 100000,
+    Medal::MEDAL_EDITOR_4 => 1000000,
+    Medal::MEDAL_EDITOR_5 => 10000000,
+  ];
+
+  const ARTIST_LEVELS = [
+    Medal::MEDAL_ARTIST_1 => 10,
+    Medal::MEDAL_ARTIST_2 => 100,
+    Medal::MEDAL_ARTIST_3 => 500,
   ];
 
   static function getData() {
-    return [
+    $medalData = [];
+
+    $simpleMedals = [
       self::MEDAL_SPONSOR => [
         'name' => 'Donator',
         'description' => '',
@@ -61,8 +63,8 @@ class Medal {
         'pic' => 'social.png',
         'supersedes' => [],
       ],
-      self::MEDAL_ARTICLES =>
-        ['name' => 'Editor de articole lingvistice',
+      self::MEDAL_ARTICLES => [
+        'name' => 'Editor de articole lingvistice',
           'description' => '',
           'pic' => 'articles.png',
           'supersedes' => [],
@@ -78,110 +80,83 @@ class Medal {
         'description' => '',
         'pic' => 'moderator.png',
         'supersedes' => [],
-      ],
-      self::MEDAL_PROGRAMMER_1 => [
-        'name' => 'Programator (nivel 1)',
-        'description' => 'peste ' . number_format(self::PROGRAMMER_LEVELS[self::MEDAL_PROGRAMMER_1], 0, '', '.') . ' de linii de cod',
-        'pic' => 'programmer1.png',
-        'supersedes' => [],
-      ],
-      self::MEDAL_PROGRAMMER_2 => [
-        'name' => 'Programator (nivel 2)',
-        'description' => 'peste ' . number_format(self::PROGRAMMER_LEVELS[self::MEDAL_PROGRAMMER_2], 0, '', '.') . ' de linii de cod',
-        'pic' => 'programmer2.png',
-        'supersedes' => [self::MEDAL_PROGRAMMER_1],
-      ],
-      self::MEDAL_PROGRAMMER_3 => [
-        'name' => 'Programator (nivel 3)',
-        'description' => 'peste ' . number_format(self::PROGRAMMER_LEVELS[self::MEDAL_PROGRAMMER_3], 0, '', '.') . ' de linii de cod',
-        'pic' => 'programmer3.png',
-        'supersedes' => [self::MEDAL_PROGRAMMER_1, self::MEDAL_PROGRAMMER_2],
-      ],
-      self::MEDAL_EMAIL_1 => [
-        'name' => 'Responsabil e-mail (nivel 1)',
-        'description' => 'peste ' . number_format(self::EMAIL_LEVELS[self::MEDAL_EMAIL_1], 0, '', '.') . ' de mesaje procesate',
-        'pic' => 'email1.png',
-        'supersedes' => [],
-      ],
-      self::MEDAL_EMAIL_2 => [
-        'name' => 'Responsabil e-mail (nivel 2)',
-        'description' => 'peste ' . number_format(self::EMAIL_LEVELS[self::MEDAL_EMAIL_2], 0, '', '.') . ' de mesaje procesate',
-        'pic' => 'email2.png',
-        'supersedes' => [self::MEDAL_EMAIL_1],
-      ],
-      self::MEDAL_EMAIL_3 => [
-        'name' => 'Responsabil e-mail (nivel 3)',
-        'description' => 'peste ' . number_format(self::EMAIL_LEVELS[self::MEDAL_EMAIL_3], 0, '', '.') . ' de mesaje procesate',
-        'pic' => 'email3.png',
-        'supersedes' => [
-          self::MEDAL_EMAIL_1,
-          self::MEDAL_EMAIL_2
-        ],
-      ],
-      self::MEDAL_EDITOR_1 => [
-        'name' => 'Editor (nivel 1)',
-        'description' => 'peste ' . number_format(self::EDITOR_LEVELS[self::MEDAL_EDITOR_1], 0, '', '.') . ' de caractere trimise',
-        'pic' => 'editor1.png',
-        'supersedes' => [],
-      ],
-      self::MEDAL_EDITOR_2 => [
-        'name' => 'Editor (nivel 2)',
-        'description' => 'peste ' . number_format(self::EDITOR_LEVELS[self::MEDAL_EDITOR_2], 0, '', '.') . ' de caractere trimise',
-        'pic' => 'editor2.png',
-        'supersedes' => [self::MEDAL_EDITOR_1],
-      ],
-      self::MEDAL_EDITOR_3 => [
-        'name' => 'Editor (nivel 3)',
-        'description' => 'peste ' . number_format(self::EDITOR_LEVELS[self::MEDAL_EDITOR_3], 0, '', '.') . ' de caractere trimise',
-        'pic' => 'editor3.png',
-        'supersedes' => [
-          self::MEDAL_EDITOR_1,
-          self::MEDAL_EDITOR_2
-        ],
-      ],
-      self::MEDAL_EDITOR_4 => [
-        'name' => 'Editor (nivel 4)',
-        'description' => 'peste ' . number_format(self::EDITOR_LEVELS[self::MEDAL_EDITOR_4], 0, '', '.') . ' de caractere trimise',
-        'pic' => 'editor4.png',
-        'supersedes' => [
-          self::MEDAL_EDITOR_1,
-          self::MEDAL_EDITOR_2,
-          self::MEDAL_EDITOR_3
-        ],
-      ],
-      self::MEDAL_EDITOR_5 => [
-        'name' => 'Editor (nivel 5)',
-        'description' => 'peste ' . number_format(self::EDITOR_LEVELS[self::MEDAL_EDITOR_5], 0, '', '.') . ' de caractere trimise',
-        'pic' => 'editor5.png',
-        'supersedes' => [
-          self::MEDAL_EDITOR_1,
-          self::MEDAL_EDITOR_2,
-          self::MEDAL_EDITOR_3,
-          self::MEDAL_EDITOR_4,
-        ],
-      ],
-      self::MEDAL_ARTIST_1 => [
-        'name' => 'Desenator al cuvântului zilei (nivel 1)',
-        'description' => 'minimum ' . number_format(self::ARTIST_LEVELS[self::MEDAL_ARTIST_1], 0, '', '.') . ' cuvinte ilustrate',
-        'pic' => 'artist1.png',
-        'supersedes' => [],
-      ],
-      self::MEDAL_ARTIST_2 => [
-        'name' => 'Desenator al cuvântului zilei (nivel 2)',
-        'description' => 'minimum ' . number_format(self::ARTIST_LEVELS[self::MEDAL_ARTIST_2], 0, '', '.') . ' cuvinte ilustrate',
-        'pic' => 'artist2.png',
-        'supersedes' => [self::MEDAL_ARTIST_1],
-      ],
-      self::MEDAL_ARTIST_3 => [
-        'name' => 'Desenator al cuvântului zilei (nivel 3)',
-        'description' => 'minimum ' . number_format(self::ARTIST_LEVELS[self::MEDAL_ARTIST_3], 0, '', '.') . ' cuvinte ilustrate',
-        'pic' => 'artist3.png',
-        'supersedes' => [
-          self::MEDAL_ARTIST_1,
-          self::MEDAL_ARTIST_2
-        ],
-      ],
+      ]
     ];
+    $medalData += $simpleMedals;
+
+    $programmerTemplate = [
+      'name' => 'Programator (nivel %d)',
+      'description' => 'peste %s de linii de cod',
+      'pic' => 'programmer%d.png',
+    ];
+    $level = 0;
+    $programmerMedals = [];
+    foreach (self::PROGRAMMER_LEVELS as $key => $value) {
+      $level++;
+      $levelData = [];
+      $levelData['name'] = sprintf($programmerTemplate['name'], $level);
+      $levelData['description'] = sprintf($programmerTemplate['description'], number_format($value, 0, '', '.'));
+      $levelData['pic'] = sprintf($programmerTemplate['pic'], $level);
+      $levelData['supersedes'] = array_keys($programmerMedals);
+      $programmerMedals[$key] = $levelData;
+    }
+    $medalData += $programmerMedals;
+
+    $emailTemplate = [
+      'name' => 'Responsabil e-mail (nivel %d)',
+      'description' => 'peste %s de mesaje procesate',
+      'pic' => 'email%d.png',
+    ];
+    $level = 0;
+    $emailMedals = [];
+    foreach (self::EMAIL_LEVELS as $key => $value) {
+      $level++;
+      $levelData = [];
+      $levelData['name'] = sprintf($emailTemplate['name'], $level);
+      $levelData['description'] = sprintf($emailTemplate['description'], number_format($value, 0, '', '.'));
+      $levelData['pic'] = sprintf($emailTemplate['pic'], $level);
+      $levelData['supersedes'] = array_keys($emailMedals);
+      $emailMedals[$key] = $levelData;
+    }
+    $medalData += $emailMedals;
+
+    $editorTemplate = [
+      'name' => 'Editor (nivel %d)',
+      'description' => 'peste %s de caractere trimise',
+      'pic' => 'editor%d.png',
+    ];
+    $level = 0;
+    $editorMedals = [];
+    foreach (self::EDITOR_LEVELS as $key => $value) {
+      $level++;
+      $levelData = [];
+      $levelData['name'] = sprintf($editorTemplate['name'], $level);
+      $levelData['description'] = sprintf($editorTemplate['description'], number_format($value, 0, '', '.'));
+      $levelData['pic'] = sprintf($editorTemplate['pic'], $level);
+      $levelData['supersedes'] = array_keys($editorMedals);
+      $editorMedals[$key] = $levelData;
+    }
+    $medalData += $editorMedals;
+
+    $artistTemplate = [
+      'name' => 'Desenator al cuvântului zilei (nivel %d)',
+      'description' => 'minimum %s cuvinte ilustrate',
+      'pic' => 'artist%d.png',
+    ];
+    $level = 0;
+    $artistMedals = [];
+    foreach (self::ARTIST_LEVELS as $key => $value) {
+      $level++;
+      $levelData = [];
+      $levelData['name'] = sprintf($artistTemplate['name'], $level);
+      $levelData['description'] = sprintf($artistTemplate['description'], number_format($value, 0, '', '.'));
+      $levelData['pic'] = sprintf($artistTemplate['pic'], $level);
+      $levelData['supersedes'] = array_keys($artistMedals);
+      $artistMedals[$key] = $levelData;
+    }
+    $medalData += $artistMedals;
+
+    return $medalData;
   }
 
   /* Returns a subset of DATA */

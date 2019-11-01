@@ -132,6 +132,7 @@ if ($refreshButton || $saveButton) {
   $lexeme->loadInflectedFormMap();
   $sourceIds = $lexeme->getSourceIds();
   $entryIds = $lexeme->getEntryIds();
+  $compoundIds = $lexeme->getCompoundsFromPart();
 
   RecentLink::add("Lexem: $lexeme (ID={$lexeme->id})");
 }
@@ -163,6 +164,7 @@ Smart::assign([
   'lexeme' => $lexeme,
   'entryIds' => $entryIds,
   'sourceIds' => $sourceIds,
+  'compoundIds' => $compoundIds,
   'homonyms' => $homonyms,
   'searchResults' => $searchResults,
   'modelTypes' => ModelType::getAll(),

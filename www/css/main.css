@@ -497,3 +497,10 @@ div.thumbinner {
   text-align: center;
   overflow: hidden;
 }
+
+/* for select2 field which contains too many items*/
+.overflownSelect2 .select2-selection__rendered
+{
+    max-height: 54px;
+    overflow-y: scroll !important;
+}

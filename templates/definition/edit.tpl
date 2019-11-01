@@ -93,7 +93,7 @@
 
         <div class="form-group">
           <label for="entryIds" class="col-sm-2 control-label">intrări</label>
-          <div class="col-sm-10">
+          <div class="col-sm-10 overflownSelect2">
             <select id="entryIds" name="entryIds[]" style="width: 100%" multiple>
               {foreach $entryIds as $e}
                 <option value="{$e}" selected></option>

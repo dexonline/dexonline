@@ -159,6 +159,19 @@
               </div>
             </div>
 
+            {if $compoundIds}
+            <div class="form-group">
+              <label for="compoundIds" class="col-md-2 control-label">compuse</label>
+              <div class="col-md-10 overflownSelect2">
+                <select id="compoundIds" name="compoundIds[]" class="form-control" multiple>
+                  {foreach $compoundIds as $cid}
+                    <option value="{$cid}" selected></option>
+                  {/foreach}
+                </select>
+              </div>
+            </div>
+            {/if}
+
           </div>
 
           <div class="col-md-6 form-horizontal">

@@ -62,9 +62,9 @@ class Medal {
 
   // programmers medals
   const PROGRAMMER_LEVELS = [
-    Medal::MEDAL_PROGRAMMER_1 => 100,
-    Medal::MEDAL_PROGRAMMER_2 => 1000,
     Medal::MEDAL_PROGRAMMER_3 => 10000,
+    Medal::MEDAL_PROGRAMMER_2 => 1000,
+    Medal::MEDAL_PROGRAMMER_1 => 100,
   ];
 
   const PROGRAMMER_TEMPLATE = [
@@ -76,9 +76,9 @@ class Medal {
 
   // email medals
   const EMAIL_LEVELS = [
-    Medal::MEDAL_EMAIL_1 => 100,
-    Medal::MEDAL_EMAIL_2 => 500,
     Medal::MEDAL_EMAIL_3 => 1000,
+    Medal::MEDAL_EMAIL_2 => 500,
+    Medal::MEDAL_EMAIL_1 => 100,
   ];
 
   const EMAIL_TEMPLATE = [
@@ -90,11 +90,11 @@ class Medal {
 
   // editor medals
   const EDITOR_LEVELS = [
-    Medal::MEDAL_EDITOR_1 => 1000,
-    Medal::MEDAL_EDITOR_2 => 10000,
-    Medal::MEDAL_EDITOR_3 => 100000,
-    Medal::MEDAL_EDITOR_4 => 1000000,
     Medal::MEDAL_EDITOR_5 => 10000000,
+    Medal::MEDAL_EDITOR_4 => 1000000,
+    Medal::MEDAL_EDITOR_3 => 100000,
+    Medal::MEDAL_EDITOR_2 => 10000,
+    Medal::MEDAL_EDITOR_1 => 1000,
   ];
 
   const EDITOR_TEMPLATE = [
@@ -106,9 +106,9 @@ class Medal {
 
   //artist medals
   const ARTIST_LEVELS = [
-    Medal::MEDAL_ARTIST_1 => 10,
-    Medal::MEDAL_ARTIST_2 => 100,
     Medal::MEDAL_ARTIST_3 => 500,
+    Medal::MEDAL_ARTIST_2 => 100,
+    Medal::MEDAL_ARTIST_1 => 10,
   ];
 
   const ARTIST_TEMPLATE = [
@@ -129,9 +129,9 @@ class Medal {
 
   const MEDALS_WITH_LEVELS = [
     ['level' => Medal::PROGRAMMER_LEVELS, 'template' => Medal::PROGRAMMER_TEMPLATE],
-    ['level' => Medal::EMAIL_LEVELS ,     'template' => Medal::EMAIL_TEMPLATE],
-    ['level' => Medal::EDITOR_LEVELS ,    'template' => Medal::EDITOR_TEMPLATE],
-    ['level' => Medal::ARTIST_LEVELS ,    'template' => Medal::ARTIST_TEMPLATE],
+    ['level' => Medal::EMAIL_LEVELS,      'template' => Medal::EMAIL_TEMPLATE],
+    ['level' => Medal::EDITOR_LEVELS,     'template' => Medal::EDITOR_TEMPLATE],
+    ['level' => Medal::ARTIST_LEVELS,     'template' => Medal::ARTIST_TEMPLATE],
   ];
   /*************************************************************************/
 
@@ -146,16 +146,17 @@ class Medal {
   }
 
   private static function getMedalsDataFor($levels, $template) {
-    $levelCnt = 0;
+    $levelCnt = count($levels);
     $medals = [];
     foreach ($levels as $key => $value) {
-      $levelCnt++;
-      $levelData = [];
-      $levelData['name'] = sprintf($template['name'], $levelCnt);
-      $levelData['description'] = sprintf($template['description'], number_format($value, 0, '', '.'));
-      $levelData['pic'] = sprintf($template['pic'], $levelCnt);
-      $levelData['supersedes'] = array_keys($medals);
+      $levelData = [
+        'name' => sprintf($template['name'], $levelCnt),
+        'description' => sprintf($template['description'], LocaleUtil::number($value)),
+        'pic' => sprintf($template['pic'], $levelCnt),
+        'supersedes' => array_keys($medals),
+      ];
       $medals[$key] = $levelData;
+      $levelCnt--;
     }
 
     return $medals;

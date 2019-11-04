@@ -501,6 +501,24 @@ div.thumbinner {
 /* for select2 field which contains too many items*/
 .overflownSelect2 .select2-selection__rendered
 {
-    max-height: 54px;
+    max-height: 81px;
     overflow-y: scroll !important;
+}
+.linkBox
+{
+    background-color: #e4e4e4;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    cursor: default;
+    float: left;
+    margin-right: 5px;
+    margin-top: 5px;
+    padding: 0 5px;
+}
+
+.form-control.overflown
+{
+  padding: 0 5px 5px 5px;
+  min-height: 88px;
+  overflow-y: scroll;
 }

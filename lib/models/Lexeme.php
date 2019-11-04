@@ -99,14 +99,13 @@ class Lexeme extends BaseObject implements DatedObject {
   }
 
   function getCompoundsFromPart() {
-    $results = Model::factory('Fragment')
+    return Model::factory('Fragment')
                 ->select('Lexeme.*')
                 ->join('Lexeme', ['Lexeme.id', '=', 'Fragment.lexemeId'])
                 ->group_by('lexemeId')
                 ->where('partId', $this->id)
                 ->order_by_asc('lexemeId')
                 ->find_many();
-    return Util::objectProperty($results , 'id');
   }
 
   // Splits a form into chunks while obeying the lexeme's fragments.

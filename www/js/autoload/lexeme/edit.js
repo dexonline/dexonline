@@ -20,13 +20,6 @@ $(function() {
     placeholder: 'fragment',
     width: '180px',
   };
-  var compoundOptions = {
-    ajax: { url: wwwRoot + 'ajax/getLexemes.php' },
-    tags: true,
-    templateSelection: formatLexemeWithEditLink,
-    width: '100%',
-    disabled: true,
-  };
 
   function init() {
     stem = $('#stem').detach();
@@ -61,7 +54,6 @@ $(function() {
     $('#fragmentContainer').on('click', '.deleteFragmentButton', deleteFragment);
 
     initSelect2('.fragment', 'ajax/getLexemesById.php', fragmentOptions);
-    initSelect2('#compoundIds', 'ajax/getLexemesById.php', compoundOptions);
 
   }
 

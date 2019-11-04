@@ -159,6 +159,21 @@
               </div>
             </div>
 
+            {if $compoundIds}
+            <div class="form-group">
+              <label for="compoundIds" class="col-md-2">compuse</label>
+              <div class="col-md-10">
+                  <div class="form-control overflown">
+                    {foreach $compoundIds as $c}
+                      <div>
+                      {include "bits/lexemeLink.tpl" boxed=true lexeme=$c}
+                      </div>
+                    {/foreach}
+                  </div>
+              </div>
+            </div>
+            {/if}
+
           </div>
 
           <div class="col-md-6 form-horizontal">

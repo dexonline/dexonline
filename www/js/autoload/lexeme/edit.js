@@ -50,9 +50,11 @@ $(function() {
     $('#autoFragmentButton').click(autoFragment);
     $('#fragmentContainer').on('click', '.capitalized', capitalizedToggle);
     $('#fragmentContainer').on('click', '.accented', accentedToggle);
+    $('#fragmentContainer').on('click', '.editFragmentButton', editFragment);
     $('#fragmentContainer').on('click', '.deleteFragmentButton', deleteFragment);
 
     initSelect2('.fragment', 'ajax/getLexemesById.php', fragmentOptions);
+
   }
 
   function saveEverything() {
@@ -145,6 +147,16 @@ $(function() {
   function addFragment() {
     var t = stem.clone(true).appendTo('#fragmentContainer');
     t.find('.fragment').select2(fragmentOptions);
+  }
+
+  function editFragment() {
+    fragmId = $(this)
+                .closest('.fragmentWrapper')
+                .find('select[name="partIds[]"]')
+                .val();
+    if (fragmId) {
+      $(location).attr('href', wwwRoot + "editare-lexem?lexemeId=" + fragmId);
+    }
   }
 
   function deleteFragment() {

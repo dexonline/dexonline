@@ -98,6 +98,16 @@ class Lexeme extends BaseObject implements DatedObject {
     return $this->compoundParts;
   }
 
+  function getCompoundsFromPart() {
+    return Model::factory('Fragment')
+                ->select('Lexeme.*')
+                ->join('Lexeme', ['Lexeme.id', '=', 'Fragment.lexemeId'])
+                ->group_by('lexemeId')
+                ->where('partId', $this->id)
+                ->order_by_asc('lexemeId')
+                ->find_many();
+  }
+
   // Splits a form into chunks while obeying the lexeme's fragments.
   // In most cases we could just split the form at dashes and spaces.
   // However, in some cases the fragments themselves include delimiters (e.g. 'week-end party').

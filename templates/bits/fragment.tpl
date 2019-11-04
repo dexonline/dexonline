@@ -45,6 +45,10 @@
     acc.
   </label>
 
+  <button type="button" class="btn btn-link btn-xs editFragmentButton">
+    <i class="glyphicon glyphicon-pencil"></i>
+  </button>
+
   <button type="button" class="btn btn-link btn-xs deleteFragmentButton">
     <i class="glyphicon glyphicon-trash"></i>
   </button>

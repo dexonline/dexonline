@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * For all *_LEVELS arrays the values must be in decreasing order.
+ * The script tools/updateMedals.php depends on this.
+ */
+
 class Medal {
   /* all medals (values in DB) */
   const MEDAL_SPONSOR = 0x1;
@@ -60,7 +65,7 @@ class Medal {
 
   /*  medals with more levels */
 
-  // programmers medals
+  // programmers medals in descending order
   const PROGRAMMER_LEVELS = [
     Medal::MEDAL_PROGRAMMER_3 => 10000,
     Medal::MEDAL_PROGRAMMER_2 => 1000,
@@ -74,7 +79,7 @@ class Medal {
     'supersedes' => [],
   ];
 
-  // email medals
+  // email medals in descending order
   const EMAIL_LEVELS = [
     Medal::MEDAL_EMAIL_3 => 1000,
     Medal::MEDAL_EMAIL_2 => 500,
@@ -88,7 +93,7 @@ class Medal {
     'supersedes' => [],
   ];
 
-  // editor medals
+  // editor medals in descending order
   const EDITOR_LEVELS = [
     Medal::MEDAL_EDITOR_5 => 10000000,
     Medal::MEDAL_EDITOR_4 => 1000000,
@@ -104,7 +109,7 @@ class Medal {
     'supersedes' => [],
   ];
 
-  //artist medals
+  // artist medals in descending order
   const ARTIST_LEVELS = [
     Medal::MEDAL_ARTIST_3 => 500,
     Medal::MEDAL_ARTIST_2 => 100,

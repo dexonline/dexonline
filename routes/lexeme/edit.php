@@ -132,11 +132,11 @@ if ($refreshButton || $saveButton) {
   $lexeme->loadInflectedFormMap();
   $sourceIds = $lexeme->getSourceIds();
   $entryIds = $lexeme->getEntryIds();
-  $compoundIds = $lexeme->getCompoundsFromPart();
-
+  
   RecentLink::add("Lexem: $lexeme (ID={$lexeme->id})");
 }
 
+$compoundIds = $lexeme->getCompoundsFromPart();
 $definitions = Definition::loadByEntryIds($entryIds);
 $searchResults = SearchResult::mapDefinitionArray($definitions);
 

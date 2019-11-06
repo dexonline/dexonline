@@ -11,9 +11,9 @@ ini_set('memory_limit', '1024M');
 const SOURCE_ID = 27;
 const PREVIOUS_SOURCE_ID = 1;
 const MY_USER_ID = 1;
-const BATCH_SIZE = 10000;
+const BATCH_SIZE = 1000;
 const START_AT = '';
-const EDIT_URL = 'https://dexonline.ro/editare-definitie?definitionId=';
+const CHANGE_AT_MOST = 1000000;
 
 $abbrevs = Abbrev::loadAbbreviations(SOURCE_ID);
 
@@ -344,6 +344,7 @@ $meaningParser = makeParser(MEANING_GRAMMAR);
 $etymologyParser = makeParser(ETYMOLOGY_GRAMMAR);
 
 $offset = 0;
+$numChanged = 0;
 
 do {
   $defs = Model::factory('Definition')
@@ -367,14 +368,14 @@ do {
       ->where('ed.definitionId', $d->id)
       ->count();
     if ($structured) {
-      Log::info("Skipping already structured definition «{$d->lexicon}»");
+      Log::debug("Skipping already structured definition «{$d->lexicon}»");
     } else {
 
       $rep = preprocess($d->internalRep);
 
       $parsed = $parser->parse($rep);
       if (!$parsed) {
-        Log::error('Cannot parse: %s %s%d', $rep, EDIT_URL, $d->id);
+        Log::error('Cannot parse: %s %s', $rep, getEditLink($d));
       } else {
         $meaning = $parsed->findFirst('meaning');
         $etymology = $parsed->findFirst('etymology');
@@ -387,23 +388,26 @@ do {
             $tuples2 = createEtymologies($etymology, $etymologyParser, $d);
             $tuples = array_merge($tuples1, $tuples2);
             makeTree($tuples, $d);
-            // exit;
+            $numChanged++;
           } else {
-            Log::error('Cannot parse meaning for [%s]: [%s] %s%d',
-                       $d->lexicon, $meaning, EDIT_URL, $d->id);
+            Log::error('Cannot parse meaning for [%s]: [%s] %s',
+                       $d->lexicon, $meaning, getEditLink($d));
           }
         } else if ($reference) {
           mergeVariant($d, $reference);
         } else {
-          Log::error('No meaning nor reference: %s %s%d', $rep, EDIT_URL, $d->id);
+          Log::error('No meaning nor reference: %s %s', $rep, getEditLink($d));
         }
       }
-      // exit;
+    }
+    if ($numChanged == CHANGE_AT_MOST) {
+      Log::error('Reached target of %d changes, stopping', CHANGE_AT_MOST);
+      exit;
     }
   }
 
   $offset += BATCH_SIZE;
-  Log::info("Processed $offset definitions.");
+  Log::info("Processed $offset definitions, changed $numChanged.");
 } while (count($defs));
 
 Log::info('ended');
@@ -431,6 +435,8 @@ function preprocess($rep) {
 }
 
 function mergeVariant($def, $reference) {
+  global $numChanges;
+
   $form = $reference->findFirst('form');
   $form = preg_replace('/\.$/', '', $form); // remove the final dot.
 
@@ -475,6 +481,7 @@ function mergeVariant($def, $reference) {
   $defEntries[0]->mergeInto($formEntries[0]->id);
   $def->structured = true;
   $def->save();
+  $numChanges++;
 }
 
 function createMeanings($parsed, $def) {
@@ -901,8 +908,8 @@ function makeTree($tuples, $def) {
       $m->internalRep = $internalRep;
       $m->displayOrder = ++$order;
       if ($m->type == Meaning::TYPE_MEANING) {
-        $m->breadcrumb = "{$primaryMeanings}.";
         $primaryMeanings++;
+        $m->breadcrumb = "{$primaryMeanings}.";
       } else {
         $m->breadcrumb = '';
       }
@@ -928,8 +935,7 @@ function makeTree($tuples, $def) {
   }
 
   foreach ($entries as $e) {
-    $e->deleteEmptyTrees();
-
+    deleteEmptyTrees($e);
     $e = Entry::get_by_id($e->id); // clear extra fields so save() doesn't complain
     $e->structStatus = Entry::STRUCT_STATUS_IN_PROGRESS;
     $e->save();
@@ -999,4 +1005,16 @@ function associateSynonym($meaningId, $form) {
   } else {
     Log::info('no trees for synonym [%s] for meaning %s', $form, $meaningId);
   }
+}
+
+function deleteEmptyTrees($e) {
+  foreach ($e->getTrees() as $t) {
+    if (!$t->hasMeanings()) {
+      $t->delete();
+    }
+  }
+}
+
+function getEditLink($d) {
+  return Router::link('definition/edit', true) . '/' . $d->id;
 }

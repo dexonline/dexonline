@@ -116,7 +116,7 @@ if ($saveButton || $nextOcrBut) {
     }
 
     if ($d->status == Definition::ST_DELETED) {
-      EntryDefinition::dissociateDefinition($d->id);
+      EntryDefinition::delete_all_by_definitionId($d->id);
     } else {
       EntryDefinition::update(Util::objectProperty($entries, 'id'), $d->id);
     }

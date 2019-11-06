@@ -79,22 +79,27 @@ foreach ($trees as $t) {
 
     // now do the renumbering
     Log::info("New order for tree {$t->description} is:");
-    $current = 1;
+    $displayOrder = 1;
+    $bc = 1;
     foreach ($dex98Meanings as $m) {
-      renumber($m, $current++);
-      Log::info("* {$m->displayOrder} {$m->internalRep}");
       foreach ($map[$m->id] ?? [] as $new) {
-        renumber($new, $current++);
+        renumber($new, $displayOrder, $bc);
         Log::info("* (MOVED) {$new->displayOrder} {$new->internalRep}");
       }
+      renumber($m, $displayOrder, $bc);
+      Log::info("* {$m->displayOrder} {$m->internalRep}");
     }
   }
 }
 
 /*************************************************************************/
 
-function renumber(&$meaning, $displayOrder) {
+function renumber(&$meaning, &$displayOrder, &$bc) {
   $meaning = Meaning::get_by_id($meaning->id); // clear the sources field
-  $meaning->displayOrder = $displayOrder;
+  $meaning->displayOrder = $displayOrder++;
+  if ($meaning->type == Meaning::TYPE_MEANING) {
+    $meaning->breadcrumb = "{$bc}.";
+    $bc++;
+  }
   $meaning->save();
 }

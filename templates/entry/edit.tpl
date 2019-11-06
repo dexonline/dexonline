@@ -167,15 +167,13 @@
 
         {if $homonyms}
           <div class="form-group">
-            <label class="col-md-2">omonime</label>
+            <label for="homonyms" class="col-md-2">omonime</label>
             <div class="col-md-10">
-
-              {foreach $homonyms as $h}
-                <div>
-                  {include "bits/entry.tpl" entry=$h editLink=true}
-                </div>
-              {/foreach}
-
+              <div class="form-control overflown">
+                {foreach $homonyms as $h}
+                    {include "bits/entry.tpl" boxed=true entry=$h editLink=true}
+                {/foreach}
+              </div>
             </div>
           </div>
         {/if}

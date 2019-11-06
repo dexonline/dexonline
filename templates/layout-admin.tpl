@@ -1,10 +1,13 @@
+{$withCharmap=$withCharmap|default:true}
 {extends "layout.tpl"}
 
 {block "banner"}{/block}
 {block "bannerHead"}{/block}
 {block "search"}{/block}
 {block "content"}
-	{include "bits/charmap.tpl"}
-	{$smarty.block.child}
+  {if $withCharmap}
+    {include "bits/charmap.tpl"}
+  {/if}
+  {$smarty.block.child}
 {/block}
 {block "footer"}{/block}

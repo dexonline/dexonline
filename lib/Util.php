@@ -174,6 +174,9 @@ class Util {
     Variable::poke(
       'Count.treeMentions', Model::factory('Mention')->where('objectType', Mention::TYPE_TREE)->count()
     );
+    Variable::poke(
+      'Count.entriesWithMultipleMainLexemes', Entry::loadWithMultipleMainLexemes()
+    );
   }
 
   static function redirect($location) {

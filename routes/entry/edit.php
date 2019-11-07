@@ -78,6 +78,7 @@ if ($mergeButton) {
   }
 
   $e->mergeInto($other->id);
+  $other->save(); // force updating $other->modUserId
   $other->deleteTemporaryLexemes();
 
   FlashMessage::add('Am unificat intrările.', 'success');

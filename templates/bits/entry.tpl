@@ -1,4 +1,5 @@
 {$editLink=$editLink|default:false}
+{$boxed=$boxed|default:false}
 {$target=$target|default:'_self'}
 {$editLinkClass=$editLinkClass|default:''}
 {$link=$link|default:false}
@@ -6,6 +7,7 @@
 {$tagList=$tagList|default:false}
 
 {strip}
+{if $boxed}<span class="linkBox">{/if}
 {if $editLink}
   <a
     href="{Router::link('entry/edit')}?id={$entry->id}"
@@ -21,6 +23,7 @@
 {else}
   <span class="entryName">{$entry->description}</span>
 {/if}
+{if $boxed}</span>{/if}
 {/strip}
 
 {if $variantList}

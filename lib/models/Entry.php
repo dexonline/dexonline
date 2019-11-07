@@ -66,6 +66,11 @@ class Entry extends BaseObject implements DatedObject {
     return $e;
   }
 
+  function save() {
+    $this->modUserId = User::getActiveId();
+    parent::save();
+  }
+
   function loadMeanings() {
     foreach ($this->getTrees() as $t) {
       $t->getMeanings();
@@ -104,7 +109,6 @@ class Entry extends BaseObject implements DatedObject {
       ->order_by_asc('el.lexemeRank')
       ->order_by_asc('l.formNoAccent')
       ->find_many();
-    return $results;
   }
 
   static function loadUnassociated() {
@@ -170,6 +174,44 @@ class Entry extends BaseObject implements DatedObject {
         ->order_by_asc('description')
         ->find_many();
     }
+  }
+
+    /**
+   * Returns, with constraints, entries that have multiple main lexemes
+   *
+   * @param   array   $structStatus
+   * @param   bool    $onlyCount        abbreviation short form
+   * @param   int     $limit            do to go over 5000
+   * @param   string  $orderBy          used mainly with tablesorter
+   * @param   string  $order            used mainly with tablesorter
+   * @return  ORMWrapper
+   */
+  static function loadWithMultipleMainLexemes($onlyCount = true, $limit = 5000,
+        $orderBy = 'description', $order = 'asc') {
+
+    $query = Model::factory('Entry')
+        ->table_alias('e')
+        ->select_expr('sum(el.main)', 'mainCount')
+        ->join('EntryLexeme', ['e.id', '=', 'el.entryId'], 'el')
+        ->where('e.structStatus', self::STRUCT_STATUS_DONE)
+        ->where('el.main', 1)
+        ->group_by('e.id')
+        ->having_raw('mainCount > 1');
+        //->order_by_expr("`e.$orderBy` $order");
+
+        if ($onlyCount) {
+          $query = $query->find_result_set()->count();
+        }
+        else {
+          $query = $query
+            ->join('Lexeme', ['l.id', '=', 'el.lexemeId'], 'l')
+            ->join('User', ['u.id', '=', 'e.modUserId'], 'u')
+            ->select('e.*')
+            ->select('u.nick', 'nick')
+            ->limit($limit)
+            ->find_many();
+        }
+     return $query;
   }
 
   static function searchInflectedForms($cuv, $hasDiacritics) {
@@ -251,6 +293,40 @@ class Entry extends BaseObject implements DatedObject {
   function hasVariants() {
     $this->loadLexemes();
     return !empty($this->variants);
+  }
+
+  /**
+   * Returns a uniqe array of concatenated properties
+   * for entry lexemes, based on:
+   *
+   * @param   string  $lexemeType  type of lexeme
+   * @param   array   $props       string array of properties
+   * @return  array
+   */
+  function getUniqueProps($lexemeType, $props) {
+    $concats = [];
+    foreach ($this->$lexemeType as $lexeme) {
+      foreach ($props as $p) {
+        $concats[$lexeme->id()] .= $lexeme->$p;
+      }
+    }
+    return array_unique($concats);
+  }
+
+  /**
+   * Returns a unique array of concatenated modelType, modelNumber, restriction
+   * for entry main lexemes
+   */
+  function getUniqueModelsMain() {
+    return self::getUniqueProps('mainLexemes', ['modelType', 'modelNumber', 'restriction']);
+  }
+
+  /**
+   * Returns a unique array of concatenated modelType, modelNumber, restriction
+   * for entry variant lexemes
+   */
+  function getUniqueModelsVariant() {
+    return self::getUniqueProps('variants', ['modelType', 'modelNumber', 'restriction']);
   }
 
   static function getHomonyms($entries) {
@@ -350,7 +426,6 @@ class Entry extends BaseObject implements DatedObject {
         $l->delete();
       }
     }
-
   }
 
   function mergeInto($otherId) {

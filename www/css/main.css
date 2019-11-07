@@ -498,28 +498,36 @@ div.thumbinner {
   overflow: hidden;
 }
 
-/* for select2 field which contains too many items*/
-.overflownSelect2 .select2-selection__rendered
-{
-    max-height: 81px;
-    overflow-y: scroll !important;
+/* for select2 field which contains too many items */
+.overflownSelect2 .select2-selection__rendered {
+  max-height: 81px;
+  overflow-y: scroll !important;
 }
 
-.linkBox
-{
-    background-color: #e4e4e4;
-    border: 1px solid #aaa;
-    border-radius: 4px;
-    cursor: default;
-    float: left;
-    margin-right: 5px;
-    margin-top: 5px;
-    padding: 0 5px;
+.linkBox {
+  background-color: #e4e4e4;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  cursor: default;
+  float: left;
+  margin-right: 5px;
+  margin-top: 5px;
+  padding: 0 5px;
 }
 
-.form-control.overflown
-{
+.form-control.overflown {
   padding: 0 5px 5px 5px;
-  min-height: 88px;
-  overflow-y: scroll;
+  height: auto;
+  max-height: 88px;
+  overflow-y: auto;
+}
+
+/* for boxed links in tables */
+.table>tbody>tr>td.box-padding {
+  padding: 3px;
+}
+
+/* duplicate in autoload/user/list.css */
+.userNick {
+  white-space: nowrap;
 }

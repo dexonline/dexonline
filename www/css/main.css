@@ -531,3 +531,18 @@ div.thumbinner {
 .userNick {
   white-space: nowrap;
 }
+
+[data-toggle="collapse"].collapsed .if-not-collapsed {
+  display: none;
+}
+[data-toggle="collapse"]:not(.collapsed) .if-collapsed {
+  display: none;
+}
+
+.row-modal {
+  margin: 3px 10px;
+}
+
+textarea.form-control {
+    margin-bottom: 3px;
+}

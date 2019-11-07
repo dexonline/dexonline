@@ -21,6 +21,7 @@ if ($saveButton) {
         $lexeme->restriction = Request::get('restr_' . $lexeme->id);
         $lexeme->save();
         $lexeme->regenerateParadigm();
+        $lexeme->harmonizeTags();
       }
     }
   }

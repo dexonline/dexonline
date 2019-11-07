@@ -31,7 +31,6 @@ class Entry extends BaseObject implements DatedObject {
     $e = Model::factory('Entry')->create();
     $e->description = $description;
     $e->structStatus = self::STRUCT_STATUS_NEW;
-    $e->modUserId = User::getActiveId();
     $e->save();
 
     if ($tree) {

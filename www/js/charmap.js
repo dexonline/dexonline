@@ -1,4 +1,4 @@
-(function () {
+(function() {
 
   // cookie definition
   var COOKIE = 'charmap';
@@ -30,11 +30,11 @@
 
 
   // character read/edit logic
-  var Charmap = function () {
+  var Charmap = function() {
     this._cookie_json = $.cookie.json;
   };
 
-  Charmap.prototype.read = function () {
+  Charmap.prototype.read = function() {
     $.cookie.json = true;
     var cookie_value = $.cookie(COOKIE);
     var value = (cookie_value && cookie_value.length > 0) ? cookie_value : DEFAULT;
@@ -42,7 +42,7 @@
     return value;
   };
 
-  Charmap.prototype.edit = function (value) {
+  Charmap.prototype.edit = function(value) {
     $.cookie.json = true;
     $.cookie(COOKIE, value, {expires: 36500, path: '/'});
     $.cookie.json = this._cookie_json;
@@ -57,18 +57,18 @@
 
   function changeButtonsCase(modal, shiftDown) {
     [].slice.call(modal.querySelectorAll('.btn-charmap'))
-      .forEach(function (button) {
+      .forEach(function(button) {
         var new_text = shiftDown ? button.getAttribute('data-upper') : button.getAttribute('data-lower');
-        button.innerText === new_text ? function () {}() : button.innerText = new_text;
+        button.innerText === new_text ? function() {}() : button.innerText = new_text;
         button.setAttribute('value', new_text);
       });
   }
 
   function listenForShiftChanged(modal) {
-    document.addEventListener('keydown', function (evt) {
+    document.addEventListener('keydown', function(evt) {
       isShiftKey(evt) && changeButtonsCase(modal, true);
     });
-    document.addEventListener('keyup', function (evt) {
+    document.addEventListener('keyup', function(evt) {
       isShiftKey(evt) && changeButtonsCase(modal, false);
     });
   }
@@ -121,15 +121,15 @@
     var is_tinymce = target.hasClass('mce-content-body');
     return (
       is_tinymce
-      ? function (chr) {
+      ? function(chr) {
         insertAtTinyMCECursor(tinymce.activeEditor, chr);
       }
-    : function (chr) {
+      : function(chr) {
       // target is a jQuery element,
       // insertAtCursor requires a DOM element
       // so we use .get(0).
       insertAtCursor(target.get(0), chr);
-    }
+      }
     );
   }
 
@@ -163,7 +163,7 @@
     button.setAttribute('data-upper', upper);
     button.setAttribute('value', lower);
 
-    button.addEventListener('click', function () {
+    button.addEventListener('click', function() {
       setChars(button.getAttribute('value'));
     });
 
@@ -172,7 +172,7 @@
 
   function getButtonContent(config) {
     return config.map(
-      function (entry) {
+      function(entry) {
         return isSection(entry) ? getSection(entry) : getButton(entry);
       });
   }
@@ -206,50 +206,50 @@
       charsClear: $('#charsClear', modal)
     };
 
-    modal.on('show.bs.modal', function () {
+    modal.on('show.bs.modal', function() {
       $(document).unbind('keydown', HANDLER);
       update();
     });
 
-    modal.on('hide.bs.modal', function () {
+    modal.on('hide.bs.modal', function() {
       inserter(modalControls.charsText.val());
       modalControls.charsText.val('');
     });
 
-    modal.on('hidden.bs.modal', function () {
+    modal.on('hidden.bs.modal', function() {
       $(document).bind('keydown', 'alt+q', HANDLER);
     });
 
-    modalControls.editButton.on('click', function () {
+    modalControls.editButton.on('click', function() {
       modalControls.textButton.toggleClass('disabled');
       modalControls.editBox.val(CHARMAP.read().join('\n'));
     });
 
-    modalControls.textButton.on('click', function () {
+    modalControls.textButton.on('click', function() {
       modalControls.editButton.toggleClass('disabled');
     });
 
-    modalControls.charsClear.on('click', function () {
+    modalControls.charsClear.on('click', function() {
       modalControls.charsText.val('');
     });
 
-    modalControls.charsText.on('change', function (e) {
+    modalControls.charsText.on('change', function(e) {
       var isExpanded = modalControls.charsArea.attr('aria-expanded');
       if (isExpanded === 'false') {
         modal.modal('hide');
       }
     });
 
-    modalControls.saveButton.on('click', function () {
+    modalControls.saveButton.on('click', function() {
       var value = modalControls.editBox.val();
-      var to_save = value.split(/\r\n|\r|\n/g).filter(function (val) {
+      var to_save = value.split(/\r\n|\r|\n/g).filter(function(val) {
         return val.trim() !== "";
       });
       CHARMAP.edit(to_save);
       update();
     });
 
-    modalControls.resetButton.on('click', function () {
+    modalControls.resetButton.on('click', function() {
       if (confirm('Confirmați resetarea glifelor la valorile inițiale?')) {
         $.removeCookie(COOKIE, {path: '/'});
         update();

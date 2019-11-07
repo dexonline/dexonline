@@ -1,7 +1,14 @@
-(function(){
+(function() {
 
   // cookie definition
   var COOKIE = 'charmap';
+
+  // signature of the showCharMap function in hotkeys.js
+  // passed as a handle in the show event, used for bind/unbind
+  // https://github.com/dexonline/dexonline/issues/844
+  var HANDLER = null; // set once during modal show
+
+  var modalControls = {};
 
   var CYRILLIC = [
     '---;Caractere CHIRILICE',
@@ -37,7 +44,7 @@
 
   Charmap.prototype.edit = function(value) {
     $.cookie.json = true;
-    $.cookie(COOKIE, value, { expires: 36500, path: '/' });
+    $.cookie(COOKIE, value, {expires: 36500, path: '/'});
     $.cookie.json = this._cookie_json;
   };
 
@@ -52,82 +59,83 @@
     [].slice.call(modal.querySelectorAll('.btn-charmap'))
       .forEach(function(button) {
         var new_text = shiftDown ? button.getAttribute('data-upper') : button.getAttribute('data-lower');
-        button.innerText === new_text ? function(){}() : button.innerText = new_text;
+        button.innerText === new_text ? function() {}() : button.innerText = new_text;
         button.setAttribute('value', new_text);
-      })
+      });
   }
 
   function listenForShiftChanged(modal) {
     document.addEventListener('keydown', function(evt) {
       isShiftKey(evt) && changeButtonsCase(modal, true);
     });
-    document.addEventListener('keyup',  function(evt) {
+    document.addEventListener('keyup', function(evt) {
       isShiftKey(evt) && changeButtonsCase(modal, false);
     });
   }
 
   // Insert character logic
-	// (adapted from https://stackoverflow.com/questions/11076975/insert-text-into-textarea-at-cursor-position-javascript/41426040#41426040)
-	function insertAtCursor(myField, myValue) {
+  // (adapted from https://stackoverflow.com/questions/11076975/insert-text-into-textarea-at-cursor-position-javascript/41426040#41426040)
+  function insertAtCursor(myField, myValue) {
     // simple input/textarea field inserter
-		function _do_insert() {
-			var startPos = myField.selectionStart;
-			var endPos = myField.selectionEnd;
+    function _do_insert() {
+      var startPos = myField.selectionStart;
+      var endPos = myField.selectionEnd;
 
-			myField.value = myField.value.substring(0, startPos)
-				+ myValue
-				+ myField.value.substring(endPos, myField.value.length);
+      myField.value = myField.value.substring(0, startPos)
+        + myValue
+        + myField.value.substring(endPos, myField.value.length);
 
-			var pos = startPos + myValue.length;
+      var pos = startPos + myValue.length;
 
-			myField.setSelectionRange(pos, pos);
-			myField.focus();
-		}
+      myField.setSelectionRange(pos, pos);
+      myField.focus();
+    }
 
-		//IE support
-		if (document.selection) {
-			myField.focus();
-			var sel = document.selection.createRange();
-			sel.text = myValue;
-		}
+    //IE support
+    if (document.selection) {
+      myField.focus();
+      var sel = document.selection.createRange();
+      sel.text = myValue;
+    }
 
-		// Microsoft Edge
-		else if(window.navigator.userAgent.indexOf("Edge") > -1) {
-			_do_insert();
-		}
+    // Microsoft Edge
+    else if (window.navigator.userAgent.indexOf("Edge") > -1) {
+      _do_insert();
+    }
 
-		//MOZILLA and others
-		else if (myField.selectionStart || myField.selectionStart === '0') {
-			_do_insert();
-		}
+    //MOZILLA and others
+    else if (myField.selectionStart || myField.selectionStart === '0') {
+      _do_insert();
+    } else {
+      myField.value += myValue;
+      myField.focus();
+    }
+  }
 
-		else {
-			myField.value += myValue;
-			myField.focus();
-		}
-	}
-
-	function insertAtTinyMCECursor(editor, chr) {
+  function insertAtTinyMCECursor(editor, chr) {
     // tinymce inserter
-		editor.insertContent(chr);
-	}
+    editor.insertContent(chr);
+  }
 
   function getInserter(target) {
     var is_tinymce = target.hasClass('mce-content-body');
     return (
       is_tinymce
-        ? function(chr) {
-          insertAtTinyMCECursor(tinymce.activeEditor, chr);
-        }
-        : function(chr) {
-          // target is a jQuery element,
-          // insertAtCursor requires a DOM element
-          // so we use .get(0).
-          insertAtCursor(target.get(0), chr);
-        }
+      ? function(chr) {
+        insertAtTinyMCECursor(tinymce.activeEditor, chr);
+      }
+      : function(chr) {
+      // target is a jQuery element,
+      // insertAtCursor requires a DOM element
+      // so we use .get(0).
+      insertAtCursor(target.get(0), chr);
+      }
     );
   }
 
+  function setChars(chr) {
+    modalControls.charsText.val(modalControls.charsText.val() + chr).change();
+  }
 
   // dynamically built content elements
   function isSection(txt) {
@@ -135,10 +143,10 @@
   }
 
   function getSection(txt) {
-    return '<h3>' + txt.split(';')[1] + '</h3>';
+    return '<h4>' + txt.split(';')[1] + '</h4>';
   }
 
-	function getButton(inserter, chr) {
+  function getButton(chr) {
     var props = chr.split(';');
     var lower = props[0];
     var upper = props[1] || lower;
@@ -146,35 +154,34 @@
 
     // Default properties
     var button = document.createElement('button');
-	  button.className = 'btn btn-default btn-charmap';
-	  button.setAttribute('data-dismiss', 'modal');
+    button.className = 'btn btn-default btn-charmap';
 
-	  button.innerText = lower;
+    button.innerText = lower;
 
     button.setAttribute('title', title);
-	  button.setAttribute('data-lower', lower);
-	  button.setAttribute('data-upper', upper);
-	  button.setAttribute('value', lower);
+    button.setAttribute('data-lower', lower);
+    button.setAttribute('data-upper', upper);
+    button.setAttribute('value', lower);
 
-	  button.addEventListener('click', function(){
-      inserter(button.getAttribute('value'));
+    button.addEventListener('click', function() {
+      setChars(button.getAttribute('value'));
     });
 
-	  return button;
+    return button;
   }
 
-  function getButtonContent(inserter, config){
+  function getButtonContent(config) {
     return config.map(
       function(entry) {
-        return isSection(entry) ? getSection(entry) : getButton(inserter, entry);
+        return isSection(entry) ? getSection(entry) : getButton(entry);
       });
   }
 
 
-	var MODAL; // Placeholder, set once by init
-	var CHARMAP = new Charmap();
+  var MODAL; // Placeholder, set once by init
+  var CHARMAP = new Charmap();
 
-	var inserter; // Updated on each Charmap.show call.
+  var inserter; // Updated on each Charmap.show call.
 
   // called once at page load.
   function init(modal_selector) {
@@ -185,27 +192,52 @@
     var buttons_container = $('[data-role=buttons]', modal);
 
     function update() {
-      buttons_container.html(getButtonContent(inserter, CHARMAP.read()));
+      buttons_container.html(getButtonContent(CHARMAP.read()));
     }
 
-    var modalControls = {
-      editArea: $('[data-role=edit]', modal),
+    modalControls = {
       editBox: $('#editBox', modal),
       editButton: $('#editButton', modal),
+      textButton: $('#textButton', modal),
       saveButton: $('#saveButton', modal),
-      resetButton: $('#resetButton', modal)
+      resetButton: $('#resetButton', modal),
+      charsText: $('#charsText', modal),
+      charsArea: $('#charsArea', modal),
+      charsClear: $('#charsClear', modal)
     };
 
     modal.on('show.bs.modal', function() {
+      $(document).unbind('keydown', HANDLER);
       update();
-      modalControls.editArea.hide();
-      modalControls.editButton.show();
+    });
+
+    modal.on('hide.bs.modal', function() {
+      inserter(modalControls.charsText.val());
+      modalControls.charsText.val('');
+    });
+
+    modal.on('hidden.bs.modal', function() {
+      $(document).bind('keydown', 'alt+q', HANDLER);
     });
 
     modalControls.editButton.on('click', function() {
-      modalControls.editButton.hide();
+      modalControls.textButton.toggleClass('disabled');
       modalControls.editBox.val(CHARMAP.read().join('\n'));
-      modalControls.editArea.show();
+    });
+
+    modalControls.textButton.on('click', function() {
+      modalControls.editButton.toggleClass('disabled');
+    });
+
+    modalControls.charsClear.on('click', function() {
+      modalControls.charsText.val('');
+    });
+
+    modalControls.charsText.on('change', function(e) {
+      var isExpanded = modalControls.charsArea.attr('aria-expanded');
+      if (isExpanded === 'false') {
+        modal.modal('hide');
+      }
     });
 
     modalControls.saveButton.on('click', function() {
@@ -215,8 +247,6 @@
       });
       CHARMAP.edit(to_save);
       update();
-      modalControls.editArea.hide();
-      modalControls.editButton.show();
     });
 
     modalControls.resetButton.on('click', function() {
@@ -230,17 +260,21 @@
     MODAL = modal;
   }
 
-	function show(insert_target) {
+  function show(insert_target, handler) {
     if (MODAL) {
+      HANDLER = handler;
       // update inserter global.
       inserter = getInserter($(insert_target));
       MODAL.modal();
+      MODAL.draggable({
+        handle: ".modal-header"
+      });
     }
-	}
+  }
 
-	window.Charmap = {
-		show: show,
+  window.Charmap = {
+    show: show,
     init: init
-	};
+  };
 
 })();

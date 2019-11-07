@@ -25,10 +25,13 @@ $(function() {
 
     $(document).bind('keydown', 'alt+p', clickPreviewTags);
 
-    $(document).bind('keydown', 'alt+q', function(evt) { Charmap.show(evt.target); });
+    $(document).bind('keydown', 'alt+q', showCharMap);
 
     $('a.hotkeyLink').click(hotkeyLinkClick);
   }
+
+  /* get a reference for the anonymous function to toggle keydown binding in the modal */
+  var showCharMap = function(evt) { Charmap.show(evt.target, showCharMap); };
 
   function redirect(path) {
     window.location = wwwRoot + path;

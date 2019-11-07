@@ -194,7 +194,6 @@ class Entry extends BaseObject implements DatedObject {
         ->table_alias('e')
         ->select_expr('sum(el.main)', 'mainCount')
         ->join('EntryLexeme', ['e.id', '=', 'el.entryId'], 'el')
-        ->join('Lexeme', ['l.id', '=', 'el.lexemeId'], 'l')
         ->where('e.structStatus', self::STRUCT_STATUS_DONE)
         ->where('el.main', 1)
         ->group_by('e.id')
@@ -206,6 +205,7 @@ class Entry extends BaseObject implements DatedObject {
         }
         else {
           $query = $query
+            ->join('Lexeme', ['l.id', '=', 'el.lexemeId'], 'l')
             ->join('User', ['u.id', '=', 'e.modUserId'], 'u')
             ->select('e.*')
             ->select('u.nick', 'nick')
@@ -403,10 +403,6 @@ class Entry extends BaseObject implements DatedObject {
         $l->delete();
       }
     }
-  }
-
-  function unloadLexemes($offset) {
-    $this->orm->offsetUnset($offset);
   }
 
   function mergeInto($otherId) {

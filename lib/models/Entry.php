@@ -296,14 +296,38 @@ class Entry extends BaseObject implements DatedObject {
     return !empty($this->variants);
   }
 
+  /**
+   * Returns a uniqe array of concatenated properties
+   * for entry lexemes, based on:
+   *
+   * @param   string  $lexemeType  type of lexeme
+   * @param   array   $props       string array of properties
+   * @return  array
+   */
   function getUniqueProps($lexemeType, $props) {
-    $tn = [];
+    $concats = [];
     foreach ($this->$lexemeType as $lexeme) {
       foreach ($props as $p) {
-        $tn[$lexeme->id()] .= $lexeme->$p;
+        $concats[$lexeme->id()] .= $lexeme->$p;
       }
     }
-    return array_unique($tn);
+    return array_unique($concats);
+  }
+
+  /**
+   * Returns a unique array of concatenated modelType, modelNumber, restriction
+   * for entry main lexemes
+   */
+  function getUniqueModelsMain() {
+    return self::getUniqueProps('mainLexemes', ['modelType', 'modelNumber', 'restriction']);
+  }
+
+  /**
+   * Returns a unique array of concatenated modelType, modelNumber, restriction
+   * for entry variant lexemes
+   */
+  function getUniqueModelsVariant() {
+    return self::getUniqueProps('variants', ['modelType', 'modelNumber', 'restriction']);
   }
 
   static function getHomonyms($entries) {

@@ -167,7 +167,7 @@
 
         {if $homonyms}
           <div class="form-group">
-            <label for="homonyms" class="col-md-2">omonime</label>
+            <label class="col-md-2">omonime</label>
             <div class="col-md-10">
               <div class="form-control overflown">
                 {foreach $homonyms as $h}

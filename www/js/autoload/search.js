@@ -15,6 +15,8 @@ $(function() {
       $(this).siblings('.variantParadigm').stop().slideToggle();
     });
 
+    $('a[data-toggle="tab"]').on('shown.bs.tab', updatePermalink);
+
     moveBanner();
   }
 
@@ -50,6 +52,20 @@ $(function() {
         $('.banner-section').show();
       }
       break;
+    }
+  }
+
+  function updatePermalink(e) {
+    var a = $(e.target);
+    var url = a.data('permalink');
+    var title = a.data('permalinkTitle');
+
+    if (url && title) {
+      $('#permalink').removeClass('hidden');
+      $('#permalink a').attr('href', url);
+      $('#permalink a').attr('title', title);
+    } else {
+      $('#permalink').addClass('hidden');
     }
   }
 

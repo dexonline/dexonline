@@ -30,7 +30,14 @@
 
     {if $searchParams.paradigm}
       <li role="presentation" {if $tab == Constant::TAB_PARADIGM}class="active"{/if}>
-        <a href="#paradigmTab" aria-controls="paradigmTab" role="tab" data-toggle="tab">
+        <a
+          href="#paradigmTab"
+          aria-controls="paradigmTab"
+          role="tab"
+          data-toggle="tab"
+          data-permalink="{$paradigmLink}"
+          data-permalink-title="{t}link to this inflected forms page{/t}"
+        >
           {$declensionText}
         </a>
       </li>
@@ -38,11 +45,23 @@
 
     {if count($trees)}
       <li role="presentation" {if $tab == Constant::TAB_TREE}class="active"{/if}>
-        <a href="#treeTab" aria-controls="treeTab" role="tab" data-toggle="tab">
+        <a
+          href="#treeTab"
+          aria-controls="treeTab"
+          role="tab"
+          data-toggle="tab"
+          data-permalink="{$treeLink}"
+          data-permalink-title="{t}link to this synthesis{/t}">
           {t}synthesis{/t} ({count($trees)})
         </a>
       </li>
     {/if}
+
+    <li id="permalink" class="pull-right hidden">
+      <a class="btn btn-primary">
+        <i class="glyphicon glyphicon-link"></i>
+      </a>
+    </li>
   </ul>
 
   <div class="tab-content">
@@ -58,7 +77,7 @@
 
         {include "search/definitionList.tpl"}
 
-      {* full-text search *}
+        {* full-text search *}
       {elseif $searchType == $smarty.const.SEARCH_FULL_TEXT}
         {if isset($extra.fullTextLock)}
           {include "search/fullTextLock.tpl"}
@@ -90,7 +109,7 @@
           {include "search/definitionList.tpl" categories=false}
         {/if}
 
-      {* entry ID search *}
+        {* entry ID search *}
       {elseif $searchType == $smarty.const.SEARCH_ENTRY_ID}
 
         {include "search/gallery.tpl"}
@@ -120,7 +139,7 @@
           {include "search/definitionList.tpl"}
         {/if}
 
-      {* regular expression search *}
+        {* regular expression search *}
       {elseif $searchType == $smarty.const.SEARCH_REGEXP}
         {capture "common"}
         {t}for{/t} <strong>{$cuv}</strong>
@@ -149,7 +168,7 @@
 
         {include "search/lexemeList.tpl"}
 
-      {* normal search (inflected form search) *}
+        {* normal search (inflected form search) *}
       {elseif $searchType == $smarty.const.SEARCH_INFLECTED}
 
         {include "search/gallery.tpl"}
@@ -212,7 +231,7 @@
         {include "search/definitionList.tpl"}
         {include "search/showAllLink.tpl"}
 
-      {* multiword search *}
+        {* multiword search *}
       {elseif $searchType == $smarty.const.SEARCH_MULTIWORD}
         <h3>
           {if count($results)}
@@ -248,7 +267,7 @@
         {include "search/definitionList.tpl" categories=false}
         {include "search/showAllLink.tpl"}
 
-      {* approximate search *}
+        {* approximate search *}
       {elseif $searchType == $smarty.const.SEARCH_APPROXIMATE}
         {if count($entries)}
           <h3>
@@ -306,14 +325,6 @@
             </a>
           </div>
         {/if}
-
-        <div class="paradigmLink voffset2">
-          <a title="{t}link to this inflected forms page{/t}"
-            href="{$paradigmLink}">
-            <i class="glyphicon glyphicon-link"></i>
-            {t}link to this paradigm{/t}
-          </a>
-        </div>
       </div>
     {/if}
 

@@ -65,8 +65,6 @@ if ($cuv && !$redirect) {
 Request::redirectToFriendlyUrl(
   $cuv, $entryId, $lexemeId, $sourceUrlName, $text, $tab, $format, $all);
 
-$paradigmLink = getParadigmLink();
-
 $searchType = SEARCH_INFLECTED;
 $hasDiacritics = Session::userPrefers(Preferences::FORCE_DIACRITICS);
 $hasRegexp = FALSE;
@@ -425,7 +423,8 @@ Smart::assign([
   'searchParams' => $searchParams[$searchType],
   'sourceId' => $sourceId,
   'tab' => $tab,
-  'paradigmLink' => $paradigmLink,
+  'paradigmLink' => getTabPermalink(Constant::TAB_PARADIGM),
+  'treeLink' => getTabPermalink(Constant::TAB_TREE),
   'allDefinitions' => $all,
   'showWotd' => $showWotd,
   'pageType' => 'search',
@@ -479,7 +478,12 @@ function getTab() {
   return $key;
 }
 
-function getParadigmLink() {
+/**
+ * Returns a permalink URL for this tab.
+ *
+ * @param int $tab One of the Constant::TAB_* values.
+ */
+function getTabPermalink($tab) {
   $uri = $_SERVER['REQUEST_URI'];
 
   // remove existing tab markers
@@ -489,7 +493,7 @@ function getParadigmLink() {
   ], '', $uri);
 
   // add the paradigm tab marker
-  $uri .= Constant::TAB_URL[Constant::TAB_PARADIGM];
+  $uri .= Constant::TAB_URL[$tab];
   return $uri;
 }
 

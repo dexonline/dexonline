@@ -45,7 +45,7 @@ $(function() {
 
     // workaround for a popover bug
     // https://github.com/twbs/bootstrap/issues/16732
-    $('ins, del').on('hidden.bs.popover', function (e) {
+    $('ins, del').on('hidden.bs.popover', function(e) {
       $(e.target).data("bs.popover").inState.click = false;
     });
 

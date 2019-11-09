@@ -212,6 +212,22 @@ class InflectedForm extends BaseObject {
     }
   }
 
+  /**
+   * Usually called from Lexeme::_clone, copies all inflectedforms to a new lexeme
+   *
+   * @param ORMWrapper $ifs Object with InflectedForm models
+   * @param integer $lexemeId ID of destination lexeme
+   */
+  static function copy($ifs, $lexemeId) {
+    if (count($ifs)) {
+      foreach ($ifs as $if) {
+        $newIf = $if->parisClone();
+        $newIf->lexemeId = $lexemeId;
+        $newIf->save();
+      }
+    }
+  }
+
   function save() {
     $this->formUtf8General = $this->formNoAccent;
     parent::save();

@@ -11,7 +11,7 @@ $needsAccent = Request::has('needsAccent');
 $stopWord = Request::has('stopWord');
 $hyphenations = Request::get('hyphenations');
 $pronunciations = Request::get('pronunciations');
-$entryIds = Request::getArray('entryIds');
+$entryIds = Request::getArray('entryIds');  // multidimensional $array[$keyBooleanMainLexeme][$realEntryIds]
 $tagIds = Request::getArray('tagIds');
 $renameRelated = Request::has('renameRelated');
 
@@ -45,7 +45,12 @@ $lexeme = Lexeme::get_by_id($lexemeId);
 $original = Lexeme::get_by_id($lexemeId); // Keep a copy so we can test whether certain fields have changed
 
 if ($cloneButton) {
-  $newLexeme = $lexeme->_clone();
+  $cloneEntries = Request::getArray('cloneEntries');
+  $cloneInflectedForms = Request::has('cloneInflectedForms');
+  $cloneTags = Request::has('cloneTags');
+  $cloneSources = Request::has('cloneSources');
+
+  $newLexeme = $lexeme->_clone($cloneEntries, $cloneInflectedForms, $cloneTags, $cloneSources );
   Log::notice("Cloned lexeme {$lexeme->id} ({$lexeme->formNoAccent}), new id is {$newLexeme->id}");
   FlashMessage::add('Am clonat lexemul. Aceasta este pagina clonei.', 'success');
   Util::redirect("?lexemeId={$newLexeme->id}");
@@ -131,14 +136,21 @@ if ($refreshButton || $saveButton) {
   // Case 3: First time loading this page
   $lexeme->loadInflectedFormMap();
   $sourceIds = $lexeme->getSourceIds();
-  $entryIds = $lexeme->getEntryIds();
-  
+
+  // retrieving not aggregated entryIds, grouped according to lexeme associations
+  foreach (Lexeme::ASSOC_ENTRY as $key => $ignored) {
+    $entryIds[$key] = $lexeme->getEntryIds(['main' => $key]);
+  }
+
   RecentLink::add("Lexem: $lexeme (ID={$lexeme->id})");
 }
 
 $compoundIds = $lexeme->getCompoundsFromPart();
-$definitions = Definition::loadByEntryIds($entryIds);
-$searchResults = SearchResult::mapDefinitionArray($definitions);
+
+// retrieving not aggregated definitions, grouped according to entry association
+foreach (Lexeme::ASSOC_ENTRY as $key => $ignored) {
+  $searchResults[$key] = SearchResult::mapDefinitionArray(Definition::loadByEntryIds($entryIds[$key]));
+}
 
 $canEdit = [
   'general' => User::can(User::PRIV_EDIT),
@@ -170,6 +182,7 @@ Smart::assign([
   'modelTypes' => ModelType::getAll(),
   'models' => $models,
   'canEdit' => $canEdit,
+  'assoc_entry' => Lexeme::ASSOC_ENTRY,
 ]);
 Smart::addResources('paradigm', 'admin', 'frequentObjects',
                     'select2Dev', 'modelDropdown', 'scrollTop');
@@ -278,17 +291,24 @@ function validate($lexeme, $original) {
 
 // create new entries for $entryIds starting with '@', then update the associations
 function updateEntries($lexeme, $entryIds) {
-  $entries = [];
-  foreach ($entryIds as $entryId) {
-    if (Str::startsWith($entryId, '@')) {
-      // create a new entry
-      $form = substr($entryId, 1);
-      $e = Entry::createAndSave($form, true);
-    } else {
-      $e = Entry::get_by_id($entryId);
+
+  // iterating through multidimensional $entryIds[$keyBooleanMainLexeme][$realEntryIds]
+  // see Lexeme::ASSOC_ENTRY
+  foreach ($entryIds as $key => $value) {
+    if (!count($value)) { continue; }
+    $entries = [];
+    foreach ($value as $entryId) {
+      if (Str::startsWith($entryId, '@')) {
+        // create a new entry
+        $form = substr($entryId, 1);
+        $e = Entry::createAndSave($form, true);
+      }
+      else {
+        $e = Entry::get_by_id($entryId);
+      }
+      $entries[] = $e;
     }
-    $entries[] = $e;
+    EntryLexeme::update(Util::objectProperty($entries, 'id'), $lexeme->id, ['main' => $key]);
   }
 
-  EntryLexeme::update(Util::objectProperty($entries, 'id'), $lexeme->id);
 }

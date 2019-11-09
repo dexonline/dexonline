@@ -39,9 +39,9 @@
       </button>
 
       {if $canEdit.general}
-        <button type="submit"
-          name="cloneButton"
-          class="btn btn-default">
+        <button type="button"
+          class="btn btn-default"
+          data-toggle="modal" data-target="#cloneModal">
           <i class="glyphicon glyphicon-duplicate"></i>
           clonează
         </button>
@@ -147,17 +147,24 @@
                 </div>
               </div>
             {/if}
-
-            <div class="form-group">
-              <label for="entryIds" class="col-md-2 control-label">intrări</label>
-              <div class="col-md-10">
-                <select id="entryIds" name="entryIds[]" class="form-control" multiple>
-                  {foreach $entryIds as $eid}
-                    <option value="{$eid}" selected></option>
-                  {/foreach}
-                </select>
+            <div class="row">
+              <div class="clearfix col-md-10 col-md-offset-2">
+                <label>intrări pentru care lexemul este:</label>
               </div>
             </div>
+
+            {foreach from=$entryIds key=k item=e}
+              <div class="form-group">
+                <label class="col-md-2 control-label">{$assoc_entry[{$k}]}</label>
+                <div class="col-md-10">
+                  <select id="entryIds[{$k}]" name="entryIds[{$k}][]" class="form-control" multiple>
+                    {foreach $e as $eid}
+                      <option value="{$eid}" selected></option>
+                    {/foreach}
+                  </select>
+                </div>
+              </div>
+            {/foreach}
 
             {if $compoundIds}
             <div class="form-group">
@@ -396,14 +403,18 @@
       </div>
     </div>
 
-    <div class="panel panel-default">
-      <div class="panel-heading">Definiții ({$searchResults|count})</div>
-      <div class="panel-body panel-admin">
-        {foreach $searchResults as $row}
-          {include "bits/definition.tpl" showStatus=1}
-        {/foreach}
+    {foreach from=$searchResults key=k item=d}
+      <div class="panel panel-default">
+        <div class="panel-heading">Definiții pentru intrările unde este lexem {$assoc_entry[{$k}]} ({$searchResults[$k]|count})</div>
+        <div class="panel-body panel-admin">
+          {foreach $searchResults[$k] as $row}
+            {include "bits/definition.tpl" showStatus=1}
+          {/foreach}
+        </div>
       </div>
-    </div>
+    {/foreach}
+
+    {include "bits/cloneModal.tpl" object="Lexeme" desc="lexem"}
 
   </form>
 {/block}

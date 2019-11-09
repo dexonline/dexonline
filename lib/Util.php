@@ -86,6 +86,17 @@ class Util {
     return $result;
   }
 
+  /**
+   * Checks for sequences missing incremental value
+   *
+   * @param array $arr
+   * @return boolean
+   **/
+  static function isIncrementalSequence($arr) {
+    sort($arr);
+    return sizeof(array_diff(range($arr[0], $arr[count($arr) - 1]), $arr)) == 0;
+  }
+
   // Given an array of sorted arrays, finds the smallest interval that includes
   // at least one element from each array. Named findSnippet in honor of Google.
   static function findSnippet($p) {

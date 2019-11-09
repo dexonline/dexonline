@@ -354,57 +354,8 @@
     </div>
   </div>
 
-  <div class="modal fade" id="cloneModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <form method="post" role="form">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">
-              <span aria-hidden="true">&times;</span>
-            </button>
-            <h4 class="modal-title">Clonează intrarea</h4>
-          </div>
-
-          <div class="modal-body">
-            <input type="hidden" name="id" value="{$e->id}">
-            <div class="checkbox">
-              <label>
-                <input type="checkbox" name="cloneDefinitions" checked>
-                copiază asocierile cu definiții
-              </label>
-            </div>
-            <div class="checkbox">
-              <label>
-                <input type="checkbox" name="cloneLexemes" checked>
-                copiază asocierile cu lexeme
-              </label>
-            </div>
-            <div class="checkbox">
-              <label>
-                <input type="checkbox" name="cloneTrees" checked>
-                copiază asocierile cu arbori
-              </label>
-            </div>
-            <div class="checkbox">
-              <label>
-                <input type="checkbox" name="cloneStructurist" checked>
-                copiază starea structurării și structuristul
-              </label>
-            </div>
-          </div>
-
-          <div class="modal-footer">
-            <button type="submit" class="btn btn-primary" name="cloneButton">
-              <i class="glyphicon glyphicon-duplicate"></i>
-              clonează
-            </button>
-            <button type="button" class="btn btn-link" data-dismiss="modal">renunță</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-
+  {include "bits/cloneModal.tpl" object="Entry" desc="intrare"}
+  
   {if $e->id}
     <h3>Arbori de sensuri asociați ({$e->getTrees()|count})</h3>
 

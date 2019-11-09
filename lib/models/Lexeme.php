@@ -14,6 +14,11 @@ class Lexeme extends BaseObject implements DatedObject {
   private $animate = null;
   public $entries = null;
 
+  const ASSOC_ENTRY = [
+    1 => 'principal',
+    0 => 'variantă',
+  ];
+
   const METHOD_GENERATE = 1;
   const METHOD_LOAD = 2;
 
@@ -682,6 +687,29 @@ class Lexeme extends BaseObject implements DatedObject {
       $this->_regenerateDependentLexemesHelper($infl, 'F', 'IL', $number);
     }
   }
+  /**
+   * Finds greatest homonym/homograph index number
+   *
+   * @param none
+   * @return integer
+   */
+  function getLastHomonymNumber() {
+    $l = Model::factory('Lexeme')
+      ->where('formNoAccent', $this->formNoAccent)
+      ->find_many();
+
+    $numbers = array_map(function($model) {
+      return $model->number;
+    } , $l);
+
+    if (!Util::isIncrementalSequence($numbers)) {
+      FlashMessage::add("Inconsecvență în numerotarea omonimelor/omografelor.", 'warning');
+    }
+
+    $num = max($numbers);
+
+    return ++$num;
+  }
 
   private function _regenerateDependentLexemesHelper($infl, $genericType, $dedicatedType, $number) {
     // process only non-apheresis forms (do not create a PT lexeme for nzăpezit)
@@ -855,18 +883,35 @@ class Lexeme extends BaseObject implements DatedObject {
     return $this->description ? "{$this->formNoAccent} ({$this->description})" : $this->formNoAccent;
   }
 
-  function _clone() {
+  function _clone($cloneEntries, $cloneInflectedForms, $cloneTags, $cloneSources ) {
     $clone = $this->parisClone();
-    $clone->compound = false;
-    $clone->modelType = 'T';
-    $clone->modelNumber = '1';
-    $clone->restriction = '';
-    $clone->notes = '';
-    $clone->deepSave();
+    $clone->number = $this->getLastHomonymNumber();
+    if (!$cloneInflectedForms) {
+      $clone->modelType = 'T';
+      $clone->modelNumber = '1';
+    }
+    $clone->save();
 
-    EntryLexeme::copy($this->id, $clone->id, 2, ['main' => true]);
-    EntryLexeme::copy($this->id, $clone->id, 2, ['main' => false]);
+    foreach ($cloneEntries as $key => $ignored) {
+      EntryLexeme::copy($this->id, $clone->id, 2, ['main' => $key]);
+    }
 
+    if ($cloneInflectedForms) {
+      if ($this->compound) {
+        Fragment::copy($this->getFragments(), $clone->id);
+      }
+      InflectedForm::copy($this->getInflectedForms(self::METHOD_LOAD), $clone->id);
+    }
+
+    if ($cloneTags) {
+      foreach ($this->getObjectTags() as $ot) {
+        ObjectTag::associate($ot->objectType, $clone->id, $ot->tagId);
+      }
+    }
+
+    if ($cloneSources) {
+      LexemeSource::copy($this->id, $clone->id, 1);
+    }
     return $clone;
   }
 

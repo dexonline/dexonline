@@ -55,7 +55,14 @@ class ObjectTag extends BaseObject implements DatedObject {
       ->find_many();
   }
 
-  static function associate($objectType, $objectId, $tagId) {
+ /**
+  * Creates a new association if not already exists
+  *
+  * @param integer $objectType one of self::TYPE_xxxxx constants
+  * @param integer $objectId ID of destination Object
+  * @param integer $tagId ID of Tag
+  */
+ static function associate($objectType, $objectId, $tagId) {
     // The association should not already exist
     if (!self::get_by_objectType_objectId_tagId($objectType, $objectId, $tagId)) {
       $ot = Model::factory('ObjectTag')->create();

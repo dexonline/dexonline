@@ -86,4 +86,20 @@ class Fragment extends BaseObject implements DatedObject {
 
     return $query->order_by_asc('i.rank')->find_one();
   }
+
+  /**
+   * Usually called from Lexeme::_clone, copies all fragments to a new lexeme
+   *
+   * @param ORMWrapper $fragments Object with Fragment models
+   * @param integer $lexemeId ID of destination lexeme
+   */
+  static function copy($fragments, $lexemeId) {
+    if (count($fragments)) {
+      foreach ($fragments as $f) {
+        $newFragm = $f->parisClone();
+        $newFragm->lexemeId = $lexemeId;
+        $newFragm->save();
+      }
+    }
+  }
 }

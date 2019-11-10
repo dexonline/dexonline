@@ -26,7 +26,7 @@ $(function() {
 
     checkLexemeWikiPage();
 
-    initSelect2('#entryIds', 'ajax/getEntriesById.php', {
+    initSelect2('[id^=entryIds]', 'ajax/getEntriesById.php', {
       ajax: { url: wwwRoot + 'ajax/getEntries.php' },
       createTag: allowNewOptions,
       minimumInputLength: 1,

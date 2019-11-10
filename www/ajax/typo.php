@@ -4,6 +4,7 @@ require_once '../../lib/Core.php';
 
 $text = Request::get('text');
 $definitionId = Request::get('definitionId');
+$success = false;
 
 if ($text && $definitionId) {
   $user = User::getActive();
@@ -12,5 +13,10 @@ if ($text && $definitionId) {
   $typo->definitionId = $definitionId;
   $typo->problem = $text;
   $typo->userName = $user ? $user->nick : 'Anonim';
-  $typo->save();
+  $success = $typo->save();
 }
+
+$response = [ 'success' => $success, ];
+
+header('Content-Type: application/json');
+print json_encode($response);

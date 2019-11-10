@@ -14,7 +14,6 @@ if ($text && $definitionId) {
   $typo->problem = $text;
   $typo->userName = $user ? $user->nick : 'Anonim';
   $success = $typo->save();
-  $typo->save();
 }
 
 $response = [ 'success' => $success, ];

@@ -155,7 +155,7 @@
 
             {foreach from=$entryIds key=k item=e}
               <div class="form-group">
-                <label class="col-md-2 control-label">{$assoc_entry[{$k}]}</label>
+                <label class="col-md-2 control-label">{$assocEntry[{$k}]}</label>
                 <div class="col-md-10">
                   <select id="entryIds[{$k}]" name="entryIds[{$k}][]" class="form-control" multiple>
                     {foreach $e as $eid}
@@ -405,7 +405,7 @@
 
     {foreach from=$searchResults key=k item=d}
       <div class="panel panel-default">
-        <div class="panel-heading">Definiții pentru intrările unde este lexem {$assoc_entry[{$k}]} ({$searchResults[$k]|count})</div>
+        <div class="panel-heading">Definiții pentru intrările unde este lexem {$assocEntry[{$k}]} ({$searchResults[$k]|count})</div>
         <div class="panel-body panel-admin">
           {foreach $searchResults[$k] as $row}
             {include "bits/definition.tpl" showStatus=1}

@@ -1,4 +1,3 @@
-{strip}
 <input type="hidden" name="id" value="{$lexeme->id}">
 <div class="checkbox">
   <label>
@@ -31,4 +30,3 @@
     copiază sursele
   </label>
 </div>
-{/strip}

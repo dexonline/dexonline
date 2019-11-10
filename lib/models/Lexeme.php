@@ -693,14 +693,9 @@ class Lexeme extends BaseObject implements DatedObject {
    * @param none
    * @return integer
    */
-  function getLastHomonymNumber() {
-    $l = Model::factory('Lexeme')
-      ->where('formNoAccent', $this->formNoAccent)
-      ->find_many();
-
-    $numbers = array_map(function($model) {
-      return $model->number;
-    } , $l);
+  function getNextHomonymNumber() {
+    $l = Lexeme::get_all_by_formNoAccent($this->formNoAccent);
+    $numbers = Util::objectProperty($l, 'number');
 
     if (!Util::isIncrementalSequence($numbers)) {
       FlashMessage::add("Inconsecvență în numerotarea omonimelor/omografelor.", 'warning');
@@ -882,10 +877,20 @@ class Lexeme extends BaseObject implements DatedObject {
   function __toString() {
     return $this->description ? "{$this->formNoAccent} ({$this->description})" : $this->formNoAccent;
   }
-
+  /**
+   * First parameter, $cloneEntries, is an multidimensional array received by cloneModal with
+   * a maximum 2 elements 0 and 1 (checkboxes from modal), each of type array with value 'on'.
+   * Values 'off' are not sent from checkboxes.
+   *
+   * @param array $cloneEntries
+   * @param boolean $cloneInflectedForms 
+   * @param boolean $cloneTags
+   * @param boolean $cloneSources
+   * @return ORMWrapper
+   */
   function _clone($cloneEntries, $cloneInflectedForms, $cloneTags, $cloneSources ) {
     $clone = $this->parisClone();
-    $clone->number = $this->getLastHomonymNumber();
+    $clone->number = $this->getNextHomonymNumber();
     if (!$cloneInflectedForms) {
       $clone->modelType = 'T';
       $clone->modelNumber = '1';

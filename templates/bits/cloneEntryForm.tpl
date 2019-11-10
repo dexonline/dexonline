@@ -1,4 +1,3 @@
-{strip}
 <input type="hidden" name="id" value="{$e->id}">
 <div class="checkbox">
   <label>
@@ -24,4 +23,3 @@
     copiază starea structurării și structuristul
   </label>
 </div>
-{/strip}

@@ -182,7 +182,7 @@ Smart::assign([
   'modelTypes' => ModelType::getAll(),
   'models' => $models,
   'canEdit' => $canEdit,
-  'assoc_entry' => Lexeme::ASSOC_ENTRY,
+  'assocEntry' => Lexeme::ASSOC_ENTRY,
 ]);
 Smart::addResources('paradigm', 'admin', 'frequentObjects',
                     'select2Dev', 'modelDropdown', 'scrollTop');

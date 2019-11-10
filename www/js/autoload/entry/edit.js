@@ -152,13 +152,23 @@ $(function() {
     var text = $('#typoText_' + id).val();
 
     $.post(wwwRoot + 'ajax/typo.php',
-         { definitionId: id, text: text }, function() {
-           $('#typoClear_' + id).toggleClass('collapse');
-           $('#typoSent_' + id).toggleClass('collapse');
+         { definitionId: id, text: text }, function(data) {
+           if(data.success === true) {
+            $('#typoClear_' + id).toggleClass('collapse');
+            $('#typoSent_' + id).toggleClass('collapse');
 
-           setTimeout(function() {
-                $('#def_' + id).find('.toggleTypoLink').trigger('click');
-            }, 1000);
+            setTimeout(function() {
+                 $('#def_' + id).find('.toggleTypoLink').trigger('click');
+             }, 1000);
+           }
+           else {
+             $('#typoResponse_' + id).slideToggle('normal', function() {
+                 setTimeout(function() {
+                    $('#typoResponse_' + id).slideToggle('normal');
+                 }, 3000);
+             });
+
+           }
          });
 
     return false;
@@ -204,7 +214,7 @@ $(function() {
     // Assign range to selection
     var sel = range.toString();
     var txt = $('#typoText_'+id).val();
-    txt += txt ? '; ' : '';
+    txt += txt ? ' ￭ ' : '';
     $('#typoText_'+id).val(txt + sel);
 
   }

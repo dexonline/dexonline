@@ -11,4 +11,5 @@
       </button>
       </span>
     </div>
+    <div id="typoResponse" class="small text-muted" style="display: none">Eroare la înregistrare. Mai încearcă o dată!</div>
 </div>

@@ -4,10 +4,10 @@
   </a>
 
   {include "bits/sourceDropDown.tpl"
-           name="showPageSourceId"
-           sources=Source::getSourcesWithPageImages()
-           skipAnySource="1"
-           width="300px"}
+          name="showPageSourceId"
+          sources=Source::getSourcesWithPageImages()
+          skipAnySource="1"
+          width="300px"}
 
   <input type="text"
          class="pageForWord form-control"

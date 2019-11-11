@@ -6,7 +6,7 @@
 {$autosubmit=$autosubmit|default:false}
 {$sources=$sources|default:Source::getAll(Source::SORT_SEARCH)}
 <select name="{$name}"
-  id="sourceDropDown"
+  id="sourceDropDown{$sdPos}"
   class="form-control sourceDropDown"
   style="width: {$width}"
   {if $autosubmit}onchange="this.form.submit();"{/if}>

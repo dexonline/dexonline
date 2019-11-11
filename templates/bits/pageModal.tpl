@@ -13,7 +13,7 @@
             <span aria-hidden="true">&times;</span>
           </button>
 
-          {include "bits/pageModalActions.tpl"}
+          {include "bits/pageModalActions.tpl" sdPos="U"}
         </div>
 
         <div class="modal-body text-center">
@@ -26,7 +26,7 @@
 
         <div class="modal-footer">
           <div class="text-center">
-            {include "bits/pageModalActions.tpl"}
+            {include "bits/pageModalActions.tpl" sdPos="D"}
           </div>
         </div>
 

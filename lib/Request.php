@@ -115,6 +115,24 @@ class Request {
   }
 
   /**
+   * Verifies if request is made for different templated presentation
+   *
+   * @return array
+   */
+
+  static function getFormat() {
+    $path = self::get('format');
+
+    if ($path == 'json' && Config::SEARCH_JSON_API) {
+      return ['name' => 'json', 'tpl_path' => 'json', 'content_type' => 'application/json'];
+    } else if ($path == 'xml' && Config::SEARCH_XML_API) {
+      return ['name' => 'xml', 'tpl_path' => 'xml', 'content_type' => 'text/xml' ];
+    } else {
+      return ['name' => 'html', 'tpl_path' => ''];
+    }
+  }
+
+  /**
    * Search engine friendly URLs used for the search page:
    * 1) https://dexonline.ro/definitie[-<sursa>]/<cuvânt>[/<defId>][/paradigma]
    * 2) https://dexonline.ro/lexem[-<sursa>]/<cuvânt>[/<lexemeId>][/paradigma]

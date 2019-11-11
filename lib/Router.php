@@ -393,9 +393,18 @@ class Router {
     'source/list' => [ 'highlightSourceId' ],
     'wotd/archive' => [ 'year', 'month' ],
     'wotd/random' => [ 'count', 'skin' ],
-    'wotd/view' => [ 'year', 'month', 'day' ],
-    'wotm/view' => [ 'year', 'month' ],
+    'wotd/view' => [ 'year', 'month', 'day', 'format' ],
+    'wotm/view' => [ 'year', 'month', 'format' ],
     'user/view' => [ 'nick' ],
+  ];
+
+  const PARAMS_REGEX = [
+    'wotd/view' => [ 
+      'regex' => '/^(?:(\d{4})(?:\/)(\d{2})(?:\/)(\d{2}))?(?:\/)?(xml|json)?$/', 
+    ],
+    'wotm/view' => [ 
+      'regex' =>'/^(?:(\d{4})(?:\/)(\d{2}))?(?:\/)?(xml|json)?$/', 
+    ],
   ];
 
   private static $fwdRoutes = [];
@@ -446,6 +455,11 @@ class Router {
 
       // set additional params if the file expects them and the URL has them
       $params = self::PARAMS[$rec] ?? [];
+      $regex = self::PARAMS_REGEX[$rec]['regex'] ?? null;
+      if ($regex) {
+        preg_match($regex, implode('/', $parts), $matches);
+        $parts = array_slice($matches, 1); // get rid of full match, which is by default the [0] index in $matches
+      }
       for ($i = 0; $i < min(count($params), count($parts)); $i++) {
         $_REQUEST[$params[$i]] = urldecode($parts[$i]);
       }

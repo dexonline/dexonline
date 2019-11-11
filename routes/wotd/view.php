@@ -7,6 +7,7 @@ const MAX_DATE_FOR_REASON_DISPLAY = '-2 days midnight';
 $year = Request::get('year');
 $month = Request::get('month');
 $day = Request::get('day');
+$format = Request::getFormat();
 
 // use objects from here on
 // catch invalid dates like 1900/13/50
@@ -95,4 +96,14 @@ Smart::assign([
   'searchResult' => array_pop($searchResults),
 ]);
 
-Smart::display('wotd/view.tpl');
+switch ($format['name']) {
+  case 'xml':
+  case 'json':
+    header('Content-type: '.$format['content_type']);
+    Smart::displayWithoutSkin($format['tpl_path'].'/wotd.tpl');
+    break;
+  default:
+    Smart::display('wotd/view.tpl');
+}
+
+

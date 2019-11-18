@@ -244,6 +244,17 @@ if ($searchType == SEARCH_INFLECTED) {
       // multiple entries, then redirect to the specific entry.
       $candidates = Entry::searchInflectedForms($l->formNoAccent, true, false);
       if (count($candidates) == 1) {
+        // If the main lexeme does not generate $cuv at all, let the user know
+        // that they searched for a variant. However, do not throw this
+        // warning for typos or for queries without diacritics.
+        $generates = InflectedForm::get_by_lexemeId_formUtf8General($l->id, $cuv);
+        if (!$generates && ($searchType == SEARCH_INFLECTED)) {
+          FlashMessage::addTemplate(
+            'searchedVariant.tpl',
+            [ 'query' => $cuv, 'recommended' => $l->formNoAccent ],
+            'warning');
+        }
+
         $sourcePart = $source ? "-{$source->urlName}" : '';
         Util::redirect(sprintf('%sdefinitie%s/%s%s',
                                Config::URL_PREFIX,

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2019-11-09 12:10+0200\n"
-"PO-Revision-Date: 2019-11-09 12:11+0200\n"
+"POT-Creation-Date: 2019-11-18 13:12+0200\n"
+"PO-Revision-Date: 2019-11-18 13:12+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -25,6 +25,10 @@ msgstr ""
 #: templates/alerts/formIsElision.tpl:2
 msgid "Your query <b>%1</b> is an elision of <b>%2</b>."
 msgstr "Căutarea <b>%1</b> este o formă elidată a lui <b>%2</b>."
+
+#: templates/alerts/searchedVariant.tpl:1
+msgid "Your query <b>%1</b> is a variant of <b>%2</b>."
+msgstr "Căutarea <b>%1</b> este o variantă a lui <b>%2</b>."
 
 #: templates/article/list.tpl:3 templates/article/list.tpl:6
 #: templates/bits/navmenu.tpl:107
@@ -1609,10 +1613,10 @@ msgstr[2] "%d de cuvinte ale zilei alese la întâmplare"
 msgid "We redirected you automatically from <b>%s</b> to <b>%s</b>."
 msgstr "V-am redirecționat automat de la <b>%s</b> la <b>%s</b>."
 
-#: www/search.php:328
+#: www/search.php:338
 msgid "conjugations"
 msgstr "conjugări"
 
-#: www/search.php:329
+#: www/search.php:339
 msgid "declensions"
 msgstr "declinări"

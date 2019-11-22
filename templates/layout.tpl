@@ -56,7 +56,9 @@
     <div class="container">
       <main class="row">
         <div class="col-md-12 main-content">
-          {include "bits/flashMessages.tpl"}
+          {block "flashMessages"}
+            {include "bits/flashMessages.tpl"}
+          {/block}
           {block "search"}
             {include "bits/searchForm.tpl"}
           {/block}

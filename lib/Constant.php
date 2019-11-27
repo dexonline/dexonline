@@ -359,6 +359,9 @@ class Constant {
       'css' => [ 'scrollTop.css' ],
       'js' => [ 'scrollTop.js' ],
     ],
+    'sortable' => [
+      'js' => [ 'third-party/Sortable.min.js' ],
+    ],
   ];
 
 }

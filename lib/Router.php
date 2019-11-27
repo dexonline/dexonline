@@ -296,6 +296,12 @@ class Router {
       'ro_RO.utf8' => 'sursa',
     ],
 
+    // source roles
+    'source-role/edit' => [
+      'en_US.utf8' => 'edit-source-roles',
+      'ro_RO.utf8' => 'editare-roluri-surse',
+    ],
+
     // tags
     'tag/definitionVersion' => [
       'en_US.utf8' => 'definition-version-tags',

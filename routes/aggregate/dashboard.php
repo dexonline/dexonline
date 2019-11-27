@@ -127,6 +127,11 @@ $links = [
     'privilege' => User::PRIV_ADMIN,
   ],
   [
+    'url' => Router::link('source-role/edit'),
+    'text' => 'roluri ale autorilor',
+    'privilege' => User::PRIV_ADMIN,
+  ],
+  [
     'url' => Router::link('tag/list'),
     'text' => 'etichete',
     'privilege' => User::PRIV_EDIT,

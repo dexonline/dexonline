@@ -13,9 +13,6 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       {if $src->name}Editare sursă: {$src->name}{else}Adăugare sursă{/if}
-      <a class="btn btn-xs btn-default pull-right" href="{Router::link('source/list')}">
-        înapoi la lista de surse
-      </a>
     </div>
 
     <div class="panel-body">
@@ -223,11 +220,18 @@
           <i class="glyphicon glyphicon-floppy-disk"></i>
           <u>s</u>alvează
         </button>
-        <a class="btn btn-default" href="{Router::link('source/list')}">
-          <i class="glyphicon glyphicon-arrow-left"></i>
-          înapoi la lista de surse
-        </a>
-        <a class="btn btn-link" href="">renunță</a>
+        {if $src->id}
+          <a
+            class="btn btn-link"
+            href="{Router::link('source/view')}/{$src->id}">
+            renunță
+          </a>
+        {else}
+          <a
+            class="btn btn-link"
+            href="{Router::link('source/list')}">
+            renunță
+        {/if}
       </form>
     </div>
   </div>

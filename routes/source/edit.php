@@ -42,7 +42,7 @@ if ($saveButton) {
 
     Log::notice("Added/saved source {$src->id} ({$src->shortName})");
     FlashMessage::add('Am salvat modificările.', 'success');
-    Util::redirect("?id={$src->id}");
+    Util::redirect(Router::link('source/view') . '/' . $src->id);
   }
 }
 

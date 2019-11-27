@@ -247,6 +247,7 @@ class Smart {
       self::$theSmarty->registerFilter('output', ['Str', 'replace_ai']);
     }
     self::$theSmarty->registerFilter('output', ['Smart', 'minifyOutput']);
+    self::$theSmarty->registerPlugin('modifier', 'nf', 'LocaleUtil::number');
   }
 
   // Marks required CSS and JS files for inclusion.

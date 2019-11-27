@@ -65,6 +65,9 @@
           {block "content"}{/block}
         </div>
       </main>
+
+      <hr>
+
       <footer class="row footer">
         <div class="col-md-12">
 
@@ -91,12 +94,6 @@
               {if $host}
                 <li>{include "hosting/$host.tpl"}</li>
               {/if}
-              {* disabled for now as quantcast provides their own overlay *}
-              {* <li> *}
-              {*  <a href="javascript:window.__cmp(&quot;displayConsentUi&quot;)"> *}
-              {*    Modifică consimțământul pentru anunțuri *}
-              {*  </a> *}
-              {* </li> *}
             </ul>
           </div>
         </div>

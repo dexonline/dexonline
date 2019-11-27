@@ -291,6 +291,10 @@ class Router {
       'en_US.utf8' => 'sources',
       'ro_RO.utf8' => 'surse',
     ],
+    'source/view' => [
+      'en_US.utf8' => 'source',
+      'ro_RO.utf8' => 'sursa',
+    ],
 
     // tags
     'tag/definitionVersion' => [
@@ -391,6 +395,7 @@ class Router {
     'model/list' => [ 'modelType' ],
     'model/view' => [ 'model' ],
     'source/list' => [ 'highlightSourceId' ],
+    'source/view' => [ 'id' ],
     'wotd/archive' => [ 'year', 'month' ],
     'wotd/random' => [ 'count', 'skin' ],
     'wotd/view' => [ 'year', 'month', 'day', 'format' ],
@@ -399,11 +404,11 @@ class Router {
   ];
 
   const PARAMS_REGEX = [
-    'wotd/view' => [ 
-      'regex' => '/^(?:(\d{4})(?:\/)(\d{2})(?:\/)(\d{2}))?(?:\/)?(xml|json)?$/', 
+    'wotd/view' => [
+      'regex' => '/^(?:(\d{4})(?:\/)(\d{2})(?:\/)(\d{2}))?(?:\/)?(xml|json)?$/',
     ],
-    'wotm/view' => [ 
-      'regex' =>'/^(?:(\d{4})(?:\/)(\d{2}))?(?:\/)?(xml|json)?$/', 
+    'wotm/view' => [
+      'regex' =>'/^(?:(\d{4})(?:\/)(\d{2}))?(?:\/)?(xml|json)?$/',
     ],
   ];
 

@@ -13,7 +13,7 @@
           <th></th>
           <th>nume singular</th>
           <th>nume plural</th>
-          <th class="">prioritate</th>
+          <th>prioritate</th>
           <th></th>
         </tr>
       </thead>

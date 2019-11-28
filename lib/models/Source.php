@@ -70,12 +70,24 @@ class Source extends BaseObject implements DatedObject {
   }
 
   /**
-   * Returns this Source's authors grouped by their role. Roles are sorted in
+   * Returns this Source's authors ordered by rank.
+   *
+   * @return SourceAuthor[]
+   */
+  function getAuthors() {
+    return Model::factory('SourceAuthor')
+      ->where('sourceId', $this->id)
+      ->order_by_asc('rank')
+      ->find_many();
+  }
+
+  /**
+   * Returns this Source's authors mapped by their role. Roles are sorted in
    * increasing order of priority.
    *
    * @return SourceAuthor[][]
    */
-  function getAuthors() {
+  function getAuthorMap() {
     $authors = Model::factory('SourceAuthor')
       ->table_alias('sa')
       ->select('sa.*')

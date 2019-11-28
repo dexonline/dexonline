@@ -216,10 +216,41 @@
           </div>
         </div>
 
+        <fieldset>
+          <legend><h4>autori (opțional)</h4></legend>
+
+          <table class="table table-sm">
+            <thead
+              id="authorHeader"
+              {if empty($authors)}hidden{/if}>
+              <tr>
+                <th></th>
+                <th>titlu</th>
+                <th>nume</th>
+                <th>grad</th>
+                <th>rol</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="authorContainer">
+              {include "bits/sourceAuthorEditRow.tpl" id="stem"}
+              {foreach $authors as $author}
+                {include "bits/sourceAuthorEditRow.tpl"}
+              {/foreach}
+            </tbody>
+          </table>
+        </fieldset>
+
+        <button id="addButton" class="btn btn-light" type="button">
+          <i class="glyphicon glyphicon-plus"></i>
+          adaugă un autor
+        </button>
+
         <button class="btn btn-success" type="submit" name="saveButton">
           <i class="glyphicon glyphicon-floppy-disk"></i>
           <u>s</u>alvează
         </button>
+
         {if $src->id}
           <a
             class="btn btn-link"

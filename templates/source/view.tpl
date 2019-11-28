@@ -20,8 +20,8 @@
       ({$source->percentComplete|nf:2}% complet)
     </p>
   {/if}
-  
-  {$authors=$source->getAuthors()}
+
+  {$authors=$source->getAuthorMap()}
   {foreach $authors as $rec}
     <h3 class="rolePriority{$rec.role->priority}">
       {cap}{$rec.role->getName(count($rec.authors))|escape}{/cap}

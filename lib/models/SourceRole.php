@@ -7,6 +7,15 @@ class SourceRole extends BaseObject {
     return ($count == 1) ? $this->nameSingular : $this->namePlural;
   }
 
+  /**
+   * Returns a list of roles sorted by name
+   **/
+  static function getAll() {
+    return Model::factory('SourceRole')
+      ->order_by_asc('nameSingular')
+      ->find_many();
+  }
+
   function isInUse() {
     $count = Model::factory('SourceAuthor')
       ->where('sourceRoleId', $this->id)

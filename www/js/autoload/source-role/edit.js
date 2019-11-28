@@ -9,7 +9,6 @@ $(function() {
   }
 
   function addRow() {
-    console.log('yueah');
     stem.clone(true).appendTo('#roleContainer');
   }
 

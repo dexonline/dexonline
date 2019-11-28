@@ -23,10 +23,10 @@
             {$row->userNick|escape}</a>
         </td>
         <td data-text="{$row->numChars}">
-          {LocaleUtil::number($row->numChars)}
+          {$row->numChars|nf}
         </td>
         <td data-text="{$row->numDefinitions}">
-          {LocaleUtil::number($row->numDefinitions)}
+          {$row->numDefinitions|nf}
         </td>
         <td
           style="color: {$color|string_format:"#%02x0000"}"

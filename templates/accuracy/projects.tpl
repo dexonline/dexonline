@@ -41,9 +41,9 @@
             <td>{$proj->getOwner()}</td>
             <td>{$proj->getUser()}</td>
             <td>{$proj->getSource()->shortName|default:'&mdash;'}</td>
-            <td>{LocaleUtil::number($proj->defCount)}</td>
-            <td>{LocaleUtil::number($proj->getErrorsPerKb(), 2)}</td>
-            <td>{LocaleUtil::number($proj->getCharactersPerHour())}</td>
+            <td>{$proj->defCount|nf}</td>
+            <td>{$proj->getErrorsPerKb()|nf:2}</td>
+            <td>{$proj->getCharactersPerHour()|nf}</td>
           </tr>
         {/foreach}
       </tbody>

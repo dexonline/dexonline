@@ -13,7 +13,7 @@
         <form class="pull-right">
 
           <small class="text-muted">
-            calculate acum {LocaleUtil::number($timeAgo/60)} minute, {$timeAgo%60} secunde
+            calculate acum {($timeAgo/60)|nf} minute, {$timeAgo%60} secunde
           </small>
 
           <button type="submit" name="recountButton" class="btn btn-info btn-xs">

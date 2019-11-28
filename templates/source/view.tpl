@@ -29,6 +29,7 @@
 
     {foreach $rec.authors as $author}
       <p class="rolePriority{$rec.role->priority}">
+        <small class="text-muted">{$author->title}</small>
         {$author->name|escape}
         <small class="text-muted">{$author->academicRank}</small>
       </p>

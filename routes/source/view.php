@@ -1,8 +1,8 @@
 <?php
 
-$id = Request::get('id');
+$urlName = Request::get('urlName');
 
-$source = Source::get_by_id($id);
+$source = Source::get_by_urlName($urlName);
 if (!$source) {
   FlashMessage::add(_('No source exists with the given ID'));
   Util::redirectToHome();

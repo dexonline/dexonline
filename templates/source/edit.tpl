@@ -254,7 +254,7 @@
         {if $src->id}
           <a
             class="btn btn-link"
-            href="{Router::link('source/view')}/{$src->id}">
+            href="{Router::link('source/view')}/{$src->urlName}">
             renunță
           </a>
         {else}

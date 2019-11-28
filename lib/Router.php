@@ -401,7 +401,7 @@ class Router {
     'model/list' => [ 'modelType' ],
     'model/view' => [ 'model' ],
     'source/list' => [ 'highlightSourceId' ],
-    'source/view' => [ 'id' ],
+    'source/view' => [ 'urlName' ],
     'wotd/archive' => [ 'year', 'month' ],
     'wotd/random' => [ 'count', 'skin' ],
     'wotd/view' => [ 'year', 'month', 'day', 'format' ],

@@ -376,6 +376,9 @@ class Constant {
     'bulkCheckbox' => [
       'css' => [ 'bulkCheckbox.css' ],
     ],
+    'sortable' => [
+      'js' => [ 'third-party/Sortable.min.js' ],
+    ]
   ];
 
 }

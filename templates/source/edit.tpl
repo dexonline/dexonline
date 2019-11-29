@@ -13,9 +13,6 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       {if $src->name}Editare sursă: {$src->name}{else}Adăugare sursă{/if}
-      <a class="btn btn-xs btn-default pull-right" href="{Router::link('source/list')}">
-        înapoi la lista de surse
-      </a>
     </div>
 
     <div class="panel-body">
@@ -153,7 +150,7 @@
               <input type="text" name="defCount" value="{$src->defCount}" class="form-control">
               <p class="help-block">
                 din care digitizate: {$src->ourDefCount};
-                procent de completare: {LocaleUtil::number($src->percentComplete, 2)}.
+                procent de completare: {$src->percentComplete|nf:2}.
               </p>
             </div>
 
@@ -219,15 +216,53 @@
           </div>
         </div>
 
+        <fieldset>
+          <legend><h4>autori (opțional)</h4></legend>
+
+          <table class="table table-sm">
+            <thead
+              id="authorHeader"
+              {if empty($authors)}hidden{/if}>
+              <tr>
+                <th></th>
+                <th>titlu</th>
+                <th>nume</th>
+                <th>grad</th>
+                <th>rol</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="authorContainer">
+              {include "bits/sourceAuthorEditRow.tpl" id="stem"}
+              {foreach $authors as $author}
+                {include "bits/sourceAuthorEditRow.tpl"}
+              {/foreach}
+            </tbody>
+          </table>
+        </fieldset>
+
+        <button id="addButton" class="btn btn-light" type="button">
+          <i class="glyphicon glyphicon-plus"></i>
+          adaugă un autor
+        </button>
+
         <button class="btn btn-success" type="submit" name="saveButton">
           <i class="glyphicon glyphicon-floppy-disk"></i>
           <u>s</u>alvează
         </button>
-        <a class="btn btn-default" href="{Router::link('source/list')}">
-          <i class="glyphicon glyphicon-arrow-left"></i>
-          înapoi la lista de surse
-        </a>
-        <a class="btn btn-link" href="">renunță</a>
+
+        {if $src->id}
+          <a
+            class="btn btn-link"
+            href="{Router::link('source/view')}/{$src->urlName}">
+            renunță
+          </a>
+        {else}
+          <a
+            class="btn btn-link"
+            href="{Router::link('source/list')}">
+            renunță
+        {/if}
       </form>
     </div>
   </div>

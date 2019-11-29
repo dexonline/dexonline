@@ -90,8 +90,8 @@
           {foreach $results as $row}
             <tr>
               <td>{$row->shortName}</td>
-              <td>{LocaleUtil::number($row->length)}</td>
-              <td>{LocaleUtil::number($changes[$row->id])}</td>
+              <td>{$row->length|nf}</td>
+              <td>{$changes[$row->id]|default:0|nf}</td>
             </tr>
           {/foreach}
         </tbody>
@@ -99,8 +99,8 @@
         <tfoot>
           <tr>
             <th>total</th>
-            <th>{LocaleUtil::number($sumLength)}</th>
-            <th>{LocaleUtil::number($sumChanges)}</th>
+            <th>{$sumLength|nf}</th>
+            <th>{$sumChanges|default:0|nf}</th>
           </tr>
         </tfoot>
 

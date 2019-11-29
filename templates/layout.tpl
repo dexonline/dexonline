@@ -57,13 +57,18 @@
     <div class="container">
       <main class="row">
         <div class="col-md-12 main-content">
-          {include "bits/flashMessages.tpl"}
+          {block "flashMessages"}
+            {include "bits/flashMessages.tpl"}
+          {/block}
           {block "search"}
             {include "bits/searchForm.tpl"}
           {/block}
           {block "content"}{/block}
         </div>
       </main>
+
+      <hr>
+
       <footer class="row footer">
         <div class="col-md-12">
 
@@ -90,12 +95,6 @@
               {if $host}
                 <li>{include "hosting/$host.tpl"}</li>
               {/if}
-              {* disabled for now as quantcast provides their own overlay *}
-              {* <li> *}
-              {*  <a href="javascript:window.__cmp(&quot;displayConsentUi&quot;)"> *}
-              {*    Modifică consimțământul pentru anunțuri *}
-              {*  </a> *}
-              {* </li> *}
             </ul>
           </div>
         </div>

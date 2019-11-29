@@ -406,7 +406,7 @@ a.disabled {
 }
 
 .vcenter {
-  vertical-align: middle;
+  vertical-align: middle !important;
 }
 
 /* vertical spacing */

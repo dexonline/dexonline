@@ -30,7 +30,7 @@ class Source extends BaseObject implements DatedObject {
   const SORT_SHORT_NAME = 2;
 
   const SORT_CRITERIA = [
-    // prefer the drag-and-drop order in /surse.php
+    // prefer the drag-and-drop order in the source list
     self::SORT_DISPLAY => [ 'displayOrder asc' ],
 
     // prefer the search form favorites in the dropdownOrder field
@@ -56,6 +56,57 @@ class Source extends BaseObject implements DatedObject {
 
   function getImportTypeLabel() {
     return self::IMPORT_TYPE_LABELS[$this->importType];
+  }
+
+  function getPublisherDetails() {
+    $details = [];
+    if ($this->publisher) {
+      $details[] = $this->publisher;
+    }
+    if ($this->year) {
+      $details[] = $this->year;
+    }
+    return implode(', ', $details);
+  }
+
+  /**
+   * Returns this Source's authors ordered by rank.
+   *
+   * @return SourceAuthor[]
+   */
+  function getAuthors() {
+    return Model::factory('SourceAuthor')
+      ->where('sourceId', $this->id)
+      ->order_by_asc('rank')
+      ->find_many();
+  }
+
+  /**
+   * Returns this Source's authors mapped by their role. Roles are sorted in
+   * increasing order of priority.
+   *
+   * @return SourceAuthor[][]
+   */
+  function getAuthorMap() {
+    $authors = Model::factory('SourceAuthor')
+      ->table_alias('sa')
+      ->select('sa.*')
+      ->join('SourceRole', ['sa.sourceRoleId', '=', 'sr.id'], 'sr')
+      ->where('sa.sourceId', $this->id)
+      ->order_by_asc('sr.priority')
+      ->order_by_asc('sa.rank')
+      ->find_many();
+    $results = [];
+
+    foreach ($authors as $a) {
+      $results[$a->sourceRoleId]['authors'][] = $a;
+    }
+
+    foreach ($results as $sourceRoleId => &$rec) {
+      $rec['role'] = SourceRole::get_by_id($sourceRoleId);
+    }
+
+    return $results;
   }
 
   function updatePercentComplete() {

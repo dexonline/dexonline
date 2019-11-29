@@ -13,13 +13,16 @@
   {/if}
 {/block}
 
+{* we'll move these around *}
 {block "banner"}{/block}
+{block "flashMessages"}{/block}
 
 {block "content"}
   {assign var="declensionText" value=$declensionText|default:null}
   {assign var="tab" value=$tab|default:false}
 
   {include "banner/banner.tpl"}
+  {include "bits/flashMessages.tpl"}
 
   <ul class="nav nav-tabs" role="tablist">
     <li role="presentation" {if $tab == Constant::TAB_RESULTS}class="active"{/if}>

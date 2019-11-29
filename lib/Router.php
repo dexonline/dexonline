@@ -301,6 +301,16 @@ class Router {
       'en_US.utf8' => 'sources',
       'ro_RO.utf8' => 'surse',
     ],
+    'source/view' => [
+      'en_US.utf8' => 'source',
+      'ro_RO.utf8' => 'sursa',
+    ],
+
+    // source roles
+    'source-role/edit' => [
+      'en_US.utf8' => 'edit-source-roles',
+      'ro_RO.utf8' => 'editare-roluri-surse',
+    ],
 
     // tags
     'tag/definitionVersion' => [
@@ -405,6 +415,7 @@ class Router {
     'model/view' => [ 'model' ],
     'model/listLexemes' => [ 'modelType', 'modelNumber' ],
     'source/list' => [ 'highlightSourceId' ],
+    'source/view' => [ 'urlName' ],
     'wotd/archive' => [ 'year', 'month' ],
     'wotd/random' => [ 'count', 'skin' ], // TODO - 'skin' from 2-nd position, looks unused
     'wotd/view' => [ 'year', 'month', 'day', 'format' ],
@@ -421,6 +432,7 @@ class Router {
     ],
     'lexeme/random' => [
       'regex' => '/^(\d{1,})?(?:\/)?(xml|json)?$/',
+
     ],
   ];
 

@@ -1,5 +1,3 @@
-{assign var="cuv" value=$cuv|default:''}
-{assign var="pageType" value=$pageType|default:'other'}
 <!DOCTYPE html>
 <html>
 
@@ -41,7 +39,10 @@
     {Plugin::notify('htmlHead')}
     {include "bits/analytics.tpl"}
   </head>
-
+  
+  {* TODO - $pageType should be set before, but many templates extend this *}
+  {if !isset($pageType)}{$pageType='other'}{/if}
+  
   <body class="{$pageType}">
 
     {Plugin::notify('bodyStart')}

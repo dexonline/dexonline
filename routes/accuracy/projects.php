@@ -55,7 +55,10 @@ foreach ($aps as $ap) {
   $projects[$ap->id] = $ap;
 }
 
+$visibility = new AccuracyProjectDropdown([ 'selectedValue' => $p->visibility]);
+
 Smart::assign([
+  'visibility' => (array)$visibility,
   'projects' => $projects,
   'p' => $p,
   'length' => $length,

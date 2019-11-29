@@ -1,4 +1,5 @@
 {if DebugInfo::isEnabled()}
+<div id="debug">
   <hr>
 
   <p>
@@ -25,4 +26,7 @@
       {/foreach}
     </div>
   </div>
+</div>
+<div id="debugAjax">
+</div>
 {/if}

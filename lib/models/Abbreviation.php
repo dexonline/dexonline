@@ -6,7 +6,7 @@ class Abbreviation extends BaseObject implements DatedObject {
   static function create(
     $sourceId, $short, $internalRep, $ambiguous, $caseSensitive, $enforced, $modUserId
   ) {
-    $a = Model::factory('Abbreviation')->create();
+    $a = Model::factory(static::$_table)->create();
     $a->sourceId = $sourceId;
     $a->short = $short;
     $a->internalRep = $internalRep;
@@ -18,7 +18,7 @@ class Abbreviation extends BaseObject implements DatedObject {
   }
 
   static function countAvailable($sourceId) {
-    return Model::factory('Abbreviation')
+    return Model::factory(static::$_table)
       ->where('sourceID', $sourceId)
       ->count();
   }
@@ -32,7 +32,7 @@ class Abbreviation extends BaseObject implements DatedObject {
    * @return  ORMWrapper
    */
   static function getDuplicate($excludedId, $short, $sourceId) {
-    return Model::factory('Abbreviation')
+    return Model::factory(static::$_table)
         ->where_raw('short = binary ?', $short)
         ->where('sourceId', $sourceId)
         ->where_not_equal('id', $excludedId)

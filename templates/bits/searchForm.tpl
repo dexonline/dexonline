@@ -1,7 +1,5 @@
-{assign var="cuv" value=$cuv|default:''}
-{assign var="text" value=$text|default:false}
-
-<section class="row search">
+<div class="voffset4"></div>
+<section class="row">
   <div class="col-md-12">
     <form action="{Config::URL_PREFIX}search.php"
           name="frm"
@@ -40,7 +38,7 @@
       <div class="row" id="advSearch" {if !$advancedSearch}style="display: none"{/if}>
 
         <div class="col-md-6">
-          {include "bits/sourceDropDown.tpl" urlName=1}
+          {include "bits/sourceDropdown.tpl" id=$sources.vars.id}
         </div>
 
         <div class="checkbox col-md-6">

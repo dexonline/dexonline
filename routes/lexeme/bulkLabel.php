@@ -109,7 +109,7 @@ Smart::assign([
   'suffix' => $suffix,
   'lexemes' => $lexemes,
   'models' => $models,
-  'modelTypes' => $modelTypes,
+  'modelTypes' => (array)$modelTypes,
   'searchResults' => $searchResults,
   'lMatrix' => $lMatrix,
 ]);

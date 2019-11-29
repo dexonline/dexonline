@@ -46,7 +46,7 @@
             <i class="glyphicon glyphicon-book"></i>
             <span class="doubleText" data-other-text="ascunde definițiile">arată definițiile</span>
           </a>
-          <a class="btn btn-link" href="{Router::link('lexeme/edit')}?lexemeId={$l->id}">
+          <a class="btn btn-link" href="{Router::link('lexeme/edit')}/{$l->id}">
             <i class="glyphicon glyphicon-pencil"></i>
             editează
           </a>

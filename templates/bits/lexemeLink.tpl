@@ -6,7 +6,7 @@
 {strip}
 {if $boxed}<span class="linkBox">{/if}
 <a
-  href="{Router::link('lexeme/edit')}?lexemeId={$lexeme->id}"
+  href="{Router::link('lexeme/edit')}/{$lexeme->id}"
   class="{$class}"
   title="editează">
   {include "bits/lexemeName.tpl"}

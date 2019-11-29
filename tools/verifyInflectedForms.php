@@ -77,5 +77,5 @@ function checkSameIfs($lexeme, $oldIfs, $fix) {
 }
 
 function editUrl($lexeme) {
-  return "https://dexonline.ro/editare-lexem?lexemeId={$lexeme->id}";
+  return "https://dexonline.ro/editare-lexem/{$lexeme->id}";
 }

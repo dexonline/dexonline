@@ -355,7 +355,7 @@
   </div>
 
   {include "bits/cloneModal.tpl" object="Entry" desc="intrare"}
-  
+
   {if $e->id}
     <h3>Arbori de sensuri asociați ({$e->getTrees()|count})</h3>
 
@@ -480,5 +480,5 @@
   {/if}
   {include "bits/definitionTypoForm.tpl"}
 
-  {include "bits/pageModal.tpl"}
+  {include "bits/pageModalFrame.tpl"}
 {/block}

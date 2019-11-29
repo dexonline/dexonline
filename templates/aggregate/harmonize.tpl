@@ -46,7 +46,10 @@
       <tr>
         <td>
           <div class="form-group">
-            {include "bits/modelDropDown.tpl" allOption="oricare|"}
+            <span data-model-dropdown>
+              {include "bits/modelTypeDropdown.tpl"}
+              {include "bits/modelNumberDropdown.tpl"}
+            </span>
           </div>
         </td>
         <td>
@@ -106,7 +109,10 @@
       <tr>
         <td>
           <div class="form-group">
-            {include "bits/modelDropDown.tpl" allOption="oricare|"}
+            <span data-model-dropdown>
+              {include "bits/modelTypeDropdown.tpl"}
+              {include "bits/modelNumberDropdown.tpl"}
+            </span>
           </div>
         </td>
         <td>
@@ -114,10 +120,13 @@
         </td>
         <td>
           <div class="form-group">
-            {include "bits/modelDropDown.tpl"
-              modelTypeName="newModelType"
-              modelNumberName="newModelNumber"
-              allOption="neschimbat|"}
+            <span data-model-dropdown>
+              {$modelTypes.vars.name="newModelType"}
+              {include "bits/modelTypeDropdown.tpl"}
+              {$modelNumbers.vars.allOption="neschimbat"}
+              {$modelNumbers.vars.name="newModelNumber"}
+              {include "bits/modelNumberDropdown.tpl"}
+            </span>
           </div>
         </td>
         <td>

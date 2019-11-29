@@ -221,7 +221,7 @@ abstract class AbstractCrawler {
     if ($pos !== false) {
       $parts[1] = substr($parts[1], 0, $pos);
     }
-		return implode('//', $parts);    
+    return implode('//', $parts);    
   }
 
   function makeAbsoluteLink($url) {

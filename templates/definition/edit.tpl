@@ -32,10 +32,7 @@
           <label class="col-sm-2 col-md-4 control-label">sursă</label>
           <div class="col-sm-10 col-md-8">
             {if $source->canModerate || !$def->id}
-              {include "bits/sourceDropDown.tpl"
-                sources=$allModeratorSources
-                sourceId=$def->sourceId
-                skipAnySource=true}
+              {include "bits/sourceDropdown.tpl" id=$sources.vars.id}
             {else}
               <input type="hidden" name="source" value="{$def->sourceId}">
               <input class="form-control" type="text" disabled value="{$source->shortName}">
@@ -46,10 +43,7 @@
         <div class="form-group">
           <label class="col-sm-2 col-md-4 control-label">stare</label>
           <div class="col-sm-10 col-md-8">
-            {include "bits/statusDropDown.tpl"
-              name="status"
-              selectedStatus=$def->status
-              disabled=!$canEditStatus}
+            {include "bits/definitionStatusDropdown.tpl"}
           </div>
         </div>
 
@@ -301,6 +295,6 @@
     </button>
     <a href="#" class="btn btn-link btm-sm diffCancel">anulează</a>
   </div>
-
-  {include "bits/pageModal.tpl"}
+  {include "bits/charmap.tpl"}
+  {include "bits/pageModalFrame.tpl"}
 {/block}

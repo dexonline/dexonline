@@ -1,6 +1,6 @@
 <?php
 
-require_once 'third-party/smarty-3.1.30/Smarty.class.php';
+require_once 'third-party/smarty-3.1.33/Smarty.class.php';
 
 class Smart {
 
@@ -193,7 +193,7 @@ class Smart {
       self::addResources('loggedIn');
     }
     if (User::can(User::PRIV_ANY)) {
-      self::addResources('admin', 'charmap', 'sprintf');
+      self::addResources('admin', 'pageModal', 'sprintf');
     }
     if (Util::isPrivateMode()) {
       self::addResources('privateMode');

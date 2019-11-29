@@ -89,9 +89,9 @@
         </div>
 
         <div class="form-group">
-          <label for="sourceDropDown" class="col-sm-3 control-label">sursă (opțional)</label>
+          <label for="sourceDropdown" class="col-sm-3 control-label">sursă (opțional)</label>
           <div class="col-sm-9">
-            {include "bits/sourceDropDown.tpl" name="sourceId" sourceId=$p->sourceId}
+            {include "bits/sourceDropdown.tpl" id=$sources.vars.id}
           </div>
         </div>
 
@@ -126,10 +126,7 @@
         <div class="form-group">
           <label class="col-sm-3 control-label">vizibilitate</label>
           <div class="col-sm-9">
-            {include "bits/dropdown.tpl"
-              name="visibility"
-              data=AccuracyProject::VIS_NAMES
-              selected=$p->visibility}
+            {include "bits/accuracyProjectDropdown.tpl"}
           </div>
         </div>
 

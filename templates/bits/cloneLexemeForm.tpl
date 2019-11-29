@@ -13,14 +13,14 @@
 </div>
 <div class="checkbox">
   <label>
-    <input type="checkbox" name="cloneInflectedForms" checked>
+    <input type="checkbox" name="cloneInflectedForms">
     copiază formele flexionare
   </label>
   <span class="small text-muted"> (dacă e debifat nu copiază nici modelul)</span>
 </div>
 <div class="checkbox">
   <label>
-    <input type="checkbox" name="cloneTags" checked>
+    <input type="checkbox" name="cloneTags">
     copiază etichetele
   </label>
 </div>

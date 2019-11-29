@@ -14,20 +14,23 @@ function resolveSelect(obj, url) {
     values.push($(this).val());
   });
 
-  return $.ajax({
-    url: wwwRoot + url + '?q=' + JSON.stringify(values),
-  }).done(function(data) {
-    for (var i = 0; i < data.length; i++) {
-      var o = obj.find('option').eq(i);
-      o.html(data[i].text);
-      // Convert any properties besides id and text to HTML5 data attributes
-      for (var prop in data[i]) {
-        if (prop != 'id' && prop != 'text') {
-          o.data(prop, data[i][prop]);
+  if (values.length) { // should not query on empty values!
+    return $.ajax({
+      url: wwwRoot + url + '?q=' + JSON.stringify(values),
+    }).done(function(data) {
+      for (var i = 0; i < data.length; i++) {
+        var o = obj.find('option').eq(i);
+        o.html(data[i].text);
+        // Convert any properties besides id and text to HTML5 data attributes
+        for (var prop in data[i]) {
+          if (prop != 'id' && prop != 'text') {
+            o.data(prop, data[i][prop]);
+          }
         }
       }
-    }
-  });
+    });
+  }
+
 }
 
 /**
@@ -167,7 +170,7 @@ function formatLexemeWithEditLink(lexeme) {
   } else {
     html = lexeme.text +
       ' <a class="glyphicon glyphicon-pencil" href="' + wwwRoot +
-      'editare-lexem?lexemeId=' + lexeme.id + '"></a>';
+      'editare-lexem/' + lexeme.id + '"></a>';
   }
 
   if ((lexeme.consistentAccent == '0') ||
@@ -186,7 +189,7 @@ function formatEntryWithEditLink(entry) {
     var link = '';
   } else {
     var link = ' <a class="glyphicon glyphicon-pencil" href="' + wwwRoot +
-      'editare-intrare?id=' + entry.id + '"></a>';
+      'editare-intrare/' + entry.id + '"></a>';
   }
 
   return $('<span>' + entry.text + link + '</span>');
@@ -208,13 +211,13 @@ function allowNewOptions(data) {
 
 $(function() {
   initSelect2('.select2Tags', 'ajax/getTagsById.php', {
-    ajax: { url: wwwRoot + 'ajax/getTags.php' },
+    ajax: { url: wwwRoot + 'ajax/getTags.php', delay: 500, },
     minimumInputLength: 1,
     width: '100%',
   });
 
   initSelect2('.select2Trees', 'ajax/getTreesById.php', {
-    ajax: { url: wwwRoot + 'ajax/getTrees.php' },
+    ajax: { url: wwwRoot + 'ajax/getTrees.php', delay: 500, },
     minimumInputLength: 1,
     width: '100%',
   });

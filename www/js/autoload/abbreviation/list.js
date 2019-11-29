@@ -1,37 +1,64 @@
 $(function () {
-  $(document).ajaxSend(function( event, request, settings ) {
-      settings.context.addClass('running');
-  });
-  $(document).ajaxComplete(function( event, request, settings ) {
-      settings.context.removeClass('running');
-  });
+  const targetNode = $('#abbrevs')[0];
+  const config = { childList: true };
 
-  $("#load").click(function () {
-    var sourceId = $("#sourceDropDown option").filter(":selected").val();
-    var elem = $(this);
-    $('#frm_edit #sourceId').val(sourceId);
+  const doSort = function(mutationsList, observer) {
+    // Use traditional 'for loops' for IE 11
+    for(let mutation of mutationsList) {
+        if (mutation.type === 'childList') {
+            observer.disconnect();
+            sortTable($('#table-abbrevs'));
+        }
+    }
+  };
+
+  const observer = new MutationObserver(doSort);
+
+  function sortTable(table) {
+    table.tablesorter({
+      headerTemplate: '{content} {icon}',
+      sortInitialOrder: 'asc',
+      theme: 'bootstrap',
+      widgets : [ "uitheme" ],
+    });
+    table.tablesorterPager({
+      container: $("#abbrevsPager"),
+      output: '{page}/{totalPages}',
+      size: 50,
+    });
+  }
+
+  var sd = $("#sourceDropdown");
+  sd.on('change', function() {
+    $('#frm_edit #sourceId').val(sd.val());
+    $('#loadWarning').collapse('show');
     $.ajax({
       type: "POST",
-      context: elem,
+      context: $("#load"),
+      isLocal: true,
       url: wwwRoot + "ajax/getAbbreviations.php",
-      data: {"sourceId" : sourceId},
-      dataType: "html",
+      data: {"sourceId" : sd.val()},
+      dataType: "json",
       success: function (response)
       {
-        $('#abbrevs').html(response);
+        observer.observe(targetNode, config);
+        $('#abbrevs').html(response.html);
+        $('#count').html(response.count);
+        $('#debugAjax').append(response.debug);
+        $('#loadWarning').collapse('hide');
       }
     });
   });
 
-  $('#abbrevs').on('click', '#command-add', function(){
+  $('#abbrevs').on('click', '#command-add', function() {
     prepareModalForm(new Abbrev(null, 'add', 'Adăugare'));
   });
 
-  $('#abbrevs').on('click', '[name="btn-edit"]', function(){
+  $('#abbrevs').on('click', '[name^="btn-edit"]', function() {
     prepareModalForm(new Abbrev($(this), 'edit', 'Editare'));
   });
 
-  $('#abbrevs').on('click', '[name="btn-trash"]', function(){
+  $('#abbrevs').on('click', '[name^="btn-trash"]', function() {
     prepareModalForm(new Abbrev($(this), 'delete', 'Ștergere'));
   });
 
@@ -40,19 +67,20 @@ $(function () {
     event.preventDefault();
   });
 
-  function Abbrev(elem, action, title) {
-    if (elem !== null){
-      tr = elem.closest("tr");
+  class Abbrev {
+    constructor(elem, action, title) {
+      if (elem !== null) {
+        var tr = elem.closest("tr");
+      }
+      this.id = elem === null ? 0 : tr.data('row-id');
+      this.enforced = elem === null ? 0 : tr.find('i').eq(0).data('checked');
+      this.ambiguous = elem === null ? 0 : tr.find('i').eq(1).data('checked');
+      this.caseSensitive = elem === null ? 0 : tr.find('i').eq(2).data('checked');
+      this.short = elem === null ? '' : tr.find('td:nth-of-type(5)').html();
+      this.internalRep = elem === null ? '' : tr.find('td:nth-of-type(6)').html();
+      this.action = action;
+      this.title = title;
     }
-    this.id = elem === null ? 0 : tr.data('row-id');
-    this.enforced = elem === null ? 0 : tr.find('i').eq(0).data('checked');
-    this.ambiguous = elem === null ? 0 : tr.find('i').eq(1).data('checked');
-    this.caseSensitive = elem === null ? 0 : tr.find('i').eq(2).data('checked');
-
-    this.short = elem === null ? '' : tr.find('td:nth-of-type(5)').html();
-    this.internalRep = elem === null ? '' : tr.find('td:nth-of-type(6)').html();
-    this.action = action;
-    this.title = title;
   }
 
   function prepareModalForm(obj){
@@ -81,18 +109,18 @@ $(function () {
 
   function abbrevEdit() {
     data = $("#frm_edit").serializeArray();
-    var elem = $("#edit_modal .commands");
     $.ajax({
       type: "POST",
       url: wwwRoot + "ajax/editAbbreviation.php",
       data: data,
-      context: elem,
+      context: $(this),
+      isLocal: true,
       dataType: "json",
       success: function (response)
       {
         if (response.action === 'add'){
           $('#table-abbrevs tbody').append(response.html);
-          updateCounter($('#abbrevCount'), +1);
+          updateCounter($('#count'), +1);
         }
         else if (response.action === 'edit') {
           $('#'+response.id).replaceWith(response.html);
@@ -100,7 +128,7 @@ $(function () {
         else if (response.action === 'delete') {
           $('#'+response.id).remove();
           $('#frm_edit #message').html(response.html).show();
-          updateCounter($('#abbrevCount'), -1);
+          updateCounter($('#count'), -1);
         }
         else if (response.action === 'duplicate') {
           $('#frm_edit #message').html(response.html).show();

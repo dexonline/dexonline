@@ -1,4 +1,3 @@
-{assign var="row" value=$searchResult|default:null}
 <?xml version="1.0" encoding="UTF-8" ?>
 <results>
   <day>{$day}</day>
@@ -6,10 +5,10 @@
   <requested>
     <record>
       <year>{$year}</year>
-      <word>{$row->definition->lexicon}</word>
+      <word>{$searchResult->definition->lexicon}</word>
       <reason>{$reason|escape:html}</reason>
       <image>{$wotd->getLargeThumbUrl()}</image>
-      {include "xml/definition.tpl"}
+      {include "xml/bits/definition.tpl"}
     </record>
   </requested>
   <others>

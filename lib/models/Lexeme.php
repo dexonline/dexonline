@@ -151,6 +151,17 @@ class Lexeme extends BaseObject implements DatedObject {
     return $this->sourceNames;
   }
 
+  /**
+   * Used mainly for paradigm regeneration from ajax calls
+   */
+  function setSourceNames($sourceIds) {
+    if (!empty($sourceIds)) {
+      $sources = Source::loadByIds($sourceIds);
+      $results = Util::objectProperty($sources, 'shortName');
+      $this->sourceNames = implode(', ', $results);
+    }
+  }
+
   function getObjectTags() {
     if ($this->objectTags === null) {
       $this->objectTags = ObjectTag::getLexemeTags($this->id);
@@ -691,7 +702,7 @@ class Lexeme extends BaseObject implements DatedObject {
    * Finds greatest homonym/homograph index number
    *
    * @param none
-   * @return integer
+   * @return integer greatest index number +1
    */
   function getNextHomonymNumber() {
     $l = Lexeme::get_all_by_formNoAccent($this->formNoAccent);
@@ -877,18 +888,19 @@ class Lexeme extends BaseObject implements DatedObject {
   function __toString() {
     return $this->description ? "{$this->formNoAccent} ({$this->description})" : $this->formNoAccent;
   }
+
   /**
    * First parameter, $cloneEntries, is an multidimensional array received by cloneModal with
    * a maximum 2 elements 0 and 1 (checkboxes from modal), each of type array with value 'on'.
    * Values 'off' are not sent from checkboxes.
    *
    * @param array $cloneEntries
-   * @param boolean $cloneInflectedForms 
+   * @param boolean $cloneInflectedForms
    * @param boolean $cloneTags
    * @param boolean $cloneSources
    * @return ORMWrapper
    */
-  function _clone($cloneEntries, $cloneInflectedForms, $cloneTags, $cloneSources ) {
+  function _clone($cloneEntries, $cloneInflectedForms, $cloneTags, $cloneSources) {
     $clone = $this->parisClone();
     $clone->number = $this->getNextHomonymNumber();
     if (!$cloneInflectedForms) {
@@ -917,7 +929,55 @@ class Lexeme extends BaseObject implements DatedObject {
     if ($cloneSources) {
       LexemeSource::copy($this->id, $clone->id, 1);
     }
+
     return $clone;
   }
 
+  /**
+   *  Validates
+   */
+  function validate() {
+    if (!$this->form) {
+      FlashMessage::add('Forma nu poate fi vidă.');
+    } else {
+      $numAccents = preg_match_all("/(?<!\\\\)'/", $this->form);
+      // Note: we allow multiple accents for lexemes like hárcea-párcea
+      if ($numAccents && $this->noAccent) {
+        FlashMessage::add('Ați indicat că lexemul nu necesită accent, dar forma conține un accent.');
+      } else if (!$numAccents && !$this->noAccent) {
+        FlashMessage::add('Adăugați un accent sau debifați câmpul „Necesită accent”.');
+      } else {
+        // Gather all different restriction - model type pairs
+        $pairs = Model::factory('ConstraintMap')
+              ->table_alias('cm')
+              ->select_expr('binary cm.code', 'restr')
+              ->select('mt.code', 'modelType')
+              ->distinct()
+              ->join('Inflection', ['cm.inflectionId', '=', 'i.id'], 'i')
+              ->join('ModelType', ['i.modelType', '=', 'mt.canonical'], 'mt')
+              ->find_array();
+        $restrMap = [];
+        foreach ($pairs as $p) {
+          $restrMap[$p['restr']][$p['modelType']] = true;
+        }
+
+        for ($i = 0; $i < mb_strlen($this->restriction); $i++) {
+          $c = Str::getCharAt($this->restriction, $i);
+          if (!isset($restrMap[$c])) {
+            FlashMessage::add("Restricția <strong>$c</strong> este nedefinită.");
+          } else if (!isset($restrMap[$c][$this->modelType])) {
+            FlashMessage::add("Restricția <strong>$c</strong> nu se aplică modelului <strong>{$this->modelType}.</strong>");
+          }
+        }
+      }
+    }
+
+    try {
+      $ifs = $this->generateInflectedForms();
+    } catch (ParadigmException $pe) {
+      FlashMessage::add($pe->getMessage());
+    }
+
+    return !FlashMessage::hasErrors();
+  }
 }

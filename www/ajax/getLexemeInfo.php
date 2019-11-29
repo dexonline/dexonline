@@ -1,7 +1,8 @@
 <?php
 require_once '../../lib/Core.php';
 
-$id = Request::get('id');
+$id = Request::get('lexemeId');
+$tagIds = Request::getArray('tagIds');
 
 $l = Lexeme::get_by_id($id);
 $mt = ModelType::get_by_code($l->modelType);
@@ -24,6 +25,16 @@ if ($posTag) {
   }
 }
 
+// exclude from old tags those that are part of speech
+foreach ($tagIds as $key => $value) {
+  $oldTag = Tag::get_by_id($value);
+  if (!$oldTag->isDescendantOf($posTag)) {
+    $posTags[] = [
+      'id' => $oldTag->id,
+      'text' => $oldTag->value,
+    ];
+  }
+}
 
 $results = [
   'modelType' => $l->modelType,

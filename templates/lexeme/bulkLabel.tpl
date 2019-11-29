@@ -37,7 +37,7 @@
 
         <div class="panel-heading">
           {$lIter+1}. {$l->formNoAccent|escape}
-          <a href="{Router::link('lexeme/edit')}?lexemeId={$l->id}">
+          <a href="{Router::link('lexeme/edit')}/{$l->id}">
             <i class="glyphicon glyphicon-pencil"></i>
             editează
           </a>

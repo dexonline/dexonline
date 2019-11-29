@@ -34,7 +34,7 @@
 
       <tr>
         <td>
-	        <input type="text" name="newNick" class="form-control" placeholder="moderator nou">
+          <input type="text" name="newNick" class="form-control" placeholder="moderator nou">
         </td>
         <td>
           <select name="newPriv[]" class="form-control" multiple>

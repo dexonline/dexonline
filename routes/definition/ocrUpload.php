@@ -101,21 +101,15 @@ JOIN User U ON X.userId=U.id
 JOIN Source S ON X.sourceId=S.id
 GROUP BY U.nick, S.shortName";
 
-$allModeratorSources = Model::factory('Source')
-  ->where('canModerate', true)
-  ->order_by_asc('displayOrder')
-  ->find_many();
 
-$allOcrModerators = Model::factory('User')
-  ->where_raw('moderator & 4')
-  ->order_by_asc('id')
-  ->find_many();
+$sources = new SourceDropdown('getAllCanModerate', [ 'selectedValue' => $sourceId, 'skipAnySource' => true ]);
+$moderators = new UserDropdown('getModerators', [ 'name' => 'editors', 'selectedValue' => $editorId, 'submitValue' => $editorId ]);
 
 Smart::assign([
   'msgClass' => $class,
   'message' => $message,
-  'allModeratorSources' => $allModeratorSources,
-  'allOCRModerators' => $allOcrModerators,
+  'sources' => (array)$sources,
+  'users' => (array)$moderators,
   'statsPrep' => DB::execute(OCR_PREP_STATS),
   'statsEditors' => DB::execute(OCR_EDITOR_STATS),
 ]);

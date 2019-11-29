@@ -3,11 +3,7 @@
     <i class="glyphicon glyphicon-chevron-left"></i>
   </a>
 
-  {include "bits/sourceDropDown.tpl"
-          name="showPageSourceId"
-          sources=Source::getSourcesWithPageImages()
-          skipAnySource="1"
-          width="300px"}
+  {include "bits/sourceDropdown.tpl" id=$id}
 
   <input type="text"
          class="pageForWord form-control"

@@ -11,31 +11,40 @@
     </div>
     <div class="panel-body">
       <form class="form form-horizontal">
-        <div class="row">
-          <div class="col-sm-1">
-            <label class="control-label">sursa</label>
-          </div>
-          <div class="col-sm-9">
-            {include "bits/sourceDropDown.tpl" sources=$allSources skipAnySource=true}
-          </div>
-          <div class="col-sm-2">
-            <button type="button" class="btn btn-primary btn-block ld-ext-left" id="load">
-              afișează
-              <div class="ld ld-ring ld-spin-fast"></div>
-            </button>
+        <div class="form-group">
+          <label class="col-md-1 control-label">sursa</label>
+          <div class="col-md-11">
+            <div class="input-group">
+              {include "bits/sourceDropdown.tpl" id=$sources.vars.id}
+              <span id="load" class="input-group-addon ld-ext-left" data-toggle="collapse" 
+                  data-target="#loadWarning" role="button" aria-expanded="true" aria-controls="loadWarning">
+                <b id="count">0</b>
+                <div class="ld ld-ring ld-spin-fast"></div>
+              </span>
+            </div>
           </div>
         </div>
-        <div class="container">
+        <div class="col-md-12">
           <div class="row">
-            <p class="text-muted">
-              Explicații pentru capul de tabel<br />
-            </p>
+            <div class="col-md-3">
+              <p class="text-muted">
+                Explicații pentru capul de tabel
+                <i class="glyphicon glyphicon-question-sign" data-toggle="collapse" 
+                  data-target="#tableHeader" role="button" aria-expanded="true" aria-controls="tableHeader">
+                </i>
+              </p>
+            </div>
+            <div id="loadWarning" class="col-md-9 collapse">
+              <span class="text-muted pull-right">
+                aveți răbdare până se formatează tabelul
+              </span>
+            </div>
           </div>
-          <div class="container-fluid">
+          <div id="tableHeader" class="container-fluid collapse">
             <ul class="col-sm-11">
               <li> Imp. - abreviere impusă - nu ia în considerare forma editată
                 și impune forma din câmpul „Abreviere” -
-                <i>folositoare în cazul unui OCR inexact sau inconsistență în dicționar</i>
+                <i>folositoare în cazul unui OCR inexact sau inconsecvență în dicționar</i>
               </li>
               <li> Amb. - abreviere ambiguă  -
                 <i>pentru situații similare cu „loc.”, „ac.”, „cont.”</i>

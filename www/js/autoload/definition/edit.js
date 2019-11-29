@@ -24,7 +24,7 @@ $(function() {
       templateSelection: formatEntryWithEditLink,
     });
 
-    $('#entryIds, #sourceDropDown[name="source"]').change(updateFieldsJson);
+    $('#entryIds, #sourceDropdown[name="source"]').change(updateFieldsJson);
     $('#refreshButton').click(updateFieldsJson);
     $('#refreshEntriesButton').click(refreshEntries);
     $('#clearEntriesButton').click(clearEntries);
@@ -114,7 +114,7 @@ $(function() {
   }
 
   function diffClick(e) {
-    var ins = ($(this).prop('tagName') == 'INS') ? 1 : 0;
+    var ins = ($(this).prop('tagName') == 'INS') ? 1 : 0; // TODO - seems to be unused
     var defId = $('input[name=definitionId]').val();
     var similarId = similarRecord.sim.id;
     var action = $(this).data('insert');
@@ -158,7 +158,7 @@ $(function() {
   }
 
   function getSourceId() {
-    var sourceId = $('input[name=source]').length ? $('input[name=source]') : $('#sourceDropDown');
+    var sourceId = $('input[name=source]').length ? $('input[name=source]') : $('#sourceDropdown');
     return sourceId.val();
   }
 

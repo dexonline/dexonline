@@ -67,7 +67,7 @@ $sources = Model::factory('Source')
 Smart::assign([
   'def' => $def,
   'sourceId' => $sourceId,
-  'sources' => $sources,
+  'sources' => (array)$sources,
 ]);
 Smart::addResources('admin');
 Smart::display('report/randomAbbrevReview.tpl');

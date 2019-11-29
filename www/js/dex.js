@@ -1,6 +1,6 @@
-var Alphabet = 'a-záàäåăâçèéëìíïĭîòóöșțşţùúüŭ';
-var letter = '[' + Alphabet + ']';
-var nonLetter = '[^' + Alphabet + ']';
+//var Alphabet = 'a-záàäåăâçèéëìíïĭîòóöșțşţùúüŭ';
+//var letter = '[' + Alphabet + ']';
+//var nonLetter = '[^' + Alphabet + ']';
 var wwwRoot = getWwwRoot();
 
 $(function() {
@@ -17,7 +17,7 @@ $(function() {
     $('#searchClear').css('z-index', 3);
   }
 
-  $('.sourceDropDown').select2({
+  $('.sourceDropdown').select2({
     templateResult: formatSource,
     templateSelection: formatSource,
   });
@@ -210,7 +210,7 @@ function endsWith(str, sub) {
 }
 
 /* adapted from http://stackoverflow.com/questions/7563169/detect-which-word-has-been-clicked-on-within-a-text */
-function searchClickedWord(event) {
+/*function searchClickedWord(event) {
   if ($(event.target).is('abbr')) return false;
 
   // Gets clicked on word (or selected text if text is selected)
@@ -243,15 +243,16 @@ function searchClickedWord(event) {
     word = word.substr(0, word.length - 1);
   }
 
-  var source = $('.sourceDropDown').length ? $('.sourceDropDown').val() : '';
+  var source = $('.sourceDropdown').length ? $('.sourceDropdown').val() : '';
   if (source) {
     source = '-' + source;
   }
 
   if (word) {
-    window.location = wwwRoot + 'definitie' + source + '/' + encodeURIComponent(word);
+    window.location = wwwRoot + 'definitie' + source + '/'
+      + encodeURIComponent(word.romanise().toLowerCase());
   }
-}
+}*/
 
 function installFirefoxSpellChecker(evt) {
   var params = {
@@ -287,9 +288,93 @@ function mentionHoverOut() {
 }
 
 function trim(str) {
-	var	str = str.replace(/^\s\s*/, ''),
+  var str = str.replace(/^\s\s*/, ''),
     ws = /\s/,
-		i = str.length;
-	while (ws.test(str.charAt(--i)));
-	return str.slice(0, i + 1);
+    i = str.length;
+  while (ws.test(str.charAt(--i)));
+  return str.slice(0, i + 1);
+}
+
+var Romanian = {};
+Romanian.rom_map = {
+  'á' : 'a',
+  'Á' : 'a',
+  'ắ' : 'ă',
+  'Ắ' : 'ă',
+  'ấ' : 'â',
+  'Ấ' : 'â',
+  'é' : 'e',
+  'É' : 'e',
+  'í' : 'i',
+  'Í' : 'i',
+  'î́' : 'î',
+  'Î́' : 'î',
+  'ó' : 'o',
+  'Ó' : 'o',
+  'ú' : 'u',
+  'Ú' : 'u',
+  'ý' : 'y',
+  'Ý' : 'y',
+};
+
+String.prototype.romanianise = function() {
+  return this.replace('/[^A-Za-z0-9 ]/gu', function(x) { return Romanian.rom_map[x] || x; });
+};
+
+String.prototype.isRomanian = function() {
+  return this == this.romanianise();
+};
+
+
+function searchClickedWord(event) {
+  if ($(event.target).is('abbr')) return false;
+  var s = window.getSelection();
+
+  if (!s.isCollapsed) return false;
+  var begin = /^\s/;
+  var end = /\s$/;
+
+  var d = document,
+    nA = s.anchorNode,
+    oA = s.anchorOffset,
+    nF = s.focusNode,
+    oF = s.focusOffset,
+    range = d.createRange();
+
+  range.setStart(nA, oA);
+  range.setEnd(nF, oF);
+
+  // Extend range to the next space or end of node
+  while(range.endOffset < range.endContainer.textContent.length &&
+        !end.test(range.toString())) {
+          range.setEnd(range.endContainer, range.endOffset + 1);
+        }
+  // Extend range to the previous space or start of node
+  while(range.startOffset > 0 &&
+        !begin.test(range.toString())) {
+          range.setStart(range.startContainer, range.startOffset - 1);
+        }
+
+  // Remove spaces
+  if(end.test(range.toString()) && range.endOffset > 0)
+    range.setEnd(range.endContainer, range.endOffset - 1);
+  if(begin.test(range.toString()))
+    range.setStart(range.startContainer, range.startOffset + 1);
+
+  // Clean the range. Do not replace dash - for searching compound words
+  var word = range.toString().replace(/[.,„”\/#!$%\^&\*;:{}=\_`\[\]()]/g,"");
+
+  // Word is a fragment or number ?
+  var errors = /^[~-]|[~-]$|\d+/.test(word) === true || word.length === 0;
+
+  // Search only if it's a word (including compounds)
+  if (!errors) {
+    var source = $('.sourceDropdown').length ? $('.sourceDropdown').val() : '';
+    if (source) {
+      source = '-' + source;
+    }
+
+    window.location = wwwRoot + 'definitie' + source + '/'
+      + encodeURIComponent(word.romanianise().toLowerCase());
+  }
 }

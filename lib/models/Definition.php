@@ -244,6 +244,21 @@ class Definition extends BaseObject implements DatedObject {
     return $query->find_many();
   }
 
+  static function loadTypos($sourceId = null) {
+
+    $query = Model::factory('Definition')
+      ->table_alias('d')
+      ->select('d.*')
+      ->join('Typo', [ 't.definitionId', '=', 'd.id'], 't')
+      ->order_by_asc('d.lexicon');
+
+    if ($sourceId) {
+      $query = $query->where('d.sourceId', $sourceId);
+    }
+
+    return $query->find_many();
+  }
+
   static function loadUnneededRareGlyphsTags() {
     return Model::factory('Definition')
       ->table_alias('d')
@@ -442,16 +457,18 @@ class Definition extends BaseObject implements DatedObject {
       }
     }
     arsort($defCounts);
+    $defs = array_diff( $defCounts, [1] );
 
     $result = [];
-    foreach ($defCounts as $defId => $cnt) {
-      if ($cnt >= 2) {
+    if (!empty($defs)) {
+      foreach ($defCounts as $defId => $cnt) {
         $d = Definition::get_by_id($defId);
         if ($d) { // Hidden definitions might return null
           $result[] = $d;
         }
       }
     }
+
     return $result;
   }
 

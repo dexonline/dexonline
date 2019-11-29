@@ -39,5 +39,5 @@ Log::info("$offset definitions reprocessed, $modified modified.");
 /*************************************************************************/
 
 function defUrl($d) {
-  return "https://dexonline.ro/editare-definitie?definitionId={$d->id}";
+  return "https://dexonline.ro/editare-definitie/{$d->id}";
 }

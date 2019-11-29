@@ -60,11 +60,14 @@ if ($saveHarmonizeModelButton) {
     Util::redirectToSelf();
   }
 }
+$modelTypes = new ModelTypeDropdown('getAll', [ 'selectedValue' => 'A' ]);
+$modelNumbers = new ModelNumberDropdown('loadByType', $modelTypes->vars['selectedValue'], [ 'allOption' => 'oricare' ]);
 
 Smart::assign([
+  'modelTypes' => (array)$modelTypes,
+  'modelNumbers' => (array)$modelNumbers,
   'harmonizeTags' => HarmonizeTag::getAll(),
   'harmonizeModels' => HarmonizeModel::getAll(),
-  'modelTypes' => ModelType::getAll(),
 ]);
 Smart::addResources('admin', 'select2Dev', 'modelDropdown');
 Smart::display('aggregate/harmonize.tpl');

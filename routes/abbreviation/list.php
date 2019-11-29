@@ -1,13 +1,8 @@
 <?php
 User::mustHave(User::PRIV_ADMIN | User::PRIV_EDIT);
 
-FlashMessage::add("Avertisment! În momentul editării unei abrevieri, prin schimbarea "
-  . "formei acesteia, sunt afectate și celelalte definiții deja moderate "
-  . "din acel dicționar.", 'warning');
+$sources = new SourceDropdown('getAllForAbbreviations', []);
 
-$allSources = Model::factory('Source')
-                     ->order_by_asc('displayOrder')
-                     ->find_many();
-
-Smart::assign('allSources', $allSources);
+Smart::assign('sources', (array)$sources);
+Smart::addResources('ldring', 'tablesorter');
 Smart::display('abbreviation/list.tpl');

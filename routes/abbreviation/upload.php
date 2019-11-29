@@ -9,6 +9,7 @@ $csvFile = Request::getFile('file');
 
 $userId = User::getActiveId();
 $csv = Session::get('csv', []);
+$sources = null;
 
 try {
   if ($csvFile) {
@@ -21,6 +22,7 @@ try {
 
         // stashing the array for saving operation
         Session::set('csv', $csv);
+        $sources = new SourceDropdown('getAllCanModerate', [ 'skipAnySource' => true ]);
       }
     }
   }
@@ -72,6 +74,7 @@ if ($cancelButton) {
 $abbrevs = csv_to_objects($csv, $sourceId, $userId);
 
 Smart::assign([
+  'sources' => (array)$sources,
   'abbrevs' => $abbrevs,
   'modUser' => User::getActive(),
 ]);

@@ -4,7 +4,7 @@
 
 {block "content"}
   {$renameRelated=$renameRelated|default:false}
-
+  {$isCompound = $lexeme->compound}
   <h3>
     Editare lexem: {$lexeme->form}
     <span class="pull-right">
@@ -24,16 +24,16 @@
   <form method="post">
     <div class="form-group">
 
-      <button type="submit"
+      <button id="refreshButton"
         name="refreshButton"
-        class="lexemeEditSaveButton btn btn-primary">
+        class="btn btn-primary">
         <i class="glyphicon glyphicon-refresh"></i>
         <u>r</u>eafișează
       </button>
 
       <button type="submit"
         name="saveButton"
-        class="lexemeEditSaveButton btn btn-success">
+        class="btn btn-success">
         <i class="glyphicon glyphicon-floppy-disk"></i>
         <u>s</u>alvează
       </button>
@@ -56,12 +56,12 @@
         wiki
       </a>
 
-      <a class="btn btn-default" href="definitie/{$lexeme->formNoAccent}">
+      <a class="btn btn-default" href="/definitie/{$lexeme->formNoAccent}">
         <i class="glyphicon glyphicon-search"></i>
         caută
       </a>
 
-      <a class="btn btn-link" href="?lexemeId={$lexeme->id}">renunță</a>
+      <a class="btn btn-link" href="{$lexeme->id}">renunță</a>
 
       {$canDelete=$lexeme->canDelete()}
       <button type="submit"
@@ -168,7 +168,7 @@
 
             {if $compoundIds}
             <div class="form-group">
-              <label for="compoundIds" class="col-md-2">compuse</label>
+              <label class="col-md-2 control-label">compuse</label>
               <div class="col-md-10">
                   <div class="form-control overflown">
                     {foreach $compoundIds as $c}
@@ -236,7 +236,7 @@
 
       <div class="panel-heading">Model de flexiune</div>
 
-      <div class="panel-body">
+      <div id="paradigmOptions" class="panel-body">
 
         <div class="row">
           <div class="col-md-7 form-horizontal">
@@ -256,26 +256,41 @@
               </div>
             </div>
 
-            {* Fields for simple lexemes *}
-            <div id="modelDataSimple" {if $lexeme->compound}style="display: none"{/if}>
+            {* Fields for lexemes *}
+            <div id="modelData">
               <div class="form-group">
-                <label class="col-md-3 control-label">tip + număr</label>
+                <label id="tip" class="col-md-3 control-label">
+                  tip {if !$lexeme->compound}+ număr{/if}
+                </label>
+                <div class="col-md-9 form-inline">
+                  <span data-model-dropdown>
+                    {include "bits/modelTypeDropdown.tpl"}
+                    {include "bits/modelNumberDropdown.tpl"}
 
-                <div class="col-md-9 form-inline"
-                  {include "bits/modelDropDown.tpl"
-                    selectedModelType=$lexeme->modelType
-                    selectedModelNumber=$lexeme->modelNumber}
-
-                  <input
-                    type="text"
-                    class="form-control"
-                    name="restriction"
-                    value="{$lexeme->restriction}"
-                    size="5"
-                    placeholder="restricții">
+                    <div class="input-group">
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="restriction"
+                        value="{$lexeme->restriction}"
+                        size="5"
+                        placeholder="restricții">
+                      <div class="input-group-btn">
+                        <button id="load" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <span class="caret"></span>
+                        </button>
+                        <div id="restrictionMenu" class="dropdown-menu dropdown-menu-right">
+                        {* menu is fetched through ajax calls based on modelType *}
+                        </div>
+                      </div><!-- /btn-group -->
+                    </div><!-- /input-group -->
+                  </span>
                 </div>
               </div>
+            </div>
 
+            {* Fields for simple lexemes *}
+            <div id="modelDataSimple" {if $lexeme->compound}style="display: none"{/if}>
               <div class="form-group">
                 <div class="col-md-offset-3 col-md-9">
                   <select class="similarLexeme"></select>
@@ -285,30 +300,6 @@
 
             {* Fields for compound lexemes *}
             <div id="modelDataCompound" {if !$lexeme->compound}style="display: none"{/if}>
-
-              <div class="form-group">
-                <label class="col-md-3 control-label">tip</label>
-
-                <div class="col-md-9 form-inline">
-                  <select name="compoundModelType" class="form-control">
-                    {foreach $modelTypes as $mt}
-                      <option value="{$mt->code}"
-                        {if $lexeme->modelType == $mt->code}selected{/if}>
-                        {$mt->code}
-                      </option>
-                    {/foreach}
-                  </select>
-
-                  <input
-                    type="text"
-                    class="form-control"
-                    name="compoundRestriction"
-                    value="{$lexeme->restriction}"
-                    size="5"
-                    placeholder="restricții">
-                </div>
-              </div>
-
               <div class="form-group">
                 <label class="col-md-3 control-label">compus din</label>
 
@@ -332,7 +323,6 @@
                   </button>
                 </div>
               </div>
-
             </div>
 
           </div>
@@ -397,9 +387,16 @@
     </div>
 
     <div class="panel panel-default">
-      <div class="panel-heading">Paradigmă</div>
+      <div class="panel-heading clearfix">Paradigmă
+        <button type="button" class="btn btn-xs btn-primary ld-ext-left pull-right" id="refreshParadigm"> reafișează
+          <div class="ld ld-ring ld-spin-fast"></div>
+        </button>
+      </div>
       <div class="panel-body">
-        {include "paradigm/paradigm.tpl" lexeme=$lexeme}
+        <div id="paradigmContent">
+          {* here we replace what we get from ajax on refreshButton.click or refreshParadigm.click *}
+          {include "paradigm/paradigm.tpl" lexeme=$lexeme}
+        </div>
       </div>
     </div>
 

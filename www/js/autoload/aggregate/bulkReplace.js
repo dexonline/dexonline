@@ -1,8 +1,8 @@
 $(document).ready(function () {
 
-  // toggle checked/unchecked for all checkboxes in list 
+  // toggle checked/unchecked for all checkboxes in list
   // according to secondClass ( structured : unstructured)
-  $('.toggleAll').change(function () {
+  $('.toggleAll').on('click', function () {
     var secondClass = this.className.split(' ')[1];
     var status = $(this).is(':checked');
     toggleAll(secondClass, status);
@@ -11,7 +11,7 @@ $(document).ready(function () {
   });
 
   // counting unchecked objects, changing some fields accordingly
-  $('.objCheckbox').change(function () {
+  $('#bulkReplaceContent').on('click', '.objCheckbox', function () {
     var secondClass = this.className.split(' ')[1];
     var count = countUnchecked('.' + secondClass);
     unchecked[secondClass] = count;
@@ -36,11 +36,11 @@ $(document).ready(function () {
 
   // setting variables
   var objCount = parseInt($('#chng').text());
-  var checkboxes = { structured : $('.objCheckbox.structured').length, 
+  var checkboxes = { structured : $('.objCheckbox.structured').length,
                      unstructured : $('.objCheckbox.unstructured').length};
-  var unchecked = { structured : 0, 
+  var unchecked = { structured : 0,
                     unstructured : 0 };
-  
+
   function countUnchecked(cls) {
     return $('.objCheckbox' + cls).not(':checked').length;
   }
@@ -58,19 +58,19 @@ $(document).ready(function () {
   function hideAmountPreposition(amount) {
     return (amount % 100) < 20;
   }
-  
+
   function disableCheck(secondClass){
-    $('.toggleAll'+'.'+secondClass).prop('disabled', true).removeProp('checked');
+    $('.toggleAll' + '.' + secondClass).prop('disabled', true).removeProp('checked');
   }
-  
+
   // counting checkboxes
-  if (checkboxes['structured'] === 0) { 
-    $('#labelStructured').addClass('disabled'); 
+  if (checkboxes['structured'] === 0) {
+    $('#labelStructured').addClass('disabled');
     disableCheck('structured');
   }
-  if (checkboxes['unstructured'] === 0) { 
-    $('#labelUnstructured').addClass('disabled'); 
+  if (checkboxes['unstructured'] === 0) {
+    $('#labelUnstructured').addClass('disabled');
     disableCheck('unstructured');
   }
-  
+
 });

@@ -8,7 +8,7 @@ ini_set('max_execution_time', '3600');
 $search = Request::getRaw('search');
 $replace = Request::getRaw('replace');
 $target = Request::get('target');
-$sourceId = Request::get('sourceId');
+$sourceId = Request::get('source');
 $limit = Request::get('limit'); // max possible number of objects that will be changed
 $saveButton = Request::has('saveButton');
 
@@ -162,7 +162,7 @@ Smart::assign([
   'objects' => $objects,
   'structuredChanged' => count($structuredIds),
 ]);
-Smart::addResources('admin', 'diff');
+Smart::addResources('admin', 'diff', 'bulkCheckbox');
 Smart::display('aggregate/bulkReplace.tpl');
 
 Log::notice((memory_get_usage() - $startMemory).' bytes used');

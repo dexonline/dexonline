@@ -1,5 +1,5 @@
-.panel-admin .defWrapper {
-  padding: 0 30px 0 3px;
+.panel-admin .defWrapper:not(:last-child) {
+  padding: 0 30px 3px 3px;
   border-bottom: 1px dotted #CCC;
 }
 

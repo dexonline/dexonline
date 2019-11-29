@@ -176,6 +176,16 @@ $links = [
     'text' => 'armonizare lexem-etichetă',
     'privilege' => User::PRIV_ADMIN,
   ],
+  [
+    'url' => Router::link('pageindex/upload'),
+    'text' => 'adaugă index pagini',
+    'privilege' => User::PRIV_ADMIN,
+  ],
+  [
+    'url' => Router::link('pageindex/list'),
+    'text' => 'index pagini',
+    'privilege' => User::PRIV_ADMIN,
+  ],
 ];
 
 // OR of all the above privileges -- that's the mask to view any links
@@ -192,19 +202,25 @@ $wotdAssistantDates = [
   strtotime("+3 month"),
 ];
 
+$sources = new SourceDropdown('getAll', [ 'name' => 'sourceId' ]);
+$modelTypes = new ModelTypeDropdown('getAll', ['id' => 'advSearchModelTypes', 'name' => 'modelTypes[]', 'multiple' => true ]);
+$statuses = new DefinitionStatusDropdown(['selectedValue' => Definition::ST_ACTIVE, 'anyOption' => true]);
+
 Smart::assign([
   'structurists' => User::getStructurists(),
   'reports' => $reports,
   'reportPriv' => $reportPriv,
-  'modelTypes' => ModelType::getAll(),
-  'canonicalModelTypes' => ModelType::loadCanonical(),
+  'modelTypes' => (array)$modelTypes,
   'links' => $links,
   'linkPriv' => $linkPriv,
   'timeAgo' => $timeAgo,
   'wotdAssistantDates' => $wotdAssistantDates,
+  'sources' => (array)$sources,
+  'statuses' => (array)$statuses,
 ]);
+
 Smart::addResources(
-  'admin', 'bootstrap-datepicker', 'modelDropdown', 'select2Dev'
+  'admin', 'bootstrap-datepicker', 'select2Dev'
 );
 Smart::display('aggregate/dashboard.tpl');
 

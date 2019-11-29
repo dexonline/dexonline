@@ -19,14 +19,14 @@
     <div class="form-group">
       <label class="col-sm-2 control-label">sursa</label>
       <div class="col-sm-10">
-        {include "bits/sourceDropDown.tpl" sources=$allModeratorSources skipAnySource=true}
+        {include "bits/sourceDropdown.tpl" id=$sources.vars.id}
       </div>
     </div>
 
     <div class="form-group">
       <label class="col-sm-2 control-label">moderator</label>
       <div class="col-sm-10">
-        {include "bits/moderatorDropDown.tpl" name="editor" moderators=$allOCRModerators}
+        {include "bits/userDropdown.tpl"}
       </div>
     </div>
 

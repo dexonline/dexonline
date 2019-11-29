@@ -1,7 +1,7 @@
 <?php
 User::mustHave(User::PRIV_EDIT | User::PRIV_STRUCT);
 
-$id = Request::get('id');
+$entryId = Request::get('entryId');
 $saveButton = Request::has('saveButton');
 $mergeButton = Request::has('mergeButton');
 $cloneButton = Request::has('cloneButton');
@@ -13,14 +13,14 @@ $deleteTreeId = Request::get('deleteTreeId');
 $delete = Request::has('delete');
 $deleteExt = Request::has('deleteExt');
 
-if ($id) {
-  $e = Entry::get_by_id($id);
+if ($entryId) {
+  $e = Entry::get_by_id($entryId);
   if (!$e) {
     FlashMessage::add('Intrarea nu există.');
     Util::redirectToHome();
   }
   // Keep a copy so we can test whether certain fields have changed
-  $original = Entry::get_by_id($id);
+  $original = Entry::get_by_id($entryId);
 } else {
   $e = Model::factory('Entry')->create();
   $original = Model::factory('Entry')->create();
@@ -59,7 +59,7 @@ if ($associateButton || $moveButton || $dissociateButton) {
                       'success');
   }
 
-  Util::redirect("?id={$e->id}");
+  Util::redirect("/{$e->id}");
 }
 
 if ($mergeButton) {
@@ -68,13 +68,13 @@ if ($mergeButton) {
 
   if (!$other) {
     FlashMessage::add('Intrarea selectată nu există.');
-    Util::redirect("?id={$e->id}");
+    Util::redirect("/{$e->id}");
   } else if (!$e->id) {
     FlashMessage::add('Nu puteți face unificarea la momentul creării.');
     Util::redirectToHome();
   } else if ($other->id == $e->id) {
     FlashMessage::add('Nu puteți unifica intrarea cu ea însăși (serios!).');
-    Util::redirect("?id={$e->id}");
+    Util::redirect("/{$e->id}");
   }
 
   $e->mergeInto($other->id);
@@ -82,7 +82,7 @@ if ($mergeButton) {
   $other->deleteTemporaryLexemes();
 
   FlashMessage::add('Am unificat intrările.', 'success');
-  Util::redirect("?id={$other->id}");
+  Util::redirect("/{$other->id}");
 }
 
 if ($cloneButton) {
@@ -94,18 +94,18 @@ if ($cloneButton) {
   $newe = $e->_clone($cloneDefinitions, $cloneLexemes, $cloneTrees, $cloneStructurist);
   Log::info("Cloned entry {$e->id} ({$e->description}), new id {$newe->id}");
   FlashMessage::add('Am clonat intrarea.', 'success');
-  Util::redirect("?id={$newe->id}");
+  Util::redirect("/{$newe->id}");
 }
 
 if ($createTree) {
-  if (!$id) {
+  if (!$entryId) {
     FlashMessage::add('Nu puteți crea un arbore de sensuri înainte să salvați intrarea.');
     Util::redirectToHome();
   }
   $t = Tree::createAndSave($e->description);
   TreeEntry::associate($t->id, $e->id);
   FlashMessage::add('Am creat un arbore de sensuri.', 'success');
-  Util::redirect("?id={$e->id}");
+  Util::redirect("/{$e->id}");
 }
 
 if ($deleteTreeId) {
@@ -120,7 +120,7 @@ if ($deleteTreeId) {
     $t->delete();
     FlashMessage::add('Am șters arborele.', 'success');
   }
-  Util::redirect("?id={$e->id}");
+  Util::redirect("/{$e->id}");
 }
 
 if ($delete) {
@@ -178,6 +178,8 @@ if ($saveButton) {
     $e->save();
 
     // dissociate old lexemes, trees and tags and associate new ones
+    // TODO - double call here could be avoided by extending the array to multidimensional
+    // TODO - see comment in Lexeme.php (function updateEntries)
     EntryLexeme::update($e->id, $mainLexemeIds, ['main' => true]);
     EntryLexeme::update($e->id, $variantLexemeIds, ['main' => false]);
     TreeEntry::update($treeIds, $e->id);
@@ -193,7 +195,7 @@ if ($saveButton) {
     }
 
     FlashMessage::add('Am salvat intrarea.', 'success');
-    Util::redirect("?id={$e->id}");
+    Util::redirect("/{$e->id}");
   }
 } else {
   // Viewing the page, not saving
@@ -240,7 +242,7 @@ Smart::assign([
   'variantLexemeIds' => $variantLexemeIds,
   'treeIds' => $treeIds,
   'tagIds' => $tagIds,
-  'modelTypes' => $modelTypes,
+  'modelTypes' => (array)$modelTypes,
   'canEdit' => $canEdit,
   'canDelete' => $canDelete,
   'homonyms' => $homonyms,

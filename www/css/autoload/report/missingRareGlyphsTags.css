@@ -1,0 +1,6 @@
+/* TODO - duplicate fields in /css/aggragate/bulkReplace.css */
+.panel-admin .defWrapper:not(:last-child) {
+  padding-right: 30px;
+  padding-bottom: 3px;
+  border-bottom: 1px solid #CCC;
+}

@@ -182,15 +182,7 @@
                 <div class="form-group">
                   <label class="col-xs-4 control-label">modele</label>
                   <div class="col-xs-8">
-                    <select
-                      id="advSearchModelTypes"
-                      name="modelTypes[]"
-                      class="form-control"
-                      multiple>
-                      {foreach $modelTypes as $mt}
-                        <option value="{$mt->code}">{$mt->code}</option>
-                      {/foreach}
-                    </select>
+                    {include "bits/modelTypeDropdown.tpl" id="advSearchModelTypes"}
                   </div>
                 </div>
 
@@ -224,17 +216,14 @@
                 <div class="form-group">
                   <label class="col-xs-4 control-label">starea</label>
                   <div class="col-xs-8">
-                    {include "bits/statusDropDown.tpl"
-                      name="status"
-                      selectedStatus=Definition::ST_ACTIVE
-                      anyOption=true}
+                    {include "bits/definitionStatusDropdown.tpl"}
                   </div>
                 </div>
 
                 <div class="form-group">
                   <label class="col-xs-4 control-label">sursa</label>
                   <div class="col-xs-8">
-                    {include "bits/sourceDropDown.tpl" name="sourceId"}
+                    {include "bits/sourceDropdown.tpl" id="sourceDropdownDefinition"}
                   </div>
                 </div>
 
@@ -303,54 +292,17 @@
     <div class="panel panel-default">
       <div class="panel-heading">
         Modele de flexiune
+        <a title="deschide" data-toggle="collapse" data-target="#panelFlexModels">
+          <i class="glyphicon glyphicon-chevron-down text-big pull-right"></i>
+        </a>
       </div>
 
-      <div class="panel-body">
-
-        <form class="form-inline" action="{Router::link('model/dispatch')}">
-          <div class="form-group">
-            {include "bits/modelDropDown.tpl" modelTypes=$canonicalModelTypes}
-
-            <div class="btn-group">
-              <button type="submit" class="btn btn-default" name="showLexemes">
-                arată toate lexemele
-              </button>
-              <button type="submit" class="btn btn-default" name="editModel">
-                <i class="glyphicon glyphicon-pencil"></i>
-                editează
-              </button>
-              <button type="submit" class="btn btn-default" name="cloneModel">
-                <i class="glyphicon glyphicon-duplicate"></i>
-                clonează
-              </button>
-              <button type="submit" class="btn btn-danger" name="deleteModel">
-                <i class="glyphicon glyphicon-trash"></i>
-                șterge
-              </button>
-            </div>
+      <div id="panelFlexModels" class="panel-collapse collapse">
+        <div class="panel-body">
+          <div id="flexModelsContent">
+            {* content retrieved only if needed with ajax call *}
           </div>
-        </form>
-
-        <div class="voffset2"></div>
-
-        <p>
-          <a href="{Router::link('lexeme/mergeTool')}">unificare plural-singular</a>
-
-          <span class="text-muted">
-            pentru familiile de plante și animale și pentru alte lexeme care apar
-            cu restricția „P” într-o sursă, dar fără restricții în altă sursă.
-          </span>
-        </p>
-
-        <p>
-          <a href="{Router::link('lexeme/bulkLabelSelectSuffix')}">
-            etichetare în masă a lexemelor
-          </a>
-
-          <span class="text-muted">
-            pe baza sufixului
-          </span>
-        </p>
+        </div>
       </div>
     </div>
   {/if}
@@ -359,107 +311,17 @@
     <div class="panel panel-default">
       <div class="panel-heading">
         Înlocuiește în masă
+        <a title="deschide" data-toggle="collapse" data-target="#panelBulkReplace">
+          <i class="glyphicon glyphicon-chevron-down text-big pull-right"></i>
+        </a>
       </div>
 
-      <div class="panel-body">
-        <form
-          class="form-horizontal"
-          action="{Router::link('aggregate/bulkReplace')}"
-          method="post">
-
-          <div class="row">
-
-            <div class="col-md-6">
-
-              <div class="form-group">
-                <label class="control-label col-xs-3">înlocuiește</label>
-                <div class="col-xs-9">
-                  <input class="form-control" type="text" name="search">
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label class="control-label col-xs-3">cu</label>
-                <div class="col-xs-9">
-                  <input class="form-control" type="text" name="replace">
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label class="control-label col-xs-3">în</label>
-                <div class="col-xs-9">
-                  <select class="form-control" name="target">
-                    <option value="1">definiții</option>
-                    <option value="2">sensuri</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-6">
-
-              <div class="form-group">
-                <label class="control-label col-xs-3">sursa</label>
-                <div class="col-xs-9">
-                  {include "bits/sourceDropDown.tpl" name="sourceId"}
-                  <small class="text-muted">
-                    se aplică numai definițiilor
-                  </small>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label class="control-label col-xs-3">rezultate</label>
-                <div class="col-xs-9">
-                  <div class="input-group spinner">
-                    <input type="numeric"
-                      name="limit"
-                      class="form-control"
-                      value="1000"
-                      min="100"
-                      max="1000"
-                      step="100"
-                      tabindex="-1">
-                    <div class="input-group-btn-vertical">
-                      <button class="btn btn-default" type="button" tabindex="-1">
-                        <i class="glyphicon glyphicon-chevron-up"></i>
-                      </button>
-                      <button class="btn btn-default" type="button" tabindex="-1">
-                        <i class="glyphicon glyphicon-chevron-down"></i>
-                      </button>
-                    </div>
-                  </div>
-                  <p class="help-block">Min 100 - Max 1000.</p>
-                </div>
-              </div>
-            </div>
+      <div id="panelBulkReplace" class="panel-collapse collapse">
+        <div class="panel-body">
+          <div id="bulkReplaceContent">
+            {* content retrieved only if needed with ajax call *}
           </div>
-
-          <div class="row">
-
-            <div class="col-md-6">
-
-              <div class="form-group">
-                <div class="col-xs-9 col-xs-offset-3">
-                  <button type="submit" class="btn btn-primary" name="previewButton">
-                    previzualizează
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </form>
-
-        <p class="text-muted">
-          Folosiți cu precauție această unealtă. Ea înlocuiește primul text cu al
-          doilea în toate definițiile, incluzând notele de subsol, făcând diferența între litere mari și mici
-          (case-sensitive) și fără expresii regulate (textul este căutat ca
-          atare). Vor fi modificate maximum 1.000 de definiții. Veți putea vedea
-          lista de modificări propuse și să o acceptați.
-        </p>
-        <p class="text-danger">
-          Evitați pe cât posibil definițiile cu note de subsol și cele structurate, debifându-le.
-        </p>
+        </div>
       </div>
     </div>
   {/if}

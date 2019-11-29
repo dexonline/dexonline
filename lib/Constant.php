@@ -26,6 +26,7 @@ class Constant {
 
     '/ ◊ /' => ' * ',  /* (U+25CA) LOZENGE ◊ */
     '/ ♦ /' => ' ** ', /* (U+2666) BLACK DIAMOND SUIT ♦ */
+    '/ ⧫ /' => ' ** ', /* (U+29EB) BLACK LOZENGE ⧫ */
 
     // hyphens and spaces
     '/(?<!\\\\) /'   => ' ',     /* U+00A0 non-breaking space */
@@ -96,7 +97,7 @@ class Constant {
 
   const HTML_REPLACEMENTS = [
     ' - '  => ' – ',  /* U+2013 */
-    ' ** ' => ' ♦ ',  /* U+2666 */
+    ' ** ' => ' ⧫ ',  /* U+29EB */
     ' * '  => ' ◊ ',  /* U+25CA */
     "\\'"  => '’',    /* U+2019 */
   ];
@@ -209,7 +210,10 @@ class Constant {
       'js' => [ 'third-party/jquery-ui-1.12.1.custom.min.js' ],
     ],
     'bootstrap' => [
-      'css' => [ 'third-party/bootstrap.min.css' ],
+      'css' => [
+        'third-party/bootstrap.min.css',
+        'bootstrap.dex.css',
+       ],
       'js' => [ 'third-party/bootstrap.min.js' ],
     ],
     'jqgrid' => [
@@ -261,7 +265,10 @@ class Constant {
       'js' => [ 'third-party/jquery.Jcrop.min.js' ],
     ],
     'select2' => [
-      'css' => [ 'third-party/select2.min.css' ],
+      'css' => [
+        'third-party/select2.min.css',
+        'select2.dex.css',
+       ],
       'js' => [
         'third-party/select2/select2.min.js',
         'third-party/select2/i18n/ro.js',
@@ -349,8 +356,11 @@ class Constant {
     ],
     'admin' => [
       'css' => [ 'admin.css' ],
-      'js' => [ 'admin.js' ],
       'deps' => [ 'hotkeys' ],
+    ],
+    'pageModal' => [
+      'css' => [ 'pageModal.css' ],
+      'js' => [ 'pageModal.js' ],
     ],
     'sprintf' => [
       'js' => [ 'third-party/sprintf.min.js' ],
@@ -358,6 +368,13 @@ class Constant {
     'scrollTop' => [
       'css' => [ 'scrollTop.css' ],
       'js' => [ 'scrollTop.js' ],
+    ],
+    'ldring' => [
+      'css' => [ 'ldring.css' ],
+      'js' => [ 'ldring.js' ],
+    ],
+    'bulkCheckbox' => [
+      'css' => [ 'bulkCheckbox.css' ],
     ],
   ];
 

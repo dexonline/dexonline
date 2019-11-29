@@ -73,7 +73,7 @@
           <div class="form-group">
             <label class="col-sm-1 control-label">sursa</label>
             <div class="col-sm-11">
-              {include "bits/sourceDropDown.tpl" skipAnySource=true}
+              {include "bits/sourceDropdown.tpl" id=$sources.vars.id}
             </div>
           </div>
         </div>

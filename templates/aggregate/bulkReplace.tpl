@@ -9,14 +9,14 @@
     <div class="panel panel-default">
       <div class="panel-heading clearfix" id="panel-heading">
         {if $target == 1}{* display the toggleAll checkboxes only for definitions *}
-          <div class="btn-group pull-right checkbox-hidden">
+          <div class="btn-group pull-right">
             <label id="labelStructured" class="btn btn-sm btn-primary">
-              <input id="toggleAllStructured" class="toggleAll structured" type="checkbox" checked>
+              <input id="toggleAllStructured" class="toggleAll structured bulk-checkbox" type="checkbox" checked>
               <i class="glyphicon glyphicon-ok"></i>
               Structurate
             </label>
             <label id="labelUnstructured" class="btn btn-sm btn-default">
-              <input id="toggleAllUnstructured" class="toggleAll unstructured" type="checkbox" checked>
+              <input id="toggleAllUnstructured" class="toggleAll unstructured bulk-checkbox" type="checkbox" checked>
               <i class="glyphicon glyphicon-ok"></i>
               Nestructurate
             </label>
@@ -27,31 +27,33 @@
       </div>
 
       <div class="panel-body" id="panel-body">
-        {foreach $objects as $row}
-          {if $target == 1}
-            {$objId=$row->definition->id}
-          {else}
-            {$objId=$row->id}
-          {/if}
+        <div id="bulkReplaceContent" class="voffset3">
+          {foreach $objects as $row}
+            {if $target == 1}
+              {$objId=$row->definition->id}
+            {else}
+              {$objId=$row->id}
+            {/if}
 
-          {if $target == 1}{* display the checkbox only for definitions *}
-            <div class="btn pull-right checkbox-hidden">
-              <label class="btn btn-xs{if $row->definition->structured} btn-primary{else} btn-default{/if}">
-                <input class="objCheckbox{if $row->definition->structured} structured{else} unstructured{/if}"
-                       type="checkbox"
-                       value="{$objId}"
-                       checked>
-                <i class="glyphicon glyphicon-ok"></i>
-              </label>
-            </div>
-          {/if}
+            {if $target == 1}{* display the checkbox only for definitions *}
+              <div class="pull-right">
+                <label class="btn btn-xs{if $row->definition->structured} btn-primary{else} btn-default{/if}">
+                  <input class="objCheckbox{if $row->definition->structured} structured{else} unstructured{/if} bulk-checkbox"
+                        type="checkbox"
+                        value="{$objId}"
+                        checked>
+                  <i class="glyphicon glyphicon-ok"></i>
+                </label>
+              </div>
+            {/if}
 
-          {if $target == 1}
-            {include "bits/definition.tpl" showStatus=1 showFlagTypo=1 showUser=0 showStructuredWrapper=0}
-          {else}
-            {include "bits/meaning.tpl" m=$row}
-          {/if}
-        {/foreach}
+            {if $target == 1}
+              {include "bits/definition.tpl" showStatus=1 showFlagTypo=1 showUser=0}
+            {else}
+              {include "bits/meaning.tpl" m=$row}
+            {/if}
+          {/foreach}
+        </div>
       </div>
 
       <div class="panel-footer">

@@ -11,10 +11,11 @@ class DeleteHtmlizer extends Htmlizer {
 
   // needed to circumvent html breaking
   function closeTags($s) {
-    $reversedTags = strrev(preg_replace('/[^'.$this->tags.']/u', '', $s));
+    $reversedTags = strrev(preg_replace('/[^'.$this->tags.'\\\\]*(?:\\\\.[^'.$this->tags.'\\\\]*)*/u', '', $s));
 
     // recursively removing empty $tags
     $finalTags = preg_replace('/(['.$this->tags.'])([\s]*?|(?R))\1/miUs', '', $reversedTags);
     return $s.$finalTags;
   }
+
 }

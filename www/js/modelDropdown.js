@@ -7,41 +7,54 @@
  * data-all-option="text|value": optional; show an "all" option
  * data-selected="...": optional; model number to select initially
  **/
+var modelNumber;
 
 $(function() {
-  $('select[data-model-type]').change(modelTypeChange).change();
+  $('select[data-model-type]').on('focus', function() {
+    setLastOptions($(this)); // Store some values before change occures
+  }).on('change', function(evt, setPrevious = false) { // setPrevious true from lexeme>edit.js>similarLexemeChange()
+    if (canonicalChanged($(this).find(':selected').data('canonical'))) {
+      updateModelNumberList($(this).val(), setPrevious);
+    } else {
+      modelNumber.val(modelNumber.data('prevNumber'));
+    }
+    updateRestrictionMenu($(this));
+  });
 });
 
-function modelTypeChange() {
-  var span = $(this).closest('*[data-model-dropdown]');
-  updateModelList(span);
+function setLastOptions(select) {
+  select.data('prevCanonical', select.find(':selected').data('canonical'));
+  modelNumber = select.closest('*[data-model-dropdown]').children('select[data-model-number]');
+  modelNumber.data('prevNumber', modelNumber.val());
 }
 
-function updateModelList(span) {
-  var select = span.children('select[data-model-number]');
-  var modelType = span.children('select[data-model-type]').val();
+function canonicalChanged(selectedCanonical) {
+  return selectedCanonical !== $(this).data('prevCanonical');
+}
+
+function updateModelNumberList(modelType, setPrevious) {
   $.get(wwwRoot + 'ajax/getModelsForModelType.php',
         { modelType: modelType },
         null, 'json')
     .success(function(data) {
-      select.empty();
-      var allOption = select.data('allOption');
+      modelNumber.empty();
+      var allOption = modelNumber.data('all-option');
       if (allOption) {
-        var parts = allOption.split('|')
-        select.append($('<option></option>').attr('value', parts[1]).text(parts[0]));
+        modelNumber.append($('<option></option>').attr('value', '').text(allOption));
       }
       $.each(data, function(index, dict) {
         var display = dict.number + ' (' + dict.exponent + ')';
-        select.append($('<option></option>').attr('value', dict.number).text(display));
+        modelNumber.append($('<option></option>').attr('value', dict.number).text(display));
       });
 
-      // Use the stored model number, but only when loading the page
-      if (select.data('selected')) {
-        select.val(select.data('selected'));
-        select.removeAttr('data-selected');
-        select.removeData('selected');
-      }
+      modelNumber.val(setPrevious ? modelNumber.data('prevNumber') : allOption ? '' : data[0]['number']);
     })
     .fail('Nu pot descărca lista de modele.');
+
   return false;
+}
+
+function updateRestrictionMenu(select) {
+  var restrict = select.closest('*[data-model-dropdown]').find('input[name=restriction]');
+  if (restrict.length) { if (typeof loadRestrictionMenu === 'function') { loadRestrictionMenu(select.find(':selected').data('canonical'), restrict.val());} }
 }

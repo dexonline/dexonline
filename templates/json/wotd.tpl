@@ -1,4 +1,3 @@
-{assign var="row" value=$searchResult|default:null}
 {
 "type": "results",
 "day": {$day|@json_encode},
@@ -6,15 +5,15 @@
 "requested": {
   "record": {
   "year": {$year|@json_encode},
-  "word": {$row->definition->lexicon|@json_encode},
+  "word": {$searchResult->definition->lexicon|@json_encode},
   "reason": {$reason|@json_encode},
   "image": {$wotd->getLargeThumbUrl()|@json_encode},
   "definition": {
-    {include "json/definition.tpl"}
+    {include "json/bits/definition.tpl"}
   }
   }
 } ,
-"others": { 
+"others": {
   "record": [
     {foreach $otherYears as $row}
     {

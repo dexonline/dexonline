@@ -1,5 +1,5 @@
 $(function() {
-  
+
   var jcrop_api;
   var coords = new Object();
 
@@ -139,7 +139,7 @@ $(function() {
     if (!$('#tagLabel').val()) {
       var text = $(this).select2('data')[0].text;
 
-      // Matches only the entry, without the description in brackets 
+      // Matches only the entry, without the description in brackets
       text = text.match(/^[^ \(]+/);
 
       $('#tagLabel').val(text);

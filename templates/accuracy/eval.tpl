@@ -122,7 +122,7 @@
       <a class="collapsed"
         data-toggle="collapse"
         href="#editPanel">
-        <i class="pull-right glyphicon glyphicon-chevron-down"></i>
+        <i class="glyphicon glyphicon-chevron-down text-big pull-right"></i>
         {if $mine}
           Editează proiectul
         {else}
@@ -150,11 +150,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label">vizibilitate</label>
             <div class="col-sm-10">
-              {include "bits/dropdown.tpl"
-                name="visibility"
-                data=AccuracyProject::VIS_NAMES
-                selected=$project->visibility
-                disabled=!$mine}
+              {include "bits/accuracyProjectDropdown.tpl"}
             </div>
           </div>
 

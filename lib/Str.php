@@ -395,7 +395,8 @@ class Str {
     $s = trim(preg_replace('/  +/', ' ', $s));
 
     // move $@ outside of ^{num}
-    $s = preg_replace('/([^_])\{([@$ ]*)(\d+)([@$ ]*)\}/', '$2$1{$3}$4', $s);
+    // TODO - if either one of @$ comes right after ^_ this regex is flawed
+    $s = preg_replace('/([\^_])\{([@$ ]*)(\d+)([@$ ]*)\}/', '$2$1{$3}$4', $s);
 
     return $s;
   }

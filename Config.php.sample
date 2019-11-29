@@ -227,6 +227,9 @@ class Config {
   // Do not complain about rare glyphs when this tag is present.
   const TAG_ID_RARE_GLYPHS = 416;
 
+  // Used mainly for tagging modified definitions with bulk reprocess.
+  const TAG_ID_REPROCESS = 0;
+
   /************************** Definition parsers **************************/
 
   // Maps Definition.urlName to ParserClassName (file should reside in lib/parser/)

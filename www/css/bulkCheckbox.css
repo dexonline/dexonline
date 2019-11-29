@@ -1,0 +1,9 @@
+input[type="checkbox"].bulk-checkbox {
+  display:none;
+}
+input[type="checkbox"].bulk-checkbox + .glyphicon {
+  opacity:0.15
+}
+input[type="checkbox"].bulk-checkbox:checked + .glyphicon {
+  opacity:1
+}

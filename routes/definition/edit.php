@@ -183,10 +183,8 @@ $row = new SearchResult();
 $row->definition = $d;
 $row->source = $d->getSource();
 
-$sources = Model::factory('Source')
-         ->where('canModerate', true)
-         ->order_by_asc('displayOrder')
-         ->find_many();
+$sources = new SourceDropdown( 'getAllCanModerate', [ 'selectedValue' => $d->sourceId, 'skipAnySource' => true ]);
+$statuses = new DefinitionStatusDropdown(['selectedValue' => $d->status, 'disabled' => !canEditStatus($d)]);
 
 Smart::assign([
   'isOcr' => $isOcr,
@@ -199,10 +197,10 @@ Smart::assign([
   'tagIds' => $tagIds,
   'typos' => $typos,
   'canEdit' => canEdit($d),
-  'canEditStatus' => canEditStatus($d),
-  'allModeratorSources' => $sources,
+  'sources' => (array)$sources,
+  'statuses' => (array)$statuses,
 ]);
-Smart::addResources('tinymce', 'admin', 'diff', 'frequentObjects', 'select2Dev');
+Smart::addResources('tinymce', 'admin', 'charmap', 'diff', 'frequentObjects', 'select2Dev');
 Smart::display('definition/edit.tpl');
 
 /*************************************************************************/

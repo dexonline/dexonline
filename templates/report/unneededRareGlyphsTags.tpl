@@ -18,7 +18,6 @@
         </button>
       </div>
     {/if}
-    
   </form>
 
 {/block}

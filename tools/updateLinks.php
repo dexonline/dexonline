@@ -50,9 +50,9 @@ function updateEntity($e, $isDefinition)
     fprintf(STDERR, $entityName . ",");
     if ($isDefinition) {
       fprintf(STDERR, "[definiție](" . URL . "definitie/" . $e->id . "),");
-      fprintf(STDERR, "[editează](" . URL . "editare-definitie?definitionId=" . $e->id . ")\n");
+      fprintf(STDERR, "[editează](" . URL . "editare-definitie/" . $e->id . ")\n");
     } else {
-      fprintf(STDERR, "[arbore](". URL . "editare-arbore?id=" . $e->treeId . ")\n");
+      fprintf(STDERR, "[arbore](". URL . "editare-arbore/" . $e->treeId . ")\n");
     }
 
     $originalLink = "|" . $link["original_word"] . "|" . $link["linked_lexeme"] . "|";

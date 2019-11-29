@@ -24,7 +24,7 @@ class EntryDefinition extends Association implements DatedObject {
             $l->delete();
           }
         }
-        
+
         Log::warning("Deleting unassociated entry {$e->id} ({$e->description})");
         $e->delete();
       }

@@ -75,8 +75,10 @@ if ($def) {
 }
 
 $defData = $project->getDefinitionData();
+$visibility = new AccuracyProjectDropdown([ 'selectedValue' => $project->visibility, 'disabled' => !$mine]);
 
 Smart::assign([
+  'visibility' => (array)$visibility,
   'project' => $project,
   'mine' => $mine,
   'def' => $def,

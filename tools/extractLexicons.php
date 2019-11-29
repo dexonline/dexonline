@@ -11,16 +11,16 @@ if (empty($opts) ) {
   print "Are you sure you want to run without options set?  Type 'y' to continue: ";
 
   $handle = fopen ("php://stdin","r");
-	$line = fgets($handle);
-	fclose($handle);
+  $line = fgets($handle);
+  fclose($handle);
 
-	if(strtolower(trim($line)) != 'y'){
-		print "ABORTING!\n";
-		exit;
-	}
+  if(strtolower(trim($line)) != 'y'){
+    print "ABORTING!\n";
+    exit;
+  }
 
-	print "\n";
-	print "OK!, continuing...\n";
+  print "\n";
+  print "OK!, continuing...\n";
 }
 
 if ($dryRun) {

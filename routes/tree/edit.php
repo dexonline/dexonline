@@ -141,7 +141,7 @@ Smart::assign([
   't' => $t,
   'entryIds' => $entryIds,
   'tagIds' => $tagIds,
-  'modelTypes' => $modelTypes,
+  'modelTypes' => (array)$modelTypes,
   // TODO: canEdit if STRUCT_STATUS_IN_PROGRESS || User::can(User::PRIV_EDIT)
   'canEdit' => true,
   'canDelete' => $t->canDelete(),

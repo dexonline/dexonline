@@ -7,6 +7,7 @@ class Core {
     'lib/models',
     'lib/htmlize',
     'lib/parser',
+    'lib/dropdown',
   ];
 
   static function autoload($className) {

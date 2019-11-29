@@ -38,8 +38,16 @@
           </div>
           </div>
         </div>
+        <div class="alert alert-warning" id="message" style="display: none">
         {* empty div for editAbbreviations.php messages *}
-        <div class="alert alert-warning" id="message" style="display: none"></div>
+        </div>
+        <div class="alert alert-warning alert-dismissible" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+          Avertisment! În momentul editării unei abrevieri, prin schimbarea formei acesteia,
+          sunt afectate și celelalte definiții deja moderate din acel dicționar.
+        </div>
         <div class="modal-footer">
           <div class="row">
             <div class="col-sm-4 col-sm-offset-4">

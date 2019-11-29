@@ -1,25 +1,29 @@
 $(function() {
-
   var stem = null;
 
   var lexemeSourceOptions = {
-    ajax: { url: wwwRoot + 'ajax/getSources.php' },
+    ajax: { url: wwwRoot + 'ajax/getSources.php', delay: 500, },
     minimumInputLength: 1,
     placeholder: 'surse care atestă flexiunea',
     width: '100%',
   };
   var similarLexemeOptions = {
-    ajax: { url: wwwRoot + 'ajax/getLexemes.php' },
+    ajax: { url: wwwRoot + 'ajax/getLexemes.php', delay: 500, },
     minimumInputLength: 1,
     placeholder: 'sau indicați un lexem similar',
     width: '250px',
   };
   var fragmentOptions = {
-    ajax: { url: wwwRoot + 'ajax/getLexemes.php' },
+    ajax: { url: wwwRoot + 'ajax/getLexemes.php', delay: 500, },
     minimumInputLength: 1,
     placeholder: 'fragment',
     width: '180px',
   };
+
+  // these needs modelDropdown
+  var modelTypeDropdown = $('select[name="modelType"]');
+  var modelNumberDropdown = $('select[name="modelNumber"]');
+  var restriction = $('input[name=restriction]');
 
   function init() {
     stem = $('#stem').detach();
@@ -45,7 +49,7 @@ $(function() {
       .select2(similarLexemeOptions)
       .on('change', similarLexemeChange);
 
-    $('input[name="compound"]').click(compoundToggle);
+    $('input[name="compound"]').click(function() { compoundToggle(this.checked);});
     $('#addFragmentButton').click(addFragment);
     $('#autoFragmentButton').click(autoFragment);
     $('#fragmentContainer').on('click', '.capitalized', capitalizedToggle);
@@ -55,39 +59,66 @@ $(function() {
 
     initSelect2('.fragment', 'ajax/getLexemesById.php', fragmentOptions);
 
+    $("#refreshButton, #refreshParadigm").click(refreshParadigm);
+
+    // event will not bubble up to document
+    // we  keep the form unsubmitted when alt+r from hotkeys.js is pressed
+    $("button[name=refreshButton]").click(function(event) { event.preventDefault(); });
+
+    $.getScript(wwwRoot + "js/restrictionMenu.js")
+      .done(function() { loadRestrictionMenu(modelTypeDropdown.find(':selected').data('canonical'), restriction.val()); })
+      .fail(function() { alert("Nu pot descărca scriptul."); })
   }
 
   function saveEverything() {
     // allow disabled selects to submit (they should have been readonly,
     // not disabled, but Select2 4.0 doesn't use readonly).
     $('input[name="stopWord"]').prop('disabled', false);
-    $('select[name="modelType"]').prop('disabled', false);
-    $('select[name="modelNumber"]').prop('disabled', false);
+    modelTypeDropdown.prop('disabled', false);
+    modelNumberDropdown.prop('disabled', false);
   }
 
+  // this needs modelDropdown.js to be loaded
   function similarLexemeChange() {
-    var lexemeId = $(this).find('option:selected').val();
-    var url = wwwRoot + 'ajax/getLexemeInfo.php?id=' + lexemeId;
-    $.get(url)
-      .done(function(data) {
-        $('select[name="modelType"]').val(data.modelType);
-        $('select[name="modelNumber"]').data('selected', data.modelNumber);
-        updateModelList($('*[data-model-dropdown]'));
-        $('input[name="restriction"]').val(data.restriction);
+    formData = {
+      'lexemeId' : $(this).val(),
+      'tagIds' : $('#tagIds option:selected').map(
+        function() { return $(this).val(); }
+        ).get(),
+    };
 
-        // copy part-of-speech tags (skip already existing ones)
-        $.each(data.posTags, function(index, e) {
+    formData;
+    $.ajax({
+      type: "POST",
+      isLocal: false,
+      url: wwwRoot + "ajax/getLexemeInfo.php",
+      data: formData,
+      dataType: "json",
+      success: function(response) {
+        $('input[name=restriction]').val(response.restriction);
+        modelTypeDropdown.trigger('focus');
+        modelNumberDropdown.data('prevNumber', response.modelNumber);
+        modelTypeDropdown.val(response.modelType).trigger('change', true);
+
+        $('#tagIds').empty();
+        $.each(response.posTags, function(index, e) {
           if (!$("#tagIds option[value='" + e.id + "']").length) {
             $('#tagIds').append(new Option(e.text, e.id, true, true));
           }
         });
         $('#tagIds').trigger('change');
-      });
+      },
+      error: function() { alert("Nu pot descărca modelul de lexem.") },
+      timeout: 300000,
+    });
+
   }
 
-  function compoundToggle() {
+  function compoundToggle(status) {
     $('#modelDataSimple').slideToggle();
     $('#modelDataCompound').slideToggle();
+    modelNumberDropdown.animate({width: 'toggle'}, 200);
+    $('#tip').text("tip" + (status ? "" : " + număr"));
   }
 
   function capitalizedToggle() {
@@ -155,7 +186,7 @@ $(function() {
                 .find('select[name="partIds[]"]')
                 .val();
     if (fragmId) {
-      $(location).attr('href', wwwRoot + "editare-lexem?lexemeId=" + fragmId);
+      $(location).attr('href', wwwRoot + "editare-lexem/" + fragmId);
     }
   }
 
@@ -175,6 +206,48 @@ $(function() {
         .toggleClass('btn-default btn-warning');
     });
   }
+
+  function refreshParadigm() {
+
+    var formData = $('#paradigmOptions *[name]').serializeArray();
+    // gathering other ingredients
+    //var lf = {'name': 'lexemeForm', 'value' :  $('#lexemeForm').val()};
+    formData.push({'name': 'lexemeForm', 'value' :  $('#lexemeForm').val()});
+    if ($('input[name=needsAccent]').is(':checked')) {
+      //var na = {'name': 'needsAccent', 'value' :  "1"};
+      formData.push({'name': 'needsAccent', 'value' :  "1"});
+    }
+    $.merge(formData, $('#tagIds').serializeArray())
+
+    $.ajax({
+      type: "POST",
+      context: $(this),
+      isLocal: true,
+      url: wwwRoot + "ajax/getParadigm.php",
+      data: formData,
+      dataType: "html",
+      success: function(response) {
+        $('#paradigmContent').html(response);
+      },
+      error: function() { alert("Nu pot descărca paradigma."); },
+      timeout: 30000,
+    });
+  }
+
+  $(document).on('click', '#restrictionMenu.dropdown-menu', function (e) {
+    e.stopPropagation();
+  });
+
+  $('#restrictionMenu').on('click', '#constraintAccept', function (e) {
+    var b = $('#restrictionMenu :checkbox:checked')
+    .map(function() {
+      return this.value;
+    })
+    .get()
+    .join('');
+    $('input[name=restriction]').val(b);
+    $('#load.dropdown-toggle').dropdown('toggle');
+  });
 
   init();
 });

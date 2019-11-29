@@ -1,18 +1,15 @@
 {$showFootnotes=$showFootnotes|default:true}
-{$showStructuredWrapper=$showStructuredWrapper|default:false}
 {$showTypos=$showTypos|default:false}
 
-{$def=$row->definition}
 {$numDeps=count($row->dependants)}
 
 <div class="
   defWrapper
-  {if $def->structured && $showStructuredWrapper}defStructuredWrapper{/if}
   {if $numDeps}hasDependants{/if}
   ">
   <p>
     <span class="def" title="Clic pentru a naviga la acest cuvânt">
-      {HtmlConverter::convert($def)}
+      {HtmlConverter::convert($row->definition)}
     </span>
     {foreach $row->tags as $t}
       {include "bits/tag.tpl"}
@@ -20,7 +17,7 @@
   </p>
 
   {if $showFootnotes}
-    {include "bits/footnotes.tpl" footnotes=$def->getFootnotes()}
+    {include "bits/footnotes.tpl" footnotes=$row->definition->getFootnotes()}
   {/if}
   {include "bits/definitionMenu.tpl"}
 

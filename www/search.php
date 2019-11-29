@@ -412,6 +412,8 @@ if ($adult) {
   Util::hideThirdPartyBanners();
 }
 
+$sources = new SourceDropdown('getAll', [ 'submitValue' => 'urlName', 'selectedValue' => $sourceUrlName ]);
+
 Smart::assign([
   'entries' => $entries,
   'lexemes' => $lexemes,
@@ -428,6 +430,7 @@ Smart::assign([
   'allDefinitions' => $all,
   'showWotd' => $showWotd,
   'pageType' => 'search',
+  'sources' => (array)$sources,
 ]);
 if ($text || $sourceId) {
   // must show the advanced search menu regardless of preference

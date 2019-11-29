@@ -3,34 +3,34 @@
     <h4>{t}follow us on{/t}</h4>
     <ul class="list-inline">
       <li>
-      	<a href="https://blog.dexonline.ro">
-      		<img
+        <a href="https://blog.dexonline.ro">
+          <img
             src='./img/svg/blog.svg'
             width='32'
             height='32'
             alt="{t}Blog icon{/t}"
             title="{t}Follow our blog{/t}">
-      	</a>
+        </a>
       </li>
       <li>
-      	<a href="https://www.facebook.com/groups/comunitatea.dexonline/">
-      		<img
+        <a href="https://www.facebook.com/groups/comunitatea.dexonline/">
+          <img
             src='./img/svg/facebook.svg'
             width='32'
             height='32'
             alt="{t}Facebook icon{/t}"
             title="{t}Follow us on Facebook{/t}">
-      	</a>
+        </a>
       </li>
       <li>
-      	<a href="https://twitter.com/DexOnlineRo">
-      		<img
+        <a href="https://twitter.com/DexOnlineRo">
+          <img
             src='./img/svg/twitter.svg'
             width='32'
             height='32'
             alt="{t}Twitter icon{/t}"
             title="{t}Follow us on Twitter{/t}">
-      	</a>
+        </a>
       </li>
     </ul>
   </div>

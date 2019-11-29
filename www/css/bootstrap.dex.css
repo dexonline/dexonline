@@ -1,0 +1,19 @@
+/* Overrides for bootstrap */
+.navbar {
+  margin-bottom: 0;
+}
+
+/*body.search section.search,
+body.other section.search {
+  margin-top: 20px;
+}*/
+
+.glyphicon-key:before {
+  font-family: 'Glyphicons Halflings';
+  content: "\1f511";
+}
+
+.glyphicon-door:before {
+  font-family: 'Glyphicons Halflings';
+  content: "\1f6aa";
+}

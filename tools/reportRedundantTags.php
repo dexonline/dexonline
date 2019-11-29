@@ -43,11 +43,11 @@ foreach ($tags as $t) {
       foreach ($objects as $o) {
         switch ($o->objectType) {
           case ObjectTag::TYPE_LEXEME:
-            $url = "https://dexonline.ro/editare-lexem?lexemeId={$o->objectId}";
+            $url = "https://dexonline.ro/editare-lexem/{$o->objectId}";
             break;
           case ObjectTag::TYPE_MEANING:
             $m = Meaning::get_by_id($o->objectId);
-            $url = "https://dexonline.ro/editare-arbore?id={$m->treeId}";
+            $url = "https://dexonline.ro/editare-arbore/{$m->treeId}";
             break;
           default:
             die("Not sure how to fix object of type {$o->objectType}\n");

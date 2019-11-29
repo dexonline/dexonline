@@ -42,6 +42,16 @@ class User extends BaseObject {
       ->find_many();
   }
 
+  static function getModerators($includeUserId = 0) {
+    if (!$includeUserId) {
+      $includeUserId = null; // prevent loading the Anonymous user (id = 0)
+    }
+    return Model::factory('User')
+      ->where_raw('(moderator & ?) or (id = ?)', [self::PRIV_EDIT, $includeUserId])
+      ->order_by_asc('nick')
+      ->find_many();
+  }
+
   // If the user does not have at least one privilege from the mask, redirect to the home page.
   static function mustHave($priv) {
     if (!self::can($priv)) {

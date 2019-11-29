@@ -263,6 +263,16 @@ class Router {
       'en_US.utf8' => 'inflection-model',
       'ro_RO.utf8' => 'model-flexiune',
     ],
+    
+    // pageindex - for dictionaries with scanned images
+    'pageindex/list' => [
+      'en_US.utf8' => 'pageindex',
+      'ro_RO.utf8' => 'pageindex',
+    ],
+    'pageindex/upload' => [
+      'en_US.utf8' => 'upload-pageindex',
+      'ro_RO.utf8' => 'incarca-pageindex',
+    ],
 
     // simple - pages that use (almost) no object models at all
     'simple/contact' => [
@@ -385,25 +395,32 @@ class Router {
   // file => list of parameters expected in the URL (none by default)
   const PARAMS = [
     'article/view' => [ 'title' ],
+    'lexeme/edit' => [ 'lexemeId' ],
     'definition/edit' => [ 'definitionId' ],
+    'entry/edit' => [ 'entryId' ],
+    'tree/edit' => [ 'treeId' ],
     'helpers/goto' => [ 'key' ],
-    'lexeme/random' => [ 'count', 'skin' ],
+    'lexeme/random' => [ 'count', 'format' ], // TODO - removed 'skin' from 2-nd position, as it looked unused
     'model/list' => [ 'modelType' ],
     'model/view' => [ 'model' ],
+    'model/listLexemes' => [ 'modelType', 'modelNumber' ],
     'source/list' => [ 'highlightSourceId' ],
     'wotd/archive' => [ 'year', 'month' ],
-    'wotd/random' => [ 'count', 'skin' ],
+    'wotd/random' => [ 'count', 'skin' ], // TODO - 'skin' from 2-nd position, looks unused
     'wotd/view' => [ 'year', 'month', 'day', 'format' ],
     'wotm/view' => [ 'year', 'month', 'format' ],
     'user/view' => [ 'nick' ],
   ];
 
   const PARAMS_REGEX = [
-    'wotd/view' => [ 
-      'regex' => '/^(?:(\d{4})(?:\/)(\d{2})(?:\/)(\d{2}))?(?:\/)?(xml|json)?$/', 
+    'wotd/view' => [
+      'regex' => '/^(?:(\d{4})(?:\/)(\d{2})(?:\/)(\d{2}))?(?:\/)?(xml|json)?$/',
     ],
-    'wotm/view' => [ 
-      'regex' =>'/^(?:(\d{4})(?:\/)(\d{2}))?(?:\/)?(xml|json)?$/', 
+    'wotm/view' => [
+      'regex' =>'/^(?:(\d{4})(?:\/)(\d{2}))?(?:\/)?(xml|json)?$/',
+    ],
+    'lexeme/random' => [
+      'regex' => '/^(\d{1,})?(?:\/)?(xml|json)?$/',
     ],
   ];
 

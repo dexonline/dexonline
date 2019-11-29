@@ -17,17 +17,8 @@ if ($saveButton) {
   Util::redirectToSelf();
 }
 
-if (User::can(User::PRIV_VIEW_HIDDEN)) {
-  $sources = Source::getAll();
-} else {
-  $sources = Model::factory('Source')
-    ->where('hidden', false)
-    ->order_by_asc('displayOrder')
-    ->find_many();
-}
-
 Smart::assign([
-  'src' => $sources,
+  'src' => Source::getAll(),
   'highlightSourceId' => $highlightSourceId,
   'editable' => User::can(User::PRIV_ADMIN),
 ]);

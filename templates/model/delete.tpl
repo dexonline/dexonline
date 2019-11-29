@@ -28,7 +28,7 @@
       {include "bits/lexemeName.tpl" lexeme=$l}
       <small class="text-muted">({$l->modelType}{$l->modelNumber})</small>
       &nbsp;&nbsp;
-      <a href="{Router::link('lexeme/edit')}?lexemeId={$l->id}">editează</a>
+      <a href="{Router::link('lexeme/edit')}/{$l->id}">editează</a>
       <br>
     {/foreach}
     <br>

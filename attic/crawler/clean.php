@@ -6,9 +6,9 @@
 require_once __DIR__ . '/../lib/Core.php';
 
 function printUsage() {
-	echo "::Usage::" . PHP_EOL . "php clean.php [ -c | --crawler] [ -d | --diacritics]" . PHP_EOL;
-	flush();
-	exit();
+  echo "::Usage::" . PHP_EOL . "php clean.php [ -c | --crawler] [ -d | --diacritics]" . PHP_EOL;
+  flush();
+  exit();
 }
 
 if (count($argv) == 1) printUsage();
@@ -21,19 +21,19 @@ $db->beginTransaction();
 if ($argv[1] == '--crawler' || $argv[1] == '-c') {
 
 
-	function removeFiles($regexPath) {
+  function removeFiles($regexPath) {
 
-		exec("rm -rf $regexPath");
-	}
+    exec("rm -rf $regexPath");
+  }
 
-	try {
+  try {
 
-		// șterge toate fișierele salvate
-		removeFiles('ParsedText/*');
-		removeFiles('RawPage/*');
+    // șterge toate fișierele salvate
+    removeFiles('ParsedText/*');
+    removeFiles('RawPage/*');
 
 
-		echo "files deleted\n";
+    echo "files deleted\n";
 
     $db->exec('TRUNCATE Table CrawledPage;');
     $db->exec('TRUNCATE Table Link;');
@@ -41,27 +41,27 @@ if ($argv[1] == '--crawler' || $argv[1] == '-c') {
 
     echo "tables 'Link' and 'CrawledPage' truncated\n";
 
-		echo "The cleaning process was successful\n";
-	}
+    echo "The cleaning process was successful\n";
+  }
 
-	catch(Exception $ex) {
+  catch(Exception $ex) {
 
-		echo "The cleaning process encountered a problem: " . $ex->getMessage() . "\n";
-	}
+    echo "The cleaning process encountered a problem: " . $ex->getMessage() . "\n";
+  }
 }
 else if ($argv[1] == '--diacritics' || $argv[1] == '-d') {
 
-	try{
-		$db->exec('TRUNCATE Table Diacritics;');
-		$db->exec('TRUNCATE Table FilesUsedInDiacritics;');
+  try{
+    $db->exec('TRUNCATE Table Diacritics;');
+    $db->exec('TRUNCATE Table FilesUsedInDiacritics;');
     $db->commit();
     echo "tables 'Diacritics' and 'FilesUsedInDiacritics' truncated\n";
-		echo "The cleaning process was successful\n";
-	}
-	catch(Exception $ex) {
+    echo "The cleaning process was successful\n";
+  }
+  catch(Exception $ex) {
 
-		echo "The cleaning process encountered a problem: " . $ex->getMessage() . "\n";
-	}
+    echo "The cleaning process encountered a problem: " . $ex->getMessage() . "\n";
+  }
 
 }
 else printUsage(); 

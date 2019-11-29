@@ -276,5 +276,5 @@
   $showDropup &&
   $row->source->hasPageImages &&
   (User::can(User::PRIV_EDIT) || TraineeSource::TraineeCanEditSource(User::getActiveId(), $def->sourceId))}
-  {include "bits/pageModal.tpl"}
+  {include "bits/pageModalFrame.tpl"}
 {/if}

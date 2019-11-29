@@ -5,7 +5,7 @@
 {block "content"}
 
   <h3>{$entries|count} intrări fără lexeme principale</h3>
-  
+
   {include "bits/adminEntryList.tpl"}
 
 {/block}

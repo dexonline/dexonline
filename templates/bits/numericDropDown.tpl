@@ -1,3 +1,4 @@
+{* TODO - seems to be unused *}
 {assign var=selected value=$selected|default:null}
 <select class="form-control" name="{$name}">
   {section name="sectionName" start=$start loop=$end}

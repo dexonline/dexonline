@@ -75,7 +75,7 @@ foreach ($modelTypes as $mt) {
 
 Smart::assign([
   'canonicalModelTypes' => ModelType::loadCanonical(),
-  'modelTypes' => $modelTypes,
+  'modelTypes' => (array)$modelTypes,
   'modelCounts' => $modelCounts,
   'lexemeCounts' => $lexemeCounts,
   'canDelete' => $canDelete,

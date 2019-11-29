@@ -33,40 +33,46 @@
     <input type="hidden" name="x0" value="">
     <input type="hidden" name="y0" value="">
     <input type="hidden" name="side" value="">
-    <input class="btn btn-primary" type="submit" name="submit" value="Salvează">
+    <input id="saveAvatar" class="btn btn-primary" type="submit" name="submit" value="Salvează" disabled='disabled'>
     <a class="btn btn-link" href="{Router::link('user/preferences')}">renunță</a>
   </form>
 
   <script>
-   $(function() {
+    $(function() {
        var jcropOrigWidth, jcropOrigHeight;
 
-       $('#jcropTarget').Jcrop({
-           aspectRatio: 1,
-           keySupport: false,
-           onChange: updateJcropPreview,
-           onSelect: updateJcropPreview,
-       }, function() {
-           var bounds = this.getBounds();
-           jcropOrigWidth = bounds[0];
-           jcropOrigHeight = bounds[1];
-       });
+        $('#jcropTarget').Jcrop({
+            aspectRatio: 1,
+            keySupport: false,
+            onChange: updateJcropPreview,
+            onSelect: enableSaveAvatar,
+        }, function() {
+            var bounds = this.getBounds();
+            jcropOrigWidth = bounds[0];
+            jcropOrigHeight = bounds[1];
 
-       function updateJcropPreview(c) {
-           if (parseInt(c.w) > 0) {
-               var r = 48 / c.w;
-               $('#avatarForm input[name=x0]').val(c.x);
-               $('#avatarForm input[name=y0]').val(c.y);
-               $('#avatarForm input[name=side]').val(c.w);
+        });
 
-               $('#jcropPreview').css({
-                   width: Math.round(r * jcropOrigWidth) + 'px',
-                   height: Math.round(r * jcropOrigHeight) + 'px',
-                   marginLeft: '-' + Math.round(r * c.x) + 'px',
-                   marginTop: '-' + Math.round(r * c.y) + 'px'
-               });
-           }
-       };
-   });
+        function updateJcropPreview(c) {
+            if (parseInt(c.w) > 0) {
+                var r = 48 / c.w;
+                $('#avatarForm input[name=x0]').val(c.x);
+                $('#avatarForm input[name=y0]').val(c.y);
+                $('#avatarForm input[name=side]').val(c.w);
+
+                $('#jcropPreview').css({
+                    width: Math.round(r * jcropOrigWidth) + 'px',
+                    height: Math.round(r * jcropOrigHeight) + 'px',
+                    marginLeft: '-' + Math.round(r * c.x) + 'px',
+                    marginTop: '-' + Math.round(r * c.y) + 'px'
+                });
+            }
+        };
+
+        function enableSaveAvatar(c) {
+          $('#saveAvatar').prop('disabled', false);
+        }
+
+    });
   </script>
 {/block}

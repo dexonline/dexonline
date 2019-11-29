@@ -10,3 +10,20 @@ ul.list-inline {
   display: inline;
   margin-left: 2px;
 }
+
+a .glyphicon-chevron-down {
+  top: -1px;
+}
+
+a .glyphicon-chevron-down {
+  transition: .3s transform ease-in-out;
+}
+a[aria-expanded=true] .glyphicon-chevron-down {
+  transform: rotate(180deg);
+}
+
+.collapsing {
+  -webkit-transition: height .5s ease-in-out;
+  -o-transition: height .5s ease-in-out;
+  transition: height .5s ease-in-out;
+}

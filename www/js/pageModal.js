@@ -4,17 +4,16 @@ $(function() {
   var volume;
   var page;
   var word;
-  var urlPattern;
+  var link;
+  var selects;
 
   function init() {
     // move the modal outside of any tabs
     $('#pageModal').appendTo('body');
 
-    $('#pageModal').on('shown.bs.modal', modalShown);
+    $('#pageModal').on('show.bs.modal', modalShow);
+    //$('#pageModal').on('shown.bs.modal', modalShown);
     $('#pageModal').on('hidden.bs.modal', modalHidden);
-    $('.prevPage').click(prevPageClick);
-    $('.nextPage').click(nextPageClick);
-    $('.pageForWord').keypress(pageForWordKeypress);
 
     // We need tabindex="-1" on the modal so that it closes when we press Escape,
     // but that makes us unable to type in the select2 within the modal.
@@ -23,18 +22,42 @@ $(function() {
     $.fn.modal.Constructor.prototype.enforceFocus = $.noop;
   }
 
-  function modalShown(event) {
+  function modalShow(event) {
+    link = $(event.relatedTarget); // link that triggered the modal
+
+    $.ajax({
+      type: "POST",
+      url: wwwRoot + "ajax/getPageModalContent.php",
+      dataType: "html",
+      success: function (response)
+      {
+        $('#pageModal .modal-dialog').html(response);
+        selects = $('#pageModal select');
+        contentDisplay();
+      }
+    });
+
+  }
+
+  function contentDisplay() {
+    $('.prevPage').click(prevPageClick);
+    $('.nextPage').click(nextPageClick);
+    $('.pageForWord').keypress(pageForWordKeypress);
+
+    selects.select2({
+      templateResult: formatSource,
+      templateSelection: formatSource,
+    });
+
     $(document).bind('keydown', 'left', prevPageClick);
     $(document).bind('keydown', 'right', nextPageClick);
 
-    var link = $(event.relatedTarget); // link that triggered the modal
     sourceId = link.attr('data-sourceId');
     word = link.attr('data-word');
     volume = link.attr('data-volume');
     page = link.attr('data-page');
-    urlPattern = link.attr('url-pattern');
 
-    $('#pageModal .sourceDropDown').val(sourceId).trigger('change');
+    //$('#pageModal .sourceDropdown').val(sourceId).trigger('change');
 
     if (volume === 0 || page === 0) {
       getPageVolume();
@@ -46,6 +69,7 @@ $(function() {
   function modalHidden() {
     $(document).unbind('keydown', prevPageClick);
     $(document).unbind('keydown', nextPageClick);
+    $('#pageModal .modal-dialog').html('');
   }
 
   function prevPageClick() {
@@ -61,7 +85,7 @@ $(function() {
   function pageForWordKeypress(e) {
     if (e.which === 13) {
       word = $(this).val().trim();
-      sourceId = $(this).siblings('.sourceDropDown').val();
+      sourceId = $(this).siblings('.sourceDropdown').val();
 
       if (word) {
         getPageVolume();
@@ -89,7 +113,7 @@ $(function() {
   function loadPage() {
     showLoading();
 
-    $('#pageModal .sourceDropDown').val(sourceId).trigger('change');
+    selects.val(sourceId).trigger('change');
 
     var url = sprintf(URL_PATTERN, sourceId, volume, page);
 

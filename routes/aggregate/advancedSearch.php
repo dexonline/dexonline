@@ -90,7 +90,7 @@ if (!empty($modelTypes)) {
 if ($restrictions) {
   $joinLexeme = true;
   foreach (str_split($restrictions) as $letter) {
-    $q = $q->where_like('l.restriction', "%{$letter}%");
+    $q = $q->where_raw('binary l.restriction like ?', "%{$letter}%");
   }
 }
 

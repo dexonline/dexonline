@@ -13,9 +13,8 @@ $values = ['all', $last->domain];
 
 
 foreach($rows as $obj) {
-
-	array_push($options,$obj->domain);
-	array_push($values,$obj->domain);
+  array_push($options,$obj->domain);
+  array_push($values,$obj->domain);
 }
 
 Smart::assign('values', $values);

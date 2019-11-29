@@ -5,6 +5,7 @@ $widgets = Preferences::getWidgets(User::getActive());
 
 Smart::assign([
   'pageType' => 'home',
+  'cuv' => '',
   'wordsTotal' => Definition::getWordCount(),
   'wordsLastMonth' => Definition::getWordCountLastMonth(),
   'widgets' => $widgets,
@@ -30,10 +31,14 @@ if (!$wotm) {
   $wotm = Model::factory('WordOfTheMonth')->create(); // generic WotM
 }
 $wotmDef = Definition::get_by_id_status($wotm->definitionId, Definition::ST_ACTIVE);
+
+$sources = new SourceDropdown('getAll', [ 'submitValue' => 'urlName' ]);
+
 Smart::assign([
   'thumbUrlM' => $wotm->getMediumThumbUrl(),
   'articleTitle' => $wotm->article,
   'wotmDef' => $wotmDef,
+  'sources' => (array)$sources,
 ]);
 
 Smart::display('index.tpl');

@@ -78,12 +78,141 @@ class Source extends BaseObject implements DatedObject {
       ->find_many();
   }
 
+  /**
+   * Returns sources
+   *
+   * @param function name of function to be called
+   * @param mixed    values from self::SORT_CRITERIA
+   * @return ORMWrapper
+   */
+  function get($function, $sort = self::SORT_DISPLAY) {
+    if (method_exists($this, $function)) {
+      return call_user_func_array(array($this, $function), $sort);
+    }
+
+    return null;
+  }
+
+  /**
+   * Returns all sources a user can see, based on his privilege
+   *
+   * @param mixed values from self::SORT_CRITERIA
+   * @return ORMWrapper
+   */
   static function getAll($sort = self::SORT_DISPLAY) {
-    $query = Model::factory('Source');
+    $query = Model::factory(static::$_table);
+    if (!User::can(User::PRIV_VIEW_HIDDEN)) {
+      $query = $query->where('hidden', false);
+    }
+    self::setSortOrder($query, $sort);
+
+    return $query->find_many();
+  }
+
+  /**
+   * Returns all sources a user can see, based on his privilege
+   *
+   * @param mixed values from self::SORT_CRITERIA
+   * @return ORMWrapper
+   */
+  static function getAllCanModerate($sort = self::SORT_DISPLAY) {
+    $query = Model::factory(static::$_table)
+      ->where('canModerate', true);
+    self::setSortOrder($query, $sort);
+
+    return $query->find_many();
+  }
+
+  /**
+   * Returns all sources that have at least one definition with a typo
+   *
+   * @param mixed values from self::SORT_CRITERIA
+   * @return ORMWrapper
+   */
+  static function getAllForTypos($sort = self::SORT_DISPLAY) {
+    $query = Model::factory(static::$_table)
+      ->table_alias('s')
+      ->select('s.*')
+      ->distinct()
+      ->join('Definition', [ 'd.sourceId', '=', 's.id'], 'd')
+      ->join('Typo', [ 't.definitionId', '=', 'd.id'], 't');
+    self::setSortOrder($query, $sort);
+
+    return $query->find_many();
+  }
+
+  /**
+   * Returns all sources without images
+   *
+   * @param mixed values from self::SORT_CRITERIA
+   * @return ORMWrapper
+   */
+  static function getAllWithoutPageImages($sort = self::SORT_DISPLAY) {
+    $query = Model::factory(static::$_table)
+      ->where('hasPageImages', false);
+    self::setSortOrder($query, $sort);
+
+    return $query->find_many();
+  }
+
+  /**
+   * Returns all sources with images
+   *
+   * @param mixed values from self::SORT_CRITERIA
+   * @return ORMWrapper
+   */
+  static function getAllForPageImages($sort = self::SORT_DISPLAY) {
+    $query = Model::factory(static::$_table)
+      ->where('hasPageImages', true);
+    self::setSortOrder($query, $sort);
+
+    return $query->find_many();
+  }
+
+  /**
+   * Returns all sources that have abbreviations defined
+   *
+   * @param mixed values from self::SORT_CRITERIA
+   * @return ORMWrapper
+   */
+  static function getAllForAbbreviations($sort = self::SORT_DISPLAY) {
+    $query = Model::factory(static::$_table)
+      ->table_alias('s')
+      ->select('s.*')
+      ->distinct()
+      ->join('Abbreviation', [ 'a.sourceId', '=', 's.id'], 'a');
+    self::setSortOrder($query, $sort);
+
+    return $query->find_many();
+  }
+
+  /**
+   * Returns all sources that have at last one definition unmarked with rare glyphs tag
+   *
+   * @param mixed values from self::SORT_CRITERIA
+   * @return ORMWrapper
+   */
+  static function getAllForRareGlyphTags($sort = self::SORT_DISPLAY) {
+    $join = sprintf('(d.id = ot.objectId) and (ot.objectType = %d) and (ot.tagId = %d)',
+      ObjectTag::TYPE_DEFINITION,
+      Config::TAG_ID_RARE_GLYPHS);
+    $query = Model::factory(static::$_table)
+      ->table_alias('s')
+      ->select('s.*')
+      ->distinct()
+      ->join('Definition', [ 'd.sourceId', '=', 's.id'], 'd')
+      ->left_outer_join('ObjectTag', $join, 'ot')
+      ->where_not_equal('d.rareGlyphs', '')
+      ->where_null('ot.id');
+    self::setSortOrder($query, $sort);
+
+    return $query->find_many();
+  }
+
+  private static function setSortOrder(&$query, $sort) {
     foreach (self::SORT_CRITERIA[$sort] as $expr) {
       $query = $query->order_by_expr($expr);
     }
-    return $query->find_many();
   }
 
   static function getBaseGlyphsDisplay() {

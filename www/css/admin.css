@@ -1,22 +1,18 @@
 /* Styles for pages which only admins can see. */
-.navbar {
+/*.navbar {
   margin-bottom: 0;
 }
 
 body.search section.search,
 body.other section.search {
   margin-top: 20px;
-}
+}*/
 
 .panel-admin .defWrapper {
   padding: 0 3px;
   font-size: 1em;
   margin-top: 0;
   margin-bottom: 0.8em;
-}
-
-.defStructuredWrapper {
-  background-color: #f5f7f9;
 }
 
 .select2-container--default

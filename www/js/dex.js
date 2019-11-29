@@ -318,7 +318,8 @@ Romanian.rom_map = {
 };
 
 String.prototype.romanianise = function() {
-  return this.replace('/[^A-Za-z0-9 ]/gu', function(x) { return Romanian.rom_map[x] || x; });
+  return this.toLowerCase().replace(/[^A-Za-z0-9 ]/g, 
+    function(x) { return Romanian.rom_map[x] || x; });
 };
 
 String.prototype.isRomanian = function() {
@@ -375,6 +376,6 @@ function searchClickedWord(event) {
     }
 
     window.location = wwwRoot + 'definitie' + source + '/'
-      + encodeURIComponent(word.romanianise().toLowerCase());
+      + encodeURIComponent(word.romanianise());
   }
 }

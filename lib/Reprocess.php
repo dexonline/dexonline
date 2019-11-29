@@ -19,8 +19,11 @@ class Reprocess {
   private static $defWarnings = []; // here we gather the issues encountered throughout the reprocess
 
   private static $modDefIds = []; // gather all the ID that have been modified for tagging the version
+  private static $pendingDefIds = []; // gather all the ID that have been marked for review
 
   private static $definitions = null;
+
+  private static $sourceName = 'test';
 
   public function readOptions($x, $apostrophes = true) {
 
@@ -49,6 +52,13 @@ class Reprocess {
   } // readOptions()
 
   public function getDefinitionIds($sourceId) {
+    $source = Source::get_by_id($sourceId);
+    if(!$source) {
+      print "No source with the specified ID!".PHP_EOL;
+      die;
+    }
+    self::$sourceName = $source->urlName;
+
     return Model::factory('Definition')
     ->where_equal('sourceId', $sourceId)
     ->where_gt('id', self::START_ID)
@@ -59,19 +69,13 @@ class Reprocess {
 
   } // getDefinitionIds()
 
-  public function saveDefinition() {
-    $saved = $def->save();
-    if ($saved) {
-      $modDef = DefinitionVersion::get_by_definitionId($def->id)
-      ->order_by('createDate', 'desc')
-      ->find_one();
-      ObjectTag::associate(ObjectTag::TYPE_DEFINITION_VERSION, $modDef->id, Config::TAG_ID_REPROCESS);
-    } //if ($saved)
+  public function setModified($defId) {
+    self::$modDefIds[] = $defId;
+  }
 
-  } // saveDefinition()
-
-  public function putApart($defId, $type, $message = null) {
+  public function putApart($defId, $type, $message = null, $pending = false) {
     self::$defWarnings[$type][$defId] =  ' => ' . $message;
+    if ($pending) { self::$pendingDefIds[] = $defId; }
   } // putApart
 
   public function displayWarnings($writeFile = false, $dryRun = false) {
@@ -84,7 +88,7 @@ class Reprocess {
         $warnMessage .= PHP_EOL."[$keyG = " . count($group). "]".PHP_EOL;
 
         foreach ($group as $keyD => $value) { // $keyD id definitionId
-          $modDefIds[] = $keyD;
+
           if (is_array($value)) { // must be ambiguousMatches or htmlizeWarnings
 
             foreach ($value as $match) {
@@ -102,21 +106,40 @@ class Reprocess {
     } //if ($count)
 
     if ($dryRun) { echo $warnMessage; }
-    if ($writeFile) { file_put_contents( Config::TEMP_DIR . DIRECTORY_SEPARATOR . 'delrie.txt', $warnMessage, FILE_APPEND); }
+    if ($writeFile) { file_put_contents( Config::TEMP_DIR . DIRECTORY_SEPARATOR . self::$sourceName . '.txt', $warnMessage, FILE_APPEND); }
 
   } // displayWarnings()
 
-  // Final step is to tag the modified versions of the definition
-  public function associateTags() {
+  // Almost last step to tag the modified versions of definitions
+  public function markReprocessTag() {
     $taggedIds = array_unique(self::$modDefIds);
 
+    $objTag = ObjectTag::TYPE_DEFINITION_VERSION;
+    $tagId = Config::TAG_ID_REPROCESS;
+
     foreach ($taggedIds as $ignored => $defId) {
-      $modDef = DefinitionVersion::get_by_definitionId($defId)
-      ->order_by('createDate', 'desc')
-      ->find_one();
-      ObjectTag::associate(ObjectTag::TYPE_DEFINITION_VERSION, $modDef->id, Config::TAG_ID_REPROCESS);
+      $modDef = Model::factory('DefinitionVersion')
+        ->where_equal('definitionId', $defId)
+        ->order_by_desc('createDate')
+        ->find_one();
+      ObjectTag::associate($objTag, $modDef->id, $tagId);
     }
+    print "A total of " . count($taggedIds) . " versions were tagged with reprocess tag.".PHP_EOL;
 
   } // associateTags()
+
+  // Final step is to mark definitions for review if option -s was set
+  public function markPending() {
+    $pendIds = array_unique(self::$pendingDefIds);
+    $pend = Definition::ST_PENDING;
+
+    foreach ($pendIds as $ignored => $defId) {
+      $pendDef = Definition::get_by_id($defId);
+      $pendDef->status = $pend;
+      $pendDef->save();
+    }
+    print "A total of " . count($pendIds) . " definitions were put in pending state.".PHP_EOL;
+
+  } // markPending()
 
 } // end of class

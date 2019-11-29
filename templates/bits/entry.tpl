@@ -10,7 +10,7 @@
 {if $boxed}<span class="linkBox">{/if}
 {if $editLink}
   <a
-    href="{Router::link('entry/edit')}?id={$entry->id}"
+    href="{Router::link('entry/edit')}/{$entry->id}"
     class="{$editLinkClass}"
     title="editează"
     target="{$target}">

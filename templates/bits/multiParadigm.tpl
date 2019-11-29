@@ -7,7 +7,7 @@
 
     {if User::can(User::PRIV_EDIT + User::PRIV_STRUCT)}
       <div class="pull-right">
-        <a href="{Router::link('entry/edit')}?id={$entry->id}">
+        <a href="{Router::link('entry/edit')}/{$entry->id}">
           <i class="glyphicon glyphicon-pencil"></i>
           editează
         </a>

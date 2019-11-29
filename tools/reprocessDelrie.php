@@ -63,7 +63,7 @@ foreach ($dbResult as $def) {
     if (mb_strlen($lex) > 2) {
       $lex = preg_replace('/[aeiouăâî\s]+/Ui', '', $lex); // strip vowels
       if (mb_strlen($lex) < mb_strlen($lexicon) - 1) { // not really a good test, but anyway
-        $rpr->putApart($def->id, $rpr::WARN_STRESS, $lexicon);
+        $rpr->putApart($def->id, $rpr::WARN_STRESS, $lexicon, true);
       }
     }
   }
@@ -86,7 +86,7 @@ foreach ($dbResult as $def) {
   if (!empty($warningsSanitize)) {
 
     if (isset($warningsSanitize[0][1]['chars'])) {
-      $rpr->putApart($def->id, $rpr::MIXED_ALPH, implode($warningsSanitize[0][1]['chars']));
+      $rpr->putApart($def->id, $rpr::MIXED_ALPH, implode($warningsSanitize[0][1]['chars']), true);
     } else {
       $rpr->putApart($def->id, $rpr::CONVERTED, $warningsSanitize[0][1]['stringTo']);
     }
@@ -98,11 +98,12 @@ foreach ($dbResult as $def) {
     // Finally, put mangled newRep as internalRep in $def
     $def->internalRep = $newRep;
     $modified++;
+    $rpr->setModified($def->id);
 
     list($htmlRep, $ignored) = Str::htmlize($newRep, $def->sourceId, $errors, $warnings);
 
     if (!empty($errors)) {
-      $rpr->putApart($def->id, $rpr::WARN_HTMLIZE, $warnings);
+      $rpr->putApart($def->id, $rpr::WARN_HTMLIZE, $warnings, true);
     }
 
   } else { // or not
@@ -116,7 +117,6 @@ foreach ($dbResult as $def) {
 
   // Woof! Let's rock!
   if (!$dryRun){
-    if ($changeStatus) { $def->status = Definition::ST_PENDING; }
     $saved = $def->save();
   }
 
@@ -127,4 +127,14 @@ print "$count definitions reprocessed, $modified modified." . ($dryRun ? "Warnin
 $rpr->displayWarnings($writeToFile, $dryRun);
 
 // tag last version of definition with TAG_ID_REPROCESS
-if (!$dryRun) { $rpr->associateTags(); }
+if (!$dryRun) { 
+  print "Wait a bit, tagging..." . "\r";
+  $rpr->markReprocessTag(); 
+}
+
+// mark for review
+if ($changeStatus) { 
+  print "Wait a little more, mark pending..." . "\r";
+  $rpr->markPending(); 
+}
+print "FINISHED!" .PHP_EOL;

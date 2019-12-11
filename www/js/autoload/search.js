@@ -15,7 +15,8 @@ $(function() {
       $(this).siblings('.variantParadigm').stop().slideToggle();
     });
 
-    $('a[data-toggle="tab"]').on('shown.bs.tab', updatePermalink);
+    $('a[data-toggle="tab"]').on('click', pushHistory);
+    window.addEventListener('popstate', popHistory);
 
     moveBanner();
   }
@@ -55,18 +56,22 @@ $(function() {
     }
   }
 
-  function updatePermalink(e) {
+  /**
+   * Pushes the anchor's data-permalink URL onto the history stack.
+   */
+  function pushHistory(e) {
     var a = $(e.target);
     var url = a.data('permalink');
-    var title = a.data('permalinkTitle');
 
-    if (url && title) {
-      $('#permalink').removeClass('hidden');
-      $('#permalink a').attr('href', url);
-      $('#permalink a').attr('title', title);
-    } else {
-      $('#permalink').addClass('hidden');
+    if (url) {
+      var href = a.attr('href');
+      history.pushState(href, document.title, url);
     }
+  }
+
+  function popHistory(e) {
+    var href = e.state || '#resultsTab'; // it's null for the original page
+    $('a[href="' + href + '"]').tab('show');
   }
 
   init();

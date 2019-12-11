@@ -26,7 +26,12 @@
 
   <ul class="nav nav-tabs" role="tablist">
     <li role="presentation" {if $tab == Constant::TAB_RESULTS}class="active"{/if}>
-      <a href="#resultsTab" aria-controls="resultsTab" role="tab" data-toggle="tab">
+      <a
+        href="#resultsTab"
+        aria-controls="resultsTab"
+        role="tab"
+        data-toggle="tab"
+        data-permalink="{$definitionLink}">
         {t}results{/t} ({$extra.numResults})
       </a>
     </li>
@@ -38,9 +43,7 @@
           aria-controls="paradigmTab"
           role="tab"
           data-toggle="tab"
-          data-permalink="{$paradigmLink}"
-          data-permalink-title="{t}link to this inflected forms page{/t}"
-        >
+          data-permalink="{$paradigmLink}">
           {$declensionText}
         </a>
       </li>
@@ -53,18 +56,11 @@
           aria-controls="treeTab"
           role="tab"
           data-toggle="tab"
-          data-permalink="{$treeLink}"
-          data-permalink-title="{t}link to this synthesis{/t}">
+          data-permalink="{$treeLink}">
           {t}synthesis{/t} ({count($trees)})
         </a>
       </li>
     {/if}
-
-    <li id="permalink" class="pull-right hidden">
-      <a class="btn btn-primary">
-        <i class="glyphicon glyphicon-link"></i>
-      </a>
-    </li>
   </ul>
 
   <div class="tab-content">

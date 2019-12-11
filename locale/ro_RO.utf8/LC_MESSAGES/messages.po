@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2019-11-28 13:28+0200\n"
-"PO-Revision-Date: 2019-11-28 13:29+0200\n"
+"POT-Creation-Date: 2019-12-11 10:25+0200\n"
+"PO-Revision-Date: 2019-12-11 10:25+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -532,8 +532,8 @@ msgstr ""
 msgid "Show models for"
 msgstr "Arată modelele pentru"
 
-#: templates/games/scrabble.tpl:167 templates/search.tpl:308
-#: templates/search.tpl:316 templates/search.tpl:318
+#: templates/games/scrabble.tpl:167 templates/search.tpl:304
+#: templates/search.tpl:312 templates/search.tpl:314
 msgid "show"
 msgstr "arată"
 
@@ -889,91 +889,83 @@ msgstr "definiție"
 msgid "and paradigm"
 msgstr "și paradigmă"
 
-#: templates/search.tpl:30
+#: templates/search.tpl:35
 msgid "results"
 msgstr "rezultate"
 
-#: templates/search.tpl:42
-msgid "link to this inflected forms page"
-msgstr "legătură către această pagină cu flexiuni"
-
-#: templates/search.tpl:57
-msgid "link to this synthesis"
-msgstr "legătură către această sinteză"
-
-#: templates/search.tpl:58
+#: templates/search.tpl:60
 msgid "synthesis"
 msgstr "sinteză"
 
-#: templates/search.tpl:79
+#: templates/search.tpl:75
 msgid "Definition with ID"
 msgstr "Definiția cu ID-ul"
 
-#: templates/search.tpl:91
+#: templates/search.tpl:87
 msgid "One definition contains all the words"
 msgid_plural "%1 definitions contain all the words"
 msgstr[0] "O definiție conține toate cuvintele căutate"
 msgstr[1] "%1 definiții conțin toate cuvintele căutate"
 msgstr[2] "%1 de definiții conțin toate cuvintele căutate"
 
-#: templates/search.tpl:96 templates/search.tpl:164 templates/search.tpl:205
-#: templates/search.tpl:226 templates/search.tpl:251
+#: templates/search.tpl:92 templates/search.tpl:160 templates/search.tpl:201
+#: templates/search.tpl:222 templates/search.tpl:247
 msgid "(at most %1 shown)"
 msgstr "(cel mult %1 afișate)"
 
-#: templates/search.tpl:99
+#: templates/search.tpl:95
 msgid "No definitions contain all the words"
 msgstr "Nicio definiție nu conține toate cuvintele căutate"
 
-#: templates/search.tpl:105
+#: templates/search.tpl:101
 msgid "The following words were ignored because they are too common:"
 msgstr "Următoarele cuvinte au fost ignorate deoarece sunt prea comune:"
 
-#: templates/search.tpl:121
+#: templates/search.tpl:117
 msgid "There is no entry with the given ID."
 msgstr "Nu există nicio intrare cu ID-ul căutat."
 
-#: templates/search.tpl:131 templates/search.tpl:195
+#: templates/search.tpl:127 templates/search.tpl:191
 msgid "One definition for %2"
 msgid_plural "%1 definitions for %2"
 msgstr[0] "O definiție pentru %2"
 msgstr[1] "%1 definiții pentru %2"
 msgstr[2] "%1 de definiții pentru %2"
 
-#: templates/search.tpl:137 templates/search.tpl:201
+#: templates/search.tpl:133 templates/search.tpl:197
 msgid "No definitions for %1"
 msgstr "Nicio definiție pentru %1"
 
-#: templates/search.tpl:148
+#: templates/search.tpl:144
 msgid "for"
 msgstr "pentru"
 
-#: templates/search.tpl:154
+#: templates/search.tpl:150
 msgid "One result for <strong>%2</strong>"
 msgid_plural "%1 results for <strong>%2</strong>"
 msgstr[0] "Un rezultat pentru <strong>%2</strong>"
 msgstr[1] "%1 rezultate pentru <strong>%2</strong>"
 msgstr[2] "%1 de rezultate pentru <strong>%2</strong>"
 
-#: templates/search.tpl:160 templates/search.tpl:283
+#: templates/search.tpl:156 templates/search.tpl:279
 msgid "No results for <strong>%1</strong>"
 msgstr "Niciun rezultat pentru <strong>%1</strong>"
 
-#: templates/search.tpl:182
+#: templates/search.tpl:178
 msgid "One entry"
 msgid_plural "%1 entries"
 msgstr[0] "O intrare"
 msgstr[1] "%1 intrări"
 msgstr[2] "%1 de intrări"
 
-#: templates/search.tpl:220
+#: templates/search.tpl:216
 msgid "One definition"
 msgid_plural "%1 definitions"
 msgstr[0] "O definiție"
 msgstr[1] "%1 definiții"
 msgstr[2] "%1 de definiții"
 
-#: templates/search.tpl:242
+#: templates/search.tpl:238
 msgid "One definition matches at least two words"
 msgid_plural "%1 definitions match at least two words"
 msgstr[0] "O definiție se potrivește cu cel puțin două din cuvintele căutate"
@@ -981,12 +973,12 @@ msgstr[1] "%1 definiții se potrivesc cu cel puțin două din cuvintele căutate
 msgstr[2] ""
 "%1 de definiții se potrivesc cu cel puțin două din cuvintele căutate"
 
-#: templates/search.tpl:247
+#: templates/search.tpl:243
 msgid "No definitions match at least two words"
 msgstr ""
 "Nicio definiție nu se potrivește cu cel puțin două din cuvintele căutate"
 
-#: templates/search.tpl:256
+#: templates/search.tpl:252
 msgid ""
 "If the results are inadequate, you can look up individual words or you can "
 "search"
@@ -994,30 +986,30 @@ msgstr ""
 "Dacă rezultatele nu sunt mulțumitoare, puteți căuta cuvintele separat sau "
 "puteți căuta"
 
-#: templates/search.tpl:257
+#: templates/search.tpl:253
 msgid "full-text"
 msgstr "în tot textul definițiilor"
 
-#: templates/search.tpl:262
+#: templates/search.tpl:258
 msgid "At most 5 words are allowed. The following words were ignored:"
 msgstr "Sunt permise maximum 5 cuvinte. Următoarele cuvinte au fost ignorate:"
 
-#: templates/search.tpl:277
+#: templates/search.tpl:273
 msgid ""
 "The word <strong>%1</strong> is not in the dictionary. Here are some "
 "suggestions:"
 msgstr ""
 "Cuvântul <strong>%1</strong> nu este în dicționar. Iată câteva sugestii:"
 
-#: templates/search.tpl:303 lib/models/InflectedForm.php:72
+#: templates/search.tpl:299 lib/models/InflectedForm.php:72
 msgid "unrecommended or incorrect form"
 msgstr "formă nerecomandată sau greșită"
 
-#: templates/search.tpl:307 templates/search.tpl:315 templates/search.tpl:319
+#: templates/search.tpl:303 templates/search.tpl:311 templates/search.tpl:315
 msgid "hide"
 msgstr "ascunde"
 
-#: templates/search.tpl:322
+#: templates/search.tpl:318
 msgid "elisions and long verb forms"
 msgstr "forme elidate și forme verbale lungi"
 
@@ -1601,7 +1593,9 @@ msgid "QT, g++ (only under Linux)"
 msgstr "QT, g++ (numai sub Linux)"
 
 #: routes/source/view.php:7
-msgid "No source exists with the given ID"
+#, fuzzy
+#| msgid "No source exists with the given ID"
+msgid "No source exists with the given ID."
 msgstr "Nu există nicio sursă cu ID-ul căutat."
 
 #: routes/wotd/random.php:22

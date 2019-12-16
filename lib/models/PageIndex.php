@@ -3,6 +3,17 @@
 class PageIndex extends BaseObject {
   public static $_table = 'PageIndex';
 
+  static function create($sourceId, $volume, $page, $word, $number, $modUserId) {
+    $a = Model::factory('PageIndex')->create();
+    $a->sourceId = $sourceId;
+    $a->volume = $volume;
+    $a->page = $page;
+    $a->word = $word;
+    $a->number = $number;
+    $a->modUserId = $modUserId;
+    return $a;
+  }
+
   static function lookup($word, $sourceId) {
     $word = str_replace([' ', '-'], '', $word);
     $word = mb_strtolower($word);

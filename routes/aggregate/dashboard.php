@@ -181,6 +181,16 @@ $links = [
     'text' => 'armonizare lexem-etichetă',
     'privilege' => User::PRIV_ADMIN,
   ],
+  [
+    'url' => Router::link('pageIndex/upload'),
+    'text' => 'adaugă indecși de pagină',
+    'privilege' => User::PRIV_ADMIN,
+  ],
+  [
+    'url' => Router::link('pageIndex/list'),
+    'text' => 'indecși de pagină',
+    'privilege' => User::PRIV_ADMIN | User::PRIV_EDIT,
+  ],
 ];
 
 // OR of all the above privileges -- that's the mask to view any links

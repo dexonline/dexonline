@@ -163,7 +163,6 @@ class Medal {
       $medals[$key] = $levelData;
       $levelCnt--;
     }
-
     return $medals;
   }
 

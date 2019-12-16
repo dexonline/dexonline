@@ -264,6 +264,16 @@ class Router {
       'ro_RO.utf8' => 'model-flexiune',
     ],
 
+    // pageIndex
+    'pageIndex/list' => [
+      'en_US.utf8' => 'pageIndex',
+      'ro_RO.utf8' => 'indecși',
+    ],
+    'pageIndex/upload' => [
+      'en_US.utf8' => 'upload-pageIndex',
+      'ro_RO.utf8' => 'incarca-indecși',
+    ],
+
     // simple - pages that use (almost) no object models at all
     'simple/contact' => [
       'en_US.utf8' => 'contact',

@@ -267,11 +267,11 @@ class Router {
     // pageIndex
     'pageIndex/list' => [
       'en_US.utf8' => 'pageIndex',
-      'ro_RO.utf8' => 'indecși',
+      'ro_RO.utf8' => 'indecsi',
     ],
     'pageIndex/upload' => [
       'en_US.utf8' => 'upload-pageIndex',
-      'ro_RO.utf8' => 'incarca-indecși',
+      'ro_RO.utf8' => 'incarca-indecsi',
     ],
 
     // simple - pages that use (almost) no object models at all

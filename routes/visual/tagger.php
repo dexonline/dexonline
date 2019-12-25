@@ -13,6 +13,7 @@ $textYCoord = Request::get('textYCoord');
 $imgXCoord = Request::get('imgXCoord');
 $imgYCoord = Request::get('imgYCoord');
 $addTagButton = Request::has('addTagButton');
+$userId = User::getActiveId();
 
 // Tag the image specified by $fileName. Create a Visual object if one doesn't exist, then redirect to it.
 if ($fileName) {
@@ -42,6 +43,7 @@ if ($addTagButton) {
   $vt->textYCoord = $textYCoord;
   $vt->imgXCoord = $imgXCoord;
   $vt->imgYCoord = $imgYCoord;
+  $vt->userId = $userId;
   $vt->save();
   Log::info("Added tag {$vt->id} ({$vt->label}) to image {$v->id} ({$v->path})");
   Util::redirect("?id={$v->id}");

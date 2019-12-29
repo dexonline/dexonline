@@ -390,7 +390,8 @@ $data = [
 ];
 foreach ($data as $s => $errors) {
   $e = [];
-  Str::reportSanitizationErrors($s, $e);
+  $chars = Str::unicodeExplode($s);
+  Str::reportSanitizationErrors($chars, $e);
   assertEquals($errors, $e);
 }
 

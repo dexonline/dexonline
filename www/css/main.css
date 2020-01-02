@@ -9,6 +9,10 @@ body {
   font-variant-ligatures: no-common-ligatures;
 }
 
+pre {
+  white-space: pre-wrap;
+}
+
 /*********** navbar and its elements ***********/
 
 .navbar-brand > img {

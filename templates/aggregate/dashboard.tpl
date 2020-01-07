@@ -554,6 +554,22 @@
     </div>
   {/if}
 
+  {if User::can(User::PRIV_EDIT)}
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Articole lingvistice
+      </div>
+
+      <div class="panel-body">
+        <form>
+          <button type="submit" class="btn btn-primary" name="syncWikiButton">
+            Sincronizează articolele!
+          </button>
+        </form>
+      </div>
+    </div>
+  {/if}
+
   {if User::can(User::PRIV_WOTD)}
     <div class="panel panel-default">
       <div class="panel-heading">

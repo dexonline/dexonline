@@ -270,7 +270,7 @@ class Str {
   }
 
   // Generic purpose cleanup of a string. This should be true of all columns of all tables.
-  static function cleanup($s, $apostrophes = true) {
+  static function cleanup($s, $apostrophes = true, $doubleQuotes = true) {
     $s = trim($s);
 
     $from = array_keys(Constant::CLEANUP_PATTERNS);
@@ -280,6 +280,12 @@ class Str {
     if ($apostrophes) {
       $from = array_keys(Constant::APOSTROPHE_CLEANUP_PATTERNS);
       $to = array_values(Constant::APOSTROPHE_CLEANUP_PATTERNS);
+      $s = preg_replace($from, $to, $s);
+    }
+
+    if ($doubleQuotes) {
+      $from = array_keys(Constant::DOUBLE_QUOTE_CLEANUP_PATTERNS);
+      $to = array_values(Constant::DOUBLE_QUOTE_CLEANUP_PATTERNS);
       $s = preg_replace($from, $to, $s);
     }
 

@@ -61,7 +61,11 @@ class SyncWiki {
 
         if ($curPage->section) {
           $curPage->fullUrl = $fullUrl;
-          $curPage->wikiContents = Str::cleanup(file_get_contents($pageRawUrl));
+          $contents = file_get_contents($pageRawUrl);
+
+          // leave apostrophes and double quotes alone
+          $curPage->wikiContents = Str::cleanup($contents, false, false);
+
           if ($curPage->wikiContents === false) {
             Log::error("Cannot fetch raw page from $pageRawUrl");
             return false;

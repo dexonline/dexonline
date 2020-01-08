@@ -37,13 +37,6 @@ class Constant {
     // Replace a quotation mark that may look like comma
     '/(?<!\\\\)‚/'   => ',',     /* U+201A SINGLE LOW-9 QUOTATION MARK */
 
-    // Replace all kinds of double quotes with the ASCII ones.
-    // Do NOT alter ″ (double prime, 0x2033), which is used for inch and second symbols.
-    '/(?<!\\\\)“/'   => '"',     /* U+201C LEFT DOUBLE QUOTATION MARK */
-    '/(?<!\\\\)”/'   => '"',     /* U+201D RIGHT DOUBLE QUOTATION MARK */
-    '/(?<!\\\\)„/'   => '"',     /* U+201E DOUBLE LOW-9 QUOTATION MARK */
-    '/(?<!\\\\)‟/'   => '"',     /* U+201F DOUBLE HIGH-REVERSED-9 QUOTATION MARK */
-
     // Replace the ordinal indicator with the degree sign.
     '/(?<!\\\\)º/'   =>  '°',    /* U+00BA => U+00B0 */
 
@@ -58,6 +51,15 @@ class Constant {
     '/(?<!\\\\)´/'   => "'",     /* U+00B4 */
     '/(?<!\\\\)‘/'   => "'",     /* U+2018 */
     '/(?<!\\\\)’/'   => "'",     /* U+2019 */
+  ];
+
+  const DOUBLE_QUOTE_CLEANUP_PATTERNS = [
+    // Replace all kinds of double quotes with the ASCII ones.
+    // Do NOT alter ″ (double prime, 0x2033), which is used for inch and second symbols.
+    '/(?<!\\\\)“/'   => '"',     /* U+201C LEFT DOUBLE QUOTATION MARK */
+    '/(?<!\\\\)”/'   => '"',     /* U+201D RIGHT DOUBLE QUOTATION MARK */
+    '/(?<!\\\\)„/'   => '"',     /* U+201E DOUBLE LOW-9 QUOTATION MARK */
+    '/(?<!\\\\)‟/'   => '"',     /* U+201F DOUBLE HIGH-REVERSED-9 QUOTATION MARK */
   ];
 
   // will use preg_replace for string values, preg_replace_callback for arrays

@@ -54,6 +54,9 @@ assertTransform('Str::cleanup', [], [
   '\\ş ş \\º º' => '\\ş ș \\º °',
 ]);
 
+assertEquals(Str::cleanup('„abcd”'), '"abcd"');
+assertEquals(Str::cleanup('„abcd”', true, false), '„abcd”');
+
 assertTransform('Str::unicodeToLatin', [], [
   'ắčèğýžẮČÈĞÝŽ' => 'acegyzACEGYZ',
 ]);

@@ -79,7 +79,7 @@ $clients = [
   [
     'name' => 'DEX pentru Android',
     'url' => 'http://dex.adrianvintu.com/',
-    'download' => 'https://play.google.com/store/search?q=pub:%22Adrian+Vintu%22',
+    'download' => 'https://play.google.com/store/apps/developer?id=Adrian+Vintu',
     'os' => ['android'],
     'space' => '3 MB',
     'requires' => '',

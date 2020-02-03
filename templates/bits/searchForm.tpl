@@ -11,13 +11,15 @@
         <div class="col-sm-12 col-sm-11">
           <div class="input-group">
             <div class="form-group has-feedback">
-              <input type="text"
-                     class="form-control"
-                     name="cuv"
-                     placeholder="{t}word{/t}"
-                     id="searchField"
-                     value="{$cuv|escape}"
-                     maxlength="50">
+              <input
+                type="text"
+                class="form-control"
+                name="cuv"
+                placeholder="{t}word{/t}"
+                id="searchField"
+                autofocus
+                value="{$cuv|escape}"
+                maxlength="50">
               <span id="searchClear"
                     class="glyphicon glyphicon-remove form-control-feedback">
               </span>

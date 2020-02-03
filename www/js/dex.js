@@ -7,7 +7,7 @@ $(function() {
   $('.def').click(searchClickedWord);
   $('#typoModal').on('shown.bs.modal', shownTypoModal);
 
-  $('#searchField').select();
+  $('#searchField').select().focus();
   $('#searchClear').click(function(){
     $('#searchField').val('').focus();
   });

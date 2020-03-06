@@ -7,10 +7,12 @@
     <h3>Donează</h3>
 
     <p>
-      Dacă ați ajuns pe această pagină, probabil că știți deja ce este <i>dexonline</i>
-      (dacă nu, puteți afla din <a href="https://wiki.dexonline.ro/wiki/Informa%C8%9Bii"
-                                   target="_blank">pagina de informații</a>).
-      Puteți contribui la dezvoltarea proiectului <i>dexonline</i> și prin donarea unei sume de bani.
+      Dacă ai ajuns pe această pagină, probabil că știi deja ce este <i>dexonline</i>
+      (dacă nu, poți afla din
+      <a
+        href="https://wiki.dexonline.ro/wiki/Informa%C8%9Bii"
+        target="_blank">pagina de informații</a>). Poți contribui la
+      dezvoltarea proiectului <i>dexonline</i> și prin donarea unei sume de bani.
     </p>
 
     {if $haveEuPlatescCredentials}
@@ -98,8 +100,8 @@
       </div>
 
       <div class="clearfix"></div>
-      {include "bits/doneaza-la-ce-folosim.tpl"}
       {include "bits/doneaza-doi-la-suta.tpl"}
+      {include "bits/doneaza-la-ce-folosim.tpl"}
       {include "bits/doneaza-firme.tpl"}
       {include "bits/doneaza-rasplata.tpl"}
   </div>

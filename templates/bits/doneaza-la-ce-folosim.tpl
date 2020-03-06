@@ -2,10 +2,7 @@
 
 <p>Avem multe idei pentru a dezvolta site-ul și prea puțin timp să ne ocupăm voluntar de ele. Echipa noastră constă din șapte oameni și toți suntem
   voluntari. Aceasta înseamnă că lucrăm cu mare plăcere, dar trecem <i>dexonline</i> pe planul doi oricând apar nevoi mai urgente în viețile
-  noastre. Donațiile voastre vor ajuta <i>Asociația dexonline</i> să dezvolte proiectul mai repede. De exemplu:</p>
-
-
-
+  noastre. Donația ta va ajuta <i>Asociația dexonline</i> să dezvolte proiectul mai repede. De exemplu:</p>
 
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
   <div class="panel panel-default">
@@ -192,9 +189,13 @@
 
         <p>
           <strong>Motiv:</strong>
-          Lumea iubește concursurile de aptitudini, iar cele lingvistice nu fac excepție. Pentru <i>dexonline,</i> organizarea de
-          concursuri ar fi un prilej bun de a stimula oamenii să învețe lucruri noi și de a-i ține aproape de site. De exemplu, <a href="{Router::link('wotd/view')}">cuvântul zilei</a> este ales în fiecare zi în legătură cu un eveniment notabil din acea zi (în anul curent sau în anii
-          trecuți). Voi câte din aceste evenimente puteți identifica?
+          Lumea iubește concursurile de aptitudini, iar cele lingvistice nu
+          fac excepție. Pentru <i>dexonline,</i> organizarea de concursuri ar
+          fi un prilej bun de a stimula oamenii să învețe lucruri noi și de
+          a-i ține aproape de site. De exemplu, <a href="{Router::link('wotd/view')}">cuvântul zilei</a>
+          este ales în fiecare zi în legătură cu un eveniment notabil din acea
+          zi (în anul curent sau în anii trecuți). Tu câte din aceste
+          evenimente poți identifica?
         </p>
       </div>
     </div>

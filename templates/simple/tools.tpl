@@ -150,11 +150,10 @@
     </li>
 
     <li>
-      {$url="{Config::STATIC_URL}download/dex-context-search.xml"}
-      {t 1=$url 2="Radu George Mureșan"}
-      A <a href="%1">Firefox plugin</a> for right-click searches. Save the file
-      in the <tt>searchplugins/</tt> directory of Firefox and restart Firefox.
-      Thanks to %2.{/t}
+      {t 1="https://addons.mozilla.org/ro/firefox/addon/dexonline/"}
+      A <a href="%1">Firefox add-on</a> for dexonline by AdaKaleh. Allows
+      right-click searches and registers a one-click search engine.
+      {/t}
     </li>
 
     <li>

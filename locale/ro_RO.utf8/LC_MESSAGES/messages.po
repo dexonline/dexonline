@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2019-12-11 10:25+0200\n"
-"PO-Revision-Date: 2019-12-11 10:25+0200\n"
+"POT-Creation-Date: 2020-03-12 18:28+0200\n"
+"PO-Revision-Date: 2020-03-12 18:30+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2.4\n"
+"X-Generator: Poedit 2.3\n"
 "X-Poedit-Basepath: ../../..\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n==0 || (n!=1 && n%100>=1 && n"
 "%100<=19) ? 1 : 2);\n"
@@ -255,23 +255,23 @@ msgstr "Forma <strong>%1</strong> există în LOC %2."
 msgid "The form <strong>%1</strong> does not exist in LOC %2."
 msgstr "Forma <strong>%1</strong> nu există în LOC %2."
 
-#: templates/bits/searchForm.tpl:17
+#: templates/bits/searchForm.tpl:18
 msgid "word"
 msgstr "cuvânt"
 
-#: templates/bits/searchForm.tpl:28
+#: templates/bits/searchForm.tpl:30
 msgid "search"
 msgstr "caută"
 
-#: templates/bits/searchForm.tpl:35 templates/games/scramble.tpl:29
+#: templates/bits/searchForm.tpl:37 templates/games/scramble.tpl:29
 msgid "options"
 msgstr "opțiuni"
 
-#: templates/bits/searchForm.tpl:51
+#: templates/bits/searchForm.tpl:53
 msgid "Full-text search"
 msgstr "Caută în tot textul definițiilor"
 
-#: templates/bits/searchForm.tpl:58
+#: templates/bits/searchForm.tpl:60
 msgid "help"
 msgstr "ajutor"
 
@@ -1245,25 +1245,24 @@ msgid "A <a href=\"%1\">Chrome extension</a> for right-click searches."
 msgstr ""
 "O <a href=\"%1\">extensie de Chrome</a> pentru căutarea cu clic-dreapta."
 
-#: templates/simple/tools.tpl:154
+#: templates/simple/tools.tpl:153
 msgid ""
-"A <a href=\"%1\">Firefox plugin</a> for right-click searches. Save the file "
-"in the <tt>searchplugins/</tt> directory of Firefox and restart Firefox. "
-"Thanks to %2."
+"A <a href=\"%1\">Firefox add-on</a> for dexonline by AdaKaleh. Allows right-"
+"click searches and registers a one-click search engine."
 msgstr ""
-"Un <a href=\"%1\">modul de Firefox</a> pentru căutarea cu clic-dreapta."
-"Salvați fișierul în directorul <tt>searchplugins/</tt> al aplicației Firefox "
-"și reporniți Firefox. Mulțumiri lui %2."
+"O <a href=\"%1\">extensie de Firefox</a> pentru dexonline scrisă de "
+"AdaKaleh. Permite căutări cu clic dreapta și adaugă un motor de căutare cu "
+"un singur click."
 
-#: templates/simple/tools.tpl:161
+#: templates/simple/tools.tpl:160
 msgid "A <a href=\"%1\">WordPress plugin</a> for your blog."
 msgstr "Un <a href=\"%1\">modul de WordPress</a> pentru blogul dumneavoastră."
 
-#: templates/simple/tools.tpl:167
+#: templates/simple/tools.tpl:166
 msgid "Dictionaries in StarDict format"
 msgstr "Dicționare în formatul StarDict"
 
-#: templates/simple/tools.tpl:192
+#: templates/simple/tools.tpl:191
 msgid "all of the above"
 msgstr "toate cele de mai sus"
 

@@ -54,7 +54,7 @@ $clients = [
 
   [
     'name' => 'PyDEX',
-    'url' => 'http://pydex.lemonsoftware.eu/',
+    'url' => 'https://sourceforge.net/projects/pydex/',
     'download' => null,
     'os' => ['linux', 'mac', 'windows'],
     'space' => '250 MB',

@@ -1,0 +1,16 @@
+{
+	"manifest_version": 2,
+	"name": "ortoDEX",
+	"description": "Corector ortografic pentru limba română",
+	"version": "2.0",
+	"homepage_url": "https://github.com/adakaleh/ortoDEX",
+	"browser_specific_settings": {
+		"gecko": {
+			"id": "ortodex@dexonline.ro",
+			"strict_min_version": "60.0"
+		}
+	},
+	"dictionaries": {
+		"ro": "ro-dex.dic"
+	}
+}

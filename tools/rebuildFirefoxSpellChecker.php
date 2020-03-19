@@ -7,10 +7,8 @@ Log::info('Setting up directories');
 chdir(Config::ROOT);
 OS::executeAndAssert("rm $tmpDir");
 OS::executeAndAssert("mkdir $tmpDir");
-OS::executeAndAssert("mkdir $tmpDir/chrome");
-OS::executeAndAssert("mkdir $tmpDir/dictionaries");
-OS::executeAndAssert("echo 'SET UTF-8' > $tmpDir/dictionaries/ro-dex.aff");
-OS::executeAndAssert("cp docs/install.rdf $tmpDir/");
+OS::executeAndAssert("echo 'SET UTF-8' > $tmpDir/ro-dex.aff");
+OS::executeAndAssert("cp docs/manifest.json $tmpDir/");
 
 $mysqlFile = tempnam(Config::TEMP_DIR, 'mysql_');
 unlink($mysqlFile);
@@ -19,8 +17,8 @@ Log::info("Running mysql query: [$query]");
 DB::execute($query);
 
 Log::info("Prepending line count");
-OS::executeAndAssert("wc -l $mysqlFile | cut -d ' ' -f 1 > $tmpDir/dictionaries/ro-dex.dic");
-OS::executeAndAssert("cat $mysqlFile >> $tmpDir/dictionaries/ro-dex.dic");
+OS::executeAndAssert("wc -l $mysqlFile | cut -d ' ' -f 1 > $tmpDir/ro-dex.dic");
+OS::executeAndAssert("cat $mysqlFile >> $tmpDir/ro-dex.dic");
 
 Log::info("Zipping");
 OS::executeAndAssert("cd $tmpDir && zip -r dex-ff.xpi *");

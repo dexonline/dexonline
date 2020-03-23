@@ -28,8 +28,10 @@
 
             <ul>
               <li>
-                {t}Some dictionaries (such as <em>Scriban</em>) use old orthographies.
-                This is not a typo.{/t}
+                <strong>
+                  {t}Some dictionaries (such as <em>Scriban</em>) use old orthographies.
+                  This is not a typo.{/t}
+                </strong>
               </li>
               <li>
                 {t}We generally do not change the original text of

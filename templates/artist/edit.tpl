@@ -40,6 +40,12 @@
         </div>
         <div class="checkbox">
           <label>
+            <input type="checkbox" name="hidden" {if $artist->hidden}checked{/if}>
+            hidden
+          </label>
+        </div>
+        <div class="checkbox">
+          <label>
             <input type="checkbox" name="sponsor" {if $artist->sponsor}checked{/if}>
             sponsor
             <p class="help-block">

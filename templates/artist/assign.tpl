@@ -16,11 +16,13 @@
         <caption class="table-caption text-center">autori</caption>
         <tbody>
           {foreach $artists as $a}
+          {if not $a->hidden}
             <tr class="artistRow" data-id="{$a->id}">
               <td>
                 {$a->name}
               </td>
             </tr>
+          {/if}
           {/foreach}
           <tr class="artistRow" data-id="0">
             <td>

@@ -9,6 +9,7 @@
   <table class="table table-condensed table-striped">
     <tr>
       <th>nume</th>
+      <th>activ</th>
       <th>e-mail</th>
       <th>cod</th>
       <th>acțiuni</th>
@@ -16,6 +17,7 @@
     {foreach $artists as $a}
       <tr>
         <td>{$a->name}</td>
+        <td>{if not $a->hidden}<span class="glyphicon glyphicon-check"></span>{/if}</td>
         <td>{$a->email}</td>
         <td>{$a->label}</td>
         <td>

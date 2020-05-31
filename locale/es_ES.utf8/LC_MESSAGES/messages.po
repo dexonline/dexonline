@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2019-10-15 03:47+0300\n"
-"PO-Revision-Date: 2019-10-15 03:52+0300\n"
-"Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
+"POT-Creation-Date: 2020-05-31 15:39+0300\n"
+"PO-Revision-Date: 2020-05-31 15:54+0300\n"
+"Last-Translator: Radu Borza <radu@dexonline.ro>\n"
 "Language-Team: \n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -23,6 +23,10 @@ msgstr ""
 
 #: templates/alerts/formIsElision.tpl:2
 msgid "Your query <b>%1</b> is an elision of <b>%2</b>."
+msgstr "Su búsqueda <b>%1</b> es una elisión de <b>%2</b>."
+
+#: templates/alerts/searchedVariant.tpl:1
+msgid "Your query <b>%1</b> is a variant of <b>%2</b>."
 msgstr "Su búsqueda <b>%1</b> es una elisión de <b>%2</b>."
 
 #: templates/article/list.tpl:3 templates/article/list.tpl:6
@@ -55,7 +59,7 @@ msgid "actions"
 msgstr "acciones"
 
 #: templates/bits/definitionMenuProper.tpl:157 templates/bits/typoForm.tpl:13
-#: templates/bits/typoForm.tpl:59
+#: templates/bits/typoForm.tpl:61
 msgid "report a typo"
 msgstr "comunicar un error"
 
@@ -248,23 +252,23 @@ msgstr "La forma <strong>%1</strong> está en LOC %2."
 msgid "The form <strong>%1</strong> does not exist in LOC %2."
 msgstr "La forma <strong>%1</strong> no está en LOC %2."
 
-#: templates/bits/searchForm.tpl:17
+#: templates/bits/searchForm.tpl:18
 msgid "word"
 msgstr "palabra"
 
-#: templates/bits/searchForm.tpl:28
+#: templates/bits/searchForm.tpl:30
 msgid "search"
 msgstr "búsqueda"
 
-#: templates/bits/searchForm.tpl:35 templates/games/scramble.tpl:29
+#: templates/bits/searchForm.tpl:37 templates/games/scramble.tpl:29
 msgid "options"
 msgstr "opciones"
 
-#: templates/bits/searchForm.tpl:51
+#: templates/bits/searchForm.tpl:53
 msgid "Full-text search"
 msgstr "Búsqueda en el texto de las definiciones"
 
-#: templates/bits/searchForm.tpl:58
+#: templates/bits/searchForm.tpl:60
 msgid "help"
 msgstr "ayuda"
 
@@ -301,7 +305,7 @@ msgstr "por favor describa el error; puede usar un máximo de 400 caracteres"
 msgid "notes"
 msgstr "notas"
 
-#: templates/bits/typoForm.tpl:31
+#: templates/bits/typoForm.tpl:32
 msgid ""
 "Some dictionaries (such as <em>Scriban</em>) use old orthographies. This is "
 "not a typo."
@@ -309,7 +313,7 @@ msgstr ""
 "Algunos diccionarios (como <em>Scriban</em>) usan ortografías anticuadas. "
 "Esto no es un error."
 
-#: templates/bits/typoForm.tpl:35
+#: templates/bits/typoForm.tpl:37
 msgid ""
 "We generally do not change the original text of definitions, but we can add "
 "comments. Please do not report semantic errors except in obvious cases."
@@ -318,19 +322,19 @@ msgstr ""
 "sí podemos añadir comentarios. Por favor no nos informen sobre errores "
 "semánticos, salvo en casos patentes."
 
-#: templates/bits/typoForm.tpl:43
+#: templates/bits/typoForm.tpl:45
 msgid "submit"
 msgstr "envíe"
 
-#: templates/bits/typoForm.tpl:44
+#: templates/bits/typoForm.tpl:46
 msgid "cancel"
 msgstr "cancele"
 
-#: templates/bits/typoForm.tpl:63
+#: templates/bits/typoForm.tpl:65
 msgid "Thank you for your report!"
 msgstr "¡Gracias por informarnos!"
 
-#: templates/bits/typoForm.tpl:67
+#: templates/bits/typoForm.tpl:69
 msgid "close"
 msgstr "cierre"
 
@@ -527,8 +531,8 @@ msgstr ""
 msgid "Show models for"
 msgstr "Muestre los modelos para"
 
-#: templates/games/scrabble.tpl:167 templates/search.tpl:286
-#: templates/search.tpl:294 templates/search.tpl:296
+#: templates/games/scrabble.tpl:167 templates/search.tpl:304
+#: templates/search.tpl:312 templates/search.tpl:314
 msgid "show"
 msgstr "muestre"
 
@@ -729,12 +733,12 @@ msgstr ""
 "Estado actual: %1 definiciones, de las cuales %2 aprendidas durante el "
 "último mes."
 
-#: templates/layout.tpl:85 templates/simple/tools.tpl:84
+#: templates/layout.tpl:90 templates/simple/tools.tpl:84
 #: templates/simple/tools.tpl:107
 msgid "license"
 msgstr "licencia"
 
-#: templates/layout.tpl:86
+#: templates/layout.tpl:91
 msgid "privacy"
 msgstr "privacidad"
 
@@ -886,88 +890,88 @@ msgstr "definición"
 msgid "and paradigm"
 msgstr "y paradigma"
 
-#: templates/search.tpl:27
+#: templates/search.tpl:35
 msgid "results"
 msgstr "resultados"
 
-#: templates/search.tpl:42
+#: templates/search.tpl:60
 msgid "synthesis"
 msgstr "síntesis"
 
-#: templates/search.tpl:57
+#: templates/search.tpl:75
 msgid "Definition with ID"
 msgstr "Definición con el ID"
 
-#: templates/search.tpl:69
+#: templates/search.tpl:87
 msgid "One definition contains all the words"
 msgid_plural "%1 definitions contain all the words"
 msgstr[0] "Una sola definición contiene todas las palabras"
 msgstr[1] "%1 definiciones contienen todas las palabras"
 
-#: templates/search.tpl:74 templates/search.tpl:142 templates/search.tpl:183
-#: templates/search.tpl:204 templates/search.tpl:229
+#: templates/search.tpl:92 templates/search.tpl:160 templates/search.tpl:201
+#: templates/search.tpl:222 templates/search.tpl:247
 msgid "(at most %1 shown)"
 msgstr "(máximo %1 mostradas)"
 
-#: templates/search.tpl:77
+#: templates/search.tpl:95
 msgid "No definitions contain all the words"
 msgstr "Ninguna de las definiciones contiene todas las palabras"
 
-#: templates/search.tpl:83
+#: templates/search.tpl:101
 msgid "The following words were ignored because they are too common:"
 msgstr "Las siguientes palabras se ignoran por ser demasiado comunes:"
 
-#: templates/search.tpl:99
+#: templates/search.tpl:117
 msgid "There is no entry with the given ID."
 msgstr "No hay ninguna entrada con el ID dado."
 
-#: templates/search.tpl:109 templates/search.tpl:173
+#: templates/search.tpl:127 templates/search.tpl:191
 msgid "One definition for %2"
 msgid_plural "%1 definitions for %2"
 msgstr[0] "Una definición por %2"
 msgstr[1] "%1 definiciones por %2"
 
-#: templates/search.tpl:115 templates/search.tpl:179
+#: templates/search.tpl:133 templates/search.tpl:197
 msgid "No definitions for %1"
 msgstr "Ninguna definición por %1"
 
-#: templates/search.tpl:126
+#: templates/search.tpl:144
 msgid "for"
 msgstr "para"
 
-#: templates/search.tpl:132
+#: templates/search.tpl:150
 msgid "One result for <strong>%2</strong>"
 msgid_plural "%1 results for <strong>%2</strong>"
 msgstr[0] "Un resultado para <strong>%2</strong>"
 msgstr[1] "%1 resultados para <strong>%2</strong>"
 
-#: templates/search.tpl:138 templates/search.tpl:261
+#: templates/search.tpl:156 templates/search.tpl:279
 msgid "No results for <strong>%1</strong>"
 msgstr "No hay resultados para <strong>%1</strong>"
 
-#: templates/search.tpl:160
+#: templates/search.tpl:178
 msgid "One entry"
 msgid_plural "%1 entries"
 msgstr[0] "Una entrada"
 msgstr[1] "%1 entradas"
 
-#: templates/search.tpl:198
+#: templates/search.tpl:216
 msgid "One definition"
 msgid_plural "%1 definitions"
 msgstr[0] "Una definición"
 msgstr[1] "%1 definiciones"
 
-#: templates/search.tpl:220
+#: templates/search.tpl:238
 msgid "One definition matches at least two words"
 msgid_plural "%1 definitions match at least two words"
 msgstr[0] "Una definición coincide con al menos dos palabras"
 msgstr[1] "%1 definiciones coinciden con al menos dos palabras"
 
-#: templates/search.tpl:225
+#: templates/search.tpl:243
 msgid "No definitions match at least two words"
 msgstr "Ninguna definición coincide con al menos dos palabras"
 
-#: templates/search.tpl:234
+#: templates/search.tpl:252
 msgid ""
 "If the results are inadequate, you can look up individual words or you can "
 "search"
@@ -975,16 +979,16 @@ msgstr ""
 "Si los resultados no se corresponden, puede buscar las palabras por separado "
 "o puede buscar"
 
-#: templates/search.tpl:235
+#: templates/search.tpl:253
 msgid "full-text"
 msgstr "en el texto de las definiciones"
 
-#: templates/search.tpl:240
+#: templates/search.tpl:258
 msgid "At most 5 words are allowed. The following words were ignored:"
 msgstr ""
 "Como mucho 5 palabras permitidas. Las siguientes palabras se van a ignorar:"
 
-#: templates/search.tpl:255
+#: templates/search.tpl:273
 msgid ""
 "The word <strong>%1</strong> is not in the dictionary. Here are some "
 "suggestions:"
@@ -992,25 +996,17 @@ msgstr ""
 "El término <strong>%1</strong> no se encuentra en el diccionario. Le damos "
 "las siguientes sugerencias:"
 
-#: templates/search.tpl:281 lib/models/InflectedForm.php:72
+#: templates/search.tpl:299 lib/models/InflectedForm.php:72
 msgid "unrecommended or incorrect form"
 msgstr "forma no recomendada o incorrecta"
 
-#: templates/search.tpl:285 templates/search.tpl:293 templates/search.tpl:297
+#: templates/search.tpl:303 templates/search.tpl:311 templates/search.tpl:315
 msgid "hide"
 msgstr "esconde"
 
-#: templates/search.tpl:300
+#: templates/search.tpl:318
 msgid "elisions and long verb forms"
 msgstr "elisiones y formas largas"
-
-#: templates/search.tpl:311
-msgid "link to this inflected forms page"
-msgstr "enlace a la página de las formas flexionadas"
-
-#: templates/search.tpl:314
-msgid "link to this paradigm"
-msgstr "enlace al paradigma"
 
 #: templates/search/extendToAllSources.tpl:3
 msgid "Repeat your search <a href=\"%1\">in all dictionaries</a>."
@@ -1244,29 +1240,23 @@ msgstr ""
 "Una <a href=\"%1\">extensión para Chrome</a> para búsquedas con el clic "
 "derecho."
 
-#: templates/simple/tools.tpl:154
+#: templates/simple/tools.tpl:153
 msgid ""
-"A <a href=\"%1\">Firefox plugin</a> for right-click searches. Save the file "
-"in the <tt>searchplugins/</tt> directory of Firefox and restart Firefox. "
-"Thanks to %2."
+"A <a href=\"%1\">Firefox add-on</a> for dexonline by AdaKaleh. Allows right-"
+"click searches and registers a one-click search engine."
 msgstr ""
-"Un <a href=\"%1\">plugin para Firefox</a> para búsquedas con el clic "
-"derecho. Guarde el fichero en la carpeta <tt>searchplugins/</tt> de Firefox "
-"y reinicia Firefox. Agradecimientos a %2."
 
-#: templates/simple/tools.tpl:161
+#: templates/simple/tools.tpl:160
 msgid "A <a href=\"%1\">WordPress plugin</a> for your blog."
 msgstr "Un <a href=\"%1\">plugin de WordPress</a> para su blog."
 
-#: templates/simple/tools.tpl:167
+#: templates/simple/tools.tpl:166
 msgid "Dictionaries in StarDict format"
 msgstr ""
 
-#: templates/simple/tools.tpl:192
-#, fuzzy
-#| msgid "article of the month"
+#: templates/simple/tools.tpl:191
 msgid "all of the above"
-msgstr "artículo del mes"
+msgstr "todas las de arriba"
 
 #: templates/user/top.tpl:6
 msgid "Manual contribution rankings"
@@ -1283,16 +1273,12 @@ msgstr ""
 "tiene aproximadamente 3,500,000 caracteres."
 
 #: templates/user/top.tpl:14
-#, fuzzy
-#| msgid "volunteer ranking"
 msgid "Last year ranking"
-msgstr "ranking de los voluntarios"
+msgstr "Ranking de las contribuciones del año pasado"
 
 #: templates/user/top.tpl:18
-#, fuzzy
-#| msgid "volunteer ranking"
 msgid "Global ranking"
-msgstr "ranking de los voluntarios"
+msgstr "Ranking de los voluntarios"
 
 #: templates/user/top.tpl:22
 msgid "Automated contribution rankings"
@@ -1320,14 +1306,10 @@ msgid "follow us on"
 msgstr "síganos en"
 
 #: templates/widgets/social.tpl:11
-#, fuzzy
-#| msgid "Blogger icon"
 msgid "Blog icon"
 msgstr "Icono de Blogger"
 
 #: templates/widgets/social.tpl:12
-#, fuzzy
-#| msgid "Follow us on Blogger"
 msgid "Follow our blog"
 msgstr "Síganos en Blogger"
 
@@ -1347,16 +1329,19 @@ msgstr "Icono de Twitter"
 msgid "Follow us on Twitter"
 msgstr "Síganos en Twitter"
 
+#: templates/widgets/social.tpl:41
+msgid "Instagram icon"
+msgstr "Icono de Instagram"
+
+#: templates/widgets/social.tpl:42
+msgid "Follow us on Instagram"
+msgstr "Síganos en Instagram"
+
 #: templates/wotd/view.tpl:22
 msgid "Word of the day for %2 %1, %3"
 msgstr "Palabra del día para %2 %1, %3"
 
 #: templates/wotd/view.tpl:45
-#, fuzzy
-#| msgid ""
-#| "<i>dexonline</i> does not directly offer the word of the day by email. "
-#| "However, there are <a href=\"%1\">many sites</a> that do this for any RSS "
-#| "feed. We recommend <a href=\"%2\">IFTTT</a>."
 msgid ""
 "<i>dexonline</i> does not directly offer the word of the day by email. "
 "However, there are <a href=\"%1\">many sites</a> that do this for any RSS "
@@ -1431,8 +1416,6 @@ msgid "Slang dictionaries"
 msgstr "Diccionarios de jerga"
 
 #: lib/models/SourceType.php:39
-#, fuzzy
-#| msgid "Relational dictionaries"
 msgid "Regional dictionaries"
 msgstr "Diccionarios relacionales"
 
@@ -1476,10 +1459,8 @@ msgid "Only slang words or senses are defined."
 msgstr "Se definen solo las voces jergales."
 
 #: lib/models/SourceType.php:62
-#, fuzzy
-#| msgid "Only slang words or senses are defined."
 msgid "Only regional (or archaic) words or senses are defined."
-msgstr "Se definen solo las voces jergales."
+msgstr "Se definen solo las voces regionales (o arcaicas)."
 
 #: lib/models/SourceType.php:64
 msgid "These definitions could explain only certain meanings of words."
@@ -1613,6 +1594,10 @@ msgstr "Perl, wxWidgets (sólo en Linux)"
 msgid "QT, g++ (only under Linux)"
 msgstr "QT, g++ (sólo en Linux)"
 
+#: routes/source/view.php:7
+msgid "No source exists with the given ID."
+msgstr "No hay ninguna entrada con el ID dado."
+
 #: routes/wotd/random.php:22
 #, php-format
 msgid "A randomly chosen word of the day"
@@ -1620,15 +1605,30 @@ msgid_plural "%d randomly chosen words of the day"
 msgstr[0] "Una palabra del día escogida aleatoriamente"
 msgstr[1] "%d palabras del día escogidas aleatoriamente"
 
-#: www/search.php:220
+#: www/search.php:218
 #, php-format
 msgid "We redirected you automatically from <b>%s</b> to <b>%s</b>."
 msgstr "Ha sido automáticamente redirigido de <b>%s</b> a <b>%s</b>."
 
-#: www/search.php:330
+#: www/search.php:339
 msgid "conjugations"
 msgstr "conjugaciones"
 
-#: www/search.php:331
+#: www/search.php:340
 msgid "declensions"
 msgstr "declinaciones"
+
+#~ msgid "link to this inflected forms page"
+#~ msgstr "enlace a la página de las formas flexionadas"
+
+#~ msgid "link to this paradigm"
+#~ msgstr "enlace al paradigma"
+
+#~ msgid ""
+#~ "A <a href=\"%1\">Firefox plugin</a> for right-click searches. Save the "
+#~ "file in the <tt>searchplugins/</tt> directory of Firefox and restart "
+#~ "Firefox. Thanks to %2."
+#~ msgstr ""
+#~ "Un <a href=\"%1\">plugin para Firefox</a> para búsquedas con el clic "
+#~ "derecho. Guarde el fichero en la carpeta <tt>searchplugins/</tt> de "
+#~ "Firefox y reinicia Firefox. Agradecimientos a %2."

@@ -32,6 +32,16 @@
             title="{t}Follow us on Twitter{/t}">
       	</a>
       </li>
+      <li>
+        <a href="https://www.instagram.com/dexonline.ro">
+          <img
+                  src='./img/svg/instagram.svg'
+                  width='32'
+                  height='32'
+                  alt="{t}Instagram icon{/t}"
+                  title="{t}Follow us on Instagram{/t}">
+        </a>
+      </li>
     </ul>
   </div>
 </div>

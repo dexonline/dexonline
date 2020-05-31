@@ -2,15 +2,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: BUG-EMAIL-ADDR <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2019-11-10 12:56+0200\n"
-"PO-Revision-Date: 2019-11-10 13:07+0200\n"
-"Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
+"POT-Creation-Date: 2020-05-31 16:26+0300\n"
+"PO-Revision-Date: 2020-05-31 16:31+0300\n"
+"Last-Translator: Radu Borza <radu@dexonline.ro>\n"
 "Language-Team: \n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2.4\n"
+"X-Generator: Poedit 2.0.6\n"
 "X-Poedit-Basepath: ../../..\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -24,6 +24,12 @@ msgstr ""
 
 #: templates/alerts/formIsElision.tpl:2
 msgid "Your query <b>%1</b> is an elision of <b>%2</b>."
+msgstr "A <b>%1</b> keresés a <b>%2</b> hangelnyeléses alakja."
+
+#: templates/alerts/searchedVariant.tpl:1
+#, fuzzy
+#| msgid "Your query <b>%1</b> is an elision of <b>%2</b>."
+msgid "Your query <b>%1</b> is a variant of <b>%2</b>."
 msgstr "A <b>%1</b> keresés a <b>%2</b> hangelnyeléses alakja."
 
 #: templates/article/list.tpl:3 templates/article/list.tpl:6
@@ -56,7 +62,7 @@ msgid "actions"
 msgstr "műveletek"
 
 #: templates/bits/definitionMenuProper.tpl:157 templates/bits/typoForm.tpl:13
-#: templates/bits/typoForm.tpl:59
+#: templates/bits/typoForm.tpl:61
 msgid "report a typo"
 msgstr "jelents egy gépelési hibát"
 
@@ -249,23 +255,23 @@ msgstr "A(z) <strong>%1</strong> alak létezik a %2 LOC-ban."
 msgid "The form <strong>%1</strong> does not exist in LOC %2."
 msgstr "A(z) <strong>%1</strong> alak nem létezik a %2 LOC-ban."
 
-#: templates/bits/searchForm.tpl:17
+#: templates/bits/searchForm.tpl:18
 msgid "word"
 msgstr "szó"
 
-#: templates/bits/searchForm.tpl:28
+#: templates/bits/searchForm.tpl:30
 msgid "search"
 msgstr "keress"
 
-#: templates/bits/searchForm.tpl:35 templates/games/scramble.tpl:29
+#: templates/bits/searchForm.tpl:37 templates/games/scramble.tpl:29
 msgid "options"
 msgstr "opciók"
 
-#: templates/bits/searchForm.tpl:51
+#: templates/bits/searchForm.tpl:53
 msgid "Full-text search"
 msgstr "Teljes szöveges keresés"
 
-#: templates/bits/searchForm.tpl:58
+#: templates/bits/searchForm.tpl:60
 msgid "help"
 msgstr "segítség"
 
@@ -302,7 +308,7 @@ msgstr "írd le a hibát; legfeljebb 400 karakter megengedett"
 msgid "notes"
 msgstr "jegyzetek"
 
-#: templates/bits/typoForm.tpl:31
+#: templates/bits/typoForm.tpl:32
 msgid ""
 "Some dictionaries (such as <em>Scriban</em>) use old orthographies. This is "
 "not a typo."
@@ -310,7 +316,7 @@ msgstr ""
 "Egyes szótárak (például a <em>Scriban</em>) régi helyesírással voltak "
 "kiadva. Ez nem hiba."
 
-#: templates/bits/typoForm.tpl:35
+#: templates/bits/typoForm.tpl:37
 msgid ""
 "We generally do not change the original text of definitions, but we can add "
 "comments. Please do not report semantic errors except in obvious cases."
@@ -319,19 +325,19 @@ msgstr ""
 "megjegyzéseket tehetünk. Kérjük, ne jelentsen szemantikai hibákat kivéve "
 "nyilvánvaló esetekben."
 
-#: templates/bits/typoForm.tpl:43
+#: templates/bits/typoForm.tpl:45
 msgid "submit"
 msgstr "benyújtás"
 
-#: templates/bits/typoForm.tpl:44
+#: templates/bits/typoForm.tpl:46
 msgid "cancel"
 msgstr "mégse"
 
-#: templates/bits/typoForm.tpl:63
+#: templates/bits/typoForm.tpl:65
 msgid "Thank you for your report!"
 msgstr "Köszönjük a jelentését!"
 
-#: templates/bits/typoForm.tpl:67
+#: templates/bits/typoForm.tpl:69
 msgid "close"
 msgstr "bezár"
 
@@ -527,8 +533,8 @@ msgstr ""
 msgid "Show models for"
 msgstr "Mutasd a mintákat a"
 
-#: templates/games/scrabble.tpl:167 templates/search.tpl:305
-#: templates/search.tpl:313 templates/search.tpl:315
+#: templates/games/scrabble.tpl:167 templates/search.tpl:304
+#: templates/search.tpl:312 templates/search.tpl:314
 msgid "show"
 msgstr "mutasd"
 
@@ -727,12 +733,12 @@ msgid "Current status: %1 definitions, of which %2 learned last month."
 msgstr ""
 "Aktuális állapot: %1 meghatározások, amelyekböl %2 a múlt hónapban tanultak."
 
-#: templates/layout.tpl:85 templates/simple/tools.tpl:84
+#: templates/layout.tpl:90 templates/simple/tools.tpl:84
 #: templates/simple/tools.tpl:107
 msgid "license"
 msgstr "licenc"
 
-#: templates/layout.tpl:86
+#: templates/layout.tpl:91
 msgid "privacy"
 msgstr "adatvédelem"
 
@@ -745,42 +751,58 @@ msgid "feminine"
 msgstr "nőnem"
 
 #: templates/paradigm/paradigmA.tpl:12 templates/paradigm/paradigmA.tpl:14
-#: templates/paradigm/paradigmN.tpl:8
+#: templates/paradigm/paradigmF.tpl:8 templates/paradigm/paradigmM.tpl:8
+#: templates/paradigm/paradigmN.tpl:8 templates/paradigm/paradigmSP.tpl:8
 msgid "no article"
 msgstr "határozatlan"
 
 #: templates/paradigm/paradigmA.tpl:13 templates/paradigm/paradigmA.tpl:15
-#: templates/paradigm/paradigmN.tpl:9
+#: templates/paradigm/paradigmF.tpl:9 templates/paradigm/paradigmM.tpl:9
+#: templates/paradigm/paradigmN.tpl:9 templates/paradigm/paradigmSP.tpl:9
 msgid "def. article"
 msgstr "határozott"
 
-#: templates/paradigm/paradigmA.tpl:18 templates/paradigm/paradigmN.tpl:12
-#: templates/paradigm/paradigmP.tpl:12
+#: templates/paradigm/paradigmA.tpl:18 templates/paradigm/paradigmF.tpl:12
+#: templates/paradigm/paradigmM.tpl:12 templates/paradigm/paradigmN.tpl:12
+#: templates/paradigm/paradigmP.tpl:12 templates/paradigm/paradigmSP.tpl:12
 msgid "nominative-accusative"
 msgstr "alanyeset-tárgyeset"
 
 #: templates/paradigm/paradigmA.tpl:19 templates/paradigm/paradigmA.tpl:50
-#: templates/paradigm/paradigmA.tpl:81 templates/paradigm/paradigmN.tpl:13
+#: templates/paradigm/paradigmA.tpl:81 templates/paradigm/paradigmF.tpl:13
+#: templates/paradigm/paradigmF.tpl:32 templates/paradigm/paradigmF.tpl:51
+#: templates/paradigm/paradigmM.tpl:13 templates/paradigm/paradigmM.tpl:32
+#: templates/paradigm/paradigmM.tpl:51 templates/paradigm/paradigmN.tpl:13
 #: templates/paradigm/paradigmN.tpl:32 templates/paradigm/paradigmN.tpl:51
 #: templates/paradigm/paradigmP.tpl:13 templates/paradigm/paradigmP.tpl:32
-#: templates/paradigm/paradigmV.tpl:34 templates/paradigm/paradigmV.tpl:60
+#: templates/paradigm/paradigmSP.tpl:13 templates/paradigm/paradigmSP.tpl:32
+#: templates/paradigm/paradigmSP.tpl:51 templates/paradigm/paradigmV.tpl:34
+#: templates/paradigm/paradigmV.tpl:60
 msgid "singular"
 msgstr "egyes szám"
 
 #: templates/paradigm/paradigmA.tpl:34 templates/paradigm/paradigmA.tpl:65
-#: templates/paradigm/paradigmA.tpl:90 templates/paradigm/paradigmN.tpl:22
+#: templates/paradigm/paradigmA.tpl:90 templates/paradigm/paradigmF.tpl:22
+#: templates/paradigm/paradigmF.tpl:41 templates/paradigm/paradigmF.tpl:57
+#: templates/paradigm/paradigmM.tpl:22 templates/paradigm/paradigmM.tpl:41
+#: templates/paradigm/paradigmM.tpl:57 templates/paradigm/paradigmN.tpl:22
 #: templates/paradigm/paradigmN.tpl:41 templates/paradigm/paradigmN.tpl:57
 #: templates/paradigm/paradigmP.tpl:22 templates/paradigm/paradigmP.tpl:41
-#: templates/paradigm/paradigmV.tpl:35 templates/paradigm/paradigmV.tpl:118
+#: templates/paradigm/paradigmSP.tpl:22 templates/paradigm/paradigmSP.tpl:41
+#: templates/paradigm/paradigmSP.tpl:57 templates/paradigm/paradigmV.tpl:35
+#: templates/paradigm/paradigmV.tpl:118
 msgid "plural"
 msgstr "többes szám"
 
-#: templates/paradigm/paradigmA.tpl:49 templates/paradigm/paradigmN.tpl:31
-#: templates/paradigm/paradigmP.tpl:31
+#: templates/paradigm/paradigmA.tpl:49 templates/paradigm/paradigmF.tpl:31
+#: templates/paradigm/paradigmM.tpl:31 templates/paradigm/paradigmN.tpl:31
+#: templates/paradigm/paradigmP.tpl:31 templates/paradigm/paradigmSP.tpl:31
 msgid "genitive-dative"
 msgstr "birtokos-részes eset"
 
-#: templates/paradigm/paradigmA.tpl:80 templates/paradigm/paradigmN.tpl:50
+#: templates/paradigm/paradigmA.tpl:80 templates/paradigm/paradigmF.tpl:50
+#: templates/paradigm/paradigmM.tpl:50 templates/paradigm/paradigmN.tpl:50
+#: templates/paradigm/paradigmSP.tpl:50
 msgid "vocative"
 msgstr "megszólító"
 
@@ -868,96 +890,88 @@ msgstr "meghatározás"
 msgid "and paradigm"
 msgstr "és ragozási minta"
 
-#: templates/search.tpl:27
+#: templates/search.tpl:35
 msgid "results"
 msgstr "eredmények"
 
-#: templates/search.tpl:39
-msgid "link to this inflected forms page"
-msgstr "hivatkozás erre a ragozott alakok oldalára"
-
-#: templates/search.tpl:54
-msgid "link to this synthesis"
-msgstr "link az összefoglaló"
-
-#: templates/search.tpl:55
+#: templates/search.tpl:60
 msgid "synthesis"
 msgstr "összefoglalás"
 
-#: templates/search.tpl:76
+#: templates/search.tpl:75
 msgid "Definition with ID"
 msgstr "Meghatározás azonosító"
 
-#: templates/search.tpl:88
+#: templates/search.tpl:87
 msgid "One definition contains all the words"
 msgid_plural "%1 definitions contain all the words"
 msgstr[0] "Egy meghatározás tartalmazza az összes szót"
 msgstr[1] "%1 meghatározás tartalmazza az összes szót"
 
-#: templates/search.tpl:93 templates/search.tpl:161 templates/search.tpl:202
-#: templates/search.tpl:223 templates/search.tpl:248
+#: templates/search.tpl:92 templates/search.tpl:160 templates/search.tpl:201
+#: templates/search.tpl:222 templates/search.tpl:247
 msgid "(at most %1 shown)"
 msgstr "(legfeljebb %1 látható)"
 
-#: templates/search.tpl:96
+#: templates/search.tpl:95
 msgid "No definitions contain all the words"
 msgstr "Egy meghatározás se tartalmaza az összes szót"
 
-#: templates/search.tpl:102
+#: templates/search.tpl:101
 msgid "The following words were ignored because they are too common:"
 msgstr "A következő szavakat figyelmen kívül hagytuk, mert túl gyakoriak:"
 
-#: templates/search.tpl:118
+#: templates/search.tpl:117
 msgid "There is no entry with the given ID."
 msgstr "Az adott azonosítóval nincs bejegyzés."
 
-#: templates/search.tpl:128 templates/search.tpl:192
+#: templates/search.tpl:127 templates/search.tpl:191
 msgid "One definition for %2"
 msgid_plural "%1 definitions for %2"
 msgstr[0] "Egy meghatározás a %2 szóra"
 msgstr[1] "%1 meghatározás a %2 szóra"
 
-#: templates/search.tpl:134 templates/search.tpl:198
+#: templates/search.tpl:133 templates/search.tpl:197
 msgid "No definitions for %1"
 msgstr "Nincsenek meghatározások a %1 szóra"
 
-#: templates/search.tpl:145
+#: templates/search.tpl:144
 msgid "for"
 msgstr "a"
 
-#: templates/search.tpl:151
+#: templates/search.tpl:150
 msgid "One result for <strong>%2</strong>"
 msgid_plural "%1 results for <strong>%2</strong>"
 msgstr[0] "Nincs találat <strong>%2</strong> esetében"
 msgstr[1] "Nincs találat <strong>%2</strong> esetében"
 
-#: templates/search.tpl:157 templates/search.tpl:280
+#: templates/search.tpl:156 templates/search.tpl:279
 msgid "No results for <strong>%1</strong>"
 msgstr "Nincs találat <strong>%1</strong> esetében"
 
-#: templates/search.tpl:179
+#: templates/search.tpl:178
 msgid "One entry"
 msgid_plural "%1 entries"
 msgstr[0] "Egy bejegyzés"
 msgstr[1] "%1 bejegyzés"
 
-#: templates/search.tpl:217
+#: templates/search.tpl:216
 msgid "One definition"
 msgid_plural "%1 definitions"
 msgstr[0] "Egy meghatározás"
 msgstr[1] "%1 meghatározás"
 
-#: templates/search.tpl:239
+#: templates/search.tpl:238
 msgid "One definition matches at least two words"
 msgid_plural "%1 definitions match at least two words"
 msgstr[0] "Legalább egy meghatározás egyezik a két szóval"
 msgstr[1] "%1 meghatározás egyezik a két szóval"
 
-#: templates/search.tpl:244
+#: templates/search.tpl:243
 msgid "No definitions match at least two words"
 msgstr "Egy meghatározás sem egyezik legalább két szóval"
 
-#: templates/search.tpl:253
+#: templates/search.tpl:252
 msgid ""
 "If the results are inadequate, you can look up individual words or you can "
 "search"
@@ -965,30 +979,30 @@ msgstr ""
 "Ha az találatok nem megfelelőek, akkor kereshetsz egyéni szavakat, vagy "
 "kereshetsz"
 
-#: templates/search.tpl:254
+#: templates/search.tpl:253
 msgid "full-text"
 msgstr "teljes szöveg"
 
-#: templates/search.tpl:259
+#: templates/search.tpl:258
 msgid "At most 5 words are allowed. The following words were ignored:"
 msgstr ""
 "Legfeljebb 5 szó megengedett. A következő szavakat figyelmen kívül hagytuk:"
 
-#: templates/search.tpl:274
+#: templates/search.tpl:273
 msgid ""
 "The word <strong>%1</strong> is not in the dictionary. Here are some "
 "suggestions:"
 msgstr "A <strong>%1</strong> szó nincs a szótárban. Íme néhány javaslat:"
 
-#: templates/search.tpl:300 lib/models/InflectedForm.php:72
+#: templates/search.tpl:299 lib/models/InflectedForm.php:72
 msgid "unrecommended or incorrect form"
 msgstr "nem ajánlott vagy helytelen alak"
 
-#: templates/search.tpl:304 templates/search.tpl:312 templates/search.tpl:316
+#: templates/search.tpl:303 templates/search.tpl:311 templates/search.tpl:315
 msgid "hide"
 msgstr "elrejt"
 
-#: templates/search.tpl:319
+#: templates/search.tpl:318
 msgid "elisions and long verb forms"
 msgstr "hangelnyelések és hosszú ige formák"
 
@@ -1223,25 +1237,21 @@ msgstr ""
 "<a href=\"%1\">Chrome-kiterjesztés</a> a jobb egérgombbal végzett "
 "keresésekhez."
 
-#: templates/simple/tools.tpl:154
+#: templates/simple/tools.tpl:153
 msgid ""
-"A <a href=\"%1\">Firefox plugin</a> for right-click searches. Save the file "
-"in the <tt>searchplugins/</tt> directory of Firefox and restart Firefox. "
-"Thanks to %2."
+"A <a href=\"%1\">Firefox add-on</a> for dexonline by AdaKaleh. Allows right-"
+"click searches and registers a one-click search engine."
 msgstr ""
-"<a href=\"%1\">Firefox bővítmény</a> a jobb egérgombbal való keresésekhez. "
-"Mentsd el a fájlt a Firefox <tt>searchplugins/</tt> könyvtárában és indítsd "
-"újra a Firefoxot. Köszönet %2-nek."
 
-#: templates/simple/tools.tpl:161
+#: templates/simple/tools.tpl:160
 msgid "A <a href=\"%1\">WordPress plugin</a> for your blog."
 msgstr "<a href=\"%1\">WordPress bővítmény</a> a bloghoz."
 
-#: templates/simple/tools.tpl:167
+#: templates/simple/tools.tpl:166
 msgid "Dictionaries in StarDict format"
 msgstr "Stardikt formátumú szótárak"
 
-#: templates/simple/tools.tpl:192
+#: templates/simple/tools.tpl:191
 msgid "all of the above"
 msgstr "a fentiek mindegike"
 
@@ -1315,6 +1325,14 @@ msgstr "Twitter ikon"
 #: templates/widgets/social.tpl:32
 msgid "Follow us on Twitter"
 msgstr "Kövess minket a Twitteren"
+
+#: templates/widgets/social.tpl:41
+msgid "Instagram icon"
+msgstr "Instagram ikon"
+
+#: templates/widgets/social.tpl:42
+msgid "Follow us on Instagram"
+msgstr "Kövess minket a Instagram-on"
 
 #: templates/wotd/view.tpl:22
 msgid "Word of the day for %2 %1, %3"
@@ -1572,6 +1590,10 @@ msgstr "Perl, wxWidgets (csak Linux alatt)"
 msgid "QT, g++ (only under Linux)"
 msgstr "QT, g++ (csak Linux alatt)"
 
+#: routes/source/view.php:7
+msgid "No source exists with the given ID."
+msgstr "Az adott azonosítóval nincs bejegyzés."
+
 #: routes/wotd/random.php:22
 #, php-format
 msgid "A randomly chosen word of the day"
@@ -1584,13 +1606,28 @@ msgstr[1] "%d véletlenszerűen kiválasztott"
 msgid "We redirected you automatically from <b>%s</b> to <b>%s</b>."
 msgstr "Automatikusan átirányítottunk a <b>%s</b>-tól <b>%s</b>-hoz."
 
-#: www/search.php:328
+#: www/search.php:339
 msgid "conjugations"
 msgstr "igeragozások"
 
-#: www/search.php:329
+#: www/search.php:340
 msgid "declensions"
 msgstr "ragozások"
+
+#~ msgid "link to this inflected forms page"
+#~ msgstr "hivatkozás erre a ragozott alakok oldalára"
+
+#~ msgid "link to this synthesis"
+#~ msgstr "link az összefoglaló"
+
+#~ msgid ""
+#~ "A <a href=\"%1\">Firefox plugin</a> for right-click searches. Save the "
+#~ "file in the <tt>searchplugins/</tt> directory of Firefox and restart "
+#~ "Firefox. Thanks to %2."
+#~ msgstr ""
+#~ "<a href=\"%1\">Firefox bővítmény</a> a jobb egérgombbal való "
+#~ "keresésekhez. Mentsd el a fájlt a Firefox <tt>searchplugins/</tt> "
+#~ "könyvtárában és indítsd újra a Firefoxot. Köszönet %2-nek."
 
 #~ msgid "link to this paradigm"
 #~ msgstr "hivatkozás erre a ragozási mintára"

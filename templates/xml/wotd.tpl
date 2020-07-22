@@ -9,6 +9,7 @@
             <word>{$row->definition->lexicon}</word>
             <reason>{$reason|escape:html}</reason>
             <image>{$wotd->getLargeThumbUrl()}</image>
+            <imageAuthor>{$wotd->getArtist()->name|default:''|escape:html}</imageAuthor>
             <definition>
                 <id>{$row->definition->id}</id>
                 <internalRep>{$row->definition->internalRep|escape:html}</internalRep>
@@ -27,6 +28,7 @@
             <word>{$row.word}</word>
             <reason>{$row.wotd->description|escape:html}</reason>
             <image>{$row.wotd->getMediumThumbUrl()}</image>
+            <imageAuthor>{$row.wotd->getArtist()->name|default:''|escape:html}</imageAuthor>
         </record>
         {/foreach}
     </others>

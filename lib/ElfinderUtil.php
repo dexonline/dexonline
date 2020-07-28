@@ -51,5 +51,10 @@ class ElfinderUtil {
     $name = str_replace([' ', '_'], '-', $name);
     $name = str_replace('-.', '.', $name);
     $name = str_replace('jpeg', 'jpg', $name);
+
+    // play the guessing game
+    if (Str::endsWith($name, '.')) {
+      $name .= 'jpg';
+    }
   }
 }

@@ -4,7 +4,7 @@
 # Liniile sunt procesate de sus în jos până când un regex se potrivește cu o dată.
 # Este afișat creditul înregistrării WotdArtist cu eticheta respectivă.
 
-^2020-0(1|5|7)::rb
+^2020-0(1|5|7|8)::rb
 ^2020-0[2-9]::vlad+
 ^2019-12::cn
 ^2019-11::

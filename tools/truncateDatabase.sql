@@ -47,4 +47,3 @@ truncate table WikiKeyword;
 truncate table WordOfTheDay;
 truncate table WordOfTheMonth;
 truncate table WotdArtist;
-truncate table history_WordOfTheDay;

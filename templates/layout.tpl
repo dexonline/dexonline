@@ -37,6 +37,7 @@
     {foreach Router::getRelAlternate() as $lang => $url}
       <link rel="alternate" hreflang="{$lang}" href="{$url}">
     {/foreach}
+    <link rel="icon" type="image/svg+xml" href="{Config::URL_PREFIX}img/favicon.svg">
     <link rel="apple-touch-icon" href="{Config::URL_PREFIX}img/apple-touch-icon.png">
     {Plugin::notify('htmlHead')}
     {include "bits/analytics.tpl"}

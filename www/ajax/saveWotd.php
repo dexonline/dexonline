@@ -79,6 +79,7 @@ function saveWotd($id, $definitionId, $displayDate, $noYear, $priority, $image, 
   $wotd->priority = $priority;
   $wotd->image = $image;
   $wotd->description = $description;
+  $wotd->modUserId = User::getActiveId();
   $wotd->save();
 
   return '';

@@ -51,7 +51,7 @@ class Preferences {
       . '<a href="https://wiki.dexonline.ro/wiki/Modul_confiden%C8%9Bial" '
       . 'target="_blank">Modul confidențial</a> '
       . 'este disponibil timp de un an celor care <a href="doneaza">donează</a> '
-      . 'minim 50 de lei.',
+      . 'minimum 50 de lei.',
     ],
     self::NO_TREES => [
       'enabled' => true,

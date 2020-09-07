@@ -1,8 +1,8 @@
-DROP TABLE history_WordOfTheDay;
+DROP TABLE IF EXISTS history_WordOfTheDay;
 
-DROP TABLE history_WordOfTheDayRel;
+DROP TABLE IF EXISTS history_WordOfTheDayRel;
 
-ALTER TABLE WordOfTheDay ADD COLUMN modUserId int(11) NOT NULL;
+ALTER TABLE WordOfTheDay ADD COLUMN modUserId int(11) NOT NULL DEFAULT 0;
 
 CREATE TABLE WordOfTheDayHistory (
   id int(11) NOT NULL AUTO_INCREMENT,

@@ -24,11 +24,11 @@ msgstr ""
 
 #: templates/alerts/formIsElision.tpl:2
 msgid "Your query <b>%1</b> is an elision of <b>%2</b>."
-msgstr "Căutarea <b>%1</b> este o formă elidată a lui <b>%2</b>."
+msgstr "Varianta <b>%1</b> este o formă elidată a lui <b>%2</b>."
 
 #: templates/alerts/searchedVariant.tpl:1
 msgid "Your query <b>%1</b> is a variant of <b>%2</b>."
-msgstr "Căutarea <b>%1</b> este o variantă a lui <b>%2</b>."
+msgstr "Forma <b>%1</b> este o variantă a lui <b>%2</b>."
 
 #: templates/article/list.tpl:3 templates/article/list.tpl:6
 #: templates/bits/navmenu.tpl:107

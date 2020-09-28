@@ -43,6 +43,12 @@ try {
 
   $image = $attachments[0]->content;
   $imageExtension = $attachments[0]->getFileExtension();
+
+  if (!$imageExtension) {
+    throw new Exception(
+      'Fișierul atașat trebuie să aibă o extensie (.jpg, .png etc.).');
+  }
+
   $tmpFilePath = tempnam(null, 'wotd_');
   file_put_contents($tmpFilePath, $image);
 

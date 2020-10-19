@@ -3,7 +3,7 @@
     <h4>{t}follow us on{/t}</h4>
     <ul class="list-inline">
       <li>
-      	<a href="https://blog.dexonline.ro">
+      	<a href="https://dexonline.ro/spre/blog">
       		<img
             src='./img/svg/blog.svg'
             width='32'
@@ -13,7 +13,7 @@
       	</a>
       </li>
       <li>
-      	<a href="https://www.facebook.com/groups/comunitatea.dexonline/">
+      	<a href="https://dexonline.ro/spre/facebook">
       		<img
             src='./img/svg/facebook.svg'
             width='32'
@@ -23,7 +23,7 @@
       	</a>
       </li>
       <li>
-      	<a href="https://twitter.com/DexOnlineRo">
+      	<a href="https://dexonline.ro/spre/twitter">
       		<img
             src='./img/svg/twitter.svg'
             width='32'
@@ -33,7 +33,7 @@
       	</a>
       </li>
       <li>
-        <a href="https://www.instagram.com/dexonline.ro">
+        <a href="https://dexonline.ro/spre/instagram">
           <img
                   src='./img/svg/instagram.svg'
                   width='32'

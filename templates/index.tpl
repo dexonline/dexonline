@@ -14,9 +14,6 @@
   </header>
 
   {include "bits/searchForm.tpl"}
-
-  {include "bits/sa_iubim_gramatica.tpl"}
-
   {include "banner/banner.tpl"}
 
   <section class="row widgets">

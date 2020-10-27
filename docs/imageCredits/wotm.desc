@@ -5,6 +5,8 @@
 # Este afișat creditul înregistrării WotdArtist cu eticheta respectivă.
 
 ^2020-0(1|5|7|8)::rb
+#temporar (trebuie modificat în 11 după 1 noiembrie)
+^2020-10::rb
 ^202[0-1]::vlad+
 ^2019-12::cn
 ^2019-11::

@@ -17,3 +17,6 @@ lib/c/levenshtein
 
 # macOS stuff
 .DS_Store
+
+#PHPstorm stuff
+.idea

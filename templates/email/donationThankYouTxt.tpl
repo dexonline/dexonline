@@ -25,8 +25,9 @@ contactați.
 {/if}
 
 {if $donor->amount >= Donor::AMOUNT_STICKER}
-Dacă doriți să beneficiați de premiile fizice (autocolante și/sau tricou), vă rugăm
-să ne trimiteți adresa pe care doriți să le primiți.
+Dacă doriți să beneficiați de premiile fizice (autocolante și/sau tricou), vă
+rugăm să ne trimiteți adresa pe care doriți să le primiți, eventual și un
+număr de telefon astfel încît curierul să vă poată suna.
 
 {/if}
 Vă mulțumim încă o dată călduros și promitem să folosim la maximum donația dumneavoastră!

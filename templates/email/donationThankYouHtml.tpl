@@ -52,7 +52,8 @@
   <p>
     Dacă doriți să beneficiați de premiile fizice (autocolante și/sau tricou),
     vă rugăm să ne trimiteți adresa pe care doriți să le primiți, eventual și
-    un număr de telefon astfel încît curierul să vă poată suna.
+    un număr de telefon astfel încît curierul să vă poată suna. Pentru tricou,
+    spuneți-ne și măsura dorită (XS/S/M/L/XL).
   </p>
 {/if}
 

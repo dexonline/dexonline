@@ -84,13 +84,16 @@ function readManualDonorData() {
 }
 
 class Donor {
-  const AMOUNT_MEDAL = 20;
-  const AMOUNT_NO_BANNERS = 50;
-  const AMOUNT_STICKER = 100;
-  const AMOUNT_TEE = 200;
+  // inclusive to the left, exclusive to the right
+  const RANGE_MEDAL = [ [ 20, INF ] ];
+  const RANGE_NO_BANNERS = [ [ 50, INF ] ];
+  const RANGE_STICKER = [ [ 100, 150 ] ];
+  const RANGE_LAPEL_PIN = [ [ 150, 200 ], [ 250, INF ] ];
+  const RANGE_TEE = [ [ 200, INF ] ];
 
+  const EMAIL_AMOUNT_THRESHOLD = 20;
   const EMAIL_YES = 0;         // this user should get an email response
-  const EMAIL_LOW_AMOUNT = 1;  // no donations for low amounts
+  const EMAIL_LOW_AMOUNT = 1;  // no donations for amounts under EMAIL_AMOUNT_THRESHOLD
   const EMAIL_BAD_ADDRESS = 2; // email is incorrect (e.g. for SMS donations)  public $email;
 
   const EMAIL_REASON = [
@@ -118,10 +121,29 @@ class Donor {
     $this->description = $description;
   }
 
+  /**
+   * @param array $arr One of the RANGE_ constants above.
+   */
+  function needsReward($arr) {
+    foreach ($arr as $pair) {
+      if (($this->amount >= $pair[0]) && ($this->amount < $pair[1])) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  function needsMaterialReward() {
+    return
+      $this->needsReward(self::RANGE_STICKER) ||
+      $this->needsReward(self::RANGE_LAPEL_PIN) ||
+      $this->needsReward(self::RANGE_TEE);
+  }
+
   function needsEmail() {
     if (!filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
       return self::EMAIL_BAD_ADDRESS;
-    } else if ($this->amount < self::AMOUNT_MEDAL) {
+    } else if ($this->amount < self::EMAIL_AMOUNT_THRESHOLD) {
       return self::EMAIL_LOW_AMOUNT;
     } else {
       return self::EMAIL_YES;
@@ -148,7 +170,7 @@ class Donor {
 
     Smart::assign('donor', $this);
 
-    if ($this->amount >= self::AMOUNT_MEDAL) {
+    if ($this->needsEmail() == self::EMAIL_YES) {
       $this->textMessage = Smart::fetch('email/donationThankYouTxt.tpl');
       $this->htmlMessage = Smart::fetch('email/donationThankYouHtml.tpl');
     }
@@ -169,11 +191,11 @@ class Donor {
     }
 
     if ($this->user) {
-      if ($this->amount >= self::AMOUNT_MEDAL) {
+      if ($this->needsReward(self::RANGE_MEDAL)) {
         $this->user->medalMask |= Medal::MEDAL_SPONSOR;
         $this->user->save();
       }
-      if ($this->amount >= self::AMOUNT_NO_BANNERS) {
+      if ($this->needsReward(self::RANGE_NO_BANNERS)) {
         $this->user->noAdsUntil = strtotime('+1 year');
         $this->user->save();
       }

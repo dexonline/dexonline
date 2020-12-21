@@ -37,6 +37,7 @@
               <div class="well">
                 {$donor->htmlMessage}
               </div>
+              <pre>{$donor->textMessage}</pre>
             {else}
               <p class="text-muted">
                 {$donor->getEmailReason()}
@@ -69,6 +70,7 @@
               <div class="well">
                 {$donor->htmlMessage}
               </div>
+              <pre>{$donor->textMessage}</pre>
             {else}
               <p class="text-muted">
                 {$donor->getEmailReason()}

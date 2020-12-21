@@ -13,19 +13,30 @@
 </p>
 
 <ul>
+  {if $donor->needsReward(Donor::RANGE_TEE)}
+    <li>
+      un tricou cu dexonline;
+    </li>
+  {/if}
+  {if $donor->needsReward(Donor::RANGE_LAPEL_PIN)}
+    <li>
+      o insignă cu dexonline;
+    </li>
+  {/if}
+  {if $donor->needsReward(Donor::RANGE_STICKER)}
+    <li>
+      trei autocolante cu dexonline;
+    </li>
+  {/if}
+  {if $donor->needsReward(Donor::RANGE_NO_BANNERS)}
+    <li>
+      pagini fără reclame și preferință pentru
+      <a href="https://wiki.dexonline.ro/wiki/Modul_confiden%C8%9Bial">modul confidențial</a>
+      timp de un an;
+    </li>
+  {/if}
   <li>
-    {Donor::AMOUNT_MEDAL} de lei -- medalii (virtuale) pentru donatori;
-  </li>
-  <li {if $donor->amount < Donor::AMOUNT_NO_BANNERS}style="color: #999"{/if}>
-    {Donor::AMOUNT_NO_BANNERS} de lei -- în plus, pagini fără reclame și preferință pentru
-    <a href="https://wiki.dexonline.ro/wiki/Modul_confiden%C8%9Bial">modul confidențial</a>
-    timp de un an;
-  </li>
-  <li {if $donor->amount < Donor::AMOUNT_STICKER}style="color: #999"{/if}>
-    {Donor::AMOUNT_STICKER} de lei -- în plus, trei autocolante cu dexonline;
-  </li>
-  <li {if $donor->amount < Donor::AMOUNT_TEE}style="color: #999"{/if}>
-    {Donor::AMOUNT_TEE} de lei -- în plus, un tricou cu dexonline.
+    o medalie (virtuală) pentru donatori.
   </li>
 </ul>
 
@@ -33,14 +44,14 @@
   {if !$donor->user}
     Dacă doriți să beneficiați de premiile virtuale (medalie și/sau pagini fără reclame),
     aveți nevoie de <a href="{Router::link('auth/login', true)}">un cont pe dexonline</a>.
-  {elseif $donor->amount < Donor::AMOUNT_NO_BANNERS}
-    V-am acordat medalia în
+  {elseif $donor->needsReward(Donor::RANGE_NO_BANNERS)}
+    V-am acordat medalia și am ascuns reclamele în
     <a href="{Router::link('user/view', true)}/{$donor->user->nick|escape:url}"
     >contul dumneavoastră</a>.
     Dacă preferați ca donația dumneavoastră să fie anonimă, vă rugăm să ne
     contactați.
   {else}
-    V-am acordat medalia și am ascuns reclamele în
+    V-am acordat medalia în
     <a href="{Router::link('user/view', true)}/{$donor->user->nick|escape:url}"
     >contul dumneavoastră</a>.
     Dacă preferați ca donația dumneavoastră să fie anonimă, vă rugăm să ne
@@ -48,12 +59,12 @@
   {/if}
 </p>
 
-{if $donor->amount >= Donor::AMOUNT_STICKER}
+{if $donor->needsMaterialReward()}
   <p>
-    Dacă doriți să beneficiați de premiile fizice (autocolante și/sau tricou),
-    vă rugăm să ne trimiteți adresa pe care doriți să le primiți, eventual și
-    un număr de telefon astfel încît curierul să vă poată suna. Pentru tricou,
-    spuneți-ne și măsura dorită (XS/S/M/L/XL).
+    Dacă doriți să beneficiați de premiile fizice (tricou, insignă și/sau
+    autocolante), vă rugăm să ne trimiteți adresa pe care doriți să le
+    primiți, eventual și un număr de telefon astfel încît curierul să vă poată
+    suna. Pentru tricou, spuneți-ne și măsura dorită (XS/S/M/L/XL).
   </p>
 {/if}
 

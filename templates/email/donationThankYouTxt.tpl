@@ -6,29 +6,36 @@ folosi acești bani pentru unul dintre proiectele noastre [1].
 
 Dorim să răsplătim gestul dumneavoastră după cum urmează:
 
-* {Donor::AMOUNT_MEDAL} de lei -- medalii (virtuale) pentru donatori;
-* {Donor::AMOUNT_NO_BANNERS} de lei -- în plus, pagini fără reclame și preferință pentru
-  modul confidențial [2] timp de un an;
-* {Donor::AMOUNT_STICKER} de lei -- în plus, trei autocolante cu dexonline;
-* {Donor::AMOUNT_TEE} de lei -- în plus, un tricou cu dexonline.
+{if $donor->needsReward(Donor::RANGE_TEE)}
+* un tricou cu dexonline;
+{/if}
+{if $donor->needsReward(Donor::RANGE_LAPEL_PIN)}
+* o insignă cu dexonline;
+{/if}
+{if $donor->needsReward(Donor::RANGE_STICKER)}
+* trei autocolante cu dexonline;
+{/if}
+{if $donor->needsReward(Donor::RANGE_NO_BANNERS)}
+* pagini fără reclame și preferință pentru modul confidențial [2] timp de un an;
+{/if}
+* o medalie (virtuală) pentru donatori.
 
 {if !$donor->user}
 Dacă doriți să beneficiați de premiile virtuale (medalie și/sau pagini fără
 reclame), aveți nevoie de un cont pe dexonline [3].
-{elseif $donor->amount < Donor::AMOUNT_NO_BANNERS}
-V-am acordat medalia în contul dumneavoastră [3]. Dacă preferați ca
-donația dumneavoastră să fie anonimă, vă rugăm să ne contactați.
+{elseif $donor->needsReward(Donor::RANGE_NO_BANNERS)}
+V-am acordat medalia și am ascuns reclamele în contul dumneavoastră [3].  Dacă
+preferați ca donația dumneavoastră să fie anonimă, vă rugăm să ne contactați.
 {else}
-V-am acordat medalia și am ascuns reclamele în contul dumneavoastră [3].
-Dacă preferați ca donația dumneavoastră să fie anonimă, vă rugăm să ne
-contactați.
+V-am acordat medalia în contul dumneavoastră [3]. Dacă preferați ca donația
+dumneavoastră să fie anonimă, vă rugăm să ne contactați.
 {/if}
 
-{if $donor->amount >= Donor::AMOUNT_STICKER}
-Dacă doriți să beneficiați de premiile fizice (autocolante și/sau tricou), vă
-rugăm să ne trimiteți adresa pe care doriți să le primiți, eventual și un
-număr de telefon astfel încît curierul să vă poată suna. Pentru tricou,
-spuneți-ne și măsura dorită (XS/S/M/L/XL).
+{if $donor->needsMaterialReward()}
+Dacă doriți să beneficiați de premiile fizice (tricou, insignă și/sau
+autocolante), vă rugăm să ne trimiteți adresa pe care doriți să le primiți,
+eventual și un număr de telefon astfel încît curierul să vă poată suna. Pentru
+tricou, spuneți-ne și măsura dorită (XS/S/M/L/XL).
 
 {/if}
 Vă mulțumim încă o dată călduros și promitem să folosim la maximum donația dumneavoastră!
@@ -38,7 +45,9 @@ Din partea echipei dexonline,
 
 ----
 [1] {Router::link('donation/donate', true)}
+{if $donor->needsReward(Donor::RANGE_NO_BANNERS)}
 [2] https://wiki.dexonline.ro/wiki/Modul_confiden%C8%9Bial
+{/if}
 {if $donor->user}
 [3] {Router::link('user/view', true)}/{$donor->user->nick|escape:url}
 {else}

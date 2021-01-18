@@ -188,6 +188,16 @@ class Util {
     Variable::poke(
       'Count.entriesWithMultipleMainLexemes', Entry::loadWithMultipleMainLexemes()
     );
+
+    foreach (Config::TAG_REPORTS as $value) {
+      $t = Tag::get_by_value($value);
+      if ($t) {
+        $count = ObjectTag::count_by_objectType_tagId(ObjectTag::TYPE_DEFINITION, $t->id);
+        Variable::poke("Count.tag.{$t->id}", $count);
+      } else {
+        print "No tag found by value [{$value}], please check Config.php::TAG_REPORTS.\n";
+      }
+    }
   }
 
   static function redirect($location) {

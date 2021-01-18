@@ -27,7 +27,12 @@ class Variable extends BaseObject implements DatedObject {
     $result = [];
     foreach ($vars as $var) {
       $name = str_replace('Count.', '', $var->name);
-      $result[$name] = (int)$var->value;
+      // subgrouping for tags
+      if (Str::startsWith($name, 'tag.')) {
+        $result['tag'][substr($name, 4)] = (int)$var->value;
+      } else {
+        $result[$name] = (int)$var->value;
+      }
     }
     return $result;
   }

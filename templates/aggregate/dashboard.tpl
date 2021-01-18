@@ -29,7 +29,12 @@
         {foreach $reports as $r}
           {if $r.count && User::can($r.privilege)}
             <tr>
-              <td>{$r.text}</td>
+              <td>
+                {$r.text}
+                {if isset($r.tag)}
+                  {include "bits/tag.tpl" t=$r.tag}
+                {/if}
+              </td>
               <td><a href="{Config::URL_PREFIX}{$r.url}">{$r.count}</a></td>
             </tr>
           {/if}

@@ -4,6 +4,7 @@ class BaseObject extends Model {
   const ACTION_SELECT = 1;
   const ACTION_SELECT_ALL = 2;
   const ACTION_DELETE_ALL = 3;
+  const ACTION_COUNT = 4;
 
   function __call($name, $arguments) {
     // Work around some strange behavior in PHP:
@@ -102,6 +103,8 @@ class BaseObject extends Model {
       return self::action(substr($name, 11), $arguments, self::ACTION_SELECT_ALL);
     } else if (substr($name, 0, 14) == 'delete_all_by_') {
       self::action(substr($name, 14), $arguments, self::ACTION_DELETE_ALL);
+    } else if (substr($name, 0, 9) == 'count_by_') {
+      return self::action(substr($name, 9), $arguments, self::ACTION_COUNT);
     } else {
       self::_die('cannot handle method', $name, $arguments);
     }
@@ -126,6 +129,7 @@ class BaseObject extends Model {
           $o->delete();
         }
         break;
+      case self::ACTION_COUNT: return $clause->count();
     }
   }
 

@@ -118,6 +118,19 @@ $reports = [
   ],
 ];
 
+foreach (Config::TAG_REPORTS as $value) {
+  $t = Tag::get_by_value($value);
+  if ($t) {
+    $reports[] = [
+      'text' => 'Definiții cu eticheta',
+      'tag' => $t,
+      'url' => "report/definitionTag?tagId={$t->id}",
+      'count' => $counts['tag'][$t->id] ?? 0,
+      'privilege' => User::PRIV_EDIT,
+    ];
+  }
+}
+
 // OR of all the above privileges -- that's the mask to view any reports
 $reportPriv = array_reduce($reports, 'orReducer', 0);
 

@@ -43,9 +43,9 @@ $frequentColors = [
 ];
 
 $children = Model::factory('Tag')
-          ->where('parentId', $tag->id)
-          ->order_by_asc('value')
-          ->find_many();
+  ->where('parentId', $tag->id)
+  ->order_by_asc('value')
+  ->find_many();
 
 $used = ObjectTag::get_by_tagId($tag->id);
 
@@ -65,49 +65,22 @@ if ($deleteButton) {
 }
 
 $homonyms = Model::factory('Tag')
-          ->where('value', $tag->value)
-          ->where_not_equal('id', $tag->id)
-          ->find_many();
+  ->where('value', $tag->value)
+  ->where_not_equal('id', $tag->id)
+  ->find_many();
 
-$defCount = Model::factory('ObjectTag')
-          ->where('objectType', ObjectTag::TYPE_DEFINITION)
-          ->where('tagId', $tag->id)
-          ->count();
-$defs = Model::factory('Definition')
-      ->table_alias('d')
-      ->select('d.*')
-      ->join('ObjectTag', ['ot.objectId', '=', 'd.id'], 'ot')
-      ->where('ot.objectType', ObjectTag::TYPE_DEFINITION)
-      ->where('ot.tagId', $tag->id)
-      ->limit(DEF_LIMIT)
-      ->find_many();
+$defCount = ObjectTag::count_by_objectType_tagId(
+  ObjectTag::TYPE_DEFINITION, $tag->id);
+$defs = $tag->loadObjects('Definition', ObjectTag::TYPE_DEFINITION, DEF_LIMIT);
 $searchResults = SearchResult::mapDefinitionArray($defs);
 
-$lexemeCount = Model::factory('ObjectTag')
-            ->where('objectType', ObjectTag::TYPE_LEXEME)
-            ->where('tagId', $tag->id)
-            ->count();
-$lexemes = Model::factory('Lexeme')
-        ->table_alias('l')
-        ->select('l.*')
-        ->join('ObjectTag', ['ot.objectId', '=', 'l.id'], 'ot')
-        ->where('ot.objectType', ObjectTag::TYPE_LEXEME)
-        ->where('ot.tagId', $tag->id)
-        ->limit(LEXEME_LIMIT)
-        ->find_many();
+$lexemeCount = ObjectTag::count_by_objectType_tagId(
+  ObjectTag::TYPE_LEXEME, $tag->id);
+$lexemes = $tag->loadObjects('Lexeme', ObjectTag::TYPE_LEXEME, LEXEME_LIMIT);
 
-$meaningCount = Model::factory('ObjectTag')
-            ->where('objectType', ObjectTag::TYPE_MEANING)
-            ->where('tagId', $tag->id)
-            ->count();
-$meanings = Model::factory('Meaning')
-          ->table_alias('m')
-          ->select('m.*')
-          ->join('ObjectTag', ['ot.objectId', '=', 'm.id'], 'ot')
-          ->where('ot.objectType', ObjectTag::TYPE_MEANING)
-          ->where('ot.tagId', $tag->id)
-          ->limit(MEANING_LIMIT)
-          ->find_many();
+$meaningCount = ObjectTag::count_by_objectType_tagId(
+  ObjectTag::TYPE_MEANING, $tag->id);
+$meanings = $tag->loadObjects('Meaning', ObjectTag::TYPE_MEANING, MEANING_LIMIT);
 
 Smart::assign([
   't' => $tag,

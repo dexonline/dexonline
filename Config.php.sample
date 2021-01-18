@@ -224,6 +224,9 @@ class Config {
   // Ancestor of all part of speech tags.
   const TAG_PART_OF_SPEECH = 'parte de vorbire';
 
+  // If applied on any definitions, these tags will generate dashboard reports.
+  const TAG_REPORTS = [];
+
   // Do not complain about rare glyphs when this tag is present.
   const TAG_ID_RARE_GLYPHS = 416;
 

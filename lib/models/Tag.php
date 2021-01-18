@@ -58,6 +58,21 @@ class Tag extends BaseObject implements DatedObject {
     return self::loadByObject(ObjectTag::TYPE_MEANING, $meaningId);
   }
 
+  /**
+   * Sample call: $meanings = $tag->loadObjects(
+   *   'Meaning', ObjectTag::TYPE_MEANING, 20);
+   */
+  function loadObjects($class, $objectType, $limit) {
+    return Model::factory($class)
+      ->table_alias('c')
+      ->select('c.*')
+      ->join('ObjectTag', ['ot.objectId', '=', 'c.id'], 'ot')
+      ->where('ot.objectType', $objectType)
+      ->where('ot.tagId', $this->id)
+      ->limit($limit)
+      ->find_many();
+  }
+
   // Returns an array of root tags with their $children fields populated
   static function loadTree() {
     $tags = Model::factory('Tag')->order_by_asc('value')->find_many();

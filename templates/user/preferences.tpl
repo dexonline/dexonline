@@ -153,6 +153,27 @@
             </label>
           </div>
         {/foreach}
+        <div class="form-group">
+          <label>Fila implicită</label>
+          {$tab=Session::getPreferredTab()}
+          <select name="preferredTab" class="form-control">
+            <option
+              value="{Constant::TAB_RESULTS}"
+              {if $tab == Constant::TAB_RESULTS}selected{/if}>
+              rezultate
+            </option>
+            <option
+              value="{Constant::TAB_PARADIGM}"
+              {if $tab == Constant::TAB_PARADIGM}selected{/if}>
+              flexiuni
+            </option>
+            <option
+              value="{Constant::TAB_TREE}"
+              {if $tab == Constant::TAB_TREE}selected{/if}>
+              sinteză
+            </option>
+          </select>
+        </div>
       </div>
     </div>
 

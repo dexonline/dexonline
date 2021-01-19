@@ -5,11 +5,10 @@ class Preferences {
   const FORCE_DIACRITICS = 0x02;
   const OLD_ORTHOGRAPHY = 0x04;
   const EXCLUDE_UNOFFICIAL = 0x08;
-  const SHOW_PARADIGM = 0x10;
-  // const LOC_PARADIGM = 0x20; // no longer in use
+  // 0x10 and 0x20 are no longer in use. The DB values have been cleared. Feel
+  // free to reuse when needed.
   const SHOW_ADVANCED = 0x40;
   const PRIVATE_MODE = 0x80;
-  const NO_TREES = 0x100;
 
   // Set of all customizable user preferences
   static $allPrefs = [
@@ -33,11 +32,6 @@ class Preferences {
       'label' => 'Afișează doar dicționarele canonice',
       'comment' => 'Afișează doar dicționarele canonice editate de Institutul de Lingvistică din cadrul Academiei Române (ultimele ediții ale DEX și DOOM, considerate normative).',
     ],
-    self::SHOW_PARADIGM => [
-      'enabled' => true,
-      'label' => 'Deschide fila de flexiuni',
-      'comment' => 'Implicit, prima filă vizibilă la căutări este cea cu definiții.',
-    ],
     self::SHOW_ADVANCED => [
       'enabled' => true,
       'label' => 'Afișează meniul de căutare avansată în mod implicit',
@@ -52,11 +46,6 @@ class Preferences {
       . 'target="_blank">Modul confidențial</a> '
       . 'este disponibil timp de un an celor care <a href="doneaza">donează</a> '
       . 'minimum 50 de lei.',
-    ],
-    self::NO_TREES => [
-      'enabled' => true,
-      'label' => 'Nu arăta definiții structurate',
-      'comment' => 'dexonline lucrează la o reprezentare proprie a definițiilor, structurată pe sensuri și subsensuri. Cu această opțiune puteți reveni la formatul original din dicționare.',
     ],
   ];
 
@@ -99,15 +88,17 @@ class Preferences {
       : Widget::getWidgets(Session::getWidgetMask(), Session::getWidgetCount());
   }
 
-  static function set($user, $detailsVisible, $userPrefs, $widgetMask) {
+  static function set($user, $detailsVisible, $userPrefs, $preferredTab, $widgetMask) {
     if ($user) {
       $user->detailsVisible = $detailsVisible;
       $user->preferences = $userPrefs;
+      $user->preferredTab = $preferredTab;
       $user->widgetMask = $widgetMask;
       $user->widgetCount = Widget::WIDGET_COUNT;
       $user->save();
     } else {
       Session::setAnonymousPrefs($userPrefs);
+      Session::setPreferredTab($preferredTab);
       // Set the widgetMask / widgetCount cookies.
       // This is a bit complex, because we want to delete the cookie when the settings
       // are all default.

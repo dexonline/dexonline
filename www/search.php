@@ -21,7 +21,6 @@ const DEFAULT_SEARCH_PARAMS = [
   'paradigm' => false,
   'trees' => false,
 ];
-$showTrees = Config::SEARCH_SHOW_TREES && !Session::userPrefers(Preferences::NO_TREES);
 
 $searchParams = [
   SEARCH_REGEXP => DEFAULT_SEARCH_PARAMS,
@@ -31,13 +30,13 @@ $searchParams = [
   SEARCH_INFLECTED => array_replace(DEFAULT_SEARCH_PARAMS, [
     'defLimit' => PREVIEW_LIMIT,
     'paradigm' => true,
-    'trees' => $showTrees,
+    'trees' => Config::SEARCH_SHOW_TREES,
   ]),
   SEARCH_APPROXIMATE => DEFAULT_SEARCH_PARAMS,
   SEARCH_DEF_ID => DEFAULT_SEARCH_PARAMS,
   SEARCH_ENTRY_ID => array_replace(DEFAULT_SEARCH_PARAMS, [
     'paradigm' => true,
-    'trees' => $showTrees,
+    'trees' => Config::SEARCH_SHOW_TREES,
   ]),
   // there is a limit for full-text searches, but we handle it separately for memory reasons
   SEARCH_FULL_TEXT => DEFAULT_SEARCH_PARAMS,
@@ -409,11 +408,17 @@ if (count($images)) {
   Smart::addResources('gallery');
 }
 
-// We cannot show the paradigm tab by default if there isn't one to show.
-if ($searchParams[$searchType]['paradigm'] &&
-    $tab == Constant::TAB_RESULTS &&
-    Session::userPrefers(Preferences::SHOW_PARADIGM)) {
-  $tab = Constant::TAB_PARADIGM;
+// If the URL doesn't specify a tab, and if the user's preferred tab exists in
+// the output, then switch to that tab.
+if ($tab === false) {
+  if (Session::getPreferredTab() ==  Constant::TAB_PARADIGM &&
+      $searchParams[$searchType]['paradigm']) {
+    $tab = Constant::TAB_PARADIGM;
+  } else if (Session::getPreferredTab() ==  Constant::TAB_TREE &&
+             $searchParams[$searchType]['trees'] &&
+             count($trees)) {
+    $tab = Constant::TAB_TREE;
+  }
 }
 
 foreach ($entries as $e) {
@@ -482,12 +487,12 @@ function checkFormat() {
   }
 }
 
+/**
+ * If a tab is specified in the URL, returns one of Constant::TAB_*. Otherwise
+ * returns false.
+ */
 function getTab() {
-  $key = array_search('/' . Request::get('tab'), Constant::TAB_URL);
-  if (!$key) {
-    $key = Constant::TAB_RESULTS;
-  }
-  return $key;
+  return array_search('/' . Request::get('tab'), Constant::TAB_URL);
 }
 
 /**

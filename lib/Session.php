@@ -77,10 +77,31 @@ class Session {
     if ($u) {
       $preferences = $u->preferences;
     } else {
-      $preferences = self::getCookieSetting('anonymousPrefs');
+      $preferences = self::getAnonymousPrefs();
     }
 
     return (int)$preferences & $pref;
+  }
+
+  static function getPreferredTab() {
+    $u = User::getActive();
+    if ($u) {
+      return $u->preferredTab;
+    } else {
+      return self::getCookieSetting('preferredTab', 0);
+    }
+  }
+
+  static function setPreferredTab($tab) {
+    $_COOKIE['prefs']['preferredTab'] = $tab;
+
+    // Remove the cookie rather than setting it to its default value.
+    // This promotes caching.
+    if ($tab != Constant::TAB_RESULTS) {
+      setcookie('prefs[preferredTab]', $tab, time() + self::ONE_YEAR_IN_SECONDS, '/');
+    } else {
+      setcookie('prefs[preferredTab]', null, -1, '/');
+    }
   }
 
   static function setAnonymousPrefs($pref) {

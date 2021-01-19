@@ -61,13 +61,7 @@ class Session {
   }
 
   static function getCookieSetting($name, $default = '') {
-    if (array_key_exists('prefs', $_COOKIE)) {
-      $prefsCookie = $_COOKIE['prefs'];
-      if (array_key_exists($name, $prefsCookie)) {
-        return $prefsCookie[$name];
-      }
-    }
-    return $default;
+    return $_COOKIE['prefs'][$name] ?? $default;
   }
 
   static function setActiveUser() {
@@ -91,7 +85,14 @@ class Session {
 
   static function setAnonymousPrefs($pref) {
     $_COOKIE['prefs']['anonymousPrefs'] = $pref;
-    setcookie('prefs[anonymousPrefs]', $pref, time() + self::ONE_YEAR_IN_SECONDS, '/');
+
+    // Remove the cookie rather than setting it to its default value.
+    // This promotes caching.
+    if ($pref) {
+      setcookie('prefs[anonymousPrefs]', $pref, time() + self::ONE_YEAR_IN_SECONDS, '/');
+    } else {
+      setcookie('prefs[anonymousPrefs]', null, -1, '/');
+    }
   }
 
   static function getAnonymousPrefs() {
@@ -125,12 +126,7 @@ class Session {
   }
 
   static function get($name, $default = null) {
-    if (isset($_SESSION)){
-      if (array_key_exists($name, $_SESSION)) {
-        return $_SESSION[$name];
-      }
-    }
-    return $default;
+    return $_SESSION[$name] ?? $default;
   }
 
   static function set($var, $value) {

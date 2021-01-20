@@ -18,6 +18,15 @@ $(function() {
     $('a[data-toggle="tab"]').on('click', pushHistory);
     window.addEventListener('popstate', popHistory);
 
+    $('#tabAdvertiser').popover({
+      container: 'body',
+      content: $('#tabAdvertiserContent').html(),
+      // otherwise clicking on links won't work
+      delay: { 'show': 0, 'hide': 100 },
+      html: true,
+      placement: 'auto bottom',
+      trigger: 'focus',
+    });
     moveBanner();
   }
 

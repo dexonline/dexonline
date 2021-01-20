@@ -59,6 +59,14 @@
           data-permalink="{$treeLink}">
           {t}synthesis{/t} ({count($trees)})
         </a>
+
+        <span
+          class="btn btn-link"
+          id="tabAdvertiser"
+          role="button"
+          tabindex="0">
+          <span class="glyphicon glyphicon-info-sign"></span>
+        </span>
       </li>
     {/if}
   </ul>
@@ -337,5 +345,14 @@
       </div>
     {/if}
 
+  </div>
+
+  <div id="tabAdvertiserContent" style="display: none">
+    {t 1=Router::link('user/preferences')}
+    <b>The Synthesis tab</b> shows a condensed list of definitions compiled
+    by the dexonline team. This tab will become the default view in the
+    future. You can select your preferred tab from your
+    <a href="%1">preferences page</a>.
+    {/t}
   </div>
 {/block}

@@ -1,3 +1,7 @@
+ul.nav-tabs li a {
+  display: inline-block;
+}
+
 .variantList span:before {
   content: '•';
 }

@@ -6,7 +6,7 @@
 
 {block "content"}
   {if User::getActive()}
-    <div class="panel panel-default">
+    <div class="panel panel-default voffset3">
       <div class="panel-heading">Imagine</div>
       <div class="panel-body">
         <form action="{Router::link('user/editAvatar')}" method="post" enctype="multipart/form-data">

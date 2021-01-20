@@ -27,10 +27,9 @@
 .questionImage {
   display: inline-block;
   margin-right: 10px;
+  text-align: center;
 }
 
 .questionNumber {
-  display: inline-block;
-  margin-left: -10px;
   color: #777;
 }

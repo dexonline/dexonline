@@ -26,12 +26,16 @@
 
       <div id="questionPage">
         {section name=round start=1 loop=11} {* Yes, Smarty, 11 means 10 *}
-          <span class="questionImage">
-            <img id="statusImage{$smarty.section.round.index}"
-                 src="img/mill/pending.png"
-                 alt="imagine pentru runda {$smarty.section.round.index}">
-            <span class="questionNumber">{$smarty.section.round.index}</span>
-          </span>
+          {$i=$smarty.section.round.index}
+          <div class="questionImage">
+            <div>
+              <img
+                id="statusImage{$i}"
+                src="img/mill/pending.png"
+                alt="imagine pentru runda {$i}">
+            </div>
+            <div class="questionNumber">{$i}</div>
+          </div>
         {/section}
 
         <form id="mill" action="">

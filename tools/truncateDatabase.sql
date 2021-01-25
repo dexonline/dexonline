@@ -19,6 +19,7 @@ truncate table FullTextIndex;
 -- truncate table LexemeSource;
 truncate table Meaning;
 truncate table MeaningSource;
+truncate table MillData;
 -- truncate table Model;
 -- truncate table ModelDescription;
 -- truncate table ModelType;

@@ -5,7 +5,7 @@ $(function() {
   var answer = '';
   var round = 1;
   var answeredCorrect = 0;
-  var defId = 0;
+  var meaningId = 0;
   var definitions = [];
 
   function init() {
@@ -34,10 +34,10 @@ $(function() {
     }).done(function(data) {
       $('.word').html(data.choices[data.answer].term);
       for (var i = 1; i <= 4; i++) {
-        $('#mill button[value="' + i + '"] .def').html(data.choices[i].text);
+        $('#mill button[value="' + i + '"] .def').html(data.choices[i].html);
       }
       answer = data.answer;
-      defId = data.defId;
+      meaningId = data.meaningId;
 
       for (i = 1; i <= 4; i++) {
         definitions.push(data.choices[i]);
@@ -59,7 +59,7 @@ $(function() {
       $('#statusImage' + round).attr('src', wwwRoot + 'img/mill/fail.png');
     }
 
-    $.get('ajax/millLog.php?defId=' + defId + '&guessed=' + guessed);
+    $.get('ajax/millLog.php?meaningId=' + meaningId + '&guessed=' + guessed);
 
     $('#mill button').attr('disabled', true);
 
@@ -94,7 +94,7 @@ $(function() {
       });
 
       for(i = 0; i < definitions.length; i++) {
-        var html = '<p><b>' + definitions[i].term + ':</b> ' + definitions[i].text + '</p>';
+        var html = '<p><b>' + definitions[i].term + ':</b> ' + definitions[i].html + '</p>';
         $('#definitionsSection').append(html);
       }
     }

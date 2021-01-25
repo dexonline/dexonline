@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2021-01-20 16:12+0200\n"
-"PO-Revision-Date: 2021-01-20 16:16+0200\n"
+"POT-Creation-Date: 2021-01-25 16:57+0200\n"
+"PO-Revision-Date: 2021-01-25 16:58+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -292,7 +292,7 @@ msgid "characters"
 msgstr "caractere"
 
 #: templates/bits/top.tpl:7 templates/games/hangman.tpl:52
-#: templates/games/mill.tpl:67
+#: templates/games/mill.tpl:77
 msgid "definitions"
 msgstr "definiții"
 
@@ -399,11 +399,19 @@ msgstr "Nivel"
 msgid "You can also use the keys 1, 2, 3, 4."
 msgstr "Poți folosi și tastele 1, 2, 3, 4."
 
-#: templates/games/mill.tpl:38
+#: templates/games/mill.tpl:27
+msgid ""
+"We are currently recalibrating the difficulty levels. Please excuse any "
+"words that are too easy or too hard for the level you selected."
+msgstr ""
+"În prezent recalibrăm nivelurile de dificultate. Te rugăm să ne ierți pentru "
+"cuvinte prea ușoare sau prea grele față de nivelul ales."
+
+#: templates/games/mill.tpl:48
 msgid "The correct definition of <span class=\"word\"></span>:"
 msgstr "Definiția corectă pentru <span class=\"word\"></span>:"
 
-#: templates/games/mill.tpl:56
+#: templates/games/mill.tpl:66
 msgid ""
 "Congratulations! You answered <b id=\"answeredCorrect\">0</b> of 10 "
 "questions correctly."
@@ -411,11 +419,11 @@ msgstr ""
 "Felicitări! Ai răspuns corect la <b id=\"answeredCorrect\">0</b> din 10 "
 "întrebări."
 
-#: templates/games/mill.tpl:59
+#: templates/games/mill.tpl:69
 msgid "new game"
 msgstr "joc nou"
 
-#: templates/games/mill.tpl:60
+#: templates/games/mill.tpl:70
 msgid "see all definitions"
 msgstr "arată toate definițiile"
 

@@ -22,6 +22,12 @@
         <p class="text-info">
           {t}You can also use the keys 1, 2, 3, 4.{/t}
         </p>
+
+        <div class="alert alert-info">
+          {t}We are currently recalibrating the difficulty levels.
+          Please excuse any words that are too easy or too hard for the level
+          you selected.{/t}
+        </div>
       </div>
 
       <div id="questionPage">

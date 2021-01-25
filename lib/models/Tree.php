@@ -26,7 +26,8 @@ class Tree extends BaseObject implements DatedObject {
 
   // Returns the description up to the first parenthesis (if any).
   function getShortDescription() {
-    return preg_split('/\s+[(\/]/', $this->description)[0];
+    $desc = preg_split('/,/', $this->description)[0];
+    return preg_split('/\s+[(\/]/', $desc)[0];
   }
 
   function getTags() {

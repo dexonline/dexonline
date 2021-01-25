@@ -2,12 +2,13 @@
 
 require_once '../../lib/Core.php';
 
-$defId = Request::get('defId');
+$meaningId = Request::get('meaningId');
 $guessed = Request::get('guessed');
 
-$def = DefinitionSimple::get_by_id($defId);
-if ($def) {
-  $def->millShown++;
-  $def->millGuessed += $guessed;
-  $def->save();
+$m = Meaning::get_by_id($meaningId);
+if ($m) {
+  $m->millShown++;
+  $m->millGuessed += $guessed;
+  $m->millRatio = $m->millGuessed / $m->millShown;
+  $m->save();
 }

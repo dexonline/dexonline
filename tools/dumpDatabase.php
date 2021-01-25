@@ -27,6 +27,7 @@ const SCHEMA_ONLY_TABLES = [
   'AccuracyProject',
   'AccuracyRecord',
   'Cookie',
+  'DefinitionSimple',
   'DefinitionVersion',
   'Donation',
   'PasswordToken',
@@ -37,7 +38,6 @@ const SCHEMA_ONLY_TABLES = [
 // Tables to be included in the full dump, but schema only in the public dump
 const PRIVATE_TABLES = [
   'AdsClick',
-  'DefinitionSimple',
   'OCR',
   'OCRLot',
   'Typo',

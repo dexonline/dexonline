@@ -36,6 +36,11 @@ foreach ($trees as $t) {
       ->where('parentId', 0)
       ->where('type', Meaning::TYPE_MEANING)
       ->where_not_equal('internalRep', '')
+      // ignore meanings which only introduce lists of submeanings (expressions etc.)
+      ->where_raw("internalRep not rlike '[=):]$'")
+      // ignore some long infinitives / past participles
+      ->where_not_like('internalRep', 'Acțiunea de $%')
+      ->where_not_like('internalRep', 'Faptul de $%')
       ->find_many();
 
     // create MillData entries for each meaning
@@ -52,7 +57,7 @@ foreach ($trees as $t) {
     }
   };
 
-  if (++$count % 1000 == 0) {
+  if (++$count % 5000 == 0) {
     Log::info("{$count} trees processed");
   }
 }

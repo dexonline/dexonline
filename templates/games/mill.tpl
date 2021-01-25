@@ -5,7 +5,7 @@
 {block "search"}{/block}
 
 {block "content"}
-  <div class="panel panel-default millArea">
+  <div class="panel panel-default millArea voffset3">
     <div class="panel-heading">
       <h3 class="panel-title">{cap}{t}word mill{/t}{/cap}</h3>
     </div>
@@ -13,10 +13,10 @@
       <div id="mainPage">
         <form id="main" action="">
           <label>{t}Level{/t}:</label>
-          <button class="btn btn-info" type="button" value="1">{t}easy{/t}</button>
-          <button class="btn btn-info" type="button" value="2">{t}medium{/t}</button>
-          <button class="btn btn-info" type="button" value="3">{t}hard{/t}</button>
-          <button class="btn btn-info" type="button" value="4">{t}expert{/t}</button>
+          <button class="btn btn-info" type="button" value="0">{t}easy{/t}</button>
+          <button class="btn btn-info" type="button" value="1">{t}medium{/t}</button>
+          <button class="btn btn-info" type="button" value="2">{t}hard{/t}</button>
+          <button class="btn btn-info" type="button" value="3">{t}expert{/t}</button>
         </form>
 
         <p class="text-info">
@@ -25,29 +25,29 @@
       </div>
 
       <div id="questionPage">
-        {section name=round start=1 loop=11} {* Yes, Smarty, 11 means 10 *}
+        {section name=round start=0 loop=10}
           {$i=$smarty.section.round.index}
           <div class="questionImage">
             <div>
               <img
                 id="statusImage{$i}"
                 src="img/mill/pending.png"
-                alt="imagine pentru runda {$i}">
+                alt="imagine pentru runda {$i+1}">
             </div>
-            <div class="questionNumber">{$i}</div>
+            <div class="questionNumber">{$i+1}</div>
           </div>
         {/section}
 
         <form id="mill" action="">
           <label>{t}The correct definition of <span class="word"></span>:{/t}</label>
-          {section name=choices start=1 loop=5}
+          {section name=choices start=0 loop=4}
             <button
               class="btn btn-default btn-block btn-lg"
               type="button"
               disabled
               value="{$smarty.section.choices.index}">
               <strong>
-                {$smarty.section.choices.index}.
+                {$smarty.section.choices.index+1}.
               </strong>
               <span class="def"></span>
             </button>

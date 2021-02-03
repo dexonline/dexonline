@@ -169,19 +169,13 @@ class Levenshtein {
     }
 
     // now $results is an array of tuples (distance, string);
-    // split them into two arrays
-    $dist = [];
-    $str = [];
-    foreach ($results as $tuple) {
-      $dist[] = $tuple[0];
-      $str[] = $tuple[1];
-    }
-
     // sort them by distance
-    array_multisort($dist, $str);
+    usort($results, function ($a, $b) {
+      return $a[0] <=> $b[0];
+    });
 
     // return just the strings and at most $maxResults of them
-    return array_slice($str, 0, $maxResults);
+    return array_slice(array_column($results, 1), 0, $maxResults);
   }
 
   static function genCompactForms() {

@@ -2,12 +2,18 @@
 
 require_once '../../lib/Core.php';
 
+ini_set('memory_limit', '512M');
+
 const MAX_DIFF = 4;
 const NUM_ROUNDS = 10;
 const NUM_CHOICES = 4;
-const INITIAL_POOL_SIZE = 30;
+const INITIAL_POOL_SIZE = 100;
+const INITIAL_DISTANCE = 50;
 
 $difficulty = Request::get('d', 0);
+
+// global counter of calls to Levenshtein
+$totalAttempts = 0;
 
 // Compute the high and low guess rate for the given difficulty. To do this,
 // sort the records by guess rate, compute the slice for the given difficulty,
@@ -40,6 +46,7 @@ foreach ($mds as $md) {
   $resp[] = hide($md, $difficulty);
 }
 
+Log::info('Total attempts: %d', $totalAttempts);
 header('Content-Type: application/json');
 print json_encode($resp);
 
@@ -52,13 +59,12 @@ function hide($md, $difficulty) {
   // distance slowly and number of matches more quickly until we collect
   // enough MillData's. Be more lenient than the regular Levenshtein search to
   // reduce the number of unsuccessful attempts.
-  $poolMultiplier = $distMultiplier = 1;
+  $poolSize = INITIAL_POOL_SIZE;
+  $dist = INITIAL_DISTANCE;
+  $attempts = 0;
   do {
-    $forms = Levenshtein::closest(
-      $md->word,
-      $poolMultiplier * INITIAL_POOL_SIZE,
-      $distMultiplier * Levenshtein::MAX_DISTANCE
-    );
+    $attempts++;
+    $forms = Levenshtein::closest($md->word, $poolSize, $dist);
 
     // cross-reference the forms with the MillData table
     $mds = Model::factory('MillData')
@@ -68,10 +74,13 @@ function hide($md, $difficulty) {
       ->order_by_expr('rand()')
       ->limit(NUM_CHOICES - 1)
       ->find_many();
-    $poolMultiplier++;
-    $distMultiplier += 0.2;
+
+    $poolSize = (int)($poolSize * 1.5);
+    $dist = (int)($dist * 1.5);
   } while (count($mds) < NUM_CHOICES - 1);
-  Log::info('choices found after %d attempts:', $poolMultiplier - 1);
+
+  $GLOBALS['totalAttempts'] += $attempts;
+  Log::info('choices found after %d attempts:', $attempts);
   foreach ($mds as $other) {
     Log::info("* {$other->word} [meaningId={$other->meaningId}]");
   }

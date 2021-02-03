@@ -23,7 +23,7 @@ class Core {
     require_once __DIR__ . '/../Config.php';
 
     spl_autoload_register(); // clear the autoload stack
-    spl_autoload_register('Core::autoload', false, true);
+    spl_autoload_register('Core::autoload', true, true);
 
     DB::init();
     Session::init(); // init Session before Smart: Smart caches the person's nickname.

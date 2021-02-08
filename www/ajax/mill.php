@@ -21,21 +21,15 @@ $totalAttempts = 0;
 $mdCount = Model::factory('MillData')->count();
 $loOffset = (int)($mdCount * $difficulty / MAX_DIFF);
 $hiOffset = (int)($mdCount * ($difficulty + 1) / MAX_DIFF - 1);
-$loRatio = Model::factory('MillData')
-  ->order_by_asc('ratio')
-  ->offset($loOffset)
-  ->find_one();
-$hiRatio = Model::factory('MillData')
-  ->order_by_asc('ratio')
-  ->offset($hiOffset)
-  ->find_one();
+$loRatio = getRatio($loOffset);
+$hiRatio = getRatio($hiOffset);
 
 // Load NUM_ROUNDS records at random from the given frequencies. We know there
 // are enough records to choose from, since the high and low ratios span at
 // least 1/4 of the data.
 $mds = Model::factory('MillData')
-  ->where_gte('ratio', $loRatio->ratio)
-  ->where_lte('ratio', $hiRatio->ratio)
+  ->where_gte('ratio', $loRatio)
+  ->where_lte('ratio', $hiRatio)
   ->order_by_expr('rand()')
   ->limit(NUM_ROUNDS)
   ->find_many();
@@ -51,6 +45,22 @@ header('Content-Type: application/json');
 print json_encode($resp);
 
 /*************************************************************************/
+
+/**
+ * Returns the $offset smallest ratio in MillData. It's the same as
+ *
+ *  select * from MillData order by ratio limit 1 offset $offset;
+ *
+ * , but optimized for speed in MySQL (in MariaDB it was already fast).
+ */
+function getRatio($offset) {
+  $rec = Model::factory('MillData')
+    ->select('ratio')
+    ->order_by_asc('ratio')
+    ->offset($offset)
+    ->find_one();
+  return $rec->ratio;
+}
 
 function hide($md, $difficulty) {
   Log::info("hiding {$md->word} [meaningId={$md->meaningId}] difficulty {$difficulty}");

@@ -24,15 +24,7 @@ $hiOffset = (int)($mdCount * ($difficulty + 1) / MAX_DIFF - 1);
 $loRatio = getRatio($loOffset);
 $hiRatio = getRatio($hiOffset);
 
-// Load NUM_ROUNDS records at random from the given frequencies. We know there
-// are enough records to choose from, since the high and low ratios span at
-// least 1/4 of the data.
-$mds = Model::factory('MillData')
-  ->where_gte('ratio', $loRatio)
-  ->where_lte('ratio', $hiRatio)
-  ->order_by_expr('rand()')
-  ->limit(NUM_ROUNDS)
-  ->find_many();
+$mds = getRandomRows(NUM_ROUNDS, $loRatio, $hiRatio);
 
 // Hide each record among similar records chosen according to the difficulty.
 $resp = [];
@@ -60,6 +52,44 @@ function getRatio($offset) {
     ->offset($offset)
     ->find_one();
   return $rec->ratio;
+}
+
+/**
+ * Load NUM_ROUNDS records at random from the given frequencies. We know there
+ * are enough records to choose from, since the high and low ratios span at
+ * least 1/4 of the data.
+ * This does the same thing as "order by rand()", but should be faster.
+ */
+function getRandomRows($count, $loRatio, $hiRatio) {
+  $results = [];
+  $offsets = [];
+
+  $numRows = Model::factory('MillData')
+    ->where_gte('ratio', $loRatio)
+    ->where_lte('ratio', $hiRatio)
+    ->count();
+
+  while ($count--) {
+    // generate a distinct random number
+    do {
+      $rnd = rand() % $numRows;
+    } while (isset($offsets[$rnd]));
+    $offsets[$rnd] = true;
+
+    // fetch just the ID; this is considerably faster in MySQL
+    $md = Model::factory('MillData')
+      ->select('id')
+      ->where_gte('ratio', $loRatio)
+      ->where_lte('ratio', $hiRatio)
+      ->order_by_asc('id')
+      ->offset($rnd)
+      ->find_one();
+
+    // fetch the row
+    $results[] = MillData::get_by_id($md->id);
+  }
+
+  return $results;
 }
 
 function hide($md, $difficulty) {

@@ -4,6 +4,10 @@ require_once 'third-party/idiorm/idiorm.php';
 require_once 'third-party/idiorm/paris.php';
 
 class DB {
+  const INIT_COMMAND =
+    'set names utf8mb4, ' .
+    'sql_mode = (select replace(@@sql_mode, "ONLY_FULL_GROUP_BY", ""))';
+
   static $dsn;
   static $user;
   static $password;
@@ -26,7 +30,7 @@ class DB {
     // This allows var_dump(ORM::get_query_log()) or var_dump(ORM::get_last_query())
     // ORM::configure('logging', true);
     ORM::configure('driver_options', [
-      PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8mb4',
+      PDO::MYSQL_ATTR_INIT_COMMAND => self::INIT_COMMAND,
       PDO::MYSQL_ATTR_LOCAL_INFILE => true,
     ]);
   }

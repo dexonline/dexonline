@@ -27,7 +27,6 @@ const SCHEMA_ONLY_TABLES = [
   'AccuracyProject',
   'AccuracyRecord',
   'Cookie',
-  'DefinitionSimple',
   'DefinitionVersion',
   'Donation',
   'PasswordToken',

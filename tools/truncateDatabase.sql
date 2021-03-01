@@ -7,7 +7,6 @@ truncate table AdsLink;
 -- truncate table ConstraintMap;
 truncate table Cookie;
 truncate table Definition;
-truncate table DefinitionSimple;
 truncate table DefinitionVersion;
 truncate table Entry;
 truncate table EntryDefinition;

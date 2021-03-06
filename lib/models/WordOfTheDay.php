@@ -5,6 +5,7 @@ class WordOfTheDay extends BaseObject implements DatedObject {
 
   const BIG_BANG = '2011-04-29';
   const DEFAULT_IMAGE = 'generic.jpg';
+  const OLDER_WOTD_DISPLAY_LIMIT = 5;
 
   // Thumbnail sizes
   const SIZE_S = 48;
@@ -57,6 +58,7 @@ class WordOfTheDay extends BaseObject implements DatedObject {
       ->where_raw('month(displayDate) = ?', $month)
       ->where_raw('day(displayDate) = ?', $day)
       ->order_by_desc('displayDate')
+      ->limit(self::OLDER_WOTD_DISPLAY_LIMIT)
       ->find_many();
   }
 

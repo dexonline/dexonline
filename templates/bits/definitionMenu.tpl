@@ -29,7 +29,7 @@
         <a href="#"
           title="comută definiția între structurată și nestructurată"
         >
-          <span class="toggleStructuredLink" {if !$def->structured}style="display: none"{/if}>
+          <span class="toggleStructuredLink text-success" {if !$def->structured}style="display: none"{/if}>
             <i class="glyphicon glyphicon-ok"></i> structurată
           </span>
           <span class="toggleStructuredLink" {if $def->structured}style="display: none"{/if}>

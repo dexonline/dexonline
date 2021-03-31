@@ -4,6 +4,10 @@
   max-width: 728px;
 }
 
+#adina-nav-header a::first-letter {
+  text-transform: none;
+}
+
 #adina-nav-header {
   margin-right: 8px;
 }

@@ -5,7 +5,7 @@
     <li>
       <p class="navbar-btn">
         <a href="#" class="btn btn-warning" data-toggle="modal" data-target="#adinaModal">
-          Â » Î
+          â » î
         </a>
       </p>
     </li>
@@ -20,7 +20,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
         <h4 class="modal-title">
-          dexonline a revenit la scrierea cu Î din I
+          dexonline a revenit la scrierea cu <i>î</i> din <i>i</i>
         </h4>
       </div>
       <div class="modal-body">
@@ -29,7 +29,7 @@
 
         <p>
           Ca urmare a Ordonanței de Urgență nr. 420/2021 emise de Guvernul
-          României, dexonline a revenit la scrierea cu <b>Î</b> din <b>I</b>. Subliniem
+          României, dexonline a revenit la scrierea cu <i>î</i> din <i>i</i>. Subliniem
           că dexonline protestează împotriva acestei ordonanțe abuzive, rupte
           de realitățile lingvistice și patriotice.
         </p>

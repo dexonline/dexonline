@@ -7,8 +7,9 @@
  *
  * const PLUGINS = [
  *   'Adina' => [
- *     'startDate' => '2021-04-01 00:00:00',
- *     'endDate' => '2021-04-01 23:59:59',
+ *     // only run between these two dates
+ *     'startDate' => '2021-04-01 00:00:00 GMT+3',
+ *     'endDate' => '2021-04-01 23:59:59 GMT+3',
  *     'detailsUrl' => 'https://example.com',
  *   ],
  * ];
@@ -17,34 +18,42 @@
 
 class Adina extends Plugin {
 
-  /**
-   * Only run between these timestamps.
-   **/
-  private $startTimestamp, $endTimestamp;
   private $detailsUrl;
+  private $run;
 
   public function __construct($cfg) {
     // run all the time by default
-    $this->startTimestamp = strtotime($cfg['startDate'] ?? '1970-01-01');
-    $this->endTimestamp = strtotime($cfg['endDate'] ?? '2100-12-31');
+    $start = strtotime($cfg['startDate'] ?? '1970-01-01');
+    $end = strtotime($cfg['endDate'] ?? '2100-12-31');
+    $now = time();
+    $this->run = ($now >= $start) && ($now <= $end);
+
     $this->detailsUrl = $cfg['detailsUrl'] ?? null;
   }
 
   function coreInit() {
-    Smart::registerFilter('output', ['Str', 'replace_ai']);
+    if ($this->run) {
+      Smart::registerFilter('output', ['Str', 'replace_ai']);
+    }
   }
 
   function cssJsSmarty() {
-    Smart::addPluginCss('adina/main.css');
-    Smart::assign('adinaDetailsUrl', $this->detailsUrl);
+    if ($this->run) {
+      Smart::addPluginCss('adina/main.css');
+      Smart::assign('adinaDetailsUrl', $this->detailsUrl);
+    }
   }
 
   function navbar() {
-    print Smart::fetch('plugins/adina/navButton.tpl');
+    if ($this->run) {
+      print Smart::fetch('plugins/adina/navButton.tpl');
+    }
   }
 
   function afterSearch() {
-    print Smart::fetch('plugins/adina/afterSearch.tpl');
+    if ($this->run) {
+      print Smart::fetch('plugins/adina/afterSearch.tpl');
+    }
   }
 
 }

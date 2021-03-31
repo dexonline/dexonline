@@ -50,6 +50,14 @@ abstract class Plugin {
   function bodyStart() {
   }
 
+  /* called inside the navbar container */
+  function navbar() {
+  }
+
+  /* called after the search form */
+  function afterSearch() {
+  }
+
   /* called when the HTML is rendering, after the </body> tag */
   function afterBody() {
   }

@@ -36,6 +36,8 @@
       </button>
     </div>
 
+    {Plugin::notify('navbar')}
+
     <div class="collapse navbar-collapse" id="navMenu">
       <!-- Collect the nav links, forms, and other content for toggling -->
       <ul class="nav navbar-nav">

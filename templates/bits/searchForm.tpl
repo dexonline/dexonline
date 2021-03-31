@@ -68,3 +68,5 @@
     {/if}
   </div>
 </section>
+
+{Plugin::notify('afterSearch')}

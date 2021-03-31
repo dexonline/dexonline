@@ -523,7 +523,7 @@ class TreeComparator {
 
   function cmp($a, $b) {
     // lower precedence: natural sort order
-    $score = (strcoll($a->description, $b->description) > 0);
+    $score = (int)(strcoll($a->description, $b->description) > 0);
 
     // higher precedence: prefer trees that exactly match the query
     if ($a->getShortDescription() != $this->query) {

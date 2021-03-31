@@ -239,14 +239,18 @@ class Smart {
     }
   }
 
+  static function registerFilter($type, $callback) {
+    self::$theSmarty->registerFilter($type, $callback);
+  }
+
   static function registerOutputFilters() {
     if (Session::userPrefers(Preferences::CEDILLA_BELOW)) {
-      self::$theSmarty->registerFilter('output', ['Str', 'replace_st']);
+      self::$registerFilter('output', ['Str', 'replace_st']);
     }
     if (Session::userPrefers(Preferences::OLD_ORTHOGRAPHY)) {
-      self::$theSmarty->registerFilter('output', ['Str', 'replace_ai']);
+      self::registerFilter('output', ['Str', 'replace_ai']);
     }
-    self::$theSmarty->registerFilter('output', ['Smart', 'minifyOutput']);
+    self::registerFilter('output', ['Smart', 'minifyOutput']);
     self::$theSmarty->registerPlugin('modifier', 'nf', 'LocaleUtil::number');
   }
 

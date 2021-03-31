@@ -8,7 +8,7 @@
  * const PLUGINS = [
  *   'Adina' => [
  *     'startDate' => '2021-04-01 00:00:00',
- *     'endDate' => '2021-04-01 23:59:59', 
+ *     'endDate' => '2021-04-01 23:59:59',
  *     'detailsUrl' => 'https://example.com',
  *   ],
  * ];

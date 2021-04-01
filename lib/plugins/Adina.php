@@ -26,7 +26,10 @@ class Adina extends Plugin {
     $start = strtotime($cfg['startDate'] ?? '1970-01-01');
     $end = strtotime($cfg['endDate'] ?? '2100-12-31');
     $now = time();
-    $this->run = ($now >= $start) && ($now <= $end);
+    $this->run =
+      ($now >= $start) &&
+      ($now <= $end) &&
+      !User::can(User::PRIV_ANY);;
 
     $this->detailsUrl = $cfg['detailsUrl'] ?? null;
   }

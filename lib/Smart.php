@@ -245,7 +245,7 @@ class Smart {
 
   static function registerOutputFilters() {
     if (Session::userPrefers(Preferences::CEDILLA_BELOW)) {
-      self::$registerFilter('output', ['Str', 'replace_st']);
+      self::registerFilter('output', ['Str', 'replace_st']);
     }
     if (Session::userPrefers(Preferences::OLD_ORTHOGRAPHY)) {
       self::registerFilter('output', ['Str', 'replace_ai']);

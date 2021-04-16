@@ -1,7 +1,7 @@
-<h3 id="doiLaSuta">Redirecționează 2% din impozitul pe venit</h3>
+<h3 id="doiLaSuta">Redirecționează 3,5% din impozitul pe venit</h3>
 
 <p>
-  Codul Fiscal permite redirecționarea a 2% din impozitul pe venit datorat
+  Codul Fiscal permite redirecționarea a 3,5% din impozitul pe venit datorat
   pentru anul trecut. Astfel, poți ajuta <i>Asociația dexonline</i> fără să te
   coste nimic! Termenul limită este 25 mai anul curent. Mai multe informații
   poți găsi <a href="https://redirectioneaza.ro/">aici</a>.

@@ -307,7 +307,8 @@ class Entry extends BaseObject implements DatedObject {
     $concats = [];
     foreach ($this->$lexemeType as $lexeme) {
       foreach ($props as $p) {
-        $concats[$lexeme->id()] .= $lexeme->$p;
+        $concats[$lexeme->id] ??= '';
+        $concats[$lexeme->id] .= $lexeme->$p;
       }
     }
     return array_unique($concats);

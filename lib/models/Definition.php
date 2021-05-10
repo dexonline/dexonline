@@ -571,7 +571,6 @@ class Definition extends BaseObject implements DatedObject {
    */
   function save() {
     $this->modUserId = User::getActiveId();
-    Typo::delete_all_by_definitionId($this->id);
     return parent::save();
   }
 

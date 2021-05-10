@@ -115,18 +115,24 @@ $(function() {
   init();
 });
 
-function ignoreTypo(typoDivId, typoId) {
-  $.get(wwwRoot + 'ajax/ignoreTypo.php', { id: typoId })
-    .done(function() {
-      $('#' + typoDivId).css('display', 'none');
-    })
-    .fail(function() {
-      alert('A apărut o problemă la comunicarea cu serverul. ' +
-            'Greșeala de tipar nu a fost încă ștearsă.');
-    });
+// deletes typos via Ajax and hides them from the UI
+$(function() {
+  $('.ignore-typo').click(function() {
+    var typoId = $(this).data('typoId');
+    var wrapper = $(this).closest('.typo-wrapper');
 
-  return false;
-}
+    $.get(wwwRoot + 'ajax/ignoreTypo.php', { id: typoId })
+      .done(function() {
+        wrapper.hide();
+      })
+      .fail(function() {
+        alert('A apărut o problemă la comunicarea cu serverul. ' +
+              'Greșeala de tipar nu a fost încă ștearsă.');
+      });
+
+    return false;
+  });
+});
 
 function ifWikiPageExists(title, callback) {
   $.ajax({

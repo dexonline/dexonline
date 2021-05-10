@@ -28,7 +28,7 @@
     {if count($row->typos)}
       <ul>
         {foreach $row->typos as $typo}
-          <li id="typo{$typo->id}">
+          <li class="typo-wrapper">
 
             <span class="text-warning">
               {$typo->problem|escape}
@@ -37,8 +37,8 @@
               [{$typo->userName}]
             </span>
             <a href="#"
-              title="Ignoră această raportare"
-              onclick="return ignoreTypo('typo{$typo->id}', {$typo->id});">
+              class="ignore-typo"
+              data-typo-id="{$typo->id}">
               ignoră
             </a>
 

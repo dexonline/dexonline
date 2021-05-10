@@ -4,7 +4,7 @@ class User extends BaseObject {
   public static $_table = 'User';
 
   const PRIV_ADMIN = 0x01;
-  // const PRIV_LOC = 0x02; // no longer in use
+  const PRIV_VIEW_HIDDEN = 0x02;
   const PRIV_EDIT = 0x04;
   const PRIV_WOTD = 0x08;
   const PRIV_STRUCT = 0x10;
@@ -15,15 +15,15 @@ class User extends BaseObject {
 
   const PRIV_NAMES = [
     self::PRIV_ADMIN => 'administrator',
+    self::PRIV_VIEW_HIDDEN => 'definiții și surse ascunse',
     self::PRIV_EDIT => 'moderator',
     self::PRIV_WOTD => 'cuvântul zilei',
-    self::PRIV_STRUCT => 'structurist al definițiilor',
+    self::PRIV_STRUCT => 'structurist',
     self::PRIV_VISUAL => 'dicționarul vizual',
     self::PRIV_DONATION => 'procesare donații',
     self::PRIV_TRAINEE => 'stagiar',
   ];
 
-  const PRIV_VIEW_HIDDEN = self::PRIV_ADMIN;
   const PRIV_ANY = (1 << self::NUM_PRIVILEGES) - 1;
 
   private static $active = null; // user currently logged in

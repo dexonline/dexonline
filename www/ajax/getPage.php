@@ -3,7 +3,7 @@
  * Translates a sourceId + word into a volume + page + image URL.
  **/
 require_once '../../lib/Core.php';
-User::mustHave(User::PRIV_EDIT | User::PRIV_TRAINEE);
+User::mustHave(User::PRIV_ORIGINAL | User::PRIV_TRAINEE);
 
 $sourceId = Request::get('sourceId');
 $word = Request::get('word');

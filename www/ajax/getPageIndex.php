@@ -1,7 +1,7 @@
 <?php
 
 require_once '../../lib/Core.php';
-User::mustHave(User::PRIV_EDIT);
+User::mustHave(User::PRIV_ORIGINAL);
 
 $sourceId = Request::get('sourceId', 0);
 

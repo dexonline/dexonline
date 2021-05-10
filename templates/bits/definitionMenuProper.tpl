@@ -211,7 +211,7 @@
 
         {if $showPageLink &&
           $row->source->hasPageImages &&
-          (User::can(User::PRIV_EDIT) ||
+          (User::can(User::PRIV_ORIGINAL) ||
             TraineeSource::TraineeCanEditSource(User::getActiveId(), $def->sourceId))}
           <li>
             <a href="#"
@@ -275,6 +275,6 @@
   $showPageModal &&
   $showDropup &&
   $row->source->hasPageImages &&
-  (User::can(User::PRIV_EDIT) || TraineeSource::TraineeCanEditSource(User::getActiveId(), $def->sourceId))}
+  (User::can(User::PRIV_ORIGINAL) || TraineeSource::TraineeCanEditSource(User::getActiveId(), $def->sourceId))}
   {include "bits/pageModal.tpl"}
 {/if}

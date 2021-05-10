@@ -11,7 +11,8 @@ class User extends BaseObject {
   const PRIV_VISUAL = 0x20;
   const PRIV_DONATION = 0x40;
   const PRIV_TRAINEE = 0x80;
-  const NUM_PRIVILEGES = 8;
+  const PRIV_ORIGINAL = 0x100;
+  const NUM_PRIVILEGES = 9;
 
   const PRIV_NAMES = [
     self::PRIV_ADMIN => 'administrator',
@@ -22,6 +23,7 @@ class User extends BaseObject {
     self::PRIV_VISUAL => 'dicționarul vizual',
     self::PRIV_DONATION => 'procesare donații',
     self::PRIV_TRAINEE => 'stagiar',
+    self::PRIV_ORIGINAL => 'originale scanate',
   ];
 
   const PRIV_ANY = (1 << self::NUM_PRIVILEGES) - 1;

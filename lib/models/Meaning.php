@@ -85,8 +85,10 @@ class Meaning extends BaseObject implements DatedObject {
    **/
   function increaseBreadcrumb($x) {
     $parts = explode('.', $this->breadcrumb);
-    $parts[0] += $x;
-    $this->breadcrumb = implode('.', $parts);
+    if ($parts[0]) {
+      $parts[0] += $x;
+      $this->breadcrumb = implode('.', $parts);
+    }
   }
 
   /**

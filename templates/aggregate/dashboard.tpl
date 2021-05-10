@@ -316,23 +316,23 @@
           <div class="form-group">
             {include "bits/modelDropDown.tpl" modelTypes=$canonicalModelTypes}
 
-            <div class="btn-group">
-              <button type="submit" class="btn btn-default" name="showLexemes">
-                arată toate lexemele
-              </button>
-              <button type="submit" class="btn btn-default" name="editModel">
-                <i class="glyphicon glyphicon-pencil"></i>
-                editează
-              </button>
-              <button type="submit" class="btn btn-default" name="cloneModel">
-                <i class="glyphicon glyphicon-duplicate"></i>
-                clonează
-              </button>
-              <button type="submit" class="btn btn-danger" name="deleteModel">
-                <i class="glyphicon glyphicon-trash"></i>
-                șterge
-              </button>
-            </div>
+            <button type="submit" class="btn btn-default" name="goToModel">
+              pagina modelului
+            </button>
+
+            <button type="submit" class="btn btn-default" name="showLexemes">
+              arată toate lexemele
+            </button>
+
+            <button type="submit" class="btn btn-default" name="cloneModel">
+              <i class="glyphicon glyphicon-duplicate"></i>
+              clonează
+            </button>
+
+            <button type="submit" class="btn btn-danger" name="deleteModel">
+              <i class="glyphicon glyphicon-trash"></i>
+              șterge
+            </button>
           </div>
         </form>
 

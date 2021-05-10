@@ -4,7 +4,7 @@ User::mustHave(User::PRIV_EDIT);
 $modelType = Request::get('modelType');
 $modelNumber = Request::get('modelNumber');
 $showLexemesButton = Request::has('showLexemes');
-$editModelButton = Request::has('editModel');
+$goToModelButton = Request::has('goToModel');
 $cloneModelButton = Request::has('cloneModel');
 $deleteModelButton = Request::has('deleteModel');
 
@@ -14,10 +14,10 @@ $args = sprintf("modelType=%s&modelNumber=%s",
 
 if ($showLexemesButton) {
   Util::redirect(Router::link('model/listLexemes') . "?$args");
-} else if ($editModelButton) {
+} else if ($goToModelButton) {
   $modelType = ModelType::canonicalize($modelType);
   $m = FlexModel::get_by_modelType_number($modelType, $modelNumber);
-  Util::redirect(Router::link('model/edit') . "?id={$m->id}");
+  Util::redirect(Router::link('model/view') . "/{$m}");
 } else if ($cloneModelButton) {
   Util::redirect(Router::link('model/clone') . "?$args");
 } else if ($deleteModelButton) {

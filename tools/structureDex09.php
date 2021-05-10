@@ -478,7 +478,7 @@ function mergeVariant($def, $reference) {
   }
 
   Log::info('Merging %s into %s.', $def->lexicon, $form);
-  $defEntries[0]->mergeInto($formEntries[0]->id);
+  $defEntries[0]->mergeInto($formEntries[0]);
   $def->structured = true;
   $def->save();
   $numChanges++;

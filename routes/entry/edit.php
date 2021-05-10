@@ -77,9 +77,7 @@ if ($mergeButton) {
     Util::redirect("?id={$e->id}");
   }
 
-  $e->mergeInto($other->id);
-  $other->save(); // force updating $other->modUserId
-  $other->deleteTemporaryLexemes();
+  $e->mergeInto($other);
 
   FlashMessage::add('Am unificat intrările.', 'success');
   Util::redirect("?id={$other->id}");

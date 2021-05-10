@@ -401,7 +401,7 @@ class Entry extends BaseObject implements DatedObject {
     }
   }
 
-  function mergeInto($otherId) {
+  function mergeInto($other) {
     // delete trees that are safe to delete
     foreach ($this->getTrees() as $t) {
       if ($t->canDelete()) {
@@ -409,24 +409,31 @@ class Entry extends BaseObject implements DatedObject {
       }
     }
 
-    EntryDefinition::copy($this->id, $otherId, 1);
-    EntryLexeme::copy($this->id, $otherId, 1, ['main' => true]);
-    EntryLexeme::copy($this->id, $otherId, 1, ['main' => false]);
-    TreeEntry::copy($this->id, $otherId, 2);
+    EntryDefinition::copy($this->id, $other->id, 1);
+    EntryLexeme::copy($this->id, $other->id, 1, ['main' => true]);
+    EntryLexeme::copy($this->id, $other->id, 1, ['main' => false]);
+    TreeEntry::copy($this->id, $other->id, 2);
 
     $visuals = Visual::get_all_by_entryId($this->id);
     foreach ($visuals as $v) {
-      $v->entryId = $otherId;
+      $v->entryId = $other->id;
       $v->save();
     }
 
     $vts = VisualTag::get_all_by_entryId($this->id);
     foreach ($vts as $vt) {
-      $vt->entryId = $otherId;
+      $vt->entryId = $other->id;
       $vt->save();
     }
 
     $this->delete();
+
+    // recompute $other->multipleMains
+    $numMains = EntryLexeme::count_by_entryId_main($other->id, true);
+    $other->multipleMains = ($numMains > 1);
+
+    $other->save(); // also forces updating the modUserId field
+    $other->deleteTemporaryLexemes();
   }
 
   function delete() {

@@ -86,7 +86,7 @@ $reports = [
    'count' => $counts['entriesWithoutMainLexemes'],
    'privilege' => User::PRIV_STRUCT
   ],
-  ['text' => 'Intrări cu mai multe lexeme principale',
+  ['text' => 'Intrări cu discrepanțe la lexemele principale',
    'url' => 'report/entriesWithMultipleMainLexemes',
    'count' => $counts['entriesWithMultipleMainLexemes'],
    'privilege' => User::PRIV_STRUCT

@@ -153,13 +153,14 @@ if ($saveButton) {
   $e->structStatus = Request::get('structStatus');
   $e->structuristId = Request::get('structuristId');
   $e->adult = Request::has('adult');
+  $e->multipleMains = Request::has('multipleMains');
   $mainLexemeIds = Request::getArray('mainLexemeIds');
   $variantLexemeIds = Request::getArray('variantLexemeIds');
   $treeIds = Request::getArray('treeIds');
   $renameTrees = Request::has('renameTrees');
   $tagIds = Request::getArray('tagIds');
 
-  $errors = $e->validate($original);
+  $errors = $e->validate($original, $mainLexemeIds);
   if ($errors) {
     Smart::assign('errors', $errors);
     Smart::assign('renameTrees', $renameTrees);

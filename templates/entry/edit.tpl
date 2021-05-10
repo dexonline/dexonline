@@ -98,7 +98,7 @@
       </div>
 
       <div class="col-md-6">
-        <div class="form-group">
+        <div class="form-group {if isset($errors.mainLexemeIds)}has-error{/if}">
           <label for="mainLexemeIds" class="col-md-2 control-label">
             lexeme
           </label>
@@ -108,6 +108,7 @@
                 <option value="{$l}" selected></option>
               {/foreach}
             </select>
+            {include "bits/fieldErrors.tpl" errors=$errors.mainLexemeIds|default:null}
           </div>
         </div>
 
@@ -162,6 +163,18 @@
                 conține definiții pentru adulți
               </label>
             </div>
+
+            <div class="checkbox {if isset($errors.multipleMains)}has-error{/if}">
+              <label>
+                <input
+                  type="checkbox"
+                  name="multipleMains"
+                  value="1"
+                  {if $e->multipleMains}checked{/if}>
+                conține lexeme principale multiple
+              </label>
+              {include "bits/fieldErrors.tpl" errors=$errors.multipleMains|default:null}
+            </div>
           </div>
         </div>
 
@@ -171,7 +184,7 @@
             <div class="col-md-10">
               <div class="form-control overflown">
                 {foreach $homonyms as $h}
-                    {include "bits/entry.tpl" boxed=true entry=$h editLink=true}
+                  {include "bits/entry.tpl" boxed=true entry=$h editLink=true}
                 {/foreach}
               </div>
             </div>
@@ -355,7 +368,7 @@
   </div>
 
   {include "bits/cloneModal.tpl" object="Entry" desc="intrare"}
-  
+
   {if $e->id}
     <h3>Arbori de sensuri asociați ({$e->getTrees()|count})</h3>
 

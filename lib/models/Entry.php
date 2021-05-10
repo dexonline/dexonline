@@ -182,36 +182,33 @@ class Entry extends BaseObject implements DatedObject {
    * @param   array   $structStatus
    * @param   bool    $onlyCount        abbreviation short form
    * @param   int     $limit            do to go over 5000
-   * @param   string  $orderBy          used mainly with tablesorter
-   * @param   string  $order            used mainly with tablesorter
    * @return  ORMWrapper
    */
-  static function loadWithMultipleMainLexemes($onlyCount = true, $limit = 5000,
-        $orderBy = 'description', $order = 'asc') {
+  static function loadWithMultipleMainLexemes($onlyCount = true, $limit = 100) {
 
     $query = Model::factory('Entry')
-        ->table_alias('e')
-        ->select_expr('sum(el.main)', 'mainCount')
-        ->join('EntryLexeme', ['e.id', '=', 'el.entryId'], 'el')
-        ->where('e.structStatus', self::STRUCT_STATUS_DONE)
-        ->where('el.main', 1)
-        ->group_by('e.id')
-        ->having_raw('mainCount > 1');
-        //->order_by_expr("`e.$orderBy` $order");
+      ->table_alias('e')
+      ->select('e.*')
+      ->select_expr('sum(el.main)', 'mainCount')
+      ->join('EntryLexeme', ['e.id', '=', 'el.entryId'], 'el')
+      ->where('e.structStatus', self::STRUCT_STATUS_DONE)
+      ->where('el.main', 1)
+      ->group_by('e.id')
+      ->having_raw('(!e.multipleMains and mainCount != 1) or (e.multipleMains and mainCount <= 1)');
 
-        if ($onlyCount) {
-          $query = $query->find_result_set()->count();
-        }
-        else {
-          $query = $query
-            ->join('Lexeme', ['l.id', '=', 'el.lexemeId'], 'l')
-            ->join('User', ['u.id', '=', 'e.modUserId'], 'u')
-            ->select('e.*')
-            ->select('u.nick', 'nick')
-            ->limit($limit)
-            ->find_many();
-        }
-     return $query;
+    if ($onlyCount) {
+      $query = $query->find_result_set()->count();
+    }
+    else {
+      $query = $query
+        ->join('Lexeme', ['l.id', '=', 'el.lexemeId'], 'l')
+        ->join('User', ['u.id', '=', 'e.modUserId'], 'u')
+        ->select('u.nick', 'nick')
+        ->order_by_asc('description')
+        ->limit($limit)
+        ->find_many();
+    }
+    return $query;
   }
 
   static function searchInflectedForms($cuv, $hasDiacritics) {
@@ -295,41 +292,6 @@ class Entry extends BaseObject implements DatedObject {
     return !empty($this->variants);
   }
 
-  /**
-   * Returns a uniqe array of concatenated properties
-   * for entry lexemes, based on:
-   *
-   * @param   string  $lexemeType  type of lexeme
-   * @param   array   $props       string array of properties
-   * @return  array
-   */
-  function getUniqueProps($lexemeType, $props) {
-    $concats = [];
-    foreach ($this->$lexemeType as $lexeme) {
-      foreach ($props as $p) {
-        $concats[$lexeme->id] ??= '';
-        $concats[$lexeme->id] .= $lexeme->$p;
-      }
-    }
-    return array_unique($concats);
-  }
-
-  /**
-   * Returns a unique array of concatenated modelType, modelNumber, restriction
-   * for entry main lexemes
-   */
-  function getUniqueModelsMain() {
-    return self::getUniqueProps('mainLexemes', ['modelType', 'modelNumber', 'restriction']);
-  }
-
-  /**
-   * Returns a unique array of concatenated modelType, modelNumber, restriction
-   * for entry variant lexemes
-   */
-  function getUniqueModelsVariant() {
-    return self::getUniqueProps('variants', ['modelType', 'modelNumber', 'restriction']);
-  }
-
   static function getHomonyms($entries) {
     $entryIds = [];
     $homonymIds = [];
@@ -364,9 +326,10 @@ class Entry extends BaseObject implements DatedObject {
 
   /**
    * Validates an entry for correctness. Returns an array of { field => array of errors }.
-   * $original: the original, unmodified entry
+   * @param Entry $original the original, unmodified entry
+   * @param array $mainLexemeIds main lexemes
    **/
-  function validate($original) {
+  function validate($original, $mainLexemeIds) {
     $errors = [];
 
     if (!mb_strlen($this->description)) {
@@ -401,6 +364,15 @@ class Entry extends BaseObject implements DatedObject {
                                  'o intrare în lucru fără structurist sau (2) renunța la ' .
                                  'o intrare dacă vi se pare prea greu de structurat.';
       }
+    }
+
+    $mains = count($mainLexemeIds);
+    if (!$mains) {
+      $errors['mainLexemeIds'] = 'Nu ați ales un lexem principal.';
+    }
+    if ((($mains == 1) && $this->multipleMains) ||
+        (($mains > 1) && !$this->multipleMains)) {
+      $errors['multipleMains'] = 'Bifa nu reflectă numărul de lexeme principale alese.';
     }
 
     return $errors;

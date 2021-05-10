@@ -2,8 +2,12 @@
 
 User::mustHave(User::PRIV_STRUCT);
 
-$entries = Entry::loadWithMultipleMainLexemes($onlyCount = false, $limit = 100);
+$numEntries = Entry::loadWithMultipleMainLexemes();
+$entries = Entry::loadWithMultipleMainLexemes($onlyCount = false);
 
-Smart::assign('entries', $entries);
+Smart::assign([
+  'numEntries' => $numEntries,
+  'entries' => $entries,
+]);
 Smart::addResources('admin', 'tablesorter');
 Smart::display('report/entriesWithMultipleMainLexemes.tpl');

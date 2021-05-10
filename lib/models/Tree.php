@@ -288,10 +288,28 @@ class Tree extends BaseObject implements DatedObject {
     return $errors;
   }
 
-  function transferRelations($otherId) {
-    if ($otherId) {
-      $relations = Relation::get_all_by_treeId($this->id);
-      foreach ($relations as $r) {
+  /**
+   * Transfers relations from this tree to another tree. Avoids creating
+   * duplicates with the same meaningId and type.
+   */
+  private function transferRelations($otherId) {
+    if (!$otherId) {
+      return;
+    }
+
+    // map other tree's relations
+    $relMap = [];
+    $otherRelations = Relation::get_all_by_treeId($otherId);
+    foreach ($otherRelations as $r) {
+      $relMap[$r->meaningId][$r->type] = true;
+    }
+
+    // transfer this tree's relations
+    $relations = Relation::get_all_by_treeId($this->id);
+    foreach ($relations as $r) {
+      if (isset($relMap[$r->meaningId][$r->type])) {
+        $r->delete();
+      } else {
         $r->treeId = $otherId;
         $r->save();
       }

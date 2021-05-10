@@ -4,7 +4,12 @@
     {include "bits/entry.tpl" entry=$e editLink=true}
   </td>
   <td class="col-md-1 text-center">
-    {if $e->multipleMains}✓{/if}
+    <input type="hidden" name="entryIds[]" value="{$e->id}">
+    <input
+      type="checkbox"
+      name="multipleMains[]"
+      value="{$e->id}"
+      {if $e->multipleMains}checked{/if}>
   </td>
   <td class="col-md-7 box-padding">
     {foreach $e->getMainLexemes() as $lexeme}

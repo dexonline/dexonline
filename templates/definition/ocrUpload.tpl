@@ -45,7 +45,7 @@
       <div class="col-sm-10">
         <select class="form-control" name="term">
           <option value="0">linie nouă</option>
-          <option value="1">linie dublă</option>
+          <option value="1" selected="selected">linie dublă</option>
         </select>
       </div>
     </div>

@@ -1,0 +1,19 @@
+/**
+ * If you modify this file, remember to recompile the CSS file by running
+ * tools/recompileCss.sh
+ **/
+
+/* Bootstrap overrides */
+$font-family-sans-serif: Open Sans, Arial, sans-serif;
+$primary: #761818;
+$info: #1e83c2;
+
+@import "third-party/bootstrap/bootstrap";
+
+@include media-breakpoint-down(lg) {
+  /* navbar logo: show just the computer, not the "dexonline" word */
+  .navbar-brand {
+    overflow: hidden;
+    width: 44px;
+  }
+}

@@ -27,7 +27,7 @@ $(function() {
 
     $(document).bind('keydown', 'alt+q', showCharMap);
 
-    $('a.hotkeyLink').click(hotkeyLinkClick);
+    $('a.hotkey-link').click(hotkeyLinkClick);
   }
 
   /* get a reference for the anonymous function to toggle keydown binding in the modal */

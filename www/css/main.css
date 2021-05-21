@@ -78,7 +78,7 @@ pre {
 }
 
 [id*="Clear"] {
-  color: #761818;
+  color: var(--bs-primary);
   cursor: pointer;
   pointer-events: auto;
 }
@@ -126,7 +126,7 @@ pre {
   border-color: #eee;
   border-radius: 0;
   cursor: pointer;
-  color: #761818;
+  color: var(--bs-primary);
 }
 
 
@@ -155,16 +155,14 @@ header .banner-section {
 
 /*********** footer ***********/
 
-.footer {
+footer {
+  border-top: 1px solid #eee;
+  margin-top: 1rem;
   padding-top: 1rem;
 }
 
 .fbBottom {
   overflow-x: hidden;
-}
-
-#footerLinks li {
-  padding-left: 0;
 }
 
 #footerLinks li:not(:first-child):before {
@@ -365,10 +363,10 @@ h3 .label {
   width: 51px;
   height: 51px;
   margin: 6px;
-  border: 6px solid #761818;
+  border: 6px solid var(--bs-primary);
   border-radius: 50%;
   animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-  border-color: #761818 transparent transparent transparent;
+  border-color: var(--bs-primary) transparent transparent transparent;
 }
 .lds-ring div:nth-child(1) {
   animation-delay: -0.45s;

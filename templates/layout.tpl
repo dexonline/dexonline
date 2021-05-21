@@ -67,37 +67,32 @@
         </div>
       </main>
 
-      <hr>
+      <footer>
+        {block "footer"}
+          {if Config::SKIN_FACEBOOK && !$privateMode && !User::can(User::PRIV_ANY)}
+            <hr>
+            {include "bits/facebook.tpl"}
+            <hr>
+          {/if}
+        {/block}
 
-      <footer class="row footer">
-        <div class="col-md-12">
-
-          {block "footer"}
-            {if Config::SKIN_FACEBOOK && !$privateMode && !User::can(User::PRIV_ANY)}
-              <hr>
-              {include "bits/facebook.tpl"}
-              <hr>
-            {/if}
-          {/block}
-
-          <div class="text-center">
-            <ul class="list-inline">
-              <li>Copyright © 2004-{$currentYear} dexonline (https://dexonline.ro)</li>
-            </ul>
-          </div>
-
-          <div id="footerLinks" class="text-center">
-            <ul class="list-inline">
-              <li><a href="{Router::link('simple/license')}">{t}license{/t}</a></li>
-              <li><a href="https://wiki.dexonline.ro/wiki/Principii_de_confiden%C8%9Bialitate_dexonline.ro">{t}privacy{/t}</a></li>
-
-              {$host=Config::SKIN_HOSTED_BY}
-              {if $host}
-                <li>{include "hosting/$host.tpl"}</li>
-              {/if}
-            </ul>
-          </div>
+        <div class="text-center">
+          Copyright © 2004-{$currentYear} dexonline (https://dexonline.ro)
         </div>
+
+        <ul id="footerLinks" class="text-center list-inline mt-2">
+          <li class="list-inline-item">
+            <a href="{Router::link('simple/license')}">{t}license{/t}</a>
+          </li>
+          <li class="list-inline-item">
+            <a href="https://wiki.dexonline.ro/wiki/Principii_de_confiden%C8%9Bialitate_dexonline.ro">{t}privacy{/t}</a>
+          </li>
+
+          {$host=Config::SKIN_HOSTED_BY}
+          {if $host}
+            <li class="list-inline-item">{include "hosting/$host.tpl"}</li>
+          {/if}
+        </ul>
       </footer>
     </div>
     {include "bits/debugInfo.tpl"}

@@ -1,6 +1,6 @@
 .selectedArtist {
   background: #f5f5f5;
-  border: 2px solid #761818;
+  border: 2px solid var(--bs-primary);
 }
 
 #artists tbody,

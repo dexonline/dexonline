@@ -8,14 +8,18 @@ $(function() {
   $('#typoModal').on('shown.bs.modal', shownTypoModal);
 
   $('#searchField').select().focus();
-  $('#searchClear').click(function(){
+  $('#searchClear').click(function() {
     $('#searchField').val('').focus();
+    $(this).hide();
   });
-  if ($('#searchField').val()) {
-    // Make it visible all the time. Otherwise it's only visible when the field loses focus,
-    // which is bad for us, because we focus the field on page load.
-    $('#searchClear').css('z-index', 3);
-  }
+  $('#searchField').on('input', function() {
+    if ($(this).val()) {
+      // Bootstrap's d-none comes with !important, so it takes precedence over show().
+      $('#searchClear').removeClass('d-none').show();
+    } else {
+      $('#searchClear').hide();
+    }
+  });
 
   $('.sourceDropDown').select2({
     templateResult: formatSource,
@@ -129,7 +133,7 @@ function searchSubmit() {
   return false;
 }
 
-function searchInitAutocomplete(acMinChars){
+function searchInitAutocomplete(acMinChars) {
 
   var searchForm = $('#searchForm');
   var searchInput = $('#searchField');
@@ -139,18 +143,18 @@ function searchInitAutocomplete(acMinChars){
   searchInput.autocomplete({
     delay: 500,
     minLength: acMinChars,
-    source: function(request, response){
+    source: function(request, response) {
       var term = request.term;
-      if (term in searchCache){
+      if (term in searchCache) {
         response(searchCache[term]);
         return;
       }
-      $.getJSON(queryURL, request, function(data, status, xhr){
+      $.getJSON(queryURL, request, function(data, status, xhr) {
         searchCache[term] = data;
         response(data);
       });
     },
-    select: function(event, ui){
+    select: function(event, ui) {
       searchInput.val(ui.item.value);
       searchForm.submit();
     }

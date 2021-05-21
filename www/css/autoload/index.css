@@ -24,13 +24,11 @@
   margin-top: 25px;
 }
 
-a.widget,
-.widget.multiple-links {
+.widget {
   margin: 10px;
-  padding: 15px 8px;
+  padding: 15px 1rem;
   border: 1px solid #CCC;
   border-radius: 4px;
-  display: block;
   color: #777;
 }
 
@@ -69,60 +67,8 @@ a.widget,
 
 /* used in widgets/games.tpl, but only appears on the home page */
 .list-games {
-  display: inline-block;
   margin-bottom: 0;
-  vertical-align: middle;
   padding-left: 18px;
-}
-
-.widget-icon {
-    width: 88px;
-}
-
-@media (width: 992px) {
-  .widget-icon {
-    padding-top: 10px;
-  }
-}
-
-@media (min-width: 992px) {
-  .widget {
-    min-height: 215px;
-  }
-}
-
-@media (min-width: 1200px) {
-  .widget {
-    min-height: 136px;
-  }
-
-  .widget-thumbnail {
-    padding-left: 0;
-  }
-
-  .widget-icon {
-    padding-top: 10px;
-  }
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  .widget {
-    min-height: 215px;
-  }
-
-  .widget-icon {
-    padding-top: 10px;
-  }
-}
-
-@media (max-width: 767px) {
-  .widget-icon {
-    padding-top: 10px;
-  }
-
-  .widget-thumbnail {
-    text-align: right;
-  }
 }
 
 @media (max-width: 320px) {
@@ -134,9 +80,4 @@ a.widget,
 .customise-widgets {
   padding-right: 25px;
   font-size: 12px;
-}
-
-.customise-widgets .glyphicon {
-  margin-right: 3px;
-  color: #999;
 }

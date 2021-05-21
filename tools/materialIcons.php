@@ -17,6 +17,7 @@ const CODEPOINTS = [
   'favorite',
   'help',
   'history',
+  'info',
   'keyboard',
   'language',
   'login',

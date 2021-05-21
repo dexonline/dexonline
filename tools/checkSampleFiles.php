@@ -9,11 +9,7 @@
  * Specifically, we check whether
  * - there are new constants in Config.php;
  * - some constants changed type in Config.php;
- * - there are new RewriteRules (commented or not) in www/.htaccess
- *
- * Checks whether any Selenium IDE tests contain
- * - a hard-coded base URL or
- * - an absolute URL path.
+ * - there are new RewriteRules (commented or not) in www/.htaccess.
  **/
 
 // We should already be at the root of the client
@@ -27,7 +23,7 @@ foreach ($actual as $name => $value) {
   }
 
   $actualType = gettype($value);
-  $sampleType = getType($sample[$name]);
+  $sampleType = gettype($sample[$name]);
   if ($sampleType != $actualType) {
     error("The constant *** $name *** has type '$actualType' in Config.php, " .
           "but type '$sampleType' in Config.php.sample. Please reconcile them.");
@@ -65,7 +61,7 @@ function getConstants($filename) {
 // Reads the file, retains only the lines containing RewriteRule statements
 // and strips the comments
 function readRewriteRules($filename) {
-  if (($lines = file($filename)) === false) {
+  if (($lines = @file($filename)) === false) {
     error("Cannot read $filename");
   }
 
@@ -86,6 +82,7 @@ function error($msg) {
   print "    git commit -n\n";
   print "\n";
   print "The error message was:\n";
+  print "\n";
   print $msg . "\n";
   exit(1);
 }

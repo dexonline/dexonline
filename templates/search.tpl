@@ -65,7 +65,7 @@
           id="tabAdvertiser"
           role="button"
           tabindex="0">
-          <span class="glyphicon glyphicon-info-sign"></span>
+          {include "bits/icon.tpl" i=info}
         </span>
       </li>
     {/if}

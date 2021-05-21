@@ -18,13 +18,13 @@ $(function() {
     $('a[data-toggle="tab"]').on('click', pushHistory);
     window.addEventListener('popstate', popHistory);
 
-    $('#tabAdvertiser').popover({
+    new bootstrap.Popover($('#tabAdvertiser'), {
       container: 'body',
       content: $('#tabAdvertiserContent').html(),
       // otherwise clicking on links won't work
       delay: { 'show': 0, 'hide': 100 },
       html: true,
-      placement: 'auto bottom',
+      placement: 'bottom',
       trigger: 'focus',
     });
     moveBanner();

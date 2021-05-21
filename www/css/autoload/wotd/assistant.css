@@ -6,24 +6,22 @@ h3 form {
   width: 100px;
 }
 
-.panel-heading {
+.card-header {
   cursor: pointer;
 }
 
-.panel-heading a {
+.card-header a {
   display: none;
 }
 
-.panel-body {
-  padding-bottom: 0;
+.card-header:hover a {
+  display: inline;
 }
 
-.panel-heading.collapsed span.date:before {
-  font-family: 'Glyphicons Halflings';
-  content: "\e080"; /* chevron-right */
+.card-header .chevron {
+  transition: all 0.5s;
 }
 
-.panel-heading span.date:before {
-  font-family: 'Glyphicons Halflings';
-  content: "\e114"; /* chevron-down */
+.card-header.collapsed .chevron {
+  transform: rotate(180deg);
 }

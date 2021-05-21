@@ -12,6 +12,7 @@ require_once __DIR__ . '/../lib/Core.php';
 const CODEPOINTS = [
   'credit_card',
   'done',
+  'expand_less',
   'favorite',
   'history',
   'keyboard',

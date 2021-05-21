@@ -20,7 +20,8 @@ $(function() {
     // but that makes us unable to type in the select2 within the modal.
     // This seems to fix it. See:
     // https://github.com/select2/select2/issues/600#issuecomment-102857595
-    $.fn.modal.Constructor.prototype.enforceFocus = $.noop;
+    // TODO: Is this still necessary with Bootstrap 5?
+    // $.fn.modal.Constructor.prototype.enforceFocus = $.noop;
   }
 
   function modalShown(event) {

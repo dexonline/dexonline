@@ -18,19 +18,17 @@
 
   <section class="row widgets">
     {if Config::SKIN_WIDGETS}
-      <div class="col-md-12">
-        {foreach $widgets as $params}
-          {if $params.enabled}
-            <div class="col-sm-4 col-xs-12">{include "widgets/`$params.template`"}</div>
-          {/if}
-        {/foreach}
-      </div>
+      {foreach $widgets as $params}
+        {if $params.enabled}
+          <div class="col-md-4">{include "widgets/`$params.template`"}</div>
+        {/if}
+      {/foreach}
     {/if}
     <div class="col-md-12">
       <a
-        class="btn btn-link customise-widgets pull-right"
+        class="btn btn-link customise-widgets float-end"
         href="{Router::link('user/preferences')}">
-        <i class="glyphicon glyphicon-cog"></i>
+        {include "bits/icon.tpl" i=settings class="text-muted"}
         {t}customize widgets{/t}
       </a>
     </div>

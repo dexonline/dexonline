@@ -12,8 +12,4 @@
   header .container {
     padding: 0;
   }
-
-  .widget>div {
-    min-height: 88px;
-  }
 }

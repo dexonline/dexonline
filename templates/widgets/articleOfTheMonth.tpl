@@ -1,9 +1,11 @@
-<a class="widget aotm row" href="{Router::link('article/view')}/{$articleTitle}">
-  <div class="col-lg-8 col-md-12 col-sm-12 col-xs-6">
+<a
+  href="{Router::link('article/view')}/{$articleTitle}"
+  class="widget aotm d-flex flex-md-column flex-xl-row">
+  <div class="flex-grow-1">
     <h4>{t}article of the month{/t}</h4><br>
     <span class="widget-value">{$articleTitle|urldecode|replace:'_':' '}</span>
   </div>
-  <div class="col-lg-4 col-md-12 col-sm-12 col-xs-6 widget-thumbnail">
+  <div>
     <img
       alt="{t}article of the month{/t}"
       src="{Config::STATIC_URL}img/wotd/thumb88/misc/papirus.png"

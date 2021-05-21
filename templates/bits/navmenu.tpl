@@ -1,140 +1,170 @@
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-expand-md navbar-light">
   <div class="container">
-    <div class="navbar-header navbar-left pull-left">
-      {if $pageType != 'home'}
-        <div class="logo-wrapper">
-          <a class="navbar-brand" href="{Config::URL_PREFIX}" title="{cap}{t}home page{/t}{/cap}">
-            <img id="logo-nav"
-              alt="logo dexonline"
-              src="{Config::URL_PREFIX}img/svg/logo-nav.svg">
-          </a>
-        </div>
-      {/if}
-    </div>
-
-    <div class="navbar-header navbar-right pull-right">
-      <ul class="nav navbar-nav pull-left">
-        <li>
-          <p class="navbar-btn">
-            <a class="btn btn-info" href="{Router::link('donation/donate')}">
-              <i class="glyphicon glyphicon-credit-card"></i>
-              <span>{t}donate{/t}</span>
-            </a>
-          </p>
-        </li>
-      </ul>
-
-      <button type="button"
-        class="navbar-toggle collapsed hamburger-menu"
-        data-toggle="collapse"
-        data-target="#navMenu"
-        aria-expanded="false">
-        <span class="sr-only">{t}navigation{/t}</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-    </div>
+    {if $pageType != 'home'}
+      <a class="navbar-brand" href="{Config::URL_PREFIX}" title="{cap}{t}home page{/t}{/cap}">
+        <img id="logo-nav"
+          alt="logo dexonline"
+          src="{Config::URL_PREFIX}img/svg/logo-nav.svg"
+          width="173">
+      </a>
+    {/if}
 
     {Plugin::notify('navbar')}
 
     <div class="collapse navbar-collapse" id="navMenu">
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <ul class="nav navbar-nav">
+      <ul class="navbar-nav">
 
-        <li class="dropdown">
+        <li class="nav-item dropdown">
 
-          <a href="#"
-            class="dropdown-toggle"
-            data-toggle="dropdown"
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
             role="button"
-            aria-haspopup="true"
+            data-bs-toggle="dropdown"
             aria-expanded="false">
-            {t}about{/t}
-            <span class="caret"></span>
+            {cap}{t}about{/t}{/cap}
           </a>
 
           <ul class="dropdown-menu">
             <li>
-              <a href="https://wiki.dexonline.ro/wiki/Informa%C8%9Bii"
+              <a
+                href="https://wiki.dexonline.ro/wiki/Informa%C8%9Bii"
+                class="dropdown-item"
                 target="_blank">
-                {t}information{/t}
+                {cap}{t}information{/t}{/cap}
               </a>
             </li>
-            <li><a href="{Router::link('simple/contact')}">{t}contact us{/t}</a></li>
-            <li><a href="https://blog.dexonline.ro">{t}blog{/t}</a></li>
+            <li>
+              <a href="{Router::link('simple/contact')}" class="dropdown-item">
+                {cap}{t}contact us{/t}{/cap}
+              </a>
+            </li>
+            <li>
+              <a href="https://blog.dexonline.ro" class="dropdown-item">
+                {cap}{t}blog{/t}{/cap}
+              </a>
+            </li>
           </ul>
 
         </li>
 
-        <li class="dropdown">
+        <li class="nav-item dropdown">
 
-          <a href="#"
-            class="dropdown-toggle"
-            data-toggle="dropdown"
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
             role="button"
-            aria-haspopup="true"
+            data-bs-toggle="dropdown"
             aria-expanded="false">
-            {t}get involved{/t}
-            <span class="caret"></span>
+            {cap}{t}get involved{/t}{/cap}
           </a>
 
           <ul class="dropdown-menu">
             <li>
-              <a href="https://wiki.dexonline.ro/wiki/Cum_pute%C8%9Bi_ajuta">{t}ways to help{/t}</a>
+              <a
+                href="https://wiki.dexonline.ro/wiki/Cum_pute%C8%9Bi_ajuta"
+                class="dropdown-item">
+                {cap}{t}ways to help{/t}{/cap}
+              </a>
             </li>
-            <li><a href="{Router::link('user/top')}">{t}volunteer ranking{/t}</a></li>
+            <li>
+              <a href="{Router::link('user/top')}" class="dropdown-item">
+                {cap}{t}volunteer ranking{/t}{/cap}
+              </a>
+            </li>
           </ul>
 
         </li>
 
-        <li class="dropdown">
+        <li class="nav-item dropdown">
 
-          <a href="#"
-            class="dropdown-toggle"
-            data-toggle="dropdown"
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
             role="button"
-            aria-haspopup="true"
+            data-bs-toggle="dropdown"
             aria-expanded="false">
-            {t}resources{/t}
-            <span class="caret"></span>
+            {cap}{t}resources{/t}{/cap}
           </a>
 
           <ul class="dropdown-menu">
             <li>
-              <a href="https://wiki.dexonline.ro/wiki/Abrevieri" target="_blank">
-                {t}abbreviations table{/t}
+              <a
+                href="https://wiki.dexonline.ro/wiki/Abrevieri"
+                class="dropdown-item"
+                target="_blank">
+                {cap}{t}abbreviations table{/t}{/cap}
               </a>
             </li>
-            <li><a href="{Router::link('article/list')}">{t}linguistic articles{/t}</a></li>
-            <li><a href="{Router::link('article/view')}/Ghid_de_exprimare_corect%C4%83">{t}grammar guide{/t}</a></li>
-            <li><a href="{Router::link('wotd/view')}">{t}word of the day{/t}</a></li>
-            <li><a href="{Router::link('wotm/view')}">{t}word of the month{/t}</a></li>
-            <li><a href="{Router::link('lexeme/random')}">{t}random words{/t}</a></li>
-            <li><a href="{Router::link('games/scrabble')}">{t}Scrabble{/t}</a></li>
-            <li><a href="{Router::link('simple/tools')}">{t}tools{/t}</a></li>
-            <li><a href="{Router::link('simple/links')}">{t}external links{/t}</a></li>
+            <li>
+              <a href="{Router::link('article/list')}" class="dropdown-item">
+                {cap}{t}linguistic articles{/t}{/cap}
+              </a>
+            </li>
+            <li>
+              <a
+                href="{Router::link('article/view')}/Ghid_de_exprimare_corect%C4%83"
+                class="dropdown-item">
+                {cap}{t}grammar guide{/t}{/cap}
+              </a>
+            </li>
+            <li>
+              <a href="{Router::link('wotd/view')}" class="dropdown-item">
+                {cap}{t}word of the day{/t}{/cap}
+              </a>
+            </li>
+            <li>
+              <a href="{Router::link('wotm/view')}" class="dropdown-item">
+                {cap}{t}word of the month{/t}{/cap}
+              </a>
+            </li>
+            <li>
+              <a href="{Router::link('lexeme/random')}" class="dropdown-item">
+                {cap}{t}random words{/t}{/cap}
+              </a>
+            </li>
+            <li>
+              <a href="{Router::link('games/scrabble')}" class="dropdown-item">
+                {cap}{t}Scrabble{/t}{/cap}
+              </a>
+            </li>
+            <li>
+              <a href="{Router::link('simple/tools')}" class="dropdown-item">
+                {cap}{t}tools{/t}{/cap}
+              </a>
+            </li>
+            <li>
+              <a href="{Router::link('simple/links')}" class="dropdown-item">
+                {cap}{t}external links{/t}{/cap}
+              </a>
+            </li>
           </ul>
 
         </li>
       </ul>
 
-      <ul class="nav navbar-nav navbar-right">
+      <ul class="navbar-nav ms-auto">
 
         {* language selector *}
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown"
-            role="button" aria-haspopup="true" aria-expanded="false">
-            <i class="glyphicon glyphicon-globe"></i>
-            <span class="caret"></span>
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link"
+            href="#"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false">
+            {include "bits/icon.tpl" i=language}
           </a>
 
           <ul class="dropdown-menu">
             {foreach Config::LOCALES as $id => $name}
               <li>
-                <a href="{Router::link('helpers/changeLocale')}?id={$id}">
-                  <i class="glyphicon glyphicon-ok {if $id != LocaleUtil::getCurrent()}invisible{/if}">
-                  </i>
+                <a
+                  href="{Router::link('helpers/changeLocale')}?id={$id}"
+                  class="dropdown-item">
+                  <span {if $id != LocaleUtil::getCurrent()}class="invisible"{/if}>
+                    {include "bits/icon.tpl" i=done}
+                  </span>
                   {$name}
                 </a>
               </li>
@@ -143,73 +173,83 @@
         </li>
 
         {* user menu *}
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown"
-            role="button" aria-haspopup="true" aria-expanded="false">
-            {if User::getActive()->hasAvatar|default:false}
-              {include "bits/avatar.tpl" user=User::getActive()}
-            {else}
-              <i class="glyphicon glyphicon-user"></i>
-            {/if}
+        <li class="nav-item dropdown">
+
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false">
+            {include "bits/avatar.tpl" user=User::getActive()}
             {capture "anon"}{t}Anonymous{/t}{/capture}
             {User::getActive()|escape|default:$smarty.capture.anon}
-            <span class="caret"></span>
           </a>
+
           <ul class="dropdown-menu">
             {if User::can(User::PRIV_ANY)}
               <li>
-                <a href="{Router::link('aggregate/dashboard')}">
-                  <i class="glyphicon glyphicon-king"></i>
-                  <span>{t}moderator page{/t}</span>
+                <a href="{Router::link('aggregate/dashboard')}" class="dropdown-item">
+                  {include "bits/icon.tpl" i=shield}
+                  {cap}{t}moderator page{/t}{/cap}
                 </a>
               </li>
-            {/if}
-            {if User::can(User::PRIV_ANY)}
               <li>
-                <a href="#" data-toggle="modal" data-target="#hotkeysModal">
-                  <i class="glyphicon glyphicon-hand-up"></i>
-                  <span>{t}hotkeys{/t}</span>
+                <a
+                  href="#"
+                  class="dropdown-item"
+                  data-bs-toggle="modal"
+                  data-bs-target="#modal-hotkeys">
+                  {include "bits/icon.tpl" i=keyboard}
+                  {cap}{t}hotkeys{/t}{/cap}
                 </a>
               </li>
             {/if}
             {if isset($recentLinks)}
               <li>
-                <a href="#" id="recentPagesLink" data-toggle="modal" data-target="#recentModal">
-                  <i class="glyphicon glyphicon-pushpin"></i>
-                  <span>{t}recently viewed pages{/t}</span>
+                <a
+                  href="#"
+                  class="dropdown-item"
+                  id="recentPagesLink"
+                  data-bs-toggle="modal"
+                  data-bs-target="#modal-recent">
+                  {include "bits/icon.tpl" i=history}
+                  {cap}{t}recently viewed pages{/t}{/cap}
                 </a>
               </li>
             {/if}
             <li>
-              <a href="{Router::link('user/preferences')}">
-                <i class="glyphicon glyphicon-cog"></i>
-                <span>{t}preferences{/t}</span>
+              <a href="{Router::link('user/preferences')}" class="dropdown-item">
+                {include "bits/icon.tpl" i=settings}
+                {cap}{t}preferences{/t}{/cap}
               </a>
             </li>
             {if User::getActive()}
               <li>
-                <a href="{Router::link('user/view')}/{User::getActive()}">
-                  <i class="glyphicon glyphicon-user"></i>
-                  <span>{t}profile{/t}</span>
+                <a
+                  href="{Router::link('user/view')}/{User::getActive()}"
+                  class="dropdown-item">
+                  {include "bits/icon.tpl" i=person}
+                  {cap}{t}profile{/t}{/cap}
                 </a>
               </li>
               <li>
-                <a href="{Router::link('definition/favorites')}">
-                  <i class="glyphicon glyphicon-heart"></i>
-                  <span>{t}favorite words{/t}</span>
+                <a href="{Router::link('definition/favorites')}" class="dropdown-item">
+                  {include "bits/icon.tpl" i=favorite}
+                  {cap}{t}favorite words{/t}{/cap}
                 </a>
               </li>
               <li>
-                <a href="{Router::link('auth/logout')}">
-                  <i class="glyphicon glyphicon-log-out"></i>
-                  <span>{t}log out{/t}</span>
+                <a href="{Router::link('auth/logout')}" class="dropdown-item">
+                  {include "bits/icon.tpl" i=logout}
+                  {cap}{t}log out{/t}{/cap}
                 </a>
               </li>
             {else}
               <li>
-                <a href="{Router::link('auth/login')}">
-                  <i class="glyphicon glyphicon-log-in"></i>
-                  <span>{t}log in{/t}</span>
+                <a href="{Router::link('auth/login')}" class="dropdown-item">
+                  {include "bits/icon.tpl" i=login}
+                  {cap}{t}log in{/t}{/cap}
                 </a>
               </li>
             {/if}
@@ -218,18 +258,33 @@
       </ul>
 
     </div>
+
+    <a class="btn btn-info ms-auto" href="{Router::link('donation/donate')}">
+      {include "bits/icon.tpl" i=credit_card}
+      {cap}{t}donate{/t}{/cap}
+    </a>
+
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navMenu"
+      aria-controls="navMenu"
+      aria-expanded="false"
+      aria-label="{t}navigation{/t}">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
   </div>
 </nav>
 
 {if User::can(User::PRIV_ANY)}
-  <div class="modal fade" id="hotkeysModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
+  <div class="modal fade" id="modal-hotkeys" tabindex="-1">
+    <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">
-            <span aria-hidden="true">&times;</span>
-          </button>
           <h4 class="modal-title">Hotkeys (scurtături)</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body">
 
@@ -241,15 +296,15 @@
             <li><b>Alt-Q</b> = tabel de glife</li>
             <li><b>Alt-V</b> = pagini vizitate recent</li>
             <li>
-              <a href="#" class="hotkeyLink" data-mode="structure">Alt-T</a> =
+              <a href="#" class="hotkey-link" data-mode="structure">Alt-T</a> =
               intră/ieși din modul structurist
             </li>
             <li>
-              <a href="#" class="hotkeyLink" data-mode="wotd">Alt-W</a> =
+              <a href="#" class="hotkey-link" data-mode="wotd">Alt-W</a> =
               intră/ieși din modul WotD
             </li>
             <li>
-              <a href="#" class="hotkeyLink" data-mode="granularity">Alt-Shift-W</a> =
+              <a href="#" class="hotkey-link" data-mode="granularity">Alt-Shift-W</a> =
               istoricul definiției la nivel de cuvânt/literă
             </li>
           </ul>

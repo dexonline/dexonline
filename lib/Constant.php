@@ -213,7 +213,7 @@ class Constant {
     ],
     'bootstrap' => [
       'css' => [ 'third-party/bootstrap.min.css' ],
-      'js' => [ 'third-party/bootstrap.min.js' ],
+      'js' => [ 'third-party/bootstrap.bundle.min.js' ],
     ],
     'jqgrid' => [
       'css' => [ 'third-party/ui.jqgrid.css' ],
@@ -250,7 +250,7 @@ class Constant {
       'js' => [ 'third-party/jquery.cookie.js' ],
     ],
     'main' => [
-      'css' => [ 'main.css' ],
+      'css' => [ 'main.css', 'fonts.css' ],
       'js' => [ 'dex.js' ],
     ],
     'loggedIn' => [

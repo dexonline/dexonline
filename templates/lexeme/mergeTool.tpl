@@ -6,9 +6,7 @@
   <h3>Unificare lexeme - {$lexemes|@count} rezultate</h3>
 
   <div class="alert alert-info alert-dismissible" role="alert">
-    <button type="button" class="close" data-dismiss="alert">
-      <span aria-hidden="true">&times;</span>
-    </button>
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
 
     Pentru fiecare lexem la plural sunt indicate lexemele la singular
     corespunzătoare. Bifați unul sau mai multe, după caz. Puteți salva

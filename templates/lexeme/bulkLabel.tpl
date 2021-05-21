@@ -13,9 +13,7 @@
   </p>
 
   <div class="alert alert-info alert-dismissible" role="alert">
-    <button type="button" class="close" data-dismiss="alert">
-      <span aria-hidden="true">&times;</span>
-    </button>
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
 
     <ul>
       <li>Sunt prezentate maximum 20 de lexeme pe pagină.</li>

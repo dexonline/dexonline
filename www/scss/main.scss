@@ -3,10 +3,18 @@
  * tools/recompileCss.sh
  **/
 
-/* Bootstrap overrides */
-$font-family-sans-serif: Open Sans, Arial, sans-serif;
-$primary: #761818;
+/* color overrides */
 $info: #1e83c2;
+$primary: #761818;
+
+/* Bootstrap overrides */
+$dropdown-link-hover-color: $primary;
+$font-family-sans-serif: Open Sans, Arial, sans-serif;
+$font-size-base: 0.875rem;
+$input-btn-focus-blur: 8px;
+$input-focus-border-color: $primary;
+$link-decoration: none;
+$navbar-light-hover-color: $primary;
 
 @import "third-party/bootstrap/bootstrap";
 

@@ -37,7 +37,7 @@
 }
 
 .widget.games:hover {
-  border-color: #761818;
+  border-color: var(--bs-primary);
 }
 
 .widget.random-word:hover {

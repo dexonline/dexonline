@@ -259,7 +259,7 @@
 
     </div>
 
-    <a class="btn btn-info ms-auto" href="{Router::link('donation/donate')}">
+    <a class="btn btn-info text-white ms-auto" href="{Router::link('donation/donate')}">
       {include "bits/icon.tpl" i=credit_card}
       {cap}{t}donate{/t}{/cap}
     </a>

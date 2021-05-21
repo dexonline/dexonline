@@ -34,19 +34,16 @@
     </div>
   </section>
 
-
-  <div class="col-md-6 col-md-offset-3 website-statement text-center">
-    <p>
-
+  <div class="w-50 mx-auto website-statement text-center">
+    <div>
       <i>dexonline</i> {t}digitizes prestigious dictionaries of the Romanian language.{/t}
       {t}The project is maintained by a team of volunteers.{/t}
       {t}Much of the data can be downloaded freely under the GNU General Public License.{/t}
-
-      <br>
-
+    </div>
+    <div>
       {t 1=$wordsTotal|nf 2=$wordsLastMonth|nf}
       Current status: %1 definitions, of which %2 learned last month.{/t}
-    </p>
+    </div>
   </div>
 
 {/block}

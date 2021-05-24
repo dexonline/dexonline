@@ -41,7 +41,8 @@
       {if $canEdit.general}
         <button type="button"
           class="btn btn-default"
-          data-toggle="modal" data-target="#cloneModal">
+          data-bs-toggle="modal"
+          data-bs-target="#cloneModal">
           <i class="glyphicon glyphicon-duplicate"></i>
           clonează
         </button>

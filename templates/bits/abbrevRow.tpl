@@ -25,15 +25,13 @@
   <td>{HtmlConverter::convert($row)}</td>
   {if User::can(User::PRIV_ADMIN)}
     <td>
-      <div class="btn-toolbar">
-        <button type="button" class="btn btn-link" name="btn-edit">
-          {include "bits/icon.tpl" i=edit}
-        </button>
-        <button type="button" class="btn btn-link" name="btn-trash">
-          {include "bits/icon.tpl" i=delete}
-        </button>
-    </div>
-  </td>
+      <button type="button" class="btn btn-sm btn-secondary me-1" name="btn-edit">
+        {include "bits/icon.tpl" i=edit}
+      </button>
+      <button type="button" class="btn btn-sm btn-danger" name="btn-trash">
+        {include "bits/icon.tpl" i=delete}
+      </button>
+    </td>
   {/if}
 </tr>
 {/strip}

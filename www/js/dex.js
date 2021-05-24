@@ -178,7 +178,8 @@ function submitTypoForm() {
          function() {
            $('#typoModal').modal('hide');
            $('#typoTextarea').val('');
-           $('#typoConfModal').modal();
+           var confModal = new bootstrap.Modal($('#typoConfModal'));
+           confModal.show();
          });
   return false;
 }

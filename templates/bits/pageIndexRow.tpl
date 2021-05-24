@@ -10,14 +10,12 @@
     <td>{$row->number}</td>
     {if User::can(User::PRIV_ADMIN)}
       <td>
-        <div class="btn-toolbar">
-          <button type="button" class="btn btn-xs btn-warning" name="btn-edit">
-            <i class="glyphicon glyphicon-edit"></i>
-          </button>
-          <button type="button" class="btn btn-xs btn-danger" name="btn-trash">
-            <i class="glyphicon glyphicon-trash"></i>
-          </button>
-        </div>
+        <button type="button" class="btn btn-sm btn-secondary me-1" name="btn-edit">
+          {include "bits/icon.tpl" i=edit}
+        </button>
+        <button type="button" class="btn btn-sm btn-danger" name="btn-trash">
+          {include "bits/icon.tpl" i=delete}
+        </button>
       </td>
     {/if}
   </tr>

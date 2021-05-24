@@ -19,9 +19,8 @@
             {include "bits/sourceDropDown.tpl" sources=$allSources skipAnySource=true}
           </div>
           <div class="col-sm-2">
-            <button type="button" class="btn btn-primary btn-block ld-ext-left" id="load">
+            <button type="button" class="btn btn-primary" id="load">
               afișează
-              <div class="ld ld-ring ld-spin-fast"></div>
             </button>
           </div>
         </div>

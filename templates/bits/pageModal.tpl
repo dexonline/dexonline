@@ -8,12 +8,9 @@
     <div class="modal-dialog">
       <div class="modal-content">
 
-        <div class="modal-header text-center">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-
+        <div class="modal-header">
           {include "bits/pageModalActions.tpl"}
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
 
         <div class="modal-body text-center">
@@ -25,9 +22,7 @@
         </div>
 
         <div class="modal-footer">
-          <div class="text-center">
-            {include "bits/pageModalActions.tpl"}
-          </div>
+          {include "bits/pageModalActions.tpl"}
         </div>
 
       </div>

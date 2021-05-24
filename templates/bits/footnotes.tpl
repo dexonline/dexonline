@@ -1,6 +1,6 @@
 {if $footnotes}
-  <div class="panel panel-default panel-footnotes">
-    <div class="panel-body">
+  <div class="card card-footnotes">
+    <div class="card-body">
       <ol>
         {foreach $footnotes as $f}
           <li>

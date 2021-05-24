@@ -28,6 +28,22 @@ $navbar-light-hover-color: $primary;
   }
 }
 
+/************************* navbar media queries *************************/
+
+@include media-breakpoint-up(lg) {
+  .navbar .container {
+    padding: 0px;
+  }
+}
+
+/*********************** search form media queries ***********************/
+
+@include media-breakpoint-down(md) {
+  #advancedAnchor {
+    padding: 9px 9px 5px 0px;
+  }
+}
+
 /************************* widget media queries *************************/
 
 @include media-breakpoint-up(md) {

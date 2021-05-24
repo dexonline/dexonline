@@ -1,10 +1,7 @@
-/* stylesheet for dexonline custom style. Do Not include here responsive tweaks, use responsive.css instead */
-
-/* prevent ligatures for the following reasons:
-* 1. tonic accent (underline) is not displayed in ~fi~ segments
-* 2. %fig.%, %refl.% etc. look bad when spaced.                 */
-
 body {
+  /* prevent ligatures for the following reasons:
+   * 1. tonic accent (underline) is not displayed in ~fi~ segments
+   * 2. %fig.%, %refl.% etc. look bad when spaced.                 */
   font-variant-ligatures: no-common-ligatures;
 }
 

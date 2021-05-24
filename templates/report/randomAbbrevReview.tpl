@@ -56,7 +56,7 @@
     </div>
   {/if}
 
-  <div class="alert alert-info">
+  <div class="alert alert-info mt-3">
     <p>
       <strong>Precizări:</strong>
       <i>dexonline</i> detectează automat majoritatea abrevierilor. Totuși,
@@ -89,7 +89,7 @@
       definiție aleatorie.
     </p>
 
-    <p>
+    <p class="mb-0">
       Puteți folosi tastele <strong>1</strong> și <strong>2</strong> pentru a
       rezolva următoarea ambiguitate ca abreviere, respectiv ca cuvânt.
     </p>

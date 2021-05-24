@@ -90,9 +90,9 @@
     </tbody>
   </table>
 
-  <div class="clearfix">
-    <a class="btn btn-link pull-right"
-      data-toggle="collapse"
+  <div class="text-end">
+    <a class="btn btn-link"
+      data-bs-toggle="collapse"
       href="#tableLicense"
       aria-expanded="false"
       aria-controls="tableLicense">
@@ -100,21 +100,19 @@
     </a>
   </div>
 
-  <div id="tableLicense" class="alert alert-info collapse">
-    <p>
-      <i class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></i>
+  <div id="tableLicense" class="alert alert-info collapse mt-2">
+    {include "bits/icon.tpl" i=info}
 
-      <strong>{cap}{t}license{/t}{/cap}:</strong>
+    <strong>{cap}{t}license{/t}{/cap}:</strong>
 
-      {t 1="http://creativecommons.org/licenses/by-sa/3.0/"}
-      The information in this table is dual-licensed under the GNU General
-      Public License (as applicable to the entire site) and the
-      <a href="%1">Creative Commons Attribution-ShareAlike 3.0</a> license.
-      The information can be used (copied, modified, adapted etc.) by the
-      website http://wikipedia.org. The data are gathered from the mailing
-      list discutii@dexonline.ro (formerly dictionar@yahoogroups.com) in
-      collaboration with the application developers.{/t}
-    </p>
+    {t 1="http://creativecommons.org/licenses/by-sa/3.0/"}
+    The information in this table is dual-licensed under the GNU General
+    Public License (as applicable to the entire site) and the
+    <a class="alert-link" href="%1">Creative Commons Attribution-ShareAlike 3.0</a> license.
+    The information can be used (copied, modified, adapted etc.) by the
+    website http://wikipedia.org. The data are gathered from the mailing
+    list discutii@dexonline.ro (formerly dictionar@yahoogroups.com) in
+    collaboration with the application developers.{/t}
   </div>
 
   <h3>{t}Browser integration{/t}</h3>

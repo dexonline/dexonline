@@ -6,15 +6,15 @@
   </td>
   {* define the function *}
   {function name=prop}
-    {foreach $props as $checked}
-      {$label = ($checked) ? 'success' : 'primary'}
-      {$icon = ($checked) ? 'ok' : 'minus'}
-      <td>
-        <label class="label label-{$label}">
-          <i class="glyphicon glyphicon-{$icon}" data-checked="{$checked}"></i>
-        </label>
-      </td>
-    {/foreach}
+  {foreach $props as $checked}
+    {$label = ($checked) ? 'success' : 'primary'}
+    {$icon = ($checked) ? 'ok' : 'minus'}
+    <td>
+      <label class="label label-{$label}">
+        <i class="glyphicon glyphicon-{$icon}" data-checked="{$checked}"></i>
+      </label>
+    </td>
+  {/foreach}
   {/function}
   {* create an array of properties *}
   {$props = [$row->enforced, $row->ambiguous, $row->caseSensitive]}
@@ -24,14 +24,14 @@
   <td class="internalRep">{$row->internalRep}</td>
   <td>{HtmlConverter::convert($row)}</td>
   {if User::can(User::PRIV_ADMIN)}
-  <td>
-    <div class="btn-toolbar">
-      <button type="button" class="btn btn-xs btn-warning" name="btn-edit">
-        <i class="glyphicon glyphicon-edit"></i>
-      </button>
-      <button type="button" class="btn btn-xs btn-danger" name="btn-trash">
-        <i class="glyphicon glyphicon-trash"></i>
-      </button>
+    <td>
+      <div class="btn-toolbar">
+        <button type="button" class="btn btn-link" name="btn-edit">
+          {include "bits/icon.tpl" i=edit}
+        </button>
+        <button type="button" class="btn btn-link" name="btn-trash">
+          {include "bits/icon.tpl" i=delete}
+        </button>
     </div>
   </td>
   {/if}

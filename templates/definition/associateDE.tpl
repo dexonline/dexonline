@@ -59,9 +59,9 @@
               <option value="{$models[$i]}" selected></option>
             </select>
           </td>
-        <td>
-          <a class="shortcutI3" href="#">I3</a>
-        </td>
+          <td>
+            <a class="shortcutI3" href="#">I3</a>
+          </td>
         </tr>
       {/foreach}
     </table>
@@ -71,14 +71,14 @@
     <div class="checkbox">
       <label>
         <input id="capitalize" type="checkbox" name="capitalize" value="1"
-               {if $capitalize}checked{/if}>
+          {if $capitalize}checked{/if}>
         scrie cu majusculă lexemele I3 și SP*
       </label>
     </div>
     <div class="checkbox">
       <label>
         <input id="deleteOrphans" type="checkbox" name="deleteOrphans" value="1"
-               {if $deleteOrphans}checked{/if}>
+          {if $deleteOrphans}checked{/if}>
         șterge lexemele și intrările care devin neasociate
       </label>
     </div>
@@ -90,17 +90,17 @@
       </button>
 
       <button id="refreshButton"
-              type="submit"
-              name="refreshButton"
-              class="btn btn-primary">
+        type="submit"
+        name="refreshButton"
+        class="btn btn-primary">
         <i class="glyphicon glyphicon-refresh"></i>
         <u>r</u>eafișează
       </button>
 
       <button type="submit"
-              name="saveButton"
-              class="btn btn-success"
-              {if !$passedTests}disabled{/if}>
+        name="saveButton"
+        class="btn btn-success"
+        {if !$passedTests}disabled{/if}>
         <i class="glyphicon glyphicon-floppy-disk"></i>
         <u>s</u>alvează
       </button>
@@ -113,14 +113,12 @@
     </div>
   </form>
 
-  <div class="alert alert-info alert-dismissible">
-    <button type="button" class="close" data-dismiss="alert">
-      <span>&times;</span>
-    </button>
+  <div class="alert alert-info alert-dismissible fade show mt-3">
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
 
     <p><strong>Note:</strong></p>
 
-    <ul>
+    <ul class="mb-0">
       <li>
         Legăturile de pe coloana „scurtături” sunt echivalente cu selectarea
         modelului respectiv. Sunt doar scurtături mai comode.

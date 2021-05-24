@@ -129,7 +129,7 @@
       </a>
     </div>
 
-    <div class="alert alert-warning voffset3">
+    <div class="alert alert-warning mt-3">
       Lexemele nu mai sunt salvate imediat, ci vor apărea în
       <a class="alert-link" href="{Router::link('report/staleParadigms')}">
         raportul de paradigme învechite</a>.

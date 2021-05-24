@@ -5,16 +5,12 @@
 {block "content"}
   <h3>Plasare accente</h3>
 
-  <div class="alert alert-info alert-dismissible">
-    <button type="button" class="close" data-dismiss="alert">
-      <span aria-hidden="true">&times;</span>
-    </button>
-
-    Dați clic pe litera care trebuie accentuată sau bifați „Nu
-    necesită accent” pentru lexemele care nu necesită accent (cuvinte
-    compuse, cuvinte latinești etc.). Lexemele sunt alese la
-    întâmplare dintre toate cele neaccentuate. Dacă nu știți ce să
-    faceți cu un lexem, săriți-l (nu bifați nimic).
+  <div class="alert alert-info">
+    Dați clic pe litera care trebuie accentuată sau bifați „Nu necesită
+    accent” pentru lexemele care nu necesită accent (cuvinte compuse, cuvinte
+    latinești etc.). Lexemele sunt alese la întâmplare dintre toate cele
+    neaccentuate. Dacă nu știți ce să faceți cu un lexem, săriți-l (nu bifați
+    nimic).
   </div>
 
 

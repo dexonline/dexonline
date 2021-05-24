@@ -84,7 +84,7 @@
             <a href="{Router::link('wotd/view')}/{$dup.oldDate}" class="alert-link">
               {$dup.oldDate|date_format:'%d %B %Y'}
             </a>.
-              {/strip}
+            {/strip}
           </div>
         {/foreach}
 

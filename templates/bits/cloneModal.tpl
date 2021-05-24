@@ -5,10 +5,13 @@
     <div class="modal-content">
       <form method="post" role="form">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">
-            <span aria-hidden="true">&times;</span>
-          </button>
           <h4 class="modal-title">Clonează {$desc}</h4>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close">
+          </button>
         </div>
 
         <div class="modal-body">
@@ -20,7 +23,7 @@
             <i class="glyphicon glyphicon-duplicate"></i>
             clonează
           </button>
-          <button type="button" class="btn btn-info" data-dismiss="modal">
+          <button type="button" class="btn btn-link" data-bs-dismiss="modal">
             <i class="glyphicon glyphicon-remove"></i>
             renunță
           </button>

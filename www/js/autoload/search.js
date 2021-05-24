@@ -15,7 +15,7 @@ $(function() {
       $(this).siblings('.variantParadigm').stop().slideToggle();
     });
 
-    $('a[data-toggle="tab"]').on('click', pushHistory);
+    $('button[data-bs-toggle="tab"]').on('click', pushHistory);
     window.addEventListener('popstate', popHistory);
 
     new bootstrap.Popover($('#tabAdvertiser'), {
@@ -27,6 +27,8 @@ $(function() {
       placement: 'bottom',
       trigger: 'focus',
     });
+    $('#tabAdvertiser').click(function() { return false; });
+
     moveBanner();
   }
 
@@ -69,18 +71,20 @@ $(function() {
    * Pushes the anchor's data-permalink URL onto the history stack.
    */
   function pushHistory(e) {
-    var a = $(e.target);
-    var url = a.data('permalink');
+    var btn = $(e.target);
+    var url = btn.data('permalink');
 
     if (url) {
-      var href = a.attr('href');
+      var href = btn.attr('data-bs-target');
       history.pushState(href, document.title, url);
     }
   }
 
   function popHistory(e) {
-    var href = e.state || '#resultsTab'; // it's null for the original page
-    $('a[href="' + href + '"]').tab('show');
+    var state = e.state || '#resultsTab'; // it's null for the original page
+    var btn = $('button[data-bs-target="' + state + '"]');
+    var tab = new bootstrap.Tab(btn);
+    tab.show();
   }
 
   init();

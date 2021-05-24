@@ -129,13 +129,13 @@
         <label class="col-sm-2 control-label">greșeli de tipar</label>
         <div class="col-sm-10">
           {foreach $typos as $typo}
-            <p id="typo{$typo->id}" class="bg-danger voffset1 typo-wrapper">
+            <p id="typo{$typo->id}" class="text-warning voffset1 typo-wrapper">
               {$typo->problem|escape}
               <span class="text-muted">
                 [{$typo->userName}]
               </span>
               <a href="#"
-                class="alert-link ignore-typo"
+                class="ignore-typo"
                 data-typo-id="{$typo->id}">
                 ignoră
               </a>

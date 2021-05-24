@@ -246,19 +246,18 @@ sup.footnote {
   padding-left: 2px;
 }
 
-.panel-footnotes {
+.card-footnotes {
   color: #444;
   font-size: 85%;
-  margin-left: 30px;
-  margin-top: 20px;
+  margin: 20px 0 10px 30px;
 }
 
-.panel-footnotes .panel-body {
-  padding: 0px 15px 5px;
+.card-footnotes .card-body {
+  padding: 0 15px;
 }
 
-.panel-footnotes:before {
-  background-color: #FFF;
+.card-footnotes:before {
+  background-color: #fff;
   border-left: 1px solid #ddd;
   border-top: 1px solid #ddd;
   content: "\00a0";

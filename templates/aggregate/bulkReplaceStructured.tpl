@@ -6,9 +6,17 @@
 {block "content"}
   <h3>Lista {if !$finished}temporară a {/if}definițiilor structurate modificate și a intrărilor posibil afectate de înlocuirea în masă</h3>
   {if $finished}
-    <p class="alert alert-danger">Accesarea <b>directă</b>, exceptând modalitățile de deschidere în altă filă/fereastră, a altor legături decât cele ale <b>intrărilor</b> (care deschid <b>o nouă filă</b> pentru editare) duce la imposibilitatea revenirii la această pagină.</p>
+    <div class="alert alert-danger">
+      Accesarea <b>directă</b>, exceptând modalitățile de deschidere în altă
+      filă/fereastră, a altor legături decât cele ale <b>intrărilor</b> (care
+      deschid <b>o nouă filă</b> pentru editare) duce la imposibilitatea
+      revenirii la această pagină.
+    </div>
   {else}
-    <p class="alert alert-success">Cea finală va fi disponibilă la terminarea înlocuirii în masă. Puteți închide oricând această filă.</p>
+    <div class="alert alert-success">
+      Cea finală va fi disponibilă la terminarea înlocuirii în masă. Puteți
+      închide oricând această filă.
+    </div>
   {/if}
   <div class="panel-admin">
     <div class="panel panel-default">

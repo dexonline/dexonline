@@ -7,10 +7,8 @@
   <h3>Adaugă definiții OCR din dicționar</h3>
 
   {if $message}
-    <div class="alert alert-{$msgClass} alert-dismissible">
-      <button type="button" class="close" data-dismiss="alert">
-        <span aria-hidden="true">&times;</span>
-      </button>
+    <div class="alert alert-{$msgClass} alert-dismissible fade show">
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
       {$message}
     </div>
   {/if}

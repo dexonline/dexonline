@@ -10,12 +10,10 @@
     <input type="hidden" name="modelNumber" value="{$modelNumber}">
 
     {if count($lexemes)}
-      <div class="alert alert-warning alert-dismissible" role="alert">
-        <button type="button" class="close" data-dismiss="alert">
-          <span aria-hidden="true">&times;</span>
-        </button>
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
         Există {$lexemes|@count} lexem(e) etichetate cu acest model. Dacă
-        apăsați butonul „Confirmă”, ele vor fi reetichetate cu modelul T1.
+        apăsați butonul „șterge”, ele vor fi reetichetate cu modelul T1.
       </div>
     {else}
       <p>
@@ -25,17 +23,18 @@
     {/if}
 
     {foreach $lexemes as $l}
-      {include "bits/lexemeName.tpl" lexeme=$l}
-      <small class="text-muted">({$l->modelType}{$l->modelNumber})</small>
-      &nbsp;&nbsp;
-      <a href="{Router::link('lexeme/edit')}?lexemeId={$l->id}">editează</a>
-      <br>
+      <div>
+        {include "bits/lexemeName.tpl" lexeme=$l}
+        <small class="text-muted me-3">({$l->modelType}{$l->modelNumber})</small>
+        <a href="{Router::link('lexeme/edit')}?lexemeId={$l->id}">editează</a>
+      </div>
     {/foreach}
-    <br>
 
-    <button type="submit" class="btn btn-danger" name="deleteButton">
-      <i class="glyphicon glyphicon-trash"></i>
-      șterge
-    </button>
+    <div class="mt-3">
+      <button type="submit" class="btn btn-danger" name="deleteButton">
+        {include "bits/icon.tpl" i=delete}
+        șterge
+      </button>
+    </div>
   </form>
 {/block}

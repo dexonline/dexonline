@@ -15,7 +15,7 @@
   <div class="alert alert-info alert-dismissible" role="alert">
     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
 
-    <ul>
+    <ul class="mb-0">
       <li>Sunt prezentate maximum 20 de lexeme pe pagină.</li>
       <li>
         Restricțiile nu sunt luate în considerare în timp real (toate

@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2020-05-31 15:39+0300\n"
-"PO-Revision-Date: 2020-05-31 15:54+0300\n"
-"Last-Translator: Radu Borza <radu@dexonline.ro>\n"
+"POT-Creation-Date: 2021-05-24 15:32+0300\n"
+"PO-Revision-Date: 2021-05-24 15:32+0300\n"
+"Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.6\n"
+"X-Generator: Poedit 2.4.3\n"
 "X-Poedit-Basepath: ../../..\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -30,7 +30,7 @@ msgid "Your query <b>%1</b> is a variant of <b>%2</b>."
 msgstr "Su búsqueda <b>%1</b> es una elisión de <b>%2</b>."
 
 #: templates/article/list.tpl:3 templates/article/list.tpl:6
-#: templates/bits/navmenu.tpl:107
+#: templates/bits/navmenu.tpl:101
 msgid "linguistic articles"
 msgstr "artículos lingüísticos"
 
@@ -81,11 +81,11 @@ msgstr "añadir a favoritos"
 msgid "remove from favorites"
 msgstr "eliminar de favoritos"
 
-#: templates/bits/definitionMenuProper.tpl:206
+#: templates/bits/definitionMenuProper.tpl:207
 msgid "permalink"
 msgstr "enlace permanente"
 
-#: templates/bits/definitionMenuProper.tpl:254
+#: templates/bits/definitionMenuProper.tpl:258
 msgid "+1 identical definition"
 msgid_plural "+%1 identical definitions"
 msgstr[0] "+1 definición idéntica"
@@ -129,52 +129,44 @@ msgstr "no mostrar las variantes"
 msgid "show variants"
 msgstr "mostrar las variantes"
 
-#: templates/bits/navmenu.tpl:6
+#: templates/bits/navmenu.tpl:4
 msgid "home page"
 msgstr "página principal"
 
-#: templates/bits/navmenu.tpl:21
-msgid "donate"
-msgstr "donar"
-
-#: templates/bits/navmenu.tpl:32
-msgid "navigation"
-msgstr "navegación"
-
-#: templates/bits/navmenu.tpl:51
+#: templates/bits/navmenu.tpl:25
 msgid "about"
 msgstr "sobre nosotros"
 
-#: templates/bits/navmenu.tpl:59
+#: templates/bits/navmenu.tpl:34
 msgid "information"
 msgstr "información"
 
-#: templates/bits/navmenu.tpl:62 templates/simple/contact.tpl:4
+#: templates/bits/navmenu.tpl:39 templates/simple/contact.tpl:4
 #: templates/simple/contact.tpl:9
 msgid "contact us"
 msgstr "contáctenos"
 
-#: templates/bits/navmenu.tpl:63
+#: templates/bits/navmenu.tpl:44
 msgid "blog"
 msgstr "blog"
 
-#: templates/bits/navmenu.tpl:76
+#: templates/bits/navmenu.tpl:59
 msgid "get involved"
 msgstr "colabore"
 
-#: templates/bits/navmenu.tpl:82
+#: templates/bits/navmenu.tpl:67
 msgid "ways to help"
 msgstr "maneras de ayudar"
 
-#: templates/bits/navmenu.tpl:84
+#: templates/bits/navmenu.tpl:72
 msgid "volunteer ranking"
 msgstr "ranking de los voluntarios"
 
-#: templates/bits/navmenu.tpl:97
+#: templates/bits/navmenu.tpl:87
 msgid "resources"
 msgstr "fuentes"
 
-#: templates/bits/navmenu.tpl:104
+#: templates/bits/navmenu.tpl:96
 msgid "abbreviations table"
 msgstr "tabla de abreviaturas"
 
@@ -182,67 +174,75 @@ msgstr "tabla de abreviaturas"
 msgid "grammar guide"
 msgstr "guía gramatical"
 
-#: templates/bits/navmenu.tpl:109 templates/widgets/wotd.tpl:3
+#: templates/bits/navmenu.tpl:113 templates/widgets/wotd.tpl:5
 #: templates/wotd/view.tpl:4
 msgid "word of the day"
 msgstr "la palabra del día"
 
-#: templates/bits/navmenu.tpl:110 templates/widgets/wotm.tpl:5
+#: templates/bits/navmenu.tpl:118 templates/widgets/wotm.tpl:5
 msgid "word of the month"
 msgstr "la palabra del mes"
 
-#: templates/bits/navmenu.tpl:111
+#: templates/bits/navmenu.tpl:123
 msgid "random words"
 msgstr "palabras aleatorias"
 
-#: templates/bits/navmenu.tpl:112
+#: templates/bits/navmenu.tpl:128
 msgid "Scrabble"
 msgstr "Scrabble"
 
-#: templates/bits/navmenu.tpl:113 templates/simple/tools.tpl:3
+#: templates/bits/navmenu.tpl:133 templates/simple/tools.tpl:3
 msgid "tools"
 msgstr "herramientas"
 
-#: templates/bits/navmenu.tpl:114
+#: templates/bits/navmenu.tpl:138
 msgid "external links"
 msgstr "enlaces externos"
 
-#: templates/bits/navmenu.tpl:152
+#: templates/bits/navmenu.tpl:185
 msgid "Anonymous"
 msgstr "Anónimo"
 
-#: templates/bits/navmenu.tpl:161
+#: templates/bits/navmenu.tpl:194
 msgid "moderator page"
 msgstr "página del moderador"
 
-#: templates/bits/navmenu.tpl:169
+#: templates/bits/navmenu.tpl:204
 msgid "hotkeys"
 msgstr "teclas de acceso rápido"
 
-#: templates/bits/navmenu.tpl:177
+#: templates/bits/navmenu.tpl:217
 msgid "recently viewed pages"
 msgstr "páginas visitadas recientemente"
 
-#: templates/bits/navmenu.tpl:184
+#: templates/bits/navmenu.tpl:224
 msgid "preferences"
 msgstr "preferencias"
 
-#: templates/bits/navmenu.tpl:191
+#: templates/bits/navmenu.tpl:233
 msgid "profile"
 msgstr "perfil"
 
-#: templates/bits/navmenu.tpl:197 templates/definition/favorites.tpl:3
+#: templates/bits/navmenu.tpl:239 templates/definition/favorites.tpl:3
 #: templates/definition/favorites.tpl:7
 msgid "favorite words"
 msgstr "palabras favoritas"
 
-#: templates/bits/navmenu.tpl:203
+#: templates/bits/navmenu.tpl:245
 msgid "log out"
 msgstr "cerrar la sesión"
 
-#: templates/bits/navmenu.tpl:210
+#: templates/bits/navmenu.tpl:252
 msgid "log in"
 msgstr "loguearse"
+
+#: templates/bits/navmenu.tpl:264
+msgid "donate"
+msgstr "donar"
+
+#: templates/bits/navmenu.tpl:274
+msgid "navigation"
+msgstr "navegación"
 
 #: templates/bits/scrabbleResults.tpl:4
 msgid "The form <strong>%1</strong> exists in LOC %2."
@@ -252,11 +252,11 @@ msgstr "La forma <strong>%1</strong> está en LOC %2."
 msgid "The form <strong>%1</strong> does not exist in LOC %2."
 msgstr "La forma <strong>%1</strong> no está en LOC %2."
 
-#: templates/bits/searchForm.tpl:18
+#: templates/bits/searchForm.tpl:17
 msgid "word"
 msgstr "palabra"
 
-#: templates/bits/searchForm.tpl:30
+#: templates/bits/searchForm.tpl:32
 msgid "search"
 msgstr "búsqueda"
 
@@ -264,11 +264,11 @@ msgstr "búsqueda"
 msgid "options"
 msgstr "opciones"
 
-#: templates/bits/searchForm.tpl:53
+#: templates/bits/searchForm.tpl:57
 msgid "Full-text search"
 msgstr "Búsqueda en el texto de las definiciones"
 
-#: templates/bits/searchForm.tpl:60
+#: templates/bits/searchForm.tpl:64
 msgid "help"
 msgstr "ayuda"
 
@@ -289,7 +289,7 @@ msgid "characters"
 msgstr "caracteres"
 
 #: templates/bits/top.tpl:7 templates/games/hangman.tpl:52
-#: templates/games/mill.tpl:67
+#: templates/games/mill.tpl:77
 msgid "definitions"
 msgstr "definiciones"
 
@@ -396,11 +396,17 @@ msgstr "Nivel"
 msgid "You can also use the keys 1, 2, 3, 4."
 msgstr "Puede usar las claves 1, 2, 3, 4."
 
-#: templates/games/mill.tpl:38
+#: templates/games/mill.tpl:27
+msgid ""
+"We are currently recalibrating the difficulty levels. Please excuse any "
+"words that are too easy or too hard for the level you selected."
+msgstr ""
+
+#: templates/games/mill.tpl:48
 msgid "The correct definition of <span class=\"word\"></span>:"
 msgstr "La definición correcta de <span class=\"word\"></span>:"
 
-#: templates/games/mill.tpl:56
+#: templates/games/mill.tpl:66
 msgid ""
 "Congratulations! You answered <b id=\"answeredCorrect\">0</b> of 10 "
 "questions correctly."
@@ -408,11 +414,11 @@ msgstr ""
 "¡Enhorabuena! Ha contestado correctamente <b id=\"answeredCorrect\">0</b> de "
 "10 preguntas."
 
-#: templates/games/mill.tpl:59
+#: templates/games/mill.tpl:69
 msgid "new game"
 msgstr "juegue otra vez"
 
-#: templates/games/mill.tpl:60
+#: templates/games/mill.tpl:70
 msgid "see all definitions"
 msgstr "vea todas las definiciones"
 
@@ -531,8 +537,8 @@ msgstr ""
 msgid "Show models for"
 msgstr "Muestre los modelos para"
 
-#: templates/games/scrabble.tpl:167 templates/search.tpl:304
-#: templates/search.tpl:312 templates/search.tpl:314
+#: templates/games/scrabble.tpl:167 templates/search.tpl:321
+#: templates/search.tpl:329 templates/search.tpl:331
 msgid "show"
 msgstr "muestre"
 
@@ -707,19 +713,19 @@ msgstr "alojado por"
 msgid "Dictionaries of the Romanian language"
 msgstr "Diccionarios de la lengua rumana"
 
-#: templates/index.tpl:34
+#: templates/index.tpl:32
 msgid "customize widgets"
 msgstr "personalizar widgets"
 
-#: templates/index.tpl:43
+#: templates/index.tpl:39
 msgid "digitizes prestigious dictionaries of the Romanian language."
 msgstr "digitaliza diccionarios de prestigio de la lengua rumana."
 
-#: templates/index.tpl:44
+#: templates/index.tpl:40
 msgid "The project is maintained by a team of volunteers."
 msgstr "El proyecto está mantenido por un equipo de voluntarios."
 
-#: templates/index.tpl:45
+#: templates/index.tpl:41
 msgid ""
 "Much of the data can be downloaded freely under the GNU General Public "
 "License."
@@ -727,18 +733,18 @@ msgstr ""
 "Los datos en su mayoría se pueden bajar libremente bajo la Licencia Pública "
 "General GNU."
 
-#: templates/index.tpl:49
+#: templates/index.tpl:44
 msgid "Current status: %1 definitions, of which %2 learned last month."
 msgstr ""
 "Estado actual: %1 definiciones, de las cuales %2 aprendidas durante el "
 "último mes."
 
-#: templates/layout.tpl:90 templates/simple/tools.tpl:84
-#: templates/simple/tools.tpl:107
+#: templates/layout.tpl:85 templates/simple/tools.tpl:84
+#: templates/simple/tools.tpl:106
 msgid "license"
 msgstr "licencia"
 
-#: templates/layout.tpl:91
+#: templates/layout.tpl:88
 msgid "privacy"
 msgstr "privacidad"
 
@@ -890,88 +896,88 @@ msgstr "definición"
 msgid "and paradigm"
 msgstr "y paradigma"
 
-#: templates/search.tpl:35
+#: templates/search.tpl:38
 msgid "results"
 msgstr "resultados"
 
-#: templates/search.tpl:60
+#: templates/search.tpl:69
 msgid "synthesis"
 msgstr "síntesis"
 
-#: templates/search.tpl:75
+#: templates/search.tpl:92
 msgid "Definition with ID"
 msgstr "Definición con el ID"
 
-#: templates/search.tpl:87
+#: templates/search.tpl:104
 msgid "One definition contains all the words"
 msgid_plural "%1 definitions contain all the words"
 msgstr[0] "Una sola definición contiene todas las palabras"
 msgstr[1] "%1 definiciones contienen todas las palabras"
 
-#: templates/search.tpl:92 templates/search.tpl:160 templates/search.tpl:201
-#: templates/search.tpl:222 templates/search.tpl:247
+#: templates/search.tpl:109 templates/search.tpl:177 templates/search.tpl:218
+#: templates/search.tpl:239 templates/search.tpl:264
 msgid "(at most %1 shown)"
 msgstr "(máximo %1 mostradas)"
 
-#: templates/search.tpl:95
+#: templates/search.tpl:112
 msgid "No definitions contain all the words"
 msgstr "Ninguna de las definiciones contiene todas las palabras"
 
-#: templates/search.tpl:101
+#: templates/search.tpl:118
 msgid "The following words were ignored because they are too common:"
 msgstr "Las siguientes palabras se ignoran por ser demasiado comunes:"
 
-#: templates/search.tpl:117
+#: templates/search.tpl:134
 msgid "There is no entry with the given ID."
 msgstr "No hay ninguna entrada con el ID dado."
 
-#: templates/search.tpl:127 templates/search.tpl:191
+#: templates/search.tpl:144 templates/search.tpl:208
 msgid "One definition for %2"
 msgid_plural "%1 definitions for %2"
 msgstr[0] "Una definición por %2"
 msgstr[1] "%1 definiciones por %2"
 
-#: templates/search.tpl:133 templates/search.tpl:197
+#: templates/search.tpl:150 templates/search.tpl:214
 msgid "No definitions for %1"
 msgstr "Ninguna definición por %1"
 
-#: templates/search.tpl:144
+#: templates/search.tpl:161
 msgid "for"
 msgstr "para"
 
-#: templates/search.tpl:150
+#: templates/search.tpl:167
 msgid "One result for <strong>%2</strong>"
 msgid_plural "%1 results for <strong>%2</strong>"
 msgstr[0] "Un resultado para <strong>%2</strong>"
 msgstr[1] "%1 resultados para <strong>%2</strong>"
 
-#: templates/search.tpl:156 templates/search.tpl:279
+#: templates/search.tpl:173 templates/search.tpl:296
 msgid "No results for <strong>%1</strong>"
 msgstr "No hay resultados para <strong>%1</strong>"
 
-#: templates/search.tpl:178
+#: templates/search.tpl:195
 msgid "One entry"
 msgid_plural "%1 entries"
 msgstr[0] "Una entrada"
 msgstr[1] "%1 entradas"
 
-#: templates/search.tpl:216
+#: templates/search.tpl:233
 msgid "One definition"
 msgid_plural "%1 definitions"
 msgstr[0] "Una definición"
 msgstr[1] "%1 definiciones"
 
-#: templates/search.tpl:238
+#: templates/search.tpl:255
 msgid "One definition matches at least two words"
 msgid_plural "%1 definitions match at least two words"
 msgstr[0] "Una definición coincide con al menos dos palabras"
 msgstr[1] "%1 definiciones coinciden con al menos dos palabras"
 
-#: templates/search.tpl:243
+#: templates/search.tpl:260
 msgid "No definitions match at least two words"
 msgstr "Ninguna definición coincide con al menos dos palabras"
 
-#: templates/search.tpl:252
+#: templates/search.tpl:269
 msgid ""
 "If the results are inadequate, you can look up individual words or you can "
 "search"
@@ -979,16 +985,16 @@ msgstr ""
 "Si los resultados no se corresponden, puede buscar las palabras por separado "
 "o puede buscar"
 
-#: templates/search.tpl:253
+#: templates/search.tpl:270
 msgid "full-text"
 msgstr "en el texto de las definiciones"
 
-#: templates/search.tpl:258
+#: templates/search.tpl:275
 msgid "At most 5 words are allowed. The following words were ignored:"
 msgstr ""
 "Como mucho 5 palabras permitidas. Las siguientes palabras se van a ignorar:"
 
-#: templates/search.tpl:273
+#: templates/search.tpl:290
 msgid ""
 "The word <strong>%1</strong> is not in the dictionary. Here are some "
 "suggestions:"
@@ -996,17 +1002,24 @@ msgstr ""
 "El término <strong>%1</strong> no se encuentra en el diccionario. Le damos "
 "las siguientes sugerencias:"
 
-#: templates/search.tpl:299 lib/models/InflectedForm.php:72
+#: templates/search.tpl:316 lib/models/InflectedForm.php:72
 msgid "unrecommended or incorrect form"
 msgstr "forma no recomendada o incorrecta"
 
-#: templates/search.tpl:303 templates/search.tpl:311 templates/search.tpl:315
+#: templates/search.tpl:320 templates/search.tpl:328 templates/search.tpl:332
 msgid "hide"
 msgstr "esconde"
 
-#: templates/search.tpl:318
+#: templates/search.tpl:335
 msgid "elisions and long verb forms"
 msgstr "elisiones y formas largas"
+
+#: templates/search.tpl:360
+msgid ""
+"<b>The Synthesis tab</b> shows a condensed list of definitions compiled by "
+"the dexonline team. This tab will become the default view in the future. You "
+"can select your preferred tab from your <a href=\"%1\">preferences page</a>."
+msgstr ""
 
 #: templates/search/extendToAllSources.tpl:3
 msgid "Repeat your search <a href=\"%1\">in all dictionaries</a>."
@@ -1046,11 +1059,11 @@ msgstr ""
 msgid "show all definitions"
 msgstr "mostrar todas las definiciones"
 
-#: templates/search/trees.tpl:24
+#: templates/search/trees.tpl:23
 msgid "edit"
 msgstr "editar"
 
-#: templates/search/trees.tpl:33
+#: templates/search/trees.tpl:32
 msgid "etymology"
 msgstr "etimología"
 
@@ -1190,33 +1203,34 @@ msgstr "Autor"
 msgid "license on the data in this table"
 msgstr "licencia sobre los datos en esta tabla"
 
-#: templates/simple/tools.tpl:109
+#: templates/simple/tools.tpl:108
 msgid ""
 "The information in this table is dual-licensed under the GNU General Public "
-"License (as applicable to the entire site) and the <a href=\"%1\">Creative "
-"Commons Attribution-ShareAlike 3.0</a> license. The information can be used "
-"(copied, modified, adapted etc.) by the website http://wikipedia.org. The "
-"data are gathered from the mailing list discutii@dexonline.ro (formerly "
-"dictionar@yahoogroups.com) in collaboration with the application developers."
+"License (as applicable to the entire site) and the <a class=\"alert-link\" "
+"href=\"%1\">Creative Commons Attribution-ShareAlike 3.0</a> license. The "
+"information can be used (copied, modified, adapted etc.) by the website "
+"http://wikipedia.org. The data are gathered from the mailing list "
+"discutii@dexonline.ro (formerly dictionar@yahoogroups.com) in collaboration "
+"with the application developers."
 msgstr ""
 "La información de esta tabla esta bajo las dos licencias: Licencia Pública "
-"General GNU (aplicable a todo el web) y la licencia <a href=\"%1\">Creative "
-"Commons Attribution-ShareAlike 3.0</a>. La información se puede utilizar "
-"(copiar, modificar, adaptar etc.) por el web http://wikipedia.org. Los datos "
-"proceden de la lista de correos discutii@dexonline.ro (antes "
-"dictionar@yahoogroups.com) gracias a la colaboración con los desarrolladores "
-"de las aplicaciones."
+"General GNU (aplicable a todo el web) y la licencia <a class=\"alert-link\" "
+"href=\"%1\">Creative Commons Attribution-ShareAlike 3.0</a>. La información "
+"se puede utilizar (copiar, modificar, adaptar etc.) por el web http://"
+"wikipedia.org. Los datos proceden de la lista de correos discutii@dexonline."
+"ro (antes dictionar@yahoogroups.com) gracias a la colaboración con los "
+"desarrolladores de las aplicaciones."
 
-#: templates/simple/tools.tpl:120
+#: templates/simple/tools.tpl:118
 msgid "Browser integration"
 msgstr "Integración en el navegador"
 
-#: templates/simple/tools.tpl:126
+#: templates/simple/tools.tpl:124
 msgid "A <a href=\"%1\" onclick=\"%2\">spell checker</a> for Firefox."
 msgstr ""
 "Un <a href=\"%1\" onclick=\"%2\">corrector ortográfico</a> para Firefox."
 
-#: templates/simple/tools.tpl:132
+#: templates/simple/tools.tpl:130
 msgid ""
 "To use the spell checker, right-click in any text box, check the <em>Check "
 "spelling</em> box, right-click once more and select <em>Languages > "
@@ -1226,7 +1240,7 @@ msgstr ""
 "de texto, marque la casilla <em>Corrector ortográfico</em>, haga clic "
 "derecho otra vez y seleccione <em>Idiomas > Rumano</em>."
 
-#: templates/simple/tools.tpl:142
+#: templates/simple/tools.tpl:140
 msgid ""
 "<a href=\"#\" onclick=\"%1\">Add <i>dexonline</i> to the search engine list</"
 "a> of your browser. Thanks to Alexandru Lixandru."
@@ -1234,27 +1248,27 @@ msgstr ""
 "<a href=\"#\" onclick=\"%1\">Añada <i>dexonline</i> a la lista de motores de "
 "búsqueda</a> de su navegador. Gracias a Alexandru Lixandru."
 
-#: templates/simple/tools.tpl:148
+#: templates/simple/tools.tpl:146
 msgid "A <a href=\"%1\">Chrome extension</a> for right-click searches."
 msgstr ""
 "Una <a href=\"%1\">extensión para Chrome</a> para búsquedas con el clic "
 "derecho."
 
-#: templates/simple/tools.tpl:153
+#: templates/simple/tools.tpl:151
 msgid ""
 "A <a href=\"%1\">Firefox add-on</a> for dexonline by AdaKaleh. Allows right-"
 "click searches and registers a one-click search engine."
 msgstr ""
 
-#: templates/simple/tools.tpl:160
+#: templates/simple/tools.tpl:158
 msgid "A <a href=\"%1\">WordPress plugin</a> for your blog."
 msgstr "Un <a href=\"%1\">plugin de WordPress</a> para su blog."
 
-#: templates/simple/tools.tpl:166
+#: templates/simple/tools.tpl:164
 msgid "Dictionaries in StarDict format"
 msgstr ""
 
-#: templates/simple/tools.tpl:191
+#: templates/simple/tools.tpl:189
 msgid "all of the above"
 msgstr "todas las de arriba"
 
@@ -1288,8 +1302,8 @@ msgstr "Ranking de las contribuciones automáticas"
 msgid "These include definitions entered using a program."
 msgstr "Incluye las definiciones introducidas mediante programas."
 
-#: templates/widgets/articleOfTheMonth.tpl:3
-#: templates/widgets/articleOfTheMonth.tpl:8
+#: templates/widgets/articleOfTheMonth.tpl:5
+#: templates/widgets/articleOfTheMonth.tpl:10
 msgid "article of the month"
 msgstr "artículo del mes"
 
@@ -1297,43 +1311,43 @@ msgstr "artículo del mes"
 msgid "games"
 msgstr "juegos"
 
-#: templates/widgets/randomWord.tpl:3
+#: templates/widgets/randomWord.tpl:6
 msgid "random word"
 msgstr "palabra aleatoria"
 
-#: templates/widgets/social.tpl:3
+#: templates/widgets/social.tpl:2
 msgid "follow us on"
 msgstr "síganos en"
 
-#: templates/widgets/social.tpl:11
+#: templates/widgets/social.tpl:10
 msgid "Blog icon"
 msgstr "Icono de Blogger"
 
-#: templates/widgets/social.tpl:12
+#: templates/widgets/social.tpl:11
 msgid "Follow our blog"
 msgstr "Síganos en Blogger"
 
-#: templates/widgets/social.tpl:21
+#: templates/widgets/social.tpl:20
 msgid "Facebook icon"
 msgstr "Icono de Facebook"
 
-#: templates/widgets/social.tpl:22
+#: templates/widgets/social.tpl:21
 msgid "Follow us on Facebook"
 msgstr "Follow us on Facebook"
 
-#: templates/widgets/social.tpl:31
+#: templates/widgets/social.tpl:30
 msgid "Twitter icon"
 msgstr "Icono de Twitter"
 
-#: templates/widgets/social.tpl:32
+#: templates/widgets/social.tpl:31
 msgid "Follow us on Twitter"
 msgstr "Síganos en Twitter"
 
-#: templates/widgets/social.tpl:41
+#: templates/widgets/social.tpl:40
 msgid "Instagram icon"
 msgstr "Icono de Instagram"
 
-#: templates/widgets/social.tpl:42
+#: templates/widgets/social.tpl:41
 msgid "Follow us on Instagram"
 msgstr "Síganos en Instagram"
 
@@ -1605,16 +1619,16 @@ msgid_plural "%d randomly chosen words of the day"
 msgstr[0] "Una palabra del día escogida aleatoriamente"
 msgstr[1] "%d palabras del día escogidas aleatoriamente"
 
-#: www/search.php:218
+#: www/search.php:217
 #, php-format
 msgid "We redirected you automatically from <b>%s</b> to <b>%s</b>."
 msgstr "Ha sido automáticamente redirigido de <b>%s</b> a <b>%s</b>."
 
-#: www/search.php:339
+#: www/search.php:338
 msgid "conjugations"
 msgstr "conjugaciones"
 
-#: www/search.php:340
+#: www/search.php:339
 msgid "declensions"
 msgstr "declinaciones"
 

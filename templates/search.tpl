@@ -25,48 +25,57 @@
   {include "bits/flashMessages.tpl"}
 
   <ul class="nav nav-tabs" role="tablist">
-    <li role="presentation" {if $tab == Constant::TAB_RESULTS}class="active"{/if}>
-      <a
-        href="#resultsTab"
-        aria-controls="resultsTab"
+    <li class="nav-item" role="presentation">
+      <button
+        class="nav-link {if $tab == Constant::TAB_RESULTS}active{/if}"
+        data-bs-toggle="tab"
+        data-bs-target="#resultsTab"
+        type="button"
         role="tab"
-        data-toggle="tab"
+        aria-controls="resultsTab"
+        aria-selected="true"
         data-permalink="{$definitionLink}">
         {t}results{/t} ({$extra.numResults})
-      </a>
+      </button>
     </li>
 
     {if $searchParams.paradigm}
-      <li role="presentation" {if $tab == Constant::TAB_PARADIGM}class="active"{/if}>
-        <a
-          href="#paradigmTab"
-          aria-controls="paradigmTab"
+      <li class="nav-item" role="presentation">
+        <button
+          class="nav-link {if $tab == Constant::TAB_PARADIGM}active{/if}"
+          data-bs-toggle="tab"
+          data-bs-target="#paradigmTab"
+          type="button"
           role="tab"
-          data-toggle="tab"
+          aria-controls="paradigmTab"
+          aria-selected="true"
           data-permalink="{$paradigmLink}">
           {$declensionText}
-        </a>
+        </button>
       </li>
     {/if}
 
     {if count($trees)}
-      <li role="presentation" {if $tab == Constant::TAB_TREE}class="active"{/if}>
-        <a
-          href="#treeTab"
-          aria-controls="treeTab"
+      <li class="nav-item" role="presentation">
+        <button
+          class="nav-link {if $tab == Constant::TAB_TREE}active{/if}"
+          data-bs-toggle="tab"
+          data-bs-target="#treeTab"
+          type="button"
           role="tab"
-          data-toggle="tab"
+          aria-controls="treeTab"
+          aria-selected="true"
           data-permalink="{$treeLink}">
           {t}synthesis{/t} ({count($trees)})
-        </a>
 
-        <span
-          class="btn btn-link"
-          id="tabAdvertiser"
-          role="button"
-          tabindex="0">
+        </button>
+
+      </li>
+
+      <li class="align-self-center ms-2">
+        <a id="tabAdvertiser" href="#">
           {include "bits/icon.tpl" i=info}
-        </span>
+        </a>
       </li>
     {/if}
   </ul>
@@ -75,7 +84,7 @@
     {* results tab *}
     <div
       role="tabpanel"
-      class="tab-pane {if $tab == Constant::TAB_RESULTS}active{/if}"
+      class="tab-pane fade {if $tab == Constant::TAB_RESULTS}show active{/if}"
       id="resultsTab">
 
       {* definition ID search *}
@@ -295,7 +304,7 @@
     {if $searchParams.paradigm}
       <div
         role="tabpanel"
-        class="tab-pane {if $tab == Constant::TAB_PARADIGM}active{/if}"
+        class="tab-pane fade {if $tab == Constant::TAB_PARADIGM}show active{/if}"
         id="paradigmTab">
 
         {foreach $entries as $e}
@@ -339,7 +348,7 @@
     {if count($trees)}
       <div
         role="tabpanel"
-        class="tab-pane {if $tab == Constant::TAB_TREE}active{/if}"
+        class="tab-pane fade {if $tab == Constant::TAB_TREE}show active{/if}"
         id="treeTab">
         {include "search/trees.tpl"}
       </div>

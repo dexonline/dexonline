@@ -7,10 +7,13 @@
         <form id="typoHtmlForm" method="post" onsubmit="return submitTypoForm();">
 
           <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
             <h4 class="modal-title">{cap}{t}report a typo{/t}{/cap}</h4>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close">
+            </button>
           </div>
 
           <div class="modal-body">
@@ -43,7 +46,7 @@
 
           <div class="modal-footer">
             <button class="btn btn-primary" id="typoSubmit" type="submit">{t}submit{/t}</button>
-            <button class="btn btn-link" data-dismiss="modal">{t}cancel{/t}</button>
+            <button class="btn btn-link" data-bs-dismiss="modal">{t}cancel{/t}</button>
           </div>
         </form>
       </div>
@@ -55,10 +58,13 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
           <h4 class="modal-title">{cap}{t}report a typo{/t}{/cap}</h4>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close">
+          </button>
         </div>
 
         <div class="modal-body">
@@ -66,15 +72,15 @@
         </div>
 
         <div class="modal-footer">
-          <button class="btn btn-link" data-dismiss="modal">{t}close{/t}</button>
+          <button class="btn btn-link" data-bs-dismiss="modal">{t}close{/t}</button>
         </div>
       </div>
     </div>
   </div>
 
   <script>
-   $(function() {
-     $('#typoModal, #typoConfModal').detach().appendTo('body');
-   });
+    $(function() {
+      $('#typoModal, #typoConfModal').detach().appendTo('body');
+    });
   </script>
 {/if}

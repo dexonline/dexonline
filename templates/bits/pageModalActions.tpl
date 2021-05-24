@@ -1,20 +1,20 @@
-<form class="form-inline">
+<form class="d-flex align-items-center mx-auto">
   <a class="prevPage btn btn-link" title="pagina anterioară">
-    <i class="glyphicon glyphicon-chevron-left"></i>
+    {include "bits/icon.tpl" i=chevron_left}
   </a>
 
   {include "bits/sourceDropDown.tpl"
-           name="showPageSourceId"
-           sources=Source::getSourcesWithPageImages()
-           skipAnySource="1"
-           width="300px"}
+    name="showPageSourceId"
+    sources=Source::getSourcesWithPageImages()
+    skipAnySource="1"
+    width="300px"}
 
-  <input type="text"
-         class="pageForWord form-control"
-         placeholder="navighează la un cuvânt..."
-         >
+  <input
+    type="text"
+    class="pageForWord form-control ms-2"
+    placeholder="navighează la un cuvânt...">
 
   <a class="nextPage btn btn-link" title="pagina următoare">
-    <i class="glyphicon glyphicon-chevron-right"></i>
+    {include "bits/icon.tpl" i=chevron_right}
   </a>
 </form>

@@ -18,8 +18,8 @@
   <div>
     <button type="button"
       class="btn btn-default"
-      data-toggle="modal"
-      data-target="#associateModal">
+      data-bs-toggle="modal"
+      data-bs-target="#associateModal">
       <i class="glyphicon glyphicon-resize-small"></i>
       asociază...
     </button>
@@ -30,10 +30,13 @@
       <div class="modal-content">
         <form method="post" role="form">
           <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">
-              <span aria-hidden="true">&times;</span>
-            </button>
             <h4 class="modal-title">Asociază definițiile cu...</h4>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close">
+            </button>
           </div>
 
           <div class="modal-body">
@@ -47,7 +50,7 @@
               <i class="glyphicon glyphicon-resize-small"></i>
               asociază
             </button>
-            <button type="button" class="btn btn-link" data-dismiss="modal">renunță</button>
+            <button type="button" class="btn btn-link" data-bs-dismiss="modal">renunță</button>
           </div>
         </form>
       </div>

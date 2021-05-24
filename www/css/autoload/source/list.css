@@ -24,17 +24,8 @@
 
 .sourceName {
   cursor: help;
-  position: relative;
 }
 
-.sourceName span {
-  margin-left: -999em;
-  position: absolute;
-}
-
-.sourceName:hover .popover {
-  display: block;
+.popover {
   min-width: 500px;
-  left: 1em;
-  top: 2em;
 }

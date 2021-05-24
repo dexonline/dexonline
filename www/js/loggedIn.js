@@ -31,7 +31,7 @@ $(function() {
 
   function addBookmark() {
     var anchor = $(this);
-    var span = anchor.find('span');
+    var span = anchor.find('span[data-pending-text]');
     var url = anchor.attr('href');
 
     // show loading message
@@ -52,16 +52,16 @@ $(function() {
   }
 
   function addBookmarkSuccess(anchor) {
-    var span = anchor.find('span');
+    var span = anchor.find('span[data-pending-text]');
     span.text(span.data('addedText'));
-    anchor.closest('li').addClass('disabled');
+    anchor.addClass('disabled');
   }
 
   function removeBookmark(evt) {
     evt.preventDefault();
 
     var anchor = $(this);
-    var span = anchor.find('span');
+    var span = anchor.find('span[data-pending-text]');
     var url = anchor.attr('href');
 
     // show ajax indicator

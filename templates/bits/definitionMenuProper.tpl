@@ -163,8 +163,8 @@
         {if $showBookmark}
           {if User::getActive()}
             {if $row->bookmark}
-              <li class="disabled">
-                <a href="#" class="dropdown-item">
+              <li>
+                <a href="#" class="dropdown-item disabled">
                   {include "bits/icon.tpl" i=favorite}
                   {t}added to favorites{/t}
                 </a>

@@ -41,3 +41,25 @@ $navbar-light-hover-color: $primary;
     min-height: 136px;
   }
 }
+
+/************************ donation media queries ************************/
+
+@include media-breakpoint-up(xl) {
+  .paymentSection {
+    min-height: 210px;
+  }
+
+  form.payPal {
+    margin-top: 35px;
+  }
+}
+
+@include media-breakpoint-only(lg) {
+  .paymentSection {
+    min-height: 230px;
+  }
+
+  form.payPal {
+    margin-top: 45px;
+  }
+}

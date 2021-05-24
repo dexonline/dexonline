@@ -199,7 +199,6 @@ class Smart {
       self::addResources('privateMode');
     }
     self::addSameNameFiles($templateName);
-    self::$cssFiles[] = "responsive.css";
     if (!$hardened) {
       if (User::can(User::PRIV_ANY)) {
         self::assign('recentLinks', RecentLink::load());

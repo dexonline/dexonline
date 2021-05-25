@@ -30,6 +30,13 @@ body.other section.search {
   margin: 2px;
 }
 
+[data-bs-toggle="collapse"].collapsed .if-not-collapsed {
+  display: none;
+}
+[data-bs-toggle="collapse"]:not(.collapsed) .if-collapsed {
+  display: none;
+}
+
 ul.bulletList {
   display: inline;
   margin-left: 0;

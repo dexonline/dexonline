@@ -32,6 +32,7 @@ const CODEPOINTS = [
   'login',
   'logout',
   'person',
+  'refresh',
   'repeat',
   'save',
   'search',

@@ -44,7 +44,7 @@
           data-bs-toggle="modal"
           data-bs-target="#cloneModal">
           <i class="glyphicon glyphicon-duplicate"></i>
-          clonează
+          clonează...
         </button>
       {/if}
 

@@ -141,10 +141,10 @@ class SyncWiki {
       $table->setAttribute('class', trim($table->getAttribute('class') . ' table table-hover'));
     }
 
-    // Convert toc divs to panels
+    // Convert toc divs to cards
     $toc = $dom->getElementById('toc');
     if ($toc) {
-      $toc->setAttribute('class', 'panel panel-default');
+      $toc->setAttribute('class', 'card mb-3');
 
       foreach ($toc->childNodes as $c) {
         if ($c->nodeType == XML_ELEMENT_NODE) { // skip text nodes
@@ -157,11 +157,11 @@ class SyncWiki {
         }
       }
 
-      $title->setAttribute('class', 'panel-heading');
+      $title->setAttribute('class', 'card-header');
       $title->nodeValue = 'Cuprins';
 
       $body = $dom->createElement('div');
-      $body->setAttribute('class', 'panel-body');
+      $body->setAttribute('class', 'card-body');
       $toc->removeChild($ul);
       $body->appendChild($ul);
       $toc->appendChild($body);

@@ -154,7 +154,7 @@
 
     // Default properties
     var button = document.createElement('button');
-    button.className = 'btn btn-default btn-charmap';
+    button.className = 'btn btn-light btn-charmap';
 
     button.innerText = lower;
 
@@ -182,6 +182,7 @@
   var CHARMAP = new Charmap();
 
   var inserter; // Updated on each Charmap.show call.
+  var target;
 
   // called once at page load.
   function init(modal_selector) {
@@ -203,7 +204,6 @@
       resetButton: $('#resetButton', modal),
       charsText: $('#charsText', modal),
       charsArea: $('#charsArea', modal),
-      charsClear: $('#charsClear', modal)
     };
 
     modal.on('show.bs.modal', function() {
@@ -218,6 +218,7 @@
 
     modal.on('hidden.bs.modal', function() {
       $(document).bind('keydown', 'alt+q', HANDLER);
+      target.focus();
     });
 
     modalControls.editButton.on('click', function() {
@@ -229,14 +230,10 @@
       modalControls.editButton.toggleClass('disabled');
     });
 
-    modalControls.charsClear.on('click', function() {
-      modalControls.charsText.val('');
-    });
-
     modalControls.charsText.on('change', function(e) {
-      var isExpanded = modalControls.charsArea.attr('aria-expanded');
-      if (isExpanded === 'false') {
-        modal.modal('hide');
+      var isExpanded = modalControls.charsArea.hasClass('show');
+      if (!isExpanded) {
+        MODAL.hide();
       }
     });
 
@@ -257,18 +254,16 @@
       }
     });
 
-    MODAL = modal;
+    MODAL = new bootstrap.Modal(modal);
   }
 
   function show(insert_target, handler) {
     if (MODAL) {
       HANDLER = handler;
+      target = $(insert_target);
       // update inserter global.
-      inserter = getInserter($(insert_target));
-      MODAL.modal();
-      MODAL.draggable({
-        handle: ".modal-header"
-      });
+      inserter = getInserter(target);
+      MODAL.show();
     }
   }
 

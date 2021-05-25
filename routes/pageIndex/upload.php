@@ -21,7 +21,7 @@ $csv = UploadUtils::processPage();
 
 // create PageIndex objects so we can use the HtmlConverter and use them in smarty
 Smart::assign([
-  'indexes' => UploadUtils::csv_to_objects($csv, $sourceId, $userId),
+  'indexes' => UploadUtils::csv_to_objects($csv, $sourceId ?? null, $userId ?? null),
   'modUser' => User::getActive(),
 ]);
 Smart::addResources('admin');

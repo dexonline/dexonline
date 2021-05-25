@@ -10,9 +10,8 @@
   cursor: pointer;
 }
 
-.panel-admin {
+.card-admin {
   border: 1px solid #ddd;
-  display: none;
   margin: 10px 0px;
   padding: 5px;
 }

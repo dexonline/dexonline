@@ -2,7 +2,7 @@
 {assign var="selectedStatus" value=$selectedStatus|default:false}
 {assign var="disabled" value=$disabled|default:false}
 
-<select name="{$name}" class="form-control" {if $disabled}disabled{/if}>
+<select name="{$name}" class="form-select" {if $disabled}disabled{/if}>
   {if $anyOption}
     <option value="">oricare</option>
   {/if}

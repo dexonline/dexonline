@@ -5,10 +5,10 @@
 {$allOption=$allOption|default:''} {* format: display_value|submit_value *}
 {* additional arguments: $modelTypes *}
 
-<span data-model-dropdown>
+<span class="input-group" data-model-dropdown>
   <select
     name="{$modelTypeName}"
-    class="form-control"
+    class="form-select"
     data-model-type>
     {foreach $modelTypes as $mt}
       <option
@@ -21,7 +21,7 @@
 
   <select
     name="{$modelNumberName}"
-    class="form-control"
+    class="form-select"
     data-model-number
     data-selected="{$selectedModelNumber}"
     data-all-option="{$allOption}">

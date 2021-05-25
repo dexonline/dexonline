@@ -7,7 +7,7 @@
 {$sources=$sources|default:Source::getAll(Source::SORT_SEARCH)}
 <select name="{$name}"
   id="sourceDropDown"
-  class="form-control sourceDropDown"
+  class="form-select sourceDropDown"
   style="width: {$width}"
   {if $autosubmit}onchange="this.form.submit();"{/if}>
   {if !$skipAnySource}

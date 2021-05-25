@@ -10,13 +10,13 @@
 
     {* No page index loaded yet -- show file selector and legend *}
     {if empty($indexes)}
-      <div class="panel panel-default">
+      <div class="card">
 
-        <div class="panel-heading">
+        <div class="card-header">
           Selectare fișier
         </div>
 
-        <div class="panel-body">
+        <div class="card-body">
 
           <div class="form-group">
             <label class="col-sm-1 control-label">fișier</label>
@@ -51,7 +51,7 @@
         </div>
       </div>
 
-      <div class="form-group">
+      <div class="form-group mt-2">
         <div class="col-sm-10">
           <button class="btn btn-primary" type="submit" name="submit">
             Încarcă fișier (previzualizare)
@@ -62,13 +62,13 @@
 
     {* Abbreviations loaded -- show source dropdown and preview *}
     {if !empty($indexes)}
-      <div class="panel panel-default">
+      <div class="card">
 
-        <div class="panel-heading">
+        <div class="card-header">
           Alegere sursă
         </div>
 
-        <div class="panel-body">
+        <div class="card-body">
           <div class="form-group">
             <label class="col-sm-1 control-label">sursa</label>
             <div class="col-sm-11">
@@ -79,9 +79,9 @@
 
       </div>
 
-      <div class="panel-admin">
-        <div class="panel panel-default">
-          <div class="panel-heading" id="panel-heading">
+      <div class="card-admin">
+        <div class="card">
+          <div class="card-header">
             <i class="glyphicon glyphicon-user"></i>
             {$modUser}
           </div>
@@ -111,7 +111,7 @@
         </div>
       </div>
 
-      <div class="form-group">
+      <div class="form-group mt-2">
         <div class="col-sm-10">
 
           <button class="btn btn-success" name="saveButton">

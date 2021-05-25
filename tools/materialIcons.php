@@ -10,9 +10,11 @@ require_once __DIR__ . '/../lib/Core.php';
 
 // list of glyphs we want in the subset, specified by their codepoint
 const CODEPOINTS = [
+  'attach_file',
   'chevron_left',
   'chevron_right',
   'clear',
+  'content_copy',
   'credit_card',
   'delete',
   'description',

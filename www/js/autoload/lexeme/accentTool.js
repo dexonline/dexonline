@@ -1,14 +1,8 @@
 $(function() {
 
   function init() {
-    $('.apDefLink').click(defClick);
     $('.apLetter').click(letterClick);
     $('input[type="checkbox"]').click(noAccentClick);
-  }
-
-  function defClick() {
-    $(this).closest('div').next().stop().slideToggle();
-    return false;
   }
 
   function letterClick() {

@@ -6,18 +6,18 @@
   <h3>Pagina moderatorului</h3>
 
   {if User::can($reportPriv)}
-    <div class="panel panel-default">
-      <div class="panel-heading">
+    <div class="card mb-3">
+      <div class="card-header d-flex justify-content-between align-items-center">
         Rapoarte
 
-        <form class="pull-right">
+        <form>
 
           <small class="text-muted">
             calculate acum {($timeAgo/60)|nf} minute, {$timeAgo%60} secunde
           </small>
 
-          <button type="submit" name="recountButton" class="btn btn-info btn-xs">
-            <i class="glyphicon glyphicon-repeat"></i>
+          <button type="submit" name="recountButton" class="btn btn-info btn-sm">
+            {include "bits/icon.tpl" i=repeat}
             recalculează acum
           </button>
 
@@ -25,7 +25,7 @@
 
       </div>
 
-      <table class="table table-condensed table-hover">
+      <table class="table table-sm table-hover mb-0">
         {foreach $reports as $r}
           {if $r.count && User::can($r.privilege)}
             <tr>
@@ -44,37 +44,37 @@
   {/if}
 
   {if User::can(User::PRIV_EDIT)}
-    <div class="panel panel-default quickNav">
-      <div class="panel-heading">
+    <div class="card quickNav mb-3">
+      <div class="card-header">
         Navigare rapidă
       </div>
 
-      <div class="panel-body">
-        <div class="col-lg-4 col-md-6 col-sm-6">
+      <div class="card-body row">
+        <div class="col-12 col-sm-6 col-lg-4">
           <form action="{Router::link('definition/edit')}">
             <select id="definitionId" name="definitionId"></select>
           </form>
         </div>
 
-        <div class="col-lg-4 col-md-6 col-sm-6">
+        <div class="col-12 col-sm-6 col-lg-4">
           <form action="{Router::link('entry/edit')}">
             <select id="entryId" name="id"></select>
           </form>
         </div>
 
-        <div class="col-lg-4 col-md-6 col-sm-6">
+        <div class="col-12 col-sm-6 col-lg-4">
           <form action="{Router::link('lexeme/edit')}">
             <select id="lexemeId" name="lexemeId"></select>
           </form>
         </div>
 
-        <div class="col-lg-4 col-md-6 col-sm-6">
+        <div class="col-12 col-sm-6 col-lg-4">
           <form action="{Router::link('tree/edit')}">
             <select id="treeId" name="id"></select>
           </form>
         </div>
 
-        <div class="col-lg-4 col-md-6 col-sm-6">
+        <div class="col-12 col-sm-6 col-lg-4">
           <form action="{Router::link('tag/edit')}">
             <select id="labelId" name="id"></select>
           </form>
@@ -84,270 +84,271 @@
   {/if}
 
   {if User::can(User::PRIV_EDIT)}
-    <div class="panel panel-default">
-      <div class="panel-heading">
+    <div class="card mb-3">
+      <div class="card-header">
         Căutare avansată
       </div>
 
-      <div class="panel-body">
+      <div class="card-body">
         <form
-          class="form-horizontal"
+          class="row"
           action="{Router::link('aggregate/advancedSearch')}"
           method="post">
 
-          <div class="row">
+          <div class="col-12 col-md-6 col-lg-4">
 
-            <div class="col-lg-4 col-md-6 col-sm-6">
+            <fieldset>
+              <legend><h4>proprietăți intrări</h4></legend>
 
-              <fieldset>
-                <legend><h4>proprietăți intrări</h4></legend>
-
-                <div class="form-group">
-                  <label class="col-xs-4 control-label">descriere</label>
-                  <div class="col-xs-8">
-                    <input class="form-control"
-                      type="text"
-                      name="description"
-                      placeholder="acceptă expresii regulate">
-                  </div>
+              <div class="row mb-2">
+                <label class="col-4 col-form-label">descriere</label>
+                <div class="col-8">
+                  <input class="form-control"
+                    type="text"
+                    name="description"
+                    placeholder="acceptă expresii regulate">
                 </div>
-
-                <div class="form-group">
-                  <label class="col-xs-4 control-label">structurare</label>
-                  <div class="col-xs-8">
-                    <select name="structStatus" class="form-control">
-                      <option value="">oricare</option>
-                      {foreach Entry::STRUCT_STATUS_NAMES as $i => $s}
-                        <option value="{$i}">{$s}</option>
-                      {/foreach}
-                    </select>
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label class="col-xs-4 control-label">structurist</label>
-                  <div class="col-xs-8">
-                    <select name="structuristId" class="form-control">
-                      <option value="{Entry::STRUCTURIST_ID_ANY}">oricare</option>
-                      <option value="{Entry::STRUCTURIST_ID_NONE}">niciunul</option>
-                      {foreach $structurists as $s}
-                        <option value="{$s->id}">
-                          {$s->nick} ({$s->name})
-                        </option>
-                      {/foreach}
-                    </select>
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label class="col-xs-4 control-label">etichete</label>
-                  <div class="col-xs-8">
-                    <select name="entryTagIds[]" class="form-control select2Tags" multiple>
-                    </select>
-                  </div>
-                </div>
-
-              </fieldset>
-            </div>
-
-            <div class="col-lg-4 col-md-6 col-sm-6">
-
-              <fieldset>
-                <legend><h4>proprietăți lexeme</h4></legend>
-
-                <div class="form-group">
-                  <label class="col-xs-4 control-label">formă lexem</label>
-                  <div class="col-xs-8">
-                    <input class="form-control"
-                      type="text"
-                      name="formNoAccent"
-                      placeholder="acceptă expresii regulate">
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label class="col-xs-4 control-label">paradigmă</label>
-                  <div class="col-xs-8">
-                    <select class="form-control" name="paradigm">
-                      <option value="">indiferent</option>
-                      <option value="1">da</option>
-                      <option value="0">nu</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label class="col-xs-4 control-label">etichete</label>
-                  <div class="col-xs-8">
-                    <select name="lexemeTagIds[]" class="form-control select2Tags" multiple>
-                    </select>
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label class="col-xs-4 control-label">modele</label>
-                  <div class="col-xs-8">
-                    <select
-                      id="advSearchModelTypes"
-                      name="modelTypes[]"
-                      class="form-control"
-                      multiple>
-                      {foreach $modelTypes as $mt}
-                        <option value="{$mt->code}">{$mt->code}</option>
-                      {/foreach}
-                    </select>
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label class="col-xs-4 control-label">restricții</label>
-                  <div class="col-xs-8">
-                    <input class="form-control"
-                      type="text"
-                      name="restrictions">
-                  </div>
-                </div>
-
-              </fieldset>
-            </div>
-
-            <div class="col-lg-4 col-md-6 col-sm-6">
-
-              <fieldset>
-                <legend><h4>proprietăți definiții</h4></legend>
-
-                <div class="form-group">
-                  <label class="col-xs-4 control-label">lexicon</label>
-                  <div class="col-xs-8">
-                    <input class="form-control"
-                      type="text"
-                      name="lexicon"
-                      placeholder="acceptă expresii regulate">
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label class="col-xs-4 control-label">starea</label>
-                  <div class="col-xs-8">
-                    {include "bits/statusDropDown.tpl"
-                      name="status"
-                      selectedStatus=Definition::ST_ACTIVE
-                      anyOption=true}
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label class="col-xs-4 control-label">sursa</label>
-                  <div class="col-xs-8">
-                    {include "bits/sourceDropDown.tpl" name="sourceId"}
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label class="col-xs-4 control-label">structurată</label>
-                  <div class="col-xs-8">
-                    <select class="form-control" name="structured">
-                      <option value="">indiferent</option>
-                      <option value="1">da</option>
-                      <option value="0">nu</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label class="col-xs-4 control-label">trimise de</label>
-                  <div class="col-xs-8">
-                    <select name="userId" class="form-control select2Users"></select>
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label class="col-xs-4 control-label">între</label>
-
-                  <div class="col-xs-8 form-inline">
-                    <input type="text" name="startDate" class="form-control calendar">
-                    <label class="control-label">și</label>
-                    <input type="text" name="endDate" class="form-control calendar pull-right">
-                  </div>
-                </div>
-
-              </fieldset>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="form-group">
-              <label class="col-xs-4 control-label">afișează</label>
-              <div class="col-xs-8">
-                <div class="btn-group" data-toggle="buttons">
-                  <label class="btn btn-default active">
-                    <input type="radio" name="view" value="Entry" checked> intrări
-                  </label>
-                  <label class="btn btn-default">
-                    <input type="radio" name="view" value="Lexeme"> lexeme
-                  </label>
-                  <label class="btn btn-default">
-                    <input type="radio" name="view" value="Definition"> definiții
-                  </label>
-                </div>
-
-                <button type="submit" class="btn btn-primary" name="submitButton">
-                  <i class="glyphicon glyphicon-search"></i>
-                  caută
-                </button>
               </div>
-            </div>
+
+              <div class="row mb-2">
+                <label class="col-4 col-form-label">structurare</label>
+                <div class="col-8">
+                  <select name="structStatus" class="form-select">
+                    <option value="">oricare</option>
+                    {foreach Entry::STRUCT_STATUS_NAMES as $i => $s}
+                      <option value="{$i}">{$s}</option>
+                    {/foreach}
+                  </select>
+                </div>
+              </div>
+
+              <div class="row mb-2">
+                <label class="col-4 col-form-label">structurist</label>
+                <div class="col-8">
+                  <select name="structuristId" class="form-select">
+                    <option value="{Entry::STRUCTURIST_ID_ANY}">oricare</option>
+                    <option value="{Entry::STRUCTURIST_ID_NONE}">niciunul</option>
+                    {foreach $structurists as $s}
+                      <option value="{$s->id}">
+                        {$s->nick} ({$s->name})
+                      </option>
+                    {/foreach}
+                  </select>
+                </div>
+              </div>
+
+              <div class="row mb-2">
+                <label class="col-4 col-form-label">etichete</label>
+                <div class="col-8">
+                  <select name="entryTagIds[]" class="form-select select2Tags" multiple>
+                  </select>
+                </div>
+              </div>
+
+            </fieldset>
           </div>
 
+          <div class="col-12 col-md-6 col-lg-4">
+
+            <fieldset>
+              <legend><h4>proprietăți lexeme</h4></legend>
+
+              <div class="row mb-2">
+                <label class="col-4 col-form-label">formă lexem</label>
+                <div class="col-8">
+                  <input class="form-control"
+                    type="text"
+                    name="formNoAccent"
+                    placeholder="acceptă expresii regulate">
+                </div>
+              </div>
+
+              <div class="row mb-2">
+                <label class="col-4 col-form-label">paradigmă</label>
+                <div class="col-8">
+                  <select class="form-select" name="paradigm">
+                    <option value="">indiferent</option>
+                    <option value="1">da</option>
+                    <option value="0">nu</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="row mb-2">
+                <label class="col-4 col-form-label">etichete</label>
+                <div class="col-8">
+                  <select name="lexemeTagIds[]" class="form-select select2Tags" multiple>
+                  </select>
+                </div>
+              </div>
+
+              <div class="row mb-2">
+                <label class="col-4 col-form-label">modele</label>
+                <div class="col-8">
+                  <select
+                    id="advSearchModelTypes"
+                    name="modelTypes[]"
+                    class="form-select"
+                    multiple>
+                    {foreach $modelTypes as $mt}
+                      <option value="{$mt->code}">{$mt->code}</option>
+                    {/foreach}
+                  </select>
+                </div>
+              </div>
+
+              <div class="row mb-2">
+                <label class="col-4 col-form-label">restricții</label>
+                <div class="col-8">
+                  <input class="form-control"
+                    type="text"
+                    name="restrictions">
+                </div>
+              </div>
+
+            </fieldset>
+          </div>
+
+          <div class="col-12 col-md-6 col-lg-4">
+
+            <fieldset>
+              <legend><h4>proprietăți definiții</h4></legend>
+
+              <div class="row mb-2">
+                <label class="col-4 col-form-label">lexicon</label>
+                <div class="col-8">
+                  <input class="form-control"
+                    type="text"
+                    name="lexicon"
+                    placeholder="acceptă expresii regulate">
+                </div>
+              </div>
+
+              <div class="row mb-2">
+                <label class="col-4 col-form-label">starea</label>
+                <div class="col-8">
+                  {include "bits/statusDropDown.tpl"
+                    name="status"
+                    selectedStatus=Definition::ST_ACTIVE
+                    anyOption=true}
+                </div>
+              </div>
+
+              <div class="row mb-2">
+                <label class="col-4 col-form-label">sursa</label>
+                <div class="col-8">
+                  {include "bits/sourceDropDown.tpl" name="sourceId"}
+                </div>
+              </div>
+
+              <div class="row mb-2">
+                <label class="col-4 col-form-label">structurată</label>
+                <div class="col-8">
+                  <select class="form-select" name="structured">
+                    <option value="">indiferent</option>
+                    <option value="1">da</option>
+                    <option value="0">nu</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="row mb-2">
+                <label class="col-4 col-form-label">trimise de</label>
+                <div class="col-8">
+                  <select name="userId" class="form-select select2Users"></select>
+                </div>
+              </div>
+
+              <div class="row mb-2">
+                <div class="col-2 pe-0">
+                  <label class="col-form-label">între</label>
+                </div>
+                <div class="col ps-0">
+                  <input type="text" name="startDate" class="form-control calendar">
+                </div>
+                <div class="col-1 px-0">
+                  <label class="col-form-label">și</label>
+                </div>
+                <div class="col ps-0">
+                  <input type="text" name="endDate" class="form-control calendar">
+                </div>
+              </div>
+
+            </fieldset>
+          </div>
+
+          <div class="d-flex justify-content-center mt-2">
+            <label class="col-form-label">afișează</label>
+            <div class="btn-group px-2" role="group">
+              <input id="radioEntry" type="radio" class="btn-check" name="view" value="Entry" checked>
+              <label class="btn btn-outline-secondary" for="radioEntry">
+                intrări
+              </label>
+              <input id="radioLexeme" type="radio" class="btn-check"  name="view" value="Lexeme">
+              <label class="btn btn-outline-secondary" for="radioLexeme">
+                lexeme
+              </label>
+              <input id="radioDef" type="radio" class="btn-check"  name="view" value="Definition">
+              <label class="btn btn-outline-secondary" for="radioDef">
+                definiții
+              </label>
+            </div>
+
+            <button type="submit" class="btn btn-primary" name="submitButton">
+              {include "bits/icon.tpl" i=search}
+              caută
+            </button>
+          </div>
         </form>
       </div>
     </div>
   {/if}
 
   {if User::can(User::PRIV_EDIT)}
-    <div class="panel panel-default">
-      <div class="panel-heading">
+    <div class="card mb-3">
+      <div class="card-header">
         Modele de flexiune
       </div>
 
-      <div class="panel-body">
+      <div class="card-body">
 
-        <form class="form-inline" action="{Router::link('model/dispatch')}">
-          <div class="form-group">
+        <form class="row gy-2" action="{Router::link('model/dispatch')}">
+
+          <div class="col-12 col-lg-4">
             {include "bits/modelDropDown.tpl" modelTypes=$canonicalModelTypes}
+          </div>
 
-            <button type="submit" class="btn btn-default" name="goToModel">
+          <div class="col-12 col-lg-8">
+            <button type="submit" class="btn btn-outline-secondary me-1" name="goToModel">
               pagina modelului
             </button>
 
-            <button type="submit" class="btn btn-default" name="showLexemes">
+            <button type="submit" class="btn btn-outline-secondary me-1" name="showLexemes">
               arată toate lexemele
             </button>
 
-            <button type="submit" class="btn btn-default" name="cloneModel">
-              <i class="glyphicon glyphicon-duplicate"></i>
+            <button type="submit" class="btn btn-outline-secondary me-1" name="cloneModel">
+              {include "bits/icon.tpl" i=content_copy}
               clonează
             </button>
 
-            <button type="submit" class="btn btn-danger" name="deleteModel">
-              <i class="glyphicon glyphicon-trash"></i>
+            <button type="submit" class="btn btn-outline-danger me-1" name="deleteModel">
+              {include "bits/icon.tpl" i=delete}
               șterge
             </button>
           </div>
         </form>
 
-        <div class="voffset2"></div>
-
-        <p>
+        <div class="mt-3">
           <a href="{Router::link('lexeme/mergeTool')}">unificare plural-singular</a>
 
           <span class="text-muted">
             pentru familiile de plante și animale și pentru alte lexeme care apar
             cu restricția „P” într-o sursă, dar fără restricții în altă sursă.
           </span>
-        </p>
+        </div>
 
-        <p>
+        <div class="mt-2">
           <a href="{Router::link('lexeme/bulkLabelSelectSuffix')}">
             etichetare în masă a lexemelor
           </a>
@@ -355,127 +356,106 @@
           <span class="text-muted">
             pe baza sufixului
           </span>
-        </p>
+        </div>
       </div>
     </div>
   {/if}
 
   {if User::can(User::PRIV_ADMIN)}
-    <div class="panel panel-default">
-      <div class="panel-heading">
+    <div class="card mb-3">
+      <div class="card-header">
         Înlocuiește în masă
       </div>
 
-      <div class="panel-body">
+      <div class="card-body">
         <form
-          class="form-horizontal"
+          class="row"
           action="{Router::link('aggregate/bulkReplace')}"
           method="post">
 
-          <div class="row">
+          <div class="col-12 col-md-6">
 
-            <div class="col-md-6">
-
-              <div class="form-group">
-                <label class="control-label col-xs-3">înlocuiește</label>
-                <div class="col-xs-9">
-                  <input class="form-control" type="text" name="search">
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label class="control-label col-xs-3">cu</label>
-                <div class="col-xs-9">
-                  <input class="form-control" type="text" name="replace">
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label class="control-label col-xs-3">în</label>
-                <div class="col-xs-9">
-                  <select class="form-control" name="target">
-                    <option value="1">definiții</option>
-                    <option value="2">sensuri</option>
-                  </select>
-                </div>
+            <div class="row mb-2">
+              <label class="col-3 col-form-label">înlocuiește</label>
+              <div class="col-9">
+                <input class="form-control" type="text" name="search">
               </div>
             </div>
 
-            <div class="col-md-6">
-
-              <div class="form-group">
-                <label class="control-label col-xs-3">sursa</label>
-                <div class="col-xs-9">
-                  {include "bits/sourceDropDown.tpl" name="sourceId"}
-                  <small class="text-muted">
-                    se aplică numai definițiilor
-                  </small>
-                </div>
+            <div class="row mb-2">
+              <label class="col-3 col-form-label">cu</label>
+              <div class="col-9">
+                <input class="form-control" type="text" name="replace">
               </div>
+            </div>
 
-              <div class="form-group">
-                <label class="control-label col-xs-3">rezultate</label>
-                <div class="col-xs-9">
-                  <div class="input-group spinner">
-                    <input type="numeric"
-                      name="limit"
-                      class="form-control"
-                      value="1000"
-                      min="100"
-                      max="1000"
-                      step="100"
-                      tabindex="-1">
-                    <div class="input-group-btn-vertical">
-                      <button class="btn btn-default" type="button" tabindex="-1">
-                        <i class="glyphicon glyphicon-chevron-up"></i>
-                      </button>
-                      <button class="btn btn-default" type="button" tabindex="-1">
-                        <i class="glyphicon glyphicon-chevron-down"></i>
-                      </button>
-                    </div>
-                  </div>
-                  <p class="help-block">Min 100 - Max 1000.</p>
-                </div>
+            <div class="row mb-2">
+              <label class="col-3 col-form-label">în</label>
+              <div class="col-9">
+                <select class="form-select" name="target">
+                  <option value="1">definiții</option>
+                  <option value="2">sensuri</option>
+                </select>
               </div>
             </div>
           </div>
 
-          <div class="row">
+          <div class="col-12 col-md-6">
 
-            <div class="col-md-6">
-
-              <div class="form-group">
-                <div class="col-xs-9 col-xs-offset-3">
-                  <button type="submit" class="btn btn-primary" name="previewButton">
-                    previzualizează
-                  </button>
-                </div>
+            <div class="row mb-2">
+              <label class="col-3 col-form-label">sursa</label>
+              <div class="col-9">
+                {include "bits/sourceDropDown.tpl" name="sourceId"}
+                <small class="text-muted">
+                  se aplică numai definițiilor
+                </small>
               </div>
             </div>
+
+            <div class="row mb-2">
+              <label class="col-3 col-form-label">rezultate</label>
+              <div class="col-9">
+                <input type="number"
+                  name="limit"
+                  class="form-control"
+                  value="1000"
+                  min="100"
+                  max="1000"
+                  step="100">
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-2">
+            <button type="submit" class="btn btn-primary" name="previewButton">
+              previzualizează
+            </button>
           </div>
         </form>
 
         <p class="text-muted">
-          Folosiți cu precauție această unealtă. Ea înlocuiește primul text cu al
-          doilea în toate definițiile, incluzând notele de subsol, făcând diferența între litere mari și mici
-          (case-sensitive) și fără expresii regulate (textul este căutat ca
-          atare). Vor fi modificate maximum 1.000 de definiții. Veți putea vedea
-          lista de modificări propuse și să o acceptați.
+          Folosiți cu precauție această unealtă. Ea înlocuiește primul text cu
+          al doilea în toate definițiile, incluzând notele de subsol, făcând
+          diferența între litere mari și mici (case-sensitive) și fără
+          expresii regulate (textul este căutat ca atare). Vor fi modificate
+          maximum 1.000 de rezultate. Veți putea vedea lista de modificări
+          propuse și să o acceptați.
         </p>
         <p class="text-danger">
-          Evitați pe cât posibil definițiile cu note de subsol și cele structurate, debifându-le.
+          Evitați pe cât posibil definițiile cu note de subsol și pe cele
+          structurate, debifându-le.
         </p>
       </div>
     </div>
   {/if}
 
   {if User::can($linkPriv)}
-    <div class="panel panel-default">
-      <div class="panel-heading">
+    <div class="card mb-3">
+      <div class="card-header">
         Legături
       </div>
 
-      <div class="panel-body">
+      <div class="card-body">
         <div class="row">
           {foreach $links as $l}
             {if User::can($l.privilege)}
@@ -490,13 +470,13 @@
   {/if}
 
   {if User::can(User::PRIV_EDIT + User::PRIV_DONATION)}
-    <div class="panel panel-default">
-      <div class="panel-heading">
+    <div class="card mb-3">
+      <div class="card-header">
         Unelte diverse
       </div>
 
-      <div class="panel-body">
-        <ul>
+      <div class="card-body">
+        <ul class="mb-0">
           {if User::can(User::PRIV_EDIT)}
             <li>
               <a href="{Router::link('definition/associateDE')}">reasociere D. Enciclopedic</a>
@@ -529,15 +509,15 @@
   {/if}
 
   {if User::can(User::PRIV_STRUCT)}
-    <div class="panel panel-default">
-      <div class="panel-heading">
+    <div class="card mb-3">
+      <div class="card-header">
         Structurare
       </div>
 
-      <div class="panel-body">
-        <ul>
+      <div class="card-body">
+        <ul class="mb-0">
           <li>
-            <a href="{Router::link('entry/easyStructure')}">Intrări ușor de structurat</a>
+            <a href="{Router::link('entry/easyStructure')}">intrări ușor de structurat</a>
             <span class="text-muted">
               100 de cuvinte din DEX cu definiții cât mai scurte
             </span>
@@ -548,27 +528,27 @@
   {/if}
 
   {if User::can(User::PRIV_VISUAL)}
-    <div class="panel panel-default">
-      <div class="panel-heading">
+    <div class="card mb-3">
+      <div class="card-header">
         Dicționarul vizual
       </div>
 
-      <div class="panel-body">
+      <div class="card-body">
         <a href="{Router::link('visual/list')}">dicționarul vizual</a>
       </div>
     </div>
   {/if}
 
   {if User::can(User::PRIV_EDIT)}
-    <div class="panel panel-default">
-      <div class="panel-heading">
+    <div class="card mb-3">
+      <div class="card-header">
         Articole lingvistice
       </div>
 
-      <div class="panel-body">
+      <div class="card-body">
         <form>
           <button type="submit" class="btn btn-primary" name="syncWikiButton">
-            Sincronizează articolele!
+            sincronizează articolele
           </button>
         </form>
       </div>
@@ -576,13 +556,13 @@
   {/if}
 
   {if User::can(User::PRIV_WOTD)}
-    <div class="panel panel-default">
-      <div class="panel-heading">
+    <div class="card mb-3">
+      <div class="card-header">
         Cuvântul + imaginea zilei
       </div>
 
-      <div class="panel-body">
-        <ul>
+      <div class="card-body">
+        <ul class="mb-0">
           <li><a href="{Router::link('wotd/table')}">cuvântul zilei</a></li>
           <li><a href="{Router::link('wotd/images')}">imaginea zilei</a></li>
           <li><a href="{Router::link('artist/list')}">autori</a></li>
@@ -591,7 +571,7 @@
             asistent:
             <ul class="list-inline">
               {foreach $wotdAssistantDates as $timestamp}
-                <li>
+                <li class="list-inline-item">
                   <a href="{Router::link('wotd/assistant')}?for={$timestamp|date_format:"%Y-%m"}">
                     {$timestamp|date_format:"%B %Y"}
                   </a>

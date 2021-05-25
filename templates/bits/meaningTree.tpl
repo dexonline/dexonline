@@ -50,16 +50,14 @@
 
             {if !empty($t.examples)}
               {$collapseId="exampleCollapse_{$t.meaning->id}"}
-              <a data-toggle="collapse"
-                 class="exampleLink"
-                 href="#{$collapseId}"
-                 aria-controls="{$collapseId}">
-                <i class="glyphicon glyphicon-paperclip"></i>
-
+              <a
+                data-bs-toggle="collapse"
+                class="exampleLink"
+                href="#{$collapseId}"
+                aria-controls="{$collapseId}">
+                {include "bits/icon.tpl" i=attach_file}
                 {t count=$t.examples|@count 1=$t.examples|@count plural="%1 examples"}
                 one example{/t}
-
-                <span class="caret"></span>
               </a>
             {/if}
 
@@ -69,9 +67,9 @@
 
         {if !empty($t.examples)}
           <div class="examples collapse" id="{$collapseId}">
-            <div class="panel panel-default">
-              <div class="panel-heading">exemple</div>
-              <div class="panel-body">
+            <div class="card">
+              <div class="card-header">exemple</div>
+              <div class="card-body">
                 {include "bits/meaningTree.tpl" meanings=$t.examples root=false}
               </div>
             </div>

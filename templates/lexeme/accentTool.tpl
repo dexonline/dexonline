@@ -38,18 +38,27 @@
         </span>
 
         <span>
-          <a class="btn btn-link apDefLink" href="#">
-            <i class="glyphicon glyphicon-book"></i>
-            <span class="doubleText" data-other-text="ascunde definițiile">arată definițiile</span>
+          <a
+            class="btn btn-link"
+            data-bs-toggle="collapse"
+            href="#defs-{$l->id}"
+            role="button"
+            aria-expanded="false"
+            aria-controls="defs-{$l->id}">
+            {include "bits/icon.tpl" i=description}
+            definiții
           </a>
-          <a class="btn btn-link" href="{Router::link('lexeme/edit')}?lexemeId={$l->id}">
-            <i class="glyphicon glyphicon-pencil"></i>
+          <a
+            class="btn btn-link"
+            href="{Router::link('lexeme/edit')}?lexemeId={$l->id}"
+            target="_blank">
+            {include "bits/icon.tpl" i=edit}
             editează
           </a>
         </span>
       </div>
 
-      <div class="panel-admin">
+      <div class="collapse card-admin" id="defs-{$l->id}">
         {foreach $srArray as $row}
           {include "bits/definition.tpl" showDropup=0 showId=0 showStatus=1 showUser=0}
         {/foreach}
@@ -57,7 +66,7 @@
     {/foreach}
 
     <button type="submit" class="btn btn-success" name="saveButton">
-      <i class="glyphicon glyphicon-floppy-disk"></i>
+      {include "bits/icon.tpl" i=save}
       <u>s</u>alvează
     </button>
   </form>

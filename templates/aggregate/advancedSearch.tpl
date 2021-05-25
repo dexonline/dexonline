@@ -17,12 +17,12 @@
         {/if}
       {/foreach}
 
-      <div class="panel panel-default voffset2">
-        <div class="panel-heading">
+      <div class="card voffset2">
+        <div class="card-header">
           {include "bits/advancedSearchToolbar.tpl"}
         </div>
 
-        <div class="panel-body panel-admin">
+        <div class="card-body card-admin">
 
           {if $view == 'Entry'}
             {include "bits/adminEntryList.tpl" entries=$data}
@@ -37,7 +37,7 @@
         </div>
 
         {if $stats.numPages > 1}
-          <div class="panel-footer">
+          <div class="card-footer">
             {include "bits/advancedSearchToolbar.tpl"}
           </div>
         {/if}

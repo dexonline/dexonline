@@ -1,21 +1,22 @@
-<h3 class="panel-title text-center">
-  {if $stats.page > 1}
-    <button type="submit" class="btn btn-default pull-left" name="prevPageButton">
-      <i class="glyphicon glyphicon-chevron-left"></i>
-      înapoi
-    </button>
+<div class="text-center d-flex align-items-center justify-content-between">
+  <button
+    type="submit"
+    class="btn btn-outline-secondary {if $stats.page == 1}invisible{/if}"
+    name="prevPageButton">
+    {include "bits/icon.tpl" i=chevron_left}
+  </button>
+
+  {if $stats.numPages > 1}
+    rezultatele {$stats.firstResult}-{$stats.lastResult} din {$stats.numResults}
+    (pagina {$stats.page} din {$stats.numPages})
+  {else}
+    {$stats.numResults} (de) rezultate
   {/if}
 
-  rezultatele {$stats.firstResult}-{$stats.lastResult} din {$stats.numResults}
-  (pagina {$stats.page} din {$stats.numPages})
-
-  {if $stats.page < $stats.numPages}
-    <button type="submit" class="btn btn-default pull-right" name="nextPageButton">
-      înainte
-      <i class="glyphicon glyphicon-chevron-right"></i>
-    </button>
-  {/if}
-
-  {* invisible button to give the heading a proper height *}
-  <button type="button" class="btn invisible">x</button>
-</h3>
+  <button
+    type="submit"
+    class="btn btn-outline-secondary {if $stats.page == $stats.numPages}invisible{/if}"
+    name="nextPageButton">
+    {include "bits/icon.tpl" i=chevron_right}
+  </button>
+</div>

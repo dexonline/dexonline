@@ -208,7 +208,7 @@
 }
 
 @media (max-width: 320px) {
-  .panel-body {
+  .card-body {
     padding: 0;
   }
 

@@ -85,7 +85,7 @@ class UploadUtils {
       }
       $cancelButton = true;
     } else {
-      if ($csvFile['name'] != '' && !FlashMessage::hasErrors()) {
+      if ($csvFile && $csvFile['name'] != '' && !FlashMessage::hasErrors()) {
         $message = sprintf('Fișierul %s (%s linii) a fost încărcat.', $csvFile['name'], count($csv));
         $class = FlashMessage::hasErrors() ? 'warning' : 'success';
         FlashMessage::add($message, $class);

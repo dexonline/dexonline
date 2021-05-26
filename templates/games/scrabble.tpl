@@ -5,10 +5,10 @@
 {block "search"}{/block}
 
 {block "content"}
-  <div class="panel panel-default">
-    <div class="panel-heading">{t}Scrabble lookup{/t}</div>
+  <div class="card mb-3">
+    <div class="card-header">{t}Scrabble lookup{/t}</div>
 
-    <div class="panel-body">
+    <div class="card-body pb-0">
       {assign var="form" value=$form|default:""}
 
       <p>
@@ -19,51 +19,54 @@
       <form id="scrabbleForm">
 
         <div class="scrabbleSearchDiv">
-          <div class="form-group {$class|default:''}">
-            <input
-              class="scrabbleSearchField form-control"
-              type="text"
-              name="form"
-              placeholder="kwyjibo"
-              value="{$form|default:''|escape}"
-              autofocus>
-            <span id="scrabble-feedback-glyph">
-              {if isset($answer)}
-                {if $answer}
-                  <span class="form-control-feedback glyphicon glyphicon-ok"></span>
-                {else}
-                  <span class="form-control-feedback glyphicon glyphicon-remove"></span>
-                {/if}
-              {/if}
-            </span>
-          </div>
+          {if !isset($answer)}
+            {$class=""}
+          {else if $answer}
+            {$class="is-valid"}
+          {else}
+            {$class="is-invalid"}
+          {/if}
+          <input
+            class="scrabbleSearchField form-control {$class}"
+            type="text"
+            name="form"
+            placeholder="kwyjibo"
+            value="{$form|default:''|escape}"
+            autofocus>
 
-          <div class="form-inline text-center">
-            {t}in version{/t}
-            <select name="version" class="form-control">
-              {foreach $versions as $v}
-                <option
-                  value="{$v->name}"
-                  {if $v->name == $version}selected{/if}>
-                  {$v->name|escape}
-                </option>
-              {/foreach}
-            </select>
+          <div class="d-flex justify-content-center mt-3">
+            <label class="col-form-label">{t}in version{/t}</label>
 
-            <input type="submit" value="{t}look up{/t}" class="btn btn-primary">
+            <div class="mx-2">
+              <select name="version" class="form-select">
+                {foreach $versions as $v}
+                  <option
+                    value="{$v->name}"
+                    {if $v->name == $version}selected{/if}>
+                    {$v->name|escape}
+                  </option>
+                {/foreach}
+              </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">
+              {t}look up{/t}
+            </button>
           </div>
         </div>
       </form>
-      <br>
-      <div id="scrabble-results">{include "bits/scrabbleResults.tpl"}</div>
+
+      <div id="scrabble-results" class="mt-3">
+        {include "bits/scrabbleResults.tpl"}
+      </div>
     </div>
   </div>
 
-  <div class="panel panel-default">
-    <div class="panel-heading">{t}Official Scrabble word list (LOC){/t}</div>
+  <div class="card mb-3">
+    <div class="card-header">{t}Official Scrabble word list (LOC){/t}</div>
 
-    <div class="panel-body">
-      <table class="table table-striped-column-even">
+    <div class="card-body">
+      <table class="table">
         <thead>
           <tr>
             <th>{t}version{/t}</th>
@@ -86,17 +89,19 @@
         </tbody>
       </table>
 
-      <dl class="dl-horizontal">
-        <dt>{t}reduced forms{/t}</dt>
-        <dd>{t}a list of words between 2 and 15 letters, without diacritics{/t}</dd>
-        <dt>{t}base forms{/t}</dt>
-        <dd>
+      <dl class="row">
+        <dt class="col-md-3">{t}reduced forms{/t}</dt>
+        <dd class="col-md-9">{t}a list of words between 2 and 15 letters, without diacritics{/t}</dd>
+
+        <dt class="col-md-3">{t}base forms{/t}</dt>
+        <dd class="col-md-9">
           {t}word list in alphabetical order{/t}
           (<a href="https://wiki.dexonline.ro/wiki/Preciz%C4%83ri_privind_LOC"
              target="_blank">{t}legend of notations{/t}</a>)
         </dd>
-        <dt>{t}inflected forms{/t}</dt>
-        <dd>{t}list of words and their conjugations/declensions{/t}</dd>
+
+        <dt class="col-md-3">{t}inflected forms{/t}</dt>
+        <dd class="col-md-9">{t}list of words and their conjugations/declensions{/t}</dd>
       </dl>
 
       <div class="alert alert-warning">
@@ -107,28 +112,31 @@
     </div>
   </div>
 
-  <div class="panel panel-default">
-    <div class="panel-heading">{t}Differences between versions{/t}</div>
+  <div class="card mb-3">
+    <div class="card-header">{t}Differences between versions{/t}</div>
 
-    <div class="panel-body">
+    <div class="card-body">
       <p>
         {t}Find out what changed between two versions of LOC.{/t}
       </p>
 
-      <form class="form-inline" action="{Router::link('games/scrabbleLocDifferences')}">
-        <div class="form-group">
-          {cap}{t}compare{/t}{/cap}
-          <select class="form-control" name="list">
+      <form
+        class="d-flex"
+        action="{Router::link('games/scrabbleLocDifferences')}">
+        <label class="col-form-label me-2">{cap}{t}compare{/t}{/cap}</label>
+
+        <div class="me-2">
+          <select class="form-select" name="list">
             <option value="base">{t}base forms{/t}</option>
             <option value="inflected">{t}inflected forms{/t}</option>
             <option value="reduced">{t}reduced forms{/t}</option>
           </select>
         </div>
 
-        <div class="form-group">
-          {t}between{/t}
+        <label class="col-form-label me-2">{t}between{/t}</label>
 
-          <select class="form-control" name="versions">
+        <div class="me-2">
+          <select class="form-select" name="versions">
             {foreach $versions as $i => $old}
               {foreach $versions as $j => $new}
                 {if $i > $j}
@@ -140,31 +148,40 @@
             {/foreach}
           </select>
         </div>
-        <input type="submit" value="{t}compare{/t}" class="btn btn-primary">
+
+        <button type="submit" class="btn btn-primary">
+          {t}compare{/t}
+        </button>
       </form>
     </div>
   </div>
 
-  <div class="panel panel-default">
-    <div class="panel-heading">{t}Inflection models{/t}</div>
+  <div class="card mb-3">
+    <div class="card-header">{t}Inflection models{/t}</div>
 
-    <div class="panel-body">
+    <div class="card-body">
       <p>
         {t 1="Stradă, cadă, ladă" 2="ogradă" 3="baladă" 4="livadă"}
         <em>%1</em> and <em>%2</em> have similar declensions... but not
         <em>%3</em> and <em>%4</em>? Here is why.{/t}
       </p>
 
-      <form class="form-inline" action="{Router::link('model/list')}">
-        {t}Show models for{/t}
+      <form class="d-flex" action="{Router::link('model/list')}">
+        <label class="col-form-label me-2">
+          {t}Show models for{/t}
+        </label>
 
-        <select class="form-control" name="modelType">
-          {foreach $canonicalModelTypes as $mt}
-            <option value="{$mt->code}">{$mt->code} ({$mt->description})</option>
-          {/foreach}
-        </select>
+        <div class="me-2">
+          <select class="form-select" name="modelType">
+            {foreach $canonicalModelTypes as $mt}
+              <option value="{$mt->code}">{$mt->code} ({$mt->description})</option>
+            {/foreach}
+          </select>
+        </div>
 
-        <input class="btn btn-primary" type="submit" value="{t}show{/t}">
+        <button class="btn btn-primary" type="submit">
+          {t}show{/t}
+        </button>
       </form>
     </div>
   </div>

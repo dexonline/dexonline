@@ -60,7 +60,7 @@ switch ($action) {
 
     /** Prepare the tableRow from template */
     Smart::assign('row', $abbrev);
-    Smart::assign('labelEdited', 'primary');
+    Smart::assign('badgeEdited', 'primary');
     $html = Smart::fetch('bits/abbrevRow.tpl');
     $status = 'finished';
     break;

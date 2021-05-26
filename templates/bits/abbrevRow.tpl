@@ -1,27 +1,24 @@
-{$labelEdited=$labelEdited|default:'default'}
-{strip}
+{$badgeEdited=$badgeEdited|default:'secondary'}
 <tr id="{$row->id}" data-row-id="{$row->id}">
   <td>
-    <span class="label label-{$labelEdited}">{$row->id}</span>
+    <span class="badge bg-{$badgeEdited}">{$row->id}</span>
   </td>
-  {* define the function *}
-  {function name=prop}
-  {foreach $props as $checked}
-    {$label = ($checked) ? 'success' : 'primary'}
-    {$icon = ($checked) ? 'ok' : 'minus'}
-    <td>
-      <label class="label label-{$label}">
-        <i class="glyphicon glyphicon-{$icon}" data-checked="{$checked}"></i>
-      </label>
-    </td>
-  {/foreach}
-  {/function}
-  {* create an array of properties *}
-  {$props = [$row->enforced, $row->ambiguous, $row->caseSensitive]}
-  {* run the array through the function *}
-  {call prop data=$props}
+  <td class="text-center">
+    {if $row->enforced}
+      {include "bits/icon.tpl" i=done}
+    {/if}
+  </td>
+  <td class="text-center">
+    {if $row->ambiguous}
+      {include "bits/icon.tpl" i=done}
+    {/if}
+  </td>
+  <td class="text-center">
+    {if $row->caseSensitive}
+      {include "bits/icon.tpl" i=done}
+    {/if}
+  </td>
   <td>{$row->short}</td>
-  <td class="internalRep">{$row->internalRep}</td>
   <td>{HtmlConverter::convert($row)}</td>
   {if User::can(User::PRIV_ADMIN)}
     <td>
@@ -34,4 +31,3 @@
     </td>
   {/if}
 </tr>
-{/strip}

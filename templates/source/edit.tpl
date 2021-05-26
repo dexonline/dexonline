@@ -217,7 +217,7 @@
         </div>
 
         <fieldset>
-          <legend><h4>autori (opțional)</h4></legend>
+          <legend>autori (opțional)</legend>
 
           <table class="table table-sm">
             <thead

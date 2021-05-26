@@ -2,26 +2,12 @@
 
   function scrabbleAutoSearch() {
 
-    function clearSearch() {
-      searchInput.val(null);
-      searchInput.focus();
-      queueSearch();
-    }
-
-    function getGlyph(){
-      var el = $('<span class="form-control-feedback glyphicon">');
-      el.css({'pointer-events': 'initial'}); // enable click
-      el.on('click', clearSearch);
-      return el;
-    }
-
     var searchForm = $('#scrabbleForm');
     var searchInput = $('input.scrabbleSearchField', searchForm);
     var version = $('select', searchForm);
     var results = $('#scrabble-results');
 
-    var feedback = $('.scrabbleSearchDiv .form-group');
-    var feedbackGlyph = $('#scrabble-feedback-glyph');
+    var feedback = $('.scrabbleSearchDiv input[name="form"]');
 
     var lastSearchedKey;
     var nextSearch;
@@ -31,25 +17,11 @@
 
     function updatePage(data) {
       // update feedback indicators
-      feedback.removeClass('has-feedback has-error has-success');
-      feedbackGlyph.html(null);
-
-      var icon, glyphIcon;
-
-      if (data.answer) {
-        icon = 'has-success';
-        glyphIcon = 'glyphicon-ok';
-      } else {
-        icon = 'has-error';
-        glyphIcon = 'glyphicon-remove';
-      }
+      feedback.removeClass('is-valid is-invalid');
 
       // update results
       if (data.template) {
-        feedback.addClass('has-feedback ' + icon);
-        glyph = getGlyph();
-        glyph.addClass(glyphIcon);
-        feedbackGlyph.append(glyph);
+        feedback.addClass((data.answer) ? 'is-valid' : 'is-invalid');
       }
 
       results.html(data.template);

@@ -1,3 +1,4 @@
+{$id=$id|default:'sourceDropDown'}
 {$name=$name|default:'source'}
 {$skipAnySource=$skipAnySource|default:''}
 {$sourceId=$sourceId|default:null}
@@ -5,8 +6,9 @@
 {$width=$width|default:'100%'}
 {$autosubmit=$autosubmit|default:false}
 {$sources=$sources|default:Source::getAll(Source::SORT_SEARCH)}
-<select name="{$name}"
-  id="sourceDropDown"
+<select
+  name="{$name}"
+  id="{$id}"
   class="form-select sourceDropDown"
   style="width: {$width}"
   {if $autosubmit}onchange="this.form.submit();"{/if}>

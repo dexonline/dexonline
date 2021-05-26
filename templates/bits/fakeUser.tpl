@@ -1,49 +1,46 @@
-<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      Autentificare ca utilizator de test
-    </div>
+<div class="card mb-3">
+  <div class="card-header">
+    Autentificare ca utilizator de test
+  </div>
 
-    <div class="panel-body">
-      <form method="post">
+  <div class="card-body">
+    <form method="post">
 
-        <div class="form-group">
-          <div class="input-group">
-            <span class="input-group-addon">
-              <i class="glyphicon glyphicon-user"></i>
-            </span>
-            <input
-              class="form-control"
-              type="text"
-              name="fakeUserNick"
-              value="{$fakeUserNick}"
-              placeholder="nume de utilizator">
-          </div>
-        </div>
-
-        <div class="form-group">
-          {foreach User::PRIV_NAMES as $privValue => $privName}
-            <div class="checkbox">
-              <label>
-                <input type="checkbox" name="priv[]" value="{$privValue}">
-                {$privName}
-              </label>
-            </div>
-          {/foreach}
-          <div class="checkbox">
-            <label>
-              <input id="allPriv" type="checkbox" name="allPriv" value="1">
-              TOATE privilegiile
-            </label>
-          </div>
-        </div>
-
+      <div class="input-group mb-2">
+        <span class="input-group-text">
+          {include "bits/icon.tpl" i=person}
+        </span>
         <input
-          class="btn btn-warning"
-          type=submit
-          value="autentificare ca utilizator de test">
+          class="form-control"
+          type="text"
+          name="fakeUserNick"
+          value="{$fakeUserNick}"
+          placeholder="nume de utilizator">
+      </div>
 
-      </form>
-    </div>
+      {foreach User::PRIV_NAMES as $privValue => $privName}
+        <div class="form-check mb-1">
+          <label class="form-check-label">
+            <input type="checkbox" class="form-check-input" name="priv[]" value="{$privValue}">
+            {$privName}
+          </label>
+        </div>
+      {/foreach}
+
+      <div class="form-check mb-2">
+        <label class="form-check-label">
+          <input id="allPriv" type="checkbox" class="form-check-input" name="allPriv" value="1">
+          TOATE privilegiile
+        </label>
+      </div>
+
+      <button
+        class="btn btn-warning"
+        type="submit">
+        {include "bits/icon.tpl" i=login}
+        autentificare ca utilizator de test
+      </button>
+
+    </form>
   </div>
 </div>

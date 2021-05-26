@@ -6,83 +6,6 @@ const OTRS_DONATION_EMAIL_REGEX =
   '^3. PRET: (?<amount>[0-9.]+) RON.*' .
   '^   EMAIL: (?<email>[^\n]+)$/ms';
 
-$previewButton = Request::has('previewButton');
-$processButton = Request::has('processButton');
-$backButton = Request::has('backButton');
-$includeOtrs = Request::has('includeOtrs');
-
-if ($processButton) {
-  if ($includeOtrs) {
-    $odp = new OtrsDonationProvider();
-    $odp->prepareDonors();
-
-    $processTicketIds = Request::getArray('processTicketId');
-    $messageTicketIds = Request::getArray('messageTicketId');
-    foreach ($odp->getDonors() as $d) {
-      if (in_array($d->ticketId, $processTicketIds)) {
-        $d->sendEmail = in_array($d->ticketId, $messageTicketIds);
-        $d->process();
-      }
-    }
-  }
-
-  $mdp = readManualDonorData();
-  $mdp->prepareDonors();
-  $mdp->processDonors();
-  FlashMessage::add('Am procesat donațiile. Dacă au existat utilizatori care au primit ' .
-                    'medalii și/sau scutiri de bannere, nu uitați să goliți parțial cache-ul ' .
-                    'lui Varnish: <b>sudo varnishadm ban req.url "~" ^/utilizator</b>',
-                    'success');
-  Util::redirectToSelf();
-
-} else if ($previewButton) {
-  if ($includeOtrs) {
-    $odp = new OtrsDonationProvider();
-    $odp->prepareDonors();
-    Smart::assign('otrsDonors', $odp->getDonors());
-  }
-
-  $mdp = readManualDonorData();
-  $mdp->prepareDonors();
-  Smart::assign('manualDonors', $mdp->getDonors());
-  Smart::assign('includeOtrs', $includeOtrs);
-
-  if (FlashMessage::hasErrors()) {
-    Smart::display('donation/process.tpl');
-  } else {
-    Smart::display('donation/process2.tpl');
-  }
-
-} else if ($backButton) {
-
-  $mdp = readManualDonorData();
-  Smart::assign('manualDonors', $mdp->getDonors());
-  Smart::assign('includeOtrs', $includeOtrs);
-  Smart::display('donation/process.tpl');
-
-} else {
-
-  Smart::display('donation/process.tpl');
-
-}
-
-/*************************************************************************/
-
-function readManualDonorData() {
-  $emails = Request::getArray('email');
-  $amounts = Request::getArray('amount');
-  $dates = Request::getArray('date');
-
-  $sendEmail = [];
-  foreach ($emails as $i => $e) {
-    if (Request::has("manualSendMessage_{$i}")) {
-      $sendEmail[] = $i;
-    }
-  }
-
-  return new ManualDonationProvider($emails, $amounts, $dates, $sendEmail);
-}
-
 class Donor {
   // inclusive to the left, exclusive to the right
   const RANGE_MEDAL = [ [ 20, INF ] ];
@@ -371,5 +294,82 @@ class OtrsApiClient {
   static function searchTickets($params) {
     return self::restQuery('TicketSearch', $params);
   }
+
+}
+
+function readManualDonorData() {
+  $emails = Request::getArray('email');
+  $amounts = Request::getArray('amount');
+  $dates = Request::getArray('date');
+
+  $sendEmail = [];
+  foreach ($emails as $i => $e) {
+    if (Request::has("manualSendMessage_{$i}")) {
+      $sendEmail[] = $i;
+    }
+  }
+
+  return new ManualDonationProvider($emails, $amounts, $dates, $sendEmail);
+}
+
+/********************************* main *********************************/
+
+$previewButton = Request::has('previewButton');
+$processButton = Request::has('processButton');
+$backButton = Request::has('backButton');
+$includeOtrs = Request::has('includeOtrs');
+
+if ($processButton) {
+  if ($includeOtrs) {
+    $odp = new OtrsDonationProvider();
+    $odp->prepareDonors();
+
+    $processTicketIds = Request::getArray('processTicketId');
+    $messageTicketIds = Request::getArray('messageTicketId');
+    foreach ($odp->getDonors() as $d) {
+      if (in_array($d->ticketId, $processTicketIds)) {
+        $d->sendEmail = in_array($d->ticketId, $messageTicketIds);
+        $d->process();
+      }
+    }
+  }
+
+  $mdp = readManualDonorData();
+  $mdp->prepareDonors();
+  $mdp->processDonors();
+  FlashMessage::add('Am procesat donațiile. Dacă au existat utilizatori care au primit ' .
+                    'medalii și/sau scutiri de bannere, nu uitați să goliți parțial cache-ul ' .
+                    'lui Varnish: <b>sudo varnishadm ban req.url "~" ^/utilizator</b>',
+                    'success');
+  Util::redirectToSelf();
+
+} else if ($previewButton) {
+  if ($includeOtrs) {
+    $odp = new OtrsDonationProvider();
+    $odp->prepareDonors();
+    Smart::assign('otrsDonors', $odp->getDonors());
+  }
+
+  $mdp = readManualDonorData();
+  $mdp->prepareDonors();
+  Smart::assign('manualDonors', $mdp->getDonors());
+  Smart::assign('includeOtrs', $includeOtrs);
+
+  if (FlashMessage::hasErrors()) {
+    Smart::display('donation/process.tpl');
+  } else {
+    Smart::display('donation/process2.tpl');
+  }
+
+} else if ($backButton) {
+
+  $mdp = readManualDonorData();
+  Smart::assign('manualDonors', $mdp->getDonors());
+  Smart::assign('includeOtrs', $includeOtrs);
+  Smart::display('donation/process.tpl');
+
+} else {
+
+  Smart::display('donation/process.tpl');
 
 }

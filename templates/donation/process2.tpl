@@ -13,31 +13,43 @@
     {/if}
 
     {if !empty($otrsDonors)}
-      <div class="panel panel-default">
-        <div class="panel-heading">Donații OTRS</div>
-        <div class="panel-body">
+      <div class="card mb-3">
+        <div class="card-header">Donații OTRS</div>
+        <div class="card-body">
           {foreach $otrsDonors as $donor}
             <h4>Donație de la {$donor->email}, {$donor->amount} de lei, {$donor->date}</h4>
 
-            <div class="checkbox">
-              <label>
-                <input type="checkbox" name="processTicketId[]" value="{$donor->ticketId}" checked>
-                salvează donația și închide tichetul
+            <div class="form-check mb-2">
+              <label class="form-check-label">
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  name="processTicketId[]"
+                  value="{$donor->ticketId}"
+                  checked>
+                trimite un mesaj cu textul:
               </label>
             </div>
 
             {if $donor->needsEmail() == Donor::EMAIL_YES}
-              <div class="checkbox">
-                <label>
-                  <input type="checkbox" name="messageTicketId[]" value="{$donor->ticketId}" checked>
+              <div class="form-check mb-2">
+                <label class="form-check-label">
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    name="messageTicketId[]"
+                    value="{$donor->ticketId}"
+                    checked>
                   trimite un mesaj cu textul:
                 </label>
               </div>
 
-              <div class="well">
+              <div class="card card-body bg-light mb-2">
                 {$donor->htmlMessage}
               </div>
-              <pre>{$donor->textMessage}</pre>
+              <div class="card card-body bg-light">
+                <pre>{$donor->textMessage}</pre>
+              </div>
             {else}
               <p class="text-muted">
                 {$donor->getEmailReason()}
@@ -49,9 +61,9 @@
     {/if}
 
     {if count($manualDonors)}
-      <div class="panel panel-default">
-        <div class="panel-heading">Donații introduse manual</div>
-        <div class="panel-body">
+      <div class="card mb-3">
+        <div class="card-header">Donații introduse manual</div>
+        <div class="card-body">
           {foreach $manualDonors as $i => $donor}
             <h4>Donație de la {$donor->email}, {$donor->amount} de lei, {$donor->date}</h4>
 
@@ -60,17 +72,24 @@
             <input type="hidden" name="date[]" value="{$donor->date}">
 
             {if $donor->needsEmail() == Donor::EMAIL_YES}
-              <div class="checkbox">
-                <label>
-                  <input type="checkbox" name="manualSendMessage_{$i}" value="1" checked>
+              <div class="form-check mb-2">
+                <label class="form-check-label">
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    name="manualSendMessage_{$i}"
+                    value="1"
+                    checked>
                   trimite un mesaj cu textul:
                 </label>
               </div>
 
-              <div class="well">
+              <div class="card card-body bg-light mb-2">
                 {$donor->htmlMessage}
               </div>
-              <pre>{$donor->textMessage}</pre>
+              <div class="card card-body bg-light">
+                <pre>{$donor->textMessage}</pre>
+              </div>
             {else}
               <p class="text-muted">
                 {$donor->getEmailReason()}
@@ -89,14 +108,14 @@
 
     <div>
       {if !empty($otrsDonors) || !empty($manualDonors)}
-        <button type="submit" class="btn btn-success" name="processButton">
-          <i class="glyphicon glyphicon-ok"></i>
+        <button type="submit" class="btn btn-primary" name="processButton">
+          {include "bits/icon.tpl" i=done}
           procesează
         </button>
       {/if}
 
-      <button type="submit" class="btn btn-default" name="backButton">
-        <i class="glyphicon glyphicon-arrow-left"></i>
+      <button type="submit" class="btn btn-link" name="backButton">
+        {include "bits/icon.tpl" i=arrow_back}
         înapoi
       </button>
     </div>

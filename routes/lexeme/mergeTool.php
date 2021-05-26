@@ -86,8 +86,22 @@ foreach ($dbResult as $row) {
   }
 }
 
-Smart::assign('modelType', $modelType);
-Smart::assign('lexemes', $lexemes);
+// load the definitions for lexemes and their matches
+$definitions = [];
+foreach ($lexemes as $l) {
+  $defs = Definition::loadByEntryIds($l->getEntryIds());
+  $definitions[$l->id] = SearchResult::mapDefinitionArray($defs);
+  foreach ($l->matches as $m) {
+    $defs = Definition::loadByEntryIds($m->getEntryIds());
+    $definitions[$m->id] = SearchResult::mapDefinitionArray($defs);
+  }
+}
+
+Smart::assign([
+  'modelType' => $modelType,
+  'lexemes' => $lexemes,
+  'definitions' => $definitions,
+]);
 Smart::addResources('admin');
 Smart::display('lexeme/mergeTool.tpl');
 

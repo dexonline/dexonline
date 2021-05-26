@@ -5,42 +5,38 @@
 {block "search"}{/block}
 
 {block "content"}
-  <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        Parolă uitată
-      </div>
+  <div class="card col-md-6 col-sm-8 mx-auto">
+    <div class="card-header">
+      Parolă uitată
+    </div>
 
-      <div class="panel-body">
-        <p>
-          Introdu adresa de e-mail și îți vom trimite un e-mail cu instrucțiuni
-          pentru recuperarea parolei.
-        </p>
+    <div class="card-body">
+      <p>
+        Introdu adresa de e-mail și îți vom trimite un e-mail cu instrucțiuni
+        pentru recuperarea parolei.
+      </p>
 
-        <form method="post">
+      <form method="post">
 
-          <div class="form-group {if isset($errors.email)}has-error{/if}">
-            <div class="input-group">
-              <span class="input-group-addon">
-                <i class="glyphicon glyphicon-envelope"></i>
-              </span>
-              <input
-                class="form-control"
-                type="text"
-                name="email"
-                value="{$email}"
-                autofocus
-                placeholder="adresa de e-mail">
-            </div>
-            {include "bits/fieldErrors.tpl" errors=$errors.email|default:null}
-          </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text">
+            {include "bits/icon.tpl" i=email}
+          </span>
+          <input
+            class="form-control {if isset($errors.email)}is-invalid{/if}"
+            type="text"
+            name="email"
+            value="{$email}"
+            autofocus
+            placeholder="adresa de e-mail">
+          {include "bits/fieldErrors.tpl" errors=$errors.email|default:null}
+        </div>
 
-          <button class="btn btn-primary" type="submit" name="submitButton">
-            trimite
-          </button>
+        <button class="btn btn-primary" type="submit" name="submitButton">
+          trimite
+        </button>
 
-        </form>
-      </div>
+      </form>
     </div>
   </div>
 {/block}

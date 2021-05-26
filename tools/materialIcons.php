@@ -12,6 +12,7 @@ require_once __DIR__ . '/../lib/Core.php';
 const CODEPOINTS = [
   'add',
   'attach_file',
+  'badge',
   'chevron_left',
   'chevron_right',
   'clear',
@@ -21,6 +22,7 @@ const CODEPOINTS = [
   'description',
   'done',
   'edit',
+  'email',
   'emoji_symbols',
   'expand_less',
   'favorite',
@@ -32,6 +34,7 @@ const CODEPOINTS = [
   'keyboard',
   'language',
   'link',
+  'lock',
   'login',
   'logout',
   'person',

@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-light">
+<nav class="navbar navbar-expand-md navbar-light mb-3">
   <div class="container">
     {if $pageType != 'home'}
       <a class="navbar-brand" href="{Config::URL_PREFIX}" title="{cap}{t}home page{/t}{/cap}">

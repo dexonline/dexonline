@@ -5,56 +5,56 @@
 {block "content"}
   <h3>Editează abrevieri pentru dicționar</h3>
 
-  <div class="panel panel-default">
-    <div class="panel-heading clearfix">
+  <div class="card mb-3">
+    <div class="card-header">
       Alegere sursă
     </div>
-    <div class="panel-body">
-      <form class="form form-horizontal">
-        <div class="row">
-          <div class="col-sm-1">
-            <label class="control-label">sursa</label>
-          </div>
-          <div class="col-sm-9">
-            {include "bits/sourceDropDown.tpl" sources=$allSources skipAnySource=true}
-          </div>
-          <div class="col-sm-2">
-            <button type="button" class="btn btn-primary" id="load">
-              afișează
-            </button>
-          </div>
-        </div>
-        <div class="container">
-          <div class="row">
-            <p class="text-muted">
-              Explicații pentru capul de tabel<br />
-            </p>
-          </div>
-          <div class="container-fluid">
-            <ul class="col-sm-11">
-              <li> Imp. - abreviere impusă - nu ia în considerare forma editată
-                și impune forma din câmpul „Abreviere” -
-                <i>folositoare în cazul unui OCR inexact sau inconsistență în dicționar</i>
-              </li>
-              <li> Amb. - abreviere ambiguă  -
-                <i>pentru situații similare cu „loc.”, „ac.”, „cont.”</i>
-              </li>
-              <li> CS - (case sensitive) -
-                <i>diferențiere între majuscule și minuscule: v. ≠ V.</i>
-              </li>
-              <li> Abreviere -
-                <i>permite și alte semne de punctuație, nu doar „.” + formatare
-                  internă $,@,%,_{},^{}</i>
-              </li>
-              <li> Detalierea abrevierii -
-                <i>permite formatare internă html $,@,%,_{},^{}</i>
-              </li>
-            </ul>
-          </div>
-        </div>
+    <div class="card-body">
+      <form class="d-flex align-items-center mb-3">
+        <label class="me-2">sursa</label>
+        {include "bits/sourceDropDown.tpl" sources=$allSources skipAnySource=true}
+        <button type="button" class="btn btn-primary ms-2" id="load">
+          afișează
+        </button>
       </form>
+
+      <h5>Explicații pentru capul de tabel</h5>
+
+      <dl class="row">
+        <dt class="col-sm-3">Imp. = abreviere impusă</dt>
+        <dd class="col-sm-9">
+          Nu ia în considerare forma editată și impune forma din câmpul „Abreviere”.
+          <div class="text-muted">
+            Folositoare în cazul unui OCR inexact sau inconsistență în dicționar
+          </div>
+        </dd>
+
+        <dt class="col-sm-3">Amb. = abreviere ambiguă</dt>
+        <dd class="col-sm-9">
+          Pentru situații similare cu <em>loc., ac., cont.</em>
+        </dd>
+
+        <dt class="col-sm-3">CS = case sensitive</dt>
+        <dd class="col-sm-9">
+          Diferențiere între majuscule și minuscule: v. ≠ V.
+        </dd>
+
+        <dt class="col-sm-3">Abreviere</dt>
+        <dd class="col-sm-9">
+          permite și alte semne de punctuație (nu doar <kbd>.</kbd>) și formatare internă
+          <kbd>$</kbd>, <kbd>@</kbd>, <kbd>%</kbd>, <kbd>_{}</kbd>, <kbd>^{}</kbd>
+        </dd>
+
+        <dt class="col-sm-3">Detalierea abrevierii</dt>
+        <dd class="col-sm-9">
+          permite formatare internă <kbd>$</kbd>, <kbd>@</kbd>, <kbd>%</kbd>,
+          <kbd>_{}</kbd>, <kbd>^{}</kbd>
+        </dd>
+      </dl>
+
     </div>
   </div>
+
   {* div populated by ajax calls *}
   <div id="abbrevs"></div>
   {include "bits/abbrevListModal.tpl"}

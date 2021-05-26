@@ -1,5 +1,5 @@
 {strip}
-<tr id="{$e->id}" data-row-id="{$e->id}">
+<tr id="{$e->id}">
   <td class="col-md-2">
     {include "bits/entry.tpl" entry=$e editLink=true}
   </td>

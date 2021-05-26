@@ -73,7 +73,7 @@ $(function () {
 
     frm.find('#btn-delete').toggle(tog);
     frm.find('#btn-save').toggle(!tog);
-    frm.find('#deleted').toggleClass('notClickable', tog);
+    frm.find('input').attr('disabled', tog);
 
     $('#edit_modal #title').text(obj.title + ' abreviere');
     $('#edit_modal').modal('show');

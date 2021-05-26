@@ -25,11 +25,11 @@
       <table id="entries" class="table table-striped table-bordered" role="grid">
         <thead>
           <tr>
-            <th scope="col" data-column-id="description">descriere</th>
-            <th class="text-center" scope="col" data-column-id="lexemes">bifă</th>
-            <th scope="col" data-column-id="lexemes">lexeme</th>
-            <th class="text-right" scope="col" data-column-id="modified">modificată</th>
-            <th class="text-right" scope="col" data-column-id="modDate">la data</th>
+            <th scope="col">descriere</th>
+            <th class="text-center" scope="col">bifă</th>
+            <th scope="col">lexeme</th>
+            <th class="text-right" scope="col">modificată</th>
+            <th class="text-right" scope="col">la data</th>
           </tr>
         </thead>
         <tbody>

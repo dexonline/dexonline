@@ -38,7 +38,7 @@ switch ($action) {
 
     /** Prepare the tableRow from template */
     Smart::assign('row', $pageIndex);
-    Smart::assign('labelEdited', 'primary');
+    Smart::assign('badgeEdited', 'primary');
     $html = Smart::fetch('bits/pageIndexRow.tpl');
     $status = 'finished';
     break;

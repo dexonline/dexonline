@@ -5,11 +5,11 @@
 {block "search"}{/block}
 
 {block "content"}
-  <div class="panel panel-default millArea voffset3">
-    <div class="panel-heading">
-      <h3 class="panel-title">{cap}{t}word mill{/t}{/cap}</h3>
+  <div class="card millArea mb-3">
+    <div class="card-header">
+      {cap}{t}word mill{/t}{/cap}
     </div>
-    <div class="panel-body">
+    <div class="card-body">
       <div id="mainPage">
         <form id="main" action="">
           <label>{t}Level{/t}:</label>
@@ -45,10 +45,13 @@
         {/section}
 
         <form id="mill" action="">
-          <label>{t}The correct definition of <span class="word"></span>:{/t}</label>
+          <div class="my-2">
+            {t}The correct definition of <span class="word fs-3"></span>:{/t}
+          </div>
+
           {section name=choices start=0 loop=4}
             <button
-              class="btn btn-default btn-block btn-lg"
+              class="btn btn-light btn-lg border-secondary text-start w-100 mb-2"
               type="button"
               disabled
               value="{$smarty.section.choices.index}">
@@ -72,11 +75,11 @@
     </div>
   </div>
 
-  <div id="defPanel" class="panel panel-default millArea">
-    <div class="panel-heading">
-      <h3 class="panel-title">{cap}{t}definitions{/t}{/cap}</h3>
+  <div id="defCard" class="card millArea">
+    <div class="card-header">
+      {cap}{t}definitions{/t}{/cap}
     </div>
-    <div id="definitionsSection" class="panel-body">
+    <div id="definitionsSection" class="card-body">
     </div>
   </div>
 {/block}

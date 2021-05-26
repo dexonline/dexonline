@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2021-05-24 15:31+0300\n"
-"PO-Revision-Date: 2021-05-24 15:31+0300\n"
+"POT-Creation-Date: 2021-05-26 17:01+0300\n"
+"PO-Revision-Date: 2021-05-26 17:01+0300\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -59,7 +59,7 @@ msgstr "adăugată de"
 msgid "actions"
 msgstr "acțiuni"
 
-#: templates/bits/definitionMenuProper.tpl:157 templates/bits/typoForm.tpl:13
+#: templates/bits/definitionMenuProper.tpl:157 templates/bits/typoForm.tpl:10
 #: templates/bits/typoForm.tpl:61
 msgid "report a typo"
 msgstr "semnalează o greșeală"
@@ -263,7 +263,7 @@ msgstr "cuvânt"
 msgid "search"
 msgstr "caută"
 
-#: templates/bits/searchForm.tpl:37 templates/games/scramble.tpl:29
+#: templates/bits/searchForm.tpl:37 templates/games/scramble.tpl:32
 msgid "options"
 msgstr "opțiuni"
 
@@ -275,7 +275,7 @@ msgstr "Caută în tot textul definițiilor"
 msgid "help"
 msgstr "ajutor"
 
-#: templates/bits/sourceDropDown.tpl:14
+#: templates/bits/sourceDropDown.tpl:16
 msgid "All dictionaries"
 msgstr "Toate dicționarele"
 
@@ -292,7 +292,7 @@ msgid "characters"
 msgstr "caractere"
 
 #: templates/bits/top.tpl:7 templates/games/hangman.tpl:52
-#: templates/games/mill.tpl:77
+#: templates/games/mill.tpl:80
 msgid "definitions"
 msgstr "definiții"
 
@@ -300,15 +300,15 @@ msgstr "definiții"
 msgid "most recent submission"
 msgstr "data ultimei trimiteri"
 
-#: templates/bits/typoForm.tpl:23
+#: templates/bits/typoForm.tpl:26
 msgid "please describe the error; at most 400 characters are allowed"
 msgstr "vă rugăm descrieți problema în maximum 400 de caractere"
 
-#: templates/bits/typoForm.tpl:27
+#: templates/bits/typoForm.tpl:30
 msgid "notes"
 msgstr "note"
 
-#: templates/bits/typoForm.tpl:32
+#: templates/bits/typoForm.tpl:35
 msgid ""
 "Some dictionaries (such as <em>Scriban</em>) use old orthographies. This is "
 "not a typo."
@@ -316,7 +316,7 @@ msgstr ""
 "Unele dicționare (de exemplu <em>Scriban</em>) folosesc grafia veche. "
 "Aceasta nu este o greșeală de tipar."
 
-#: templates/bits/typoForm.tpl:37
+#: templates/bits/typoForm.tpl:40
 msgid ""
 "We generally do not change the original text of definitions, but we can add "
 "comments. Please do not report semantic errors except in obvious cases."
@@ -325,19 +325,19 @@ msgstr ""
 "pe marginea lor. Vă rugăm să nu ne semnalați greșeli semantice decât în "
 "situații evidente."
 
-#: templates/bits/typoForm.tpl:45
+#: templates/bits/typoForm.tpl:48
 msgid "submit"
 msgstr "trimite"
 
-#: templates/bits/typoForm.tpl:46
+#: templates/bits/typoForm.tpl:49
 msgid "cancel"
 msgstr "anulează"
 
-#: templates/bits/typoForm.tpl:65
+#: templates/bits/typoForm.tpl:71
 msgid "Thank you for your report!"
 msgstr "Vă mulțumim pentru semnalare!"
 
-#: templates/bits/typoForm.tpl:69
+#: templates/bits/typoForm.tpl:75
 msgid "close"
 msgstr "închide"
 
@@ -407,11 +407,11 @@ msgstr ""
 "În prezent recalibrăm nivelurile de dificultate. Te rugăm să ne ierți pentru "
 "cuvinte prea ușoare sau prea grele față de nivelul ales."
 
-#: templates/games/mill.tpl:48
-msgid "The correct definition of <span class=\"word\"></span>:"
-msgstr "Definiția corectă pentru <span class=\"word\"></span>:"
+#: templates/games/mill.tpl:49
+msgid "The correct definition of <span class=\"word fs-3\"></span>:"
+msgstr "Definiția corectă pentru <span class=\"word fs-3\"></span>:"
 
-#: templates/games/mill.tpl:66
+#: templates/games/mill.tpl:69
 msgid ""
 "Congratulations! You answered <b id=\"answeredCorrect\">0</b> of 10 "
 "questions correctly."
@@ -419,11 +419,11 @@ msgstr ""
 "Felicitări! Ai răspuns corect la <b id=\"answeredCorrect\">0</b> din 10 "
 "întrebări."
 
-#: templates/games/mill.tpl:69
+#: templates/games/mill.tpl:72
 msgid "new game"
 msgstr "joc nou"
 
-#: templates/games/mill.tpl:70
+#: templates/games/mill.tpl:73
 msgid "see all definitions"
 msgstr "arată toate definițiile"
 
@@ -546,7 +546,7 @@ msgid "show"
 msgstr "arată"
 
 #: templates/games/scramble.tpl:4 templates/games/scramble.tpl:12
-#: templates/games/scramble.tpl:179 templates/widgets/games.tpl:7
+#: templates/games/scramble.tpl:211 templates/widgets/games.tpl:7
 msgid "word scramble"
 msgstr "omleta cuvintelor"
 
@@ -554,55 +554,59 @@ msgstr "omleta cuvintelor"
 msgid "start"
 msgstr "începe"
 
-#: templates/games/scramble.tpl:36
+#: templates/games/scramble.tpl:39
 msgid "object"
 msgstr "mod"
 
-#: templates/games/scramble.tpl:40 templates/games/scramble.tpl:113
+#: templates/games/scramble.tpl:45 templates/games/scramble.tpl:145
 msgid "all words"
 msgstr "toate cuvintele"
 
-#: templates/games/scramble.tpl:43 templates/games/scramble.tpl:117
+#: templates/games/scramble.tpl:50 templates/games/scramble.tpl:149
 msgid "one anagram"
 msgstr "o anagramă"
 
-#: templates/games/scramble.tpl:46 templates/games/scramble.tpl:121
+#: templates/games/scramble.tpl:55 templates/games/scramble.tpl:153
 msgid "all anagrams"
 msgstr "toate anagramele"
 
-#: templates/games/scramble.tpl:57 templates/games/scramble.tpl:60
-#: templates/games/scramble.tpl:63 templates/games/scramble.tpl:66
+#: templates/games/scramble.tpl:63
+msgid "level"
+msgstr "nivel"
+
+#: templates/games/scramble.tpl:69 templates/games/scramble.tpl:74
+#: templates/games/scramble.tpl:79 templates/games/scramble.tpl:84
 msgid "letters"
 msgstr "litere"
 
-#: templates/games/scramble.tpl:73
+#: templates/games/scramble.tpl:92
 msgid "diacritics"
 msgstr "diacritice"
 
-#: templates/games/scramble.tpl:77
+#: templates/games/scramble.tpl:98
 msgid "no"
 msgstr "nu"
 
-#: templates/games/scramble.tpl:80
+#: templates/games/scramble.tpl:103
 msgid "yes"
 msgstr "da"
 
-#: templates/games/scramble.tpl:87
+#: templates/games/scramble.tpl:111
 msgid "time"
 msgstr "timp"
 
-#: templates/games/scramble.tpl:93
+#: templates/games/scramble.tpl:124
 msgid "one minute"
 msgid_plural "%1 minutes"
 msgstr[0] "un minut"
 msgstr[1] "%1 minute"
 msgstr[2] "%1 de minute"
 
-#: templates/games/scramble.tpl:101
+#: templates/games/scramble.tpl:133
 msgid "Object of the game"
 msgstr "Scopul jocului"
 
-#: templates/games/scramble.tpl:103
+#: templates/games/scramble.tpl:135
 msgid ""
 "Find as many words as you can using the given letters, before the time runs "
 "out."
@@ -610,21 +614,21 @@ msgstr ""
 "Formați cât de multe cuvinte puteți cu literele primite, până se termină "
 "timpul."
 
-#: templates/games/scramble.tpl:108
+#: templates/games/scramble.tpl:140
 msgid "There are three game types:"
 msgstr "Sunt trei moduri de joc:"
 
-#: templates/games/scramble.tpl:114
+#: templates/games/scramble.tpl:146
 msgid "find all words having at least three letters."
 msgstr "găsiți toate cuvintele de cel puțin trei litere."
 
-#: templates/games/scramble.tpl:118
+#: templates/games/scramble.tpl:150
 msgid "find a word using all the letters, then receive a new set of letters."
 msgstr ""
 "găsiți un cuvânt care folosește toate literele, apoi primiți alt set de "
 "litere."
 
-#: templates/games/scramble.tpl:123
+#: templates/games/scramble.tpl:155
 msgid ""
 "find all words using all the letters, then receive a new set of letters. For "
 "example, for the set AINTT you must guess all three anagrams (<i>%1</i>) to "
@@ -634,11 +638,11 @@ msgstr ""
 "litere. De exemplu, pentru grupul AINTT trebuie să ghiciți toate cele trei "
 "anagrame (<i>%1</i>) pentru a trece la următorul set."
 
-#: templates/games/scramble.tpl:130
+#: templates/games/scramble.tpl:162
 msgid "Instructions"
 msgstr "Instrucțiuni"
 
-#: templates/games/scramble.tpl:132
+#: templates/games/scramble.tpl:164
 msgid ""
 "When using a keyboard, simply type the letters. When using a mouse, click on "
 "the letters, then click on the magnifier to check a word."
@@ -646,7 +650,7 @@ msgstr ""
 "Dacă folosiți tastatura, tastați pur și simplu literele. Dacă folosiți mouse-"
 "ul, dați clic pe litere, apoi pe lupă pentru a verifica un cuvânt."
 
-#: templates/games/scramble.tpl:138
+#: templates/games/scramble.tpl:170
 msgid ""
 "Legal words include conjugations (such as <i>lucrez</i>) and declensions "
 "(such as <i>verzi</i>). If you opted for diacritics, then the letters %1 "
@@ -656,51 +660,51 @@ msgstr ""
 "<i>verzi</i>). Dacă ați optat pentru diacritice, atunci literele %1 nu pot "
 "fi interschimbate cu %2."
 
-#: templates/games/scramble.tpl:144
+#: templates/games/scramble.tpl:176
 msgid "Special keys"
 msgstr "Taste speciale"
 
-#: templates/games/scramble.tpl:148
+#: templates/games/scramble.tpl:180
 msgid "checks the word"
 msgstr "verifică cuvântul"
 
-#: templates/games/scramble.tpl:149
+#: templates/games/scramble.tpl:181
 msgid "deletes the last letter"
 msgstr "șterge ultima literă"
 
-#: templates/games/scramble.tpl:150
+#: templates/games/scramble.tpl:182
 msgid "deletes all the letters"
 msgstr "șterge toate literele"
 
-#: templates/games/scramble.tpl:151
+#: templates/games/scramble.tpl:183
 msgid "shuffles the letters"
 msgstr "amestecă literele"
 
-#: templates/games/scramble.tpl:155
+#: templates/games/scramble.tpl:187
 msgid "Below the game area there is"
 msgstr "Sub zona de joc se află"
 
-#: templates/games/scramble.tpl:161
+#: templates/games/scramble.tpl:193
 msgid "time remaining"
 msgstr "timpul rămas"
 
-#: templates/games/scramble.tpl:165
+#: templates/games/scramble.tpl:197
 msgid "number of words found / total number of words"
 msgstr "numărul de cuvinte găsite / numărul de cuvinte posibile"
 
-#: templates/games/scramble.tpl:169
+#: templates/games/scramble.tpl:201
 msgid "score (longer words earn more points)"
 msgstr "scorul (cuvintele mai lungi primesc mai multe puncte)"
 
-#: templates/games/scramble.tpl:207
+#: templates/games/scramble.tpl:239
 msgid "play again"
 msgstr "joacă din nou"
 
-#: templates/games/scramble.tpl:215
+#: templates/games/scramble.tpl:247
 msgid "Legal words"
 msgstr "Cuvinte posibile"
 
-#: templates/games/scramble.tpl:239
+#: templates/games/scramble.tpl:271
 msgid ""
 "You can share this link with your friends to compare scores on the same "
 "letter sets."

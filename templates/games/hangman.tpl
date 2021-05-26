@@ -10,11 +10,11 @@
    var difficulty = "{$difficulty}";
   </script>
 
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-title">{cap}{t}hangman{/t}{/cap}</h3>
+  <div class="card mb-3">
+    <div class="card-header">
+      {cap}{t}hangman{/t}{/cap}
     </div>
-    <div class="panel-body">
+    <div class="card-body">
       <form id="hangman" action="">
 
         <div class="graphics">
@@ -47,11 +47,11 @@
     </div>
   </div>
 
-  <div id="resultsWrapper" class="panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-title">{cap}{t}definitions{/t}{/cap}</h3>
+  <div id="resultsWrapper" class="card">
+    <div class="card-header">
+      {cap}{t}definitions{/t}{/cap}
     </div>
-    <div class="panel-body">
+    <div class="card-body">
       {foreach $searchResults as $row}
         {include "bits/definition.tpl" showBookmark=1}
       {/foreach}

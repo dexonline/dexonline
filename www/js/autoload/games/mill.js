@@ -34,6 +34,7 @@ $(function() {
     }
     $('#mill button')
       .removeClass('btn-success btn-danger')
+      .addClass('btn-light')
       .attr('disabled', false);
   }
 
@@ -56,12 +57,12 @@ $(function() {
     var guessed = +($(this).val() == q.answer);
 
     if (guessed) {
-      $(this).addClass('btn-success');
+      $(this).toggleClass('btn-light btn-success');
       $('#statusImage' + round).attr('src', wwwRoot + 'img/mill/success.png');
       answeredCorrect++;
     } else {
-      $(this).addClass('btn-danger');
-      $('#mill button[value="' + q.answer + '"]').addClass('btn-success');
+      $(this).toggleClass('btn-light btn-danger');
+      $('#mill button[value="' + q.answer + '"]').toggleClass('btn-light btn-success');
       $('#statusImage' + round).attr('src', wwwRoot + 'img/mill/fail.png');
     }
 
@@ -103,7 +104,7 @@ $(function() {
         $('#definitionsSection').append(html);
       }
     }
-    $('#defPanel').stop().slideToggle();
+    $('#defCard').stop().slideToggle();
   }
 
   init();

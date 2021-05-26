@@ -7,93 +7,125 @@
 {block "search"}{/block}
 
 {block "content"}
-  <div id="mainMenu" class="panel panel-default">
-    <div class="panel-heading">
+  <div id="mainMenu" class="card">
+    <div class="card-header">
       {cap}{t}word scramble{/t}{/cap}
     </div>
 
-    <div class="panel-body">
+    <div class="card-body">
       <form class="form-horizontal">
 
-        <div>
+        <div class="mb-3">
           <button id="startGameButton" class="btn btn-success" type="button" disabled>
-            <i class="glyphicon glyphicon-play"></i>
+            {include "bits/icon.tpl" i=play_arrow}
             {t}start{/t}
           </button>
-          <button id="optionsButton"
-                  class="btn btn-default"
-                  type="button"
-                  data-toggle="collapse"
-                  data-target="#optionsDiv">
-            <i class="glyphicon glyphicon-wrench"></i>
+
+          <a
+            class="btn btn-secondary"
+            data-bs-toggle="collapse"
+            href="#optionsDiv"
+            role="button"
+            aria-expanded="false"
+            aria-controls="optionsDiv">
+            {include "bits/icon.tpl" i=settings}
             {t}options{/t}
-          </button>
+          </a>
         </div>
 
-        <div id="optionsDiv" class="voffset3 collapse">
+        <div id="optionsDiv" class="collapse mb-3">
 
-          <div class="form-group">
-            <label class="col-sm-2 control-label">{t}object{/t}</label>
-            <div class="col-sm-10">
-              <div class="btn-group" data-toggle="buttons">
-                <label class="btn btn-info active">
-                  <input type="radio" name="mode" value="0"> {t}all words{/t}
+          <div class="row mb-3">
+            <label class="col-md-2 col-form-label">{t}object{/t}</label>
+            <div class="col-md-10">
+
+              <div class="btn-group" role="group">
+                <input id="radioMode0" type="radio" class="btn-check" name="mode" value="0" checked>
+                <label for="radioMode0" class="btn btn-outline-secondary">
+                  {t}all words{/t}
                 </label>
-                <label class="btn btn-info">
-                  <input type="radio" name="mode" value="1"> {t}one anagram{/t}
+
+                <input id="radioMode1" type="radio" class="btn-check" name="mode" value="1">
+                <label for="radioMode1" class="btn btn-outline-secondary">
+                  {t}one anagram{/t}
                 </label>
-                <label class="btn btn-info">
-                  <input type="radio" name="mode" value="2"> {t}all anagrams{/t}
+
+                <input id="radioMode2" type="radio" class="btn-check" name="mode" value="2">
+                <label for="radioMode2" class="btn btn-outline-secondary">
+                  {t}all anagrams{/t}
                 </label>
               </div>
+
             </div>
           </div>
 
-          <div class="form-group">
-            <label class="col-sm-2 control-label">nivel</label>
-            <div class="col-sm-10">
-              <div class="btn-group" data-toggle="buttons">
-                <label class="btn btn-info">
-                  <input type="radio" name="level" value="0"> 4 {t}letters{/t}
+          <div class="row mb-3">
+            <label class="col-md-2 col-form-label">{t}level{/t}</label>
+            <div class="col-md-10">
+
+              <div class="btn-group" role="group">
+                <input id="radioLevel0" type="radio" class="btn-check" name="level" value="0">
+                <label for="radioLevel0" class="btn btn-outline-secondary">
+                  4 {t}letters{/t}
                 </label>
-                <label class="btn btn-info active">
-                  <input type="radio" name="level" value="1"> 5 {t}letters{/t}
+
+                <input id="radioLevel1" type="radio" class="btn-check" name="level" value="1" checked>
+                <label for="radioLevel1" class="btn btn-outline-secondary">
+                  5 {t}letters{/t}
                 </label>
-                <label class="btn btn-info">
-                  <input type="radio" name="level" value="2"> 6 {t}letters{/t}
+
+                <input id="radioLevel2" type="radio" class="btn-check" name="level" value="2">
+                <label for="radioLevel2" class="btn btn-outline-secondary">
+                  6 {t}letters{/t}
                 </label>
-                <label class="btn btn-info">
-                  <input type="radio" name="level" value="3"> 7 {t}letters{/t}
+
+                <input id="radioLevel3" type="radio" class="btn-check" name="level" value="3">
+                <label for="radioLevel3" class="btn btn-outline-secondary">
+                  7 {t}letters{/t}
                 </label>
               </div>
+
             </div>
           </div>
 
-          <div class="form-group">
-            <label class="col-sm-2 control-label">{t}diacritics{/t}</label>
-            <div class="col-sm-10">
-              <div class="btn-group" data-toggle="buttons">
-                <label class="btn btn-info active">
-                  <input type="radio" name="useDiacritics" value="0"> {t}no{/t}
+          <div class="row mb-3">
+            <label class="col-md-2 col-form-label">{t}diacritics{/t}</label>
+            <div class="col-md-10">
+
+              <div class="btn-group" role="group">
+                <input id="radioDia0" type="radio" class="btn-check" name="useDiacritics" value="0" checked>
+                <label for="radioDia0" class="btn btn-outline-secondary">
+                  {t}no{/t}
                 </label>
-                <label class="btn btn-info">
-                  <input type="radio" name="useDiacritics" value="1"> {t}yes{/t}
+
+                <input id="radioDia1" type="radio" class="btn-check" name="useDiacritics" value="1">
+                <label for="radioDia1" class="btn btn-outline-secondary">
+                  {t}yes{/t}
                 </label>
               </div>
+
             </div>
           </div>
 
-          <div class="form-group">
-            <label class="col-sm-2 control-label">{t}time{/t}</label>
-            <div class="col-sm-10">
-              <div class="btn-group" data-toggle="buttons">
+          <div class="row mb-3">
+            <label class="col-md-2 col-form-label">{t}time{/t}</label>
+            <div class="col-md-10">
+
+              <div class="btn-group" role="group">
                 {for $time=1 to 5}
-                  <label class="btn btn-info {if $time == 3}active{/if}">
-                    <input type="radio" name="seconds" value="{$time-1}">
+                  <input
+                    id="radioTime{$time-1}"
+                    type="radio"
+                    class="btn-check"
+                    name="seconds"
+                    value="{$time-1}"
+                    {if $time == 3}checked{/if}>
+                  <label for="radioTime{$time-1}" class="btn btn-outline-secondary">
                     {t count=$time 1=$time plural="%1 minutes"}one minute{/t}
                   </label>
                 {/for}
               </div>
+
             </div>
           </div>
         </div>
@@ -157,15 +189,15 @@
 
         <ul>
           <li>
-            <i class="glyphicon glyphicon-hourglass text-big vcenter"></i>
+            {include "bits/icon.tpl" i=hourglass_empty}
             {t}time remaining{/t};
           </li>
           <li>
-            <i class="glyphicon glyphicon-eye-open text-big vcenter"></i>
+            {include "bits/icon.tpl" i=visibility}
             {t}number of words found / total number of words{/t};
           </li>
           <li>
-            <i class="glyphicon glyphicon-piggy-bank text-big vcenter"></i>
+            {include "bits/icon.tpl" i=savings}
             {t}score (longer words earn more points){/t}.
           </li>
         </ul>
@@ -174,52 +206,52 @@
     </div>
   </div>
 
-  <div id="gamePanel" class="panel panel-default">
-    <div class="panel-heading">
+  <div id="gamePanel" class="card mb-3">
+    <div class="card-header">
       {cap}{t}word scramble{/t}{/cap}
     </div>
 
-    <div class="panel-body">
+    <div class="card-body">
       <div id="canvasWrap">
       </div>
 
-      <div id="gameStats">
-        <div class="pull-left">
-          <i class="glyphicon glyphicon-hourglass"></i>
+      <div id="gameStats" class="d-flex justify-content-between">
+        <div>
+          {include "bits/icon.tpl" i=hourglass_empty}
           <span id="timer"></span>
         </div>
 
         <span id="wordCountDiv">
-          <i class="glyphicon glyphicon-eye-open"></i>
+          {include "bits/icon.tpl" i=visibility}
           <span id="foundWords"></span> /
           <span id="maxWords"></span>
         </span>
 
-        <div class="pull-right">
-          <i class="glyphicon glyphicon-piggy-bank"></i>
+        <div>
+          {include "bits/icon.tpl" i=savings}
           <span id="score"></span>
         </div>
       </div>
 
-      <div class="text-center" style="clear: both">
+      <div class="text-center mt-2">
         <button id="restartGameButton" class="btn btn-success" type="button">
-          <i class="glyphicon glyphicon-repeat"></i>
+          {include "bits/icon.tpl" i=repeat}
           {t}play again{/t}
         </button>
       </div>
     </div>
   </div>
 
-  <div id="wordListPanel" class="panel panel-default">
-    <div class="panel-heading">
+  <div id="wordListPanel" class="card mb-3">
+    <div class="card-header">
       {t}Legal words{/t}
     </div>
 
-    <div class="panel-body">
+    <div class="card-body">
       <div id="legalWords" class="row">
-        <div id="wordStem" class="col-xs-6 col-sm-3 col-md-2">
+        <div id="wordStem" class="col-6 col-sm-3 col-md-2">
           <a href="definitie/" target="_blank" class="text-danger">
-            <i class="glyphicon glyphicon-remove"></i>
+            {include "bits/icon.tpl" i=clear}
             <span></span>
           </a>
         </div>
@@ -227,11 +259,11 @@
     </div>
   </div>
 
-  <div id="gameIdPanel" class="panel panel-default">
-    <div class="panel-body">
+  <div id="gameIdPanel" class="card mb-3">
+    <div class="card-body">
       Permalink:
       <a id="permalink" href="#">
-        <i class="glyphicon glyphicon-link"></i>
+        {include "bits/icon.tpl" i=link}
         <span></span>
       </a>
 

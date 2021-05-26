@@ -395,10 +395,10 @@ $(function() {
   // runs whenever a new game starts
   function startGame() {
     gameParams = {
-      mode: parseInt($('.active input[name="mode"]').val()),
-      level: parseInt($('.active input[name="level"]').val()),
-      useDiacritics: parseInt($('.active input[name="useDiacritics"]').val()),
-      seconds: parseInt($('.active input[name="seconds"]').val()),
+      mode: parseInt($('input[name="mode"]:checked').val()),
+      level: parseInt($('input[name="level"]:checked').val()),
+      useDiacritics: parseInt($('input[name="useDiacritics"]:checked').val()),
+      seconds: parseInt($('input[name="seconds"]:checked').val()),
     };
 
     var gameId = window.location.hash;
@@ -409,7 +409,7 @@ $(function() {
       window.location.hash = gameId;
     }
     $('#permalink').attr('href', window.location.href);
-    $('#permalink span').text(window.location.href);
+    $('#permalink span').last().text(window.location.href);
     Math.seedrandom(gameId);
 
     $.cookie(COOKIE_NAME, JSON.stringify(gameParams), { expires: 3650, path: '/' });
@@ -591,9 +591,10 @@ $(function() {
         $('#foundWords').text(1 + parseInt($('#foundWords').text()));
         $('#legalWord-' + i)
           .find('a')
-          .removeClass('text-danger').addClass('text-success')
-          .find('i')
-          .removeClass('glyphicon-remove').addClass('glyphicon-ok');
+          .toggleClass('text-danger text-success')
+          .find('span')
+          .first()
+          .text('done');
         Tile.scatterBottomRow();
 
         if (!--numWordsLeft) {
@@ -684,7 +685,7 @@ $(function() {
       var href = div.find('a').attr('href');
       div.find('a').attr('href', href + w);
 
-      div.find('span').text(w);
+      div.find('span').last().text(w);
     }
   }
 

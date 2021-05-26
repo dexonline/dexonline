@@ -33,7 +33,10 @@
     <input type="hidden" name="x0" value="">
     <input type="hidden" name="y0" value="">
     <input type="hidden" name="side" value="">
-    <input class="btn btn-primary" type="submit" name="submit" value="Salvează">
+    <button class="btn btn-primary" type="submit" name="submit">
+      {include "bits/icon.tpl" i=save}
+      salvează
+    </button>
     <a class="btn btn-link" href="{Router::link('user/preferences')}">renunță</a>
   </form>
 

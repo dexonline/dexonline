@@ -1,26 +1,11 @@
-.millArea form {
-  margin-bottom: 10px;
-}
-
 .millArea .word {
-  font-size: 26px;
-  font-weight: bold;
   margin-left: 5px;
   margin-right: 5px;
 }
 
-#mill {
-  margin: 20px 0px 10px 0px;
-}
-
-#mill button {
-  text-align: left;
-  white-space: normal;
-}
-
 #questionPage,
 #resultsPage,
-#defPanel {
+#defCard {
   display: none;
 }
 

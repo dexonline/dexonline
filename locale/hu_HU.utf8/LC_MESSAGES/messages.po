@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: BUG-EMAIL-ADDR <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2021-05-24 15:33+0300\n"
-"PO-Revision-Date: 2021-05-24 15:33+0300\n"
+"POT-Creation-Date: 2021-05-26 17:01+0300\n"
+"PO-Revision-Date: 2021-05-26 17:02+0300\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: hu\n"
@@ -61,7 +61,7 @@ msgstr "hozzáadta"
 msgid "actions"
 msgstr "műveletek"
 
-#: templates/bits/definitionMenuProper.tpl:157 templates/bits/typoForm.tpl:13
+#: templates/bits/definitionMenuProper.tpl:157 templates/bits/typoForm.tpl:10
 #: templates/bits/typoForm.tpl:61
 msgid "report a typo"
 msgstr "jelents egy gépelési hibát"
@@ -263,7 +263,7 @@ msgstr "szó"
 msgid "search"
 msgstr "keress"
 
-#: templates/bits/searchForm.tpl:37 templates/games/scramble.tpl:29
+#: templates/bits/searchForm.tpl:37 templates/games/scramble.tpl:32
 msgid "options"
 msgstr "opciók"
 
@@ -275,7 +275,7 @@ msgstr "Teljes szöveges keresés"
 msgid "help"
 msgstr "segítség"
 
-#: templates/bits/sourceDropDown.tpl:14
+#: templates/bits/sourceDropDown.tpl:16
 msgid "All dictionaries"
 msgstr "Összes szótár"
 
@@ -292,7 +292,7 @@ msgid "characters"
 msgstr "betük"
 
 #: templates/bits/top.tpl:7 templates/games/hangman.tpl:52
-#: templates/games/mill.tpl:77
+#: templates/games/mill.tpl:80
 msgid "definitions"
 msgstr "meghatározások"
 
@@ -300,15 +300,15 @@ msgstr "meghatározások"
 msgid "most recent submission"
 msgstr "legutóbbi benyújtás"
 
-#: templates/bits/typoForm.tpl:23
+#: templates/bits/typoForm.tpl:26
 msgid "please describe the error; at most 400 characters are allowed"
 msgstr "írd le a hibát; legfeljebb 400 karakter megengedett"
 
-#: templates/bits/typoForm.tpl:27
+#: templates/bits/typoForm.tpl:30
 msgid "notes"
 msgstr "jegyzetek"
 
-#: templates/bits/typoForm.tpl:32
+#: templates/bits/typoForm.tpl:35
 msgid ""
 "Some dictionaries (such as <em>Scriban</em>) use old orthographies. This is "
 "not a typo."
@@ -316,7 +316,7 @@ msgstr ""
 "Egyes szótárak (például a <em>Scriban</em>) régi helyesírással voltak "
 "kiadva. Ez nem hiba."
 
-#: templates/bits/typoForm.tpl:37
+#: templates/bits/typoForm.tpl:40
 msgid ""
 "We generally do not change the original text of definitions, but we can add "
 "comments. Please do not report semantic errors except in obvious cases."
@@ -325,19 +325,19 @@ msgstr ""
 "megjegyzéseket tehetünk. Kérjük, ne jelentsen szemantikai hibákat kivéve "
 "nyilvánvaló esetekben."
 
-#: templates/bits/typoForm.tpl:45
+#: templates/bits/typoForm.tpl:48
 msgid "submit"
 msgstr "benyújtás"
 
-#: templates/bits/typoForm.tpl:46
+#: templates/bits/typoForm.tpl:49
 msgid "cancel"
 msgstr "mégse"
 
-#: templates/bits/typoForm.tpl:65
+#: templates/bits/typoForm.tpl:71
 msgid "Thank you for your report!"
 msgstr "Köszönjük a jelentését!"
 
-#: templates/bits/typoForm.tpl:69
+#: templates/bits/typoForm.tpl:75
 msgid "close"
 msgstr "bezár"
 
@@ -405,11 +405,11 @@ msgid ""
 "words that are too easy or too hard for the level you selected."
 msgstr ""
 
-#: templates/games/mill.tpl:48
-msgid "The correct definition of <span class=\"word\"></span>:"
-msgstr "A <span class = \"word\"></span> helyes meghatározása:"
+#: templates/games/mill.tpl:49
+msgid "The correct definition of <span class=\"word fs-3\"></span>:"
+msgstr "A <span class = \"word fs-3\"></span> helyes meghatározása:"
 
-#: templates/games/mill.tpl:66
+#: templates/games/mill.tpl:69
 msgid ""
 "Congratulations! You answered <b id=\"answeredCorrect\">0</b> of 10 "
 "questions correctly."
@@ -417,11 +417,11 @@ msgstr ""
 "Gratulálunk! Ön <b id=\"answerCorrect\">0</b> kérdésre a 10-böl helyesen "
 "válaszolt."
 
-#: templates/games/mill.tpl:69
+#: templates/games/mill.tpl:72
 msgid "new game"
 msgstr "új játék"
 
-#: templates/games/mill.tpl:70
+#: templates/games/mill.tpl:73
 msgid "see all definitions"
 msgstr "összes meghatározás"
 
@@ -545,7 +545,7 @@ msgid "show"
 msgstr "mutasd"
 
 #: templates/games/scramble.tpl:4 templates/games/scramble.tpl:12
-#: templates/games/scramble.tpl:179 templates/widgets/games.tpl:7
+#: templates/games/scramble.tpl:211 templates/widgets/games.tpl:7
 msgid "word scramble"
 msgstr "kevert szavak"
 
@@ -553,54 +553,58 @@ msgstr "kevert szavak"
 msgid "start"
 msgstr "indíts"
 
-#: templates/games/scramble.tpl:36
+#: templates/games/scramble.tpl:39
 msgid "object"
 msgstr "tárgy"
 
-#: templates/games/scramble.tpl:40 templates/games/scramble.tpl:113
+#: templates/games/scramble.tpl:45 templates/games/scramble.tpl:145
 msgid "all words"
 msgstr "összes szó"
 
-#: templates/games/scramble.tpl:43 templates/games/scramble.tpl:117
+#: templates/games/scramble.tpl:50 templates/games/scramble.tpl:149
 msgid "one anagram"
 msgstr "egy anagramma"
 
-#: templates/games/scramble.tpl:46 templates/games/scramble.tpl:121
+#: templates/games/scramble.tpl:55 templates/games/scramble.tpl:153
 msgid "all anagrams"
 msgstr "összes anagrammák"
 
-#: templates/games/scramble.tpl:57 templates/games/scramble.tpl:60
-#: templates/games/scramble.tpl:63 templates/games/scramble.tpl:66
+#: templates/games/scramble.tpl:63
+msgid "level"
+msgstr "szint"
+
+#: templates/games/scramble.tpl:69 templates/games/scramble.tpl:74
+#: templates/games/scramble.tpl:79 templates/games/scramble.tpl:84
 msgid "letters"
 msgstr "betűk"
 
-#: templates/games/scramble.tpl:73
+#: templates/games/scramble.tpl:92
 msgid "diacritics"
 msgstr "ékezetek"
 
-#: templates/games/scramble.tpl:77
+#: templates/games/scramble.tpl:98
 msgid "no"
 msgstr "nem"
 
-#: templates/games/scramble.tpl:80
+#: templates/games/scramble.tpl:103
 msgid "yes"
 msgstr "igen"
 
-#: templates/games/scramble.tpl:87
+#: templates/games/scramble.tpl:111
 msgid "time"
 msgstr "idő"
 
-#: templates/games/scramble.tpl:93
+#: templates/games/scramble.tpl:124
 msgid "one minute"
 msgid_plural "%1 minutes"
 msgstr[0] "egy perc"
 msgstr[1] "%1 percek"
 
-#: templates/games/scramble.tpl:101
+#: templates/games/scramble.tpl:133
 msgid "Object of the game"
 msgstr "A játék célja"
 
-#: templates/games/scramble.tpl:103
+#: templates/games/scramble.tpl:135
 msgid ""
 "Find as many words as you can using the given letters, before the time runs "
 "out."
@@ -608,21 +612,21 @@ msgstr ""
 "Találj annyi szót amennyit csak tudsz az adott betűkkel, mielőtt elfogy az "
 "idő."
 
-#: templates/games/scramble.tpl:108
+#: templates/games/scramble.tpl:140
 msgid "There are three game types:"
 msgstr "Három játéktípus létezik:"
 
-#: templates/games/scramble.tpl:114
+#: templates/games/scramble.tpl:146
 msgid "find all words having at least three letters."
 msgstr "találj meg minden olyan szót amely legalább három betűs."
 
-#: templates/games/scramble.tpl:118
+#: templates/games/scramble.tpl:150
 msgid "find a word using all the letters, then receive a new set of letters."
 msgstr ""
 "keress egy szót az összes betű felhasználásával, majd kapsz egy új "
 "betűkészletet."
 
-#: templates/games/scramble.tpl:123
+#: templates/games/scramble.tpl:155
 msgid ""
 "find all words using all the letters, then receive a new set of letters. For "
 "example, for the set AINTT you must guess all three anagrams (<i>%1</i>) to "
@@ -632,11 +636,11 @@ msgstr ""
 "betűkészletet. Például az AINTT készletnek mindhárom anagrammáját meg kell "
 "találnod (<i>%1</i>) hogy megkapd a következő készletet."
 
-#: templates/games/scramble.tpl:130
+#: templates/games/scramble.tpl:162
 msgid "Instructions"
 msgstr "Műveletek"
 
-#: templates/games/scramble.tpl:132
+#: templates/games/scramble.tpl:164
 msgid ""
 "When using a keyboard, simply type the letters. When using a mouse, click on "
 "the letters, then click on the magnifier to check a word."
@@ -644,7 +648,7 @@ msgstr ""
 "Billentyűzet használata esetében, egyszerűen írd be a betűket. Egérrel "
 "kattints a betűkre, majd kattints a nagyítóra, hogy ellenőrizd a szót."
 
-#: templates/games/scramble.tpl:138
+#: templates/games/scramble.tpl:170
 msgid ""
 "Legal words include conjugations (such as <i>lucrez</i>) and declensions "
 "(such as <i>verzi</i>). If you opted for diacritics, then the letters %1 "
@@ -654,51 +658,51 @@ msgstr ""
 "i>, <i>verzi</i>). Ha az ékezeteket választottad, akkor a a(z) %1 betűk nem "
 "cserélhetők a(z) %2 -val."
 
-#: templates/games/scramble.tpl:144
+#: templates/games/scramble.tpl:176
 msgid "Special keys"
 msgstr "Speciális billentyűk"
 
-#: templates/games/scramble.tpl:148
+#: templates/games/scramble.tpl:180
 msgid "checks the word"
 msgstr "ellenőrizd a szót"
 
-#: templates/games/scramble.tpl:149
+#: templates/games/scramble.tpl:181
 msgid "deletes the last letter"
 msgstr "törli az utolsó betűt"
 
-#: templates/games/scramble.tpl:150
+#: templates/games/scramble.tpl:182
 msgid "deletes all the letters"
 msgstr "törli az összes betűt"
 
-#: templates/games/scramble.tpl:151
+#: templates/games/scramble.tpl:183
 msgid "shuffles the letters"
 msgstr "keveri a betűket"
 
-#: templates/games/scramble.tpl:155
+#: templates/games/scramble.tpl:187
 msgid "Below the game area there is"
 msgstr "A játékterület alatt van a"
 
-#: templates/games/scramble.tpl:161
+#: templates/games/scramble.tpl:193
 msgid "time remaining"
 msgstr "hátralévő idő"
 
-#: templates/games/scramble.tpl:165
+#: templates/games/scramble.tpl:197
 msgid "number of words found / total number of words"
 msgstr "talált szavak száma / összes szó száma"
 
-#: templates/games/scramble.tpl:169
+#: templates/games/scramble.tpl:201
 msgid "score (longer words earn more points)"
 msgstr "pontszám (hosszabb szavak több pontot érnek)"
 
-#: templates/games/scramble.tpl:207
+#: templates/games/scramble.tpl:239
 msgid "play again"
 msgstr "játszd újra"
 
-#: templates/games/scramble.tpl:215
+#: templates/games/scramble.tpl:247
 msgid "Legal words"
 msgstr "Elfogadott szavak"
 
-#: templates/games/scramble.tpl:239
+#: templates/games/scramble.tpl:271
 msgid ""
 "You can share this link with your friends to compare scores on the same "
 "letter sets."

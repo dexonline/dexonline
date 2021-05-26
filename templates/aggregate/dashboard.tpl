@@ -405,7 +405,7 @@
             <div class="row mb-2">
               <label class="col-3 col-form-label">sursa</label>
               <div class="col-9">
-                {include "bits/sourceDropDown.tpl" name="sourceId"}
+                {include "bits/sourceDropDown.tpl" id="sourceDropDown2" name="sourceId"}
                 <small class="text-muted">
                   se aplică numai definițiilor
                 </small>

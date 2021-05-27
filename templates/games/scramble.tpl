@@ -22,7 +22,7 @@
           </button>
 
           <a
-            class="btn btn-secondary"
+            class="btn btn-light"
             data-bs-toggle="collapse"
             href="#optionsDiv"
             role="button"
@@ -41,17 +41,17 @@
 
               <div class="btn-group" role="group">
                 <input id="radioMode0" type="radio" class="btn-check" name="mode" value="0" checked>
-                <label for="radioMode0" class="btn btn-outline-secondary">
+                <label for="radioMode0" class="btn btn-outline-light">
                   {t}all words{/t}
                 </label>
 
                 <input id="radioMode1" type="radio" class="btn-check" name="mode" value="1">
-                <label for="radioMode1" class="btn btn-outline-secondary">
+                <label for="radioMode1" class="btn btn-outline-light">
                   {t}one anagram{/t}
                 </label>
 
                 <input id="radioMode2" type="radio" class="btn-check" name="mode" value="2">
-                <label for="radioMode2" class="btn btn-outline-secondary">
+                <label for="radioMode2" class="btn btn-outline-light">
                   {t}all anagrams{/t}
                 </label>
               </div>
@@ -65,22 +65,22 @@
 
               <div class="btn-group" role="group">
                 <input id="radioLevel0" type="radio" class="btn-check" name="level" value="0">
-                <label for="radioLevel0" class="btn btn-outline-secondary">
+                <label for="radioLevel0" class="btn btn-outline-light">
                   4 {t}letters{/t}
                 </label>
 
                 <input id="radioLevel1" type="radio" class="btn-check" name="level" value="1" checked>
-                <label for="radioLevel1" class="btn btn-outline-secondary">
+                <label for="radioLevel1" class="btn btn-outline-light">
                   5 {t}letters{/t}
                 </label>
 
                 <input id="radioLevel2" type="radio" class="btn-check" name="level" value="2">
-                <label for="radioLevel2" class="btn btn-outline-secondary">
+                <label for="radioLevel2" class="btn btn-outline-light">
                   6 {t}letters{/t}
                 </label>
 
                 <input id="radioLevel3" type="radio" class="btn-check" name="level" value="3">
-                <label for="radioLevel3" class="btn btn-outline-secondary">
+                <label for="radioLevel3" class="btn btn-outline-light">
                   7 {t}letters{/t}
                 </label>
               </div>
@@ -94,12 +94,12 @@
 
               <div class="btn-group" role="group">
                 <input id="radioDia0" type="radio" class="btn-check" name="useDiacritics" value="0" checked>
-                <label for="radioDia0" class="btn btn-outline-secondary">
+                <label for="radioDia0" class="btn btn-outline-light">
                   {t}no{/t}
                 </label>
 
                 <input id="radioDia1" type="radio" class="btn-check" name="useDiacritics" value="1">
-                <label for="radioDia1" class="btn btn-outline-secondary">
+                <label for="radioDia1" class="btn btn-outline-light">
                   {t}yes{/t}
                 </label>
               </div>
@@ -120,7 +120,7 @@
                     name="seconds"
                     value="{$time-1}"
                     {if $time == 3}checked{/if}>
-                  <label for="radioTime{$time-1}" class="btn btn-outline-secondary">
+                  <label for="radioTime{$time-1}" class="btn btn-outline-light">
                     {t count=$time 1=$time plural="%1 minutes"}one minute{/t}
                   </label>
                 {/for}

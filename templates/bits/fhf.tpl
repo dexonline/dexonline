@@ -8,18 +8,18 @@
 {$autofocus=$autofocus|default:false}
 {$readonly=$readonly|default:false}
 {$col=$col|default:2}
-<div class="form-group {if isset($errors.$field)}has-error{/if}">
+<div class="row">
   <label for="{$field}" class="col-md-{$col} control-label">{$label}</label>
   <div class="col-md-{12-$col}">
     <input type="{$type}"
-           {if $step}step="{$step}"{/if}
-           class="form-control"
-           id="{$field}"
-           name="{$field}"
-           value="{$value|escape}"
-           placeholder="{$placeholder}"
-           {if $autofocus}autofocus{/if}
-           {if $readonly}readonly{/if}>
+      {if $step}step="{$step}"{/if}
+      class="form-control {if isset($errors.$field)}is-invalid{/if}"
+      id="{$field}"
+      name="{$field}"
+      value="{$value|escape}"
+      placeholder="{$placeholder}"
+      {if $autofocus}autofocus{/if}
+      {if $readonly}readonly{/if}>
     {include "bits/fieldErrors.tpl" errors=$errors.$field|default:null}
   </div>
 </div>

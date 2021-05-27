@@ -215,7 +215,7 @@
       disabled
       title="doar structuriștii pot modifica intrările structurate"
       {/if}>
-      <i class="glyphicon glyphicon-resize-small"></i>
+      {include "bits/icon.tpl" i=merge_type}
       unifică cu...
     </button>
 
@@ -321,7 +321,7 @@
 
           <div class="modal-footer">
             <button type="submit" class="btn btn-primary" name="mergeButton">
-              <i class="glyphicon glyphicon-resize-small"></i>
+              {include "bits/icon.tpl" i=merge_type}
               unifică
             </button>
             <button type="button" class="btn btn-link" data-bs-dismiss="modal">renunță</button>

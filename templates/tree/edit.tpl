@@ -47,18 +47,29 @@
     </li>
   </ul>
 
-  <form class="form-horizontal" method="post" role="form">
+  <form method="post" role="form">
     <input type="hidden" name="id" value="{$t->id}">
     <input type="hidden" name="jsonMeanings" value="">
 
     <div class="row">
-      <div class="col-md-6">
-        {include "bits/fhf.tpl" field="description" value=$t->description label="descriere"}
-
-        <div class="form-group {if isset($errors.status)}has-error{/if}">
-          <label class="col-md-2 control-label">stare</label>
+      <div class="col-lg">
+        <div class="row mb-2">
+          <label class="col-md-2 col-form-label">descriere</label>
           <div class="col-md-10">
-            <select name="status" class="form-control">
+            <input type="text"
+              class="form-control {if isset($errors.description)}is-invalid{/if}"
+              name="description"
+              value="{$t->description|escape}">
+            {include "bits/fieldErrors.tpl" errors=$errors.description|default:null}
+          </div>
+        </div>
+
+        <div class="row mb-2">
+          <label class="col-md-2 col-form-label">stare</label>
+          <div class="col-md-10">
+            <select
+              name="status"
+              class="form-select {if isset($errors.status)}is-invalid{/if}">
               {foreach Tree::STATUS_NAMES as $i => $s}
                 <option value="{$i}" {if $i == $t->status}selected{/if}>{$s}</option>
               {/foreach}
@@ -69,9 +80,9 @@
 
       </div>
 
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="entryIds" class="col-md-2 control-label">intrări</label>
+      <div class="col-lg">
+        <div class="row mb-2">
+          <label class="col-md-2 col-form-label">intrări</label>
           <div class="col-md-10">
             <select id="entryIds" name="entryIds[]" style="width: 100%" multiple>
               {foreach $entryIds as $e}
@@ -81,15 +92,15 @@
 
             Tipuri de model:
             {foreach $modelTypes as $mt}
-              <span class="label label-default">{$mt->modelType}</span>
+              <span class="badge bg-secondary">{$mt->modelType}</span>
             {/foreach}
           </div>
         </div>
 
-        <div class="form-group">
-          <label class="col-md-2 control-label">etichete</label>
+        <div class="row mb-2">
+          <label class="col-md-2 col-form-label">etichete</label>
           <div class="col-md-10">
-            <select id="tagIds" name="tagIds[]" class="form-control select2Tags" multiple>
+            <select id="tagIds" name="tagIds[]" class="form-select select2Tags" multiple>
               {foreach $tagIds as $tagId}
                 <option value="{$tagId}" selected></option>
               {/foreach}
@@ -104,15 +115,17 @@
         </div>
 
         {if $homonyms}
-          <div class="form-group">
+          <div class="row mb-2">
             <label class="col-md-2">omonime</label>
             <div class="col-md-10">
 
-              {foreach $homonyms as $h}
-                <div>
-                  <a href="{Router::link('tree/edit')}?id={$h->id}">{$h->description}</a>
-                </div>
-              {/foreach}
+              <ul class="list-inline list-inline-bullet">
+                {foreach $homonyms as $h}
+                  <li class="list-inline-item">
+                    <a href="{Router::link('tree/edit')}?id={$h->id}">{$h->description}</a>
+                  </li>
+                {/foreach}
+              </ul>
 
             </div>
           </div>
@@ -121,42 +134,40 @@
       </div>
     </div>
 
-    <div class="form-group">
-      <div class="col-md-offset-1 col-md-11">
-        <button type="submit" class="btn btn-success" name="saveButton">
-          <i class="glyphicon glyphicon-floppy-disk"></i>
-          <u>s</u>alvează
-        </button>
+    <div class="mb-3">
+      <button type="submit" class="btn btn-primary" name="saveButton">
+        {include "bits/icon.tpl" i=save}
+        <u>s</u>alvează
+      </button>
 
-        <button type="button"
-          class="btn btn-default"
-          {if !count($entryTrees)}disabled{/if}
-          data-bs-toggle="modal"
-          data-bs-target="#mergeModal">
-          <i class="glyphicon glyphicon-resize-small"></i>
-          unifică cu...
-        </button>
+      <button type="button"
+        class="btn btn-light"
+        {if !count($entryTrees)}disabled{/if}
+        data-bs-toggle="modal"
+        data-bs-target="#mergeModal">
+        {include "bits/icon.tpl" i=merge_type}
+        unifică cu...
+      </button>
 
-        <button type="submit" class="btn btn-default" name="cloneButton">
-          <i class="glyphicon glyphicon-duplicate"></i>
-          clonează
-        </button>
+      <button type="submit" class="btn btn-light" name="cloneButton">
+        {include "bits/icon.tpl" i=content_copy}
+        clonează
+      </button>
 
-        <a class="btn btn-link" href="{if $t->id}?id={$t->id}{/if}">
-          anulează
-        </a>
+      <a class="btn btn-link" href="{if $t->id}?id={$t->id}{/if}">
+        anulează
+      </a>
 
-        <button type="submit"
-          class="btn btn-danger pull-right"
-          name="delete"
-          {if !$canDelete}
-          disabled
-          title="Nu puteți șterge acest arbore, deoarece el are sensuri, mențiuni și/sau relații."
-          {/if}>
-          <i class="glyphicon glyphicon-trash"></i>
-          șterge
-        </button>
-      </div>
+      <button type="submit"
+        class="btn btn-outline-danger float-end"
+        name="delete"
+        {if !$canDelete}
+        disabled
+        title="Nu puteți șterge acest arbore, deoarece el are sensuri, mențiuni și/sau relații."
+        {/if}>
+        {include "bits/icon.tpl" i=delete}
+        șterge
+      </button>
     </div>
 
   </form>
@@ -180,7 +191,7 @@
               Iată arborii asociați cu oricare din intrările acestui arbore.
             </p>
             <input type="hidden" name="id" value="{$t->id}">
-            <select name="mergeTreeId" class="form-control">
+            <select name="mergeTreeId" class="form-select">
               {foreach $entryTrees as $other}
                 <option value="{$other->id}">{$other->description}</option>
               {/foreach}
@@ -189,7 +200,7 @@
 
           <div class="modal-footer">
             <button type="submit" class="btn btn-primary" name="mergeButton">
-              <i class="glyphicon glyphicon-resize-small"></i>
+              {include "bits/icon.tpl" i=merge_type}
               unifică
             </button>
             <button type="button" class="btn btn-link" data-bs-dismiss="modal">renunță</button>
@@ -200,10 +211,10 @@
   </div>
 
   {if count($relatedMeanings)}
-    <div class="panel panel-default">
-      <div class="panel-heading">Arbori în relație cu acesta</div>
+    <div class="card mb-3">
+      <div class="card-header">Arbori în relație cu acesta</div>
 
-      <table class="table table-condensed table-bordered">
+      <table class="table table-sm mb-0">
         <thead>
           <tr>
             <th>arbore</th>
@@ -238,12 +249,12 @@
   {/if}
 
   {if count($treeMentions)}
-    <div class="panel panel-default">
-      <div class="panel-heading">
+    <div class="card mb-3">
+      <div class="card-header">
         {$treeMentions|count} mențiuni despre acest arbore
       </div>
 
-      <table class="table table-condensed table-bordered">
+      <table class="table table-sm mb-0">
         <thead>
           <tr>
             <th>arbore-sursă</th>
@@ -266,12 +277,12 @@
   {/if}
 
   {if count($meaningMentions)}
-    <div class="panel panel-default">
-      <div class="panel-heading">
+    <div class="card mb-3">
+      <div class="card-header">
         {$meaningMentions|count} mențiuni despre sensuri din acest arbore
       </div>
 
-      <table class="table table-condensed table-bordered">
+      <table class="table table-sm mb-0">
         <thead>
           <tr>
             <th>arbore-sursă</th>
@@ -295,7 +306,7 @@
                   title="șterge mențiunea din sensul-sursă, lăsând restul sensului intact"
                   data-mention-id="{$m->mentionId}"
                   data-meaning-id="{$m->destId}">
-                  <i class="glyphicon glyphicon-trash"></i>
+                  {include "bits/icon.tpl" i=delete}
                 </a>
               </td>
             </tr>
@@ -305,32 +316,34 @@
     </div>
   {/if}
 
-  <div class="panel panel-default">
-    <div class="panel-heading">Sensuri</div>
-    <div class="panel-body">
+  <div class="card mb-3">
+    <div class="card-header">Sensuri</div>
+    <div class="card-body">
       <div class="treeWrapper">
         {include "bits/editableMeaningTree.tpl"
           meanings=$t->getMeanings()
           id="meaningTree"}
       </div>
 
+      <hr class="my-2">
+
       <div>
         {if $canEdit}
-          <div class="btn-group">
+          <div class="btn-group me-2">
             <button type="button"
-              class="btn btn-sm btn-default btn-add-meaning"
+              class="btn btn-sm btn-light btn-add-meaning"
               data-type="{Meaning::TYPE_MEANING}"
               title="Adaugă un sens ca frate al sensului selectat. Dacă nici un sens nu este selectat, adaugă un sens la sfârșitul listei.">
-              <i class="glyphicon glyphicon-plus"></i>
+              {include "bits/icon.tpl" i=add}
               sens
             </button>
             <button type="button"
-              class="btn btn-sm btn-default btn-add-meaning meaningAction"
+              class="btn btn-sm btn-light btn-add-meaning meaningAction"
               disabled
               data-type="{Meaning::TYPE_MEANING}"
               data-submeaning="1"
               title="Adaugă un sens ca primul fiu al sensului selectat">
-              <i class="glyphicon glyphicon-triangle-bottom"></i>
+              {include "bits/icon.tpl" i=subdirectory_arrow_right}
               subsens
             </button>
             <button type="button"
@@ -338,49 +351,49 @@
               disabled
               data-type="{Meaning::TYPE_EXAMPLE}"
               title="Adaugă un subsens-exemplu la sensul selectat. Dacă sensul selectat este el însuși exemplu, adaugă un frate.">
-              <i class="glyphicon glyphicon-paperclip"></i>
+              {include "bits/icon.tpl" i=attach_file}
               exemplu
             </button>
           </div>
 
-          <div class="btn-group">
+          <div class="btn-group me-2">
             <button type="button"
-              class="btn btn-sm btn-default meaningAction"
+              class="btn btn-sm btn-light meaningAction"
               id="meaningLeftButton"
               disabled
               title="Sensul devine fratele următor al tatălui său.">
-              <i class="glyphicon glyphicon-arrow-left"></i>
+              {include "bits/icon.tpl" i=chevron_left}
             </button>
             <button type="button"
-              class="btn btn-sm btn-default meaningAction"
+              class="btn btn-sm btn-light meaningAction"
               id="meaningRightButton"
               disabled
               title="Sensul devine fiu al fratelui său anterior.">
-              <i class="glyphicon glyphicon-arrow-right"></i>
+              {include "bits/icon.tpl" i=chevron_right}
             </button>
             <button type="button"
-              class="btn btn-sm btn-default meaningAction"
+              class="btn btn-sm btn-light meaningAction"
               id="meaningDownButton"
               disabled
               title="Sensul schimbă locurile cu fratele său următor.">
-              <i class="glyphicon glyphicon-arrow-down"></i>
+              {include "bits/icon.tpl" i=expand_more}
             </button>
             <button type="button"
-              class="btn btn-sm btn-default meaningAction"
+              class="btn btn-sm btn-light meaningAction"
               id="meaningUpButton"
               disabled
               title="Sensul schimbă locurile cu fratele său anterior.">
-              <i class="glyphicon glyphicon-arrow-up"></i>
+              {include "bits/icon.tpl" i=expand_less}
             </button>
           </div>
 
-          <div class="btn-group">
+          <div class="btn-group me-2">
             <button type="button"
               class="btn btn-sm btn-add-meaning btn-color1 meaningAction"
               disabled
               data-type="{Meaning::TYPE_ETYMOLOGY}"
               title="Adaugă un subsens-etimologie la sensul selectat. Dacă sensul selectat este el însuși etimologie, adaugă un frate.">
-              <i class="glyphicon glyphicon-ruble"></i>
+              {include "bits/icon.tpl" i=translate}
               etimologie
             </button>
             <button type="button"
@@ -388,7 +401,7 @@
               disabled
               data-type="{Meaning::TYPE_COMMENT}"
               title="Adaugă un subsens-comentariu la sensul selectat. Dacă sensul selectat este el însuși comentariu, adaugă un frate.">
-              <i class="glyphicon glyphicon-comment"></i>
+              {include "bits/icon.tpl" i=comment}
               comentariu
             </button>
             <button type="button"
@@ -396,18 +409,18 @@
               disabled
               data-type="{Meaning::TYPE_DIFF}"
               title="Adaugă un subsens-diferențiere la sensul selectat. Dacă sensul selectat este el însuși diferențiere, adaugă un frate.">
-              <i class="glyphicon glyphicon-resize-horizontal"></i>
+              {include "bits/icon.tpl" i=swap_horiz}
               diferențiere
             </button>
           </div>
 
           <div class="btn-group">
             <button type="button"
-              class="btn btn-sm btn-default meaningAction"
+              class="btn btn-sm btn-light meaningAction"
               id="cloneMeaningButton"
               disabled
               title="Clonează sensul selectat">
-              <i class="glyphicon glyphicon-duplicate"></i>
+              {include "bits/icon.tpl" i=content_copy}
               clonează sens
             </button>
           </div>
@@ -416,11 +429,10 @@
             <button type="button"
               class="btn btn-sm btn-danger meaningAction"
               id="deleteMeaningButton"
-              data-bs-toggle="popover"
               role="button"
               tabindex="0"
               disabled>
-              <i class="glyphicon glyphicon-trash"></i>
+              {include "bits/icon.tpl" i=delete}
               șterge sens
             </button>
           </div>
@@ -428,12 +440,12 @@
           <div id="deletePopoverContent" style="display: none">
             <button type="button"
               class="btn btn-sm btn-danger meaningAction deleteMeaningConfirmButton">
-              <i class="glyphicon glyphicon-trash"></i>
+              {include "bits/icon.tpl" i=delete}
               confirm
             </button>
             <button type="button"
-              class="btn btn-sm btn-default meaningAction deleteMeaningCancelButton">
-              <i class="glyphicon glyphicon-remove"></i>
+              class="btn btn-sm btn-light meaningAction deleteMeaningCancelButton">
+              {include "bits/icon.tpl" i=clear}
               m-am răzgândit
             </button>
           </div>
@@ -444,14 +456,14 @@
   </div>
 
   {if $canEdit}
-    <div class="panel panel-default">
-      <div class="panel-heading">Editorul de sensuri</div>
-      <div class="panel-body">
+    <div class="card">
+      <div class="card-header">Editorul de sensuri</div>
+      <div class="card-body">
 
-        <form class="form-horizontal">
+        <form>
 
-          <div class="form-group">
-            <label class="col-md-1 control-label" for="editorSources">surse</label>
+          <div class="row mb-3">
+            <label class="col-md-1 col-form-label" for="editorSources">surse</label>
 
             <div class="col-md-7">
               {include "bits/frequentObjects.tpl"
@@ -472,8 +484,8 @@
 
           </div>
 
-          <div class="form-group">
-            <label class="col-md-1 control-label" for="editorTags">etichete</label>
+          <div class="row mb-3">
+            <label class="col-md-1 col-form-label" for="editorTags">etichete</label>
 
             <div class="col-md-7">
               {include "bits/frequentObjects.tpl"
@@ -489,25 +501,28 @@
             </div>
           </div>
 
-          <div class="form-group">
-            <label class="col-md-1 control-label">tip</label>
+          <div class="row mb-3">
+            <label class="col-md-1">tip</label>
 
             <div class="col-md-11">
               {foreach Meaning::FIELD_NAMES as $i => $tn}
-                <label class="radio-inline">
-                  <input type="radio"
-                    name="editorType"
-                    class="editorObj editorType"
-                    value="{$i}"
-                    disabled>
-                  {$tn}
-                </label>
+                <div class="form-check form-check-inline">
+                  <label class="form-check-label">
+                    <input
+                      type="radio"
+                      name="editorType"
+                      class="editorObj editorType form-check-input"
+                      value="{$i}"
+                      disabled>
+                    {$tn}
+                  </label>
+                </div>
               {/foreach}
             </div>
           </div>
 
-          <div class="form-group">
-            <label class="col-md-1 control-label" for="editorRep">sens</label>
+          <div class="row mb-3">
+            <label class="col-md-1 col-form-label" for="editorRep">sens</label>
 
             <div class="col-md-11">
               <textarea id="editorRep"
@@ -517,29 +532,31 @@
             </div>
           </div>
 
-          <div class="form-group">
-            <label class="col-md-1 control-label">relații</label>
+          <div class="row mb-3">
+            <label class="col-md-1">relații</label>
 
             <div class="col-md-11">
               <div>
                 {foreach Relation::TYPE_NAMES as $i => $tn}
-                  <label class="radio-inline">
+                  <div class="form-check form-check-inline">
+                    <label class="form-check-label">
                     <input type="radio"
                       name="relationType"
-                      class="relationType editorObj"
+                      class="relationType editorObj form-check-input"
                       value="{$i}"
                       disabled
                       {if $i == 1}checked{/if}>
                     {$tn}
-                  </label>
+                    </label>
+                  </div>
                 {/foreach}
               </div>
 
               <div>
                 {for $type=1 to Relation::NUM_TYPES}
-                  <span class="relationWrapper {if $type != 1}hidden{/if}" data-type="{$type}">
+                  <span class="relationWrapper" {if $type != 1}hidden{/if} data-type="{$type}">
                     <select
-                      class="form-control editorRelation select2Trees editorObj"
+                      class="form-select editorRelation select2Trees editorObj"
                       multiple
                       disabled>
                     </select>

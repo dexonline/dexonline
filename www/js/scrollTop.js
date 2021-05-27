@@ -1,16 +1,16 @@
 $(function() {
 
-  const BUTTON_ID = 'scrollTopButton';
   const THRESHOLD = 100; // distance from the top that causes the button to appear
+
+  var button;
 
   function init() {
     // create the button
-    var button = $('<button><i class="glyphicon glyphicon-chevron-up"></i></button>')
-        .attr({
-          id: BUTTON_ID,
-          title: 'înapoi sus',
-        });
-    $('body').append(button);
+    button = $(
+      '<button id="scrollTopButton" title="înapoi sus" class="btn btn-dark" type="button">' +
+        '<i class="material-icons">expand_less</i>' +
+        '</button>'
+    ).appendTo($('body'));
 
     window.onscroll = scrollHandler;
     button.click(function() { $(window).scrollTop(0); });
@@ -18,9 +18,9 @@ $(function() {
 
   function scrollHandler() {
     if ($(window).scrollTop() >= THRESHOLD) {
-      $('#' + BUTTON_ID).show();
+      button.show();
     } else {
-      $('#' + BUTTON_ID).hide();
+      button.hide();
     }
   }
 

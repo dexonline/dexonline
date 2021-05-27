@@ -9,6 +9,12 @@ pre {
   white-space: pre-wrap;
 }
 
+.list-inline-bullet li:not(:first-child):before {
+  content: '•';
+  opacity: 0.5; /* don't force a color, use opacity instead */
+  padding-right: 8px;
+}
+
 
 /*********** navbar and its elements ***********/
 

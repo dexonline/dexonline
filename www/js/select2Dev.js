@@ -166,8 +166,9 @@ function formatLexemeWithEditLink(lexeme) {
     html = lexeme.text;
   } else {
     html = lexeme.text +
-      ' <a class="glyphicon glyphicon-pencil" href="' + wwwRoot +
-      'editare-lexem?lexemeId=' + lexeme.id + '"></a>';
+      ' <a href="' + wwwRoot + 'editare-lexem?lexemeId=' + lexeme.id + '">' +
+      '<span class="material-icons">edit</span>'+
+      '</a>';
   }
 
   if ((lexeme.consistentAccent == '0') ||
@@ -185,8 +186,9 @@ function formatEntryWithEditLink(entry) {
     // don't show an edit link for soon-to-be created entries
     var link = '';
   } else {
-    var link = ' <a class="glyphicon glyphicon-pencil" href="' + wwwRoot +
-      'editare-intrare?id=' + entry.id + '"></a>';
+    var link = ' <a href="' + wwwRoot + 'editare-intrare?id=' + entry.id + '">' +
+        '<span class="material-icons">edit</span>'+
+        '</a>';
   }
 
   return $('<span>' + entry.text + link + '</span>');

@@ -9,7 +9,7 @@
 {$pull=$pull|default:'pull-right'}
 <div class="clearfix">
   <div
-    class="btn-toolbar {$pull} voffset frequentObjects"
+    class="btn-toolbar {$pull} frequentObjects"
     data-name="{$name}"
     data-type="{$type}"
     data-target="{$target}"

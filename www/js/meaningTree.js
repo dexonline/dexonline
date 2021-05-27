@@ -8,6 +8,7 @@ $(function() {
   var editable = $('#editable').length;
   var clickedButton = null; // which submit button was clicked?
   var sourceQuery = {};
+  var deletePopover = null;
 
   function init() {
     if (editable) {
@@ -52,6 +53,14 @@ $(function() {
       });
     $('.meaningAction').click(function() {
       anyChanges = true;
+    });
+
+    deletePopover = new bootstrap.Popover($('#deleteMeaningButton'), {
+      container: 'body',
+      content: $('#deletePopoverContent').html(),
+      html: true,
+      sanitize: false,
+      trigger: 'click',
     });
 
     $('#editorRep').textcomplete([
@@ -432,7 +441,7 @@ $(function() {
     // show the relevant select box...
     $('.relationWrapper').hide();
     var input = $('.relationWrapper[data-type="' + $(this).val() + '"]');
-    input.removeClass('hidden').show();
+    input.removeAttr('hidden').show();
 
     // ... and focus it if the event was caused by a user click (not
     // programmatically by changing meanings).
@@ -542,15 +551,8 @@ $(function() {
     return false;
   }
 
-  // Compensate for a bug in Bootstrap 3.3.7:
-  // https://github.com/twbs/bootstrap/issues/16732
   function hidePopover() {
-    $('.popover').fadeOut('slow').popover('hide');
-    if ($.fn.popover.Constructor.VERSION == "3.3.7") {
-      $('[data-toggle="popover"]').on("hidden.bs.popover", function() {
-        $(this).data("bs.popover").inState.click = false
-      });
-    }
+    deletePopover.hide();
   }
 
   init();

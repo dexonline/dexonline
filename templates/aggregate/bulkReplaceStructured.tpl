@@ -4,7 +4,11 @@
 {block "title"}Lista intrărilor{/block}
 
 {block "content"}
-  <h3>Lista {if !$finished}temporară a {/if}definițiilor structurate modificate și a intrărilor posibil afectate de înlocuirea în masă</h3>
+  <h3>
+    Lista {if !$finished}temporară a{/if} definițiilor structurate modificate
+    și a intrărilor posibil afectate de înlocuirea în masă
+  </h3>
+
   {if $finished}
     <div class="alert alert-danger">
       Accesarea <b>directă</b>, exceptând modalitățile de deschidere în altă
@@ -18,43 +22,42 @@
       închide oricând această filă.
     </div>
   {/if}
-  <div class="panel-admin">
-    <div class="panel panel-default">
-      <div class="panel-heading clearfix" id="panel-heading">
-      <div class="pull-right">
-        <span>Coduri de culoare intrări:</span>
-        <label class="btn btn-primary btn-xs">Terminată</label>
-        <label class="btn btn-warning btn-xs">În lucru</label>
-      </div>
 
-        <i class="glyphicon glyphicon-user"></i>
+  <div class="card mb-3">
+    <div class="card-header d-flex align-items-center">
+      <span class="flex-grow-1">
+        {include "bits/icon.tpl" i=person}
         {$modUser}
-      </div>
+      </span>
 
-      <div class="panel-body" id="panel-body">
-        {foreach $defResults as $row}
-          {$objId=$row->definition->id}
+      <span>Legendă intrări:</span>
+      <label class="btn btn-primary btn-sm ms-2">terminată</label>
+      <label class="btn btn-warning btn-sm ms-2">în lucru</label>
+    </div>
 
-          {include "bits/definition.tpl" showStatus=1 showFlagTypo=1 showUser=0}
+    <div class="card-body">
+      {foreach $defResults as $row}
+        {$objId=$row->definition->id}
 
-          <div class="entryWrapper">
-            {foreach $entryResults[$objId] as $entry}
-              {$btnClass = "btn btn-{if $entry->structStatus==4}primary
-                                    {else}warning{/if} btn-xs"}
-              {include "bits/entry.tpl" editLink=1 editLinkClass=$btnClass target="_blank"}
-            {/foreach}
-          </div>
-        {/foreach}
-      </div>
+        {include "bits/definition.tpl" showStatus=1 showFlagTypo=1 showUser=0}
 
-      <div class="panel-footer">
-      </div>
+        <div class="entryWrapper">
+          {foreach $entryResults[$objId] as $entry}
+            {$btnClass = "{if $entry->structStatus==4}primary{else}warning{/if}"}
+            {include "bits/entry.tpl"
+              editLink=1
+              editLinkClass="btn btn-sm btn-{$btnClass}"
+              target="_blank"}
+          {/foreach}
+        </div>
+      {/foreach}
     </div>
   </div>
+
   {if $finished}
-  <a href="{Router::link('aggregate/dashboard')}" class="btn btn-primary">
-      <i class="glyphicon glyphicon-step-backward"></i>
+    <a href="{Router::link('aggregate/dashboard')}" class="btn btn-link">
+      {include "bits/icon.tpl" i=arrow_back}
       înapoi la pagina moderatorului
-  </a>
+    </a>
   {/if}
 {/block}

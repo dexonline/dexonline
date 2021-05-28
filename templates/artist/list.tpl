@@ -6,7 +6,7 @@
 
   <h3>Autori ai imaginilor</h3>
 
-  <table class="table table-condensed table-striped">
+  <table class="table table-sm">
     <tr>
       <th>nume</th>
       <th>activ</th>
@@ -17,7 +17,7 @@
     {foreach $artists as $a}
       <tr>
         <td>{$a->name}</td>
-        <td>{if not $a->hidden}<span class="glyphicon glyphicon-check"></span>{/if}</td>
+        <td>{if !$a->hidden}{include "bits/icon.tpl" i=done}{/if}</td>
         <td>{$a->email}</td>
         <td>{$a->label}</td>
         <td>
@@ -30,8 +30,8 @@
     {/foreach}
   </table>
 
-  <a class="btn btn-default" href="{Router::link('artist/edit')}">
-    <i class="glyphicon glyphicon-plus"></i>
+  <a class="btn btn-primary" href="{Router::link('artist/edit')}">
+    {include "bits/icon.tpl" i=add}
     adaugă un autor
   </a>
 

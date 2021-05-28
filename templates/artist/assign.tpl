@@ -11,9 +11,13 @@
   </p>
 
   <div class="row">
-    <div class="col-sm-6">
-      <table class="table table-hover table-responsive table-condensed table-bordered" id="artists">
-        <caption class="table-caption text-center">autori</caption>
+    <div class="col">
+      <table class="table table-hover" id="artists">
+        <thead>
+          <tr>
+            <th scope="col">autori</th>
+          </tr>
+        </thead>
         <tbody>
           {foreach $artists as $a}
           {if not $a->hidden}
@@ -32,16 +36,33 @@
         </tbody>
       </table>
     </div>
-    <div class="col-sm-6">
-      <table class="table table-responsive table-condensed table-bordered" id="calendar">
-        <caption class="table-caption text-center">
-          <span class="pull-left glyphicon glyphicon-chevron-left monthNav prevMonth" data-delta="-1"></span>
-          <span id="monthName"></span>
-          <span class="pull-right glyphicon glyphicon-chevron-right monthNav nextMonth" data-delta="1"></span>
-        </caption>
+
+    <div class="col">
+      <table class="table table-condensed" id="calendar">
+        <thead>
+          <tr>
+            <th colspan="2">
+              <div class="d-flex justify-content-between">
+                <button
+                  type="button"
+                  class="btn btn-sm btn-light py-0 monthNav"
+                  data-delta="-1">
+                  {include "bits/icon.tpl" i=chevron_left}
+                </button>
+                <span id="monthName"></span>
+                <button
+                  type="button"
+                  class="btn btn-sm btn-light py-0 monthNav"
+                  data-delta="1">
+                  {include "bits/icon.tpl" i=chevron_right}
+                </button>
+              </div>
+            </th>
+          </tr>
+        </thead>
         <tbody>
           <tr id="stem" class="calendarRow">
-            <td class="day"></td>
+            <td class="day w-25"></td>
             <td class="artist"></td>
           </tr>
         </tbody>

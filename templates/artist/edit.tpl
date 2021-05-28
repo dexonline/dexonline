@@ -9,8 +9,8 @@
 {/block}
 
 {block "content"}
-  <div class="panel panel-default">
-    <div class="panel-heading">
+  <div class="card mb-3">
+    <div class="card-header">
       {if $artist->id}
         Editare autor
       {else}
@@ -18,47 +18,76 @@
       {/if}
     </div>
 
-    <div class="panel-body">
+    <div class="card-body">
       <form method="post">
         <input type="hidden" name="id" value="{$artist->id}">
 
-        <div class="form-group">
-          <label>Nume</label>
-          <input type="text" name="name" value="{$artist->name}" size="50" class="form-control">
+        <div class="mb-3">
+          <label class="form-label">Nume</label>
+          <input
+            type="text"
+            name="name"
+            value="{$artist->name}"
+            class="form-control">
         </div>
-        <div class="form-group">
-          <label>E-mail</label>
-          <input type="text" name="email" value="{$artist->email}" size="50" class="form-control">
+        <div class="mb-3">
+          <label class="form-label">E-mail</label>
+          <input
+            type="text"
+            name="email"
+            value="{$artist->email}"
+            class="form-control">
         </div>
-        <div class="form-group">
-          <label>Cod</label>
-          <input type="text" name="label" value="{$artist->label}" size="30" class="form-control">
+        <div class="mb-3">
+          <label class="form-label">Cod</label>
+          <input
+            type="text"
+            name="label"
+            value="{$artist->label}"
+            class="form-control">
         </div>
-        <div class="form-group">
-          <label>Credite</label>
-          <input type="text" name="credits" value="{$artist->credits|escape}" size="80" class="form-control">
+        <div class="mb-3">
+          <label class="form-label">Credite</label>
+          <input
+            type="text"
+            name="credits"
+            value="{$artist->credits|escape}"
+            class="form-control">
         </div>
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" name="hidden" {if $artist->hidden}checked{/if}>
-            hidden
-          </label>
-        </div>
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" name="sponsor" {if $artist->sponsor}checked{/if}>
-            sponsor
-            <p class="help-block">
-              sponsorii nu sunt asignați automat în lunile viitoare
-            </p>
+
+        <div class="form-check">
+          <label class="form-check-label">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              name="hidden"
+              {if $artist->hidden}checked{/if}>
+            ascuns
           </label>
         </div>
 
-        <button class="btn btn-success" type="submit" name="saveButton">
-          <i class="glyphicon glyphicon-floppy-disk"></i>
+        <div class="form-check mb-3">
+          <label class="form-check-label">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              name="sponsor"
+              {if $artist->sponsor}checked{/if}>
+            sponsor
+          </label>
+          <div class="form-text">
+            sponsorii nu sunt asignați automat în lunile viitoare
+          </div>
+        </div>
+
+        <button class="btn btn-primary" type="submit" name="saveButton">
+          {include "bits/icon.tpl" i=save}
           <u>s</u>alvează
         </button>
-        <a class="btn btn-link" href="{Router::link('artist/list')}">înapoi la lista de autori</a>
+        <a class="btn btn-link" href="{Router::link('artist/list')}">
+          {include "bits/icon.tpl" i=arrow_back}
+          înapoi la lista de autori
+        </a>
 
       </form>
     </div>

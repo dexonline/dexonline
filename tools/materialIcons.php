@@ -29,6 +29,7 @@ const CODEPOINTS = [
   'expand_less',
   'expand_more',
   'favorite',
+  'filter_alt',
   'flag',
   'help',
   'history',

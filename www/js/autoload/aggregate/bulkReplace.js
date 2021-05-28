@@ -1,29 +1,39 @@
 $(document).ready(function () {
 
-  // toggle checked/unchecked for all checkboxes in list 
-  // according to secondClass ( structured : unstructured)
+  var objCount = parseInt($('#chng').text());
+  var checkboxes = {
+    structured : $('.objCheckbox[data-type="structured"]').length,
+    unstructured : $('.objCheckbox[data-type="unstructured"]').length,
+  };
+  var unchecked = {
+    structured : 0,
+    unstructured : 0,
+  };
+
+  // toggle all checkboxes in list according to type (structured /
+  // unstructured)
   $('.toggleAll').change(function () {
-    var secondClass = this.className.split(' ')[1];
+    var type = $(this).data('type');
     var status = $(this).is(':checked');
-    toggleAll(secondClass, status);
-    unchecked[secondClass] = status ? 0 : checkboxes[secondClass];
+    $('.objCheckbox[data-type="' + type + '"]').prop('checked', status);
+    unchecked[type] = status ? 0 : checkboxes[type];
     changeFields();
   });
 
   // counting unchecked objects, changing some fields accordingly
   $('.objCheckbox').change(function () {
-    var secondClass = this.className.split(' ')[1];
-    var count = countUnchecked('.' + secondClass);
-    unchecked[secondClass] = count;
-    $('.toggleAll' + '.' + (secondClass)).prop('checked', !count);
+    var type = $(this).data('type');
+    unchecked[type] += $(this).is(':checked') ? -1 : +1;
+    var global = $('.toggleAll[data-type="' + type + '"]');
+    global.prop('checked', !unchecked[type]);
     changeFields();
   });
 
   // toggle between DeletionsOnly, InsertionsOnly and All modifications
   $('input[name="radiodiff"]').click(function () {
     var selValue = $(this).val();
-    $('#panel-body ins').toggle(selValue != 'del');
-    $('#panel-body del').toggle(selValue != 'ins');
+    $('#card-body ins').toggle(selValue != 'del');
+    $('#card-body del').toggle(selValue != 'ins');
   });
 
   // getting the array for unchecked objects to be excluded from replace
@@ -34,21 +44,6 @@ $(document).ready(function () {
     $('input[name="excludedIds"]').val(uncheckedIds);
   });
 
-  // setting variables
-  var objCount = parseInt($('#chng').text());
-  var checkboxes = { structured : $('.objCheckbox.structured').length, 
-                     unstructured : $('.objCheckbox.unstructured').length};
-  var unchecked = { structured : 0, 
-                    unstructured : 0 };
-  
-  function countUnchecked(cls) {
-    return $('.objCheckbox' + cls).not(':checked').length;
-  }
-
-  function toggleAll(secondClass, status) {
-    $('.objCheckbox' + '.' + secondClass).prop('checked', status);
-  }
-
   function changeFields() {
     var checkedCount = objCount - unchecked['structured'] - unchecked['unstructured'];
     $('#chng').text(checkedCount);
@@ -58,19 +53,5 @@ $(document).ready(function () {
   function hideAmountPreposition(amount) {
     return (amount % 100) < 20;
   }
-  
-  function disableCheck(secondClass){
-    $('.toggleAll'+'.'+secondClass).prop('disabled', true).removeProp('checked');
-  }
-  
-  // counting checkboxes
-  if (checkboxes['structured'] === 0) { 
-    $('#labelStructured').addClass('disabled'); 
-    disableCheck('structured');
-  }
-  if (checkboxes['unstructured'] === 0) { 
-    $('#labelUnstructured').addClass('disabled'); 
-    disableCheck('unstructured');
-  }
-  
+
 });

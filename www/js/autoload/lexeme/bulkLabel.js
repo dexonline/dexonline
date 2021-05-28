@@ -1,15 +1,9 @@
 $(function() {
 
-  function init() {
-    $('.modelRadio').click(radioClick);
-  }
-
-  function radioClick() {
+  $('.modelRadio').click(function() {
     // show the corresponding paradigm
-    $(this).closest('.panel-body').find('.paradigm').stop().slideUp();
-    $('#' + $(this).data('paradigmId')).stop().slideDown();
-  }
-
-  init();
+    $(this).closest('.card-body').find('.paradigm').hide();
+    $('#' + $(this).data('paradigmId')).removeAttr('hidden').show();
+  });
 
 });

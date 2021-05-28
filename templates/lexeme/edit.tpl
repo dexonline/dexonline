@@ -407,7 +407,7 @@
     {foreach from=$searchResults key=k item=d}
       <div class="panel panel-default">
         <div class="panel-heading">Definiții pentru intrările unde este lexem {$assocEntry[{$k}]} ({$searchResults[$k]|count})</div>
-        <div class="panel-body panel-admin">
+        <div class="panel-body">
           {foreach $searchResults[$k] as $row}
             {include "bits/definition.tpl" showStatus=1}
           {/foreach}

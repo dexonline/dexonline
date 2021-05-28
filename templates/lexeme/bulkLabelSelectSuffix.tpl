@@ -11,19 +11,19 @@
     numărul de lexeme care au sufixul ales.
   </p>
 
-  <form class="form-inline" action="{Router::link('lexeme/bulkLabel')}">
-    <div class="form-group">
-      <label>sufix</label>
+  <form class="d-flex" action="{Router::link('lexeme/bulkLabel')}">
+    <label class="col-form-label">sufix</label>
 
-      <select class="form-control" name="suffix">
+    <div class="mx-2">
+      <select class="form-select" name="suffix">
         {foreach $stats as $stat}
           <option value="{$stat.0}">{$stat.0} ({$stat.1})</option>
         {/foreach}
       </select>
-
-      <button type="submit" class="btn btn-primary" name="ignored">
-        continuă
-      </button>
     </div>
+
+    <button type="submit" class="btn btn-primary">
+      continuă
+    </button>
   </form>
 {/block}

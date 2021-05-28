@@ -6,8 +6,8 @@
   <h3>Etichetare sufix -{$suffix}</h3>
 
   <p>
-    <a class="btn btn-default" href="{Router::link('lexeme/bulkLabelSelectSuffix')}">
-      <i class="glyphicon glyphicon-arrow-left"></i>
+    <a class="btn btn-link" href="{Router::link('lexeme/bulkLabelSelectSuffix')}">
+      {include "bits/icon.tpl" i=arrow_back}
       înapoi la lista de sufixe
     </a>
   </p>
@@ -31,49 +31,51 @@
   <form class="form-horizontal" method="post">
     <input type="hidden" name="suffix" value="{$suffix|escape}">
     {foreach $lexemes as $lIter => $l}
-      <div class="panel panel-default">
+      <div class="card mb-3">
 
-        <div class="panel-heading">
+        <div class="card-header">
           {$lIter+1}. {$l->formNoAccent|escape}
           <a href="{Router::link('lexeme/edit')}?lexemeId={$l->id}">
-            <i class="glyphicon glyphicon-pencil"></i>
+            {include "bits/icon.tpl" i=edit}
             editează
           </a>
         </div>
 
-        <div class="panel-body">
-          <div class="form-group">
-            <!-- Radio buttons to choose the model. -->
-            <label class="col-md-2 control-label">
+        <div class="card-body">
+          <div class="row mb-2">
+            {** Radio buttons to choose the model. **}
+            <label class="col-md-2">
               model
             </label>
 
-            <div class="col-md-10 form-inline">
+            <div class="col-md-10">
               {foreach $models as $i => $m}
                 {assign var="mId" value="`$m->modelType`_`$m->number`"}
-                <label class="radio">
-                  <input class="modelRadio"
-                         type="radio"
-                         name="lexeme_{$l->id}"
-                         value="{$mId}"
-                         data-paradigm-id="paradigm_{$lIter}_{$i}">
-                  {$m->modelType}{$m->number} ({$m->exponent})
-                </label>
+                <div class="form-check form-check-inline">
+                  <label class="form-check-label">
+                    <input class="form-check-input modelRadio"
+                      type="radio"
+                      name="lexeme_{$l->id}"
+                      value="{$mId}"
+                      data-paradigm-id="paradigm_{$lIter}_{$i}">
+                    {$m->modelType}{$m->number} ({$m->exponent})
+                  </label>
+                </div>
               {/foreach}
-              <label class="radio">
-                <input class="modelRadio"
-                       type="radio"
-                       name="lexeme_{$l->id}"
-                       value="0"
-                       checked>
-                Ignoră
+              <label class="form-check-label">
+                <input class="form-check-input modelRadio"
+                  type="radio"
+                  name="lexeme_{$l->id}"
+                  value="0"
+                  checked>
+                ignoră
               </label>
             </div>
           </div>
 
-          <!-- Restriction checkboxes, if applicable -->
-          <div class="form-group">
-            <label class="col-md-2 control-label">
+          {** Restriction checkboxes, if applicable **}
+          <div class="row mb-2">
+            <label class="col-md-2 col-form-label">
               restricții
             </label>
 
@@ -84,19 +86,19 @@
 
           <hr>
 
-          <!-- Definitions -->
-          <div class="panel-admin">
+          {** Definitions **}
+          <div>
             {foreach $searchResults[$lIter] as $row}
               {include "bits/definition.tpl" showDropup=0 showUser=0 showPageLink=false}
             {/foreach}
           </div>
 
-          <!-- Only one paradigm will be visible at any time. -->
+          {** Only one paradigm will be visible at any time. **}
           {assign var="lArray" value=$lMatrix[$lIter]}
           {foreach $lArray as $pIter => $l }
             {assign var="m" value=$models[$pIter]}
             {assign var="mt" value=$modelTypes[$pIter]}
-            <div id="paradigm_{$lIter}_{$pIter}" class="paradigm">
+            <div id="paradigm_{$lIter}_{$pIter}" class="paradigm" hidden>
               {include "paradigm/paradigm.tpl" lexeme=$l}
             </div>
           {/foreach}
@@ -105,7 +107,7 @@
     {/foreach}
 
     <button type="submit" class="btn btn-success" name="saveButton">
-      <i class="glyphicon glyphicon-floppy-disk"></i>
+      {include "bits/icon.tpl" i=save}
       <u>s</u>alvează
     </button>
   </form>

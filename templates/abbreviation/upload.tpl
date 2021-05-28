@@ -80,7 +80,7 @@
 
       </div>
 
-      <div class="panel-admin">
+      <div>
         <div class="panel panel-default">
           <div class="panel-heading" id="panel-heading">
             <i class="glyphicon glyphicon-user"></i>

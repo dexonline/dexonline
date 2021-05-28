@@ -70,17 +70,20 @@
         {include "bits/icon.tpl" i=filter_alt}
         <div class="form-check form-check-inline">
           <label class="form-check-label">
-            <input class="form-check-input" type="radio" name="radiodiff" checked>Toate diferențele
+            <input class="form-check-input" type="radio" name="radiodiff" checked>
+            Toate diferențele
           </label>
         </div>
         <div class="form-check form-check-inline">
           <label class="form-check-label">
-            <input class="form-check-input" type="radio" name="radiodiff" value="del">Doar ștergerile
+            <input class="form-check-input" type="radio" name="radiodiff" value="del">
+            Doar ștergerile
           </label>
         </div>
         <div class="form-check form-check-inline">
           <label class="form-check-label">
-            <input class="form-check-input" type="radio" name="radiodiff" value="ins">Doar inserările
+            <input class="form-check-input" type="radio" name="radiodiff" value="ins">
+            Doar inserările
           </label>
         </div>
       </span>

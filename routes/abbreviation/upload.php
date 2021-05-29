@@ -22,7 +22,7 @@ $csv = UploadUtils::processPage();
 
 // create Abbreviation objects so we can use the HtmlConverter and use them in smarty
 Smart::assign([
-  'abbrevs' => UploadUtils::csv_to_objects($csv, $sourceId, $userId),
+  'abbrevs' => UploadUtils::csv_to_objects($csv, $sourceId ?? null, $userId ?? null),
   'modUser' => User::getActive(),
 ]);
 Smart::addResources('admin');

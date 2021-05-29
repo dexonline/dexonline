@@ -10,68 +10,80 @@
 
     {* No page index loaded yet -- show file selector and legend *}
     {if empty($indexes)}
-      <div class="card">
+      <div class="card mb-3">
 
         <div class="card-header">
           Selectare fișier
         </div>
 
-        <div class="card-body">
+        <div class="card-body pb-0">
 
-          <div class="form-group">
-            <label class="col-sm-1 control-label">fișier</label>
-            <div class="col-sm-6">
+          <div class="row mb-3">
+            <label class="col-md-1 col-form-label">fișier</label>
+            <div class="col-md-6">
               <input class="form-control" type="file" name="file">
             </div>
-            <label class="col-sm-2 control-label">delimitator</label>
-            <div class="col-sm-2">
+            <label class="col-md-2 col-form-label">delimitator</label>
+            <div class="col-md-2">
               <input class="form-control"
                      type="text"
                      name="delimiter"
                      placeholder="implicit |">
             </div>
-            <span class="col-sm-offset-1 col-sm-8 text-danger">
+            <span class="offset-md-1 col-md-8 text-danger">
               Important! Asigurați-vă că fișierul este codificat ASCII sau UTF-8.
             </span>
           </div>
 
-          <p class="text-muted">
-
+          <p>
             Fișierul sursă trebuie să aibă pe primul rând capul de tabel
-            <b>volume|page|word|number</b>,
-            iar pe celelate rânduri 4 (patru) câmpuri delimitate, conform explicațiilor: </br>
-
-          <ol>
-            <li> volum – <i>întreg (pozitiv), valoarea implicită 1</i></li>
-            <li> pagină – <i>întreg (pozitiv)</i></li>
-            <li> intrare – <i>șir de caractere</i></li>
-            <li> număr – <i>întreg (pozitiv), valoarea implicită 0</i></li>
-          </ol>
+            <strong>volume|page|word|number</strong>, iar pe celelate rânduri
+            patru câmpuri delimitate, conform explicațiilor:
           </p>
+
+          <dl class="row">
+            <dt class="col-md-2">volum</dt>
+            <dd class="col-md-10">
+              întreg (pozitiv), valoarea implicită 1
+            </dd>
+
+            <dt class="col-md-2">pagină</dt>
+            <dd class="col-md-10">
+              întreg (pozitiv)
+            </dd>
+
+            <dt class="col-md-2">intrare</dt>
+            <dd class="col-md-10">
+              șir de caractere
+            </dd>
+
+            <dt class="col-md-2">număr</dt>
+            <dd class="col-md-10">
+              întreg (pozitiv), valoarea implicită 0
+            </dd>
+          </dl>
         </div>
       </div>
 
-      <div class="form-group mt-2">
-        <div class="col-sm-10">
-          <button class="btn btn-primary" type="submit" name="submit">
-            Încarcă fișier (previzualizare)
-          </button>
-        </div>
+      <div>
+        <button class="btn btn-primary" type="submit" name="submit">
+          previzualizează
+        </button>
       </div>
     {/if}
 
     {* Abbreviations loaded -- show source dropdown and preview *}
     {if !empty($indexes)}
-      <div class="card">
+      <div class="card mb-3">
 
         <div class="card-header">
           Alegere sursă
         </div>
 
         <div class="card-body">
-          <div class="form-group">
-            <label class="col-sm-1 control-label">sursa</label>
-            <div class="col-sm-11">
+          <div class="row">
+            <label class="col-lg-1 form-label">sursa</label>
+            <div class="col-lg-11">
               {include "bits/sourceDropDown.tpl" skipAnySource=true}
             </div>
           </div>
@@ -79,15 +91,14 @@
 
       </div>
 
-      <div class="card-admin">
-        <div class="card">
-          <div class="card-header">
-            <i class="glyphicon glyphicon-user"></i>
-            {$modUser}
-          </div>
+      <div class="card mb-3">
+        <div class="card-header">
+          {include "bits/icon.tpl" i=person}
+          {$modUser}
+        </div>
 
-          <table id="indexes" class="table table-striped ">
-            <thead>
+        <table class="table mb-0 ">
+          <thead>
             <tr>
               <th>Nr.</th>
               <th>Vol.</th>
@@ -95,35 +106,30 @@
               <th>Intrare</th>
               <th>Nr.cuv.</th>
             </tr>
-            </thead>
-            <tbody>
+          </thead>
+          <tbody>
             {foreach from=$indexes key=k item=pi}
               <tr>
-                <td><span class="label label-default">{$k+1}</span></td>
-                <td><span class="volume">{$pi->volume}</span></td>
-                <td><span class="page">{$pi->page}</span></td>
-                <td><span class="word">{$pi->word}</span></td>
-                <td><span class="number">{$pi->number}</span></td>
+                <td><span class="badge bg-secondary">{$k+1}</span></td>
+                <td>{$pi->volume}</td>
+                <td>{$pi->page}</td>
+                <td>{$pi->word}</td>
+                <td>{$pi->number}</td>
               </tr>
             {/foreach}
-            </tbody>
-          </table>
-        </div>
+          </tbody>
+        </table>
       </div>
 
-      <div class="form-group mt-2">
-        <div class="col-sm-10">
-
-          <button class="btn btn-success" name="saveButton">
-            <i class="glyphicon glyphicon-floppy-disk"></i>
-            <u>s</u>alvează
-          </button>
-          <button class="btn btn-primary" name="cancelButton">
-            <i class="glyphicon glyphicon-remove"></i>
-            abandonează
-          </button>
-
-        </div>
+      <div>
+        <button type="submit" class="btn btn-primary" name="saveButton">
+          {include "bits/icon.tpl" i=save}
+          <u>s</u>alvează
+        </button>
+        <button type="submit" class="btn btn-link" name="cancelButton">
+          {include "bits/icon.tpl" i=clear}
+          renunță
+        </button>
       </div>
     {/if}
   </form>

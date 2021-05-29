@@ -2,9 +2,9 @@
   {include "bits/galleryCanvas.tpl"}
 
   <div id="gallery">
-    <div class="panel panel-default">
-      <div class="panel-heading">{t}images{/t}</div>
-      <div class="panel-body">
+    <div class="card">
+      <div class="card-header">{t}images{/t}</div>
+      <div class="card-body">
         {foreach $images as $i}
           <a class="gallery"
              href="{$i->getImageUrl()}"

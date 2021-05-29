@@ -1,7 +1,7 @@
 <?php
 
 $nick = Request::get('nick');
-$medalSaveButton = Request::get('medalSaveButton');
+$medalSaveButton = Request::has('medalSaveButton');
 $userId = Request::get('userId');
 $medalsGranted = Request::get('medalsGranted');
 

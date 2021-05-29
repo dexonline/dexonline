@@ -8,60 +8,64 @@
     </h3>
   </div>
 
-  <div class="panel panel-default">
-    <div class="panel-heading">
+  <div class="card mb-3">
+    <div class="card-header d-flex align-items-center">
       {include "bits/avatar.tpl" user=$user}
-      <span>{$user->nick|escape}</span>
+      <span class="mx-2 flex-grow-1">{$user->nick|escape}</span>
       {if $user->id == User::getActiveId()}
         <a
-          class="btn btn-default btn-sm pull-right"
-          href="{Router::link('user/preferences')}">editează profilul</a>
+          class="btn btn-light btn-sm"
+          href="{Router::link('user/preferences')}">
+          editează profilul
+        </a>
       {/if}
-
     </div>
-    {if $user->detailsVisible && ($user->name || $user->email)}
-      <div class="panel-body">
-        <dl class="dl-horizontal">
+
+    <div class="card-body">
+      {if $user->detailsVisible && ($user->name || $user->email)}
+        <dl class="row">
           {if $user->detailsVisible && $user->name}
-            <dt>Nume</dt>
-            <dd>{$user->name|escape}</dd>
+            <dt class="col-md-3">Nume</dt>
+            <dd class="col-md-9">{$user->name|escape}</dd>
           {/if}
 
           {if $user->detailsVisible && $user->email}
-            <dt>Adresă de e-mail</dt>
-            <dd>{$user->email|escape}</dd>
+            <dt class="col-md-3">Adresă de e-mail</dt>
+            <dd class="col-md-9">{$user->email|escape}</dd>
           {/if}
         </dl>
-      </div>
-    {/if}
+      {else}
+        Numele și adresa de e-mail nu sînt vizibile.
+      {/if}
+    </div>
   </div>
 
   {if isset($userData.numDefinitions) || isset($userData.numImages)}
-    <div class="panel panel-default">
-      <div class="panel-heading">Contribuții</div>
-      <div class="panel-body">
-        <dl class="dl-horizontal">
+    <div class="card mb-3">
+      <div class="card-header">Contribuții</div>
+      <div class="card-body">
+        <dl class="row">
 
           {if isset($userData.numDefinitions)}
-            <dt>Definiții trimise</dt>
-            <dd>
+            <dt class="col-md-3">Definiții trimise</dt>
+            <dd class="col-md-9">
               {$userData.numDefinitions} (locul {$userData.rankDefinitions})
             </dd>
 
-            <dt>Lungime totală</dt>
-            <dd>
+            <dt class="col-md-3">Lungime totală</dt>
+            <dd class="col-md-9">
               {$userData.numChars} caractere (locul {$userData.rankChars})
             </dd>
 
-            <dt>Ultima contribuție</dt>
-            <dd>
+            <dt class="col-md-3">Ultima contribuție</dt>
+            <dd class="col-md-9">
               {$userData.lastSubmission|date_format:"%d %B %Y"}
             </dd>
           {/if}
 
           {if isset($userData.numImages)}
-            <dt>Ilustrații desenate</dt>
-            <dd>
+            <dt class="col-md-3">Ilustrații desenate</dt>
+            <dd class="col-md-9">
               {$userData.numImages} ilustrații
             </dd>
           {/if}
@@ -70,34 +74,44 @@
     </div>
   {/if}
 
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      Medalii
+  <div class="card mb-3">
+    <div class="card-header d-flex align-items-center">
+      <span class="flex-grow-1">Medalii</span>
       {if User::can(User::PRIV_ADMIN)}
-        <button class="btn btn-xs btn-default pull-right" data-toggle="collapse" data-target="#medalEditDiv">
+        <a
+          class="btn btn-sm btn-light"
+          data-bs-toggle="collapse"
+          href="#medalEditDiv">
           editează medaliile
-        </button>
+        </a>
       {/if}
     </div>
-    <div class="panel-body">
+    <div class="card-body">
       {if User::can(User::PRIV_ADMIN)}
         <form id="medalEditDiv" method="post" class="collapse">
-          <div class="medalCheckboxes">
-            <input type="hidden" name="userId" value="{$user->id}">
-            {foreach $allMedals as $mask => $params}
-              <div class="checkbox">
-                <label>
-                  <input type="checkbox"
-                         name="medalsGranted[]"
-                         id="cb_{$mask}"
-                         value="{$mask}"
-                         {if array_key_exists($mask, $medals)}checked{/if}>
-                  {$params.name} {$params.description}
-                </label>
-              </div>
-            {/foreach}
+          <input type="hidden" name="userId" value="{$user->id}">
+
+          {foreach $allMedals as $mask => $params}
+            <div class="form-check">
+              <label class="form-check-label">
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  name="medalsGranted[]"
+                  value="{$mask}"
+                  {if array_key_exists($mask, $medals)}checked{/if}>
+                {$params.name}
+                <span class="form-text ms-2">{$params.description}</span>
+              </label>
+            </div>
+          {/foreach}
+
+          <div class="mt-3">
+            <button class="btn btn-primary" type="submit" name="medalSaveButton">
+              {include "bits/icon.tpl" i=save}
+              salvează
+            </button>
           </div>
-          <input class="btn btn-default" type="submit" name="medalSaveButton" value="Salvează">
         </form>
       {/if}
 
@@ -111,7 +125,7 @@
           {/foreach}
         </div>
       {else}
-        <span class="userNoMedals">Utilizatorul {$user->nick|escape} nu are medalii.</span>
+        Utilizatorul {$user->nick|escape} nu are medalii.
       {/if}
     </div>
   </div>

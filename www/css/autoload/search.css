@@ -1,3 +1,7 @@
+.tab-pane {
+  padding-top: 20px;
+}
+
 .variantList span:before {
   content: '•';
 }

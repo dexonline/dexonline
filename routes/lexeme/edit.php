@@ -149,7 +149,8 @@ $compoundIds = $lexeme->getCompoundsFromPart();
 
 // retrieving not aggregated definitions, grouped according to entry association
 foreach (Lexeme::ASSOC_ENTRY as $key => $ignored) {
-  $searchResults[$key] = SearchResult::mapDefinitionArray(Definition::loadByEntryIds($entryIds[$key]));
+  $ids = $entryIds[$key] ?? [];
+  $searchResults[$key] = SearchResult::mapDefinitionArray(Definition::loadByEntryIds($ids));
 }
 
 $canEdit = [

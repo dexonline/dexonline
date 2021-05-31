@@ -312,31 +312,28 @@
 
       <div class="card-body">
 
-        <form class="row gy-2" action="{Router::link('model/dispatch')}">
+        <form action="{Router::link('model/dispatch')}">
 
-          <div class="col-12 col-lg-4">
-            {include "bits/modelDropDown.tpl" modelTypes=$canonicalModelTypes}
-          </div>
+          {include "bits/modelDropDown.tpl" modelTypes=$canonicalModelTypes}
 
-          <div class="col-12 col-lg-8">
-            <button type="submit" class="btn btn-outline-secondary me-1" name="goToModel">
-              pagina modelului
-            </button>
+          <button type="submit" class="btn btn-outline-secondary me-1" name="goToModel">
+            pagina modelului
+          </button>
 
-            <button type="submit" class="btn btn-outline-secondary me-1" name="showLexemes">
-              arată toate lexemele
-            </button>
+          <button type="submit" class="btn btn-outline-secondary me-1" name="showLexemes">
+            arată toate lexemele
+          </button>
 
-            <button type="submit" class="btn btn-outline-secondary me-1" name="cloneModel">
-              {include "bits/icon.tpl" i=content_copy}
-              clonează
-            </button>
+          <button type="submit" class="btn btn-outline-secondary me-1" name="cloneModel">
+            {include "bits/icon.tpl" i=content_copy}
+            clonează
+          </button>
 
-            <button type="submit" class="btn btn-outline-danger me-1" name="deleteModel">
-              {include "bits/icon.tpl" i=delete}
-              șterge
-            </button>
-          </div>
+          <button type="submit" class="btn btn-outline-danger me-1" name="deleteModel">
+            {include "bits/icon.tpl" i=delete}
+            șterge
+          </button>
+
         </form>
 
         <div class="mt-3">

@@ -19,6 +19,7 @@ const CODEPOINTS = [
   'clear',
   'comment',
   'content_copy',
+  'content_cut',
   'credit_card',
   'delete',
   'description',

@@ -7,14 +7,12 @@
 
   <h3>
     Editare lexem: {$lexeme->form}
-    <span class="pull-right">
-      <small>
-        <a href="https://wiki.dexonline.ro/wiki/Editarea_lexemelor">
-          <i class="glyphicon glyphicon-question-sign"></i>
-          instrucțiuni
-        </a>
-      </small>
-    </span>
+    <a
+      class="float-end btn btn-sm btn-link"
+      href="https://wiki.dexonline.ro/wiki/Editarea_lexemelor">
+      {include "bits/icon.tpl" i=info}
+      instrucțiuni
+    </a>
   </h3>
 
   <script>
@@ -22,43 +20,46 @@
   </script>
 
   <form method="post">
-    <div class="form-group">
+    <div class="mb-3">
 
       <button type="submit"
         name="refreshButton"
-        class="lexemeEditSaveButton btn btn-primary">
-        <i class="glyphicon glyphicon-refresh"></i>
+        class="lexemeEditSaveButton btn btn-light">
+        {include "bits/icon.tpl" i=refresh}
         <u>r</u>eafișează
       </button>
 
       <button type="submit"
         name="saveButton"
-        class="lexemeEditSaveButton btn btn-success">
-        <i class="glyphicon glyphicon-floppy-disk"></i>
+        class="lexemeEditSaveButton btn btn-primary">
+        {include "bits/icon.tpl" i=save}
         <u>s</u>alvează
       </button>
 
       {if $canEdit.general}
         <button type="button"
-          class="btn btn-default"
+          class="btn btn-light"
           data-bs-toggle="modal"
           data-bs-target="#cloneModal">
-          <i class="glyphicon glyphicon-duplicate"></i>
+          {include "bits/icon.tpl" i=content_copy}
           clonează...
         </button>
       {/if}
 
       <a id="wikiLink"
         href="https://wiki.dexonline.ro/wiki/Lexem:{$lexeme->id}?description={$lexeme|escape}"
-        class="btn btn-default"
+        class="btn btn-light"
         title="creează o pagină wiki pentru acest lexem"
         target="_blank">
-        <i class="glyphicon glyphicon-comment"></i>
+        {include "bits/icon.tpl" i=comment}
         wiki
       </a>
 
-      <a class="btn btn-default" href="definitie/{$lexeme->formNoAccent}">
-        <i class="glyphicon glyphicon-search"></i>
+      <a
+        class="btn btn-light"
+        href="definitie/{$lexeme->formNoAccent}"
+        title="mergi la pagina publică de căutare">
+        {include "bits/icon.tpl" i=search}
         caută
       </a>
 
@@ -68,29 +69,29 @@
       <button type="submit"
         name="deleteButton"
         onclick="return confirm('Confirmați ștergerea acestui lexem?');"
-        class="btn btn-danger pull-right"
+        class="btn btn-danger float-end"
         {if $canDelete != Lexeme::CAN_DELETE_OK}
         disabled
         title="{$canDelete}"
         {/if}>
-        <i class="glyphicon glyphicon-trash"></i>
+        {include "bits/icon.tpl" i=delete}
         șterge
       </button>
 
     </div>
 
-    <div class="panel panel-default">
+    <div class="card mb-3">
 
-      <div class="panel-heading">Proprietăți</div>
+      <div class="card-header">Proprietăți</div>
 
-      <div class="panel-body">
+      <div class="card-body">
         <input type="hidden" name="lexemeId" value="{$lexeme->id}">
 
         <div class="row">
-          <div class="col-md-6 form-horizontal">
+          <div class="col-md-6">
 
-            <div class="form-group">
-              <label for="lexemeForm" class="col-md-2 control-label">formă</label>
+            <div class="row mb-2">
+              <label for="lexemeForm" class="col-md-2 col-form-label">formă</label>
               <div class="col-md-10">
                 <input type="text"
                   class="form-control"
@@ -100,9 +101,11 @@
                   {if !$canEdit.form}readonly{/if}>
 
                 <div id="renameDiv"
-                  class="checkbox {if !$renameRelated}hidden{/if}">
-                  <label>
-                    <input type="checkbox"
+                  class="form-check" {if !$renameRelated}hidden{/if}>
+                  <label class="form-check-label">
+                    <input
+                      type="checkbox"
+                      class="form-check-input"
                       name="renameRelated"
                       value="1"
                       {if $renameRelated}checked{/if}>
@@ -110,9 +113,14 @@
                   </label>
                 </div>
 
-                <div class="checkbox">
-                  <label>
-                    <input type="checkbox" name="needsAccent" value="1" {if !$lexeme->noAccent}checked{/if}>
+                <div class="form-check">
+                  <label class="form-check-label">
+                    <input
+                      type="checkbox"
+                      class="form-check-input"
+                      name="needsAccent"
+                      value="1"
+                      {if !$lexeme->noAccent}checked{/if}>
                     necesită accent
                   </label>
                 </div>
@@ -135,30 +143,31 @@
               readonly=!$canEdit.general}
 
             {if $homonyms}
-              <div class="form-group">
+              <div class="row mb-2">
                 <label class="col-md-2">omonime</label>
                 <div class="col-md-10">
-
-                  {foreach $homonyms as $h}
-                    <div>
-                      {include "bits/lexemeLink.tpl" lexeme=$h}
-                    </div>
-                  {/foreach}
-
+                  <ul class="list-inline list-inline-bullet">
+                    {foreach $homonyms as $h}
+                      <li class="list-inline-item">
+                        {include "bits/lexemeLink.tpl" lexeme=$h}
+                      </li>
+                    {/foreach}
+                  </ul>
                 </div>
               </div>
             {/if}
-            <div class="row">
-              <div class="clearfix col-md-10 col-md-offset-2">
+
+            <div class="row mb-1">
+              <div class="clearfix col-md-10 offset-md-2">
                 <label>intrări pentru care lexemul este:</label>
               </div>
             </div>
 
             {foreach from=$entryIds key=k item=e}
-              <div class="form-group">
-                <label class="col-md-2 control-label">{$assocEntry[{$k}]}</label>
+              <div class="row mb-2">
+                <label class="col-md-2 col-form-label">{$assocEntry[{$k}]}</label>
                 <div class="col-md-10">
-                  <select id="entryIds[{$k}]" name="entryIds[{$k}][]" class="form-control" multiple>
+                  <select id="entryIds[{$k}]" name="entryIds[{$k}][]" class="form-select" multiple>
                     {foreach $e as $eid}
                       <option value="{$eid}" selected></option>
                     {/foreach}
@@ -168,23 +177,23 @@
             {/foreach}
 
             {if $compoundIds}
-            <div class="form-group">
-              <label for="compoundIds" class="col-md-2">compuse</label>
-              <div class="col-md-10">
+              <div class="row mb-2">
+                <label for="compoundIds" class="col-md-2">compuse</label>
+                <div class="col-md-10">
                   <div class="form-control overflown">
                     {foreach $compoundIds as $c}
                       <div>
-                      {include "bits/lexemeLink.tpl" boxed=true lexeme=$c}
+                        {include "bits/lexemeLink.tpl" boxed=true lexeme=$c}
                       </div>
                     {/foreach}
                   </div>
+                </div>
               </div>
-            </div>
             {/if}
 
           </div>
 
-          <div class="col-md-6 form-horizontal">
+          <div class="col-md-6">
 
             {include "bits/fhf.tpl"
               field="hyphenations"
@@ -200,10 +209,10 @@
               placeholder="opționale, despărțite prin virgule"
               readonly=!$canEdit.pronunciations}
 
-            <div class="form-group">
-              <label for="tagIds" class="col-md-2 control-label">etichete</label>
+            <div class="row mb-2">
+              <label for="tagIds" class="col-md-2 col-form-label">etichete</label>
               <div class="col-md-10">
-                <select id="tagIds" name="tagIds[]" class="form-control select2Tags" multiple>
+                <select id="tagIds" name="tagIds[]" class="form-select select2Tags" multiple>
                   {foreach $lexeme->getTagIds() as $tagId}
                     <option value="{$tagId}" selected></option>
                   {/foreach}
@@ -214,9 +223,11 @@
                   type="tags"
                   target="#tagIds"}
 
-                <div class="checkbox">
-                  <label>
-                    <input type="checkbox"
+                <div class="form-check">
+                  <label class="form-check-label">
+                    <input
+                      type="checkbox"
+                      class="form-check-input"
                       name="stopWord"
                       value="1"
                       {if $lexeme->stopWord}checked{/if}
@@ -233,87 +244,95 @@
       </div>
     </div>
 
-    <div class="panel panel-default">
+    <div class="card mb-3">
 
-      <div class="panel-heading">Model de flexiune</div>
+      <div class="card-header">Model de flexiune</div>
 
-      <div class="panel-body">
+      <div class="card-body">
 
         <div class="row">
-          <div class="col-md-7 form-horizontal">
+          <div class="col-md-7">
 
-            <div class="form-group">
-              <label class="col-md-3 control-label">lexem compus</label>
+            <div class="row mb-2">
+              <label class="col-md-3 form-label">lexem compus</label>
 
               <div class="col-md-9">
-                <div class="checkbox">
-                  <label>
-                    <input type="checkbox"
-                      name="compound"
-                      value="1"
-                      {if $lexeme->compound}checked{/if}>
-                  </label>
+                <div class="form-check">
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    name="compound"
+                    value="1"
+                    {if $lexeme->compound}checked{/if}>
                 </div>
               </div>
             </div>
 
             {* Fields for simple lexemes *}
-            <div id="modelDataSimple" {if $lexeme->compound}style="display: none"{/if}>
-              <div class="form-group">
-                <label class="col-md-3 control-label">tip + număr</label>
+            <div id="modelDataSimple" {if $lexeme->compound}hidden{/if}>
+              <div class="row mb-2">
+                <label class="col-md-3 col-form-label">tip + număr</label>
 
-                <div class="col-md-9 form-inline"
-                  {include "bits/modelDropDown.tpl"
-                    selectedModelType=$lexeme->modelType
-                    selectedModelNumber=$lexeme->modelNumber}
+                <div class="col-md-9 row row-cols-md-auto gx-1">
+                  <div class="col">
+                    {include "bits/modelDropDown.tpl"
+                      selectedModelType=$lexeme->modelType
+                      selectedModelNumber=$lexeme->modelNumber}
+                  </div>
 
-                  <input
-                    type="text"
-                    class="form-control"
-                    name="restriction"
-                    value="{$lexeme->restriction}"
-                    size="5"
-                    placeholder="restricții">
+                  <div class="col">
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="restriction"
+                      value="{$lexeme->restriction}"
+                      size="5"
+                      placeholder="restricții">
+                  </div>
                 </div>
               </div>
 
-              <div class="form-group">
-                <div class="col-md-offset-3 col-md-9">
+              <div class="row mb-2">
+                <div class="col-md-9 offset-md-3">
                   <select class="similarLexeme"></select>
                 </div>
               </div>
             </div>
 
             {* Fields for compound lexemes *}
-            <div id="modelDataCompound" {if !$lexeme->compound}style="display: none"{/if}>
+            <div id="modelDataCompound" {if !$lexeme->compound}hidden{/if}>
 
-              <div class="form-group">
-                <label class="col-md-3 control-label">tip</label>
+              <div class="row mb-2">
+                <label class="col-md-3 col-form-label">tip</label>
 
-                <div class="col-md-9 form-inline">
-                  <select name="compoundModelType" class="form-control">
-                    {foreach $modelTypes as $mt}
-                      <option value="{$mt->code}"
-                        {if $lexeme->modelType == $mt->code}selected{/if}>
-                        {$mt->code}
-                      </option>
-                    {/foreach}
-                  </select>
+                <div class="col-md-9 row row-cols-md-auto gx-1">
+                  <div class="col">
+                    <select name="compoundModelType" class="form-select">
+                      {foreach $modelTypes as $mt}
+                        <option value="{$mt->code}"
+                          {if $lexeme->modelType == $mt->code}selected{/if}>
+                          {$mt->code}
+                        </option>
+                      {/foreach}
+                    </select>
+                  </div>
 
-                  <input
-                    type="text"
-                    class="form-control"
-                    name="compoundRestriction"
-                    value="{$lexeme->restriction}"
-                    size="5"
-                    placeholder="restricții">
+                  <div class="col">
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="compoundRestriction"
+                      value="{$lexeme->restriction}"
+                      size="5"
+                      placeholder="restricții">
+                  </div>
                 </div>
               </div>
 
-              <div class="form-group">
-                <label class="col-md-3 control-label">compus din</label>
+              <div class="row mb-2">
+                <label class="col-md-3 col-form-label">compus din</label>
 
-                <div class="col-md-9">
+                <div class="col-md-9 px-0">
                   <div id="fragmentContainer">
                     {include "bits/fragment.tpl" id="stem"}
                     {foreach $lexeme->getFragments() as $fragment}
@@ -321,14 +340,12 @@
                     {/foreach}
                   </div>
 
-                  <div class="voffset2"></div>
-
-                  <button id="addFragmentButton" class="btn btn-default btn-sm" type="button">
-                    <i class="glyphicon glyphicon-plus"></i>
+                  <button id="addFragmentButton" class="btn btn-light btn-sm" type="button">
+                    {include "bits/icon.tpl" i=add}
                     adaugă
                   </button>
-                  <button id="autoFragmentButton" class="btn btn-default btn-sm" type="button">
-                    <i class="glyphicon glyphicon-scissors"></i>
+                  <button id="autoFragmentButton" class="btn btn-light btn-sm" type="button">
+                    {include "bits/icon.tpl" i=content_cut}
                     autocompletează
                   </button>
                 </div>
@@ -338,13 +355,13 @@
 
           </div>
 
-          <div class="col-md-5 form-horizontal">
+          <div class="col-md-5">
 
-            <div class="form-group">
-              <label class="col-md-2 control-label">surse</label>
+            <div class="row mb-2">
+              <label class="col-md-2 col-form-label">surse</label>
               <div class="col-md-10">
                 <select id="sourceIds"
-                  class="form-control"
+                  class="form-select"
                   name="sourceIds[]"
                   multiple
                   {if !$canEdit.sources}disabled{/if}>
@@ -368,11 +385,13 @@
               placeholder="explicații despre sursa flexiunii"
               readonly=!$canEdit.tags}
 
-            <div class="form-group">
-              <div class="col-md-offset-2 col-md-10">
-                <div class="checkbox">
-                  <label>
-                    <input type="checkbox"
+            <div class="row mb-2">
+              <div class="col-md-10 offset-md-2">
+                <div class="form-check">
+                  <label class="form-check-label">
+                    <input
+                      type="checkbox"
+                      class="form-check-input"
                       name="hasApheresis"
                       value="1"
                       {if $lexeme->hasApheresis}checked{/if}>
@@ -380,9 +399,11 @@
                   </label>
                 </div>
 
-                <div class="checkbox">
-                  <label>
-                    <input type="checkbox"
+                <div class="form-check">
+                  <label class="form-check-label">
+                    <input
+                      type="checkbox"
+                      class="form-check-input"
                       name="hasApocope"
                       value="1"
                       {if $lexeme->hasApocope}checked{/if}>
@@ -397,17 +418,17 @@
       </div>
     </div>
 
-    <div class="panel panel-default">
-      <div class="panel-heading">Paradigmă</div>
-      <div class="panel-body">
+    <div class="card mb-3">
+      <div class="card-header">Paradigmă</div>
+      <div class="card-body">
         {include "paradigm/paradigm.tpl" lexeme=$lexeme}
       </div>
     </div>
 
     {foreach from=$searchResults key=k item=d}
-      <div class="panel panel-default">
-        <div class="panel-heading">Definiții pentru intrările unde este lexem {$assocEntry[{$k}]} ({$searchResults[$k]|count})</div>
-        <div class="panel-body">
+      <div class="card mb-3">
+        <div class="card-header">Definiții pentru intrările unde este lexem {$assocEntry[{$k}]} ({$searchResults[$k]|count})</div>
+        <div class="card-body">
           {foreach $searchResults[$k] as $row}
             {include "bits/definition.tpl" showStatus=1}
           {/foreach}

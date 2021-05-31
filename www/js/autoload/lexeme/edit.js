@@ -86,8 +86,8 @@ $(function() {
   }
 
   function compoundToggle() {
-    $('#modelDataSimple').slideToggle();
-    $('#modelDataCompound').slideToggle();
+    $('#modelDataSimple')[0].toggleAttribute('hidden');
+    $('#modelDataCompound')[0].toggleAttribute('hidden');
   }
 
   function capitalizedToggle() {
@@ -164,7 +164,7 @@ $(function() {
   }
 
   function showRenameDiv() {
-    $('#renameDiv').removeClass('hidden');
+    $('#renameDiv').removeAttr('hidden');
   }
 
   function checkLexemeWikiPage() {
@@ -172,7 +172,7 @@ $(function() {
     ifWikiPageExists('Lexem:' + lexemeId, function() {
       $('#wikiLink')
         .attr('title', 'lexemul are o pagină wiki')
-        .toggleClass('btn-default btn-warning');
+        .toggleClass('btn-light btn-warning');
     });
   }
 

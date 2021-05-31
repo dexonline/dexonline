@@ -8,8 +8,8 @@
 {$autofocus=$autofocus|default:false}
 {$readonly=$readonly|default:false}
 {$col=$col|default:2}
-<div class="row">
-  <label for="{$field}" class="col-md-{$col} control-label">{$label}</label>
+<div class="row mb-2">
+  <label for="{$field}" class="col-md-{$col} col-form-label">{$label}</label>
   <div class="col-md-{12-$col}">
     <input type="{$type}"
       {if $step}step="{$step}"{/if}

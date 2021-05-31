@@ -20,11 +20,11 @@
 
         <div class="modal-footer">
           <button type="submit" class="btn btn-primary" name="cloneButton">
-            <i class="glyphicon glyphicon-duplicate"></i>
+            {include "bits/icon.tpl" i=content_copy}
             clonează
           </button>
           <button type="button" class="btn btn-link" data-bs-dismiss="modal">
-            <i class="glyphicon glyphicon-remove"></i>
+            {include "bits/icon.tpl" i=clear}
             renunță
           </button>
         </div>

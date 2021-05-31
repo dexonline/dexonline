@@ -4,13 +4,13 @@
 
 {block "content"}
 
-  <div class="wrapper">
-    <h3>
+  <div class="mb-2 d-flex align-items-center">
+    <h3 class="me-3">
       Dicționarul vizual
     </h3>
 
     <a href="https://wiki.dexonline.ro/wiki/Ghidul_dic%C8%9Bionarului_vizual">
-      <i class="glyphicon glyphicon-question-sign"></i>
+      {include "bits/icon.tpl" i=help}
       ajutor
     </a>
   </div>

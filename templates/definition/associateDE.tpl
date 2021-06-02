@@ -5,20 +5,20 @@
 {block "content"}
   <h3>Definiție din Dicționarul enciclopedic: {$def->lexicon} ({$def->id})</h3>
 
-  <form class="form-horizontal" method="post">
-    <div class="form-group">
-      <label class="col-sm-2 control-label">sari la prefixul</label>
+  <form method="post">
+    <div class="row mb-3">
+      <label class="col-sm-2 col-form-label">sari la prefixul</label>
       <div class="col-sm-3">
         <input type="text" class="form-control" name="jumpPrefix">
       </div>
     </div>
   </form>
 
-  <div class="panel panel-default">
-    <div class="panel-body">
+  <div class="card mb-3">
+    <div class="card-body">
       {HtmlConverter::convert($def)}
-      <a href="{Router::link('definition/edit')}/{$def->id}">
-        <i class="glyphicon glyphicon-pencil"></i>
+      <a class="ms-2" href="{Router::link('definition/edit')}/{$def->id}">
+        {include "bits/icon.tpl" i=edit}
         editează
       </a>
     </div>
@@ -27,93 +27,97 @@
   <form method="post">
     <input type="hidden" name="definitionId" value="{$def->id}">
 
-    <table id="lexemesTable">
-      <tr>
-        <th>lexem</th>
-        <th>model</th>
-        <th>scurtături</th>
-      </tr>
-      <tr id="stem">
-        <td>
-          <select class="lexeme" name="lexemeId[]" style="width: 300px;">
-          </select>
-        </td>
-        <td>
-          <select class="model" name="model[]" style="width: 500px;">
-            <option value="I3" selected>I3 (nume proprii)</option>
-          </select>
-        </td>
-        <td>
-          <a class="shortcutI3" href="#">I3</a>
-        </td>
-      </tr>
-      {foreach $lexemeIds as $i => $l}
+    <table class="table" id="lexemesTable">
+      <thead>
         <tr>
+          <th>lexem</th>
+          <th>model</th>
+          <th>scurtături</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr id="stem">
           <td>
             <select class="lexeme" name="lexemeId[]" style="width: 300px;">
-              <option value="{$l}" selected></option>
             </select>
           </td>
           <td>
             <select class="model" name="model[]" style="width: 500px;">
-              <option value="{$models[$i]}" selected></option>
+              <option value="I3" selected>I3 (nume proprii)</option>
             </select>
           </td>
           <td>
             <a class="shortcutI3" href="#">I3</a>
           </td>
         </tr>
-      {/foreach}
+        {foreach $lexemeIds as $i => $l}
+          <tr>
+            <td>
+              <select class="lexeme" name="lexemeId[]" style="width: 300px;">
+                <option value="{$l}" selected></option>
+              </select>
+            </td>
+            <td>
+              <select class="model" name="model[]" style="width: 500px;">
+                <option value="{$models[$i]}" selected></option>
+              </select>
+            </td>
+            <td>
+              <a class="shortcutI3" href="#">I3</a>
+            </td>
+          </tr>
+        {/foreach}
+      </tbody>
     </table>
-    <a id="addRow" href="#">adaugă o linie</a>
-    <br><br>
 
-    <div class="checkbox">
-      <label>
-        <input id="capitalize" type="checkbox" name="capitalize" value="1"
-          {if $capitalize}checked{/if}>
-        scrie cu majusculă lexemele I3 și SP*
-      </label>
-    </div>
-    <div class="checkbox">
-      <label>
-        <input id="deleteOrphans" type="checkbox" name="deleteOrphans" value="1"
-          {if $deleteOrphans}checked{/if}>
-        șterge lexemele și intrările care devin neasociate
-      </label>
+    <div class="mb-4">
+      <a id="addRow" class="btn btn-light btn-sm" href="#">
+        {include "bits/icon.tpl" i=add}
+        adaugă o linie
+      </a>
     </div>
 
-    <div class="form-group">
-      <button type="submit" class="btn btn-default" name="butPrev">
-        <i class="glyphicon glyphicon-chevron-left"></i>
+    {include "bs/checkbox.tpl"
+      name=capitalize
+      label='scrie cu majusculă lexemele I3 și SP*'
+      checked=$capitalize}
+
+    {include "bs/checkbox.tpl"
+      name=deleteOrphans
+      label='șterge lexemele și intrările care devin neasociate'
+      checked=$deleteOrphans}
+
+    <div class="mt-2 mb-4">
+      <button type="submit" class="btn btn-light" name="butPrev">
+        {include "bits/icon.tpl" i=chevron_left}
         anterioara
       </button>
 
       <button id="refreshButton"
         type="submit"
         name="refreshButton"
-        class="btn btn-primary">
-        <i class="glyphicon glyphicon-refresh"></i>
+        class="btn {if $passedTests}btn-light{else}btn-primary{/if}">
+        {include "bits/icon.tpl" i=refresh}
         <u>r</u>eafișează
       </button>
 
       <button type="submit"
         name="saveButton"
-        class="btn btn-success"
+        class="btn {if $passedTests}btn-primary{else}btn-light{/if}"
         {if !$passedTests}disabled{/if}>
-        <i class="glyphicon glyphicon-floppy-disk"></i>
+        {include "bits/icon.tpl" i=save}
         <u>s</u>alvează
       </button>
 
-      <button type="submit" class="btn btn-default" name="butNext">
-        <i class="glyphicon glyphicon-chevron-right"></i>
+      <button type="submit" class="btn btn-light" name="butNext">
+        {include "bits/icon.tpl" i=chevron_right}
         următoarea
       </button>
 
     </div>
   </form>
 
-  <div class="alert alert-info alert-dismissible fade show mt-3">
+  <div class="alert alert-info alert-dismissible fade show">
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
 
     <p><strong>Note:</strong></p>

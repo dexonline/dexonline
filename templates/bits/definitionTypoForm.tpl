@@ -1,15 +1,24 @@
 <div id="typo" class="typo" style="display: none">
-    <div class="input-group">
-      <div class="form-group has-feedback">
-       <input type="text" class="form-control ui-autocomplete-input" name="typo" placeholder="greșeli" id="typoText" value="" maxlength="400" autocomplete="off">
-       <span id="typoClear" class="glyphicon glyphicon-remove form-control-feedback"> </span>
-       <span id="typoSent" class="glyphicon glyphicon-ok form-control-feedback collapse"> </span>
-      </div>
-     <span class="input-group-btn">
-      <button type="button" value="trimite" id="typoSend" class="btn btn-primary">
-       <span class="glyphicon glyphicon-send"></span> trimite
-      </button>
-      </span>
-    </div>
-    <div id="typoResponse" class="small text-muted" style="display: none">Eroare la înregistrare. Mai încearcă o dată!</div>
+
+  <div class="input-group">
+    <input
+      type="text"
+      class="form-control"
+      name="typo"
+      placeholder="greșeli"
+      id="typoText"
+      maxlength="400"
+      autocomplete="off">
+
+    <button
+      type="button"
+      id="typoSend"
+      class="btn btn-primary">
+      trimite
+    </button>
+  </div>
+
+  <div id="typoResponse" class="text-danger" hidden>
+    Eroare la trimitere. Mai încearcă o dată!
+  </div>
 </div>

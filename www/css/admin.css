@@ -25,6 +25,11 @@ body.other section.search {
   background-color: #aaa;
 }
 
+/* center the pencil icon vertically */
+.select2-selection__choice .material-icons {
+  margin-top: -3px;
+}
+
 .btn-charmap {
   width: 3em;
   margin: 2px;

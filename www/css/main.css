@@ -296,10 +296,6 @@ sup.footnote {
 
 /************** labels inside headers **************/
 
-h3 .tagList {
-  margin-left: 10px;
-}
-
 h3 .label {
   font-size: 12px;
   vertical-align: middle;

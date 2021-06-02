@@ -4,9 +4,9 @@
 
 {block "content"}
   {if $showAddForm}
-    <div class="panel panel-default">
-      <div class="panel-heading">Adaugă un tip de model nou</div>
-      <div class="panel-body">
+    <div class="card mb-3">
+      <div class="card-header">Adaugă un tip de model nou</div>
+      <div class="card-body">
 
         <p>
           Notă: prin această interfață nu se pot crea tipuri de model
@@ -15,27 +15,27 @@
 
         <form method="post">
           <input type="hidden" name="id" value="0">
-          <div class="form-group">
-            <label>cod</label>
+          <div class="mb-3">
+            <label class="form-label">cod</label>
             <input type="text" name="code" value="{$addModelType->code}" size="10" class="form-control">
           </div>
 
-          <div class="form-group">
-            <label>cod canonic</label>
-            <select class="form-control" name="canonical">
+          <div class="mb-3">
+            <label class="form-label">cod canonic</label>
+            <select class="form-select" name="canonical">
               {foreach $canonicalModelTypes as $mt}
                 <option value="{$mt->code}">{$mt->code}</option>
               {/foreach}
             </select>
           </div>
 
-          <div class="form-group">
-            <label>descriere</label>
+          <div class="mb-3">
+            <label class="form-label">descriere</label>
             <input type="text" name="description" value="{$addModelType->description}" class="form-control">
           </div>
 
-          <button class="btn btn-success" type="submit" name="saveButton">
-            <i class="glyphicon glyphicon-floppy-disk"></i>
+          <button class="btn btn-primary" type="submit" name="saveButton">
+            {include "bits/icon.tpl" i=save}
             <u>s</u>alvează
           </button>
 
@@ -47,32 +47,32 @@
   {/if}
 
   {if isset($editModelType)}
-    <div class="panel panel-default">
-      <div class="panel-heading">Editează tipul de model {$editModelType->code}</div>
-      <div class="panel-body">
+    <div class="card mb-3">
+      <div class="card-header">Editează tipul de model {$editModelType->code}</div>
+      <div class="card-body">
 
         <form method="post">
           <input type="hidden" name="id" value="{$editModelType->id}">
 
-          <div class="form-group">
-            <label>cod</label>
+          <div class="mb-3">
+            <label class="form-label">cod</label>
             <input type="text" value="{$editModelType->code}" disabled class="form-control">
           </div>
 
           {if $editModelType->code != $editModelType->canonical}
-            <div class="form-group">
-              <label>cod canonic</label>
+            <div class="mb-3">
+              <label class="form-label">cod canonic</label>
               <input type="text" value="{$editModelType->canonical}" disabled class="form-control">
             </div>
-            {/if}
+          {/if}
 
-          <div class="form-group">
-            <label>descriere</label>
+          <div class="mb-3">
+            <label class="form-label">descriere</label>
             <input type="text" name="description" value="{$editModelType->description}" class="form-control">
           </div>
 
-          <button class="btn btn-success" type="submit" name="saveButton">
-            <i class="glyphicon glyphicon-floppy-disk"></i>
+          <button class="btn btn-primary" type="submit" name="saveButton">
+            {include "bits/icon.tpl" i=save}
             <u>s</u>alvează
           </button>
 
@@ -82,10 +82,9 @@
     </div>
   {/if}
 
-  <table class="table table-condensed table-bordered table-striped col-sm-12">
-    <caption class="table-caption">
-      Tipuri de modele
-    </caption>
+  <h3>Tipuri de model</h3>
+
+  <table class="table table-sm">
     <tr>
       <th>cod</th>
       <th>cod canonic</th>
@@ -103,9 +102,13 @@
         <td>{$modelCounts[$i]}</td>
         <td>{$lexemeCounts[$i]}</td>
         <td>
-          <a href="?editId={$mt->id}">editează</a>
+          <a class="btn btn-link btn-sm" href="?editId={$mt->id}">
+            {include "bits/icon.tpl" i=edit}
+          </a>
           {if $canDelete[$i]}
-            <a href="?deleteId={$mt->id}">șterge</a>
+            <a class="btn btn-link btn-sm" href="?deleteId={$mt->id}">
+              {include "bits/icon.tpl" i=delete}
+            </a>
           {/if}
         </td>
       </tr>
@@ -113,8 +116,8 @@
   </table>
 
   {if !$showAddForm}
-    <a class="btn btn-default" href="?add=1">
-      <i class="glyphicon glyphicon-plus"></i>
+    <a class="btn btn-light" href="?add=1">
+      {include "bits/icon.tpl" i=add}
       adaugă un tip de model
     </a>
   {/if}

@@ -10,32 +10,32 @@
   <form id="modelForm" method="post">
     <input type="hidden" name="id" value="{$m->id}">
 
-    <div class="panel panel-default">
-      <div class="panel-heading">
+    <div class="card mb-3">
+      <div class="card-header">
         Proprietăți
       </div>
 
-      <div class="panel-body form-horizontal">
-        <div class="form-group">
-          <label class="col-sm-3 control-label">număr de model</label>
+      <div class="card-body">
+        <div class="row mb-3">
+          <label class="col-sm-3 col-form-label">număr de model</label>
           <div class="col-sm-9">
             <input class="form-control" type="text" name="number" value="{$m->number|escape}">
-            <small class="text-muted">poate conține orice caractere</small>
+            <span class="form-text">poate conține orice caractere</span>
           </div>
         </div>
 
-        <div class="form-group">
-          <label class="col-sm-3 control-label">descriere</label>
+        <div class="row mb-3">
+          <label class="col-sm-3 col-form-label">descriere</label>
           <div class="col-sm-9">
             <input class="form-control" type="text" name="description" value="{$m->description|escape}">
           </div>
         </div>
 
         {if $adjModels}
-          <div class="form-group">
-            <label class="col-sm-3 control-label">model de participiu</label>
+          <div class="row mb-3">
+            <label class="col-sm-3 col-form-label">model de participiu</label>
             <div class="col-sm-9">
-              <select class="form-control" name="participleNumber">
+              <select class="form-select" name="participleNumber">
                 {foreach $adjModels as $am}
                   <option value="{$am->number}"
                     {if $pm && $pm->adjectiveModel == $am->number}selected{/if}
@@ -47,8 +47,8 @@
           </div>
         {/if}
 
-        <div class="form-group">
-          <label class="col-sm-3 control-label">exponent</label>
+        <div class="row mb-3">
+          <label class="col-sm-3 col-form-label">exponent</label>
           <div class="col-sm-9">
             <input class="form-control" type="text" name="exponent" value="{$m->exponent|escape}">
           </div>
@@ -57,54 +57,56 @@
       </div>
     </div>
 
-    <div class="panel panel-default">
-      <div class="panel-heading">
+    <div class="card mb-3">
+      <div class="card-header">
         Forme
       </div>
 
-      <table class="table table-striped table-condensed">
+      <table class="table table-sm mb-0">
         <tr>
-          <th class="row">
-            <div class="col-xs-5">flexiune</div>
-            <div class="col-xs-1"></div>
-            <div class="col-xs-6 row">
-              <div class="col-xs-8">forme</div>
-              <div class="col-xs-2">recom</div>
-              <div class="col-xs-2">apocopă</div>
+          <th class="row mx-0">
+            <div class="col-5">flexiune</div>
+            <div class="col-1"></div>
+            <div class="col-6 row">
+              <div class="col-8">forme</div>
+              <div class="col-2">recom</div>
+              <div class="col-2">apocopă</div>
             </div>
           </th>
         </tr>
 
         {foreach $forms as $inflId => $f}
           <tr>
-            <td class="row">
-              <div class="col-xs-5">
+            <td class="row mx-0">
+              <div class="col-5">
                 {$inflectionMap[$inflId]->description|escape}
               </div>
-              <div class="col-xs-1 addFormLink" data-infl-id="{$inflId}">
+              <div class="col-1 addFormLink" data-infl-id="{$inflId}">
                 <a href="#">
-                  <i class="glyphicon glyphicon-plus"></i>
+                  {include "bits/icon.tpl" i=add}
                 </a>
               </div>
-              <div class="col-xs-6 row">
+              <div class="col-6">
                 {foreach $f as $i => $tuple}
-                  <div class="fieldWrapper">
-                    <div class="col-xs-8">
-                      <input class="form-control input-sm"
+                  <div class="fieldWrapper row mb-1">
+                    <div class="col-8">
+                      <input class="form-control form-control-sm"
                         type="text"
                         name="forms_{$inflId}_{$i}"
                         value="{$tuple.form|escape}">
                     </div>
-                    <div class="col-xs-2">
-                      <input class="checkbox"
+                    <div class="col-2">
+                      <input
                         type="checkbox"
+                        class="form-check-input"
                         name="recommended_{$inflId}_{$i}"
                         value="1"
                         {if $tuple.recommended}checked{/if}>
                     </div>
-                    <div class="col-xs-2">
-                      <input class="checkbox"
+                    <div class="col-2">
+                      <input
                         type="checkbox"
+                        class="form-check-input"
                         name="hasApocope_{$inflId}_{$i}"
                         value="1"
                         {if $tuple.hasApocope}checked{/if}>
@@ -119,8 +121,8 @@
     </div>
 
     <div>
-      <button class="btn btn-success" type="submit" name="saveButton">
-        <i class="glyphicon glyphicon-floppy-disk"></i>
+      <button class="btn btn-primary" type="submit" name="saveButton">
+        {include "bits/icon.tpl" i=save}
         <u>s</u>alvează
       </button>
 

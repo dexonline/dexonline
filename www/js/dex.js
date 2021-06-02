@@ -109,6 +109,7 @@ function loadAjaxContent(url, elid) {
   $.get(url, function(data) {
     $(elid).html(data);
   });
+  return false;
 }
 
 function searchSubmit() {

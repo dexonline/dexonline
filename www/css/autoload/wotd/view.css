@@ -14,14 +14,6 @@
   width: 90px;
 }
 
-.wotd-navigation {
-  height: 29px;
-}
-
-.wotd-navigation span {
-  font-size: 28px;
-}
-
 @media (max-width: 767px) {
   .wotdArchiveTable tbody td {
     background: #fff;

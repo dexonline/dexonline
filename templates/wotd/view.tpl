@@ -7,8 +7,9 @@
 
 {block "pageDescription"}
   {$lexicon=$searchResult->definition->lexicon}
-  <meta name="description"
-        content="Cuvântul zilei de {$day} {$monthName} {$year} la dexonline: {$lexicon}">
+  <meta
+    name="description"
+    content="Cuvântul zilei de {$day} {$monthName} {$year} la dexonline: {$lexicon}">
 {/block}
 
 {block "openGraph"}
@@ -18,13 +19,13 @@
 {block "content"}
   {assign var="reason" value=$reason|default:''}
 
-  <h3 class="clearfix">
+  <h3>
     {t 1=$day 2=$monthName 3=$year}Word of the day for %2 %1, %3{/t}
 
     {if Config::SKIN_WOTD_SUBSCRIBE}
-      <div id="wotdSocialMedia" class="pull-right">
+      <div id="wotdSocialMedia" class="float-end">
         <div>
-          <a href="#toggleContents" data-toggle="collapse">
+          <a href="#toggleContents" data-bs-toggle="collapse">
             <img src="{Config::URL_PREFIX}img/social-media/email-29.png" alt="iconiță email"
           ></a>
           <a type="application/rss+xml" href="{Router::link('wotd/rss')}">
@@ -39,8 +40,8 @@
   </h3>
 
   <div id="toggleContents" class="collapse voffset2">
-    <div class="panel panel-default">
-      <div class="panel-body">
+    <div class="card mb-3">
+      <div class="card-body">
         {t
           1="http://www.google.com/search?q=rss+by+email"
           2="https://blogtrottr.com/"
@@ -51,37 +52,32 @@
     </div>
   </div>
 
-  <div class="panel panel-default">
-    <div class="panel-heading clearfix">
-      <div class="wotd-navigation pull-left">
-        {if $prevDay}
-          <a href="{Router::link('wotd/view')}/{$prevDay}">
-            <span class="glyphicon glyphicon-chevron-left"></span>
-          </a>
-        {/if}
-      </div>
-      <div class="wotd-navigation pull-right">
-        {if $nextDay}
-          <a href="{Router::link('wotd/view')}/{$nextDay}">
-            <span class="glyphicon glyphicon-chevron-right pull-right">
-            </span>
-          </a>
-        {/if}
-      </div>
+  <div class="card mb-4">
+    <div class="card-header fs-2 px-2 py-0 d-flex justify-content-between">
+      {if $prevDay}
+        <a href="{Router::link('wotd/view')}/{$prevDay}">
+          {include "bits/icon.tpl" i=chevron_left}
+        </a>
+      {/if}
+      {if $nextDay}
+        <a href="{Router::link('wotd/view')}/{$nextDay}">
+          {include "bits/icon.tpl" i=chevron_right}
+        </a>
+      {/if}
     </div>
-    <div class="panel-body">
+
+    <div class="card-body pb-0">
       <a {if $wotd->url}href="{$wotd->url}"{/if} target="_blank">
-        <img class="img-responsive center-block"
+        <img class="img-fluid mx-auto d-block"
           src="{$wotd->getLargeThumbUrl()}"
           alt="{$searchResult->definition->lexicon}"
           title="{$searchResult->definition->lexicon}">
       </a>
-      <div class="text-muted pull-right">
+      <div class="text-muted text-end">
         {$wotd->getArtist()->credits|default:''}
       </div>
 
       {if $wotd->sponsor}
-        <div style="clear: both"></div>
         {include "wotd-sponsors/{$wotd->sponsor}"}
       {/if}
 
@@ -91,17 +87,16 @@
         showCourtesyLink=1
         showFlagTypo=1
         showHistory=1}
-
     </div>
+
     {if $reason}
-      <div class="panel-footer">
+      <div class="card-footer">
         <b>{t}Chosen because:{/t}</b> {$reason}
       </div>
     {/if}
   </div>
 
   {if Config::SKIN_WOTD_ARCHIVE}
-    <br>
     <h3>{t}Word of the day archive{/t}</h3>
 
     <div id="wotdArchive" class="wotdArchive"></div>
@@ -115,9 +110,9 @@
       {t 1=$day 2=$monthName}Word of the day for %2 %1 in other years:{/t}
     </h3>
     {foreach $otherYears as $r}
-      <div class="panel panel-default">
-        <div class="panel-body">
-          <img class="pull-right"
+      <div class="card mb-3">
+        <div class="card-body">
+          <img class="ms-3 float-end"
                src="{$r.wotd->getMediumThumbUrl()}"
                alt="iconița cuvântului zilei">
           <p>
@@ -132,6 +127,4 @@
     {/foreach}
   {/if}
 
-  <h3>{t}Comments{/t}</h3>
-  <fb:comments href="{Router::link('wotd/view', true)}/{$year}/{$month}/{$day}"></fb:comments>
 {/block}

@@ -4,6 +4,7 @@
   </a>
 
   {include "bits/sourceDropDown.tpl"
+    id=false
     name="showPageSourceId"
     sources=Source::getSourcesWithPageImages()
     skipAnySource="1"

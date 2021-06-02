@@ -101,7 +101,8 @@
                   {if !$canEdit.form}readonly{/if}>
 
                 <div id="renameDiv"
-                  class="form-check" {if !$renameRelated}hidden{/if}>
+                  class="form-check"
+                  {if !$renameRelated}hidden{/if}>
                   <label class="form-check-label">
                     <input
                       type="checkbox"

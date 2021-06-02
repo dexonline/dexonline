@@ -27,6 +27,7 @@ $(function() {
 
     $('#mergeEntryId').select2({
       ajax: entryAjax,
+      dropdownParent: $('#mergeModal'),
       minimumInputLength: 1,
       placeholder: 'alegeți o intrare',
       width: '100%',
@@ -34,6 +35,7 @@ $(function() {
 
     $('#associateEntryIds').select2({
       ajax: entryAjax,
+      dropdownParent: $('#associateModal'),
       minimumInputLength: 1,
       placeholder: 'alegeți una sau mai multe intrări',
       width: '100%',
@@ -67,7 +69,7 @@ $(function() {
   }
 
   function showRenameDiv() {
-    $('#renameDiv').removeClass('hidden');
+    $('#renameDiv').removeAttr('hidden');
   }
 
   /* Definitions can be shown as internal or HTML notation, with abbreviations expanded
@@ -151,25 +153,18 @@ $(function() {
     var id = evt.data.param;
     var text = $('#typoText_' + id).val();
 
-    $.post(wwwRoot + 'ajax/typo.php',
-         { definitionId: id, text: text }, function(data) {
-           if(data.success === true) {
-            $('#typoClear_' + id).toggleClass('collapse');
-            $('#typoSent_' + id).toggleClass('collapse');
-
-            setTimeout(function() {
-                 $('#def_' + id).find('.toggleTypoLink').trigger('click');
-             }, 1000);
-           }
-           else {
-             $('#typoResponse_' + id).slideToggle('normal', function() {
-                 setTimeout(function() {
-                    $('#typoResponse_' + id).slideToggle('normal');
-                 }, 3000);
-             });
-
-           }
-         });
+    $.post(
+      wwwRoot + 'ajax/typo.php',
+      { definitionId: id, text: text },
+      function(data) {
+        if (data.success === true) {
+          $('#typoClear_' + id).toggleClass('collapse');
+          $('#typoSent_' + id).toggleClass('collapse');
+          $('#def_' + id).find('.toggleTypoLink').trigger('click');
+        } else {
+          $('#typoResponse_' + id).removeAttr('hidden');
+        }
+      });
 
     return false;
   }

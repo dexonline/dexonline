@@ -44,6 +44,7 @@ const CODEPOINTS = [
   'login',
   'logout',
   'merge_type',
+  'park',
   'person',
   'play_arrow',
   'refresh',

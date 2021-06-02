@@ -10,19 +10,17 @@
       {/foreach}
     </span>
 
-    <span class="tagList">
+    <span class="ms-2">
       {foreach $t->getTags() as $tag}
         {include "bits/tag.tpl" t=$tag}
       {/foreach}
     </span>
 
     {if User::can(User::PRIV_EDIT + User::PRIV_STRUCT)}
-      <small>
-        <a href="{Router::link('tree/edit')}?id={$t->id}" class="pull-right">
-          <i class="glyphicon glyphicon-pencil"></i>
-          {t}edit{/t}
-        </a>
-      </small>
+      <a href="{Router::link('tree/edit')}?id={$t->id}" class="btn btn-link float-end">
+        {include "bits/icon.tpl" i=edit}
+        {t}edit{/t}
+      </a>
     {/if}
   </h3>
 

@@ -11,7 +11,7 @@
 {block "content"}
   {$renameTrees=$renameTrees|default:false}
 
-  <div id="isStructurist" class="hidden">{User::can(User::PRIV_STRUCT)}</div>
+  <div id="isStructurist" hidden>{User::can(User::PRIV_STRUCT)}</div>
 
   <h3>
     {if $e->id}
@@ -23,20 +23,20 @@
 
   {include "bits/phpConstants.tpl"}
 
-  <form class="form-horizontal" method="post" role="form">
+  <form class="mb-3" method="post">
     <input id="entryId" type="hidden" name="id" value="{$e->id}">
 
-    <div class="row">
+    <div class="row mb-2">
 
       <div class="col-md-6">
-        <div class="form-group {if isset($errors.description)}has-error{/if}">
-          <label for="description" class="col-md-2 control-label">
+        <div class="row mb-2">
+          <label for="description" class="col-md-2 col-form-label">
             descriere
           </label>
           <div class="col-md-10">
             <div>
               <input type="text"
-                class="form-control"
+                class="form-control {if isset($errors.description)}is-invalid{/if}"
                 id="description"
                 name="description"
                 value="{$e->description}">
@@ -44,9 +44,12 @@
             </div>
 
             <div id="renameDiv"
-              class="checkbox {if !$renameTrees}hidden{/if}">
-              <label>
-                <input type="checkbox"
+              class="form-check"
+              {if !$renameTrees}hidden{/if}>
+              <label class="form-check-label">
+                <input
+                  type="checkbox"
+                  class="form-check-input"
                   name="renameTrees"
                   value="1"
                   {if $renameTrees}checked{/if}>
@@ -56,22 +59,24 @@
           </div>
         </div>
 
-        <div class="form-group {if isset($errors.structStatus)}has-error{/if}">
-          <label for="structStatus" class="col-md-2 control-label">
+        <div class="row mb-2">
+          <label for="structStatus" class="col-md-2 form-label">
             structurare
           </label>
           <div class="col-md-10">
             {include "bits/structStatusRadio.tpl" selected=$e->structStatus}
-            {include "bits/fieldErrors.tpl" errors=$errors.structStatus|default:null}
           </div>
         </div>
 
-        <div class="form-group">
-          <label for="structuristId" class="col-md-2 control-label">
+        <div class="row mb-2">
+          <label for="structuristId" class="col-md-2 col-form-label">
             structurist
           </label>
           <div class="col-md-10">
-            <select id="structuristId" name="structuristId" class="form-control">
+            <select
+              id="structuristId"
+              name="structuristId"
+              class="form-select {if isset($errors.structuristId)}is-invalid{/if}">
               <option value="{Entry::STRUCTURIST_ID_NONE}">niciunul</option>
               {foreach $structurists as $s}
                 <option value="{$s->id}"
@@ -84,10 +89,10 @@
           </div>
         </div>
 
-        <div class="form-group">
-          <label class="col-md-2 control-label">etichete</label>
+        <div class="row mb-2">
+          <label class="col-md-2 col-form-label">etichete</label>
           <div class="col-md-10">
-            <select name="tagIds[]" class="form-control select2Tags" multiple>
+            <select name="tagIds[]" class="form-select select2Tags" multiple>
               {foreach $tagIds as $tagId}
                 <option value="{$tagId}" selected></option>
               {/foreach}
@@ -98,12 +103,17 @@
       </div>
 
       <div class="col-md-6">
-        <div class="form-group {if isset($errors.mainLexemeIds)}has-error{/if}">
-          <label for="mainLexemeIds" class="col-md-2 control-label">
+        <div class="row mb-2">
+          <label for="mainLexemeIds" class="col-md-2 col-form-label">
             lexeme
           </label>
           <div class="col-md-10">
-            <select id="mainLexemeIds" name="mainLexemeIds[]" style="width: 100%" multiple>
+            <select
+              id="mainLexemeIds"
+              class="form-select {if isset($errors.mainLexemeIds)}is-invalid{/if}"
+              name="mainLexemeIds[]"
+              style="width: 100%"
+              multiple>
               {foreach $mainLexemeIds as $l}
                 <option value="{$l}" selected></option>
               {/foreach}
@@ -112,8 +122,8 @@
           </div>
         </div>
 
-        <div class="form-group">
-          <label for="variantLexemeIds" class="col-md-2 control-label">
+        <div class="row mb-2">
+          <label for="variantLexemeIds" class="col-md-2 col-form-label">
             variante
           </label>
           <div class="col-md-10">
@@ -122,32 +132,32 @@
                 <option value="{$l}" selected></option>
               {/foreach}
             </select>
-            <div>
+            <div class="mt-1">
               Tipuri de model:
               {foreach $modelTypes as $mt}
-                <span class="label label-default">{$mt}</span>
+                <span class="badge text-dark bg-light">{$mt}</span>
               {/foreach}
 
-              <div class="btn-group pull-right">
+              <div class="float-end">
                 <button id="moveLexemesUp"
                   type="button"
-                  class="btn btn-default btn-xs"
+                  class="btn btn-link btn-sm"
                   title="mută toate variantele la principale">
-                  <i class="glyphicon glyphicon-chevron-up"></i>
+                  {include "bits/icon.tpl" i=expand_less}
                 </button>
                 <button id="moveLexemesDown"
                   type="button"
-                  class="btn btn-default btn-xs"
+                  class="btn btn-link btn-sm"
                   title="mută toate principalele la variante">
-                  <i class="glyphicon glyphicon-chevron-down"></i>
+                  {include "bits/icon.tpl" i=expand_more}
                 </button>
               </div>
             </div>
           </div>
         </div>
 
-        <div class="form-group">
-          <label for="treeIds" class="col-md-2 control-label">
+        <div class="row mb-2">
+          <label for="treeIds" class="col-md-2 col-form-label">
             arbori
           </label>
           <div class="col-md-10">
@@ -157,30 +167,22 @@
               {/foreach}
             </select>
 
-            <div class="checkbox">
-              <label title="cauzează ascunderea reclamelor">
-                <input type="checkbox" name="adult" value="1" {if $e->adult}checked{/if}>
-                conține definiții pentru adulți
-              </label>
-            </div>
+            {include "bs/checkbox.tpl"
+              name=adult
+              label='conține definiții pentru adulți'
+              checked=$e->adult}
 
-            <div class="checkbox {if isset($errors.multipleMains)}has-error{/if}">
-              <label>
-                <input
-                  type="checkbox"
-                  name="multipleMains"
-                  value="1"
-                  {if $e->multipleMains}checked{/if}>
-                conține lexeme principale multiple
-              </label>
-              {include "bits/fieldErrors.tpl" errors=$errors.multipleMains|default:null}
-            </div>
+            {include "bs/checkbox.tpl"
+              name=multipleMains
+              label='conține lexeme principale multiple'
+              checked=$e->multipleMains
+              errors=$errors.multipleMains|default:null}
           </div>
         </div>
 
         {if $homonyms}
-          <div class="form-group">
-            <label class="col-md-2">omonime</label>
+          <div class="row mb-2">
+            <label class="col-md-2 col-form-label">omonime</label>
             <div class="col-md-10">
               <div class="form-control overflown">
                 {foreach $homonyms as $h}
@@ -196,19 +198,19 @@
 
     <button
       type="submit"
-      class="btn btn-success"
+      class="btn btn-primary"
       name="saveButton"
       {if !$canEdit}
       disabled
       title="doar structuriștii pot modifica intrările structurate"
       {/if}>
-      <i class="glyphicon glyphicon-floppy-disk"></i>
+      {include "bits/icon.tpl" i=save}
       <u>s</u>alvează
     </button>
 
     <button
       type="button"
-      class="btn btn-default"
+      class="btn btn-light"
       data-bs-toggle="modal"
       data-bs-target="#mergeModal"
       {if !$canEdit}
@@ -221,39 +223,39 @@
 
     <button
       type="button"
-      class="btn btn-default"
+      class="btn btn-light"
       data-bs-toggle="modal"
       data-bs-target="#cloneModal">
-      <i class="glyphicon glyphicon-duplicate"></i>
+      {include "bits/icon.tpl" i=content_copy}
       clonează...
     </button>
 
     <button
       type="submit"
-      class="btn btn-default"
+      class="btn btn-light"
       name="createTree"
       {if !$canEdit}
       disabled
       title="doar structuriștii pot modifica intrările structurate"
       {/if}>
-      <i class="glyphicon glyphicon-tree-deciduous"></i>
+      {include "bits/icon.tpl" i=park}
       creează un arbore de sensuri
     </button>
 
     {if $e->id}
       <a id="wikiLink"
         href="https://wiki.dexonline.ro/wiki/Intrare:{$e->id}?description={$e->description|escape}"
-        class="btn btn-default"
+        class="btn btn-light"
         title="creează o pagină wiki pentru această intrare"
         target="_blank">
-        <i class="glyphicon glyphicon-comment"></i>
+        {include "bits/icon.tpl" i=comment}
         wiki
       </a>
     {/if}
 
     {if count($e->getLexemes())}
-      <a class="btn btn-default" href="definitie/{$e->getMainLexeme()->formNoAccent}">
-        <i class="glyphicon glyphicon-search"></i>
+      <a class="btn btn-light" href="definitie/{$e->getMainLexeme()->formNoAccent}">
+        {include "bits/icon.tpl" i=search}
         caută
       </a>
     {/if}
@@ -262,17 +264,17 @@
       renunță
     </a>
 
-    <div class="pull-right">
+    <div class="float-end">
       <button
         type="submit"
-        class="btn btn-danger"
+        class="btn btn-outline-danger"
         name="delete"
         {if !$canDelete}
         disabled
         title="Nu puteți șterge intrarea deoarece ea îi este repartizată altui structurist"
         {/if}
       >
-        <i class="glyphicon glyphicon-trash"></i>
+        {include "bits/icon.tpl" i=delete}
         șterge
       </button>
 
@@ -287,8 +289,7 @@
         title="șterge intrarea, lexemele de tip T și arborii goi"
         {/if}
       >
-        <i class="glyphicon glyphicon-trash"></i>
-        <i class="glyphicon glyphicon-trash"></i>
+        {include "bits/icon.tpl" i=delete}
         șterge extins
       </button>
     </div>
@@ -315,7 +316,7 @@
               </div>
             {/if}
             <input type="hidden" name="id" value="{$e->id}">
-            <select id="mergeEntryId" name="mergeEntryId" class="form-control">
+            <select id="mergeEntryId" name="mergeEntryId" class="form-select">
             </select>
           </div>
 
@@ -349,7 +350,7 @@
             {* we need the entry ID so we know where to return *}
             <input type="hidden" name="id" value="{$e->id}">
             <input type="hidden" name="associateDefinitionIds" value="{$e->id}">
-            <select id="associateEntryIds" name="associateEntryIds[]" class="form-control" multiple>
+            <select id="associateEntryIds" name="associateEntryIds[]" class="form-select" multiple>
             </select>
           </div>
 
@@ -359,7 +360,7 @@
               class="btn btn-primary"
               name="associateButton"
               title="asociază definițiile cu noua intrare și lasă-le asociate și aici">
-              <i class="glyphicon glyphicon-resize-small"></i>
+              {include "bits/icon.tpl" i=content_copy}
               copiază
             </button>
             <button
@@ -367,7 +368,7 @@
               class="btn btn-primary"
               name="moveButton"
               title="asociază definițiile cu noua intrare și disociază-le de aici">
-              <i class="glyphicon glyphicon-share-alt"></i>
+              {include "bits/icon.tpl" i=content_cut}
               mută
             </button>
             <button type="button" class="btn btn-link" data-bs-dismiss="modal">renunță</button>
@@ -382,9 +383,9 @@
   {if $e->id}
     <h3>Arbori de sensuri asociați ({$e->getTrees()|count})</h3>
 
-    <form>
-      <div class="form-group form-inline">
-        <select id="treeFilterSelect" class="form-control">
+    <form class="row row-cols-lg-auto mb-3">
+      <div class="col-12">
+        <select id="treeFilterSelect" class="form-select">
           <option value="{Tree::ST_VISIBLE}">doar arborii vizibili</option>
           <option value="{Tree::ST_HIDDEN}">doar arborii ascunși</option>
           <option value="-1">toți arborii</option>
@@ -393,29 +394,32 @@
     </form>
 
     {foreach $e->getTrees() as $t}
-      <div class="panel panel-default tree tree-status-{$t->status}">
-        <div class="panel-heading clearfix">
-          {$t->description}
+      <div class="card mb-3 tree tree-status-{$t->status}">
+        <div class="card-header d-flex justify-content-between align-items-center">
 
-          <span class="tagList">
-            {foreach $t->getTags() as $tag}
-              {include "bits/tag.tpl" t=$tag}
-            {/foreach}
+          <span>
+            {$t->description}
+
+            <span class="ms-2">
+              {foreach $t->getTags() as $tag}
+                {include "bits/tag.tpl" t=$tag}
+              {/foreach}
+            </span>
           </span>
 
-          <div class="btn-group pull-right">
-            <a href="{Router::link('tree/edit')}?id={$t->id}" class="btn btn-sm btn-default">
-              <i class="glyphicon glyphicon-pencil"></i>
+          <div>
+            <a href="{Router::link('tree/edit')}?id={$t->id}" class="btn btn-sm btn-light">
+              {include "bits/icon.tpl" i=edit}
               editează
             </a>
             <a href="?id={$e->id}&amp;deleteTreeId={$t->id}"
               class="btn btn-sm btn-danger {if !$t->canDelete()}disabled{/if}">
-              <i class="glyphicon glyphicon-trash"></i>
+              {include "bits/icon.tpl" i=delete}
               șterge
             </a>
           </div>
         </div>
-        <div class="panel-body">
+        <div class="card-body">
           {include "bits/editableMeaningTree.tpl"
             meanings=$t->getMeanings()
             id="meaningTree-{$t->id}"}
@@ -426,31 +430,34 @@
     <h3>Definiții asociate ({$searchResults|count})</h3>
 
     {if count($searchResults)}
-      <form class="form-inline">
-        <div class="form-group">
-
-          <select id="defFilterSelect" class="form-control">
+      <form class="row row-cols-lg-auto g-1 mb-2 d-flex align-items-center">
+        <div class="col-12">
+          <select id="defFilterSelect" class="form-select">
             <option value="">toate</option>
             <option value="structured">structurate</option>
             <option value="unstructured">nestructurate</option>
           </select>
+        </div>
 
-          <select class="toggleRepSelect form-control" data-order="1">
+        <div class="col-12">
+          <select class="toggleRepSelect form-select" data-order="1">
             <option value="0">text</option>
             <option value="1" selected>html</option>
           </select>
+        </div>
 
-          <select class="toggleRepSelect form-control" data-order="2">
+        <div class="col-12">
+          <select class="toggleRepSelect form-select" data-order="2">
             <option value="0">expandat</option>
             <option value="1" selected>abreviat</option>
           </select>
+        </div>
 
-          <div class="checkbox">
-            <label>
-              <input id="structurableFilter" type="checkbox"> numai definițiile de structurat
-            </label>
-          </div>
-
+        <div class="col-12">
+          {include "bs/checkbox.tpl"
+            inputId=structurableFilter
+            name=false
+            label='numai definițiile de structurat'}
         </div>
       </form>
 
@@ -485,14 +492,12 @@
 
         <div>
           <button type="button"
-            class="btn btn-default"
+            class="btn btn-light"
             data-bs-toggle="modal"
             data-bs-target="#associateModal">
-            <i class="glyphicon glyphicon-resize-small"></i>
             asociază...
           </button>
-          <button id="dissociateButton" type="submit" class="btn btn-default" name="dissociateButton">
-            <i class="glyphicon glyphicon-resize-full"></i>
+          <button id="dissociateButton" type="submit" class="btn btn-light" name="dissociateButton">
             disociază...
           </button>
         </div>

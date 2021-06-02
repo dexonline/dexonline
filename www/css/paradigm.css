@@ -130,10 +130,6 @@ li.notRecommended::after {
   content: '*';
 }
 
-.variantParadigm {
-  display: none;
-}
-
 /*
   Fix the inflection arrow for Google Chrome
   Reference: https://github.com/dexonline/dexonline/issues/484

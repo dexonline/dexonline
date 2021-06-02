@@ -1,14 +1,14 @@
 {assign var="hasUnrecommendedForms" value=$hasUnrecommendedForms|default:false}
 {assign var="hasElisionForms" value=$hasElisionForms|default:false}
 
-<div class="panel panel-default paradigmDiv voffset3">
-  <div class="panel-heading">
+<div class="card mb-3 paradigmDiv">
+  <div class="card-header">
     {cap}{t}entry{/t}{/cap}: <strong>{$entry->description}</strong>
 
     {if User::can(User::PRIV_EDIT + User::PRIV_STRUCT)}
-      <div class="pull-right">
+      <div class="float-end">
         <a href="{Router::link('entry/edit')}?id={$entry->id}">
-          <i class="glyphicon glyphicon-pencil"></i>
+          {include "bits/icon.tpl" i=edit}
           editează
         </a>
       </div>
@@ -16,26 +16,31 @@
 
   </div>
 
-  <div class="panel-body">
+  <div class="card-body">
 
     {foreach $entry->getMainLexemes() as $lexeme}
       {include "bits/extendedParadigm.tpl"}
     {/foreach}
 
     {if $entry->hasVariants()}
-      <div class="variantParadigm">
+      <div
+        id="variant-paradigm-{$entry->id}"
+        class="collapse">
         {foreach $entry->getVariants() as $lexeme}
           {include "bits/extendedParadigm.tpl"}
         {/foreach}
-
       </div>
 
-      <button
-        type="button"
-        class="btn btn-default toggleVariantParadigms doubleText"
-        data-other-text="{t}hide variants{/t}">
+      <a
+        class="btn btn-light doubleText"
+        data-other-text="{t}hide variants{/t}"
+        data-bs-toggle="collapse"
+        href="#variant-paradigm-{$entry->id}"
+        role="button"
+        aria-expanded="false"
+        aria-controls="variant-paradigm-{$entry->id}">
         {t}show variants{/t}
-      </button>
+      </a>
     {/if}
 
   </div>

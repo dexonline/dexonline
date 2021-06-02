@@ -11,10 +11,6 @@ $(function() {
       return false;
     });
 
-    $('.toggleVariantParadigms').click(function() {
-      $(this).siblings('.variantParadigm').stop().slideToggle();
-    });
-
     $('button[data-bs-toggle="tab"]').on('click', pushHistory);
     window.addEventListener('popstate', popHistory);
 

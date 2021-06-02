@@ -24,6 +24,7 @@ const CODEPOINTS = [
   'delete',
   'description',
   'done',
+  'drag_indicator',
   'edit',
   'email',
   'emoji_symbols',

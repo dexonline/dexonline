@@ -10,12 +10,12 @@
 
 {block "content"}
 
-  <div class="panel panel-default">
-    <div class="panel-heading">
+  <div class="card mb-3">
+    <div class="card-header">
       {if $src->name}Editare sursă: {$src->name}{else}Adăugare sursă{/if}
     </div>
 
-    <div class="panel-body">
+    <div class="card-body">
 
       <form method="post">
         <input type="hidden" name="id" value="{$src->id}">
@@ -24,46 +24,46 @@
 
           <div class="col-md-6">
 
-            <div class="form-group">
-              <label>nume</label>
+            <div class="mb-2">
+              <label class="form-label">nume</label>
               <input type="text" name="name" value="{$src->name}" class="form-control">
             </div>
 
-            <div class="form-group">
-              <label>nume scurt</label>
+            <div class="mb-2">
+              <label class="form-label">nume scurt</label>
               <input type="text" name="shortName" value="{$src->shortName}" class="form-control">
-              <p class="help-block">
+              <p class="form-text">
                 Numele sursei prezentat după fiecare definiție.
               </p>
             </div>
 
-            <div class="form-group">
-              <label>nume URL</label>
+            <div class="mb-2">
+              <label class="form-label">nume URL</label>
               <input type="text" name="urlName" value="{$src->urlName}" class="form-control">
-              <p class="help-block">
+              <p class="form-text">
                 Numele care apare în URL la căutarea într-o anumită sursă, cum ar fi
                 https://dexonline.ro/definitie-<strong>der</strong>/copil
               </p>
             </div>
 
-            <div class="form-group">
-              <label>autor</label>
+            <div class="mb-2">
+              <label class="form-label">autor</label>
               <input type="text" name="author" value="{$src->author}" class="form-control">
             </div>
 
-            <div class="form-group">
-              <label>editură</label>
+            <div class="mb-2">
+              <label class="form-label">editură</label>
               <input type="text" name="publisher" value="{$src->publisher}" class="form-control">
             </div>
 
-            <div class="form-group">
-              <label>an</label>
+            <div class="mb-2">
+              <label class="form-label">an</label>
               <input type="text" name="year" value="{$src->year}" class="form-control">
             </div>
 
-            <div class="form-group">
-              <label>tipul sursei</label>
-              <select class="form-control" name="sourceTypeId">
+            <div class="mb-2">
+              <label class="form-label">tipul sursei</label>
+              <select class="form-select" name="sourceTypeId">
                 <option value="0">Fără categorie</option>
                 {foreach $sourceTypes as $type}
                   <option value="{$type->id}" {if $src->sourceTypeId == $type->id}selected{/if}>
@@ -73,9 +73,9 @@
               </select>
             </div>
 
-            <div class="form-group">
-              <label>managerul dicționarului</label>
-              <select class="form-control" name="managerId">
+            <div class="mb-2">
+              <label class="form-label">managerul dicționarului</label>
+              <select class="form-select" name="managerId">
                 <option value="0">Fără moderator</option>
                 {foreach $managers as $manager}
                   <option value="{$manager->id}" {if $src->managerId == $manager->id}selected{/if}>
@@ -85,9 +85,9 @@
               </select>
             </div>
 
-            <div class="form-group">
-              <label>tipul importului</label>
-              <select class="form-control" name="importType">
+            <div class="mb-2">
+              <label class="form-label">tipul importului</label>
+              <select class="form-select" name="importType">
                 {foreach Source::IMPORT_TYPE_LABELS as $importType => $label}
                   <option value="{$importType}" {if $src->importType == $importType}selected{/if}>
                     {$label}
@@ -96,9 +96,9 @@
               </select>
             </div>
 
-            <div class="form-group">
-              <label>reforma ortografică</label>
-              <select class="form-control" name="reformId">
+            <div class="mb-2">
+              <label class="form-label">reforma ortografică</label>
+              <select class="form-select" name="reformId">
                 <option value="0">Fără categorie</option>
                 {foreach $reforms as $reform}
                   <option value="{$reform->id}" {if $src->reformId == $reform->id}selected{/if}>
@@ -110,33 +110,33 @@
           </div>
 
           <div class="col-md-6">
-            <div class="form-group">
-              <label>notă</label>
+            <div class="mb-2">
+              <label class="form-label">notă</label>
               <input type="text" name="remark" value="{$src->remark}" class="form-control">
             </div>
 
-            <div class="form-group">
-              <label>legătura către formatul scanat</label>
+            <div class="mb-2">
+              <label class="form-label">legătura către formatul scanat</label>
               <input type="text" name="link" value="{$src->link}" class="form-control">
             </div>
 
-            <div class="form-group">
-              <label>legătura către editură/autor</label>
+            <div class="mb-2">
+              <label class="form-label">legătura către editură/autor</label>
               <input type="text" name="courtesyLink" value="{$src->courtesyLink}" class="form-control">
-              <p class="help-block">
+              <p class="form-text">
                 Trebuie să fie o valoare <code>skey</code> din tabela AdsLink, de exemplu „logos”
                 pentru DCR.
               </p>
             </div>
 
-            <div class="form-group">
-              <label>textul pentru legătura către editură/autor</label>
+            <div class="mb-2">
+              <label class="form-label">textul pentru legătura către editură/autor</label>
               <input type="text" name="courtesyText" value="{$src->courtesyText}" class="form-control">
             </div>
 
-            <div class="form-group">
-              <label>tip</label>
-              <select class="form-control" name="type">
+            <div class="mb-2">
+              <label class="form-label">tip</label>
+              <select class="form-select" name="type">
                 {foreach Source::TYPE_NAMES as $type => $name}
                   <option value="{$type}" {if $src->type == $type}selected{/if}>
                     {$name}
@@ -145,73 +145,63 @@
               </select>
             </div>
 
-            <div class="form-group">
-              <label>număr de definiții (-1 pentru „necunoscut”)</label>
+            <div class="mb-2">
+              <label class="form-label">număr de definiții (-1 pentru „necunoscut”)</label>
               <input type="text" name="defCount" value="{$src->defCount}" class="form-control">
-              <p class="help-block">
+              <p class="form-text">
                 din care digitizate: {$src->ourDefCount};
                 procent de completare: {$src->percentComplete|nf:2}.
               </p>
             </div>
 
-            <div class="form-group">
-              <label>etichete</label>
-              <select name="tagIds[]" class="form-control select2Tags" multiple>
+            <div class="mb-2">
+              <label class="form-label">etichete</label>
+              <select name="tagIds[]" class="form-select select2Tags" multiple>
                 {foreach $tagIds as $tagId}
                   <option value="{$tagId}" selected></option>
                 {/foreach}
               </select>
             </div>
 
-            <div class="form-group">
-              <label>glife comune</label>
+            <div class="mb-2">
+              <label class="form-label">glife comune</label>
               <input
                 type="text"
                 name="commonGlyphs"
                 value="{$src->commonGlyphs|escape}"
                 class="form-control">
 
-              <p class="help-block">
+              <p class="form-text">
                 Glife care permit salvarea definiției fără avertismente. Sînt
-                deja incluse glifele <b>{Source::getBaseGlyphsDisplay()|escape}</b>,
+                deja incluse glifele <code>{Source::getBaseGlyphsDisplay()|escape}</code>,
                 comune tuturor surselor.
               </p>
             </div>
 
-            <div class="checkbox">
-              <label>
-                <input type="checkbox" name="hidden" {if $src->hidden}checked{/if}>
-                sursă ascunsă, vizibilă doar administratorilor
-              </label>
-            </div>
+            {include "bs/checkbox.tpl"
+              name=hidden
+              label='sursă ascunsă, vizibilă doar administratorilor'
+              checked=$src->hidden}
 
-            <div class="checkbox">
-              <label>
-                <input type="checkbox" name="canModerate" {if $src->canModerate}checked{/if}>
-                moderatorii pot muta definiții în/din această sursă
-              </label>
-            </div>
+            {include "bs/checkbox.tpl"
+              name=canModerate
+              label='moderatorii pot muta definiții în/din această sursă'
+              checked=$src->canModerate}
 
-            <div class="checkbox">
-              <label>
-                <input type="checkbox" name="canDistribute" {if $src->canDistribute}checked{/if}>
-                poate fi redistribuită
-              </label>
-            </div>
+            {include "bs/checkbox.tpl"
+              name=canDistribute
+              label='poate fi redistribuită'
+              checked=$src->canDistribute}
 
-            <div class="checkbox">
-              <label>
-                <input type="checkbox" name="structurable" {if $src->structurable}checked{/if}>
-                de structurat în primă fază
-              </label>
-            </div>
+            {include "bs/checkbox.tpl"
+              name=structurable
+              label='de structurat în primă fază'
+              checked=$src->structurable}
 
-            <div class="checkbox">
-              <label>
-                <input type="checkbox" name="hasPageImages" {if $src->hasPageImages}checked{/if}>
-                are imagini pentru fiecare pagină
-              </label>
-            </div>
+            {include "bs/checkbox.tpl"
+              name=hasPageImages
+              label='are imagini pentru fiecare pagină'
+              checked=$src->hasPageImages}
 
           </div>
         </div>
@@ -242,12 +232,12 @@
         </fieldset>
 
         <button id="addButton" class="btn btn-light" type="button">
-          <i class="glyphicon glyphicon-plus"></i>
+          {include "bits/icon.tpl" i=add}
           adaugă un autor
         </button>
 
-        <button class="btn btn-success" type="submit" name="saveButton">
-          <i class="glyphicon glyphicon-floppy-disk"></i>
+        <button class="btn btn-primary" type="submit" name="saveButton">
+          {include "bits/icon.tpl" i=save}
           <u>s</u>alvează
         </button>
 

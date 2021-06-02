@@ -386,15 +386,6 @@ h3 .label {
   background-color: #f9f9f9;
 }
 
-.sourceShortName {
-  background: #DDD;
-  border-radius: 2px;
-  color: #444;
-  font-size: 80%;
-  margin-left: 10px;
-  padding: 3px 5px;
-}
-
 /*********** favorites ***********/
 
 dd.favoriteDefs {
@@ -496,4 +487,9 @@ div.thumbinner {
 
 textarea.form-control {
   margin-bottom: 3px;
+}
+
+/* sortable */
+.drag-indicator {
+  cursor: grab;
 }

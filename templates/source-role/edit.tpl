@@ -10,7 +10,6 @@
     <table class="table">
       <thead>
         <tr>
-          <th></th>
           <th>nume singular</th>
           <th>nume plural</th>
           <th>prioritate</th>
@@ -27,12 +26,12 @@
 
     <div>
       <button id="addButton" class="btn btn-light" type="button">
-        <i class="glyphicon glyphicon-plus"></i>
+        {include "bits/icon.tpl" i=add}
         adaugă un rol
       </button>
 
-      <button class="btn btn-success" type="submit" name="saveButton">
-        <i class="glyphicon glyphicon-floppy-disk"></i>
+      <button class="btn btn-primary" type="submit" name="saveButton">
+        {include "bits/icon.tpl" i=save}
         <u>s</u>alvează
       </button>
 

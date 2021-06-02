@@ -38,14 +38,14 @@
 
   <div>
     {if User::can(User::PRIV_ADMIN)}
-      <a class="btn btn-default" href="{Router::link('source/edit')}?id={$source->id}">
-        <i class="glyphicon glyphicon-edit"></i>
+      <a class="btn btn-primary" href="{Router::link('source/edit')}?id={$source->id}">
+        {include "bits/icon.tpl" i=edit}
         editează
       </a>
     {/if}
 
-    <a class="btn btn-default" href="{Router::link('source/list')}">
-      <i class="glyphicon glyphicon-book"></i>
+    <a class="btn btn-link" href="{Router::link('source/list')}">
+      {include "bits/icon.tpl" i=arrow_back}
       lista de surse
     </a>
   </div>

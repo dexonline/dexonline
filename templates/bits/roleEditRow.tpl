@@ -2,13 +2,9 @@
 {$id=$id|default:''}
 {$role=$role|default:null}
 
-<tr {if $id}id="{$id}" hidden{/if}>
-  <td class="vcenter">
-    <input type="hidden" name="roleId[]" value="{$role->id|default:''}">
-    <i class="glyphicon glyphicon-move"></i>
-  </td>
-
+<tr class="align-middle" {if $id}id="{$id}" hidden{/if}>
   <td>
+    <input type="hidden" name="roleId[]" value="{$role->id|default:''}">
     <input
       type="text"
       name="roleNameSingular[]"
@@ -36,9 +32,9 @@
   <td>
     <button
       type="button"
-      class="btn btn-danger deleteButton"
+      class="btn btn-danger btn-sm deleteButton"
       {if $role && $role->isInUse()}disabled{/if}>
-      <i class="glyphicon glyphicon-trash"></i>
+      {include "bits/icon.tpl" i=delete}
     </button>
   </td>
 </tr>

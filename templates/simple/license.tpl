@@ -12,7 +12,7 @@
     dicționare este interzisă fără acordul explicit al deținătorilor de drepturi:
   </p>
 
-  <table class="table-bordered table-striped table-condensed">
+  <table class="table">
     <tr>
       <th>Nume</th>
       <th>Autor</th>
@@ -21,7 +21,7 @@
     {foreach $restrictedSources as $rs}
       <tr>
         <td class="dictionaryName">{$rs->name}
-          <span class="sourceShortName pull-right">{$rs->shortName}</span>
+          <span class="badge text-dark bg-light float-end">{$rs->shortName}</span>
         </td>
         <td class="author">{$rs->author}</td>
         <td>{$rs->publisher}</td>

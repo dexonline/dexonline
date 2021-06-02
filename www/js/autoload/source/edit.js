@@ -9,8 +9,8 @@ $(function() {
     $('#authorContainer').on('click', '.deleteButton', deleteRow);
 
     Sortable.create(authorContainer, {
-      handle: '.glyphicon-move',
-	    animation: 150,
+      handle: '.drag-indicator',
+      animation: 150,
     });
   }
 

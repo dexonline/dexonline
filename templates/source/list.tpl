@@ -17,13 +17,13 @@
   </div>
 
   <form method="post">
-    <table id="sources" class="table table-striped ">
+    <table id="sources" class="table">
       <thead>
         <tr>
           <th class="abbreviation">Nume scurt</th>
           {if $editable}
-          <th class="type">Categorie</th>
-          <th class="manager">Manager</th>
+            <th class="type">Categorie</th>
+            <th class="manager">Manager</th>
           {/if}
           <th class="nick">Nume</th>
           <th>% utilizat</th>
@@ -37,9 +37,13 @@
           <tr {if $s->id == $highlightSourceId}id="highlightedSource" class="info"{/if}>
             <td class="abbreviation text-nowrap">
               {if $s->link && User::can(User::PRIV_EDIT)}
-                <a href="{$s->link}" target="_blank"><span class="sourceShortName">{$s->shortName}</span></a>
+                <a href="{$s->link}" class="badge text-dark bg-light" target="_blank">
+                  {$s->shortName}
+                </a>
               {else}
-                <span class="sourceShortName">{$s->shortName}</span>
+                <span class="badge text-dark bg-light">
+                  {$s->shortName}
+                </span>
               {/if}
             </td>
             {if $editable}
@@ -78,12 +82,12 @@
 
     {if $editable}
       <button class="btn btn-success" type="submit" name="saveButton">
-        <i class="glyphicon glyphicon-floppy-disk"></i>
+        {include "bits/icon.tpl" i=save}
         <u>s</u>alvează
       </button>
 
-      <a class="btn btn-default" href="{Router::link('source/edit')}">
-        <i class="glyphicon glyphicon-plus"></i>
+      <a class="btn btn-light" href="{Router::link('source/edit')}">
+        {include "bits/icon.tpl" i=add}
         adaugă o sursă
       </a>
       <a class="btn btn-link" href="">renunță</a>

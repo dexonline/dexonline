@@ -2,10 +2,10 @@
 {$id=$id|default:''}
 {$author=$author|default:null}
 
-<tr {if $id}id="{$id}" hidden{/if}>
-  <td class="vcenter">
+<tr class="align-middle" {if $id}id="{$id}" hidden{/if}>
+  <td>
     <input type="hidden" name="authorId[]" value="{$author->id|default:''}">
-    <i class="glyphicon glyphicon-move"></i>
+    {include "bits/icon.tpl" i=drag_indicator class="drag-indicator"}
   </td>
 
   <td>
@@ -34,7 +34,7 @@
   </td>
 
   <td>
-    <select name="authorRoleId[]" class="form-control">
+    <select name="authorRoleId[]" class="form-select">
       {foreach SourceRole::getAll() as $role}
         <option
           value="{$role->id}"
@@ -47,8 +47,8 @@
   </td>
 
   <td>
-    <button type="button" class="btn btn-danger deleteButton">
-      <i class="glyphicon glyphicon-trash"></i>
+    <button type="button" class="btn btn-danger btn-sm deleteButton">
+      {include "bits/icon.tpl" i=delete}
     </button>
   </td>
 </tr>

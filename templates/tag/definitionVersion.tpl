@@ -13,38 +13,32 @@
   <form>
     <input type="hidden" name="id" value="{$dv->id}">
 
-    <div class="form-group">
-      <label>etichete</label>
+    <div class="mb-3">
+      <label class="form-label">etichete</label>
 
-      <select name="tagIds[]" class="form-control select2Tags" multiple>
+      <select name="tagIds[]" class="form-select select2Tags" multiple>
         {foreach $change.tags as $t}
           <option value="{$t->id}" selected></option>
         {/foreach}
       </select>
+    </div>
 
-      <div class="checkbox">
-        <label>
-          <input type="checkbox"
-                 name="applyToDefinition"
-                 value="1"
-                 checked>
-          aplică noile etichete și pe definiția însăși
-        </label>
-        <p class="help-block">
-          Doar etichetele adăugate sunt preluate pe definiție. Dacă doriți să ștergeți
-          etichete de pe definiție, trebuie să le ștergeți manual.
-        </p>
-      </div>
+    <div class="mb-3">
+      {include "bs/checkbox.tpl"
+        name=applyToDefinition
+        label='aplică noile etichete și pe definiția însăși'
+        checked=true
+        help='Doar etichetele adăugate sunt preluate pe definiție. Dacă doriți să ștergeți etichete de pe definiție, trebuie să le ștergeți manual.'}
     </div>
 
     <div>
-      <button type="submit" class="btn btn-success" name="saveButton">
-        <i class="glyphicon glyphicon-floppy-disk"></i>
+      <button type="submit" class="btn btn-primary" name="saveButton">
+        {include "bits/icon.tpl" i=save}
         <u>s</u>alvează
       </button>
 
-      <a class="btn btn-default" href="{Router::link('definition/history')}?id={$def->id}">
-        <i class="glyphicon glyphicon-arrow-left"></i>
+      <a class="btn btn-link" href="{Router::link('definition/history')}?id={$def->id}">
+        {include "bits/icon.tpl" i=arrow_back}
         înapoi la istoria definiției
       </a>
     </div>

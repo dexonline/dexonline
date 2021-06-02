@@ -14,9 +14,10 @@ $(function() {
 
   $('#includePublic').change(function() {
     if ($(this).prop('checked')) {
-      window.location = '?includePublic=1';
+      window.location = '?includePublic';
     } else {
-      window.location = '?includePublic=0';
+      // remove query string
+      window.location = window.location.href.split('?')[0];
     }
   });
 

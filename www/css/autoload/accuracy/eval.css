@@ -2,3 +2,11 @@
   font-size: 1.15em;
   line-height: 1.6;
 }
+
+.card-header .chevron {
+  transition: all 0.5s;
+}
+
+.card-header.collapsed .chevron {
+  transform: rotate(180deg);
+}

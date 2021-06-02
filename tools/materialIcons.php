@@ -46,6 +46,7 @@ const CODEPOINTS = [
   'person',
   'play_arrow',
   'refresh',
+  'remove',
   'repeat',
   'save',
   'savings',

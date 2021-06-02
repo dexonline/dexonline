@@ -140,7 +140,7 @@ class AccuracyProject extends BaseObject implements DatedObject {
   // returns the number of characters covered by this project
   function getProjectLength() {
     $result = $this->runQuery(self::FETCH_LENGTH);
-    return $result->fetchColumn();
+    return (int)$result->fetchColumn();
   }
 
   // returns the number of definitions in our sample

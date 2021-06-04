@@ -38,7 +38,7 @@
               <span class="tag-group">
                 <span class="text-muted">surse:</span>
                 {foreach $t.sources as $s}
-                  <span class="label label-source"
+                  <span class="badge badge-source"
                         title="{$s->name}, {$s->year}">{$s->shortName}</span>
                 {/foreach}
               </span>

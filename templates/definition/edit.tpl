@@ -12,11 +12,11 @@
   {/if}
   <h3>
     {$title}
-    <span class="pull-right">
+    <span class="float-end">
       <a class="btn btn-link"
         href="https://wiki.dexonline.ro/wiki/Editarea_defini%C8%9Biilor"
         target="_blank">
-        <i class="glyphicon glyphicon-question-sign"></i>
+        {include "bits/icon.tpl" i=info}
         ajutor
       </a>
     </span>
@@ -28,8 +28,8 @@
 
     <div class="row">
       <div class="col-md-6">
-        <div class="form-group">
-          <label class="col-sm-2 col-md-4 control-label">sursă</label>
+        <div class="row mb-3">
+          <label class="col-sm-2 col-md-4 col-form-label">sursă</label>
           <div class="col-sm-10 col-md-8">
             {if $source->canModerate || !$def->id}
               {include "bits/sourceDropDown.tpl"
@@ -43,8 +43,8 @@
           </div>
         </div>
 
-        <div class="form-group">
-          <label class="col-sm-2 col-md-4 control-label">stare</label>
+        <div class="row mb-3">
+          <label class="col-sm-2 col-md-4 col-form-label">stare</label>
           <div class="col-sm-10 col-md-8">
             {include "bits/statusDropDown.tpl"
               name="status"
@@ -53,17 +53,19 @@
           </div>
         </div>
 
-        <div class="form-group">
-          <label class="col-sm-2 col-md-4 control-label">volum</label>
-          <div class="col-sm-2 col-md-2">
+        <div class="row mb-3">
+          <label class="col-sm-2 col-md-4 col-form-label">volum</label>
+          <div class="col-sm-4 col-md-3">
             <input
               class="form-control"
               type="number"
               name="volume"
               value="{$def->volume}">
           </div>
-          <label class="col-sm-2 col-md-2 control-label">pagină</label>
-          <div class="col-sm-3 col-md-3">
+          <div class="col-sm-2 col-md-2">
+            <label class="col-form-label">pagină</label>
+          </div>
+          <div class="col-sm-4 col-md-3">
             <input
               class="form-control"
               type="number"
@@ -75,8 +77,8 @@
 
       <div class="col-md-6">
 
-        <div class="form-group">
-          <label class="col-sm-2 control-label">etichete</label>
+        <div class="row mb-3">
+          <label class="col-sm-2 col-form-label">etichete</label>
           <div class="col-sm-10">
             <select id="tagIds" name="tagIds[]" class="form-control select2Tags" multiple>
               {foreach $tagIds as $t}
@@ -91,8 +93,8 @@
           </div>
         </div>
 
-        <div class="form-group">
-          <label for="entryIds" class="col-sm-2 control-label">intrări</label>
+        <div class="row mb-3">
+          <label for="entryIds" class="col-sm-2 col-form-label">intrări</label>
           <div class="col-sm-10 overflownSelect2">
             <select id="entryIds" name="entryIds[]" style="width: 100%" multiple>
               {foreach $entryIds as $e}
@@ -100,23 +102,21 @@
               {/foreach}
             </select>
 
-            <div class="clearfix">
-              <div class="pull-right voffset">
-                <button
-                  id="refreshEntriesButton"
-                  type="button"
-                  class="btn btn-default btn-xs"
-                  title="recalculează lista de intrări pe baza cuvîntului definit">
-                  <i class="glyphicon glyphicon-refresh"></i>
-                </button>
-                <button
-                  id="clearEntriesButton"
-                  type="button"
-                  class="btn btn-default btn-xs"
-                  title="golește lista de intrări">
-                  <i class="glyphicon glyphicon-trash"></i>
-                </button>
-              </div>
+            <div class="float-end">
+              <button
+                id="refreshEntriesButton"
+                type="button"
+                class="btn btn-light btn-sm"
+                title="recalculează lista de intrări pe baza cuvîntului definit">
+                {include "bits/icon.tpl" i=refresh}
+              </button>
+              <button
+                id="clearEntriesButton"
+                type="button"
+                class="btn btn-light btn-sm"
+                title="golește lista de intrări">
+                {include "bits/icon.tpl" i=delete}
+              </button>
             </div>
           </div>
         </div>
@@ -125,11 +125,11 @@
     </div>
 
     {if count($typos)}
-      <div class="form-group">
-        <label class="col-sm-2 control-label">greșeli de tipar</label>
+      <div class="row mb-3">
+        <label class="col-sm-2 col-form-label">greșeli de tipar</label>
         <div class="col-sm-10">
           {foreach $typos as $typo}
-            <p id="typo{$typo->id}" class="text-warning voffset1 typo-wrapper">
+            <p id="typo{$typo->id}" class="text-warning typo-wrapper">
               {$typo->problem|escape}
               <span class="text-muted">
                 [{$typo->userName}]
@@ -145,8 +145,8 @@
       </div>
     {/if}
 
-    <div class="form-group">
-      <label class="col-sm-2 control-label">conținut</label>
+    <div class="row mb-1">
+      <label class="col-sm-2 col-form-label">conținut</label>
       <div class="col-sm-10">
         <textarea
           id="internalRep"
@@ -155,97 +155,97 @@
           rows="10"
           autofocus
         >{$def->internalRep|escape}</textarea>
-
-        {** These aren't logically connected, but we like them vertically compressed **}
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" name="structured" value="1" {if $def->structured}checked{/if}>
-            Definiția a fost structurată
-          </label>
-        </div>
       </div>
     </div>
 
-    <div class="form-group">
-      <label class="col-sm-2 control-label"></label>
-      <div class="col-sm-10">
+    <div class="row mb-3">
+      <div class="col-sm-10 offset-sm-2">
+        {include "bs/checkbox.tpl"
+          name=structured
+          label='Definiția a fost structurată'
+          checked=$def->structured}
+      </div>
+    </div>
 
-        <button id="refreshButton"
-          type="button"
-          name="refreshButton"
-          class="btn btn-primary">
-          <i class="glyphicon glyphicon-refresh"></i>
-          <u>r</u>eafișează
-        </button>
+    <div class="row mb-3">
+      <div class="col-sm-10 offset-sm-2 d-flex justify-content-between">
 
-        <button
-          type="submit"
-          name="saveButton"
-          class="btn btn-success"
-          {if !$canEdit}
-          disabled
-          title="stagiarii nu pot modifica definiții introduse de altcineva"
-          {/if}>
-          <i class="glyphicon glyphicon-floppy-disk"></i>
-          <u>s</u>alvează
-        </button>
+        <span>
+          <button id="refreshButton"
+            type="button"
+            name="refreshButton"
+            class="btn btn-light">
+            {include "bits/icon.tpl" i=refresh}
+            <u>r</u>eafișează
+          </button>
 
-        {if $isOcr}
           <button
             type="submit"
-            class="btn btn-success"
-            name="but_next_ocr"
+            name="saveButton"
+            class="btn btn-primary"
             {if !$canEdit}
             disabled
             title="stagiarii nu pot modifica definiții introduse de altcineva"
             {/if}>
-            salvează și preia următoarea definiție OCR
+            {include "bits/icon.tpl" i=save}
+            <u>s</u>alvează
           </button>
-        {/if}
 
-        {if $def->id}
-          <a id="wikiLink"
-            href="https://wiki.dexonline.ro/wiki/Definiție:{$def->id}?description={$def->lexicon|escape}"
-            class="btn btn-default"
-            title="creează o pagină wiki pentru această definiție"
-            target="_blank">
-            <i class="glyphicon glyphicon-comment"></i>
-            wiki
-          </a>
-        {/if}
+          {if $isOcr}
+            <button
+              type="submit"
+              class="btn btn-primary"
+              name="but_next_ocr"
+              {if !$canEdit}
+              disabled
+              title="stagiarii nu pot modifica definiții introduse de altcineva"
+              {/if}>
+              salvează și preia următoarea definiție OCR
+            </button>
+          {/if}
 
-        <div class="btn-group pull-right" id="tinymceButtonWrapper">
-          <span class="btn btn-link">
-            {include "bits/definitionMenuProper.tpl"
-              showEditLink=false
-              showHistory=true
-              showId=false
-              showPageModal=false
-              showSource=false
-              showUser=false
-            }
-          </span>
+          {if $def->id}
+            <a id="wikiLink"
+              href="https://wiki.dexonline.ro/wiki/Definiție:{$def->id}?description={$def->lexicon|escape}"
+              class="btn btn-light"
+              title="creează o pagină wiki pentru această definiție"
+              target="_blank">
+              {include "bits/icon.tpl" i=comment}
+              wiki
+            </a>
+          {/if}
+        </span>
+
+        <span>
+          {include "bits/definitionMenuProper.tpl"
+            ulClass="btn btn-link mb-0"
+            showEditLink=false
+            showHistory=true
+            showId=false
+            showPageModal=false
+            showSource=false
+            showUser=false}
 
           <button id="tinymceToggleButton"
             type="button"
-            class="btn btn-default doubleText"
+            class="btn btn-light doubleText"
             data-other-text="ascunde TinyMCE"
-            href="#"
             title="TinyMCE este un editor vizual (cu butoane de bold, italic etc.).">
             arată TinyMCE
           </button>
-        </div>
+
+        </span>
       </div>
     </div>
 
   </form>
 
-  <div class="panel panel-default">
-    <div class="panel-heading">
+  <div class="card mb-3">
+    <div class="card-header">
       Previzualizare
     </div>
 
-    <div class="panel-body">
+    <div class="card-body pb-0">
       <p class="def" id="defPreview">{HtmlConverter::convert($def)}</p>
     </div>
   </div>
@@ -257,38 +257,38 @@
   <pre id="similarRecord">{$sim->getJson()|escape}</pre>
 
   <div id="similarSourceMessageYes">
-    <div class="panel panel-default">
+    <div class="card mb-3">
 
-      <div class="panel-heading">
+      <div class="card-header">
         Definiția corespunzătoare din <span class="similarSourceName"></span>
         <a
-          class="pull-right"
+          class="float-end"
           id="similarDefinitionEdit"
           href="{$sim->definition->id|default:''}"
           target="_blank">
-          <i class="glyphicon glyphicon-pencil"></i>
+          {include "bits/icon.tpl" i=edit}
           editează
         </a>
       </div>
 
-      <div class="panel-body">
+      <div class="card-body">
         <div id="similarRep"></div>
       </div>
     </div>
 
-    <div class="panel panel-default">
+    <div class="card mb-3">
 
-      <div class="panel-heading" id="similarNotIdentical">
-        <i class="glyphicon glyphicon-remove text-danger"></i>
+      <div class="card-header" id="similarNotIdentical">
+        {include "bits/icon.tpl" i=clear class="text-danger"}
         Diferențe față de definiția din <span class="similarSourceName"></span>:
       </div>
 
-      <div class="panel-heading" id="similarIdentical">
-        <i class="glyphicon glyphicon-ok text-success"></i>
+      <div class="card-header" id="similarIdentical">
+        {include "bits/icon.tpl" i=done class="text-success"}
         Definiția este identică cu cea din <span class="similarSourceName"></span>.
       </div>
 
-      <div class="panel-body" id="similarDiff"></div>
+      <div class="card-body" id="similarDiff"></div>
     </div>
   </div>
 
@@ -301,15 +301,15 @@
   </div>
 
   <div id="diffPopover">
-    <button type="button" class="btn btn-default btn-sm diffButton" data-insert="1">
-      <i class="glyphicon glyphicon-plus"></i>
+    <button type="button" class="btn btn-light btn-sm diffButton" data-insert="1">
+      {include "bits/icon.tpl" i=add}
       inserează textul și în <span class="similarSourceName"></span>
     </button>
-    <button type="button" class="btn btn-default btn-sm diffButton" data-insert="0">
-      <i class="glyphicon glyphicon-minus"></i>
+    <button type="button" class="btn btn-light btn-sm diffButton" data-insert="0">
+      {include "bits/icon.tpl" i=remove}
       șterge textul din <span class="similarSourceName"></span>
     </button>
-    <a href="#" class="btn btn-link btm-sm diffCancel">anulează</a>
+    <a href="#" class="btn btn-link btn-sm diffCancel">anulează</a>
   </div>
 
   {include "bits/pageModal.tpl"}

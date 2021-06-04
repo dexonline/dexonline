@@ -30,24 +30,21 @@ $(function() {
     $('#clearEntriesButton').click(clearEntries);
 
     /****************** popover initialization ******************/
-    $('ins, del').popover({
-      container: 'body',
-      content: popoverContent,
-      html: true,
-      placement: 'bottom',
-      trigger: 'click',
+    $('ins, del').each(function() {
+      new bootstrap.Popover(this, {
+        container: 'body',
+        content: popoverContent,
+        html: true,
+        placement: 'bottom',
+        sanitize: false,
+        trigger: 'click',
+      });
     });
 
     // when showing a popover, hide other popovers
     $('ins, del').on('show.bs.popover', function() {
       $('ins, del').not(this).popover('hide');
     })
-
-    // workaround for a popover bug
-    // https://github.com/twbs/bootstrap/issues/16732
-    $('ins, del').on('hidden.bs.popover', function(e) {
-      $(e.target).data("bs.popover").inState.click = false;
-    });
 
     $(document).on('click', '.diffButton', diffClick);
     $(document).on('click', '.diffCancel', diffCancelClick);

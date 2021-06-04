@@ -1,3 +1,4 @@
+{$ulClass=$ulClass|default:''}
 {$showBookmark=$showBookmark|default:false}
 {$showCourtesyLink=$showCourtesyLink|default:false}
 {$showDate=$showDate|default:false}
@@ -18,7 +19,7 @@
 
 {$def=$row->definition}
 
-<ul class="list-inline">
+<ul class="list-inline {$ulClass}">
   {if $row->source->hidden || $def->status == Definition::ST_HIDDEN}
     <li class="list-inline-item">
       <span class="label label-default">

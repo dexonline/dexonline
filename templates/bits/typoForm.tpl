@@ -27,7 +27,7 @@
             ></textarea>
             <input type="hidden" name="definitionId" value="">
 
-            <p class="voffset3">{cap}{t}notes{/t}{/cap}:</p>
+            <p class="mt-3">{cap}{t}notes{/t}{/cap}:</p>
 
             <ul>
               <li>

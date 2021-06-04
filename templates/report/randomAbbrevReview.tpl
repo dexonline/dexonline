@@ -5,7 +5,7 @@
 {block "content"}
   <h3>Abrevieri ambigue</h3>
 
-  <form class="row row-cols-sm-auto g-2 align-items-center mb-3">
+  <form class="row row-cols-sm-auto g-2 align-items-center mb-4">
     <div class="col-12">
       <label class="col-form-label">sursa</label>
     </div>
@@ -21,8 +21,6 @@
       </select>
     </div>
   </form>
-
-  <div class="voffset3"></div>
 
   {if $def}
     <form id="reviewForm" method="post">

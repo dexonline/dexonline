@@ -4,9 +4,9 @@
 
 {block "content"}
   {if $t->id}
-    <h3>Eticheta [{$t->value}]</h3>
+    <h3 class="mt-3">Eticheta [{$t->value}]</h3>
   {else}
-    <h3>Adaugă o etichetă</h3>
+    <h3 class="mt-3">Adaugă o etichetă</h3>
   {/if}
 
   {include "bits/tagAncestors.tpl" tag=$t}
@@ -175,7 +175,7 @@
   </form>
 
   {if count($children)}
-    <h3>Descendenți direcți</h3>
+    <h3 class="mt-3">Descendenți direcți</h3>
 
     {foreach $children as $c}
       {include "bits/tag.tpl" t=$c link=true}
@@ -183,10 +183,10 @@
   {/if}
 
   {if count($homonyms)}
-    <h3>Ononime</h3>
+    <h3 class="mt-3">Ononime</h3>
 
     {foreach $homonyms as $h}
-      <div class="voffset">
+      <div class="mt-2">
         {include "bits/tagAncestors.tpl" tag=$h}
       </div>
     {/foreach}
@@ -242,7 +242,7 @@
   {/if}
 
   {if count($searchResults)}
-    <h3>
+    <h3 class="mt-3">
       Definiții asociate
       {if $defCount > count($searchResults)}
         ({count($searchResults)} din {$defCount} afișate)

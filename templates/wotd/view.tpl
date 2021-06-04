@@ -39,7 +39,7 @@
     {/if}
   </h3>
 
-  <div id="toggleContents" class="collapse voffset2">
+  <div id="toggleContents" class="collapse">
     <div class="card mb-3">
       <div class="card-body">
         {t

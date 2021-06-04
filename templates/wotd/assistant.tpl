@@ -23,8 +23,6 @@
     </form>
   </h3>
 
-  <div class="voffset4"></div>
-
   {foreach $data as $day => $rec}
     <div class="card mt-3">
       <div

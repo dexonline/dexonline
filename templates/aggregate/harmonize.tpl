@@ -5,13 +5,11 @@
 {/block}
 
 {block "content"}
-  <h3>Armonizare lexem-etichetă</h3>
-
-  <div class="voffset4"></div>
+  <h3 class="mb-3">Armonizare lexem-etichetă</h3>
 
   <h4>Adăugarea unei etichete</h4>
 
-  <form method="post">
+  <form class="mb-4" method="post">
     <table class="table table-hover">
       <tr>
         <th>când modelul este...</th>

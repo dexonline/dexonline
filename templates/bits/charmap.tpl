@@ -39,12 +39,12 @@
         <div id="editArea" class="collapse" aria-expanded="false">
           <textarea id="editBox" class="form-control" rows="10"></textarea>
           <div class="d-flex justify-content-end">
-            <button type="submit" id="saveButton" class="btn btn-success"
+            <button type="submit" id="saveButton" class="btn btn-primary"
               title="salvează lista de glife">
               {include "bits/icon.tpl" i=save}
               salvează
             </button>
-            <button type="button" id="resetButton" class="btn btn-danger ms-1"
+            <button type="button" id="resetButton" class="btn btn-link ms-1"
               title="resetează lista la valorile inițiale">
               {include "bits/icon.tpl" i=refresh}
               resetează

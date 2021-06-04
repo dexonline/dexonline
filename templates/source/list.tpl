@@ -81,7 +81,7 @@
     </table>
 
     {if $editable}
-      <button class="btn btn-success" type="submit" name="saveButton">
+      <button class="btn btn-primary" type="submit" name="saveButton">
         {include "bits/icon.tpl" i=save}
         <u>s</u>alvează
       </button>

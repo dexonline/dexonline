@@ -55,6 +55,7 @@ const CODEPOINTS = [
   'search',
   'settings',
   'shield',
+  'shuffle',
   'subdirectory_arrow_right',
   'swap_horiz',
   'today',

@@ -54,39 +54,39 @@
   color: #444;
 }
 
-.meaningTree .label-default {
-  background: #fff;
+.meaningTree .badge.bg-info {
+  background-color: #fff !important;
   border: 1px solid #ccc;
   font-weight: normal;
 }
 
-.meaningTree .label-source {
+.meaningTree .badge-source {
   background: #eee;
   color: #444;
   cursor: help;
   font-weight: normal;
 }
 
-.meaningTree .label-relation-1 {
+.meaningTree .badge-relation-1 {
   background: #e5fce8;
   color: #444;
   font-weight: normal;
   margin-right: 3px;
 }
 
-.meaningTree .label-relation-2 {
+.meaningTree .badge-relation-2 {
   background: #fce5e5;
   color: #444;
   font-weight: normal;
 }
 
-.meaningTree .label-relation-3 {
+.meaningTree .badge-relation-3 {
   background: #fff;
   color: #444;
   font-weight: normal;
 }
 
-.meaningTree .label-relation-4 {
+.meaningTree .badge-relation-4 {
   background: #fff;
   color: #444;
   font-weight: normal;

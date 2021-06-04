@@ -22,7 +22,7 @@
 <ul class="list-inline {$ulClass}">
   {if $row->source->hidden || $def->status == Definition::ST_HIDDEN}
     <li class="list-inline-item">
-      <span class="label label-default">
+      <span class="badge bg-secondary">
         {include "bits/icon.tpl" i=visibility_off}
         {if $row->source->hidden}
           sursă ascunsă

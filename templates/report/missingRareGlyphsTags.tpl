@@ -5,15 +5,15 @@
 {block "content"}
   <h3>{$searchResults|count} definiții cu glife rare, fără etichetă</h3>
 
-  <form method="post" class="form-horizontal">
-    <div class="form-group">
-      <label class="col-md-1 control-label">sursa</label>
-      <div class="col-md-11">
+  <form method="post">
+    <div class="row row-cols-sm-auto g-2 align-items-center">
+      <div class="col-12">
+        <label class="col-form-label">sursa</label>
+      </div>
+      <div class="col-12 w-50">
         {include "bits/sourceDropDown.tpl" urlName=1 autosubmit=1}
       </div>
     </div>
-
-    <div class="voffset3"></div>
 
     {foreach $searchResults as $row}
       {include "bits/definition.tpl" showSelectCheckbox=1 showPageLink=0}
@@ -22,7 +22,7 @@
     {if count($searchResults)}
       <div>
         <button type="submit" class="btn btn-primary">
-          <i class="glyphicon glyphicon-plus"></i>
+          {include "bits/icon.tpl" i=add}
           adaugă eticheta [{$tag->value}]
         </button>
       </div>

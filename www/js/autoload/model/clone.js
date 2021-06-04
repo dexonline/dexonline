@@ -1,6 +1,11 @@
 $(function() {
-  $('.bulk').click(function() {
-    var checked = $(this).data('checked');
-    $('input[name="lexemeId[]"]').prop('checked', checked);
+  $('#checkAll').click(function() {
+    var anyUnchecked = $('input[name="lexemeId[]"]:not(:checked)').length;
+
+    if (anyUnchecked) {
+      $('input[name="lexemeId[]"]').prop('checked', true);
+    } else {
+      $('input[name="lexemeId[]"]').removeProp('checked');
+    }
   });
 });

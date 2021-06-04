@@ -11,7 +11,7 @@
 
   <h4>Adăugarea unei etichete</h4>
 
-  <form class="form-inline" method="post">
+  <form method="post">
     <table class="table table-hover">
       <tr>
         <th>când modelul este...</th>
@@ -30,7 +30,7 @@
           <td>
             <a class="btn btn-sm btn-danger deleteRuleLink"
               href="?deleteHarmonizeTagId={$ht->id}">
-              <i class="glyphicon glyphicon-trash"></i>
+              {include "bits/icon.tpl" i=delete}
             </a>
             {if $ht->countPending()}
               <a class="btn btn-sm btn-light"
@@ -43,18 +43,16 @@
         </tr>
       {/foreach}
 
-      <tr>
+      <tr class="align-middle">
         <td>
-          <div class="form-group">
-            {include "bits/modelDropDown.tpl" allOption="oricare|"}
-          </div>
+          {include "bits/modelDropDown.tpl" allOption="oricare|"}
         </td>
         <td>
           <select class="tagLookup" name="tagId"></select>
         </td>
         <td>
           <button class="btn btn-sm btn-primary" type="submit" name="saveHarmonizeTagButton">
-            <i class="glyphicon glyphicon-floppy-disk"></i>
+            {include "bits/icon.tpl" i=save}
             salvează
           </button>
         </td>
@@ -63,11 +61,9 @@
     </table>
   </form>
 
-  <div class="voffset4"></div>
-
   <h4>Schimbarea tipului de model</h4>
 
-  <form class="form-inline" method="post">
+  <form method="post">
     <table class="table table-hover">
       <tr>
         <th>când modelul este...</th>
@@ -90,7 +86,7 @@
           <td>
             <a class="btn btn-sm btn-danger deleteRuleLink"
               href="?deleteHarmonizeModelId={$hm->id}">
-              <i class="glyphicon glyphicon-trash"></i>
+              {include "bits/icon.tpl" i=delete}
             </a>
             {if $hm->countPending()}
               <a class="btn btn-sm btn-light"
@@ -103,26 +99,22 @@
         </tr>
       {/foreach}
 
-      <tr>
+      <tr class="align-middle">
         <td>
-          <div class="form-group">
-            {include "bits/modelDropDown.tpl" allOption="oricare|"}
-          </div>
+          {include "bits/modelDropDown.tpl" allOption="oricare|"}
         </td>
         <td>
           <select class="tagLookup" name="tagId"></select>
         </td>
         <td>
-          <div class="form-group">
-            {include "bits/modelDropDown.tpl"
-              modelTypeName="newModelType"
-              modelNumberName="newModelNumber"
-              allOption="neschimbat|"}
-          </div>
+          {include "bits/modelDropDown.tpl"
+            modelTypeName="newModelType"
+            modelNumberName="newModelNumber"
+            allOption="neschimbat|"}
         </td>
         <td>
           <button class="btn btn-sm btn-primary" type="submit" name="saveHarmonizeModelButton">
-            <i class="glyphicon glyphicon-floppy-disk"></i>
+            {include "bits/icon.tpl" i=save}
             salvează
           </button>
         </td>

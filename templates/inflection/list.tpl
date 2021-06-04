@@ -11,7 +11,7 @@
   </p>
 
   <form method="post">
-    <table id="inflections" class="table table-bordered table-hover table-condensed table-striped">
+    <table id="inflections" class="table table-sm table-hover">
       <thead>
         <tr>
           <th>Descriere</th>
@@ -50,8 +50,8 @@
       </tbody>
     </table>
 
-    <button type="submit" name="saveButton" class="btn btn-success">
-      <i class="glyphicon glyphicon-floppy-disk"></i>
+    <button type="submit" name="saveButton" class="btn btn-primary">
+      {include "bits/icon.tpl" i=save}
       <u>s</u>alvează
     </button>
 

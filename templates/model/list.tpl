@@ -8,17 +8,19 @@
   </h3>
 
   <p>
-    <a class="btn btn-light" href="{Router::link('games/scrabble')}">
-      <i class="glyphicon glyphicon-chevron-left"></i>
+    <a class="btn btn-link" href="{Router::link('games/scrabble')}">
+      {include "bits/icon.tpl" i=arrow_back}
       înapoi
     </a>
   </p>
 
   {foreach $models as $i => $m}
-    {assign var="l" value=$lexemes[$i]}
-    <h4>
-      {$m->number}. {$m->getHtmlExponent()}
-    </h4>
-    {include "paradigm/paradigm.tpl" lexeme=$l}
+    <div class="mb-3">
+      {assign var="l" value=$lexemes[$i]}
+      <h4>
+        {$m->number}. {$m->getHtmlExponent()}
+      </h4>
+      {include "paradigm/paradigm.tpl" lexeme=$l}
+    </div>
   {/foreach}
 {/block}

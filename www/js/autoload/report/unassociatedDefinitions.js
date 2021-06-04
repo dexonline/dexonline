@@ -5,6 +5,7 @@ $(function() {
 
     $('#associateEntryIds').select2({
       ajax: { url: wwwRoot + 'ajax/getEntries.php', },
+      dropdownParent: $('#associateModal'),
       minimumInputLength: 1,
       placeholder: 'alegeți una sau mai multe intrări',
       width: '100%',

@@ -20,7 +20,6 @@
       class="btn btn-light"
       data-bs-toggle="modal"
       data-bs-target="#associateModal">
-      <i class="glyphicon glyphicon-resize-small"></i>
       asociază...
     </button>
   </div>
@@ -47,7 +46,6 @@
 
           <div class="modal-footer">
             <button type="submit" class="btn btn-primary" name="associateButton">
-              <i class="glyphicon glyphicon-resize-small"></i>
               asociază
             </button>
             <button type="button" class="btn btn-link" data-bs-dismiss="modal">renunță</button>

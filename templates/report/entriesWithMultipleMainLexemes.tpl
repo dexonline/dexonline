@@ -40,7 +40,7 @@
       </table>
 
       <button type="submit" class="btn btn-primary" name="saveButton">
-        <i class="glyphicon glyphicon-floppy-disk"></i>
+        {include "bits/icon.tpl" i=save}
         <u>s</u>alvează
       </button>
     </form>

@@ -10,7 +10,7 @@
 
   <p class="text-medium">
     <a href="mailto:{Config::CONTACT_EMAIL|escape}">
-      <i class="glyphicon glyphicon-envelope"></i>
+      {include "bits/icon.tpl" i=email}
       {Config::CONTACT_EMAIL|escape}
     </a>
   </p>

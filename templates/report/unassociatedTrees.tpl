@@ -7,23 +7,23 @@
   <h3>{$trees|count} arbori neasociați</h3>
 
   {foreach $trees as $t}
-    <div class="panel panel-default tree">
-      <div class="panel-heading">
-        {$t->description}
+    <div class="card mb-3 tree">
+      <div class="card-header d-flex align-items-center">
+        <span class="flex-grow-1">
+          {$t->description}
+        </span>
 
-        <div class="pull-right">
-          <a href="{Router::link('tree/edit')}?id={$t->id}" class="btn btn-default btn-xs">
-            <i class="glyphicon glyphicon-pencil"></i>
-            editează
-          </a>
-          <a href="#" class="deleteLink btn btn-danger btn-xs" data-id="{$t->id}">
-            <i class="glyphicon glyphicon-trash"></i>
-            șterge
-          </a>
-        </div>
+        <a href="{Router::link('tree/edit')}?id={$t->id}" class="btn btn-light btn-sm">
+          {include "bits/icon.tpl" i=edit}
+          editează
+        </a>
+        <a href="#" class="deleteLink btn btn-danger btn-sm ms-1" data-id="{$t->id}">
+          {include "bits/icon.tpl" i=delete}
+          șterge
+        </a>
       </div>
 
-      <div class="panel-body">
+      <div class="card-body">
         {include "bits/meaningTree.tpl" meanings=$t->getMeanings() id="meaningTree-{$t->id}"}
       </div>
     </div>

@@ -20,8 +20,6 @@
         onclick="loadAjaxContent('{Router::link('wotd/archive')}/{$nextMonth}', '#wotdArchive');">
         {include "bits/icon.tpl" i=chevron_right}
       </a>
-    {else}
-      &nbsp;
     {/if}
   </div>
 
@@ -45,8 +43,6 @@
                     <a href="{Router::link('wotd/view')}/{$day.wotd->getUrlDate()}">
                       {$day.def->lexicon}
                     </a>
-                  {else}
-                    &nbsp;
                   {/if}
                 </div>
                 <div class="thumb">
@@ -59,7 +55,7 @@
                 </div>
               </td>
             {else}
-              <td>&nbsp;</td>
+              <td></td>
             {/if}
           {/foreach}
         </tr>

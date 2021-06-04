@@ -330,10 +330,6 @@ class Constant {
     'privateMode' => [
       'css' => [ 'opensans.css' ],
     ],
-    'colorpicker' => [
-      'css' => [ 'third-party/bootstrap-colorpicker.min.css' ],
-      'js' => [ 'third-party/bootstrap-colorpicker.min.js' ],
-    ],
     'diff' => [
       'css' => [ 'diff.css' ],
       'js' => [ 'diff.js' ],

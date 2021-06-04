@@ -95,5 +95,5 @@ Smart::assign([
   'meanings' => $meanings,
   'frequentColors' => $frequentColors,
 ]);
-Smart::addResources('admin', 'colorpicker', 'select2Dev');
+Smart::addResources('admin', 'select2Dev');
 Smart::display('tag/edit.tpl');

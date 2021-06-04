@@ -84,14 +84,15 @@
             culoare
           </label>
           <div class="col-md-10">
-            <div class="input-group colorpicker-component">
-              <span class="input-group-text"><i></i></span>
-              <input type="text"
-                class="form-control"
-                id="color"
-                name="color"
-                value="{$t->getColor()}">
-            </div>
+            <input
+              type="color"
+              class="form-control"
+              id="color"
+              name="color"
+              value="{$t->getColor()}">
+            {include "bits/frequentColors.tpl"
+              colors=$frequentColors.color
+              target="#color"}
           </div>
         </div>
 
@@ -100,14 +101,15 @@
             fundal
           </label>
           <div class="col-md-10">
-            <div class="input-group colorpicker-component">
-              <span class="input-group-text"><i></i></span>
-              <input type="text"
-                class="form-control"
-                id="background"
-                name="background"
-                value="{$t->getBackground()}">
-            </div>
+            <input
+              type="color"
+              class="form-control"
+              id="background"
+              name="background"
+              value="{$t->getBackground()}">
+            {include "bits/frequentColors.tpl"
+              colors=$frequentColors.background
+              target="#background"}
           </div>
         </div>
 
@@ -256,12 +258,4 @@
     {/foreach}
   {/if}
 
-  {* frequent colors to be used by the color pickers *}
-  {foreach $frequentColors as $color => $list}
-    <div id="frequent-{$color}">
-      {foreach $list as $color}
-        <div>{$color}</div>
-      {/foreach}
-    </div>
-  {/foreach}
 {/block}

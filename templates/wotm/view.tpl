@@ -17,29 +17,29 @@
 
 {block "content"}
   <h3>{t}Word of the month for{/t} {$monthName} {$year}</h3>
-  <div class="container panel panel-default">
-    <div class="row panel-heading">
-
-      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 wotm-navigation">
-        {if isset($prevmon)}
-          <a title="{t}previous{/t}" href="{Router::link('wotm/view')}/{$prevmon}">
-            <span class="glyphicon glyphicon-chevron-left pull-left"></span>
-          </a>
-        {/if}
-      </div>
-      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 wotm-navigation">
-        {if isset($nextmon)}
-          <a title="{t}next{/t}" href="{Router::link('wotm/view')}/{$nextmon}">
-            <span class="glyphicon glyphicon-chevron-right pull-right"></span>
-          </a>
-        {/if}
-      </div>
+  <div class="card mb-3">
+    <div class="card-header fs-2 px-2 py-0 d-flex justify-content-between">
+      {if isset($prevmon)}
+        <a title="{t}previous{/t}" href="{Router::link('wotm/view')}/{$prevmon}">
+          {include "bits/icon.tpl" i=chevron_left}
+        </a>
+      {/if}
+      {if isset($nextmon)}
+        <a title="{t}next{/t}" href="{Router::link('wotm/view')}/{$nextmon}">
+          {include "bits/icon.tpl" i=chevron_right}
+        </a>
+      {/if}
     </div>
-    <div class="panel-body">
+
+    <div class="card-body pb-0">
 
       {if $imageUrl}
-        <img class="img-responsive center-block" src="{$imageUrl}" alt="{$searchResult->definition->lexicon}" title="{$searchResult->definition->lexicon}">
-        <div class="text-muted pull-right">
+        <img
+          class="img-fluid mx-auto d-block"
+          src="{$imageUrl}"
+          alt="{$searchResult->definition->lexicon}"
+          title="{$searchResult->definition->lexicon}">
+        <div class="text-muted text-end">
           {$artist->credits|default:''}
         </div>
       {/if}
@@ -53,7 +53,7 @@
 
     </div>
     {if $reason}
-      <div class="row panel-footer">
+      <div class="card-footer">
         <b>{t}Chosen because:{/t}</b> {$reason}
       </div>
     {/if}

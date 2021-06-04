@@ -24,7 +24,7 @@ $(function() {
     $('.frequentObjects').draggable().sortable({
       cancel: '',                    // otherwise buttons are not sortable.
       distance: 20,                  // prevent unwanted drags when intending to click
-      items: '> div:not(:last)', // don't let the user drag the + and - buttons :-)
+      items: '> button:not(:last)',  // don't let the user drag the + and - buttons :-)
       start: function() {
         $('#frequentObjectsTrash').stop().fadeIn();
       },
@@ -34,7 +34,7 @@ $(function() {
       }
     });
 
-    $( "#frequentObjectsTrash" ).droppable({
+    $('#frequentObjectsTrash').droppable({
       classes: {
         'ui-droppable-hover': 'frequentObjectsTrashActive',
       },
@@ -50,6 +50,7 @@ $(function() {
       ajax: {
         url: wwwRoot + DATA_SOURCES[type],
       },
+      dropdownParent: $('#frequentObjectModal'),
       minimumInputLength: 1,
       placeholder: 'alegeți o valoare',
       width: '100%',
@@ -121,7 +122,7 @@ $(function() {
 
   function frequentObjectAddClick() {
     var id = $('#addObjectId').val();
-    var text = $("#addObjectId option:selected").text();
+    var text = $('#addObjectId option:selected').text();
     $('#frequentObjectModal').modal('hide');
 
     if (id) {
@@ -137,12 +138,12 @@ $(function() {
   function frequentObjectAdd(id, text, target) {
     var div = stem.clone(true);
 
-    div.find('button').first()
+    div
       .attr('data-id', id)
       .attr('data-text', text)
       .text(text);
 
-    div.insertBefore(target.find('.frequentObjectAddDiv'));
+    div.insertBefore(target.find('.frequentObjectInsertTarget'));
   }
 
   function frequentObjectDelete(event, ui) {

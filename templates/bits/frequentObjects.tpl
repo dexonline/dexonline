@@ -4,30 +4,27 @@
   * $type: what data to autocomplete (tags, sources etc.)
   * $target: target select2 element
   * $focusTarget: element to focus on object click; defaults to $target
+  * align: element alignment (text-start/text-end, defaults to text-end)
   **}
 {$focusTarget=$focusTarget|default:$target}
-{$pull=$pull|default:'pull-right'}
-<div class="clearfix">
-  <div
-    class="btn-toolbar {$pull} frequentObjects"
-    data-name="{$name}"
-    data-type="{$type}"
-    data-target="{$target}"
-    data-focus-target="{$focusTarget}">
+{$align=$align|default:'text-end'}
+<div
+  class="frequentObjects {$align}"
+  data-name="{$name}"
+  data-type="{$type}"
+  data-target="{$target}"
+  data-focus-target="{$focusTarget}">
 
-    <div class="btn-group btn-group-sm frequentObjectAddDiv">
-      <button type="button"
-        class="btn btn-light"
-        data-bs-toggle="modal"
-        data-bs-target="#frequentObjectModal"
-        title="adaugă o valoare folosită frecvent">
-        {include "bits/icon.tpl" i=add}
-      </button>
-    </div>
-  </div>
+  <button type="button"
+    class="btn btn-light btn-sm ms-1 mt-1 frequentObjectInsertTarget"
+    data-bs-toggle="modal"
+    data-bs-target="#frequentObjectModal"
+    title="adaugă o valoare folosită frecvent">
+    {include "bits/icon.tpl" i=add}
+  </button>
 </div>
 
-{* one-time only components *}
+{* once-only components *}
 {if !isset($FREQUENT_OBJECT_ONCE)}
   {$FREQUENT_OBJECT_ONCE=1 scope="global"}
 
@@ -65,9 +62,9 @@
   </div>
 
   {* stem object (to be cloned for additions) *}
-
-  <div id="frequentObjectStem" class="btn-group btn-group-sm">
-    <button class="btn btn-light frequentObject" type="button">
-    </button>
-  </div>
+  <button
+    id="frequentObjectStem"
+    class="btn btn-light btn-sm ms-1 mt-1 frequentObject"
+    type="button">
+  </button>
 {/if}

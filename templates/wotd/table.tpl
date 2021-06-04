@@ -15,26 +15,20 @@
     {/foreach}
   </select>
 
-  <div class="voffset3"></div>
+  <div class="card my-3">
+    <div class="card-header">Legături</div>
 
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      Legături
-    </div>
-
-    <ul class="list-group">
+    <ul class="list-group list-group-flush">
 
       <li class="list-group-item">
         asistent CZ:
-        <ul class="list-inline">
-          {foreach $assistantDates as $timestamp}
-            <li>
-              <a href="{Router::link('wotd/assistant')}?for={$timestamp|date_format:"%Y-%m"}">
-                {$timestamp|date_format:"%B %Y"}
-              </a>
-            </li>
-          {/foreach}
-        </ul>
+        {foreach $assistantDates as $timestamp}
+          <a
+            class="ms-3"
+            href="{Router::link('wotd/assistant')}?for={$timestamp|date_format:"%Y-%m"}">
+            {$timestamp|date_format:"%B %Y"}
+          </a>
+        {/foreach}
       </li>
 
       <li class="list-group-item">

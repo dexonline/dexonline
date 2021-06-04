@@ -143,88 +143,85 @@
       {/if}
     </div>
 
-    <div id="editPanel" class="panel-collapse collapse">
-      <div class="card-body">
+    <div id="editPanel" class="card-body collapse">
 
-        <form method="post">
+      <form method="post">
 
-          <div class="row mb-2">
-            <label class="col-sm-2 form-label">nume</label>
-            <div class="col-sm-10">
-              <input type="text"
-                class="form-control"
-                name="name"
-                value="{$project->name}"
-                {if !$mine}disabled{/if}>
-            </div>
+        <div class="row mb-2">
+          <label class="col-sm-2 form-label">nume</label>
+          <div class="col-sm-10">
+            <input type="text"
+              class="form-control"
+              name="name"
+              value="{$project->name}"
+              {if !$mine}disabled{/if}>
           </div>
+        </div>
 
-          <div class="row mb-2">
-            <label class="col-sm-2 form-label">vizibilitate</label>
-            <div class="col-sm-10">
-              {include "bits/dropdown.tpl"
-                name="visibility"
-                data=AccuracyProject::VIS_NAMES
-                selected=$project->visibility
-                disabled=!$mine}
-            </div>
+        <div class="row mb-2">
+          <label class="col-sm-2 form-label">vizibilitate</label>
+          <div class="col-sm-10">
+            {include "bits/dropdown.tpl"
+              name="visibility"
+              data=AccuracyProject::VIS_NAMES
+              selected=$project->visibility
+              disabled=!$mine}
           </div>
+        </div>
 
+        <div class="row mb-2">
+          <label class="col-sm-2 form-label">utilizator</label>
+          <label class="col-sm-10 form-label">
+            {$project->getUser()->nick}
+          </label>
+        </div>
+
+        {if $project->sourceId}
           <div class="row mb-2">
-            <label class="col-sm-2 form-label">utilizator</label>
+            <label class="col-sm-2 form-label">sursă</label>
             <label class="col-sm-10 form-label">
-              {$project->getUser()->nick}
+              {$project->getSource()->shortName}
             </label>
           </div>
+        {/if}
 
-          {if $project->sourceId}
-            <div class="row mb-2">
-              <label class="col-sm-2 form-label">sursă</label>
-              <label class="col-sm-10 form-label">
-                {$project->getSource()->shortName}
-              </label>
+        {if $project->hasStartDate()}
+          <div class="row mb-2">
+            <label class="col-sm-2 form-label">dată de început</label>
+            <label class="col-sm-10 form-label">
+              {$project->startDate}
+            </label>
+          </div>
+        {/if}
+
+        {if $project->hasEndDate()}
+          <div class="row mb-2">
+            <label class="col-sm-2 form-label">dată de sfârșit</label>
+            <label class="col-sm-10 form-label">
+              {$project->endDate}
+            </label>
+          </div>
+        {/if}
+
+        {if $project->lexiconPrefix}
+          <div class="row mb-2">
+            <label class="col-sm-2 form-label">prefix</label>
+            <label class="col-sm-10 form-label">
+              {$project->lexiconPrefix}
+            </label>
+          </div>
+        {/if}
+
+        {if $mine}
+          <div class="row mb-2">
+            <div class="col-sm-10 offset-sm-2">
+              <button class="btn btn-primary" type="submit" name="editProjectButton">
+                actualizează
+              </button>
             </div>
-          {/if}
-
-          {if $project->hasStartDate()}
-            <div class="row mb-2">
-              <label class="col-sm-2 form-label">dată de început</label>
-              <label class="col-sm-10 form-label">
-                {$project->startDate}
-              </label>
-            </div>
-          {/if}
-
-          {if $project->hasEndDate()}
-            <div class="row mb-2">
-              <label class="col-sm-2 form-label">dată de sfârșit</label>
-              <label class="col-sm-10 form-label">
-                {$project->endDate}
-              </label>
-            </div>
-          {/if}
-
-          {if $project->lexiconPrefix}
-            <div class="row mb-2">
-              <label class="col-sm-2 form-label">prefix</label>
-              <label class="col-sm-10 form-label">
-                {$project->lexiconPrefix}
-              </label>
-            </div>
-          {/if}
-
-          {if $mine}
-            <div class="row mb-2">
-              <div class="col-sm-10 offset-sm-2">
-                <button class="btn btn-primary" type="submit" name="editProjectButton">
-                  actualizează
-                </button>
-              </div>
-            </div>
-          {/if}
-        </form>
-
-      </div>
+          </div>
+        {/if}
+      </form>
     </div>
   </div>
 

@@ -17,7 +17,7 @@
         {/if}
       {/foreach}
 
-      <div class="card voffset2">
+      <div class="card">
         <div class="card-header">
           {include "bits/advancedSearchToolbar.tpl"}
         </div>

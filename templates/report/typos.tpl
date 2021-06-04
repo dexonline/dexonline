@@ -5,16 +5,14 @@
 {block "content"}
   <h3>{$searchResults|count} definiții cu greșeli de tipar</h3>
 
-  <form class="form-horizontal">
-    <div class="form-group">
-      <label class="col-md-1 control-label">sursa</label>
-      <div class="col-md-11">
-        {include "bits/sourceDropDown.tpl" urlName=1 autosubmit=1}
-      </div>
+  <form class="row row-cols-sm-auto g-2 align-items-center mb-3">
+    <div class="col-12">
+      <label class="col-form-label">sursa</label>
+    </div>
+    <div class="col-12 w-50">
+      {include "bits/sourceDropDown.tpl" urlName=1 autosubmit=1}
     </div>
   </form>
-
-  <div class="voffset3"></div>
 
   {foreach $searchResults as $row}
     {include "bits/definition.tpl"

@@ -20,7 +20,7 @@
 
     <div class="form-group">
       <button class="btn btn-default bulk" type="button" data-checked="1">
-        <i class="text-success glyphicon glyphicon-ok"></i>
+        {include "bits/icon.tpl" i=done}
         bifează tot
       </button>
       <button class="btn btn-default bulk" type="button" data-checked="0">

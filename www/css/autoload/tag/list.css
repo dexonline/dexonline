@@ -12,6 +12,9 @@
 
 .expand {
   cursor: pointer;
-  vertical-align: middle;
-  width: 20px;
+  transition: all 0.5s;
+}
+
+.expand.expanded {
+  transform: rotate(180deg);
 }

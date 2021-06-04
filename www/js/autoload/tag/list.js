@@ -12,7 +12,7 @@ $(function() {
 
   function toggleSubtree() {
     $(this).siblings('ul').stop().slideToggle();
-    $(this).toggleClass('glyphicon-chevron-up glyphicon-chevron-down');
+    $(this).toggleClass('expanded');
   }
 
   init();

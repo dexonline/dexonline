@@ -6,8 +6,8 @@
   <h3>Etichete</h3>
 
   {if User::can(User::PRIV_EDIT)}
-    <a class="btn btn-default" href="{Router::link('tag/edit')}">
-      <i class="glyphicon glyphicon-plus"></i>
+    <a class="btn btn-primary" href="{Router::link('tag/edit')}">
+      {include "bits/icon.tpl" i=add}
       adaugă o etichetă
     </a>
   {/if}

@@ -13,10 +13,12 @@
 
     <div class="col-xs-12 col-md-5 column">
       {if $showSelectCheckbox}
-        <label class="checkbox-inline">
-          <input type="checkbox" name="selectedDefIds[]" value="{$def->id}">
-          selectează
-        </label>
+        <div class="form-check">
+          <label class="form-check-label">
+            <input clas="form-check-input" type="checkbox" name="selectedDefIds[]" value="{$def->id}">
+            selectează
+          </label>
+        </div>
       {/if}
 
       {if $showEntryToggles}
@@ -30,10 +32,12 @@
           title="comută definiția între structurată și nestructurată"
         >
           <span class="toggleStructuredLink text-success" {if !$def->structured}style="display: none"{/if}>
-            <i class="glyphicon glyphicon-ok"></i> structurată
+            {include "bits/icon.tpl" i=done}
+            structurată
           </span>
           <span class="toggleStructuredLink" {if $def->structured}style="display: none"{/if}>
-            <i class="glyphicon glyphicon-remove"></i> nestructurată
+            {include "bits/icon.tpl" i=clear}
+            nestructurată
           </span>
         </a>
       {/if}

@@ -1,13 +1,13 @@
 $(function() {
-  $("#manualTop, #bulkTop, #lastyearTop").tablesorter({
+  $('#manualTop, #bulkTop, #lastyearTop').tablesorter({
     headerTemplate: '{content} {icon}',
     sortInitialOrder: 'desc',
     theme: 'bootstrap',
-    widgets : [ "uitheme" ],
+    widgets : [ 'uitheme' ],
   });
 
   $('#manualTop').tablesorterPager({
-    container: $("#manualTopPager"),
+    container: $('#manualTopPager'),
     output: '{page}/{totalPages}',
     size: 15,
   });

@@ -8,13 +8,13 @@
   </h3>
 
   <p>
-    <a class="btn btn-light" href="{Router::link('games/scrabble')}">
-      <i class="glyphicon glyphicon-chevron-left"></i>
-      înapoi
-    </a>
     <a class="btn btn-light" href="{$zipUrl}">
-      <i class="glyphicon glyphicon-download-alt"></i>
+      {include "bits/icon.tpl" i=file_download}
       descarcă
+    </a>
+    <a class="btn btn-link" href="{Router::link('games/scrabble')}">
+      {include "bits/icon.tpl" i=arrow_back}
+      înapoi
     </a>
   </p>
 

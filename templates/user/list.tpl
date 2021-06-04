@@ -49,8 +49,8 @@
 
     </table>
 
-    <button type="submit" class="btn btn-success" name="saveButton">
-      <i class="glyphicon glyphicon-floppy-disk"></i>
+    <button type="submit" class="btn btn-primary" name="saveButton">
+      {include "bits/icon.tpl" i=email}
       <u>s</u>alvează
     </button>
 

@@ -8,7 +8,7 @@
 
     {if User::can(User::PRIV_EDIT + User::PRIV_STRUCT)}
       <a class="btn btn-link" href="{Router::link('lexeme/edit')}?lexemeId={$lexeme->id}">
-        <i class="glyphicon glyphicon-pencil"></i>
+        {include "bits/icon.tpl" i=edit}
         editează
       </a>
     {/if}
@@ -19,10 +19,9 @@
       <li>
         {t}hyphenation{/t}:
         <span class="value">{$lexeme->hyphenations}</span>
-        <i
-          class="glyphicon glyphicon-info-sign"
-          title="{t}Hyphenation splits the word into syllables.{/t}"
-        ></i>
+        <span class="ms-1" title="{t}Hyphenation splits the word into syllables.{/t}">
+          {include "bits/icon.tpl" i=info}
+        </span>
       </li>
     {/if}
 

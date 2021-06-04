@@ -13,12 +13,12 @@
     {if count($searchResults)}
       <div>
         <button type="submit" class="btn btn-primary">
-          <i class="glyphicon glyphicon-trash"></i>
+          {include "bits/icon.tpl" i=delete}
           șterge eticheta [{$tag->value}]
         </button>
       </div>
     {/if}
-    
+
   </form>
 
 {/block}

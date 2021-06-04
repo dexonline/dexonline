@@ -8,14 +8,18 @@
   <h3>
     {$title}
 
-    <form class="form-inline pull-right">
-      <div class="form-group">
-        <label for="calendar">alege altă lună:</label>
+    <form class="float-end row row-cols-lg-auto g-1">
+      <div class="col-12">
+        <label class="col-form-label" for="calendar">alege altă lună:</label>
+      </div>
+      <div class="col-12">
         <input id="calendar" type="text" name="for" value="{$yearMonth}" class="form-control">
       </div>
-      <button type="submit" class="btn btn-light">
-        <i class="glyphicon glyphicon-ok"></i>
-      </button>
+      <div class="col-12">
+        <button type="submit" class="btn btn-light">
+          ok
+        </button>
+      </div>
     </form>
   </h3>
 

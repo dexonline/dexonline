@@ -41,12 +41,12 @@
         <tr>
           <th title="{$option.1}">
             {$option.0}
-            <i class="text-info glyphicon glyphicon-info-sign"></i>
+            {include "bits/icon.tpl" i=info}
           </th>
           {foreach $clients as $c}
             <td class="text-center">
               {if $c.options[$id]}
-                <i class="glyphicon glyphicon-ok"></i>
+                {include "bits/icon.tpl" i=done}
               {/if}
             </td>
           {/foreach}

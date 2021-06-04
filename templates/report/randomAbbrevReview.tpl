@@ -5,17 +5,21 @@
 {block "content"}
   <h3>Abrevieri ambigue</h3>
 
-  <form class="form-inline">
-    <label>sursa</label>
-    <select id="sourceId" name="sourceId" class="form-control">
-      <option value="">oricare</option>
-      {foreach $sources as $s}
-        <option value="{$s->id}" {if $s->id == $sourceId}selected{/if}>
-          {$s->shortName}
-          ({$s->numAmbiguous})
-        </option>
-      {/foreach}
-    </select>
+  <form class="row row-cols-sm-auto g-2 align-items-center mb-3">
+    <div class="col-12">
+      <label class="col-form-label">sursa</label>
+    </div>
+    <div class="col-12">
+      <select id="sourceId" name="sourceId" class="form-select">
+        <option value="">oricare</option>
+        {foreach $sources as $s}
+          <option value="{$s->id}" {if $s->id == $sourceId}selected{/if}>
+            {$s->shortName}
+            ({$s->numAmbiguous})
+          </option>
+        {/foreach}
+      </select>
+    </div>
   </form>
 
   <div class="voffset3"></div>
@@ -31,17 +35,17 @@
 
       {include "bits/footnotes.tpl" footnotes=$def->getFootnotes()}
 
-      <div class="form-group">
+      <div>
         <button type="submit"
-          class="btn btn-success"
+          class="btn btn-primary"
           name="saveButton"
           disabled>
-          <i class="glyphicon glyphicon-floppy-disk"></i>
+          {include "bits/icon.tpl" i=save}
           <u>s</u>alvează
         </button>
 
         <a class="btn btn-link" href="{Router::link('definition/edit')}/{$def->id}">
-          <i class="glyphicon glyphicon-pencil"></i>
+          {include "bits/icon.tpl" i=edit}
           editează
         </a>
       </div>
@@ -68,21 +72,21 @@
       fiecare ambiguitate, indicați dacă este o abreviere
 
       <button
-        class="btn btn-primary btn-sm"
+        class="btn btn-primary btn-sm p-0"
         type="button"
         data-abbrev="1"
         title="abreviere">
-        <i class="glyphicon glyphicon-chevron-left"></i>
+        {include "bits/icon.tpl" i=chevron_left}
       </button>
 
       sau un cuvânt propriu-zis
 
       <button
-        class="btn btn-primary btn-sm"
+        class="btn btn-primary btn-sm p-0"
         type="button"
         data-abbrev="0"
         title="cuvânt">
-        <i class="glyphicon glyphicon-chevron-right"></i>
+        {include "bits/icon.tpl" i=chevron_right}
       </button>
 
       . La final, salvați definiția. Sistemul avansează automat la o altă
@@ -100,19 +104,19 @@
   <div id="stem" class="hide">
     <span class="ambigAbbrev" data-action="">
       <button
-        class="btn btn-primary btn-sm"
+        class="btn btn-primary btn-sm p-0"
         type="button"
         data-abbrev="1"
         title="abreviere">
-        <i class="glyphicon glyphicon-chevron-left"></i>
+        {include "bits/icon.tpl" i=chevron_left}
       </button>
       <span class="text"></span>
       <button
-        class="btn btn-primary btn-sm"
+        class="btn btn-primary btn-sm p-0"
         type="button"
         data-abbrev="0"
         title="cuvânt">
-        <i class="glyphicon glyphicon-chevron-right"></i>
+        {include "bits/icon.tpl" i=chevron_right}
       </button>
     </span>
   </div>

@@ -359,8 +359,8 @@
           <div class="col-md-5">
 
             <div class="row mb-2">
-              <label class="col-md-2 col-form-label">surse</label>
-              <div class="col-md-10">
+              <label class="col-md-3 col-form-label">surse</label>
+              <div class="col-md-9">
                 <select id="sourceIds"
                   class="form-select"
                   name="sourceIds[]"
@@ -384,10 +384,11 @@
               value=$lexeme->notes
               label="precizări"
               placeholder="explicații despre sursa flexiunii"
+              col=3
               readonly=!$canEdit.tags}
 
             <div class="row mb-2">
-              <div class="col-md-10 offset-md-2">
+              <div class="col-md-9 offset-md-3">
                 <div class="form-check">
                   <label class="form-check-label">
                     <input

@@ -106,7 +106,7 @@
       </div>
     {/foreach}
 
-    <button type="submit" class="btn btn-success" name="saveButton">
+    <button type="submit" class="btn btn-primary" name="saveButton">
       {include "bits/icon.tpl" i=save}
       <u>s</u>alvează
     </button>

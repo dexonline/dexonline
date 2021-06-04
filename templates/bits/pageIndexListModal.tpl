@@ -38,7 +38,7 @@
           </button>
           <button
             id="btn-save"
-            class="btn btn-success commands"
+            class="btn btn-primary commands"
             name="saveButton">
             {include "bits/icon.tpl" i=save}
             <u>s</u>alvează

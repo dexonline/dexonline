@@ -8,11 +8,11 @@
   </h3>
 
   <p>
-    <a class="btn btn-default" href="{Router::link('games/scrabble')}">
+    <a class="btn btn-light" href="{Router::link('games/scrabble')}">
       <i class="glyphicon glyphicon-chevron-left"></i>
       înapoi
     </a>
-    <a class="btn btn-default" href="{$zipUrl}">
+    <a class="btn btn-light" href="{$zipUrl}">
       <i class="glyphicon glyphicon-download-alt"></i>
       descarcă
     </a>

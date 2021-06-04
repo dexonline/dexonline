@@ -17,7 +17,7 @@
 
     <div class="btn-group btn-group-xs frequentObjectAddDiv">
       <button type="button"
-        class="btn btn-default"
+        class="btn btn-light"
         data-toggle="modal"
         data-target="#frequentObjectModal"
         title="adaugă o valoare folosită frecvent">
@@ -68,7 +68,7 @@
   {* stem object (to be cloned for additions) *}
 
   <div id="frequentObjectStem" class="btn-group btn-group-xs">
-    <button class="btn btn-default frequentObject" type="button">
+    <button class="btn btn-light frequentObject" type="button">
     </button>
   </div>
 {/if}

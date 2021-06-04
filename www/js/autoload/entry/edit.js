@@ -262,7 +262,7 @@ $(function() {
     ifWikiPageExists('Intrare:' + entryId, function() {
       $('#wikiLink')
         .attr('title', 'intrarea are o pagină wiki')
-        .toggleClass('btn-default btn-warning');
+        .toggleClass('btn-light btn-warning');
     });
   }
 

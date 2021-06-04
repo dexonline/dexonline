@@ -21,7 +21,7 @@
         <input type="number" class="form-control" id="timer" name="timer" value="30" size="5">
         <label for="timer">secunde</label>
       </div>
-      <button type="submit" class="btn btn-default">
+      <button type="submit" class="btn btn-light">
         <i class="glyphicon glyphicon-repeat"></i>
         regenerează
       </button>

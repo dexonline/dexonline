@@ -30,7 +30,7 @@ $(function() {
       span.removeClass('previewAbbrev').addClass('previewWord');
     }
 
-    $(this).siblings('button').addBack().removeClass('btn-primary').addClass('btn-default');
+    $(this).siblings('button').addBack().removeClass('btn-primary').addClass('btn-light');
     updateSaveButtonState();
   }
 

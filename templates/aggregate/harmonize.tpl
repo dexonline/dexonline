@@ -33,7 +33,7 @@
               <i class="glyphicon glyphicon-trash"></i>
             </a>
             {if $ht->countPending()}
-              <a class="btn btn-sm btn-default"
+              <a class="btn btn-sm btn-light"
                 href="?applyHarmonizeTagId={$ht->id}"
                 title="aplică regula lexemelor pentru care ea nu este respectată">
                 aplică ({$ht->countPending()})
@@ -93,7 +93,7 @@
               <i class="glyphicon glyphicon-trash"></i>
             </a>
             {if $hm->countPending()}
-              <a class="btn btn-sm btn-default"
+              <a class="btn btn-sm btn-light"
                 href="?applyHarmonizeModelId={$hm->id}"
                 title="aplică regula lexemelor pentru care ea nu este respectată">
                 aplică ({$hm->countPending()})

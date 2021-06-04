@@ -13,7 +13,7 @@
         <label for="calendar">alege altă lună:</label>
         <input id="calendar" type="text" name="for" value="{$yearMonth}" class="form-control">
       </div>
-      <button type="submit" class="btn btn-default">
+      <button type="submit" class="btn btn-light">
         <i class="glyphicon glyphicon-ok"></i>
       </button>
     </form>

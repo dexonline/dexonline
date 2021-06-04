@@ -17,7 +17,7 @@
 
   <div>
     <button type="button"
-      class="btn btn-default"
+      class="btn btn-light"
       data-bs-toggle="modal"
       data-bs-target="#associateModal">
       <i class="glyphicon glyphicon-resize-small"></i>

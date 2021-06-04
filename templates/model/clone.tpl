@@ -19,11 +19,11 @@
     </p>
 
     <div class="form-group">
-      <button class="btn btn-default bulk" type="button" data-checked="1">
+      <button class="btn btn-light bulk" type="button" data-checked="1">
         {include "bits/icon.tpl" i=done}
         bifează tot
       </button>
-      <button class="btn btn-default bulk" type="button" data-checked="0">
+      <button class="btn btn-light bulk" type="button" data-checked="0">
         <i class="text-danger glyphicon glyphicon-remove"></i>
         debifează tot
       </button>

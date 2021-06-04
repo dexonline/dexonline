@@ -68,7 +68,7 @@
       fiecare ambiguitate, indicați dacă este o abreviere
 
       <button
-        class="btn btn-primary btn-xs"
+        class="btn btn-primary btn-sm"
         type="button"
         data-abbrev="1"
         title="abreviere">
@@ -78,7 +78,7 @@
       sau un cuvânt propriu-zis
 
       <button
-        class="btn btn-primary btn-xs"
+        class="btn btn-primary btn-sm"
         type="button"
         data-abbrev="0"
         title="cuvânt">
@@ -100,7 +100,7 @@
   <div id="stem" class="hide">
     <span class="ambigAbbrev" data-action="">
       <button
-        class="btn btn-primary btn-xs"
+        class="btn btn-primary btn-sm"
         type="button"
         data-abbrev="1"
         title="abreviere">
@@ -108,7 +108,7 @@
       </button>
       <span class="text"></span>
       <button
-        class="btn btn-primary btn-xs"
+        class="btn btn-primary btn-sm"
         type="button"
         data-abbrev="0"
         title="cuvânt">

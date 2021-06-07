@@ -6,7 +6,7 @@
 {block "content"}
   <h3>Adaugă indecși de pagină pentru dicționar</h3>
 
-  <form class="form-horizontal" method="post" enctype="multipart/form-data">
+  <form method="post" enctype="multipart/form-data">
 
     {* No page index loaded yet -- show file selector and legend *}
     {if empty($indexes)}

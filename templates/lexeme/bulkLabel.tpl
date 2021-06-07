@@ -28,7 +28,7 @@
     </ul>
   </div>
 
-  <form class="form-horizontal" method="post">
+  <form method="post">
     <input type="hidden" name="suffix" value="{$suffix|escape}">
     {foreach $lexemes as $lIter => $l}
       <div class="card mb-3">

@@ -26,11 +26,11 @@
               label="diferențiere aA"}
           </div>
           <div class="mb-3">
-            <label for="short" class="control-label">Abreviere:</label>
+            <label for="short" class="form-label">Abreviere:</label>
             <input type="text" class="form-control" id="short" name="short" value="x">
           </div>
           <div class="mb-3">
-            <label for="internalRep" class="control-label">Detalierea abrevierii:</label>
+            <label for="internalRep" class="form-label">Detalierea abrevierii:</label>
             <input type="text" class="form-control" id="internalRep" name="internalRep" value="">
           </div>
         </div>

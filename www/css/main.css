@@ -498,8 +498,3 @@ textarea.form-control {
 .tablesorter-header {
   background-color: white !important;
 }
-
-/* sortable */
-.drag-indicator {
-  cursor: grab;
-}

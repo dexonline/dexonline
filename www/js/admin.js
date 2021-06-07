@@ -115,3 +115,17 @@ $(function() {
 
   init();
 });
+
+
+/****************************** SortableJS ******************************/
+
+$(function() {
+
+  $('table.sortable tbody').each(function() {
+    Sortable.create(this, {
+      animation: 150,
+      handle: '.drag-indicator',
+    });
+  });
+
+});

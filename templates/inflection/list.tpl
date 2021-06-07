@@ -5,15 +5,18 @@
 {block "content"}
   <h3>Editare flexiuni</h3>
 
-  <p class="alert alert-info">
-    <strong>Instrucțiuni:</strong> Trageți de rânduri pentru a le reordona, apoi apăsați
-    <em>Salvează</em>. Puteți șterge doar flexiunile nefolosite (de obicei, cele nou create).
-  </p>
+  <div class="alert alert-info">
+    <strong>Instrucțiuni:</strong> Trageți de icoana
+    {include "bits/icon.tpl" i=drag_indicator}
+    pentru a le reordona rîndurile, apoi apăsați <em>salvează</em>. Puteți
+    șterge doar flexiunile nefolosite (de obicei, cele nou create).
+  </div>
 
   <form method="post">
-    <table id="inflections" class="table table-sm table-hover">
+    <table id="inflections" class="table table-sm table-hover sortable">
       <thead>
         <tr>
+          <th>Ordine</th>
           <th>Descriere</th>
           <th>Tip de model</th>
           <th>Ordinea inițială</th>
@@ -24,6 +27,9 @@
       <tbody>
         {foreach $inflections as $infl}
           <tr>
+            <td>
+              {include "bits/icon.tpl" i=drag_indicator class="drag-indicator"}
+            </td>
             <td class="nick">
               <input type="hidden" name="inflectionIds[]" value="{$infl->id}">
               {$infl->description}
@@ -34,6 +40,7 @@
           </tr>
         {/foreach}
         <tr>
+          <td></td>
           <td class="nick">
             <input type="text" name="newDescription" value="" class="form-control" placeholder="Adaugă">
           </td>
@@ -56,10 +63,4 @@
     </button>
 
   </form>
-
-  <script>
-    $(function() {
-      $("#inflections").tableDnD();
-    });
-  </script>
 {/block}

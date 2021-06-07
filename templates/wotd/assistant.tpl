@@ -108,7 +108,7 @@
           <hr>
           <h4>În alți ani:</h4>
 
-          <table class="table table-condensed borderless">
+          <table class="table table-sm">
             <tbody>
               {foreach $rec.otherYears as $w}
                 <tr>

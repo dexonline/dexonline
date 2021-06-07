@@ -38,7 +38,7 @@
     </div>
 
     <div class="col">
-      <table class="table table-condensed" id="calendar">
+      <table class="table table-sm table-hover" id="calendar">
         <thead>
           <tr>
             <th colspan="2">

@@ -6,7 +6,7 @@
 
   <h3>{$mentions|count} mențiuni despre arbori nestructurați</h3>
 
-  <table class="table table-condensed table-bordered">
+  <table class="table table-sm">
     <thead>
       <tr>
         <th>arbore-sursă</th>

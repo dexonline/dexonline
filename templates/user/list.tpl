@@ -6,7 +6,7 @@
   <h3>Moderatori</h3>
 
   <form method="post">
-    <table class="table table-condensed table-striped table-bordered">
+    <table class="table table-sm align-middle">
 
       <tr>
         <th>nume utilizator</th>

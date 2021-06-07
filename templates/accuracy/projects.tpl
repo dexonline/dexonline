@@ -22,7 +22,7 @@
       </div>
     </div>
 
-    <table id="projectTable" class="table mb-0">
+    <table id="projectTable" class="table tablesorter ts-pager mb-0">
 
       <thead>
         <tr>
@@ -43,9 +43,9 @@
             <td>{$proj->getOwner()}</td>
             <td>{$proj->getUser()}</td>
             <td>{$proj->getSource()->shortName|default:'&mdash;'}</td>
-            <td>{$proj->defCount|nf}</td>
-            <td>{$proj->getErrorsPerKb()|nf:2}</td>
-            <td>{$proj->getCharactersPerHour()|nf}</td>
+            <td data-text="{$proj->defCount}">{$proj->defCount|nf}</td>
+            <td data-text="{$proj->getErrorsPerKb()}">{$proj->getErrorsPerKb()|nf:2}</td>
+            <td data-text="{$proj->getCharactersPerHour()}">{$proj->getCharactersPerHour()|nf}</td>
           </tr>
         {/foreach}
       </tbody>
@@ -114,14 +114,26 @@
         <div class="row mb-2">
           <label for="f_startDate" class="col-lg-3 col-form-label">dată de început (opțional)</label>
           <div class="col-lg-9">
-            <input type="text" id="f_startDate" name="startDate" value="{$p->startDate}" class="form-control" placeholder="AAAA-LL-ZZ">
+            <input
+              type="text"
+              id="f_startDate"
+              name="startDate"
+              value="{$p->startDate}"
+              class="form-control"
+              placeholder="AAAA-LL-ZZ">
           </div>
         </div>
 
         <div class="row mb-2">
           <label for="f_endDate" class="col-lg-3 col-form-label">dată de sfârșit (opțional)</label>
           <div class="col-lg-9">
-            <input type="text" id="f_endDate" name="endDate" value="{$p->endDate}" placeholder="AAAA-LL-ZZ" class="form-control">
+            <input
+              type="text"
+              id="f_endDate"
+              name="endDate"
+              value="{$p->endDate}"
+              placeholder="AAAA-LL-ZZ"
+              class="form-control">
           </div>
         </div>
 

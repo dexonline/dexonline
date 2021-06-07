@@ -228,13 +228,13 @@ class Constant {
     ],
     'tablesorter' => [
       'css' => [
-        'third-party/tablesorter/theme.bootstrap.css',
+        'third-party/tablesorter/theme.bootstrap_4.min.css',
         'third-party/tablesorter/jquery.tablesorter.pager.min.css',
       ],
       'js' => [
         'third-party/tablesorter/jquery.tablesorter.min.js',
-        'third-party/tablesorter/jquery.tablesorter.widgets.js',
         'third-party/tablesorter/jquery.tablesorter.pager.min.js',
+        'tablesorter.js',
       ],
     ],
     'elfinder' => [

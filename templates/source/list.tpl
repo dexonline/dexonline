@@ -17,7 +17,7 @@
   </div>
 
   <form method="post">
-    <table id="sources" class="table">
+    <table id="sources" class="table tablesorter">
       <thead>
         <tr>
           <th class="abbreviation">Nume scurt</th>
@@ -71,7 +71,9 @@
                 {/if}
               </div>
             </td>
-            <td data-text="{$s->percentComplete}">{include "bits/sourcePercentComplete.tpl" s=$s}</td>
+            <td data-text="{$s->percentComplete}">
+              {include "bits/sourcePercentComplete.tpl" s=$s}
+            </td>
             {if $editable}
               <td><a href="{Router::link('source/edit')}?id={$s->id}">editează</a></td>
             {/if}
@@ -94,12 +96,6 @@
     {/if}
 
   </form>
-
-  <script>
-   $(document).ready(function() {
-     $("#sources").tablesorter();
-   });
-  </script>
 
   {* Drag-and-drop reordering of rows, only for admins *}
   {if $editable}

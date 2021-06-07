@@ -22,7 +22,7 @@
 
   {if count($entries)}
     <form method="post">
-      <table id="entries" class="table table-striped table-bordered" role="grid">
+      <table class="table tablesorter" role="grid">
         <thead>
           <tr>
             <th scope="col">descriere</th>
@@ -34,7 +34,28 @@
         </thead>
         <tbody>
           {foreach $entries as $e}
-            {include "bits/entryRow.tpl"}
+            <tr id="{$e->id}">
+              <td class="col-md-2">
+                {include "bits/entry.tpl" entry=$e editLink=true}
+              </td>
+              <td class="col-md-1 text-center" data-text="{$e->multipleMains}">
+                <input type="hidden" name="entryIds[]" value="{$e->id}">
+                <input
+                  type="checkbox"
+                  name="multipleMains[]"
+                  value="{$e->id}"
+                  {if $e->multipleMains}checked{/if}>
+              </td>
+              <td class="col-md-7 p-1">
+                {foreach $e->getMainLexemes() as $lexeme}
+                  {include "bits/lexemeLink.tpl" boxed=true}
+                {/foreach}
+              </td>
+              <td class="col-md-1 text-right userNick">{$e->nick}</td>
+              <td class="col-md-1 text-right" data-text="{$e->modDate}">
+                {$e->modDate|date_format:"%d.%m.%Y"}
+              </td>
+            </tr>
           {/foreach}
         </tbody>
       </table>
@@ -44,12 +65,6 @@
         <u>s</u>alvează
       </button>
     </form>
-
-    <script>
-      $(document).ready(function() {
-        $('#entries').tablesorter();
-      });
-    </script>
   {/if}
 
 {/block}

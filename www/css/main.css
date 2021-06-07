@@ -484,11 +484,6 @@ div.thumbinner {
   overflow-y: auto;
 }
 
-/* for boxed links in tables */
-.table>tbody>tr>td.box-padding {
-  padding: 3px;
-}
-
 /* duplicate in autoload/user/list.css */
 .userNick {
   white-space: nowrap;
@@ -496,6 +491,12 @@ div.thumbinner {
 
 textarea.form-control {
   margin-bottom: 3px;
+}
+
+/* tablesorter */
+
+.tablesorter-header {
+  background-color: white !important;
 }
 
 /* sortable */

@@ -1,6 +1,5 @@
 /* used from wotd/archive.tpl, but only included (via Ajax) in wotd/view.tpl */
 .wotdArchiveTable {
-  table-layout: fixed;
   text-align: center;
   vertical-align: middle;
 }

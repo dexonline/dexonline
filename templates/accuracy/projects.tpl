@@ -61,15 +61,15 @@
       <form method="post">
 
         <div class="row mb-2">
-          <label for="f_name" class="col-sm-3 control-label">nume</label>
-          <div class="col-sm-9">
+          <label for="f_name" class="col-lg-3 col-form-label">nume</label>
+          <div class="col-lg-9">
             <input type="text" id="f_name" class="form-control" name="name" value="{$p->name}">
           </div>
         </div>
 
         <div class="row mb-2">
-          <label class="col-sm-3 control-label">utilizator</label>
-          <div class="col-sm-9">
+          <label class="col-lg-3 col-form-label">utilizator</label>
+          <div class="col-lg-9">
             <select name="userId" class="form-select select2Users">
               <option value="{$p->userId}" selected></option>
             </select>
@@ -77,8 +77,8 @@
         </div>
 
         <div class="row mb-2">
-          <label for="f_length" class="col-sm-3 control-label">lungime</label>
-          <div class="col-sm-9">
+          <label for="f_length" class="col-lg-3 col-form-label">lungime</label>
+          <div class="col-lg-9">
             <input type="number"
               id="f_length"
               class="form-control"
@@ -91,15 +91,15 @@
         </div>
 
         <div class="row mb-2">
-          <label for="sourceDropDown" class="col-sm-3 control-label">sursă (opțional)</label>
-          <div class="col-sm-9">
+          <label for="sourceDropDown" class="col-lg-3 col-form-label">sursă (opțional)</label>
+          <div class="col-lg-9">
             {include "bits/sourceDropDown.tpl" name="sourceId" sourceId=$p->sourceId}
           </div>
         </div>
 
         <div class="row mb-2">
-          <label for="f_prefix" class="col-sm-3 control-label">prefix (opțional)</label>
-          <div class="col-sm-9">
+          <label for="f_prefix" class="col-lg-3 col-form-label">prefix (opțional)</label>
+          <div class="col-lg-9">
             <input type="text"
               id="f_prefix"
               class="form-control"
@@ -112,22 +112,22 @@
         </div>
 
         <div class="row mb-2">
-          <label for="f_startDate" class="col-sm-3 control-label">dată de început (opțional)</label>
-          <div class="col-sm-9">
+          <label for="f_startDate" class="col-lg-3 col-form-label">dată de început (opțional)</label>
+          <div class="col-lg-9">
             <input type="text" id="f_startDate" name="startDate" value="{$p->startDate}" class="form-control" placeholder="AAAA-LL-ZZ">
           </div>
         </div>
 
         <div class="row mb-2">
-          <label for="f_endDate" class="col-sm-3 control-label">dată de sfârșit (opțional)</label>
-          <div class="col-sm-9">
+          <label for="f_endDate" class="col-lg-3 col-form-label">dată de sfârșit (opțional)</label>
+          <div class="col-lg-9">
             <input type="text" id="f_endDate" name="endDate" value="{$p->endDate}" placeholder="AAAA-LL-ZZ" class="form-control">
           </div>
         </div>
 
         <div class="row mb-2">
-          <label class="col-sm-3 control-label">vizibilitate</label>
-          <div class="col-sm-9">
+          <label class="col-lg-3 col-form-label">vizibilitate</label>
+          <div class="col-lg-9">
             {include "bits/dropdown.tpl"
               name="visibility"
               data=AccuracyProject::VIS_NAMES
@@ -136,7 +136,7 @@
         </div>
 
         <div class="row mb-2">
-          <div class="col-sm-offset-3 col-sm-9">
+          <div class="offset-lg-3 col-lg-9">
             <button class="btn btn-primary" type="submit" name="submitButton">
               creează
             </button>

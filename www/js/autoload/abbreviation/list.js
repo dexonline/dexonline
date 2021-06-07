@@ -45,9 +45,9 @@ $(function () {
       tr = elem.closest("tr");
     }
     this.id = elem === null ? 0 : tr.data('row-id');
-    this.enforced = elem === null ? 0 : tr.find('i').eq(0).data('checked');
-    this.ambiguous = elem === null ? 0 : tr.find('i').eq(1).data('checked');
-    this.caseSensitive = elem === null ? 0 : tr.find('i').eq(2).data('checked');
+    this.enforced = elem === null ? 0 : tr.data('enforced');
+    this.ambiguous = elem === null ? 0 : tr.data('ambiguous');
+    this.caseSensitive = elem === null ? 0 : tr.data('caseSensitive');
 
     this.short = elem === null ? '' : tr.find('td:nth-of-type(5)').html();
     this.internalRep = elem === null ? '' : tr.find('td:nth-of-type(6)').html();
@@ -55,8 +55,7 @@ $(function () {
     this.title = title;
   }
 
-  function prepareModalForm(obj){
-
+  function prepareModalForm(obj) {
     frm = $('#frm_edit');
     frm.find('#abbrevId').val(obj.id);
     frm.find('#action').val(obj.action);

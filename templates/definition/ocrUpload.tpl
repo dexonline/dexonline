@@ -13,43 +13,49 @@
     </div>
   {/if}
 
-  <form class="form-horizontal" method="post" enctype="multipart/form-data">
-    <div class="form-group">
-      <label class="col-sm-2 control-label">sursa</label>
+  <form method="post" enctype="multipart/form-data">
+    <div class="row mb-3">
+      <label class="col-sm-2 col-form-label">sursa</label>
       <div class="col-sm-10">
         {include "bits/sourceDropDown.tpl" sources=$allModeratorSources skipAnySource=true}
       </div>
     </div>
 
-    <div class="form-group">
-      <label class="col-sm-2 control-label">moderator</label>
+    <div class="row mb-3">
+      <label class="col-sm-2 col-form-label">moderator</label>
       <div class="col-sm-10">
         {include "bits/moderatorDropDown.tpl" name="editor" moderators=$allOCRModerators}
       </div>
     </div>
 
-    <div class="form-group">
-      <label class="col-sm-2 control-label">fișier</label>
+    <div class="row mb-3">
+      <label class="col-sm-2 col-form-label">fișier</label>
       <div class="col-sm-10">
         <input class="form-control" type="file" name="file">
       </div>
-      <span class="col-sm-offset-2 col-sm-10 text-danger">
-            Important! Asigurați-vă că fișierul este codificat ASCII sau UTF-8. Alte codificări vor genera erori la import!
+      <span class="col-sm-10 offset-sm-2">
+        <span class="form-text">
+          <span class="text-danger">
+            Important:
+          </span>
+          Asigurați-vă că fișierul este codificat ASCII sau UTF-8. Alte
+          codificări vor genera erori la import.
+        </span>
       </span>
     </div>
 
-    <div class="form-group">
-      <label class="col-sm-2 control-label">terminator</label>
+    <div class="row mb-3">
+      <label class="col-sm-2 col-form-label">terminator</label>
       <div class="col-sm-10">
-        <select class="form-control" name="term">
+        <select class="form-select" name="term">
           <option value="0">linie nouă</option>
           <option value="1" selected="selected">linie dublă</option>
         </select>
       </div>
     </div>
 
-    <div class="form-group">
-      <div class="col-sm-offset-2 col-sm-10">
+    <div class="row mb-3">
+      <div class="col-sm-10 offset-sm-2">
         <button class="btn btn-primary" type="submit" name="submit">
           încarcă
         </button>
@@ -58,9 +64,9 @@
   </form>
 
   {* Am unificat blocul stats cu blocul content *}
-  <h4>Alocare definiții OCR</h4>
+  <h4 class="mt-4">Alocare definiții OCR</h4>
 
-  <table class="table table-condensed table-striped">
+  <table class="table table-sm table-hover">
 
     <thead>
       <tr>
@@ -84,9 +90,9 @@
 
   </table>
 
-  <h4>Dicționare prelucrate</h4>
+  <h4 class="mt-4">Dicționare prelucrate</h4>
 
-  <table class="table table-condensed table-striped">
+  <table class="table table-sm table-hover">
 
     <thead>
       <tr>

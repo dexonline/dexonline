@@ -12,19 +12,19 @@
             <input type="hidden" id="action" name="action" value="">
             <input type="hidden" id="pageIndexId" name="pageIndexId" value="0">
             <input type="hidden" id="sourceId" name="sourceId" value="{$sourceId}">
-            <div class="form-group">
+            <div class="mb-3">
               <label for="volume" class="control-label">Volum:</label>
               <input type="text" class="form-control" id="volume" name="volume" value="">
             </div>
-            <div class="form-group">
+            <div class="mb-3">
               <label for="page" class="control-label">Pagină:</label>
               <input type="text" class="form-control" id="page" name="page" value="">
             </div>
-            <div class="form-group">
+            <div class="mb-3">
               <label for="word" class="control-label">Intrare:</label>
               <input type="text" class="form-control" id="word" name="word" value="">
             </div>
-            <div class="form-group">
+            <div class="mb-3">
               <label for="number" class="control-label">Număr definiție:</label>
               <input type="text" class="form-control" id="number" name="number" value="">
             </div>

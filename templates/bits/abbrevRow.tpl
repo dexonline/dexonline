@@ -1,5 +1,10 @@
 {$badgeEdited=$badgeEdited|default:'secondary'}
-<tr id="{$row->id}" data-row-id="{$row->id}">
+<tr
+  id="{$row->id}"
+  data-row-id="{$row->id}"
+  {if $row->enforced}data-enforced="1"{/if}
+  {if $row->ambiguous}data-ambiguous="1"{/if}
+  {if $row->caseSensitive}data-case-sensitive="1"{/if}>
   <td>
     <span class="badge bg-{$badgeEdited}">{$row->id}</span>
   </td>

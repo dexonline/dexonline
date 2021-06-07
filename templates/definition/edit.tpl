@@ -80,7 +80,7 @@
         <div class="row mb-3">
           <label class="col-sm-2 col-form-label">etichete</label>
           <div class="col-sm-10">
-            <select id="tagIds" name="tagIds[]" class="form-control select2Tags" multiple>
+            <select id="tagIds" name="tagIds[]" class="select2Tags" multiple>
               {foreach $tagIds as $t}
                 <option value="{$t}" selected></option>
               {/foreach}
@@ -102,7 +102,7 @@
               {/foreach}
             </select>
 
-            <div class="float-end">
+            <div class="float-end mt-1">
               <button
                 id="refreshEntriesButton"
                 type="button"

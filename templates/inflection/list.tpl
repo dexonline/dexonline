@@ -38,7 +38,7 @@
             <input type="text" name="newDescription" value="" class="form-control" placeholder="Adaugă">
           </td>
           <td>
-            <select class="form-control" name="newModelType">
+            <select class="form-select" name="newModelType">
               {foreach $modelTypes as $mt}
                 <option value="{$mt->code|escape}">{$mt->code|escape}</option>
               {/foreach}

@@ -70,7 +70,7 @@
     </div>
 
     <div class="row mb-3">
-      <div class="col-sm-offset-2 col-sm-10">
+      <div class="offset-sm-2 col-sm-10">
         <button class="btn btn-primary" type="submit" name="submitButton">
           raportează
         </button>

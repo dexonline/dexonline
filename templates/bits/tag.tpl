@@ -6,7 +6,7 @@
   {$style="color: {$t->getColor()}; background: {$t->getBackground()};"}
 
   {strip}
-  <span {if $t->tooltip}class="tag-tooltip"{/if} title="{$t->tooltip}">
+  <span class="tag {if $t->tooltip}tag-tooltip{/if}" title="{$t->tooltip}">
     <a
       href="{Router::link('tag/edit')}?id={$t->id}"
       class="badge {if !$colors}bg-info{/if} {if !$link}disabled{/if}"
@@ -14,9 +14,7 @@
       {if $colors} style="{$style}"{/if}>
       {if $t->icon}
         {include "bits/icon.tpl" i=$t->icon}
-      {/if}
-      {if $t->icon && !$t->iconOnly}
-        &nbsp;
+        {if !$t->iconOnly}&nbsp;{/if}
       {/if}
       {if !$t->iconOnly}
         {$t->value}

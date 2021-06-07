@@ -267,7 +267,7 @@
         <span></span>
       </a>
 
-      <p class="help-block">
+      <p class="form-text">
         {t}You can share this link with your friends to compare scores on the
         same letter sets.{/t}
       </p>

@@ -13,12 +13,11 @@
 
     <div class="col-xs-12 col-md-5 column">
       {if $showSelectCheckbox}
-        <div class="form-check">
-          <label class="form-check-label">
-            <input clas="form-check-input" type="checkbox" name="selectedDefIds[]" value="{$def->id}">
-            selectează
-          </label>
-        </div>
+        {include "bs/checkbox.tpl"
+          divClass="form-check-inline"
+          name="selectedDefIds[]"
+          value=$def->id
+          label="selectează"}
       {/if}
 
       {if $showEntryToggles}

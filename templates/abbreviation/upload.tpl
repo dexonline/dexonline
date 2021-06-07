@@ -6,7 +6,7 @@
 {block "content"}
   <h3>Adaugă abrevieri pentru dicționar</h3>
 
-  <form class="form-horizontal" method="post" enctype="multipart/form-data">
+  <form method="post" enctype="multipart/form-data">
 
     {* No abbreviations loaded yet -- show file selector and legend *}
     {if empty($abbrevs)}

@@ -1,4 +1,4 @@
-{* A form-horizontal field *}
+{* A horizontal form field *}
 {$type=$type|default:"text"}
 {$field=$field|default:null}
 {$value=$value|default:""}

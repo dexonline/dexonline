@@ -5,7 +5,7 @@
 {block "content"}
   <h3>Definițiile mele ({$defs|count})</h3>
 
-  <table id="defsTable" class="table">
+  <table id="defsTable" class="table tablesorter ts-pager">
     <thead>
       <tr>
         <th>cuvânt-titlu</th>

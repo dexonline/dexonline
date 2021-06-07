@@ -1,4 +1,4 @@
-<table id="{$tableId}">
+<table id="{$tableId}" class="table tablesorter {if $pager}ts-pager{/if}">
   <thead>
     <tr>
       <th>{t}rank{/t}</th>
@@ -17,7 +17,7 @@
     {foreach $data as $place => $row}
       {math equation="max(255 - days, 0)" days=$row->days assign=color}
       <tr class="{cycle values="color1,color2"}">
-        <td>{$place+1}</td>
+        <td data-text="{$place}">{$place+1}</td>
         <td class="nick">
           <a href="{Router::link('user/view')}/{$row->userNick|escape:"url"}">
             {$row->userNick|escape}</a>

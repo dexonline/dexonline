@@ -223,8 +223,8 @@ class Constant {
       ],
       'deps' => [ 'jqueryui' ],
     ],
-    'jqTableDnd' => [
-      'js' => [ 'third-party/jquery.tablednd.0.8.min.js' ],
+    'sortable' => [
+      'js' => [ 'third-party/Sortable.min.js' ],
     ],
     'tablesorter' => [
       'css' => [

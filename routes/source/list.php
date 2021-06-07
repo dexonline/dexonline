@@ -31,5 +31,5 @@ Smart::assign([
   'highlightSourceId' => $highlightSourceId,
   'editable' => User::can(User::PRIV_ADMIN),
 ]);
-Smart::addResources('admin', 'jqTableDnd', 'tablesorter');
+Smart::addResources('admin', 'sortable', 'tablesorter');
 Smart::display('source/list.tpl');

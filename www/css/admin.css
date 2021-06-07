@@ -56,3 +56,8 @@ ul.bulletList {
   padding: 0 5px;
   color: #999;
 }
+
+/* SortableJS */
+.drag-indicator {
+  cursor: grab;
+}

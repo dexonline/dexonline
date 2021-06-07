@@ -10,16 +10,20 @@
     <div>Duceți cursorul deasupra unui nume de dicționar pentru a vedea mai multe detalii</div>
     {if $editable}
       <div>
-        Pentru a reordona sursele, apucați de un rând, dar nu de o zonă cu text.
-        La sfârșit, nu uitați să salvați.
+        Trageți de icoana {include "bits/icon.tpl" i=drag_indicator}
+        pentru a le reordona rîndurile, apoi apăsați <em>salvează</em>.
       </div>
     {/if}
   </div>
 
   <form method="post">
-    <table id="sources" class="table tablesorter">
+    {* don't allow both Tablesorter and SortableJS at the same time *}
+    <table id="sources" class="table {if $editable}sortable{else}tablesorter{/if}">
       <thead>
         <tr>
+          {if $editable}
+            <th>Ordine</th>
+          {/if}
           <th class="abbreviation">Nume scurt</th>
           {if $editable}
             <th class="type">Categorie</th>
@@ -35,6 +39,11 @@
       <tbody>
         {foreach $src as $s}
           <tr {if $s->id == $highlightSourceId}id="highlightedSource" class="info"{/if}>
+            {if $editable}
+              <td>
+                {include "bits/icon.tpl" i=drag_indicator class="drag-indicator"}
+              </td>
+            {/if}
             <td class="abbreviation text-nowrap">
               {if $s->link && User::can(User::PRIV_EDIT)}
                 <a href="{$s->link}" class="badge text-dark bg-light" target="_blank">
@@ -96,13 +105,4 @@
     {/if}
 
   </form>
-
-  {* Drag-and-drop reordering of rows, only for admins *}
-  {if $editable}
-    <script>
-     jQuery(document).ready(function() {
-       $("#sources").tableDnD();
-     });
-    </script>
-  {/if}
 {/block}

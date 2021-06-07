@@ -49,5 +49,5 @@ foreach ($inflections as $infl) {
 
 Smart::assign('inflections', $inflections);
 Smart::assign('modelTypes', ModelType::loadCanonical());
-Smart::addResources('admin', 'jqTableDnd');
+Smart::addResources('admin', 'sortable');
 Smart::display('inflection/list.tpl');

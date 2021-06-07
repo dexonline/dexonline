@@ -12,20 +12,6 @@
   font-size: 12px;
 }
 
-.bankTransfer p {
-  margin-bottom: 5px;
-}
-
 .bankTransfer strong {
   padding-right: 10px;
-}
-
-.select-donated-sum,
-.donor-email {
-  display: inline-block;
-  width: 70%;
-}
-
-.donate-labels {
-  min-width: 60px;
 }

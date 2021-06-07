@@ -31,21 +31,38 @@
                 action="{Router::link('donation/donateEP')}"
                 method="post"
                 enctype="multipart/form-data">
-                <div class="form-group">
-                  <label for="donateOnlineAmount" class="donate-labels">Suma</label>
-                  <select id="donateOnlineAmount" name="amount" class="form-control select-donated-sum">
-                    <option value="10">10 lei</option>
-                    <option value="20">20 lei</option>
-                    <option value="50" selected>50 lei</option>
-                    <option value="100">100 lei</option>
-                    <option value="150">150 lei</option>
-                    <option value="200">200 lei</option>
-                    <option value="250">250 lei</option>
-                  </select>
+                <div class="row mb-3">
+                  <label for="donateOnlineAmount" class="col-sm-3 col-form-label">Suma</label>
+                  <div class="col-sm-9">
+                    <select
+                      id="donateOnlineAmount"
+                      name="amount"
+                      class="form-select">
+                      <option value="10">10 lei</option>
+                      <option value="20">20 lei</option>
+                      <option value="50" selected>50 lei</option>
+                      <option value="100">100 lei</option>
+                      <option value="150">150 lei</option>
+                      <option value="200">200 lei</option>
+                      <option value="250">250 lei</option>
+                    </select>
+                  </div>
                 </div>
-                <div class="form-group">
-                  <label for="donateOnlineEmail" title="e-mailul este necesar pentru trimiterea confirmării plății" class="donate-labels">E-mail *</label>
-                  <input id="donateOnlineEmail" type="text" name="email" value="{$defaultEmail}" class="form-control donor-email">
+                <div class="row mb-3">
+                  <label
+                    for="donateOnlineEmail"
+                    title="e-mailul este necesar pentru trimiterea confirmării plății"
+                    class="col-sm-3 col-form-label">
+                    E-mail *
+                  </label>
+                  <div class="col-sm-9">
+                    <input
+                      id="donateOnlineEmail"
+                      type="text"
+                      name="email"
+                      value="{$defaultEmail}"
+                      class="form-control">
+                  </div>
                 </div>
                 <div class="text-center">
                   <input type="submit" name="Doneaza" value="" class="onlineDonationButton btn">
@@ -84,22 +101,22 @@
             Donează prin transfer bancar
             {include "bits/icon.tpl" i=info class="float-end"}
           </div>
-          <div class="card-body bankTransfer">
-            <p>
-              <strong>Beneficiar</strong>Asociația dexonline
-            </p>
-            <p>
-              <strong>CIF</strong>30855345
-            </p>
-            <p>
-              <strong>Adresa</strong>strada Remetea nr. 20, București, sector 2
-            </p>
-            <p>
-              <strong>Cont</strong>Banca Transilvania, sucursala Obor
-            </p>
-            <p>
-              <strong>RON</strong>RO96 BTRL 0440 1205 M306 19XX
-            </p>
+          <div class="card-body">
+            <div class="mb-1">
+              <strong class="me-2">Beneficiar</strong> Asociația dexonline
+            </div>
+            <div class="mb-1">
+              <strong class="me-2">CIF</strong> 30855345
+            </div>
+            <div class="mb-1">
+              <strong class="me-2">Adresa</strong> strada Remetea nr. 20, București, sector 2
+            </div>
+            <div class="mb-1">
+              <strong class="me-2">Cont</strong> Banca Transilvania, sucursala Obor
+            </div>
+            <div class="mb-1">
+              <strong class="me-2">RON</strong> RO96 BTRL 0440 1205 M306 19XX
+            </div>
           </div>
         </div>
       </div>

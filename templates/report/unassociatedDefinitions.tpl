@@ -40,7 +40,7 @@
 
           <div class="modal-body">
             <input type="hidden" name="associateDefinitionIds" value="">
-            <select id="associateEntryIds" name="associateEntryIds[]" class="form-control" multiple>
+            <select id="associateEntryIds" name="associateEntryIds[]" class="form-select" multiple>
             </select>
           </div>
 

@@ -6,12 +6,7 @@ $ajax = Request::get('ajax');
 
 if ($form) {
   $answer = Loc::lookup($form, $version);
-  $class = 'has-feedback ' . ($answer ? 'has-success' : 'has-error');
-
-  Smart::assign([
-    'answer' => $answer,
-    'class' => $class,
-  ]);
+  Smart::assign('answer', $answer);
 }
 
 Smart::assign([

@@ -32,6 +32,7 @@
             name="form"
             placeholder="kwyjibo"
             value="{$form|default:''|escape}"
+            autocomplete="off"
             autofocus>
 
           <div class="d-flex justify-content-center mt-3">

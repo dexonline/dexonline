@@ -69,6 +69,23 @@ pre {
 }
 
 
+/********************************* tags *********************************/
+
+.tag .material-icons {
+  margin-top: -1px;
+}
+
+.tag a {
+  /* if you go below this, badges with material icons may end up taller than */
+  /* those without them */
+  line-height: 1.4;
+}
+
+.tag-tooltip {
+  cursor: help;
+}
+
+
 /*********** search form ***********/
 
 #searchForm {
@@ -410,10 +427,6 @@ dd.favoriteDefs {
 
 a.disabled {
   pointer-events: none;
-}
-
-.tag-tooltip {
-  cursor: help;
 }
 
 .entryList span:not(:first-child):before {

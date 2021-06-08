@@ -140,9 +140,6 @@ $(function() {
         // hooking needed events
         $('#typoSend_'+ id).on('click', { param: id }, submitTypo);
         $('#def_'+ id +' .rep').on('click', { param: id }, prepareTypo);
-        $('#typoClear_'+ id).click(function(){
-          $('#typoText_'+ id).val('');
-        });
       });
     }
 
@@ -158,8 +155,6 @@ $(function() {
       { definitionId: id, text: text },
       function(data) {
         if (data.success === true) {
-          $('#typoClear_' + id).toggleClass('collapse');
-          $('#typoSent_' + id).toggleClass('collapse');
           $('#def_' + id).find('.toggleTypoLink').trigger('click');
         } else {
           $('#typoResponse_' + id).removeAttr('hidden');

@@ -7,11 +7,11 @@
 
   <div class="defDetails small text-muted row">
 
-    <div class="col-xs-12 col-md-7 column">
+    <div class="col-xs-12 col-md-7 ps-0">
       {include "bits/definitionMenuProper.tpl"}
     </div>
 
-    <div class="col-xs-12 col-md-5 column">
+    <div class="col-xs-12 col-md-5 ps-0">
       {if $showSelectCheckbox}
         {include "bs/checkbox.tpl"
           divClass="form-check-inline"

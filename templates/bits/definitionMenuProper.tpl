@@ -19,7 +19,7 @@
 
 {$def=$row->definition}
 
-<ul class="list-inline {$ulClass}">
+<ul class="list-inline mb-0 {$ulClass}">
   {if $row->source->hidden || $def->status == Definition::ST_HIDDEN}
     <li class="list-inline-item">
       <span class="badge bg-secondary">

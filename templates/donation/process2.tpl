@@ -37,7 +37,7 @@
               <div class="card card-body bg-light mb-2">
                 {$donor->htmlMessage}
               </div>
-              <div class="card card-body bg-light">
+              <div class="card card-body bg-light mb-3">
                 <pre>{$donor->textMessage}</pre>
               </div>
             {else}

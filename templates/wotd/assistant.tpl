@@ -47,7 +47,7 @@
             target="_blank">wikipedia EN</a>
 
           {if $rec.allOk}
-            <span class"pull-right">{$rec.thisYear[0]->lexicon}</span>
+            {$rec.thisYear[0]->lexicon}
           {/if}
         </div>
 

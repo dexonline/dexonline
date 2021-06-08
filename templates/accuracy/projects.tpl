@@ -9,17 +9,11 @@
     <div class="card-header">Proiectele mele</div>
 
     <div class="card-body">
-      <div class="form-check">
-        <label class="form-check-label">
-          <input
-            type="checkbox"
-            class="form-check-input"
-            id="includePublic"
-            {if $includePublic}checked{/if}
-            value="1">
-          include proiectele publice ale altor moderatori
-        </label>
-      </div>
+      {include "bs/checkbox.tpl"
+        name=''
+        label='include proiectele publice ale altor moderatori'
+        checked=$includePublic
+        inputId='includePublic'}
     </div>
 
     <table id="projectTable" class="table tablesorter ts-pager mb-0">

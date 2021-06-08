@@ -35,13 +35,16 @@
 
     <div class="row mx-1 mb-3">
       {foreach $lexemes as $l}
-        <div class="form-check col-6 col-sm-4 col-md-3 col-lg-2">
-          <label class="form-check-label">
-            <input type="checkbox" class="form-check-input" name="lexemeId[]" value="{$l->id}">
-            {include "bits/lexemeName.tpl" lexeme=$l}
-            <span class="form-text">({$l->modelType}{$l->modelNumber})</span>
-          </label>
-        </div>
+        {capture "label"}
+        {include "bits/lexemeName.tpl" lexeme=$l}
+        <span class="form-text">({$l->modelType}{$l->modelNumber})</span>
+        {/capture}
+
+        {include "bs/checkbox.tpl"
+          name='lexemeId[]'
+          label=$smarty.capture.label
+          divClass='col-6 col-sm-4 col-md-3 col-lg-2'
+          value=$l->id}
       {/foreach}
     </div>
 

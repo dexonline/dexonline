@@ -43,19 +43,12 @@
               {include "bits/fieldErrors.tpl" errors=$errors.description|default:null}
             </div>
 
-            <div id="renameDiv"
-              class="form-check"
-              {if !$renameTrees}hidden{/if}>
-              <label class="form-check-label">
-                <input
-                  type="checkbox"
-                  class="form-check-input"
-                  name="renameTrees"
-                  value="1"
-                  {if $renameTrees}checked{/if}>
-                redenumește și arborii la fel
-              </label>
-            </div>
+            {include "bs/checkbox.tpl"
+              name=renameTrees
+              label='redenumește și arborii la fel'
+              checked=$renameTrees
+              divId=renameDiv
+              hidden=!$renameTrees}
           </div>
         </div>
 
@@ -175,8 +168,8 @@
             {include "bs/checkbox.tpl"
               name=multipleMains
               label='conține lexeme principale multiple'
-              checked=$e->multipleMains
-              errors=$errors.multipleMains|default:null}
+              cbErrors=$errors.multipleMains|default:null
+              checked=$e->multipleMains}
           </div>
         </div>
 

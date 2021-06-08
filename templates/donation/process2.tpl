@@ -19,30 +19,20 @@
           {foreach $otrsDonors as $donor}
             <h4>Donație de la {$donor->email}, {$donor->amount} de lei, {$donor->date}</h4>
 
-            <div class="form-check mb-2">
-              <label class="form-check-label">
-                <input
-                  type="checkbox"
-                  class="form-check-input"
-                  name="processTicketId[]"
-                  value="{$donor->ticketId}"
-                  checked>
-                trimite un mesaj cu textul:
-              </label>
-            </div>
+            {include "bs/checkbox.tpl"
+              name='processTicketId[]'
+              label='salvează donația și închide tichetul'
+              checked=true
+              divClass='mb-2'
+              value=$donor->ticketId}
 
             {if $donor->needsEmail() == Donor::EMAIL_YES}
-              <div class="form-check mb-2">
-                <label class="form-check-label">
-                  <input
-                    type="checkbox"
-                    class="form-check-input"
-                    name="messageTicketId[]"
-                    value="{$donor->ticketId}"
-                    checked>
-                  trimite un mesaj cu textul:
-                </label>
-              </div>
+              {include "bs/checkbox.tpl"
+                name='messageTicketId[]'
+                label='trimite un mesaj cu textul:'
+                checked=true
+                divClass='mb-2'
+                value=$donor->ticketId}
 
               <div class="card card-body bg-light mb-2">
                 {$donor->htmlMessage}
@@ -72,17 +62,11 @@
             <input type="hidden" name="date[]" value="{$donor->date}">
 
             {if $donor->needsEmail() == Donor::EMAIL_YES}
-              <div class="form-check mb-2">
-                <label class="form-check-label">
-                  <input
-                    type="checkbox"
-                    class="form-check-input"
-                    name="manualSendMessage_{$i}"
-                    value="1"
-                    checked>
-                  trimite un mesaj cu textul:
-                </label>
-              </div>
+              {include "bs/checkbox.tpl"
+                name="manualSendMessage_{$i}"
+                label='trimite un mesaj cu textul:'
+                checked=true
+                divClass='mb-2'}
 
               <div class="card card-body bg-light mb-2">
                 {$donor->htmlMessage}

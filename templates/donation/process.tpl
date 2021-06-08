@@ -13,17 +13,10 @@
     <div class="card mb-3">
       <div class="card-header">Donații OTRS</div>
       <div class="card-body">
-        <div class="form-check">
-          <label class="form-check-label">
-            <input
-              type="checkbox"
-              class="form-check-input"
-              name="includeOtrs"
-              value="1"
-              {if $includeOtrs}checked{/if}>
-            preia tichetele din OTRS
-          </label>
-        </div>
+        {include "bs/checkbox.tpl"
+          name=includeOtrs
+          label='preia tichetele din OTRS'
+          checked=$includeOtrs}
       </div>
     </div>
 

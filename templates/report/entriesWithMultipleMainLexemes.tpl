@@ -40,11 +40,11 @@
               </td>
               <td class="col-md-1 text-center" data-text="{$e->multipleMains}">
                 <input type="hidden" name="entryIds[]" value="{$e->id}">
-                <input
-                  type="checkbox"
+                {include "bs/checkbox.tpl"
                   name="multipleMains[]"
-                  value="{$e->id}"
-                  {if $e->multipleMains}checked{/if}>
+                  label=""
+                  checked=$e->multipleMains
+                  value=$e->id}
               </td>
               <td class="col-md-7 p-1">
                 {foreach $e->getMainLexemes() as $lexeme}

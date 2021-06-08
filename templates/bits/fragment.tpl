@@ -32,31 +32,24 @@
     name="capitalized[]"
     value="{$capitalized}">
 
-  <div class="form-check mx-2">
-    <label class="form-check-label" title="cu literă mare">
-      <input type="checkbox"
-        class="form-check-input capitalized"
-        value="1"
-        {if $capitalized}checked{/if}>
-      A
-    </label>
-  </div>
+  {include "bs/checkbox.tpl"
+    name=''
+    label='A'
+    checked=$capitalized
+    divClass='mx-2'
+    inputClass='capitalized'
+    title='cu literă mare'}
 
   <input type="hidden"
     name="accented[]"
     value="{$accented}">
 
-  <div class="form-check">
-    <label
-      class="form-check-label"
-      title="preia accentul (dacă există; nu are niciun efect dacă fragmentul nu are accent)">
-      <input type="checkbox"
-        class="form-check-input accented"
-        value="1"
-        {if $accented}checked{/if}>
-      acc.
-    </label>
-  </div>
+  {include "bs/checkbox.tpl"
+    name=''
+    label='acc.'
+    checked=$accented
+    inputClass='accented'
+    title='preia accentul (dacă există; nu are niciun efect dacă fragmentul nu are accent)'}
 
   <button type="button" class="btn btn-link btn-sm editFragmentButton">
     {include "bits/icon.tpl" i=edit}

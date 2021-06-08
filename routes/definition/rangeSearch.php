@@ -6,27 +6,24 @@ const DEBUG = 0;
 
 $word_start = Request::get('i');
 $word_end = Request::get('e');
-$sources = Request::get('s');
+$sourceIds = Request::getArray('s');
 
 $searchResults = null;
-if ($word_start && $word_end && $sources) {
-  $definitions = Definition::getListOfWordsFromSources($word_start, $word_end, $sources);
+if ($word_start && $word_end && $sourceIds) {
+  $definitions = Definition::getListOfWordsFromSources($word_start, $word_end, $sourceIds);
   $searchResults = SearchResult::mapDefinitionArray($definitions);
 }
 
-if(DEBUG) {
-    echo "<pre>";
-    print_r($sources);
-    //print_r($definitions);
-    echo "</pre>";
+if (DEBUG) {
+  echo "<pre>";
+  print_r($sourceIds);
+  //print_r($definitions);
+  echo "</pre>";
 }
-
-
-$s = "[" . ($sources ? implode($sources, ",") : "") . "]";
 
 Smart::assign([
   'results' => $searchResults,
-  's' => $s,
+  's' => array_flip($sourceIds),
   'i' => $word_start,
   'e' => $word_end,
 ]);

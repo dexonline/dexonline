@@ -11,15 +11,15 @@
     3,500,000 characters.{/t}
   </p>
 
-  <h4>{t}Last year ranking{/t}</h4>
+  <h4 class="mt-4">{t}Last year ranking{/t}</h4>
 
   {include "bits/top.tpl" data=$lastyearData tableId="lastyearTop" pager=0}
 
-  <h4>{t}Global ranking{/t}</h4>
+  <h4 class="mt-4">{t}Global ranking{/t}</h4>
 
   {include "bits/top.tpl" data=$manualData tableId="manualTop" pager=1}
 
-  <h3>{t}Automated contribution rankings{/t}</h3>
+  <h3 class="mt-4">{t}Automated contribution rankings{/t}</h3>
 
   <p>
     {t}These include definitions entered using a program.{/t}

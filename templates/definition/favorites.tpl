@@ -7,9 +7,7 @@
     {cap}{t}favorite words{/t}{/cap}
   </h3>
 
-  <dl
-    class="favoriteDefs"
-    data-none-text="{t}You have no favorite words.{/t}">
+  <dl data-none-text="{t}You have no favorite words.{/t}">
     {foreach $results as $i => $row}
       <dd>
         {include "bits/definition.tpl"

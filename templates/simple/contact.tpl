@@ -8,12 +8,12 @@
 
   <h3>{cap}{t}contact us{/t}{/cap}</h3>
 
-  <p class="text-medium">
+  <p class="fs-4 ps-3">
     <a href="mailto:{Config::CONTACT_EMAIL|escape}">
       {include "bits/icon.tpl" i=email}
       {Config::CONTACT_EMAIL|escape}
     </a>
-  </p>
+  <p>
 
   <h3>{t}Useful information{/t}</h3>
 

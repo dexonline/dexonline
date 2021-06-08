@@ -4,7 +4,7 @@ class Tag extends BaseObject implements DatedObject {
   public static $_table = 'Tag';
 
   const DEFAULT_COLOR = '#ffffff';
-  const DEFAULT_BACKGROUND = '#1e83c2';
+  const DEFAULT_BACKGROUND = '#1e83c2'; // keep in sync with the Bootstrap info color
 
   // populated during loadTree()
   public $children = [];

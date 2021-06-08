@@ -15,7 +15,10 @@
 
         <div class="modal-body text-center">
           <div class="pageScan">
-            {include "bits/loading.tpl"}
+            {* loading spinner *}
+            <div id="loading" class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">încarc pagina cerută...</span>
+            </div>
             <img id="pageImage">
             <div class="alert alert-danger" role="alert"></div>
           </div>

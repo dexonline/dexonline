@@ -12,7 +12,15 @@ pre {
 .list-inline-bullet li:not(:first-child):before {
   content: '•';
   opacity: 0.5; /* don't force a color, use opacity instead */
-  padding-right: 8px;
+  padding-right: .5rem;
+}
+
+.list-inline-bullet.list-inline-bullet-sm li:not(:first-child):before {
+  padding-right: .25rem;
+}
+
+.list-inline-bullet-sm .list-inline-item:not(:last-child) {
+    margin-right: .25rem;
 }
 
 
@@ -231,11 +239,6 @@ abbr[title] {
   color: white;
 }
 
-.defWrapper .typo {
-  padding: 10px 0;
-  border-bottom: #CCC 1px dashed;
-}
-
 sup.footnote {
   cursor: auto;
   font-style: normal; /* do not inherit bold/italic */
@@ -277,16 +280,16 @@ sup.footnote {
 }
 
 .callout-info {
-  border-left-color: #1e83c2;
+  border-left-color: var(--bs-info);
 }
 
 .callout-info h3 {
-  color: #1e83c2;
+  color: var(--bs-info);
 }
 
 /************** labels inside headers **************/
 
-h3 .label {
+h3 .badge {
   font-size: 12px;
   vertical-align: middle;
 }
@@ -312,52 +315,6 @@ h3 .label {
   overflow: hidden;
 }
 
-/************** loading ring **************/
-
-.lds-ring {
-  display: inline;
-  position: relative;
-  left: 50%;
-  width: 64px;
-  height: 64px;
-}
-.lds-ring div {
-  box-sizing: border-box;
-  display: block;
-  position: absolute;
-  width: 51px;
-  height: 51px;
-  margin: 6px;
-  border: 6px solid var(--bs-primary);
-  border-radius: 50%;
-  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-  border-color: var(--bs-primary) transparent transparent transparent;
-}
-.lds-ring div:nth-child(1) {
-  animation-delay: -0.45s;
-}
-.lds-ring div:nth-child(2) {
-  animation-delay: -0.3s;
-}
-.lds-ring div:nth-child(3) {
-  animation-delay: -0.15s;
-}
-@keyframes lds-ring {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-
-/*********** favorites ***********/
-
-dd.favoriteDefs {
-  margin-bottom: 1em;
-}
-
 /*********** links in alerts ***********/
 
 .alert .alert-link {
@@ -366,24 +323,8 @@ dd.favoriteDefs {
 
 /*********** misc helpers ***********/
 
-.text-small {
-  font-size: 10px;
-}
-
-.text-medium {
-  font-size: 18px;
-}
-
-.text-big {
-  font-size: 24px;
-}
-
 a.disabled {
   pointer-events: none;
-}
-
-.entryList span:not(:first-child):before {
-  content: '•';
 }
 
 /* articles images (imported from wiki */
@@ -437,17 +378,13 @@ div.thumbinner {
   overflow-y: auto;
 }
 
-/* duplicate in autoload/user/list.css */
 .userNick {
   white-space: nowrap;
 }
 
-textarea.form-control {
-  margin-bottom: 3px;
-}
-
 /* tablesorter */
 
-.tablesorter-header {
+.tablesorter-header,
+.tablesorter-pager th {
   background-color: white !important;
 }

@@ -335,7 +335,7 @@ class Constant {
       'js' => [ 'diff.js' ],
     ],
     'bootstrap-datepicker' => [
-      'css' => [ 'third-party/bootstrap-datepicker3.min.css' ],
+      'css' => [ 'third-party/bootstrap-datepicker.min.css' ],
       'js' => [
         'third-party/bootstrap-datepicker.min.js',
         'third-party/bootstrap-datepicker.ro.min.js',

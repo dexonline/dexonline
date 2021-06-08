@@ -14,7 +14,7 @@ class Preferences {
   static $allPrefs = [
     self::CEDILLA_BELOW => [
       'enabled' => true,
-      'label' => 'Folosește ş și ţ cu sedilă (în loc de virgulă)',
+      'label' => 'Folosesc ş și ţ cu sedilă (în loc de virgulă)',
       'comment' => 'Scrierea corectă este cu &#x219; și &#x21b; în loc de ş și ţ, dar este posibil ca aceste simboluri să nu fie afișate corect în browserul dumneavoastră.',
     ],
     self::FORCE_DIACRITICS => [
@@ -24,7 +24,7 @@ class Preferences {
     ],
     self::OLD_ORTHOGRAPHY => [
       'enabled' => true,
-      'label' => 'Folosesc ortografia folosită pînă în 1993 (î din i)',
+      'label' => 'Folosesc ortografia dinainte de 1993 (î din i)',
       'comment' => 'Până în 1993, „&#xe2;” era folosit doar în cuvântul „român”, în cuvintele derivate și în unele nume proprii.',
     ],
     self::EXCLUDE_UNOFFICIAL => [

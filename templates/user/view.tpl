@@ -92,18 +92,15 @@
           <input type="hidden" name="userId" value="{$user->id}">
 
           {foreach $allMedals as $mask => $params}
-            <div class="form-check">
-              <label class="form-check-label">
-                <input
-                  type="checkbox"
-                  class="form-check-input"
-                  name="medalsGranted[]"
-                  value="{$mask}"
-                  {if array_key_exists($mask, $medals)}checked{/if}>
-                {$params.name}
-                <span class="form-text ms-2">{$params.description}</span>
-              </label>
-            </div>
+            {capture 'label'}
+            {$params.name}
+            <span class="form-text ms-2">{$params.description}</span>
+            {/capture}
+            {include "bs/checkbox.tpl"
+              name="medalsGranted[]"
+              label=$smarty.capture.label
+              checked=array_key_exists($mask, $medals)
+              value=$mask}
           {/foreach}
 
           <div class="mt-3">

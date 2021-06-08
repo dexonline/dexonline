@@ -1,6 +1,7 @@
 {* mandatory args: $name, $label *}
 {$cbErrors=$cbErrors|default:null}
 {$checked=$checked|default:false}
+{$disabled=$disabled|default:false}
 {$divClass=$divClass|default:''}
 {$divId=$divId|default:''}
 {$help=$help|default:false}
@@ -25,7 +26,8 @@
     class="form-check-input {$inputClass} {if $cbErrors}is-invalid{/if}"
     {if $name}name="{$name}"{/if}
     {if $value}value="{$value}"{/if}
-    {if $checked}checked{/if}>
+    {if $checked}checked{/if}
+    {if $disabled}disabled{/if}>
 
   <label
     for="{$inputId}"

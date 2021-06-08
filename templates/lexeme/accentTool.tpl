@@ -30,11 +30,10 @@
         </span>
 
         <span>
-          <label>
-            <input type="checkbox"
-              name="noAccent_{$l->id}" value="X">
-            Nu necesită accent
-          </label>
+          {include "bs/checkbox.tpl"
+            divClass="d-inline-block"
+            name="noAccent_{$l->id}"
+            label='nu necesită accent'}
         </span>
 
         <span>

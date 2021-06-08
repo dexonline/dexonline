@@ -42,17 +42,10 @@
 
             <div class="row mb-2">
               <div class="col-sm-9 offset-sm-3">
-                <div class="form-check">
-                  <label class="form-check-label">
-                    <input
-                      type="checkbox"
-                      class="form-check-input"
-                      name="revised"
-                      value="1"
-                      {if $visual->revised}checked{/if}>
-                    etichetarea este completă
-                  </label>
-                </div>
+                {include "bs/checkbox.tpl"
+                  name=revised
+                  label='etichetarea este completă'
+                  checked=$visual->revised}
               </div>
             </div>
 

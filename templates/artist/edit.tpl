@@ -55,30 +55,17 @@
             class="form-control">
         </div>
 
-        <div class="form-check">
-          <label class="form-check-label">
-            <input
-              type="checkbox"
-              class="form-check-input"
-              name="hidden"
-              {if $artist->hidden}checked{/if}>
-            ascuns
-          </label>
-        </div>
+        {include "bs/checkbox.tpl"
+          name=hidden
+          label='ascuns'
+          checked=$artist->hidden}
 
-        <div class="form-check mb-3">
-          <label class="form-check-label">
-            <input
-              type="checkbox"
-              class="form-check-input"
-              name="sponsor"
-              {if $artist->sponsor}checked{/if}>
-            sponsor
-          </label>
-          <div class="form-text">
-            sponsorii nu sunt asignați automat în lunile viitoare
-          </div>
-        </div>
+        {include "bs/checkbox.tpl"
+          name=sponsor
+          label='sponsor'
+          divClass='mb-3'
+          checked=$artist->sponsor
+          help='sponsorii nu sunt asignați automat în lunile viitoare'}
 
         <button class="btn btn-primary" type="submit" name="saveButton">
           {include "bits/icon.tpl" i=save}

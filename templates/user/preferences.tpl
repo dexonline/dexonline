@@ -85,21 +85,17 @@
               placeholder="numele real">
           </div>
 
-          <div class="form-check">
-            <label class="form-check-label">
-              <input
-                type="checkbox"
-                class="form-check-input"
-                name="detailsVisible"
-                value="1"
-                {if $detailsVisible}checked{/if}>
-              datele mele sunt vizibile public
-              <div class="form-text mb-3">
-                Poți afișa sau ascunde numele și adresa de email în
-                <a href="{Router::link('user/view')}/{User::getActive()}">profilul tău</a>.
-              </div>
-            </label>
-          </div>
+          {capture "help"}
+          Poți afișa sau ascunde numele și adresa de email în
+          <a href="{Router::link('user/view')}/{User::getActive()}">profilul tău</a>.
+          {/capture}
+
+          {include "bs/checkbox.tpl"
+            name=detailsVisible
+            label='detaliile mele sunt vizibile public'
+            checked=$detailsVisible
+            divClass='mb-3'
+            help=$smarty.capture.help}
 
           <fieldset>
             <legend>dacă vrei să îți schimbi parola</legend>
@@ -151,19 +147,14 @@
       <div class="card-header">Preferințe</div>
       <div class="card-body">
         {foreach $userPrefs as $value => $i}
-          <div class="form-check mb-2">
-            <label class="form-check-label">
-              <input
-                type="checkbox"
-                class="form-check-input"
-                name="userPrefs[]"
-                value="{$value}"
-                {if !$i.enabled}disabled{/if}
-                {if $i.checked}checked{/if}>
-              {$i.label}
-              <div class="form-text">{$i.comment}</div>
-            </label>
-          </div>
+          {include "bs/checkbox.tpl"
+            name="userPrefs[]"
+            label=$i.label
+            checked=$i.checked
+            disabled=!$i.enabled
+            divClass='mb-3'
+            help=$i.comment
+            value=$value}
         {/foreach}
 
         <div class="d-flex">
@@ -198,17 +189,11 @@
 
         {foreach $widgets as $value => $w}
           <div class="col-6 col-md-4">
-            <div class="form-check">
-              <label class="form-check-label">
-                <input
-                  type="checkbox"
-                  class="form-check-input"
-                  name="widgets[]"
-                  value="{$value}"
-                  {if $w.enabled}checked{/if}>
-                {$w.name}
-              </label>
-            </div>
+            {include "bs/checkbox.tpl"
+              name="widgets[]"
+              label=$w.name
+              checked=$w.enabled
+              value=$value}
           </div>
         {/foreach}
       </div>

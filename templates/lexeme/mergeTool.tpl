@@ -66,13 +66,16 @@
           </div>
 
           {foreach $l->matches as $match}
-            <div class="row form-check">
-              {assign var="checkboxId" value="merge_`$l->id`_`$match->id`"}
-              <label class="col-3 form-check-label">
-                <input type="checkbox" name="{$checkboxId}" value="1">
-                Unifică cu <strong>{$match->form}</strong>
-                {$match->modelType}{$match->modelNumber}{$match->restriction}
-              </label>
+            <div class="row px-3 align-items-center">
+              {capture "label"}
+              Unifică cu <strong>{$match->form}</strong>
+              {$match->modelType}{$match->modelNumber}{$match->restriction}
+              {/capture}
+
+              {include "bs/checkbox.tpl"
+                name="merge_{$l->id}_{$match->id}"
+                label=$smarty.capture.label
+                divClass='col-3'}
 
               <a
                 href="{Router::link('lexeme/edit')}?lexemeId={$match->id}"

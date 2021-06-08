@@ -100,31 +100,17 @@
                   value="{$lexeme->form|escape}"
                   {if !$canEdit.form}readonly{/if}>
 
-                <div id="renameDiv"
-                  class="form-check"
-                  {if !$renameRelated}hidden{/if}>
-                  <label class="form-check-label">
-                    <input
-                      type="checkbox"
-                      class="form-check-input"
-                      name="renameRelated"
-                      value="1"
-                      {if $renameRelated}checked{/if}>
-                    redenumește și intrările și arborii care au această descriere
-                  </label>
-                </div>
+                {include "bs/checkbox.tpl"
+                  name=renameRelated
+                  label='redenumește și intrările și arborii care au această descriere'
+                  checked=$renameRelated
+                  divId=renameDiv
+                  hidden=!$renameRelated}
 
-                <div class="form-check">
-                  <label class="form-check-label">
-                    <input
-                      type="checkbox"
-                      class="form-check-input"
-                      name="needsAccent"
-                      value="1"
-                      {if !$lexeme->noAccent}checked{/if}>
-                    necesită accent
-                  </label>
-                </div>
+                {include "bs/checkbox.tpl"
+                  name=needsAccent
+                  label='necesită accent'
+                  checked=!$lexeme->noAccent}
               </div>
             </div>
 
@@ -224,19 +210,11 @@
                   type="tags"
                   target="#tagIds"}
 
-                <div class="form-check">
-                  <label class="form-check-label">
-                    <input
-                      type="checkbox"
-                      class="form-check-input"
-                      name="stopWord"
-                      value="1"
-                      {if $lexeme->stopWord}checked{/if}
-                      {if !$canEdit.stopWord}disabled{/if}
-                    >
-                    ignoră la căutările full-text
-                  </label>
-                </div>
+                {include "bs/checkbox.tpl"
+                  name=stopWord
+                  label='ignoră la căutările full-text'
+                  checked=$lexeme->stopWord
+                  disabled=!$canEdit.stopWord}
               </div>
             </div>
 
@@ -257,15 +235,11 @@
             <div class="row mb-2">
               <label class="col-md-3 form-label">lexem compus</label>
 
-              <div class="col-md-9">
-                <div class="form-check">
-                  <input
-                    type="checkbox"
-                    class="form-check-input"
-                    name="compound"
-                    value="1"
-                    {if $lexeme->compound}checked{/if}>
-                </div>
+              <div class="col-md-9 ps-0">
+                {include "bs/checkbox.tpl"
+                  name=compound
+                  label=''
+                  checked=$lexeme->compound}
               </div>
             </div>
 
@@ -389,29 +363,15 @@
 
             <div class="row mb-2">
               <div class="col-md-9 offset-md-3">
-                <div class="form-check">
-                  <label class="form-check-label">
-                    <input
-                      type="checkbox"
-                      class="form-check-input"
-                      name="hasApheresis"
-                      value="1"
-                      {if $lexeme->hasApheresis}checked{/if}>
-                    admite afereză
-                  </label>
-                </div>
+                {include "bs/checkbox.tpl"
+                  name=hasApheresis
+                  label='admite afereză'
+                  checked=$lexeme->hasApheresis}
 
-                <div class="form-check">
-                  <label class="form-check-label">
-                    <input
-                      type="checkbox"
-                      class="form-check-input"
-                      name="hasApocope"
-                      value="1"
-                      {if $lexeme->hasApocope}checked{/if}>
-                    admite apocopă
-                  </label>
-                </div>
+                {include "bs/checkbox.tpl"
+                  name=hasApocope
+                  label='admite apocopă'
+                  checked=$lexeme->hasApocope}
               </div>
             </div>
 

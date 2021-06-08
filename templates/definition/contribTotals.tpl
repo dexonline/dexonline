@@ -51,21 +51,11 @@
 
     <div class="row mb-3">
       <div class="offset-sm-2 col-sm-10">
-
-        <div class="form-check">
-          <label class="form-check-label">
-            <input
-              type="checkbox"
-              class="form-check-input"
-              name="showChanges"
-              {if $showChanges}checked{/if}
-              value="1">
-            contorizează corecturile față de originalul OCR
-          </label>
-        </div>
-        <span class="form-text">
-          poate fi lent și/sau poate da eroare pentru volume mari de date
-        </span>
+        {include "bs/checkbox.tpl"
+          name=showChanges
+          label='contorizează corecturile față de originalul OCR'
+          checked=$showChanges
+          help='poate fi lent și poate da eroare pentru volume mari de date'}
       </div>
     </div>
 

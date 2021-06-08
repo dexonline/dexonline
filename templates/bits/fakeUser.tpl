@@ -19,20 +19,17 @@
       </div>
 
       {foreach User::PRIV_NAMES as $privValue => $privName}
-        <div class="form-check mb-1">
-          <label class="form-check-label">
-            <input type="checkbox" class="form-check-input" name="priv[]" value="{$privValue}">
-            {$privName}
-          </label>
-        </div>
+        {include "bs/checkbox.tpl"
+          name='priv[]'
+          label=$privName
+          divClass='mb-1'
+          value=$privValue}
       {/foreach}
 
-      <div class="form-check mb-2">
-        <label class="form-check-label">
-          <input id="allPriv" type="checkbox" class="form-check-input" name="allPriv" value="1">
-          TOATE privilegiile
-        </label>
-      </div>
+      {include "bs/checkbox.tpl"
+        name='allPriv'
+        label='TOATE privilegiile'
+        divClass='mb-2'}
 
       <button
         class="btn btn-warning"

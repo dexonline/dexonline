@@ -96,20 +96,16 @@
                         value="{$tuple.form|escape}">
                     </div>
                     <div class="col-2">
-                      <input
-                        type="checkbox"
-                        class="form-check-input"
+                      {include "bs/checkbox.tpl"
                         name="recommended_{$inflId}_{$i}"
-                        value="1"
-                        {if $tuple.recommended}checked{/if}>
+                        label=''
+                        checked=$tuple.recommended}
                     </div>
                     <div class="col-2">
-                      <input
-                        type="checkbox"
-                        class="form-check-input"
+                      {include "bs/checkbox.tpl"
                         name="hasApocope_{$inflId}_{$i}"
-                        value="1"
-                        {if $tuple.hasApocope}checked{/if}>
+                        label=''
+                        checked=$tuple.hasApocope}
                     </div>
                   </div>
                 {/foreach}

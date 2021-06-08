@@ -46,17 +46,11 @@
             {include "bits/fieldErrors.tpl" errors=$errors.password|default:null}
           </div>
 
-          <div class="form-check mb-3">
-            <label class="form-check-label">
-              <input
-                type="checkbox"
-                class="form-check-input"
-                name="remember"
-                value="1"
-                {if $remember}checked{/if}>
-              ține-mă autentificat un an
-            </label>
-          </div>
+          {include "bs/checkbox.tpl"
+            name='remember'
+            label='ține-mă autentificat un an'
+            checked=$remember
+            divClass='mb-3'}
 
           <div class="d-flex justify-content-between">
             <button class="btn btn-primary" type="submit" name="submitButton">

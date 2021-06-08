@@ -3,37 +3,44 @@
 {block "title"}Cuvinte{/block}
 
 {block "content"}
-  <div id="searchCuv">
-    {assign var="text" value=$text|default:false}
-    <script>
-     var sel_sources={$s};
-     $(document).ready(function(){
-       for (var i=0; i<sel_sources.length; i++) {
-         var item = document.getElementById('s_' + sel_sources[i]);
-         $(item).attr("checked", true);
-       }
-     });
-    </script>
-    <form method="post">
+  {$results=$results|default:[]}
 
-      <div>
-        <label for="i">De la: </label><input type="text" name="i" id="i" class="searchFieldCuv" value="{$i|escape}"  maxlength="10" title="De la">
-        <label for="e"> la: </label><input type="text" name="e" id="e" class="searchFieldCuv" value="{$e|escape}"  maxlength="10" title="la">
+  <form method="post">
+
+    <div class="row row-cols-sm-auto gx-2 mb-3">
+      <div class="col-12">
+        <label class="col-form-label">De la:</label>
       </div>
-
-      <div class="sourceCheckboxGroup">
-        {include "bits/sourceCheckboxGroup.tpl"}
+      <div class="col-12">
+        <input type="text" class="form-control" name="i" value="{$i|escape}" size="10">
       </div>
-
-      <div>
-        <input type="submit" value="caută" id="searchButton">
+      <div class="col-12">
+        <label class="col-form-label">la:</label>
       </div>
+      <div class="col-12">
+        <input type="text" class="form-control" name="e" value="{$e|escape}" size="10">
+      </div>
+    </div>
 
-    </form>
-    <div class="clearer"></div>
-  </div>
+    <div class="row mb-3">
+      {foreach Source::getAll(Source::SORT_SHORT_NAME) as $source}
+        <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+          {include "bs/checkbox.tpl"
+            name="s[]"
+            label=$source->shortName|escape
+            checked=isset($s[$source->id])
+            value=$source->id}
+        </div>
+      {/foreach}
+    </div>
 
-  {assign var="results" value=$results|default:null}
+    <button type="submit" class="btn btn-primary">
+      {include "bits/icon.tpl" i=search}
+      caută
+    </button>
+
+  </form>
+
   {foreach $results as $row}
     {include "bits/definition.tpl"}
   {/foreach}

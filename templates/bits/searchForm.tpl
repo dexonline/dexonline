@@ -49,15 +49,12 @@
       </div>
 
       <div class="col-lg d-flex align-items-lg-center">
-        <div class="form-check flex-grow-1">
-          <label class="form-check-label">
-            <input type="checkbox"
-              class="form-check-input"
-              name="text"
-              {if $text}checked{/if}>
-            {t}Full-text search{/t}
-          </label>
-        </div>
+        {capture "fullTextMessage"}{t}Full-text search{/t}{/capture}
+        {include "bs/checkbox.tpl"
+          name='text'
+          label=$smarty.capture.fullTextMessage
+          checked=$text
+          divClass='flex-grow-1'}
 
         <a href="https://wiki.dexonline.ro/wiki/Ajutor_pentru_căutare"
           target="_blank">

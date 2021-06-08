@@ -88,10 +88,6 @@ pre {
 
 /*********** search form ***********/
 
-#searchForm {
-  margin-bottom: 25px;
-}
-
 #searchClear {
   margin-left: -40px;
   padding-right: 4px;
@@ -161,12 +157,6 @@ footer {
   overflow-x: hidden;
 }
 
-#footerLinks li:not(:first-child):before {
-  content: "•";
-  padding-right: 8px;
-  color: #999;
-}
-
 
 /*********** definitions ***********/
 
@@ -215,14 +205,6 @@ abbr[title] {
   line-height: 1.88; /* equivalent line height: 1.6 / 0.85em */
 }
 
-.defDetails .column {
-  padding-left: 0;
-}
-
-.defDetails ul {
-  margin-bottom: 0;
-}
-
 .spaced {
   letter-spacing: 3px;
   padding-left: 2px;
@@ -242,11 +224,6 @@ abbr[title] {
 
 .secondary-accent {
   text-decoration: underline double;
-}
-
-.conflictingScripts {
-  background: red;
-  color: white;
 }
 
 .rareGlyph {
@@ -305,10 +282,6 @@ sup.footnote {
 
 .callout-info h3 {
   color: #1e83c2;
-}
-
-[id*="typoSent"] {
-  color: #5cb85c;
 }
 
 /************** labels inside headers **************/

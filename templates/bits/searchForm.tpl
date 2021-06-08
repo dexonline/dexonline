@@ -6,6 +6,7 @@
     action="{Config::URL_PREFIX}search.php"
     name="frm"
     onsubmit="return searchSubmit()"
+    class="mb-4"
     id="searchForm">
 
     <div class="d-flex align-items-end align-items-md-center flex-column flex-md-row">

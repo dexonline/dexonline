@@ -80,7 +80,7 @@
           Copyright © 2004-{$currentYear} dexonline (https://dexonline.ro)
         </div>
 
-        <ul id="footerLinks" class="text-center list-inline mt-2">
+        <ul class="text-center list-inline list-inline-bullet mt-2">
           <li class="list-inline-item">
             <a href="{Router::link('simple/license')}">{t}license{/t}</a>
           </li>

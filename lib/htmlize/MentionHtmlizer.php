@@ -21,9 +21,6 @@ class MentionHtmlizer extends Htmlizer {
     }
 
     $attributes = sprintf(
-      'data-toggle="popover" ' .
-      'data-html="true" ' .
-      'data-placement="auto right" ' .
       'class="mention" ' .
       'title="%s"', $meaningId);
     $result = sprintf('<span %s>%s</span>', $attributes, $contents);

@@ -28,8 +28,8 @@
             <th scope="col">descriere</th>
             <th class="text-center" scope="col">bifă</th>
             <th scope="col">lexeme</th>
-            <th class="text-right" scope="col">modificată</th>
-            <th class="text-right" scope="col">la data</th>
+            <th scope="col">modificată</th>
+            <th scope="col">la data</th>
           </tr>
         </thead>
         <tbody>
@@ -41,6 +41,7 @@
               <td class="col-md-1 text-center" data-text="{$e->multipleMains}">
                 <input type="hidden" name="entryIds[]" value="{$e->id}">
                 {include "bs/checkbox.tpl"
+                  divClass='form-check-inline'
                   name="multipleMains[]"
                   label=""
                   checked=$e->multipleMains
@@ -51,8 +52,8 @@
                   {include "bits/lexemeLink.tpl" boxed=true}
                 {/foreach}
               </td>
-              <td class="col-md-1 text-right userNick">{$e->nick}</td>
-              <td class="col-md-1 text-right" data-text="{$e->modDate}">
+              <td class="col-md-1 userNick">{$e->nick}</td>
+              <td class="col-md-1" data-text="{$e->modDate}">
                 {$e->modDate|date_format:"%d.%m.%Y"}
               </td>
             </tr>

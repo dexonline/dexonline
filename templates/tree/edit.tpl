@@ -471,7 +471,7 @@
                 type="sources"
                 target="#editorSources"
                 focusTarget="#editorRep"
-                align="text-left"}
+                align="text-start"}
             </div>
 
             <div class="col-md-4">
@@ -493,7 +493,7 @@
                 type="tags"
                 target="#editorTags"
                 focusTarget="#editorRep"
-                align="text-left"}
+                align="text-start"}
             </div>
 
             <div class="col-md-4">

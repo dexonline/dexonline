@@ -16,7 +16,7 @@
       <tr class="active">
         <th>{t}Client{/t}</th>
         {foreach $clients as $c}
-          <td class="text-center">
+          <td class="text-center align-middle">
             <a href="{$c.url}">{$c.name}</a>
             {if $c.download}
               <br>

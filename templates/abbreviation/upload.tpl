@@ -61,14 +61,14 @@
 
             <dt class="col-xl-3">abrevierea</dt>
             <dd class="col-xl-9">
-              permite și alte semne de punctuație (nu doar <kbd>.</kbd>) și formatare internă
-              <kbd>$</kbd>, <kbd>@</kbd>, <kbd>%</kbd>, <kbd>_{}</kbd>, <kbd>^{}</kbd>
+              permite și alte semne de punctuație (nu doar <code>.</code>) și formatare internă
+              <code>$</code>, <code>@</code>, <code>%</code>, <code>_{}</code>, <code>^{}</code>
             </dd>
 
             <dt class="col-xl-3">detalierea abrevierii</dt>
             <dd class="col-xl-9">
-              permite formatare internă <kbd>$</kbd>, <kbd>@</kbd>, <kbd>%</kbd>,
-              <kbd>_{}</kbd>, <kbd>^{}</kbd>
+              permite formatare internă <code>$</code>, <code>@</code>, <code>%</code>,
+              <code>_{}</code>, <code>^{}</code>
             </dd>
           </dl>
         </div>

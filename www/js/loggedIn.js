@@ -4,12 +4,6 @@ $(function() {
     $('.defWrapper .deleteLink').click(deleteDefinition);
     $('.bookmarkAddButton').click(addBookmark);
     $('.bookmarkRemoveButton').click(removeBookmark);
-
-    // bootstrap tooltip with html support
-    $('body').tooltip({
-      selector: '[class="abbrev"]',
-      html: true
-    });
   }
 
   function deleteDefinition() {

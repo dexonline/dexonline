@@ -168,11 +168,9 @@ footer {
 
 /*********** definitions ***********/
 
-/*
-  Make Firefox abbr underlining consistent with other browsers.
-  Reference: https://github.com/dexonline/dexonline/issues/485
-*/
+/* The default underline sticks to the bottom of the text with no padding. */
 abbr[title] {
+  border-bottom: 1px dotted #777;
   text-decoration: none;
 }
 

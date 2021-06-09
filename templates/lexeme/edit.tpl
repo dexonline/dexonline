@@ -145,24 +145,22 @@
               </div>
             {/if}
 
-            <div class="row mb-1">
-              <div class="clearfix col-xl-10 offset-xl-2">
-                <label>intrări pentru care lexemul este:</label>
-              </div>
-            </div>
+            <fieldset>
+              <legend class="fs-5">intrări pentru care lexemul este:</legend>
 
-            {foreach from=$entryIds key=k item=e}
-              <div class="row mb-2">
-                <label class="col-xl-2 col-form-label">{$assocEntry[{$k}]}</label>
-                <div class="col-xl-10">
-                  <select id="entryIds[{$k}]" name="entryIds[{$k}][]" class="form-select" multiple>
-                    {foreach $e as $eid}
-                      <option value="{$eid}" selected></option>
-                    {/foreach}
-                  </select>
+              {foreach from=$entryIds key=k item=e}
+                <div class="row mb-2">
+                  <label class="col-xl-2 col-form-label">{$assocEntry[{$k}]}</label>
+                  <div class="col-xl-10">
+                    <select id="entryIds[{$k}]" name="entryIds[{$k}][]" class="form-select" multiple>
+                      {foreach $e as $eid}
+                        <option value="{$eid}" selected></option>
+                      {/foreach}
+                    </select>
+                  </div>
                 </div>
-              </div>
-            {/foreach}
+              {/foreach}
+            </fieldset>
 
             {if $compoundIds}
               <div class="row mb-2">

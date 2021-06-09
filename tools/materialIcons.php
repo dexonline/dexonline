@@ -27,7 +27,6 @@ const CODEPOINTS = [
   'drag_indicator',
   'edit',
   'email',
-  'emoji_symbols',
   'expand_less',
   'expand_more',
   'favorite',

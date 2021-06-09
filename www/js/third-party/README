@@ -1,9 +1,16 @@
 seedrandom.min.js: https://github.com/davidbau/seedrandom
 
-Required jQuery UI components:
+jQuery UI is required by:
 
-* draggable: required by elfinder
-* droppable: required by elfinder
-* resizable: required by elfinder
-* selectable: required by elfinder
-* slider: required by elfinder
+* elfinder: https://github.com/Studio-42/elFinder#requirements
+* jqGrid
+* our code: frequentObjects, select2Dev etc.
+
+* everything under Core
+* everything under Interactions
+* Widgets: everything except accordion, progressbar, selectmenu, spinner, tooltip
+* nothing under Effects
+
+To see if any of these are still in use, grep for them, e.g.:
+
+  grep -rl --exclude-dir={merged,templates_c,stat} draggable\(

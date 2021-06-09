@@ -51,20 +51,18 @@ $(function() {
     $(this).attr('data-other-text', tmp);
   });
 
+  // footnotes: enable a fake tooltip (there is no title) in order to hide the
+  // "click here" tooltip that's available on the rest of the definition
+  $('.abbrev, sup.footnote').each(function() {
+    new bootstrap.Tooltip(this, {
+      delay: { 'show': 500, 'hide': 100 },
+      html: true,
+    });
+  });
 });
 
 if (typeof jQuery.ui != 'undefined') {
   $(function() {
-    $('.tooltip').tooltip({
-      content: function () {
-          return $(this).html();
-      },
-      show: { delay: 10 },
-      track: true
-    });
-
-    $('sup.footnote').tooltip({ html: true});
-
     $('.mention').hover(mentionHoverIn, mentionHoverOut);
   });
 }
@@ -223,20 +221,20 @@ function searchClickedWord(event) {
       word = s.toString();
       s.modify('move', 'forward', 'character'); // clear selection
     }
-  } else if ((sel = document.selection) && sel.type != "Control") {
+  } else if ((sel = document.selection) && sel.type != 'Control') {
     // IE 4+
     var textRange = sel.createRange();
     if (!textRange.text) {
-      textRange.expand("word");
+      textRange.expand('word');
       while (/\s$/.test(textRange.text)) {
-        textRange.moveEnd("character", -1);
+        textRange.moveEnd('character', -1);
       }
       word = textRange.text;
     }
   }
 
   // Trim trailing dots
-  var regex = new RegExp(nonLetter + "$", 'i');
+  var regex = new RegExp(nonLetter + '$', 'i');
   while (word && regex.test(word)) {
     word = word.substr(0, word.length - 1);
   }
@@ -253,7 +251,7 @@ function searchClickedWord(event) {
 
 function installFirefoxSpellChecker(evt) {
   var params = {
-    "ortoDEX": { URL: evt.target.href,
+    'ortoDEX': { URL: evt.target.href,
                  toString : function() { return this.URL; }
     }
   }

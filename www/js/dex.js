@@ -61,12 +61,6 @@ $(function() {
   });
 });
 
-if (typeof jQuery.ui != 'undefined') {
-  $(function() {
-    $('.mention').hover(mentionHoverIn, mentionHoverOut);
-  });
-}
-
 function formatSource(item) {
   return $('<span>' +
            item.text.replace(/(\(([^)]+)\))/, '<strong>$2</strong>') +
@@ -259,28 +253,34 @@ function installFirefoxSpellChecker(evt) {
   return false;
 }
 
-function mentionHoverIn() {
-  var elem = $(this);
+$(function() {
+  $('.mention').hover(mentionHoverIn, mentionHoverOut);
 
-  if (elem.data('loaded')) {
-    $(this).popover('show');
-  } else {
-    var meaningId = elem.attr('title');
-    $.getJSON(wwwRoot + 'ajax/getMeaningById', { id: meaningId })
-      .done(function(resp) {
-        elem.removeAttr('title');
-        elem.data('loaded', 1);
-        elem.popover({
-          content: resp.html,
-          title: resp.description + ' (' + resp.breadcrumb + ')',
-        }).popover('show');
-      });
+  function mentionHoverIn() {
+    var elem = $(this);
+
+    if (elem.data('loaded')) {
+      $(this).popover('show');
+    } else {
+      var meaningId = elem.attr('title');
+      $.getJSON(wwwRoot + 'ajax/getMeaningById', { id: meaningId })
+        .done(function(resp) {
+          elem.removeAttr('title');
+          elem.data('loaded', 1);
+          var p = new bootstrap.Popover(elem, {
+            content: resp.html,
+            html: true,
+            title: resp.description + ' (' + resp.breadcrumb + ')',
+          });
+          p.show();
+        });
+    }
   }
-}
 
-function mentionHoverOut() {
-  $(this).popover('hide');
-}
+  function mentionHoverOut() {
+    $(this).popover('hide');
+  }
+});
 
 function trim(str) {
 	var	str = str.replace(/^\s\s*/, ''),

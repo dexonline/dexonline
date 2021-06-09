@@ -444,7 +444,7 @@
               confirm
             </button>
             <button type="button"
-              class="btn btn-sm btn-light meaningAction deleteMeaningCancelButton">
+              class="btn btn-sm btn-link meaningAction deleteMeaningCancelButton">
               {include "bits/icon.tpl" i=clear}
               m-am răzgândit
             </button>

@@ -42,21 +42,6 @@ body.other section.search {
   display: none;
 }
 
-ul.bulletList {
-  display: inline;
-  margin-left: 0;
-}
-
-.bulletList li {
-  padding: 0;
-}
-
-.bulletList li:not(:last-child):after {
-  content: "•";
-  padding: 0 5px;
-  color: #999;
-}
-
 /* SortableJS */
 .drag-indicator {
   cursor: grab;

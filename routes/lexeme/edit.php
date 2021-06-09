@@ -78,7 +78,8 @@ if ($refreshButton || $saveButton) {
            $compoundRestriction, $partIds, $declensions, $capitalized, $accented,
            $notes, $hasApheresis, $hasApocope, $tagIds);
 
-  if (validate($lexeme, $original)) {
+  $errors = validate($lexeme, $original);
+  if (!$errors && !FlashMessage::hasErrors()) {
     // Case 1: Validation passed
     if ($saveButton) {
       if (($original->modelType == 'VT') && ($lexeme->modelType != 'VT')) {
@@ -124,9 +125,14 @@ if ($refreshButton || $saveButton) {
       Log::notice("Saved lexeme {$lexeme->id} ({$lexeme->formNoAccent})");
       FlashMessage::add('Am salvat lexemul.', 'success');
       Util::redirect("?lexemeId={$lexeme->id}");
+    } else {
+      FlashMessage::add(
+        'Nu există erori. Dacă doriți, puteți salva lexemul.',
+        'warning');
     }
   } else {
     // Case 2: Validation failed
+    Smart::assign('errors', $errors);
   }
 
   // Case 1-2: Page was submitted
@@ -245,49 +251,56 @@ function populate(&$lexeme, &$original, $lexemeForm, $lexemeNumber, $lexemeDescr
   }
 }
 
+/* Keep keys in $errors in sync with field names in templates/lexeme/edit.tpl */
 function validate($lexeme, $original) {
+  $errors = [];
   if (!$lexeme->form) {
-    FlashMessage::add('Forma nu poate fi vidă.');
+    $errors['lexemeForm'][] = 'Forma nu poate fi vidă.';
   }
 
   $numAccents = preg_match_all("/(?<!\\\\)'/", $lexeme->form);
   // Note: we allow multiple accents for lexemes like hárcea-párcea
   if ($numAccents && $lexeme->noAccent) {
-    FlashMessage::add('Ați indicat că lexemul nu necesită accent, dar forma conține un accent.');
-  } else if (!$numAccents && !$lexeme->noAccent) {
-    FlashMessage::add('Adăugați un accent sau debifați câmpul „Necesită accent”.');
+    $errors['needsAccent'][] =
+      'Ați indicat că lexemul nu necesită accent, dar forma conține un accent.';
+  } else if (!$numAccents && $lexeme->form && !$lexeme->noAccent) {
+    $errors['needsAccent'][] =
+      'Adăugați un accent sau debifați câmpul „Necesită accent”.';
   }
 
   // Gather all different restriction - model type pairs
   $pairs = Model::factory('ConstraintMap')
-         ->table_alias('cm')
-         ->select_expr('binary cm.code', 'restr')
-         ->select('mt.code', 'modelType')
-         ->distinct()
-         ->join('Inflection', ['cm.inflectionId', '=', 'i.id'], 'i')
-         ->join('ModelType', ['i.modelType', '=', 'mt.canonical'], 'mt')
-         ->find_array();
+    ->table_alias('cm')
+    ->select_expr('binary cm.code', 'restr')
+    ->select('mt.code', 'modelType')
+    ->distinct()
+    ->join('Inflection', ['cm.inflectionId', '=', 'i.id'], 'i')
+    ->join('ModelType', ['i.modelType', '=', 'mt.canonical'], 'mt')
+    ->find_array();
   $restrMap = [];
   foreach ($pairs as $p) {
     $restrMap[$p['restr']][$p['modelType']] = true;
   }
 
   for ($i = 0; $i < mb_strlen($lexeme->restriction); $i++) {
+    $field = $lexeme->compound ? 'compoundRestriction' : 'restriction';
     $c = Str::getCharAt($lexeme->restriction, $i);
     if (!isset($restrMap[$c])) {
-      FlashMessage::add("Restricția <strong>$c</strong> este nedefinită.");
+      $errors[$field][] = "Restricția <strong>$c</strong> este nedefinită.";
     } else if (!isset($restrMap[$c][$lexeme->modelType])) {
-      FlashMessage::add("Restricția <strong>$c</strong> nu se aplică modelului <strong>{$lexeme->modelType}.</strong>");
+      $errors[$field][] = sprintf(
+        "Restricția <strong>%s</strong> nu se aplică modelului <strong>%s</strong>.",
+        $c, $lexeme->modelType);
     }
   }
 
   try {
     $ifs = $lexeme->generateInflectedForms();
   } catch (ParadigmException $pe) {
-    FlashMessage::add($pe->getMessage());
+    $errors['lexemeForm'][] = $pe->getMessage();
   }
 
-  return !FlashMessage::hasErrors();
+  return $errors;
 }
 
 // create new entries for $entryIds starting with '@', then update the associations

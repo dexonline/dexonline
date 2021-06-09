@@ -90,16 +90,16 @@
         <div class="row">
           <div class="col-md-6">
 
-            <div class="row mb-2">
-              <label for="lexemeForm" class="col-md-2 col-form-label">formă</label>
-              <div class="col-md-10">
-                <input type="text"
-                  class="form-control"
-                  id="lexemeForm"
-                  name="lexemeForm"
-                  value="{$lexeme->form|escape}"
-                  {if !$canEdit.form}readonly{/if}>
+            {include "bs/hf.tpl"
+              inputId='lexemeForm'
+              hfErrors=$errors.lexemeForm|default:null
+              label='formă'
+              name='lexemeForm'
+              readonly=!$canEdit.form
+              value=$lexeme->form}
 
+            <div class="row mb-2">
+              <div class="col-xl-10 offset-xl-2">
                 {include "bs/checkbox.tpl"
                   name=renameRelated
                   label='redenumește și intrările și arborii care au această descriere'
@@ -110,29 +110,30 @@
                 {include "bs/checkbox.tpl"
                   name=needsAccent
                   label='necesită accent'
+                  cbErrors=$errors.needsAccent|default:null
                   checked=!$lexeme->noAccent}
               </div>
             </div>
 
-            {include "bits/fhf.tpl"
-              field="lexemeDescription"
-              value=$lexeme->description
+            {include "bs/hf.tpl"
               label="descriere"
+              name="lexemeDescription"
               placeholder="opțională, pentru diferențierea omonimelor"
-              readonly=!$canEdit.description}
+              readonly=!$canEdit.description
+              value=$lexeme->description}
 
-            {include "bits/fhf.tpl"
-              field="lexemeNumber"
-              type="number"
-              value=$lexeme->number
+            {include "bs/hf.tpl"
               label="număr"
+              name="lexemeNumber"
               placeholder="opțional, pentru numerotarea omonimelor"
-              readonly=!$canEdit.general}
+              readonly=!$canEdit.general
+              type="number"
+              value=$lexeme->number}
 
             {if $homonyms}
               <div class="row mb-2">
-                <label class="col-md-2">omonime</label>
-                <div class="col-md-10">
+                <label class="col-xl-2">omonime</label>
+                <div class="col-xl-10">
                   <ul class="list-inline list-inline-bullet">
                     {foreach $homonyms as $h}
                       <li class="list-inline-item">
@@ -145,15 +146,15 @@
             {/if}
 
             <div class="row mb-1">
-              <div class="clearfix col-md-10 offset-md-2">
+              <div class="clearfix col-xl-10 offset-xl-2">
                 <label>intrări pentru care lexemul este:</label>
               </div>
             </div>
 
             {foreach from=$entryIds key=k item=e}
               <div class="row mb-2">
-                <label class="col-md-2 col-form-label">{$assocEntry[{$k}]}</label>
-                <div class="col-md-10">
+                <label class="col-xl-2 col-form-label">{$assocEntry[{$k}]}</label>
+                <div class="col-xl-10">
                   <select id="entryIds[{$k}]" name="entryIds[{$k}][]" class="form-select" multiple>
                     {foreach $e as $eid}
                       <option value="{$eid}" selected></option>
@@ -165,8 +166,8 @@
 
             {if $compoundIds}
               <div class="row mb-2">
-                <label for="compoundIds" class="col-md-2">compuse</label>
-                <div class="col-md-10">
+                <label for="compoundIds" class="col-xl-2">compuse</label>
+                <div class="col-xl-10">
                   <div class="form-control overflown">
                     {foreach $compoundIds as $c}
                       <div>
@@ -182,23 +183,23 @@
 
           <div class="col-md-6">
 
-            {include "bits/fhf.tpl"
-              field="hyphenations"
-              value=$lexeme->hyphenations
+            {include "bs/hf.tpl"
               label="silabații"
+              name="hyphenations"
               placeholder="opționale, despărțite prin virgule"
-              readonly=!$canEdit.hyphenations}
+              readonly=!$canEdit.hyphenations
+              value=$lexeme->hyphenations}
 
-            {include "bits/fhf.tpl"
-              field="pronunciations"
-              value=$lexeme->pronunciations
+            {include "bs/hf.tpl"
               label="pronunții"
+              name="pronunciations"
               placeholder="opționale, despărțite prin virgule"
-              readonly=!$canEdit.pronunciations}
+              readonly=!$canEdit.pronunciations
+              value=$lexeme->pronunciations}
 
             <div class="row mb-2">
-              <label for="tagIds" class="col-md-2 col-form-label">etichete</label>
-              <div class="col-md-10">
+              <label for="tagIds" class="col-xl-2 col-form-label">etichete</label>
+              <div class="col-xl-10">
                 <select id="tagIds" name="tagIds[]" class="form-select select2Tags" multiple>
                   {foreach $lexeme->getTagIds() as $tagId}
                     <option value="{$tagId}" selected></option>
@@ -258,11 +259,12 @@
                   <div class="col">
                     <input
                       type="text"
-                      class="form-control"
+                      class="form-control {if isset($errors.restriction)}is-invalid{/if}"
                       name="restriction"
                       value="{$lexeme->restriction}"
                       size="5"
                       placeholder="restricții">
+                    {include "bits/fieldErrors.tpl" errors=$errors.restriction|default:null}
                   </div>
                 </div>
               </div>
@@ -295,11 +297,12 @@
                   <div class="col">
                     <input
                       type="text"
-                      class="form-control"
+                      class="form-control {if isset($errors.compoundRestriction)}is-invalid{/if}"
                       name="compoundRestriction"
                       value="{$lexeme->restriction}"
                       size="5"
                       placeholder="restricții">
+                    {include "bits/fieldErrors.tpl" errors=$errors.compoundRestriction|default:null}
                   </div>
                 </div>
               </div>
@@ -353,13 +356,13 @@
               </div>
             </div>
 
-            {include "bits/fhf.tpl"
-              field="notes"
-              value=$lexeme->notes
-              label="precizări"
-              placeholder="explicații despre sursa flexiunii"
+            {include "bs/hf.tpl"
               col=3
-              readonly=!$canEdit.tags}
+              label="precizări"
+              name="notes"
+              placeholder="explicații despre sursa flexiunii"
+              readonly=!$canEdit.tags
+              value=$lexeme->notes}
 
             <div class="row mb-2">
               <div class="col-md-9 offset-md-3">

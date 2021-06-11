@@ -12,7 +12,9 @@ if (!$file) {
   $error = 'Sunt permise doar imagini jpeg, png sau gif.';
 } else if ($file['error']) {
   $error = 'A intervenit o eroare la încărcare.';
-} else if ((getimagesize($file['tmp_name']) === false) || !in_array($ext, ['png', 'jpg', 'gif'])) {
+} else if (
+  (getimagesize($file['tmp_name']) === false) ||
+  !in_array($ext, ['png', 'jpg', 'jpeg', 'gif'])) {
   $error = 'Sunt permise doar imagini jpeg, png sau gif.';
 }
 

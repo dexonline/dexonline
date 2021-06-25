@@ -1,14 +1,14 @@
 {extends "layout.tpl"}
 
 {block "title"}
-  {t}Word of the month for{/t} {$timestamp|date_format:'%B %Y'}:
+  {t}Word of the month for{/t} {$monthName} {$year}:
   {$searchResult->definition->lexicon}
 {/block}
 
 {block "pageDescription"}
   <meta
     name="description"
-    content="Cuvântul lunii {$timestamp|date_format:'%B %Y'} la dexonline: {$searchResult->definition->lexicon}">
+    content="Cuvântul lunii {$monthName} {$year} la dexonline: {$searchResult->definition->lexicon}">
 {/block}
 
 {block "openGraph"}
@@ -16,7 +16,7 @@
 {/block}
 
 {block "content"}
-  <h3>{t}Word of the month for{/t} {$timestamp|date_format:'%B %Y'}</h3>
+  <h3>{t}Word of the month for{/t} {$monthName} {$year}</h3>
   <div class="container panel panel-default">
     <div class="row panel-heading">
 

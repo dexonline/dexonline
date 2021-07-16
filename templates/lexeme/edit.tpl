@@ -205,6 +205,7 @@
                 </select>
 
                 {include "bits/frequentObjects.tpl"
+                  align='text-start'
                   name="lexemeTags"
                   type="tags"
                   target="#tagIds"}

@@ -1,7 +1,12 @@
+{* Control the flex order because the Donate button comes before the menus in <=sm, *}
+{* but after them in >= md. *}
 <nav class="navbar navbar-expand-md navbar-light mb-3">
   <div class="container">
     {if $pageType != 'home'}
-      <a class="navbar-brand" href="{Config::URL_PREFIX}" title="{cap}{t}home page{/t}{/cap}">
+      <a
+        class="navbar-brand order-0"
+        href="{Config::URL_PREFIX}"
+        title="{cap}{t}home page{/t}{/cap}">
         <img id="logo-nav"
           alt="logo dexonline"
           src="{Config::URL_PREFIX}img/svg/logo-nav.svg"
@@ -9,9 +14,11 @@
       </a>
     {/if}
 
+    {* use order-1 for this one *}
     {Plugin::notify('navbar')}
 
-    <div class="collapse navbar-collapse" id="navMenu">
+    {* this migrates to end (5) below md *}
+    <div class="collapse navbar-collapse order-5 order-md-2" id="navMenu">
       <ul class="navbar-nav">
 
         <li class="nav-item dropdown">
@@ -259,13 +266,15 @@
 
     </div>
 
-    <a class="btn btn-info text-white ms-auto" href="{Router::link('donation/donate')}">
+    <a
+      class="btn btn-info text-white ms-auto order-3"
+      href="{Router::link('donation/donate')}">
       {include "bits/icon.tpl" i=credit_card}
       {cap}{t}donate{/t}{/cap}
     </a>
 
     <button
-      class="navbar-toggler"
+      class="navbar-toggler order-4"
       type="button"
       data-bs-toggle="collapse"
       data-bs-target="#navMenu"

@@ -73,6 +73,7 @@ $year = $date->format('Y');
 $month = $date->format('m');
 $monthName = LocaleUtil::date($date->getTimestamp(), '%B');
 $day = $date->format('j');
+$dayPadded = $date->format('d');
 
 $otherWotds = WordOfTheDay::getWotdsInOtherYears($year, $month, $day);
 $otherYears = [];
@@ -92,6 +93,7 @@ Smart::assign([
   'month' => $month,
   'monthName' => $monthName,
   'day' => $day,
+  'dayPadded' => $dayPadded,
   'otherYears' => $otherYears,
   'searchResult' => array_pop($searchResults),
 ]);
@@ -105,5 +107,3 @@ switch ($format['name']) {
   default:
     Smart::display('wotd/view.tpl');
 }
-
-

@@ -1,7 +1,7 @@
 {assign var="row" value=$searchResult|default:null}
 {
   "type": "results",
-  "day": {$day|@json_encode},
+  "day": {$dayPadded|@json_encode},
   "month": {$month|@json_encode},
   "requested": {
     "record": {

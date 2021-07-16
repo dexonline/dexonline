@@ -1,7 +1,7 @@
 {assign var="row" value=$searchResult|default:null}
 <?xml version="1.0" encoding="UTF-8" ?>
 <results>
-    <day>{$day}</day>
+    <day>{$dayPadded}</day>
     <month>{$month}</month>
     <requested>
         <record>

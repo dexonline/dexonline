@@ -6,12 +6,15 @@
 {$width=$width|default:'100%'}
 {$autosubmit=$autosubmit|default:false}
 {$sources=$sources|default:Source::getAll(Source::SORT_SEARCH)}
+{$parent=$parent|default:null} {* ID of element to attach to *}
 <select
   name="{$name}"
   {if $id}id="{$id}"{/if}
   class="form-select sourceDropDown"
   style="width: {$width}"
-  {if $autosubmit}onchange="this.form.submit();"{/if}>
+  {if $autosubmit}onchange="this.form.submit();"{/if}
+  {if $parent}data-dd-parent="{$parent}"{/if}
+>
   {if !$skipAnySource}
     <option value="">{t}All dictionaries{/t}</option>
   {/if}

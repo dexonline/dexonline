@@ -6,6 +6,7 @@
   {include "bits/sourceDropDown.tpl"
     id=false
     name="showPageSourceId"
+    parent="#pageModal"
     sources=Source::getSourcesWithPageImages()
     skipAnySource="1"
     width="300px"}

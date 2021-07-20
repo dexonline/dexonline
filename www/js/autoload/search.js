@@ -14,16 +14,20 @@ $(function() {
     $('button[data-bs-toggle="tab"]').on('click', pushHistory);
     window.addEventListener('popstate', popHistory);
 
-    new bootstrap.Popover($('#tabAdvertiser'), {
-      container: 'body',
-      content: $('#tabAdvertiserContent').html(),
-      // otherwise clicking on links won't work
-      delay: { 'show': 0, 'hide': 100 },
-      html: true,
-      placement: 'bottom',
-      trigger: 'focus',
-    });
-    $('#tabAdvertiser').click(function() { return false; });
+    var tabAdvertiser = $('#tabAdvertiser');
+    if (tabAdvertiser.length) {
+      console.log('here');
+      new bootstrap.Popover(tabAdvertiser, {
+        container: 'body',
+        content: $('#tabAdvertiserContent').html(),
+        // otherwise clicking on links won't work
+        delay: { 'show': 0, 'hide': 100 },
+        html: true,
+        placement: 'bottom',
+        trigger: 'focus',
+      });
+      tabAdvertiser.click(function() { return false; });
+    }
 
     moveBanner();
   }

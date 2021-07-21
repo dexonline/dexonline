@@ -9,6 +9,12 @@ pre {
   white-space: pre-wrap;
 }
 
+/* Keep a visual indication of the last clicked link. Helpful when opening
+   links in a new tab. */
+a:focus {
+  text-decoration: underline;
+}
+
 .list-inline-bullet li:not(:first-child):before {
   content: '•';
   opacity: 0.5; /* don't force a color, use opacity instead */

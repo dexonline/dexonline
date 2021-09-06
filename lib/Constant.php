@@ -255,7 +255,7 @@ class Constant {
       'js' => [ 'third-party/jquery.cookie.js' ],
     ],
     'main' => [
-      'css' => [ 'main.css', 'fonts.css' ],
+      'css' => [ 'main.css', 'fonts.css', 'colors.css' ],
       'js' => [ 'dex.js' ],
       'deps' => [ 'i18n' ],
     ],

@@ -207,7 +207,7 @@ abbr[title] {
 }
 
 .def {
-  color: black;
+  color: var(--c-000);
   cursor: pointer;
 }
 

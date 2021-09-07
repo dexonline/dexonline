@@ -1,5 +1,5 @@
 .defWrapper {
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid var(--c-ccc);
   margin: 0.5rem 0;
 }
 

@@ -1,5 +1,4 @@
 {$showFootnotes=$showFootnotes|default:true}
-{$showStructuredWrapper=$showStructuredWrapper|default:false}
 {$showTypos=$showTypos|default:false}
 
 {$def=$row->definition}
@@ -7,7 +6,6 @@
 
 <div class="
   defWrapper
-  {if $def->structured && $showStructuredWrapper}defStructuredWrapper{/if}
   {if $numDeps}hasDependants{/if}
   ">
   <p class="mb-2 read-more" data-read-more-lines="15">

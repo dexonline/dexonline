@@ -3,21 +3,20 @@
 }
 
 #hangman .btn {
-	color: #555;
-	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 	background-repeat: repeat-x;
-	padding: 4px 12px;
-	margin-bottom: 0;
+	border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+	border-radius: 4px;
+	border: 1px solid var(--c-bbb);
+	color: var(--c-555);
+	cursor: pointer;
 	font-size: 14px;
 	line-height: 20px;
-	cursor: pointer;
-	border-radius: 4px;
-	border: 1px solid #BFBFBF;
-	border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+	margin-bottom: 0;
+	padding: 4px 12px;
 }
 
 #hangman .btn:hover {
-	background: #CCC;
+	background: var(--c-ccc);
 }
 
 .graphics label,
@@ -34,22 +33,23 @@
 }
 
 #hangman .newGameControls button:hover {
-	background: #2F96B4;
+	background: #2f96b4;
 	background-position: 0px -15px;
 }
 
 #hangman #hintButton {
-	background-color: #FAA732;
-	background-image: -moz-linear-gradient(top, #FBB450, #F89406);
-	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#FBB450), to(#F89406));
-	background-image: -webkit-linear-gradient(top, #FBB450, #F89406);
-	background-image: -o-linear-gradient(top, #FBB450, #F89406);
-	background-image: linear-gradient(to bottom, #FBB450, #F89406);
+	background-color: #faa732;
+	background-image: -moz-linear-gradient(top, #fbb450, #f89406);
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#fbb450), to(#f89406));
+	background-image: -webkit-linear-gradient(top, #fbb450, #f89406);
+	background-image: -o-linear-gradient(top, #fbb450, #f89406);
+	background-image: linear-gradient(to bottom, #fbb450, #f89406);
+  color: #444;
 	text-shadow: none;
 }
 
 #hangman #hintButton:hover {
-	background: #F89406;
+	background: #f89406;
 	background-position: 0px -15px;
 }
 
@@ -67,7 +67,7 @@
 }
 
 #hangman .imageLicense {
-  color: #777;
+  color: var(--c-777);
   font-size: 9px;
   text-align: right;
   width: 230px;
@@ -94,14 +94,14 @@
 
 #hangman .letters {
   text-align: center;
-  border: 1px solid #777;
+  border: 1px solid var(--c-777);
   padding: 4px 2px 2px 2px;
 }
 
 #hangman .letterButtons {
   margin: 4px 2px;
   width: 40px;
-  background: #EFEFEF;
+  background: var(--c-eee);
 }
 
 #hangman #hintButton {
@@ -112,13 +112,13 @@
 #hangman .buttonGuessed,
 #hangman .buttonGuessed:hover {
   font-weight: bold;
-  background: #109E1B;
-  color: #FFF;
+  background: #109e1b;
+  color: #fff;
 }
 
 #hangman .buttonHinted,
 #hangman .buttonHinted:hover {
-  background: #B2D9B2;
+  background: #b2d9b2;
   border: 1px solid #008000;
   color: green;
   font-weight: bold;
@@ -127,13 +127,13 @@
 #hangman .buttonMissed,
 #hangman .buttonMissed:hover {
   font-weight: bold;
-  background-color: #DA4F49;
-  background-image: -moz-linear-gradient(top, #EE5F5B, #BD362F);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#EE5F5B), to(#BD362F));
-  background-image: -webkit-linear-gradient(top, #EE5F5B, #BD362F);
-  background-image: -o-linear-gradient(top, #EE5F5B, #BD362F);
-  background-image: linear-gradient(to bottom, #EE5F5B, #BD362F);
-  color: #FFF;
+  background-color: #da4f49;
+  background-image: -moz-linear-gradient(top, #ee5f5b, #bd362f);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ee5f5b), to(#bd362f));
+  background-image: -webkit-linear-gradient(top, #ee5f5b, #bd362f);
+  background-image: -o-linear-gradient(top, #ee5f5b, #bd362f);
+  background-image: linear-gradient(to bottom, #ee5f5b, #bd362f);
+  color: #fff;
 }
 
 #resultsWrapper {

@@ -2,6 +2,8 @@
 
 :root {
   --c-navbar-bg: white;
+  --c-navbar-border: #e8e8e8;
+  --c-search-shadow: #ddd;
 
   /* these are replaced by their complements in dark mode */
   --c-000: #000;
@@ -61,9 +63,11 @@
     --c-light: #333;
     --c-light-hover: #444;
     --c-navbar-bg: #2a2f3a;
+    --c-navbar-border: #2a2f3a;
     --c-popover: var(--bs-gray-300);
     --c-primary: #914646;        /* the default is too dark */
     --c-primary-hover: #743838;  /* 80% of --c-primary */
+    --c-search-shadow: #777;
 
     /**
      * Complements are not defined relative to 0xFF. Instead, we split the
@@ -392,6 +396,15 @@
     color: var(--bs-gray-400) !important;
   }
 
+  /* autocomplete colors */
+  .ui-widget-content {
+    background-color: var(--bs-body-bg);
+    color: var(--bs-body-color);
+  }
+  .ui-widget.ui-widget-content {
+    border: 1px solid #2c2c2c;
+  }
+
   /* select2 colors */
   .select2-container--default .select2-selection--single {
     background-color: var(--bs-body-bg) !important;
@@ -416,7 +429,16 @@
   .select2-container--default .select2-selection--multiple {
     background-color: var(--bs-body-bg) !important;
     border-color: var(--bs-gray-600) !important;
-    color: black !important;
+    color: var(--c-555) !important;
+  }
+
+  .select2-container--default .select2-selection--multiple .select2-selection__choice {
+    background-color: #1b1b1b !important;
+    border: 1px solid #aaa;
+  }
+
+  .select2-container--default .select2-selection--multiple .select2-selection__choice.select2-highlighted {
+    background-color: var(--c-ccc) !important;
   }
 
   .select2-container--default .select2-search--inline .select2-search__field {

@@ -33,8 +33,9 @@ a:focus {
 /*********** navbar and its elements ***********/
 
 .navbar {
-  border-bottom: 1px solid #e8e8e8;
-  box-shadow: 0 0 8px 0 rgba(0,0,0,.1);
+  background-color: var(--c-navbar-bg);
+  border-bottom: 1px solid var(--c-navbar-border);
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, .1);
 }
 
 .navbar .avatar {
@@ -113,7 +114,7 @@ a:focus {
 }
 
 #searchForm .form-control:focus {
-  box-shadow: 0 1px 1px rgba(0,0,0,.075), 0 0 4px #ddd;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, .075), 0 0 4px var(--c-search-shadow);
 }
 
 #select2-sourceDropDown-results li {
@@ -124,15 +125,13 @@ a:focus {
 
 /* autocomplete options */
 #ui-id-1 {
-  box-shadow: 0 6px 8px 0px #999;
+  box-shadow: 0 6px 8px 0px var(--c-ddd);
 }
 
-#ui-id-1 a:hover {
-  background: red;
-  border-color: red;
-  border-radius: 0;
-  cursor: pointer;
-  color: var(--bs-primary);
+#ui-id-1 .ui-menu-item-wrapper:hover {
+  background: var(--c-eee);
+  border-color: var(--c-eee);
+  color: inherit;
 }
 
 
@@ -150,8 +149,8 @@ header .banner-section {
 }
 
 .fakeBanner {
-  background: #777;
-  color: white;
+  background: var(--c-777);
+  color: var(--bs-body-bg);
   font-size: 60px;
   height: 90px;
   text-align: center;
@@ -162,7 +161,7 @@ header .banner-section {
 /*********** footer ***********/
 
 footer {
-  border-top: 1px solid #eee;
+  border-top: 1px solid var(--c-eee);
   margin-top: 1rem;
   padding-top: 1rem;
 }
@@ -176,7 +175,7 @@ footer {
 
 /* The default underline sticks to the bottom of the text with no padding. */
 abbr[title] {
-  border-bottom: 1px dotted #777;
+  border-bottom: 1px dotted var(--c-777);
   text-decoration: none;
 }
 
@@ -187,7 +186,7 @@ abbr[title] {
 }
 
 .hasDependants, .dependantsWrapper {
-  border-left: 3px solid #cecece;
+  border-left: 3px solid var(--c-ccc);
   margin-left: -1rem;
   padding-left: 1rem;
 }
@@ -223,11 +222,11 @@ abbr[title] {
 }
 
 .deemph {
-  color: #ccc;
+  color: var(--c-ccc);
 }
 
 .emph {
-  color: black;
+  color: var(--c-000);
 }
 
 .tonic-accent {
@@ -251,7 +250,7 @@ sup.footnote {
 }
 
 .card-footnotes {
-  color: #444;
+  color: var(--c-444);
   font-size: 85%;
   margin: 20px 0 10px 30px;
 }
@@ -261,9 +260,9 @@ sup.footnote {
 }
 
 .card-footnotes:before {
-  background-color: #fff;
-  border-left: 1px solid #ddd;
-  border-top: 1px solid #ddd;
+  background-color: var(--c-fff);
+  border-left: 1px solid var(--c-ddd);
+  border-top: 1px solid var(--c-ddd);
   content: "\00a0";
   display: block;
   height: 20px;
@@ -275,7 +274,7 @@ sup.footnote {
 }
 
 .callout {
-  border: 1px solid #eee;
+  border: 1px solid var(--c-eee);
   border-left-width: 5px;
   border-radius: 3px;
   margin: 20px 0;
@@ -345,19 +344,6 @@ div.thumb {
   background-color: transparent;
 }
 
-html .thumbimage {
-  border: 1px solid #ccc;
-}
-
-div.thumbinner {
-  border: 1px solid #ccc;
-  padding: 3px;
-  background-color: #f9f9f9;
-  font-size: 94%;
-  text-align: center;
-  overflow: hidden;
-}
-
 /* for select2 field which contains too many items */
 .overflownSelect2 .select2-selection__rendered {
   max-height: 81px;
@@ -365,8 +351,8 @@ div.thumbinner {
 }
 
 .linkBox {
-  background-color: #e4e4e4;
-  border: 1px solid #aaa;
+  background-color: var(--c-eee);
+  border: 1px solid var(--c-aaa);
   border-radius: 4px;
   cursor: default;
   float: left;

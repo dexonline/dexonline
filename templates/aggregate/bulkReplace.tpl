@@ -58,7 +58,7 @@
         {/if}
 
         {if $target == 1}
-          {include "bits/definition.tpl" showStatus=1 showFlagTypo=1 showUser=0 showStructuredWrapper=0}
+          {include "bits/definition.tpl" showStatus=1 showFlagTypo=1 showUser=0}
         {else}
           {include "bits/meaning.tpl" m=$row}
         {/if}

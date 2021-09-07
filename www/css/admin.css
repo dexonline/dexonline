@@ -15,16 +15,6 @@ body.other section.search {
   margin-bottom: 0.8em;
 }
 
-.defStructuredWrapper {
-  background-color: #f5f7f9;
-}
-
-.select2-container--default
-.select2-selection--multiple
-.select2-selection__choice.select2-highlighted {
-  background-color: #aaa;
-}
-
 /* center the pencil icon vertically */
 .select2-selection__choice .material-icons {
   margin-top: -3px;

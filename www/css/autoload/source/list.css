@@ -1,9 +1,9 @@
 .sourceComplete0 {
-  color: #000;
+  color: var(--c-444);
 }
 
 .sourceComplete1 {
-  color: #CC0000;
+  color: #cc0000;
 }
 
 .sourceComplete2 {
@@ -11,7 +11,7 @@
 }
 
 .sourceComplete3 {
-  color: #DAC003;
+  color: #dac003;
 }
 
 .sourceComplete4 {

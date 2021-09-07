@@ -17,7 +17,7 @@ h3 .variantList {
 /* Full text highlight. Keep the number of colors in sync with Definition::highlight(). */
 .fth {
   padding: 0 2px;
-  color: #FFF;
+  color: #fff;
   border-radius: 2px;
   border: 1px solid transparent;
 }

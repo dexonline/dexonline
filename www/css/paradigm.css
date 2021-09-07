@@ -13,12 +13,12 @@
 }
 
 .lexeme td {
-  border: 1px solid #dddddd;
+  border: 1px solid var(--c-ddd);
   padding: 0px 10px;
 }
 
 .lexeme .inflection {
-  color: #555555;
+  color: var(--c-777);
   font-style: italic;
   font-size: small;
   text-align: center;
@@ -37,7 +37,7 @@
 }
 
 .noParadigm {
-  color: #555555;
+  color: var(--c-555);
   font-style: italic;
   padding-left: 80px;
   white-space: nowrap;
@@ -108,7 +108,7 @@ li.elisionHidden {
 }
 
 li.notRecommended {
-  color: #1010c0;
+  color: #4040f0;
   cursor: help;
 }
 
@@ -121,7 +121,7 @@ li.notRecommendedHidden {
 }
 
 .notRecommendedLegend {
-  color: #1010c0;
+  color: #4040f0;
   font-style: italic;
 }
 

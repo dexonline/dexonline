@@ -21,11 +21,12 @@
 }
 
 #tagsToggle {
-  position: absolute;
-  bottom: 5px;
-  right: 5px;
   background-color: #fff;
+  bottom: 5px;
+  color: #000;
   cursor: pointer;
+  position: absolute;
+  right: 5px;
 }
 
 @media (max-width: 480px) {

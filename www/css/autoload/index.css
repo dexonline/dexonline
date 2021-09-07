@@ -8,7 +8,7 @@
 }
 
 .tagline {
-  color: #444;
+  color: var(--c-444);
   font-size: 14px;
   letter-spacing: 1px;
   text-align: right;
@@ -16,7 +16,7 @@
 }
 
 .website-statement {
-  color: #999;
+  color: var(--c-999);
 }
 
 /********************* Home page widgets *********************/
@@ -27,13 +27,13 @@
 .widget {
   margin: 10px;
   padding: 15px 1rem;
-  border: 1px solid #CCC;
+  border: 1px solid var(--c-ccc);
   border-radius: 4px;
-  color: #777;
+  color: var(--c-777);
 }
 
 .widget.aotm:hover {
-  border-color: #1DE3CE;
+  border-color: #1de3ce;
 }
 
 .widget.games:hover {
@@ -41,19 +41,19 @@
 }
 
 .widget.random-word:hover {
-  border-color: #FFC03F;
+  border-color: #ffc03f;
 }
 
 .widget.social:hover {
-  border-color: #3B5998;
+  border-color: #3b5998;
 }
 
 .widget.wotd:hover {
-  border-color: #E31DB2;
+  border-color: #e31db2;
 }
 
 .widget.wotm:hover {
-  border-color: #25D228;
+  border-color: #25d228;
 }
 
 .widget h4,

@@ -11,7 +11,7 @@
 }
 
 .card-admin {
-  border: 1px solid #ddd;
+  border: 1px solid var(--c-ddd);
   margin: 10px 0px;
   padding: 5px;
 }

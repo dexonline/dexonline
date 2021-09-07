@@ -3,8 +3,18 @@
 	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/"
 	 x="0px" y="0px" width="311px" height="78.1px" viewBox="0 0 311 78.1" enable-background="new 0 0 311 78.1" xml:space="preserve"
 	>
-	<g stroke='#000000'>
-	
+  <style>
+    g {
+      stroke: #000;
+    }
+    @media (prefers-color-scheme: dark) {
+      g {
+        stroke: #c5c5c5;
+      }
+    }
+  </style>
+	<g>
+
 		<path fill="none" stroke-width="3.7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="3.8637" d="
 		M119.3,44.6c-1.1-1.8-3.6-3.9-11-3.9c-5.8,0-10.2,5.2-10.2,11c0,5.7,4.4,8.6,10.1,8.6c17.5,0,19.4-23,19.4-40.6
 		c0-13.3-4.8-11.8-4.8,0.5c0,4.3,0,6.7,0,11c0,13.1,1.7,29,12.1,29c8.2,0,12.9-4.4,12.9-12.7c0-10.5-10-10.2-10,0.3
@@ -38,4 +48,3 @@
 		C49.8,50.6,51.6,49.8,52.8,49.2z"/>
 	</g>
 </svg>
-

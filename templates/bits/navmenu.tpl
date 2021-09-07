@@ -7,7 +7,7 @@
         class="navbar-brand order-0"
         href="{Config::URL_PREFIX}"
         title="{cap}{t}home page{/t}{/cap}">
-        <img id="logo-nav"
+        <img
           alt="logo dexonline"
           src="{Config::URL_PREFIX}img/svg/logo-nav.svg"
           width="173">

@@ -23,7 +23,7 @@
 
         <button
           id="searchClear"
-          class="btn text-primary {if !$cuv}d-none{/if}"
+          class="btn btn-link {if !$cuv}d-none{/if}"
           type="button">
           {include "bits/icon.tpl" i=clear}
         </button>

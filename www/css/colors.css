@@ -55,7 +55,7 @@
  */
 @media (prefers-color-scheme: dark) {
   :root {
-    --bs-body-bg: #212529;
+    --bs-body-bg: #121212;
     --bs-body-color: #fff;
     --c-file-selector-hover: #221f1c;         /* replaces #dde0e3 */
 
@@ -64,33 +64,33 @@
     --c-dark-hover: #bbb;
     --c-light: #333;
     --c-light-hover: #444;
-    --c-navbar-bg: #2a2f3a;
-    --c-navbar-border: #2a2f3a;
+    --c-navbar-bg: #212529;
+    --c-navbar-border: #212529;
     --c-popover: #444;
-    --c-primary: #914646;        /* the default is too dark */
-    --c-primary-hover: #743838;  /* 80% of --c-primary */
+    --c-primary: #d45050;        /* the default is too dark */
+    --c-primary-hover: #aa4040;  /* 80% of --c-primary */
     --c-search-shadow: #777;
 
     /**
      * Complements are not defined relative to 0xFF. Instead, we split the
-     * interval #212529-#ffffff into 16 shades.
+     * interval #121212-#ffffff into 16 shades.
      **/
     --c-000: #fff;
-    --c-111: #f0f0f1;
-    --c-222: #e1e2e3;
-    --c-333: #d3d3d4;
-    --c-444: #c4c5c6;
-    --c-555: #b5b6b8;
-    --c-666: #a6a8aa;
-    --c-777: #97999b;
-    --c-888: #898b8d;
-    --c-999: #7a7c7e;
-    --c-aaa: #6b6e70;
-    --c-bbb: #5c5f62;
-    --c-ccc: #4d5154;
-    --c-ddd: #3f4245;
-    --c-eee: #303437;
-    --c-fff: #212529;
+    --c-111: #efefef;
+    --c-222: #dfdfdf;
+    --c-333: #d0d0d0;
+    --c-444: #c0c0c0;
+    --c-555: #b0b0b0;
+    --c-666: #a0a0a0;
+    --c-777: #909090;
+    --c-888: #818181;
+    --c-999: #717171;
+    --c-aaa: #616161;
+    --c-bbb: #515151;
+    --c-ccc: #414141;
+    --c-ddd: #323232;
+    --c-eee: #222222;
+    --c-fff: #121212;
   }
 
   a {
@@ -145,8 +145,6 @@
   .btn-dark,
   .btn-dark:hover,
   .btn-info,
-  .btn-primary,
-  .btn-primary:hover,
   .btn-success,
   .btn-success:disabled,
   .btn-success:hover {
@@ -188,30 +186,32 @@
   }
 
   .btn-outline-secondary {
-    border-color: var(--bs--600);
-    color: var(--bs-gray-600);
+    border-color: var(--bs--400);
+    color: var(--bs-gray-400);
   }
   .btn-check:checked + .btn-outline-secondary,
   .btn-check:active + .btn-outline-secondary,
   .btn-outline-secondary:active,
   .btn-outline-secondary.active {
-    background-color: var(--bs-gray-600);
-    border-color: var(--bs-gray-600);
+    background-color: var(--bs-gray-400);
+    border-color: var(--bs-gray-400);
     color: var(--bs-body-bg);
   }
   .btn-outline-secondary:hover {
-    background-color: var(--bs-gray-600);
-    border-color: var(--bs-gray-600);
+    background-color: var(--bs-gray-400);
+    border-color: var(--bs-gray-400);
     color: var(--bs-body-bg);
   }
 
   .btn-primary {
     background-color: var(--c-primary);
     border-color: var(--c-primary);
+    color: #fff;
   }
   .btn-primary:hover {
     background-color: var(--c-primary-hover);
     border-color: var(--c-primary-hover);
+    color: #fff;
   }
 
   .card {
@@ -239,7 +239,7 @@
   }
 
   .dropdown-menu {
-    background-color: var(--bs-body-bg);
+    background-color: #222;
     border: 1px solid rgba(255, 255, 255, 0.15);
     color: var(--bs-body-color);
   }
@@ -326,7 +326,7 @@
     color: var(--bs-gray-400);
   }
   .nav-link:hover, .nav-link:focus {
-    color: var(--c-primary);
+    color: var(--c-primary-hover);
   }
 
   .nav-tabs {
@@ -344,7 +344,7 @@
   }
 
   .navbar-light .navbar-nav .nav-link {
-    color: rgba(255, 255, 255, 0.55);
+    color: rgba(255, 255, 255, 0.85);
   }
   .navbar-light .navbar-nav .nav-link:hover,
   .navbar-light .navbar-nav .nav-link:focus {

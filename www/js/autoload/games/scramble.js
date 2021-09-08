@@ -342,7 +342,7 @@ $(function() {
   function init() {
     // initialize Pixi
     renderer = PIXI.autoDetectRenderer({
-      backgroundColor: DARK_MODE ? 0x212529 : 0xffffff,
+      backgroundColor: DARK_MODE ? 0x121212 : 0xffffff,
       width: CANVAS_WIDTH,
       height: CANVAS_HEIGHT,
     });

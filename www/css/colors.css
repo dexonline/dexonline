@@ -1,6 +1,8 @@
 /****************************** light mode ******************************/
 
 :root {
+  --c-dark: var(--bs-dark);
+  --c-light: var(--bs-light);
   --c-navbar-bg: white;
   --c-navbar-border: #e8e8e8;
   --c-search-shadow: #ddd;
@@ -122,6 +124,19 @@
     border: 1px solid rgba(255, 255, 255, 0.125);
   }
 
+  .bg-dark {
+    background-color: var(--c-dark) !important;
+  }
+
+  .bg-light {
+    background-color: var(--c-light) !important;
+  }
+  .btn-check:focus + .btn-light, .btn-light:focus {
+    background-color: var(--c-light);
+    border-color: var(--c-light);
+    color: #fff;
+  }
+
   .btn-close {
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/%3e%3c/svg%3e");
   }
@@ -147,7 +162,7 @@
     border-color: var(--c-dark-hover);
   }
 
-  .btn-light {
+  .btn-light, .btn-light:disabled, .btn-light.disabled {
     background-color: var(--c-light);
     border-color: var(--c-light);
     color: var(--bs-body-color);
@@ -390,6 +405,14 @@
     --bs-table-hover-bg: rgba(255, 255, 255, 0.075);
     color: var(--bs-gray-100);
     border-color: var(--bs-gray-700);
+  }
+
+  .text-dark {
+    color: var(--c-dark) !important;
+  }
+
+  .text-light {
+    color: var(--c-light) !important;
   }
 
   .text-muted {

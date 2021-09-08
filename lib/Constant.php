@@ -308,7 +308,7 @@ class Constant {
     'tinymce' => [
       'css' => [ 'tinymce.css' ],
       'js' => [
-        'third-party/tinymce-4.9.1/tinymce.min.js',
+        'third-party/tinymce-5.9.2/tinymce.min.js',
         'tinymce.js',
       ],
       'deps' => [ 'cookie' ],

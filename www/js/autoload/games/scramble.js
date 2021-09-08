@@ -340,11 +340,9 @@ $(function() {
   }
 
   function init() {
-    var darkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
     // initialize Pixi
     renderer = PIXI.autoDetectRenderer({
-      backgroundColor: darkMode? 0x212529 : 0xffffff,
+      backgroundColor: DARK_MODE ? 0x212529 : 0xffffff,
       width: CANVAS_WIDTH,
       height: CANVAS_HEIGHT,
     });

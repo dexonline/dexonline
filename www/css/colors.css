@@ -66,7 +66,7 @@
     --c-light-hover: #444;
     --c-navbar-bg: #2a2f3a;
     --c-navbar-border: #2a2f3a;
-    --c-popover: var(--bs-gray-300);
+    --c-popover: #444;
     --c-primary: #914646;        /* the default is too dark */
     --c-primary-hover: #743838;  /* 80% of --c-primary */
     --c-search-shadow: #777;
@@ -364,6 +364,13 @@
     background-color: var(--c-popover);
     border-color: rgba(255, 255, 255, 0.2);
   }
+  .popover-body {
+    color: #fff;
+  }
+  .popover-header {
+    background-color: var(--c-eee) !important;
+    border-bottom-color: rgba(255, 255, 255, 0.2);
+  }
   .bs-popover-top > .popover-arrow::before,
   .bs-popover-auto[data-popper-placement^="top"] > .popover-arrow::before {
     border-top-color: rgba(255, 255, 255, 0.25);
@@ -428,6 +435,18 @@
     border: 1px solid #2c2c2c;
   }
 
+  /* jquery-ui colors */
+  .ui-state-default,
+  .ui-widget-content .ui-state-default,
+  .ui-widget-header .ui-state-default,
+  .ui-button,
+  html .ui-button.ui-state-disabled:hover,
+  html .ui-button.ui-state-disabled:active {
+    background: var(--c-eee);
+    border-color: var(--c-ccc);
+    color: var(--c-555);
+  }
+
   /* select2 colors */
   .select2-container--default .select2-selection--single {
     background-color: var(--bs-body-bg) !important;
@@ -466,6 +485,18 @@
 
   .select2-container--default .select2-search--inline .select2-search__field {
     color: white;
+  }
+
+  /* tablesorter colors */
+  /* copy the definitions, decode the base64 SVG and add a fill color */
+  .tablesorter-bootstrap thead .tablesorter-headerAsc {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 14 14'%3e%3cpath fill='%23ddd' d='M14 9.5L11.5 12 7 7.5 2.5 12 0 9.5l7-7z'/%3e%3c/svg%3e");
+}
+  .tablesorter-bootstrap thead .tablesorter-headerDesc {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 14 14'%3e%3cpath fill='%23ddd' d='M14 5l-2.5-2.5-4.5 4.5-4.5-4.5L0 5 7 12z'/%3e%3c/svg%3e");
+  }
+  .tablesorter-bootstrap thead .tablesorter-headerUnSorted:not(.sorter-false) {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='16' viewBox='0 0 14 20'%3e%3cpath fill='%23ddd' d='M14 13l-2.5-2.5L7 15l-4.5-4.5L0 13l7 7zM14 7.5L11.5 10 7 5.5 2.5 10 0 7.5l7-7z'/%3e%3c/svg%3e");
   }
 
 }

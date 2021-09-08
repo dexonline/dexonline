@@ -199,9 +199,9 @@ class Constant {
 
   // Long participles and gerunds (like dusu- and ducându-) need some special treatment.
   const LONG_VERB_INFLECTION_IDS = [ 106, 107 ];
+
   // Map of CSS files, JS files and dependencies for our resources.
   // Entries must be listed in the order in which they should be loaded.
-
   const RESOURCE_MAP = [
     'i18n' => [
       'js' => [

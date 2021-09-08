@@ -379,6 +379,12 @@ div.thumb {
   background-color: var(--c-fff) !important;
 }
 
+.tablesorter-pager .btn,
+.tablesorter-pager .btn.disabled {
+  background-color: inherit;
+  border: 0;
+}
+
 /****************** „Read more” link for long sections ******************/
 
 .read-more {

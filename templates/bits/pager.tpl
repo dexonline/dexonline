@@ -1,17 +1,17 @@
 <tfoot>
   <tr id="{$id}">
     <th colspan="{$colspan}" class="text-center">
-      <button type="button" class="btn first">
+      <button type="button" class="btn btn-light first">
         {include "bits/icon.tpl" i=first_page}
       </button>
-      <button type="button" class="btn prev">
+      <button type="button" class="btn btn-light prev">
         {include "bits/icon.tpl" i=navigate_before}
       </button>
       <span class="pagedisplay"></span>
-      <button type="button" class="btn next">
+      <button type="button" class="btn btn-light next">
         {include "bits/icon.tpl" i=navigate_next}
       </button>
-      <button type="button" class="btn last">
+      <button type="button" class="btn btn-light last">
         {include "bits/icon.tpl" i=last_page}
       </button>
       <select class="pagesize" title="alegeți mărimea paginii">

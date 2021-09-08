@@ -376,7 +376,7 @@ div.thumb {
 
 .tablesorter-header,
 .tablesorter-pager th {
-  background-color: white !important;
+  background-color: var(--c-fff) !important;
 }
 
 /****************** „Read more” link for long sections ******************/

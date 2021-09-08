@@ -15,7 +15,6 @@
 
   <tbody>
     {foreach $data as $place => $row}
-      {math equation="max(255 - days, 0)" days=$row->days assign=color}
       <tr class="{cycle values="color1,color2"}">
         <td data-text="{$place}">{$place+1}</td>
         <td class="nick">
@@ -29,7 +28,7 @@
           {$row->numDefinitions|nf}
         </td>
         <td
-          style="color: {$color|string_format:"#%02x0000"}"
+          style="filter: brightness({$row->brightness})"
           data-text="{$row->timestamp}">
           {LocaleUtil::date($row->timestamp)}
         </td>

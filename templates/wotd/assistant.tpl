@@ -26,7 +26,7 @@
   {foreach $data as $day => $rec}
     <div class="card mt-3">
       <div
-        class="card-header {if $rec.allOk}text-white bg-success collapsed{/if}"
+        class="card-header {if $rec.allOk}finished collapsed{/if}"
         data-bs-toggle="collapse"
         href="#collapseDay{$day}">
 
@@ -38,11 +38,11 @@
 
         <div class="float-end">
           <a
-            class="btn btn-link btn-sm text-white"
+            class="btn btn-link btn-sm"
             href="https://ro.wikipedia.org/wiki/{$day}_{$yearMonth|date_format:'%B'}"
             target="_blank">wikipedia RO</a>
           <a
-            class="btn btn-link btn-sm text-white"
+            class="btn btn-link btn-sm"
             href="https://en.wikipedia.org/wiki/{$enMonthName}_{$day}"
             target="_blank">wikipedia EN</a>
 

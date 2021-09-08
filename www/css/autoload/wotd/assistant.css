@@ -15,7 +15,17 @@ h3 form {
 }
 
 .card-header:hover a {
+  color: var(--c-222);
   display: inline;
+}
+
+.card-header.finished {
+  background-color: var(--bs-success);
+  color: #fff;
+}
+
+.card-header.finished a {
+  color: #fff;
 }
 
 .card-header .chevron {

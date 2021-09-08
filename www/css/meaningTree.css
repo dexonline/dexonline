@@ -32,7 +32,7 @@
   font-weight: bold;
   margin-right: 5px;
   margin-bottom: 3px;
-  color: #555;
+  color: var(--c-555);
 }
 
 .meaningTree .html {
@@ -41,8 +41,8 @@
 }
 
 .meaningTree .mention {
-  border-bottom: 1px dotted #444;
-  color: #000;
+  border-bottom: 1px dotted var(--c-444);
+  color: var(--c-000);
   text-decoration: none;
 }
 
@@ -51,49 +51,42 @@
 }
 
 .meaningTree .tag-group a {
-  color: #444;
+  color: var(--c-444);
 }
 
 .meaningTree .badge.bg-info {
-  background-color: #fff !important;
-  border: 1px solid #ccc;
+  background-color: var(--c-fff) !important;
+  border: 1px solid var(--c-ccc);
   font-weight: normal;
 }
 
 .meaningTree .badge-source {
-  background: #eee;
-  color: #444;
+  background: var(--c-eee);
+  color: var(--c-444);
   cursor: help;
   font-weight: normal;
 }
 
-.meaningTree .badge-relation-1 {
-  background: #e5fce8;
-  color: #444;
+.meaningTree .badge-relation {
+  background: #fff;
   font-weight: normal;
   margin-right: 3px;
 }
 
+.meaningTree .badge-relation a {
+  color: #000;
+}
+
+.meaningTree .badge-relation-1 {
+  background: #e5fce8;
+}
+
 .meaningTree .badge-relation-2 {
   background: #fce5e5;
-  color: #444;
-  font-weight: normal;
-}
-
-.meaningTree .badge-relation-3 {
-  background: #fff;
-  color: #444;
-  font-weight: normal;
-}
-
-.meaningTree .badge-relation-4 {
-  background: #fff;
-  color: #444;
-  font-weight: normal;
 }
 
 .meaningContainer:target {
-  background: #d4edda;
+  background: var(--c-ddd);
   border: 1px solid transparent;
   border-radius: 5px;
 }
@@ -140,11 +133,11 @@
 }
 
 .exampleLink {
-  color: #555;
+  color: var(--c-555);
 }
 
 .exampleBody {
-  color: #555;
+  color: var(--c-555);
 }
 
 .examples {
@@ -159,7 +152,7 @@
 }
 
 .tree-heading {
-  border-bottom: 1px solid #999;
+  border-bottom: 1px solid var(--c-999);
   font-weight: bold;
   padding-bottom: 10px;
 }

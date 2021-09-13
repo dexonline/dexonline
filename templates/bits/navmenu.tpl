@@ -179,6 +179,28 @@
           </ul>
         </li>
 
+        {* dark mode toggle *}
+        {if count(Config::COLOR_SCHEMES) > 1}
+          <li class="nav-item">
+            <a
+              class="nav-link light-mode-toggle"
+              data-mode="light"
+              href="#"
+              title="{t}light mode{/t}">
+
+              {include "bits/icon.tpl" i=light_mode}
+            </a>
+            <a
+              class="nav-link dark-mode-toggle"
+              data-mode="dark"
+              href="#"
+              title="{t}dark mode{/t}">
+
+              {include "bits/icon.tpl" i=dark_mode}
+            </a>
+          </li>
+        {/if}
+
         {* user menu *}
         <li class="nav-item dropdown">
 

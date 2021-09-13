@@ -1,6 +1,6 @@
 {* used on the tag edit page *}
 <small class="form-text">
-  {t}culori frecvente{/t}:
+  culori frecvente:
   {foreach $colors as $color}
     <span
       data-value="{$color}"

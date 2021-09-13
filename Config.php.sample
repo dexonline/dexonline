@@ -133,7 +133,10 @@ class Config {
   const LIMIT_BOOKMARKS = 500;
   const LIMIT_TRAINEE_PENDING_DEFS = 50;
 
-  /**************************** Skin elements ****************************/
+  /***************************** Appearance *****************************/
+
+  // Adapted from Dignitas, see https://github.com/TeamDignitas/dignitas/wiki/Color-scheme
+  const COLOR_SCHEMES = [ 'light', 'dark' ];
 
   const SKIN_BANNER = true;
   const SKIN_FACEBOOK = true;

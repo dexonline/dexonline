@@ -10,7 +10,7 @@
     <title>{block "title"}Dicționare ale limbii române{/block} | dexonline</title>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=3.0, user-scalable=yes" name="viewport">
-    <meta name="color-scheme" content="light dark">
+    {include "bits/colorScheme.tpl"}
     {block "pageDescription"}{/block}
     {block "openGraph"}
       <meta property="og:image" content="{Config::URL_PREFIX}img/logo/logo-og.png">

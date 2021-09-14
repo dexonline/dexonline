@@ -3,6 +3,8 @@
 html.light {
   --c-dark: var(--bs-dark);
   --c-light: var(--bs-light);
+  --c-logo-home: #000;
+  --c-logo-nav: #3a3a3a;
   --c-navbar-bg: white;
   --c-navbar-border: #e8e8e8;
   --c-search-shadow: #ddd;
@@ -67,6 +69,8 @@ html.dark {
   --c-dark-hover: #bbb;
   --c-light: #333;
   --c-light-hover: #444;
+  --c-logo-home: #c5c5c5;
+  --c-logo-nav: #c5c5c5;
   --c-navbar-bg: #212529;
   --c-navbar-border: #212529;
   --c-popover: #444;

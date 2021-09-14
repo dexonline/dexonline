@@ -1,10 +1,10 @@
 .siteIdentity {
-    max-width: 316px;
-    margin: 30px auto 35px;
+  max-width: 316px;
+  margin: 30px auto 35px;
 }
 
-.siteLogo {
-  width: 100%;
+.siteIdentity g {
+  stroke: var(--c-logo-home);
 }
 
 .tagline {

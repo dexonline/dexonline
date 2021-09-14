@@ -38,6 +38,15 @@ a:focus {
   box-shadow: 0 0 8px 0 rgba(0, 0, 0, .1);
 }
 
+.navbar-brand svg {
+  height: auto;
+  width: 173px;
+}
+
+.navbar-brand g {
+  stroke: var(--c-logo-nav);
+}
+
 .navbar .avatar {
   border-radius: 4px;
   margin: -15px 5px;

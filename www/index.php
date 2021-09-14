@@ -2,14 +2,12 @@
 require_once '../lib/Core.php';
 
 $widgets = Preferences::getWidgets(User::getActive());
-$svgLogo = file_get_contents('img/svg/logo-dexonline.svg');
 
 Smart::assign([
   'pageType' => 'home',
   'wordsTotal' => Definition::getWordCount(),
   'wordsLastMonth' => Definition::getWordCountLastMonth(),
   'widgets' => $widgets,
-  'svgLogo' => $svgLogo,
 ]);
 
 /* WotD part */

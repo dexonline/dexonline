@@ -16,7 +16,6 @@ $(function() {
 
     var tabAdvertiser = $('#tabAdvertiser');
     if (tabAdvertiser.length) {
-      console.log('here');
       new bootstrap.Popover(tabAdvertiser, {
         container: 'body',
         content: $('#tabAdvertiserContent').html(),

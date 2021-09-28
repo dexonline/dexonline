@@ -40,3 +40,13 @@ html.light {
 }
 
 @import "common.scss";
+
+/* autocomplete overrides */
+#ui-id-1 {
+  box-shadow: 0 6px 8px 0px var(--bs-gray-400);
+}
+
+#ui-id-1 .ui-menu-item-wrapper:hover {
+  border-color: var(--bs-gray-200);
+  color: inherit;
+}

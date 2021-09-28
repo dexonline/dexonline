@@ -137,17 +137,6 @@ html.dark .dark-mode-toggle {
   white-space: nowrap;
 }
 
-/* autocomplete options */
-#ui-id-1 {
-  box-shadow: 0 6px 8px 0px var(--c-ddd);
-}
-
-#ui-id-1 .ui-menu-item-wrapper:hover {
-  background: var(--c-eee);
-  border-color: var(--c-eee);
-  color: inherit;
-}
-
 
 /*********** banner ***********/
 

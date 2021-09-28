@@ -152,7 +152,7 @@
 }
 
 .tree-heading {
-  border-bottom: 1px solid var(--c-999);
+  border-bottom: 1px solid var(--bs-gray-500);
   font-weight: bold;
   padding-bottom: 10px;
 }

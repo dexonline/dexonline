@@ -51,7 +51,7 @@
 }
 
 .meaningTree .mention {
-  border-bottom: 1px dotted var(--c-444);
+  border-bottom: 1px dotted var(--bs-gray-800);
   text-decoration: none;
 }
 

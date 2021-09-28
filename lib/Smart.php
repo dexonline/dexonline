@@ -27,7 +27,7 @@ class Smart {
         'currentYear' => date('Y'),
         'privateMode' => Util::isPrivateMode(),
         'advancedSearch' => $advancedSearch,
-        'svgLogo' => file_get_contents('../www/img/svg/logo-dexonline.svg'),
+        'svgLogo' => file_get_contents(Config::ROOT . 'www/img/svg/logo-dexonline.svg'),
       ]);
     }
   }

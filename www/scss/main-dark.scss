@@ -1,0 +1,128 @@
+/**
+ * Entry point for the Bootstrap dark theme.
+ *
+ * If you modify this file, remember to recompile the CSS file by running
+ * tools/recompileCss.sh.
+ **/
+
+/* theme colors */
+$danger: #ff7579;
+$dark: #ccc;
+$info: #1e83c2;
+$light: #333;
+$primary: #993333;
+$warning: #be9105;
+
+/**
+ * Invert the gray scale. Start from the default scale as HSL:
+ *
+ *   $white:    #ffffff = (210, .17, 1.00)
+ *   $gray-100: #f8f9fa = (210, .17, .98)
+ *   $gray-200: #e9ecef = (210, .16, .93)
+ *   $gray-300: #dee2e6 = (210, .14, .89)
+ *   $gray-400: #ced4da = (210, .14, .83)
+ *   $gray-500: #adb5bd = (210, .11, .71)
+ *   $gray-600: #6c757d = (208, .07, .46)
+ *   $gray-700: #495057 = (210, .09, .31)
+ *   $gray-800: #343a40 = (210, .10, .23)
+ *   $gray-900: #212529 = (210, .11, .15)
+ *   $black:    #000000 = (210, .11, .00)
+ *
+ * Next, convert the desired body-bg (#121212) to HSL => (0, 0, 0.07).
+ * That's our new $white.
+ *
+ * Convert the lightness range (1.00 - 0.00) to (0.15 - 1.00). The formula for
+ * any lightness 0 <= x <= 1 is 1 - x * 0.93.
+ **/
+$white:    hsl(0, 0%,   7%);
+$gray-100: hsl(0, 0%,   9%);
+$gray-200: hsl(0, 0%,  14%);
+$gray-300: hsl(0, 0%,  17%);
+$gray-400: hsl(0, 0%,  23%);
+$gray-500: hsl(0, 0%,  34%);
+$gray-600: hsl(0, 0%,  57%);
+$gray-700: hsl(0, 0%,  71%);
+$gray-800: hsl(0, 0%,  79%);
+$gray-900: hsl(0, 0%,  86%);
+$black:    hsl(0, 0%, 100%);
+
+/* Bootstrap overrides */
+$body-bg: $white;
+$body-color: $black;
+
+$accordion-button-active-bg: $gray-200;
+$modal-backdrop-bg: $gray-700;
+
+html.dark {
+  --c-file-selector-hover: #221f1c;         /* replaces #dde0e3 */
+
+  /* our colors */
+  --c-dark: #ccc;
+  --c-dark-hover: #bbb;
+  --c-light: #333;
+  --c-light-hover: #444;
+  --c-logo-home: #c5c5c5;
+  --c-logo-nav: #c5c5c5;
+  --c-navbar-bg: #212529;
+  --c-navbar-border: #212529;
+  --c-popover: #444;
+  --c-primary: #d45050;        /* the default is too dark */
+  --c-primary-hover: #aa4040;  /* 80% of --c-primary */
+  --c-search-shadow: #777;
+
+  /**
+   * Complements are not defined relative to 0xFF. Instead, we split the
+   * interval #121212-#ffffff into 16 shades.
+   **/
+  --c-000: #fff;
+  --c-111: #efefef;
+  --c-222: #dfdfdf;
+  --c-333: #d0d0d0;
+  --c-444: #c0c0c0;
+  --c-555: #b0b0b0;
+  --c-666: #a0a0a0;
+  --c-777: #909090;
+  --c-888: #818181;
+  --c-999: #717171;
+  --c-aaa: #616161;
+  --c-bbb: #515151;
+  --c-ccc: #414141;
+  --c-ddd: #323232;
+  --c-eee: #222222;
+  --c-fff: #121212;
+}
+
+@import "common.scss";
+
+/* autocomplete overrides */
+.ui-widget-content {
+  background-color: var(--bs-body-bg);
+  border-color: var(--bs-gray-300);
+  color: var(--bs-body-color);
+}
+.ui-widget.ui-widget-content {
+  border: 1px solid var(--bs-gray-400);
+}
+/* jquery-ui overrides */
+.ui-state-default,
+.ui-widget-content .ui-state-default,
+.ui-widget-header .ui-state-default,
+.ui-button,
+.ui-button.ui-state-disabled:hover,
+.ui-button.ui-state-disabled:active {
+  background: var(--bs-gray-100);
+  border-color: var(--bs-gray-300);
+  color: var(--bs-gray-500);
+}
+
+/* tablesorter overrides */
+/* copy the definitions, decode the base64 SVG and add a fill color */
+.tablesorter-bootstrap thead .tablesorter-headerAsc {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 14 14'%3e%3cpath fill='%23ddd' d='M14 9.5L11.5 12 7 7.5 2.5 12 0 9.5l7-7z'/%3e%3c/svg%3e");
+}
+.tablesorter-bootstrap thead .tablesorter-headerDesc {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 14 14'%3e%3cpath fill='%23ddd' d='M14 5l-2.5-2.5-4.5 4.5-4.5-4.5L0 5 7 12z'/%3e%3c/svg%3e");
+}
+.tablesorter-bootstrap thead .tablesorter-headerUnSorted:not(.sorter-false) {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='16' viewBox='0 0 14 20'%3e%3cpath fill='%23ddd' d='M14 13l-2.5-2.5L7 15l-4.5-4.5L0 13l7 7zM14 7.5L11.5 10 7 5.5 2.5 10 0 7.5l7-7z'/%3e%3c/svg%3e");
+}

@@ -23,9 +23,16 @@ cd $ROOT_DIR
 INPUT=www/scss/main.scss
 OUTPUT=www/css/third-party/bootstrap.min.css
 
-git diff --cached --quiet $INPUT
-INPUT_STAGED=$?
+INPUTS=(www/scss/common.scss www/scss/main-light.scss www/scss/main-dark.scss)
+OUTPUTS=(www/css/third-party/bootstrap.min.css www/css/third-party/bootstrap-diff.css)
 
-if [ $INPUT_STAGED = 1 ] && [ $INPUT -nt $OUTPUT ]; then
-  error "$INPUT is newer than $OUTPUT; please run scripts/recompileCss.sh and add $OUTPUT to the commint"
-fi
+for input in ${INPUTS[@]}; do
+  git diff --cached --quiet $input
+  input_staged=$?
+
+  for output in ${OUTPUTS[@]}; do
+    if [ $input_staged = 1 ] && [ $input -nt $output ]; then
+      error "$input is newer than $output; please run tools/recompileCss.sh and add $output to the commit"
+    fi
+  done
+done

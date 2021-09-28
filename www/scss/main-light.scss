@@ -1,0 +1,42 @@
+/**
+ * Entry point for the Bootstrap light theme.
+ *
+ * If you modify this file, remember to recompile the CSS file by running
+ * tools/recompileCss.sh.
+ **/
+
+/* color overrides */
+$info: #1e83c2;
+$light: #d5d5d5;
+$primary: #761818;
+$warning: #be9105; /* slightly darker, so that text looks readable on a white background */
+
+html.light {
+  --c-dark: var(--bs-dark);
+  --c-light: var(--bs-light);
+  --c-logo-home: #000;
+  --c-logo-nav: #3a3a3a;
+  --c-navbar-bg: white;
+  --c-navbar-border: #e8e8e8;
+  --c-search-shadow: #ddd;
+
+  /* these are replaced by their complements in dark mode */
+  --c-000: #000;
+  --c-111: #111;
+  --c-222: #222;
+  --c-333: #333;
+  --c-444: #444;
+  --c-555: #555;
+  --c-666: #666;
+  --c-777: #777;
+  --c-888: #888;
+  --c-999: #999;
+  --c-aaa: #aaa;
+  --c-bbb: #bbb;
+  --c-ccc: #ccc;
+  --c-ddd: #ddd;
+  --c-eee: #eee;
+  --c-fff: #fff;
+}
+
+@import "common.scss";

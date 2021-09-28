@@ -1,13 +1,9 @@
 /**
+ * Common definitions for Bootstrap light and dark themes.
+ *
  * If you modify this file, remember to recompile the CSS file by running
- * tools/recompileCss.sh
+ * tools/recompileCss.sh.
  **/
-
-/* color overrides */
-$info: #1e83c2;
-$primary: #761818;
-$light: #d5d5d5;
-$warning: #be9105; /* slightly darker, so that text looks readable on a white background */
 
 /* Bootstrap overrides */
 $dropdown-link-hover-color: $primary;
@@ -80,4 +76,45 @@ $navbar-light-hover-color: $primary;
   form.payPal {
     margin-top: 45px;
   }
+}
+
+/* Select2 overrides for both light and dark modes */
+/* select2 colors */
+.select2-container--default .select2-selection--single {
+  background-color: transparent;
+  border-color: var(--bs-gray-400);
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+  color: inherit;
+}
+
+.select2-dropdown {
+  background-color: var(--bs-body-bg);
+  border-color: var(--bs-gray-400);
+}
+
+.select2-container--default .select2-search--dropdown .select2-search__field {
+  background-color: var(--bs-body-bg);
+  border-color: var(--bs-gray-400);
+  color: var(--bs-body-color);
+}
+
+.select2-container--default .select2-selection--multiple {
+  background-color: inherit;
+  border-color: var(--bs-gray-400);
+  color: inherit;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+  background-color: var(--bs-gray-200);
+  border-color: var(--bs-gray-400);
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice.select2-highlighted {
+  background-color: var(--bs-gray-400);
+}
+
+.select2-container--default .select2-search--inline .select2-search__field {
+  color: inherit;
 }

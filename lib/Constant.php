@@ -216,9 +216,24 @@ class Constant {
       'css' => [ 'third-party/smoothness-1.12.1/jquery-ui-1.12.1.custom.min.css' ],
       'js' => [ 'third-party/jquery-ui-1.12.1.custom.min.js' ],
     ],
+    'select2' => [
+      'css' => [ 'third-party/select2.min.css' ],
+      'js' => [
+        'third-party/select2/select2.min.js',
+        'third-party/select2/i18n/ro.js',
+      ],
+    ],
+    'select2Dev' => [
+      'js' => [ 'select2Dev.js' ],
+      'deps' => [ 'jqueryui', 'select2' ],
+    ],
     'bootstrap' => [
-      'css' => [ 'third-party/bootstrap.min.css' ],
+      'css' => [
+        'third-party/bootstrap.min.css',
+        'third-party/bootstrap-diff.css',
+      ],
       'js' => [ 'third-party/bootstrap.bundle.min.js' ],
+      'deps' => [ 'select2' ], /* because our themes include Select2 overrides */
     ],
     'jqgrid' => [
       'css' => [ 'third-party/ui.jqgrid.css' ],
@@ -268,17 +283,6 @@ class Constant {
     'jcrop' => [
       'css' => [ 'third-party/jcrop/jquery.Jcrop.min.css' ],
       'js' => [ 'third-party/jquery.Jcrop.min.js' ],
-    ],
-    'select2' => [
-      'css' => [ 'third-party/select2.min.css' ],
-      'js' => [
-        'third-party/select2/select2.min.js',
-        'third-party/select2/i18n/ro.js',
-      ],
-    ],
-    'select2Dev' => [
-      'js' => [ 'select2Dev.js' ],
-      'deps' => [ 'jqueryui', 'select2' ],
     ],
     'jcanvas' => [
       'js' => [ 'third-party/jcanvas.min.js' ],

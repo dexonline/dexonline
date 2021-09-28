@@ -57,6 +57,11 @@ a:focus {
   margin-left: 5px;
 }
 
+/* hide the theme icon for the current theme */
+html.light .light-mode-toggle,
+html.dark .dark-mode-toggle {
+  display: none;
+}
 
 /**************************** material icons ****************************/
 

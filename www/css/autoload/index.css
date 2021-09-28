@@ -8,7 +8,7 @@
 }
 
 .tagline {
-  color: var(--c-444);
+  color: var(--bs-gray-800);
   font-size: 14px;
   letter-spacing: 1px;
   text-align: right;
@@ -16,7 +16,7 @@
 }
 
 .website-statement {
-  color: var(--c-999);
+  color: var(--bs-gray-600);
 }
 
 /********************* Home page widgets *********************/
@@ -27,9 +27,9 @@
 .widget {
   margin: 10px;
   padding: 15px 1rem;
-  border: 1px solid var(--c-ccc);
+  border: 1px solid var(--bs-gray-400);
   border-radius: 4px;
-  color: var(--c-777);
+  color: var(--bs-gray-600);
 }
 
 .widget.aotm:hover {

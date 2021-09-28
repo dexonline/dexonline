@@ -15,7 +15,7 @@ h3 form {
 }
 
 .card-header:hover a {
-  color: var(--c-222);
+  color: var(--bs-gray-900);
   display: inline;
 }
 

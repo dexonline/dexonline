@@ -13,12 +13,12 @@
 }
 
 .lexeme td {
-  border: 1px solid var(--c-ddd);
+  border: 1px solid var(--bs-gray-200);
   padding: 0px 10px;
 }
 
 .lexeme .inflection {
-  color: var(--c-777);
+  color: var(--bs-gray-600);
   font-style: italic;
   font-size: small;
   text-align: center;
@@ -37,7 +37,7 @@
 }
 
 .noParadigm {
-  color: var(--c-555);
+  color: var(--bs-gray-600);
   font-style: italic;
   padding-left: 80px;
   white-space: nowrap;

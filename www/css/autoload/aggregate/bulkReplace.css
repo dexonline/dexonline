@@ -1,5 +1,5 @@
 .defWrapper {
-  border-bottom: 1px solid var(--c-ccc);
+  border-bottom: 1px solid var(--bs-gray-400);
   margin: 0.5rem 0;
 }
 

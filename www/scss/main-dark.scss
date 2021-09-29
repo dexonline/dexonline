@@ -7,9 +7,7 @@
 
 /* theme colors */
 $danger: #ff7579;
-$dark: #ccc;
 $info: #1e83c2;
-$light: #333;
 $primary: #993333;
 $secondary: #b5b5b5;
 $warning: #be9105;
@@ -55,20 +53,10 @@ $accordion-button-active-bg: $gray-200;
 $modal-backdrop-bg: $gray-700;
 
 html.dark {
-  --c-file-selector-hover: #221f1c;         /* replaces #dde0e3 */
-
-  /* our colors */
-  --c-dark: #ccc;
-  --c-dark-hover: #bbb;
-  --c-light: #333;
-  --c-light-hover: #444;
   --c-logo-home: #c5c5c5;
   --c-logo-nav: #c5c5c5;
   --c-navbar-bg: #212529;
   --c-navbar-border: #212529;
-  --c-popover: #444;
-  --c-primary: #d45050;        /* the default is too dark */
-  --c-primary-hover: #aa4040;  /* 80% of --c-primary */
   --c-search-shadow: #777;
 }
 

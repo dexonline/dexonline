@@ -4,6 +4,6 @@
 }
 
 input[data-type="unstructured"]:checked {
-  background-color: var(--c-dark);
-  border-color: var(--c-dark);
+  background-color: var(--bs-secondary) !important;
+  border-color: var(--bs-secondary) !important;
 }

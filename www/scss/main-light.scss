@@ -7,13 +7,10 @@
 
 /* color overrides */
 $info: #1e83c2;
-$light: #d5d5d5;
 $primary: #761818;
 $warning: #be9105; /* slightly darker, so that text looks readable on a white background */
 
 html.light {
-  --c-dark: var(--bs-dark);
-  --c-light: var(--bs-light);
   --c-logo-home: #000;
   --c-logo-nav: #3a3a3a;
   --c-navbar-bg: white;

@@ -133,7 +133,7 @@
 }
 
 .exampleLink {
-  color: var(--bs-gray-700);
+  color: var(--bs-gray-700) !important;
 }
 
 .exampleBody {

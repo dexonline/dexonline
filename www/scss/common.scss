@@ -16,7 +16,67 @@ $link-decoration: none;
 $link-hover-decoration: underline;
 $navbar-light-hover-color: $primary;
 
-@import "third-party/bootstrap/bootstrap";
+@import "functions";
+@import "variables";
+@import "mixins";
+
+/**
+ * Remove unused colors.
+ */
+$theme-colors: map-remove($theme-colors, "dark", "light");
+$utilities-colors: map-remove($utilities-colors, "dark", "light");
+$table-variants: (); /* no colors */
+
+$theme-colors-rgb: map-loop($theme-colors, to-rgb, "$value");
+$utilities-colors: map-merge($utilities-colors, $theme-colors-rgb);
+$utilities-text-colors: map-loop($utilities-colors, rgba-css-var, "$key", "text");
+$utilities-bg-colors: map-loop($utilities-colors, rgba-css-var, "$key", "bg");
+
+/**
+ * Keep the next section in sync with third-party/bootstrap/bootstrap.scss.
+ * Comment out what we don't use.
+ */
+@import "utilities";
+
+// Layout & components
+@import "root";
+@import "reboot";
+@import "type";
+@import "images";
+@import "containers";
+@import "grid";
+@import "tables";
+@import "forms";
+@import "buttons";
+@import "transitions";
+@import "dropdown";
+@import "button-group";
+@import "nav";
+@import "navbar";
+@import "card";
+@import "accordion";
+@import "breadcrumb";
+@import "pagination";
+@import "badge";
+@import "alert";
+@import "progress";
+@import "list-group";
+@import "close";
+@import "toasts";
+@import "modal";
+@import "tooltip";
+@import "popover";
+@import "carousel";
+@import "spinners";
+@import "offcanvas";
+@import "placeholders";
+
+@import "helpers";
+
+@import "utilities/api";
+/**
+ * end of BS imports
+ */
 
 @include media-breakpoint-down(lg) {
   /* navbar logo: show just the computer, not the "dexonline" word */

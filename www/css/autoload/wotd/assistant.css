@@ -6,10 +6,6 @@ h3 form {
   width: 100px;
 }
 
-.card-header {
-  cursor: pointer;
-}
-
 .card-header a {
   display: none;
 }
@@ -26,12 +22,4 @@ h3 form {
 
 .card-header.finished a {
   color: #fff;
-}
-
-.card-header .chevron {
-  transition: all 0.5s;
-}
-
-.card-header.collapsed .chevron {
-  transform: rotate(180deg);
 }

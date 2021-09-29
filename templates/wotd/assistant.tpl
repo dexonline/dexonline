@@ -24,7 +24,7 @@
   </h3>
 
   {foreach $data as $day => $rec}
-    <div class="card mt-3">
+    <div class="card card-collapse mt-3">
       <div
         class="card-header {if $rec.allOk}finished collapsed{/if}"
         data-bs-toggle="collapse"

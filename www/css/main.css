@@ -408,3 +408,17 @@ div.thumb {
   position: absolute;
   width: 100%;
 }
+
+/******** collapsible card with expand/collapse visual indicator ********/
+
+.card-collapse .card-header {
+  cursor: pointer;
+}
+
+.card-collapse .chevron {
+  transition: all 0.5s;
+}
+
+.card-collapse .card-header.collapsed .chevron {
+  transform: rotate(180deg);
+}

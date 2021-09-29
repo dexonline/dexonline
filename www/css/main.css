@@ -152,7 +152,7 @@ header .banner-section {
 }
 
 .fakeBanner {
-  background: var(--c-777);
+  background: var(--bs-gray-500);
   color: var(--bs-body-bg);
   font-size: 60px;
   height: 90px;
@@ -164,7 +164,7 @@ header .banner-section {
 /*********** footer ***********/
 
 footer {
-  border-top: 1px solid var(--c-eee);
+  border-top: 1px solid var(--bs-gray-400);
   margin-top: 1rem;
   padding-top: 1rem;
 }
@@ -178,7 +178,7 @@ footer {
 
 /* The default underline sticks to the bottom of the text with no padding. */
 abbr[title] {
-  border-bottom: 1px dotted var(--c-777);
+  border-bottom: 1px dotted var(--bs-gray-600);
   text-decoration: none;
 }
 
@@ -189,7 +189,7 @@ abbr[title] {
 }
 
 .hasDependants, .dependantsWrapper {
-  border-left: 3px solid var(--c-ccc);
+  border-left: 3px solid var(--bs-gray-400);
   margin-left: -1rem;
   padding-left: 1rem;
 }
@@ -209,7 +209,7 @@ abbr[title] {
 }
 
 .def {
-  color: var(--c-000);
+  color: var(--bs-body-color);
   cursor: pointer;
 }
 
@@ -225,11 +225,11 @@ abbr[title] {
 }
 
 .deemph {
-  color: var(--c-ccc);
+  color: var(--bs-gray-500);
 }
 
 .emph {
-  color: var(--c-000);
+  color: var(--bs-body-color);
 }
 
 .tonic-accent {
@@ -253,7 +253,7 @@ sup.footnote {
 }
 
 .card-footnotes {
-  color: var(--c-444);
+  color: var(--bs-gray-800);
   font-size: 85%;
   margin: 20px 0 10px 30px;
 }
@@ -263,9 +263,9 @@ sup.footnote {
 }
 
 .card-footnotes:before {
-  background-color: var(--c-fff);
-  border-left: 1px solid var(--c-ddd);
-  border-top: 1px solid var(--c-ddd);
+  background-color: var(--bs-white);
+  border-left: 1px solid var(--bs-gray-400);
+  border-top: 1px solid var(--bs-gray-400);
   content: "\00a0";
   display: block;
   height: 20px;
@@ -277,7 +277,7 @@ sup.footnote {
 }
 
 .callout {
-  border: 1px solid var(--c-eee);
+  border: 1px solid var(--bs-gray-200);
   border-left-width: 5px;
   border-radius: 3px;
   margin: 20px 0;
@@ -354,8 +354,8 @@ div.thumb {
 }
 
 .linkBox {
-  background-color: var(--c-eee);
-  border: 1px solid var(--c-aaa);
+  background-color: var(--bs-gray-200);
+  border: 1px solid var(--bs-gray-400);
   border-radius: 4px;
   cursor: default;
   float: left;
@@ -379,7 +379,7 @@ div.thumb {
 
 .tablesorter-header,
 .tablesorter-pager th {
-  background-color: var(--c-fff) !important;
+  background-color: var(--bs-white) !important;
 }
 
 .tablesorter-pager .btn,

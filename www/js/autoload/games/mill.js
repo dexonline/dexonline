@@ -34,7 +34,7 @@ $(function() {
     }
     $('#mill button')
       .removeClass('btn-success btn-danger')
-      .addClass('btn-light')
+      .addClass('btn-outline-secondary')
       .attr('disabled', false);
   }
 
@@ -57,12 +57,12 @@ $(function() {
     var guessed = +($(this).val() == q.answer);
 
     if (guessed) {
-      $(this).toggleClass('btn-light btn-success');
+      $(this).toggleClass('btn-outline-secondary btn-success');
       $('#statusImage' + round).attr('src', wwwRoot + 'img/mill/success.png');
       answeredCorrect++;
     } else {
-      $(this).toggleClass('btn-light btn-danger');
-      $('#mill button[value="' + q.answer + '"]').toggleClass('btn-light btn-success');
+      $(this).toggleClass('btn-outline-secondary btn-danger');
+      $('#mill button[value="' + q.answer + '"]').toggleClass('btn-outline-secondary btn-success');
       $('#statusImage' + round).attr('src', wwwRoot + 'img/mill/fail.png');
     }
 

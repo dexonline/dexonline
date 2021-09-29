@@ -13,7 +13,7 @@
           {$t->description}
         </span>
 
-        <a href="{Router::link('tree/edit')}?id={$t->id}" class="btn btn-light btn-sm">
+        <a href="{Router::link('tree/edit')}?id={$t->id}" class="btn btn-outline-secondary btn-sm">
           {include "bits/icon.tpl" i=edit}
           editează
         </a>

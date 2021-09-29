@@ -141,7 +141,7 @@
       </button>
 
       <button type="button"
-        class="btn btn-light"
+        class="btn btn-outline-secondary"
         {if !count($entryTrees)}disabled{/if}
         data-bs-toggle="modal"
         data-bs-target="#mergeModal">
@@ -149,7 +149,7 @@
         unifică cu...
       </button>
 
-      <button type="submit" class="btn btn-light" name="cloneButton">
+      <button type="submit" class="btn btn-outline-secondary" name="cloneButton">
         {include "bits/icon.tpl" i=content_copy}
         clonează
       </button>
@@ -331,14 +331,14 @@
         {if $canEdit}
           <div class="btn-group me-2">
             <button type="button"
-              class="btn btn-sm btn-light btn-add-meaning"
+              class="btn btn-sm btn-outline-secondary btn-add-meaning"
               data-type="{Meaning::TYPE_MEANING}"
               title="Adaugă un sens ca frate al sensului selectat. Dacă nici un sens nu este selectat, adaugă un sens la sfârșitul listei.">
               {include "bits/icon.tpl" i=add}
               sens
             </button>
             <button type="button"
-              class="btn btn-sm btn-light btn-add-meaning meaningAction"
+              class="btn btn-sm btn-outline-secondary btn-add-meaning meaningAction"
               disabled
               data-type="{Meaning::TYPE_MEANING}"
               data-submeaning="1"
@@ -358,28 +358,28 @@
 
           <div class="btn-group me-2">
             <button type="button"
-              class="btn btn-sm btn-light meaningAction"
+              class="btn btn-sm btn-outline-secondary meaningAction"
               id="meaningLeftButton"
               disabled
               title="Sensul devine fratele următor al tatălui său.">
               {include "bits/icon.tpl" i=chevron_left}
             </button>
             <button type="button"
-              class="btn btn-sm btn-light meaningAction"
+              class="btn btn-sm btn-outline-secondary meaningAction"
               id="meaningRightButton"
               disabled
               title="Sensul devine fiu al fratelui său anterior.">
               {include "bits/icon.tpl" i=chevron_right}
             </button>
             <button type="button"
-              class="btn btn-sm btn-light meaningAction"
+              class="btn btn-sm btn-outline-secondary meaningAction"
               id="meaningDownButton"
               disabled
               title="Sensul schimbă locurile cu fratele său următor.">
               {include "bits/icon.tpl" i=expand_more}
             </button>
             <button type="button"
-              class="btn btn-sm btn-light meaningAction"
+              class="btn btn-sm btn-outline-secondary meaningAction"
               id="meaningUpButton"
               disabled
               title="Sensul schimbă locurile cu fratele său anterior.">
@@ -416,7 +416,7 @@
 
           <div class="btn-group">
             <button type="button"
-              class="btn btn-sm btn-light meaningAction"
+              class="btn btn-sm btn-outline-secondary meaningAction"
               id="cloneMeaningButton"
               disabled
               title="Clonează sensul selectat">

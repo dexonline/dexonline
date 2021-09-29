@@ -46,11 +46,11 @@
             {/if}
             <td class="abbreviation text-nowrap">
               {if $s->link && User::can(User::PRIV_EDIT)}
-                <a href="{$s->link}" class="badge text-dark bg-light" target="_blank">
+                <a href="{$s->link}" class="badge badge-muted" target="_blank">
                   {$s->shortName}
                 </a>
               {else}
-                <span class="badge text-dark bg-light">
+                <span class="badge badge-muted">
                   {$s->shortName}
                 </span>
               {/if}
@@ -97,7 +97,7 @@
         <u>s</u>alvează
       </button>
 
-      <a class="btn btn-light" href="{Router::link('source/edit')}">
+      <a class="btn btn-outline-secondary" href="{Router::link('source/edit')}">
         {include "bits/icon.tpl" i=add}
         adaugă o sursă
       </a>

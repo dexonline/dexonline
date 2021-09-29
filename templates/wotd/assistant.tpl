@@ -16,7 +16,7 @@
         <input id="calendar" type="text" name="for" value="{$yearMonth}" class="form-control">
       </div>
       <div class="col-12">
-        <button type="submit" class="btn btn-light">
+        <button type="submit" class="btn btn-primary">
           ok
         </button>
       </div>

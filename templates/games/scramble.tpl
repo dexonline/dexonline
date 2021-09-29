@@ -22,7 +22,7 @@
           </button>
 
           <a
-            class="btn btn-light"
+            class="btn btn-outline-secondary"
             data-bs-toggle="collapse"
             href="#optionsDiv"
             role="button"

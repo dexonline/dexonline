@@ -32,7 +32,7 @@
       </div>
 
       <a
-        class="btn btn-light doubleText"
+        class="btn btn-outline-secondary doubleText"
         data-other-text="{t}hide variants{/t}"
         data-bs-toggle="collapse"
         href="#variant-paradigm-{$entry->id}"

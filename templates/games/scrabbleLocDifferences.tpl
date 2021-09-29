@@ -8,7 +8,7 @@
   </h3>
 
   <p>
-    <a class="btn btn-light" href="{$zipUrl}">
+    <a class="btn btn-outline-secondary" href="{$zipUrl}">
       {include "bits/icon.tpl" i=file_download}
       descarcă
     </a>

@@ -152,7 +152,7 @@
       <u>s</u>alvează
     </button>
 
-    <a class="btn btn-light" href="{Router::link('tag/list')}">
+    <a class="btn btn-link" href="{Router::link('tag/list')}">
       {include "bits/icon.tpl" i=arrow_back}
       înapoi la lista de etichete
     </a>

@@ -7,7 +7,7 @@ $(function() {
   function init() {
     // create the button
     button = $(
-      '<button id="scrollTopButton" title="înapoi sus" class="btn btn-dark" type="button">' +
+      '<button id="scrollTopButton" title="înapoi sus" class="btn btn-secondary" type="button">' +
         '<i class="material-icons">expand_less</i>' +
         '</button>'
     ).appendTo($('body'));

@@ -14,7 +14,7 @@
       <span class="mx-2 flex-grow-1">{$user->nick|escape}</span>
       {if $user->id == User::getActiveId()}
         <a
-          class="btn btn-light btn-sm"
+          class="btn btn-outline-secondary btn-sm"
           href="{Router::link('user/preferences')}">
           editează profilul
         </a>
@@ -79,7 +79,7 @@
       <span class="flex-grow-1">Medalii</span>
       {if User::can(User::PRIV_ADMIN)}
         <a
-          class="btn btn-sm btn-light"
+          class="btn btn-sm btn-outline-secondary"
           data-bs-toggle="collapse"
           href="#medalEditDiv">
           editează medaliile

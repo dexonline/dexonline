@@ -27,7 +27,7 @@
     </p>
 
     <div class="mb-3">
-      <button id="checkAll" class="btn btn-light" type="button">
+      <button id="checkAll" class="btn btn-outline-secondary" type="button">
         {include "bits/icon.tpl" i=done}
         bifează/debifează tot
       </button>

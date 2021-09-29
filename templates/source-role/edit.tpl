@@ -25,7 +25,7 @@
     </table>
 
     <div>
-      <button id="addButton" class="btn btn-light" type="button">
+      <button id="addButton" class="btn btn-outline-secondary" type="button">
         {include "bits/icon.tpl" i=add}
         adaugă un rol
       </button>

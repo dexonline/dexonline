@@ -117,7 +117,7 @@
     {if $structuredChanged}
       <a
         href="{Router::link('aggregate/bulkReplaceStructured')}"
-        class="btn btn-light"
+        class="btn btn-outline-secondary"
         target="_blank">
         definiții structurate modificate
       </a>

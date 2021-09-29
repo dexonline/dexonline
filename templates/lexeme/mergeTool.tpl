@@ -59,7 +59,7 @@
         </div>
 
         <div class="card-body card-admin">
-          <div class="card card-body bg-light mb-2 collapse" id="def_{$l->id}">
+          <div class="card card-body mb-2 collapse" id="def_{$l->id}">
             {foreach $definitions[$l->id] as $row}
               {include "bits/definition.tpl" showDropup=0 showUser=0}
             {/foreach}
@@ -107,7 +107,7 @@
               </ul>
             {/if}
 
-            <div class="card card-body bg-light mt-2 collapse" id="def_{$match->id}">
+            <div class="card card-body mt-2 collapse" id="def_{$match->id}">
               {foreach $definitions[$match->id] as $row}
                 {include "bits/definition.tpl" showDropup=0 showUser=0}
               {/foreach}

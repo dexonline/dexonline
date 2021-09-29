@@ -51,7 +51,7 @@
 
           {section name=choices start=0 loop=4}
             <button
-              class="btn btn-light btn-lg border-secondary text-start w-100 mb-2"
+              class="btn btn-outline-secondary btn-lg border-secondary text-start w-100 mb-2"
               type="button"
               disabled
               value="{$smarty.section.choices.index}">

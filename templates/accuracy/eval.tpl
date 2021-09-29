@@ -13,7 +13,7 @@
           ({$errors} erori)
         {/if}
 
-        <a class="btn btn-light btn-sm float-end"
+        <a class="btn btn-outline-secondary btn-sm float-end"
           href="{Router::link('definition/edit')}/{$def->id}">
           {include "bits/icon.tpl" i=edit}
           editează
@@ -28,7 +28,7 @@
             <input type="hidden" name="projectId" value="{$project->id}">
 
             <div class="col-12">
-              <button id="butDown" type="button" class="btn btn-light">
+              <button id="butDown" type="button" class="btn btn-outline-secondary">
                 {include "bits/icon.tpl" i=remove}
               </button>
             </div>
@@ -44,7 +44,7 @@
             </div>
 
             <div class="col-12">
-              <button id="butUp" type="button" class="btn btn-light">
+              <button id="butUp" type="button" class="btn btn-outline-secondary">
                 {include "bits/icon.tpl" i=add}
               </button>
             </div>
@@ -245,7 +245,7 @@
   <form method="post">
     <input type="hidden" name="projectId" value="{$project->id}">
 
-    <a class="btn btn-light" href="{Router::link('accuracy/projects')}">
+    <a class="btn btn-link" href="{Router::link('accuracy/projects')}">
       {include "bits/icon.tpl" i=arrow_back}
       înapoi la lista de proiecte
     </a>

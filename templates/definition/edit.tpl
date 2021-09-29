@@ -106,14 +106,14 @@
               <button
                 id="refreshEntriesButton"
                 type="button"
-                class="btn btn-light btn-sm"
+                class="btn btn-outline-secondary btn-sm"
                 title="recalculează lista de intrări pe baza cuvîntului definit">
                 {include "bits/icon.tpl" i=refresh}
               </button>
               <button
                 id="clearEntriesButton"
                 type="button"
-                class="btn btn-light btn-sm"
+                class="btn btn-outline-secondary btn-sm"
                 title="golește lista de intrări">
                 {include "bits/icon.tpl" i=delete}
               </button>
@@ -174,7 +174,7 @@
           <button id="refreshButton"
             type="button"
             name="refreshButton"
-            class="btn btn-light">
+            class="btn btn-outline-secondary">
             {include "bits/icon.tpl" i=refresh}
             <u>r</u>eafișează
           </button>
@@ -207,7 +207,7 @@
           {if $def->id}
             <a id="wikiLink"
               href="https://wiki.dexonline.ro/wiki/Definiție:{$def->id}?description={$def->lexicon|escape}"
-              class="btn btn-light"
+              class="btn btn-outline-secondary"
               title="creează o pagină wiki pentru această definiție"
               target="_blank">
               {include "bits/icon.tpl" i=comment}
@@ -228,7 +228,7 @@
 
           <button id="tinymceToggleButton"
             type="button"
-            class="btn btn-light doubleText"
+            class="btn btn-outline-secondary doubleText"
             data-other-text="ascunde TinyMCE"
             title="TinyMCE este un editor vizual (cu butoane de bold, italic etc.).">
             arată TinyMCE
@@ -301,11 +301,11 @@
   </div>
 
   <div id="diffPopover">
-    <button type="button" class="btn btn-light btn-sm diffButton" data-insert="1">
+    <button type="button" class="btn btn-outline-secondary btn-sm diffButton" data-insert="1">
       {include "bits/icon.tpl" i=add}
       inserează textul și în <span class="similarSourceName"></span>
     </button>
-    <button type="button" class="btn btn-light btn-sm diffButton" data-insert="0">
+    <button type="button" class="btn btn-outline-secondary btn-sm diffButton" data-insert="0">
       {include "bits/icon.tpl" i=remove}
       șterge textul din <span class="similarSourceName"></span>
     </button>

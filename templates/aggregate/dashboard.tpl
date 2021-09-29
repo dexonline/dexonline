@@ -316,15 +316,15 @@
 
           {include "bits/modelDropDown.tpl" modelTypes=$canonicalModelTypes}
 
-          <button type="submit" class="btn btn-light me-1" name="goToModel">
+          <button type="submit" class="btn btn-outline-secondary me-1" name="goToModel">
             pagina modelului
           </button>
 
-          <button type="submit" class="btn btn-light me-1" name="showLexemes">
+          <button type="submit" class="btn btn-outline-secondary me-1" name="showLexemes">
             arată toate lexemele
           </button>
 
-          <button type="submit" class="btn btn-light me-1" name="cloneModel">
+          <button type="submit" class="btn btn-outline-secondary me-1" name="cloneModel">
             {include "bits/icon.tpl" i=content_copy}
             clonează
           </button>

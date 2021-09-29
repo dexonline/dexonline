@@ -293,11 +293,16 @@ sup.footnote {
   color: var(--bs-info);
 }
 
-/************** labels inside headers **************/
+/************** badges **************/
 
 h3 .badge {
   font-size: 12px;
   vertical-align: middle;
+}
+
+.badge-muted {
+  background-color: var(--bs-gray-300);
+  color: var(--bs-gray-800) !important;
 }
 
 /************** scanned page modal **************/

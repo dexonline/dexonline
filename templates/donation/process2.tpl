@@ -34,10 +34,10 @@
                 divClass='mb-2'
                 value=$donor->ticketId}
 
-              <div class="card card-body bg-light mb-2">
+              <div class="card card-body mb-2">
                 {$donor->htmlMessage}
               </div>
-              <div class="card card-body bg-light mb-3">
+              <div class="card card-body mb-3">
                 <pre>{$donor->textMessage}</pre>
               </div>
             {else}
@@ -68,10 +68,10 @@
                 checked=true
                 divClass='mb-2'}
 
-              <div class="card card-body bg-light mb-2">
+              <div class="card card-body mb-2">
                 {$donor->htmlMessage}
               </div>
-              <div class="card card-body bg-light">
+              <div class="card card-body">
                 <pre>{$donor->textMessage}</pre>
               </div>
             {else}

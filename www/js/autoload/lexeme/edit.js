@@ -172,7 +172,7 @@ $(function() {
     ifWikiPageExists('Lexem:' + lexemeId, function() {
       $('#wikiLink')
         .attr('title', 'lexemul are o pagină wiki')
-        .toggleClass('btn-light btn-warning');
+        .toggleClass('btn-outline-secondary btn-warning');
     });
   }
 

@@ -159,7 +159,7 @@
 
     // Default properties
     var button = document.createElement('button');
-    button.className = 'btn btn-light btn-charmap';
+    button.className = 'btn btn-outline-secondary btn-charmap';
 
     button.innerText = lower;
 

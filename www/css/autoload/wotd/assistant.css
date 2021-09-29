@@ -16,7 +16,7 @@ h3 form {
 }
 
 .card-header.finished {
-  background-color: var(--bs-success);
+  background-color: var(--bs-success) !important;
   color: #fff;
 }
 

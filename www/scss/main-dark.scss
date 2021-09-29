@@ -10,7 +10,6 @@ $danger: #ff7579;
 $info: #1e83c2;
 $primary: #993333;
 $secondary: #b5b5b5;
-$warning: #be9105;
 
 /**
  * Invert the gray scale. Start from the default scale as HSL:
@@ -46,6 +45,9 @@ $gray-900: hsl(0, 0%,  86%);
 $black:    hsl(0, 0%, 100%);
 
 /* Bootstrap overrides */
+$alert-bg-scale: 40%;
+$alert-border-scale: 40%;
+$alert-color-scale: -100%;
 $body-bg: $white;
 $body-color: $black;
 

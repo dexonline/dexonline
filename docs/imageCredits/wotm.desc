@@ -4,6 +4,7 @@
 # Liniile sunt procesate de sus în jos până când un regex se potrivește cu o dată.
 # Este afișat creditul înregistrării WotdArtist cu eticheta respectivă.
 
+^2021-10::rb
 ^2021-09::spectoons
 ^2021-0(1|2|4)::rb
 ^2020-11::rb

@@ -75,20 +75,45 @@ function formatSource(item) {
            '</span>');
 }
 
-function reviveInit() {
-  if ($('#theZone').length) {
-    var w = $(window).width(), zoneId;
-    if (w > reviveBreakpoint1) {
-      zoneId = reviveZoneId1;
-    } else if (w > reviveBreakpoint2) {
-      zoneId = reviveZoneId2;
-    } else {
-      zoneId = reviveZoneId3;
-    }
+/**
+ * config must have the following structure
+ *   - url: URL of asyncjs.php
+ *   - id: value of data-revive-id in the invocation code
+ *   - sizes: an array of [ width, zoneId ]. The widths should be in
+ *     decreasing order. We use the first line from the array having "width"
+ *     < real screen width (JS width x JS device pixel ratio). We serve a
+ *     banner from "zoneId". Once the banner is rendered, we shrink it by the
+ *     dpr.
+ */
+function reviveInit(config) {
 
-    $('#theZone').attr('data-revive-zoneid', zoneId);
-    $.getScript(reviveUrl);
+  var dpr = window.devicePixelRatio,
+      w = $(window).width() * dpr;
+
+  var i = 0;
+  while ((i < config.sizes.length) &&
+         (w < config.sizes[i][0])) {
+    i++;
   }
+
+  if (i == config.sizes.length) {
+    return; // screen width too small to accommodate any banner
+  }
+
+  var zoneId = config.sizes[i][1];
+
+  // ask to be notified when the image is inserted
+  $(document).on('DOMNodeInserted', '.banner-section ins', function() {
+    var img = $('.banner-section img').first();
+    if (img.length && dpr > 1) {
+      img.height(img.height() / dpr);
+      img.width(img.width() / dpr);
+    }
+  });
+
+  $('#revive-container').attr('data-revive-zoneid', zoneId);
+  $.getScript(config.url);
+
 }
 
 function getWidth() {

@@ -139,8 +139,9 @@ a:focus {
 /*********** banner ***********/
 
 .banner-section {
+  display: flex;
+  justify-content: center;
   margin-bottom: 1.6em;
-  overflow: hidden;
 }
 
 header .banner-section {
@@ -151,11 +152,10 @@ header .banner-section {
 .fakeBanner {
   background: #777;
   color: white;
-  font-size: 20px;
+  font-size: 60px;
   height: 90px;
-  max-width: 728px;
-  padding-top: 30px;
   text-align: center;
+  width: 728px;
 }
 
 

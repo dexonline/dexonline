@@ -195,7 +195,7 @@ class Config {
   // PubGalaxy options
   const BANNER_PG = [];
 
-  // Revive options
+  // Revive options. See dex.js for details.
   const BANNER_REVIVE = [];
 
   /******************************* Plugins *******************************/

@@ -27,7 +27,7 @@ class Abbrev {
       $abbrevs = [];
 
       $results = Model::factory('Abbreviation')
-        ->where_like('sourceId', $sourceId)
+        ->where('sourceId', $sourceId)
         ->order_by_asc('short')
         ->find_array();
 

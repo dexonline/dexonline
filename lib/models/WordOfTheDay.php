@@ -27,8 +27,9 @@ class WordOfTheDay extends BaseObject implements DatedObject {
   }
 
   static function getTodaysWord() {
+    $today = date('Y-m-d');
     return Model::factory('WordOfTheDay')
-      ->where_raw('displayDate = curdate()')
+      ->where('displayDate', $today)
       ->find_one();
   }
 

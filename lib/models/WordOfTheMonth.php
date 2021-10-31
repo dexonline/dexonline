@@ -14,8 +14,9 @@ class WordOfTheMonth extends BaseObject implements DatedObject {
   }
 
   static function getCurrentWotM() {
+    $today = date('Y-m-d');
     return Model::factory('WordOfTheMonth')
-      ->where_raw('displayDate <= curdate()')
+      ->where_lte('displayDate', $today)
       ->order_by_desc('displayDate')
       ->limit(1)
       ->find_one();

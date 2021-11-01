@@ -22,7 +22,7 @@ $stopWordForms = array_flip(DB::getArray(
 
 // Build a map of inflectedForm => list of (lexemeId, inflectionId) pairs
 Log::info("Building inflected form map.");
-$dbResult = DB::execute("select formNoAccent, lexemeId, inflectionId from InflectedForm");
+$dbResult = DB::execute("select distinct formNoAccent, lexemeId, inflectionId from InflectedForm");
 $ifMap = [];
 foreach ($dbResult as $r) {
   $form = mb_strtolower($r['formNoAccent']);
@@ -54,7 +54,6 @@ foreach ($dbResult as $dbRow) {
         $lexemeList = preg_split('/,/', $ifMap[$word]);
         for ($i = 0; $i < count($lexemeList); $i += 2) {
           fwrite($handle,
-                 "\\N\t" . // NULL for the ID field
                  $lexemeList[$i] . "\t" .
                  $lexemeList[$i + 1] . "\t" .
                  $dbRow[0] . "\t" .

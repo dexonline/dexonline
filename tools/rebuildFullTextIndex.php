@@ -10,7 +10,7 @@ if (!Lock::acquire(Lock::FULL_TEXT_INDEX)) {
   OS::errorAndExit('Lock already exists!');
 }
 
-Log::info("Clearing table FullTextIndex.");
+Log::info('Clearing table FullTextIndex.');
 DB::execute('truncate table FullTextIndex');
 
 // Build a map of stop words
@@ -53,7 +53,12 @@ foreach ($dbResult as $dbRow) {
       if (array_key_exists($word, $ifMap)) {
         $lexemeList = preg_split('/,/', $ifMap[$word]);
         for ($i = 0; $i < count($lexemeList); $i += 2) {
-          fwrite($handle, $lexemeList[$i] . "\t" . $lexemeList[$i + 1] . "\t" . $dbRow[0] . "\t" . $position . "\n");
+          fwrite($handle,
+                 "\\N\t" . // NULL for the ID field
+                 $lexemeList[$i] . "\t" .
+                 $lexemeList[$i + 1] . "\t" .
+                 $dbRow[0] . "\t" .
+                 $position . "\n");
           $indexSize++;
         }
       }

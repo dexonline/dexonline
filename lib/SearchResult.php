@@ -44,7 +44,7 @@ class SearchResult {
       $result->wotdType = self::WOTD_NOT_IN_LIST;
       $result->wotdDate = null;
       $result->bookmark = false;
-      $result->tags = Tag::loadByDefinitionId($definition->id);
+      $result->tags = [];
       $results[$definition->id] = $result;
     }
 
@@ -54,6 +54,19 @@ class SearchResult {
            ->find_many();
     foreach ($typos as $t) {
       $results[$t->definitionId]->typos[] = $t;
+    }
+
+    // load all tags at once rather than Tag::loadByDefinitionId() once per def
+    $tags = Model::factory('Tag')
+      ->select('Tag.*')
+      ->select('ObjectTag.objectId')
+      ->join('ObjectTag', ['Tag.id', '=', 'tagId'])
+      ->where('ObjectTag.objectType', ObjectTag::TYPE_DEFINITION)
+      ->where_in('ObjectTag.objectId', $defIds)
+      ->order_by_asc('ObjectTag.id')
+      ->find_many();
+    foreach ($tags as $t) {
+      $results[$t->objectId]->tags[] = $t;
     }
 
     if ($suid = User::getActiveId()) {

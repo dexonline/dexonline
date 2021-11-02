@@ -415,7 +415,7 @@ class Definition extends BaseObject implements DatedObject {
         $revMatch = array_reverse($match[1]);
 
         foreach ($revMatch as $m) {
-          $replacement = sprintf('{c%s|%sc}', $m[0], $classIndex);
+          $replacement = sprintf('{c%s,%sc}', $m[0], $classIndex);
 
           $def->internalRep = substr_replace(
             $def->internalRep,

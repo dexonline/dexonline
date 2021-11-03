@@ -115,7 +115,9 @@ class DB {
   // otherwise we could end up with huge arrays of Models.
   // Example: full text search of the word 'mică'
   static function getArray($query) {
+    DebugInfo::resetClock();
     $dbResult = ORM::get_db()->query($query);
+    DebugInfo::stopClock("Low-level query: $query");
     $results = [];
     foreach ($dbResult as $row) {
       $results[] = $row[0];

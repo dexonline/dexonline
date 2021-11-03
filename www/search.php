@@ -139,13 +139,15 @@ if ($text) {
     $defIds = array_slice($defIds, 0, Config::LIMIT_FULL_TEXT_RESULTS);
 
     // load all definitions at once, then resort them by $defIds
-    $unsorted = Model::factory('Definition')
-      ->where_in('id', $defIds)
-      ->find_many();
-    $map = Util::mapById($unsorted);
     $definitions = [];
-    foreach ($defIds as $id) {
-      $definitions[] = $map[$id];
+    if (count($defIds)) {
+      $unsorted = Model::factory('Definition')
+        ->where_in('id', $defIds)
+        ->find_many();
+      $map = Util::mapById($unsorted);
+      foreach ($defIds as $id) {
+        $definitions[] = $map[$id];
+      }
     }
 
     // For single-word queries, just order the definitions by lexicon.

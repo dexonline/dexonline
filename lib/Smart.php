@@ -107,8 +107,11 @@ class Smart {
       $maxTimestamp = max($maxTimestamp, $timestamp);
     }
 
+    // Compute the hash using relative file names only. Different backends may
+    // be installed under different absolute paths.
+    $hash = md5(implode('|', $files));
+
     // compute the output file name
-    $hash = md5(implode(',', $full));
     $outputDir = sprintf('%swww/%s/merged/', Config::ROOT, $type);
     $output = sprintf('%s%s.%s', $outputDir, $hash, $type);
 

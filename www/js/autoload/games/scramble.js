@@ -34,7 +34,7 @@ $(function() {
 
   const ANIMATION_STEPS = 10; // for letter moves
 
-  const COOKIE_NAME = 'scramble';
+  const STORAGE_KEY = 'scramble';
 
   // maps 0-based HTML field values to parameter values
   const PARAM_VALUES = {
@@ -372,19 +372,26 @@ $(function() {
         console.log('Nu pot descărca listele de cuvinte.');
       });
 
-    // look for preset options in (a) game ID then (b) cookie
+    // look for preset options in (a) game ID then (b) local storage then (c)
+    // cookie
     var params = null;
+    var ls = localStorage.getItem(STORAGE_KEY);
+    var cookie = $.cookie(STORAGE_KEY);
     if (window.location.hash) {
       params = decodeGameParams(window.location.hash);
-    } else if ($.cookie(COOKIE_NAME)) {
-      params = JSON.parse($.cookie(COOKIE_NAME));
+    } else if (ls) {
+      params = JSON.parse(ls);
+    } else if (cookie) {
+      // also migrate from cookie to local storage
+      params = JSON.parse(cookie);
+      localStorage.setItem(STORAGE_KEY, cookie);
+      $.removeCookie(STORAGE_KEY, {path: '/'});
     }
     if (params) {
-      $('#optionsDiv .active input').each(function() {
-        var name = $(this).attr('name');
-        var sel = '.btn-group input[name="' + name + '"][value="' + params[name] + '"]';
-        $(sel).closest('.btn').button('toggle');
-      });
+      for (var key in params) {
+        var sel = '#optionsDiv input[name="' + key + '"][value="' + params[key] + '"]';
+        $(sel).prop('checked', true);
+      }
     }
     // any further option changes will cause the fragment (hash) to disappear
     $('#optionsDiv input').change(removeHash);
@@ -412,7 +419,7 @@ $(function() {
     $('#permalink span').last().text(window.location.href);
     Math.seedrandom(gameId);
 
-    $.cookie(COOKIE_NAME, JSON.stringify(gameParams), { expires: 3650, path: '/' });
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(gameParams));
 
     getNewLetters();
 

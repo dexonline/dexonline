@@ -38,7 +38,7 @@ abstract class Plugin {
   /** following are methods that plugins may choose to implement **/
 
   /* called at the end of Core::init(); use to intercept the entire layout,
-   * e.g. for maintenance mode */
+   * e.g. for strike mode */
   function coreInit() {
   }
 

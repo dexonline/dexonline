@@ -20,6 +20,9 @@ class Config {
   // When true, hide the Google Analytics code and to allow fake user logins.
   const DEVELOPMENT_MODE = true;
 
+  // When true, only display a maintenance message. Will work without a DB connection.
+  const MAINTENANCE = false;
+
   // Prevent ads, fonts, social media boxes and any other resources from third
   // party domains.
   const GLOBAL_PRIVATE_MODE = true;

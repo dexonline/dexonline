@@ -9,7 +9,7 @@ class Session {
     if (isset($_COOKIE[session_name()])) {
       session_start();
     }
-    if (Request::isWeb()) {
+    if (!Config::MAINTENANCE && Request::isWeb()) {
       self::setActiveUser();
     }
     // Otherwise we're being called by a local script, not a web-based one.

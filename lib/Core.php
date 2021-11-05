@@ -38,6 +38,11 @@ class Core {
     if (Request::isWeb()) {
       Plugin::notify('coreInit');
     }
+
+    if (Config::MAINTENANCE) {
+      Smart::display('maintenance.tpl', true);
+      exit;
+    }
   }
 
 }

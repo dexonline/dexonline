@@ -19,11 +19,14 @@ class Smart {
     // This allows variable names in {include} tags
     self::$theSmarty->inheritance_merge_compiled_includes = false;
 
+    $advancedSearch = Config::MAINTENANCE
+      ? false
+      : Session::userPrefers(Preferences::SHOW_ADVANCED);
     if (Request::isWeb()) {
       self::assign([
         'currentYear' => date('Y'),
         'privateMode' => Util::isPrivateMode(),
-        'advancedSearch' => Session::userPrefers(Preferences::SHOW_ADVANCED),
+        'advancedSearch' => $advancedSearch,
       ]);
     }
   }
@@ -192,22 +195,24 @@ class Smart {
     if (Config::SEARCH_AC_ENABLED) {
       self::addResources('jqueryui');
     }
-    if (User::getActiveId()) {
-      self::addResources('loggedIn');
-    }
-    if (User::can(User::PRIV_ANY)) {
-      self::addResources('admin', 'charmap', 'sprintf');
-    }
-    if (Util::isPrivateMode()) {
-      self::addResources('privateMode');
+    if (!$hardened) {
+      if (User::getActiveId()) {
+        self::addResources('loggedIn');
+      }
+      if (User::can(User::PRIV_ANY)) {
+        self::addResources('admin', 'charmap', 'sprintf');
+      }
+      if (Util::isPrivateMode()) {
+        self::addResources('privateMode');
+      }
     }
     self::addSameNameFiles($templateName);
     if (!$hardened) {
       if (User::can(User::PRIV_ANY)) {
         self::assign('recentLinks', RecentLink::load());
       }
+      self::registerOutputFilters();
     }
-    self::registerOutputFilters();
     Plugin::notify('cssJsSmarty');
     print self::fetch($templateName);
   }

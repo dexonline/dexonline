@@ -827,7 +827,8 @@ class Lexeme extends BaseObject implements DatedObject {
       ObjectTag::delete_all_by_objectId_objectType($this->id, ObjectTag::TYPE_LEXEME);
       Fragment::delete_all_by_lexemeId($this->id);
       Fragment::delete_all_by_partId($this->id);
-      FullTextIndex::delete_all_by_lexemeId($this->id);
+      // delete_all_by_lexemeId doesn't work for FullTextIndex because it doesn't have an ID column
+      Model::factory('FullTextIndex')->where('lexemeId', $this->id)->delete_many();
     }
     Log::warning("Deleted lexeme {$this->id} ({$this->formNoAccent})");
     parent::delete();

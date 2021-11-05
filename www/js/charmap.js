@@ -1,7 +1,7 @@
 (function() {
 
-  // cookie definition
-  var COOKIE = 'charmap';
+  // localStorage definition
+  var STORAGE_KEY = 'charmap';
 
   // signature of the showCharMap function in hotkeys.js
   // passed as a handle in the show event, used for bind/unbind
@@ -25,27 +25,32 @@
     'τ;Τ;Tau', 'υ;Υ;Ipsilon', 'φ;Φ;Fi', 'χ;Χ;Hi', 'ψ;Ψ;Psi', 'ω;Ω;Omega'
   ];
 
-  // default cookie value
+  // default charmap value
   var DEFAULT = [].concat(CYRILLIC, GREEK);
 
 
   // character read/edit logic
-  var Charmap = function() {
-    this._cookie_json = $.cookie.json;
-  };
+  var Charmap = function() {};
 
   Charmap.prototype.read = function() {
-    $.cookie.json = true;
-    var cookie_value = $.cookie(COOKIE);
-    var value = (cookie_value && cookie_value.length > 0) ? cookie_value : DEFAULT;
-    $.cookie.json = this._cookie_json;
-    return value;
+    var value = localStorage.getItem(STORAGE_KEY);
+
+    if (!value) {
+      // fallback to cookie; if found, migrate it to local storage
+      var value = $.cookie(STORAGE_KEY);
+      if (value) {
+        localStorage.setItem(STORAGE_KEY, value);
+        $.removeCookie(STORAGE_KEY, {path: '/'});
+      }
+    }
+
+    return value
+      ? JSON.parse(value)
+      : DEFAULT;
   };
 
   Charmap.prototype.edit = function(value) {
-    $.cookie.json = true;
-    $.cookie(COOKIE, value, {expires: 36500, path: '/'});
-    $.cookie.json = this._cookie_json;
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(value));
   };
 
 
@@ -248,7 +253,7 @@
 
     modalControls.resetButton.on('click', function() {
       if (confirm('Confirmați resetarea glifelor la valorile inițiale?')) {
-        $.removeCookie(COOKIE, {path: '/'});
+        localStorage.removeItem(STORAGE_KEY);
         update();
         modalControls.editBox.val(CHARMAP.read().join('\n'));
       }

@@ -2,7 +2,10 @@ $(function() {
   var stem; /* a stem frequent object to be cloned for each addition */
   var trigger; /* .frequentObjects div containing the most recently used '+' button */
 
-  const COOKIE_NAME = 'frequentObjects';
+  // We used to store frequent objects in cookies, but cookies can become
+  // long. Besides, the server doesn't need them. So we check for cookies and,
+  // if found, move them to local storage.
+  const STORAGE_NAME = 'frequentObjects';
   const DATA_SOURCES = {
     sources: 'ajax/getSources.php',
     tags: 'ajax/getTags.php',
@@ -11,7 +14,7 @@ $(function() {
   function init() {
     stem = $('#frequentObjectStem').detach().removeAttr('id');
 
-    $('.frequentObjects').each(loadFromCookie);
+    $('.frequentObjects').each(loadFromStorage);
 
     /* use on() so that cloned copies of stem also respond */
     $('.frequentObjects').on('click', '.frequentObject', frequentObjectClick);
@@ -30,7 +33,7 @@ $(function() {
       },
       stop: function() {
         $('#frequentObjectsTrash').stop().fadeOut();
-        saveToCookie($(this).closest('.frequentObjects'));
+        saveToStorage($(this).closest('.frequentObjects'));
       }
     });
 
@@ -64,12 +67,26 @@ $(function() {
     $('#addObjectId').select2('destroy');
   }
 
-  function loadFromCookie() {
-    var cookieName = COOKIE_NAME + '-' + $(this).data('name');
+  /**
+   * Loads frequent objects from local storage. If not found, tries to load
+   * them from cookies and migrate them to local storage.
+   * @param $(this) A frequent objects container.
+   */
+  function loadFromStorage() {
+    var key = STORAGE_NAME + '-' + $(this).data('name');
+    var value = localStorage.getItem(key);
 
-    var cookieValue = $.cookie(cookieName);
-    if (cookieValue) {
-      var dict = JSON.parse(cookieValue);
+    if (!value) {
+      // fallback to cookies; if found, migrate them to local storage
+      value = $.cookie(key);
+      if (value) {
+        localStorage.setItem(key, value);
+        $.removeCookie(key, {path: '/'});
+      }
+    }
+
+    if (value) {
+      var dict = JSON.parse(value);
       for (var i in dict) {
         frequentObjectAdd(dict[i].id, dict[i].text, $(this));
       }
@@ -77,8 +94,8 @@ $(function() {
   }
 
   // div: a .frequentObjects div
-  function saveToCookie(div) {
-    var cookieName = COOKIE_NAME + '-' + div.data('name');
+  function saveToStorage(div) {
+    var key = STORAGE_NAME + '-' + div.data('name');
 
     var dict = [];
     div.find('.frequentObject').each(function() {
@@ -88,7 +105,11 @@ $(function() {
       });
     });
 
-    $.cookie(cookieName, JSON.stringify(dict), { expires: 365, path: '/' });
+    if (dict.length) {
+      localStorage.setItem(key, JSON.stringify(dict));
+    } else {
+      localStorage.removeItem(key);
+    }
   }
 
   function frequentObjectClick() {
@@ -130,7 +151,7 @@ $(function() {
       var exists = trigger.find('button[data-id="' + id + '"]').length;
       if (!exists) {
         frequentObjectAdd(id, text, trigger);
-        saveToCookie(trigger);
+        saveToStorage(trigger);
       }
     }
   }
@@ -150,7 +171,7 @@ $(function() {
     var target = ui.draggable.closest('.frequentObjects');
     ui.draggable.fadeOut(function(){
       $(this).remove();
-      saveToCookie(target);
+      saveToStorage(target);
     });
   }
 

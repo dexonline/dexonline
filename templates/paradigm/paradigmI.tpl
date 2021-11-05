@@ -7,7 +7,7 @@
       {include "bits/lexeme.tpl" lexeme=$lexeme}
     </td>
     <td class="form">
-      {include "bits/ifArray.tpl" ifArray=$ifMap[1]|default:null}
+      {include "bits/ifArray.tpl" ifArray=$ifMap[1]|default:[]}
     </td>
   </tr>
 </table>

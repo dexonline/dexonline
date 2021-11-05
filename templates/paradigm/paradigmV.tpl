@@ -13,11 +13,11 @@
   </tr>
   <tr>
     <td rowspan="2" class="form">
-      {if count($ifMap[1]|default:null) > 0}(a){/if}
-      {include "bits/ifArray.tpl" ifArray=$ifMap[1]|default:null}
+      {if count($ifMap[1]|default:[]) > 0}(a){/if}
+      {include "bits/ifArray.tpl" ifArray=$ifMap[1]|default:[]}
     </td>
     <td rowspan="2" class="form">
-      {include "bits/ifArray.tpl" ifArray=$ifMap[2]|default:null}
+      {include "bits/ifArray.tpl" ifArray=$ifMap[2]|default:[]}
     </td>
     <td rowspan="2" class="form">
       {$short=$ifMap[5]|default:[]}
@@ -36,10 +36,10 @@
   </tr>
   <tr>
     <td class="form">
-      {include "bits/ifArray.tpl" ifArray=$ifMap[3]|default:null}
+      {include "bits/ifArray.tpl" ifArray=$ifMap[3]|default:[]}
     </td>
     <td class="form">
-      {include "bits/ifArray.tpl" ifArray=$ifMap[4]|default:null}
+      {include "bits/ifArray.tpl" ifArray=$ifMap[4]|default:[]}
     </td>
   </tr>
 
@@ -60,116 +60,116 @@
     <td rowspan="3" class="inflection">{t}singular{/t}</td>
     <td class="inflection person">{t}1st (eu){/t}</td>
     <td class="form">
-      {include "bits/ifArray.tpl" ifArray=$ifMap[9]|default:null}
+      {include "bits/ifArray.tpl" ifArray=$ifMap[9]|default:[]}
     </td>
     <td class="form">
       {if count($ifMap[15]|default:[]) > 0}(să){/if}
-      {include "bits/ifArray.tpl" ifArray=$ifMap[15]|default:null}
+      {include "bits/ifArray.tpl" ifArray=$ifMap[15]|default:[]}
     </td>
     <td class="form">
-      {include "bits/ifArray.tpl" ifArray=$ifMap[21]|default:null}
+      {include "bits/ifArray.tpl" ifArray=$ifMap[21]|default:[]}
     </td>
     <td class="form">
-      {include "bits/ifArray.tpl" ifArray=$ifMap[27]|default:null}
+      {include "bits/ifArray.tpl" ifArray=$ifMap[27]|default:[]}
     </td>
     <td colspan="2" class="form">
-      {include "bits/ifArray.tpl" ifArray=$ifMap[33]|default:null}
+      {include "bits/ifArray.tpl" ifArray=$ifMap[33]|default:[]}
     </td>
   </tr>
   <tr>
     <td class="inflection person">{t}2nd (tu){/t}</td>
     <td class="form">
-      {include "bits/ifArray.tpl" ifArray=$ifMap[10]|default:null}
+      {include "bits/ifArray.tpl" ifArray=$ifMap[10]|default:[]}
     </td>
     <td class="form">
       {if count($ifMap[16]|default:[]) > 0}(să){/if}
-      {include "bits/ifArray.tpl" ifArray=$ifMap[16]|default:null}
+      {include "bits/ifArray.tpl" ifArray=$ifMap[16]|default:[]}
     </td>
     <td class="form">
-      {include "bits/ifArray.tpl" ifArray=$ifMap[22]|default:null}
+      {include "bits/ifArray.tpl" ifArray=$ifMap[22]|default:[]}
     </td>
     <td class="form">
-      {include "bits/ifArray.tpl" ifArray=$ifMap[28]|default:null}
+      {include "bits/ifArray.tpl" ifArray=$ifMap[28]|default:[]}
     </td>
     <td colspan="2" class="form">
-      {include "bits/ifArray.tpl" ifArray=$ifMap[34]|default:null}
+      {include "bits/ifArray.tpl" ifArray=$ifMap[34]|default:[]}
     </td>
   </tr>
   <tr>
     <td class="inflection person">{t}3rd (el, ea){/t}</td>
     <td class="form">
-      {include "bits/ifArray.tpl" ifArray=$ifMap[11]|default:null}
+      {include "bits/ifArray.tpl" ifArray=$ifMap[11]|default:[]}
     </td>
     <td class="form">
       {if count($ifMap[17]|default:[]) > 0}(să){/if}
-      {include "bits/ifArray.tpl" ifArray=$ifMap[17]|default:null}
+      {include "bits/ifArray.tpl" ifArray=$ifMap[17]|default:[]}
     </td>
     <td class="form">
-      {include "bits/ifArray.tpl" ifArray=$ifMap[23]|default:null}
+      {include "bits/ifArray.tpl" ifArray=$ifMap[23]|default:[]}
     </td>
     <td class="form">
-      {include "bits/ifArray.tpl" ifArray=$ifMap[29]|default:null}
+      {include "bits/ifArray.tpl" ifArray=$ifMap[29]|default:[]}
     </td>
     <td colspan="2" class="form">
-      {include "bits/ifArray.tpl" ifArray=$ifMap[35]|default:null}
+      {include "bits/ifArray.tpl" ifArray=$ifMap[35]|default:[]}
     </td>
   </tr>
   <tr>
     <td rowspan="3" class="inflection">{t}plural{/t}</td>
     <td class="inflection person">{t}1st (noi){/t}</td>
     <td class="form">
-      {include "bits/ifArray.tpl" ifArray=$ifMap[12]|default:null}
+      {include "bits/ifArray.tpl" ifArray=$ifMap[12]|default:[]}
     </td>
     <td class="form">
       {if count($ifMap[18]|default:[]) > 0}(să){/if}
-      {include "bits/ifArray.tpl" ifArray=$ifMap[18]|default:null}
+      {include "bits/ifArray.tpl" ifArray=$ifMap[18]|default:[]}
     </td>
     <td class="form">
-      {include "bits/ifArray.tpl" ifArray=$ifMap[24]|default:null}
+      {include "bits/ifArray.tpl" ifArray=$ifMap[24]|default:[]}
     </td>
     <td class="form">
-      {include "bits/ifArray.tpl" ifArray=$ifMap[30]|default:null}
+      {include "bits/ifArray.tpl" ifArray=$ifMap[30]|default:[]}
     </td>
     <td colspan="2" class="form">
-      {include "bits/ifArray.tpl" ifArray=$ifMap[36]|default:null}
+      {include "bits/ifArray.tpl" ifArray=$ifMap[36]|default:[]}
     </td>
   </tr>
   <tr>
     <td class="inflection person">{t}2nd (voi){/t}</td>
     <td class="form">
-      {include "bits/ifArray.tpl" ifArray=$ifMap[13]|default:null}
+      {include "bits/ifArray.tpl" ifArray=$ifMap[13]|default:[]}
     </td>
     <td class="form">
       {if count($ifMap[19]|default:[]) > 0}(să){/if}
-      {include "bits/ifArray.tpl" ifArray=$ifMap[19]|default:null}
+      {include "bits/ifArray.tpl" ifArray=$ifMap[19]|default:[]}
     </td>
     <td class="form">
-      {include "bits/ifArray.tpl" ifArray=$ifMap[25]|default:null}
+      {include "bits/ifArray.tpl" ifArray=$ifMap[25]|default:[]}
     </td>
     <td class="form">
-      {include "bits/ifArray.tpl" ifArray=$ifMap[31]|default:null}
+      {include "bits/ifArray.tpl" ifArray=$ifMap[31]|default:[]}
     </td>
     <td colspan="2" class="form">
-      {include "bits/ifArray.tpl" ifArray=$ifMap[37]|default:null}
+      {include "bits/ifArray.tpl" ifArray=$ifMap[37]|default:[]}
     </td>
   </tr>
   <tr>
     <td class="inflection person">{t}3rd (ei, ele){/t}</td>
     <td class="form">
-      {include "bits/ifArray.tpl" ifArray=$ifMap[14]|default:null}
+      {include "bits/ifArray.tpl" ifArray=$ifMap[14]|default:[]}
     </td>
     <td class="form">
       {if count($ifMap[20]|default:[]) > 0}(să){/if}
-      {include "bits/ifArray.tpl" ifArray=$ifMap[20]|default:null}
+      {include "bits/ifArray.tpl" ifArray=$ifMap[20]|default:[]}
     </td>
     <td class="form">
-      {include "bits/ifArray.tpl" ifArray=$ifMap[26]|default:null}
+      {include "bits/ifArray.tpl" ifArray=$ifMap[26]|default:[]}
     </td>
     <td class="form">
-      {include "bits/ifArray.tpl" ifArray=$ifMap[32]|default:null}
+      {include "bits/ifArray.tpl" ifArray=$ifMap[32]|default:[]}
     </td>
     <td colspan="2" class="form">
-      {include "bits/ifArray.tpl" ifArray=$ifMap[38]|default:null}
+      {include "bits/ifArray.tpl" ifArray=$ifMap[38]|default:[]}
     </td>
   </tr>
 </table>

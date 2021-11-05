@@ -1,11 +1,25 @@
 $(function() {
-  var TINYMCE_COOKIE = 'tinymce';
+  // When present and set to 'on', activate TinyMCE. When absent or set to any
+  // other value, do nothing.
+  var STORAGE_KEY = 'tinymce';
 
   function init() {
     $('#tinymceToggleButton').click(tinymceToggle);
 
-    var c = $.cookie(TINYMCE_COOKIE);
-    if (c == 'on') {
+    var value = localStorage.getItem(STORAGE_KEY);
+
+    if (!value) {
+      // fallback to cookie; if found, migrate it to local storage
+      var value = $.cookie(STORAGE_KEY);
+      if (value) {
+        if (value == 'on') {
+          localStorage.setItem(STORAGE_KEY, 'on');
+        }
+        $.removeCookie(STORAGE_KEY, {path: '/'});
+      }
+    }
+
+    if (value == 'on') {
       $('#tinymceToggleButton').click();
     }
   }
@@ -27,13 +41,13 @@ $(function() {
         toolbar: 'undo redo | bold italic spaced superscript subscript abbrev',
         width: '100%',
       });
-      $.cookie(TINYMCE_COOKIE, 'on', { expires: 3650, path: '/' });
+      localStorage.setItem(STORAGE_KEY, 'on');
     } else {
       for (id in tinymce.editors) {
         tinymce.EditorManager.execCommand(
           'mceRemoveEditor',true, id);
       }
-      $.cookie(TINYMCE_COOKIE, 'off', { expires: 3650, path: '/' });
+      localStorage.removeItem(STORAGE_KEY);
     }
     return false;
   }

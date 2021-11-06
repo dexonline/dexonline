@@ -118,7 +118,7 @@
   </form>
 
   {notice type="info"}
-    <ul class="mb-0 list-unstyled">
+    <ul class="mb-0 ps-3">
       <li>
         Legăturile de pe coloana „scurtături” sunt echivalente cu selectarea
         modelului respectiv. Sunt doar scurtături mai comode.

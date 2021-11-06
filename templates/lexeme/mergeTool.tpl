@@ -5,16 +5,13 @@
 {block "content"}
   <h3>Unificare lexeme - {$lexemes|@count} rezultate</h3>
 
-  <div class="alert alert-info alert-dismissible" role="alert">
-    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-
+  {notice type=info}
     Pentru fiecare lexem la plural sunt indicate lexemele la singular
-    corespunzătoare. Bifați unul sau mai multe, după caz. Puteți salva
-    pagina în orice moment; lexemele rămase vor fi afișate din nou la
-    reîncărcarea paginii. Pentru moment, nu există o modalitate de a
-    „ignora” un lexem. Lexemele pe care nu le unificați vor apărea mereu
-    în listă.
-  </div>
+    corespunzătoare. Bifați unul sau mai multe, după caz. Puteți salva pagina
+    în orice moment; lexemele rămase vor fi afișate din nou la reîncărcarea
+    paginii. Pentru moment, nu există o modalitate de a „ignora” un
+    lexem. Lexemele pe care nu le unificați vor apărea mereu în listă.
+  {/notice}
 
   <form class="d-flex">
     <label class="col-form-label">tipul lexemului</label>

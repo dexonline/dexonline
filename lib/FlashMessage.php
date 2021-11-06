@@ -29,7 +29,7 @@ class FlashMessage {
     // instantiate a separate Smarty.
     if (Request::isWeb()) {
       Smart::assign($args);
-      $message = Smart::fetch("alerts/{$template}");
+      $message = Smart::fetch("notices/{$template}");
       self::add($message, $type);
     }
   }

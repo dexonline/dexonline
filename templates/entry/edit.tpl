@@ -304,7 +304,7 @@
 
           <div class="modal-body">
             {if !User::can(User::PRIV_STRUCT)}
-              {notice icon="info"}
+              {notice type="info"}
                 Puteți selecta doar intrări care nu au fost deja structurate.
               {/notice}
             {/if}

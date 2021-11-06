@@ -10,14 +10,14 @@
   </h3>
 
   {if $finished}
-    {notice icon="warning"}
+    {notice type="warning"}
       Accesarea <b>directă</b>, exceptând modalitățile de deschidere în altă
       filă/fereastră, a altor legături decât cele ale <b>intrărilor</b> (care
       deschid <b>o nouă filă</b> pentru editare) duce la imposibilitatea
       revenirii la această pagină.
     {/notice}
   {else}
-    {notice icon="info"}
+    {notice type="info"}
       Lista finală va fi disponibilă la terminarea înlocuirii în masă. Puteți
       închide oricând această filă.
     {/notice}

@@ -6,7 +6,7 @@
 
   <h3>Surse</h3>
 
-  {notice icon="info"}
+  {notice type="info"}
     <div>Duceți cursorul deasupra unui nume de dicționar pentru a vedea mai multe detalii.</div>
     {if $editable}
       <div>

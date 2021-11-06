@@ -36,7 +36,7 @@
         </div>
         {* empty div for editAbbreviation.php messages *}
         <div id="message">
-          {notice icon="error"}{/notice}
+          {notice type="error"}{/notice}
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-link" data-bs-dismiss="modal">

@@ -101,7 +101,7 @@
   </div>
 
   <div id="tableLicense" class="collapse">
-    {notice icon=info}
+    {notice type=info}
       <strong>{cap}{t}license{/t}{/cap}:</strong>
 
       {t 1="http://creativecommons.org/licenses/by-sa/3.0/"}

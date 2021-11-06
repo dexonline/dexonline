@@ -438,7 +438,7 @@
           maximum 1.000 de rezultate. Veți putea vedea lista de modificări
           propuse și să o acceptați.
         </p>
-        {notice icon="warning"}
+        {notice type="warning"}
           Evitați pe cât posibil definițiile cu note de subsol și pe cele
           structurate, debifându-le.
         {/notice}

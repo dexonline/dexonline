@@ -23,7 +23,7 @@
           {t}You can also use the keys 1, 2, 3, 4.{/t}
         </p>
 
-        {notice icon="info"}
+        {notice type="info"}
           {t}We are currently recalibrating the difficulty levels. Please
           excuse any words that are too easy or too hard for the level you
           selected.{/t}
@@ -65,7 +65,7 @@
       </div>
 
       <div id="resultsPage">
-        {notice icon="done"}
+        {notice type="success"}
           {t}Congratulations! You answered <b id="answeredCorrect">0</b> of 10
           questions correctly.{/t}
         {/notice}

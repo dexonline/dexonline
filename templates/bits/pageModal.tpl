@@ -20,7 +20,7 @@
               <span class="visually-hidden">încarc pagina cerută...</span>
             </div>
             <img id="pageImage">
-            {notice icon="error"}{/notice}
+            {notice type="error"}{/notice}
           </div>
         </div>
 

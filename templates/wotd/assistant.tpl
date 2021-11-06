@@ -55,25 +55,25 @@
 
       <div id="collapseDay{$day}" class="card-body collapse {if !$rec.allOk}show{/if}">
         {if empty($rec.thisYear)}
-          {notice icon="error"}
+          {notice type="danger"}
             Nu ai ales încă un cuvânt.
           {/notice}
         {else if count($rec.thisYear) > 1}
-          {notice icon="warning"}
+          {notice type="warning"}
             Există {$rec.thisYear|count} cuvinte.
           {/notice}
         {else if !$rec.thisYear[0]->defHtml}
-          {notice icon="warning"}
+          {notice type="warning"}
             Există un motiv, dar nu și o definiție.
           {/notice}
         {else if !$rec.thisYear[0]->description}
-          {notice icon="warning"}
+          {notice type="warning"}
             Există o definiție, dar nu și un motiv.
           {/notice}
         {/if}
 
         {foreach $rec.duplicates as $dup}
-          {notice icon="{if $dup.exact}error{else}warning{/if}"}
+          {notice type="{if $dup.exact}danger{else}warning{/if}"}
             {if $dup.exact}
               Un cuvânt identic,
             {else}

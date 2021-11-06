@@ -118,7 +118,7 @@
       </table>
     </div>
 
-    {notice icon="info"}
+    {notice type="info"}
       Paradigmele nu mai sunt regenerate imediat, ci vor apărea în
       <a href="{Router::link('report/staleParadigms')}"> raportul de paradigme
       învechite</a>. Dacă în model există erori care fac imposibilă

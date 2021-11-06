@@ -117,8 +117,8 @@
     </div>
   </form>
 
-  {notice icon="info"}
-    <ul class="mb-0">
+  {notice type="info"}
+    <ul class="mb-0 list-unstyled">
       <li>
         Legăturile de pe coloana „scurtături” sunt echivalente cu selectarea
         modelului respectiv. Sunt doar scurtături mai comode.

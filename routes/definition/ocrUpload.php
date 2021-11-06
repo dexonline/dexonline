@@ -4,12 +4,12 @@ User::mustHave(User::PRIV_ADMIN);
 $sourceId = Request::get('source');
 $editorId = Request::get('editor');
 $terminator = PHP_EOL . (Request::get('term') == 1 ? PHP_EOL : "");
-$icon = "done";
-$message = "";
+$msgType = 'success';
+$message = '';
 
 if ($_FILES && $_FILES["file"]) {
   if ($_FILES["file"]["error"] > 0) {
-    $icon = "error";
+    $msgType = 'danger';
     $message =  "Eroare: " . $_FILES["file"]["error"];
   }
   else {
@@ -25,11 +25,11 @@ if ($_FILES && $_FILES["file"]) {
       $ocrLot->save();
     }
     catch (Exception $e) {
-      $icon = "error";
+      $msgType = 'danger';
       $message = "<div> Eroare: " . $e->getMessage() . "</div>";
     }
 
-    if ($icon != "error") {
+    if ($msgType != 'danger') {
       $lotId = $ocrLot->id();
       $errCount = 0;
       $lineCount = 0;
@@ -55,7 +55,7 @@ if ($_FILES && $_FILES["file"]) {
           }
           catch (Exception $e) {
             $errCount++;
-            $icon = "error";
+            $msgType = 'danger';
             $message .= "<div> Eroare: " . $e->getMessage() . "</div>";
           }
         }
@@ -65,7 +65,7 @@ if ($_FILES && $_FILES["file"]) {
       $ocrLot->save();
       $message .= "Fișierul " . $_FILES["file"]["name"] .
         " ({$lineCount} linii) a fost salvat" .
-        ($icon == "error" ? " cu {$errCount} erori." : "!");
+        ($msgType == 'danger' ? " cu {$errCount} erori." : "!");
     }
 
   }
@@ -112,7 +112,7 @@ $allOcrModerators = Model::factory('User')
   ->find_many();
 
 Smart::assign([
-  'msgIcon' => $icon,
+  'msgType' => $msgType,
   'message' => $message,
   'allModeratorSources' => $allModeratorSources,
   'allOCRModerators' => $allOcrModerators,

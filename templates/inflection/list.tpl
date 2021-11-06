@@ -5,7 +5,7 @@
 {block "content"}
   <h3>Editare flexiuni</h3>
 
-  {notice icon="info"}
+  {notice type="info"}
     Trageți de icoana {include "bits/icon.tpl" i=drag_indicator} pentru a le
     reordona rîndurile, apoi apăsați <em>salvează</em>. Puteți șterge doar
     flexiunile nefolosite (de obicei, cele nou create).

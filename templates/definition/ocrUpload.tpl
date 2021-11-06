@@ -7,7 +7,7 @@
   <h3>Adaugă definiții OCR din dicționar</h3>
 
   {if $message}
-    {notice icon=$msgIcon}
+    {notice type=$msgType}
       {$message}
     {/notice}
   {/if}

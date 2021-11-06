@@ -10,7 +10,7 @@
     <input type="hidden" name="modelNumber" value="{$modelNumber}">
 
     {if count($lexemes)}
-      {notice icon="warning"}
+      {notice type="warning"}
         Există {$lexemes|@count} lexem(e) etichetate cu acest model. Dacă
         apăsați butonul „șterge”, ele vor fi reetichetate cu modelul T1.
       {/notice}

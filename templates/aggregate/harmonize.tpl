@@ -61,7 +61,7 @@
 
   <h4>Schimbarea tipului de model</h4>
 
-  {notice icon="warning"}
+  {notice type="warning"}
     Folosiți cu prudență aceste reguli. Aplicarea lor nu regenerează
     paradigmele lexemelor afectate. Evitați schimbările care ar necesita
     schimbarea paradigmei (cum ar fi A1 → A2).

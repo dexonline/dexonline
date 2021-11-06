@@ -6,7 +6,7 @@
 
   <h3>{$count} lexeme cu paradigme învechite</h3>
 
-  {notice icon="info"}
+  {notice type="info"}
     Acestea sunt lexeme ale căror modele au fost editate, dar ale căror
     paradigme nu au fost regenerate. Pe vremuri, la editarea modelului, puteam
     regenera doar formele afectate. De cînd cu elidările, această abordare a

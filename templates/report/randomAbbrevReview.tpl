@@ -49,7 +49,7 @@
       </div>
     </form>
   {else}
-    {notice icon="done"}
+    {notice type="success"}
       {if $sourceId}
         Nu există definiții de revizuit din această sursă. Puteți alege altă sursă.
       {else}
@@ -58,7 +58,7 @@
     {/notice}
   {/if}
 
-  {notice icon="info" class="mt-3"}
+  {notice type="info" class="mt-3"}
     <p>
       <strong>Precizări:</strong>
       <i>dexonline</i> detectează automat majoritatea abrevierilor. Totuși,

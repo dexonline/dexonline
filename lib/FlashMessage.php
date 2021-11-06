@@ -41,9 +41,9 @@ class FlashMessage {
   static function bulkAdd($messages, $type = 'danger') {
     foreach ($messages as $m) {
       if (is_string($m)) {
-        FlashMessage::add($m, $type);
+        self::add($m, $type);
       } else {
-        FlashMessage::addTemplate($m[0], $m[1], $type);
+        self::addTemplate($m[0], $m[1], $type);
       }
     }
   }

@@ -1,25 +1,28 @@
 .sourceComplete0 {
-  color: var(--bs-gray-600);
+  background-color: var(--bs-gray-600);
 }
 
 .sourceComplete1 {
-  color: #cc0000;
+  background-color: var(--bs-red);
 }
 
 .sourceComplete2 {
-  color: orange;
+  background-color: var(--bs-orange);
+  color: #212529;
 }
 
 .sourceComplete3 {
-  color: #dac003;
+  background-color: var(--bs-yellow);
+  color: #212529;
 }
 
 .sourceComplete4 {
-  color: blue;
+  background-color: var(--bs-blue);
+  color: #212529;
 }
 
 .sourceComplete5 {
-  color: green;
+  background-color: var(--bs-green);
 }
 
 .sourceName {

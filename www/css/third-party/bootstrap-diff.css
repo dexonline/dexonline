@@ -8,6 +8,11 @@ html.dark {
 }
 
 html.dark {
+  --bs-blue: #0d6efd;
+  --bs-pink: #d63384;
+  --bs-red: #dc3545;
+  --bs-orange: #fd7e14;
+  --bs-green: #198754;
   --bs-white: #121212;
   --bs-gray: #919191;
   --bs-gray-dark: #c9c9c9;
@@ -22,11 +27,13 @@ html.dark {
   --bs-gray-900: #dbdbdb;
   --bs-primary: #2ccece;
   --bs-secondary: #b5b5b5;
+  --bs-success: #198754;
   --bs-info: #0080ff;
   --bs-warning: #f39c12;
   --bs-danger: #e74c3c;
   --bs-primary-rgb: 44, 206, 206;
   --bs-secondary-rgb: 181, 181, 181;
+  --bs-success-rgb: 25, 135, 84;
   --bs-info-rgb: 0, 128, 255;
   --bs-warning-rgb: 243, 156, 18;
   --bs-danger-rgb: 231, 76, 60;
@@ -48,6 +55,10 @@ html.dark a {
 
 html.dark a:hover {
   color: #23a5a5;
+}
+
+html.dark code {
+  color: #d63384;
 }
 
 html.dark kbd {
@@ -237,12 +248,52 @@ html.dark .input-group-text {
   border: 1px solid #3b3b3b;
 }
 
+html.dark .valid-feedback {
+  color: #198754;
+}
+
 html.dark .valid-tooltip {
   color: white;
+  background-color: rgba(25, 135, 84, 0.9);
+}
+
+html.dark .was-validated .form-control:valid, html.dark .form-control.is-valid {
+  border-color: #198754;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23198754' d='M2.3 6.73L.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e");
+}
+
+html.dark .was-validated .form-control:valid:focus, html.dark .form-control.is-valid:focus {
+  border-color: #198754;
+  box-shadow: 0 0 8px 0.25rem rgba(25, 135, 84, 0.25);
+}
+
+html.dark .was-validated .form-select:valid, html.dark .form-select.is-valid {
+  border-color: #198754;
 }
 
 html.dark .was-validated .form-select:valid:not([multiple]):not([size]), html.dark .was-validated .form-select:valid:not([multiple])[size="1"], html.dark .form-select.is-valid:not([multiple]):not([size]), html.dark .form-select.is-valid:not([multiple])[size="1"] {
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23c9c9c9' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e"), url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23198754' d='M2.3 6.73L.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e");
+}
+
+html.dark .was-validated .form-select:valid:focus, html.dark .form-select.is-valid:focus {
+  border-color: #198754;
+  box-shadow: 0 0 8px 0.25rem rgba(25, 135, 84, 0.25);
+}
+
+html.dark .was-validated .form-check-input:valid, html.dark .form-check-input.is-valid {
+  border-color: #198754;
+}
+
+html.dark .was-validated .form-check-input:valid:checked, html.dark .form-check-input.is-valid:checked {
+  background-color: #198754;
+}
+
+html.dark .was-validated .form-check-input:valid:focus, html.dark .form-check-input.is-valid:focus {
+  box-shadow: 0 0 8px 0.25rem rgba(25, 135, 84, 0.25);
+}
+
+html.dark .was-validated .form-check-input:valid ~ .form-check-label, html.dark .form-check-input.is-valid ~ .form-check-label {
+  color: #198754;
 }
 
 html.dark .invalid-feedback {
@@ -377,6 +428,8 @@ html.dark .btn-secondary:disabled, html.dark .btn-secondary.disabled {
 
 html.dark .btn-success {
   color: white;
+  background-color: #198754;
+  border-color: #198754;
 }
 
 html.dark .btn-success:hover {
@@ -389,6 +442,7 @@ html.dark .btn-check:focus + .btn-success, html.dark .btn-success:focus {
   color: #121212;
   background-color: #3c996e;
   border-color: #309365;
+  box-shadow: 0 0 0 0.25rem rgba(60, 153, 110, 0.5);
 }
 
 html.dark .btn-check:checked + .btn-success, html.dark .btn-check:active + .btn-success, html.dark .btn-success:active, html.dark .btn-success.active, html.dark .show > .btn-success.dropdown-toggle {
@@ -397,8 +451,14 @@ html.dark .btn-check:checked + .btn-success, html.dark .btn-check:active + .btn-
   border-color: #309365;
 }
 
+html.dark .btn-check:checked + .btn-success:focus, html.dark .btn-check:active + .btn-success:focus, html.dark .btn-success:active:focus, html.dark .btn-success.active:focus, html.dark .show > .btn-success.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.25rem rgba(60, 153, 110, 0.5);
+}
+
 html.dark .btn-success:disabled, html.dark .btn-success.disabled {
   color: white;
+  background-color: #198754;
+  border-color: #198754;
 }
 
 html.dark .btn-info {
@@ -564,12 +624,33 @@ html.dark .btn-outline-secondary:disabled, html.dark .btn-outline-secondary.disa
   color: #b5b5b5;
 }
 
+html.dark .btn-outline-success {
+  color: #198754;
+  border-color: #198754;
+}
+
 html.dark .btn-outline-success:hover {
   color: white;
+  background-color: #198754;
+  border-color: #198754;
+}
+
+html.dark .btn-check:focus + .btn-outline-success, html.dark .btn-outline-success:focus {
+  box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.5);
 }
 
 html.dark .btn-check:checked + .btn-outline-success, html.dark .btn-check:active + .btn-outline-success, html.dark .btn-outline-success:active, html.dark .btn-outline-success.active, html.dark .btn-outline-success.dropdown-toggle.show {
   color: white;
+  background-color: #198754;
+  border-color: #198754;
+}
+
+html.dark .btn-check:checked + .btn-outline-success:focus, html.dark .btn-check:active + .btn-outline-success:focus, html.dark .btn-outline-success:active:focus, html.dark .btn-outline-success.active:focus, html.dark .btn-outline-success.dropdown-toggle.show:focus {
+  box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.5);
+}
+
+html.dark .btn-outline-success:disabled, html.dark .btn-outline-success.disabled {
+  color: #198754;
 }
 
 html.dark .btn-outline-info {
@@ -1048,6 +1129,10 @@ html.dark .link-secondary:hover, html.dark .link-secondary:focus {
   color: #919191;
 }
 
+html.dark .link-success {
+  color: #198754;
+}
+
 html.dark .link-success:hover, html.dark .link-success:focus {
   color: #479f76;
 }
@@ -1114,6 +1199,10 @@ html.dark .border-primary {
 
 html.dark .border-secondary {
   border-color: #b5b5b5 !important;
+}
+
+html.dark .border-success {
+  border-color: #198754 !important;
 }
 
 html.dark .border-info {

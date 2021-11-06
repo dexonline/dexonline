@@ -340,9 +340,11 @@ $(function() {
   }
 
   function init() {
+    var darkMode = getColorScheme() == 'dark';
+
     // initialize Pixi
     renderer = PIXI.autoDetectRenderer({
-      backgroundColor: DARK_MODE ? 0x121212 : 0xffffff,
+      backgroundColor: darkMode ? 0x121212 : 0xffffff,
       width: CANVAS_WIDTH,
       height: CANVAS_HEIGHT,
     });
@@ -707,7 +709,7 @@ $(function() {
 
     var gameOverText = (state == ST_WON)
         ? new GameOverText('Felicitări!', '#4cae4c')
-        : new GameOverText('STIRFÂȘ :-)', '#761818')
+        : new GameOverText('STIRFÂȘ :-)', '#00852a')
     gameOverScene.addChild(gameOverText);
 
     // switch scenes

@@ -1,5 +1,3 @@
-const DARK_MODE = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
 var Alphabet = 'a-záàäåăâçèéëìíïĭîòóöșțşţùúüŭ';
 var letter = '[' + Alphabet + ']';
 var nonLetter = '[^' + Alphabet + ']';

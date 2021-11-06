@@ -18,7 +18,8 @@
   function applyColorScheme() {
     {* set class on HTML element *}
     document.documentElement.className = getColorScheme();
-  };
+  }
+
   function getColorScheme() {
     var ls = localStorage.getItem('colorScheme');
     if (ls) {
@@ -29,11 +30,14 @@
     }
     return '{$colorSchemes[0]}';
   }
+
   function setColorScheme(scheme) {
     localStorage.setItem('colorScheme', scheme);
     applyColorScheme();
   }
+
   applyColorScheme();
+
   {* Now that we no longer simply obey prefers-color-scheme, we need to listen *}
   {* to changes and apply them to the current page. *}
   window.matchMedia("(prefers-color-scheme: dark)").addEventListener(

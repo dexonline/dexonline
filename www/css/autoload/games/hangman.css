@@ -38,11 +38,7 @@
 }
 
 #hangman #hintButton {
-	background-color: #faa732;
-	background-image: -moz-linear-gradient(top, #fbb450, #f89406);
-	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#fbb450), to(#f89406));
-	background-image: -webkit-linear-gradient(top, #fbb450, #f89406);
-	background-image: -o-linear-gradient(top, #fbb450, #f89406);
+	background-color: var(--bs-yellow);
 	background-image: linear-gradient(to bottom, #fbb450, #f89406);
   color: #444;
 	text-shadow: none;
@@ -112,15 +108,15 @@
 #hangman .buttonGuessed,
 #hangman .buttonGuessed:hover {
   font-weight: bold;
-  background: #109e1b;
+  background: var(--bs-primary);
   color: #fff;
 }
 
 #hangman .buttonHinted,
 #hangman .buttonHinted:hover {
   background: #b2d9b2;
-  border: 1px solid #008000;
-  color: green;
+  border: 1px solid var(--bs-green);
+  color: var(--bs-green);
   font-weight: bold;
 }
 

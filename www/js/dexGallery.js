@@ -55,7 +55,7 @@ function drawOnCanvas(visualId) {
       data.tags[i].textYCoord *= heightScale;
       data.tags[i].imgYCoord *= heightScale;
 
-      colorText = (data.tags[i].label == decodeURI(word) ) ? '#F00' : '#000';
+      colorText = (data.tags[i].label == decodeURI(word) ) ? '#F00' : '#212529';
 
       drawTag(canvas, i, data.tags[i], colorText);
     }

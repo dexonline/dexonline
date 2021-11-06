@@ -33,7 +33,7 @@
 }
 
 .widget.aotm:hover {
-  border-color: #1de3ce;
+  border-color: var(--bs-blue);
 }
 
 .widget.games:hover {
@@ -41,19 +41,19 @@
 }
 
 .widget.random-word:hover {
-  border-color: #ffc03f;
+  border-color: var(--bs-yellow);
 }
 
 .widget.social:hover {
-  border-color: #3b5998;
+  border-color: #303030;
 }
 
 .widget.wotd:hover {
-  border-color: #e31db2;
+  border-color: var(--bs-pink);
 }
 
 .widget.wotm:hover {
-  border-color: #25d228;
+  border-color: var(--bs-teal);
 }
 
 .widget h4,

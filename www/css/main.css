@@ -241,7 +241,7 @@ abbr[title] {
 }
 
 .rareGlyph {
-  background: red;
+  background: var(--bs-red);
   color: white;
 }
 

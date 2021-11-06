@@ -25,6 +25,8 @@ $(function() {
   }
 
   function tinymceToggle() {
+    var darkMode = getColorScheme() == 'dark';
+
     if (!tinymce.activeEditor) {
       // necessary since CSS and JS files are merged in a different directory
       tinymce.baseURL = wwwRoot + 'js/third-party/tinymce-5.9.2';
@@ -33,7 +35,7 @@ $(function() {
       tinymce.init({
         /* keep the statusbar so that the resize icon is visible */
         branding: false,
-        content_css: [ DARK_MODE ? 'dark' : '', '../css/tinymce.css' ],
+        content_css: [ darkMode ? 'dark' : '', '../css/tinymce.css' ],
         elementpath: false,
         entity_encoding: 'raw',
         height: 350,
@@ -41,7 +43,7 @@ $(function() {
         resize: 'both',
         selector: '.tinymceTextarea',
         setup: tinymceSetup,
-        skin: DARK_MODE ? 'oxide-dark' : 'oxide',
+        skin: darkMode ? 'oxide-dark' : 'oxide',
         toolbar: 'undo redo | bold italic spaced superscript subscript abbrev',
         width: '100%',
       });

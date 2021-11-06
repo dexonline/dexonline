@@ -6,12 +6,16 @@
  **/
 
 /* color overrides */
-$info: #1e83c2;
-$primary: #761818;
-$warning: #be9105; /* slightly darker, so that text looks readable on a white background */
+$blue:    #15bed1;
+$green:   #006615;
+$info:    #1e83c2;
+$orange:  #ff9800;
+$pink:    #ab0065;
+$primary: #00852a;
+$red:     #ad1700;     /* also $danger */
 
 html.light {
-  --c-logo-home: #000;
+  --c-logo-home: #212529;
   --c-logo-nav: #3a3a3a;
   --c-navbar-bg: white;
   --c-navbar-border: #e8e8e8;

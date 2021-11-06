@@ -18,5 +18,5 @@
     {assign var="class" value="sourceComplete5"}
     {assign var="range" value="> 95%"}
   {/if}
-  <div class="sourceComplete {$class}">{$range}</div>
+  <span class="badge {$class}">{$range}</span>
 {/strip}

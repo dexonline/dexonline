@@ -10,11 +10,10 @@
     <input type="hidden" name="modelNumber" value="{$modelNumber}">
 
     {if count($lexemes)}
-      <div class="alert alert-warning alert-dismissible fade show" role="alert">
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+      {notice icon="warning"}
         Există {$lexemes|@count} lexem(e) etichetate cu acest model. Dacă
         apăsați butonul „șterge”, ele vor fi reetichetate cu modelul T1.
-      </div>
+      {/notice}
     {else}
       <p>
         Nu există lexeme etichetate cu acest model. Modelul poate fi șters

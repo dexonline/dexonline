@@ -61,6 +61,12 @@
 
   <h4>Schimbarea tipului de model</h4>
 
+  {notice icon="warning"}
+    Folosiți cu prudență aceste reguli. Aplicarea lor nu regenerează
+    paradigmele lexemelor afectate. Evitați schimbările care ar necesita
+    schimbarea paradigmei (cum ar fi A1 → A2).
+  {/notice}
+
   <form method="post">
     <table class="table table-hover">
       <tr>
@@ -120,11 +126,5 @@
 
     </table>
   </form>
-
-  <div class="alert alert-warning" role="alert">
-    Folosiți cu prudență aceste reguli. Aplicarea lor nu regenerează
-    paradigmele lexemelor afectate. Evitați schimbările care ar necesita
-    schimbarea paradigmei (cum ar fi A1 → A2).
-  </div>
 
 {/block}

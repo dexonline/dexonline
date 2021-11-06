@@ -23,11 +23,11 @@
           {t}You can also use the keys 1, 2, 3, 4.{/t}
         </p>
 
-        <div class="alert alert-info">
-          {t}We are currently recalibrating the difficulty levels.
-          Please excuse any words that are too easy or too hard for the level
-          you selected.{/t}
-        </div>
+        {notice icon="info"}
+          {t}We are currently recalibrating the difficulty levels. Please
+          excuse any words that are too easy or too hard for the level you
+          selected.{/t}
+        {/notice}
       </div>
 
       <div id="questionPage">
@@ -65,10 +65,10 @@
       </div>
 
       <div id="resultsPage">
-        <div class="alert alert-success">
+        {notice icon="done"}
           {t}Congratulations! You answered <b id="answeredCorrect">0</b> of 10
           questions correctly.{/t}
-        </div>
+        {/notice}
         <a href="{Router::link('games/mill')}" class="btn btn-info">{t}new game{/t}</a>
         <button id="definitionsButton" class="btn btn-info">{t}see all definitions{/t}</button>
       </div>

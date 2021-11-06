@@ -6,13 +6,13 @@
 
   <h3>{$count} lexeme cu paradigme învechite</h3>
 
-  <div class="alert alert-info">
+  {notice icon="info"}
     Acestea sunt lexeme ale căror modele au fost editate, dar ale căror
     paradigme nu au fost regenerate. Pe vremuri, la editarea modelului, puteam
     regenera doar formele afectate. De cînd cu elidările, această abordare a
     devenit prea complexă. De aceea vă prezentăm această pagină, de unde
     puteți regenera, în timp, paradigmele lexemelor.
-  </div>
+  {/notice}
 
   {if $count}
     <form class="row row-cols-sm-auto g-2 mb-3">

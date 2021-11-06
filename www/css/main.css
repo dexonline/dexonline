@@ -422,3 +422,26 @@ div.thumb {
 .card-collapse .card-header.collapsed .chevron {
   transform: rotate(180deg);
 }
+
+/******************** our clone of Bootstrap's alerts ********************/
+
+.notice {
+  background-color: var(--c-notice-bg);
+  border-radius: .25rem;
+  color: var(--c-notice);
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+}
+
+.notice .notice-icon {
+  font-size: 200%;
+}
+
+.notice a {
+  color: inherit !important;
+  font-weight: bold;
+}
+
+.notice a:hover {
+  opacity: 0.7;
+}

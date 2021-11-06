@@ -10,17 +10,17 @@
   </h3>
 
   {if $finished}
-    <div class="alert alert-danger">
+    {notice icon="warning"}
       Accesarea <b>directă</b>, exceptând modalitățile de deschidere în altă
       filă/fereastră, a altor legături decât cele ale <b>intrărilor</b> (care
       deschid <b>o nouă filă</b> pentru editare) duce la imposibilitatea
       revenirii la această pagină.
-    </div>
+    {/notice}
   {else}
-    <div class="alert alert-success">
-      Cea finală va fi disponibilă la terminarea înlocuirii în masă. Puteți
+    {notice icon="info"}
+      Lista finală va fi disponibilă la terminarea înlocuirii în masă. Puteți
       închide oricând această filă.
-    </div>
+    {/notice}
   {/if}
 
   <div class="card mb-3">
@@ -42,7 +42,8 @@
         {include "bits/definition.tpl" showStatus=1 showFlagTypo=1 showUser=0}
 
         <div class="entryWrapper">
-          {foreach $entryResults[$objId] as $entry}
+          {$entries=$entryResults[$objId]|default:[]}
+          {foreach $entries as $entry}
             {$btnClass = "{if $entry->structStatus==4}primary{else}warning{/if}"}
             {include "bits/entry.tpl"
               editLink=1

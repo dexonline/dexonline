@@ -66,7 +66,7 @@ $(function () {
 
     frm.find('#short').val(obj.short);
     frm.find('#internalRep').val(obj.internalRep);
-    frm.find('#message').hide().empty();
+    frm.find('#message').hide();
 
     tog = obj.action === 'delete';
 
@@ -98,11 +98,13 @@ $(function () {
         }
         else if (response.action === 'delete') {
           $('#'+response.id).remove();
-          $('#frm_edit #message').html(response.html).show();
+          $('#message .notice-body').html(response.html);
+          $('#message').show();
           updateCounter($('#abbrevCount'), -1);
         }
         else if (response.action === 'duplicate') {
-          $('#frm_edit #message').html(response.html).show();
+          $('#message .notice-body').html(response.html);
+          $('#message').show();
         }
 
         if (response.status === 'finished'){

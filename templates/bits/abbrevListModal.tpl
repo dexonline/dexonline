@@ -34,8 +34,10 @@
             <input type="text" class="form-control" id="internalRep" name="internalRep" value="">
           </div>
         </div>
-        {* empty div for editAbbreviations.php messages *}
-        <div class="alert alert-warning" id="message" style="display: none"></div>
+        {* empty div for editAbbreviation.php messages *}
+        <div id="message">
+          {notice icon="error"}{/notice}
+        </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-link" data-bs-dismiss="modal">
             renunță

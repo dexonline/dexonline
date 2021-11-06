@@ -438,10 +438,10 @@
           maximum 1.000 de rezultate. Veți putea vedea lista de modificări
           propuse și să o acceptați.
         </p>
-        <p class="text-danger">
+        {notice icon="warning"}
           Evitați pe cât posibil definițiile cu note de subsol și pe cele
           structurate, debifându-le.
-        </p>
+        {/notice}
       </div>
     </div>
   {/if}

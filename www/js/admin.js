@@ -83,7 +83,7 @@ $(function() {
       loadPage();
     })
     .fail(function(e) {
-      showAlert(e.responseText);
+      showNotice(e.responseText);
     });
   }
 
@@ -98,19 +98,20 @@ $(function() {
       $('#loading').hide();
       $('#pageImage').show();
     }).one('error', function() {
-      showAlert('Imaginea cerută nu există.');
+      showNotice('Imaginea cerută nu există.');
     }).attr('src', url);
   }
 
   function showLoading() {
-    $('#pageModal .alert').hide();
+    $('#pageModal .notice').hide();
     $('#loading').show();
   }
 
-  function showAlert(message) {
+  function showNotice(message) {
     $('#loading').hide();
     $('#pageImage').hide();
-    $('#pageModal .alert').text(message).show();
+    $('#pageModal .notice-body').text(message)
+    $('#pageModal .notice').show();
   }
 
   init();

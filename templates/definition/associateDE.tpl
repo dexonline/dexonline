@@ -117,11 +117,7 @@
     </div>
   </form>
 
-  <div class="alert alert-info alert-dismissible fade show">
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
-
-    <p><strong>Note:</strong></p>
-
+  {notice icon="info"}
     <ul class="mb-0">
       <li>
         Legăturile de pe coloana „scurtături” sunt echivalente cu selectarea
@@ -134,6 +130,6 @@
         Transcrierea cu majusculă nu apare la testare, numai la salvare.
       </li>
     </ul>
-  </div>
+  {/notice}
 
 {/block}

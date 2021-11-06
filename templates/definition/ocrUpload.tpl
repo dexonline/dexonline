@@ -7,10 +7,9 @@
   <h3>Adaugă definiții OCR din dicționar</h3>
 
   {if $message}
-    <div class="alert alert-{$msgClass} alert-dismissible fade show">
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+    {notice icon=$msgIcon}
       {$message}
-    </div>
+    {/notice}
   {/if}
 
   <form method="post" enctype="multipart/form-data">

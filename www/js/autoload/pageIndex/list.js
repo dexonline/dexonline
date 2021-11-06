@@ -66,7 +66,7 @@ $(function () {
     frm.find('#word').val(obj.word);
     frm.find('#number').val(obj.number);
 
-    frm.find('#message').hide().empty();
+    frm.find('#message').hide();
 
     tog = obj.action === 'delete';
 
@@ -98,7 +98,8 @@ $(function () {
         }
         else if (response.action === 'delete') {
           $('#'+response.id).remove();
-          $('#frm_edit #message').html(response.html).show();
+          $('#message .notice-body').html(response.html);
+          $('#message').show();
           updateCounter($('#pageIndexCount'), -1);
         }
 

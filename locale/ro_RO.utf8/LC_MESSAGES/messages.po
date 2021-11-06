@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2021-09-13 16:28+0300\n"
-"PO-Revision-Date: 2021-09-13 16:28+0300\n"
+"POT-Creation-Date: 2021-11-06 16:37+0200\n"
+"PO-Revision-Date: 2021-11-06 16:38+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -31,7 +31,7 @@ msgid "Your query <b>%1</b> is a variant of <b>%2</b>."
 msgstr "Forma <b>%1</b> este o variantă a lui <b>%2</b>."
 
 #: templates/article/list.tpl:3 templates/article/list.tpl:6
-#: templates/bits/navmenu.tpl:108
+#: templates/bits/navmenu.tpl:105
 msgid "linguistic articles"
 msgstr "articole lingvistice"
 
@@ -136,122 +136,122 @@ msgstr "arată variantele"
 msgid "home page"
 msgstr "pagina principală"
 
-#: templates/bits/navmenu.tpl:32
+#: templates/bits/navmenu.tpl:29
 msgid "about"
 msgstr "despre noi"
 
-#: templates/bits/navmenu.tpl:41
+#: templates/bits/navmenu.tpl:38
 msgid "information"
 msgstr "informații"
 
-#: templates/bits/navmenu.tpl:46 templates/simple/contact.tpl:4
+#: templates/bits/navmenu.tpl:43 templates/simple/contact.tpl:4
 #: templates/simple/contact.tpl:9
 msgid "contact us"
 msgstr "contact"
 
-#: templates/bits/navmenu.tpl:51
+#: templates/bits/navmenu.tpl:48
 msgid "blog"
 msgstr "blog"
 
-#: templates/bits/navmenu.tpl:66
+#: templates/bits/navmenu.tpl:63
 msgid "get involved"
 msgstr "implică-te"
 
-#: templates/bits/navmenu.tpl:74
+#: templates/bits/navmenu.tpl:71
 msgid "ways to help"
 msgstr "cum poți ajuta"
 
-#: templates/bits/navmenu.tpl:79
+#: templates/bits/navmenu.tpl:76
 msgid "volunteer ranking"
 msgstr "topul voluntarilor"
 
-#: templates/bits/navmenu.tpl:94
+#: templates/bits/navmenu.tpl:91
 msgid "resources"
 msgstr "resurse"
 
-#: templates/bits/navmenu.tpl:103
+#: templates/bits/navmenu.tpl:100
 msgid "abbreviations table"
 msgstr "abrevieri folosite"
 
-#: templates/bits/navmenu.tpl:115
+#: templates/bits/navmenu.tpl:112
 msgid "grammar guide"
 msgstr "ghid de exprimare"
 
-#: templates/bits/navmenu.tpl:120 templates/widgets/wotd.tpl:5
+#: templates/bits/navmenu.tpl:117 templates/widgets/wotd.tpl:5
 #: templates/wotd/view.tpl:4
 msgid "word of the day"
 msgstr "cuvântul zilei"
 
-#: templates/bits/navmenu.tpl:125 templates/widgets/wotm.tpl:5
+#: templates/bits/navmenu.tpl:122 templates/widgets/wotm.tpl:5
 msgid "word of the month"
 msgstr "cuvântul lunii"
 
-#: templates/bits/navmenu.tpl:130
+#: templates/bits/navmenu.tpl:127
 msgid "random words"
 msgstr "cuvinte aleatorii"
 
-#: templates/bits/navmenu.tpl:135
+#: templates/bits/navmenu.tpl:132
 msgid "Scrabble"
 msgstr "Scrabble"
 
-#: templates/bits/navmenu.tpl:140 templates/simple/tools.tpl:3
+#: templates/bits/navmenu.tpl:137 templates/simple/tools.tpl:3
 msgid "tools"
 msgstr "unelte"
 
-#: templates/bits/navmenu.tpl:145
+#: templates/bits/navmenu.tpl:142
 msgid "external links"
 msgstr "legături externe"
 
-#: templates/bits/navmenu.tpl:189
+#: templates/bits/navmenu.tpl:186
 msgid "light mode"
 msgstr "modul luminos"
 
-#: templates/bits/navmenu.tpl:197
+#: templates/bits/navmenu.tpl:194
 msgid "dark mode"
 msgstr "modul întunecat"
 
-#: templates/bits/navmenu.tpl:214
+#: templates/bits/navmenu.tpl:211
 msgid "Anonymous"
 msgstr "Anonim"
 
-#: templates/bits/navmenu.tpl:223
+#: templates/bits/navmenu.tpl:220
 msgid "moderator page"
 msgstr "pagina moderatorului"
 
-#: templates/bits/navmenu.tpl:233
+#: templates/bits/navmenu.tpl:230
 msgid "hotkeys"
 msgstr "hotkeys"
 
-#: templates/bits/navmenu.tpl:246
+#: templates/bits/navmenu.tpl:243
 msgid "recently viewed pages"
 msgstr "pagini vizitate recent"
 
-#: templates/bits/navmenu.tpl:253
+#: templates/bits/navmenu.tpl:250
 msgid "preferences"
 msgstr "preferințe"
 
-#: templates/bits/navmenu.tpl:262
+#: templates/bits/navmenu.tpl:259
 msgid "profile"
 msgstr "profilul meu"
 
-#: templates/bits/navmenu.tpl:268 templates/definition/favorites.tpl:3
+#: templates/bits/navmenu.tpl:265 templates/definition/favorites.tpl:3
 #: templates/definition/favorites.tpl:7
 msgid "favorite words"
 msgstr "cuvinte favorite"
 
-#: templates/bits/navmenu.tpl:274
+#: templates/bits/navmenu.tpl:271
 msgid "log out"
 msgstr "închide sesiunea"
 
-#: templates/bits/navmenu.tpl:281
+#: templates/bits/navmenu.tpl:278
 msgid "log in"
 msgstr "autentificare"
 
-#: templates/bits/navmenu.tpl:295
+#: templates/bits/navmenu.tpl:292
 msgid "donate"
 msgstr "donează"
 
-#: templates/bits/navmenu.tpl:305
+#: templates/bits/navmenu.tpl:302
 msgid "navigation"
 msgstr "navigare"
 
@@ -753,7 +753,7 @@ msgid "Current status: %1 definitions, of which %2 learned last month."
 msgstr "Starea curentă: %1 de definiții, din care %2 învățate în ultima lună."
 
 #: templates/layout.tpl:86 templates/simple/tools.tpl:84
-#: templates/simple/tools.tpl:106
+#: templates/simple/tools.tpl:104
 msgid "license"
 msgstr "licență"
 
@@ -1227,34 +1227,32 @@ msgstr "Autor"
 msgid "license on the data in this table"
 msgstr "licență pe informațiile din acest tabel"
 
-#: templates/simple/tools.tpl:108
+#: templates/simple/tools.tpl:106
 msgid ""
 "The information in this table is dual-licensed under the GNU General Public "
-"License (as applicable to the entire site) and the <a class=\"alert-link\" "
-"href=\"%1\">Creative Commons Attribution-ShareAlike 3.0</a> license. The "
-"information can be used (copied, modified, adapted etc.) by the website "
-"http://wikipedia.org. The data are gathered from the mailing list "
-"discutii@dexonline.ro (formerly dictionar@yahoogroups.com) in collaboration "
-"with the application developers."
+"License (as applicable to the entire site) and the <a href=\"%1\">Creative "
+"Commons Attribution-ShareAlike 3.0</a> license. The information can be used "
+"(copied, modified, adapted etc.) by the website http://wikipedia.org. The "
+"data are gathered from the mailing list discutii@dexonline.ro (formerly "
+"dictionar@yahoogroups.com) in collaboration with the application developers."
 msgstr ""
 "Informațiile din acest tabel poartă o dublă licență: Licența Publică "
-"Generală GNU (care se aplică întregului site) și licența <a class=\"alert-"
-"link\" href=\"%1\">Creative Commons Attribution-ShareAlike 3.0</a>. "
-"Informațiile pot fi folosite (copiate, modificate, adaptate, etc.) de către "
-"siteul http://wikipedia.org. Datele sunt adunate de pe lista "
-"discutii@dexonline.ro (fostă dictionar@yahoogroups.com) prin colaborare cu "
-"dezvoltatorii aplicațiilor."
+"Generală GNU (care se aplică întregului site) și licența <a href="
+"\"%1\">Creative Commons Attribution-ShareAlike 3.0</a>. Informațiile pot fi "
+"folosite (copiate, modificate, adaptate, etc.) de către siteul http://"
+"wikipedia.org. Datele sunt adunate de pe lista discutii@dexonline.ro (fostă "
+"dictionar@yahoogroups.com) prin colaborare cu dezvoltatorii aplicațiilor."
 
-#: templates/simple/tools.tpl:118
+#: templates/simple/tools.tpl:116
 msgid "Browser integration"
 msgstr "Integrare în browser"
 
-#: templates/simple/tools.tpl:124
+#: templates/simple/tools.tpl:122
 msgid "A <a href=\"%1\" onclick=\"%2\">spell checker</a> for Firefox."
 msgstr ""
 "Un <a href=\"%1\" onclick=\"%1\">corector ortografic</a> pentru Firefox."
 
-#: templates/simple/tools.tpl:130
+#: templates/simple/tools.tpl:128
 msgid ""
 "To use the spell checker, right-click in any text box, check the <em>Check "
 "spelling</em> box, right-click once more and select <em>Languages > "
@@ -1264,7 +1262,7 @@ msgstr ""
 "bifați opțiunea <em>Verifică ortografia</em>, faceți clic-dreapta din nou și "
 "selectați <em>Limbi > Română</em>."
 
-#: templates/simple/tools.tpl:140
+#: templates/simple/tools.tpl:138
 msgid ""
 "<a href=\"#\" onclick=\"%1\">Add <i>dexonline</i> to the search engine list</"
 "a> of your browser. Thanks to Alexandru Lixandru."
@@ -1272,12 +1270,12 @@ msgstr ""
 "<a href=\"#\" onclick=\"%1\">Adăugați <i>dexonline</i> la motoarele de "
 "căutare</a> ale browserului dumneavoastră. Mulțumiri lui Alexandru Lixandru."
 
-#: templates/simple/tools.tpl:146
+#: templates/simple/tools.tpl:144
 msgid "A <a href=\"%1\">Chrome extension</a> for right-click searches."
 msgstr ""
 "O <a href=\"%1\">extensie de Chrome</a> pentru căutarea cu clic-dreapta."
 
-#: templates/simple/tools.tpl:151
+#: templates/simple/tools.tpl:149
 msgid ""
 "A <a href=\"%1\">Firefox add-on</a> for dexonline by AdaKaleh. Allows right-"
 "click searches and registers a one-click search engine."
@@ -1286,15 +1284,15 @@ msgstr ""
 "AdaKaleh. Permite căutări cu clic dreapta și adaugă un motor de căutare cu "
 "un singur click."
 
-#: templates/simple/tools.tpl:158
+#: templates/simple/tools.tpl:156
 msgid "A <a href=\"%1\">WordPress plugin</a> for your blog."
 msgstr "Un <a href=\"%1\">modul de WordPress</a> pentru blogul dumneavoastră."
 
-#: templates/simple/tools.tpl:164
+#: templates/simple/tools.tpl:162
 msgid "Dictionaries in StarDict format"
 msgstr "Dicționare în formatul StarDict"
 
-#: templates/simple/tools.tpl:189
+#: templates/simple/tools.tpl:187
 msgid "all of the above"
 msgstr "toate cele de mai sus"
 
@@ -1639,18 +1637,35 @@ msgstr[0] "Un cuvânt al zilei ales la întâmplare"
 msgstr[1] "%d cuvinte ale zilei alese la întâmplare"
 msgstr[2] "%d de cuvinte ale zilei alese la întâmplare"
 
-#: www/search.php:217
+#: www/search.php:224
 #, php-format
 msgid "We redirected you automatically from <b>%s</b> to <b>%s</b>."
 msgstr "V-am redirecționat automat de la <b>%s</b> la <b>%s</b>."
 
-#: www/search.php:338
+#: www/search.php:345
 msgid "conjugations"
 msgstr "conjugări"
 
-#: www/search.php:339
+#: www/search.php:346
 msgid "declensions"
 msgstr "declinări"
+
+#~ msgid ""
+#~ "The information in this table is dual-licensed under the GNU General "
+#~ "Public License (as applicable to the entire site) and the <a class="
+#~ "\"alert-link\" href=\"%1\">Creative Commons Attribution-ShareAlike 3.0</"
+#~ "a> license. The information can be used (copied, modified, adapted etc.) "
+#~ "by the website http://wikipedia.org. The data are gathered from the "
+#~ "mailing list discutii@dexonline.ro (formerly dictionar@yahoogroups.com) "
+#~ "in collaboration with the application developers."
+#~ msgstr ""
+#~ "Informațiile din acest tabel poartă o dublă licență: Licența Publică "
+#~ "Generală GNU (care se aplică întregului site) și licența <a class=\"alert-"
+#~ "link\" href=\"%1\">Creative Commons Attribution-ShareAlike 3.0</a>. "
+#~ "Informațiile pot fi folosite (copiate, modificate, adaptate, etc.) de "
+#~ "către siteul http://wikipedia.org. Datele sunt adunate de pe lista "
+#~ "discutii@dexonline.ro (fostă dictionar@yahoogroups.com) prin colaborare "
+#~ "cu dezvoltatorii aplicațiilor."
 
 #~ msgid "Comments"
 #~ msgstr "Comentarii"

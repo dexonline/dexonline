@@ -28,6 +28,7 @@ const CODEPOINTS = [
   'drag_indicator',
   'edit',
   'email',
+  'error',
   'expand_less',
   'expand_more',
   'favorite',
@@ -69,6 +70,7 @@ const CODEPOINTS = [
   'translate',
   'visibility',
   'visibility_off',
+  'warning',
 ];
 
 const ASCII_GLYPHS = [ '5f-7a', '30-39' ]; // always include [_a-z0-9]

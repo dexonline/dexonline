@@ -6,15 +6,15 @@
 
   <h3>Surse</h3>
 
-  <div class="alert alert-info">
-    <div>Duceți cursorul deasupra unui nume de dicționar pentru a vedea mai multe detalii</div>
+  {notice icon="info"}
+    <div>Duceți cursorul deasupra unui nume de dicționar pentru a vedea mai multe detalii.</div>
     {if $editable}
       <div>
         Trageți de icoana {include "bits/icon.tpl" i=drag_indicator}
         pentru a le reordona rîndurile, apoi apăsați <em>salvează</em>.
       </div>
     {/if}
-  </div>
+  {/notice}
 
   <form method="post">
     {* don't allow both Tablesorter and SortableJS at the same time *}

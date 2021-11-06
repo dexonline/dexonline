@@ -304,9 +304,9 @@
 
           <div class="modal-body">
             {if !User::can(User::PRIV_STRUCT)}
-              <div class="alert alert-info" role="alert">
+              {notice icon="info"}
                 Puteți selecta doar intrări care nu au fost deja structurate.
-              </div>
+              {/notice}
             {/if}
             <input type="hidden" name="id" value="{$e->id}">
             <select id="mergeEntryId" name="mergeEntryId" class="form-select">

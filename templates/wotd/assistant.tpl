@@ -55,27 +55,25 @@
 
       <div id="collapseDay{$day}" class="card-body collapse {if !$rec.allOk}show{/if}">
         {if empty($rec.thisYear)}
-          <div class="alert alert-danger" role="alert">
+          {notice icon="error"}
             Nu ai ales încă un cuvânt.
-          </div>
+          {/notice}
         {else if count($rec.thisYear) > 1}
-          <div class="alert alert-warning" role="alert">
+          {notice icon="warning"}
             Există {$rec.thisYear|count} cuvinte.
-          </div>
+          {/notice}
         {else if !$rec.thisYear[0]->defHtml}
-          <div class="alert alert-warning" role="alert">
+          {notice icon="warning"}
             Există un motiv, dar nu și o definiție.
-          </div>
+          {/notice}
         {else if !$rec.thisYear[0]->description}
-          <div class="alert alert-warning" role="alert">
+          {notice icon="warning"}
             Există o definiție, dar nu și un motiv.
-          </div>
+          {/notice}
         {/if}
 
         {foreach $rec.duplicates as $dup}
-          <div
-            class="alert {if $dup.exact}alert-danger{else}alert-warning{/if}"
-            role="alert">
+          {notice icon="{if $dup.exact}error{else}warning{/if}"}
             {if $dup.exact}
               Un cuvânt identic,
             {else}
@@ -83,11 +81,11 @@
             {/if}
             <b>{$dup.oldLexicon}</b>, a fost programat pe
             {strip}
-            <a href="{Router::link('wotd/view')}/{$dup.oldDate}" class="alert-link">
+            <a href="{Router::link('wotd/view')}/{$dup.oldDate}">
               {$dup.oldDate|date_format:'%d %B %Y'}
             </a>.
             {/strip}
-          </div>
+          {/notice}
         {/foreach}
 
         {foreach $rec.thisYear as $w}

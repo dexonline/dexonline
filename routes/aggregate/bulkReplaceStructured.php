@@ -36,7 +36,10 @@ $entries = Model::factory('Entry')
   ->select('ed.definitionId')
   ->join('EntryDefinition', ['e.id', '=', 'ed.entryId'], 'ed')
   ->where_in('ed.definitionId', $structuredIds)
-  ->where_in('e.structStatus', [Entry::STRUCT_STATUS_IN_PROGRESS, Entry::STRUCT_STATUS_DONE])
+  ->where_in('e.structStatus',
+             [Entry::STRUCT_STATUS_IN_PROGRESS,
+              Entry::STRUCT_STATUS_UNDER_REVIEW,
+              Entry::STRUCT_STATUS_DONE])
   ->order_by_asc('ed.definitionId')
   ->order_by_asc('ed.entryRank')  // ca intrările să apară în ordinea în care le-a aranjat editorul
   ->find_many();

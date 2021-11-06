@@ -31,7 +31,9 @@
           </div>
         </div>
         {* empty div for editPageIndex.php messages *}
-        <div class="alert alert-warning" id="message" style="display: none"></div>
+        <div id="message">
+          {notice icon="error"}{/notice}
+        </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-link" data-bs-dismiss="modal">
             renunță

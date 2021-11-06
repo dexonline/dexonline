@@ -312,8 +312,8 @@ h3 .badge {
   width: 95%;
 }
 
-#pageModal .alert {
-  display: none;
+#pageModal .notice {
+  display: none !important; /* escalate to !important to trump d-flex*/
   margin-bottom: 0px;
 }
 
@@ -324,12 +324,6 @@ h3 .badge {
 .pageScan {
   min-height: 64px;
   overflow: hidden;
-}
-
-/*********** links in alerts ***********/
-
-.alert .alert-link {
-  text-decoration: underline;
 }
 
 /*********** misc helpers ***********/
@@ -439,7 +433,7 @@ div.thumb {
 
 .notice a {
   color: inherit !important;
-  font-weight: bold;
+  text-decoration: underline;
 }
 
 .notice a:hover {

@@ -111,7 +111,8 @@ $(function() {
     $('#loading').hide();
     $('#pageImage').hide();
     $('#pageModal .notice-body').text(message)
-    $('#pageModal .notice').show();
+    // escalate to !important to trump d-flex, which is !important
+    $('#pageModal .notice').attr('style', 'display: flex !important');
   }
 
   init();

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2021-11-06 16:37+0200\n"
-"PO-Revision-Date: 2021-11-06 16:38+0200\n"
+"POT-Creation-Date: 2021-11-06 23:27+0200\n"
+"PO-Revision-Date: 2021-11-06 23:27+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -21,14 +21,6 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: lib/third-party\n"
 "X-Poedit-SearchPathExcluded-1: www/js/merged\n"
 "X-Poedit-SearchPathExcluded-2: www/js/third-party\n"
-
-#: templates/alerts/formIsElision.tpl:2
-msgid "Your query <b>%1</b> is an elision of <b>%2</b>."
-msgstr "Varianta <b>%1</b> este o formă elidată a lui <b>%2</b>."
-
-#: templates/alerts/searchedVariant.tpl:1
-msgid "Your query <b>%1</b> is a variant of <b>%2</b>."
-msgstr "Forma <b>%1</b> este o variantă a lui <b>%2</b>."
 
 #: templates/article/list.tpl:3 templates/article/list.tpl:6
 #: templates/bits/navmenu.tpl:105
@@ -753,13 +745,21 @@ msgid "Current status: %1 definitions, of which %2 learned last month."
 msgstr "Starea curentă: %1 de definiții, din care %2 învățate în ultima lună."
 
 #: templates/layout.tpl:86 templates/simple/tools.tpl:84
-#: templates/simple/tools.tpl:104
+#: templates/simple/tools.tpl:105
 msgid "license"
 msgstr "licență"
 
 #: templates/layout.tpl:89
 msgid "privacy"
 msgstr "confidențialitate"
+
+#: templates/notices/formIsElision.tpl:2
+msgid "Your query <b>%1</b> is an elision of <b>%2</b>."
+msgstr "Varianta <b>%1</b> este o formă elidată a lui <b>%2</b>."
+
+#: templates/notices/searchedVariant.tpl:1
+msgid "Your query <b>%1</b> is a variant of <b>%2</b>."
+msgstr "Forma <b>%1</b> este o variantă a lui <b>%2</b>."
 
 #: templates/paradigm/paradigmA.tpl:8 templates/paradigm/paradigmP.tpl:8
 msgid "masculine"
@@ -1227,7 +1227,7 @@ msgstr "Autor"
 msgid "license on the data in this table"
 msgstr "licență pe informațiile din acest tabel"
 
-#: templates/simple/tools.tpl:106
+#: templates/simple/tools.tpl:107
 msgid ""
 "The information in this table is dual-licensed under the GNU General Public "
 "License (as applicable to the entire site) and the <a href=\"%1\">Creative "
@@ -1243,16 +1243,16 @@ msgstr ""
 "wikipedia.org. Datele sunt adunate de pe lista discutii@dexonline.ro (fostă "
 "dictionar@yahoogroups.com) prin colaborare cu dezvoltatorii aplicațiilor."
 
-#: templates/simple/tools.tpl:116
+#: templates/simple/tools.tpl:118
 msgid "Browser integration"
 msgstr "Integrare în browser"
 
-#: templates/simple/tools.tpl:122
+#: templates/simple/tools.tpl:124
 msgid "A <a href=\"%1\" onclick=\"%2\">spell checker</a> for Firefox."
 msgstr ""
 "Un <a href=\"%1\" onclick=\"%1\">corector ortografic</a> pentru Firefox."
 
-#: templates/simple/tools.tpl:128
+#: templates/simple/tools.tpl:130
 msgid ""
 "To use the spell checker, right-click in any text box, check the <em>Check "
 "spelling</em> box, right-click once more and select <em>Languages > "
@@ -1262,7 +1262,7 @@ msgstr ""
 "bifați opțiunea <em>Verifică ortografia</em>, faceți clic-dreapta din nou și "
 "selectați <em>Limbi > Română</em>."
 
-#: templates/simple/tools.tpl:138
+#: templates/simple/tools.tpl:140
 msgid ""
 "<a href=\"#\" onclick=\"%1\">Add <i>dexonline</i> to the search engine list</"
 "a> of your browser. Thanks to Alexandru Lixandru."
@@ -1270,12 +1270,12 @@ msgstr ""
 "<a href=\"#\" onclick=\"%1\">Adăugați <i>dexonline</i> la motoarele de "
 "căutare</a> ale browserului dumneavoastră. Mulțumiri lui Alexandru Lixandru."
 
-#: templates/simple/tools.tpl:144
+#: templates/simple/tools.tpl:146
 msgid "A <a href=\"%1\">Chrome extension</a> for right-click searches."
 msgstr ""
 "O <a href=\"%1\">extensie de Chrome</a> pentru căutarea cu clic-dreapta."
 
-#: templates/simple/tools.tpl:149
+#: templates/simple/tools.tpl:151
 msgid ""
 "A <a href=\"%1\">Firefox add-on</a> for dexonline by AdaKaleh. Allows right-"
 "click searches and registers a one-click search engine."
@@ -1284,15 +1284,15 @@ msgstr ""
 "AdaKaleh. Permite căutări cu clic dreapta și adaugă un motor de căutare cu "
 "un singur click."
 
-#: templates/simple/tools.tpl:156
+#: templates/simple/tools.tpl:158
 msgid "A <a href=\"%1\">WordPress plugin</a> for your blog."
 msgstr "Un <a href=\"%1\">modul de WordPress</a> pentru blogul dumneavoastră."
 
-#: templates/simple/tools.tpl:162
+#: templates/simple/tools.tpl:164
 msgid "Dictionaries in StarDict format"
 msgstr "Dicționare în formatul StarDict"
 
-#: templates/simple/tools.tpl:187
+#: templates/simple/tools.tpl:189
 msgid "all of the above"
 msgstr "toate cele de mai sus"
 
@@ -1649,23 +1649,3 @@ msgstr "conjugări"
 #: www/search.php:346
 msgid "declensions"
 msgstr "declinări"
-
-#~ msgid ""
-#~ "The information in this table is dual-licensed under the GNU General "
-#~ "Public License (as applicable to the entire site) and the <a class="
-#~ "\"alert-link\" href=\"%1\">Creative Commons Attribution-ShareAlike 3.0</"
-#~ "a> license. The information can be used (copied, modified, adapted etc.) "
-#~ "by the website http://wikipedia.org. The data are gathered from the "
-#~ "mailing list discutii@dexonline.ro (formerly dictionar@yahoogroups.com) "
-#~ "in collaboration with the application developers."
-#~ msgstr ""
-#~ "Informațiile din acest tabel poartă o dublă licență: Licența Publică "
-#~ "Generală GNU (care se aplică întregului site) și licența <a class=\"alert-"
-#~ "link\" href=\"%1\">Creative Commons Attribution-ShareAlike 3.0</a>. "
-#~ "Informațiile pot fi folosite (copiate, modificate, adaptate, etc.) de "
-#~ "către siteul http://wikipedia.org. Datele sunt adunate de pe lista "
-#~ "discutii@dexonline.ro (fostă dictionar@yahoogroups.com) prin colaborare "
-#~ "cu dezvoltatorii aplicațiilor."
-
-#~ msgid "Comments"
-#~ msgstr "Comentarii"

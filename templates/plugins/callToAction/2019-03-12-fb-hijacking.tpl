@@ -8,7 +8,6 @@
 
     <a
       href="https://blog.dexonline.ro/2019/03/pagina-de-facebook-a-dexonline-a-fost-sparta/"
-      class="alert-link"
       target="_blank"
     >un raport asupra situației curente</a>.
 

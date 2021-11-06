@@ -974,66 +974,6 @@ html.dark .badge {
   color: #121212;
 }
 
-html.dark .alert-primary {
-  color: white;
-  background-color: #1a7c7c;
-  border-color: #1a7c7c;
-}
-
-html.dark .alert-primary .alert-link {
-  color: #cccccc;
-}
-
-html.dark .alert-secondary {
-  color: white;
-  background-color: #6d6d6d;
-  border-color: #6d6d6d;
-}
-
-html.dark .alert-secondary .alert-link {
-  color: #cccccc;
-}
-
-html.dark .alert-success {
-  color: white;
-  background-color: #0f5132;
-  border-color: #0f5132;
-}
-
-html.dark .alert-success .alert-link {
-  color: #cccccc;
-}
-
-html.dark .alert-info {
-  color: white;
-  background-color: #004d99;
-  border-color: #004d99;
-}
-
-html.dark .alert-info .alert-link {
-  color: #cccccc;
-}
-
-html.dark .alert-warning {
-  color: white;
-  background-color: #925e0b;
-  border-color: #925e0b;
-}
-
-html.dark .alert-warning .alert-link {
-  color: #cccccc;
-}
-
-html.dark .alert-danger {
-  color: white;
-  background-color: #8b2e24;
-  border-color: #8b2e24;
-}
-
-html.dark .alert-danger .alert-link {
-  color: #cccccc;
-}
-
 html.dark .btn-close {
   color: white;
   background: transparent url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3e%3cpath d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/%3e%3c/svg%3e") center/1em auto no-repeat;

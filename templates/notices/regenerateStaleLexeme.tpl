@@ -1,1 +1,1 @@
-Pentru lexemul {include "bits/lexemeLink.tpl" class="alert-link"}: {$msg}
+Pentru lexemul {include "bits/lexemeLink.tpl"}: {$msg}

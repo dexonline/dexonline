@@ -58,7 +58,7 @@ $utilities-bg-colors: map-loop($utilities-colors, rgba-css-var, "$key", "bg");
 //@import "breadcrumb";
 //@import "pagination";
 @import "badge";
-@import "alert";
+//@import "alert";
 //@import "progress";
 //@import "list-group";
 @import "close";

@@ -20,7 +20,9 @@
           <label class="col-sm-3 col-form-label">număr de model</label>
           <div class="col-sm-9">
             <input class="form-control" type="text" name="number" value="{$m->number|escape}">
-            <span class="form-text">poate conține orice caractere</span>
+            <span class="form-text">
+              poate conține orice caractere, dar trebuie să înceapă cu o <strong>cifră</strong>
+            </span>
           </div>
         </div>
 

@@ -17,8 +17,8 @@ $inflections = Model::factory('Inflection')
 if ($saveButton) {
   Log::notice("Reading form data for model {$m->id} ({$m})");
   $orig = FlexModel::get_by_id($id); // original, for comparison
-  $m->number = Request::get('number');
-  $m->description = Request::get('description');
+  $m->number = trim(Request::get('number'));
+  $m->description = trim(Request::get('description'));
   $m->exponent = Request::get('exponent');
 
   $origPm = ParticipleModel::loadForModel($orig);
@@ -27,10 +27,7 @@ if ($saveButton) {
   }
 
   Log::notice('Validating model number');
-  if (($m->number != $orig->number) &&
-      FlexModel::get_by_modelType_number($m->modelType, $m->number)) {
-    FlashMessage::add("Modelul {$m} există deja.");
-  }
+  validateModel($m, $orig);
 
   Log::notice('Extracting transforms');
   $forms = readRequest($inflections);
@@ -261,4 +258,17 @@ function updateLexemes($type, $oldNumber, $newNumber) {
                    'and l.modelNumber = "%s"',
                    addslashes($newNumber), $type, addslashes($oldNumber));
   DB::execute($query);
+}
+
+function validateModel($m, $orig) {
+  if (!$m->number) {
+    FlashMessage::add("Numărul de model nu poate fi vid.");
+  }
+  if (!ctype_digit($m->number[0])) {
+    FlashMessage::add("Numărul de model trebuie să înceapă cu o cifră.");
+  }
+  if (($m->number != $orig->number) &&
+      FlexModel::get_by_modelType_number($m->modelType, $m->number)) {
+    FlashMessage::add("Modelul {$m} există deja.");
+  }
 }

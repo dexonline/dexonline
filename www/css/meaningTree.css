@@ -74,15 +74,15 @@
 }
 
 .meaningTree .badge-relation a {
-  color: #212529;
+  color: var(--bs-body-color);
 }
 
 .meaningTree .badge-relation-1 {
-  background: #e5fce8;
+  background: #c5e9c9;
 }
 
 .meaningTree .badge-relation-2 {
-  background: #fce5e5;
+  background: #f5bad6;
 }
 
 .meaningContainer:target {

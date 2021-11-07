@@ -64,7 +64,7 @@
 .lexemeNotes,
 .lexemeSources {
   font-size: 75%;
-  color: var(--bs-green);
+  color: var(--bs-primary);
 }
 
 .paradigmDiv {

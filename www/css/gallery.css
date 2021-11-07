@@ -23,7 +23,7 @@
 #tagsToggle {
   background-color: #fff;
   bottom: 5px;
-  color: #212529;
+  color: var(--bs-body-color);
   cursor: pointer;
   position: absolute;
   right: 5px;

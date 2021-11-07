@@ -8,17 +8,17 @@
 
 .sourceComplete2 {
   background-color: var(--bs-orange);
-  color: #212529;
+  color: var(--bs-body-color);
 }
 
 .sourceComplete3 {
   background-color: var(--bs-yellow);
-  color: #212529;
+  color: var(--bs-body-color);
 }
 
 .sourceComplete4 {
   background-color: var(--bs-blue);
-  color: #212529;
+  color: var(--bs-body-color);
 }
 
 .sourceComplete5 {

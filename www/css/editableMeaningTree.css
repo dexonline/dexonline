@@ -18,12 +18,10 @@
 
 .meaningTree .selected > .meaningContainer {
   background: #90c9e8;
-  color: #212529;
 }
 
 .meaningTree .selected ul {
   background: #e3f2fa;
-  color: #212529;
 }
 
 .meaningTree .id,
@@ -57,8 +55,6 @@
 
 .meaningTree .meaningTag {
   border-radius: 4px;
-  border-style: solid;
-  border-width: 1px;
   display: inline-block;
   font-size: 10px;
   margin-right: 5px;
@@ -67,39 +63,27 @@
 }
 
 .meaningTree .sources span {
-  background: #f7eada;
-  border-color: #e0c29d;
-  color: #212529;
+  background: #ffe0b2;
 }
 
 .meaningTree .tags span {
   background: #dbf7da;
-  border-color: #9fe09d;
-  color: #212529;
 }
 
 .meaningTree .relation[data-type="1"] span {
-  background: #daebf7;
-  border-color: #9dc5e0;
-  color: #212529;
+  background: #b3ecf0;
 }
 
 .meaningTree .relation[data-type="2"] span {
   background: #f7dcda;
-  border-color: #e0a19d;
-  color: #212529;
 }
 
 .meaningTree .relation[data-type="3"] span {
   background: #ffebff;
-  border-color: #e6b8e6;
-  color: #212529;
 }
 
 .meaningTree .relation[data-type="4"] span {
   background: #ffccff;
-  border-color: #cca3cc;
-  color: #212529;
 }
 
 .textcomplete-dropdown {

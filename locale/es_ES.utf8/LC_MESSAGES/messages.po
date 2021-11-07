@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2021-11-06 23:30+0200\n"
-"PO-Revision-Date: 2021-11-06 23:31+0200\n"
+"POT-Creation-Date: 2021-11-07 19:06+0200\n"
+"PO-Revision-Date: 2021-11-07 19:06+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: es\n"
@@ -1330,35 +1330,19 @@ msgstr "palabra aleatoria"
 msgid "follow us on"
 msgstr "síganos en"
 
-#: templates/widgets/social.tpl:10
-msgid "Blog icon"
-msgstr "Icono de Blogger"
-
-#: templates/widgets/social.tpl:11
+#: templates/widgets/social.tpl:5
 msgid "Follow our blog"
 msgstr "Síganos en Blogger"
 
-#: templates/widgets/social.tpl:20
-msgid "Facebook icon"
-msgstr "Icono de Facebook"
-
-#: templates/widgets/social.tpl:21
+#: templates/widgets/social.tpl:10
 msgid "Follow us on Facebook"
 msgstr "Follow us on Facebook"
 
-#: templates/widgets/social.tpl:30
-msgid "Twitter icon"
-msgstr "Icono de Twitter"
-
-#: templates/widgets/social.tpl:31
+#: templates/widgets/social.tpl:15
 msgid "Follow us on Twitter"
 msgstr "Síganos en Twitter"
 
-#: templates/widgets/social.tpl:40
-msgid "Instagram icon"
-msgstr "Icono de Instagram"
-
-#: templates/widgets/social.tpl:41
+#: templates/widgets/social.tpl:20
 msgid "Follow us on Instagram"
 msgstr "Síganos en Instagram"
 

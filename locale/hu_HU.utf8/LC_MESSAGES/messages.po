@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: BUG-EMAIL-ADDR <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2021-11-06 23:28+0200\n"
-"PO-Revision-Date: 2021-11-06 23:30+0200\n"
+"POT-Creation-Date: 2021-11-07 19:06+0200\n"
+"PO-Revision-Date: 2021-11-07 19:07+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: hu\n"
@@ -1325,35 +1325,19 @@ msgstr "szó találomra"
 msgid "follow us on"
 msgstr "kövess minket"
 
-#: templates/widgets/social.tpl:10
-msgid "Blog icon"
-msgstr "Blogger ikon"
-
-#: templates/widgets/social.tpl:11
+#: templates/widgets/social.tpl:5
 msgid "Follow our blog"
 msgstr "Kövesse a blogunkat"
 
-#: templates/widgets/social.tpl:20
-msgid "Facebook icon"
-msgstr "Facebook ikon"
-
-#: templates/widgets/social.tpl:21
+#: templates/widgets/social.tpl:10
 msgid "Follow us on Facebook"
 msgstr "Kövess minket Facebookon"
 
-#: templates/widgets/social.tpl:30
-msgid "Twitter icon"
-msgstr "Twitter ikon"
-
-#: templates/widgets/social.tpl:31
+#: templates/widgets/social.tpl:15
 msgid "Follow us on Twitter"
 msgstr "Kövess minket a Twitteren"
 
-#: templates/widgets/social.tpl:40
-msgid "Instagram icon"
-msgstr "Instagram ikon"
-
-#: templates/widgets/social.tpl:41
+#: templates/widgets/social.tpl:20
 msgid "Follow us on Instagram"
 msgstr "Kövess minket a Instagram-on"
 

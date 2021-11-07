@@ -1,3 +1,11 @@
+html.light {
+  --c-social-svg: #303030;
+}
+
+html.dark {
+  --c-social-svg: #b2b2b2;
+}
+
 .siteIdentity {
   max-width: 316px;
   margin: 30px auto 35px;
@@ -46,6 +54,22 @@
 
 .widget.social:hover {
   border-color: #303030;
+}
+
+.widget.social svg {
+  height: 32px;
+  width: 32px;
+}
+
+.social-blog path:nth-child(4),
+.social-facebook path,
+.social-twitter path {
+  fill: var(--c-social-svg);
+}
+
+.social-instagram g {
+  fill: var(--c-social-svg);
+  stroke: var(--c-social-svg);
 }
 
 .widget.wotd:hover {

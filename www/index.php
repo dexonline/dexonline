@@ -3,11 +3,17 @@ require_once '../lib/Core.php';
 
 $widgets = Preferences::getWidgets(User::getActive());
 
+$svgs = [];
+foreach (['blog', 'facebook', 'twitter', 'instagram'] as $name) {
+  $svgs[$name] = file_get_contents(Config::ROOT . "www/img/svg/{$name}.svg");
+}
+
 Smart::assign([
   'pageType' => 'home',
   'wordsTotal' => Definition::getWordCount(),
   'wordsLastMonth' => Definition::getWordCountLastMonth(),
   'widgets' => $widgets,
+  'svgs' => $svgs,
 ]);
 
 /* WotD part */

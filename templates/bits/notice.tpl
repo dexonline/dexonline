@@ -6,7 +6,7 @@
 <div class="notice d-flex align-items-center small {$class}">
   {if $type}
     {if $type == 'info'}
-      {$color='text-black'}
+      {$color='text-body'}
       {$icon='info'}
     {elseif $type == 'success'}
       {$color='text-success'}

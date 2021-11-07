@@ -16,7 +16,7 @@
         <div class="d-flex justify-content-between my-3">
           <a role="button"
             id="editButton"
-            class="btn btn-info collapsed"
+            class="btn btn-secondary collapsed"
             data-bs-toggle="collapse"
             href="#editArea"
             aria-expanded="false"
@@ -26,7 +26,7 @@
           </a>
           <a role="button"
             id="textButton"
-            class="btn btn-info collapsed"
+            class="btn btn-secondary collapsed"
             data-bs-toggle="collapse"
             href="#charsArea"
             aria-expanded="false"
@@ -38,7 +38,7 @@
 
         <div id="editArea" class="collapse" aria-expanded="false">
           <textarea id="editBox" class="form-control" rows="10"></textarea>
-          <div class="d-flex justify-content-end">
+          <div class="d-flex justify-content-end mt-2">
             <button type="submit" id="saveButton" class="btn btn-primary"
               title="salvează lista de glife">
               {include "bits/icon.tpl" i=save}

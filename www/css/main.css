@@ -285,12 +285,12 @@ sup.footnote {
   padding: 10px 20px;
 }
 
-.callout-info {
-  border-left-color: var(--bs-info);
+.callout-secondary {
+  border-left-color: var(--bs-secondary);
 }
 
-.callout-info h3 {
-  color: var(--bs-info);
+.callout-secondary h3 {
+  color: var(--bs-secondary);
 }
 
 /************** badges **************/

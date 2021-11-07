@@ -36,7 +36,7 @@
 
         {if $adinaDetailsUrl}
           <p>
-            <a href="{$adinaDetailsUrl}" class="btn btn-info">detalii</a>
+            <a href="{$adinaDetailsUrl}" class="btn btn-secondary">detalii</a>
           </p>
         {/if}
 

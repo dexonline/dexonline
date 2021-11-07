@@ -16,7 +16,7 @@
             calculate acum {($timeAgo/60)|nf} minute, {$timeAgo%60} secunde
           </small>
 
-          <button type="submit" name="recountButton" class="btn btn-info btn-sm">
+          <button type="submit" name="recountButton" class="btn btn-secondary btn-sm ms-2">
             {include "bits/icon.tpl" i=repeat}
             recalculează acum
           </button>

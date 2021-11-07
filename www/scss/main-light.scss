@@ -6,13 +6,14 @@
  **/
 
 /* color overrides */
-$blue:    #15bed1;
-$green:   #006615;
-$info:    #1e83c2;
-$orange:  #ff9800;
-$pink:    #ab0065;
-$primary: #00852a;
-$red:     #ad1700;     /* also $danger */
+$primary:   #00852a;
+$secondary: #006cd1;
+
+$red:       #ad1700; /* also $danger */
+$pink:      #ab0065;
+$orange:    #ff9800;
+$green:     #006615;
+$blue:      #15bed1;
 
 html.light {
   --c-logo-home: #212529;

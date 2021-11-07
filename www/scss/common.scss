@@ -23,8 +23,8 @@ $navbar-light-hover-color: $primary;
 /**
  * Remove unused colors.
  */
-$theme-colors: map-remove($theme-colors, "dark", "light");
-$utilities-colors: map-remove($utilities-colors, "dark", "light");
+$theme-colors: map-remove($theme-colors, "dark", "info", "light");
+$utilities-colors: map-remove($utilities-colors, "dark", "info", "light");
 $table-variants: (); /* no colors */
 
 $theme-colors-rgb: map-loop($theme-colors, to-rgb, "$value");

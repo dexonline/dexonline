@@ -9,7 +9,7 @@
   <span class="tag {if $t->tooltip}tag-tooltip{/if}" title="{$t->tooltip}">
     <a
       href="{Router::link('tag/edit')}?id={$t->id}"
-      class="badge {if !$colors}bg-info{/if} {if !$link}disabled{/if}"
+      class="badge {if !$colors}bg-secondary{/if} {if !$link}disabled{/if}"
       {if !$link} disabled tabindex="-1"{/if}
       {if $colors} style="{$style}"{/if}>
       {if $t->icon}

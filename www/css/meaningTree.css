@@ -73,8 +73,9 @@
   margin-right: 3px;
 }
 
-.meaningTree .badge-relation a {
-  color: var(--bs-body-color);
+.meaningTree .badge-relation a,
+.meaningTree .badge-relation a:hover {
+  color: #212529; /* in both themes */
 }
 
 .meaningTree .badge-relation-1 {

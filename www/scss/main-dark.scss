@@ -6,10 +6,15 @@
  **/
 
 /* theme colors */
-$danger: #cf6679;
-$primary: #6cda89;
-$secondary: #b5b5b5;
-$warning: #f39c12;
+$primary:   #6cda89;
+$secondary: #5cabea;
+
+$red:       #cf6679; /* also $danger */
+$pink:      #ec5fa0;
+$orange:    #ffb84d;
+$yellow:    #ffd54f; /* also $warning */
+$green:     #5bb574; /* also $success */
+$blue:      #51d2de;
 
 /**
  * Invert the gray scale. Start from the default scale as HSL:
@@ -29,7 +34,7 @@ $warning: #f39c12;
  * Next, convert the desired body-bg (#121212) to HSL => (0, 0, 0.07).
  * That's our new $white.
  *
- * Convert the lightness range (1.00 - 0.00) to (0.15 - 1.00). The formula for
+ * Convert the lightness range (1.00 - 0.00) to (0.07 - 1.00). The formula for
  * any lightness 0 <= x <= 1 is 1 - x * 0.93.
  **/
 $white:    hsl(0, 0%,   7%);
@@ -55,8 +60,8 @@ html.dark {
   --c-logo-nav: #c5c5c5;
   --c-navbar-bg: #212529;
   --c-navbar-border: #212529;
-  --c-notice: #212529;
-  --c-notice-bg: #e2e3e5;
+  --c-notice: $body-color;
+  --c-notice-bg: #212121;
   --c-search-shadow: #777;
 }
 

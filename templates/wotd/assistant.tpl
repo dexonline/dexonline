@@ -26,7 +26,7 @@
   {foreach $data as $day => $rec}
     <div class="card card-collapse mt-3">
       <div
-        class="card-header {if $rec.allOk}finished collapsed{/if}"
+        class="card-header {if $rec.allOk}collapsed{/if}"
         data-bs-toggle="collapse"
         href="#collapseDay{$day}">
 
@@ -35,6 +35,10 @@
         <span class="date">
           {$day} {$yearMonth|date_format:'%B %Y'}
         </span>
+
+        {if $rec.allOk}
+          {include "bits/icon.tpl" i=done class="text-success fw-bold fs-3"}
+        {/if}
 
         <div class="float-end">
           <a

@@ -11,15 +11,6 @@ h3 form {
 }
 
 .card-header:hover a {
-  color: var(--bs-gray-900);
+  color: inherit;
   display: inline;
-}
-
-.card-header.finished {
-  background-color: var(--bs-success) !important;
-  color: #fff;
-}
-
-.card-header.finished a {
-  color: #fff;
 }

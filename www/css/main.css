@@ -219,6 +219,10 @@ abbr[title] {
   line-height: 1.88; /* equivalent line height: 1.6 / 0.85em */
 }
 
+.defDetails .badge {
+  background-color: var(--bs-gray-600);
+}
+
 .spaced {
   letter-spacing: 3px;
   padding-left: 2px;

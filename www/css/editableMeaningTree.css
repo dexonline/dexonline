@@ -1,3 +1,13 @@
+html.light {
+  --c-selected-bg: #90c9e8;
+  --c-selected-subtree-bg: #e6f3fa;
+}
+
+html.dark {
+  --c-selected-bg: #10374c;
+  --c-selected-subtree-bg: #091f2a;
+}
+
 .meaningTree {
   margin-bottom: 10px;
   margin-top: 0px;
@@ -17,11 +27,11 @@
 }
 
 .meaningTree .selected > .meaningContainer {
-  background: #90c9e8;
+  background: var(--c-selected-bg);
 }
 
 .meaningTree .selected ul {
-  background: #e3f2fa;
+  background: var(--c-selected-subtree-bg);
 }
 
 .meaningTree .id,
@@ -55,6 +65,7 @@
 
 .meaningTree .meaningTag {
   border-radius: 4px;
+  color: #212529; /* in both themes */
   display: inline-block;
   font-size: 10px;
   margin-right: 5px;

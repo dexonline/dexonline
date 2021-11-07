@@ -347,7 +347,7 @@
               subsens
             </button>
             <button type="button"
-              class="btn btn-sm btn-add-meaning btn-color1 meaningAction"
+              class="btn btn-sm btn-add-meaning btn-custom btn-custom1 meaningAction"
               disabled
               data-type="{Meaning::TYPE_EXAMPLE}"
               title="Adaugă un subsens-exemplu la sensul selectat. Dacă sensul selectat este el însuși exemplu, adaugă un frate.">
@@ -389,7 +389,7 @@
 
           <div class="btn-group me-2">
             <button type="button"
-              class="btn btn-sm btn-add-meaning btn-color1 meaningAction"
+              class="btn btn-sm btn-add-meaning btn-custom btn-custom1 meaningAction"
               disabled
               data-type="{Meaning::TYPE_ETYMOLOGY}"
               title="Adaugă un subsens-etimologie la sensul selectat. Dacă sensul selectat este el însuși etimologie, adaugă un frate.">
@@ -397,7 +397,7 @@
               etimologie
             </button>
             <button type="button"
-              class="btn btn-sm btn-add-meaning btn-color2 meaningAction"
+              class="btn btn-sm btn-add-meaning btn-custom btn-custom2 meaningAction"
               disabled
               data-type="{Meaning::TYPE_COMMENT}"
               title="Adaugă un subsens-comentariu la sensul selectat. Dacă sensul selectat este el însuși comentariu, adaugă un frate.">
@@ -405,7 +405,7 @@
               comentariu
             </button>
             <button type="button"
-              class="btn btn-sm btn-add-meaning btn-color3 meaningAction"
+              class="btn btn-sm btn-add-meaning btn-custom btn-custom3 meaningAction"
               disabled
               data-type="{Meaning::TYPE_DIFF}"
               title="Adaugă un subsens-diferențiere la sensul selectat. Dacă sensul selectat este el însuși diferențiere, adaugă un frate.">

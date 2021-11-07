@@ -1,7 +1,7 @@
 <div class="text-center d-flex align-items-center justify-content-between">
   <button
     type="submit"
-    class="btn btn-secondary {if $stats.page == 1}invisible{/if}"
+    class="btn btn-outline-secondary {if $stats.page == 1}invisible{/if}"
     name="prevPageButton">
     {include "bits/icon.tpl" i=chevron_left}
   </button>
@@ -15,7 +15,7 @@
 
   <button
     type="submit"
-    class="btn btn-secondary {if $stats.page == $stats.numPages}invisible{/if}"
+    class="btn btn-outline-secondary {if $stats.page == $stats.numPages}invisible{/if}"
     name="nextPageButton">
     {include "bits/icon.tpl" i=chevron_right}
   </button>

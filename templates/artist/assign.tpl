@@ -45,14 +45,14 @@
               <div class="d-flex justify-content-between">
                 <button
                   type="button"
-                  class="btn btn-sm btn-secondary py-0 monthNav"
+                  class="btn btn-sm btn-outline-secondary py-0 monthNav"
                   data-delta="-1">
                   {include "bits/icon.tpl" i=chevron_left}
                 </button>
                 <span id="monthName"></span>
                 <button
                   type="button"
-                  class="btn btn-sm btn-secondary py-0 monthNav"
+                  class="btn btn-sm btn-outline-secondary py-0 monthNav"
                   data-delta="1">
                   {include "bits/icon.tpl" i=chevron_right}
                 </button>

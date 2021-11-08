@@ -106,10 +106,10 @@ class Smart {
     // compute the full file names and get the latest timestamp
     $full = [];
     $maxTimestamp = 0;
-    foreach ($files as $file) {
-      $orig = $file;
+    foreach ($files as $i => $file) {
       $file = str_replace('%l', $shortLocale, $file);
-      $hasLocale = ($file != $orig);
+      $hasLocale = ($file != $files[$i]);
+      $files[$i] = $file; // so that the specific locale gets hashed, not %l
 
       $file = sprintf('%swww/%s/%s', Config::ROOT, $type, $file);
 

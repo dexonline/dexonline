@@ -7,7 +7,7 @@
     <span class="widget-value"></span>
   </div>
   <div>
-    <img alt="cuvânt aleator"
+    <img alt="cuvânt aleatoriu"
          src="{Config::STATIC_URL}img/wotd/thumb88/misc/aleator.jpg"
          class="widget-icon">
   </div>

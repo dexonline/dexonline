@@ -22,7 +22,7 @@ class Widget {
       'enabled' => true,
     ],
     self::WIDGET_RANDOM_WORD => [
-      'name' => 'Cuvânt aleator',
+      'name' => 'Cuvânt aleatoriu',
       'template' => 'randomWord.tpl',
       'enabled' => true,
     ],

@@ -1,3 +1,11 @@
+html.light {
+  --c-not-recommended: #004db2;
+}
+
+html.dark {
+  --c-not-recommended: var(--bs-blue);
+}
+
 .paraLexeme {
   margin-bottom: 10px;
 }
@@ -108,7 +116,7 @@ li.elisionHidden {
 }
 
 li.notRecommended {
-  color: #004db2;
+  color: var(--c-not-recommended);
   cursor: help;
 }
 
@@ -121,7 +129,7 @@ li.notRecommendedHidden {
 }
 
 .notRecommendedLegend {
-  color: #004db2;
+  color: var(--c-not-recommended);
   font-style: italic;
 }
 

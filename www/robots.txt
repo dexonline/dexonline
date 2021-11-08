@@ -1,4 +1,4 @@
-Sitemap: https://dexonline.ro/sitemap.xml
+Sitemap: https://dexonline.ro/static/sitemap/sitemap.xml
 
 User-agent: Mediapartners-Google
 Disallow:

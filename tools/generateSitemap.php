@@ -72,7 +72,6 @@ function addOtherUrls() {
   addUrl('https://dexonline.ro/contact');
   addUrl('https://dexonline.ro/articol/Ghid_de_exprimare_corect%C4%83');
   addUrl('https://dexonline.ro/licenta');
-  addUrl('https://dexonline.ro/auth/login');
   addUrl('https://dexonline.ro/unelte');
   addUrl('https://dexonline.ro/top');
 }
@@ -84,7 +83,10 @@ function closeCurrentFile() {
 
   fprintf($g_curFile, "</urlset>\n");
   fclose($g_curFile);
-  OS::executeAndAssert("gzip - < {$g_curFileName} > www/sitemap{$g_numFiles}.xml.gz");
+
+  $gzipFile = "sitemap{$g_numFiles}.xml.gz";
+  OS::executeAndAssert("gzip - < {$g_curFileName} > /tmp/{$gzipFile}");
+  StaticUtil::move("/tmp/{$gzipFile}", "sitemap/{$gzipFile}");
   OS::deleteFile($g_curFileName);
 }
 
@@ -110,16 +112,19 @@ function generateIndexFile() {
   global $g_numFiles;
 
   Log::info("Writing sitemap index sitemap.xml");
-  $f = fopen('www/sitemap.xml', 'w');
+  $f = fopen('/tmp/sitemap.xml', 'w');
   fprintf($f, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
   fprintf($f, "<sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n");
 
   for ($i = 1; $i <= $g_numFiles; $i++) {
     fprintf($f, "  <sitemap>\n");
-    fprintf($f, "    <loc>https://dexonline.ro/sitemap{$i}.xml.gz</loc>\n");
+    fprintf($f, "    <loc>https://dexonline.ro/static/sitemap/sitemap{$i}.xml.gz</loc>\n");
+    fprintf($f, "    <lastmod>%s</lastmod>\n", date('Y-m-d'));
     fprintf($f, "  </sitemap>\n");
   }
 
   fprintf($f, "</sitemapindex>\n");
   fclose($f);
+
+  StaticUtil::move('/tmp/sitemap.xml', 'sitemap/sitemap.xml');
 }

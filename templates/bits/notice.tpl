@@ -3,7 +3,7 @@
 {$type=$type|default:''}   {* optionally, one of info/success/warning/danger *}
 {$class=$class|default:''} {* optionally, additional classes *}
 
-<div class="notice d-flex align-items-center small w-75 mx-auto {$class}">
+<div class="notice d-flex align-items-center w-75 mx-auto {$class}">
   {if $type}
     {if $type == 'info'}
       {$color='text-body'}

@@ -90,7 +90,7 @@
 }
 
 li.elision {
-  color: saddlebrown;
+  color: var(--bs-orange);
   cursor: help;
 }
 
@@ -103,12 +103,12 @@ li.elisionHidden {
 }
 
 .elisionLegend {
-  color: saddlebrown;
+  color: var(--bs-orange);
   font-style: italic;
 }
 
 li.notRecommended {
-  color: #4040f0;
+  color: #004db2;
   cursor: help;
 }
 
@@ -121,7 +121,7 @@ li.notRecommendedHidden {
 }
 
 .notRecommendedLegend {
-  color: #4040f0;
+  color: #004db2;
   font-style: italic;
 }
 

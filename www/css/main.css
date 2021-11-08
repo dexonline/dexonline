@@ -405,7 +405,7 @@ div.thumb {
 }
 
 .read-more .read-more-btn {
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.8) 0%, #ccc 100%);
+  background: linear-gradient(to bottom, var(--c-read-more-top), var(--bs-gray-300));
   border: 0;
   bottom: 0;
   left: 0;

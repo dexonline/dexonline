@@ -6,6 +6,7 @@ html.dark {
   --c-navbar-border: #212529;
   --c-notice: var(--bs-body-color);
   --c-notice-bg: #212121;
+  --c-read-more-top: rgba(18, 18, 18, 0.8);
   --c-search-shadow: #777;
   --c-tag: var(--bs-body-bg);
   --c-tag-bg: var(--bs-secondary);

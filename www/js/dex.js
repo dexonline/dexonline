@@ -327,7 +327,7 @@ $(function() {
   const BTN_HTML =
         '<button class="read-more-btn btn btn-sm">' +
         '<span class="material-icons">expand_more</span>' +
-        'expandează' +
+        _('expand') +
         '</btn>';
 
   $('.read-more').each(function() {

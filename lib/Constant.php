@@ -203,6 +203,12 @@ class Constant {
   // Entries must be listed in the order in which they should be loaded.
 
   const RESOURCE_MAP = [
+    'i18n' => [
+      'js' => [
+        'locale/%l.js',
+        'i18n.js',
+      ],
+    ],
     'jquery' => [
       'js' => [ 'third-party/jquery-1.12.4.min.js' ],
     ],
@@ -251,6 +257,7 @@ class Constant {
     'main' => [
       'css' => [ 'main.css', 'fonts.css' ],
       'js' => [ 'dex.js' ],
+      'deps' => [ 'i18n' ],
     ],
     'loggedIn' => [
       'js' => [ 'loggedIn.js' ],

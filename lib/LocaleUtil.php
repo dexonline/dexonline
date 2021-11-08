@@ -29,6 +29,12 @@ class LocaleUtil {
     return self::$current;
   }
 
+  // Returns the locale with the encoding stripped off, e.g. en_US instead of en_US.utf8
+  static function getShort() {
+    $l = self::getCurrent();
+    return explode('.', $l)[0];
+  }
+
   private static function set($locale) {
     mb_internal_encoding('UTF-8');
 

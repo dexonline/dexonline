@@ -100,14 +100,25 @@ class Smart {
   }
 
   static function mergeResources($files, $type) {
+    // %l will be substituted by the short locale name
+    $shortLocale = LocaleUtil::getShort();
+
     // compute the full file names and get the latest timestamp
     $full = [];
     $maxTimestamp = 0;
     foreach ($files as $file) {
-      $name = sprintf('%swww/%s/%s', Config::ROOT, $type, $file);
-      $full[] = $name;
-      $timestamp = filemtime($name);
-      $maxTimestamp = max($maxTimestamp, $timestamp);
+      $orig = $file;
+      $file = str_replace('%l', $shortLocale, $file);
+      $hasLocale = ($file != $orig);
+
+      $file = sprintf('%swww/%s/%s', Config::ROOT, $type, $file);
+
+      // complain about missing files, unless they are localizations
+      if (!$hasLocale || file_exists($file)) {
+        $full[] = $file;
+        $timestamp = filemtime($file);
+        $maxTimestamp = max($maxTimestamp, $timestamp);
+      }
     }
 
     // Compute the hash using relative file names only. Different backends may

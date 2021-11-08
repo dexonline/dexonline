@@ -8,7 +8,6 @@ require_once __DIR__ . '/../lib/Core.php';
 
 ini_set('memory_limit', '1G');
 
-const STATIC_SERVER_DIR = '/download/scrabble';
 const DEX09_ID = 27;
 const MDN_ID = 21;
 

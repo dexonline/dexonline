@@ -19,7 +19,7 @@ class StaticUtil {
       return;
     }
     @mkdir($path, 0777, true);
-    chmod($path, 0777);
+    @chmod($path, 0777);
   }
 
   static function ensureThumb($src, $dest, $size) {

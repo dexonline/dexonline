@@ -320,3 +320,34 @@ $(function() {
     $(this).popover('hide');
   }
 });
+
+/****************** „Read more” link for long sections ******************/
+
+$(function() {
+  const BTN_HTML =
+        '<button class="read-more-btn btn btn-sm">' +
+        '<span class="material-icons">expand_more</span>' +
+        'expandează' +
+        '</btn>';
+
+  $('.read-more').each(function() {
+    var realHeight = $(this).prop('scrollHeight');
+    var lineHeight = parseInt($(this).css('line-height')); // ignore the 'px' suffix
+    var lines = $(this).data('readMoreLines');
+
+    // If the whole thing isn't much larger than the proposed visible area,
+    // don't hide anything
+    if (realHeight / lineHeight > lines * 1.33) {
+      $(this).css('max-height', (lines * lineHeight) + 'px');
+      $(this).append(BTN_HTML);
+    }
+  });
+
+  $(document).on('click', '.read-more-btn', function() {
+    var p = $(this).closest('.read-more')
+    var realHeight = p.prop('scrollHeight');
+
+    p.animate({ maxHeight: realHeight }, 1000);
+    $(this).animate({ opacity: 0 }, 1000);
+  });
+});

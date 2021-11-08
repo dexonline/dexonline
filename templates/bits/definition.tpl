@@ -10,7 +10,7 @@
   {if $def->structured && $showStructuredWrapper}defStructuredWrapper{/if}
   {if $numDeps}hasDependants{/if}
   ">
-  <p class="mb-2">
+  <p class="mb-2 read-more" data-read-more-lines="15">
     <span class="def" title="Clic pentru a naviga la acest cuvânt">
       {HtmlConverter::convert($def)}
     </span>

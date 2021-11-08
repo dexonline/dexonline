@@ -8,7 +8,7 @@ $licenseFile = Config::ROOT . '/tools/dumpDatabaseLicense.txt';
 
 // Skip the username/password here to avoid a Percona warning.
 // Place them in my.cnf.
-$commonCommand = sprintf("mysqldump -h %s %s ", DB::$host, DB::$database);
+$commonCommand = sprintf("mysqldump --no-tablespaces -h %s %s ", DB::$host, DB::$database);
 
 // Tables we never want to export, whether in the public or full dump
 const SKIP_TABLES = [

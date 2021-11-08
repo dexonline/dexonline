@@ -11,7 +11,7 @@
 
   {include "bits/tagAncestors.tpl" tag=$t}
 
-  <form method="post" class="mt-3">
+  <form id="frm-tag-edit" method="post" class="mt-3">
     <input type="hidden" name="id" value="{$t->id}">
 
     <div class="row">
@@ -89,8 +89,10 @@
               class="form-control"
               id="color"
               name="color"
-              value="{$t->getColor()}">
+              {* empty values cause a browser console warning *}
+              {if $t->color}value="{$t->color}"{/if}>
             {include "bits/frequentColors.tpl"
+              class="frequent-color-foreground"
               colors=$frequentColors.color
               target="#color"}
           </div>
@@ -106,8 +108,9 @@
               class="form-control"
               id="background"
               name="background"
-              value="{$t->getBackground()}">
+              {if $t->background}value="{$t->background}"{/if}>
             {include "bits/frequentColors.tpl"
+              class="frequent-color-background"
               colors=$frequentColors.background
               target="#background"}
           </div>

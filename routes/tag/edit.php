@@ -19,8 +19,8 @@ if ($id) {
 if ($saveButton) {
   $tag->value = Request::get('value');
   $tag->parentId = Request::get('parentId', 0);
-  $tag->setColor(Request::get('color'));
-  $tag->setBackground(Request::get('background'));
+  $tag->color = Request::get('color', '');
+  $tag->background = Request::get('background', '');
   $tag->icon = Request::get('icon');
   $tag->iconOnly = Request::has('iconOnly');
   $tag->tooltip = Request::get('tooltip');
@@ -38,8 +38,8 @@ if ($saveButton) {
 }
 
 $frequentColors = [
-  'color' => Tag::getFrequentValues('color', Tag::DEFAULT_COLOR),
-  'background' => Tag::getFrequentValues('background', Tag::DEFAULT_BACKGROUND),
+  'color' => Tag::getFrequentValues('color'),
+  'background' => Tag::getFrequentValues('background'),
 ];
 
 $children = Model::factory('Tag')

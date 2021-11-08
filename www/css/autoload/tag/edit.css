@@ -5,3 +5,11 @@
   display: inline-block;
   width: 20px;
 }
+
+.frequent-color-background {
+  background-color: var(--c-tag-bg);
+}
+
+.frequent-color-foreground {
+  background-color: var(--c-tag);
+}

@@ -23,6 +23,8 @@ html.light {
   --c-notice: #212529;
   --c-notice-bg: #e2e3e5;
   --c-search-shadow: #ddd;
+  --c-tag: white;
+  --c-tag-bg: var(--bs-secondary);
 }
 
 @import "common.scss";

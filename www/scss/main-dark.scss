@@ -60,9 +60,11 @@ html.dark {
   --c-logo-nav: #c5c5c5;
   --c-navbar-bg: #212529;
   --c-navbar-border: #212529;
-  --c-notice: $body-color;
+  --c-notice: var(--bs-body-color);
   --c-notice-bg: #212121;
   --c-search-shadow: #777;
+  --c-tag: var(--bs-body-bg);
+  --c-tag-bg: var(--bs-secondary);
 }
 
 @import "common.scss";

@@ -3,29 +3,24 @@
 class Tag extends BaseObject implements DatedObject {
   public static $_table = 'Tag';
 
-  const DEFAULT_COLOR = '#121212';
-  const DEFAULT_BACKGROUND = '#5cabea'; // keep in sync with the Bootstrap secondary color
-
   // populated during loadTree()
   public $children = [];
 
-  function getColor() {
-    return $this->color ? $this->color : self::DEFAULT_COLOR;
+  function getCssStyle() {
+    $result = '';
+    if ($this->background) {
+      $result .= "background-color: {$this->background};";
+    }
+    if ($this->color) {
+      $result .= "color: {$this->color};";
+    }
+    if ($result) {
+      $result = "style=\"{$result}\"";
+    }
+    return $result;
   }
 
-  function setColor($color) {
-    $this->color = ($color == self::DEFAULT_COLOR) ? '' : $color;
-  }
-
-  function getBackground() {
-    return $this->background ? $this->background : self::DEFAULT_BACKGROUND;
-  }
-
-  function setBackground($background) {
-    $this->background = ($background == self::DEFAULT_BACKGROUND) ? '' : $background;
-  }
-
-  static function getFrequentValues($field, $default) {
+  static function getFrequentValues($field) {
     $data = Model::factory('Tag')
           ->select($field)
           ->group_by($field)
@@ -35,7 +30,7 @@ class Tag extends BaseObject implements DatedObject {
 
     $results = [];
     foreach ($data as $row) {
-      $results[] = $row->$field ? $row->$field : $default;
+      $results[] = $row->$field;
     }
     return $results;
   }

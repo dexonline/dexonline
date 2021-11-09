@@ -1,3 +1,11 @@
+html.light {
+  --c-social-svg: #303030;
+}
+
+html.dark {
+  --c-social-svg: #b2b2b2;
+}
+
 /* used from wotd/archive.tpl, but only included (via Ajax) in wotd/view.tpl */
 .wotdArchiveTable {
   text-align: center;
@@ -11,6 +19,21 @@
 .wotdArchiveTable td {
   height: 112px;
   width: 90px;
+}
+
+.social-svg svg {
+  margin-left: 0.5em;
+  width: 32px;
+}
+
+.social-email path {
+  fill: var(--c-social-svg);
+  stroke: var(--c-social-svg);
+}
+
+.social-facebook path,
+.social-rss path {
+  fill: var(--c-social-svg);
 }
 
 @media (max-width: 767px) {

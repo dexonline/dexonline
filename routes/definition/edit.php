@@ -9,8 +9,8 @@ $structured = Request::has('structured');
 $internalRep = Request::get('internalRep');
 $status = Request::get('status', null);
 $tagIds = Request::getArray('tagIds');
-$volume = Request::get('volume', 0);
-$page = Request::get('page', 0);
+$volume = (int)Request::get('volume', 0);
+$page = (int)Request::get('page', 0);
 
 $saveButton = Request::has('saveButton');
 $nextOcrBut = Request::has('but_next_ocr');

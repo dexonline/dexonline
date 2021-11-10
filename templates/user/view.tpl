@@ -113,7 +113,7 @@
       {/if}
 
       {if $medals}
-        <div class="text-center">
+        <div id="medal-pics" class="text-center">
           {foreach $medals as $params}
             <img
               src="../img/medals/{$params.pic}"

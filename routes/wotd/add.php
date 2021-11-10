@@ -11,6 +11,7 @@ if (!$wotd) {
   $wotd->userId = User::getActiveId();
   $wotd->definitionId = $defId;
   $wotd->priority = 0;
+  $wotd->description = '';
   $wotd->save();
 
   $d = Definition::get_by_id($defId);

@@ -356,6 +356,11 @@ class Constant {
       'js' => [ 'frequentObjects.js' ],
       'deps' => [ 'jqueryui', 'cookie' ],
     ],
+    'bootstrap-select' => [
+      'css' => [ 'third-party/bootstrap-select.min.css' ],
+      'js' => [ 'third-party/bootstrap-select.min.js' ],
+      'deps' => [ 'bootstrap' ],
+    ],
     'admin' => [
       'css' => [ 'admin.css' ],
       'js' => [ 'admin.js' ],

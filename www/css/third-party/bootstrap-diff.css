@@ -8,8 +8,34 @@ html.dark {
   --c-notice-bg: #212121;
   --c-read-more-top: rgba(18, 18, 18, 0.8);
   --c-search-shadow: #777;
-  --c-tag: var(--bs-body-bg);
-  --c-tag-bg: var(--bs-secondary);
+  --c-tag-bg-1: #ff7c5b;
+  --c-tag-bg-2: #ffb84d;
+  --c-tag-bg-3: #ffd54f;
+  --c-tag-bg-4: #5bb574;
+  --c-tag-bg-5: #5cabea;
+  --c-tag-bg-6: #ec5fa0;
+  --c-tag-bg-7: #aaaaaa;
+  --c-tag-bg-8: #ffc7b8;
+  --c-tag-bg-9: #ffe0b2;
+  --c-tag-bg-10: #ffecb3;
+  --c-tag-bg-11: #c5e9c9;
+  --c-tag-bg-12: #b3ecf0;
+  --c-tag-bg-13: #f5bad6;
+  --c-tag-bg-14: #e2e3e5;
+  --c-tag-1: var(--bs-body-bg);
+  --c-tag-2: var(--bs-body-bg);
+  --c-tag-3: var(--bs-body-bg);
+  --c-tag-4: var(--bs-body-bg);
+  --c-tag-5: var(--bs-body-bg);
+  --c-tag-6: var(--bs-body-bg);
+  --c-tag-7: var(--bs-body-bg);
+  --c-tag-8: var(--bs-body-bg);
+  --c-tag-9: var(--bs-body-bg);
+  --c-tag-10: var(--bs-body-bg);
+  --c-tag-11: var(--bs-body-bg);
+  --c-tag-12: var(--bs-body-bg);
+  --c-tag-13: var(--bs-body-bg);
+  --c-tag-14: var(--bs-body-bg);
 }
 
 html.dark {

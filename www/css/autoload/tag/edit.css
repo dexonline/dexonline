@@ -1,15 +1,8 @@
-.frequent-color {
-  border: 1px solid var(--bs-gray-600);
-  border-radius: 2px;
-  cursor: pointer;
-  display: inline-block;
-  width: 20px;
+/* prevent the dropdown arrow; we already have the select arrow */
+.bootstrap-select > .dropdown-toggle:after {
+  display: none;
 }
 
-.frequent-color-background {
-  background-color: var(--c-tag-bg);
-}
-
-.frequent-color-foreground {
-  background-color: var(--c-tag);
+.bootstrap-select a.selected {
+  background-color: var(--bs-gray-200);
 }

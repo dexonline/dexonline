@@ -100,12 +100,6 @@ html.dark .dark-mode-toggle {
 
 /********************************* tags *********************************/
 
-html .tag .badge {
-  /* individual tags can override these */
-  background-color: var(--c-tag-bg);
-  color: var(--c-tag);
-}
-
 .tag .material-icons {
   margin-top: -1px;
 }

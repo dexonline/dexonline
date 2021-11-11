@@ -3,36 +3,17 @@
 class Tag extends BaseObject implements DatedObject {
   public static $_table = 'Tag';
 
+  // keep these in sync with main-{light,dark}.scss
+  const NUM_COLORS = 14;
+  const DEFAULT_COLOR = 5;
+
   // populated during loadTree()
   public $children = [];
 
   function getCssStyle() {
-    $result = '';
-    if ($this->background) {
-      $result .= "background-color: {$this->background};";
-    }
-    if ($this->color) {
-      $result .= "color: {$this->color};";
-    }
-    if ($result) {
-      $result = "style=\"{$result}\"";
-    }
-    return $result;
-  }
-
-  static function getFrequentValues($field) {
-    $data = Model::factory('Tag')
-          ->select($field)
-          ->group_by($field)
-          ->order_by_expr('count(*) desc')
-          ->limit(10)
-          ->find_many();
-
-    $results = [];
-    foreach ($data as $row) {
-      $results[] = $row->$field;
-    }
-    return $results;
+    return sprintf(
+      'style="background-color: var(--c-tag-bg-%d); color: var(--c-tag-%d);"',
+      $this->color, $this->color);
   }
 
   static function loadByObject($objectType, $objectId) {

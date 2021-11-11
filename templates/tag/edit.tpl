@@ -84,35 +84,22 @@
             culoare
           </label>
           <div class="col-md-10">
-            <input
-              type="color"
-              class="form-control"
+            <select
+              class="selectpicker"
+              data-style-base="form-select"
+              data-width="100%"
               id="color"
-              name="color"
-              {* empty values cause a browser console warning *}
-              {if $t->color}value="{$t->color}"{/if}>
-            {include "bits/frequentColors.tpl"
-              class="frequent-color-foreground"
-              colors=$frequentColors.color
-              target="#color"}
-          </div>
-        </div>
-
-        <div class="row mb-3"">
-          <label for="background" class="col-md-2 col-form-label">
-            fundal
-          </label>
-          <div class="col-md-10">
-            <input
-              type="color"
-              class="form-control"
-              id="background"
-              name="background"
-              {if $t->background}value="{$t->background}"{/if}>
-            {include "bits/frequentColors.tpl"
-              class="frequent-color-background"
-              colors=$frequentColors.background
-              target="#background"}
+              name="color">
+              {for $c=1 to Tag::NUM_COLORS}
+                <option
+                  data-content="{include 'bits/selectPickerTag.tpl'}"
+                  {if ($c == $t->color) || (!$t->color && ($c == Tag::DEFAULT_COLOR))}
+                    selected
+                  {/if}
+                  value="{$c}">
+                </option>
+              {/for}
+            </select>
           </div>
         </div>
 

@@ -1,10 +1,10 @@
 .defWrapper {
-  border-bottom: 1px dotted #ccc;
+  border-bottom: 1px dotted var(--bs-gray-400);
   margin: 1rem 0 0.5rem;
 }
 
 .entryWrapper {
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid var(--bs-gray-400);
   margin: 0.5rem 0;
   padding-bottom: 0.5rem;
 }

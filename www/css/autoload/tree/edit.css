@@ -1,3 +1,15 @@
+html.light {
+  --c-btn-custom1-bg: bisque;
+  --c-btn-custom2-bg: rosybrown;
+  --c-btn-custom3-bg: sienna;
+}
+
+html.dark {
+  --c-btn-custom1-bg: #6a5439;
+  --c-btn-custom2-bg: #503030;
+  --c-btn-custom3-bg: #773d22;
+}
+
 .treeWrapper {
   margin-bottom: 3px;
   max-height: 300px;
@@ -8,32 +20,18 @@
   max-width: 100%;
 }
 
-.btn-color1 {
-  border-color: #efd4b4;
-  background-color: bisque;
+.btn-custom:hover {
+  filter: brightness(0.9);
 }
 
-.btn-color1:not([disabled]):hover {
-  border-color: #dfc4a4;
-  background-color: #ecd1b1;
+.btn-custom1 {
+  background-color: var(--c-btn-custom1-bg);
 }
 
-.btn-color2 {
-  border-color: #ac7f7f;
-  background-color: rosybrown;
+.btn-custom2 {
+  background-color: var(--c-btn-custom2-bg);
 }
 
-.btn-color2:not([disabled]):hover {
-  border-color: #996c6c;
-  background-color: #a97c7c;
-}
-
-.btn-color3 {
-  border-color: #90421d;
-  background-color: sienna;
-}
-
-.btn-color3:not([disabled]):hover {
-  border-color: #7d2f0a;
-  background-color: #8d3f1a;
+.btn-custom3 {
+  background-color: var(--c-btn-custom3-bg);
 }

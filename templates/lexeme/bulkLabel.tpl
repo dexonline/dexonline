@@ -12,10 +12,8 @@
     </a>
   </p>
 
-  <div class="alert alert-info alert-dismissible" role="alert">
-    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-
-    <ul class="mb-0">
+  {notice type=info}
+    <ul class="mb-0 ps-3">
       <li>Sunt prezentate maximum 20 de lexeme pe pagină.</li>
       <li>
         Restricțiile nu sunt luate în considerare în timp real (toate
@@ -26,7 +24,7 @@
         Dacă ignorați un lexem, el nu va fi modificat și va continua să apară în listă.
       </li>
     </ul>
-  </div>
+  {/notice}
 
   <form method="post">
     <input type="hidden" name="suffix" value="{$suffix|escape}">

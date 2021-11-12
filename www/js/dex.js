@@ -351,3 +351,14 @@ $(function() {
     $(this).animate({ opacity: 0 }, 1000);
   });
 });
+
+/************************ light/dark mode toggle ************************/
+
+$(function() {
+  $('.light-mode-toggle, .dark-mode-toggle').click(function() {
+    setColorScheme($(this).data('mode'));
+    $(this).hide();
+    $(this).siblings().css('display', 'block');
+    return false;
+  });
+});

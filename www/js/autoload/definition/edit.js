@@ -131,7 +131,7 @@ $(function() {
     ifWikiPageExists('Definiție:' + definitionId, function() {
       $('#wikiLink')
         .attr('title', 'definiția are o pagină wiki')
-        .toggleClass('btn-light btn-warning');
+        .toggleClass('btn-outline-secondary btn-warning');
     });
   }
 

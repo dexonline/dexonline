@@ -2,5 +2,5 @@ To produce a PNG tileset, proceed as follows.
 
 1. Create a file tileset.html containing the CSS buttons.
 2. Install cutycapt.
-3. Run cutycapt --url=file:/full/path/to/tileset.html --out=tileset.png
+3. Run CutyCapt --url=file:/full/path/to/tileset.html --out=tileset.png
 4. Run optipng tileset.png

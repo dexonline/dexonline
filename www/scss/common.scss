@@ -1,0 +1,184 @@
+/**
+ * Common definitions for Bootstrap light and dark themes.
+ *
+ * If you modify this file, remember to recompile the CSS file by running
+ * tools/recompileCss.sh.
+ **/
+
+/* Bootstrap overrides */
+$dropdown-link-hover-color: $primary;
+$font-family-sans-serif: Open Sans, Arial, sans-serif;
+$font-size-base: 0.875rem;
+$input-btn-focus-blur: 8px;
+$input-focus-border-color: $primary;
+$legend-font-size: 1.25rem;
+$link-decoration: none;
+$link-hover-decoration: underline;
+$navbar-light-hover-color: $primary;
+
+@import "functions";
+@import "variables";
+@import "mixins";
+
+/**
+ * Remove unused colors.
+ */
+$theme-colors: map-remove($theme-colors, "dark", "info", "light");
+$utilities-colors: map-remove($utilities-colors, "dark", "info", "light");
+$table-variants: (); /* no colors */
+
+$theme-colors-rgb: map-loop($theme-colors, to-rgb, "$value");
+$utilities-colors: map-merge($utilities-colors, $theme-colors-rgb);
+$utilities-text-colors: map-loop($utilities-colors, rgba-css-var, "$key", "text");
+$utilities-bg-colors: map-loop($utilities-colors, rgba-css-var, "$key", "bg");
+
+/**
+ * Keep the next section in sync with third-party/bootstrap/bootstrap.scss.
+ * Comment out what we don't use.
+ */
+@import "utilities";
+
+// Layout & components
+@import "root";
+@import "reboot";
+@import "type";
+@import "images";
+@import "containers";
+@import "grid";
+@import "tables";
+@import "forms";
+@import "buttons";
+@import "transitions";
+@import "dropdown";
+@import "button-group";
+@import "nav";
+@import "navbar";
+@import "card";
+//@import "accordion";
+//@import "breadcrumb";
+//@import "pagination";
+@import "badge";
+//@import "alert";
+//@import "progress";
+//@import "list-group";
+@import "close";
+//@import "toasts";
+@import "modal";
+//@import "tooltip";
+@import "popover";
+//@import "carousel";
+@import "spinners";
+//@import "offcanvas";
+//@import "placeholders";
+
+@import "helpers";
+
+@import "utilities/api";
+/**
+ * end of BS imports
+ */
+
+@include media-breakpoint-down(lg) {
+  /* navbar logo: show just the computer, not the "dexonline" word */
+  .navbar-brand {
+    overflow: hidden;
+    width: 44px;
+  }
+}
+
+/************************* navbar media queries *************************/
+
+@include media-breakpoint-up(lg) {
+  .navbar .container {
+    padding: 0px;
+  }
+}
+
+/*********************** search form media queries ***********************/
+
+@include media-breakpoint-down(md) {
+  #advancedAnchor {
+    padding: 9px 9px 5px 0px;
+  }
+}
+
+/************************* widget media queries *************************/
+
+@include media-breakpoint-up(md) {
+  .widget {
+    min-height: 215px;
+  }
+}
+
+@include media-breakpoint-up(xl) {
+  .widget {
+    min-height: 136px;
+  }
+}
+
+/************************ donation media queries ************************/
+
+@include media-breakpoint-up(xl) {
+  .paymentSection {
+    min-height: 210px;
+  }
+
+  form.payPal {
+    margin-top: 35px;
+  }
+}
+
+@include media-breakpoint-only(lg) {
+  .paymentSection {
+    min-height: 230px;
+  }
+
+  form.payPal {
+    margin-top: 45px;
+  }
+}
+
+/* Select2 overrides for both light and dark modes */
+/* select2 colors */
+.select2-container--default .select2-selection--single {
+  background-color: transparent;
+  border-color: var(--bs-gray-400);
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+  color: inherit;
+}
+
+.select2-container--default.select2-container--disabled .select2-selection--multiple {
+  background-color: var(--bs-gray-200);
+}
+
+.select2-dropdown {
+  background-color: var(--bs-body-bg);
+  border-color: var(--bs-gray-400);
+}
+
+.select2-container--default .select2-search--dropdown .select2-search__field {
+  background-color: var(--bs-body-bg);
+  border-color: var(--bs-gray-400);
+  color: var(--bs-body-color);
+}
+
+.select2-container--default .select2-selection--multiple {
+  background-color: inherit;
+  border-color: var(--bs-gray-400);
+  color: inherit;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+  background-color: var(--bs-gray-200);
+  border-color: var(--bs-gray-400);
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice.select2-highlighted {
+  background-color: var(--bs-gray-400);
+}
+
+.select2-container--default .select2-search--inline .select2-search__field {
+  color: inherit;
+}

@@ -26,12 +26,12 @@
             {include "bits/tag.tpl" t=$ht->getTag()}
           </td>
           <td>
-            <a class="btn btn-sm btn-danger deleteRuleLink"
+            <a class="btn btn-sm btn-outline-danger deleteRuleLink"
               href="?deleteHarmonizeTagId={$ht->id}">
               {include "bits/icon.tpl" i=delete}
             </a>
             {if $ht->countPending()}
-              <a class="btn btn-sm btn-light"
+              <a class="btn btn-sm btn-outline-secondary"
                 href="?applyHarmonizeTagId={$ht->id}"
                 title="aplică regula lexemelor pentru care ea nu este respectată">
                 aplică ({$ht->countPending()})
@@ -61,6 +61,12 @@
 
   <h4>Schimbarea tipului de model</h4>
 
+  {notice type="warning"}
+    Folosiți cu prudență aceste reguli. Aplicarea lor nu regenerează
+    paradigmele lexemelor afectate. Evitați schimbările care ar necesita
+    schimbarea paradigmei (cum ar fi A1 → A2).
+  {/notice}
+
   <form method="post">
     <table class="table table-hover">
       <tr>
@@ -82,12 +88,12 @@
             {$hm->newModelType}{$hm->newModelNumber|default:' (păstrează numărul)'}
           </td>
           <td>
-            <a class="btn btn-sm btn-danger deleteRuleLink"
+            <a class="btn btn-sm btn-outline-danger deleteRuleLink"
               href="?deleteHarmonizeModelId={$hm->id}">
               {include "bits/icon.tpl" i=delete}
             </a>
             {if $hm->countPending()}
-              <a class="btn btn-sm btn-light"
+              <a class="btn btn-sm btn-outline-secondary"
                 href="?applyHarmonizeModelId={$hm->id}"
                 title="aplică regula lexemelor pentru care ea nu este respectată">
                 aplică ({$hm->countPending()})
@@ -120,11 +126,5 @@
 
     </table>
   </form>
-
-  <div class="alert alert-warning" role="alert">
-    Folosiți cu prudență aceste reguli. Aplicarea lor nu regenerează
-    paradigmele lexemelor afectate. Evitați schimbările care ar necesita
-    schimbarea paradigmei (cum ar fi A1 → A2).
-  </div>
 
 {/block}

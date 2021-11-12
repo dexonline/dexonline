@@ -1,0 +1,136 @@
+/**
+ * Entry point for the Bootstrap dark theme.
+ *
+ * If you modify this file, remember to recompile the CSS file by running
+ * tools/recompileCss.sh.
+ **/
+
+/* theme colors */
+$primary:   #6cda89;
+$secondary: #5cabea;
+
+$red:       #cf6679; /* also $danger */
+$pink:      #ec5fa0;
+$orange:    #ffb84d;
+$yellow:    #ffd54f; /* also $warning */
+$green:     #5bb574; /* also $success */
+$blue:      #51d2de;
+
+/**
+ * Invert the gray scale. Start from the default scale as HSL:
+ *
+ *   $white:    #ffffff = (210, .17, 1.00)
+ *   $gray-100: #f8f9fa = (210, .17, .98)
+ *   $gray-200: #e9ecef = (210, .16, .93)
+ *   $gray-300: #dee2e6 = (210, .14, .89)
+ *   $gray-400: #ced4da = (210, .14, .83)
+ *   $gray-500: #adb5bd = (210, .11, .71)
+ *   $gray-600: #6c757d = (208, .07, .46)
+ *   $gray-700: #495057 = (210, .09, .31)
+ *   $gray-800: #343a40 = (210, .10, .23)
+ *   $gray-900: #212529 = (210, .11, .15)
+ *   $black:    #000000 = (210, .11, .00)
+ *
+ * Next, convert the desired body-bg (#121212) to HSL => (0, 0, 0.07).
+ * That's our new $white.
+ *
+ * Convert the lightness range (1.00 - 0.00) to (0.07 - 1.00). The formula for
+ * any lightness 0 <= x <= 1 is 1 - x * 0.93.
+ **/
+$white:    hsl(0, 0%,   7%);
+$gray-100: hsl(0, 0%,   9%);
+$gray-200: hsl(0, 0%,  14%);
+$gray-300: hsl(0, 0%,  17%);
+$gray-400: hsl(0, 0%,  23%);
+$gray-500: hsl(0, 0%,  34%);
+$gray-600: hsl(0, 0%,  57%);
+$gray-700: hsl(0, 0%,  71%);
+$gray-800: hsl(0, 0%,  79%);
+$gray-900: hsl(0, 0%,  86%);
+$black:    hsl(0, 0%, 100%);
+
+/* Bootstrap overrides */
+$body-bg: $white;
+$body-color: $black;
+
+$modal-backdrop-bg: $gray-700;
+
+html.dark {
+  --c-logo-home: #c5c5c5;
+  --c-logo-nav: #c5c5c5;
+  --c-navbar-bg: #212529;
+  --c-navbar-border: #212529;
+  --c-notice: var(--bs-body-color);
+  --c-notice-bg: #212121;
+  --c-read-more-top: rgba(18, 18, 18, 0.8);
+  --c-search-shadow: #777;
+
+  /* tag backgrounds and colors */
+  --c-tag-bg-1: #ff7c5b;
+  --c-tag-bg-2: #ffb84d;
+  --c-tag-bg-3: #ffd54f;
+  --c-tag-bg-4: #5bb574;
+  --c-tag-bg-5: #5cabea;
+  --c-tag-bg-6: #ec5fa0;
+  --c-tag-bg-7: #aaaaaa;
+
+  --c-tag-bg-8: #ffc7b8;
+  --c-tag-bg-9: #ffe0b2;
+  --c-tag-bg-10: #ffecb3;
+  --c-tag-bg-11: #c5e9c9;
+  --c-tag-bg-12: #b3ecf0;
+  --c-tag-bg-13: #f5bad6;
+  --c-tag-bg-14: #e2e3e5;
+
+  /* tag backgrounds and colors */
+  --c-tag-1: var(--bs-body-bg);
+  --c-tag-2: var(--bs-body-bg);
+  --c-tag-3: var(--bs-body-bg);
+  --c-tag-4: var(--bs-body-bg);
+  --c-tag-5: var(--bs-body-bg);
+  --c-tag-6: var(--bs-body-bg);
+  --c-tag-7: var(--bs-body-bg);
+
+  --c-tag-8: var(--bs-body-bg);
+  --c-tag-9: var(--bs-body-bg);
+  --c-tag-10: var(--bs-body-bg);
+  --c-tag-11: var(--bs-body-bg);
+  --c-tag-12: var(--bs-body-bg);
+  --c-tag-13: var(--bs-body-bg);
+  --c-tag-14: var(--bs-body-bg);
+}
+
+@import "common.scss";
+
+/* autocomplete overrides */
+.ui-widget-content {
+  background-color: var(--bs-body-bg);
+  border-color: var(--bs-gray-300);
+  color: var(--bs-body-color);
+}
+.ui-widget.ui-widget-content {
+  border: 1px solid var(--bs-gray-400);
+}
+/* jquery-ui overrides */
+.ui-state-default,
+.ui-widget-content .ui-state-default,
+.ui-widget-header .ui-state-default,
+.ui-button,
+.ui-button.ui-state-disabled:hover,
+.ui-button.ui-state-disabled:active {
+  background: var(--bs-gray-100);
+  border-color: var(--bs-gray-300);
+  color: var(--bs-gray-500);
+}
+
+/* tablesorter overrides */
+/* copy the definitions, decode the base64 SVG and add a fill color */
+.tablesorter-bootstrap thead .tablesorter-headerAsc {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 14 14'%3e%3cpath fill='%23ddd' d='M14 9.5L11.5 12 7 7.5 2.5 12 0 9.5l7-7z'/%3e%3c/svg%3e");
+}
+.tablesorter-bootstrap thead .tablesorter-headerDesc {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 14 14'%3e%3cpath fill='%23ddd' d='M14 5l-2.5-2.5-4.5 4.5-4.5-4.5L0 5 7 12z'/%3e%3c/svg%3e");
+}
+.tablesorter-bootstrap thead .tablesorter-headerUnSorted:not(.sorter-false) {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='16' viewBox='0 0 14 20'%3e%3cpath fill='%23ddd' d='M14 13l-2.5-2.5L7 15l-4.5-4.5L0 13l7 7zM14 7.5L11.5 10 7 5.5 2.5 10 0 7.5l7-7z'/%3e%3c/svg%3e");
+}

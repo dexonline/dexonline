@@ -5,12 +5,11 @@
 {block "content"}
   <h3>Editare flexiuni</h3>
 
-  <div class="alert alert-info">
-    <strong>Instrucțiuni:</strong> Trageți de icoana
-    {include "bits/icon.tpl" i=drag_indicator}
-    pentru a le reordona rîndurile, apoi apăsați <em>salvează</em>. Puteți
-    șterge doar flexiunile nefolosite (de obicei, cele nou create).
-  </div>
+  {notice type="info"}
+    Trageți de icoana {include "bits/icon.tpl" i=drag_indicator} pentru a le
+    reordona rîndurile, apoi apăsați <em>salvează</em>. Puteți șterge doar
+    flexiunile nefolosite (de obicei, cele nou create).
+  {/notice}
 
   <form method="post">
     <table id="inflections" class="table table-sm table-hover sortable">

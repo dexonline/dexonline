@@ -16,5 +16,5 @@
 
 .defWrapper .typo {
   padding: 10px 0;
-  border-bottom: #CCC 1px dashed;
+  border-bottom: var(--bs-gray-400) 1px dashed;
 }

@@ -27,7 +27,7 @@
   <td>{HtmlConverter::convert($row)}</td>
   {if User::can(User::PRIV_ADMIN)}
     <td>
-      <button type="button" class="btn btn-sm btn-light me-1" name="btn-edit">
+      <button type="button" class="btn btn-sm btn-outline-secondary me-1" name="btn-edit">
         {include "bits/icon.tpl" i=edit}
       </button>
       <button type="button" class="btn btn-sm btn-danger" name="btn-trash">

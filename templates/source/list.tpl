@@ -6,15 +6,15 @@
 
   <h3>Surse</h3>
 
-  <div class="alert alert-info">
-    <div>Duceți cursorul deasupra unui nume de dicționar pentru a vedea mai multe detalii</div>
+  {notice type="info"}
+    <div>Duceți cursorul deasupra unui nume de dicționar pentru a vedea mai multe detalii.</div>
     {if $editable}
       <div>
         Trageți de icoana {include "bits/icon.tpl" i=drag_indicator}
         pentru a le reordona rîndurile, apoi apăsați <em>salvează</em>.
       </div>
     {/if}
-  </div>
+  {/notice}
 
   <form method="post">
     {* don't allow both Tablesorter and SortableJS at the same time *}
@@ -46,11 +46,11 @@
             {/if}
             <td class="abbreviation text-nowrap">
               {if $s->link && User::can(User::PRIV_EDIT)}
-                <a href="{$s->link}" class="badge text-dark bg-light" target="_blank">
+                <a href="{$s->link}" class="badge badge-muted" target="_blank">
                   {$s->shortName}
                 </a>
               {else}
-                <span class="badge text-dark bg-light">
+                <span class="badge badge-muted">
                   {$s->shortName}
                 </span>
               {/if}
@@ -97,7 +97,7 @@
         <u>s</u>alvează
       </button>
 
-      <a class="btn btn-light" href="{Router::link('source/edit')}">
+      <a class="btn btn-outline-secondary" href="{Router::link('source/edit')}">
         {include "bits/icon.tpl" i=add}
         adaugă o sursă
       </a>

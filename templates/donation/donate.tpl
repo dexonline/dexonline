@@ -18,9 +18,9 @@
     <div class="row">
       {if $haveEuPlatescCredentials}
         <div class="col-lg mb-3">
-          <div class="card border-info paymentSection">
+          <div class="card border-secondary paymentSection">
             <div
-              class="card-header text-white bg-info"
+              class="card-header text-white bg-secondary"
               title="Comision fix de 3,5% la donațiile online și 9-18% la cele prin SMS">
               Donează online sau prin SMS
               {include "bits/icon.tpl" i=info class="float-end"}
@@ -74,9 +74,9 @@
       {/if}
 
       <div class="col-lg mb-3">
-        <div class="card border-info paymentSection">
+        <div class="card border-secondary paymentSection">
           <div
-            class="card-header text-white bg-info"
+            class="card-header text-white bg-secondary"
             title="Comision mediu 6,5% (10% la donații de 5€, 4% la 25€)">
             Donează prin PayPal
             {include "bits/icon.tpl" i=info class="float-end"}
@@ -94,9 +94,9 @@
       </div>
 
       <div class="col-lg mb-3">
-        <div class="card border-info paymentSection">
+        <div class="card border-secondary paymentSection">
           <div
-            class="card-header text-white bg-info"
+            class="card-header text-white bg-secondary"
             title="Comisionul este oprit la trimitere">
             Donează prin transfer bancar
             {include "bits/icon.tpl" i=info class="float-end"}

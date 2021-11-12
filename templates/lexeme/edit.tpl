@@ -24,7 +24,7 @@
 
       <button type="submit"
         name="refreshButton"
-        class="lexemeEditSaveButton btn btn-light">
+        class="lexemeEditSaveButton btn btn-outline-secondary">
         {include "bits/icon.tpl" i=refresh}
         <u>r</u>eafișează
       </button>
@@ -38,7 +38,7 @@
 
       {if $canEdit.general}
         <button type="button"
-          class="btn btn-light"
+          class="btn btn-outline-secondary"
           data-bs-toggle="modal"
           data-bs-target="#cloneModal">
           {include "bits/icon.tpl" i=content_copy}
@@ -48,7 +48,7 @@
 
       <a id="wikiLink"
         href="https://wiki.dexonline.ro/wiki/Lexem:{$lexeme->id}?description={$lexeme|escape}"
-        class="btn btn-light"
+        class="btn btn-outline-secondary"
         title="creează o pagină wiki pentru acest lexem"
         target="_blank">
         {include "bits/icon.tpl" i=comment}
@@ -56,7 +56,7 @@
       </a>
 
       <a
-        class="btn btn-light"
+        class="btn btn-outline-secondary"
         href="definitie/{$lexeme->formNoAccent}"
         title="mergi la pagina publică de căutare">
         {include "bits/icon.tpl" i=search}
@@ -317,11 +317,17 @@
                     {/foreach}
                   </div>
 
-                  <button id="addFragmentButton" class="btn btn-light btn-sm" type="button">
+                  <button
+                    id="addFragmentButton"
+                    class="btn btn-outline-secondary btn-sm"
+                    type="button">
                     {include "bits/icon.tpl" i=add}
                     adaugă
                   </button>
-                  <button id="autoFragmentButton" class="btn btn-light btn-sm" type="button">
+                  <button
+                    id="autoFragmentButton"
+                    class="btn btn-outline-secondary btn-sm"
+                    type="button">
                     {include "bits/icon.tpl" i=content_cut}
                     autocompletează
                   </button>

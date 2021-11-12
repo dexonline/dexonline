@@ -58,7 +58,7 @@
         {/if}
 
         {if $target == 1}
-          {include "bits/definition.tpl" showStatus=1 showFlagTypo=1 showUser=0 showStructuredWrapper=0}
+          {include "bits/definition.tpl" showStatus=1 showFlagTypo=1 showUser=0}
         {else}
           {include "bits/meaning.tpl" m=$row}
         {/if}
@@ -117,7 +117,7 @@
     {if $structuredChanged}
       <a
         href="{Router::link('aggregate/bulkReplaceStructured')}"
-        class="btn btn-light"
+        class="btn btn-outline-secondary"
         target="_blank">
         definiții structurate modificate
       </a>

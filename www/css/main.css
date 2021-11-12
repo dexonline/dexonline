@@ -33,8 +33,18 @@ a:focus {
 /*********** navbar and its elements ***********/
 
 .navbar {
-  border-bottom: 1px solid #e8e8e8;
-  box-shadow: 0 0 8px 0 rgba(0,0,0,.1);
+  background-color: var(--c-navbar-bg);
+  border-bottom: 1px solid var(--c-navbar-border);
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, .1);
+}
+
+.navbar-brand svg {
+  height: auto;
+  width: 173px;
+}
+
+.navbar-brand g {
+  stroke: var(--c-logo-nav);
 }
 
 .navbar .avatar {
@@ -47,6 +57,11 @@ a:focus {
   margin-left: 5px;
 }
 
+/* hide the theme icon for the current theme */
+html.light .light-mode-toggle,
+html.dark .dark-mode-toggle {
+  display: none;
+}
 
 /**************************** material icons ****************************/
 
@@ -113,26 +128,13 @@ a:focus {
 }
 
 #searchForm .form-control:focus {
-  box-shadow: 0 1px 1px rgba(0,0,0,.075), 0 0 4px #ddd;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, .075), 0 0 4px var(--c-search-shadow);
 }
 
 #select2-sourceDropDown-results li {
   overflow-x: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-}
-
-/* autocomplete options */
-#ui-id-1 {
-  box-shadow: 0 6px 8px 0px #999;
-}
-
-#ui-id-1 a:hover {
-  background: red;
-  border-color: red;
-  border-radius: 0;
-  cursor: pointer;
-  color: var(--bs-primary);
 }
 
 
@@ -150,8 +152,8 @@ header .banner-section {
 }
 
 .fakeBanner {
-  background: #777;
-  color: white;
+  background: var(--bs-gray-500);
+  color: var(--bs-body-bg);
   font-size: 60px;
   height: 90px;
   text-align: center;
@@ -162,7 +164,7 @@ header .banner-section {
 /*********** footer ***********/
 
 footer {
-  border-top: 1px solid #eee;
+  border-top: 1px solid var(--bs-gray-400);
   margin-top: 1rem;
   padding-top: 1rem;
 }
@@ -176,7 +178,7 @@ footer {
 
 /* The default underline sticks to the bottom of the text with no padding. */
 abbr[title] {
-  border-bottom: 1px dotted #777;
+  border-bottom: 1px dotted var(--bs-gray-600);
   text-decoration: none;
 }
 
@@ -187,7 +189,7 @@ abbr[title] {
 }
 
 .hasDependants, .dependantsWrapper {
-  border-left: 3px solid #cecece;
+  border-left: 3px solid var(--bs-gray-400);
   margin-left: -1rem;
   padding-left: 1rem;
 }
@@ -207,7 +209,7 @@ abbr[title] {
 }
 
 .def {
-  color: black;
+  color: var(--bs-body-color);
   cursor: pointer;
 }
 
@@ -217,17 +219,21 @@ abbr[title] {
   line-height: 1.88; /* equivalent line height: 1.6 / 0.85em */
 }
 
+.defDetails .badge {
+  background-color: var(--bs-gray-600);
+}
+
 .spaced {
   letter-spacing: 3px;
   padding-left: 2px;
 }
 
 .deemph {
-  color: #ccc;
+  color: var(--bs-gray-500);
 }
 
 .emph {
-  color: black;
+  color: var(--bs-body-color);
 }
 
 .tonic-accent {
@@ -239,7 +245,7 @@ abbr[title] {
 }
 
 .rareGlyph {
-  background: red;
+  background: var(--bs-red);
   color: white;
 }
 
@@ -251,7 +257,7 @@ sup.footnote {
 }
 
 .card-footnotes {
-  color: #444;
+  color: var(--bs-gray-800);
   font-size: 85%;
   margin: 20px 0 10px 30px;
 }
@@ -261,9 +267,9 @@ sup.footnote {
 }
 
 .card-footnotes:before {
-  background-color: #fff;
-  border-left: 1px solid #ddd;
-  border-top: 1px solid #ddd;
+  background-color: var(--bs-white);
+  border-left: 1px solid var(--bs-gray-400);
+  border-top: 1px solid var(--bs-gray-400);
   content: "\00a0";
   display: block;
   height: 20px;
@@ -275,7 +281,7 @@ sup.footnote {
 }
 
 .callout {
-  border: 1px solid #eee;
+  border: 1px solid var(--bs-gray-200);
   border-left-width: 5px;
   border-radius: 3px;
   margin: 20px 0;
@@ -283,19 +289,24 @@ sup.footnote {
   padding: 10px 20px;
 }
 
-.callout-info {
-  border-left-color: var(--bs-info);
+.callout-secondary {
+  border-left-color: var(--bs-secondary);
 }
 
-.callout-info h3 {
-  color: var(--bs-info);
+.callout-secondary h3 {
+  color: var(--bs-secondary);
 }
 
-/************** labels inside headers **************/
+/************** badges **************/
 
 h3 .badge {
   font-size: 12px;
   vertical-align: middle;
+}
+
+.badge-muted {
+  background-color: var(--bs-gray-300);
+  color: var(--bs-gray-800) !important;
 }
 
 /************** scanned page modal **************/
@@ -305,8 +316,8 @@ h3 .badge {
   width: 95%;
 }
 
-#pageModal .alert {
-  display: none;
+#pageModal .notice {
+  display: none !important; /* escalate to !important to trump d-flex*/
   margin-bottom: 0px;
 }
 
@@ -317,12 +328,6 @@ h3 .badge {
 .pageScan {
   min-height: 64px;
   overflow: hidden;
-}
-
-/*********** links in alerts ***********/
-
-.alert .alert-link {
-  text-decoration: underline;
 }
 
 /*********** misc helpers ***********/
@@ -345,19 +350,6 @@ div.thumb {
   background-color: transparent;
 }
 
-html .thumbimage {
-  border: 1px solid #ccc;
-}
-
-div.thumbinner {
-  border: 1px solid #ccc;
-  padding: 3px;
-  background-color: #f9f9f9;
-  font-size: 94%;
-  text-align: center;
-  overflow: hidden;
-}
-
 /* for select2 field which contains too many items */
 .overflownSelect2 .select2-selection__rendered {
   max-height: 81px;
@@ -365,8 +357,8 @@ div.thumbinner {
 }
 
 .linkBox {
-  background-color: #e4e4e4;
-  border: 1px solid #aaa;
+  background-color: var(--bs-gray-200);
+  border: 1px solid var(--bs-gray-400);
   border-radius: 4px;
   cursor: default;
   float: left;
@@ -390,7 +382,13 @@ div.thumbinner {
 
 .tablesorter-header,
 .tablesorter-pager th {
-  background-color: white !important;
+  background-color: var(--bs-white) !important;
+}
+
+.tablesorter-pager .btn,
+.tablesorter-pager .btn.disabled {
+  background-color: inherit;
+  border: 0;
 }
 
 /****************** „Read more” link for long sections ******************/
@@ -401,10 +399,47 @@ div.thumbinner {
 }
 
 .read-more .read-more-btn {
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.8) 0%, #ccc 100%);
+  background: linear-gradient(to bottom, var(--c-read-more-top), var(--bs-gray-300));
   border: 0;
   bottom: 0;
   left: 0;
   position: absolute;
   width: 100%;
+}
+
+/******** collapsible card with expand/collapse visual indicator ********/
+
+.card-collapse .card-header {
+  cursor: pointer;
+}
+
+.card-collapse .chevron {
+  transition: all 0.5s;
+}
+
+.card-collapse .card-header.collapsed .chevron {
+  transform: rotate(180deg);
+}
+
+/******************** our clone of Bootstrap's alerts ********************/
+
+.notice {
+  background-color: var(--c-notice-bg);
+  border-radius: .25rem;
+  color: var(--c-notice);
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+}
+
+.notice .notice-icon {
+  font-size: 200%;
+}
+
+.notice a {
+  color: inherit !important;
+  text-decoration: underline;
+}
+
+.notice a:hover {
+  opacity: 0.7;
 }

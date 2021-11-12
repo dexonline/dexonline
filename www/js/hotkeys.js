@@ -67,7 +67,9 @@ $(function() {
   }
 
   function clickRecentPagesLink() {
-    $('#recentPagesLink').click();
+    var el = document.querySelector('#modal-recent');
+    var m = bootstrap.Modal.getOrCreateInstance(el);
+    m.toggle();
     return false;
   }
 

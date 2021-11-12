@@ -1,11 +1,11 @@
 {if isset($answer)}
   {if $answer}
-    <div class="alert alert-success">
+    {notice type="success"}
       {t 1=$form|escape 2=$version}The form <strong>%1</strong> exists in LOC %2.{/t}
-    </div>
+    {/notice}
   {else}
-    <div class="alert alert-danger">
+    {notice type="danger"}
       {t 1=$form|escape 2=$version}The form <strong>%1</strong> does not exist in LOC %2.{/t}
-    </div>
+    {/notice}
   {/if}
 {/if}

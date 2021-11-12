@@ -25,19 +25,25 @@ $(function() {
   }
 
   function tinymceToggle() {
+    var darkMode = getColorScheme() == 'dark';
+
     if (!tinymce.activeEditor) {
       // necessary since CSS and JS files are merged in a different directory
-      tinymce.baseURL = wwwRoot + 'js/third-party/tinymce-4.9.1';
+      tinymce.baseURL = wwwRoot + 'js/third-party/tinymce-5.9.2';
       tinymce.suffix = '.min';
 
       tinymce.init({
+        /* keep the statusbar so that the resize icon is visible */
         branding: false,
-        content_css: '../css/tinymce.css',
+        content_css: [ darkMode ? 'dark' : '', '../css/tinymce.css' ],
+        elementpath: false,
         entity_encoding: 'raw',
+        height: 350,
         menubar: false,
         resize: 'both',
         selector: '.tinymceTextarea',
         setup: tinymceSetup,
+        skin: darkMode ? 'oxide-dark' : 'oxide',
         toolbar: 'undo redo | bold italic spaced superscript subscript abbrev',
         width: '100%',
       });
@@ -53,10 +59,6 @@ $(function() {
   }
 
   function tinymceSetup(editor) {
-    // Compensate for (possibly) a TinyMCE bug <https://github.com/tinymce/tinymce/issues/3047>
-    var obj = $('#' + editor.id);
-    obj.val(obj.val().replace(/</g, '&lt;'));
-
     editor.on('init', function() {
 
       var _doc = $(document);
@@ -64,9 +66,6 @@ $(function() {
       // This is done so that keybindings work even when TinyMCE has focus.
       // In this case evt.target will be .mce-content-body.
       editor.on('keydown', function(evt) { _doc.trigger(evt); });
-
-      // Set fontSize slightly bigger than default 11px
-      editor.getBody().style.fontSize = '14px';
 
       // Register a "spaced" format
       editor.formatter.register('spaced', {
@@ -94,42 +93,37 @@ $(function() {
     });
 
     // Add a toolbar button for spaced text
-    editor.addButton('spaced', {
+    editor.ui.registry.addToggleButton('spaced', {
       tooltip: 'Spațiat',
       text: '␣',
-      onClick: function() {
-        editor.formatter.toggle('spaced');
+      onAction: function (_) {
+        editor.execCommand('mceToggleFormat', false, 'spaced');
       },
-      onPostRender: function() {
-        var self = this, setup = function() {
-          editor.formatter.formatChanged('spaced', function(state) {
-            self.active(state);
-          });
-        };
-        editor.formatter ? setup() : editor.on('init', setup);
+      onSetup: function (api) {
+        editor.formatter.formatChanged('spaced', function (state) {
+          api.setActive(state);
+        });
       }
     });
 
     // Add a toolbar button for abbreviated text
-    editor.addButton('abbrev', {
+    editor.ui.registry.addToggleButton('abbrev', {
       tooltip: 'Abreviere',
       text: '#',
-      onClick: function() {
-        editor.formatter.toggle('abbrev');
+      onAction: function (_) {
+        editor.execCommand('mceToggleFormat', false, 'abbrev');
       },
-      onPostRender: function() {
-        var self = this, setup = function() {
-          editor.formatter.formatChanged('abbrev', function(state) {
-            self.active(state);
-          });
-        };
-        editor.formatter ? setup() : editor.on('init', setup);
+      onSetup: function (api) {
+        editor.formatter.formatChanged('abbrev', function (state) {
+          api.setActive(state);
+        });
       }
     });
+
   }
 
-    // Convert some of our internal notation to HTML. This is not exhaustive,
-    // just enough to allow TinyMCE to work properly.
+  // Convert some of our internal notation to HTML. This is not exhaustive,
+  // just enough to allow TinyMCE to work properly.
   function internalToHtml(ed) {
     var s = $('#' + ed.target.id).val();
     s = '<p>' + s.replace(/\n{1,}/gi, '</p><p>') + '</p>'; // wrap paragraphs

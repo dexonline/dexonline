@@ -5,6 +5,11 @@
 {block "content"}
   <h3>Editează abrevieri pentru dicționar</h3>
 
+  {notice type=warning}
+    În momentul editării unei abrevieri, prin schimbarea formei acesteia, sunt
+    afectate și celelalte definiții deja moderate din acel dicționar.
+  {/notice}
+
   <div class="card mb-3">
     <div class="card-header">
       Alegere sursă

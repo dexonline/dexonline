@@ -199,9 +199,9 @@ class Constant {
 
   // Long participles and gerunds (like dusu- and ducându-) need some special treatment.
   const LONG_VERB_INFLECTION_IDS = [ 106, 107 ];
+
   // Map of CSS files, JS files and dependencies for our resources.
   // Entries must be listed in the order in which they should be loaded.
-
   const RESOURCE_MAP = [
     'i18n' => [
       'js' => [
@@ -216,9 +216,24 @@ class Constant {
       'css' => [ 'third-party/smoothness-1.12.1/jquery-ui-1.12.1.custom.min.css' ],
       'js' => [ 'third-party/jquery-ui-1.12.1.custom.min.js' ],
     ],
+    'select2' => [
+      'css' => [ 'third-party/select2.min.css' ],
+      'js' => [
+        'third-party/select2/select2.min.js',
+        'third-party/select2/i18n/ro.js',
+      ],
+    ],
+    'select2Dev' => [
+      'js' => [ 'select2Dev.js' ],
+      'deps' => [ 'jqueryui', 'select2' ],
+    ],
     'bootstrap' => [
-      'css' => [ 'third-party/bootstrap.min.css' ],
+      'css' => [
+        'third-party/bootstrap.min.css',
+        'third-party/bootstrap-diff.css',
+      ],
       'js' => [ 'third-party/bootstrap.bundle.min.js' ],
+      'deps' => [ 'select2' ], /* because our themes include Select2 overrides */
     ],
     'jqgrid' => [
       'css' => [ 'third-party/ui.jqgrid.css' ],
@@ -269,17 +284,6 @@ class Constant {
       'css' => [ 'third-party/jcrop/jquery.Jcrop.min.css' ],
       'js' => [ 'third-party/jquery.Jcrop.min.js' ],
     ],
-    'select2' => [
-      'css' => [ 'third-party/select2.min.css' ],
-      'js' => [
-        'third-party/select2/select2.min.js',
-        'third-party/select2/i18n/ro.js',
-      ],
-    ],
-    'select2Dev' => [
-      'js' => [ 'select2Dev.js' ],
-      'deps' => [ 'jqueryui', 'select2' ],
-    ],
     'jcanvas' => [
       'js' => [ 'third-party/jcanvas.min.js' ],
     ],
@@ -308,7 +312,7 @@ class Constant {
     'tinymce' => [
       'css' => [ 'tinymce.css' ],
       'js' => [
-        'third-party/tinymce-4.9.1/tinymce.min.js',
+        'third-party/tinymce-5.9.2/tinymce.min.js',
         'tinymce.js',
       ],
       'deps' => [ 'cookie' ],
@@ -351,6 +355,11 @@ class Constant {
       'css' => [ 'frequentObjects.css' ],
       'js' => [ 'frequentObjects.js' ],
       'deps' => [ 'jqueryui', 'cookie' ],
+    ],
+    'bootstrap-select' => [
+      'css' => [ 'third-party/bootstrap-select.min.css' ],
+      'js' => [ 'third-party/bootstrap-select.min.js' ],
+      'deps' => [ 'bootstrap' ],
     ],
     'admin' => [
       'css' => [ 'admin.css' ],

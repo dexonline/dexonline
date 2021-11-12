@@ -1,14 +1,22 @@
-.siteIdentity {
-    max-width: 316px;
-    margin: 30px auto 35px;
+html.light {
+  --c-social-svg: #303030;
 }
 
-.siteLogo {
-  width: 100%;
+html.dark {
+  --c-social-svg: #b2b2b2;
+}
+
+.siteIdentity {
+  max-width: 316px;
+  margin: 30px auto 35px;
+}
+
+.siteIdentity g {
+  stroke: var(--c-logo-home);
 }
 
 .tagline {
-  color: #444;
+  color: var(--bs-gray-800);
   font-size: 14px;
   letter-spacing: 1px;
   text-align: right;
@@ -16,7 +24,7 @@
 }
 
 .website-statement {
-  color: #999;
+  color: var(--bs-gray-600);
 }
 
 /********************* Home page widgets *********************/
@@ -27,13 +35,13 @@
 .widget {
   margin: 10px;
   padding: 15px 1rem;
-  border: 1px solid #CCC;
+  border: 1px solid var(--bs-gray-400);
   border-radius: 4px;
-  color: #777;
+  color: var(--bs-gray-600) !important;
 }
 
 .widget.aotm:hover {
-  border-color: #1DE3CE;
+  border-color: var(--bs-blue);
 }
 
 .widget.games:hover {
@@ -41,19 +49,35 @@
 }
 
 .widget.random-word:hover {
-  border-color: #FFC03F;
+  border-color: var(--bs-yellow);
 }
 
 .widget.social:hover {
-  border-color: #3B5998;
+  border-color: #303030;
+}
+
+.widget.social svg {
+  height: 32px;
+  width: 32px;
+}
+
+.social-blog path:nth-child(4),
+.social-facebook path,
+.social-twitter path {
+  fill: var(--c-social-svg);
+}
+
+.social-instagram g {
+  fill: var(--c-social-svg);
+  stroke: var(--c-social-svg);
 }
 
 .widget.wotd:hover {
-  border-color: #E31DB2;
+  border-color: var(--bs-pink);
 }
 
 .widget.wotm:hover {
-  border-color: #25D228;
+  border-color: var(--bs-teal);
 }
 
 .widget h4,

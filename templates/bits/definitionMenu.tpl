@@ -34,7 +34,7 @@
             {include "bits/icon.tpl" i=done}
             structurată
           </span>
-          <span class="toggleStructuredLink" {if $def->structured}style="display: none"{/if}>
+          <span class="toggleStructuredLink text-body" {if $def->structured}style="display: none"{/if}>
             {include "bits/icon.tpl" i=clear}
             nestructurată
           </span>

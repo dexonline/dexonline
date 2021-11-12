@@ -19,23 +19,32 @@
 {block "content"}
   {assign var="reason" value=$reason|default:''}
 
-  <h3>
-    {t 1=$day 2=$monthName 3=$year}Word of the day for %2 %1, %3{/t}
+  <h3 class="d-flex align-items-center">
+    <span class="flex-grow-1">
+      {t 1=$day 2=$monthName 3=$year}Word of the day for %2 %1, %3{/t}
+    </span>
 
     {if Config::SKIN_WOTD_SUBSCRIBE}
-      <div id="wotdSocialMedia" class="float-end">
-        <div>
-          <a href="#toggleContents" data-bs-toggle="collapse">
-            <img src="{Config::URL_PREFIX}img/social-media/email-29.png" alt="iconiță email"
-          ></a>
-          <a type="application/rss+xml" href="{Router::link('wotd/rss')}">
-            <img src="{Config::URL_PREFIX}img/social-media/rss-29.png" alt="iconiță RSS"
-          ></a>
-          <a href="https://www.facebook.com/dexonline">
-            <img src="{Config::URL_PREFIX}img/social-media/facebook-29.png" alt="iconiță Facebook"
-          ></a>
-        </div>
-      </div>
+      <a
+        class="social-svg social-email"
+        data-bs-toggle="collapse"
+        href="#toggleContents"
+        title="e-mail">
+        {$svgs.email}
+      </a>
+      <a
+        class="social-svg social-rss"
+        href="{Router::link('wotd/rss')}"
+        title="rss"
+        type="application/rss+xml">
+        {$svgs.rss}
+      </a>
+      <a
+        class="social-svg social-facebook"
+        href="https://www.facebook.com/dexonline"
+        title="facebook">
+        {$svgs.facebook}
+      </a>
     {/if}
   </h3>
 
@@ -67,7 +76,10 @@
     </div>
 
     <div class="card-body pb-0">
-      <a {if $wotd->url}href="{$wotd->url}"{/if} target="_blank">
+      <a
+        href="{$wotd->url|default:'#'}"
+        {if !$wotd->url}class="disabled"{/if}
+        target="_blank">
         <img class="img-fluid mx-auto d-block"
           src="{$wotd->getLargeThumbUrl()}"
           alt="{$searchResult->definition->lexicon}"

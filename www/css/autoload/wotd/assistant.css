@@ -6,22 +6,11 @@ h3 form {
   width: 100px;
 }
 
-.card-header {
-  cursor: pointer;
-}
-
 .card-header a {
   display: none;
 }
 
 .card-header:hover a {
+  color: inherit;
   display: inline;
-}
-
-.card-header .chevron {
-  transition: all 0.5s;
-}
-
-.card-header.collapsed .chevron {
-  transform: rotate(180deg);
 }

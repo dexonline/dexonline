@@ -116,7 +116,7 @@
   </table>
 
   {if !$showAddForm}
-    <a class="btn btn-light" href="?add=1">
+    <a class="btn btn-outline-secondary" href="?add=1">
       {include "bits/icon.tpl" i=add}
       adaugă un tip de model
     </a>

@@ -17,7 +17,7 @@
 
   <div>
     <button type="button"
-      class="btn btn-light"
+      class="btn btn-outline-secondary"
       data-bs-toggle="modal"
       data-bs-target="#associateModal">
       asociază...

@@ -1,0 +1,73 @@
+/**
+ * Entry point for the Bootstrap light theme.
+ *
+ * If you modify this file, remember to recompile the CSS file by running
+ * tools/recompileCss.sh.
+ **/
+
+/* color overrides */
+$primary:   #00852a;
+$secondary: #006cd1;
+
+$red:       #ad1700; /* also $danger */
+$pink:      #ab0065;
+$orange:    #ff9800;
+$green:     #006615; /* also $success */
+$blue:      #15bed1;
+
+html.light {
+  --c-logo-home: #212529;
+  --c-logo-nav: #3a3a3a;
+  --c-navbar-bg: white;
+  --c-navbar-border: #e8e8e8;
+  --c-notice: #212529;
+  --c-notice-bg: #e2e3e5;
+  --c-read-more-top: rgba(255, 255, 255, 0.8);
+  --c-search-shadow: #ddd;
+
+  /* tag backgrounds and colors */
+  --c-tag-bg-1: #e01e00;
+  --c-tag-bg-2: #ff9800;
+  --c-tag-bg-3: #ffc107;
+  --c-tag-bg-4: #006615;
+  --c-tag-bg-5: #006cd1;
+  --c-tag-bg-6: #ab0065;
+  --c-tag-bg-7: #555555;
+
+  --c-tag-bg-8: #ffc7b8;
+  --c-tag-bg-9: #ffe0b2;
+  --c-tag-bg-10: #ffecb3;
+  --c-tag-bg-11: #c5e9c9;
+  --c-tag-bg-12: #b3ecf0;
+  --c-tag-bg-13: #f5bad6;
+  --c-tag-bg-14: #e2e3e5;
+
+  /* tag backgrounds and colors */
+  --c-tag-1: var(--bs-body-bg);
+  --c-tag-2: var(--bs-body-color);
+  --c-tag-3: var(--bs-body-color);
+  --c-tag-4: var(--bs-body-bg);
+  --c-tag-5: var(--bs-body-bg);
+  --c-tag-6: var(--bs-body-bg);
+  --c-tag-7: var(--bs-body-bg);
+
+  --c-tag-8: var(--bs-body-color);
+  --c-tag-9: var(--bs-body-color);
+  --c-tag-10: var(--bs-body-color);
+  --c-tag-11: var(--bs-body-color);
+  --c-tag-12: var(--bs-body-color);
+  --c-tag-13: var(--bs-body-color);
+  --c-tag-14: var(--bs-body-color);
+}
+
+@import "common.scss";
+
+/* autocomplete overrides */
+#ui-id-1 {
+  box-shadow: 0 6px 8px 0px var(--bs-gray-400);
+}
+
+#ui-id-1 .ui-menu-item-wrapper:hover {
+  border-color: var(--bs-gray-200);
+  color: inherit;
+}

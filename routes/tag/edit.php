@@ -19,8 +19,7 @@ if ($id) {
 if ($saveButton) {
   $tag->value = Request::get('value');
   $tag->parentId = Request::get('parentId', 0);
-  $tag->setColor(Request::get('color'));
-  $tag->setBackground(Request::get('background'));
+  $tag->color = Request::get('color');
   $tag->icon = Request::get('icon');
   $tag->iconOnly = Request::has('iconOnly');
   $tag->tooltip = Request::get('tooltip');
@@ -36,11 +35,6 @@ if ($saveButton) {
     Util::redirect("?id={$tag->id}");
   }
 }
-
-$frequentColors = [
-  'color' => Tag::getFrequentValues('color', Tag::DEFAULT_COLOR),
-  'background' => Tag::getFrequentValues('background', Tag::DEFAULT_BACKGROUND),
-];
 
 $children = Model::factory('Tag')
   ->where('parentId', $tag->id)
@@ -93,7 +87,6 @@ Smart::assign([
   'lexemes' => $lexemes,
   'meaningCount' => $meaningCount,
   'meanings' => $meanings,
-  'frequentColors' => $frequentColors,
 ]);
-Smart::addResources('admin', 'select2Dev');
+Smart::addResources('admin', 'bootstrap-select', 'select2Dev');
 Smart::display('tag/edit.tpl');

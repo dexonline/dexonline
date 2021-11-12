@@ -4,7 +4,7 @@
 }
 
 #gallery img {
-  box-shadow: 2px 2px 10px gray;
+  box-shadow: 2px 2px 10px var(--bs-gray-400);
   display: block;
   margin-bottom: 5px;
 }
@@ -21,11 +21,12 @@
 }
 
 #tagsToggle {
-  position: absolute;
-  bottom: 5px;
-  right: 5px;
   background-color: #fff;
+  bottom: 5px;
+  color: var(--bs-body-color);
   cursor: pointer;
+  position: absolute;
+  right: 5px;
 }
 
 @media (max-width: 480px) {

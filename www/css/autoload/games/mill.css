@@ -16,5 +16,5 @@
 }
 
 .questionNumber {
-  color: #777;
+  color: var(--bs-gray-600);
 }

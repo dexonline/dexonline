@@ -13,21 +13,21 @@
       <div id="mainPage">
         <form id="main" action="">
           <label>{t}Level{/t}:</label>
-          <button class="btn btn-info" type="button" value="0">{t}easy{/t}</button>
-          <button class="btn btn-info" type="button" value="1">{t}medium{/t}</button>
-          <button class="btn btn-info" type="button" value="2">{t}hard{/t}</button>
-          <button class="btn btn-info" type="button" value="3">{t}expert{/t}</button>
+          <button class="btn btn-secondary" type="button" value="0">{t}easy{/t}</button>
+          <button class="btn btn-secondary" type="button" value="1">{t}medium{/t}</button>
+          <button class="btn btn-secondary" type="button" value="2">{t}hard{/t}</button>
+          <button class="btn btn-secondary" type="button" value="3">{t}expert{/t}</button>
         </form>
 
-        <p class="text-info">
+        <p class="text-secondary">
           {t}You can also use the keys 1, 2, 3, 4.{/t}
         </p>
 
-        <div class="alert alert-info">
-          {t}We are currently recalibrating the difficulty levels.
-          Please excuse any words that are too easy or too hard for the level
-          you selected.{/t}
-        </div>
+        {notice type="info"}
+          {t}We are currently recalibrating the difficulty levels. Please
+          excuse any words that are too easy or too hard for the level you
+          selected.{/t}
+        {/notice}
       </div>
 
       <div id="questionPage">
@@ -51,7 +51,7 @@
 
           {section name=choices start=0 loop=4}
             <button
-              class="btn btn-light btn-lg border-secondary text-start w-100 mb-2"
+              class="btn btn-outline-secondary btn-lg border-secondary text-start w-100 mb-2"
               type="button"
               disabled
               value="{$smarty.section.choices.index}">
@@ -65,12 +65,12 @@
       </div>
 
       <div id="resultsPage">
-        <div class="alert alert-success">
+        {notice type="success"}
           {t}Congratulations! You answered <b id="answeredCorrect">0</b> of 10
           questions correctly.{/t}
-        </div>
-        <a href="{Router::link('games/mill')}" class="btn btn-info">{t}new game{/t}</a>
-        <button id="definitionsButton" class="btn btn-info">{t}see all definitions{/t}</button>
+        {/notice}
+        <a href="{Router::link('games/mill')}" class="btn btn-primary">{t}new game{/t}</a>
+        <button id="definitionsButton" class="btn btn-secondary">{t}see all definitions{/t}</button>
       </div>
     </div>
   </div>

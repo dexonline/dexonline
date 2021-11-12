@@ -1,24 +1,15 @@
-<div class="accordion-item">
-  <h2 class="accordion-header" id="heading-{$id}">
-    <button
-      class="accordion-button collapsed"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#collapse-{$id}"
-      aria-expanded="false"
-      aria-controls="collapse-{$id}">
-
-      {$title}
-    </button>
-  </h2>
-
+<div class="card card-collapse mt-3">
   <div
-    id="collapse-{$id}"
-    class="accordion-collapse collapse"
-    aria-labelledby="heading-{$id}"
-    data-bs-parent="#accordion">
-    <div class="accordion-body">
-      {$body}
-    </div>
+    class="card-header collapsed"
+    data-bs-toggle="collapse"
+    href="#collapse{$id}">
+
+    {include "bits/icon.tpl" i=expand_less class=chevron}
+
+    {$title}
+  </div>
+
+  <div id="collapse{$id}" class="card-body collapse">
+    {$body}
   </div>
 </div>

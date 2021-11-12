@@ -9,8 +9,8 @@ class TopEntry {
   public $userNick;
   public $numChars;
   public $numDefinitions;
-  public $timestamp; // of last submission
-  public $days; // since last submission
+  public $timestamp;  // of last submission
+  public $brightness; // based on the number of days since last submission
 
   private static function getSqlStatement($manual, $lastyear = false) {
 /*
@@ -88,11 +88,21 @@ class TopEntry {
       $topEntry->numDefinitions = $row['NumDefinitions'];
       $topEntry->numChars = $row['NumChars'];
       $topEntry->timestamp = $row['Timestamp'];
-      $topEntry->days = intval(($now - $topEntry->timestamp) / 86400);
+      $topEntry->brightness = self::getBrightness($now, $topEntry->timestamp);
       $topEntries[] = $topEntry;
     }
 
     return $topEntries;
+  }
+
+  /**
+   * Returns a number between 1.0 (for definitions sent today) and 0.3 (for
+   * definitions sent at least 200 days ago).
+   */
+  private static function getBrightness($now, $timestamp) {
+    $days = ($now - $timestamp) / 86400;
+    $brightness = max(1.0 - 0.7 * ($days / 200), 0.3);
+    return round($brightness, 2);
   }
 
     //for debugging purposes only

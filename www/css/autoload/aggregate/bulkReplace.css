@@ -1,9 +1,9 @@
 .defWrapper {
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid var(--bs-gray-400);
   margin: 0.5rem 0;
 }
 
 input[data-type="unstructured"]:checked {
-  background-color: var(--bs-dark);
-  border-color: var(--bs-dark);
+  background-color: var(--bs-secondary) !important;
+  border-color: var(--bs-secondary) !important;
 }

@@ -118,6 +118,14 @@
       </table>
     </div>
 
+    {notice type="info"}
+      Paradigmele nu mai sunt regenerate imediat, ci vor apărea în
+      <a href="{Router::link('report/staleParadigms')}"> raportul de paradigme
+      învechite</a>. Dacă în model există erori care fac imposibilă
+      regenerarea paradigmei, veți primi acele erori cînd încercați
+      regenerarea paradigmei din raport.
+    {/notice}
+
     <div>
       <button class="btn btn-primary" type="submit" name="saveButton">
         {include "bits/icon.tpl" i=save}
@@ -127,14 +135,6 @@
       <a href="?id={$m->id}" class="btn btn-link">
         renunță
       </a>
-    </div>
-
-    <div class="alert alert-warning mt-3">
-      Lexemele nu mai sunt salvate imediat, ci vor apărea în
-      <a class="alert-link" href="{Router::link('report/staleParadigms')}">
-        raportul de paradigme învechite</a>.
-      Dacă în model există erori care fac imposibilă regenerarea paradigmei,
-      veți primi acele erori cînd încercați regenerarea paradigmei din raport.
     </div>
 
   </form>

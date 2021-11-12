@@ -31,35 +31,35 @@ class Medal {
   const SPONSOR_TEMPLATE = [
     'name' => 'Donator',
     'description' => '',
-    'pic' => 'sponsor.png',
+    'pic' => 'sponsor.svg',
     'supersedes' => [],
   ];
 
   const SOCIAL_TEMPLATE = [
     'name' => 'Activist pe rețele sociale',
     'description' => '',
-    'pic' => 'social.png',
+    'pic' => 'social.svg',
     'supersedes' => [],
   ];
 
   const ARTICLES_TEMPLATE = [
     'name' => 'Editor de articole lingvistice',
     'description' => '',
-    'pic' => 'articles.png',
+    'pic' => 'articles.svg',
     'supersedes' => [],
   ];
 
   const WOTD_TEMPLATE = [
     'name' => 'Editor al cuvântului zilei',
     'description' => '',
-    'pic' => 'wotd.png',
+    'pic' => 'wotd.svg',
     'supersedes' => [],
   ];
 
   const MODERATOR_TEMPLATE = [
     'name' => 'Moderator',
     'description' => '',
-    'pic' => 'moderator.png',
+    'pic' => 'moderator.svg',
     'supersedes' => [],
   ];
 
@@ -75,7 +75,7 @@ class Medal {
   const PROGRAMMER_TEMPLATE = [
     'name' => 'Programator (nivel %d)',
     'description' => 'peste %s de linii de cod',
-    'pic' => 'programmer%d.png',
+    'pic' => 'programmer%d.svg',
     'supersedes' => [],
   ];
 
@@ -89,7 +89,7 @@ class Medal {
   const EMAIL_TEMPLATE = [
     'name' => 'Responsabil e-mail (nivel %d)',
     'description' => 'peste %s de mesaje procesate',
-    'pic' => 'email%d.png',
+    'pic' => 'email%d.svg',
     'supersedes' => [],
   ];
 
@@ -105,7 +105,7 @@ class Medal {
   const EDITOR_TEMPLATE = [
     'name' => 'Editor (nivel %d)',
     'description' => 'peste %s de caractere trimise',
-    'pic' => 'editor%d.png',
+    'pic' => 'editor%d.svg',
     'supersedes' => [],
   ];
 
@@ -119,7 +119,7 @@ class Medal {
   const ARTIST_TEMPLATE = [
     'name' => 'Desenator al cuvântului zilei (nivel %d)',
     'description' => 'minimum %s cuvinte ilustrate',
-    'pic' => 'artist%d.png',
+    'pic' => 'artist%d.svg',
     'supersedes' => [],
   ];
 

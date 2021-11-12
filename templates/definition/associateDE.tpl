@@ -71,7 +71,7 @@
     </table>
 
     <div class="mb-4">
-      <a id="addRow" class="btn btn-light btn-sm" href="#">
+      <a id="addRow" class="btn btn-outline-secondary btn-sm" href="#">
         {include "bits/icon.tpl" i=add}
         adaugă o linie
       </a>
@@ -88,7 +88,7 @@
       checked=$deleteOrphans}
 
     <div class="mt-2 mb-4">
-      <button type="submit" class="btn btn-light" name="butPrev">
+      <button type="submit" class="btn btn-outline-secondary" name="butPrev">
         {include "bits/icon.tpl" i=chevron_left}
         anterioara
       </button>
@@ -96,20 +96,20 @@
       <button id="refreshButton"
         type="submit"
         name="refreshButton"
-        class="btn {if $passedTests}btn-light{else}btn-primary{/if}">
+        class="btn {if $passedTests}btn-outline-secondary{else}btn-primary{/if}">
         {include "bits/icon.tpl" i=refresh}
         <u>r</u>eafișează
       </button>
 
       <button type="submit"
         name="saveButton"
-        class="btn {if $passedTests}btn-primary{else}btn-light{/if}"
+        class="btn {if $passedTests}btn-primary{else}btn-outline-secondary{/if}"
         {if !$passedTests}disabled{/if}>
         {include "bits/icon.tpl" i=save}
         <u>s</u>alvează
       </button>
 
-      <button type="submit" class="btn btn-light" name="butNext">
+      <button type="submit" class="btn btn-outline-secondary" name="butNext">
         {include "bits/icon.tpl" i=chevron_right}
         următoarea
       </button>
@@ -117,12 +117,8 @@
     </div>
   </form>
 
-  <div class="alert alert-info alert-dismissible fade show">
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
-
-    <p><strong>Note:</strong></p>
-
-    <ul class="mb-0">
+  {notice type="info"}
+    <ul class="mb-0 ps-3">
       <li>
         Legăturile de pe coloana „scurtături” sunt echivalente cu selectarea
         modelului respectiv. Sunt doar scurtături mai comode.
@@ -134,6 +130,6 @@
         Transcrierea cu majusculă nu apare la testare, numai la salvare.
       </li>
     </ul>
-  </div>
+  {/notice}
 
 {/block}

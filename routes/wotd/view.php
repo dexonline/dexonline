@@ -87,6 +87,11 @@ foreach ($otherWotds as $w) {
   ];
 }
 
+$svgs = [];
+foreach (['email', 'rss', 'facebook'] as $name) {
+  $svgs[$name] = file_get_contents(Config::ROOT . "www/img/svg/{$name}.svg");
+}
+
 Smart::assign([
   'wotd' => $wotd,
   'year' => $year,
@@ -96,6 +101,7 @@ Smart::assign([
   'dayPadded' => $dayPadded,
   'otherYears' => $otherYears,
   'searchResult' => array_pop($searchResults),
+  'svgs' => $svgs,
 ]);
 
 switch ($format['name']) {

@@ -11,7 +11,7 @@
 
   {include "bits/tagAncestors.tpl" tag=$t}
 
-  <form method="post" class="mt-3">
+  <form id="frm-tag-edit" method="post" class="mt-3">
     <input type="hidden" name="id" value="{$t->id}">
 
     <div class="row">
@@ -84,32 +84,22 @@
             culoare
           </label>
           <div class="col-md-10">
-            <input
-              type="color"
-              class="form-control"
+            <select
+              class="selectpicker"
+              data-style-base="form-select"
+              data-width="100%"
               id="color"
-              name="color"
-              value="{$t->getColor()}">
-            {include "bits/frequentColors.tpl"
-              colors=$frequentColors.color
-              target="#color"}
-          </div>
-        </div>
-
-        <div class="row mb-3"">
-          <label for="background" class="col-md-2 col-form-label">
-            fundal
-          </label>
-          <div class="col-md-10">
-            <input
-              type="color"
-              class="form-control"
-              id="background"
-              name="background"
-              value="{$t->getBackground()}">
-            {include "bits/frequentColors.tpl"
-              colors=$frequentColors.background
-              target="#background"}
+              name="color">
+              {for $c=1 to Tag::NUM_COLORS}
+                <option
+                  data-content="{include 'bits/selectPickerTag.tpl'}"
+                  {if ($c == $t->color) || (!$t->color && ($c == Tag::DEFAULT_COLOR))}
+                    selected
+                  {/if}
+                  value="{$c}">
+                </option>
+              {/for}
+            </select>
           </div>
         </div>
 
@@ -152,7 +142,7 @@
       <u>s</u>alvează
     </button>
 
-    <a class="btn btn-light" href="{Router::link('tag/list')}">
+    <a class="btn btn-link" href="{Router::link('tag/list')}">
       {include "bits/icon.tpl" i=arrow_back}
       înapoi la lista de etichete
     </a>

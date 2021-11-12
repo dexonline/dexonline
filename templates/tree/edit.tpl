@@ -141,7 +141,7 @@
       </button>
 
       <button type="button"
-        class="btn btn-light"
+        class="btn btn-outline-secondary"
         {if !count($entryTrees)}disabled{/if}
         data-bs-toggle="modal"
         data-bs-target="#mergeModal">
@@ -149,7 +149,7 @@
         unifică cu...
       </button>
 
-      <button type="submit" class="btn btn-light" name="cloneButton">
+      <button type="submit" class="btn btn-outline-secondary" name="cloneButton">
         {include "bits/icon.tpl" i=content_copy}
         clonează
       </button>
@@ -331,14 +331,14 @@
         {if $canEdit}
           <div class="btn-group me-2">
             <button type="button"
-              class="btn btn-sm btn-light btn-add-meaning"
+              class="btn btn-sm btn-outline-secondary btn-add-meaning"
               data-type="{Meaning::TYPE_MEANING}"
               title="Adaugă un sens ca frate al sensului selectat. Dacă nici un sens nu este selectat, adaugă un sens la sfârșitul listei.">
               {include "bits/icon.tpl" i=add}
               sens
             </button>
             <button type="button"
-              class="btn btn-sm btn-light btn-add-meaning meaningAction"
+              class="btn btn-sm btn-outline-secondary btn-add-meaning meaningAction"
               disabled
               data-type="{Meaning::TYPE_MEANING}"
               data-submeaning="1"
@@ -347,7 +347,7 @@
               subsens
             </button>
             <button type="button"
-              class="btn btn-sm btn-add-meaning btn-color1 meaningAction"
+              class="btn btn-sm btn-add-meaning btn-custom btn-custom1 meaningAction"
               disabled
               data-type="{Meaning::TYPE_EXAMPLE}"
               title="Adaugă un subsens-exemplu la sensul selectat. Dacă sensul selectat este el însuși exemplu, adaugă un frate.">
@@ -358,28 +358,28 @@
 
           <div class="btn-group me-2">
             <button type="button"
-              class="btn btn-sm btn-light meaningAction"
+              class="btn btn-sm btn-outline-secondary meaningAction"
               id="meaningLeftButton"
               disabled
               title="Sensul devine fratele următor al tatălui său.">
               {include "bits/icon.tpl" i=chevron_left}
             </button>
             <button type="button"
-              class="btn btn-sm btn-light meaningAction"
+              class="btn btn-sm btn-outline-secondary meaningAction"
               id="meaningRightButton"
               disabled
               title="Sensul devine fiu al fratelui său anterior.">
               {include "bits/icon.tpl" i=chevron_right}
             </button>
             <button type="button"
-              class="btn btn-sm btn-light meaningAction"
+              class="btn btn-sm btn-outline-secondary meaningAction"
               id="meaningDownButton"
               disabled
               title="Sensul schimbă locurile cu fratele său următor.">
               {include "bits/icon.tpl" i=expand_more}
             </button>
             <button type="button"
-              class="btn btn-sm btn-light meaningAction"
+              class="btn btn-sm btn-outline-secondary meaningAction"
               id="meaningUpButton"
               disabled
               title="Sensul schimbă locurile cu fratele său anterior.">
@@ -389,7 +389,7 @@
 
           <div class="btn-group me-2">
             <button type="button"
-              class="btn btn-sm btn-add-meaning btn-color1 meaningAction"
+              class="btn btn-sm btn-add-meaning btn-custom btn-custom1 meaningAction"
               disabled
               data-type="{Meaning::TYPE_ETYMOLOGY}"
               title="Adaugă un subsens-etimologie la sensul selectat. Dacă sensul selectat este el însuși etimologie, adaugă un frate.">
@@ -397,7 +397,7 @@
               etimologie
             </button>
             <button type="button"
-              class="btn btn-sm btn-add-meaning btn-color2 meaningAction"
+              class="btn btn-sm btn-add-meaning btn-custom btn-custom2 meaningAction"
               disabled
               data-type="{Meaning::TYPE_COMMENT}"
               title="Adaugă un subsens-comentariu la sensul selectat. Dacă sensul selectat este el însuși comentariu, adaugă un frate.">
@@ -405,7 +405,7 @@
               comentariu
             </button>
             <button type="button"
-              class="btn btn-sm btn-add-meaning btn-color3 meaningAction"
+              class="btn btn-sm btn-add-meaning btn-custom btn-custom3 meaningAction"
               disabled
               data-type="{Meaning::TYPE_DIFF}"
               title="Adaugă un subsens-diferențiere la sensul selectat. Dacă sensul selectat este el însuși diferențiere, adaugă un frate.">
@@ -416,7 +416,7 @@
 
           <div class="btn-group">
             <button type="button"
-              class="btn btn-sm btn-light meaningAction"
+              class="btn btn-sm btn-outline-secondary meaningAction"
               id="cloneMeaningButton"
               disabled
               title="Clonează sensul selectat">

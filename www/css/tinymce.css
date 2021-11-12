@@ -2,8 +2,22 @@
  * Note: this file is included both from HTML (for the main page) and from
  * JS (for the TinyMCE iframe).
  **/
+
+/* necessary because TinyMCE runs in an iframe and :root variables are not defined */
+:root {
+  --c-abbr: #aaa;
+  --c-spaced-bg: #ddd;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --c-abbr: #888;
+    --c-spaced-bg: #444;
+    color-scheme: dark;
+  }
+}
+
 .spaced {
-  background: #ddd;
+  background: var(--c-spaced-bg);
   letter-spacing: 3px;
 }
 
@@ -17,5 +31,5 @@
 }
 
 #tinymce abbr {
-  color: darkgrey;
+  color: var(--c-abbr);
 }

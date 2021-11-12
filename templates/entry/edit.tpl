@@ -128,7 +128,7 @@
             <div class="mt-1">
               Tipuri de model:
               {foreach $modelTypes as $mt}
-                <span class="badge text-dark bg-light">{$mt}</span>
+                <span class="badge badge-muted">{$mt}</span>
               {/foreach}
 
               <div class="float-end">
@@ -203,7 +203,7 @@
 
     <button
       type="button"
-      class="btn btn-light"
+      class="btn btn-outline-secondary"
       data-bs-toggle="modal"
       data-bs-target="#mergeModal"
       {if !$canEdit}
@@ -216,7 +216,7 @@
 
     <button
       type="button"
-      class="btn btn-light"
+      class="btn btn-outline-secondary"
       data-bs-toggle="modal"
       data-bs-target="#cloneModal">
       {include "bits/icon.tpl" i=content_copy}
@@ -225,7 +225,7 @@
 
     <button
       type="submit"
-      class="btn btn-light"
+      class="btn btn-outline-secondary"
       name="createTree"
       {if !$canEdit}
       disabled
@@ -238,7 +238,7 @@
     {if $e->id}
       <a id="wikiLink"
         href="https://wiki.dexonline.ro/wiki/Intrare:{$e->id}?description={$e->description|escape}"
-        class="btn btn-light"
+        class="btn btn-outline-secondary"
         title="creează o pagină wiki pentru această intrare"
         target="_blank">
         {include "bits/icon.tpl" i=comment}
@@ -247,7 +247,7 @@
     {/if}
 
     {if count($e->getLexemes())}
-      <a class="btn btn-light" href="definitie/{$e->getMainLexeme()->formNoAccent}">
+      <a class="btn btn-outline-secondary" href="definitie/{$e->getMainLexeme()->formNoAccent}">
         {include "bits/icon.tpl" i=search}
         caută
       </a>
@@ -304,9 +304,9 @@
 
           <div class="modal-body">
             {if !User::can(User::PRIV_STRUCT)}
-              <div class="alert alert-info" role="alert">
+              {notice type="info"}
                 Puteți selecta doar intrări care nu au fost deja structurate.
-              </div>
+              {/notice}
             {/if}
             <input type="hidden" name="id" value="{$e->id}">
             <select id="mergeEntryId" name="mergeEntryId" class="form-select">
@@ -401,7 +401,7 @@
           </span>
 
           <div>
-            <a href="{Router::link('tree/edit')}?id={$t->id}" class="btn btn-sm btn-light">
+            <a href="{Router::link('tree/edit')}?id={$t->id}" class="btn btn-sm btn-outline-secondary">
               {include "bits/icon.tpl" i=edit}
               editează
             </a>
@@ -484,13 +484,18 @@
         {/foreach}
 
         <div>
-          <button type="button"
-            class="btn btn-light"
+          <button
+            type="button"
+            class="btn btn-outline-secondary"
             data-bs-toggle="modal"
             data-bs-target="#associateModal">
             asociază...
           </button>
-          <button id="dissociateButton" type="submit" class="btn btn-light" name="dissociateButton">
+          <button
+            id="dissociateButton"
+            type="submit"
+            class="btn btn-outline-secondary"
+            name="dissociateButton">
             disociază...
           </button>
         </div>

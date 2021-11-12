@@ -21,12 +21,14 @@ const CODEPOINTS = [
   'content_copy',
   'content_cut',
   'credit_card',
+  'dark_mode',
   'delete',
   'description',
   'done',
   'drag_indicator',
   'edit',
   'email',
+  'error',
   'expand_less',
   'expand_more',
   'favorite',
@@ -41,6 +43,7 @@ const CODEPOINTS = [
   'keyboard',
   'language',
   'last_page',
+  'light_mode',
   'link',
   'lock',
   'login',
@@ -67,6 +70,7 @@ const CODEPOINTS = [
   'translate',
   'visibility',
   'visibility_off',
+  'warning',
 ];
 
 const ASCII_GLYPHS = [ '5f-7a', '30-39' ]; // always include [_a-z0-9]

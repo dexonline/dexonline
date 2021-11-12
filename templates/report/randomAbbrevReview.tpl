@@ -49,16 +49,16 @@
       </div>
     </form>
   {else}
-    <div class="alert alert-success">
+    {notice type="success"}
       {if $sourceId}
         Nu există definiții de revizuit din această sursă. Puteți alege altă sursă.
       {else}
         Nu există definiții de revizuit. Ura!
       {/if}
-    </div>
+    {/notice}
   {/if}
 
-  <div class="alert alert-info mt-3">
+  {notice type="info" class="mt-3"}
     <p>
       <strong>Precizări:</strong>
       <i>dexonline</i> detectează automat majoritatea abrevierilor. Totuși,
@@ -95,7 +95,7 @@
       Puteți folosi tastele <strong>1</strong> și <strong>2</strong> pentru a
       rezolva următoarea ambiguitate ca abreviere, respectiv ca cuvânt.
     </p>
-  </div>
+  {/notice}
 
   {* stem to be copied for every span *}
   {strip}

@@ -105,11 +105,11 @@
         <dd class="col-md-9">{t}list of words and their conjugations/declensions{/t}</dd>
       </dl>
 
-      <div class="alert alert-warning">
+      {notice type="info"}
         {t}The last official LOC version is 5.0. Version 6.0 contains changes to
         LOC made using the dexonline interface, but not included in the official
         version.{/t}
-      </div>
+      {/notice}
     </div>
   </div>
 

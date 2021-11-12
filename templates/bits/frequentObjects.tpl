@@ -16,7 +16,7 @@
   data-focus-target="{$focusTarget}">
 
   <button type="button"
-    class="btn btn-light btn-sm ms-1 mt-1 frequentObjectInsertTarget"
+    class="btn btn-outline-secondary btn-sm ms-1 mt-1 frequentObjectInsertTarget"
     data-bs-toggle="modal"
     data-bs-target="#frequentObjectModal"
     title="adaugă o valoare folosită frecvent">
@@ -64,7 +64,7 @@
   {* stem object (to be cloned for additions) *}
   <button
     id="frequentObjectStem"
-    class="btn btn-light btn-sm ms-1 mt-1 frequentObject"
+    class="btn btn-outline-secondary btn-sm ms-1 mt-1 frequentObject"
     type="button">
   </button>
 {/if}

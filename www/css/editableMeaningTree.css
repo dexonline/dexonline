@@ -1,3 +1,13 @@
+html.light {
+  --c-selected-bg: #90c9e8;
+  --c-selected-subtree-bg: #e6f3fa;
+}
+
+html.dark {
+  --c-selected-bg: #10374c;
+  --c-selected-subtree-bg: #091f2a;
+}
+
 .meaningTree {
   margin-bottom: 10px;
   margin-top: 0px;
@@ -17,11 +27,11 @@
 }
 
 .meaningTree .selected > .meaningContainer {
-  background: #90c9e8;
+  background: var(--c-selected-bg);
 }
 
 .meaningTree .selected ul {
-  background: #e3f2fa;
+  background: var(--c-selected-subtree-bg);
 }
 
 .meaningTree .id,
@@ -49,15 +59,13 @@
 }
 
 .meaningTree .mention {
-  border-bottom: 1px dotted #444;
-  color: #000;
+  border-bottom: 1px dotted var(--bs-gray-800);
   text-decoration: none;
 }
 
 .meaningTree .meaningTag {
   border-radius: 4px;
-  border-style: solid;
-  border-width: 1px;
+  color: #212529; /* in both themes */
   display: inline-block;
   font-size: 10px;
   margin-right: 5px;
@@ -66,33 +74,27 @@
 }
 
 .meaningTree .sources span {
-  background: #f7eada;
-  border-color: #e0c29d;
+  background: #ffe0b2;
 }
 
 .meaningTree .tags span {
   background: #dbf7da;
-  border-color: #9fe09d;
 }
 
 .meaningTree .relation[data-type="1"] span {
-  background: #daebf7;
-  border-color: #9dc5e0;
+  background: #b3ecf0;
 }
 
 .meaningTree .relation[data-type="2"] span {
   background: #f7dcda;
-  border-color: #e0a19d;
 }
 
 .meaningTree .relation[data-type="3"] span {
   background: #ffebff;
-  border-color: #e6b8e6;
 }
 
 .meaningTree .relation[data-type="4"] span {
   background: #ffccff;
-  border-color: #cca3cc;
 }
 
 .textcomplete-dropdown {

@@ -16,7 +16,7 @@
             calculate acum {($timeAgo/60)|nf} minute, {$timeAgo%60} secunde
           </small>
 
-          <button type="submit" name="recountButton" class="btn btn-info btn-sm">
+          <button type="submit" name="recountButton" class="btn btn-secondary btn-sm ms-2">
             {include "bits/icon.tpl" i=repeat}
             recalculează acum
           </button>
@@ -316,15 +316,15 @@
 
           {include "bits/modelDropDown.tpl" modelTypes=$canonicalModelTypes}
 
-          <button type="submit" class="btn btn-light me-1" name="goToModel">
+          <button type="submit" class="btn btn-outline-secondary me-1" name="goToModel">
             pagina modelului
           </button>
 
-          <button type="submit" class="btn btn-light me-1" name="showLexemes">
+          <button type="submit" class="btn btn-outline-secondary me-1" name="showLexemes">
             arată toate lexemele
           </button>
 
-          <button type="submit" class="btn btn-light me-1" name="cloneModel">
+          <button type="submit" class="btn btn-outline-secondary me-1" name="cloneModel">
             {include "bits/icon.tpl" i=content_copy}
             clonează
           </button>
@@ -438,10 +438,10 @@
           maximum 1.000 de rezultate. Veți putea vedea lista de modificări
           propuse și să o acceptați.
         </p>
-        <p class="text-danger">
+        {notice type="warning"}
           Evitați pe cât posibil definițiile cu note de subsol și pe cele
           structurate, debifându-le.
-        </p>
+        {/notice}
       </div>
     </div>
   {/if}

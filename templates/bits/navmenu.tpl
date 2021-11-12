@@ -7,10 +7,7 @@
         class="navbar-brand order-0"
         href="{Config::URL_PREFIX}"
         title="{cap}{t}home page{/t}{/cap}">
-        <img id="logo-nav"
-          alt="logo dexonline"
-          src="{Config::URL_PREFIX}img/svg/logo-nav.svg"
-          width="173">
+        {$svgLogo}
       </a>
     {/if}
 
@@ -179,6 +176,28 @@
           </ul>
         </li>
 
+        {* dark mode toggle *}
+        {if count(Config::COLOR_SCHEMES) > 1}
+          <li class="nav-item">
+            <a
+              class="nav-link light-mode-toggle"
+              data-mode="light"
+              href="#"
+              title="{t}light mode{/t}">
+
+              {include "bits/icon.tpl" i=light_mode}
+            </a>
+            <a
+              class="nav-link dark-mode-toggle"
+              data-mode="dark"
+              href="#"
+              title="{t}dark mode{/t}">
+
+              {include "bits/icon.tpl" i=dark_mode}
+            </a>
+          </li>
+        {/if}
+
         {* user menu *}
         <li class="nav-item dropdown">
 
@@ -267,7 +286,7 @@
     </div>
 
     <a
-      class="btn btn-info text-white ms-auto order-3"
+      class="btn btn-warning ms-auto order-3"
       href="{Router::link('donation/donate')}">
       {include "bits/icon.tpl" i=credit_card}
       {cap}{t}donate{/t}{/cap}

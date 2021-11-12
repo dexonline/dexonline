@@ -16,7 +16,7 @@
         <input id="calendar" type="text" name="for" value="{$yearMonth}" class="form-control">
       </div>
       <div class="col-12">
-        <button type="submit" class="btn btn-light">
+        <button type="submit" class="btn btn-primary">
           ok
         </button>
       </div>
@@ -24,9 +24,9 @@
   </h3>
 
   {foreach $data as $day => $rec}
-    <div class="card mt-3">
+    <div class="card card-collapse mt-3">
       <div
-        class="card-header {if $rec.allOk}text-white bg-success collapsed{/if}"
+        class="card-header {if $rec.allOk}collapsed{/if}"
         data-bs-toggle="collapse"
         href="#collapseDay{$day}">
 
@@ -36,13 +36,17 @@
           {$day} {$yearMonth|date_format:'%B %Y'}
         </span>
 
+        {if $rec.allOk}
+          {include "bits/icon.tpl" i=done class="text-success fw-bold fs-3"}
+        {/if}
+
         <div class="float-end">
           <a
-            class="btn btn-link btn-sm text-white"
+            class="btn btn-link btn-sm"
             href="https://ro.wikipedia.org/wiki/{$day}_{$yearMonth|date_format:'%B'}"
             target="_blank">wikipedia RO</a>
           <a
-            class="btn btn-link btn-sm text-white"
+            class="btn btn-link btn-sm"
             href="https://en.wikipedia.org/wiki/{$enMonthName}_{$day}"
             target="_blank">wikipedia EN</a>
 
@@ -55,27 +59,25 @@
 
       <div id="collapseDay{$day}" class="card-body collapse {if !$rec.allOk}show{/if}">
         {if empty($rec.thisYear)}
-          <div class="alert alert-danger" role="alert">
+          {notice type="danger"}
             Nu ai ales încă un cuvânt.
-          </div>
+          {/notice}
         {else if count($rec.thisYear) > 1}
-          <div class="alert alert-warning" role="alert">
+          {notice type="warning"}
             Există {$rec.thisYear|count} cuvinte.
-          </div>
+          {/notice}
         {else if !$rec.thisYear[0]->defHtml}
-          <div class="alert alert-warning" role="alert">
+          {notice type="warning"}
             Există un motiv, dar nu și o definiție.
-          </div>
+          {/notice}
         {else if !$rec.thisYear[0]->description}
-          <div class="alert alert-warning" role="alert">
+          {notice type="warning"}
             Există o definiție, dar nu și un motiv.
-          </div>
+          {/notice}
         {/if}
 
         {foreach $rec.duplicates as $dup}
-          <div
-            class="alert {if $dup.exact}alert-danger{else}alert-warning{/if}"
-            role="alert">
+          {notice type="{if $dup.exact}danger{else}warning{/if}"}
             {if $dup.exact}
               Un cuvânt identic,
             {else}
@@ -83,11 +85,11 @@
             {/if}
             <b>{$dup.oldLexicon}</b>, a fost programat pe
             {strip}
-            <a href="{Router::link('wotd/view')}/{$dup.oldDate}" class="alert-link">
+            <a href="{Router::link('wotd/view')}/{$dup.oldDate}">
               {$dup.oldDate|date_format:'%d %B %Y'}
             </a>.
             {/strip}
-          </div>
+          {/notice}
         {/foreach}
 
         {foreach $rec.thisYear as $w}

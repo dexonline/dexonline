@@ -16,13 +16,13 @@
       <form>
 
         <div class="mb-3">
-          <button id="startGameButton" class="btn btn-success" type="button" disabled>
+          <button id="startGameButton" class="btn btn-primary" type="button" disabled>
             {include "bits/icon.tpl" i=play_arrow}
             {t}start{/t}
           </button>
 
           <a
-            class="btn btn-light"
+            class="btn btn-outline-secondary"
             data-bs-toggle="collapse"
             href="#optionsDiv"
             role="button"
@@ -234,7 +234,7 @@
       </div>
 
       <div class="text-center mt-2">
-        <button id="restartGameButton" class="btn btn-success" type="button">
+        <button id="restartGameButton" class="btn btn-primary" type="button">
           {include "bits/icon.tpl" i=repeat}
           {t}play again{/t}
         </button>

@@ -1,0 +1,318 @@
+<svg
+  width="50.094mm"
+  height="59.399mm"
+  version="1.1"
+  viewBox="0 0 50.094 59.399"
+  xmlns="http://www.w3.org/2000/svg">
+
+  <style>
+    #t1, #t2 {
+      opacity: 0.75;
+      stroke: #444;
+      stroke-width: 0.1;
+    }
+    .c1 { fill: #ee3d96; }
+    .c2 { fill: #faa61a; }
+    .c3 { fill: #f6dc06; }
+    .c4 { fill: #a6ce39; }
+    .c5 { fill: #44ade2; }
+    .c6 { fill: none; }
+
+    .ribbon {
+      fill: #5d5e61;
+    }
+    .outer {
+      stroke: #5d5e61;
+    }
+    .brush {
+      fill: #4c4c4c;
+    }
+    .circle {
+      stroke: #4c4c4c;
+    }
+    .label {
+      fill: #333;
+    }
+    .logo {
+      stroke: #333;
+    }
+  </style>
+
+  <defs>
+    <polygon id="t1" points="0,0 10,0, 5,8.66"/>
+    <polygon id="t2" points="0,0 5,8.66, -5,8.66"/>
+    <pattern id="grid" width="100" height="86.60" patternTransform="scale(0.2)" patternUnits="userSpaceOnUse">
+      <use x="0" y="0" class="c2" href="#t2"/>
+      <use x="0" y="0" class="c3" href="#t1"/>
+      <use x="10" y="0" class="c5" href="#t2"/>
+      <use x="10" y="0" class="c1" href="#t1"/>
+      <use x="20" y="0" class="c6" href="#t2"/>
+      <use x="20" y="0" class="c2" href="#t1"/>
+      <use x="30" y="0" class="c4" href="#t2"/>
+      <use x="30" y="0" class="c3" href="#t1"/>
+      <use x="40" y="0" class="c1" href="#t2"/>
+      <use x="40" y="0" class="c2" href="#t1"/>
+      <use x="50" y="0" class="c6" href="#t2"/>
+      <use x="50" y="0" class="c1" href="#t1"/>
+      <use x="60" y="0" class="c3" href="#t2"/>
+      <use x="60" y="0" class="c3" href="#t1"/>
+      <use x="70" y="0" class="c6" href="#t2"/>
+      <use x="70" y="0" class="c3" href="#t1"/>
+      <use x="80" y="0" class="c1" href="#t2"/>
+      <use x="80" y="0" class="c4" href="#t1"/>
+      <use x="90" y="0" class="c6" href="#t2"/>
+      <use x="90" y="0" class="c1" href="#t1"/>
+      <use x="100" y="0" class="c2" href="#t2"/>
+
+      <use x="-5" y="8.66" class="c1" href="#t1"/>
+      <use x="5" y="8.66" class="c5" href="#t2"/>
+      <use x="5" y="8.66" class="c3" href="#t1"/>
+      <use x="15" y="8.66" class="c3" href="#t2"/>
+      <use x="15" y="8.66" class="c5" href="#t1"/>
+      <use x="25" y="8.66" class="c5" href="#t2"/>
+      <use x="25" y="8.66" class="c2" href="#t1"/>
+      <use x="35" y="8.66" class="c2" href="#t2"/>
+      <use x="35" y="8.66" class="c5" href="#t1"/>
+      <use x="45" y="8.66" class="c3" href="#t2"/>
+      <use x="45" y="8.66" class="c1" href="#t1"/>
+      <use x="55" y="8.66" class="c4" href="#t2"/>
+      <use x="55" y="8.66" class="c1" href="#t1"/>
+      <use x="65" y="8.66" class="c5" href="#t2"/>
+      <use x="65" y="8.66" class="c6" href="#t1"/>
+      <use x="75" y="8.66" class="c2" href="#t2"/>
+      <use x="75" y="8.66" class="c4" href="#t1"/>
+      <use x="85" y="8.66" class="c6" href="#t2"/>
+      <use x="85" y="8.66" class="c4" href="#t1"/>
+      <use x="95" y="8.66" class="c4" href="#t2"/>
+      <use x="95" y="8.66" class="c1" href="#t1"/>
+
+      <use x="0" y="17.32" class="c4" href="#t2"/>
+      <use x="0" y="17.32" class="c4" href="#t1"/>
+      <use x="10" y="17.32" class="c2" href="#t2"/>
+      <use x="10" y="17.32" class="c1" href="#t1"/>
+      <use x="20" y="17.32" class="c5" href="#t2"/>
+      <use x="20" y="17.32" class="c2" href="#t1"/>
+      <use x="30" y="17.32" class="c6" href="#t2"/>
+      <use x="30" y="17.32" class="c3" href="#t1"/>
+      <use x="40" y="17.32" class="c5" href="#t2"/>
+      <use x="40" y="17.32" class="c4" href="#t1"/>
+      <use x="50" y="17.32" class="c2" href="#t2"/>
+      <use x="50" y="17.32" class="c6" href="#t1"/>
+      <use x="60" y="17.32" class="c5" href="#t2"/>
+      <use x="60" y="17.32" class="c5" href="#t1"/>
+      <use x="70" y="17.32" class="c2" href="#t2"/>
+      <use x="70" y="17.32" class="c4" href="#t1"/>
+      <use x="80" y="17.32" class="c3" href="#t2"/>
+      <use x="80" y="17.32" class="c3" href="#t1"/>
+      <use x="90" y="17.32" class="c3" href="#t2"/>
+      <use x="90" y="17.32" class="c6" href="#t1"/>
+      <use x="100" y="17.32" class="c4" href="#t2"/>
+
+      <use x="-5" y="25.98" class="c1" href="#t1"/>
+      <use x="5" y="25.98" class="c5" href="#t2"/>
+      <use x="5" y="25.98" class="c6" href="#t1"/>
+      <use x="15" y="25.98" class="c5" href="#t2"/>
+      <use x="15" y="25.98" class="c1" href="#t1"/>
+      <use x="25" y="25.98" class="c2" href="#t2"/>
+      <use x="25" y="25.98" class="c1" href="#t1"/>
+      <use x="35" y="25.98" class="c4" href="#t2"/>
+      <use x="35" y="25.98" class="c5" href="#t1"/>
+      <use x="45" y="25.98" class="c4" href="#t2"/>
+      <use x="45" y="25.98" class="c1" href="#t1"/>
+      <use x="55" y="25.98" class="c4" href="#t2"/>
+      <use x="55" y="25.98" class="c4" href="#t1"/>
+      <use x="65" y="25.98" class="c5" href="#t2"/>
+      <use x="65" y="25.98" class="c2" href="#t1"/>
+      <use x="75" y="25.98" class="c3" href="#t2"/>
+      <use x="75" y="25.98" class="c2" href="#t1"/>
+      <use x="85" y="25.98" class="c2" href="#t2"/>
+      <use x="85" y="25.98" class="c6" href="#t1"/>
+      <use x="95" y="25.98" class="c3" href="#t2"/>
+      <use x="95" y="25.98" class="c1" href="#t1"/>
+
+      <use x="0" y="34.64" class="c5" href="#t2"/>
+      <use x="0" y="34.64" class="c3" href="#t1"/>
+      <use x="10" y="34.64" class="c3" href="#t2"/>
+      <use x="10" y="34.64" class="c1" href="#t1"/>
+      <use x="20" y="34.64" class="c5" href="#t2"/>
+      <use x="20" y="34.64" class="c4" href="#t1"/>
+      <use x="30" y="34.64" class="c5" href="#t2"/>
+      <use x="30" y="34.64" class="c3" href="#t1"/>
+      <use x="40" y="34.64" class="c6" href="#t2"/>
+      <use x="40" y="34.64" class="c5" href="#t1"/>
+      <use x="50" y="34.64" class="c2" href="#t2"/>
+      <use x="50" y="34.64" class="c6" href="#t1"/>
+      <use x="60" y="34.64" class="c3" href="#t2"/>
+      <use x="60" y="34.64" class="c5" href="#t1"/>
+      <use x="70" y="34.64" class="c6" href="#t2"/>
+      <use x="70" y="34.64" class="c1" href="#t1"/>
+      <use x="80" y="34.64" class="c1" href="#t2"/>
+      <use x="80" y="34.64" class="c6" href="#t1"/>
+      <use x="90" y="34.64" class="c1" href="#t2"/>
+      <use x="90" y="34.64" class="c5" href="#t1"/>
+      <use x="100" y="34.64" class="c5" href="#t2"/>
+
+      <use x="-5" y="43.30" class="c4" href="#t1"/>
+      <use x="5" y="43.30" class="c3" href="#t2"/>
+      <use x="5" y="43.30" class="c5" href="#t1"/>
+      <use x="15" y="43.30" class="c3" href="#t2"/>
+      <use x="15" y="43.30" class="c3" href="#t1"/>
+      <use x="25" y="43.30" class="c2" href="#t2"/>
+      <use x="25" y="43.30" class="c5" href="#t1"/>
+      <use x="35" y="43.30" class="c1" href="#t2"/>
+      <use x="35" y="43.30" class="c3" href="#t1"/>
+      <use x="45" y="43.30" class="c3" href="#t2"/>
+      <use x="45" y="43.30" class="c3" href="#t1"/>
+      <use x="55" y="43.30" class="c2" href="#t2"/>
+      <use x="55" y="43.30" class="c2" href="#t1"/>
+      <use x="65" y="43.30" class="c5" href="#t2"/>
+      <use x="65" y="43.30" class="c2" href="#t1"/>
+      <use x="75" y="43.30" class="c2" href="#t2"/>
+      <use x="75" y="43.30" class="c3" href="#t1"/>
+      <use x="85" y="43.30" class="c2" href="#t2"/>
+      <use x="85" y="43.30" class="c1" href="#t1"/>
+      <use x="95" y="43.30" class="c6" href="#t2"/>
+      <use x="95" y="43.30" class="c4" href="#t1"/>
+
+      <use x="0" y="51.96" class="c2" href="#t2"/>
+      <use x="0" y="51.96" class="c4" href="#t1"/>
+      <use x="10" y="51.96" class="c1" href="#t2"/>
+      <use x="10" y="51.96" class="c5" href="#t1"/>
+      <use x="20" y="51.96" class="c3" href="#t2"/>
+      <use x="20" y="51.96" class="c1" href="#t1"/>
+      <use x="30" y="51.96" class="c3" href="#t2"/>
+      <use x="30" y="51.96" class="c3" href="#t1"/>
+      <use x="40" y="51.96" class="c1" href="#t2"/>
+      <use x="40" y="51.96" class="c4" href="#t1"/>
+      <use x="50" y="51.96" class="c2" href="#t2"/>
+      <use x="50" y="51.96" class="c1" href="#t1"/>
+      <use x="60" y="51.96" class="c6" href="#t2"/>
+      <use x="60" y="51.96" class="c6" href="#t1"/>
+      <use x="70" y="51.96" class="c5" href="#t2"/>
+      <use x="70" y="51.96" class="c4" href="#t1"/>
+      <use x="80" y="51.96" class="c6" href="#t2"/>
+      <use x="80" y="51.96" class="c3" href="#t1"/>
+      <use x="90" y="51.96" class="c2" href="#t2"/>
+      <use x="90" y="51.96" class="c6" href="#t1"/>
+      <use x="100" y="51.96" class="c2" href="#t2"/>
+
+      <use x="-5" y="60.62" class="c3" href="#t1"/>
+      <use x="5" y="60.62" class="c3" href="#t2"/>
+      <use x="5" y="60.62" class="c1" href="#t1"/>
+      <use x="15" y="60.62" class="c2" href="#t2"/>
+      <use x="15" y="60.62" class="c4" href="#t1"/>
+      <use x="25" y="60.62" class="c6" href="#t2"/>
+      <use x="25" y="60.62" class="c3" href="#t1"/>
+      <use x="35" y="60.62" class="c4" href="#t2"/>
+      <use x="35" y="60.62" class="c4" href="#t1"/>
+      <use x="45" y="60.62" class="c5" href="#t2"/>
+      <use x="45" y="60.62" class="c5" href="#t1"/>
+      <use x="55" y="60.62" class="c3" href="#t2"/>
+      <use x="55" y="60.62" class="c2" href="#t1"/>
+      <use x="65" y="60.62" class="c5" href="#t2"/>
+      <use x="65" y="60.62" class="c5" href="#t1"/>
+      <use x="75" y="60.62" class="c4" href="#t2"/>
+      <use x="75" y="60.62" class="c1" href="#t1"/>
+      <use x="85" y="60.62" class="c1" href="#t2"/>
+      <use x="85" y="60.62" class="c6" href="#t1"/>
+      <use x="95" y="60.62" class="c2" href="#t2"/>
+      <use x="95" y="60.62" class="c3" href="#t1"/>
+
+      <use x="0" y="69.28" class="c5" href="#t2"/>
+      <use x="0" y="69.28" class="c5" href="#t1"/>
+      <use x="10" y="69.28" class="c1" href="#t2"/>
+      <use x="10" y="69.28" class="c3" href="#t1"/>
+      <use x="20" y="69.28" class="c5" href="#t2"/>
+      <use x="20" y="69.28" class="c5" href="#t1"/>
+      <use x="30" y="69.28" class="c4" href="#t2"/>
+      <use x="30" y="69.28" class="c6" href="#t1"/>
+      <use x="40" y="69.28" class="c6" href="#t2"/>
+      <use x="40" y="69.28" class="c1" href="#t1"/>
+      <use x="50" y="69.28" class="c4" href="#t2"/>
+      <use x="50" y="69.28" class="c4" href="#t1"/>
+      <use x="60" y="69.28" class="c6" href="#t2"/>
+      <use x="60" y="69.28" class="c3" href="#t1"/>
+      <use x="70" y="69.28" class="c2" href="#t2"/>
+      <use x="70" y="69.28" class="c2" href="#t1"/>
+      <use x="80" y="69.28" class="c3" href="#t2"/>
+      <use x="80" y="69.28" class="c3" href="#t1"/>
+      <use x="90" y="69.28" class="c1" href="#t2"/>
+      <use x="90" y="69.28" class="c5" href="#t1"/>
+      <use x="100" y="69.28" class="c5" href="#t2"/>
+
+      <use x="-5" y="77.94" class="c4" href="#t1"/>
+      <use x="5" y="77.94" class="c3" href="#t2"/>
+      <use x="5" y="77.94" class="c1" href="#t1"/>
+      <use x="15" y="77.94" class="c2" href="#t2"/>
+      <use x="15" y="77.94" class="c1" href="#t1"/>
+      <use x="25" y="77.94" class="c3" href="#t2"/>
+      <use x="25" y="77.94" class="c6" href="#t1"/>
+      <use x="35" y="77.94" class="c4" href="#t2"/>
+      <use x="35" y="77.94" class="c3" href="#t1"/>
+      <use x="45" y="77.94" class="c5" href="#t2"/>
+      <use x="45" y="77.94" class="c3" href="#t1"/>
+      <use x="55" y="77.94" class="c1" href="#t2"/>
+      <use x="55" y="77.94" class="c4" href="#t1"/>
+      <use x="65" y="77.94" class="c2" href="#t2"/>
+      <use x="65" y="77.94" class="c5" href="#t1"/>
+      <use x="75" y="77.94" class="c3" href="#t2"/>
+      <use x="75" y="77.94" class="c6" href="#t1"/>
+      <use x="85" y="77.94" class="c4" href="#t2"/>
+      <use x="85" y="77.94" class="c6" href="#t1"/>
+      <use x="95" y="77.94" class="c2" href="#t2"/>
+      <use x="95" y="77.94" class="c4" href="#t1"/>
+    </pattern>
+
+    <pattern id="grid2" width="100" height="86.60" patternTransform="rotate(20)" patternUnits="userSpaceOnUse">
+      <rect width="100" height="86.60" style="fill: url(#grid);" />
+    </pattern>
+
+    <linearGradient id="b" x2="1" gradientTransform="matrix(42.779 -24.699 -24.699 -42.779 -11.063 79.159)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#8b878d" offset="0"/>
+      <stop stop-color="#8b878d" offset=".014778"/>
+      <stop stop-color="#8b878d" offset=".29484"/>
+      <stop stop-color="#f3f4f4" offset=".52247"/>
+      <stop stop-color="#807b80" offset=".79551"/>
+      <stop stop-color="#807b80" offset=".89118"/>
+      <stop stop-color="#807b80" offset="1"/>
+    </linearGradient>
+    <linearGradient id="a" x2="1" gradientTransform="matrix(29.334 -16.936 16.936 29.334 -4.3403 75.277)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#8b878d" offset="0"/>
+      <stop stop-color="#8b878d" offset=".014778"/>
+      <stop stop-color="#8b878d" offset=".29484"/>
+      <stop stop-color="#f3f4f4" offset=".52247"/>
+      <stop stop-color="#807b80" offset=".79551"/>
+      <stop stop-color="#807b80" offset=".89118"/>
+      <stop stop-color="#807b80" offset="1"/>
+    </linearGradient>
+
+    <path id="curve" d="M -3.957 81.093 A 20.2 20.2 0 0 0 24.611 81.093"/>
+  </defs>
+  <g transform="translate(14.72 -41.762)">
+    <g>
+      <path d="m2.1855 101.16 9.3839-24.483-12.171-4.6919-9.3839 24.483 7.4789-1.1289z" class="ribbon"/>
+      <path d="m19.154 101.16-9.3839-24.483 12.171-4.6919 9.3839 24.483-7.4789-1.1289z" class="ribbon" />
+      <path d="m2.2647 100.81 9.3839-24.483-12.171-4.6919-9.3839 24.483 7.4789-1.1289z" fill="url(#grid2)"/>
+      <path d="m18.881 100.81-9.3839-24.483 12.171-4.6919 9.3839 24.483-7.4789-1.1289z" fill="url(#grid2)"/>
+    </g>
+    <path d="m10.327 42.115c13.638 0 24.694 11.056 24.694 24.694 0 13.638-11.056 24.694-24.694 24.694-13.638 0-24.694-11.056-24.694-24.694 0-13.638 11.056-24.694 24.694-24.694z" fill="none" class="outer" stroke-width=".70556"/>
+    <path d="m-14.368 66.809c0 13.639 11.056 24.694 24.694 24.694 13.638 0 24.694-11.056 24.694-24.694 0-13.638-11.056-24.694-24.694-24.694-13.638 0-24.694 11.056-24.694 24.694" fill="url(#b)"/>
+    <path d="m10.327 43.596c12.82 0 23.213 10.393 23.213 23.213s-10.393 23.213-23.213 23.213c-12.82 0-23.213-10.393-23.213-23.213s10.393-23.213 23.213-23.213z" fill="url(#grid)" stroke-width=".35278" class="circle"/>
+    <path d="m-6.6065 66.809c0 9.3521 7.5812 16.934 16.933 16.934 9.3518 0 16.933-7.5815 16.933-16.934 0-9.3518-7.5815-16.933-16.933-16.933-9.3521 0-16.933 7.5815-16.933 16.933" fill="url(#a)"/>
+    <path d="m10.327 49.876c9.3521 0 16.933 7.5812 16.933 16.933 0 9.3521-7.5812 16.933-16.933 16.933-9.3521 0-16.933-7.5812-16.933-16.933 0-9.3521 7.5812-16.933 16.933-16.933z" fill="none" stroke-width=".35278" class="circle"/>
+    <path d="m14.686 60.533c-1.5166 1.8186-3.3394 3.8742-5.0042 5.6522l-1.8165-1.8387c1.7554-1.6838 3.7857-3.5285 5.5817-5.0634 3.1175-2.6642 4.361-3.423 4.8295-3.6378-0.20955 0.47166-0.95497 1.7272-3.5906 4.8877m-11.031 11.236c-0.69497 0-1.3529-0.12524-1.8591-0.25082 0.67839-0.48719 0.85866-1.3787 1.0231-2.1904 0.28857-1.4245 0.56162-2.7742 2.8571-3.0713l2.1036 2.1332c-0.53199 2.2373-1.9184 3.3793-4.124 3.3793m3.7137-6.943 1.8397 1.862c-0.3623 0.38241-0.71473 0.74895-1.0516 1.0933l-1.868-1.8905c0.33972-0.34114 0.70203-0.69815 1.0799-1.0647m11.537-9.8097c-0.06597-0.06667-0.18415-0.14605-0.3743-0.14605-0.24342 0-0.9839 0-5.5294 3.8844-1.893 1.6175-4.0449 3.5782-5.867 5.3365 0 0.0011-0.00353 0.0018-0.00388 0.0032 0 0.0011 0 0.0021-0.00353 0.0032-0.52776 0.50941-1.028 1.0019-1.4859 1.464-2.8363 0.34431-3.2043 2.1608-3.501 3.6241-0.254 1.2552-0.43498 1.9149-1.475 1.9985-0.1591 0.01305-0.28822 0.13476-0.31327 0.2921-0.024694 0.15769 0.061383 0.31574 0.20849 0.37712 0.058561 0.02434 1.457 0.60642 3.0924 0.60642 1.7956 0 4.0806-0.70697 4.82-4.0174 2.1572-2.1897 4.9075-5.2465 7.0309-7.8165 1.168-1.4136 2.0659-2.5792 2.6681-3.4643 0.85866-1.2619 1.0502-1.8232 0.73201-2.1452" class="brush"/>
+    <path d="m2.7787 74.138c-1.1007 0.2159-1.8658 0.82374-2.3026 1.857-0.13723 0.3242 0.009172 0.84102 0.45685 0.79622 5.4469-0.54575 10.858-1.3522 16.227-2.4222 0.66746-0.133 0.38488-1.1532-0.28116-1.0202-5.2761 1.0513-10.592 1.8475-15.946 2.3841 0.1524 0.26529 0.3048 0.53058 0.45685 0.79622 0.28469-0.6731 0.9525-1.2298 1.6704-1.3705 0.66746-0.13123 0.38488-1.1515-0.28152-1.0206" class="brush" />
+    <g fill="none" class="logo" stroke-miterlimit="3.864" stroke-width=".35278" stroke-linecap="round" stroke-linejoin="round">
+      <path d="m3.6116 48.431c-0.14111-0.10583-0.45861-0.21167-1.1994 0.070556-0.56444 0.21167-0.84667 0.84667-0.635 1.3053 0.17639 0.45861 0.67028 0.49389 1.1994 0.28222 1.5522-0.59972 1.27-2.5047 0.9525-3.9511-0.24694-1.0936-0.77611-0.81139-0.52917 0.21167 0.10583 0.35278 0.14111 0.56444 0.24694 0.91722 0.28222 1.0936 0.81139 2.2931 1.7639 2.0461 0.77611-0.17639 1.1289-0.635 1.0231-1.3406-0.14111-0.88194-1.1642-0.635-0.98778 0.24694 0.14111 0.635 0.70556 0.91722 1.4464 0.77611 0.70556-0.10583 1.2347-0.52917 1.1642-1.1642-0.035278-0.35278-0.35278-0.56444-0.77611-0.635"/>
+      <path d="m9.2207 46.914c-0.67028 0.21167-1.1289 0.67028-1.0583 1.27 0.035278 0.45861 0.45861 0.56444 0.9525 0.52917 0.21167 0 0.3175-0.07055 0.49389-0.10583"/>
+      <path d="m7.6685 48.113c0.49389-0.07055 0.77611-0.10583 1.27-0.17639"/>
+      <path d="m10.385 47.09c-0.49389 0.10583-0.77611 0.45861-0.74083 0.88194 0 0.42333 0.42333 0.70556 0.84667 0.70556 0.52917 0 0.98778-0.38806 1.0231-0.88194 0.03528-0.49389-0.14111-0.67028-0.635-0.67028-0.21167 0.03528-0.28222 0.21167-0.14111 0.35278 0.14111 0.10583 0.3175 0.14111 0.52917 0.14111 0.45861 0.03528 0.635-0.38806 1.0936-0.3175 0.38806 0.03528 0.52917 0.42333 0.49389 0.74083-0.03528 0.28222-0.10583 0.45861-0.14111 0.74083 0.03528-0.24694 0.07055-0.38806 0.10583-0.635 0.07056-0.38806 0.42333-0.70556 0.84667-0.635 0.28222 0.03528 0.49389 0.28222 0.42333 0.52917-0.10583 0.42333-0.07056 0.35278-0.17639 0.77611-0.03528 0.14111 0.10583 0.17639 0.21167 0.21167 0.49389 0.10583 0.77611-0.3175 1.0936-0.67028 0.59972-0.635 0.81139-1.0936 1.0936-1.8697 0.45861-1.3758-0.35278-1.4464-0.74083-0.10583-0.17639 0.635-0.24694 0.98778-0.24694 1.6228 0.03528 0.52917-0.24694 1.27 0.3175 1.4464 0.24694 0.07055 0.59972-0.14111 0.70556-0.38806 0.24694-0.49389 0.24694-0.52917 0.42333-0.9525-0.14111 0.45861-0.07056 0.3175-0.17639 0.56444-0.42333 1.2347 0.03528 1.1994 0.17639 1.0583 0.59972-0.35278 0.59972-1.3053 1.3406-1.0231 0.28222 0.10583 0.45861 0.45861 0.3175 0.70556-0.17639 0.38806-0.28222 0.56444-0.45861 0.9525 0.24694-0.59972 0.635-1.3406 1.27-1.0231 0.70556 0.35278-0.42333 1.3758 0.21167 1.7286 0.52917 0.28222 1.1289 0.14111 1.4464-0.3175 0.38806-0.56444-0.28222-1.0936-0.74083-0.3175-0.21167 0.38806-0.10583 1.4111 0.70556 1.3053"/>
+      <path d="m17.123 47.126c0 0.03528-0.03528 0.03528-0.03528 0.07056"/>
+    </g>
+    <text font-family="Arial" font-size="3.5" class="label">
+      <textPath href="#curve" alignment-baseline="central" startOffset="50%" text-anchor="middle">
+        DESENATOR
+      </textPath>
+    </text>
+  </g>
+</svg>

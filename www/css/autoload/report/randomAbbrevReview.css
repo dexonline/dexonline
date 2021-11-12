@@ -7,7 +7,7 @@
 }
 
 .previewAbbrev {
-  border-bottom: 1px dotted #777;
+  border-bottom: 1px dotted var(--bs-gray-600);
 }
 
 .previewWord {

@@ -1,3 +1,11 @@
+html.light {
+  --c-not-recommended: #004db2;
+}
+
+html.dark {
+  --c-not-recommended: var(--bs-blue);
+}
+
 .paraLexeme {
   margin-bottom: 10px;
 }
@@ -13,12 +21,12 @@
 }
 
 .lexeme td {
-  border: 1px solid #dddddd;
+  border: 1px solid var(--bs-gray-200);
   padding: 0px 10px;
 }
 
 .lexeme .inflection {
-  color: #555555;
+  color: var(--bs-gray-600);
   font-style: italic;
   font-size: small;
   text-align: center;
@@ -37,7 +45,7 @@
 }
 
 .noParadigm {
-  color: #555555;
+  color: var(--bs-gray-600);
   font-style: italic;
   padding-left: 80px;
   white-space: nowrap;
@@ -64,7 +72,7 @@
 .lexemeNotes,
 .lexemeSources {
   font-size: 75%;
-  color: green;
+  color: var(--bs-primary);
 }
 
 .paradigmDiv {
@@ -90,7 +98,7 @@
 }
 
 li.elision {
-  color: saddlebrown;
+  color: var(--bs-orange);
   cursor: help;
 }
 
@@ -103,12 +111,12 @@ li.elisionHidden {
 }
 
 .elisionLegend {
-  color: saddlebrown;
+  color: var(--bs-orange);
   font-style: italic;
 }
 
 li.notRecommended {
-  color: #1010c0;
+  color: var(--c-not-recommended);
   cursor: help;
 }
 
@@ -121,7 +129,7 @@ li.notRecommendedHidden {
 }
 
 .notRecommendedLegend {
-  color: #1010c0;
+  color: var(--c-not-recommended);
   font-style: italic;
 }
 

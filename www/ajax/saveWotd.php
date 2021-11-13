@@ -7,8 +7,8 @@ $oper = Request::get('oper');
 $id = Request::get('id');
 $displayDate = Request::get('displayDate');
 $noYear = Request::get('noYear');
-$priority = Request::get('priority');
-$definitionId = Request::get('definitionId');
+$priority = (int)Request::get('priority');
+$definitionId = (int)Request::get('definitionId');
 $image = Request::get('image');
 $description = Request::get('description');
 

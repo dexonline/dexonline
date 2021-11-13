@@ -32,35 +32,30 @@ class Medal {
     'name' => 'Donator',
     'description' => '',
     'pic' => 'sponsor.svg',
-    'supersedes' => [],
   ];
 
   const SOCIAL_TEMPLATE = [
     'name' => 'Activist pe rețele sociale',
     'description' => '',
     'pic' => 'social.svg',
-    'supersedes' => [],
   ];
 
   const ARTICLES_TEMPLATE = [
     'name' => 'Editor de articole lingvistice',
     'description' => '',
     'pic' => 'articles.svg',
-    'supersedes' => [],
   ];
 
   const WOTD_TEMPLATE = [
     'name' => 'Editor al cuvântului zilei',
     'description' => '',
     'pic' => 'wotd.svg',
-    'supersedes' => [],
   ];
 
   const MODERATOR_TEMPLATE = [
     'name' => 'Moderator',
     'description' => '',
     'pic' => 'moderator.svg',
-    'supersedes' => [],
   ];
 
   /*  medals with more levels */
@@ -76,7 +71,6 @@ class Medal {
     'name' => 'Programator (nivel %d)',
     'description' => 'peste %s de linii de cod',
     'pic' => 'programmer%d.svg',
-    'supersedes' => [],
   ];
 
   // email medals in descending order
@@ -90,7 +84,6 @@ class Medal {
     'name' => 'Responsabil e-mail (nivel %d)',
     'description' => 'peste %s de mesaje procesate',
     'pic' => 'email%d.svg',
-    'supersedes' => [],
   ];
 
   // editor medals in descending order
@@ -106,7 +99,6 @@ class Medal {
     'name' => 'Editor (nivel %d)',
     'description' => 'peste %s de caractere trimise',
     'pic' => 'editor%d.svg',
-    'supersedes' => [],
   ];
 
   // artist medals in descending order
@@ -120,7 +112,6 @@ class Medal {
     'name' => 'Desenator al cuvântului zilei (nivel %d)',
     'description' => 'minimum %s cuvinte ilustrate',
     'pic' => 'artist%d.svg',
-    'supersedes' => [],
   ];
 
   /**************************** what medals to display ***********************/
@@ -153,12 +144,14 @@ class Medal {
   private static function getMedalsDataFor($levels, $template) {
     $levelCnt = count($levels);
     $medals = [];
+    $supersedes = array_keys($levels);
     foreach ($levels as $key => $value) {
+      array_shift($supersedes);
       $levelData = [
         'name' => sprintf($template['name'], $levelCnt),
         'description' => sprintf($template['description'], LocaleUtil::number($value)),
         'pic' => sprintf($template['pic'], $levelCnt),
-        'supersedes' => array_keys($medals),
+        'supersedes' => $supersedes,
       ];
       $medals[$key] = $levelData;
       $levelCnt--;
@@ -183,7 +176,7 @@ class Medal {
   static function getCanonicalMask($mask) {
     foreach (self::getData() as $value => $params) {
       if ($mask & $value) {
-        foreach ($params['supersedes'] as $supersedes) {
+        foreach ($params['supersedes'] ?? [] as $supersedes) {
           $mask &= ~$supersedes;
         }
       }

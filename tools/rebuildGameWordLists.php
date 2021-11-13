@@ -22,7 +22,7 @@ $forms = Model::factory('InflectedForm')
   ->join('Lexeme', ['if.lexemeId', '=', 'l.id'], 'l')
   ->join('Definition', ['l.formNoAccent', '=', 'd.lexicon'], 'd')
   ->where('i.animate', false)
-  ->where_raw('binary if.formNoAccent rlike "^[a-zăâîșț]+$"') // no caps - chemical symbols etc.
+  ->where_raw('cast(if.formNoAccent as binary) rlike binary "^[a-zăâîșț]+$"') // no caps - chemical symbols etc.
   ->where_raw('char_length(if.formNoAccent) between 3 and 7')
   ->where('d.status', Definition::ST_ACTIVE)
   ->where_in('d.sourceId', [ DEX09_ID, MDN_ID ])

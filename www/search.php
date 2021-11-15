@@ -153,7 +153,7 @@ if ($text) {
     // For single-word queries, just order the definitions by lexicon.
     if (count($words) == 1) {
       usort($definitions, function($a, $b) {
-        return strcoll($a->lexicon, $b->lexicon) > 0;
+        return strcoll($a->lexicon, $b->lexicon);
       });
     }
 

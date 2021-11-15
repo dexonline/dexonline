@@ -41,10 +41,11 @@ Log::info('Memory used: %d MB', round(memory_get_usage() / 1048576, 1));
 // Process definitions
 $dbResult = DB::execute('select id, internalRep from Definition where status = 0');
 $defsSeen = 0;
-$handle = fopen('/tmp/mysql_full_text_index', 'w');
 
 DebugInfo::disable();
 
+// Build a map of $lexemeId => ($inflectionId, $definitionId, $position) tuples
+$map = [];
 foreach ($dbResult as $dbRow) {
   $words = extractWords($dbRow[1]);
 
@@ -53,11 +54,13 @@ foreach ($dbResult as $dbRow) {
       if (array_key_exists($word, $ifMap)) {
         $lexemeList = preg_split('/,/', $ifMap[$word]);
         for ($i = 0; $i < count($lexemeList); $i += 2) {
-          fprintf($handle, "%07d %04d %08d %06d\n",
-                  $lexemeList[$i],
-                  $lexemeList[$i + 1],
-                  $dbRow[0],
-                  $position);
+          $lexemeId = $lexemeList[$i];
+          $chunk = $lexemeList[$i + 1] . ',' . $dbRow[0] . ',' . $position;
+          if (isset($map[$lexemeId])) {
+            $map[$lexemeId] .= '|' . $chunk;
+          } else {
+            $map[$lexemeId] = $chunk;
+          }
         }
       }
     }
@@ -66,29 +69,36 @@ foreach ($dbResult as $dbRow) {
   if (++$defsSeen % 10000 == 0) {
     $runTime = DebugInfo::getRunningTimeInMillis() / 1000;
     $speed = round($defsSeen / $runTime);
-    Log::info("$defsSeen definitions scanned ($speed defs/sec). ");
+    Log::info('%d definitions scanned (%d defs/sec), %d MB memory used.',
+              $defsSeen, $speed, round(memory_get_usage() / 1048576, 1));
+  }
+}
+$dbResult = null; // mark for garbage collection
+Log::info("$defsSeen definitions scanned.");
+
+// Process $map in primary key order. InnoDB inserts are much faster this way
+$insert = new Insert();
+ksort($map); // lexemeId first...
+foreach ($map as $lexemeId => $str) {
+  $tuples = explode('|', $str);
+  $inflectionIds = [];
+  $definitionIds = [];
+  $positions = [];
+  foreach ($tuples as $tuple) {
+    list($inflectionId, $definitionId, $position) = explode(',', $tuple);
+    $inflectionIds[] = $inflectionId;
+    $definitionIds[] = $definitionId;
+    $positions[] = $position;
+  }
+  // ...then the other fields in the primary key
+  array_multisort($definitionIds, $positions, $inflectionIds);
+  foreach ($definitionIds as $i => $defId) {
+    $s = sprintf('(%d,%d,%d,%d)', $lexemeId, $inflectionIds[$i], $defId, $positions[$i]);
+    $insert->push($s);
   }
 }
 
-fclose($handle);
-$dbResult = null; // mark for data collection
-Log::info("$defsSeen definitions scanned.");
-
-Log::info('Sorting temporary file');
-OS::execute('sort /tmp/mysql_full_text_index > /tmp/mysql_full_text_index_sorted');
-
-Log::info('Inserting rows');
-$insert = new Insert();
-$handle = fopen('/tmp/mysql_full_text_index_sorted', 'r');
-while (fscanf($handle, '%d %d %d %d', $lexemeId, $inflectionId, $definitionId, $pos) == 4) {
-  $s = sprintf('(%d,%d,%d,%d)', $lexemeId, $inflectionId, $definitionId, $pos);
-  $insert->push($s);
-}
-
 $insert->end();
-
-unlink('/tmp/mysql_full_text_index');
-unlink('/tmp/mysql_full_text_index_sorted');
 
 Variable::clear(Variable::LOCK_FTI);
 Log::notice('finished; peak memory usage %d MB', round(memory_get_peak_usage() / 1048576, 1));
@@ -149,8 +159,9 @@ class Insert {
     DB::execute('start transaction');
     DB::execute('insert into FullTextIndex values ' . $this->query);
     DB::execute('commit');
-    Log::info("Index size: {$this->records} rows.");
-
+    Log::info(sprintf('Index size: %d rows, %d MB memory used.',
+                      $this->records,
+                      round(memory_get_usage() / 1048576, 1)));
     $this->query = '';
     $this->queryLen = 0;
   }

@@ -87,6 +87,9 @@ while (fscanf($handle, '%d %d %d %d', $lexemeId, $inflectionId, $definitionId, $
 
 $insert->end();
 
+unlink('/tmp/mysql_full_text_index');
+unlink('/tmp/mysql_full_text_index_sorted');
+
 Variable::clear(Variable::LOCK_FTI);
 Log::notice('finished; peak memory usage %d MB', round(memory_get_peak_usage() / 1048576, 1));
 

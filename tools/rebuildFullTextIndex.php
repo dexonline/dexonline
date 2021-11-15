@@ -1,9 +1,8 @@
 <?php
 require_once __DIR__ . '/../lib/Core.php';
 ini_set('max_execution_time', '3600');
-ini_set('memory_limit', '512M');
+ini_set('memory_limit', '2G');
 assert_options(ASSERT_BAIL, 1);
-ORM::get_db()->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, false);
 
 Log::notice('started');
 if (!Lock::acquire(Lock::FULL_TEXT_INDEX)) {
@@ -12,6 +11,8 @@ if (!Lock::acquire(Lock::FULL_TEXT_INDEX)) {
 
 Log::info('Clearing table FullTextIndex.');
 DB::execute('truncate table FullTextIndex');
+// if we keep the index, the inserts become progressively slower
+DB::execute('alter table FullTextIndex drop index if exists `PRIMARY`');
 
 // Build a map of stop words
 $stopWordForms = array_flip(DB::getArray(
@@ -21,8 +22,8 @@ $stopWordForms = array_flip(DB::getArray(
   'and l.stopWord'));
 
 // Build a map of inflectedForm => list of (lexemeId, inflectionId) pairs
-Log::info("Building inflected form map.");
-$dbResult = DB::execute("select distinct formNoAccent, lexemeId, inflectionId from InflectedForm");
+Log::info('Building inflected form map.');
+$dbResult = DB::execute('select distinct formNoAccent, lexemeId, inflectionId from InflectedForm');
 $ifMap = [];
 foreach ($dbResult as $r) {
   $form = mb_strtolower($r['formNoAccent']);
@@ -33,16 +34,14 @@ foreach ($dbResult as $r) {
   $ifMap[$form] = $s;
 }
 unset($dbResult);
-Log::info("Inflected form map has %d entries.", count($ifMap));
-Log::info("Memory used: %d MB", round(memory_get_usage() / 1048576, 1));
+Log::info('Inflected form map has %d entries.', count($ifMap));
+Log::info('Memory used: %d MB', round(memory_get_usage() / 1048576, 1));
 
 // Process definitions
 $dbResult = DB::execute('select id, internalRep from Definition where status = 0');
 $defsSeen = 0;
-$indexSize = 0;
-$fileName = tempnam(Config::TEMP_DIR, 'index_');
-$handle = fopen($fileName, 'w');
-Log::info("Writing index to file $fileName.");
+$insert = new Insert();
+
 DebugInfo::disable();
 
 foreach ($dbResult as $dbRow) {
@@ -53,12 +52,12 @@ foreach ($dbResult as $dbRow) {
       if (array_key_exists($word, $ifMap)) {
         $lexemeList = preg_split('/,/', $ifMap[$word]);
         for ($i = 0; $i < count($lexemeList); $i += 2) {
-          fwrite($handle,
-                 $lexemeList[$i] . "\t" .
-                 $lexemeList[$i + 1] . "\t" .
-                 $dbRow[0] . "\t" .
-                 $position . "\n");
-          $indexSize++;
+          $tuple = sprintf('(%d,%d,%d,%d)',
+                           $lexemeList[$i],
+                           $lexemeList[$i + 1],
+                           $dbRow[0],
+                           $position);
+          $insert->push($tuple);
         }
       }
     }
@@ -70,16 +69,13 @@ foreach ($dbResult as $dbRow) {
     Log::info("$defsSeen definitions indexed ($speed defs/sec). ");
   }
 }
-unset($dbResult);
 
-fclose($handle);
+$insert->run(); // insert remaining tuples
 Log::info("$defsSeen definitions indexed.");
-Log::info("Index size: $indexSize entries.");
 
-OS::executeAndAssert("chmod 666 $fileName");
-Log::info("Importing file $fileName into table FullTextIndex");
-DB::executeFromOS("load data local infile \"$fileName\" into table FullTextIndex");
-OS::deleteFile($fileName);
+Log::info('Recreating primary key');
+DB::execute('alter table FullTextIndex add primary key ' .
+            '(lexemeId, definitionId, position, inflectionId)');
 
 if (!Lock::release(Lock::FULL_TEXT_INDEX)) {
   Log::warning('WARNING: could not release lock!');
@@ -100,4 +96,43 @@ function extractWords($s) {
 
   $words = preg_split('/\P{L}+/u', $s, null, PREG_SPLIT_NO_EMPTY);
   return $words;
+}
+
+class Insert {
+  private string $query = '';
+  private int $queryLen = 0; // avoid numerous strlen($this->query)
+  private int $queryLimit;
+  private int $records = 0;
+
+  function __construct() {
+    // Query length is limited only by max_packet_size.
+    $result = DB::getArrayOfRows('show variables like "max_allowed_packet"');
+    $maxPacketSize = (int)$result[0]['Value'];
+    $this->queryLimit = $maxPacketSize * 0.9;
+  }
+
+  function push(string $tuple) {
+    if ($this->query) {
+      $tuple = ',' . $tuple;
+    }
+    $this->query .= $tuple;
+    $this->queryLen += strlen($tuple);
+    $this->records++;
+
+    if ($this->queryLen > $this->queryLimit) {
+      $this->run();
+    }
+  }
+
+  function run() {
+    if (!$this->query) {
+      return;
+    }
+
+    DB::execute('insert into FullTextIndex values ' . $this->query);
+    Log::info("Index size: {$this->records} rows.");
+
+    $this->query = '';
+    $this->queryLen = 0;
+  }
 }

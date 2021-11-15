@@ -11,8 +11,12 @@ if (!Lock::acquire(Lock::FULL_TEXT_INDEX)) {
 
 Log::info('Clearing table FullTextIndex.');
 DB::execute('truncate table FullTextIndex');
-// if we keep the index, the inserts become progressively slower
-DB::execute('alter table FullTextIndex drop index if exists `PRIMARY`');
+
+// Drop the index. If we keep it, the inserts become progressively slower.
+$indexes = DB::getArray('show index from FullTextIndex');
+if (count($indexes)) {
+  DB::execute('alter table FullTextIndex drop primary key');
+}
 
 // Build a map of stop words
 $stopWordForms = array_flip(DB::getArray(

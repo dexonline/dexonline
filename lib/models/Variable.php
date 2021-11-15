@@ -3,6 +3,8 @@
 class Variable extends BaseObject implements DatedObject {
   public static $_table = 'Variable';
 
+  const LOCK_FTI = 'Lock.fullTextIndex';
+
   static function peek($name, $default = null) {
     $v = Variable::get_by_name($name);
     return $v ? $v->value : $default;
@@ -16,6 +18,10 @@ class Variable extends BaseObject implements DatedObject {
     }
     $v->value = $value;
     $v->save();
+  }
+
+  static function clear($name) {
+    Variable::delete_all_by_name($name);
   }
 
   // returns an array of name => value

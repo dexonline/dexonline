@@ -2,12 +2,15 @@
 require_once __DIR__ . '/../lib/Core.php';
 ini_set('max_execution_time', '3600');
 ini_set('memory_limit', '2G');
-assert_options(ASSERT_BAIL, 1);
+
+$opts = getopt('f');
+$force = isset($opts['f']);
 
 Log::notice('started');
-if (!Lock::acquire(Lock::FULL_TEXT_INDEX)) {
-  OS::errorAndExit('Lock already exists!');
+if (!$force && Variable::peek(Variable::LOCK_FTI)) {
+  OS::errorAndExit('Lock already exists! Use -f to bypass');
 }
+Variable::poke(Variable::LOCK_FTI, '1');
 
 Log::info('Clearing table FullTextIndex.');
 DB::execute('truncate table FullTextIndex');
@@ -81,9 +84,7 @@ Log::info('Recreating primary key');
 DB::execute('alter table FullTextIndex add primary key ' .
             '(lexemeId, definitionId, position, inflectionId)');
 
-if (!Lock::release(Lock::FULL_TEXT_INDEX)) {
-  Log::warning('WARNING: could not release lock!');
-}
+Variable::clear(Variable::LOCK_FTI);
 Log::notice('finished; peak memory usage %d MB', round(memory_get_peak_usage() / 1048576, 1));
 
 /***************************************************************************/

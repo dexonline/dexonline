@@ -15,12 +15,6 @@ Variable::poke(Variable::LOCK_FTI, '1');
 Log::info('Clearing table FullTextIndex.');
 DB::execute('truncate table FullTextIndex');
 
-// Drop the index. If we keep it, the inserts become progressively slower.
-$indexes = DB::getArray('show index from FullTextIndex');
-if (count($indexes)) {
-  DB::execute('alter table FullTextIndex drop primary key');
-}
-
 // Build a map of stop words
 $stopWordForms = array_flip(DB::getArray(
   'select distinct i.formNoAccent ' .
@@ -47,7 +41,7 @@ Log::info('Memory used: %d MB', round(memory_get_usage() / 1048576, 1));
 // Process definitions
 $dbResult = DB::execute('select id, internalRep from Definition where status = 0');
 $defsSeen = 0;
-$insert = new Insert();
+$handle = fopen('/tmp/mysql_full_text_index', 'w');
 
 DebugInfo::disable();
 
@@ -59,12 +53,11 @@ foreach ($dbResult as $dbRow) {
       if (array_key_exists($word, $ifMap)) {
         $lexemeList = preg_split('/,/', $ifMap[$word]);
         for ($i = 0; $i < count($lexemeList); $i += 2) {
-          $tuple = sprintf('(%d,%d,%d,%d)',
-                           $lexemeList[$i],
-                           $lexemeList[$i + 1],
-                           $dbRow[0],
-                           $position);
-          $insert->push($tuple);
+          fprintf($handle, "%07d %04d %08d %06d\n",
+                  $lexemeList[$i],
+                  $lexemeList[$i + 1],
+                  $dbRow[0],
+                  $position);
         }
       }
     }
@@ -73,16 +66,26 @@ foreach ($dbResult as $dbRow) {
   if (++$defsSeen % 10000 == 0) {
     $runTime = DebugInfo::getRunningTimeInMillis() / 1000;
     $speed = round($defsSeen / $runTime);
-    Log::info("$defsSeen definitions indexed ($speed defs/sec). ");
+    Log::info("$defsSeen definitions scanned ($speed defs/sec). ");
   }
 }
 
-$insert->run(); // insert remaining tuples
-Log::info("$defsSeen definitions indexed.");
+fclose($handle);
+$dbResult = null; // mark for data collection
+Log::info("$defsSeen definitions scanned.");
 
-Log::info('Recreating primary key');
-DB::execute('alter table FullTextIndex add primary key ' .
-            '(lexemeId, definitionId, position, inflectionId)');
+Log::info('Sorting temporary file');
+OS::execute('sort /tmp/mysql_full_text_index > /tmp/mysql_full_text_index_sorted');
+
+Log::info('Inserting rows');
+$insert = new Insert();
+$handle = fopen('/tmp/mysql_full_text_index_sorted', 'r');
+while (fscanf($handle, '%d %d %d %d', $lexemeId, $inflectionId, $definitionId, $pos) == 4) {
+  $s = sprintf('(%d,%d,%d,%d)', $lexemeId, $inflectionId, $definitionId, $pos);
+  $insert->push($s);
+}
+
+$insert->end();
 
 Variable::clear(Variable::LOCK_FTI);
 Log::notice('finished; peak memory usage %d MB', round(memory_get_peak_usage() / 1048576, 1));
@@ -103,6 +106,9 @@ function extractWords($s) {
   return $words;
 }
 
+/**
+ * Bulk insert with hints from https://dev.mysql.com/doc/refman/8.0/en/optimizing-innodb-bulk-data-loading.html
+ */
 class Insert {
   private string $query = '';
   private int $queryLen = 0; // avoid numerous strlen($this->query)
@@ -114,6 +120,9 @@ class Insert {
     $result = DB::getArrayOfRows('show variables like "max_allowed_packet"');
     $maxPacketSize = (int)$result[0]['Value'];
     $this->queryLimit = $maxPacketSize * 0.9;
+
+    DB::execute('SET unique_checks=0');
+    DB::execute('SET autocommit=0');
   }
 
   function push(string $tuple) {
@@ -134,10 +143,19 @@ class Insert {
       return;
     }
 
+    DB::execute('start transaction');
     DB::execute('insert into FullTextIndex values ' . $this->query);
+    DB::execute('commit');
     Log::info("Index size: {$this->records} rows.");
 
     $this->query = '';
     $this->queryLen = 0;
+  }
+
+  function end() {
+    $this->run(); // call insert with remaining tuples
+
+    DB::execute('SET autocommit=1');
+    DB::execute('SET unique_checks=1');
   }
 }

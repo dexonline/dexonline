@@ -31,7 +31,6 @@ class DB {
     // ORM::configure('logging', true);
     ORM::configure('driver_options', [
       PDO::MYSQL_ATTR_INIT_COMMAND => self::INIT_COMMAND,
-      PDO::MYSQL_ATTR_LOCAL_INFILE => true,
     ]);
   }
 
@@ -46,24 +45,6 @@ class DB {
     $result = ORM::get_db()->query($query, $fetchStyle);
     DebugInfo::stopClock("Low-level query: $query");
     return $result;
-  }
-
-  /**
-   * There is a bug with running "load data local infile" from PDO:
-   * http://www.yiiframework.com/forum/index.php/topic/33612-load-data-local-infile-forbidden/
-   * We can still run that statement from the command line.
-   * This function allows us to do that until we upgrade to PHP 5.4.
-   *
-   * NOTE: The query may not contain quotes (') due to escaping issues.
-   **/
-  static function executeFromOS($query) {
-    $query = str_replace("\n", ' ', $query);
-
-    // Skip the username/password here to avoid a Percona warning.
-    // Place them in my.cnf (remeber this command runs as the webserver user).
-    $command = sprintf("mysql -u %s -h %s %s -e '%s'",
-                       self::$user, self::$host, self::$database, $query);
-    OS::executeAndAssert($command);
   }
 
   static function executeSqlFile($filename, $database = null) {

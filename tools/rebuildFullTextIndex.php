@@ -4,9 +4,7 @@ require_once __DIR__ . '/../lib/Core.php';
 
 /**
  * Updates the FullTextIndex by merging the existing index with data gathered
- * from definitions. Is also able to handle rebuilding the index from scratch.
- * Always uses the FTI columns in key order (the actual table column order may
- * differ for historical reasons).
+ * from definitions. Can also handle rebuilding the index from scratch.
  */
 
 /**
@@ -41,7 +39,7 @@ class DbIterator implements Iterator {
     $this->total = 0;
     DB::setBuffering(false);
     $this->dbResult = DB::execute(
-      'select lexemeId, definitionId, position, inflectionId from FullTextIndex ' .
+      'select * from FullTextIndex ' .
       'order by lexemeId, definitionId, position, inflectionId');
     $this->next();
   }
@@ -199,8 +197,7 @@ class BulkInsert {
 
     DB::execute('start transaction');
     DB::execute(
-      'insert into FullTextIndex (lexemeId, definitionId, position, inflectionId) ' .
-      'values' . $this->query);
+      'insert into FullTextIndex values ' . $this->query);
     DB::execute('commit');
     Log::info(sprintf('Inserted %d rows. | %d MB', $this->records, getMemory()));
     $this->query = '';

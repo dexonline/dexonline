@@ -10,7 +10,7 @@ require_once __DIR__ . '/../lib/Core.php';
 /**
  * Compares two numerically indexed arrays of equal lenghts.
  */
-function cmp(array &$a, array &$b) {
+function cmp(array $a, array $b) {
   $i = 0;
   while (($i < count($a)) && ($a[$i] == $b[$i])) {
     $i++;

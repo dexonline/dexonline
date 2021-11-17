@@ -102,7 +102,7 @@ html.dark {
 
 @import "common.scss";
 
-/* autocomplete overrides */
+/* autocomplete and WotD overrides */
 .ui-widget-content {
   background-color: var(--bs-body-bg);
   border-color: var(--bs-gray-300);
@@ -111,6 +111,14 @@ html.dark {
 .ui-widget.ui-widget-content {
   border: 1px solid var(--bs-gray-400);
 }
+.ui-widget-content .ui-state-highlight, /* Wotd selected row */
+.ui-widget-content .ui-state-hover { /* WotD hover */
+  color: var(--bs-body-bg);
+}
+.ui-menu-item .ui-state-active { /* autocomplete hover */
+  color: var(--bs-body-bg) !important;
+}
+
 /* jquery-ui overrides */
 .ui-state-default,
 .ui-widget-content .ui-state-default,
@@ -120,7 +128,7 @@ html.dark {
 .ui-button.ui-state-disabled:active {
   background: var(--bs-gray-100);
   border-color: var(--bs-gray-300);
-  color: var(--bs-gray-500);
+  color: var(--bs-body-color);
 }
 
 /* tablesorter overrides */

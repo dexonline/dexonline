@@ -1137,10 +1137,18 @@ html.dark .ui-widget.ui-widget-content {
   border: 1px solid var(--bs-gray-400);
 }
 
+html.dark .ui-widget-content .ui-state-highlight, html.dark .ui-widget-content .ui-state-hover {
+  color: var(--bs-body-bg);
+}
+
+html.dark .ui-menu-item .ui-state-active {
+  color: var(--bs-body-bg) !important;
+}
+
 html.dark .ui-state-default, html.dark .ui-widget-content .ui-state-default, html.dark .ui-widget-header .ui-state-default, html.dark .ui-button, html.dark .ui-button.ui-state-disabled:hover, html.dark .ui-button.ui-state-disabled:active {
   background: var(--bs-gray-100);
   border-color: var(--bs-gray-300);
-  color: var(--bs-gray-500);
+  color: var(--bs-body-color);
 }
 
 html.dark .tablesorter-bootstrap thead .tablesorter-headerAsc {

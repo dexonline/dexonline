@@ -4,9 +4,7 @@
 // Stop words defined in stringUtil.php get 1.00
 // Other lexemes get frequencies distributed uniformly between 0.01 and 1.00 based on their percentile rankings in the full text index.
 require_once __DIR__ . '/../lib/Core.php';
-ini_set('max_execution_time', '3600');
 ini_set('memory_limit', '256M');
-assert_options(ASSERT_BAIL, 1);
 
 Log::notice('started');
 
@@ -17,8 +15,8 @@ foreach ($lexemes as $l) {
   $l->save();
 }
 
-Log::info("Scanning full text index");
-$dbResult = DB::execute("select lexemeId from FullTextIndex group by lexemeId order by count(*)");
+Log::info('Scanning full text index');
+$dbResult = DB::execute('select lexemeId from FullTextIndex group by lexemeId order by count(*)');
 $numLexemes = $dbResult->rowCount();
 $i = 0;
 foreach ($dbResult as $row) {

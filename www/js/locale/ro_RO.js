@@ -1,6 +1,8 @@
 const I18N_MESSAGES = {
 
   'expand': 'expandează',
+  'hangman-word-list-download-error':
+  'Nu pot descărca lista de cuvinte. Te rog reîncearcă în cîteva minute.',
 
 };
 

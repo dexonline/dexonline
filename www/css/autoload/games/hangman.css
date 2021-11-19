@@ -92,7 +92,9 @@
 #hangman .letters {
   text-align: center;
   border: 1px solid var(--bs-gray-600);
+  margin-right: 0.5rem;
   padding: 4px 2px 2px 2px;
+  width: 1.5rem;
 }
 
 #hangman .letterButtons {

@@ -47,16 +47,5 @@ $(function() {
     obj.find('.widget-value').text(word);
   }
 
-  /**
-   * Shuffles an array in place. Welcome to 1975, where this function is not built in.
-   * @param Array a
-   */
-  function shuffle(a) {
-    for (var i = a.length - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * (i + 1));
-      [ a[i], a[j] ] = [ a[j], a[i] ]; // swap
-    }
-  }
-
   init();
 });

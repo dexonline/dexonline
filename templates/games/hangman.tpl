@@ -5,11 +5,6 @@
 {block "search"}{/block}
 
 {block "content"}
-  <script>
-   var word = "{$word}";
-   var difficulty = "{$difficulty}";
-  </script>
-
   <div class="card mb-3">
     <div class="card-header">
       {cap}{t}hangman{/t}{/cap}
@@ -18,15 +13,16 @@
       <form id="hangman" action="">
 
         <div class="graphics">
-          <label>{t}Lives remaining{/t}: <span id="livesLeft">6</span></label>
+          <label>{t}Lives remaining{/t}: <span id="livesLeft"></span></label>
           <div class="hangmanPic"> </div>
           <div class="imageLicense">{t}images{/t} © dexonline.ro</div>
 
+          {* show one input; JS will multiply this once it picks a word *}
+          {strip}
           <div class="output">
-            {section name="ignored" start=0 loop=$wordLength}
-              <input style="width:15pt" class="letters" name="out[]" type="text" readonly size="1">
-            {/section}
+            <input class="letters" name="out[]" type="text" readonly size="1">
           </div>
+          {/strip}
         </div>
 
         <div class="controls">
@@ -52,9 +48,6 @@
       {cap}{t}definitions{/t}{/cap}
     </div>
     <div class="card-body">
-      {foreach $searchResults as $row}
-        {include "bits/definition.tpl" showBookmark=1}
-      {/foreach}
     </div>
   </div>
 

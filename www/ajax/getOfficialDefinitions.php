@@ -30,7 +30,10 @@ $results = SearchResult::mapDefinitionArray($definitions);
 
 $html = '';
 foreach ($results as $row) {
-  Smart::assign('row', $row);
+  Smart::assign([
+    'row' => $row,
+    'showPageModal' => false,
+  ]);
   $html .= Smart::fetch('bits/definition.tpl');
 }
 

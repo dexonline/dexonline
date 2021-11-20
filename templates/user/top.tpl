@@ -13,7 +13,7 @@
 
   <h4 class="mt-4">{t}Last year ranking{/t}</h4>
 
-  {include "bits/top.tpl" data=$lastyearData tableId="lastyearTop" pager=0}
+  {include "bits/top.tpl" data=$lastYearData tableId="lastYearTop" pager=0}
 
   <h4 class="mt-4">{t}Global ranking{/t}</h4>
 

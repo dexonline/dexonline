@@ -72,12 +72,12 @@ if (!$skipOtrs) {
 // Editor medals
 if (!$skipEditors) {
   $levels = Medal::EDITOR_LEVELS;
-  $topData = TopEntry::getTopData(TopEntry::SORT_CHARS, SORT_DESC, true);
+  $tes = TopEntry::getTopData(TopEntry::SORT_CHARS, true, false, true);
 
-  foreach ($topData as $e) {
-    $user = User::get_by_nick($e->userNick);
+  foreach ($tes as $te) {
+    $user = User::get_by_id($te->userId);
     reset($levels);
-    while ($e->numChars < current($levels)) {
+    while ($te->numChars < current($levels)) {
       next($levels);
     }
     $medal = key($levels);

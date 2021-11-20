@@ -3,8 +3,6 @@
 class FileCache {
   const CACHE_EXPIRATION_SECONDS = 86400;
   const CACHE_PREFIX = '/dexcache_';
-  const CKEY_TOP = 'top';
-  const CKEY_TOP_ALL = 'topAll';
   const CKEY_WORDS_ALL = 'wordsTotal';
   const CKEY_WORDS_LAST_MONTH = 'wordsLastMonth';
   const CKEY_COMPACT_FORMS = 'compactForms';
@@ -66,16 +64,6 @@ class FileCache {
     self::put(self::CKEY_WORDS_LAST_MONTH, $value);
   }
 
-  static function getTop($manual, $hidden = false, $lastyear = false) {
-    $key = self::getCacheKey($hidden, $manual, $lastyear);
-    return self::get($key);
-  }
-
-  static function putTop($value, $manual, $hidden = false, $lastyear = false) {
-    $key = self::getCacheKey($hidden, $manual, $lastyear);
-    self::put($key, $value);
-  }
-
   // exposing this publicly breaks the abstraction, but is needed for the C
   // version of Levenshtein
   static function getCompactFormsFileName() {
@@ -84,11 +72,6 @@ class FileCache {
 
   static function putCompactForms($s) {
     self::put(self::CKEY_COMPACT_FORMS, $s, false);
-  }
-
-  static function getCacheKey($hidden, $manual, $lastyear) {
-    $var = $hidden ?  self::CKEY_TOP_ALL : self::CKEY_TOP;
-    return $var . ($manual ? '1' : '0') . ($lastyear ? 'y' : '');
   }
 
   static function getArtistTop() {

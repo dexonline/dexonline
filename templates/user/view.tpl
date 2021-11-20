@@ -40,33 +40,35 @@
     </div>
   </div>
 
-  {if isset($userData.numDefinitions) || isset($userData.numImages)}
+  {if $topEntry || $numImages}
     <div class="card mb-3">
       <div class="card-header">Contribuții</div>
       <div class="card-body">
         <dl class="row">
 
-          {if isset($userData.numDefinitions)}
+          {if $topEntry}
             <dt class="col-md-3">Definiții trimise</dt>
             <dd class="col-md-9">
-              {$userData.numDefinitions} (locul {$userData.rankDefinitions})
+              {$topEntry->numDefs|nf}
+              (locul {$topEntry->getRank(TopEntry::SORT_DEFS)})
             </dd>
 
             <dt class="col-md-3">Lungime totală</dt>
             <dd class="col-md-9">
-              {$userData.numChars} caractere (locul {$userData.rankChars})
+              {$topEntry->numChars|nf} caractere
+              (locul {$topEntry->getRank(TopEntry::SORT_CHARS)})
             </dd>
 
             <dt class="col-md-3">Ultima contribuție</dt>
             <dd class="col-md-9">
-              {$userData.lastSubmission|date_format:"%d %B %Y"}
+              {$topEntry->lastTimestamp|date_format:"%d %B %Y"}
             </dd>
           {/if}
 
-          {if isset($userData.numImages)}
+          {if $numImages}
             <dt class="col-md-3">Ilustrații desenate</dt>
             <dd class="col-md-9">
-              {$userData.numImages} ilustrații
+              {$numImages} ilustrații
             </dd>
           {/if}
         </dl>

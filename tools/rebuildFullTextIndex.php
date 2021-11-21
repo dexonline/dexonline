@@ -63,7 +63,7 @@ class BulkInsert {
     $this->query .= '(' . implode(',', $row) . '),';
 
     if (++$this->records % 1000000 == 0) {
-      Log::info('%d rows pushed to BulkInsert');
+      Log::info('%d rows pushed to BulkInsert', $this->records);
     }
 
     if (strlen($this->query) > $this->queryLimit) {

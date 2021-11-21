@@ -32,7 +32,7 @@ function getMemory($peak = false) {
 class DbIterator implements Iterator {
 
   private ?PDOStatement $dbResult;
-  private array $row; // tuple (lexemeId, definitionId, position, inflectionId) or []
+  private array $row; // tuple (lexemeId, definitionId, position) or []
   private int $total;
 
   function __construct() {
@@ -40,7 +40,7 @@ class DbIterator implements Iterator {
     DB::setBuffering(false);
     $this->dbResult = DB::execute(
       'select * from FullTextIndex ' .
-      'order by lexemeId, definitionId, position, inflectionId');
+      'order by lexemeId, definitionId, position');
     $this->next();
   }
 
@@ -79,7 +79,7 @@ class DbIterator implements Iterator {
  */
 class MapIterator implements Iterator {
 
-  // lexemeId => concatenated (definitionId, position, inflectionId) strings
+  // lexemeId => concatenated (definitionId, position) strings
   private array $map;
   private int $lexemeId;
   private array $data; // lists of tuples expanded from a string in $map
@@ -106,7 +106,6 @@ class MapIterator implements Iterator {
       $this->lexemeId,
       $this->data[$i][0],
       $this->data[$i][1],
-      $this->data[$i][2],
     ];
   }
 
@@ -239,8 +238,7 @@ class BulkDelete {
         'delete from FullTextIndex ' .
         'where lexemeId = %d ' .
         'and definitionId = %d ' .
-        'and position = %d ' .
-        'and inflectionId = %d',
+        'and position = %d',
         $row);
       DB::execute($query);
     }
@@ -254,12 +252,12 @@ class BulkDelete {
 }
 
 /**
- * Builds a map of inflectedForm => concatenated (lexemeId, inflectionId) pairs.
+ * Builds a map of inflectedForm => concatenated lexemeIds.
  */
 function buildInflectedFormMap() {
   Log::info('Building inflected form map.');
 
-  $dbResult = DB::execute('select distinct formNoAccent, lexemeId, inflectionId from InflectedForm');
+  $dbResult = DB::execute('select distinct formNoAccent, lexemeId from InflectedForm');
   $ifMap = [];
 
   foreach ($dbResult as $r) {
@@ -267,7 +265,7 @@ function buildInflectedFormMap() {
     $s = isset($ifMap[$form])
       ? ($ifMap[$form] . ',')
       : '';
-    $s .= $r['lexemeId'] . ',' . $r['inflectionId'];
+    $s .= $r['lexemeId'];
     $ifMap[$form] = $s;
   }
 
@@ -291,7 +289,7 @@ function extractWords($s) {
 
 /**
  * Reads all definitions and builds a map of
- * $lexemeId => concatenated ($inflectionId, $definitionId, $position) tuples.
+ * $lexemeId => concatenated ($definitionId, $position) tuples.
  */
 function buildInMemoryFti(array &$ifMap, array &$stopWordForms) {
   $dbResult = DB::execute('select id, internalRep from Definition where status = 0');
@@ -304,10 +302,9 @@ function buildInMemoryFti(array &$ifMap, array &$stopWordForms) {
     foreach ($words as $position => $word) {
       if (!isset($stopWordForms[$word])) {
         if (array_key_exists($word, $ifMap)) {
-          $lexemeList = preg_split('/,/', $ifMap[$word]);
-          for ($i = 0; $i < count($lexemeList); $i += 2) {
-            $lexemeId = $lexemeList[$i];
-            $chunk = $dbRow[0] . ',' . $position . ',' . $lexemeList[$i + 1];
+          $lexemeIds = explode(',', $ifMap[$word]);
+          foreach ($lexemeIds as $lexemeId) {
+            $chunk = $dbRow[0] . ',' . $position;
             if (isset($map[$lexemeId])) {
               $map[$lexemeId] .= '|' . $chunk;
             } else {
@@ -350,7 +347,7 @@ $stopWordForms = array_flip(DB::getArray(
   'where l.id = i.lexemeId ' .
   'and l.stopWord'));
 
-// inflectedForm => concatenated (lexemeId, inflectionId) pairs
+// inflectedForm => concatenated lexemeIds
 $ifMap = buildInflectedFormMap();
 $memFti = buildInMemoryFti($ifMap, $stopWordForms);
 

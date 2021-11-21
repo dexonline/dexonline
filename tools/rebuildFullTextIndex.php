@@ -3,8 +3,9 @@
 require_once __DIR__ . '/../lib/Core.php';
 
 /**
- * Updates the FullTextIndex by merging the existing index with data gathered
- * from definitions. Can also handle rebuilding the index from scratch.
+ * Truncates and rebuilds the FullTextIndex. Computes the entire index in
+ * memory so that we can output it in primary key order. This makes the
+ * inserts much faster.
  */
 
 /**
@@ -27,135 +28,6 @@ function getMemory($peak = false) {
 }
 
 /**
- * An iterator over existing records in the FTI table.
- */
-class DbIterator implements Iterator {
-
-  private ?PDOStatement $dbResult;
-  private array $row; // tuple (lexemeId, definitionId, position) or []
-  private int $total;
-
-  function __construct() {
-    $this->total = 0;
-    DB::setBuffering(false);
-    $this->dbResult = DB::execute(
-      'select * from FullTextIndex ' .
-      'order by lexemeId, definitionId, position');
-    $this->next();
-  }
-
-  function current() {
-    return $this->row;
-  }
-
-  function key() {
-    throw new Exception('Keys are meaningless in a PDO result set.');
-  }
-
-  function next() {
-    $this->row = $this->dbResult->fetch(PDO::FETCH_NUM) ?: [];
-    if (empty($this->row)) {
-      // close the connection early so we can start running other queries
-      $this->dbResult = null;
-    }
-    if (++$this->total % 1000000 == 0) {
-      Log::info('%d rows merged from the DB FTI. | %d MB',
-                $this->total, getMemory());
-    }
-  }
-
-  function rewind() {
-    throw new Exception('Please don\'t attempt to rewind a PDO result set.');
-  }
-
-  function valid() {
-    return !empty($this->row);
-  }
-
-}
-
-/**
- * An iterator over the in-memory data scraped from definitions.
- */
-class MapIterator implements Iterator {
-
-  // lexemeId => concatenated (definitionId, position) strings
-  private array $map;
-  private int $lexemeId;
-  private array $data; // lists of tuples expanded from a string in $map
-  private int $index; // pointer in $data
-  private int $total;
-
-  function __construct(&$map) {
-    $this->map = $map;
-    ksort($this->map); // ensure lexemeId order
-
-    $this->data = [];
-    $this->index = 0;
-    $this->total = 0;
-    $this->next();
-  }
-
-  function current() {
-    if (!$this->lexemeId) {
-      return false;
-    }
-
-    $i = $this->index;
-    return [
-      $this->lexemeId,
-      $this->data[$i][0],
-      $this->data[$i][1],
-    ];
-  }
-
-  function key() {
-    throw new Exception('Keys are not supported nor needed.');
-  }
-
-  function next() {
-    $this->index++;
-
-    if ($this->index >= count($this->data)) {
-      if (empty($this->map)) {
-        // done
-        $this->lexemeId = 0;
-      } else {
-
-        // process the next lexemeId
-        $this->lexemeId = array_key_first($this->map);
-        $tuples = explode('|', $this->map[$this->lexemeId]);
-        $this->data = [];
-        foreach ($tuples as $tuple) {
-          $this->data[] = explode(',', $tuple);
-        }
-        usort($this->data, 'cmp'); // sort in primary key order
-        $this->index = 0;
-
-        // mark key-value pair for garbage collection
-        $this->map[$this->lexemeId] = null;
-        unset($this->map[$this->lexemeId]);
-
-      }
-    }
-
-    if (++$this->total % 1000000 == 0) {
-      Log::info('%d rows merged from the in-memory FTI. | %d MB',
-                $this->total, getMemory());
-    }
-  }
-
-  function rewind() {
-    throw new Exception('Rewinding is not supported nor needed.');
-  }
-
-  function valid() {
-    return $this->lexemeId != 0;
-  }
-
-}
-
-/**
  * Bulk insert with hints from
  * https://dev.mysql.com/doc/refman/8.0/en/optimizing-innodb-bulk-data-loading.html
  */
@@ -166,10 +38,11 @@ class BulkInsert {
   private int $records = 0;
 
   function __construct() {
-    // Query length is limited only by max_packet_size.
+    // Query length is limited only by max_packet_size. That could afford us
+    // millions of rows, but we'll put a reasonable cap on that.
     $result = DB::getArrayOfRows('show variables like "max_allowed_packet"');
     $maxPacketSize = (int)$result[0]['Value'];
-    $this->queryLimit = $maxPacketSize * 0.9;
+    $this->queryLimit = min($maxPacketSize * 0.9, 1000000);
 
     DB::execute('SET unique_checks=0');
     DB::execute('SET autocommit=0');
@@ -198,7 +71,7 @@ class BulkInsert {
     DB::execute(
       'insert into FullTextIndex values ' . $this->query);
     DB::execute('commit');
-    Log::info(sprintf('Inserted %d rows. | %d MB', $this->records, getMemory()));
+    // Log::debug(sprintf('Inserted %d rows. | %d MB', $this->records, getMemory()));
     $this->query = '';
     $this->queryLen = 0;
   }
@@ -212,52 +85,15 @@ class BulkInsert {
 }
 
 /**
- * Bulk delete helper. Not really needed as there is no bulk delete option in
- * SQL, but added for clarity.
- */
-class BulkDelete {
-  const LIMIT = 100000;
-  private array $data = [];
-  private int $count = 0;
-
-  function __construct() {
-  }
-
-  function push(array $row) {
-    $this->data[] = $row;
-    $this->count++;
-
-    if (count($this->data) == self::LIMIT) {
-      $this->run();
-    }
-  }
-
-  function run() {
-    foreach ($this->data as $row) {
-      $query = vsprintf(
-        'delete from FullTextIndex ' .
-        'where lexemeId = %d ' .
-        'and definitionId = %d ' .
-        'and position = %d',
-        $row);
-      DB::execute($query);
-    }
-    Log::info(sprintf('Deleted %d rows. | %d MB', $this->count, getMemory()));
-    $this->data = [];
-  }
-
-  function end() {
-    $this->run(); // call delete with remaining data
-  }
-}
-
-/**
  * Builds a map of inflectedForm => concatenated lexemeIds.
  */
 function buildInflectedFormMap() {
   Log::info('Building inflected form map.');
 
-  $dbResult = DB::execute('select distinct formNoAccent, lexemeId from InflectedForm');
+  $dbResult = DB::execute(
+    'select formNoAccent, group_concat(lexemeId) as lexemeIds ' .
+    'from InflectedForm ' .
+    'group by formNoAccent');
   $ifMap = [];
 
   foreach ($dbResult as $r) {
@@ -265,8 +101,17 @@ function buildInflectedFormMap() {
     $s = isset($ifMap[$form])
       ? ($ifMap[$form] . ',')
       : '';
-    $s .= $r['lexemeId'];
+    $s .= $r['lexemeIds'];
     $ifMap[$form] = $s;
+  }
+
+  // The lexemeIds for each form are not necessarily unique due to (1)
+  // identical forms for different inflections and (2) upper/lowercase
+  // (Țuț/țuț). Make them unique.
+  foreach ($ifMap as $lexemeId => $str) {
+    $parts = explode(',', $str);
+    $parts = array_unique($parts);
+    $ifMap[$lexemeId] = implode(',', $parts);
   }
 
   Log::info('Inflected form map has %d entries | %d MB', count($ifMap), getMemory());
@@ -327,66 +172,64 @@ function buildInMemoryFti(array &$ifMap, array &$stopWordForms) {
   return $map;
 }
 
-/***************************************************************************/
+function traverseInMemoryFti(array &$fti) {
 
-ini_set('memory_limit', '2G');
+  $insert = new BulkInsert();
 
-$opts = getopt('f');
-$force = isset($opts['f']);
+  ksort($fti); // ensure lexemeId order
+  $count = 0;
 
-Log::notice('started');
-if (!$force && Variable::peek(Variable::LOCK_FTI)) {
-  OS::errorAndExit('Lock already exists! Use -f to bypass');
-}
-Variable::poke(Variable::LOCK_FTI, '1');
+  foreach ($fti as $lexemeId => $str) {
+    $tuples = explode('|', $str);
 
-// build a map of stop words
-$stopWordForms = array_flip(DB::getArray(
-  'select distinct i.formNoAccent ' .
-  'from Lexeme l, InflectedForm i ' .
-  'where l.id = i.lexemeId ' .
-  'and l.stopWord'));
+    $data = [];
+    foreach ($tuples as $tuple) {
+      $data[] = explode(',', $tuple);
+    }
+    usort($data, 'cmp'); // sort in primary key order
+    foreach ($data as $pair) {
+      $insert->push([ $lexemeId, $pair[0], $pair[1] ]);
 
-// inflectedForm => concatenated lexemeIds
-$ifMap = buildInflectedFormMap();
-$memFti = buildInMemoryFti($ifMap, $stopWordForms);
+      if (++$count % 1000000 == 0) {
+        Log::info('%d rows merged from the in-memory FTI. | %d MB',
+                  $count, getMemory());
+      }
+    }
 
-// Merge the DB and in-memory FTIs. Insert/delete the differences.
-$insert = new BulkInsert();
-$delete = new BulkDelete();
-$dbIter = new DbIterator();
-$mapIter = new MapIterator($memFti);
-
-while ($dbIter->valid() && $mapIter->valid()) {
-  $dbRow = $dbIter->current();
-  $mapRow = $mapIter->current();
-
-  $ord = $dbRow <=> $mapRow;
-  if ($ord < 0) {
-    $delete->push($dbRow);
-    $dbIter->next();
-  } else if ($ord == 0) {
-    $dbIter->next();
-    $mapIter->next();
-  } else {
-    $insert->push($mapRow);
-    $mapIter->next();
+    unset($fti[$lexemeId]);
   }
+
+  $insert->end();
 }
 
-while ($dbIter->valid()) {
-  $delete->push($dbIter->current());
-  $dbIter->next();
+function main() {
+
+  ini_set('memory_limit', '2G');
+
+  $opts = getopt('f');
+  $force = isset($opts['f']);
+
+  Log::notice('started');
+  if (!$force && Variable::peek(Variable::LOCK_FTI)) {
+    OS::errorAndExit('Lock already exists! Use -f to bypass');
+  }
+  Variable::poke(Variable::LOCK_FTI, '1');
+  DB::execute('truncate table FullTextIndex');
+
+  // build a map of stop words
+  $stopWordForms = array_flip(DB::getArray(
+    'select distinct i.formNoAccent ' .
+    'from Lexeme l, InflectedForm i ' .
+    'where l.id = i.lexemeId ' .
+    'and l.stopWord'));
+
+  // inflectedForm => concatenated lexemeIds
+  $ifMap = buildInflectedFormMap();
+  $memFti = buildInMemoryFti($ifMap, $stopWordForms);
+  traverseInMemoryFti($memFti);
+
+  Variable::clear(Variable::LOCK_FTI);
+  Log::notice('finished; peak memory usage %d MB', getMemory(true));
 }
 
-
-while ($mapIter->valid()) {
-  $insert->push($mapIter->current());
-  $mapIter->next();
-}
-
-$insert->end();
-$delete->end();
-
-Variable::clear(Variable::LOCK_FTI);
-Log::notice('finished; peak memory usage %d MB', getMemory(true));
+main();

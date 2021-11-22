@@ -26,13 +26,13 @@ html.dark {
   width: 24px;
 }
 
-.social-email path {
+.social-1 path {
   fill: var(--c-social-svg);
   stroke: var(--c-social-svg);
 }
 
-.social-facebook path,
-.social-rss path {
+.social-2 path,
+.social-3 path {
   fill: var(--c-social-svg);
 }
 

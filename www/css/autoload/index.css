@@ -61,13 +61,13 @@ html.dark {
   width: 32px;
 }
 
-.social-blog path:nth-child(4),
-.social-facebook path,
-.social-twitter path {
+.social-1 path:nth-child(4),
+.social-2 path,
+.social-3 path {
   fill: var(--c-social-svg);
 }
 
-.social-instagram g {
+.social-4 g {
   fill: var(--c-social-svg);
   stroke: var(--c-social-svg);
 }

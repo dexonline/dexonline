@@ -26,21 +26,21 @@
 
     {if Config::SKIN_WOTD_SUBSCRIBE}
       <a
-        class="social-svg social-email"
+        class="social-svg social-1"
         data-bs-toggle="collapse"
         href="#toggleContents"
         title="e-mail">
         {$svgs.email}
       </a>
       <a
-        class="social-svg social-rss"
+        class="social-svg social-2"
         href="{Router::link('wotd/rss')}"
         title="rss"
         type="application/rss+xml">
         {$svgs.rss}
       </a>
       <a
-        class="social-svg social-facebook"
+        class="social-svg social-3"
         href="https://www.facebook.com/dexonline"
         title="facebook">
         {$svgs.facebook}

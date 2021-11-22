@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2021-11-07 19:06+0200\n"
-"PO-Revision-Date: 2021-11-07 19:06+0200\n"
+"POT-Creation-Date: 2021-11-22 14:24+0200\n"
+"PO-Revision-Date: 2021-11-22 14:30+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: es\n"
@@ -18,8 +18,7 @@ msgstr ""
 "X-Poedit-SearchPath-2: templates\n"
 "X-Poedit-SearchPath-3: www\n"
 "X-Poedit-SearchPathExcluded-0: lib/third-party\n"
-"X-Poedit-SearchPathExcluded-1: www/js/merged\n"
-"X-Poedit-SearchPathExcluded-2: www/js/third-party\n"
+"X-Poedit-SearchPathExcluded-1: www/js\n"
 
 #: templates/article/list.tpl:3 templates/article/list.tpl:6
 #: templates/bits/navmenu.tpl:105
@@ -193,11 +192,11 @@ msgstr "enlaces externos"
 
 #: templates/bits/navmenu.tpl:186
 msgid "light mode"
-msgstr ""
+msgstr "modo claro"
 
 #: templates/bits/navmenu.tpl:194
 msgid "dark mode"
-msgstr ""
+msgstr "modo oscuro"
 
 #: templates/bits/navmenu.tpl:211
 msgid "Anonymous"
@@ -288,7 +287,7 @@ msgstr "nombre"
 msgid "characters"
 msgstr "caracteres"
 
-#: templates/bits/top.tpl:7 templates/games/hangman.tpl:52
+#: templates/bits/top.tpl:7 templates/games/hangman.tpl:48
 #: templates/games/mill.tpl:80
 msgid "definitions"
 msgstr "definiciones"
@@ -342,44 +341,44 @@ msgstr "cierre"
 msgid "You have no favorite words."
 msgstr "No tiene ninguna palabra favorita."
 
-#: templates/games/hangman.tpl:3 templates/games/hangman.tpl:15
+#: templates/games/hangman.tpl:3 templates/games/hangman.tpl:10
 #: templates/widgets/games.tpl:5
 msgid "hangman"
 msgstr "el colgado"
 
-#: templates/games/hangman.tpl:21
+#: templates/games/hangman.tpl:16
 msgid "Lives remaining"
 msgstr "Vidas restantes"
 
-#: templates/games/hangman.tpl:23 templates/search/gallery.tpl:6
+#: templates/games/hangman.tpl:18 templates/search/gallery.tpl:6
 msgid "images"
 msgstr "imágenes"
 
-#: templates/games/hangman.tpl:36
+#: templates/games/hangman.tpl:32
 msgid "Get a clue"
 msgstr "Obtenga una pista"
 
-#: templates/games/hangman.tpl:41 templates/games/mill.tpl:16
+#: templates/games/hangman.tpl:37 templates/games/mill.tpl:16
 msgid "easy"
 msgstr "fácil"
 
-#: templates/games/hangman.tpl:42 templates/games/mill.tpl:17
+#: templates/games/hangman.tpl:38 templates/games/mill.tpl:17
 msgid "medium"
 msgstr "medio"
 
-#: templates/games/hangman.tpl:43 templates/games/mill.tpl:18
+#: templates/games/hangman.tpl:39 templates/games/mill.tpl:18
 msgid "hard"
 msgstr "difícil"
 
-#: templates/games/hangman.tpl:44 templates/games/mill.tpl:19
+#: templates/games/hangman.tpl:40 templates/games/mill.tpl:19
 msgid "expert"
 msgstr "experto"
 
-#: templates/games/hangman.tpl:66
+#: templates/games/hangman.tpl:59
 msgid "Congratulations, you win!"
 msgstr "¡Enhorabuena, ha ganado!"
 
-#: templates/games/hangman.tpl:69
+#: templates/games/hangman.tpl:62
 msgid "Sorry, you lose."
 msgstr "Lo sentimos, ha perdido."
 
@@ -1053,10 +1052,10 @@ msgstr ""
 
 #: templates/search/missingDefinitionWarnings.tpl:6
 msgid ""
-"There are definitions in unofficial dictionaries, which <a href=\"%1\">you "
-"have chosen to hide</a>."
+"There are definitions in non-normative dictionaries, which <a href="
+"\"%1\">you have chosen to hide</a>."
 msgstr ""
-"Hay definiciones en los diccionarios no oficiales que <a href=\"%1\">ha "
+"Hay definiciones en los diccionarios no normativos que <a href=\"%1\">ha "
 "escogido no mostrar</a>."
 
 #: templates/search/missingDefinitionWarnings.tpl:13
@@ -1346,11 +1345,11 @@ msgstr "Síganos en Twitter"
 msgid "Follow us on Instagram"
 msgstr "Síganos en Instagram"
 
-#: templates/wotd/view.tpl:23
+#: templates/wotd/view.tpl:24
 msgid "Word of the day for %2 %1, %3"
 msgstr "Palabra del día para %2 %1, %3"
 
-#: templates/wotd/view.tpl:46
+#: templates/wotd/view.tpl:55
 msgid ""
 "<i>dexonline</i> does not directly offer the word of the day by email. "
 "However, there are <a href=\"%1\">many sites</a> that do this for any RSS "
@@ -1360,15 +1359,15 @@ msgstr ""
 "obstante, existen <a href=\"%1\">varios webs</a> que lo hacen para cualquier "
 "feed RSS. Le sugerimos <a href=\"%2\">IFTTT</a>."
 
-#: templates/wotd/view.tpl:94 templates/wotm/view.tpl:57
+#: templates/wotd/view.tpl:106 templates/wotm/view.tpl:57
 msgid "Chosen because:"
 msgstr "Escogido porque:"
 
-#: templates/wotd/view.tpl:100
+#: templates/wotd/view.tpl:112
 msgid "Word of the day archive"
 msgstr "El archivo de las palabras del día"
 
-#: templates/wotd/view.tpl:110
+#: templates/wotd/view.tpl:122
 msgid "Word of the day for %2 %1 in other years:"
 msgstr "La palabra del día para %2 %1 en otros años:"
 

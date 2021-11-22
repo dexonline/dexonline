@@ -282,7 +282,7 @@ if ($searchType == SEARCH_INFLECTED) {
 $results = SearchResult::mapDefinitionArray($definitions);
 
 // Filter out hidden definitions
-list($extra['unofficialHidden'], $extra['sourcesHidden'])
+list($extra['nonNormativeHidden'], $extra['sourcesHidden'])
   = SearchResult::filter($results);
 
 SearchResult::collapseIdentical($results);

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2021-11-07 19:07+0200\n"
-"PO-Revision-Date: 2021-11-07 19:07+0200\n"
+"POT-Creation-Date: 2021-11-22 14:22+0200\n"
+"PO-Revision-Date: 2021-11-22 14:23+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -19,8 +19,7 @@ msgstr ""
 "X-Poedit-SearchPath-2: templates\n"
 "X-Poedit-SearchPath-3: www\n"
 "X-Poedit-SearchPathExcluded-0: lib/third-party\n"
-"X-Poedit-SearchPathExcluded-1: www/js/merged\n"
-"X-Poedit-SearchPathExcluded-2: www/js/third-party\n"
+"X-Poedit-SearchPathExcluded-1: www/js\n"
 
 #: templates/article/list.tpl:3 templates/article/list.tpl:6
 #: templates/bits/navmenu.tpl:105
@@ -291,7 +290,7 @@ msgstr "nume"
 msgid "characters"
 msgstr "caractere"
 
-#: templates/bits/top.tpl:7 templates/games/hangman.tpl:52
+#: templates/bits/top.tpl:7 templates/games/hangman.tpl:48
 #: templates/games/mill.tpl:80
 msgid "definitions"
 msgstr "definiții"
@@ -345,44 +344,44 @@ msgstr "închide"
 msgid "You have no favorite words."
 msgstr "Nu aveți niciun cuvânt favorit."
 
-#: templates/games/hangman.tpl:3 templates/games/hangman.tpl:15
+#: templates/games/hangman.tpl:3 templates/games/hangman.tpl:10
 #: templates/widgets/games.tpl:5
 msgid "hangman"
 msgstr "spânzurătoarea"
 
-#: templates/games/hangman.tpl:21
+#: templates/games/hangman.tpl:16
 msgid "Lives remaining"
 msgstr "Vieți rămase"
 
-#: templates/games/hangman.tpl:23 templates/search/gallery.tpl:6
+#: templates/games/hangman.tpl:18 templates/search/gallery.tpl:6
 msgid "images"
 msgstr "imagini"
 
-#: templates/games/hangman.tpl:36
+#: templates/games/hangman.tpl:32
 msgid "Get a clue"
 msgstr "Dă-mi un indiciu"
 
-#: templates/games/hangman.tpl:41 templates/games/mill.tpl:16
+#: templates/games/hangman.tpl:37 templates/games/mill.tpl:16
 msgid "easy"
 msgstr "ușor"
 
-#: templates/games/hangman.tpl:42 templates/games/mill.tpl:17
+#: templates/games/hangman.tpl:38 templates/games/mill.tpl:17
 msgid "medium"
 msgstr "mediu"
 
-#: templates/games/hangman.tpl:43 templates/games/mill.tpl:18
+#: templates/games/hangman.tpl:39 templates/games/mill.tpl:18
 msgid "hard"
 msgstr "dificil"
 
-#: templates/games/hangman.tpl:44 templates/games/mill.tpl:19
+#: templates/games/hangman.tpl:40 templates/games/mill.tpl:19
 msgid "expert"
 msgstr "expert"
 
-#: templates/games/hangman.tpl:66
+#: templates/games/hangman.tpl:59
 msgid "Congratulations, you win!"
 msgstr "Felicitări, ai câștigat!"
 
-#: templates/games/hangman.tpl:69
+#: templates/games/hangman.tpl:62
 msgid "Sorry, you lose."
 msgstr "Ne pare rău, ai pierdut."
 
@@ -1063,10 +1062,10 @@ msgstr ""
 
 #: templates/search/missingDefinitionWarnings.tpl:6
 msgid ""
-"There are definitions in unofficial dictionaries, which <a href=\"%1\">you "
-"have chosen to hide</a>."
+"There are definitions in non-normative dictionaries, which <a href="
+"\"%1\">you have chosen to hide</a>."
 msgstr ""
-"Există definiții din dicționare neoficiale, pe care <a href=\"%1\">ați ales "
+"Există definiții din dicționare nenormative, pe care <a href=\"%1\">ați ales "
 "să le ascundeți</a>."
 
 #: templates/search/missingDefinitionWarnings.tpl:13
@@ -1359,11 +1358,11 @@ msgstr "Urmărește-ne pe Twitter"
 msgid "Follow us on Instagram"
 msgstr "Urmărește-ne pe Instagram"
 
-#: templates/wotd/view.tpl:23
+#: templates/wotd/view.tpl:24
 msgid "Word of the day for %2 %1, %3"
 msgstr "Cuvântul zilei, %1 %2 %3"
 
-#: templates/wotd/view.tpl:46
+#: templates/wotd/view.tpl:55
 msgid ""
 "<i>dexonline</i> does not directly offer the word of the day by email. "
 "However, there are <a href=\"%1\">many sites</a> that do this for any RSS "
@@ -1373,15 +1372,15 @@ msgstr ""
 "href=\"%1\">multe site-uri</a> care fac acest lucru pentru orice RSS. Vă "
 "recomandăm <a href=\"%2\">Blogtrottr</a>."
 
-#: templates/wotd/view.tpl:94 templates/wotm/view.tpl:57
+#: templates/wotd/view.tpl:106 templates/wotm/view.tpl:57
 msgid "Chosen because:"
 msgstr "Cheia alegerii:"
 
-#: templates/wotd/view.tpl:100
+#: templates/wotd/view.tpl:112
 msgid "Word of the day archive"
 msgstr "Arhiva cuvintelor zilei"
 
-#: templates/wotd/view.tpl:110
+#: templates/wotd/view.tpl:122
 msgid "Word of the day for %2 %1 in other years:"
 msgstr "Cuvântul zilei de %1 %2 în alți ani:"
 

@@ -194,7 +194,7 @@ $(function() {
         $('#endModal .win').hide();
       }
 
-      $.ajax(wwwRoot + 'ajax/getOfficialDefinitions.php?word=' + gameState.word)
+      $.ajax(wwwRoot + 'ajax/getHangmanDefinitions.php?word=' + gameState.word)
         .done(function(resp) {
           $('#resultsWrapper .card-body').html(resp.html);
           $('#resultsWrapper').show();

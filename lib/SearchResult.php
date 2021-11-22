@@ -106,18 +106,18 @@ class SearchResult {
     return $results;
   }
 
-  // If the user chose to exclude unofficial definitions, filter them out.
+  // If the user chose to exclude non-normative definitions, filter them out.
   // If the user may not see hidden definitions, filter those out.
   // Returns information about changes made.
   static function filter(&$searchResults) {
-    $unofficialHidden = null;
+    $nonNormativeHidden = null;
     $sourcesHidden = null;
-    $excludeUnofficial = Session::userPrefers(Preferences::EXCLUDE_UNOFFICIAL);
+    $normativeOnly = Session::userPrefers(Preferences::NORMATIVE_ONLY);
 
     foreach ($searchResults as $i => &$sr) {
-      if ($excludeUnofficial && !$sr->source->normative) {
-        // hide unofficial definitions
-        $unofficialHidden = true;
+      if ($normativeOnly && !$sr->source->normative) {
+        // hide non-normative definitions
+        $nonNormativeHidden = true;
         unset($searchResults[$i]);
       } else if (!User::can(User::PRIV_VIEW_HIDDEN) &&
                  ($sr->source->hidden ||
@@ -128,7 +128,7 @@ class SearchResult {
       }
     }
 
-    return [ $unofficialHidden, $sourcesHidden ];
+    return [ $nonNormativeHidden, $sourcesHidden ];
   }
 
   // Collapse identical definitions: choose a main one to show and put the

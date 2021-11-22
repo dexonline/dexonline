@@ -4,7 +4,7 @@ class Preferences {
   const CEDILLA_BELOW = 0x01;
   const FORCE_DIACRITICS = 0x02;
   const OLD_ORTHOGRAPHY = 0x04;
-  const EXCLUDE_UNOFFICIAL = 0x08;
+  const NORMATIVE_ONLY = 0x08;
   // 0x10 and 0x20 are no longer in use. The DB values have been cleared. Feel
   // free to reuse when needed.
   const SHOW_ADVANCED = 0x40;
@@ -27,10 +27,10 @@ class Preferences {
       'label' => 'Folosesc ortografia dinainte de 1993 (î din i)',
       'comment' => 'Până în 1993, „&#xe2;” era folosit doar în cuvântul „român”, în cuvintele derivate și în unele nume proprii.',
     ],
-    self::EXCLUDE_UNOFFICIAL => [
+    self::NORMATIVE_ONLY => [
       'enabled' => true,
-      'label' => 'Afișează doar dicționarele canonice',
-      'comment' => 'Afișează doar dicționarele canonice editate de Institutul de Lingvistică din cadrul Academiei Române (ultimele ediții ale DEX și DOOM, considerate normative).',
+      'label' => 'Afișează doar dicționarele normative',
+      'comment' => 'Afișează doar dicționarele normative editate de Institutul de Lingvistică din cadrul Academiei Române (ultimele ediții ale DEX și DOOM).',
     ],
     self::SHOW_ADVANCED => [
       'enabled' => true,

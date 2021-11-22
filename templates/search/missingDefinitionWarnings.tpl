@@ -1,9 +1,9 @@
 {if !count($results)}
 
-  {if isset($extra.unofficialHidden)}
+  {if isset($extra.nonNormativeHidden)}
     <p class="text-warning">
       {$url = Router::link('user/preferences')}
-      {t 1=$url}There are definitions in unofficial dictionaries,
+      {t 1=$url}There are definitions in non-normative dictionaries,
       which <a href="%1">you have chosen to hide</a>.{/t}
     </p>
   {/if}

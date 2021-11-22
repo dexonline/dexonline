@@ -1,6 +1,6 @@
 <?php
 /**
- * Outputs a list of words associated with official dictionaries.
+ * Outputs a list of words associated with normative dictionaries.
  **/
 
 require_once __DIR__ . '/../lib/Core.php';
@@ -26,11 +26,7 @@ $forms = Model::factory('Lexeme')
 
 $joined = implode("\n", Util::objectProperty($forms, 'formNoAccent'));
 
-$fileName = Config::TEMP_DIR . 'official-words.txt';
-Log::info('writing forms to %s', $fileName);
-file_put_contents($fileName, $joined);
-
-Log::info('uploading files to static server');
-StaticUtil::move($fileName, 'download/official-words.txt');
+Log::info('writing forms to download/normative-words.txt');
+StaticUtil::putContents($joined, 'download/normative-words.txt');
 
 Log::notice('finished');

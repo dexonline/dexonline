@@ -4,6 +4,8 @@
  * Called at the end of a Hangman game.
  */
 
+const SOURCE_IDS = [ 1, 2, 27, 53 ]; // Some DEX's and MDA2
+
 require_once '../../lib/Core.php';
 
 $word = Request::get('word');
@@ -21,7 +23,7 @@ $definitions = Model::factory('Definition')
   ->where('el.main', true)
   ->where('e.adult', false)
   ->where('d.status', Definition::ST_ACTIVE)
-  ->where('s.normative', true)
+  ->where_in('d.sourceId', SOURCE_IDS)
   ->order_by_asc('s.sourceTypeId')
   ->order_by_asc('s.displayOrder')
   ->find_many();

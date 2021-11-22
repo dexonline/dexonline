@@ -12,7 +12,7 @@ JOIN EntryLexeme EL ON L.id=EL.lexemeId
 JOIN EntryDefinition ED ON EL.entryId=ED.entryId
 JOIN Definition D ON D.id=ED.definitionId
 JOIN Source S ON D.sourceId=S.id
-WHERE S.type=2
+WHERE S.normative
 AND L.modelType != 'I'
 AND status=0
 GROUP BY L.formNoAccent;

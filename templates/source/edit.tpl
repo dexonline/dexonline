@@ -103,8 +103,8 @@
               value=$src->link}
 
             {capture "help"}
-            Trebuie să fie o valoare <code>skey</code> din tabela AdsLink, de exemplu „logos”
-            pentru DCR.
+              Trebuie să fie o valoare <code>skey</code> din tabela AdsLink, de exemplu „logos”
+              pentru DCR.
             {/capture}
             {include "bs/field.tpl"
               help=$smarty.capture.help
@@ -116,17 +116,6 @@
               label='textul pentru legătura către editură/autor'
               name='courtesyText'
               value=$src->courtesyText}
-
-            <div class="mb-2">
-              <label class="form-label">tip</label>
-              <select class="form-select" name="type">
-                {foreach Source::TYPE_NAMES as $st => $name}
-                  <option value="{$st}" {if $src->type == $st}selected{/if}>
-                    {$name}
-                  </option>
-                {/foreach}
-              </select>
-            </div>
 
             {capture "help"}
             din care digitizate: {$src->ourDefCount};
@@ -149,15 +138,20 @@
             </div>
 
             {capture "help"}
-            Glife care permit salvarea definiției fără avertismente. Sînt
-            deja incluse glifele <code>{Source::getBaseGlyphsDisplay()|escape}</code>,
-            comune tuturor surselor.
+              Glife care permit salvarea definiției fără avertismente. Sînt
+              deja incluse glifele <code>{Source::getBaseGlyphsDisplay()|escape}</code>,
+              comune tuturor surselor.
             {/capture}
             {include "bs/field.tpl"
               help=$smarty.capture.help
               label='glife comune'
               name='commonGlyphs'
               value=$src->commonGlyphs}
+
+            {include "bs/checkbox.tpl"
+              name=normative
+              label='sursă normativă'
+              checked=$src->normative}
 
             {include "bs/checkbox.tpl"
               name=hidden

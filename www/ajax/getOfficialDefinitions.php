@@ -21,7 +21,7 @@ $definitions = Model::factory('Definition')
   ->where('el.main', true)
   ->where('e.adult', false)
   ->where('d.status', Definition::ST_ACTIVE)
-  ->where('s.type', Source::TYPE_OFFICIAL)
+  ->where('s.normative', true)
   ->order_by_asc('s.sourceTypeId')
   ->order_by_asc('s.displayOrder')
   ->find_many();

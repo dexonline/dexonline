@@ -32,7 +32,7 @@ $forms = Model::factory('Lexeme')
   ->where('el.main', true)
   ->where('e.adult', false)
   ->where('d.status', Definition::ST_ACTIVE)
-  ->where('s.type', Source::TYPE_OFFICIAL)
+  ->where('s.normative', true)
   ->group_by('l.formNoAccent')
   ->order_by_asc('l.formNoAccent')
   ->find_array();

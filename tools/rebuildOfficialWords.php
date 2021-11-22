@@ -20,7 +20,7 @@ $forms = Model::factory('Lexeme')
   ->join('Source', ['s.id', '=', 'd.sourceId'], 's')
   ->where_not_equal('l.modelType', 'i')
   ->where('d.status', Definition::ST_ACTIVE)
-  ->where('s.type', Source::TYPE_OFFICIAL)
+  ->where('s.normative', true)
   ->order_by_asc('l.formNoAccent')
   ->find_many();
 

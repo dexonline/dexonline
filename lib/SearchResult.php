@@ -115,7 +115,7 @@ class SearchResult {
     $excludeUnofficial = Session::userPrefers(Preferences::EXCLUDE_UNOFFICIAL);
 
     foreach ($searchResults as $i => &$sr) {
-      if ($excludeUnofficial && ($sr->source->type == Source::TYPE_UNOFFICIAL)) {
+      if ($excludeUnofficial && !$sr->source->normative) {
         // hide unofficial definitions
         $unofficialHidden = true;
         unset($searchResults[$i]);

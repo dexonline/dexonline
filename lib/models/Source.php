@@ -3,16 +3,6 @@
 class Source extends BaseObject implements DatedObject {
   public static $_table = 'Source';
 
-  const TYPE_UNOFFICIAL = 0;
-  const TYPE_SPECIALIZED = 1;
-  const TYPE_OFFICIAL = 2;
-
-  const TYPE_NAMES = [
-    self::TYPE_UNOFFICIAL  => 'neoficial',
-    self::TYPE_SPECIALIZED  => 'specializat',
-    self::TYPE_OFFICIAL  => 'oficial',
-  ];
-
   const IMPORT_TYPE_MIXED = 0;
   const IMPORT_TYPE_MANUAL = 1;
   const IMPORT_TYPE_OCR = 2;

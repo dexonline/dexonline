@@ -57,7 +57,7 @@ $klingon->name = 'English - Klingon Dictionary';
 $klingon->author = 'Worf';
 $klingon->publisher = 'The Klingon Academy';
 $klingon->year = '2010';
-$klingon->type = Source::TYPE_OFFICIAL;
+$klingon->normative = true;
 $klingon->displayOrder = 1;
 $klingon->save();
 
@@ -68,7 +68,7 @@ $devil->name = "The Devil's Dictionary";
 $devil->author = 'Ambrose Bierce';
 $devil->publisher = 'Neale Publishing Co.';
 $devil->year = '1911';
-$devil->type = Source::TYPE_SPECIALIZED;
+$devil->normative = false;
 $devil->displayOrder = 2;
 $devil->save();
 

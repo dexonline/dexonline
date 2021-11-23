@@ -15,6 +15,11 @@ $legend-font-size: 1.25rem;
 $link-decoration: none;
 $link-hover-decoration: underline;
 $navbar-light-hover-color: $primary;
+$popover-bg: $surface;
+$popover-body-padding-y: .5rem;
+$popover-body-padding-x: .5rem;
+$popover-header-padding-y: .5rem;
+$popover-header-padding-x: .5rem;
 
 @import "functions";
 @import "variables";

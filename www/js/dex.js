@@ -70,14 +70,14 @@ $(function() {
     $(this).attr('data-other-text', tmp);
   });
 
-  // footnotes: enable a fake tooltip (there is no title) in order to hide the
-  // "click here" tooltip that's available on the rest of the definition
-  $('.abbrev, sup.footnote').each(function() {
-    new bootstrap.Tooltip(this, {
-      delay: { 'show': 500, 'hide': 100 },
+  // abbreviation hover
+  $('.abbrev[data-bs-toggle="popover"]').each(function() {
+    new bootstrap.Popover(this, {
       html: true,
+      trigger: 'hover',
     });
   });
+
 });
 
 function formatSource(item) {

@@ -34,8 +34,12 @@ class AbbrevHtmlizer extends Htmlizer {
       $this->errors[] = "Abreviere necunoscută: «{$contents}».";
     }
 
-    $result = sprintf('<abbr class="abbrev" data-html="true" title="%s">%s</abbr>', $hint, $contents);
-    return $result;
+    return sprintf(
+      '<abbr class="abbrev" ' .
+      'data-bs-toggle="popover" ' .
+      'data-bs-content="%s">' .
+      '%s' .
+      '</abbr>', $hint, $contents);
   }
 
 }

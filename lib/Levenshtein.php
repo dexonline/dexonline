@@ -12,6 +12,8 @@
  **/
 class Levenshtein {
 
+  const FILE_NAME = Config::STATIC_PATH . 'download/compact-forms.txt';
+
   const COST_INS = 10;
   const COST_DEL = 10;
   const COST_TRANSPOSE = 5;
@@ -109,7 +111,7 @@ class Levenshtein {
 
   private static function closestPhp($query, $maxDistance) {
     // note: parsing the file ourselves does NOT speed things up
-    $lines = file(FileCache::getCompactFormsFileName());
+    $lines = file(self::FILE_NAME);
 
     self::$queryChars = Str::unicodeExplode($query);
     $results = [];
@@ -138,9 +140,8 @@ class Levenshtein {
       throw new Exception('Not on GNU/Linux');
     }
 
-    $fileName = FileCache::getCompactFormsFileName();
     $command = sprintf('%s/c/levenshtein "%s" %d %s',
-                       __DIR__, addslashes($query), $maxDistance, $fileName);
+                       __DIR__, addslashes($query), $maxDistance, self::FILE_NAME);
 
     exec($command, $output, $status);
     if ($status != 0) {
@@ -153,10 +154,8 @@ class Levenshtein {
   }
 
   static function closest($query, $maxResults = 10, $maxDistance = self::MAX_DISTANCE) {
-    // ensure the compact forms file exists
-    $fileName = FileCache::getCompactFormsFileName();
-    if (!file_exists($fileName)) {
-      self::genCompactForms();
+    if (!file_exists(self::FILE_NAME)) {
+      return [];
     }
 
     // run the C program or fall back to the PHP code
@@ -176,41 +175,6 @@ class Levenshtein {
 
     // return just the strings and at most $maxResults of them
     return array_slice(array_column($results, 1), 0, $maxResults);
-  }
-
-  static function genCompactForms() {
-    ini_set('memory_limit', '512M');
-
-    $prevForm = '';
-    $prev = [];
-
-    $forms = Model::factory('Lexeme')
-      ->select('formNoAccent')
-      ->order_by_asc('formNoAccent')
-      ->find_array();
-
-    $s = '';
-
-    foreach ($forms as $form) {
-      $f = mb_strtolower($form['formNoAccent']);
-      if ($f != $prevForm) {
-        $chars = Str::unicodeExplode($f);
-
-        $i = 0;
-        while ($i < count($chars) &&
-               $i < count($prev) &&
-               $i < 9 && // common prefix must be single digit
-               $chars[$i] == $prev[$i]) {
-          $i++;
-        }
-        assert($i < count($chars));
-        $s .= $i . mb_substr($f, $i) . "\n";
-        $prev = $chars;
-        $prevForm = $f;
-      }
-    }
-
-    FileCache::putCompactForms($s);
   }
 
 }

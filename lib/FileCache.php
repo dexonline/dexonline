@@ -5,7 +5,6 @@ class FileCache {
   const CACHE_PREFIX = '/dexcache_';
   const CKEY_WORDS_ALL = 'wordsTotal';
   const CKEY_WORDS_LAST_MONTH = 'wordsLastMonth';
-  const CKEY_COMPACT_FORMS = 'compactForms';
   const CKEY_ARTISTS_TOP = 'topArtists';
 
   private static function openFileForRead($fileName) {
@@ -62,16 +61,6 @@ class FileCache {
 
   static function putWordCountLastMonth($value) {
     self::put(self::CKEY_WORDS_LAST_MONTH, $value);
-  }
-
-  // exposing this publicly breaks the abstraction, but is needed for the C
-  // version of Levenshtein
-  static function getCompactFormsFileName() {
-    return self::getFileName(self::CKEY_COMPACT_FORMS);
-  }
-
-  static function putCompactForms($s) {
-    self::put(self::CKEY_COMPACT_FORMS, $s, false);
   }
 
   static function getArtistTop() {

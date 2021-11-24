@@ -923,4 +923,34 @@ class Str {
     $ts = strtotime($date);
     return date('F', $ts);
   }
+
+  /**
+   * Compacts an array of strings by replacing the common prefix between
+   * consecutive elements with the length of that prefix (up to 9).
+   * @param array $array An array of distinct strings.
+   * @return The compacted forms joined by \n
+   */
+  static function compactForms(&$array) {
+    $prevForm = '';
+    $prev = [];
+    $result = '';
+
+    foreach ($array as $s) {
+      $chars = Str::unicodeExplode($s);
+
+      $i = 0;
+      while ($i < count($chars) &&
+             $i < count($prev) &&
+             $i < 9 && // common prefix must be single digit
+             $chars[$i] == $prev[$i]) {
+        $i++;
+      }
+      assert($i < count($chars));
+      $result .= $i . mb_substr($s, $i) . "\n";
+      $prev = $chars;
+      $prevForm = $s;
+    }
+
+    return $result;
+  }
 }

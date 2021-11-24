@@ -3,7 +3,6 @@ truncate table AccuracyProject;
 truncate table AccuracyRecord;
 truncate table AdsClick;
 truncate table AdsLink;
--- truncate table Autocomplete;
 -- truncate table ConstraintMap;
 truncate table Cookie;
 truncate table Definition;

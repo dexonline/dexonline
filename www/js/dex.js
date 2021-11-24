@@ -45,11 +45,6 @@ $(function() {
     });
   });
 
-  var d = $('#autocompleteEnabled');
-  if (d.length) {
-    searchInitAutocomplete(d.data('minChars'));
-  }
-
   // prevent double clicking of submit buttons
   $('input[type="submit"], button[type="submit"]').click(function() {
     if ($(this).data('clicked')) {
@@ -166,34 +161,6 @@ function searchSubmit() {
   sourcePart = source ? '-' + source : '';
   window.location = wwwRoot + action + sourcePart + '/' + encodeURIComponent(document.frm.cuv.value);
   return false;
-}
-
-function searchInitAutocomplete(acMinChars) {
-
-  var searchForm = $('#searchForm');
-  var searchInput = $('#searchField');
-  var searchCache = {};
-  var queryURL = wwwRoot + 'ajax/searchComplete.php';
-
-  searchInput.autocomplete({
-    delay: 500,
-    minLength: acMinChars,
-    source: function(request, response) {
-      var term = request.term;
-      if (term in searchCache) {
-        response(searchCache[term]);
-        return;
-      }
-      $.getJSON(queryURL, request, function(data, status, xhr) {
-        searchCache[term] = data;
-        response(data);
-      });
-    },
-    select: function(event, ui) {
-      searchInput.val(ui.item.value);
-      searchForm.submit();
-    }
-  });
 }
 
 function getWwwRoot() {
@@ -372,4 +339,99 @@ $(function() {
     $(this).siblings().css('display', 'block');
     return false;
   });
+});
+
+/***************************** autocomplete *****************************/
+
+$(function() {
+
+  const COMPACT_FORMS_URL = 'https://dexonline.ro/static/download/compact-forms/*.txt';
+
+  var cache = {}; // map of first letter -> expanded forms
+  var limit;      // number of results to display
+
+  var d = $('#autocompleteEnabled');
+  if (d.length) {
+    limit = d.data('limit');
+    $('#searchField').autocomplete({
+      delay: 300,
+      minLength: d.data('minChars'),
+      source: source,
+      select: select,
+    });
+  }
+
+  function translit(s) {
+    s = s.replace(/[ãǎâăåąàȧáä]/g, 'a');
+    s = s.replace(/[ç]/g, 'c');
+    s = s.replace(/[ẽěêĕęèėéëȩ]/g, 'e');
+    s = s.replace(/[ĩǐîĭįìıíï]/g, 'i');
+    s = s.replace(/[õǒôŏǫòȯóö]/g, 'o');
+    s = s.replace(/[ñ]/g, 'n');
+    s = s.replace(/[șş]/g, 's');
+    s = s.replace(/[țţ]/g, 't');
+    s = s.replace(/[ũǔûŭůųùúűü]/g, 'u');
+    return s;
+  }
+
+  /* does the opposite of lib/Str.php:compactForms() */
+  function expand(data) {
+    var lines = data.split('\n');
+    var result = [];
+
+    var prev = '';
+    for (var i = 0; i < lines.length; i++) {
+      var common = lines[i][0] - '0';
+      prev = prev.substr(0, common) + lines[i].substr(1);
+      result.push(prev);
+    }
+
+    return result;
+  }
+
+  function match(term, trans) {
+    var result = [];
+
+    // decide which list to consult based on whether the term contains diacritics
+    var lists = cache[trans[0]];
+    var field = (term == trans) ? 1 : 0;
+    var i = 0;
+    while ((i < lists[0].length) && (result.length < limit)) {
+      if (startsWith(lists[field][i].toLowerCase(), term)) {
+        result.push(lists[0][i]);
+      }
+      i++;
+    }
+    return result;
+  }
+
+  function source(request, response) {
+    var term = request.term.toLowerCase();
+    var trans = translit(term);
+    var first = trans[0];
+
+    if (first in cache) {
+      response(match(term, trans));
+      return;
+    }
+
+    var url = COMPACT_FORMS_URL.replace('*', first);
+    $.get(url)
+      .done(function(data) {
+        // cache the original data as well as the transliterated data
+        data = expand(data);
+        var transData = [];
+        for (var i = 0; i < data.length; i++) {
+          transData.push(translit(data[i].toLowerCase()));
+        }
+        cache[first] = [data, transData];
+        response(match(term, trans));
+      });
+  }
+
+  function select(event, ui) {
+    $('#searchField').val(ui.item.value);
+    $('#searchForm').submit();
+  }
+
 });

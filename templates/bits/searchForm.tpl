@@ -67,7 +67,11 @@
   </form>
 
   {if Config::SEARCH_AC_ENABLED}
-    <div id="autocompleteEnabled" data-min-chars="{Config::SEARCH_AC_MIN_CHARS}"></div>
+    <div
+      id="autocompleteEnabled"
+      data-limit="{Config::SEARCH_AC_LIMIT}"
+      data-min-chars="{Config::SEARCH_AC_MIN_CHARS}">
+    </div>
   {/if}
 </section>
 

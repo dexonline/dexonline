@@ -12,7 +12,7 @@
  **/
 class Levenshtein {
 
-  const FILE_NAME = Config::STATIC_PATH . 'download/compact-forms.txt';
+  const FILE_NAME = Config::STATIC_PATH . 'download/compact-forms/all.txt';
 
   const COST_INS = 10;
   const COST_DEL = 10;

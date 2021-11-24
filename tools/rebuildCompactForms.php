@@ -23,7 +23,7 @@ function main() {
     ->distinct()
     ->order_by_asc('formNoAccent')
     ->find_array();
-  run($forms, 'download/compact-forms.txt');
+  run($forms, 'download/compact-forms/all.txt');
 
   // letter by letter -- for autocomplete
   foreach (range('a', 'z') as $first) {
@@ -34,7 +34,7 @@ function main() {
       ->where_like('formUtf8General', "{$first}%") // include ș* for s* etc.
       ->order_by_asc('formNoAccent')
       ->find_array();
-    run($forms, "download/compact-forms-{$first}.txt");
+    run($forms, "download/compact-forms/{$first}.txt");
   }
 
   Log::notice('finished, %d MB used', memory_get_peak_usage() >> 20);

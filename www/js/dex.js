@@ -354,7 +354,7 @@ $(function() {
   if (d.length) {
     limit = d.data('limit');
     $('#searchField').autocomplete({
-      delay: 300,
+      delay: 500,
       minLength: d.data('minChars'),
       source: source,
       select: select,

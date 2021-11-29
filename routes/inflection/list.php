@@ -12,6 +12,7 @@ if ($deleteInflectionId) {
   $infl = Inflection::get_by_id($deleteInflectionId);
   Log::warning("Deleting inflection {$infl->id} ({$infl->description})");
   $infl->delete();
+  FlashMessage::add('Am șters flexiunea.', 'success');
   Util::redirectToSelf();
 }
 

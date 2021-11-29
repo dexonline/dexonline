@@ -406,9 +406,16 @@ $(function() {
   }
 
   function source(request, response) {
-    var term = request.term.toLowerCase();
+    var term = request.term.toLowerCase().trim();
+    if (!term) {
+      return; // all whitespace
+    }
     var trans = translit(term);
     var first = trans[0];
+
+    if (!first.match(/[a-z]/i)) {
+      return;
+    }
 
     if (first in cache) {
       response(match(term, trans));

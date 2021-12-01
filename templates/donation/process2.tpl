@@ -17,34 +17,36 @@
         <div class="card-header">Donații OTRS</div>
         <div class="card-body">
           {foreach $otrsDonors as $donor}
-            <h4>Donație de la {$donor->email}, {$donor->amount} de lei, {$donor->date}</h4>
+            <div class="donation-wrapper">
+              <h4>Donație de la {$donor->email}, {$donor->amount} de lei, {$donor->date}</h4>
 
-            {include "bs/checkbox.tpl"
-              name='processTicketId[]'
-              label='salvează donația și închide tichetul'
-              checked=true
-              divClass='mb-2'
-              value=$donor->ticketId}
-
-            {if $donor->needsEmail() == Donor::EMAIL_YES}
               {include "bs/checkbox.tpl"
-                name='messageTicketId[]'
-                label='trimite un mesaj cu textul:'
+                name='processTicketId[]'
+                label='salvează donația și închide tichetul'
                 checked=true
                 divClass='mb-2'
                 value=$donor->ticketId}
 
-              <div class="card card-body mb-2">
-                {$donor->htmlMessage}
-              </div>
-              <div class="card card-body mb-3">
-                <pre>{$donor->textMessage}</pre>
-              </div>
-            {else}
-              <p class="text-muted">
-                {$donor->getEmailReason()}
-              </p>
-            {/if}
+              {if $donor->needsEmail() == Donor::EMAIL_YES}
+                {include "bs/checkbox.tpl"
+                  name='messageTicketId[]'
+                  label='trimite un mesaj cu textul:'
+                  checked=true
+                  divClass='mb-2'
+                  value=$donor->ticketId}
+
+                <div class="card card-body mb-2">
+                  {$donor->htmlMessage}
+                </div>
+                <div class="card card-body mb-3">
+                  <pre>{$donor->textMessage}</pre>
+                </div>
+              {else}
+                <p class="text-muted">
+                  {$donor->getEmailReason()}
+                </p>
+              {/if}
+            </div>
           {/foreach}
         </div>
       </div>

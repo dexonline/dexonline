@@ -6,7 +6,7 @@ $(function() {
   function toggleMessageCheckbox() {
     if (!$(this).prop('checked')) {
       $(this)
-        .closest('.card-body')
+        .closest('.donation-wrapper')
         .find('input[name="messageTicketId[]"]')
         .prop('checked', false);
     }

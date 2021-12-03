@@ -57,12 +57,12 @@ $(function() {
   }
 
   function clickRefreshButton() {
-    $('button[name="refreshButton"]').click();
+    $('button:enabled[name="refreshButton"]').click();
     return false;
   }
 
   function clickSaveButton() {
-    $('button[name="saveButton"]').click();
+    $('button:enabled[name="saveButton"]').click();
     return false;
   }
 

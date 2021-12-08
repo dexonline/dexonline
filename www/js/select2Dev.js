@@ -2,213 +2,241 @@
 
 $.fn.select2.defaults.set('language', 'ro');
 
-/**
- * Resolves a select element whose <option>s contain only IDs.
- * Fetches the display value and possibly other attributes.
- * obj = jQuery object
- * url = Ajax URL used to resolve IDs to objects
- **/
-function resolveSelect(obj, url) {
-  var values = [];
-  obj.find('option').each(function() {
-    values.push($(this).val());
-  });
+$(function() {
 
-  return $.ajax({
-    url: wwwRoot + url + '?q=' + JSON.stringify(values),
-  }).done(function(data) {
-    for (var i = 0; i < data.length; i++) {
-      var o = obj.find('option').eq(i);
-      o.html(data[i].text);
-      // Convert any properties besides id and text to HTML5 data attributes
-      for (var prop in data[i]) {
-        if (prop != 'id' && prop != 'text') {
-          o.data(prop, data[i][prop]);
+  /**
+   * Resolves a select element whose <option>s contain only IDs.
+   * Fetches the display value and possibly other attributes.
+   * obj = jQuery object
+   * url = Ajax URL used to resolve IDs to objects
+   **/
+  function resolveSelect(obj, url) {
+    var values = [];
+    obj.find('option').each(function() {
+      values.push($(this).val());
+    });
+
+    return $.ajax({
+      url: wwwRoot + url + '?q=' + JSON.stringify(values),
+    }).done(function(data) {
+      for (var i = 0; i < data.length; i++) {
+        var o = obj.find('option').eq(i);
+        o.html(data[i].text);
+        // Convert any properties besides id and text to HTML5 data attributes
+        for (var prop in data[i]) {
+          if (prop != 'id' && prop != 'text') {
+            o.data(prop, data[i][prop]);
+          }
         }
       }
-    }
-  });
-}
+    });
+  }
 
-/**
- * Builds a Deferred around resolveSelect() that runs when all the objects are initialized.
- **/
-function resolveSelectDeferred(sel, url) {
-  var deferreds = [];
+  /**
+   * Builds a Deferred around resolveSelect() that runs when all the objects are initialized.
+   **/
+  function resolveSelectDeferred(sel, url) {
+    var deferreds = [];
 
-  $(sel).each(function() {
-    var obj = $(this);
-    deferreds.push(
-      resolveSelect(obj, url)
-    );
-  });
+    $(sel).each(function() {
+      var obj = $(this);
+      deferreds.push(
+        resolveSelect(obj, url)
+      );
+    });
 
-  return $.when.apply($, deferreds);
-}
+    return $.when.apply($, deferreds);
+  }
 
-/**
- * Initialize select2 objects whose <option>s contain only IDs.
- * sel = CSS selector
- * url = Ajax URL used to resolve IDs to objects
- * options = options passed to select2
- *
- * Returns a Deferred object that runs when all objects are initialized.
- **/
-function initSelect2(sel, url, options) {
-  return resolveSelectDeferred(sel, url)
-    .done(function() {
-      var s = $(sel);
-      s.select2(options);
-      s.each(function() {
-        makeSortable($(this));
-        makeClickable($(this));
+  /**
+   * Initialize select2 objects whose <option>s contain only IDs.
+   * @param string sel CSS selector
+   * @param string url Ajax URL used to resolve IDs to objects
+   * @param object options Options passed to select2
+   * @param bool sharedDrag Whether options can be dragged between objects.
+   *
+   * Returns a Deferred object that runs when all objects are initialized.
+   **/
+  window.initSelect2 = function(sel, url, options, sharedDrag = false) {
+    return resolveSelectDeferred(sel, url)
+      .done(function() {
+        var s = $(sel);
+        s.select2(options);
+        s.each(function() {
+          makeClickable($(this));
+        });
+        makeDraggable(s, sharedDrag);
       });
-    });
-}
-
-// Make values sortable. The trick here is to make the <select> options mirror
-// the value order.
-// Pass a single object or dragging can move values between objects.
-function makeSortable(s) {
-  s.parent().find('ul.select2-selection__rendered').sortable({
-    containment: 'parent',
-
-    start: function(e, ui) {
-      // store the starting index so we can track its movement
-      $(this).attr('data-old-index', ui.item.index());
-    },
-
-    update: function(e, ui) {
-      var oldIndex = $(this).attr('data-old-index');
-      // sometimes index() returns a value equal to length, not length - 1
-      var newIndex = Math.min(ui.item.index(), s.children().length - 1);
-
-      $(this).removeAttr('data-old-index');
-
-      var o = s.children().eq(oldIndex).remove();
-      if (newIndex == 0) {
-        s.prepend(o);
-      } else {
-        s.children().eq(newIndex - 1).after(o);
-      }
-      s.trigger('change'); // make this count as a change in the meaning tree editor
-    }
-  });
-}
-
-// Allow sorting of select2 options by clicking on them and using the arrow keys.
-// Pass a single object or arrow keys will move objects in all boxes simultaneously.
-function makeClickable(s) {
-  s.parent().on('click', 'li.select2-selection__choice', function() {
-    $(this).siblings().removeClass('select2-highlighted');
-    $(this).addClass('select2-highlighted');
-  });
-  s.parent().on('keyup', '.select2-container', function(e) {
-    var o = $(this).find('.select2-highlighted');
-    if (o.length) {
-      var index = o.index();
-      var length = s.children().length;
-      var opt = s.children().eq(index); // <select> option
-
-      var step = 0;
-      if ((e.keyCode == 37) && (index > 0)) {
-        opt.prev().before(opt);
-        step = -1;
-      } else if ((e.keyCode == 39) && (index < length - 1)) {
-        opt.next().after(opt);
-        step = 1;
-      }
-
-      if (step) {
-        s.trigger('change');
-        $(this).find('.select2-selection__choice').eq(index + step).addClass('select2-highlighted');
-      }
-    }
-  });
-}
-
-/**
- * Refresh select2 objects whose <option>s contain only IDs.
- * sel = CSS selector
- * url = Ajax URL used to resolve IDs to objects
- **/
-function refreshSelect2(sel, url) {
-  return resolveSelectDeferred(sel, url)
-    .done(function() {
-      $(sel).trigger('change');
-    });
-}
-
-function createUserAjaxStruct(priv) {
-  if (typeof(priv)==='undefined') priv = 0;
-  return {
-    data: function(params) {
-      return {
-        term: params.term,
-        priv: priv,
-      };
-    },
-    url: wwwRoot + 'ajax/getUsers.php',
-  };
-}
-
-/**
- * The consistent accent / paradigm info propagates in two ways:
- * - for initial elements, using HTML5 data attributes
- * - for dynamically added elements, using json parameters
- **/
-function formatLexemeWithEditLink(lexeme) {
-  var elementData = $(lexeme.element).data();
-  var html;
-
-  if (startsWith(lexeme.id, '@')) {
-    // don't show an edit link for soon-to-be created lexemes
-    html = lexeme.text;
-  } else {
-    html = lexeme.text +
-      ' <a href="' + wwwRoot + 'editare-lexem?lexemeId=' + lexeme.id + '">' +
-      '<span class="material-icons">edit</span>'+
-      '</a>';
   }
 
-  if ((lexeme.consistentAccent == '0') ||
-      (lexeme.hasParadigm === false) ||
-      (elementData.consistentAccent === '0') ||
-      (elementData.hasParadigm === false)) {
-    return $('<span class="text-danger">' + html + '</span>');
-  } else {
-    return $('<span>' + html + '</span>');
+  /**
+   * Make values draggable.
+   * @param aray s A set of jQuery objects.
+   * @param bool shared Whether options can be dragged between objects.
+   */
+  function makeDraggable(s, shared = false) {
+    var elems = s.parent()
+        .find('.select2-selection--multiple .select2-selection__rendered')
+        .get();
+    if (shared && elems.length) {
+      dragula(elems).on('drop', dragulaDrop);
+    } else {
+      for (var i = 0; i < elems.length; i++) {
+        dragula([ elems[i] ]).on('drop', dragulaDrop);
+      }
+    }
   }
-}
 
-function formatEntryWithEditLink(entry) {
-  if (startsWith(entry.id, '@')) {
-    // don't show an edit link for soon-to-be created entries
-    var link = '';
-  } else {
-    var link = ' <a href="' + wwwRoot + 'editare-intrare?id=' + entry.id + '">' +
+  /**
+   * Propagate the new order in target to the underlying select. Likewise for
+   * source, if different from target.
+   */
+  function dragulaDrop(el, target, source, sibling) {
+    // make sure the typing area stays last
+    if (!sibling) {
+      $(el).insertBefore($(el).prev());
+    }
+
+    rebuildList(target);
+    if (source != target) {
+      rebuildList(source);
+    }
+  }
+
+  /**
+   * Rebuilds the corresponding <select> and Select2 after a drop.
+   * @param c A Select2 container element.
+   */
+  function rebuildList(c) {
+    var sel = $(c).closest('.select2').prev('select');
+    sel.empty();
+
+    var ids = []; // remove duplicate IDs
+
+    // use slice() to exclude the typing area
+    $(c).children().slice(0, -1).each(function() {
+      var d = $(this).data().data;
+      if (!ids.includes(d.id)) {
+        sel.append(new Option(d.text, d.id, true, true));
+        ids.push(d.id);
+      }
+    });
+
+    sel.trigger('change');
+  }
+
+  // Allow sorting of select2 options by clicking on them and using the arrow keys.
+  // Pass a single object or arrow keys will move objects in all boxes simultaneously.
+  function makeClickable(s) {
+    s.parent().on('click', 'li.select2-selection__choice', function() {
+      $(this).siblings().removeClass('select2-highlighted');
+      $(this).addClass('select2-highlighted');
+    });
+    s.parent().on('keyup', '.select2-container', function(e) {
+      var o = $(this).find('.select2-highlighted');
+      if (o.length) {
+        var index = o.index();
+        var length = s.children().length;
+        var opt = s.children().eq(index); // <select> option
+
+        var step = 0;
+        if ((e.keyCode == 37) && (index > 0)) {
+          opt.prev().before(opt);
+          step = -1;
+        } else if ((e.keyCode == 39) && (index < length - 1)) {
+          opt.next().after(opt);
+          step = 1;
+        }
+
+        if (step) {
+          s.trigger('change');
+          $(this).find('.select2-selection__choice').eq(index + step).addClass('select2-highlighted');
+        }
+      }
+    });
+  }
+
+  /**
+   * Refresh select2 objects whose <option>s contain only IDs.
+   * sel = CSS selector
+   * url = Ajax URL used to resolve IDs to objects
+   **/
+  window.refreshSelect2 = function(sel, url) {
+    return resolveSelectDeferred(sel, url)
+      .done(function() {
+        $(sel).trigger('change');
+      });
+  }
+
+  function createUserAjaxStruct(priv) {
+    if (typeof(priv)==='undefined') priv = 0;
+    return {
+      data: function(params) {
+        return {
+          term: params.term,
+          priv: priv,
+        };
+      },
+      url: wwwRoot + 'ajax/getUsers.php',
+    };
+  }
+
+  /**
+   * The consistent accent / paradigm info propagates in two ways:
+   * - for initial elements, using HTML5 data attributes
+   * - for dynamically added elements, using json parameters
+   **/
+  window.formatLexemeWithEditLink = function(lexeme) {
+    var elementData = $(lexeme.element).data();
+    var html;
+
+    if (startsWith(lexeme.id, '@')) {
+      // don't show an edit link for soon-to-be created lexemes
+      html = lexeme.text;
+    } else {
+      html = lexeme.text +
+        ' <a href="' + wwwRoot + 'editare-lexem?lexemeId=' + lexeme.id + '">' +
         '<span class="material-icons">edit</span>'+
         '</a>';
+    }
+
+    if ((lexeme.consistentAccent == '0') ||
+        (lexeme.hasParadigm === false) ||
+        (elementData.consistentAccent === '0') ||
+        (elementData.hasParadigm === false)) {
+      return $('<span class="text-danger">' + html + '</span>');
+    } else {
+      return $('<span>' + html + '</span>');
+    }
   }
 
-  return $('<span>' + entry.text + link + '</span>');
-}
+  window.formatEntryWithEditLink = function(entry) {
+    if (startsWith(entry.id, '@')) {
+      // don't show an edit link for soon-to-be created entries
+      var link = '';
+    } else {
+      var link = ' <a href="' + wwwRoot + 'editare-intrare?id=' + entry.id + '">' +
+          '<span class="material-icons">edit</span>'+
+          '</a>';
+    }
 
-function formatDefinition(item) {
-  if (item.id && item.source) {
-    return $('<span>' + item.html + ' (' + item.source + ') [' + item.id + ']' + '</span>');
+    return $('<span>' + entry.text + link + '</span>');
   }
-  return item.text;
-}
 
-function allowNewOptions(data) {
-  return {
-    id: '@' + data.term,
-    text: data.term + ' (cuvânt nou)',
+  window.formatDefinition = function(item) {
+    if (item.id && item.source) {
+      return $('<span>' + item.html + ' (' + item.source + ') [' + item.id + ']' + '</span>');
+    }
+    return item.text;
+  }
+
+  window.allowNewOptions = function(data) {
+    return {
+      id: '@' + data.term,
+      text: data.term + ' (cuvânt nou)',
+    };
   };
-};
 
-$(function() {
   initSelect2('.select2Tags', 'ajax/getTagsById.php', {
     ajax: { url: wwwRoot + 'ajax/getTags.php' },
     minimumInputLength: 1,
@@ -226,4 +254,5 @@ $(function() {
     minimumInputLength: 3,
     placeholder: '',
   });
+
 });

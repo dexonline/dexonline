@@ -203,10 +203,6 @@ class Constant {
   // Map of CSS files, JS files and dependencies for our resources.
   // Entries must be listed in the order in which they should be loaded.
   const RESOURCE_MAP = [
-    'dragula' => [
-      'css' => [ 'third-party/dragula-3.7.3.min.css' ],
-      'js' => [ 'third-party/dragula-3.7.3.min.js' ],
-    ],
     'i18n' => [
       'js' => [
         'locale/%l.js',
@@ -229,7 +225,7 @@ class Constant {
     ],
     'select2Dev' => [
       'js' => [ 'select2Dev.js' ],
-      'deps' => [ 'dragula', 'select2' ],
+      'deps' => [ 'select2', 'sortable' ],
     ],
     'bootstrap' => [
       'css' => [
@@ -376,9 +372,6 @@ class Constant {
     'scrollTop' => [
       'css' => [ 'scrollTop.css' ],
       'js' => [ 'scrollTop.js' ],
-    ],
-    'sortable' => [
-      'js' => [ 'third-party/Sortable.min.js' ],
     ],
   ];
 

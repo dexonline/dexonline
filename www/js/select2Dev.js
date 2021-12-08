@@ -53,53 +53,51 @@ $(function() {
    * @param string sel CSS selector
    * @param string url Ajax URL used to resolve IDs to objects
    * @param object options Options passed to select2
-   * @param bool sharedDrag Whether options can be dragged between objects.
+   * @param string group If not empty, options can be dragged between objects.
    *
    * Returns a Deferred object that runs when all objects are initialized.
    **/
-  window.initSelect2 = function(sel, url, options, sharedDrag = false) {
+  window.initSelect2 = function(sel, url, options, group = '') {
     return resolveSelectDeferred(sel, url)
       .done(function() {
         var s = $(sel);
         s.select2(options);
         s.each(function() {
+          makeDraggable($(this), group);
           makeClickable($(this));
         });
-        makeDraggable(s, sharedDrag);
       });
   }
 
   /**
    * Make values draggable.
-   * @param aray s A set of jQuery objects.
-   * @param bool shared Whether options can be dragged between objects.
+   * @param aray s A Select2 object.
+   * @param string group If not empty, options can be dragged between objects.
    */
-  function makeDraggable(s, shared = false) {
-    var elems = s.parent()
-        .find('.select2-selection--multiple .select2-selection__rendered')
-        .get();
-    if (shared && elems.length) {
-      dragula(elems).on('drop', dragulaDrop);
-    } else {
-      for (var i = 0; i < elems.length; i++) {
-        dragula([ elems[i] ]).on('drop', dragulaDrop);
-      }
-    }
+  function makeDraggable(s, group = false) {
+    var options = {
+      animation: 150,
+      forceFallback: true,
+      group: group,
+      onEnd: dragEnd,
+      revertOnSpill: true,
+    };
+
+    var container =
+        s.parent().find('.select2-selection--multiple .select2-selection__rendered').get(0);
+    Sortable.create(container, options);
   }
 
-  /**
-   * Propagate the new order in target to the underlying select. Likewise for
-   * source, if different from target.
-   */
-  function dragulaDrop(el, target, source, sibling) {
+  function dragEnd(evt) {
     // make sure the typing area stays last
-    if (!sibling) {
-      $(el).insertBefore($(el).prev());
+    var numChildren = $(evt.to).children().length;
+    if (evt.newIndex >= numChildren - 1) {
+      $(evt.item).insertBefore($(evt.item).prev());
     }
 
-    rebuildList(target);
-    if (source != target) {
-      rebuildList(source);
+    rebuildList(evt.to);
+    if (evt.from != evt.to) {
+      rebuildList(evt.from);
     }
   }
 

@@ -12,7 +12,7 @@ $(function() {
       ajax: { url: wwwRoot + 'ajax/getLexemes.php' },
       minimumInputLength: 1,
       templateSelection: formatLexemeWithEditLink,
-    }, true);
+    }, 'lexeme-group');
 
     var entryAjax = {
       url: wwwRoot + 'ajax/getEntries.php',

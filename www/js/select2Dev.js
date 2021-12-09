@@ -2,7 +2,23 @@
 
 $.fn.select2.defaults.set('language', 'ro');
 
+$.fn.insertAt = function($parent, index) {
+  return this.each(function() {
+    if (index === 0) {
+      $parent.prepend(this);
+    } else {
+      $parent.children().eq(index - 1).after(this);
+    }
+  });
+}
+
 $(function() {
+
+  const CHOICE_CLASS = '.select2-selection__choice';
+  const CONTAINER_CLASS = '.select2-selection--multiple .select2-selection__rendered';
+
+  // <option> corresponding to the <li> being dragged and its index
+  var dragOption, dragIndex;
 
   /**
    * Resolves a select element whose <option>s contain only IDs.
@@ -75,50 +91,40 @@ $(function() {
    * @param string group If not empty, options can be dragged between objects.
    */
   function makeDraggable(s, group = false) {
-    var options = {
-      animation: 150,
-      forceFallback: true,
-      group: group,
-      onEnd: dragEnd,
-      revertOnSpill: true,
-    };
-
-    var container =
-        s.parent().find('.select2-selection--multiple .select2-selection__rendered').get(0);
-    Sortable.create(container, options);
+    s.parent().find(CONTAINER_CLASS)
+      .sortable()
+      .on('mousedown', CHOICE_CLASS, mouseDown)
+      .on('dragstart', CHOICE_CLASS, dragStart)
+      .on('dragend', CHOICE_CLASS, dragEnd);
   }
 
-  function dragEnd(evt) {
+  function mouseDown(e) {
+    // work around: Select2 prevents dragging unless the container has focus
+    $(e.target).closest('.select2').prev('select').focus();
+  }
+
+  function dragStart(e) {
+    // save a pointer to the <option> corresponding to the item being dragged
+    dragIndex = $(e.target).closest(CHOICE_CLASS).index();
+    dragOption = $(e.target).closest('.select2').prev('select').find('option').eq(dragIndex);
+  }
+
+  function dragEnd(e) {
+    var el = $(e.target).closest(CHOICE_CLASS);
+    var sel = el.closest('.select2').prev('select')
+
     // make sure the typing area stays last
-    var numChildren = $(evt.to).children().length;
-    if (evt.newIndex >= numChildren - 1) {
-      $(evt.item).insertBefore($(evt.item).prev());
+    if (el.is(':last-child')) {
+      el.insertBefore(el.prev());
     }
+    var index = el.index();
 
-    rebuildList(evt.to);
-    if (evt.from != evt.to) {
-      rebuildList(evt.from);
+    // move dragOption from dragIndex to index
+    if (dragIndex < index) {
+      dragOption.remove().insertAt(sel, index);
+    } else {
+      dragOption.insertAt(sel, index);
     }
-  }
-
-  /**
-   * Rebuilds the corresponding <select> and Select2 after a drop.
-   * @param c A Select2 container element.
-   */
-  function rebuildList(c) {
-    var sel = $(c).closest('.select2').prev('select');
-    sel.empty();
-
-    var ids = []; // remove duplicate IDs
-
-    // use slice() to exclude the typing area
-    $(c).children().slice(0, -1).each(function() {
-      var d = $(this).data().data;
-      if (!ids.includes(d.id)) {
-        sel.append(new Option(d.text, d.id, true, true));
-        ids.push(d.id);
-      }
-    });
 
     sel.trigger('change');
   }
@@ -126,7 +132,7 @@ $(function() {
   // Allow sorting of select2 options by clicking on them and using the arrow keys.
   // Pass a single object or arrow keys will move objects in all boxes simultaneously.
   function makeClickable(s) {
-    s.parent().on('click', 'li.select2-selection__choice', function() {
+    s.parent().on('click', CHOICE_CLASS, function() {
       $(this).siblings().removeClass('select2-highlighted');
       $(this).addClass('select2-highlighted');
     });
@@ -148,7 +154,7 @@ $(function() {
 
         if (step) {
           s.trigger('change');
-          $(this).find('.select2-selection__choice').eq(index + step).addClass('select2-highlighted');
+          $(this).find(CHOICE_CLASS).eq(index + step).addClass('select2-highlighted');
         }
       }
     });

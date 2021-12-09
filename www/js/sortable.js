@@ -5,6 +5,7 @@ $(function() {
   $.fn.extend({
     sortable: function() {
       this.each(init);
+      return this;
     }
   });
 
@@ -19,7 +20,7 @@ $(function() {
       .on('dragstart', '> *', dragStart);
   }
 
-  function mouseDown() {
+  function mouseDown(e) {
     var child = $(this).closest('.' + CONTAINER_CLASS + ' > *');
     child.attr('draggable', 'true').css('opacity', '0.5');
     $(this).closest('.' + CONTAINER_CLASS).data('dragging', child);

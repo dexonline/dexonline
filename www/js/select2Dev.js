@@ -125,8 +125,6 @@ $(function() {
     } else {
       dragOption.insertAt(sel, index);
     }
-
-    sel.trigger('change');
   }
 
   // Allow sorting of select2 options by clicking on them and using the arrow keys.

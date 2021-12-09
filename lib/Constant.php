@@ -244,7 +244,7 @@ class Constant {
       'deps' => [ 'jqueryui' ],
     ],
     'sortable' => [
-      'js' => [ 'third-party/Sortable.min.js' ],
+      'js' => [ 'sortable.js' ],
     ],
     'tablesorter' => [
       'css' => [

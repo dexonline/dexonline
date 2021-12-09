@@ -92,7 +92,7 @@ $(function() {
    */
   function makeDraggable(s, group = false) {
     s.parent().find(CONTAINER_CLASS)
-      .sortable()
+      .sortable({ group: group })
       .on('mousedown', CHOICE_CLASS, mouseDown)
       .on('dragstart', CHOICE_CLASS, dragStart)
       .on('dragend', CHOICE_CLASS, dragEnd);

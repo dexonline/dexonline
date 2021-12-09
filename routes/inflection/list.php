@@ -38,6 +38,7 @@ if ($saveButton) {
     Log::info("Created inflection {$infl->id} ({$infl->description})");
   }
 
+  FlashMessage::add('Am salvat datele.', 'success');
   Util::redirectToSelf();
 }
 

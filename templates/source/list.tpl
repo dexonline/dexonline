@@ -18,7 +18,7 @@
 
   <form method="post">
     {* don't allow both Tablesorter and SortableJS at the same time *}
-    <table id="sources" class="table {if $editable}sortable{else}tablesorter{/if}">
+    <table id="sources" class="table {if !$editable}tablesorter{/if}">
       <thead>
         <tr>
           {if $editable}
@@ -36,7 +36,7 @@
           {/if}
         </tr>
       </thead>
-      <tbody>
+      <tbody {if $editable}class="sortable"{/if}>
         {foreach $src as $s}
           <tr {if $s->id == $highlightSourceId}id="highlightedSource" class="info"{/if}>
             {if $editable}

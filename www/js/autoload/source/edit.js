@@ -7,11 +7,6 @@ $(function() {
 
     $('#addButton').click(addRow);
     $('#authorContainer').on('click', '.deleteButton', deleteRow);
-
-    Sortable.create(authorContainer, {
-      handle: '.drag-indicator',
-      animation: 150,
-    });
   }
 
   function addRow() {

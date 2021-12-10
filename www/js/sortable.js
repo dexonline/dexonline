@@ -3,12 +3,27 @@ $(function() {
   const CONTAINER_CLASS = 'sortable-container';
   const GROUP_KEY = 'sortable-group';
 
-  // Info about the object being dragged. There can be only one regardless of
-  // the number of instances.
-  var dragging;
-  var sourceContainer;
+  /**
+   * Info about the element being dragged:
+   *   - the element itself;
+   *   - its source container;
+   *   - its index within the source container.
+   *
+   * Note: Only one object can be dragged at a time, regardless of the number
+   * of instances. Hence we can store this information in a module variable.
+   */
+  var moving = {};
 
   $.fn.extend({
+    insertAt: function($parent, index) {
+      return this.each(function() {
+        if (index === 0) {
+          $parent.prepend(this);
+        } else {
+          $parent.children().eq(index - 1).after(this);
+        }
+      });
+    },
     sortable: function(opts = {}) {
       this.each(function() {
         init($(this), opts);
@@ -28,26 +43,23 @@ $(function() {
       .addClass(CONTAINER_CLASS)
       .data(GROUP_KEY, group)
       .on('mousedown', sel, mouseDown)
-      .on('mouseup', sel, finish)
-      .on('dragend', '> *', finish)
+      .on('mouseup', sel, cleanup)
+      .on('dragend', '> *', dragEnd)
       .on('dragover', '> *', dragOver)
       .on('dragstart', '> *', dragStart);
   }
 
   function mouseDown(e) {
-    dragging = $(this).closest('.' + CONTAINER_CLASS + ' > *');
-    dragging.attr('draggable', 'true').css('opacity', '0.5');
-    sourceContainer = $(this).closest('.' + CONTAINER_CLASS);
-  }
+    var child = $(this)
+        .closest('.' + CONTAINER_CLASS + ' > *')
+        .attr('draggable', 'true')
+        .css('opacity', '0.5');
 
-  /**
-   * Same code (but different targets) for mouseup and dragend. Note that
-   * mouseup does not fire when there is a drag.
-   */
-  function finish() {
-    var child = $(this).closest('.' + CONTAINER_CLASS + ' > *');
-    child.removeAttr('draggable').css('opacity', '');
-    dragging = sourceContainer = null;
+    moving = {
+      item: child,
+      index: child.index(),
+      src: $(this).closest('.' + CONTAINER_CLASS),
+    };
   }
 
   function dragStart(e) {
@@ -55,24 +67,46 @@ $(function() {
   }
 
   function dragOver(e) {
-    var t = $(e.currentTarget);
-    var container = t.closest('.' + CONTAINER_CLASS);
-    var cgroup = container.data(GROUP_KEY);
-
-    // Since the event was called, we know this is a sortable container.
-    // Check if the container or group is acceptable.
-    if (!container.is(sourceContainer) &&
-        (!cgroup || (cgroup != sourceContainer.data(GROUP_KEY)))) {
-      return;
+    if (!isValidContainer(e.currentTarget)) {
+      return false;
     }
 
-    if (!t.is(dragging)) { // not the same object
-      if (isBefore(dragging, t)) {
-        dragging.insertAfter(t);
+    var t = $(e.currentTarget);
+
+    if (!t.is(moving.item)) { // not the same object
+      if (isBefore(moving.item, t)) {
+        moving.item.insertAfter(t);
       } else {
-        dragging.insertBefore(t);
+        moving.item.insertBefore(t);
       }
     }
+  }
+
+  /**
+   * Returns true iff el is an element inside an appropriate container for the
+   * current drag.
+   */
+  function isValidContainer(el) {
+    var container = $(el).closest('.' + CONTAINER_CLASS);
+    var group = container.data(GROUP_KEY);
+
+    if (!container.length) {
+      return false; // not a container at all
+    }
+
+    if (container.is(moving.src)) {
+      return true; // we're in the original container
+    }
+
+    if (!group) {
+      return false; // current container isn't part of any group
+    }
+
+    if (group == moving.src.data(GROUP_KEY)) {
+      return true; // current container is in the correct group
+    }
+
+    return false;
   }
 
   function isBefore(a, b) {
@@ -80,6 +114,28 @@ $(function() {
       a = a.next();
     }
     return a.length;
+  }
+
+  /**
+   * Same code (but different targets) for mouseup and dragend. Note that
+   * mouseup does not fire when there is a drag.
+   */
+  function cleanup() {
+    var child = $(this).closest('.' + CONTAINER_CLASS + ' > *');
+    child.removeAttr('draggable').css('opacity', '');
+    moving = {};
+  }
+
+  function cancel() {
+    moving.item.detach().insertAt(moving.src, moving.index);
+  }
+
+  function dragEnd(e) {
+    var over = document.elementFromPoint(e.clientX, e.clientY);
+    if (!isValidContainer(over)) {
+      cancel();
+    }
+    cleanup();
   }
 
 });

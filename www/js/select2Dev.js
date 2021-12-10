@@ -2,16 +2,6 @@
 
 $.fn.select2.defaults.set('language', 'ro');
 
-$.fn.insertAt = function($parent, index) {
-  return this.each(function() {
-    if (index === 0) {
-      $parent.prepend(this);
-    } else {
-      $parent.children().eq(index - 1).after(this);
-    }
-  });
-}
-
 $(function() {
 
   const CHOICE_CLASS = '.select2-selection__choice';

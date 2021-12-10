@@ -24,18 +24,13 @@ $(function() {
     $('#frequentObjectModal').on('shown.bs.modal', modalOpen);
     $('#frequentObjectModal').on('hidden.bs.modal', modalClose);
 
-    $('.frequentObjects').draggable().sortable({
-      cancel: '',                    // otherwise buttons are not sortable.
-      distance: 20,                  // prevent unwanted drags when intending to click
-      items: '> button:not(:last)',  // don't let the user drag the + and - buttons :-)
-      start: function() {
-        $('#frequentObjectsTrash').stop().fadeIn();
-      },
-      stop: function() {
-        $('#frequentObjectsTrash').stop().fadeOut();
-        saveToStorage($(this).closest('.frequentObjects'));
-      }
-    });
+    $('.frequentObjects')
+      .sortable({
+        trash: '#frequentObjectsTrash',
+        handle: '.frequentObject',
+      })
+      .on('dragstart', 'button', dragStart)
+      .on('dragend', 'button', dragEnd);
 
     $('#frequentObjectsTrash').droppable({
       classes: {
@@ -43,6 +38,21 @@ $(function() {
       },
       drop: frequentObjectDelete,
     });
+  }
+
+  function dragStart() {
+    $('#frequentObjectsTrash').stop().fadeIn();
+  }
+
+  function dragEnd(e) {
+    // make sure the plus button stays last
+    var btn = $(e.target);
+    if (btn.is(':last-child')) {
+      btn.insertBefore(btn.prev());
+    }
+
+    $('#frequentObjectsTrash').stop().fadeOut();
+    saveToStorage($(this).closest('.frequentObjects'));
   }
 
   function modalOpen(e) {

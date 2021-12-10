@@ -17,7 +17,7 @@
   {/notice}
 
   <form method="post">
-    {* don't allow both Tablesorter and SortableJS at the same time *}
+    {* don't allow both Tablesorter and sortable.js at the same time *}
     <table id="sources" class="table {if !$editable}tablesorter{/if}">
       <thead>
         <tr>

@@ -2,6 +2,7 @@ $(function() {
 
   const CONTAINER_CLASS = 'sortable-container';
   const GROUP_KEY = 'sortable-group';
+  const TRASH_KEY = 'sortable-trash';
 
   /**
    * Info about the element being dragged:
@@ -49,14 +50,18 @@ $(function() {
     // if a handle is given, items can only be dragged when grabbed by the handle
     var sel = opts.handle || obj.data('handle') || '> *';
 
+    // drag items over this trash selector to delete them
+    var trash = opts.trash || obj.data('trash') || null;
+
     obj
       .addClass(CONTAINER_CLASS)
       .data(GROUP_KEY, group)
+      .data(TRASH_KEY, trash)
       .on('mousedown', sel, mouseDown)
       .on('mouseup', sel, mouseUp)
-      .on('dragend', '> *', dragEnd)
+      .on('dragstart', '> *', dragStart)
       .on('dragover', '> *', dragOver)
-      .on('dragstart', '> *', dragStart);
+      .on('dragend', '> *', dragEnd);
   }
 
   function mouseDown(e) {
@@ -142,6 +147,11 @@ $(function() {
 
   function dragEnd(e) {
     var over = document.elementFromPoint(coords.x, coords.y);
+
+    // TODO: trash stuff
+    if ($(over).is(trash)) {
+      console.log('trash!');
+    }
     if (!isValidContainer(over)) {
       cancel();
     }

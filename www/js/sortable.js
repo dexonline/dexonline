@@ -53,7 +53,7 @@ $(function() {
       .addClass(CONTAINER_CLASS)
       .data(GROUP_KEY, group)
       .on('mousedown', sel, mouseDown)
-      .on('mouseup', sel, cleanup)
+      .on('mouseup', sel, mouseUp)
       .on('dragend', '> *', dragEnd)
       .on('dragover', '> *', dragOver)
       .on('dragstart', '> *', dragStart);
@@ -126,12 +126,8 @@ $(function() {
     return a.length;
   }
 
-  /**
-   * Same code (but different targets) for mouseup and dragend. Note that
-   * mouseup does not fire when there is a drag.
-   */
-  function cleanup() {
-    var child = $(this).closest('.' + CONTAINER_CLASS + ' > *');
+  function cleanup(el) {
+    var child = $(el).closest('.' + CONTAINER_CLASS + ' > *');
     child.removeAttr('draggable').css('opacity', '');
     moving = {};
   }
@@ -140,12 +136,16 @@ $(function() {
     moving.item.detach().insertAt(moving.src, moving.index);
   }
 
+  function mouseUp(e) {
+    cleanup(this);
+  }
+
   function dragEnd(e) {
     var over = document.elementFromPoint(coords.x, coords.y);
     if (!isValidContainer(over)) {
       cancel();
     }
-    cleanup();
+    cleanup(this);
   }
 
 });

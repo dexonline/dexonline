@@ -36,7 +36,7 @@
           {/if}
         </tr>
       </thead>
-      <tbody {if $editable}class="sortable"{/if}>
+      <tbody {if $editable}class="sortable" data-handle=".drag-indicator"{/if}>
         {foreach $src as $s}
           <tr {if $s->id == $highlightSourceId}id="highlightedSource" class="info"{/if}>
             {if $editable}

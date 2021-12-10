@@ -14,6 +14,16 @@ $(function() {
    */
   var moving = {};
 
+  /**
+   * Keep track of mouse coords during drag. Do this at body level. Firefox
+   * won't provide the coords at dragend time:
+   * https://stackoverflow.com/q/11656061/6022817
+   **/
+  var coords = {};
+  $(document).on('dragover', function(e) {
+    coords = { x: e.clientX, y: e.clientY };
+  });
+
   $.fn.extend({
     insertAt: function($parent, index) {
       return this.each(function() {
@@ -131,7 +141,7 @@ $(function() {
   }
 
   function dragEnd(e) {
-    var over = document.elementFromPoint(e.clientX, e.clientY);
+    var over = document.elementFromPoint(coords.x, coords.y);
     if (!isValidContainer(over)) {
       cancel();
     }

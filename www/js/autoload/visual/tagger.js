@@ -105,7 +105,9 @@ $(function() {
                  deltitle: 'șterge',
                  refreshtitle: 'reîncarcă'
                },
-               { }, // edit options
+               { // edit options
+                 afterSubmit: checkServerResponse,
+               },
                { }, // add options
                { // delete options
                  afterSubmit: checkServerResponse,
@@ -132,10 +134,11 @@ $(function() {
   }
 
   function checkServerResponse(response, postData) {
-    if (response.responseText) {
-      return [false, response.responseText];
+    if (response.responseJSON.success) {
+      $('#previewTags').attr('data-tag-info', response.responseJSON.tagInfo);
+      return [ true ];
     } else {
-      return [true];
+      return [false, response.responseJSON.msg];
     }
   }
 

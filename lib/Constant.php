@@ -295,7 +295,7 @@ class Constant {
       'js' => [
         'third-party/colorbox/jquery.colorbox-min.js',
         'third-party/colorbox/jquery.colorbox-ro.js',
-        'dexGallery.js',
+        'gallery.js',
       ],
       'deps' => [ 'sprintf' ],
     ],

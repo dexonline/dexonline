@@ -15,8 +15,8 @@
 
 #cboxLoadedContent canvas {
   position: absolute;
-  top: 5px;
-  left: 5px;
+  top: 0;
+  left: 0;
 }
 
 #cboxLoadedContent .badge {
@@ -29,11 +29,11 @@
 
 #tagsToggle {
   background-color: #fff;
-  bottom: 5px;
+  bottom: 0;
   color: var(--bs-body-color);
   cursor: pointer;
   position: absolute;
-  right: 5px;
+  right: 0;
 }
 
 @media (max-width: 480px) {
@@ -45,6 +45,5 @@
 
   #gallery img {
     display: inline;
-    margin-bottom: 5px;
   }
 }

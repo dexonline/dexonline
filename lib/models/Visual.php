@@ -42,6 +42,36 @@ class Visual extends BaseObject implements DatedObject {
     return Config::STATIC_URL . self::STATIC_THUMB_DIR . $this->path;
   }
 
+  /**
+   * Returns a JSON object that gallery.js can use to render tags.
+   */
+  function getTagInfo() {
+    $vts = VisualTag::get_all_by_imageId($this->id);
+
+    $result = [
+      'size' => [
+        'width' => $this->width,
+        'height' => $this->height,
+      ],
+      'tags' => [],
+    ];
+
+    foreach ($vts as $vt) {
+      $entry = Entry::get_by_id($vt->entryId);
+      $result['tags'][] = [
+        'label' => $vt->label,
+        'textX' => $vt->textXCoord,
+        'textY' => $vt->textYCoord,
+        'imgX' => $vt->imgXCoord,
+        'imgY' => $vt->imgYCoord,
+        'entry' => $entry->description,
+        'entryId' => $entry->id,
+      ];
+    }
+
+    return json_encode($result);
+  }
+
   // Loads all Visuals that are associated with one of the entries,
   // either directly or through a VisualTag.
   static function loadAllForEntries($entries) {

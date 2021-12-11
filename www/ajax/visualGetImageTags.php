@@ -17,14 +17,6 @@ if ($usage == 'table') {
          ->where('imageId', $visualId)
          ->limit($limit)->offset(($page - 1) * $limit)
          ->find_many();
-
-} else if ($usage == 'gallery') {
-  $image = Visual::get_by_id($visualId);
-  $dims = [
-    'width' => $image->width,
-    'height' => $image->height,
-  ];
-  $lines = VisualTag::get_all_by_imageId($visualId);
 }
 
 foreach ($lines as $line) {
@@ -47,11 +39,6 @@ if ($usage == 'table') {
     'page' => $page,
     'records' => $total,
     'rows' => $tags,
-  ];
-} else if ($usage == 'gallery') {
-  $resp = [
-    'dims' => $dims,
-    'tags' => $tags,
   ];
 }
 

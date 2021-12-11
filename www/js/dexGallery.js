@@ -1,13 +1,20 @@
 $(function() {
 
-  // Overlayed on the image. Resized on image display.
-  var canvas, dpr; // take HiDPI devices into account
+  // overlayed on the image; resized on image display
+  var canvas;
 
-  function resizeCanvas(width, height) {
+  // take HiDPI devices into account
+  var dpr = window.devicePixelRatio || 1;
+
+  // page being viewed
+  var word = $('input[name="cuv"]').val();
+
+  function prepareCanvas(width, height) {
     canvas.width = width * dpr;
     canvas.height = height * dpr;
     canvas.style.width = width + 'px';
     canvas.style.height = height + 'px';
+    document.getElementById('cboxLoadedContent').appendChild(canvas);
   }
 
   function drawLine(color, x1, y1, x2, y2) {
@@ -22,47 +29,38 @@ $(function() {
     c.stroke();
   }
 
-  function drawOnCanvas(visualId) {
-    // The colorbox plugin title is made up of two parts:
-    // 1. the unique id of the image from the Visual table
-    // 2. the name of the label corresponding to the image
-    $.ajax({
-      type: 'POST',
-      url: wwwRoot + 'ajax/visualGetImageTags.php',
-      data: { visualId: visualId, usage: 'gallery' }
-    }).done(function(data) {
-      var widthScale = canvas.width / data.dims.width,
-          heightScale = canvas.height / data.dims.height,
-          word = $('input[name="cuv"]').val();
+  function drawTags(data) {
+    var widthScale = canvas.width / data.size.width,
+        heightScale = canvas.height / data.size.height;
 
-      for (var i = 0; i < data.tags.length; i++) {
-        var t = data.tags[i];
-        var b = $(sprintf('<a class="badge" href="%sintrare/%s/%s">%s</a>',
-                          wwwRoot, t.entry, t.entryId, t.label));
+    for (var i = 0; i < data.tags.length; i++) {
+      var t = data.tags[i];
+      var highlight = (t.label == decodeURI(word));
 
-        t.textXCoord *= widthScale;
-        t.imgXCoord *= widthScale;
-        t.textYCoord *= heightScale;
-        t.imgYCoord *= heightScale;
-        var highlight = (t.label == decodeURI(word))
+      t.textX *= widthScale;
+      t.imgX *= widthScale;
+      t.textY *= heightScale;
+      t.imgY *= heightScale;
 
-        b.css({
-          color: highlight ? '#f00' : '#212529',
-          left: t.textXCoord / dpr,
-          top: t.textYCoord / dpr,
-        }).appendTo($('#cboxLoadedContent'));
+      // show the label
+      var b = $(sprintf('<a class="badge" href="%sintrare/%s/%s">%s</a>',
+                        wwwRoot, t.entry, t.entryId, t.label));
+      b.css({
+        color: highlight ? '#f00' : '#212529',
+        left: t.textX / dpr,
+        top: t.textY / dpr,
+      }).appendTo($('#cboxLoadedContent'));
 
-        drawLine(highlight ? '#f00' : '#444',
-                 t.textXCoord, t.textYCoord, t.imgXCoord, t.imgYCoord);
-      }
-    });
+      // draw the line
+      drawLine(highlight ? '#f00' : '#444',
+               t.textX, t.textY, t.imgX, t.imgY);
+    }
   }
 
   function imageLoaded() {
     // resize and activate the canvas
     var img = $('.cboxPhoto');
-    resizeCanvas(img.width(), img.height());
-    document.getElementById('cboxLoadedContent').appendChild(canvas);
+    prepareCanvas(img.width(), img.height());
 
     // show the toggle button
     var tagsToggle = $('#prototypeTagsToggleButton');
@@ -71,24 +69,19 @@ $(function() {
         $(canvas).toggle();
       }).appendTo($('#cboxLoadedContent'));
 
-    // draw the tags and lines
-    var visualId = $.colorbox.element().data('visualId');
-    drawOnCanvas(visualId);
-  }
-
-  function imageCleanup() {
-    canvas = canvas.parentNode.removeChild(canvas);
+    // Draw the tags and lines. Don't use data('tagInfo'). This passes data
+    // by reference and it gets scaled up with every call.
+    var tagInfo = JSON.parse($.colorbox.element().attr('data-tag-info'));
+    drawTags(tagInfo);
   }
 
   function init() {
-    dpr = window.devicePixelRatio || 1;
     canvas = document.createElement('canvas');
     canvas.getContext('2d').setTransform(dpr, 0, 0, dpr, 0, 0);
 
     $('.gallery').colorbox({
       maxHeight: '84%',
       maxWidth: '84%',
-      onCleanup: imageCleanup,
       onComplete: imageLoaded,
       rel: 'gallery',
     });

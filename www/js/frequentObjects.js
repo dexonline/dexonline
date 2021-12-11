@@ -26,33 +26,28 @@ $(function() {
 
     $('.frequentObjects')
       .sortable({
+        handle: '.frequentObject', // don't allow dragging the plus button
         trash: '#frequentObjectsTrash',
-        handle: '.frequentObject',
       })
       .on('dragstart', 'button', dragStart)
       .on('dragend', 'button', dragEnd);
-
-    $('#frequentObjectsTrash').droppable({
-      classes: {
-        'ui-droppable-hover': 'frequentObjectsTrashActive',
-      },
-      drop: frequentObjectDelete,
-    });
   }
 
   function dragStart() {
     $('#frequentObjectsTrash').stop().fadeIn();
   }
 
+  // Note: this also runs when a frequent object is deleted. Make sure to deal
+  // with that case.
   function dragEnd(e) {
-    // make sure the plus button stays last
+    // Make sure the plus button stays last.
     var btn = $(e.target);
     if (btn.is(':last-child')) {
       btn.insertBefore(btn.prev());
     }
 
     $('#frequentObjectsTrash').stop().fadeOut();
-    saveToStorage($(this).closest('.frequentObjects'));
+    saveToStorage($(e.delegateTarget));
   }
 
   function modalOpen(e) {
@@ -175,14 +170,6 @@ $(function() {
       .text(text);
 
     div.insertBefore(target.find('.frequentObjectInsertTarget'));
-  }
-
-  function frequentObjectDelete(event, ui) {
-    var target = ui.draggable.closest('.frequentObjects');
-    ui.draggable.fadeOut(function(){
-      $(this).remove();
-      saveToStorage(target);
-    });
   }
 
   init();

@@ -5,8 +5,3 @@
   top: 50%;
   z-index: 99;
 }
-
-.frequentObjectsTrashActive button {
-  transition: font-size 0.2s linear;
-  font-size: 180%;
-}

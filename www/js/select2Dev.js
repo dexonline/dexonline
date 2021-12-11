@@ -115,6 +115,18 @@ $(function() {
     } else {
       dragOption.insertAt(sel, index);
     }
+
+    // Remove duplicate options, which can arise from dragging between containers.
+    var seen = {};
+    sel.children().each(function() {
+      v = $(this).attr('value');
+      if (seen[v]) {
+        $(this).remove();
+      } else {
+        seen[v] = true;
+      }
+    });
+    sel.trigger('change');
   }
 
   // Allow sorting of select2 options by clicking on them and using the arrow keys.

@@ -131,31 +131,30 @@ $(function() {
     return a.length;
   }
 
-  function cleanup(el) {
-    var child = $(el).closest('.' + CONTAINER_CLASS + ' > *');
-    child.removeAttr('draggable').css('opacity', '');
+  function cleanup() {
+    moving.item
+      .closest('.' + CONTAINER_CLASS + ' > *')
+      .removeAttr('draggable')
+      .css('opacity', '');
     moving = {};
   }
 
-  function cancel() {
-    moving.item.detach().insertAt(moving.src, moving.index);
-  }
-
-  function mouseUp(e) {
-    cleanup(this);
+  function mouseUp() {
+    cleanup();
   }
 
   function dragEnd(e) {
     var over = document.elementFromPoint(coords.x, coords.y);
+    var trashSel = moving.src.data(TRASH_KEY);
+    var trash = $(over).closest(trashSel);
 
-    // TODO: trash stuff
-    if ($(over).is(trash)) {
-      console.log('trash!');
+    if (trash.length) {
+      moving.item.remove();
+    } else if (!isValidContainer(over)) {
+      moving.item.detach().insertAt(moving.src, moving.index);
     }
-    if (!isValidContainer(over)) {
-      cancel();
-    }
-    cleanup(this);
+
+    cleanup();
   }
 
 });

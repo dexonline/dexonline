@@ -284,9 +284,6 @@ class Constant {
       'css' => [ 'third-party/jcrop/jquery.Jcrop.min.css' ],
       'js' => [ 'third-party/jquery.Jcrop.min.js' ],
     ],
-    'jcanvas' => [
-      'js' => [ 'third-party/jcanvas.min.js' ],
-    ],
     'pixijs' => [
       'js' => [ 'third-party/pixi.min.js' ],
     ],
@@ -300,7 +297,7 @@ class Constant {
         'third-party/colorbox/jquery.colorbox-ro.js',
         'dexGallery.js',
       ],
-      'deps' => [ 'jcanvas' ],
+      'deps' => [ 'sprintf' ],
     ],
     'modelDropdown' => [
       'js' => [ 'modelDropdown.js' ],

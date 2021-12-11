@@ -9,15 +9,22 @@
   margin-bottom: 5px;
 }
 
-#prototypeCanvas,
 #prototypeTagsToggleButton {
   display: none;
 }
 
-#activeCanvas {
+#cboxLoadedContent canvas {
   position: absolute;
   top: 5px;
   left: 5px;
+}
+
+#cboxLoadedContent .badge {
+  background: #eee;
+  max-width: 100px;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  white-space: normal;
 }
 
 #tagsToggle {

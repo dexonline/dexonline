@@ -1,130 +1,98 @@
-$(document).ready(function() {
-  $('.gallery').colorbox({
-    maxWidth: '84%', maxHeight: '84%',
-    rel: 'gallery',
-    onComplete: function(a) {
-      var visualId = $.colorbox.element().data('visualId');
-      addCanvas();
-      drawOnCanvas(visualId);
-    },
-    onCleanup: function() {
-      removeCanvas();
-    }
-  });
+$(function() {
+
+  // Overlayed on the image. Resized on image display.
+  var canvas, dpr; // take HiDPI devices into account
+
+  function resizeCanvas(width, height) {
+    canvas.width = width * dpr;
+    canvas.height = height * dpr;
+    canvas.style.width = width + 'px';
+    canvas.style.height = height + 'px';
+  }
+
+  function drawLine(color, x1, y1, x2, y2) {
+    var c = canvas.getContext('2d');
+
+    c.lineWidth = 1.5;
+    c.strokeStyle = color;
+
+    c.beginPath();
+    c.moveTo(x1, y1);
+    c.lineTo(x2, y2);
+    c.stroke();
+  }
+
+  function drawOnCanvas(visualId) {
+    // The colorbox plugin title is made up of two parts:
+    // 1. the unique id of the image from the Visual table
+    // 2. the name of the label corresponding to the image
+    $.ajax({
+      type: 'POST',
+      url: wwwRoot + 'ajax/visualGetImageTags.php',
+      data: { visualId: visualId, usage: 'gallery' }
+    }).done(function(data) {
+      var widthScale = canvas.width / data.dims.width,
+          heightScale = canvas.height / data.dims.height,
+          word = $('input[name="cuv"]').val();
+
+      for (var i = 0; i < data.tags.length; i++) {
+        var t = data.tags[i];
+        var b = $(sprintf('<a class="badge" href="%sintrare/%s/%s">%s</a>',
+                          wwwRoot, t.entry, t.entryId, t.label));
+
+        t.textXCoord *= widthScale;
+        t.imgXCoord *= widthScale;
+        t.textYCoord *= heightScale;
+        t.imgYCoord *= heightScale;
+        var highlight = (t.label == decodeURI(word))
+
+        b.css({
+          color: highlight ? '#f00' : '#212529',
+          left: t.textXCoord / dpr,
+          top: t.textYCoord / dpr,
+        }).appendTo($('#cboxLoadedContent'));
+
+        drawLine(highlight ? '#f00' : '#444',
+                 t.textXCoord, t.textYCoord, t.imgXCoord, t.imgYCoord);
+      }
+    });
+  }
+
+  function imageLoaded() {
+    // resize and activate the canvas
+    var img = $('.cboxPhoto');
+    resizeCanvas(img.width(), img.height());
+    document.getElementById('cboxLoadedContent').appendChild(canvas);
+
+    // show the toggle button
+    var tagsToggle = $('#prototypeTagsToggleButton');
+    tagsToggle.clone().css('display', 'block').attr('id', 'tagsToggle')
+      .on('click', function() {
+        $(canvas).toggle();
+      }).appendTo($('#cboxLoadedContent'));
+
+    // draw the tags and lines
+    var visualId = $.colorbox.element().data('visualId');
+    drawOnCanvas(visualId);
+  }
+
+  function imageCleanup() {
+    canvas = canvas.parentNode.removeChild(canvas);
+  }
+
+  function init() {
+    dpr = window.devicePixelRatio || 1;
+    canvas = document.createElement('canvas');
+    canvas.getContext('2d').setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    $('.gallery').colorbox({
+      maxHeight: '84%',
+      maxWidth: '84%',
+      onCleanup: imageCleanup,
+      onComplete: imageLoaded,
+      rel: 'gallery',
+    });
+  }
+
+  init();
 });
-
-/* Once the plugin is loaded, it clones the canvas element and prepares it for display.
-   The canvas element is overlayed on the element with .cboxPhoto class, and thus it
-   has to have its dimensions. It also adds a button to toggle the tags visibility. */
-function addCanvas() {
-  var canvas = $('#prototypeCanvas'), parent = $('#cboxLoadedContent'),
-      img = $('.cboxPhoto'), tagsToggle = $('#prototypeTagsToggleButton');
-
-  canvas.clone().css('display', 'block').attr('id', 'activeCanvas')
-        .attr('width', img.css('width')).attr('height', img.css('height'))
-        .appendTo(parent);
-
-  tagsToggle.clone().css('display', 'block').attr('id', 'tagsToggle')
-            .on('click', function() {
-              $('#activeCanvas').toggle();
-             }).appendTo(parent);
-}
-
-/* Clears the canvas before it being deleted by colorbox plugin */
-function removeCanvas() {
-  $('#activeCanvas').clearCanvas();
-}
-
-function drawOnCanvas(visualId) {
-  var canvas = $('#activeCanvas');
-  // The colorbox plugin title is made up of two parts:
-  // 1. the unique id of the image from the Visual table
-  // 2. the name of the label corresponding to the image
-  $.ajax({
-    type: 'POST',
-    url: wwwRoot + 'ajax/visualGetImageTags.php',
-    data: { visualId: visualId, usage: 'gallery' }
-  }).done(function(data) {
-    var widthScale = parseInt(canvas.attr('width')) / data.dims.width,
-        heightScale = parseInt(canvas.attr('height')) / data.dims.height,
-        word = $('input[name="cuv"]').val();
-
-    for(var i = 0; i < data.tags.length; i++) {
-      data.tags[i].textXCoord *= widthScale;
-      data.tags[i].imgXCoord *= widthScale;
-      data.tags[i].textYCoord *= heightScale;
-      data.tags[i].imgYCoord *= heightScale;
-
-      colorText = (data.tags[i].label == decodeURI(word) ) ? '#F00' : '#212529';
-
-      drawTag(canvas, i, data.tags[i], colorText);
-    }
-  });
-
-    // Removes only the dummy text layer, used only for getting dimensions
-    canvas.removeLayerGroup('DummyText');
-}
-
-function drawTag(canvas, tagNo, tagData, colorText) {
-  var tagNamePadding = 10;
-  var tagNameMaxWidth = 100;
-
-  // Draws a dummy text to get its dimensions
-  canvas.drawText({
-    layer: true,
-    name: 'dummyText' + tagNo,
-    groups: ['DummyText'],
-    fromCenter: true,
-    strokeStyle: '#fff',
-    strokeWidth: 2,
-    fontSize: 14,
-    fontFamily: 'Arial',
-    text: tagData.label,
-    maxWidth: tagNameMaxWidth,
-    x: tagData.textXCoord, y: tagData.textYCoord
-  })
-
-  // Draws the line between the two points
-  .drawLine({
-    layer: true,
-    name: 'tag' + tagNo,
-    groups: ['Tags'],
-    strokeStyle: colorText,
-    strokeWidth: 2,
-    x1: tagData.textXCoord, y1: tagData.textYCoord,
-    x2: tagData.imgXCoord, y2: tagData.imgYCoord
-  })
-
-  // Draws a rectangle that has the dimensions of the dummy text + tagNamePadding
-  .drawRect({
-    layer: true,
-    name: 'tagBackground' + tagNo,
-    groups: ['TagsBackground'],
-    fromCenter: true,
-    fillStyle: '#fff',
-    x: tagData.textXCoord, y: tagData.textYCoord,
-    width: canvas.measureText('dummyText' + tagNo).width + tagNamePadding,
-    height: canvas.measureText('dummyText' + tagNo).height + tagNamePadding
-  })
-
-  // Rewrites the text over the recatngle
-  .drawText({
-    layer: true,
-    name: 'tagName' + tagNo,
-    groups: ['TagsName'],
-    fromCenter: true,
-    fillStyle: colorText,
-    strokeWidth: 2,
-    fontSize: 14,
-    fontFamily: 'Arial',
-    text: tagData.label,
-    maxWidth: tagNameMaxWidth,
-    x: tagData.textXCoord, y: tagData.textYCoord,
-    cursors: {
-      mouseover: 'pointer'
-    },
-    click: function() {
-      window.open(wwwRoot + 'intrare/' + tagData.entry + '/' + tagData.entryId, '_self');
-    }
-  });
-}

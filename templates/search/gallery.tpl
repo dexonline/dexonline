@@ -1,6 +1,4 @@
 {if !empty($images)}
-  {include "bits/galleryCanvas.tpl"}
-
   <div id="gallery">
     <div class="card">
       <div class="card-header">{t}images{/t}</div>

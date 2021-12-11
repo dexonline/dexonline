@@ -12,9 +12,32 @@ $(function() {
   function prepareCanvas(width, height) {
     canvas.width = width * dpr;
     canvas.height = height * dpr;
+    canvas.style.display = 'block'; // in case it was hidden
     canvas.style.width = width + 'px';
     canvas.style.height = height + 'px';
     document.getElementById('cboxLoadedContent').appendChild(canvas);
+  }
+
+  function toggleTags() {
+    var tmp = $(this).data('altText');
+    $(this).data('altText', $(this).text());
+    $(this).text(tmp);
+
+    canvas.style.display = (canvas.style.display == 'none') ? 'block' : 'none';
+    $('.img-label').toggle();
+  }
+
+  // make a new button each time so it doesn't have the wrong show/hide state
+  function addToggleButton() {
+    var btn = $(sprintf(
+      '<button \
+        id="toggle-tags" \
+        class="btn btn-sm btn-secondary" \
+        data-alt-text="%s" \
+        type="button">%s\
+       </button>',
+      _('show tags'), _('hide tags')));
+    btn.appendTo($('#cboxLoadedContent'));
   }
 
   function drawLine(color, x1, y1, x2, y2) {
@@ -43,7 +66,7 @@ $(function() {
       t.tipY *= heightScale;
 
       // show the label
-      var b = $(sprintf('<a class="badge" href="%sintrare/%s/%s">%s</a>',
+      var b = $(sprintf('<a class="badge img-label" href="%sintrare/%s/%s">%s</a>',
                         wwwRoot, t.entry, t.entryId, t.label));
       b.css({
         color: highlight ? '#f00' : '#212529',
@@ -63,11 +86,7 @@ $(function() {
     prepareCanvas(img.width(), img.height());
 
     // show the toggle button
-    var tagsToggle = $('#prototypeTagsToggleButton');
-    tagsToggle.clone().css('display', 'block').attr('id', 'tagsToggle')
-      .on('click', function() {
-        $(canvas).toggle();
-      }).appendTo($('#cboxLoadedContent'));
+    addToggleButton();
 
     // Draw the tags and lines. Don't use data('tagInfo'). This passes data
     // by reference and it gets scaled up with every call.
@@ -85,6 +104,8 @@ $(function() {
       onComplete: imageLoaded,
       rel: 'gallery',
     });
+
+    $(document).on('click', '#toggle-tags', toggleTags);
   }
 
   init();

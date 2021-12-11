@@ -12,8 +12,6 @@
     </a>
   </p>
 
-  {include "bits/galleryCanvas.tpl"}
-
   <div class="row ms-1 mb-3">
     <div class="col-md-6 px-0 imageHolder">
       <img id="jcrop" src="{Config::STATIC_URL}/img/visual/{$visual->path}">

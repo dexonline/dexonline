@@ -65,7 +65,7 @@
           Adaugă o etichetă nouă
         </div>
         <div class="card-body">
-          <form method="post">
+          <form id="tag-form" method="post">
             <input type="hidden" name="id" value="{$visual->id}">
 
             <div class="row mb-3">
@@ -110,10 +110,12 @@
                     placeholder="Y"
                     size="4">
                 </div>
-                <button id="setTextCoords" class="btn btn-primary" type="button">
-                  {include "bits/icon.tpl" i=content_copy}
-                  copiază
-                </button>
+                <div>
+                  <button id="setTextCoords" class="btn btn-primary" type="button">
+                    {include "bits/icon.tpl" i=content_copy}
+                    copiază
+                  </button>
+                </div>
               </div>
             </div>
 
@@ -140,10 +142,12 @@
                     placeholder="Y"
                     size="4">
                 </div>
-                <button id="setImgCoords" class="btn btn-primary" type="button">
-                  {include "bits/icon.tpl" i=content_copy}
-                  copiază
-                </button>
+                <div>
+                  <button id="setImgCoords" class="btn btn-primary" type="button">
+                    {include "bits/icon.tpl" i=content_copy}
+                    copiază
+                  </button>
+                </div>
               </div>
               <div class="form-text col-xl-9 offset-xl-3">
                 Pentru a copia coordonate, click pe imagine, apoi click pe butonul [copiază]
@@ -152,7 +156,7 @@
 
             <div class="row">
               <div class="col-sm-9 offset-sm-3">
-                <button id="addTagButton" type="submit" class="btn btn-primary" name="addTagButton">
+                <button type="submit" class="btn btn-primary" name="addTagButton">
                   {include "bits/icon.tpl" i=save}
                   salvează eticheta
                 </button>
@@ -168,10 +172,14 @@
           Previzualizare
         </div>
         <div class="card-body">
-          <button id="previewTags" type="button" class="btn btn-primary">
+          <a
+            class="btn btn-primary gallery"
+            data-tag-info="{$visual->getTagInfo()|escape}"
+            href="{$visual->getImageUrl()}"
+            id="previewTags">
             {include "bits/icon.tpl" i=visibility}
             <u>p</u>revizualizează etichetele
-          </button>
+          </a>
         </div>
       </div>
 

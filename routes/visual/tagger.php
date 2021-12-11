@@ -15,7 +15,8 @@ $tipY = Request::get('tipY');
 $addTagButton = Request::has('addTagButton');
 $userId = User::getActiveId();
 
-// Tag the image specified by $fileName. Create a Visual object if one doesn't exist, then redirect to it.
+// Tag the image specified by $fileName. Create a Visual object if one doesn't
+// exist, then redirect to it.
 if ($fileName) {
   $v = Visual::get_by_path($fileName);
   if (!$v) {

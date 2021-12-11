@@ -44,44 +44,29 @@ $(function() {
       $('#tipY').val(coords.cy);
     });
 
-    $('#previewTags').click(function() {
-      img = $('#jcrop');
-      $.colorbox({
-        href: img.attr('src'),
-        title: img.attr('title'),
-        maxWidth: '84%', maxHeight: '84%',
-        onComplete: function() {
-          var visualId = $('#visualId').val();
-          addCanvas();
-          drawOnCanvas(visualId);
-        },
-        onCleanup: function() {
-          removeCanvas();
-        }
-      });
-    });
-
     /* Validate new tag data before submitting the form. */
-    $('#addTagButton').click(function() {
+    $('#tag-form').submit(function(e) {
+      var err = null;
       if (!$('#tagEntryId').val()) {
-        alert('Trebuie să specificați o intrare.');
-        return false;
+        err = 'Trebuie să specificați o intrare.';
       } else if (!$('#tagLabel').val()) {
-        alert('Textul de afișat nu poate fi vid.');
-        return false;
+        err = 'Textul de afișat nu poate fi vid.';
       } else if (!$('#labelX').val() || !$('#labelY').val()) {
-        alert('Coordonatele centrului etichetei nu pot fi vide.');
-        return false;
+        err = 'Coordonatele centrului etichetei nu pot fi vide.';
       } else if (!$('#tipX').val() || !$('#tipY').val()) {
-        alert('Coordonatele vârfului săgeții nu pot fi vide.');
-        return false;
+        err = 'Coordonatele vârfului săgeții nu pot fi vide.';
       }
-      return true;
+
+      if (err) {
+        alert(err);
+        $(this).removeData('submitted'); /* allow resubmission */
+        e.preventDefault();
+      }
     });
 
     $('#tagsGrid').jqGrid({
       url: wwwRoot + 'ajax/visualGetImageTags.php',
-      postData: { visualId: $('#visualId').val(), usage: 'table' },
+      postData: { visualId: $('#visualId').val() },
       datatype: 'json',
       cmTemplate: {sortable: false},
       colNames: ['Id', 'Intrare', 'Text afișat', 'X Etichetă', 'Y Etichetă', 'X Imagine', 'Y Imagine'],

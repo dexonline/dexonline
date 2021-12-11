@@ -7,6 +7,7 @@ $(function() {
       return true;
     } else {
       alert('Vă rugăm să completați adresa de email.');
+      $(this).removeData('submitted');
       return false;
     }
   });

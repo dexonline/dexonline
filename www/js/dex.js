@@ -45,12 +45,14 @@ $(function() {
     });
   });
 
-  // prevent double clicking of submit buttons
-  $('input[type="submit"], button[type="submit"]').click(function() {
-    if ($(this).data('clicked')) {
-      return false;
+  // Prevent submitting forms twice. Forms can request permission to resubmit
+  // by calling removeData('submitted').
+  $('form').submit(function(e) {
+    if ($(this).data('submitted')) {
+      console.log('preventing');
+      e.preventDefault();
     } else {
-      $(this).data('clicked', true);
+      $(this).data('submitted', true);
       return true;
     }
   });
@@ -177,7 +179,7 @@ function shownTypoModal(event) {
   var defId = link.data('definitionId');
   $('input[name="definitionId"]').val(defId);
   $('#typoTextarea').focus();
-  $('#typoSubmit').removeData('clicked'); // allow clicking the button again
+  $('#typoSubmit').removeData('submitted'); // allow clicking the button again
 }
 
 function submitTypoForm() {

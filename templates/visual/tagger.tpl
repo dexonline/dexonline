@@ -96,18 +96,18 @@
               <div class="col-xl-9 d-flex">
                 <div class="flex-shrink-1">
                   <input
-                    id="textXCoord"
+                    id="labelX"
                     class="form-control"
-                    name="textXCoord"
+                    name="labelX"
                     type="text"
                     placeholder="X"
                     size="4">
                 </div>
                 <div class="flex-shrink-1 mx-1">
                   <input
-                    id="textYCoord"
+                    id="labelY"
                     class="form-control"
-                    name="textYCoord"
+                    name="labelY"
                     type="text"
                     placeholder="Y"
                     size="4">
@@ -126,18 +126,18 @@
               <div class="col-xl-9 d-flex">
                 <div class="flex-shrink-1">
                   <input
-                    id="imgXCoord"
+                    id="tipX"
                     class="form-control"
-                    name="imgXCoord"
+                    name="tipX"
                     type="text"
                     placeholder="X"
                     size="4">
                 </div>
                 <div class="flex-shrink-1 mx-1">
                   <input
-                    id="imgYCoord"
+                    id="tipY"
                     class="form-control"
-                    name="imgYCoord"
+                    name="tipY"
                     type="text"
                     placeholder="Y"
                     size="4">

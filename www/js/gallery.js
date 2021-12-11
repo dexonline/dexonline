@@ -37,23 +37,23 @@ $(function() {
       var t = data.tags[i];
       var highlight = (t.label == decodeURI(word));
 
-      t.textX *= widthScale;
-      t.imgX *= widthScale;
-      t.textY *= heightScale;
-      t.imgY *= heightScale;
+      t.labelX *= widthScale;
+      t.tipX *= widthScale;
+      t.labelY *= heightScale;
+      t.tipY *= heightScale;
 
       // show the label
       var b = $(sprintf('<a class="badge" href="%sintrare/%s/%s">%s</a>',
                         wwwRoot, t.entry, t.entryId, t.label));
       b.css({
         color: highlight ? '#f00' : '#212529',
-        left: t.textX / dpr,
-        top: t.textY / dpr,
+        left: t.labelX / dpr,
+        top: t.labelY / dpr,
       }).appendTo($('#cboxLoadedContent'));
 
       // draw the line
       drawLine(highlight ? '#f00' : '#444',
-               t.textX, t.textY, t.imgX, t.imgY);
+               t.labelX, t.labelY, t.tipX, t.tipY);
     }
   }
 

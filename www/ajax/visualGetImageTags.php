@@ -24,10 +24,10 @@ foreach ($lines as $line) {
   $tags[] = [
     'id' => $line->id,
     'label' => $line->label,
-    'textXCoord' => $line->textXCoord,
-    'textYCoord' => $line->textYCoord,
-    'imgXCoord' => $line->imgXCoord,
-    'imgYCoord' => $line->imgYCoord,
+    'labelX' => $line->labelX,
+    'labelY' => $line->labelY,
+    'tipX' => $line->tipX,
+    'tipY' => $line->tipY,
     'entry' => $entry->description,
     'entryId' => $entry->id,
   ];

@@ -35,13 +35,13 @@ $(function() {
     });
 
     $('#setTextCoords').click(function() {
-      $('#textXCoord').val(coords.cx);
-      $('#textYCoord').val(coords.cy);
+      $('#labelX').val(coords.cx);
+      $('#labelY').val(coords.cy);
     });
 
     $('#setImgCoords').click(function() {
-      $('#imgXCoord').val(coords.cx);
-      $('#imgYCoord').val(coords.cy);
+      $('#tipX').val(coords.cx);
+      $('#tipY').val(coords.cy);
     });
 
     $('#previewTags').click(function() {
@@ -69,10 +69,10 @@ $(function() {
       } else if (!$('#tagLabel').val()) {
         alert('Textul de afișat nu poate fi vid.');
         return false;
-      } else if (!$('#textXCoord').val() || !$('#textYCoord').val()) {
+      } else if (!$('#labelX').val() || !$('#labelY').val()) {
         alert('Coordonatele centrului etichetei nu pot fi vide.');
         return false;
-      } else if (!$('#imgXCoord').val() || !$('#imgYCoord').val()) {
+      } else if (!$('#tipX').val() || !$('#tipY').val()) {
         alert('Coordonatele vârfului săgeții nu pot fi vide.');
         return false;
       }
@@ -89,10 +89,10 @@ $(function() {
         {name: 'id', index: 'id', hidden: true},
         {name: 'entry', index: 'entry', width: 80, align: 'center'},
         {name: 'label', index: 'label', width: 120, align: 'center', editable: true},
-        {name: 'textXCoord', index: 'textXCoord', width: 55, align: 'center', editable: true},
-        {name: 'textYCoord', index: 'textYCoord', width: 55, align: 'center', editable: true},
-        {name: 'imgXCoord', index: 'imgXCoord', width: 55, align: 'center', editable: true},
-        {name: 'imgYCoord', index: 'imgYCoord', width: 55, align: 'center', editable: true}
+        {name: 'labelX', index: 'labelX', width: 55, align: 'center', editable: true},
+        {name: 'labelY', index: 'labelY', width: 55, align: 'center', editable: true},
+        {name: 'tipX', index: 'tipX', width: 55, align: 'center', editable: true},
+        {name: 'tipY', index: 'tipY', width: 55, align: 'center', editable: true}
       ],
       rowNum: 20,
       recreateForm: true,

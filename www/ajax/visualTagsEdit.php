@@ -18,10 +18,10 @@ switch ($oper) {
     $line = VisualTag::get_by_id($id);
 
     if(!empty($line)){
-      $line->textXCoord = Request::get('textXCoord');
-      $line->textYCoord = Request::get('textYCoord');
-      $line->imgXCoord = Request::get('imgXCoord');
-      $line->imgYCoord = Request::get('imgYCoord');
+      $line->labelX = Request::get('labelX');
+      $line->labelY = Request::get('labelY');
+      $line->tipX = Request::get('tipX');
+      $line->tipY = Request::get('tipY');
       $line->label = Request::get('label');
       $line->save();
       Log::notice("Edited visual tag {$line->id} ({$line->label}) for image {$line->imageId}");

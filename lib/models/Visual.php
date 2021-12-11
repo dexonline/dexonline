@@ -60,10 +60,10 @@ class Visual extends BaseObject implements DatedObject {
       $entry = Entry::get_by_id($vt->entryId);
       $result['tags'][] = [
         'label' => $vt->label,
-        'textX' => $vt->textXCoord,
-        'textY' => $vt->textYCoord,
-        'imgX' => $vt->imgXCoord,
-        'imgY' => $vt->imgYCoord,
+        'labelX' => $vt->labelX,
+        'labelY' => $vt->labelY,
+        'tipX' => $vt->tipX,
+        'tipY' => $vt->tipY,
         'entry' => $entry->description,
         'entryId' => $entry->id,
       ];

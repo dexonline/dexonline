@@ -2,9 +2,6 @@ $(function() {
   var stem; /* a stem frequent object to be cloned for each addition */
   var trigger; /* .frequentObjects div containing the most recently used '+' button */
 
-  // We used to store frequent objects in cookies, but cookies can become
-  // long. Besides, the server doesn't need them. So we check for cookies and,
-  // if found, move them to local storage.
   const STORAGE_NAME = 'frequentObjects';
   const DATA_SOURCES = {
     sources: 'ajax/getSources.php',
@@ -73,22 +70,12 @@ $(function() {
   }
 
   /**
-   * Loads frequent objects from local storage. If not found, tries to load
-   * them from cookies and migrate them to local storage.
+   * Loads frequent objects from local storage.
    * @param $(this) A frequent objects container.
    */
   function loadFromStorage() {
     var key = STORAGE_NAME + '-' + $(this).data('name');
     var value = localStorage.getItem(key);
-
-    if (!value) {
-      // fallback to cookies; if found, migrate them to local storage
-      value = $.cookie(key);
-      if (value) {
-        localStorage.setItem(key, value);
-        $.removeCookie(key, {path: '/'});
-      }
-    }
 
     if (value) {
       var dict = JSON.parse(value);

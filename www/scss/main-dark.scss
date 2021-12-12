@@ -103,7 +103,7 @@ html.dark {
 
 @import "common.scss";
 
-/* autocomplete and WotD overrides */
+/* WotD overrides */
 .ui-widget-content {
   background-color: var(--bs-body-bg);
   border-color: var(--bs-gray-300);
@@ -115,9 +115,6 @@ html.dark {
 .ui-widget-content .ui-state-highlight, /* Wotd selected row */
 .ui-widget-content .ui-state-hover { /* WotD hover */
   color: var(--bs-body-bg);
-}
-.ui-menu-item .ui-state-active { /* autocomplete hover */
-  color: var(--bs-body-bg) !important;
 }
 
 /* jquery-ui overrides */

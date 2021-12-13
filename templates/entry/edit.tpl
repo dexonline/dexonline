@@ -130,21 +130,6 @@
               {foreach $modelTypes as $mt}
                 <span class="badge badge-muted">{$mt}</span>
               {/foreach}
-
-              <div class="float-end">
-                <button id="moveLexemesUp"
-                  type="button"
-                  class="btn btn-link btn-sm"
-                  title="mută toate variantele la principale">
-                  {include "bits/icon.tpl" i=expand_less}
-                </button>
-                <button id="moveLexemesDown"
-                  type="button"
-                  class="btn btn-link btn-sm"
-                  title="mută toate principalele la variante">
-                  {include "bits/icon.tpl" i=expand_more}
-                </button>
-              </div>
             </div>
           </div>
         </div>

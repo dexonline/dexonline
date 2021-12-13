@@ -197,7 +197,7 @@
                 <th></th>
               </tr>
             </thead>
-            <tbody id="authorContainer">
+            <tbody id="authorContainer" class="sortable" handle=".drag-indicator">
               {include "bits/sourceAuthorEditRow.tpl" id="stem"}
               {foreach $authors as $author}
                 {include "bits/sourceAuthorEditRow.tpl"}

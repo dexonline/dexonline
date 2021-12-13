@@ -35,53 +35,38 @@ $(function() {
     });
 
     $('#setTextCoords').click(function() {
-      $('#textXCoord').val(coords.cx);
-      $('#textYCoord').val(coords.cy);
+      $('#labelX').val(coords.cx);
+      $('#labelY').val(coords.cy);
     });
 
     $('#setImgCoords').click(function() {
-      $('#imgXCoord').val(coords.cx);
-      $('#imgYCoord').val(coords.cy);
-    });
-
-    $('#previewTags').click(function() {
-      img = $('#jcrop');
-      $.colorbox({
-        href: img.attr('src'),
-        title: img.attr('title'),
-        maxWidth: '84%', maxHeight: '84%',
-        onComplete: function() {
-          var visualId = $('#visualId').val();
-          addCanvas();
-          drawOnCanvas(visualId);
-        },
-        onCleanup: function() {
-          removeCanvas();
-        }
-      });
+      $('#tipX').val(coords.cx);
+      $('#tipY').val(coords.cy);
     });
 
     /* Validate new tag data before submitting the form. */
-    $('#addTagButton').click(function() {
+    $('#tag-form').submit(function(e) {
+      var err = null;
       if (!$('#tagEntryId').val()) {
-        alert('Trebuie să specificați o intrare.');
-        return false;
+        err = 'Trebuie să specificați o intrare.';
       } else if (!$('#tagLabel').val()) {
-        alert('Textul de afișat nu poate fi vid.');
-        return false;
-      } else if (!$('#textXCoord').val() || !$('#textYCoord').val()) {
-        alert('Coordonatele centrului etichetei nu pot fi vide.');
-        return false;
-      } else if (!$('#imgXCoord').val() || !$('#imgYCoord').val()) {
-        alert('Coordonatele vârfului săgeții nu pot fi vide.');
-        return false;
+        err = 'Textul de afișat nu poate fi vid.';
+      } else if (!$('#labelX').val() || !$('#labelY').val()) {
+        err = 'Coordonatele centrului etichetei nu pot fi vide.';
+      } else if (!$('#tipX').val() || !$('#tipY').val()) {
+        err = 'Coordonatele vârfului săgeții nu pot fi vide.';
       }
-      return true;
+
+      if (err) {
+        alert(err);
+        $(this).removeData('submitted'); /* allow resubmission */
+        e.preventDefault();
+      }
     });
 
     $('#tagsGrid').jqGrid({
       url: wwwRoot + 'ajax/visualGetImageTags.php',
-      postData: { visualId: $('#visualId').val(), usage: 'table' },
+      postData: { visualId: $('#visualId').val() },
       datatype: 'json',
       cmTemplate: {sortable: false},
       colNames: ['Id', 'Intrare', 'Text afișat', 'X Etichetă', 'Y Etichetă', 'X Imagine', 'Y Imagine'],
@@ -89,10 +74,10 @@ $(function() {
         {name: 'id', index: 'id', hidden: true},
         {name: 'entry', index: 'entry', width: 80, align: 'center'},
         {name: 'label', index: 'label', width: 120, align: 'center', editable: true},
-        {name: 'textXCoord', index: 'textXCoord', width: 55, align: 'center', editable: true},
-        {name: 'textYCoord', index: 'textYCoord', width: 55, align: 'center', editable: true},
-        {name: 'imgXCoord', index: 'imgXCoord', width: 55, align: 'center', editable: true},
-        {name: 'imgYCoord', index: 'imgYCoord', width: 55, align: 'center', editable: true}
+        {name: 'labelX', index: 'labelX', width: 55, align: 'center', editable: true},
+        {name: 'labelY', index: 'labelY', width: 55, align: 'center', editable: true},
+        {name: 'tipX', index: 'tipX', width: 55, align: 'center', editable: true},
+        {name: 'tipY', index: 'tipY', width: 55, align: 'center', editable: true}
       ],
       rowNum: 20,
       recreateForm: true,
@@ -120,7 +105,9 @@ $(function() {
                  deltitle: 'șterge',
                  refreshtitle: 'reîncarcă'
                },
-               { }, // edit options
+               { // edit options
+                 afterSubmit: checkServerResponse,
+               },
                { }, // add options
                { // delete options
                  afterSubmit: checkServerResponse,
@@ -147,10 +134,11 @@ $(function() {
   }
 
   function checkServerResponse(response, postData) {
-    if (response.responseText) {
-      return [false, response.responseText];
+    if (response.responseJSON.success) {
+      $('#previewTags').attr('data-tag-info', response.responseJSON.tagInfo);
+      return [ true ];
     } else {
-      return [true];
+      return [false, response.responseJSON.msg];
     }
   }
 

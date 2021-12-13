@@ -32,7 +32,7 @@ body.other section.search {
   display: none;
 }
 
-/* SortableJS */
+/* sortable */
 .drag-indicator {
-  cursor: grab;
+  cursor: move;
 }

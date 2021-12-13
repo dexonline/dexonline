@@ -2,9 +2,6 @@ $(function() {
   var stem; /* a stem frequent object to be cloned for each addition */
   var trigger; /* .frequentObjects div containing the most recently used '+' button */
 
-  // We used to store frequent objects in cookies, but cookies can become
-  // long. Besides, the server doesn't need them. So we check for cookies and,
-  // if found, move them to local storage.
   const STORAGE_NAME = 'frequentObjects';
   const DATA_SOURCES = {
     sources: 'ajax/getSources.php',
@@ -24,25 +21,30 @@ $(function() {
     $('#frequentObjectModal').on('shown.bs.modal', modalOpen);
     $('#frequentObjectModal').on('hidden.bs.modal', modalClose);
 
-    $('.frequentObjects').draggable().sortable({
-      cancel: '',                    // otherwise buttons are not sortable.
-      distance: 20,                  // prevent unwanted drags when intending to click
-      items: '> button:not(:last)',  // don't let the user drag the + and - buttons :-)
-      start: function() {
-        $('#frequentObjectsTrash').stop().fadeIn();
-      },
-      stop: function() {
-        $('#frequentObjectsTrash').stop().fadeOut();
-        saveToStorage($(this).closest('.frequentObjects'));
-      }
-    });
+    $('.frequentObjects')
+      .sortable({
+        handle: '.frequentObject', // don't allow dragging the plus button
+        trash: '#frequentObjectsTrash',
+      })
+      .on('dragstart', 'button', dragStart)
+      .on('dragend', 'button', dragEnd);
+  }
 
-    $('#frequentObjectsTrash').droppable({
-      classes: {
-        'ui-droppable-hover': 'frequentObjectsTrashActive',
-      },
-      drop: frequentObjectDelete,
-    });
+  function dragStart() {
+    $('#frequentObjectsTrash').stop().fadeIn();
+  }
+
+  // Note: this also runs when a frequent object is deleted. Make sure to deal
+  // with that case.
+  function dragEnd(e) {
+    // Make sure the plus button stays last.
+    var btn = $(e.target);
+    if (btn.is(':last-child')) {
+      btn.insertBefore(btn.prev());
+    }
+
+    $('#frequentObjectsTrash').stop().fadeOut();
+    saveToStorage($(e.delegateTarget));
   }
 
   function modalOpen(e) {
@@ -68,22 +70,12 @@ $(function() {
   }
 
   /**
-   * Loads frequent objects from local storage. If not found, tries to load
-   * them from cookies and migrate them to local storage.
+   * Loads frequent objects from local storage.
    * @param $(this) A frequent objects container.
    */
   function loadFromStorage() {
     var key = STORAGE_NAME + '-' + $(this).data('name');
     var value = localStorage.getItem(key);
-
-    if (!value) {
-      // fallback to cookies; if found, migrate them to local storage
-      value = $.cookie(key);
-      if (value) {
-        localStorage.setItem(key, value);
-        $.removeCookie(key, {path: '/'});
-      }
-    }
 
     if (value) {
       var dict = JSON.parse(value);
@@ -165,14 +157,6 @@ $(function() {
       .text(text);
 
     div.insertBefore(target.find('.frequentObjectInsertTarget'));
-  }
-
-  function frequentObjectDelete(event, ui) {
-    var target = ui.draggable.closest('.frequentObjects');
-    ui.draggable.fadeOut(function(){
-      $(this).remove();
-      saveToStorage(target);
-    });
   }
 
   init();

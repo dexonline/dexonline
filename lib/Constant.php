@@ -225,7 +225,7 @@ class Constant {
     ],
     'select2Dev' => [
       'js' => [ 'select2Dev.js' ],
-      'deps' => [ 'jqueryui', 'select2' ],
+      'deps' => [ 'select2', 'sortable' ],
     ],
     'bootstrap' => [
       'css' => [
@@ -244,7 +244,7 @@ class Constant {
       'deps' => [ 'jqueryui' ],
     ],
     'sortable' => [
-      'js' => [ 'third-party/Sortable.min.js' ],
+      'js' => [ 'sortable.js' ],
     ],
     'tablesorter' => [
       'css' => [
@@ -284,9 +284,6 @@ class Constant {
       'css' => [ 'third-party/jcrop/jquery.Jcrop.min.css' ],
       'js' => [ 'third-party/jquery.Jcrop.min.js' ],
     ],
-    'jcanvas' => [
-      'js' => [ 'third-party/jcanvas.min.js' ],
-    ],
     'pixijs' => [
       'js' => [ 'third-party/pixi.min.js' ],
     ],
@@ -298,9 +295,9 @@ class Constant {
       'js' => [
         'third-party/colorbox/jquery.colorbox-min.js',
         'third-party/colorbox/jquery.colorbox-ro.js',
-        'dexGallery.js',
+        'gallery.js',
       ],
-      'deps' => [ 'jcanvas' ],
+      'deps' => [ 'sprintf' ],
     ],
     'modelDropdown' => [
       'js' => [ 'modelDropdown.js' ],
@@ -354,7 +351,6 @@ class Constant {
     'frequentObjects' => [
       'css' => [ 'frequentObjects.css' ],
       'js' => [ 'frequentObjects.js' ],
-      'deps' => [ 'jqueryui', 'cookie' ],
     ],
     'bootstrap-select' => [
       'css' => [ 'third-party/bootstrap-select.min.css' ],
@@ -372,9 +368,6 @@ class Constant {
     'scrollTop' => [
       'css' => [ 'scrollTop.css' ],
       'js' => [ 'scrollTop.js' ],
-    ],
-    'sortable' => [
-      'js' => [ 'third-party/Sortable.min.js' ],
     ],
   ];
 

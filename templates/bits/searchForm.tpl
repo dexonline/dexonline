@@ -10,16 +10,29 @@
     id="searchForm">
 
     <div class="d-flex align-items-end align-items-md-center flex-column flex-md-row">
-      <div class="input-group">
+      <div class="input-group dropdown">
         <input
-          type="text"
-          class="form-control"
+          autocomplete="off"
+          autofocus
+          class="dropdown-toggle form-control"
+          data-bs-offset="0,0"
+          data-bs-toggle="dropdown"
+          id="searchField"
+          maxlength="50"
           name="cuv"
           placeholder="{t}word{/t}"
-          id="searchField"
-          autofocus
-          value="{$cuv|escape}"
-          maxlength="50">
+          type="text"
+          value="{$cuv|escape}">
+
+        {* will be populated in Javascript *}
+        {if Config::SEARCH_AC_ENABLED}
+          <ul
+            class="dropdown-menu"
+            data-limit="{Config::SEARCH_AC_LIMIT}"
+            data-min-chars="{Config::SEARCH_AC_MIN_CHARS}"
+            id="search-autocomplete">
+          </ul>
+        {/if}
 
         <button
           id="searchClear"
@@ -66,13 +79,6 @@
     </div>
   </form>
 
-  {if Config::SEARCH_AC_ENABLED}
-    <div
-      id="autocompleteEnabled"
-      data-limit="{Config::SEARCH_AC_LIMIT}"
-      data-min-chars="{Config::SEARCH_AC_MIN_CHARS}">
-    </div>
-  {/if}
 </section>
 
 {Plugin::notify('afterSearch')}

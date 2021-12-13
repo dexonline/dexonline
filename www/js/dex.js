@@ -45,12 +45,13 @@ $(function() {
     });
   });
 
-  // prevent double clicking of submit buttons
-  $('input[type="submit"], button[type="submit"]').click(function() {
-    if ($(this).data('clicked')) {
-      return false;
+  // Prevent submitting forms twice. Forms can request permission to resubmit
+  // by calling removeData('submitted').
+  $('form').submit(function(e) {
+    if ($(this).data('submitted')) {
+      e.preventDefault();
     } else {
-      $(this).data('clicked', true);
+      $(this).data('submitted', true);
       return true;
     }
   });
@@ -177,7 +178,7 @@ function shownTypoModal(event) {
   var defId = link.data('definitionId');
   $('input[name="definitionId"]').val(defId);
   $('#typoTextarea').focus();
-  $('#typoSubmit').removeData('clicked'); // allow clicking the button again
+  $('#typoSubmit').removeData('submitted'); // allow clicking the button again
 }
 
 function submitTypoForm() {
@@ -343,35 +344,51 @@ $(function() {
 
 /***************************** autocomplete *****************************/
 
+/**
+ * Note: <datalist>'s are tempting, but they are not aware of diacriticals.
+ * Hence, a search for "saptamana" will not by default include the result
+ * "săptămână", even if we add the <option> explicitly from Javascript.
+ */
+
 $(function() {
 
   const COMPACT_FORMS_URL = 'https://dexonline.ro/static/download/compact-forms/*.txt';
 
   var cache = {}; // map of first letter -> expanded forms
+  var delayTimer; // delay before processing input
+  var dropdown;
   var limit;      // number of results to display
+  var minChars;   // when to kick in
 
-  var d = $('#autocompleteEnabled');
+  var d = $('#search-autocomplete');
   if (d.length) {
     limit = d.data('limit');
-    $('#searchField').autocomplete({
-      delay: 500,
-      minLength: d.data('minChars'),
-      source: source,
-      select: select,
-    });
+    minChars = d.data('minChars');
+    dropdown = new bootstrap.Dropdown($('#searchField')[0]);
+
+    $('#searchField').on('input', onInput);
+    $('#searchField').on('show.bs.dropdown', onDropdownShow);
+    $('#search-autocomplete').on('click', 'a', onSelect);
   }
 
+  function onInput() {
+    clearTimeout(delayTimer);
+    delayTimer = setTimeout(doAutocomplete, 100);
+  }
+
+  /* prevents showing an empty dropdown */
+  function onDropdownShow() {
+    return $('#search-autocomplete li').length > 0;
+  }
+
+  function onSelect(e) {
+    $('#searchField').val($(this).text());
+    $('#searchForm').submit();
+  }
+
+  /* removes diacriticals, returning an ASCII string */
   function translit(s) {
-    s = s.replace(/[ãǎâăåąàȧáä]/g, 'a');
-    s = s.replace(/[ç]/g, 'c');
-    s = s.replace(/[ẽěêĕęèėéëȩ]/g, 'e');
-    s = s.replace(/[ĩǐîĭįìıíï]/g, 'i');
-    s = s.replace(/[õǒôŏǫòȯóö]/g, 'o');
-    s = s.replace(/[ñ]/g, 'n');
-    s = s.replace(/[șş]/g, 's');
-    s = s.replace(/[țţ]/g, 't');
-    s = s.replace(/[ũǔûŭůųùúűü]/g, 'u');
-    return s;
+    return s.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
   }
 
   /* does the opposite of lib/Str.php:compactForms() */
@@ -389,10 +406,14 @@ $(function() {
     return result;
   }
 
+  /**
+   * Scans the word list (with or without diacriticals, based on whether the
+   * query contains diacriticals). Returns up to @limit matches. Assumes the
+   * necessary list is cached.
+   */
   function match(term, trans) {
     var result = [];
 
-    // decide which list to consult based on whether the term contains diacritics
     var lists = cache[trans[0]];
     var field = (term == trans) ? 1 : 0;
     var i = 0;
@@ -405,20 +426,43 @@ $(function() {
     return result;
   }
 
-  function source(request, response) {
-    var term = request.term.toLowerCase().trim();
-    if (!term) {
-      return; // all whitespace
+  /**
+   * Builds the dropdown and shows or hides it as needed.
+   */
+  function output(term, trans) {
+    var data = match(term, trans);
+    var div = $('#search-autocomplete').empty();
+
+    if (data.length) {
+      for (var i = 0; i < data.length; i++) {
+        div.append($('<li><a class="dropdown-item" href="#">' +  data[i] + '</a></li>'));
+      }
+
+      dropdown.show();
+    } else {
+      dropdown.hide();
+    }
+  }
+
+  /**
+   * Fetches the necessary word list if needed, then runs the autocomplete.
+   */
+  function doAutocomplete() {
+    var term = $('#searchField').val().toLowerCase().trim();
+    if (term.length < minChars) {
+      dropdown.hide();
+      return;
     }
     var trans = translit(term);
     var first = trans[0];
 
     if (!first.match(/[a-z]/i)) {
+      dropdown.hide();
       return;
     }
 
     if (first in cache) {
-      response(match(term, trans));
+      output(term, trans);
       return;
     }
 
@@ -432,13 +476,8 @@ $(function() {
           transData.push(translit(data[i].toLowerCase()));
         }
         cache[first] = [data, transData];
-        response(match(term, trans));
+        output(term, trans);
       });
-  }
-
-  function select(event, ui) {
-    $('#searchField').val(ui.item.value);
-    $('#searchForm').submit();
   }
 
 });

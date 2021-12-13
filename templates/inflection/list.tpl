@@ -12,7 +12,7 @@
   {/notice}
 
   <form method="post">
-    <table id="inflections" class="table table-sm table-hover sortable">
+    <table id="inflections" class="table table-sm">
       <thead>
         <tr>
           <th>Ordine</th>
@@ -23,7 +23,7 @@
         </tr>
       </thead>
 
-      <tbody>
+      <tbody class="sortable" data-handle=".drag-indicator">
         {foreach $inflections as $infl}
           <tr>
             <td>

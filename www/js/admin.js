@@ -119,15 +119,14 @@ $(function() {
 });
 
 
-/****************************** SortableJS ******************************/
+/******************************* sortable *******************************/
 
 $(function() {
 
-  $('table.sortable tbody').each(function() {
-    Sortable.create(this, {
-      animation: 150,
-      handle: '.drag-indicator',
-    });
+  // Sortable.js may not be included, so don't try to call it when no
+  // .sortable elements exist.
+  $('.sortable').each(function() {
+    $(this).sortable();
   });
 
 });

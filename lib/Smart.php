@@ -204,9 +204,6 @@ class Smart {
   /* $hardened = assume nothing about the availability of the database */
   static function display($templateName, $hardened = false) {
     self::addResources('main', 'jquery', 'bootstrap', 'select2');
-    if (Config::SEARCH_AC_ENABLED) {
-      self::addResources('jqueryui');
-    }
     if (!$hardened) {
       if (User::getActiveId()) {
         self::addResources('loggedIn');

@@ -12,8 +12,6 @@
     </a>
   </p>
 
-  {include "bits/galleryCanvas.tpl"}
-
   <div class="row ms-1 mb-3">
     <div class="col-md-6 px-0 imageHolder">
       <img id="jcrop" src="{Config::STATIC_URL}/img/visual/{$visual->path}">
@@ -67,7 +65,7 @@
           Adaugă o etichetă nouă
         </div>
         <div class="card-body">
-          <form method="post">
+          <form id="tag-form" method="post">
             <input type="hidden" name="id" value="{$visual->id}">
 
             <div class="row mb-3">
@@ -96,26 +94,28 @@
               <div class="col-xl-9 d-flex">
                 <div class="flex-shrink-1">
                   <input
-                    id="textXCoord"
+                    id="labelX"
                     class="form-control"
-                    name="textXCoord"
+                    name="labelX"
                     type="text"
                     placeholder="X"
                     size="4">
                 </div>
                 <div class="flex-shrink-1 mx-1">
                   <input
-                    id="textYCoord"
+                    id="labelY"
                     class="form-control"
-                    name="textYCoord"
+                    name="labelY"
                     type="text"
                     placeholder="Y"
                     size="4">
                 </div>
-                <button id="setTextCoords" class="btn btn-primary" type="button">
-                  {include "bits/icon.tpl" i=content_copy}
-                  copiază
-                </button>
+                <div>
+                  <button id="setTextCoords" class="btn btn-primary" type="button">
+                    {include "bits/icon.tpl" i=content_copy}
+                    copiază
+                  </button>
+                </div>
               </div>
             </div>
 
@@ -126,26 +126,28 @@
               <div class="col-xl-9 d-flex">
                 <div class="flex-shrink-1">
                   <input
-                    id="imgXCoord"
+                    id="tipX"
                     class="form-control"
-                    name="imgXCoord"
+                    name="tipX"
                     type="text"
                     placeholder="X"
                     size="4">
                 </div>
                 <div class="flex-shrink-1 mx-1">
                   <input
-                    id="imgYCoord"
+                    id="tipY"
                     class="form-control"
-                    name="imgYCoord"
+                    name="tipY"
                     type="text"
                     placeholder="Y"
                     size="4">
                 </div>
-                <button id="setImgCoords" class="btn btn-primary" type="button">
-                  {include "bits/icon.tpl" i=content_copy}
-                  copiază
-                </button>
+                <div>
+                  <button id="setImgCoords" class="btn btn-primary" type="button">
+                    {include "bits/icon.tpl" i=content_copy}
+                    copiază
+                  </button>
+                </div>
               </div>
               <div class="form-text col-xl-9 offset-xl-3">
                 Pentru a copia coordonate, click pe imagine, apoi click pe butonul [copiază]
@@ -154,7 +156,7 @@
 
             <div class="row">
               <div class="col-sm-9 offset-sm-3">
-                <button id="addTagButton" type="submit" class="btn btn-primary" name="addTagButton">
+                <button type="submit" class="btn btn-primary" name="addTagButton">
                   {include "bits/icon.tpl" i=save}
                   salvează eticheta
                 </button>
@@ -170,10 +172,14 @@
           Previzualizare
         </div>
         <div class="card-body">
-          <button id="previewTags" type="button" class="btn btn-primary">
+          <a
+            class="btn btn-primary gallery"
+            data-tag-info="{$visual->getTagInfo()|escape}"
+            href="{$visual->getImageUrl()}"
+            id="previewTags">
             {include "bits/icon.tpl" i=visibility}
             <u>p</u>revizualizează etichetele
-          </button>
+          </a>
         </div>
       </div>
 

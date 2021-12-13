@@ -17,8 +17,8 @@
   {/notice}
 
   <form method="post">
-    {* don't allow both Tablesorter and SortableJS at the same time *}
-    <table id="sources" class="table {if $editable}sortable{else}tablesorter{/if}">
+    {* don't allow both Tablesorter and sortable.js at the same time *}
+    <table id="sources" class="table {if !$editable}tablesorter{/if}">
       <thead>
         <tr>
           {if $editable}
@@ -36,7 +36,7 @@
           {/if}
         </tr>
       </thead>
-      <tbody>
+      <tbody {if $editable}class="sortable" data-handle=".drag-indicator"{/if}>
         {foreach $src as $s}
           <tr {if $s->id == $highlightSourceId}id="highlightedSource" class="info"{/if}>
             {if $editable}

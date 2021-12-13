@@ -9,24 +9,24 @@
   margin-bottom: 5px;
 }
 
-#prototypeCanvas,
-#prototypeTagsToggleButton {
-  display: none;
+#cboxLoadedContent canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
-#activeCanvas {
+.img-label {
+  background: #eee;
+  max-width: 100px;
   position: absolute;
-  top: 5px;
-  left: 5px;
+  transform: translate(-50%, -50%);
+  white-space: normal;
 }
 
-#tagsToggle {
-  background-color: #fff;
-  bottom: 5px;
-  color: var(--bs-body-color);
-  cursor: pointer;
+#toggle-tags {
+  bottom: 0.5rem;
   position: absolute;
-  right: 5px;
+  right: 0.5rem;
 }
 
 @media (max-width: 480px) {
@@ -38,6 +38,5 @@
 
   #gallery img {
     display: inline;
-    margin-bottom: 5px;
   }
 }

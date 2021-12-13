@@ -8,14 +8,15 @@ $revised = Request::has('revised');
 $saveButton = Request::has('saveButton');
 $tagEntryId = Request::get('tagEntryId');
 $tagLabel = Request::get('tagLabel');
-$textXCoord = Request::get('textXCoord');
-$textYCoord = Request::get('textYCoord');
-$imgXCoord = Request::get('imgXCoord');
-$imgYCoord = Request::get('imgYCoord');
+$labelX = Request::get('labelX');
+$labelY = Request::get('labelY');
+$tipX = Request::get('tipX');
+$tipY = Request::get('tipY');
 $addTagButton = Request::has('addTagButton');
 $userId = User::getActiveId();
 
-// Tag the image specified by $fileName. Create a Visual object if one doesn't exist, then redirect to it.
+// Tag the image specified by $fileName. Create a Visual object if one doesn't
+// exist, then redirect to it.
 if ($fileName) {
   $v = Visual::get_by_path($fileName);
   if (!$v) {
@@ -39,10 +40,10 @@ if ($addTagButton) {
   $vt->imageId = $v->id;
   $vt->entryId = $tagEntryId;
   $vt->label = $tagLabel;
-  $vt->textXCoord = $textXCoord;
-  $vt->textYCoord = $textYCoord;
-  $vt->imgXCoord = $imgXCoord;
-  $vt->imgYCoord = $imgYCoord;
+  $vt->labelX = $labelX;
+  $vt->labelY = $labelY;
+  $vt->tipX = $tipX;
+  $vt->tipY = $tipY;
   $vt->userId = $userId;
   $vt->save();
   Log::info("Added tag {$vt->id} ({$vt->label}) to image {$v->id} ({$v->path})");

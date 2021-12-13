@@ -33,7 +33,7 @@ $(function() {
       tags: true,
       templateSelection: formatEntryWithEditLink,
       width: '100%',
-    });
+    }, 'entry-group');
 
     $('.lexemeEditSaveButton').click(saveEverything);
 

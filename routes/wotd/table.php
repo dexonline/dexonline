@@ -26,5 +26,5 @@ Smart::assign([
   'imageList' => $imageList,
   'assistantDates' => $assistantDates,
 ]);
-Smart::addResources('jqgrid', 'admin', 'bootstrap-datepicker', 'select2Dev');
+Smart::addResources('admin', 'bootstrap-datepicker', 'select2Dev', 'tabulator');
 Smart::display('wotd/table.tpl');

@@ -235,13 +235,13 @@ class Constant {
       'js' => [ 'third-party/bootstrap.bundle.min.js' ],
       'deps' => [ 'select2' ], /* because our themes include Select2 overrides */
     ],
-    'jqgrid' => [
-      'css' => [ 'third-party/ui.jqgrid.css' ],
-      'js' => [
-        'third-party/grid.locale-en.js',
-        'third-party/jquery.jqgrid.min.js',
+    'tabulator' => [
+      'css' => [
+        'third-party/tabulator_simple.min.css',
+        'tabulator.css',
       ],
-      'deps' => [ 'jqueryui' ],
+      'js' => [ 'third-party/tabulator.min.js' ],
+      'deps' => [ 'jquery' ],
     ],
     'sortable' => [
       'js' => [ 'sortable.js' ],

@@ -64,7 +64,22 @@ $(function() {
       }
     });
 
-    $('#tagsGrid').jqGrid({
+    var grid = new Tabulator('#tagsGrid', {
+      ajaxURL: wwwRoot + 'ajax/visualGetImageTags.php',
+      columns:[
+        { title: '', field: 'id', visible: false },
+        { title: 'Intrare', field: 'entryId', sorter: 'string' },
+        { title: 'Etichetă', field: 'label', sorter: 'string' },
+        { title: 'X etichetă', field: 'labelX', sorter: 'number' },
+        { title: 'Y etichetă', field: 'labelY', sorter: 'number' },
+        { title: 'X vîrf', field: 'tipX', sorter: 'number' },
+        { title: 'Y vîrf', field: 'tipY', sorter: 'number' },
+      ],
+      headerSortElement: '<i class="material-icons">expand_less</i>',
+      layout: 'fitColumns',
+    });
+
+/*    $('#tagsGrid').jqGrid({
       url: wwwRoot + 'ajax/visualGetImageTags.php',
       postData: { visualId: $('#visualId').val() },
       datatype: 'json',
@@ -113,6 +128,7 @@ $(function() {
                  afterSubmit: checkServerResponse,
                  closeOnEscape: true,
                });
+*/
   }
 
   function setCoords(c) {

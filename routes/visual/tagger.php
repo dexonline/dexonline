@@ -50,8 +50,21 @@ if ($addTagButton) {
   Util::redirect("?id={$v->id}");
 }
 
-Smart::assign('visual', $v);
-Smart::assign('entry', Entry::get_by_id($v->entryId));
+// extended with the entry's description
+$tags = Model::factory('VisualTag')
+  ->table_alias('vt')
+  ->select('vt.*')
+  ->select('e.description')
+  ->join('Entry', [ 'vt.entryId', '=', 'e.id' ], 'e')
+  ->where('vt.imageId', $v->id)
+  ->order_by_asc('e.description')
+  ->find_many();
 
-Smart::addResources('jcrop', 'jqgrid', 'gallery', 'admin', 'select2Dev');
+Smart::assign([
+  'entry' => Entry::get_by_id($v->entryId),
+  'tags' => $tags,
+  'visual' => $v,
+]);
+
+Smart::addResources('jcrop', 'gallery', 'admin', 'select2Dev', 'tabulator');
 Smart::display('visual/tagger.tpl');

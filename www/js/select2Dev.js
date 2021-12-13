@@ -27,7 +27,8 @@ $(function() {
     }).done(function(data) {
       for (var i = 0; i < data.length; i++) {
         var o = obj.find('option').eq(i);
-        o.html(data[i].text);
+        // trigger('change') won't pick up the changes unless we remove data-select2-id
+        o.html(data[i].text).removeAttr('data-select2-id');
         // Convert any properties besides id and text to HTML5 data attributes
         for (var prop in data[i]) {
           if (prop != 'id' && prop != 'text') {

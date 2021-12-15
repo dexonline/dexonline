@@ -80,8 +80,6 @@ function saveField() {
   $field = Request::get('field');
   $value = Request::get('value');
 
-  Log::info('got %d %s=%s', $wotdId, $field, $value);
-
   $wotd = WordOfTheDay::get_by_id($wotdId);
   if ($wotd) {
     $wotd->$field = $value;

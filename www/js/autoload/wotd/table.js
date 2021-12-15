@@ -4,109 +4,6 @@ $(function (){
   var gridUrl = wwwRoot + 'wotd-ajax';
   var imageList; // a select2 for WotD images
 
-  function formInit(id) {
-    $('#image').html('').append(imageList.find('option').clone());
-  }
-
-  function doubleClickRow(rowId) {
-    $(this).jqGrid('setSelection', rowId);
-    $(this).jqGrid('editGridRow', rowId, editOptions);
-  }
-
-  function beginEdit(id, op) {
-    var rowId = $('#wotdGrid').jqGrid('getGridParam', 'selrow');
-
-    $('#displayDate').datepicker({
-      autoclose: true,
-      format: 'yyyy-mm-dd',
-      keyboardNavigation: false,
-      language: 'ro',
-      todayBtn: 'linked',
-      todayHighlight: true,
-      weekStart: 1,
-    });
-
-    $('#displayDate')[0].style.width = '400px';
-
-    $('#lexicon').html('');
-    if (op == 'edit') {
-      var lexicon = $('#wotdGrid').getCell(rowId, 'lexicon');
-      $('#lexicon').append(new Option(lexicon, lexicon, true, true));
-    }
-    $('#lexicon').select2({
-      ajax: {
-        url: wwwRoot + 'ajax/getDefinitions.php',
-      },
-      templateResult: formatDefinition,
-      templateSelection: formatDefinition,
-      minimumInputLength: 1,
-      placeholder: 'caută un cuvânt...',
-      width: '410px',
-    }).on('change', function(e) {
-      var data = $('#lexicon').select2('data')[0];
-      $('#definitionId').val(data.id);
-      $('#lexicon').val(data.lexicon);
-    });
-    $('#lexicon').prop('disabled', $('#lexicon').val());
-
-    // This needs to be selected explicitly sometimes -- don't know why
-    var value = $('#wotdGrid').getCell(rowId, 'image');
-    $('#image option[value="' + value + '"]').prop('selected', true);
-
-    $('#image').select2({
-      allowClear: true,
-      minimumInputLength: 1,
-      placeholder: 'caută o imagine...',
-      width: '410px',
-    });
-  }
-
-  function endEdit(data) {
-    data.definitionId = $('#definitionId').val();
-    return [true];
-  }
-
-  function checkServerResponse(response, postData) {
-    if (response.responseText) {
-      return [false, response.responseText];
-    } else {
-      return [true];
-    }
-  }
-
-  // by default free jqGrid displays HTML as raw text; this seems to do the trick
-  function htmlFormatter(cellValue, options, rowObject) {
-    return cellValue;
-  }
-
-  var editOptions = {
-    afterShowForm: beginEdit,
-    afterSubmit: checkServerResponse,
-    beforeSubmit: endEdit,
-    closeAfterEdit: true,
-    closeOnEscape: true,
-    onInitializeForm: formInit,
-    reloadAfterSubmit: true,
-    width: 500,
-  };
-
-  var addOptions = {
-    afterShowForm: beginEdit,
-    afterSubmit: checkServerResponse,
-    beforeSubmit: endEdit,
-    closeAfterAdd: true,
-    closeOnEscape: true,
-    onInitializeForm: formInit,
-    reloadAfterSubmit: true,
-    width: 500,
-  };
-
-  var deleteOptions = {
-    afterSubmit: checkServerResponse,
-    closeOnEscape: true,
-    reloadAfterSubmit: true,
-  };
-
   function init() {
     // I couldn't make Tabulator's table layout play nice.
     var contW = $('.container').width();
@@ -241,40 +138,70 @@ $(function (){
     }
   }
 
+  /**
+   * Select2 editor. Jump through some hoops to prevent (1) calling both
+   * success() and cancel and (2) reopening the select on clear.
+   */
   function defEditor(cell, onRendered, success, cancel, editorParams) {
+    var done = false;
+    var plainText = $(cell.getElement()).text();
+    var opt = new Option(plainText, plainText, true, true);
     var editor = document.createElement('select');
+    editor.appendChild(opt);
 
     onRendered(function() {
       $(editor).select2({
         ajax: {
           url: wwwRoot + 'ajax/getDefinitions.php',
         },
+        allowClear: true,
+        minimumInputLength: 2,
+        placeholder: 'caută o definiție...',
         templateResult: formatDefinition,
         templateSelection: formatDefinition,
-        minimumInputLength: 2,
-        placeholder: 'caută un cuvânt...',
         width: '100%',
       }).on('change', function(e) {
         // propagate change to related fields
         var d = $(editor).select2('data')[0];
-        cell.getRow().getCell('definitionId').setValue(d.id);
-        cell.getRow().getCell('lexicon').setValue(d.lexicon);
-        cell.getRow().getCell('shortName').setValue(d.source);
-        success(d.html);
+        if (typeof d !== 'undefined') {
+          successFunc(d.id, d.html, d.lexicon, d.source);
+        }
+      }).on('select2:clear', function() {
+        successFunc(0, '', '', '');
       }).on('select2:close', function() {
-        cancel();
+        cancelFunc();
+      }).on('select2:opening', function(e) {
+        if (done) {
+          e.preventDefault();
+        }
       }).select2('open');
     });
 
-    editor.addEventListener('blur', function() {
-      $(editor).select2('destroy');
-      cancel();
-    });
+    function successFunc(definitionId, html, lexicon, shortName) {
+      if (!done) {
+        done = true;
+        cell.getRow().getCell('definitionId').setValue(definitionId);
+        cell.getRow().getCell('lexicon').setValue(lexicon);
+        cell.getRow().getCell('shortName').setValue(shortName);
+        success(html);
+      }
+    }
+
+    function cancelFunc() {
+      if (!done) {
+        done = true;
+        cancel();
+      }
+    }
 
     return editor;
   }
 
+  /**
+   * Same as defEditor, but with local data.
+   */
   function imageEditor(cell, onRendered, success, cancel, editorParams) {
+    var done = false;
     var editor = imageList.clone()[0];
     editor.value = cell.getValue();
 
@@ -284,35 +211,33 @@ $(function (){
         minimumInputLength: 1,
         placeholder: 'caută o imagine...',
         width: '100%',
-      }).on('change', function(e) {
+      }).on('change', function() {
         var d = $(editor).select2('data')[0];
         successFunc(d.text);
       }).on('select2:clear', function() {
         successFunc('');
+      }).on('select2:close', function() {
+        cancelFunc();
+      }).on('select2:opening', function(e) {
+        if (done) {
+          e.preventDefault();
+        }
       }).select2('open');
     });
 
-    function destroy() {
-      $(editor).off('change select2:clear');
-      $(editor).select2('destroy');
-    }
-
     function successFunc(val) {
-      console.log('success', val);
-      destroy();
-      success(val);
+      if (!done) {
+        done = true;
+        success(val);
+      }
     }
 
     function cancelFunc() {
-      console.log('cancel');
-      destroy();
-      cancel();
+      if (!done) {
+        done = true;
+        cancel();
+      }
     }
-
-    editor.addEventListener('blur', function() {
-      console.log('blur');
-      cancelFunc();
-    });
 
     return editor;
   }

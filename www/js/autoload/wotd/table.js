@@ -60,7 +60,6 @@ $(function (){
           title: 'pr.',
           editor: 'number',
           field: 'priority',
-          validator: [ 'required', 'min:0', 'max:10'],
           width: priW,
         }, {
           title: 'imagine',
@@ -91,6 +90,7 @@ $(function (){
       ],
       columnDefaults:{
         headerFilter: 'input',
+        validator: remoteValidator,
       },
       filterMode: 'remote',
       headerSortElement: '<i class="material-icons">expand_less</i>',
@@ -125,7 +125,6 @@ $(function (){
       paginationSizeSelector: [20, 50, 100, 200],
       sortMode: 'remote',
     });
-    grid.on('cellEdited', cellEdited);
 
     imageList = $('#imageList').detach().removeAttr('id');
   }
@@ -261,27 +260,53 @@ $(function (){
     return editor;
   }
 
-  function cellEdited(cell) {
+  /**
+   * Tries to actually save the new cell value. The server will respond with
+   * an error message if validation fails.
+   */
+  async function remoteValidator(cell, value, parameters) {
     // these are display-only fields; don't call the server when they change
     var displayFields = [ 'defHtml', 'descHtml', 'lexicon', 'shortName' ];
 
     var field = cell.getField();
     if (displayFields.includes(field)) {
-      return;
+      return true;
     }
 
-    $.ajax({
-      url: gridUrl,
-      data: {
-        action: 'save',
-        field: field,
-        value: cell.getValue(),
-        wotdId: cell.getRow().getIndex(),
-      },
-    }).fail(function() {
-      cell.restoreOldValue();
-      alert('Nu am putut salva modificarea (eroare pe server).');
-    });
+    // TODO: Does Tabulator support asynchronous validators?
+    var errorMsg = null;
+    await new Promise(function(resolve, reject) {
+      $.ajax({
+        url: gridUrl,
+        data: {
+          action: 'save',
+          field: field,
+          value: value,
+          wotdId: cell.getRow().getIndex(),
+        },
+      }).done(function(resp) {
+        if (resp) {
+          reject(new Error(resp));
+        } else {
+          resolve(null);
+        }
+      }).fail(function(resp) {
+        console.log(resp);
+        reject(new Error('Eroare la comunicarea cu serverul.'));
+      });
+    }).then(
+      function() {},
+      function(error) {
+        errorMsg = error.message;
+      }
+    );
+
+    if (errorMsg) {
+      alert(errorMsg);
+      return false;
+    } else {
+      return true;
+    }
   }
 
   function printDeleteIcon() {

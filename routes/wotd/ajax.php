@@ -83,8 +83,12 @@ function saveField() {
   $wotd = WordOfTheDay::get_by_id($wotdId);
   if ($wotd) {
     $wotd->$field = $value;
-    $wotd->save();
+    //    $wotd->save();
   }
+
+  $err = "I don't wanna";
+  header('Content-Type: application/json');
+  echo json_encode($err);
 }
 
 function main() {

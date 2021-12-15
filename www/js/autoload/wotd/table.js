@@ -2,6 +2,7 @@ $(function (){
 
   var grid;
   var gridUrl = wwwRoot + 'wotd-ajax';
+  var imageList; // a select2 for WotD images
 
   function formInit(id) {
     $('#image').html('').append(imageList.find('option').clone());
@@ -106,8 +107,6 @@ $(function (){
     reloadAfterSubmit: true,
   };
 
-  var imageList = $('#imageList').detach().removeAttr('id');
-
   function init() {
     // I couldn't make Tabulator's table layout play nice.
     var contW = $('.container').width();
@@ -168,7 +167,7 @@ $(function (){
           width: priW,
         }, {
           title: 'imagine',
-          editor: 'input',
+          editor: imageEditor,
           field: 'image',
           width: imageW,
         }, {
@@ -230,6 +229,8 @@ $(function (){
       sortMode: 'remote',
     });
     grid.on('cellEdited', cellEdited);
+
+    imageList = $('#imageList').detach().removeAttr('id');
   }
 
   function htmlTooltip(cell) {
@@ -268,6 +269,49 @@ $(function (){
     editor.addEventListener('blur', function() {
       $(editor).select2('destroy');
       cancel();
+    });
+
+    return editor;
+  }
+
+  function imageEditor(cell, onRendered, success, cancel, editorParams) {
+    var editor = imageList.clone()[0];
+    editor.value = cell.getValue();
+
+    onRendered(function() {
+      $(editor).select2({
+        allowClear: true,
+        minimumInputLength: 1,
+        placeholder: 'caută o imagine...',
+        width: '100%',
+      }).on('change', function(e) {
+        var d = $(editor).select2('data')[0];
+        successFunc(d.text);
+      }).on('select2:clear', function() {
+        successFunc('');
+      }).select2('open');
+    });
+
+    function destroy() {
+      $(editor).off('change select2:clear');
+      $(editor).select2('destroy');
+    }
+
+    function successFunc(val) {
+      console.log('success', val);
+      destroy();
+      success(val);
+    }
+
+    function cancelFunc() {
+      console.log('cancel');
+      destroy();
+      cancel();
+    }
+
+    editor.addEventListener('blur', function() {
+      console.log('blur');
+      cancelFunc();
     });
 
     return editor;

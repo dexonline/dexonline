@@ -1,7 +1,9 @@
 $(function() {
 
-  var jcrop_api;
   var coords = new Object();
+  var grid;
+  var gridUrl = wwwRoot + 'visual-ajax';
+  var visualId = $('#visualId').val();
 
   function init() {
     initSelect2('#entryId', 'ajax/getEntriesById.php', {
@@ -25,23 +27,19 @@ $(function() {
       boxHeight: 0,
       boxWidth: $('.imageHolder').width(),
       onSelect: setCoords,
-      onChange: setCoords
-    }, function() {
-      jcrop_api = this;
-    });
-
-    $('#jcrop').error(function() {
+      onChange: setCoords,
+    }).error(function() {
       $('.imageHolder').html('Nu pot încărca imaginea. Te rugăm să contactezi un administrator.');
     });
 
     $('#setTextCoords').click(function() {
-      $('#labelX').val(coords.cx);
-      $('#labelY').val(coords.cy);
+      $('#labelX').val(coords.x);
+      $('#labelY').val(coords.y);
     });
 
     $('#setImgCoords').click(function() {
-      $('#tipX').val(coords.cx);
-      $('#tipY').val(coords.cy);
+      $('#tipX').val(coords.x);
+      $('#tipY').val(coords.y);
     });
 
     /* Validate new tag data before submitting the form. */
@@ -64,77 +62,108 @@ $(function() {
       }
     });
 
-    var grid = new Tabulator('#tagsGrid', {
-      ajaxURL: wwwRoot + 'ajax/visualGetImageTags.php',
+    grid = new Tabulator('#tagsGrid', {
+      ajaxURL: gridUrl,
+      ajaxParams: { action: 'load', visualId: visualId},
       columns:[
-        { title: '', field: 'id', visible: false },
-        { title: 'Intrare', field: 'entryId', sorter: 'string' },
-        { title: 'Etichetă', field: 'label', sorter: 'string' },
-        { title: 'X etichetă', field: 'labelX', sorter: 'number' },
-        { title: 'Y etichetă', field: 'labelY', sorter: 'number' },
-        { title: 'X vîrf', field: 'tipX', sorter: 'number' },
-        { title: 'Y vîrf', field: 'tipY', sorter: 'number' },
+        {
+          title: 'id',
+          field: 'id',
+          visible: false,
+        }, {
+          title: 'intrare',
+          cssClass: 'col-readonly',
+          field: 'description',
+          sorter: 'string',
+        }, {
+          title: 'id intrare',
+          field: 'entryId',
+          visible: false,
+        }, {
+          title: 'etichetă',
+          editor: 'input',
+          field: 'label',
+          sorter: 'string',
+        }, {
+          title: 'X etichetă',
+          editor: 'number',
+          field: 'labelX',
+          sorter: 'number',
+        }, {
+          title: 'Y etichetă',
+          editor: 'number',
+          field: 'labelY',
+          sorter: 'number',
+        }, {
+          title: 'X vîrf',
+          editor: 'number',
+          field: 'tipX',
+          sorter: 'number',
+        }, {
+          title: 'Y vîrf',
+          editor: 'number',
+          field: 'tipY',
+          sorter: 'number',
+        }, {
+          title: 'acțiuni',
+          cellClick: deleteRow,
+          cssClass: 'col-clickable',
+          formatter: printDeleteIcon,
+          headerSort: false,
+          hozAlign: 'center',
+          width: 60,
+        },
       ],
       headerSortElement: '<i class="material-icons">expand_less</i>',
       layout: 'fitColumns',
     });
+    grid.on('cellEdited', cellEdited);
+  }
 
-/*    $('#tagsGrid').jqGrid({
-      url: wwwRoot + 'ajax/visualGetImageTags.php',
-      postData: { visualId: $('#visualId').val() },
-      datatype: 'json',
-      cmTemplate: {sortable: false},
-      colNames: ['Id', 'Intrare', 'Text afișat', 'X Etichetă', 'Y Etichetă', 'X Imagine', 'Y Imagine'],
-      colModel: [
-        {name: 'id', index: 'id', hidden: true},
-        {name: 'entry', index: 'entry', width: 80, align: 'center'},
-        {name: 'label', index: 'label', width: 120, align: 'center', editable: true},
-        {name: 'labelX', index: 'labelX', width: 55, align: 'center', editable: true},
-        {name: 'labelY', index: 'labelY', width: 55, align: 'center', editable: true},
-        {name: 'tipX', index: 'tipX', width: 55, align: 'center', editable: true},
-        {name: 'tipY', index: 'tipY', width: 55, align: 'center', editable: true}
-      ],
-      rowNum: 20,
-      recreateForm: true,
-      width: 900,
-      height: '100%',
-      rowList: [20, 50, 100, 200],
-      pager: $('#tagsPaging'),
-      viewrecords: true,
-      caption: 'Etichete existente',
-      editurl: wwwRoot + 'ajax/visualTagsEdit.php',
-      ondblClickRow: function(rowid) {
-        $(this).jqGrid('editGridRow', rowid, {
-          // edit options
-          closeAfterEdit: true,
-          closeOnEscape: true,
-          afterSubmit: checkServerResponse
-        });
-      }
-    })
-      .navGrid('#tagsPaging',
-               { // grid options
-                 add: false,
-                 search: false,
-                 edittitle: 'editează',
-                 deltitle: 'șterge',
-                 refreshtitle: 'reîncarcă'
-               },
-               { // edit options
-                 afterSubmit: checkServerResponse,
-               },
-               { }, // add options
-               { // delete options
-                 afterSubmit: checkServerResponse,
-                 closeOnEscape: true,
-               });
-*/
+  function printDeleteIcon() {
+    return '<i class="material-icons">delete</i>';
+  }
+
+  function deleteRow(e, cell) {
+    var index = cell.getRow().getIndex();
+    $.ajax({
+      url: gridUrl,
+      data: { action: 'delete', tagId: index }
+    }).done(function(resp) {
+      cell.getRow().delete();
+      updateTagInfo(resp);
+    }).fail(function() {
+      alert('Nu am putut șterge eticheta (eroare pe server).');
+    });
+  }
+
+  function cellEdited(cell) {
+    $.ajax({
+      url: gridUrl,
+      data: {
+        action: 'save',
+        field: cell.getField(),
+        tagId: cell.getRow().getIndex(),
+        value: cell.getValue(),
+      },
+    }).done(function(resp) {
+      updateTagInfo(resp);
+    }).fail(function() {
+      cell.restoreOldValue();
+      alert('Nu am putut salva modificarea (eroare pe server).');
+    });
+  }
+
+  function updateTagInfo(info) {
+    $('#previewTags').attr('data-tag-info', JSON.stringify(info));
   }
 
   function setCoords(c) {
     // Calculates the centre of the selection
-    coords.cx = Math.round(c.x + c.w / 2);
-    coords.cy = Math.round(c.y + c.h / 2);
+    coords = {
+      x: Math.round(c.x + c.w / 2),
+      y: Math.round(c.y + c.h / 2),
+    };
   }
 
   /** Replaces the submit event that triggers on change, set in select2Dev.js */
@@ -146,15 +175,6 @@ $(function() {
       text = text.match(/^[^ \(]+/);
 
       $('#tagLabel').val(text);
-    }
-  }
-
-  function checkServerResponse(response, postData) {
-    if (response.responseJSON.success) {
-      $('#previewTags').attr('data-tag-info', response.responseJSON.tagInfo);
-      return [ true ];
-    } else {
-      return [false, response.responseJSON.msg];
     }
   }
 

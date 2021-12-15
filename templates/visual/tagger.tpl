@@ -188,34 +188,6 @@
 
   <h3>Etichete existente</h3>
 
-  <table id="tagsGrid">
-    <thead>
-      <tr>
-        <th>Id</th>
-        <th>Intrare</th>
-        <th>ID intrare</th>
-        <th>Etichetă</th>
-        <th>X etichetă</th>
-        <th>Y etichetă</th>
-        <th>X vîrf</th>
-        <th>Y vîrf</th>
-      </tr>
-    </thead>
-    <tbody>
-      {foreach $tags as $tag}
-        <tr>
-          <td>{$tag->id}</td>
-          <td>{$tag->description}</td>
-          <td>{$tag->entryId}</td>
-          <td>{$tag->label}</td>
-          <td>{$tag->labelX}</td>
-          <td>{$tag->labelY}</td>
-          <td>{$tag->tipX}</td>
-          <td>{$tag->tipY}</td>
-        </tr>
-      {/foreach}
-    </tbody>
-  </table>
-  <div id="tagsPaging"></div>
+  <div id="tagsGrid"></div>
 
 {/block}

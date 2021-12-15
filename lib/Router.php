@@ -358,6 +358,7 @@ class Router {
     ],
 
     // visuals
+    'visual/ajax' => [ 'en_US.utf8' => 'visual-ajax' ],
     'visual/elfinder' => [ 'en_US.utf8' => 'visual-elfinder' ],
     'visual/list' => [ 'en_US.utf8' => 'visuals' ],
     'visual/tagger' => [ 'en_US.utf8' => 'visual-tagger' ],

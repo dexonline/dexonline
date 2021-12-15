@@ -8,10 +8,19 @@
   background-color: inherit;
 }
 
+.tabulator .tabulator-header .tabulator-col.tabulator-sortable:hover,
+.tabulator-row.tabulator-selectable:hover {
+  background-color: var(--bs-gray-200);
+}
+
 /* text color */
 .tabulator .tabulator-header,
 .tabulator .tabulator-tableholder .tabulator-table {
   color: inherit;
+}
+
+.tabulator-row .tabulator-cell.tabulator-editing input {
+  color: var(--bs-body-color);
 }
 
 /* borders */
@@ -22,6 +31,13 @@
 
 .tabulator-row {
   border-bottom-color: var(--bs-gray-300);
+}
+
+.tabulator-row .tabulator-cell.tabulator-editing {
+  border-color: var(--bs-gray-500);
+}
+.tabulator-row .tabulator-cell.tabulator-editing input {
+  outline-width: 0;
 }
 
 /* header sorter icon placement and rotation */
@@ -37,4 +53,17 @@
 
 .tabulator-col[aria-sort="desc"] .tabulator-col-sorter i {
   transform: scaleY(-1);
+}
+
+/* mouse cursor */
+.tabulator-row.tabulator-selectable:hover {
+  cursor: text; /* override tabulator's default pointer cursor */
+}
+
+.tabulator-row .col-readonly {
+  cursor: not-allowed;
+}
+
+.tabulator-row .col-clickable {
+  cursor: pointer;
 }

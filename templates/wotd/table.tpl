@@ -6,8 +6,7 @@
 
   <h3>Cuvântul zilei</h3>
 
-  <table id="wotdGrid" class="table"></table>
-  <div id="wotdPaging"></div>
+  <div id="wotdGrid"></div>
 
   <select id="imageList">
     {foreach $imageList as $image}

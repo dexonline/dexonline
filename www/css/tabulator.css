@@ -1,5 +1,6 @@
 /* background color */
 .tabulator,
+.tabulator .tabulator-footer,
 .tabulator .tabulator-header,
 .tabulator .tabulator-header .tabulator-col,
 .tabulator .tabulator-tableholder .tabulator-table,
@@ -13,14 +14,32 @@
   background-color: var(--bs-gray-200);
 }
 
+.tabulator .tabulator-footer .tabulator-page.active {
+  background: var(--bs-gray-500);
+}
+
+.tabulator .tabulator-footer .tabulator-paginator button,
+.tabulator .tabulator-footer .tabulator-paginator select {
+  background: var(--bs-gray-200);
+}
+
 /* text color */
+.tabulator .tabulator-footer .tabulator-page.active,
 .tabulator .tabulator-header,
 .tabulator .tabulator-tableholder .tabulator-table {
   color: inherit;
 }
 
+.tabulator .tabulator-footer .tabulator-paginator,
+.tabulator .tabulator-footer .tabulator-paginator button,
+.tabulator .tabulator-footer .tabulator-paginator select,
 .tabulator-row .tabulator-cell.tabulator-editing input {
   color: var(--bs-body-color);
+}
+
+/* font weight */
+.tabulator .tabulator-footer {
+  font-weight: inherit;
 }
 
 /* borders */
@@ -38,6 +57,12 @@
 }
 .tabulator-row .tabulator-cell.tabulator-editing input {
   outline-width: 0;
+}
+
+/* header filters */
+
+.tabulator-header-filter input {
+  padding: 0 !important;
 }
 
 /* header sorter icon placement and rotation */

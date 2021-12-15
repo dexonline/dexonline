@@ -1,5 +1,8 @@
 $(function (){
 
+  var grid;
+  var gridUrl = wwwRoot + 'wotd-ajax';
+
   function formInit(id) {
     $('#image').html('').append(imageList.find('option').clone());
   }
@@ -44,9 +47,6 @@ $(function (){
       $('#lexicon').val(data.lexicon);
     });
     $('#lexicon').prop('disabled', $('#lexicon').val());
-
-    $('#priority')[0].style.width = '400px';
-    $('#description')[0].style.width = '400px';
 
     // This needs to be selected explicitly sometimes -- don't know why
     var value = $('#wotdGrid').getCell(rowId, 'image');
@@ -106,137 +106,237 @@ $(function (){
     reloadAfterSubmit: true,
   };
 
-  var screenWidth = $(window).width();
-  var lexWidth    = 100;
-  var sourceWidth =  60;
-  var htmlWidth   = 350;
-  var dateWidth   =  90;
-  var userWidth   =  90;
-  var priorWidth  =  40;
-  var imageWidth  = 130;
-  var descWidth   = screenWidth - (lexWidth + sourceWidth + htmlWidth + dateWidth +
-                                   userWidth + priorWidth + imageWidth) - 40;
   var imageList = $('#imageList').detach().removeAttr('id');
 
-  // remove the "clear search" button and left align the search cursor for all columns
-  jQuery.extend(jQuery.jgrid.defaults, {
-    cmTemplate: {
-      searchoptions: {
-        attr: { style: "text-align: left" },
-        clearSearch: false,
-      }
+  function init() {
+    // I couldn't make Tabulator's table layout play nice.
+    var contW = $('.container').width();
+    var lexiconW    = 100;
+    var sourceW     =  60;
+    var dateW       =  90;
+    var userW       =  90;
+    var priW        =  40;
+    var imageW      = 130;
+    var actionW     =  60;
+    var leftover    = contW - (lexiconW + sourceW + dateW + userW + priW + imageW + actionW + 40);
+
+    grid = new Tabulator('#wotdGrid', {
+      ajaxURL: gridUrl,
+      ajaxParams: { action: 'load' },
+      columns: [
+        {
+          title: 'id',
+          field: 'id',
+          visible: false,
+        }, {
+          title: 'definitionId',
+          field: 'definitionId',
+          visible: false,
+        }, {
+          title: 'cuvânt',
+          cssClass: 'col-readonly',
+          field: 'lexicon',
+          width: lexiconW,
+        }, {
+          title: 'definiție',
+          editor: defEditor,
+          field: 'defHtml',
+          formatter: 'html',
+          headerSort: false,
+          tooltip: htmlTooltip,
+          width: leftover / 2,
+        }, {
+          title: 'sursă',
+          cssClass: 'col-readonly',
+          field: 'shortName',
+          width: sourceW,
+        }, {
+          title: 'dată',
+          editor: 'input',
+          field: 'displayDate',
+          width: dateW,
+        }, {
+          title: 'adăugată de',
+          cssClass: 'col-readonly',
+          field: 'userName',
+          width: userW,
+        }, {
+          title: 'pr.',
+          editor: 'number',
+          field: 'priority',
+          validator: [ 'required', 'min:0', 'max:10'],
+          width: priW,
+        }, {
+          title: 'imagine',
+          editor: 'input',
+          field: 'image',
+          width: imageW,
+        }, {
+          title: 'description',
+          field: 'description',
+          visible: false,
+        }, {
+          title: 'motiv',
+          editor: descriptionEditor,
+          field: 'descHtml',
+          formatter: 'html',
+          tooltip: htmlTooltip,
+          width: leftover / 2,
+        }, {
+          title: 'acțiuni',
+          cellClick: deleteRow,
+          cssClass: 'col-clickable',
+          formatter: printDeleteIcon,
+          headerFilter: false,
+          headerSort: false,
+          hozAlign: 'center',
+          width: actionW,
+        },
+      ],
+      columnDefaults:{
+        headerFilter: 'input',
+      },
+      filterMode: 'remote',
+      headerSortElement: '<i class="material-icons">expand_less</i>',
+      initialSort:[
+        {column: 'displayDate', dir:'desc'},
+      ],
+      keybindings: false,
+      langs: { /* for localized pagination */
+        'ro-ro': {
+          'data': {
+            'loading': 'încarc...',
+            'error': 'eroare',
+          },
+          'pagination': {
+            'page_size': 'per pagină',
+            'page_title': 'sari la pagina',
+            'first': '<i class="material-icons">first_page</i>',
+            'first_title': 'prima pagină',
+            'last': '<i class="material-icons">last_page</i>',
+            'last_title': 'ultima pagină',
+            'prev': '<i class="material-icons">navigate_before</i>',
+            'prev_title': 'pagina anterioară',
+            'next': '<i class="material-icons">navigate_next</i>',
+            'next_title': 'pagina următoare',
+          },
+        },
+      },
+      locale: 'ro-ro',
+      pagination: true,
+      paginationMode: 'remote',
+      paginationSize: 50,
+      paginationSizeSelector: [20, 50, 100, 200],
+      sortMode: 'remote',
+    });
+    grid.on('cellEdited', cellEdited);
+  }
+
+  function htmlTooltip(cell) {
+    // for some reason, this also gets called by the ColumnComponent
+    var e = cell.getElement();
+    if (e.classList.contains('tabulator-cell')) {
+      return $(e).text();
     }
-  });
+  }
 
-  var colModels = [
-    {
-      label: 'Cuvânt',
-      name: 'lexicon',
-      index: 'd.lexicon',
-      editable: true,
-      edittype: 'select',
-      editoptions: {value: 'x:x'},
-      width: lexWidth,
-    },
-    {
-      label: 'Sursă',
-      name: 'shortName',
-      index: 's.shortName',
-      width: sourceWidth,
-    },
-    {
-      label: 'Definiție',
-      name: 'defHtml',
-      index: 'd.internalRep',
-      formatter: htmlFormatter,
-      width: htmlWidth,
-    },
-    {
-      label: 'Data afișării',
-      name: 'displayDate',
-      index: 'w.displayDate',
-      width: dateWidth,
-      editable: true,
-    },
-    {
-      label: 'Fără an',
-      name: 'noYear',
-      editable: true,
-      edittype: 'checkbox',
-      editrules: { edithidden: true },
-      editoptions: { value: '1:' }, // the default is 'Yes:No', which is weird
-      hidden: true,
-    },
-    {
-      label: 'Adăugată de',
-      name: 'name',
-      index: 'u.name',
-      width: userWidth,
-    },
-    {
-      label: 'Pr.',
-      name: 'priority',
-      index: 'w.priority',
-      editable: true,
-      width: priorWidth,
-    },
-    {
-      label: 'Imagine',
-      name: 'image',
-      index: 'w.image',
-      editable: true,
-      edittype: 'select',
-      editoptions: {value: ':'},
-      width: imageWidth,
-    },
-    { // HTML, visible as column header
-      label: 'Motiv',
-      name: 'wotdHtml',
-      index: 'w.description',
-      formatter: htmlFormatter,
-      width: descWidth,
-    },
-    {
-      name: 'definitionId',
-      index: 'definitionId',
-      editable: true,
-      hidden: true,
-    },
-    { // internal, visible as label in the edit form
-      label: 'Motiv',
-      name: 'description',
-      editable: true,
-      edittype: 'textarea',
-      editrules: { edithidden: true },
-      hidden: true,
-    },
-  ];
+  function defEditor(cell, onRendered, success, cancel, editorParams) {
+    var editor = document.createElement('select');
 
-  $('#wotdGrid').jqGrid({
-    colModel: colModels,
-    datatype: 'json',
-    editurl: wwwRoot + 'ajax/saveWotd.php',
-    height: '100%',
-    ondblClickRow: doubleClickRow,
-    pager: $('#wotdPaging'),
-    recreateForm: true,
-    rowList: [20, 50, 100, 200],
-    rowNum: 50,
-    sortname: 'w.displayDate',
-    sortorder: 'desc',
-    url: wwwRoot + 'ajax/getWotds.php',
-    viewrecords: true,
-  });
-  $('#wotdGrid').navGrid('#wotdPaging',
-    {
-      search: false,
-      addtext: 'adaugă',
-      deltext: 'șterge',
-      edittext: 'editează',
-      refreshtext: 'reîncarcă',
-    }, editOptions, addOptions, deleteOptions
-  );
-  $('#wotdGrid').filterToolbar({
-    stringResult: true,
-  });
+    onRendered(function() {
+      $(editor).select2({
+        ajax: {
+          url: wwwRoot + 'ajax/getDefinitions.php',
+        },
+        templateResult: formatDefinition,
+        templateSelection: formatDefinition,
+        minimumInputLength: 2,
+        placeholder: 'caută un cuvânt...',
+        width: '100%',
+      }).on('change', function(e) {
+        // propagate change to related fields
+        var d = $(editor).select2('data')[0];
+        cell.getRow().getCell('definitionId').setValue(d.id);
+        cell.getRow().getCell('lexicon').setValue(d.lexicon);
+        cell.getRow().getCell('shortName').setValue(d.source);
+        success(d.html);
+      }).on('select2:close', function() {
+        cancel();
+      }).select2('open');
+    });
+
+    editor.addEventListener('blur', function() {
+      $(editor).select2('destroy');
+      cancel();
+    });
+
+    return editor;
+  }
+
+  // switch to the internal description when editing
+  function descriptionEditor(cell, onRendered, success, cancel, editorParams) {
+    var editor = document.createElement('input');
+    editor.style.width = '100%';
+    editor.value = cell.getRow().getCell('description').getValue();
+
+    onRendered(function() {
+      editor.focus();
+    });
+
+    editor.addEventListener('change', function() {
+      cell.getRow().getCell('description').setValue(editor.value);
+      success(editor.value);
+    });
+    editor.addEventListener('blur', cancel);
+
+    return editor;
+  }
+
+  function cellEdited(cell) {
+    // these are display-only fields; don't call the server when they change
+    var displayFields = [ 'defHtml', 'descHtml', 'lexicon', 'shortName' ];
+
+    var field = cell.getField();
+    if (displayFields.includes(field)) {
+      return;
+    }
+
+    $.ajax({
+      url: gridUrl,
+      data: {
+        action: 'save',
+        field: field,
+        value: cell.getValue(),
+        wotdId: cell.getRow().getIndex(),
+      },
+    }).fail(function() {
+      cell.restoreOldValue();
+      alert('Nu am putut salva modificarea (eroare pe server).');
+    });
+  }
+
+  function printDeleteIcon() {
+    return '<i class="material-icons">delete</i>';
+  }
+
+  function deleteRow(e, cell) {
+    var row = cell.getRow();
+    var msg = sprintf('Confirmi ștergerea înregistrării [%s] pentru data [%s]?',
+                      row.getCell('lexicon').getValue(),
+                      row.getCell('displayDate').getValue());
+    if (!confirm(msg)) {
+      return;
+    }
+
+    $.ajax({
+      url: gridUrl,
+      data: { action: 'delete', wotdId: row.getIndex() }
+    }).done(function(resp) {
+      cell.getRow().delete();
+    }).fail(function() {
+      alert('Nu am putut șterge înregistrarea (eroare pe server).');
+    });
+  }
+
+  init();
 });

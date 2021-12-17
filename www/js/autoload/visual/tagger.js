@@ -74,36 +74,26 @@ $(function() {
           title: 'intrare',
           cssClass: 'col-readonly',
           field: 'description',
-          sorter: 'string',
-        }, {
-          title: 'id intrare',
-          field: 'entryId',
-          visible: false,
         }, {
           title: 'etichetă',
           editor: 'input',
           field: 'label',
-          sorter: 'string',
         }, {
           title: 'X etichetă',
           editor: 'number',
           field: 'labelX',
-          sorter: 'number',
         }, {
           title: 'Y etichetă',
           editor: 'number',
           field: 'labelY',
-          sorter: 'number',
         }, {
           title: 'X vîrf',
           editor: 'number',
           field: 'tipX',
-          sorter: 'number',
         }, {
           title: 'Y vîrf',
           editor: 'number',
           field: 'tipY',
-          sorter: 'number',
         }, {
           title: 'acțiuni',
           cellClick: deleteRow,
@@ -115,6 +105,7 @@ $(function() {
         },
       ],
       headerSortElement: '<i class="material-icons">expand_less</i>',
+      initialSort:[{ column: 'label', dir:'asc' }],
       layout: 'fitColumns',
     });
     grid.on('cellEdited', cellEdited);

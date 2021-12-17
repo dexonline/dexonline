@@ -145,17 +145,22 @@ $(function (){
   function beginEdit(e, row = null) {
     editingRow = row;
 
-    // set field values
     if (row) {
+      // prepare the definitionId
       var option = sprintf(
         '<option value="%d" selected>%s</option>',
         row.getCell('definitionId').getValue(),
         row.getCell('defHtml').getValue());
       $('#edit-definitionId').html(option);
 
-      [ 'displayDate', 'priority', 'image', 'description' ].forEach(function(name) {
-        $('#edit-' + name).val(row.getCell(name).getValue());
-      });
+      // prepare the displayDate
+      var dd = shortenDisplayDate(row.getCell('displayDate').getValue());
+      $('#edit-displayDate').val(dd);
+
+      // prepare other fields
+      $('#edit-priority').val(row.getCell('priority').getValue());
+      $('#edit-image').val(row.getCell('image').getValue());
+      $('#edit-description').val(row.getCell('description').getValue());
     }
 
     // initialize Select2's
@@ -187,6 +192,17 @@ $(function (){
       $('#edit-displayDate').focus();
     } else {
       $('#edit-definitionId').select2('open');
+    }
+  }
+
+  // takes a string formatted as YYYY-MM-DD and shortens it, omitting zero values
+  function shortenDisplayDate(s) {
+    if (s == '0000-00-00') {
+      return '';
+    } else if (s.startsWith('0000-')) {
+      return s.substring(5);
+    } else {
+      return s;
     }
   }
 

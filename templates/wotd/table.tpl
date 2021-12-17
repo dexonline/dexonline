@@ -72,7 +72,7 @@
               <div class="col-9">
                 <input class="form-control" id="edit-displayDate" name="displayDate" type="text">
                 <span class="form-text">
-                  Format: AAAA-LL-ZZ. Anul poate fi 0000.
+                  Format: gol sau AAAA-LL-ZZ sau LL-ZZ.
                 </span>
               </div>
             </div>

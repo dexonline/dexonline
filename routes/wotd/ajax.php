@@ -103,14 +103,21 @@ function deleteWotd() {
 
 // returns a sanitized date string on success, false on failure
 function sanitizeDate(string $s) {
+  // empty date
   if ($s == '') {
-    return ''; // empty dates allowed
+    return '0000-00-00';
+  }
+
+  // month and day, but no year
+  if (preg_match('/^\d?\d-\d?\d$/', $s)) {
+    $s = '0000-' . $s;
   }
 
   if (!preg_match('/^\d\d\d\d-\d?\d-\d?\d$/', $s)) {
     return false;
   }
 
+  // zero-pad month and day to two digits
   $parts = explode('-', $s);
   return sprintf('%s-%02d-%02d', $parts[0], $parts[1], $parts[2]);
 }
@@ -143,9 +150,7 @@ function saveWotd() {
   if ($displayDate === false) {
     $error = 'Data trebuie să aibă formatul AAAA-LL-ZZ';
 
-  } else if ($displayDate &&
-             !Str::startsWith($displayDate, '0000-') &&
-             ($displayDate < $today)) {
+  } else if (!Str::startsWith($displayDate, '0000-') && ($displayDate < $today)) {
     $error = 'Nu puteți atribui o dată din trecut.';
 
   } else if ($wotd->isPast() && ($displayDate != $wotd->displayDate)) {
@@ -155,7 +160,7 @@ function saveWotd() {
     $error = 'Nu puteți modifica definiția pentru un cuvânt al zilei deja afișat.';
 
   } else if (!$definitionId &&
-             (!$description || !$displayDate)) {
+             (!$description || ($displayDate == '0000-00-00'))) {
     // Use case: we notice that event X happens on date D and we want to
     // celebrate it, but we don't have the time to find a word right now.
     $error = 'Dacă nu alegeți o definiție, atunci trebuie să alegeți o dată și un motiv.';
@@ -163,7 +168,7 @@ function saveWotd() {
   } else {
     $error = null;
 
-    $wotd->displayDate = $displayDate ?: '0000-00-00';
+    $wotd->displayDate = $displayDate;
     $wotd->definitionId = $definitionId;
     $wotd->priority = $priority;
     $wotd->image = $image;

@@ -1,96 +1,117 @@
 $(function (){
 
+  // I couldn't make Tabulator's table layout play nice.
+  const W_CONT = $('.container').width();
+  const W_LEXICON    = 100;
+  const W_SOURCE     =  60;
+  const W_DATE       =  90;
+  const W_USER       =  90;
+  const W_PRIORITY   =  40;
+  const W_IMAGE      = 130;
+  const W_TOTAL      = W_LEXICON + W_SOURCE + W_DATE + W_USER + W_PRIORITY + W_IMAGE;
+  const W_LEFTOVER   = W_CONT - W_TOTAL - 40;
+
+  const GRID_COLUMNS = [
+    {
+      title: 'id',
+      field: 'id',
+      visible: false,
+    }, {
+      title: 'definitionId',
+      field: 'definitionId',
+      visible: false,
+    }, {
+      title: 'cuvânt',
+      field: 'lexicon',
+      width: W_LEXICON,
+    }, {
+      title: 'definiție',
+      field: 'defHtml',
+      formatter: 'html',
+      headerSort: false,
+      tooltip: htmlTooltip,
+      width: W_LEFTOVER / 2,
+    }, {
+      title: 'sursă',
+      field: 'shortName',
+      width: W_SOURCE,
+    }, {
+      title: 'dată',
+      field: 'displayDate',
+      width: W_DATE,
+    }, {
+      title: 'adăugată de',
+      field: 'userName',
+      width: W_USER,
+    }, {
+      title: 'pr.',
+      field: 'priority',
+      width: W_PRIORITY,
+    }, {
+      title: 'imagine',
+      field: 'image',
+      width: W_IMAGE,
+    }, {
+      title: 'description',
+      field: 'description',
+      visible: false,
+    }, {
+      title: 'motiv',
+      field: 'descHtml',
+      formatter: 'html',
+      tooltip: htmlTooltip,
+      width: W_LEFTOVER / 2,
+    },
+  ];
+
+  const GRID_URL = wwwRoot + 'wotd-ajax';
+
+  const TABULATOR_TRANSLATIONS = {
+    'ro-ro': {
+      'data': {
+        'loading': 'încarc...',
+        'error': 'eroare',
+      },
+      'pagination': {
+        'page_size': 'per pagină',
+        'page_title': 'sari la pagina',
+        'first': '<i class="material-icons">first_page</i>',
+        'first_title': 'prima pagină',
+        'last': '<i class="material-icons">last_page</i>',
+        'last_title': 'ultima pagină',
+        'prev': '<i class="material-icons">navigate_before</i>',
+        'prev_title': 'pagina anterioară',
+        'next': '<i class="material-icons">navigate_next</i>',
+        'next_title': 'pagina următoare',
+      },
+    },
+  };
+
+  var editingRow; // row currently being edited in the modal
   var grid;
-  var gridUrl = wwwRoot + 'wotd-ajax';
-  var imageList; // a select2 for WotD images
+  var modal;
 
   function init() {
-    // I couldn't make Tabulator's table layout play nice.
-    var contW = $('.container').width();
-    var lexiconW    = 100;
-    var sourceW     =  60;
-    var dateW       =  90;
-    var userW       =  90;
-    var priW        =  40;
-    var imageW      = 130;
-    var actionW     =  60;
-    var leftover    = contW - (lexiconW + sourceW + dateW + userW + priW + imageW + actionW + 40);
+    initGrid();
 
-    grid = new Tabulator('#wotdGrid', {
-      ajaxURL: gridUrl,
+    var modalEl = document.getElementById('edit-modal');
+    modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+    modalEl.addEventListener('hidden.bs.modal', function (event) {
+      $('#edit-definitionId').select2('destroy');
+      $('#edit-image').select2('destroy');
+    });
+
+    $('#delete-btn').click(deleteRow);
+    $('#save-btn').click(saveRow);
+  }
+
+  function initGrid() {
+    grid = new Tabulator('#wotd-grid', {
+      ajaxURL: GRID_URL,
       ajaxParams: { action: 'load' },
-      columns: [
-        {
-          title: 'id',
-          field: 'id',
-          visible: false,
-        }, {
-          title: 'definitionId',
-          field: 'definitionId',
-          visible: false,
-        }, {
-          title: 'cuvânt',
-          cssClass: 'col-readonly',
-          field: 'lexicon',
-          width: lexiconW,
-        }, {
-          title: 'definiție',
-          editor: defEditor,
-          field: 'defHtml',
-          formatter: 'html',
-          headerSort: false,
-          tooltip: htmlTooltip,
-          width: leftover / 2,
-        }, {
-          title: 'sursă',
-          cssClass: 'col-readonly',
-          field: 'shortName',
-          width: sourceW,
-        }, {
-          title: 'dată',
-          editor: 'input',
-          field: 'displayDate',
-          width: dateW,
-        }, {
-          title: 'adăugată de',
-          cssClass: 'col-readonly',
-          field: 'userName',
-          width: userW,
-        }, {
-          title: 'pr.',
-          editor: 'number',
-          field: 'priority',
-          width: priW,
-        }, {
-          title: 'imagine',
-          editor: imageEditor,
-          field: 'image',
-          width: imageW,
-        }, {
-          title: 'description',
-          field: 'description',
-          visible: false,
-        }, {
-          title: 'motiv',
-          editor: descriptionEditor,
-          field: 'descHtml',
-          formatter: 'html',
-          tooltip: htmlTooltip,
-          width: leftover / 2,
-        }, {
-          title: 'acțiuni',
-          cellClick: deleteRow,
-          cssClass: 'col-clickable',
-          formatter: printDeleteIcon,
-          headerFilter: false,
-          headerSort: false,
-          hozAlign: 'center',
-          width: actionW,
-        },
-      ],
+      columns: GRID_COLUMNS,
       columnDefaults:{
         headerFilter: 'input',
-        validator: remoteValidator,
       },
       filterMode: 'remote',
       headerSortElement: '<i class="material-icons">expand_less</i>',
@@ -98,26 +119,7 @@ $(function (){
         {column: 'displayDate', dir:'desc'},
       ],
       keybindings: false,
-      langs: { /* for localized pagination */
-        'ro-ro': {
-          'data': {
-            'loading': 'încarc...',
-            'error': 'eroare',
-          },
-          'pagination': {
-            'page_size': 'per pagină',
-            'page_title': 'sari la pagina',
-            'first': '<i class="material-icons">first_page</i>',
-            'first_title': 'prima pagină',
-            'last': '<i class="material-icons">last_page</i>',
-            'last_title': 'ultima pagină',
-            'prev': '<i class="material-icons">navigate_before</i>',
-            'prev_title': 'pagina anterioară',
-            'next': '<i class="material-icons">navigate_next</i>',
-            'next_title': 'pagina următoare',
-          },
-        },
-      },
+      langs: TABULATOR_TRANSLATIONS,
       locale: 'ro-ro',
       pagination: true,
       paginationMode: 'remote',
@@ -126,209 +128,103 @@ $(function (){
       sortMode: 'remote',
     });
 
-    imageList = $('#imageList').detach().removeAttr('id');
+    // move footer before table rows; move add button to footer
+    grid.on('tableBuilt', function() {
+      $('.tabulator-footer').prependTo($('#wotd-grid'));
+      $('#add-button').prependTo($('.tabulator-footer'));
+    });
+
+    grid.on('rowClick', beginEdit);
   }
 
   function htmlTooltip(cell) {
     // for some reason, this also gets called by the ColumnComponent
-    var e = cell.getElement();
-    if (e.classList.contains('tabulator-cell')) {
-      return $(e).text();
-    }
+    return $(cell.getElement()).text();
   }
 
-  /**
-   * Select2 editor. Jump through some hoops to prevent (1) calling both
-   * success() and cancel and (2) reopening the select on clear.
-   */
-  function defEditor(cell, onRendered, success, cancel, editorParams) {
-    var done = false;
-    var plainText = $(cell.getElement()).text();
-    var opt = new Option(plainText, plainText, true, true);
-    var editor = document.createElement('select');
-    editor.appendChild(opt);
+  function beginEdit(e, row) {
+    editingRow = row;
 
-    onRendered(function() {
-      $(editor).select2({
-        ajax: {
-          url: wwwRoot + 'ajax/getDefinitions.php',
-        },
-        allowClear: true,
-        minimumInputLength: 2,
-        placeholder: 'caută o definiție...',
-        templateResult: formatDefinition,
-        templateSelection: formatDefinition,
-        width: '100%',
-      }).on('change', function(e) {
-        // propagate change to related fields
-        var d = $(editor).select2('data')[0];
-        if (typeof d !== 'undefined') {
-          successFunc(d.id, d.html, d.lexicon, d.source);
-        }
-      }).on('select2:clear', function() {
-        successFunc(0, '', '', '');
-      }).on('select2:close', function() {
-        cancelFunc();
-      }).on('select2:opening', function(e) {
-        if (done) {
-          e.preventDefault();
-        }
-      }).select2('open');
+    // set field values
+    var defId = row.getCell('definitionId').getValue() || 0;
+    var defHtml = row.getCell('defHtml').getValue() || '';
+
+    var option = sprintf('<option value="%d" selected><span>%s</span></option>',
+                         defId, defHtml);
+    $('#edit-definitionId').html(option);
+
+    [ 'displayDate', 'priority', 'image', 'description' ].forEach(function(name) {
+      $('#edit-' + name).val(row.getCell(name).getValue());
     });
 
-    function successFunc(definitionId, html, lexicon, shortName) {
-      if (!done) {
-        done = true;
-        cell.getRow().getCell('definitionId').setValue(definitionId);
-        cell.getRow().getCell('lexicon').setValue(lexicon);
-        cell.getRow().getCell('shortName').setValue(shortName);
-        success(html);
-      }
-    }
-
-    function cancelFunc() {
-      if (!done) {
-        done = true;
-        cancel();
-      }
-    }
-
-    return editor;
-  }
-
-  /**
-   * Same as defEditor, but with local data.
-   */
-  function imageEditor(cell, onRendered, success, cancel, editorParams) {
-    var done = false;
-    var editor = imageList.clone()[0];
-    editor.value = cell.getValue();
-
-    onRendered(function() {
-      $(editor).select2({
-        allowClear: true,
-        minimumInputLength: 1,
-        placeholder: 'caută o imagine...',
-        width: '100%',
-      }).on('change', function() {
-        var d = $(editor).select2('data')[0];
-        successFunc(d.text);
-      }).on('select2:clear', function() {
-        successFunc('');
-      }).on('select2:close', function() {
-        cancelFunc();
-      }).on('select2:opening', function(e) {
-        if (done) {
-          e.preventDefault();
-        }
-      }).select2('open');
+    // initialize Select2's
+    $('#edit-definitionId').select2({
+      ajax: { url: wwwRoot + 'ajax/getDefinitions.php' },
+      allowClear: true,
+      dropdownParent: $('#edit-modal'),
+      minimumInputLength: 2,
+      placeholder: 'caută o definiție...',
+      templateResult: formatDefinition,
+      templateSelection: formatDefinition,
+      width: '100%',
     });
 
-    function successFunc(val) {
-      if (!done) {
-        done = true;
-        success(val);
-      }
-    }
-
-    function cancelFunc() {
-      if (!done) {
-        done = true;
-        cancel();
-      }
-    }
-
-    return editor;
-  }
-
-  // switch to the internal description when editing
-  function descriptionEditor(cell, onRendered, success, cancel, editorParams) {
-    var editor = document.createElement('input');
-    editor.style.width = '100%';
-    editor.value = cell.getRow().getCell('description').getValue();
-
-    onRendered(function() {
-      editor.focus();
+    $('#edit-image').select2({
+      allowClear: true,
+      dropdownParent: $('#edit-modal'),
+      minimumInputLength: 1,
+      placeholder: 'caută o imagine...',
+      width: '100%',
     });
 
-    editor.addEventListener('change', function() {
-      cell.getRow().getCell('description').setValue(editor.value);
-      success(editor.value);
-    });
-    editor.addEventListener('blur', cancel);
-
-    return editor;
+    // show the modal
+    modal.show();
+    $('#edit-displayDate').focus();
   }
 
-  /**
-   * Tries to actually save the new cell value. The server will respond with
-   * an error message if validation fails.
-   */
-  async function remoteValidator(cell, value, parameters) {
-    // these are display-only fields; don't call the server when they change
-    var displayFields = [ 'defHtml', 'descHtml', 'lexicon', 'shortName' ];
+  function saveRow() {
+    $.get(GRID_URL, {
+      action: 'save',
+      definitionId: $('#edit-definitionId').val(),
+      description: $('#edit-description').val(),
+      displayDate: $('#edit-displayDate').val(),
+      image: $('#edit-image').val(),
+      priority: $('#edit-priority').val(),
+      wotdId: editingRow.getIndex(),
+    }).done(function(resp) {
+      if (resp.error) {
+        alert('Eroare: ' +  resp.error);
+      } else {
+        // propagate changes back into the table
+        editingRow.getCells().forEach(function(cell) {
+          var value = resp.data[cell.getField()];
+          cell.setValue(value);
+        });
 
-    var field = cell.getField();
-    if (displayFields.includes(field)) {
-      return true;
-    }
-
-    // TODO: Does Tabulator support asynchronous validators?
-    var errorMsg = null;
-    await new Promise(function(resolve, reject) {
-      $.ajax({
-        url: gridUrl,
-        data: {
-          action: 'save',
-          field: field,
-          value: value,
-          wotdId: cell.getRow().getIndex(),
-        },
-      }).done(function(resp) {
-        if (resp) {
-          reject(new Error(resp));
-        } else {
-          resolve(null);
-        }
-      }).fail(function(resp) {
-        console.log(resp);
-        reject(new Error('Eroare la comunicarea cu serverul.'));
-      });
-    }).then(
-      function() {},
-      function(error) {
-        errorMsg = error.message;
+        modal.hide();
       }
-    );
-
-    if (errorMsg) {
-      alert(errorMsg);
-      return false;
-    } else {
-      return true;
-    }
+    }).fail(function() {
+      alert('Eroare: Serverul nu răspunde.');
+    });
   }
 
-  function printDeleteIcon() {
-    return '<i class="material-icons">delete</i>';
-  }
-
-  function deleteRow(e, cell) {
-    var row = cell.getRow();
-    var msg = sprintf('Confirmi ștergerea înregistrării [%s] pentru data [%s]?',
-                      row.getCell('lexicon').getValue(),
-                      row.getCell('displayDate').getValue());
-    if (!confirm(msg)) {
+  function deleteRow() {
+    if (!confirm('Confirmi ștergerea înregistrării?')) {
       return;
     }
 
-    $.ajax({
-      url: gridUrl,
-      data: { action: 'delete', wotdId: row.getIndex() }
+    $.get(GRID_URL, {
+      action: 'delete',
+      wotdId: editingRow.getIndex(),
     }).done(function(resp) {
-      cell.getRow().delete();
+      if (resp.error) {
+        alert('Eroare: ' +  resp.error);
+      } else {
+        editingRow.delete();
+        modal.hide();
+      }
     }).fail(function() {
-      alert('Nu am putut șterge înregistrarea (eroare pe server).');
+      alert('Eroare: Serverul nu răspunde.');
     });
   }
 

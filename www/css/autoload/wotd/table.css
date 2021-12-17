@@ -2,6 +2,12 @@
   min-width: 100%;
 }
 
-#wotdGrid {
+#wotd-grid {
   font-size: 80%;
+}
+
+.tabulator .tabulator-footer {
+  border-top-width: 0;
+  border-bottom: 1px solid var(--bs-gray-300);
+  padding-bottom: 0.5rem;
 }

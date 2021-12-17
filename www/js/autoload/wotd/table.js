@@ -96,17 +96,16 @@ $(function (){
 
     var modalEl = document.getElementById('edit-modal');
     modal = bootstrap.Modal.getOrCreateInstance(modalEl);
-    modalEl.addEventListener('hidden.bs.modal', function (event) {
-      $('#edit-definitionId').select2('destroy');
-      $('#edit-image').select2('destroy');
-    });
+    modalEl.addEventListener('hidden.bs.modal', modalHidden)
 
+    $('#add-btn').click(beginEdit);
     $('#delete-btn').click(deleteRow);
     $('#save-btn').click(saveRow);
   }
 
   function initGrid() {
     grid = new Tabulator('#wotd-grid', {
+      addRowPos: 'top',
       ajaxURL: GRID_URL,
       ajaxParams: { action: 'load' },
       columns: GRID_COLUMNS,
@@ -131,7 +130,7 @@ $(function (){
     // move footer before table rows; move add button to footer
     grid.on('tableBuilt', function() {
       $('.tabulator-footer').prependTo($('#wotd-grid'));
-      $('#add-button').prependTo($('.tabulator-footer'));
+      $('#add-btn').prependTo($('.tabulator-footer'));
     });
 
     grid.on('rowClick', beginEdit);
@@ -142,20 +141,22 @@ $(function (){
     return $(cell.getElement()).text();
   }
 
-  function beginEdit(e, row) {
+  // called for editing OR adding a row (in which case row is null)
+  function beginEdit(e, row = null) {
     editingRow = row;
 
     // set field values
-    var defId = row.getCell('definitionId').getValue() || 0;
-    var defHtml = row.getCell('defHtml').getValue() || '';
+    if (row) {
+      var option = sprintf(
+        '<option value="%d" selected>%s</option>',
+        row.getCell('definitionId').getValue(),
+        row.getCell('defHtml').getValue());
+      $('#edit-definitionId').html(option);
 
-    var option = sprintf('<option value="%d" selected><span>%s</span></option>',
-                         defId, defHtml);
-    $('#edit-definitionId').html(option);
-
-    [ 'displayDate', 'priority', 'image', 'description' ].forEach(function(name) {
-      $('#edit-' + name).val(row.getCell(name).getValue());
-    });
+      [ 'displayDate', 'priority', 'image', 'description' ].forEach(function(name) {
+        $('#edit-' + name).val(row.getCell(name).getValue());
+      });
+    }
 
     // initialize Select2's
     $('#edit-definitionId').select2({
@@ -177,9 +178,16 @@ $(function (){
       width: '100%',
     });
 
+    // hide the delete button when adding a row
+    $('#delete-btn').toggle(row != null);
+
     // show the modal
     modal.show();
-    $('#edit-displayDate').focus();
+    if (row) {
+      $('#edit-displayDate').focus();
+    } else {
+      $('#edit-definitionId').select2('open');
+    }
   }
 
   function saveRow() {
@@ -190,21 +198,34 @@ $(function (){
       displayDate: $('#edit-displayDate').val(),
       image: $('#edit-image').val(),
       priority: $('#edit-priority').val(),
-      wotdId: editingRow.getIndex(),
+      wotdId: editingRow ? editingRow.getIndex() : 0,
     }).done(function(resp) {
       if (resp.error) {
         alert('Eroare: ' +  resp.error);
       } else {
+
         // propagate changes back into the table
-        editingRow.getCells().forEach(function(cell) {
-          var value = resp.data[cell.getField()];
-          cell.setValue(value);
-        });
+        if (editingRow) {
+          populateRow(resp.data);
+        } else {
+          grid.addRow({}).then(function(row) {
+            editingRow = row;
+            populateRow(resp.data);
+          });
+        }
 
         modal.hide();
       }
     }).fail(function() {
       alert('Eroare: Serverul nu răspunde.');
+    });
+  }
+
+  // populates a table row with data from an Ajax save
+  function populateRow(data) {
+    editingRow.getCells().forEach(function(cell) {
+      var value = data[cell.getField()];
+      cell.setValue(value);
     });
   }
 
@@ -226,6 +247,12 @@ $(function (){
     }).fail(function() {
       alert('Eroare: Serverul nu răspunde.');
     });
+  }
+
+  function modalHidden() {
+    $('#edit-definitionId').select2('destroy');
+    $('#edit-image').select2('destroy');
+    $(this).find('input, select, textarea').val('');
   }
 
   init();

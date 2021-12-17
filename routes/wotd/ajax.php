@@ -115,13 +115,20 @@ function sanitizeDate(string $s) {
   return sprintf('%s-%02d-%02d', $parts[0], $parts[1], $parts[2]);
 }
 
+// remove newlines; collapse consecutive whitespace
+function sanitizeDescription(string $s) {
+  $s = trim($s);
+  $s = preg_replace('/\s+/', ' ', $s);
+  return $s;
+}
+
 function saveWotd() {
-  $definitionId = Request::get('definitionId');
-  $description = Request::get('description');
-  $displayDate = Request::get('displayDate');
+  $definitionId = (int)Request::get('definitionId');
+  $description = sanitizeDescription(Request::get('description'));
+  $displayDate = sanitizeDate(Request::get('displayDate'));
   $image = Request::get('image');
-  $priority = Request::get('priority');
-  $wotdId = Request::get('wotdId');
+  $priority = (int)Request::get('priority');
+  $wotdId = (int)Request::get('wotdId');
 
   if ($wotdId) {
     $wotd = WordOfTheDay::get_by_id($wotdId);
@@ -131,7 +138,6 @@ function saveWotd() {
   }
 
   $today = date('Y-m-d');
-  $displayDate = sanitizeDate($displayDate);
   $data = null;
 
   if ($displayDate === false) {

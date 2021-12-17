@@ -10,7 +10,7 @@
 
   <button
     class="btn btn-secondary btn-sm float-start"
-    id="add-button"
+    id="add-btn"
     type="button">
     {include "bits/icon.tpl" i=add}
     adaugă
@@ -117,8 +117,7 @@
                   class="form-control"
                   id="edit-description"
                   name="description"
-                  rows="8">
-                </textarea>
+                  rows="8"></textarea>
               </div>
             </div>
 

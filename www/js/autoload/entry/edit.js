@@ -13,6 +13,7 @@ $(function() {
       minimumInputLength: 1,
       templateSelection: formatLexemeWithEditLink,
     }, 'lexeme-group');
+    $('.btn-move-lexemes').click(moveLexemes);
 
     var entryAjax = {
       url: wwwRoot + 'ajax/getEntries.php',
@@ -63,6 +64,12 @@ $(function() {
     $('#dissociateButton').click(function () {
       return confirm('Confirmați disocierea?');
     });
+  }
+
+  function moveLexemes() {
+    var from = $(this).data('from');
+    var to = $(this).data('to');
+    $(from).find('option').appendTo($(to));
   }
 
   function showRenameDiv() {

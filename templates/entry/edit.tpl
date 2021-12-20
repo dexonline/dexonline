@@ -125,11 +125,30 @@
                 <option value="{$l}" selected></option>
               {/foreach}
             </select>
-            <div class="mt-1">
-              Tipuri de model:
-              {foreach $modelTypes as $mt}
-                <span class="badge badge-muted">{$mt}</span>
-              {/foreach}
+            <div class="mt-1 d-flex justify-content-between">
+              <span>
+                Tipuri de model:
+                {foreach $modelTypes as $mt}
+                  <span class="badge badge-muted">{$mt}</span>
+                {/foreach}
+              </span>
+
+              <span>
+                <button
+                  class="btn btn-sm btn-outline-secondary btn-move-lexemes"
+                  data-from="#variantLexemeIds"
+                  data-to="#mainLexemeIds"
+                  type="button">
+                  {include "bits/icon.tpl" i="expand_less"}
+                </button>
+                <button
+                  class="btn btn-sm btn-outline-secondary btn-move-lexemes"
+                  data-from="#mainLexemeIds"
+                  data-to="#variantLexemeIds"
+                  type="button">
+                  {include "bits/icon.tpl" i="expand_more"}
+                </button>
+              </span>
             </div>
           </div>
         </div>

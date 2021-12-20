@@ -358,11 +358,13 @@ class Router {
     ],
 
     // visuals
+    'visual/ajax' => [ 'en_US.utf8' => 'visual-ajax' ],
     'visual/elfinder' => [ 'en_US.utf8' => 'visual-elfinder' ],
     'visual/list' => [ 'en_US.utf8' => 'visuals' ],
     'visual/tagger' => [ 'en_US.utf8' => 'visual-tagger' ],
 
     // word of the day
+    'wotd/ajax' => [ 'en_US.utf8' => 'wotd-ajax' ],
     'wotd/add' => [ 'en_US.utf8' => 'wotd-add' ],
     'wotd/archive' => [
       'en_US.utf8' => 'word-of-the-day-archive',

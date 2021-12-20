@@ -188,7 +188,6 @@
 
   <h3>Etichete existente</h3>
 
-  <table id="tagsGrid"></table>
-  <div id="tagsPaging"></div>
+  <div id="tagsGrid"></div>
 
 {/block}

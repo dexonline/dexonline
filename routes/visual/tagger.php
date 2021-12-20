@@ -51,7 +51,5 @@ if ($addTagButton) {
 }
 
 Smart::assign('visual', $v);
-Smart::assign('entry', Entry::get_by_id($v->entryId));
-
-Smart::addResources('jcrop', 'jqgrid', 'gallery', 'admin', 'select2Dev');
+Smart::addResources('gallery', 'jcrop', 'select2Dev', 'tabulator');
 Smart::display('visual/tagger.tpl');

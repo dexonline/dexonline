@@ -4,5 +4,5 @@
 }
 
 .imageHolder {
-  border: 1px solid var(--bs-secondary);
+  border: 1px solid var(--bs-gray-300);
 }

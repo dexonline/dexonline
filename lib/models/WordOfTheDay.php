@@ -76,6 +76,11 @@ class WordOfTheDay extends BaseObject implements DatedObject {
     return $this->displayDate && !Str::startsWith($this->displayDate, '0000');
   }
 
+  function isPast() {
+    $today = date('Y-m-d');
+    return $this->hasFullDate() && ($this->displayDate < $today);
+  }
+
   function getImageUrl() {
     $pic = $this->image ? $this->image : self::DEFAULT_IMAGE;
     return Config::STATIC_URL . 'img/wotd/' . $pic;

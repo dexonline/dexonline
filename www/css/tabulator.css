@@ -1,0 +1,94 @@
+/* background color */
+.tabulator,
+.tabulator .tabulator-footer,
+.tabulator .tabulator-header,
+.tabulator .tabulator-header .tabulator-col,
+.tabulator .tabulator-tableholder .tabulator-table,
+.tabulator-row,
+.tabulator-row.tabulator-row-even {
+  background-color: inherit;
+}
+
+.tabulator .tabulator-header .tabulator-col.tabulator-sortable:hover,
+.tabulator-row.tabulator-selectable:hover {
+  background-color: var(--bs-gray-200);
+}
+
+.tabulator .tabulator-footer .tabulator-page.active {
+  background: var(--bs-gray-500);
+}
+
+.tabulator .tabulator-footer .tabulator-paginator button,
+.tabulator .tabulator-footer .tabulator-paginator select {
+  background: var(--bs-gray-200);
+}
+
+/* text color */
+.tabulator .tabulator-footer .tabulator-page.active,
+.tabulator .tabulator-header,
+.tabulator .tabulator-tableholder .tabulator-table {
+  color: inherit;
+}
+
+.tabulator .tabulator-footer .tabulator-paginator,
+.tabulator .tabulator-footer .tabulator-paginator button,
+.tabulator .tabulator-footer .tabulator-paginator select,
+.tabulator-row .tabulator-cell.tabulator-editing input {
+  color: var(--bs-body-color);
+}
+
+/* font weight */
+.tabulator .tabulator-footer {
+  font-weight: inherit;
+}
+
+/* borders */
+.tabulator .tabulator-header .tabulator-col,
+.tabulator-row .tabulator-cell {
+  border-right-width: 0;
+}
+
+.tabulator-row {
+  border-bottom-color: var(--bs-gray-300);
+}
+
+.tabulator-row .tabulator-cell.tabulator-editing {
+  border-color: var(--bs-gray-500);
+}
+.tabulator-row .tabulator-cell.tabulator-editing input {
+  outline-width: 0;
+}
+
+/* header filters */
+
+.tabulator-header-filter input {
+  padding: 0 !important;
+}
+
+/* header sorter icon placement and rotation */
+.tabulator .tabulator-header .tabulator-col .tabulator-col-content .tabulator-col-title {
+  display: inline;
+  padding-right: 0.5rem;
+}
+
+.tabulator .tabulator-header .tabulator-col .tabulator-col-content .tabulator-col-sorter {
+  display: inline;
+  position: inherit;
+}
+
+.tabulator-col[aria-sort="desc"] .tabulator-col-sorter i {
+  transform: scaleY(-1);
+}
+
+/* mouse cursor */
+.tabulator-row.tabulator-selectable:hover {
+  cursor: text; /* override tabulator's default pointer cursor */
+}
+
+.tabulator-row .col-readonly {
+  cursor: not-allowed;
+}
+
+.tabulator-row .col-clickable {
+  cursor: pointer;
+}

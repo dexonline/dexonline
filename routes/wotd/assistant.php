@@ -100,7 +100,7 @@ function loadDuplicates($yearMonth) {
     )
     join WordOfTheDay w2 on d2.id = w2.definitionId
     where w1.displayDate like '%s-__'
-      and w2.displayDate != '0000-00-00'
+      and w2.displayDate not like '0000-%%'
       and w2.displayDate < '%s'
 SQL;
 

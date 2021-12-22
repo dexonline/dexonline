@@ -43,14 +43,16 @@ $(function() {
 
     $('#advSearchModelTypes').select2();
 
-    $('.calendar').datepicker({
-      autoclose: true,
-      format: 'yyyy-mm-dd',
-      keyboardNavigation: false,
-      language: 'ro',
-      todayBtn: 'linked',
-      todayHighlight: true,
-      weekStart: 1,
+    $('.calendar').each(function() {
+      new Datepicker(this, {
+        autohide: true,
+        buttonClass: 'btn',
+        format: 'yyyy-mm-dd',
+        language: 'ro',
+        todayBtn: true,
+        todayBtnMode: 1,
+        weekStart: 1,
+      });
     });
   }
 

@@ -238,7 +238,7 @@ Smart::assign([
   'wotdAssistantDates' => $wotdAssistantDates,
 ]);
 Smart::addResources(
-  'admin', 'bootstrap-datepicker', 'modelDropdown', 'select2Dev'
+  'admin', 'datepicker', 'modelDropdown', 'select2Dev'
 );
 Smart::display('aggregate/dashboard.tpl');
 

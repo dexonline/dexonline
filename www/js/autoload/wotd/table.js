@@ -111,6 +111,7 @@ $(function (){
       columns: GRID_COLUMNS,
       columnDefaults:{
         headerFilter: 'input',
+        headerFilterLiveFilter: false,
       },
       filterMode: 'remote',
       headerSortElement: '<i class="material-icons">expand_less</i>',

@@ -1,14 +1,14 @@
 $(function() {
   function init() {
-    $('#calendar').datepicker({
-      autoclose: true,
+    new Datepicker(document.getElementById('calendar'), {
+      autohide: true,
+      buttonClass: 'btn',
       format: 'yyyy-mm',
-      keyboardNavigation: false,
       language: 'ro',
-      minViewMode: 'months',
-      todayBtn: 'linked',
-      todayHighlight: true,
-      weekStart: 1,
+      pickLevel: 1,
+      startView: 1,
+      todayBtn: true,
+      todayBtnMode: 1,
     });
 
     // for some reason the div steals focus despite event.stopPropagation()

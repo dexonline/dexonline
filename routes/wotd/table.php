@@ -22,9 +22,16 @@ $assistantDates = [
   strtotime("+3 month"),
 ];
 
+$currentYear = (int)date('Y');
+$years = [
+  'max' => $currentYear + 5,
+  'min' => $currentYear - 5,
+];
+
 Smart::assign([
-  'imageList' => $imageList,
   'assistantDates' => $assistantDates,
+  'imageList' => $imageList,
+  'years' => $years,
 ]);
-Smart::addResources('admin', 'select2Dev', 'tabulator');
+Smart::addResources('admin', 'datepicker', 'select2Dev', 'tabulator');
 Smart::display('wotd/table.tpl');

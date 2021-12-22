@@ -70,9 +70,17 @@
                 data afișării
               </label>
               <div class="col-9">
-                <input class="form-control" id="edit-displayDate" name="displayDate" type="text">
+                <div class="input-group">
+                  <select class="form-select" id="edit-displayYear" name="displayYear">
+                    <option value="">fără an</option>
+                    {for $y=$years.min to $years.max}
+                      <option value="{$y}">{$y}</option>
+                    {/for}
+                  </select>
+                  <input class="form-control" id="edit-displayDate" name="displayDate" type="text">
+                </div>
                 <span class="form-text">
-                  Format: gol sau AAAA-LL-ZZ sau LL-ZZ.
+                  Variante: AAAA-LL-ZZ sau LL-ZZ sau nimic.
                 </span>
               </div>
             </div>
@@ -117,7 +125,7 @@
                   class="form-control"
                   id="edit-description"
                   name="description"
-                  rows="8"></textarea>
+                  rows="6"></textarea>
               </div>
             </div>
 

@@ -1,0 +1,40 @@
+.datepicker-picker {
+  background-color: var(--bs-gray-100);
+}
+
+.datepicker-cell.disabled {
+  color: var(--bs-gray-400);
+}
+
+.datepicker-cell:not(.disabled):hover {
+  background-color: var(--bs-gray-200);
+}
+
+.datepicker-cell.focused:not(.selected) {
+  background-color: var(--bs-gray-400);
+}
+
+.datepicker-cell.next:not(.disabled), .datepicker-cell.prev:not(.disabled) {
+  color: var(--bs-gray-600);
+}
+
+.datepicker-controls .btn {
+  border: none;
+  background-color: var(--bs-gray-100);
+}
+
+.datepicker-controls .btn:not(:disabled):active,
+.datepicker-controls .btn:focus,
+.datepicker-controls .btn:hover {
+  background-color: var(--bs-gray-200);
+  color: inherit;
+}
+
+.datepicker-controls .btn:disabled {
+  color: var(--bs-gray-400);
+  background-color: var(--bs-gray-100);
+}
+
+.datepicker-footer {
+  background-color: var(--bs-gray-200);
+}

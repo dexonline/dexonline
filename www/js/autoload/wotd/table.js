@@ -154,8 +154,9 @@ $(function (){
       $('#edit-definitionId').html(option);
 
       // prepare the displayDate
-      var dd = shortenDisplayDate(row.getCell('displayDate').getValue());
-      $('#edit-displayDate').val(dd);
+      var parts = splitDisplayDate(row.getCell('displayDate').getValue());
+      $('#edit-displayYear').val(parts[0]);
+      $('#edit-displayDate').val(parts[1]);
 
       // prepare other fields
       $('#edit-priority').val(row.getCell('priority').getValue());
@@ -163,7 +164,7 @@ $(function (){
       $('#edit-description').val(row.getCell('description').getValue());
     }
 
-    // initialize Select2's
+    // initialize Select2's and date picker
     $('#edit-definitionId').select2({
       ajax: { url: wwwRoot + 'ajax/getDefinitions.php' },
       allowClear: true,
@@ -183,27 +184,58 @@ $(function (){
       width: '100%',
     });
 
+    // $.fn.datepicker.dates.ro.titleFormat = 'MM';
+    Datepicker.locales.ro.titleFormat = 'MM';
+    const elem = document.getElementById('edit-displayDate');
+    const datepicker = new Datepicker(elem, {
+      autohide: true,
+      buttonClass: 'btn',
+      clearBtn: true,
+      container: '#edit-modal',
+      format: 'mm-dd',
+      language: 'ro',
+      maxDate: '12-31',
+      maxView: 1,
+      minDate: '01-01',
+      todayBtn: true,
+      todayBtnMode: 1,
+      weekStart: 1,
+    });
+
     // hide the delete button when adding a row
     $('#delete-btn').toggle(row != null);
 
     // show the modal
     modal.show();
     if (row) {
-      $('#edit-displayDate').focus();
+      $('#edit-displayYear').focus();
     } else {
       $('#edit-definitionId').select2('open');
     }
   }
 
-  // takes a string formatted as YYYY-MM-DD and shortens it, omitting zero values
-  function shortenDisplayDate(s) {
+  /**
+   * Takes a string in one of three formats:
+   *   - 0000-00-00 (empty date);
+   *   - 0000-MM-DD (no year);
+   *   - YYYY-MM-DD (full date).
+   * Returns the year and date-month parts.
+   */
+  function splitDisplayDate(s) {
     if (s == '0000-00-00') {
-      return '';
+      return [ '', '' ];
     } else if (s.startsWith('0000-')) {
-      return s.substring(5);
+      return [ '', s.substring(5) ];
     } else {
-      return s;
+      return [ s.substring(0, 4), s.substring(5) ];
     }
+  }
+
+  // does the opposite of splitDisplayDate().
+  function joinDisplayDate($year, $monthDay) {
+    return $year
+      ? $year + '-' + $monthDay
+      : $monthDay;
   }
 
   function saveRow() {
@@ -211,7 +243,7 @@ $(function (){
       action: 'save',
       definitionId: $('#edit-definitionId').val(),
       description: $('#edit-description').val(),
-      displayDate: $('#edit-displayDate').val(),
+      displayDate: joinDisplayDate($('#edit-displayYear').val(), $('#edit-displayDate').val()),
       image: $('#edit-image').val(),
       priority: $('#edit-priority').val(),
       wotdId: editingRow ? editingRow.getIndex() : 0,

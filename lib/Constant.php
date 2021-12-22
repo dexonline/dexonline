@@ -348,6 +348,16 @@ class Constant {
         'third-party/bootstrap-datepicker.ro.min.js',
       ],
     ],
+    'datepicker' => [
+      'css' => [
+        'third-party/datepicker-bs5.min.css',
+        'datepicker.css',
+      ],
+      'js' => [
+        'third-party/datepicker-full.min.js',
+        'third-party/datepicker-ro.js',
+      ],
+    ],
     'frequentObjects' => [
       'css' => [ 'frequentObjects.css' ],
       'js' => [ 'frequentObjects.js' ],

@@ -148,7 +148,7 @@ function saveWotd() {
   $data = null;
 
   if ($displayDate === false) {
-    $error = 'Data trebuie să aibă formatul AAAA-LL-ZZ';
+    $error = 'Formatele pentru dată sînt AAAA-LL-ZZ sau LL-ZZ sau gol.';
 
   } else if (!Str::startsWith($displayDate, '0000-') && ($displayDate < $today)) {
     $error = 'Nu puteți atribui o dată din trecut.';

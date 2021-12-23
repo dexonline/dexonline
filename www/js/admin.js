@@ -118,6 +118,22 @@ $(function() {
   init();
 });
 
+/********************** select2 for .sourceDropDown **********************/
+
+$(function() {
+  $('.sourceDropDown').each(function() {
+    /**
+     * Don't pass in data-dropdown-parent directly because that causes a JS error.
+     * See https://github.com/select2/select2/issues/4289
+     */
+    var ddParent = $( $(this).data('ddParent') || document.body );
+    $(this).select2({
+      dropdownParent: ddParent,
+      templateResult: formatSource,
+      templateSelection: formatSource,
+    });
+  });
+});
 
 /******************************* sortable *******************************/
 

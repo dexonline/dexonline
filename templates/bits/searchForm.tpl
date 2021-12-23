@@ -57,11 +57,11 @@
       id="advSearch"
       {if !$advancedSearch}style="display: none"{/if}>
 
-      <div class="col-lg">
-        {include "bits/sourceDropDown.tpl" urlName=1}
+      <div class="col-12 col-lg-6">
+        {include "bits/sourceField.tpl"}
       </div>
 
-      <div class="col-lg d-flex align-items-lg-center">
+      <div class="col-12 col-lg-6 d-flex align-items-lg-center">
         {capture "fullTextMessage"}{t}Full-text search{/t}{/capture}
         {include "bs/checkbox.tpl"
           name='text'

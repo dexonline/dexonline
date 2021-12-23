@@ -203,7 +203,7 @@ class Smart {
   /* Prepare and display a template. */
   /* $hardened = assume nothing about the availability of the database */
   static function display($templateName, $hardened = false) {
-    self::addResources('main', 'jquery', 'bootstrap', 'select2');
+    self::addResources('main');
     if (!$hardened) {
       if (User::getActiveId()) {
         self::addResources('loggedIn');

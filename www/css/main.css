@@ -443,3 +443,28 @@ div.thumb {
 .notice a:hover {
   opacity: 0.7;
 }
+
+/**************************** source dropdown ****************************/
+
+#source-field .btn {
+  align-items: center;
+  border-color: var(--bs-gray-400);
+  display: flex;
+  justify-content: space-between;
+}
+
+#source-field .btn span {
+  min-width: 0;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+}
+
+#source-field .source-scrollable {
+  max-height: 174px; /* 6 rows */
+  overflow-y: auto;
+}
+
+#source-field .dropdown-item {
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+}

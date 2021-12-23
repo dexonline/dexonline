@@ -32,19 +32,6 @@ $(function() {
     }
   });
 
-  $('.sourceDropDown').each(function() {
-    /**
-     * Don't pass in data-dropdown-parent directly because that causes a JS error.
-     * See https://github.com/select2/select2/issues/4289
-     */
-    var ddParent = $( $(this).data('ddParent') || document.body );
-    $(this).select2({
-      dropdownParent: ddParent,
-      templateResult: formatSource,
-      templateSelection: formatSource,
-    });
-  });
-
   // Prevent submitting forms twice. Forms can request permission to resubmit
   // by calling removeData('submitted').
   $('form').submit(function(e) {
@@ -251,7 +238,9 @@ function searchClickedWord(event) {
     word = word.substr(0, word.length - 1);
   }
 
-  var source = $('.sourceDropDown').length ? $('.sourceDropDown').val() : '';
+  var source = $('#source-field-hidden').length
+      ? $('#source-field-hidden').val()
+      : '';
   if (source) {
     source = '-' + source;
   }
@@ -479,5 +468,50 @@ $(function() {
         output(term, trans);
       });
   }
+
+});
+
+/********************** source field in search form **********************/
+
+$(function() {
+  $('#source-field a.dropdown-item').click(function(e) {
+    // copy the visible HTML
+    $(this).closest('.dropdown').find('.dropdown-toggle').html($(this).html());
+
+    // set the hidden field value
+    $('#source-field-hidden').val($(this).data('value'));
+
+    // prevent the # from being appended to the URL
+    e.preventDefault();
+  });
+
+  $('#source-field').on('shown.bs.dropdown', function () {
+    // make sure all the menu options are visible
+    $('#source-field a.dropdown-item').show();
+
+    // focus the filter
+    $('#source-field input').val('').focus();
+  });
+
+  $('#source-field').on('hidden.bs.dropdown', function () {
+    // go back to the main search field
+    $('#searchField').focus();
+  });
+
+  $('#source-field input').on('keyup paste', function(e) {
+    var isDownArrow = (e.keyCode == 40);
+
+    if (isDownArrow) {
+      // highlight the first visible option
+      $('#source-field a.dropdown-item:visible').first().focus();
+    } else {
+      // perform the filtering
+      var val = $(this).val().toLowerCase();
+      $('#source-field a.dropdown-item').each(function() {
+        var visible = $(this).text().toLowerCase().indexOf(val) !== -1;
+        $(this).toggle(visible);
+      });
+    }
+  });
 
 });

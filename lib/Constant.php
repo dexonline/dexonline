@@ -233,7 +233,6 @@ class Constant {
         'third-party/bootstrap-diff.css',
       ],
       'js' => [ 'third-party/bootstrap.bundle.min.js' ],
-      'deps' => [ 'select2' ], /* because our themes include Select2 overrides */
     ],
     'tabulator' => [
       'css' => [
@@ -272,7 +271,7 @@ class Constant {
     'main' => [
       'css' => [ 'main.css', 'fonts.css' ],
       'js' => [ 'dex.js' ],
-      'deps' => [ 'i18n' ],
+      'deps' => [ 'bootstrap', 'i18n', 'jquery' ],
     ],
     'loggedIn' => [
       'js' => [ 'loggedIn.js' ],
@@ -363,7 +362,7 @@ class Constant {
     'admin' => [
       'css' => [ 'admin.css' ],
       'js' => [ 'admin.js' ],
-      'deps' => [ 'hotkeys' ],
+      'deps' => [ 'hotkeys', 'select2' ],
     ],
     'sprintf' => [
       'js' => [ 'third-party/sprintf.min.js' ],

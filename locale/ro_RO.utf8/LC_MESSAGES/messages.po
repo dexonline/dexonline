@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2021-11-22 14:22+0200\n"
-"PO-Revision-Date: 2021-11-22 14:23+0200\n"
+"POT-Creation-Date: 2021-12-23 15:46+0200\n"
+"PO-Revision-Date: 2021-12-23 15:46+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -254,29 +254,34 @@ msgstr "Forma <strong>%1</strong> există în LOC %2."
 msgid "The form <strong>%1</strong> does not exist in LOC %2."
 msgstr "Forma <strong>%1</strong> nu există în LOC %2."
 
-#: templates/bits/searchForm.tpl:18
+#: templates/bits/searchForm.tpl:23
 msgid "word"
 msgstr "cuvânt"
 
-#: templates/bits/searchForm.tpl:33
+#: templates/bits/searchForm.tpl:46
 msgid "search"
 msgstr "caută"
 
-#: templates/bits/searchForm.tpl:38 templates/games/scramble.tpl:32
+#: templates/bits/searchForm.tpl:51 templates/games/scramble.tpl:32
 msgid "options"
 msgstr "opțiuni"
 
-#: templates/bits/searchForm.tpl:52
+#: templates/bits/searchForm.tpl:65
 msgid "Full-text search"
 msgstr "Caută în tot textul definițiilor"
 
-#: templates/bits/searchForm.tpl:62
+#: templates/bits/searchForm.tpl:75
 msgid "help"
 msgstr "ajutor"
 
-#: templates/bits/sourceDropDown.tpl:19
+#: templates/bits/sourceDropDown.tpl:19 templates/bits/sourceField.tpl:22
+#: templates/bits/sourceField.tpl:37
 msgid "All dictionaries"
 msgstr "Toate dicționarele"
+
+#: templates/bits/sourceField.tpl:31
+msgid "choose a dictionary..."
+msgstr "alege un dicționar..."
 
 #: templates/bits/top.tpl:4
 msgid "rank"
@@ -353,7 +358,7 @@ msgstr "spânzurătoarea"
 msgid "Lives remaining"
 msgstr "Vieți rămase"
 
-#: templates/games/hangman.tpl:18 templates/search/gallery.tpl:6
+#: templates/games/hangman.tpl:18 templates/search/gallery.tpl:4
 msgid "images"
 msgstr "imagini"
 

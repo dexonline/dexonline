@@ -444,6 +444,7 @@ Smart::assign([
   'text' => $text,
   'searchType' => $searchType,
   'searchParams' => $searchParams[$searchType],
+  'source' => $source,
   'sourceId' => $sourceId,
   'tab' => $tab,
   'definitionLink' => getTabPermalink(Constant::TAB_RESULTS),

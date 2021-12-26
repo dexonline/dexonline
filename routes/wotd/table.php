@@ -24,8 +24,8 @@ $assistantDates = [
 
 $currentYear = (int)date('Y');
 $years = [
+  'min' => $currentYear,
   'max' => $currentYear + 5,
-  'min' => $currentYear - 5,
 ];
 
 Smart::assign([

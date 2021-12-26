@@ -163,6 +163,9 @@ $(function (){
       $('#edit-priority').val(row.getCell('priority').getValue());
       $('#edit-image').val(row.getCell('image').getValue());
       $('#edit-description').val(row.getCell('description').getValue());
+    } else {
+      // select the second year option, which is the current year
+      $('#edit-displayYear option:eq(1)').prop('selected', true);
     }
 
     // initialize Select2's and date picker
@@ -233,10 +236,10 @@ $(function (){
   }
 
   // does the opposite of splitDisplayDate().
-  function joinDisplayDate($year, $monthDay) {
-    return $year
-      ? $year + '-' + $monthDay
-      : $monthDay;
+  function joinDisplayDate(year, monthDay) {
+    return year
+      ? year + '-' + monthDay
+      : monthDay;
   }
 
   function saveRow() {

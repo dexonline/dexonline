@@ -439,12 +439,12 @@
 
           <div id="deletePopoverContent" style="display: none">
             <button type="button"
-              class="btn btn-sm btn-danger meaningAction deleteMeaningConfirmButton">
+              class="btn btn-sm btn-danger deleteMeaningConfirmButton">
               {include "bits/icon.tpl" i=delete}
               confirm
             </button>
             <button type="button"
-              class="btn btn-sm btn-link meaningAction deleteMeaningCancelButton">
+              class="btn btn-sm btn-link deleteMeaningCancelButton">
               {include "bits/icon.tpl" i=clear}
               m-am răzgândit
             </button>

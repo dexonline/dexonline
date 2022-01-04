@@ -72,7 +72,7 @@ if ($_FILES && $_FILES["file"]) {
 }
 
 const OCR_EDITOR_STATS =
-  "SELECT SQL_CACHE
+  "SELECT
   U.nick Utilizator,
   SUM(IF(X.status='published', X.cnt, 0)) Număr_de_definiții_publicate,
   SUM(IF(X.status='raw', X.cnt, 0)) Număr_de_definiții_alocate,
@@ -86,7 +86,7 @@ JOIN User U on X.editorId=U.id
 GROUP BY U.nick";
 
 const OCR_PREP_STATS =
-  "SELECT SQL_CACHE
+  "SELECT
   U.nick Utilizator,
   S.shortName Dicționar,
   SUM(IF(X.status='published', X.cnt, 0)) Definiții_publicate,

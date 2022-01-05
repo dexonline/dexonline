@@ -137,28 +137,23 @@ class Constant {
     'y' => ['chirilic' => 'у'],
   ];
 
-  // prefixes which should be followed by 'î', not 'â'
+  /**
+   * Prefixes which should be followed by 'î', not 'â'.
+   *
+   * False positives:
+   *   dezânoaie dezânvoltură exân
+   *
+   * False negatives (adding prefixes for these would also catch some words
+   * with 'â`):
+   *   altîncotro ciocîntors răsînțele(ge,gere,s)
+   *   (pita,piț,piți)împărătuș
+   *   maîtrise (French word)
+   */
   const I_PREFIXES = [
-    'auto',
-    'bine',
-    'bun',
-    'cap',
-    'co',
-    'con',
-    'de',
-    'dez', // false positive: "dezânoaie"
-    'ex',
-    'ne',
-    'nemai',
-    'ori',
-    'prea',
-    'pre',
-    're',
-    'semi',
-    'sub',
-    'supra',
-    'ultra',
-    // false negatives: "altîncotro"
+    'arhi', 'auto', 'bine', 'bio', 'bun', 'cap', 'co', 'con', 'de', 'dez',
+    'di', 'ex', 'fie', 'foto', 'micro', 'mini', 'ne', 'nemai', 'ori', 'pră',
+    'prea', 'pre', 'pro', 're', 'rupt', 'semi', 'sub', 'subt', 'super',
+    'supra', 'supt', 'tele', 'ultra',
   ];
 
   /**

@@ -16,14 +16,14 @@ class Str {
     foreach (Constant::I_PREFIXES as $prefix) {
       $r .= "|\b" . $prefix;
     }
-    $s = preg_replace("/(?<!{$r})î(?=.)/u", 'â', $s);
+    $s = preg_replace("/(?<!{$r})î(?=[^- ])/u", 'â', $s);
 
     // same, but for uppercase
     $r = '\b';
     foreach (Constant::I_PREFIXES as $prefix) {
       $r .= "|\b" . mb_strtoupper($prefix);
     }
-    $s = preg_replace("/(?<!{$r})Î(?=.)/u", 'Â', $s);
+    $s = preg_replace("/(?<!{$r})Î(?=[^- ])/u", 'Â', $s);
     return $s;
   }
 

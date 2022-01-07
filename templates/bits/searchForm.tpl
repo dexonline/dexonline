@@ -13,7 +13,7 @@
       <div class="input-group dropdown">
         <input
           autocomplete="off"
-          autofocus
+          {* no autofocus here: Chrome complains it conflicts with the focus+select in dex.js *}
           class="dropdown-toggle form-control"
           data-bs-offset="0,0"
           data-bs-toggle="dropdown"

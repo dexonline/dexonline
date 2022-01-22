@@ -8,7 +8,7 @@ class Entry extends BaseObject implements DatedObject {
   // Custom handling of associated lexemes. The generic code for
   // Foo::getBars() does not work because we need the ability to filter main
   // lexemes and variants, and it is important that they only be loaded once.
-  private $lexemes = null;
+  private $mainLexemes = null;
   private $variants = null;
 
   const STRUCT_STATUS_NEW = 1;
@@ -257,6 +257,22 @@ class Entry extends BaseObject implements DatedObject {
       ->find_one();
   }
 
+  /**
+   * Marks lexemes as initialized so they won't be loaded again.
+   */
+  function initLexemes() {
+    $this->mainLexemes = [];
+    $this->variants = [];
+  }
+
+  function addLexeme(Lexeme $l, bool $main) {
+    if ($main) {
+      $this->mainLexemes[] = $l;
+    } else {
+      $this->variants[] = $l;
+    }
+  }
+
   function loadLexemes() {
     if ($this->mainLexemes === null) {
       $this->mainLexemes = parent::getLexemes(['main' => true]);
@@ -290,6 +306,33 @@ class Entry extends BaseObject implements DatedObject {
   function hasVariants() {
     $this->loadLexemes();
     return !empty($this->variants);
+  }
+
+  /**
+   * Populates the main lexemes and variants for multiple entries at once.
+   */
+  static function preloadLexemes(array &$entries) {
+    foreach ($entries as $e) {
+      $e->initLexemes();
+    }
+
+    $emap = Util::mapById($entries);
+    $entryIds = Util::objectProperty($entries, 'id');
+
+    $lexemes = Model::factory('Lexeme')
+      ->table_alias('l')
+      ->select('l.*')
+      ->select('el.entryId')
+      ->select('el.main')
+      ->join('EntryLexeme', [ 'l.id', '=', 'el.lexemeId' ], 'el')
+      ->where_in('el.entryId', $entryIds ?: [ 0 ])
+      ->order_by_asc('el.lexemeRank')
+      ->find_many();
+
+    foreach ($lexemes as $l) {
+      $emap[$l->entryId]->addLexeme($l, $l->main);
+      unset($l->entryId, $l->main);
+    }
   }
 
   static function getHomonyms($entries) {

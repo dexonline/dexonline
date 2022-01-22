@@ -334,6 +334,7 @@ if ($searchParams[$searchType]['paradigm']) {
   // Compute the text of the link to the paradigm div
   $conjugations = false;
   $declensions = false;
+  Entry::preloadLexemes($entries);
   foreach ($entries as $e) {
     foreach ($e->getLexemes() as $l) {
       $isVerb = ($l->modelType == 'V') || ($l->modelType == 'VT');

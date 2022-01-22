@@ -106,6 +106,26 @@ class DB {
     return $results;
   }
 
+  /**
+   * Loads the objects with the given IDs in a single query (which returns
+   * them in increasing ID order), then resorts them in the order given by
+   * $ids.
+   */
+  static function loadInIdOrder(string $class, array $ids) {
+    $objects = Model::factory($class)
+      ->where_in('id', $ids ?: [ 0 ])
+      ->find_many();
+
+    // Resort the objects in order of $ids
+    $map = Util::mapById($objects);
+    $results = [];
+    foreach ($ids as $id) {
+      $results[] = $map[$id];
+    }
+
+    return $results;
+  }
+
   static function getArrayOfRows($query, $fetchStyle = PDO::FETCH_BOTH) {
     $dbResult = ORM::get_db()->query($query, $fetchStyle);
     $results = [];

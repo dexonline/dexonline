@@ -281,11 +281,8 @@ class Definition extends BaseObject implements DatedObject {
       ->order_by_asc('d.lexicon')
       ->find_array();
 
-    $defs = array_map(function($rec) {
-      return self::get_by_id($rec['id']);
-    }, $ids);
-
-    return $defs;
+    $ids = array_column($ids, 'id');
+    return DB::loadInIdOrder('Definition', $ids);
   }
 
   static function searchEntry($entry) {

@@ -29,7 +29,7 @@ foreach ($data as $r) {
   $rep = HtmlConverter::convert($r);
   if (!$rep) {
     // empty meanings usually have synonyms
-    $relations = Relation::loadByMeaningId($r->id);
+    $relations = Preload::getMeaningRelations($r->id);
     $synonyms = $relations[Relation::TYPE_SYNONYM];
     $rep = sprintf('<i>sinonime:</i> %s',
                    implode(', ', Util::objectProperty($synonyms, 'description')));

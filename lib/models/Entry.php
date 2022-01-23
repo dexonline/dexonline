@@ -3,14 +3,6 @@
 class Entry extends BaseObject implements DatedObject {
   public static $_table = 'Entry';
 
-  private $tags = null;
-
-  // Custom handling of associated lexemes. The generic code for
-  // Foo::getBars() does not work because we need the ability to filter main
-  // lexemes and variants, and it is important that they only be loaded once.
-  private $mainLexemes = null;
-  private $variants = null;
-
   const STRUCT_STATUS_NEW = 1;
   const STRUCT_STATUS_IN_PROGRESS = 2;
   const STRUCT_STATUS_UNDER_REVIEW = 3;
@@ -25,6 +17,8 @@ class Entry extends BaseObject implements DatedObject {
     self::STRUCT_STATUS_UNDER_REVIEW => 'așteaptă moderarea',
     self::STRUCT_STATUS_DONE => 'terminată',
   ];
+
+  private $tags = null;
 
   // create and associate and empty tree if $tree == true
   static function createAndSave($description, $tree = false) {
@@ -245,6 +239,10 @@ class Entry extends BaseObject implements DatedObject {
     return $entries;
   }
 
+  function getTrees() {
+    return Preload::getEntryTrees($this->id);
+  }
+
   // Returns the first main lexeme (or the first lexeme if none of them are main).
   function getMainLexeme() {
     return Model::factory('Lexeme')
@@ -257,32 +255,8 @@ class Entry extends BaseObject implements DatedObject {
       ->find_one();
   }
 
-  /**
-   * Marks lexemes as initialized so they won't be loaded again.
-   */
-  function initLexemes() {
-    $this->mainLexemes = [];
-    $this->variants = [];
-  }
-
-  function addLexeme(Lexeme $l, bool $main) {
-    if ($main) {
-      $this->mainLexemes[] = $l;
-    } else {
-      $this->variants[] = $l;
-    }
-  }
-
-  function loadLexemes() {
-    if ($this->mainLexemes === null) {
-      $this->mainLexemes = parent::getLexemes(['main' => true]);
-      $this->variants = parent::getLexemes(['main' => false]);
-    }
-  }
-
   function getLexemes() {
-    $this->loadLexemes();
-    return array_merge($this->mainLexemes, $this->variants);
+    return Preload::getEntryLexemes($this->id);
   }
 
   function getMainLexemeIds() {
@@ -294,45 +268,15 @@ class Entry extends BaseObject implements DatedObject {
   }
 
   function getMainLexemes() {
-    $this->loadLexemes();
-    return $this->mainLexemes;
+    return Preload::getEntryMainLexemes($this->id);
   }
 
   function getVariants() {
-    $this->loadLexemes();
-    return $this->variants;
+    return Preload::getEntryVariants($this->id);
   }
 
   function hasVariants() {
-    $this->loadLexemes();
-    return !empty($this->variants);
-  }
-
-  /**
-   * Populates the main lexemes and variants for multiple entries at once.
-   */
-  static function preloadLexemes(array &$entries) {
-    foreach ($entries as $e) {
-      $e->initLexemes();
-    }
-
-    $emap = Util::mapById($entries);
-    $entryIds = Util::objectProperty($entries, 'id');
-
-    $lexemes = Model::factory('Lexeme')
-      ->table_alias('l')
-      ->select('l.*')
-      ->select('el.entryId')
-      ->select('el.main')
-      ->join('EntryLexeme', [ 'l.id', '=', 'el.lexemeId' ], 'el')
-      ->where_in('el.entryId', $entryIds ?: [ 0 ])
-      ->order_by_asc('el.lexemeRank')
-      ->find_many();
-
-    foreach ($lexemes as $l) {
-      $emap[$l->entryId]->addLexeme($l, $l->main);
-      unset($l->entryId, $l->main);
-    }
+    return (!empty($this->getVariants()));
   }
 
   static function getHomonyms($entries) {

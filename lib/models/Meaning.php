@@ -50,6 +50,14 @@ class Meaning extends BaseObject implements DatedObject {
     return $this->tree;
   }
 
+  function getRelations() {
+    return Preload::getMeaningRelations($this->id);
+  }
+
+  function getTags() {
+    return Preload::getMeaningTags($this->id);
+  }
+
   // Single entry point for sanitize()
   // $flash (boolean): if true, set flash messages for warnings
   // Simpler version of Definition->process()
@@ -133,11 +141,15 @@ class Meaning extends BaseObject implements DatedObject {
       $m->internalRep = $tuple->internalRep;
       $m->process();
 
-      $row['meaning'] = $m;
-      $row['sources'] = Source::loadByIds($tuple->sourceIds);
-      $row['tags'] = Tag::loadByIds($tuple->tagIds);
-      $row['relations'] = Relation::loadRelatedTrees($tuple->relationIds);
-      $row['children'] = [];
+      $mention = Mention::get_by_objectType_objectId(Mention::TYPE_MEANING, $m->id);
+      $row = [
+        'meaning' => $m,
+        'sources' => Source::loadByIds($tuple->sourceIds),
+        'tags' => Tag::loadByIds($tuple->tagIds),
+        'relations' => Relation::loadRelatedTrees($tuple->relationIds),
+        'children' => [],
+        'canDelete' => !$mention,
+      ];
 
       if ($tuple->level) {
         $meaningStack[$tuple->level - 1]['children'][] = &$row;

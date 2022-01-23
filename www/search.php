@@ -305,6 +305,7 @@ if (empty($entries) && empty($lexemes) && empty($results)) {
 // Collect meaning trees
 // only display trees when no source is selected
 if ($searchParams[$searchType]['trees'] && !$sourceId) {
+  Preload::loadEntryTrees(Util::objectProperty($entries, 'id'));
   $statuses = [Entry::STRUCT_STATUS_DONE, Entry::STRUCT_STATUS_UNDER_REVIEW];
   foreach ($entries as $e) {
     if (in_array($e->structStatus, $statuses)) {
@@ -334,7 +335,7 @@ if ($searchParams[$searchType]['paradigm']) {
   // Compute the text of the link to the paradigm div
   $conjugations = false;
   $declensions = false;
-  Entry::preloadLexemes($entries);
+  Preload::loadEntryLexemes(Util::objectProperty($entries, 'id'));
   foreach ($entries as $e) {
     foreach ($e->getLexemes() as $l) {
       $isVerb = ($l->modelType == 'V') || ($l->modelType == 'VT');

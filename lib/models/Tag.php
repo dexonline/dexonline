@@ -30,10 +30,6 @@ class Tag extends BaseObject implements DatedObject {
     return self::loadByObject(ObjectTag::TYPE_DEFINITION, $defId);
   }
 
-  static function loadByMeaningId($meaningId) {
-    return self::loadByObject(ObjectTag::TYPE_MEANING, $meaningId);
-  }
-
   /**
    * Sample call: $meanings = $tag->loadObjects(
    *   'Meaning', ObjectTag::TYPE_MEANING, 20);

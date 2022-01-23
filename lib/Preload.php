@@ -237,11 +237,11 @@ class Preload {
     // preload related data
     self::loadMeaningRelations($meaningIds);
     self::loadMeaningTags($meaningIds);
+    $mentionMap = Mention::filterMeaningsHavingMentions($meaningIds);
 
     // build tuples for each meaning
     $tuples = [];
     foreach ($meanings as $m) {
-      $mention = Mention::get_by_objectType_objectId(Mention::TYPE_MEANING, $m->id);
       $tuples[$m->id] = [
         'meaning' => $m,
         'sources' => $m->getSources(),
@@ -252,7 +252,7 @@ class Preload {
         // Populated by Tree::extractEtymologies().
         'lastBreadcrumb' => null,
         // meanings with incoming mentions cannot be deleted
-        'canDelete' => !$mention,
+        'canDelete' => !isset($mentionMap[$m->id]),
       ];
     }
 

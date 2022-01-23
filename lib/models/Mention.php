@@ -40,6 +40,23 @@ class Mention extends BaseObject implements DatedObject {
       ->find_many();
   }
 
+  /**
+   * Returns a map of $meaningId => true, retaining only those meanings which
+   * have mentions.
+   */
+  static function filterMeaningsHavingMentions(array &$meaningIds) {
+    $filteredIds = Model::factory('Mention')
+      ->select('objectId')
+      ->where('objectType', self::TYPE_MEANING)
+      ->where_in('objectId', $meaningIds ?: [ 0 ])
+      ->find_array();
+    $results = [];
+    foreach ($filteredIds as $rec) {
+      $results[$rec['objectId']] = true;
+    }
+    return $results;
+  }
+
   // Get detailed tree mentions about a tree, including origin tree and meaning.
   // If $treeId is null, get detailed tree mentions about all trees.
   static function getDetailedTreeMentions($treeId = null) {

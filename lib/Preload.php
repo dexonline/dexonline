@@ -164,6 +164,43 @@ class Preload {
     return self::$meaningTags[$meaningId];
   }
 
+  /************************* a meaning's sources *************************/
+
+  /**
+   * Maps meaning IDs to lists of sources
+   */
+  private static array $meaningSources = [];
+
+  /**
+   * Loads sources for all meanings with the given IDs.
+   */
+  static function loadMeaningSources(array $meaningIds) {
+    $meaningIds = self::filterIds($meaningIds, self::$meaningSources);
+
+    if (empty($meaningIds)) {
+      return;
+    }
+
+    $sources = Model::factory('Source')
+      ->table_alias('s')
+      ->select('s.*')
+      ->select('ms.meaningId')
+      ->join('MeaningSource', [ 's.id', '=', 'ms.sourceId' ], 'ms')
+      ->where_in('ms.meaningId', $meaningIds ?: [ 0 ])
+      ->order_by_asc('ms.sourceRank')
+      ->find_many();
+
+    foreach ($sources as $s) {
+      self::$meaningSources[$s->meaningId][] = $s;
+      unset($s->meaningId);
+    }
+  }
+
+  static function getMeaningSources($meaningId) {
+    self::loadMeaningSources([$meaningId]);
+    return self::$meaningSources[$meaningId];
+  }
+
   /************************* a meaning's relations *************************/
 
   /**
@@ -236,6 +273,7 @@ class Preload {
 
     // preload related data
     self::loadMeaningRelations($meaningIds);
+    self::loadMeaningSources($meaningIds);
     self::loadMeaningTags($meaningIds);
     $mentionMap = Mention::filterMeaningsHavingMentions($meaningIds);
 

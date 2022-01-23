@@ -54,6 +54,10 @@ class Meaning extends BaseObject implements DatedObject {
     return Preload::getMeaningRelations($this->id);
   }
 
+  function getSources() {
+    return Preload::getMeaningSources($this->id);
+  }
+
   function getTags() {
     return Preload::getMeaningTags($this->id);
   }

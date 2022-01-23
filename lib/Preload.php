@@ -60,6 +60,9 @@ class Preload {
       self::$entryTrees[$t->entryId][] = $t;
       unset($t->entryId);
     }
+
+    $treeIds = Util::objectProperty($trees, 'id');
+    self::loadTreeMeanings($treeIds);
   }
 
   static function getEntryTrees($entryId) {

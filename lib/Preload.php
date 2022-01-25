@@ -126,45 +126,64 @@ class Preload {
     return self::$entryLexemes[$entryId][0];
   }
 
-  /************************* a meaning's tags *************************/
+  /************************** an object's tags **************************/
 
   /**
-   * Maps meaning IDs to lists of tags.
+   * Map [objectType][objectId] => list of tags. Object types are defined in
+   * ObjectTag::TYPE_*.
    */
-  private static array $meaningTags = [];
+  private static array $tags = [];
 
   /**
    * Loads tags for all meanings with the given IDs.
    */
-  static function loadMeaningTags(array $meaningIds) {
-    $meaningIds = self::filterIds($meaningIds, self::$meaningTags);
+  static function loadTags(int $objectType, array $ids) {
+    $existingIds = self::$tags[$objectType] ?? [];
+    $ids = self::filterIds($ids, $existingIds);
 
-    if (empty($meaningIds)) {
+    if (empty($ids)) {
       return;
     }
 
-    $tags = Model::factory('Tag')
+    $loadedTags = Model::factory('Tag')
       ->select('Tag.*')
       ->select('ObjectTag.objectId')
       ->join('ObjectTag', ['Tag.id', '=', 'tagId'])
-      ->where('ObjectTag.objectType', ObjectTag::TYPE_MEANING)
-      ->where_in('ObjectTag.objectId', $meaningIds ?: [ 0 ])
+      ->where('ObjectTag.objectType', $objectType)
+      ->where_in('ObjectTag.objectId', $ids ?: [ 0 ])
       ->order_by_asc('ObjectTag.id')
       ->find_many();
 
     // initialize to empty lists so we don't reload them
-    foreach ($meaningIds as $meaningId) {
-      self::$meaningTags[$meaningId] = [];
+    foreach ($ids as $id) {
+      self::$tags[$objectType][$id] = [];
     }
-    foreach ($tags as $t) {
-      self::$meaningTags[$t->objectId][] = $t;
+    foreach ($loadedTags as $t) {
+      self::$tags[$objectType][$t->objectId][] = $t;
       unset($t->objectId);
     }
   }
 
+  static function getTags($objectType, $id) {
+    self::loadTags($objectType, [$id]);
+    return self::$tags[$objectType][$id];
+  }
+
+  /* syntactic sugars */
+  static function loadMeaningTags($meaningIds) {
+    self::loadTags(ObjectTag::TYPE_MEANING, $meaningIds);
+  }
+
   static function getMeaningTags($meaningId) {
-    self::loadMeaningTags([$meaningId]);
-    return self::$meaningTags[$meaningId];
+    return self::getTags(ObjectTag::TYPE_MEANING, $meaningId);
+  }
+
+  static function loadEntryTags($entryIds) {
+    self::loadTags(ObjectTag::TYPE_ENTRY, $entryIds);
+  }
+
+  static function getEntryTags($entryId) {
+    return self::getTags(ObjectTag::TYPE_ENTRY, $entryId);
   }
 
   /************************* a meaning's sources *************************/

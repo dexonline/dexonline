@@ -18,8 +18,6 @@ class Entry extends BaseObject implements DatedObject {
     self::STRUCT_STATUS_DONE => 'terminată',
   ];
 
-  private $tags = null;
-
   // create and associate and empty tree if $tree == true
   static function createAndSave($description, $tree = false) {
     $e = Model::factory('Entry')->create();
@@ -77,10 +75,7 @@ class Entry extends BaseObject implements DatedObject {
   }
 
   function getTags() {
-    if ($this->tags === null) {
-      $this->tags = ObjectTag::getTags($this->id, ObjectTag::TYPE_ENTRY);
-    }
-    return $this->tags;
+    return Preload::getEntryTags($this->id);
   }
 
   /**

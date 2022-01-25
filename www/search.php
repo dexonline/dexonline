@@ -302,6 +302,8 @@ if (empty($entries) && empty($lexemes) && empty($results)) {
   header('HTTP/1.0 404 Not Found');
 }
 
+Preload::loadEntryTags(Util::objectProperty($entries, 'id'));
+
 // Collect meaning trees
 // only display trees when no source is selected
 if ($searchParams[$searchType]['trees'] && !$sourceId) {

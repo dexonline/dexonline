@@ -71,6 +71,37 @@ class Preload {
     return self::$entryTrees[$entryId];
   }
 
+  /***************************** inflections *****************************/
+
+  /**
+   * Maps inflection IDs to inflections.
+   */
+  private static array $inflections = [];
+
+  /**
+   * Loads all inflections with the given IDs.
+   */
+  static function loadInflections(array $ids) {
+    $ids = self::filterIds($ids, self::$inflections);
+
+    if (empty($ids)) {
+      return;
+    }
+
+    $results = Model::factory('Inflection')
+      ->where_in('id', $ids)
+      ->find_many();
+
+    foreach ($results as $i) {
+      self::$inflections[$i->id] = $i;
+    }
+  }
+
+  static function getInflection($id) {
+    self::loadInflections([$id]);
+    return self::$inflections[$id];
+  }
+
   /************************* an entry's lexemes *************************/
 
   /**
@@ -125,6 +156,44 @@ class Preload {
   static function getEntryVariants($entryId) {
     self::loadEntryLexemes([$entryId]);
     return self::$entryLexemes[$entryId][0];
+  }
+
+  /********************* a lexeme's inflected forms *********************/
+
+  /**
+   * Maps lexeme IDs to lists of inflected forms.
+   */
+  private static array $lexemeInflectedForms = [];
+
+  /**
+   * Loads inflected forms for all lexemes with the given IDs.
+   */
+  static function loadLexemeInflectedForms(array $lexemeIds) {
+    $lexemeIds = self::filterIds($lexemeIds, self::$lexemeInflectedForms);
+
+    if (empty($lexemeIds)) {
+      return;
+    }
+
+    $inflectedForms = Model::factory('InflectedForm')
+      ->where_in('lexemeId', $lexemeIds)
+      ->order_by_asc('inflectionId')
+      ->order_by_asc('variant')
+      ->order_by_asc('apheresis')
+      ->order_by_asc('apocope')
+      ->find_many();
+
+    foreach ($inflectedForms as $if) {
+      self::$lexemeInflectedForms[$if->lexemeId][] = $if;
+    }
+
+    $inflectionIds = Util::objectProperty($inflectedForms, 'inflectionId');
+    self::loadInflections($inflectionIds);
+  }
+
+  static function getLexemeInflectedForms($lexemeId) {
+    self::loadLexemeInflectedForms([$lexemeId]);
+    return self::$lexemeInflectedForms[$lexemeId];
   }
 
   /************************** an object's tags **************************/

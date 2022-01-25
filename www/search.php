@@ -347,6 +347,7 @@ if ($searchParams[$searchType]['paradigm']) {
       $lexemeIds[] = $l->id;
     }
   }
+  Preload::loadLexemeInflectedForms($lexemeIds);
   Preload::loadLexemeTags($lexemeIds);
   $declensionText = implode(' / ', array_filter([
     $conjugations ? _('conjugations') : '',

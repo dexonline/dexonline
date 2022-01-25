@@ -355,13 +355,7 @@ class Lexeme extends BaseObject implements DatedObject {
 
   function loadInflectedForms() {
     if ($this->inflectedForms === null) {
-      $this->inflectedForms = Model::factory('InflectedForm')
-        ->where('lexemeId', $this->id)
-        ->order_by_asc('inflectionId')
-        ->order_by_asc('variant')
-        ->order_by_asc('apheresis')
-        ->order_by_asc('apocope')
-        ->find_many();
+      $this->inflectedForms = Preload::getLexemeInflectedForms($this->id);
     }
     return $this->inflectedForms;
   }

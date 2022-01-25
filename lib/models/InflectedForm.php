@@ -83,7 +83,7 @@ class InflectedForm extends BaseObject {
   static function mapByInflectionRank($ifs) {
     $result = [];
     foreach ($ifs as $if) {
-      $inflection = Inflection::get_by_id($if->inflectionId);
+      $inflection = Preload::getInflection($if->inflectionId);
       if (!array_key_exists($inflection->rank, $result)) {
         $result[$inflection->rank] = [];
       }

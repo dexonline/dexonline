@@ -427,6 +427,9 @@ class Preload {
       self::$meaningRelations[$t->meaningId][$t->type][] = $t;
       unset($t->meaningId, $t->type);
     }
+
+    // preload these trees' entries: they are accessed in bits/meaningRelations.tpl
+    Preload::loadTreeEntries(Util::objectProperty($trees, 'id'));
   }
 
   static function getMeaningRelations($meaningId) {

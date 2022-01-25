@@ -3,7 +3,6 @@
 class Lexeme extends BaseObject implements DatedObject {
   public static $_table = 'Lexeme';
 
-  private $mt = null;  // ModelType object, but we call it $mt because there is already a DB field called 'modelType'
   private $sourceNames = null;         // Comma-separated list of source names
   private $inflectedForms = null;
   private $inflectedFormMap = null;    // Mapped by various criteria depending on the caller
@@ -55,10 +54,7 @@ class Lexeme extends BaseObject implements DatedObject {
   }
 
   function getModelType() {
-    if ($this->mt === null) {
-      $this->mt = ModelType::get_by_code($this->modelType);
-    }
-    return $this->mt;
+    return Preload::getLexemeModelType($this->id);
   }
 
   function getPartOfSpeeech() {
@@ -139,6 +135,10 @@ class Lexeme extends BaseObject implements DatedObject {
 
     // return ['week-end', 'party'] and [' ']
     return [$chunks, $delimiters];
+  }
+
+  function getSources() {
+    return Preload::getLexemeSources($this->id);
   }
 
   function getSourceNames() {

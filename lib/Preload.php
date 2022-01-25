@@ -30,6 +30,12 @@ class Preload {
     return array_unique($results);
   }
 
+  static function initKeys(array &$a, array $keys, $val) {
+    foreach ($keys as $key) {
+      $a[$key] = $val;
+    }
+  }
+
   /************************** an entry's trees **************************/
 
   /**
@@ -52,7 +58,7 @@ class Preload {
       ->select('t.*')
       ->select('te.entryId')
       ->join('TreeEntry', [ 't.id', '=', 'te.treeId' ], 'te')
-      ->where_in('te.entryId', $entryIds ?: [ 0 ])
+      ->where_in('te.entryId', $entryIds)
       ->order_by_asc('te.treeRank')
       ->find_many();
 
@@ -120,9 +126,7 @@ class Preload {
     }
 
     // initialize to pair of empty lists
-    foreach ($entryIds as $entryId) {
-      self::$entryLexemes[$entryId] = [ [], [] ];
-    }
+    self::initKeys(self::$entryLexemes, $entryIds, [ [], [] ]);
 
     $lexemes = Model::factory('Lexeme')
       ->table_alias('l')
@@ -130,7 +134,7 @@ class Preload {
       ->select('el.entryId')
       ->select('el.main')
       ->join('EntryLexeme', [ 'l.id', '=', 'el.lexemeId' ], 'el')
-      ->where_in('el.entryId', $entryIds ?: [ 0 ])
+      ->where_in('el.entryId', $entryIds)
       ->order_by_asc('el.lexemeRank')
       ->find_many();
 
@@ -196,6 +200,82 @@ class Preload {
     return self::$lexemeInflectedForms[$lexemeId];
   }
 
+  /************************ a lexeme's model type ************************/
+
+  /**
+   * Maps lexeme IDs to model types.
+   */
+  private static array $lexemeModelTypes = [];
+
+  /**
+   * Loads model types for all lexemes with the given IDs.
+   */
+  static function loadLexemeModelTypes(array $lexemeIds) {
+    $lexemeIds = self::filterIds($lexemeIds, self::$lexemeModelTypes);
+
+    if (empty($lexemeIds)) {
+      return;
+    }
+
+    $modelTypes = Model::factory('ModelType')
+      ->table_alias('mt')
+      ->select('mt.*')
+      ->select('l.id', 'lexemeId')
+      ->join('Lexeme', [ 'mt.code', '=', 'l.modelType' ], 'l')
+      ->where_in('l.id', $lexemeIds)
+      ->find_many();
+
+    foreach ($modelTypes as $mt) {
+      self::$lexemeModelTypes[$mt->lexemeId] = $mt;
+      unset($mt->lexemeId);
+    }
+  }
+
+  static function getLexemeModelType($lexemeId) {
+    self::loadLexemeModelTypes([$lexemeId]);
+    return self::$lexemeModelTypes[$lexemeId];
+  }
+
+  /************************* a lexeme's sources *************************/
+
+  /**
+   * Maps lexeme IDs to lists of sources
+   */
+  private static array $lexemeSources = [];
+
+  /**
+   * Loads sources for all lexemes with the given IDs.
+   */
+  static function loadLexemeSources(array $lexemeIds) {
+    $lexemeIds = self::filterIds($lexemeIds, self::$lexemeSources);
+
+    if (empty($lexemeIds)) {
+      return;
+    }
+
+    $sources = Model::factory('Source')
+      ->table_alias('s')
+      ->select('s.*')
+      ->select('ls.lexemeId')
+      ->join('LexemeSource', [ 's.id', '=', 'ls.sourceId' ], 'ls')
+      ->where_in('ls.lexemeId', $lexemeIds)
+      ->order_by_asc('ls.sourceRank')
+      ->find_many();
+
+    // initialize to empty lists so we don't reload them
+    self::initKeys(self::$lexemeSources, $lexemeIds, []);
+
+    foreach ($sources as $s) {
+      self::$lexemeSources[$s->lexemeId][] = $s;
+      unset($s->lexemeId);
+    }
+  }
+
+  static function getLexemeSources($lexemeId) {
+    self::loadLexemeSources([$lexemeId]);
+    return self::$lexemeSources[$lexemeId];
+  }
+
   /************************** an object's tags **************************/
 
   /**
@@ -220,14 +300,16 @@ class Preload {
       ->select('ObjectTag.objectId')
       ->join('ObjectTag', ['Tag.id', '=', 'tagId'])
       ->where('ObjectTag.objectType', $objectType)
-      ->where_in('ObjectTag.objectId', $ids ?: [ 0 ])
+      ->where_in('ObjectTag.objectId', $ids)
       ->order_by_asc('ObjectTag.id')
       ->find_many();
 
     // initialize to empty lists so we don't reload them
-    foreach ($ids as $id) {
-      self::$tags[$objectType][$id] = [];
+    if (!isset(self::$tags[$objectType])) {
+      self::$tags[$objectType] = [];
     }
+    self::initKeys(self::$tags[$objectType], $ids, []);
+
     foreach ($loadedTags as $t) {
       self::$tags[$objectType][$t->objectId][] = $t;
       unset($t->objectId);
@@ -294,7 +376,7 @@ class Preload {
       ->select('s.*')
       ->select('ms.meaningId')
       ->join('MeaningSource', [ 's.id', '=', 'ms.sourceId' ], 'ms')
-      ->where_in('ms.meaningId', $meaningIds ?: [ 0 ])
+      ->where_in('ms.meaningId', $meaningIds)
       ->order_by_asc('ms.sourceRank')
       ->find_many();
 
@@ -331,7 +413,7 @@ class Preload {
       ->select('Relation.meaningId')
       ->select('Relation.type')
       ->join('Relation', ['Tree.id', '=', 'treeId'])
-      ->where_in('Relation.meaningId', $meaningIds ?: [ 0 ])
+      ->where_in('Relation.meaningId', $meaningIds)
       ->order_by_asc('descriptionSort')
       ->find_many();
 
@@ -369,12 +451,10 @@ class Preload {
     }
 
     // initialize to empty trees
-    foreach ($treeIds as $treeId) {
-      self::$treeMeanings[$treeId] = [];
-    }
+    self::initKeys(self::$treeMeanings, $treeIds, []);
 
     $meanings = Model::factory('Meaning')
-      ->where_in('treeId', $treeIds ?: [ 0 ])
+      ->where_in('treeId', $treeIds)
       ->order_by_asc('displayOrder')
       ->find_many();
     $meaningIds = Util::objectProperty($meanings, 'id');

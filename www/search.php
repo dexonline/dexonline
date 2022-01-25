@@ -348,6 +348,8 @@ if ($searchParams[$searchType]['paradigm']) {
     }
   }
   Preload::loadLexemeInflectedForms($lexemeIds);
+  Preload::loadLexemeModelTypes($lexemeIds);
+  Preload::loadLexemeSources($lexemeIds);
   Preload::loadLexemeTags($lexemeIds);
   $declensionText = implode(' / ', array_filter([
     $conjugations ? _('conjugations') : '',

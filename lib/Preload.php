@@ -68,6 +68,7 @@ class Preload {
     }
 
     $treeIds = Util::objectProperty($trees, 'id');
+    self::loadTreeEntries($treeIds);
     self::loadTreeMeanings($treeIds);
     self::loadTreeTags($treeIds);
   }
@@ -431,6 +432,43 @@ class Preload {
   static function getMeaningRelations($meaningId) {
     self::loadMeaningRelations([$meaningId]);
     return self::$meaningRelations[$meaningId];
+  }
+
+  /************************** a tree's entries **************************/
+
+  /**
+   * Maps tree IDs to lists of entries
+   */
+  private static array $treeEntries = [];
+
+  /**
+   * Loads entries for all trees with the given IDs.
+   */
+  static function loadTreeEntries(array $treeIds) {
+    $treeIds = self::filterIds($treeIds, self::$treeEntries);
+
+    if (empty($treeIds)) {
+      return;
+    }
+
+    $entries = Model::factory('Entry')
+      ->table_alias('e')
+      ->select('e.*')
+      ->select('te.treeId')
+      ->join('TreeEntry', [ 'e.id', '=', 'te.entryId' ], 'te')
+      ->where_in('te.treeId', $treeIds)
+      ->order_by_asc('te.entryRank')
+      ->find_many();
+
+    foreach ($entries as $e) {
+      self::$treeEntries[$e->treeId][] = $e;
+      unset($e->treeId);
+    }
+  }
+
+  static function getTreeEntries($treeId) {
+    self::loadTreeEntries([$treeId]);
+    return self::$treeEntries[$treeId];
   }
 
   /************************* a tree's meanings *************************/

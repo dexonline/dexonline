@@ -30,6 +30,10 @@ class Tree extends BaseObject implements DatedObject {
     return preg_split('/\s+[(\/]/', $desc)[0];
   }
 
+  function getEntries() {
+    return Preload::getTreeEntries($this->id);
+  }
+
   function getTags() {
     return Preload::getTreeTags($this->id);
   }

@@ -170,20 +170,28 @@ class Preload {
   }
 
   /* syntactic sugars */
-  static function loadMeaningTags($meaningIds) {
-    self::loadTags(ObjectTag::TYPE_MEANING, $meaningIds);
-  }
-
-  static function getMeaningTags($meaningId) {
-    return self::getTags(ObjectTag::TYPE_MEANING, $meaningId);
-  }
-
   static function loadEntryTags($entryIds) {
     self::loadTags(ObjectTag::TYPE_ENTRY, $entryIds);
   }
 
   static function getEntryTags($entryId) {
     return self::getTags(ObjectTag::TYPE_ENTRY, $entryId);
+  }
+
+  static function loadLexemeTags($lexemeIds) {
+    self::loadTags(ObjectTag::TYPE_LEXEME, $lexemeIds);
+  }
+
+  static function getLexemeTags($lexemeId) {
+    return self::getTags(ObjectTag::TYPE_LEXEME, $lexemeId);
+  }
+
+  static function loadMeaningTags($meaningIds) {
+    self::loadTags(ObjectTag::TYPE_MEANING, $meaningIds);
+  }
+
+  static function getMeaningTags($meaningId) {
+    return self::getTags(ObjectTag::TYPE_MEANING, $meaningId);
   }
 
   /************************* a meaning's sources *************************/

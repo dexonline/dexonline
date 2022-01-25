@@ -10,7 +10,6 @@ class Lexeme extends BaseObject implements DatedObject {
   private $objectTags = null;
   private $fragments = null;           // for compound lexemes
   private $compoundParts = null;
-  private $tags = null;
   private $animate = null;
   public $entries = null;
 
@@ -163,13 +162,7 @@ class Lexeme extends BaseObject implements DatedObject {
   }
 
   function getTags() {
-    if ($this->tags === null) {
-      $this->tags = [];
-      foreach ($this->getObjectTags() as $ot) {
-        $this->tags[] = Tag::get_by_id($ot->tagId);
-      }
-    }
-    return $this->tags;
+    return Preload::getLexemeTags($this->id);
   }
 
   function getTagIds() {

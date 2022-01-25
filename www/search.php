@@ -338,13 +338,16 @@ if ($searchParams[$searchType]['paradigm']) {
   $conjugations = false;
   $declensions = false;
   Preload::loadEntryLexemes(Util::objectProperty($entries, 'id'));
+  $lexemeIds = [];
   foreach ($entries as $e) {
     foreach ($e->getLexemes() as $l) {
       $isVerb = ($l->modelType == 'V') || ($l->modelType == 'VT');
       $conjugations |= $isVerb;
       $declensions |= !$isVerb;
+      $lexemeIds[] = $l->id;
     }
   }
+  Preload::loadLexemeTags($lexemeIds);
   $declensionText = implode(' / ', array_filter([
     $conjugations ? _('conjugations') : '',
     $declensions ? _('declensions') : '',

@@ -63,6 +63,7 @@ class Preload {
 
     $treeIds = Util::objectProperty($trees, 'id');
     self::loadTreeMeanings($treeIds);
+    self::loadTreeTags($treeIds);
   }
 
   static function getEntryTrees($entryId) {
@@ -192,6 +193,14 @@ class Preload {
 
   static function getMeaningTags($meaningId) {
     return self::getTags(ObjectTag::TYPE_MEANING, $meaningId);
+  }
+
+  static function loadTreeTags($treeIds) {
+    self::loadTags(ObjectTag::TYPE_TREE, $treeIds);
+  }
+
+  static function getTreeTags($treeId) {
+    return self::getTags(ObjectTag::TYPE_TREE, $treeId);
   }
 
   /************************* a meaning's sources *************************/

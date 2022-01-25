@@ -11,8 +11,6 @@ class Tree extends BaseObject implements DatedObject {
     self::ST_HIDDEN  => 'ascuns',
   ];
 
-  private $tags = null;
-
   // passed by the tree editor in case there are errors
   private $meaningMap = null;
 
@@ -33,10 +31,7 @@ class Tree extends BaseObject implements DatedObject {
   }
 
   function getTags() {
-    if ($this->tags === null) {
-      $this->tags = ObjectTag::getTags($this->id, ObjectTag::TYPE_TREE);
-    }
-    return $this->tags;
+    return Preload::getTreeTags($this->id);
   }
 
   function hasMeanings() {

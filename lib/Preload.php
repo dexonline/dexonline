@@ -461,12 +461,83 @@ class Preload {
     }
 
     // preload these trees' entries: they are accessed in bits/meaningRelations.tpl
-    Preload::loadTreeEntries(Util::objectProperty($trees, 'id'));
+    self::loadTreeEntries(Util::objectProperty($trees, 'id'));
   }
 
   static function getMeaningRelations($meaningId) {
     self::loadMeaningRelations([$meaningId]);
     return self::$meaningRelations[$meaningId];
+  }
+
+  /**
+   * Meanings which are mentioned inside other meanings. For each mentioned
+   * meaning ID we try to figure out a good landing page: load the first entry
+   * associated with that meaning's tree. The old behavior was to prefer
+   * entries that generate the hyperlinked form, but preloading in bulk
+   * doesn't allow that.
+   */
+
+  /**
+   * Maps meaning IDs to pairs of [ entry, breadcrumb ]
+   */
+  private static array $mentionedMeanings = [];
+
+  /**
+   * Extracts IDs and loads entries for meanings mentioned within these
+   * meanings.
+   */
+  static function loadMentionedMeanings(array $meanings) {
+    $ids = [];
+
+    foreach ($meanings as $m) {
+      preg_match_all(
+        Constant::MEANING_MENTION_PATTERN,
+        $m->internalRep,
+        $matches,
+        PREG_SET_ORDER);
+      foreach ($matches as $match) {
+        $ids[] = $match[2];
+      }
+    }
+
+    if (empty($ids)) {
+      return;
+    }
+
+    $statuses = [Entry::STRUCT_STATUS_DONE, Entry::STRUCT_STATUS_UNDER_REVIEW];
+    $entries = Model::factory('Entry')
+      ->select('e.*')
+      ->select('m.id', 'meaningId')
+      ->select('m.breadcrumb')
+      ->table_alias('e')
+      ->join('TreeEntry', ['e.id', '=', 'te.entryId'], 'te')
+      ->join('Tree', ['te.treeId', '=', 't.id'], 't')
+      ->join('Meaning', ['t.id', '=', 'm.treeId'], 'm')
+      ->where_in('m.id', $ids)
+      ->where('t.status', Tree::ST_VISIBLE)
+      ->where('te.entryRank', 1)
+      ->where_in('e.structStatus', $statuses)
+      ->find_many();
+
+    self::initKeys(self::$mentionedMeanings, $ids, [ null, null ]);
+
+    foreach ($entries as $e) {
+      self::$mentionedMeanings[$e->meaningId][] = [ $e, $e->breadcrumb ];
+      unset($e->meaningId, $e->breadcrumb);
+    }
+  }
+
+  /**
+   * If nothing is available, load the meaning on the fly.
+   */
+  static function getMentionedMeaningEntry($meaningId) {
+    if (!isset(self::$mentionedMeanings[$meaningId])) {
+      $m = Meaning::get_by_id($meaningId);
+      if ($m) {
+        self::loadMentionedMeanings([$m]);
+      }
+    }
+    return self::$mentionedMeanings[$meaningId] ?? [ null, null ];
   }
 
   /************************** a tree's entries **************************/
@@ -514,7 +585,7 @@ class Preload {
   private static array $treeMeanings = [];
 
   /**
-   * Loads relations for all meanings with the given IDs.
+   * Loads meanings for all trees with the given IDs.
    */
   static function loadTreeMeanings(array $treeIds) {
     $treeIds = self::filterIds($treeIds, self::$treeMeanings);
@@ -536,6 +607,7 @@ class Preload {
     self::loadMeaningRelations($meaningIds);
     self::loadMeaningSources($meaningIds);
     self::loadMeaningTags($meaningIds);
+    self::loadMentionedMeanings($meanings);
     $mentionMap = Mention::filterMeaningsHavingMentions($meaningIds);
 
     // build tuples for each meaning

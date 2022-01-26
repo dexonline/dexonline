@@ -62,6 +62,8 @@ class Constant {
     '/(?<!\\\\)‟/'   => '"',     /* U+201F DOUBLE HIGH-REVERSED-9 QUOTATION MARK */
   ];
 
+  const MEANING_MENTION_PATTERN = '/([-a-zăâîșț]+)\[([0-9]+)(\*{0,2})\]/iu';
+
   // will use preg_replace for string values, preg_replace_callback for arrays
   const HTML_PATTERNS = [
     '/▶(.*?)◀/s' => '',                                                // remove unwanted parts of definition
@@ -92,7 +94,7 @@ class Constant {
     '/([-a-zăâîșț]+)\[\[([0-9]+)\]\]/iu' =>
     '<span class="treeMention" title="$2">$1</span>',
 
-    '/([-a-zăâîșț]+)\[([0-9]+)(\*{0,2})\]/iu' => [ 'MentionHtmlizer' ],  // meaning mentions
+    self::MEANING_MENTION_PATTERN => [ 'MentionHtmlizer' ],              // meaning mentions
     '/(?<!\\\\)__(.*?)__/' => [ 'EmphasisHtmlizer' ],                    // __emphasis__
   ];
 

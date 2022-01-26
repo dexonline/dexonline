@@ -22,14 +22,10 @@ class Abbrev {
    * An ambiguous abbreviation such as "top" or "gen" also has a meaning as an inflected form.
    * Ambiguous abbreviations should be expanded carefully, or with human approval.
    */
-    static function loadAbbreviations($sourceId) {
-    if (!array_key_exists($sourceId, self::$abbrevMap)) {
+  static function loadAbbreviations($sourceId) {
+    if (!isset(self::$abbrevMap[$sourceId])) {
       $abbrevs = [];
-
-      $results = Model::factory('Abbreviation')
-        ->where('sourceId', $sourceId)
-        ->order_by_asc('short')
-        ->find_array();
+      $results = Preload::getAbbreviations($sourceId);
 
       if (!empty($results)) {
         foreach ($results as $abbrev) {

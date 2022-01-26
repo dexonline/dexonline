@@ -29,11 +29,12 @@ class SearchResult {
       $sourceIds[] = $definition->sourceId;
       $userIds[] = $definition->userId;
     }
+    $sourceIds = array_unique($sourceIds);
     $userMap = Util::mapById(Model::factory('User')
                              ->where_in('id', array_unique($userIds))
                              ->find_many());
     $sourceMap = Util::mapById(Model::factory('Source')
-                               ->where_in('id', array_unique($sourceIds))
+                               ->where_in('id', $sourceIds)
                                ->find_many());
     foreach ($definitionArray as $definition) {
       $result = new SearchResult();
@@ -55,6 +56,8 @@ class SearchResult {
     foreach ($typos as $t) {
       $results[$t->definitionId]->typos[] = $t;
     }
+
+    Preload::loadAbbreviations($sourceIds);
 
     // load all tags at once rather than Tag::loadByDefinitionId() once per def
     $tags = Model::factory('Tag')

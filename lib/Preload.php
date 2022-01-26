@@ -36,6 +36,38 @@ class Preload {
     }
   }
 
+  /**************************** abbreviations ****************************/
+
+  /**
+   * Maps source IDs to lists of abbreviation arrays (not objects).
+   */
+  private static array $abbreviations = [];
+
+  /**
+   * Loads abbreviations for all sources with the given IDs.
+   */
+  static function loadAbbreviations(array $sourceIds) {
+    $sourceIds = self::filterIds($sourceIds, self::$abbreviations);
+
+    if (empty($sourceIds)) {
+      return;
+    }
+
+    $results = Model::factory('Abbreviation')
+      ->where_in('sourceId', $sourceIds)
+      ->order_by_asc('short')
+      ->find_array();
+
+    foreach ($results as $a) {
+      self::$abbreviations[$a['sourceId']][] = $a;
+    }
+  }
+
+  static function getAbbreviations($sourceId) {
+    self::loadAbbreviations([$sourceId]);
+    return self::$abbreviations[$sourceId];
+  }
+
   /************************** an entry's trees **************************/
 
   /**

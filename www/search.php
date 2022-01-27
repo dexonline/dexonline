@@ -349,6 +349,7 @@ if ($searchParams[$searchType]['paradigm']) {
   }
   Preload::loadLexemeInflectedForms($lexemeIds);
   Preload::loadLexemeModelTypes($lexemeIds);
+  Preload::loadLexemePartsOfSpeech($lexemeIds);
   Preload::loadLexemeSources($lexemeIds);
   Preload::loadLexemeTags($lexemeIds);
   $declensionText = implode(' / ', array_filter([

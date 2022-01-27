@@ -57,13 +57,8 @@ class Lexeme extends BaseObject implements DatedObject {
     return Preload::getLexemeModelType($this->id);
   }
 
-  function getPartOfSpeeech() {
-    if ($this->modelType == 'I') {
-      $model = FlexModel::loadCanonicalByTypeNumber($this->modelType, $this->modelNumber);
-      return $model ? $model->description : '';
-    } else {
-      return $this->getModelType()->description;
-    }
+  function getPartOfSpeech() {
+    return Preload::getLexemePartOfSpeech($this->id);
   }
 
   function hasModel($type, $number) {

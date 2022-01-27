@@ -94,6 +94,7 @@ class Preload {
       ->order_by_asc('te.treeRank')
       ->find_many();
 
+    self::initKeys(self::$entryTrees, $entryIds, []);
     foreach ($trees as $t) {
       self::$entryTrees[$t->entryId][] = $t;
       unset($t->entryId);
@@ -270,6 +271,50 @@ class Preload {
     return self::$lexemeModelTypes[$lexemeId];
   }
 
+  /************** a lexeme's human-readable part of speech **************/
+
+  /**
+   * Maps lexeme IDs to strings.
+   */
+  private static array $lexemePos = [];
+
+  /**
+   * Loads parts of speech for all lexemes with the given IDs.
+   */
+  static function loadLexemePartsOfSpeech(array $lexemeIds) {
+    $lexemeIds = self::filterIds($lexemeIds, self::$lexemePos);
+
+    if (empty($lexemeIds)) {
+      return;
+    }
+
+    $posList = Model::factory('Lexeme')
+      ->table_alias('l')
+      ->select('l.id')
+      ->select('l.modelType')
+      ->select('mt.description', 'mtDesc')
+      ->select('m.description', 'mDesc')
+      ->join('ModelType', ['l.modelType', '=', 'mt.code'], 'mt')
+      ->raw_join(
+        'left join Model',
+        '(mt.canonical = m.modelType and l.modelNumber = m.number)',
+        'm')
+      ->where_in('l.id', $lexemeIds)
+      ->find_array();
+
+    self::initKeys(self::$lexemePos, $lexemeIds, '');
+    foreach ($posList as $row) {
+      self::$lexemePos[$row['id']] = ($row['modelType'] == 'I')
+        ? ($row['mDesc'] ?? '')
+        : $row['mtDesc'];
+    }
+  }
+
+  static function getLexemePartOfSpeech($lexemeId) {
+    self::loadLexemePartsOfSpeech([$lexemeId]);
+    return self::$lexemePos[$lexemeId];
+  }
+
   /************************* a lexeme's sources *************************/
 
   /**
@@ -414,6 +459,7 @@ class Preload {
       ->order_by_asc('ms.sourceRank')
       ->find_many();
 
+    self::initKeys(self::$meaningSources, $meaningIds, []);
     foreach ($sources as $s) {
       self::$meaningSources[$s->meaningId][] = $s;
       unset($s->meaningId);

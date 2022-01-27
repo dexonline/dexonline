@@ -1,6 +1,6 @@
 {* Argument: $lexeme *}
 <div>
-  {$lexeme->getPartOfSpeeech()}
+  {$lexeme->getPartOfSpeech()}
 
   {if $lexeme->compound}
     {t}compound{/t}

@@ -16,27 +16,21 @@ class SearchResult {
   public $wotdDate;
   public $dependants = [];
 
-  static function mapDefinitionArray($definitionArray) {
-    if (empty($definitionArray)) {
+  static function mapDefinitionArray($defs) {
+    if (empty($defs)) {
       return [];
     }
     $results = [];
-    $defIds = [];
-    $sourceIds = [];
-    $userIds = [];
-    foreach ($definitionArray as $definition) {
-      $defIds[] = $definition->id;
-      $sourceIds[] = $definition->sourceId;
-      $userIds[] = $definition->userId;
-    }
-    $sourceIds = array_unique($sourceIds);
+    $defIds = Util::objectProperty($defs, 'id');
+    $sourceIds = array_unique(Util::objectProperty($defs, 'sourceId'));
+    $userIds = array_unique(Util::objectProperty($defs, 'userId'));
     $userMap = Util::mapById(Model::factory('User')
                              ->where_in('id', array_unique($userIds))
                              ->find_many());
     $sourceMap = Util::mapById(Model::factory('Source')
                                ->where_in('id', $sourceIds)
                                ->find_many());
-    foreach ($definitionArray as $definition) {
+    foreach ($defs as $definition) {
       $result = new SearchResult();
       $result->definition = $definition;
       $result->user = $userMap[$definition->userId];
@@ -50,26 +44,18 @@ class SearchResult {
     }
 
     $typos = Model::factory('Typo')
-           ->where_in('definitionId', $defIds)
-           ->order_by_asc('id')
-           ->find_many();
+      ->where_in('definitionId', $defIds)
+      ->order_by_asc('id')
+      ->find_many();
     foreach ($typos as $t) {
       $results[$t->definitionId]->typos[] = $t;
     }
 
     Preload::loadAbbreviations($sourceIds);
+    Preload::loadDefinitionTags($defIds);
 
-    // load all tags at once rather than Tag::loadByDefinitionId() once per def
-    $tags = Model::factory('Tag')
-      ->select('Tag.*')
-      ->select('ObjectTag.objectId')
-      ->join('ObjectTag', ['Tag.id', '=', 'tagId'])
-      ->where('ObjectTag.objectType', ObjectTag::TYPE_DEFINITION)
-      ->where_in('ObjectTag.objectId', $defIds)
-      ->order_by_asc('ObjectTag.id')
-      ->find_many();
-    foreach ($tags as $t) {
-      $results[$t->objectId]->tags[] = $t;
+    foreach ($defIds as $defId) {
+      $results[$defId]->tags = Preload::getDefinitionTags($defId);
     }
 
     if ($suid = User::getActiveId()) {

@@ -35,10 +35,6 @@ class ObjectTag extends BaseObject implements DatedObject {
     return self::getAllByIdType($sourceId, self::TYPE_SOURCE);
   }
 
-  static function getEntryTags($entryId) {
-    return self::getAllByIdType($entryId, self::TYPE_ENTRY);
-  }
-
   static function getTreeTags($treeId) {
     return self::getAllByIdType($treeId, self::TYPE_TREE);
   }

@@ -58,6 +58,7 @@ class Preload {
       ->order_by_asc('short')
       ->find_array();
 
+    self::initKeys(self::$abbreviations, $sourceIds, []);
     foreach ($results as $a) {
       self::$abbreviations[$a['sourceId']][] = $a;
     }
@@ -401,6 +402,14 @@ class Preload {
   }
 
   /* syntactic sugars */
+  static function loadDefinitionTags($definitionIds) {
+    self::loadTags(ObjectTag::TYPE_DEFINITION, $definitionIds);
+  }
+
+  static function getDefinitionTags($definitionId) {
+    return self::getTags(ObjectTag::TYPE_DEFINITION, $definitionId);
+  }
+
   static function loadEntryTags($entryIds) {
     self::loadTags(ObjectTag::TYPE_ENTRY, $entryIds);
   }
@@ -613,6 +622,7 @@ class Preload {
       ->order_by_asc('te.entryRank')
       ->find_many();
 
+    self::initKeys(self::$treeEntries, $treeIds, []);
     foreach ($entries as $e) {
       self::$treeEntries[$e->treeId][] = $e;
       unset($e->treeId);
@@ -655,6 +665,7 @@ class Preload {
       ->order_by_asc('l.formNoAccent')
       ->find_many();
 
+    self::initKeys(self::$treeLexemes, $treeIds, []);
     foreach ($lexemes as $l) {
       self::$treeLexemes[$l->treeId][] = $l;
       unset($l->treeId);

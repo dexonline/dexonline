@@ -161,11 +161,7 @@ class Lexeme extends BaseObject implements DatedObject {
   }
 
   function getTagIds() {
-    $results = [];
-    foreach ($this->getObjectTags() as $ot) {
-      $results[] = $ot->tagId;
-    }
-    return $results;
+    return Util::objectProperty($this->getObjectTags(), 'tagId');
   }
 
   function getDisplayPronunciations() {

@@ -199,8 +199,8 @@ if ($saveButton) {
   $mainLexemeIds = $e->getMainLexemeIds();
   $variantLexemeIds = $e->getVariantLexemeIds();
   $treeIds = $e->getTreeIds();
-  $ots = ObjectTag::getEntryTags($e->id);
-  $tagIds = Util::objectProperty($ots, 'tagId');
+  $tags = Preload::getEntryTags($e->id);
+  $tagIds = Util::objectProperty($tags, 'id');
   $e->loadMeanings();
   RecentLink::add("Intrare: {$e->description} (ID={$e->id})");
 }

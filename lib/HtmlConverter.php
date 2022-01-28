@@ -36,7 +36,7 @@ class HtmlConverter {
   }
 
   static function highlightRareGlyphs($s, $rareGlyphs) {
-    if (!User::can(User::PRIV_ANY)) {
+    if (!User::can(User::PRIV_ANY) || !$rareGlyphs) {
       return $s;
     }
 

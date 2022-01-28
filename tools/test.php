@@ -129,29 +129,25 @@ assertTransform('Str::htmlize', [ 0 ], [
   // mentions
   'măr pară[[1234567890]] prună' =>
   [
-    'măr <span data-toggle="popover" data-html="true" data-placement="auto right" ' .
-    'class="treeMention" title="1234567890">pară</span> prună',
+    'măr <span class="treeMention" title="1234567890">pară</span> prună',
     [],
   ],
 
   'măr pară[1234567890] prună' =>
   [
-    'măr <span data-toggle="popover" data-html="true" data-placement="auto right" ' .
-    'class="mention" title="1234567890">pară</span> prună',
+    'măr <span class="mention" title="1234567890">pară</span> prună',
     [],
   ],
 
   'măr pară[1234567890*] prună' =>
   [
-    'măr <span data-toggle="popover" data-html="true" data-placement="auto right" ' .
-    'class="mention" title="1234567890">pară (<b>?</b>)</span> prună',
+    'măr <span class="mention" title="1234567890">pară (<b>?</b>)</span> prună',
     [],
   ],
 
   'măr pară[1234567890**] prună' =>
   [
-    'măr <span data-toggle="popover" data-html="true" data-placement="auto right" ' .
-    'class="mention" title="1234567890">(<b>?</b>)</span> prună',
+    'măr <span class="mention" title="1234567890">(<b>?</b>)</span> prună',
     [],
   ],
 
@@ -344,14 +340,14 @@ foreach ($data as list($before, $after, $sourceId, $ambiguous)) {
 }
 
 assertEquals(
-  ["FOO <abbr class=\"abbrev\" data-html=\"true\" title=\"farmacie; farmacologie\">farm.</abbr> BAR", []],
+  ['FOO <abbr class="abbrev" data-bs-toggle="popover" data-bs-content="farmacie; farmacologie">farm.</abbr> BAR', []],
   Str::htmlize("FOO #farm.# BAR", 1)); /** Semicolon in abbreviation **/
 assertEquals(
-  ["FOO <abbr class=\"abbrev\" data-html=\"true\" title=\"substantiv masculin\">s. m.</abbr> BAR", []],
+  ['FOO <abbr class="abbrev" data-bs-toggle="popover" data-bs-content="substantiv masculin">s. m.</abbr> BAR', []],
   Str::htmlize("FOO #s. m.# BAR", 1));
 $errors = [];
 assertEquals(
-  ["FOO <abbr class=\"abbrev\" data-html=\"true\" title=\"abreviere necunoscută\">brrb. ghhg.</abbr> BAR", []],
+  ['FOO <abbr class="abbrev" data-bs-toggle="popover" data-bs-content="abreviere necunoscută">brrb. ghhg.</abbr> BAR', []],
   Str::htmlize("FOO #brrb. ghhg.# BAR", 1, $errors));
 assertEquals(
   ['Abreviere necunoscută: «brrb. ghhg.».'],
@@ -371,7 +367,7 @@ assertEquals([
 
 list($actualRep, $ignored)
   = Str::htmlize($internalRep, 1);
-assertEquals('<b>M<span class="tonic-accent">A</span>RE<sup>2</sup></b>, <i>mări</i>, <abbr class="abbrev" data-html="true" title="substantiv feminin">s. f.</abbr> Nume generic dat vastelor întinderi de apă stătătoare, adânci și sărate, de pe suprafața <a class="ref" href="/definitie/Pământ">Pământului</a>, care de obicei sunt unite cu oceanul printr-o strâmtoare; parte a oceanului de lângă țărm; <i><abbr class="abbrev" data-html="true" title="prin extensiune">p. ext.</abbr></i> ocean. ◊ <abbr class="abbrev" data-html="true" title="expresie">Expr.</abbr> <i>Marea cu sarea</i> = mult, totul; imposibilul. <i>A vântura mări și țări</i> = a călători mult. <i>A încerca marea cu degetul</i> = a face o încercare, chiar dacă șansele de reușită sunt minime. <i>Peste (nouă) mări și (nouă) țări</i> = foarte departe. ♦ <abbr class="abbrev" data-html="true" title="figurat">Fig.</abbr> Suprafață vastă; întindere mare; imensitate. ♦ <abbr class="abbrev" data-html="true" title="figurat">Fig.</abbr> Mulțime (nesfârșită), cantitate foarte mare. – Lat. <b>mare, -is</b>.',
+assertEquals('<b>M<span class="tonic-accent">A</span>RE<sup>2</sup></b>, <i>mări</i>, <abbr class="abbrev" data-bs-toggle="popover" data-bs-content="substantiv feminin">s. f.</abbr> Nume generic dat vastelor întinderi de apă stătătoare, adânci și sărate, de pe suprafața <a class="ref" href="/definitie/Pământ">Pământului</a>, care de obicei sunt unite cu oceanul printr-o strâmtoare; parte a oceanului de lângă țărm; <i><abbr class="abbrev" data-bs-toggle="popover" data-bs-content="prin extensiune">p. ext.</abbr></i> ocean. ◊ <abbr class="abbrev" data-bs-toggle="popover" data-bs-content="expresie">Expr.</abbr> <i>Marea cu sarea</i> = mult, totul; imposibilul. <i>A vântura mări și țări</i> = a călători mult. <i>A încerca marea cu degetul</i> = a face o încercare, chiar dacă șansele de reușită sunt minime. <i>Peste (nouă) mări și (nouă) țări</i> = foarte departe. ♦ <abbr class="abbrev" data-bs-toggle="popover" data-bs-content="figurat">Fig.</abbr> Suprafață vastă; întindere mare; imensitate. ♦ <abbr class="abbrev" data-bs-toggle="popover" data-bs-content="figurat">Fig.</abbr> Mulțime (nesfârșită), cantitate foarte mare. – Lat. <b>mare, -is</b>.',
              $actualRep);
 
 $msg1 = 'Unele dintre caracterele @$%#{} nu sunt împerecheate corect.';
@@ -412,19 +408,19 @@ $data = [
   [
     'FILLER adv. FILLER',
     'FILLER #adv.# FILLER',
-    'FILLER <abbr class="abbrev" data-html="true" title="adverb">adv.</abbr> FILLER',
+    'FILLER <abbr class="abbrev" data-bs-toggle="popover" data-bs-content="adverb">adv.</abbr> FILLER',
     1,
   ],
   [
     'FILLER Adv. FILLER',
     'FILLER #Adv.# FILLER',
-    'FILLER <abbr class="abbrev" data-html="true" title="adverb">Adv.</abbr> FILLER',
+    'FILLER <abbr class="abbrev" data-bs-toggle="popover" data-bs-content="adverb">Adv.</abbr> FILLER',
     1,
   ],
   [
     'FILLER BWV FILLER',
     'FILLER #BWV# FILLER',
-    'FILLER <abbr class="abbrev" data-html="true" title="Bach-Werke-Verzeichnis">BWV</abbr> FILLER',
+    'FILLER <abbr class="abbrev" data-bs-toggle="popover" data-bs-content="Bach-Werke-Verzeichnis">BWV</abbr> FILLER',
     32,
   ],
   [
@@ -442,13 +438,13 @@ $data = [
   [
     'FILLER ed. FILLER',
     'FILLER #ed.# FILLER',
-    'FILLER <abbr class="abbrev" data-html="true" title="ediție, editat">ed.</abbr> FILLER',
+    'FILLER <abbr class="abbrev" data-bs-toggle="popover" data-bs-content="ediție, editat">ed.</abbr> FILLER',
     32,
   ],
   [
     'FILLER Ed. FILLER',
     'FILLER #Ed.# FILLER',
-    'FILLER <abbr class="abbrev" data-html="true" title="Editura">Ed.</abbr> FILLER',
+    'FILLER <abbr class="abbrev" data-bs-toggle="popover" data-bs-content="Editura">Ed.</abbr> FILLER',
     32,
   ],
   [
@@ -460,14 +456,13 @@ $data = [
   [
     'FILLER RRHA, TMC FILLER', // abbreviation includes special characters
     'FILLER #RRHA, TMC# FILLER',
-    "FILLER <abbr class=\"abbrev\" data-html=\"true\" title=\"Revue Roumaine d’Histoire de l’Art, " .
-    "série Théâtre, Musique, Cinématographie\">RRHA, TMC</abbr> FILLER",
+    'FILLER <abbr class="abbrev" data-bs-toggle="popover" data-bs-content="Revue Roumaine d’Histoire de l’Art, série Théâtre, Musique, Cinématographie">RRHA, TMC</abbr> FILLER',
     32,
   ],
   [
     'FILLER adj. interog.-rel. FILLER',
     'FILLER #adj. interog.-rel.# FILLER',
-    'FILLER <abbr class="abbrev" data-html="true" title="adjectiv interogativ-relativ">' .
+    'FILLER <abbr class="abbrev" data-bs-toggle="popover" data-bs-content="adjectiv interogativ-relativ">' .
     'adj. interog.-rel.</abbr> FILLER',
     1,
   ],
@@ -802,15 +797,6 @@ assertEquals([1, 5, 10],
 assertEquals([],
              Util::intersectArrays([2, 4, 6, 8],
                                    [1, 3, 5, 7]));
-
-assert(!Lock::release('test'));
-assert(!Lock::exists('test'));
-assert(Lock::acquire('test'));
-assert(Lock::exists('test'));
-assert(!Lock::acquire('test'));
-assert(Lock::release('test'));
-assert(!Lock::exists('test'));
-assert(!Lock::release('test'));
 
 assertEquals(0, Util::findSnippet([[1, 2, 10]]));
 assertEquals(1, Util::findSnippet([[1, 2, 10],

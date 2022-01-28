@@ -16,6 +16,10 @@ class Abbrev {
   // a map of sourceId => list of abbreviations, loaded lazily
   private static $abbrevMap = [];
 
+  // A map of sourceId => map of lowercase form => original form.
+  // Stores lowercase versions of abbreviations that are not entirely lowercase.
+  private static $lcMap = [];
+
   /**
    * Creates and caches a map($from, pair($to, $ambiguous)) for this sourceId.
    * That is, for each sourceId and abbreviated text, we store the expanded text and whether the abbreviation is ambiguous.
@@ -25,6 +29,7 @@ class Abbrev {
   static function loadAbbreviations($sourceId) {
     if (!isset(self::$abbrevMap[$sourceId])) {
       $abbrevs = [];
+      $lc = [];
       $results = Preload::getAbbreviations($sourceId);
 
       if (!empty($results)) {
@@ -56,22 +61,26 @@ class Abbrev {
             'regexp' => $regexp,
             'numWords' => $numWords,
           ];
+
+          $lower = mb_strtolower($abbrev['short']);
+          if ($lower != $abbrev['short']) {
+            $lc[$lower] = $abbrev['short'];
+          }
         }
         // Sort the list by number of words, then by ambiguous
         uasort($abbrevs, 'self::abbrevCmp');
       }
       self::$abbrevMap[$sourceId] = $abbrevs;
+      self::$lcMap[$sourceId] = $lc;
     }
     return self::$abbrevMap[$sourceId];
   }
 
   private static function abbrevCmp($a, $b) {
-    if ($a['numWords'] < $b['numWords']) {
-      return 1;
-    } else if ($a['numWords'] > $b['numWords']) {
-      return -1;
+    if ($a['numWords'] != $b['numWords']) {
+      return -($a['numWords'] <=> $b['numWords']);
     } else {
-      return $a['ambiguous'] - $b['ambiguous'];
+      return $a['ambiguous'] <=> $b['ambiguous'];
     }
   }
 
@@ -133,20 +142,21 @@ class Abbrev {
   // Similar to array_key_exists, but better handling of capitalization.
   // E.g. the array keys can include both "Ed." (Editura) and "ed." (ediție), or
   // we may look for a specific capitalization (BWV, but not bwv; AM, but not am)
-  static function bestAbbrevMatch($s, $abbrevList) {
-    $key = array_search($s, $abbrevList, true);
-    if (!is_numeric($key)) {
-      $abbrevListLower = array_map('mb_strtolower', $abbrevList);
-      $key = array_search($s, $abbrevListLower, true);
-      if (!is_numeric($key)) {
-        $s = mb_strtolower($s);
-        $key = array_search($s, $abbrevListLower, true);
-        if (!is_numeric($key)) {
-          return null; // every type of search failed
-        }
-      }
+  static function bestAbbrevMatch($s, $sourceId) {
+    $abbrevs = Abbrev::loadAbbreviations($sourceId);
+
+    // prefer the exact short form
+    if (isset($abbrevs[$s])) {
+      return $s;
     }
-    return $abbrevList[$key];
+
+    // otherwise settle for a form with case differences
+    $s = mb_strtolower($s);
+    if (isset($abbrevs[$s])) {
+      return $s;
+    }
+
+    return self::$lcMap[$sourceId][$s] ?? null;
   }
 
   static function expandAbbreviations($s, $sourceId) {
@@ -156,7 +166,7 @@ class Abbrev {
     if (count($matches[1])) {
       foreach (array_reverse($matches[1]) as $match) {
         $from = $match[0];
-        $matchingKey = self::bestAbbrevMatch($from, array_keys($abbrevs));
+        $matchingKey = self::bestAbbrevMatch($from, $sourceId);
         $position = $match[1];
         if ($matchingKey) {
           $to = $abbrevs[$matchingKey]['internalRep'];

@@ -18,7 +18,7 @@ class AbbrevHtmlizer extends Htmlizer {
   function htmlize($match) {
     $abbrevs = Abbrev::loadAbbreviations($this->sourceId);
     $contents = $match[1];
-    $matchingKey = Abbrev::bestAbbrevMatch($contents, array_keys($abbrevs));
+    $matchingKey = Abbrev::bestAbbrevMatch($contents, $this->sourceId);
 
     if ($matchingKey) {
       $hint = $abbrevs[$matchingKey]['internalRep'];

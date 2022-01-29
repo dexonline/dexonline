@@ -58,6 +58,7 @@ class Abbrev {
             'enforced' => $abbrev['enforced'] == '1',
             'ambiguous' => $abbrev['ambiguous'] == '1',
             'caseSensitive' => $abbrev['caseSensitive'] == '1',
+            'html' => $abbrev['html'] == '1',
             'regexp' => $regexp,
             'numWords' => $numWords,
           ];

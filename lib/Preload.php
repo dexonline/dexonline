@@ -236,6 +236,14 @@ class Preload {
     return self::$lexemeInflectedForms[$lexemeId];
   }
 
+  /**
+   * Useful in the XML dump, so that we don't end up holding all the forms for
+   * all the lexemes.
+   */
+  static function unsetLexemeInflectedForms($lexemeId) {
+    unset(self::$lexemeInflectedForms[$lexemeId]);
+  }
+
   /************************ a lexeme's model type ************************/
 
   /**

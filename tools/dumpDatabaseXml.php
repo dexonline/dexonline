@@ -205,6 +205,7 @@ function dumpLexemes($query, $remoteFile, $message) {
     $lexeme = Model::factory('Lexeme')->create($row);
     Smart::assign('lexeme', $lexeme);
     gzwrite($file, Smart::fetch('xml/xmldump/lexeme.tpl'));
+    Preload::unsetLexemeInflectedForms($lexeme->id);
   }
   gzwrite($file, "</Lexems>\n");
   gzclose($file);

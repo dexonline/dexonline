@@ -10,6 +10,7 @@
           <th>Imp.</th>
           <th>Amb.</th>
           <th>CS</th>
+          <th>HTML</th>
           <th>Abreviere</th>
           <th>Detalierea abrevierii</th>
           {if User::can(User::PRIV_ADMIN)}

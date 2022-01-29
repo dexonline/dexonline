@@ -48,9 +48,10 @@ $(function () {
     this.enforced = elem === null ? 0 : tr.data('enforced');
     this.ambiguous = elem === null ? 0 : tr.data('ambiguous');
     this.caseSensitive = elem === null ? 0 : tr.data('caseSensitive');
+    this.html = elem === null ? 0 : tr.data('html');
 
-    this.short = elem === null ? '' : tr.find('td:nth-of-type(5)').html();
-    this.internalRep = elem === null ? '' : tr.find('td:nth-of-type(6)').html();
+    this.short = elem === null ? '' : tr.find('td:nth-of-type(6)').html();
+    this.internalRep = elem === null ? '' : tr.find('td:nth-of-type(7)').html();
     this.action = action;
     this.title = title;
   }
@@ -63,6 +64,7 @@ $(function () {
     frm.find('[name="enforced"]').prop('checked', obj.enforced);
     frm.find('[name="ambiguous"]').prop('checked', obj.ambiguous);
     frm.find('[name="caseSensitive"]').prop('checked', obj.caseSensitive);
+    frm.find('[name="html"]').prop('checked', obj.html);
 
     frm.find('#short').val(obj.short);
     frm.find('#internalRep').val(obj.internalRep);

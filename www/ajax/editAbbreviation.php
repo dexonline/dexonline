@@ -11,9 +11,10 @@ $internalRep = Request::get('internalRep');
 $enforced = Request::has('enforced');
 $ambiguous = Request::has('ambiguous');
 $caseSensitive = Request::has('caseSensitive');
+$html = Request::has('html');
 $userId = User::getActiveId();
 $status = 'hold';
-$html = '';
+$response = '';
 
 /** Excluding 'delete' we need to search for a duplicate */
 if ($action != 'delete') {
@@ -34,7 +35,7 @@ switch ($action) {
   case 'delete':
     $count = Definition::countAbbrevs($short, $sourceId, $caseSensitive);
     if ($count) {
-      $html = 'Notația internă #' . $short . '# a fost găsită în ' . $count .
+      $response = 'Notația internă #' . $short . '# a fost găsită în ' . $count .
         Str::getAmountPreposition($count) . ' definiții. Reprocesați definițiile!';
       Log::notice('Deleted [%s] abbreviation from source [%s] ', $short, $sourceId);
     }
@@ -45,7 +46,7 @@ switch ($action) {
     break;
 
   case 'duplicate':
-    $html = 'Această abreviere există!';
+    $response = 'Această abreviere există!';
     break;
 
   default:
@@ -55,22 +56,25 @@ switch ($action) {
     $abbrev->enforced = $enforced;
     $abbrev->ambiguous = $ambiguous;
     $abbrev->caseSensitive = $caseSensitive;
+    $abbrev->html = $html;
     $abbrev->modUserId = $userId;
     $abbrev->save();
 
     /** Prepare the tableRow from template */
     Smart::assign('row', $abbrev);
     Smart::assign('badgeEdited', 'primary');
-    $html = Smart::fetch('bits/abbrevRow.tpl');
+    $response = Smart::fetch('bits/abbrevRow.tpl');
     $status = 'finished';
     break;
 
 }
 
-$response = [ 'id' => $abbrev->id,
-              'action' => $action,
-              'status' => $status,
-              'html' => $html, ];
+$response = [
+  'id' => $abbrev->id,
+  'action' => $action,
+  'status' => $status,
+  'html' => $response,
+];
 
 header('Content-Type: application/json');
 print json_encode($response);

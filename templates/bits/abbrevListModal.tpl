@@ -24,6 +24,10 @@
               divClass="form-check-inline"
               name=caseSensitive
               label="diferențiere aA"}
+            {include "bs/checkbox.tpl"
+              divClass="form-check-inline"
+              name=html
+              label="conține HTML"}
           </div>
           <div class="mb-3">
             <label for="short" class="form-label">Abreviere:</label>

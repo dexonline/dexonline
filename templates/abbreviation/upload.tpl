@@ -37,7 +37,7 @@
 
           <p>
             Fișierul sursă trebuie să aibă pe primul rând capul de tabel
-            <strong>enforced|ambiguous|caseSensitive|short|internalRep</strong>,
+            <strong>enforced|ambiguous|caseSensitive|html|short|internalRep</strong>,
             iar pe celelate rânduri cinci câmpuri delimitate, conform
             explicațiilor:
           </p>
@@ -46,17 +46,22 @@
             <dt class="col-xl-3">abreviere impusă</dt>
             <dd class="col-xl-9">
               nu ia în considerare forma editată și impune forma din câmpul
-              short - <i>valoare booleană 0/1</i>
+              short - valoare booleană 0/1
             </dd>
 
             <dt class="col-xl-3">abreviere ambiguă</dt>
             <dd class="col-xl-9">
-              <i>valoare booleană 0/1</i>
+              valoare booleană 0/1
             </dd>
 
             <dt class="col-xl-3">diferențiere majuscule-minuscule</dt>
             <dd class="col-xl-9">
-              <i>valoare booleană 0/1</i>
+              valoare booleană 0/1
+            </dd>
+
+            <dt class="col-xl-3">conține HTML</dt>
+            <dd class="col-xl-9">
+              valoare booleană 0/1 - arată dacă valoarea trebuie convertită la HTML
             </dd>
 
             <dt class="col-xl-3">abrevierea</dt>
@@ -113,6 +118,7 @@
               <th>Imp.</th>
               <th>Amb.</th>
               <th>CS</th>
+              <th>HTML</th>
               <th>Abreviere</th>
               <th>Detalierea abrevierii</th>
             </tr>
@@ -133,6 +139,11 @@
                 </td>
                 <td>
                   {if $a->caseSensitive}
+                    {include "bits/icon.tpl" i=done}
+                  {/if}
+                </td>
+                <td>
+                  {if $a->html}
                     {include "bits/icon.tpl" i=done}
                   {/if}
                 </td>

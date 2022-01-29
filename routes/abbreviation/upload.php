@@ -12,6 +12,7 @@ function process_row($sourceId, $userId, $row) {
     $row['ambiguous'],
     $row['caseSensitive'],
     $row['enforced'],
+    $row['html'],
     $userId
   );
 

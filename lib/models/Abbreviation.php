@@ -4,7 +4,7 @@ class Abbreviation extends BaseObject implements DatedObject {
   public static $_table = 'Abbreviation';
 
   static function create(
-    $sourceId, $short, $internalRep, $ambiguous, $caseSensitive, $enforced, $modUserId
+    $sourceId, $short, $internalRep, $ambiguous, $caseSensitive, $enforced, $html, $modUserId
   ) {
     $a = Model::factory('Abbreviation')->create();
     $a->sourceId = $sourceId;
@@ -13,6 +13,7 @@ class Abbreviation extends BaseObject implements DatedObject {
     $a->ambiguous = $ambiguous;
     $a->caseSensitive = $caseSensitive;
     $a->enforced = $enforced;
+    $a->html = $html;
     $a->modUserId = $modUserId;
     return $a;
   }

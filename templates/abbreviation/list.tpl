@@ -44,16 +44,21 @@
           Diferențiere între majuscule și minuscule: v. ≠ V.
         </dd>
 
+        <dt class="col-sm-3">HTML</dt>
+        <dd class="col-sm-9">
+          Valoarea trebuie convertită la HTML.
+        </dd>
+
         <dt class="col-sm-3">Abreviere</dt>
         <dd class="col-sm-9">
-          permite și alte semne de punctuație (nu doar <code>.</code>) și formatare internă
-          <code>$</code>, <code>@</code>, <code>%</code>, <code>_{}</code>, <code>^{}</code>
+          Permite și alte semne de punctuație (nu doar <code>.</code>) și formatare internă
+          <code>$</code>, <code>@</code>, <code>%</code>, <code>_{}</code>, <code>^{}</code>.
         </dd>
 
         <dt class="col-sm-3">Detalierea abrevierii</dt>
         <dd class="col-sm-9">
-          permite formatare internă <code>$</code>, <code>@</code>, <code>%</code>,
-          <code>_{}</code>, <code>^{}</code>
+          Permite formatare internă <code>$</code>, <code>@</code>, <code>%</code>,
+          <code>_{}</code>, <code>^{}</code>.
         </dd>
       </dl>
 

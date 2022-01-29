@@ -4,7 +4,8 @@
   data-row-id="{$row->id}"
   {if $row->enforced}data-enforced="1"{/if}
   {if $row->ambiguous}data-ambiguous="1"{/if}
-  {if $row->caseSensitive}data-case-sensitive="1"{/if}>
+  {if $row->caseSensitive}data-case-sensitive="1"{/if}
+  {if $row->html}data-html="1"{/if}>
   <td>
     <span class="badge bg-{$badgeEdited}">{$row->id}</span>
   </td>
@@ -23,8 +24,13 @@
       {include "bits/icon.tpl" i=done}
     {/if}
   </td>
+  <td class="text-center">
+    {if $row->html}
+      {include "bits/icon.tpl" i=done}
+    {/if}
+  </td>
   <td>{$row->short}</td>
-  <td>{HtmlConverter::convert($row)}</td>
+  <td>{$row->internalRep|escape}</td>
   {if User::can(User::PRIV_ADMIN)}
     <td>
       <button type="button" class="btn btn-sm btn-outline-secondary me-1" name="btn-edit">

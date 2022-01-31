@@ -728,7 +728,7 @@ class Lexeme extends BaseObject implements DatedObject {
     if ($this->modelType == 'V' || $this->modelType == 'VT') {
       $infl = Inflection::loadParticiple();
       $pm = ParticipleModel::get_by_verbModel($this->modelNumber);
-      $this->_deleteDependentLexemes($infl->id, 'PT', [$pm->adjectiveModel]);
+      $this->_deleteDependentLexemes($infl->id, 'VT', 'PT', [$pm->adjectiveModel]);
     }
   }
 
@@ -738,32 +738,48 @@ class Lexeme extends BaseObject implements DatedObject {
    */
   function deleteLongInfinitive() {
     $infl = Inflection::loadLongInfinitive();
-    $this->_deleteDependentLexemes($infl->id, 'IL', ['107', '113']);
+    $this->_deleteDependentLexemes($infl->id, 'F', 'IL', ['107', '113']);
   }
 
   // deletes dependent lexemes and their entries
-  private function _deleteDependentLexemes($inflId, $modelType, $modelNumbers) {
+  private function _deleteDependentLexemes($inflId, $mainType, $depType, $modelNumbers) {
     // Iterate through all the forms of the desired inflection (participle / long infinitive)
     $ifs = InflectedForm::get_all_by_lexemeId_inflectionId($this->id, $inflId);
     foreach ($ifs as $if) {
       // Examine all lexemes having one of the above forms and model
       $lexemes = Model::factory('Lexeme')
         ->where('formNoAccent', $if->formNoAccent)
-        ->where('modelType', $modelType)
+        ->where('modelType', $depType)
         ->where_in('modelNumber', $modelNumbers)
         ->find_many();
       foreach ($lexemes as $l) {
-        FlashMessage::add("Am șters automat lexemul {$l} și toate intrările asociate.", 'info');
-        $entries = Model::factory('Entry')
-          ->table_alias('e')
-          ->select('e.*')
-          ->join('EntryLexeme', ['e.id', '=', 'el.entryId'], 'el')
-          ->where('el.lexemeId', $l->id)
-          ->find_many();
-        foreach ($entries as $e) {
-          $e->delete();
+        // Check if any other lexeme still generates this form.
+        $others = Model::factory('Lexeme')
+          ->table_alias('l')
+          ->join('InflectedForm', ['l.id', '=', 'i.lexemeId'], 'i')
+          ->where('i.formNoAccent', $if->formNoAccent)
+          ->where('i.inflectionId', $inflId)
+          ->where('l.modelType', $mainType)
+          ->where_not_equal('l.id', $this->id)
+          ->count();
+
+        if ($others) {
+          FlashMessage::add(
+            "Am păstrat lexemul dependent {$l} deoarece alte lexeme îl generează.",
+            'info');
+        } else {
+          FlashMessage::add("Am șters automat lexemul {$l} și toate intrările asociate.", 'info');
+          $entries = Model::factory('Entry')
+            ->table_alias('e')
+            ->select('e.*')
+            ->join('EntryLexeme', ['e.id', '=', 'el.entryId'], 'el')
+            ->where('el.lexemeId', $l->id)
+            ->find_many();
+          foreach ($entries as $e) {
+            $e->delete();
+          }
+          $l->delete();
         }
-        $l->delete();
       }
     }
   }

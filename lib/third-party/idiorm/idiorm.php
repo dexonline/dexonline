@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * !!! cata: Modified for compatibility with PHP 8.1. See
+ * https://github.com/j4mie/idiorm/pull/370
+ * TODO: Update Idiorm and Paris once the PR is merged.
+ */
+
     /**
      *
      * Idiorm
@@ -268,7 +274,7 @@
                 }
             } else {
                 if (is_null($value)) {
-                    // Shortcut: If only one string argument is passed, 
+                    // Shortcut: If only one string argument is passed,
                     // assume it's a connection string
                     $value = $key;
                     $key = 'connection_string';
@@ -296,7 +302,7 @@
         public static function reset_config() {
             self::$_config = array();
         }
-        
+
         /**
          * Despite its slightly odd name, this is actually the factory
          * method used to acquire instances of the class. It is named
@@ -385,7 +391,7 @@
 
         /**
          * Detect and initialise the limit clause style ("SELECT TOP 5" /
-         * "... LIMIT 5"). If this has been specified manually using 
+         * "... LIMIT 5"). If this has been specified manually using
          * ORM::configure('limit_clause_style', 'top'), this will do nothing.
          * @param string $connection_name Which connection to use
          */
@@ -563,13 +569,13 @@
 
             self::$_last_query = $bound_query;
             self::$_query_log[$connection_name][] = $bound_query;
-            
-            
+
+
             if(is_callable(self::$_config[$connection_name]['logger'])){
                 $logger = self::$_config[$connection_name]['logger'];
                 $logger($bound_query, $query_time);
             }
-            
+
             return true;
         }
 
@@ -736,7 +742,7 @@
          * @return array
          */
         public function find_array() {
-            return $this->_run(); 
+            return $this->_run();
         }
 
         /**
@@ -908,14 +914,14 @@
          * Add columns to the list of columns returned by the SELECT
          * query. This defaults to '*'. Many columns can be supplied
          * as either an array or as a list of parameters to the method.
-         * 
+         *
          * Note that the alias must not be numeric - if you want a
          * numeric alias then prepend it with some alpha chars. eg. a1
-         * 
+         *
          * @example select_many(array('alias' => 'column', 'column2', 'alias2' => 'column3'), 'column4', 'column5');
          * @example select_many('column', 'column2', 'column3');
          * @example select_many(array('column', 'column2', 'column3'), 'column4', 'column5');
-         * 
+         *
          * @return \ORM
          */
         public function select_many() {
@@ -934,16 +940,16 @@
 
         /**
          * Add an unquoted expression to the list of columns returned
-         * by the SELECT query. Many columns can be supplied as either 
+         * by the SELECT query. Many columns can be supplied as either
          * an array or as a list of parameters to the method.
-         * 
+         *
          * Note that the alias must not be numeric - if you want a
          * numeric alias then prepend it with some alpha chars. eg. a1
-         * 
+         *
          * @example select_many_expr(array('alias' => 'column', 'column2', 'alias2' => 'column3'), 'column4', 'column5')
          * @example select_many_expr('column', 'column2', 'column3')
          * @example select_many_expr(array('column', 'column2', 'column3'), 'column4', 'column5')
-         * 
+         *
          * @return \ORM
          */
         public function select_many_expr() {
@@ -963,11 +969,11 @@
         /**
          * Take a column specification for the select many methods and convert it
          * into a normalised array of columns and aliases.
-         * 
+         *
          * It is designed to turn the following styles into a normalised array:
-         * 
+         *
          * array(array('alias' => 'column', 'column2', 'alias2' => 'column3'), 'column4', 'column5'))
-         * 
+         *
          * @param array $columns
          * @return array
          */
@@ -1129,7 +1135,7 @@
             foreach ($data as $key => $val) {
                 $column = $result->_quote_identifier($key);
                 $placeholders = $result->_create_placeholders($val);
-                $result = $result->_add_having("{$column} {$separator} ({$placeholders})", $val);    
+                $result = $result->_add_having("{$column} {$separator} ({$placeholders})", $val);
             }
             return $result;
         }
@@ -1174,7 +1180,7 @@
             foreach ($data as $key => $val) {
                 $column = $result->_quote_identifier($key);
                 $placeholders = $result->_create_placeholders($val);
-                $result = $result->_add_where("{$column} {$separator} ({$placeholders})", $val);    
+                $result = $result->_add_where("{$column} {$separator} ({$placeholders})", $val);
             }
             return $result;
         }
@@ -1233,7 +1239,7 @@
                 $result = $result->_add_condition($type, "{$key} {$separator} ?", $val);
             }
             return $result;
-        } 
+        }
 
         /**
          * Return a string containing the given number of question marks,
@@ -1253,7 +1259,7 @@
                 return implode(', ', $db_fields);
             }
         }
-        
+
         /**
          * Helper method that filters a column/value array returning only those
          * columns that belong to a compound primary key.
@@ -1330,7 +1336,7 @@
          * it can be overriden for any or every column using the second parameter.
          *
          * Each condition will be ORed together when added to the final query.
-         */        
+         */
         public function where_any_is($values, $operator='=') {
             $data = array();
             $query = array("((");
@@ -1506,7 +1512,7 @@
         }
 
         /**
-         * Add an unquoted expression to the list of columns to GROUP BY 
+         * Add an unquoted expression to the list of columns to GROUP BY
          */
         public function group_by_expr($expr) {
             $this->_group_by[] = $expr;
@@ -2015,7 +2021,7 @@
          * To set multiple properties at once, pass an associative array
          * as the first parameter and leave out the second parameter.
          * Flags the properties as 'dirty' so they will be saved to the
-         * database when save() is called. 
+         * database when save() is called.
          * @param string|array $key
          * @param string|null $value
          */
@@ -2209,14 +2215,17 @@
         // ---  ArrayAccess  --- //
         // --------------------- //
 
+        #[\ReturnTypeWillChange]
         public function offsetExists($key) {
             return array_key_exists($key, $this->_data);
         }
 
+        #[\ReturnTypeWillChange]
         public function offsetGet($key) {
             return $this->get($key);
         }
 
+        #[\ReturnTypeWillChange]
         public function offsetSet($key, $value) {
             if(is_null($key)) {
                 throw new InvalidArgumentException('You must specify a key/array index.');
@@ -2224,6 +2233,7 @@
             $this->set($key, $value);
         }
 
+        #[\ReturnTypeWillChange]
         public function offsetUnset($key) {
             unset($this->_data[$key]);
             unset($this->_dirty_fields[$key]);
@@ -2251,12 +2261,12 @@
 
         /**
          * Magic method to capture calls to undefined class methods.
-         * In this case we are attempting to convert camel case formatted 
+         * In this case we are attempting to convert camel case formatted
          * methods into underscore formatted methods.
          *
-         * This allows us to call ORM methods using camel case and remain 
+         * This allows us to call ORM methods using camel case and remain
          * backwards compatible.
-         * 
+         *
          * @param  string   $name
          * @param  array    $arguments
          * @return ORM
@@ -2273,13 +2283,13 @@
         }
 
         /**
-         * Magic method to capture calls to undefined static class methods. 
-         * In this case we are attempting to convert camel case formatted 
+         * Magic method to capture calls to undefined static class methods.
+         * In this case we are attempting to convert camel case formatted
          * methods into underscore formatted methods.
          *
-         * This allows us to call ORM methods using camel case and remain 
+         * This allows us to call ORM methods using camel case and remain
          * backwards compatible.
-         * 
+         *
          * @param  string   $name
          * @param  array    $arguments
          * @return ORM
@@ -2440,11 +2450,12 @@
         public function as_array() {
             return $this->get_results();
         }
-        
+
         /**
          * Get the number of records in the result set
          * @return int
          */
+        #[\ReturnTypeWillChange]
         public function count() {
             return count($this->_results);
         }
@@ -2454,6 +2465,7 @@
          * over the result set.
          * @return \ArrayIterator
          */
+        #[\ReturnTypeWillChange]
         public function getIterator() {
             return new ArrayIterator($this->_results);
         }
@@ -2463,6 +2475,7 @@
          * @param int|string $offset
          * @return bool
          */
+        #[\ReturnTypeWillChange]
         public function offsetExists($offset) {
             return isset($this->_results[$offset]);
         }
@@ -2472,15 +2485,17 @@
          * @param int|string $offset
          * @return mixed
          */
+        #[\ReturnTypeWillChange]
         public function offsetGet($offset) {
             return $this->_results[$offset];
         }
-        
+
         /**
          * ArrayAccess
          * @param int|string $offset
          * @param mixed $value
          */
+        #[\ReturnTypeWillChange]
         public function offsetSet($offset, $value) {
             $this->_results[$offset] = $value;
         }
@@ -2489,8 +2504,17 @@
          * ArrayAccess
          * @param int|string $offset
          */
+        #[\ReturnTypeWillChange]
         public function offsetUnset($offset) {
             unset($this->_results[$offset]);
+        }
+
+        public function __serialize() {
+            return $this->serialize();
+        }
+
+        public function __unserialize($data) {
+            $this->unserialize($data);
         }
 
         /**

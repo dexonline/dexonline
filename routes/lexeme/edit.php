@@ -234,15 +234,7 @@ function populate(&$lexeme, &$original, $lexemeForm, $lexemeNumber, $lexemeDescr
     $lexeme->harmonizeModel($tagIds);
   }
 
-  // create ObjectTags
-  $objectTags = [];
-  foreach ($tagIds as $tagId) {
-    $ot = Model::factory('ObjectTag')->create();
-    $ot->objectType = ObjectTag::TYPE_LEXEME;
-    $ot->tagId = $tagId;
-    $objectTags[] = $ot;
-  }
-  $lexeme->setObjectTags($objectTags);
+  $lexeme->setTags($tagIds);
 
   try {
     $lexeme->generateInflectedFormMap();

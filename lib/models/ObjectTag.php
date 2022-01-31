@@ -23,10 +23,6 @@ class ObjectTag extends BaseObject implements DatedObject {
     return self::getAllByIdType($definitionId, self::TYPE_DEFINITION);
   }
 
-  static function getLexemeTags($lexemeId) {
-    return self::getAllByIdType($lexemeId, self::TYPE_LEXEME);
-  }
-
   static function getMeaningTags($meaningId) {
     return self::getAllByIdType($meaningId, self::TYPE_MEANING);
   }

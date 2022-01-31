@@ -199,8 +199,8 @@
               <label for="tagIds" class="col-xl-2 col-form-label">etichete</label>
               <div class="col-xl-10">
                 <select id="tagIds" name="tagIds[]" class="form-select select2Tags" multiple>
-                  {foreach $lexeme->getTagIds() as $tagId}
-                    <option value="{$tagId}" selected></option>
+                  {foreach $lexeme->getTags() as $tag}
+                    <option value="{$tag->id}" selected></option>
                   {/foreach}
                 </select>
 

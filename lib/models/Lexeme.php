@@ -3,10 +3,9 @@
 class Lexeme extends BaseObject implements DatedObject {
   public static $_table = 'Lexeme';
 
-  private $sourceNames = null;         // Comma-separated list of source names
+  private $sourceNames = null;         // comma-separated list of source names
   private $inflectedForms = null;
-  private $inflectedFormMap = null;    // Mapped by various criteria depending on the caller
-  private $objectTags = null;
+  private $inflectedFormMap = null;    // mapped by various criteria depending on the caller
   private $fragments = null;           // for compound lexemes
   private $compoundParts = null;
   private $animate = null;
@@ -145,23 +144,12 @@ class Lexeme extends BaseObject implements DatedObject {
     return $this->sourceNames;
   }
 
-  function getObjectTags() {
-    if ($this->objectTags === null) {
-      $this->objectTags = ObjectTag::getLexemeTags($this->id);
-    }
-    return $this->objectTags;
-  }
-
-  function setObjectTags($objectTags) {
-    $this->objectTags = $objectTags;
-  }
-
   function getTags() {
     return Preload::getLexemeTags($this->id);
   }
 
-  function getTagIds() {
-    return Util::objectProperty($this->getObjectTags(), 'tagId');
+  function setTags(array $tagIds) {
+    Preload::setLexemeTags($this->id, $tagIds);
   }
 
   function getDisplayPronunciations() {
@@ -171,9 +159,8 @@ class Lexeme extends BaseObject implements DatedObject {
   function isAnimate() {
     if ($this->animate === null) {
       $this->animate = false;
-      $animateValues = Config::TAG_ANIMATE_LEXEME;
       foreach ($this->getTags() as $t) {
-        if (in_array($t->value, $animateValues)) {
+        if (in_array($t->value, Config::TAG_ANIMATE_LEXEME)) {
           $this->animate = true;
         }
       }
@@ -836,7 +823,9 @@ class Lexeme extends BaseObject implements DatedObject {
 
     Fragment::delete_all_by_lexemeId($this->id);
     DB::execute("delete from InflectedForm where lexemeId = {$this->id}");
-    ObjectTag::delete_all_by_objectId_objectType($this->id, ObjectTag::TYPE_LEXEME);
+
+    $tagIds = Util::objectProperty($this->getTags(), 'id');
+    ObjectTag::wipeAndRecreate($this->id, ObjectTag::TYPE_LEXEME, $tagIds);
 
     foreach ($this->getFragments() as $f) {
       $f->lexemeId = $this->id;
@@ -845,10 +834,6 @@ class Lexeme extends BaseObject implements DatedObject {
     foreach ($this->generateInflectedForms() as $if) {
       $if->lexemeId = $this->id;
       $if->save();
-    }
-    foreach ($this->getObjectTags() as $ot) {
-      $ot->objectId = $this->id;
-      $ot->save();
     }
   }
 
@@ -887,8 +872,8 @@ class Lexeme extends BaseObject implements DatedObject {
     }
 
     if ($cloneTags) {
-      foreach ($this->getObjectTags() as $ot) {
-        ObjectTag::associate($ot->objectType, $clone->id, $ot->tagId);
+      foreach ($this->getTags() as $tag) {
+        ObjectTag::associate(ObjectTag::TYPE_LEXEME, $clone->id, $tag->id);
       }
     }
 

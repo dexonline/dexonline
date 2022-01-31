@@ -409,6 +409,17 @@ class Preload {
     return self::$tags[$objectType][$id];
   }
 
+  /**
+   * Assigns tags for an object type and ID. This goes beyond the scope of the
+   * Preload class, but it prevents code repetition.
+   */
+  static function setTags(int $objectType, int $objectId, array $tagIds) {
+    $tags = Model::factory('Tag')
+      ->where_in('id', $tagIds ?: [ 0 ])
+      ->find_many();
+    self::$tags[$objectType][$objectId] = $tags;
+  }
+
   /* syntactic sugars */
   static function loadDefinitionTags($definitionIds) {
     self::loadTags(ObjectTag::TYPE_DEFINITION, $definitionIds);
@@ -432,6 +443,10 @@ class Preload {
 
   static function getLexemeTags($lexemeId) {
     return self::getTags(ObjectTag::TYPE_LEXEME, $lexemeId);
+  }
+
+  static function setLexemeTags(int $lexemeId, array $tagIds) {
+    return self::setTags(ObjectTag::TYPE_LEXEME, $lexemeId, $tagIds);
   }
 
   static function loadMeaningTags($meaningIds) {

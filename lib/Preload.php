@@ -564,7 +564,16 @@ class Preload {
       }
     }
 
-    if (empty($ids)) {
+    self::loadMentionedMeaningsById($ids);
+  }
+
+  /**
+   * Loads entries and breadcrumbs for meanings with the given IDs.
+   */
+  static function loadMentionedMeaningsById(array $meaningIds) {
+    $meaningIds = self::filterIds($meaningIds, self::$mentionedMeanings);
+
+    if (empty($meaningIds)) {
       return;
     }
 
@@ -577,16 +586,16 @@ class Preload {
       ->join('TreeEntry', ['e.id', '=', 'te.entryId'], 'te')
       ->join('Tree', ['te.treeId', '=', 't.id'], 't')
       ->join('Meaning', ['t.id', '=', 'm.treeId'], 'm')
-      ->where_in('m.id', $ids)
+      ->where_in('m.id', $meaningIds)
       ->where('t.status', Tree::ST_VISIBLE)
       ->where('te.entryRank', 1)
       ->where_in('e.structStatus', $statuses)
       ->find_many();
 
-    self::initKeys(self::$mentionedMeanings, $ids, [ null, null ]);
+    self::initKeys(self::$mentionedMeanings, $meaningIds, [ null, null ]);
 
     foreach ($entries as $e) {
-      self::$mentionedMeanings[$e->meaningId][] = [ $e, $e->breadcrumb ];
+      self::$mentionedMeanings[$e->meaningId] = [ $e, $e->breadcrumb ];
       unset($e->meaningId, $e->breadcrumb);
     }
   }
@@ -596,10 +605,7 @@ class Preload {
    */
   static function getMentionedMeaningEntry($meaningId) {
     if (!isset(self::$mentionedMeanings[$meaningId])) {
-      $m = Meaning::get_by_id($meaningId);
-      if ($m) {
-        self::loadMentionedMeanings([$m]);
-      }
+      self::loadMentionedMeaningsById([$meaningId]);
     }
     return self::$mentionedMeanings[$meaningId] ?? [ null, null ];
   }

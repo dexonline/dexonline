@@ -61,7 +61,7 @@
 
             <dt class="col-md-3">Ultima contribuție</dt>
             <dd class="col-md-9">
-              {$topEntry->lastTimestamp|date_format:"%d %B %Y"}
+              {$topEntry->lastTimestamp|date:'d MMMM yyyy'}
             </dd>
           {/if}
 

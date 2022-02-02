@@ -128,7 +128,7 @@
                src="{$r.wotd->getMediumThumbUrl()}"
                alt="iconița cuvântului zilei">
           <p>
-            <strong>{$r.wotd->displayDate|date_format:'%Y'}</strong>:
+            <strong>{$r.wotd->displayDate|date:'yyyy'}</strong>:
             <a href="{Router::link('wotd/view')}/{$r.wotd->getUrlDate()}">
               {$r.word}
             </a>

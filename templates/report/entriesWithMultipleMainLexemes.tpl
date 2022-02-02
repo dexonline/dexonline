@@ -54,7 +54,7 @@
               </td>
               <td class="col-md-1 userNick">{$e->nick}</td>
               <td class="col-md-1" data-text="{$e->modDate}">
-                {$e->modDate|date_format:"%d.%m.%Y"}
+                {$e->modDate|date:'dd.MM.yyyy'}
               </td>
             </tr>
           {/foreach}

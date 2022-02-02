@@ -66,14 +66,31 @@ class LocaleUtil {
     self::set($id);
   }
 
+  static function createDateFormatter(string $format) {
+    return new IntlDateFormatter(
+      self::$current, IntlDateFormatter::NONE, IntlDateFormatter::NONE,
+      null, null, $format);
+  }
+
   // Weeks always start on Monday -- this is not localized yet.
   static function getWeekDayNames() {
+    $fmt = self::createDateFormatter('EEEE'); // weekday name only
+
     $result = [];
     foreach (range(0, 6) as $d) {
       // 2018-01-01 fell on a Monday
-      $result[] = strftime('%A', strtotime("2018-01-01 +{$d} days"));
+      $result[] = $fmt->format(new DateTime("2018-01-01 +{$d} days"));
     }
+
     return $result;
+  }
+
+  /**
+   * Returns the full month name in the current locale.
+   * @param mixed $month an integer or string between 01 and 12.
+   */
+  static function getMonthName(mixed $month) {
+    return self::date("2022-{$month}", 'LLLL');
   }
 
   // formats a number according to the current locale
@@ -83,8 +100,19 @@ class LocaleUtil {
       $x, $decimals, $locale['decimal_point'], $locale['thousands_sep']);
   }
 
-  static function date($timestamp, $format = "%e %b %Y") {
-    return strftime($format, $timestamp);
+  /**
+   * Formats a date according to
+   * https://unicode-org.github.io/icu/userguide/format_parse/datetime/
+   *
+   * @param mixed $value An integer timestamp, a DateTime object or a string
+   * parseable by the DateTime constructor.
+   */
+  static function date(mixed $value, string $format = 'd MMM yyyy') {
+    $fmt = self::createDateFormatter($format);
+    if (is_string($value)) {
+      $value = new DateTime($value);
+    }
+    return $fmt->format($value);
   }
 
 }

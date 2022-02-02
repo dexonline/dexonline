@@ -81,7 +81,7 @@
           {foreach $versions as $v}
             <tr>
               <td>{$v->name|escape}</td>
-              <td>{$v->freezeTimestamp|date_format:"%d %B %Y"}</td>
+              <td>{$v->freezeTimestamp|date:'d MMMM yyyy'}</td>
               <td><a href="{$v->getReducedFormUrl()}">{t}download{/t}</a></td>
               <td><a href="{$v->getBaseFormUrl()}">{t}download{/t}</a></td>
               <td><a href="{$v->getInflectedFormUrl()}">{t}download{/t}</a></td>

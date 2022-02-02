@@ -268,6 +268,7 @@ class Smart {
     }
     self::registerFilter('output', ['Smart', 'minifyOutput']);
     self::$theSmarty->registerPlugin('modifier', 'nf', 'LocaleUtil::number');
+    self::$theSmarty->registerPlugin('modifier', 'date', 'LocaleUtil::date');
   }
 
   // Marks required CSS and JS files for inclusion.

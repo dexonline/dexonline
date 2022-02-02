@@ -25,7 +25,7 @@
     "record": [
       {foreach $otherYears as $row}
       {
-        "year": {$row.wotd->displayDate|date_format:'%Y'|@json_encode},
+        "year": {$row.wotd->displayDate|date:'yyyy'|@json_encode},
         "word": {$row.word|@json_encode},
         "reason": {$row.wotd->description|@json_encode},
         "image": {$row.wotd->getMediumThumbUrl()|@json_encode},

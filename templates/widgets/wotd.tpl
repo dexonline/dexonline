@@ -1,5 +1,5 @@
 <a
-  href="{Router::link('wotd/view')}/{$smarty.now|date_format:'%Y/%m/%d'}"
+  href="{Router::link('wotd/view')}/{$smarty.now|date:'yyyy/MM/dd'}"
   class="widget wotd d-flex flex-md-column flex-xl-row">
   <div class="flex-grow-1">
     <h4>{t}word of the day{/t}</h4><br>

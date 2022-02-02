@@ -221,9 +221,9 @@ $minModDate = Model::factory('Variable')
 $timeAgo = time() - $minModDate;
 
 $wotdAssistantDates = [
-  strtotime("+1 month"),
-  strtotime("+2 month"),
-  strtotime("+3 month"),
+  strtotime('+1 month'),
+  strtotime('+2 month'),
+  strtotime('+3 month'),
 ];
 
 Smart::assign([

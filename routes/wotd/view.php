@@ -71,7 +71,7 @@ if ($date < $today || User::can(User::PRIV_ADMIN)) {
 // Load the WotD for this day in other years.
 $year = $date->format('Y');
 $month = $date->format('m');
-$monthName = LocaleUtil::date($date->getTimestamp(), '%B');
+$monthName = LocaleUtil::getMonthName($month);
 $day = $date->format('j');
 $dayPadded = $date->format('d');
 

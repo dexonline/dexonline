@@ -77,7 +77,7 @@ $nextMonth = ($month == '12')
 $words = createCalendar($year, $month);
 
 Smart::assign([
-  'month' => strftime("%B", strtotime("$year-$month-01")),
+  'month' => LocaleUtil::getMonthName($month),
   'year' => $year,
   'showPrev' => $showPrev,
   'showNext' => $showNext,

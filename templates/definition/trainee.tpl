@@ -28,7 +28,7 @@
           <td>{$sourceMap[$d->sourceId]->shortName}</td>
           <td>{$d->getStatusName()}</td>
           <td data-text="{$d->createDate}">
-            {$d->createDate|date_format:"%d.%m.%Y"}
+            {$d->createDate|date:'dd.MM.yyyy'}
           </td>
         </tr>
       {/foreach}

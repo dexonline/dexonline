@@ -9,7 +9,7 @@
 
     <span>
       {include "bits/icon.tpl" i=today}
-      {$c.new->createDate|date_format:"%e %B %Y, %T"}
+      {$c.new->createDate|date:'d MMMM yyyy, HH:mm:ss'}
     </span>
 
   </div>

@@ -569,8 +569,8 @@
             <ul class="list-inline">
               {foreach $wotdAssistantDates as $timestamp}
                 <li class="list-inline-item">
-                  <a href="{Router::link('wotd/assistant')}?for={$timestamp|date_format:"%Y-%m"}">
-                    {$timestamp|date_format:"%B %Y"}
+                  <a href="{Router::link('wotd/assistant')}?for={$timestamp|date:'yyyy-MM'}">
+                    {$timestamp|date:'LLLL yyyy'}
                   </a>
                 </li>
               {/foreach}

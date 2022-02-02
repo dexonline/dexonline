@@ -12,7 +12,7 @@ if (!checkDate($month, 1, $year)) {
 
 $today = date('Y-m-01', time()); // Always use the first of the month
 $timestamp = strtotime("{$year}-{$month}");
-$monthName = LocaleUtil::date($timestamp, '%B');
+$monthName = LocaleUtil::getMonthName($month);
 $mysqlDate = sprintf('%s-%02s-01', $year, $month);
 
 if ($mysqlDate < WOTM_BIG_BANG || (($mysqlDate > $today) && !User::can(User::PRIV_WOTD))) {

@@ -1,6 +1,6 @@
 {extends "layout-admin.tpl"}
 
-{$title="Asistent pentru cuvântul zilei: {$yearMonth|date_format:'%B %Y'}"}
+{$title="Asistent pentru cuvântul zilei: {$yearMonth|date:'MMMM yyyy'}"}
 
 {block "title"}{$title}{/block}
 
@@ -33,7 +33,7 @@
         {include "bits/icon.tpl" i=expand_less class="chevron"}
 
         <span class="date">
-          {$day} {$yearMonth|date_format:'%B %Y'}
+          {$day} {$yearMonth|date:'MMMM yyyy'}
         </span>
 
         {if $rec.allOk}
@@ -43,7 +43,7 @@
         <div class="float-end">
           <a
             class="btn btn-link btn-sm"
-            href="https://ro.wikipedia.org/wiki/{$day}_{$yearMonth|date_format:'%B'}"
+            href="https://ro.wikipedia.org/wiki/{$day}_{$yearMonth|date:'MMMM'}"
             target="_blank">wikipedia RO</a>
           <a
             class="btn btn-link btn-sm"
@@ -86,7 +86,7 @@
             <b>{$dup.oldLexicon}</b>, a fost programat pe
             {strip}
             <a href="{Router::link('wotd/view')}/{$dup.oldDate}">
-              {$dup.oldDate|date_format:'%d %B %Y'}
+              {$dup.oldDate|date:'d MMMM yyyy'}
             </a>.
             {/strip}
           {/notice}
@@ -116,7 +116,7 @@
                 <tr>
                   <td>
                     {if $w->hasFullDate()}
-                      {$w->displayDate|date_format:'%Y'}
+                      {$w->displayDate|date:'yyyy'}
                     {else}
                       <span class="badge bg-secondary">fără an</span>
                     {/if}

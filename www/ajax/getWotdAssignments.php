@@ -15,7 +15,7 @@ if (!$month) {
 // get the localized month name and year, e.g. "februarie 2016"
 $month = str_pad($month, 2, '0', STR_PAD_LEFT);
 $timestamp = strtotime("{$year}-{$month}-01");
-$dateString = strftime('%B %Y', $timestamp);
+$dateString = LocaleUtil::date($timestamp, 'MMMM yyyy');
 $numDays = date('t', $timestamp);
 
 // create a day => artistMap, one for each day, with 0 if no artist is assigned

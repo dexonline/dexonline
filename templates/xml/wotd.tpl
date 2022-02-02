@@ -24,7 +24,7 @@
     <others>
         {foreach $otherYears as $row}
         <record>
-            <year>{$row.wotd->displayDate|date_format:'%Y'}</year>
+            <year>{$row.wotd->displayDate|date:'yyyy'}</year>
             <word>{$row.word}</word>
             <reason>{$row.wotd->description|escape:html}</reason>
             <image>{$row.wotd->getMediumThumbUrl()}</image>

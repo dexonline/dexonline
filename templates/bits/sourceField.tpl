@@ -15,7 +15,7 @@
     class="btn btn-sm dropdown-toggle w-100"
     data-bs-toggle="dropdown"
     type="button">
-    {if isset($source)}
+    {if !empty($source)}
       {include "bits/sourceItem.tpl" src=$source}
     {else}
       {t}All dictionaries{/t}

@@ -87,9 +87,9 @@ class LocaleUtil {
 
   /**
    * Returns the full month name in the current locale.
-   * @param mixed $month an integer or string between 01 and 12.
+   * @param $month an integer or string between 01 and 12.
    */
-  static function getMonthName(mixed $month) {
+  static function getMonthName($month) {
     return self::date("2022-{$month}", 'LLLL');
   }
 
@@ -104,10 +104,10 @@ class LocaleUtil {
    * Formats a date according to
    * https://unicode-org.github.io/icu/userguide/format_parse/datetime/
    *
-   * @param mixed $value An integer timestamp, a DateTime object or a string
+   * @param $value An integer timestamp, a DateTime object or a string
    * parseable by the DateTime constructor.
    */
-  static function date(mixed $value, string $format = 'd MMM yyyy') {
+  static function date($value, string $format = 'd MMM yyyy') {
     $fmt = self::createDateFormatter($format);
     if (is_string($value)) {
       $value = new DateTime($value);

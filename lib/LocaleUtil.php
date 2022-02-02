@@ -109,7 +109,7 @@ class LocaleUtil {
    */
   static function date($value, string $format = 'd MMM yyyy') {
     $fmt = self::createDateFormatter($format);
-    if (is_string($value)) {
+    if (is_string($value) && !is_numeric($value)) {
       $value = new DateTime($value);
     }
     return $fmt->format($value);

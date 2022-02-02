@@ -269,6 +269,7 @@ class Preload {
       ->where_in('l.id', $lexemeIds)
       ->find_many();
 
+    self::initKeys(self::$lexemeModelTypes, $lexemeIds, null);
     foreach ($modelTypes as $mt) {
       self::$lexemeModelTypes[$mt->lexemeId] = $mt;
       unset($mt->lexemeId);

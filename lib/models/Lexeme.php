@@ -53,7 +53,11 @@ class Lexeme extends BaseObject implements DatedObject {
   }
 
   function getModelType() {
-    return Preload::getLexemeModelType($this->id);
+    // Preload loads model types in bulk, by lexeme ID. This break for some
+    // model exponents that don't have an underlying lexeme (see
+    // FlexModel::getExponentWithParadigm()).
+    return Preload::getLexemeModelType($this->id)
+      ?: ModelType::get_by_code($this->modelType);
   }
 
   function getPartOfSpeech() {

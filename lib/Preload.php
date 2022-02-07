@@ -415,9 +415,7 @@ class Preload {
    * Preload class, but it prevents code repetition.
    */
   static function setTags(int $objectType, int $objectId, array $tagIds) {
-    $tags = Model::factory('Tag')
-      ->where_in('id', $tagIds ?: [ 0 ])
-      ->find_many();
+    $tags = DB::loadInIdOrder('Tag', $tagIds);
     self::$tags[$objectType][$objectId] = $tags;
   }
 

@@ -732,7 +732,7 @@ class Lexeme extends BaseObject implements DatedObject {
     if ($this->modelType == 'V' || $this->modelType == 'VT') {
       $infl = Inflection::loadParticiple();
       $pm = ParticipleModel::get_by_verbModel($this->modelNumber);
-      $this->_deleteDependentLexemes($infl->id, 'VT', 'PT', [$pm->adjectiveModel]);
+      $this->_deleteDependentLexemes($infl->id, ['VT'], 'PT', [$pm->adjectiveModel]);
     }
   }
 
@@ -742,11 +742,11 @@ class Lexeme extends BaseObject implements DatedObject {
    */
   function deleteLongInfinitive() {
     $infl = Inflection::loadLongInfinitive();
-    $this->_deleteDependentLexemes($infl->id, 'F', 'IL', ['107', '113']);
+    $this->_deleteDependentLexemes($infl->id, ['V', 'VT'], 'IL', ['107', '113']);
   }
 
   // deletes dependent lexemes and their entries
-  private function _deleteDependentLexemes($inflId, $mainType, $depType, $modelNumbers) {
+  private function _deleteDependentLexemes($inflId, $mainTypes, $depType, $modelNumbers) {
     // Iterate through all the forms of the desired inflection (participle / long infinitive)
     $ifs = InflectedForm::get_all_by_lexemeId_inflectionId($this->id, $inflId);
     foreach ($ifs as $if) {
@@ -763,7 +763,7 @@ class Lexeme extends BaseObject implements DatedObject {
           ->join('InflectedForm', ['l.id', '=', 'i.lexemeId'], 'i')
           ->where('i.formNoAccent', $if->formNoAccent)
           ->where('i.inflectionId', $inflId)
-          ->where('l.modelType', $mainType)
+          ->where_in('l.modelType', $mainTypes)
           ->where_not_equal('l.id', $this->id)
           ->count();
 

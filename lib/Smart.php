@@ -1,6 +1,6 @@
 <?php
 
-require_once 'third-party/smarty-3.1.34/Smarty.class.php';
+require_once 'third-party/smarty-4.1.0/Smarty.class.php';
 
 class Smart {
 

@@ -11,8 +11,6 @@ const SEARCH_ENTRY_ID = 5;
 const SEARCH_FULL_TEXT = 6;
 const SEARCH_LEXEME_ID = 7;
 
-const PREVIEW_LIMIT = 20; // how many definitions to show by default
-
 // defLimit: how many definitions to display (null = not relevant)
 // paradigm: whether to display the paradigm for $entries
 // trees: whether to display the entries' trees
@@ -25,10 +23,10 @@ const DEFAULT_SEARCH_PARAMS = [
 $searchParams = [
   SEARCH_REGEXP => DEFAULT_SEARCH_PARAMS,
   SEARCH_MULTIWORD => array_replace(DEFAULT_SEARCH_PARAMS, [
-    'defLimit' => PREVIEW_LIMIT,
+    'defLimit' => Config::LIMIT_SEARCH_DEFINITIONS,
   ]),
   SEARCH_INFLECTED => array_replace(DEFAULT_SEARCH_PARAMS, [
-    'defLimit' => PREVIEW_LIMIT,
+    'defLimit' => Config::LIMIT_SEARCH_DEFINITIONS,
     'paradigm' => true,
     'trees' => Config::SEARCH_SHOW_TREES,
   ]),

@@ -125,6 +125,7 @@ class Config {
 
   /**************************** Various limits ****************************/
 
+  const LIMIT_SEARCH_DEFINITIONS = 200;
   const LIMIT_FULL_TEXT_RESULTS = 200;
   const LIMIT_BOOKMARKS = 500;
   const LIMIT_TRAINEE_PENDING_DEFS = 50;

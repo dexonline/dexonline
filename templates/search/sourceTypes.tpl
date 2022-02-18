@@ -1,11 +1,11 @@
-{if count($sourceTypes) >= 2}
-  <ul class="list-inline small ms-5">
+{if count($sourceTypes) > 1 && count($results) > 10}
+  <ul class="list-inline ms-5">
     {foreach $sourceTypes as $st}
       <li class="list-inline-item">
         <a href="#cat-{$st->id}">
           {SourceType::getShortName($st->id)}
         </a>
-        ({$st->count})
+        <span class="text-muted">({$st->count})</span>
       </li>
     {/foreach}
   </ul>

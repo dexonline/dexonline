@@ -151,8 +151,8 @@
             {/if}
           </h3>
 
-          {include "search/missingDefinitionWarnings.tpl"}
           {include "search/sourceTypes.tpl"}
+          {include "search/missingDefinitionWarnings.tpl"}
           {include "search/definitionList.tpl"}
         {/if}
 
@@ -219,6 +219,7 @@
               {t 1=count($results)}(at most %1 shown){/t}
             {/if}
           </h3>
+          {include "search/sourceTypes.tpl"}
 
           {if !count($results) && count($entries) && $sourceId}
             {include "search/extendToAllSources.tpl"}
@@ -240,12 +241,12 @@
               {t 1=count($results)}(at most %1 shown){/t}
             {/if}
           </h3>
+          {include "search/sourceTypes.tpl"}
         {/if}
 
         {include "search/missingDefinitionWarnings.tpl"}
 
         {include "search/showAllLink.tpl"}
-        {include "search/sourceTypes.tpl"}
         {include "search/definitionList.tpl"}
         {include "search/showAllLink.tpl"}
 

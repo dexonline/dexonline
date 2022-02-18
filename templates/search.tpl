@@ -136,7 +136,7 @@
 
           <h3>
             {capture "entryText"}
-            {include "bits/entry.tpl" entry=$entries[0] variantList=true tagList=true}
+              {include "bits/entry.tpl" entry=$entries[0] variantList=true tagList=true}
             {/capture}
 
             {if count($results)}
@@ -152,6 +152,7 @@
           </h3>
 
           {include "search/missingDefinitionWarnings.tpl"}
+          {include "search/sourceTypes.tpl"}
           {include "search/definitionList.tpl"}
         {/if}
 
@@ -244,6 +245,7 @@
         {include "search/missingDefinitionWarnings.tpl"}
 
         {include "search/showAllLink.tpl"}
+        {include "search/sourceTypes.tpl"}
         {include "search/definitionList.tpl"}
         {include "search/showAllLink.tpl"}
 

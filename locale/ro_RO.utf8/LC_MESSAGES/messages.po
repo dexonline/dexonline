@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2021-12-23 15:46+0200\n"
-"PO-Revision-Date: 2021-12-23 15:46+0200\n"
+"POT-Creation-Date: 2022-02-08 18:20+0200\n"
+"PO-Revision-Date: 2022-02-11 18:37+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -274,12 +274,12 @@ msgstr "Caută în tot textul definițiilor"
 msgid "help"
 msgstr "ajutor"
 
-#: templates/bits/sourceDropDown.tpl:19 templates/bits/sourceField.tpl:22
-#: templates/bits/sourceField.tpl:37
+#: templates/bits/sourceDropDown.tpl:19 templates/bits/sourceField.tpl:21
+#: templates/bits/sourceField.tpl:36
 msgid "All dictionaries"
 msgstr "Toate dicționarele"
 
-#: templates/bits/sourceField.tpl:31
+#: templates/bits/sourceField.tpl:30
 msgid "choose a dictionary..."
 msgstr "alege un dicționar..."
 
@@ -544,8 +544,8 @@ msgstr ""
 msgid "Show models for"
 msgstr "Arată modelele pentru"
 
-#: templates/games/scrabble.tpl:184 templates/search.tpl:321
-#: templates/search.tpl:329 templates/search.tpl:331
+#: templates/games/scrabble.tpl:184 templates/search.tpl:323
+#: templates/search.tpl:331 templates/search.tpl:333
 msgid "show"
 msgstr "arată"
 
@@ -932,8 +932,8 @@ msgstr[0] "O definiție conține toate cuvintele căutate"
 msgstr[1] "%1 definiții conțin toate cuvintele căutate"
 msgstr[2] "%1 de definiții conțin toate cuvintele căutate"
 
-#: templates/search.tpl:109 templates/search.tpl:177 templates/search.tpl:218
-#: templates/search.tpl:239 templates/search.tpl:264
+#: templates/search.tpl:109 templates/search.tpl:178 templates/search.tpl:219
+#: templates/search.tpl:240 templates/search.tpl:266
 msgid "(at most %1 shown)"
 msgstr "(cel mult %1 afișate)"
 
@@ -949,47 +949,47 @@ msgstr "Următoarele cuvinte au fost ignorate deoarece sunt prea comune:"
 msgid "There is no entry with the given ID."
 msgstr "Nu există nicio intrare cu ID-ul căutat."
 
-#: templates/search.tpl:144 templates/search.tpl:208
+#: templates/search.tpl:144 templates/search.tpl:209
 msgid "One definition for %2"
 msgid_plural "%1 definitions for %2"
 msgstr[0] "O definiție pentru %2"
 msgstr[1] "%1 definiții pentru %2"
 msgstr[2] "%1 de definiții pentru %2"
 
-#: templates/search.tpl:150 templates/search.tpl:214
+#: templates/search.tpl:150 templates/search.tpl:215
 msgid "No definitions for %1"
 msgstr "Nicio definiție pentru %1"
 
-#: templates/search.tpl:161
+#: templates/search.tpl:162
 msgid "for"
 msgstr "pentru"
 
-#: templates/search.tpl:167
+#: templates/search.tpl:168
 msgid "One result for <strong>%2</strong>"
 msgid_plural "%1 results for <strong>%2</strong>"
 msgstr[0] "Un rezultat pentru <strong>%2</strong>"
 msgstr[1] "%1 rezultate pentru <strong>%2</strong>"
 msgstr[2] "%1 de rezultate pentru <strong>%2</strong>"
 
-#: templates/search.tpl:173 templates/search.tpl:296
+#: templates/search.tpl:174 templates/search.tpl:298
 msgid "No results for <strong>%1</strong>"
 msgstr "Niciun rezultat pentru <strong>%1</strong>"
 
-#: templates/search.tpl:195
+#: templates/search.tpl:196
 msgid "One entry"
 msgid_plural "%1 entries"
 msgstr[0] "O intrare"
 msgstr[1] "%1 intrări"
 msgstr[2] "%1 de intrări"
 
-#: templates/search.tpl:233
+#: templates/search.tpl:234
 msgid "One definition"
 msgid_plural "%1 definitions"
 msgstr[0] "O definiție"
 msgstr[1] "%1 definiții"
 msgstr[2] "%1 de definiții"
 
-#: templates/search.tpl:255
+#: templates/search.tpl:257
 msgid "One definition matches at least two words"
 msgid_plural "%1 definitions match at least two words"
 msgstr[0] "O definiție se potrivește cu cel puțin două din cuvintele căutate"
@@ -997,12 +997,12 @@ msgstr[1] "%1 definiții se potrivesc cu cel puțin două din cuvintele căutate
 msgstr[2] ""
 "%1 de definiții se potrivesc cu cel puțin două din cuvintele căutate"
 
-#: templates/search.tpl:260
+#: templates/search.tpl:262
 msgid "No definitions match at least two words"
 msgstr ""
 "Nicio definiție nu se potrivește cu cel puțin două din cuvintele căutate"
 
-#: templates/search.tpl:269
+#: templates/search.tpl:271
 msgid ""
 "If the results are inadequate, you can look up individual words or you can "
 "search"
@@ -1010,34 +1010,34 @@ msgstr ""
 "Dacă rezultatele nu sunt mulțumitoare, puteți căuta cuvintele separat sau "
 "puteți căuta"
 
-#: templates/search.tpl:270
+#: templates/search.tpl:272
 msgid "full-text"
 msgstr "în tot textul definițiilor"
 
-#: templates/search.tpl:275
+#: templates/search.tpl:277
 msgid "At most 5 words are allowed. The following words were ignored:"
 msgstr "Sunt permise maximum 5 cuvinte. Următoarele cuvinte au fost ignorate:"
 
-#: templates/search.tpl:290
+#: templates/search.tpl:292
 msgid ""
 "The word <strong>%1</strong> is not in the dictionary. Here are some "
 "suggestions:"
 msgstr ""
 "Cuvântul <strong>%1</strong> nu este în dicționar. Iată câteva sugestii:"
 
-#: templates/search.tpl:316 lib/models/InflectedForm.php:72
+#: templates/search.tpl:318 lib/models/InflectedForm.php:72
 msgid "unrecommended or incorrect form"
 msgstr "formă nerecomandată sau greșită"
 
-#: templates/search.tpl:320 templates/search.tpl:328 templates/search.tpl:332
+#: templates/search.tpl:322 templates/search.tpl:330 templates/search.tpl:334
 msgid "hide"
 msgstr "ascunde"
 
-#: templates/search.tpl:335
+#: templates/search.tpl:337
 msgid "elisions and long verb forms"
 msgstr "forme elidate și forme verbale lungi"
 
-#: templates/search.tpl:360
+#: templates/search.tpl:362
 msgid ""
 "<b>The Synthesis tab</b> shows a condensed list of definitions compiled by "
 "the dexonline team. This tab will become the default view in the future. You "
@@ -1409,87 +1409,123 @@ msgstr "prin afereză și/sau eliziune"
 msgid "long verb form"
 msgstr "formă verbală lungă"
 
-#: lib/models/SourceType.php:32
+#: lib/models/SourceType.php:33
+msgid "general use"
+msgstr "explicative"
+
+#: lib/models/SourceType.php:34
+msgid "morphological"
+msgstr "morfologice"
+
+#: lib/models/SourceType.php:35
+msgid "relational"
+msgstr "relaționale"
+
+#: lib/models/SourceType.php:36
+msgid "etymological"
+msgstr "etimologice"
+
+#: lib/models/SourceType.php:37
+msgid "specialized"
+msgstr "specializate"
+
+#: lib/models/SourceType.php:38
+msgid "encyclopedic"
+msgstr "enciclopedice"
+
+#: lib/models/SourceType.php:39
+msgid "slang"
+msgstr "argou"
+
+#: lib/models/SourceType.php:40
+msgid "regional"
+msgstr "regionalisme"
+
+#: lib/models/SourceType.php:41
+msgid "other"
+msgstr "altele"
+
+#: lib/models/SourceType.php:42
+msgid "unverified"
+msgstr "neverificate"
+
+#: lib/models/SourceType.php:48
 msgid "General use dictionaries"
 msgstr "Dicționare explicative"
 
-#: lib/models/SourceType.php:33
+#: lib/models/SourceType.php:49
 msgid "Morphological dictionaries"
 msgstr "Dicționare morfologice"
 
-#: lib/models/SourceType.php:34
+#: lib/models/SourceType.php:50
 msgid "Relational dictionaries"
 msgstr "Dicționare relaționale"
 
-#: lib/models/SourceType.php:35
+#: lib/models/SourceType.php:51
 msgid "Etymological dictionaries"
 msgstr "Dicționare etimologice"
 
-#: lib/models/SourceType.php:36
+#: lib/models/SourceType.php:52
 msgid "Specialized dictionaries"
 msgstr "Dicționare specializate"
 
-#: lib/models/SourceType.php:37
+#: lib/models/SourceType.php:53
 msgid "Encyclopedic dictionaries"
 msgstr "Dicționare enciclopedice"
 
-#: lib/models/SourceType.php:38
+#: lib/models/SourceType.php:54
 msgid "Slang dictionaries"
 msgstr "Dicționare de argou"
 
-#: lib/models/SourceType.php:39
+#: lib/models/SourceType.php:55
 msgid "Regional dictionaries"
 msgstr "Dicționare de regionalisme (sau arhaisme)"
 
-#: lib/models/SourceType.php:40
+#: lib/models/SourceType.php:56
 msgid "Other dictionaries"
 msgstr "Dicționare neclasificate"
 
-#: lib/models/SourceType.php:41
+#: lib/models/SourceType.php:57
 msgid "Unverified dictionaries"
 msgstr "Definiții din dicționare neverificate"
 
-#: lib/models/SourceType.php:48
+#: lib/models/SourceType.php:64
 msgid "The most common sense of the words are explained."
 msgstr "Explică cele mai întâlnite sensuri ale cuvintelor."
 
-#: lib/models/SourceType.php:50
+#: lib/models/SourceType.php:66
 msgid "The correspondences between lemma and lexical forms of words."
-msgstr ""
-"Se indică corespondența dintre forma de bază a unui cuvânt și flexiunile "
-"sale."
+msgstr "Indică formele flexionare ale cuvintelor (conjugări, declinări)."
 
-#: lib/models/SourceType.php:52
+#: lib/models/SourceType.php:68
 msgid "These are not definitions, but relations between words."
-msgstr "Nu reprezintă definiții, ci se indică relații între cuvinte."
+msgstr "Indică relații între cuvinte (sinonime, antonime)."
 
-#: lib/models/SourceType.php:54
+#: lib/models/SourceType.php:70
 msgid "The etymology of (family of) words are explained."
-msgstr "Se explică etimologiile cuvintelor sau familiilor de cuvinte."
+msgstr "Explică etimologiile cuvintelor sau familiilor de cuvinte."
 
-#: lib/models/SourceType.php:56
+#: lib/models/SourceType.php:72
 msgid "These definitions usually explain only specialized meanings of words."
-msgstr ""
-"Aceste definiții explică de obicei numai înțelesuri specializate ale "
-"cuvintelor."
+msgstr "Explică înțelesuri specializate ale cuvintelor."
 
-#: lib/models/SourceType.php:58
+#: lib/models/SourceType.php:74
 msgid "Encyclopedic definitions"
 msgstr "Definiții enciclopedice"
 
-#: lib/models/SourceType.php:60
+#: lib/models/SourceType.php:76
 msgid "Only slang words or senses are defined."
-msgstr "Se explică doar sensurile argotice ale cuvintelor."
+msgstr "Explică doar sensurile argotice ale cuvintelor."
 
-#: lib/models/SourceType.php:62
+#: lib/models/SourceType.php:78
 msgid "Only regional (or archaic) words or senses are defined."
-msgstr "Se explică doar sensurile regionale (sau arhaice) ale cuvintelor."
+msgstr "Explică doar sensurile regionale (sau arhaice) ale cuvintelor."
 
-#: lib/models/SourceType.php:64
+#: lib/models/SourceType.php:80
 msgid "These definitions could explain only certain meanings of words."
 msgstr "Aceste definiții pot explica numai anumite înțelesuri ale cuvintelor."
 
-#: lib/models/SourceType.php:66
+#: lib/models/SourceType.php:82
 msgid ""
 "Since they are not made by lexicographers, these definitions may contain "
 "errors."
@@ -1630,10 +1666,10 @@ msgstr[2] "%d de cuvinte ale zilei alese la întâmplare"
 msgid "We redirected you automatically from <b>%s</b> to <b>%s</b>."
 msgstr "V-am redirecționat automat de la <b>%s</b> la <b>%s</b>."
 
-#: www/search.php:345
+#: www/search.php:358
 msgid "conjugations"
 msgstr "conjugări"
 
-#: www/search.php:346
+#: www/search.php:359
 msgid "declensions"
 msgstr "declinări"

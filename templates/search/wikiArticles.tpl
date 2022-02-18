@@ -1,5 +1,5 @@
 {if count($wikiArticles)}
-  <div class="card card-body mt-3 pb-0">
+  <div class="card card-body my-3 pb-0">
     <h3>
       {include "bits/icon.tpl" i=school}
       {t}Articles on this subject{/t}:

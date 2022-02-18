@@ -297,6 +297,8 @@ if ($defLimit) {
   }
 }
 
+$sourceTypes = SourceType::loadForSearchResults($results);
+
 if (empty($entries) && empty($lexemes) && empty($results)) {
   header('HTTP/1.0 404 Not Found');
 }
@@ -453,6 +455,7 @@ Smart::assign([
   'searchParams' => $searchParams[$searchType],
   'source' => $source,
   'sourceId' => $sourceId,
+  'sourceTypes' => $sourceTypes,
   'tab' => $tab,
   'definitionLink' => getTabPermalink(Constant::TAB_RESULTS),
   'paradigmLink' => getTabPermalink(Constant::TAB_PARADIGM),

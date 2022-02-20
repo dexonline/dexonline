@@ -1,3 +1,5 @@
+{$wikiArticles=$wikiArticles|default:[]}
+
 {extends "layout.tpl"}
 
 {block "title"}
@@ -25,52 +27,50 @@
   {include "bits/flashMessages.tpl"}
 
   <ul class="nav nav-tabs" role="tablist">
-    <li class="nav-item" role="presentation">
-      <button
-        class="nav-link {if $tab == Constant::TAB_RESULTS}active{/if}"
-        data-bs-toggle="tab"
-        data-bs-target="#resultsTab"
-        type="button"
-        role="tab"
-        aria-controls="resultsTab"
-        aria-selected="true"
-        data-permalink="{$definitionLink}">
-        {t}results{/t} ({$extra.numResults})
-      </button>
-    </li>
+    {include "search/tab.tpl"
+      activeTab=$tab
+      tab=Constant::TAB_RESULTS
+      target="resultsTab"
+      text="{t}results{/t} ({$extra.numResults})"}
 
     {if $searchParams.paradigm}
-      <li class="nav-item" role="presentation">
-        <button
-          class="nav-link {if $tab == Constant::TAB_PARADIGM}active{/if}"
-          data-bs-toggle="tab"
-          data-bs-target="#paradigmTab"
-          type="button"
-          role="tab"
-          aria-controls="paradigmTab"
-          aria-selected="true"
-          data-permalink="{$paradigmLink}">
-          {$declensionText}
-        </button>
-      </li>
+      {include "search/tab.tpl"
+        activeTab=$tab
+        tab=Constant::TAB_PARADIGM
+        target="paradigmTab"
+        text=$declensionText}
+    {/if}
+
+    {if count($images)}
+      {capture "text"}
+        {include "bits/icon.tpl" i=image}
+        {t}images{/t} ({count($images)})
+      {/capture}
+      {include "search/tab.tpl"
+        activeTab=$tab
+        tab=Constant::TAB_GALLERY
+        target="galleryTab"
+        text=$smarty.capture.text}
+    {/if}
+
+    {if count($wikiArticles)}
+      {capture "text"}
+        {include "bits/icon.tpl" i=school}
+        {t}articles{/t} ({count($wikiArticles)})
+      {/capture}
+      {include "search/tab.tpl"
+        activeTab=$tab
+        tab=Constant::TAB_ARTICLES
+        target="articlesTab"
+        text=$smarty.capture.text}
     {/if}
 
     {if count($trees)}
-      <li class="nav-item" role="presentation">
-        <button
-          class="nav-link {if $tab == Constant::TAB_TREE}active{/if}"
-          data-bs-toggle="tab"
-          data-bs-target="#treeTab"
-          type="button"
-          role="tab"
-          aria-controls="treeTab"
-          aria-selected="true"
-          data-permalink="{$treeLink}">
-          {t}synthesis{/t} ({count($trees)})
-
-        </button>
-
-      </li>
+      {include "search/tab.tpl"
+        activeTab=$tab
+        tab=Constant::TAB_TREE
+        target="treeTab"
+        text="{t}synthesis{/t} ({count($trees)})"}
 
       <li class="align-self-center ms-2">
         <a id="tabAdvertiser" href="#">
@@ -81,6 +81,7 @@
   </ul>
 
   <div class="tab-content">
+
     {* results tab *}
     <div
       role="tabpanel"
@@ -127,8 +128,6 @@
 
         {* entry ID search *}
       {elseif $searchType == $smarty.const.SEARCH_ENTRY_ID}
-
-        {include "search/gallery.tpl"}
 
         {if !count($entries)}
           <h3>{t}There is no entry with the given ID.{/t}</h3>
@@ -188,8 +187,6 @@
         {* normal search (inflected form search) *}
       {elseif $searchType == $smarty.const.SEARCH_INFLECTED}
 
-        {include "search/gallery.tpl"}
-
         {if count($entries) > 1}
           <h3>
             {* this is always plural, but still needs to be localized *}
@@ -225,8 +222,6 @@
             {include "search/extendToAllSources.tpl"}
           {/if}
         {/if}
-
-        {include "search/wikiArticles.tpl"}
 
         {* another <h3> for the definition list, if needed *}
         {if (count($entries) > 1) && count($results)}
@@ -354,6 +349,26 @@
         class="tab-pane fade {if $tab == Constant::TAB_TREE}show active{/if}"
         id="treeTab">
         {include "search/trees.tpl"}
+      </div>
+    {/if}
+
+    {* gallery tab *}
+    {if count($images)}
+      <div
+        role="tabpanel"
+        class="tab-pane fade {if $tab == Constant::TAB_GALLERY}show active{/if}"
+        id="galleryTab">
+        {include "search/gallery.tpl"}
+      </div>
+    {/if}
+
+    {* articles tab *}
+    {if count($wikiArticles)}
+      <div
+        role="tabpanel"
+        class="tab-pane fade {if $tab == Constant::TAB_ARTICLES}show active{/if}"
+        id="articlesTab">
+        {include "search/wikiArticles.tpl"}
       </div>
     {/if}
 

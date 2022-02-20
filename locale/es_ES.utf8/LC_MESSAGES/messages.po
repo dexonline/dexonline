@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2021-11-22 14:24+0200\n"
-"PO-Revision-Date: 2021-11-22 14:30+0200\n"
+"POT-Creation-Date: 2022-02-20 11:56+0200\n"
+"PO-Revision-Date: 2022-02-20 11:59+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: es\n"
@@ -22,11 +22,11 @@ msgstr ""
 
 #: templates/article/list.tpl:3 templates/article/list.tpl:6
 #: templates/bits/navmenu.tpl:105
-msgid "linguistic articles"
+msgid "linguistics articles"
 msgstr "artículos lingüísticos"
 
 #: templates/article/view.tpl:17
-msgid "Other linguistic articles"
+msgid "Other linguistics articles"
 msgstr "Otros artículos lingüísticos"
 
 #: templates/bits/definitionMenuProper.tpl:38
@@ -251,29 +251,34 @@ msgstr "La forma <strong>%1</strong> está en LOC %2."
 msgid "The form <strong>%1</strong> does not exist in LOC %2."
 msgstr "La forma <strong>%1</strong> no está en LOC %2."
 
-#: templates/bits/searchForm.tpl:18
+#: templates/bits/searchForm.tpl:23
 msgid "word"
 msgstr "palabra"
 
-#: templates/bits/searchForm.tpl:33
+#: templates/bits/searchForm.tpl:46
 msgid "search"
 msgstr "búsqueda"
 
-#: templates/bits/searchForm.tpl:38 templates/games/scramble.tpl:32
+#: templates/bits/searchForm.tpl:51 templates/games/scramble.tpl:32
 msgid "options"
 msgstr "opciones"
 
-#: templates/bits/searchForm.tpl:52
+#: templates/bits/searchForm.tpl:65
 msgid "Full-text search"
 msgstr "Búsqueda en el texto de las definiciones"
 
-#: templates/bits/searchForm.tpl:62
+#: templates/bits/searchForm.tpl:75
 msgid "help"
 msgstr "ayuda"
 
-#: templates/bits/sourceDropDown.tpl:19
+#: templates/bits/sourceDropDown.tpl:19 templates/bits/sourceField.tpl:21
+#: templates/bits/sourceField.tpl:36
 msgid "All dictionaries"
 msgstr "Todos los diccionarios"
+
+#: templates/bits/sourceField.tpl:30
+msgid "choose a dictionary..."
+msgstr ""
 
 #: templates/bits/top.tpl:4
 msgid "rank"
@@ -350,7 +355,7 @@ msgstr "el colgado"
 msgid "Lives remaining"
 msgstr "Vidas restantes"
 
-#: templates/games/hangman.tpl:18 templates/search/gallery.tpl:6
+#: templates/games/hangman.tpl:18 templates/search.tpl:47
 msgid "images"
 msgstr "imágenes"
 
@@ -536,8 +541,8 @@ msgstr ""
 msgid "Show models for"
 msgstr "Muestre los modelos para"
 
-#: templates/games/scrabble.tpl:184 templates/search.tpl:321
-#: templates/search.tpl:329 templates/search.tpl:331
+#: templates/games/scrabble.tpl:184 templates/search.tpl:328
+#: templates/search.tpl:336 templates/search.tpl:338
 msgid "show"
 msgstr "muestre"
 
@@ -899,96 +904,100 @@ msgstr "2ª (voi)"
 msgid "3rd (ei, ele)"
 msgstr "3ª (ei, ele)"
 
-#: templates/search.tpl:5
+#: templates/search.tpl:7
 msgid "definition"
 msgstr "definición"
 
-#: templates/search.tpl:7
+#: templates/search.tpl:9
 msgid "and paradigm"
 msgstr "y paradigma"
 
-#: templates/search.tpl:38
+#: templates/search.tpl:34
 msgid "results"
 msgstr "resultados"
 
-#: templates/search.tpl:69
+#: templates/search.tpl:59
+msgid "articles"
+msgstr "artículos"
+
+#: templates/search.tpl:79
 msgid "synthesis"
 msgstr "síntesis"
 
-#: templates/search.tpl:92
+#: templates/search.tpl:102
 msgid "Definition with ID"
 msgstr "Definición con el ID"
 
-#: templates/search.tpl:104
+#: templates/search.tpl:114
 msgid "One definition contains all the words"
 msgid_plural "%1 definitions contain all the words"
 msgstr[0] "Una sola definición contiene todas las palabras"
 msgstr[1] "%1 definiciones contienen todas las palabras"
 
-#: templates/search.tpl:109 templates/search.tpl:177 templates/search.tpl:218
-#: templates/search.tpl:239 templates/search.tpl:264
+#: templates/search.tpl:119 templates/search.tpl:186 templates/search.tpl:225
+#: templates/search.tpl:245 templates/search.tpl:271
 msgid "(at most %1 shown)"
 msgstr "(máximo %1 mostradas)"
 
-#: templates/search.tpl:112
+#: templates/search.tpl:122
 msgid "No definitions contain all the words"
 msgstr "Ninguna de las definiciones contiene todas las palabras"
 
-#: templates/search.tpl:118
+#: templates/search.tpl:128
 msgid "The following words were ignored because they are too common:"
 msgstr "Las siguientes palabras se ignoran por ser demasiado comunes:"
 
-#: templates/search.tpl:134
+#: templates/search.tpl:142
 msgid "There is no entry with the given ID."
 msgstr "No hay ninguna entrada con el ID dado."
 
-#: templates/search.tpl:144 templates/search.tpl:208
+#: templates/search.tpl:152 templates/search.tpl:215
 msgid "One definition for %2"
 msgid_plural "%1 definitions for %2"
 msgstr[0] "Una definición por %2"
 msgstr[1] "%1 definiciones por %2"
 
-#: templates/search.tpl:150 templates/search.tpl:214
+#: templates/search.tpl:158 templates/search.tpl:221
 msgid "No definitions for %1"
 msgstr "Ninguna definición por %1"
 
-#: templates/search.tpl:161
+#: templates/search.tpl:170
 msgid "for"
 msgstr "para"
 
-#: templates/search.tpl:167
+#: templates/search.tpl:176
 msgid "One result for <strong>%2</strong>"
 msgid_plural "%1 results for <strong>%2</strong>"
 msgstr[0] "Un resultado para <strong>%2</strong>"
 msgstr[1] "%1 resultados para <strong>%2</strong>"
 
-#: templates/search.tpl:173 templates/search.tpl:296
+#: templates/search.tpl:182 templates/search.tpl:303
 msgid "No results for <strong>%1</strong>"
 msgstr "No hay resultados para <strong>%1</strong>"
 
-#: templates/search.tpl:195
+#: templates/search.tpl:202
 msgid "One entry"
 msgid_plural "%1 entries"
 msgstr[0] "Una entrada"
 msgstr[1] "%1 entradas"
 
-#: templates/search.tpl:233
+#: templates/search.tpl:239
 msgid "One definition"
 msgid_plural "%1 definitions"
 msgstr[0] "Una definición"
 msgstr[1] "%1 definiciones"
 
-#: templates/search.tpl:255
+#: templates/search.tpl:262
 msgid "One definition matches at least two words"
 msgid_plural "%1 definitions match at least two words"
 msgstr[0] "Una definición coincide con al menos dos palabras"
 msgstr[1] "%1 definiciones coinciden con al menos dos palabras"
 
-#: templates/search.tpl:260
+#: templates/search.tpl:267
 msgid "No definitions match at least two words"
 msgstr "Ninguna definición coincide con al menos dos palabras"
 
-#: templates/search.tpl:269
+#: templates/search.tpl:276
 msgid ""
 "If the results are inadequate, you can look up individual words or you can "
 "search"
@@ -996,16 +1005,16 @@ msgstr ""
 "Si los resultados no se corresponden, puede buscar las palabras por separado "
 "o puede buscar"
 
-#: templates/search.tpl:270
+#: templates/search.tpl:277
 msgid "full-text"
 msgstr "en el texto de las definiciones"
 
-#: templates/search.tpl:275
+#: templates/search.tpl:282
 msgid "At most 5 words are allowed. The following words were ignored:"
 msgstr ""
 "Como mucho 5 palabras permitidas. Las siguientes palabras se van a ignorar:"
 
-#: templates/search.tpl:290
+#: templates/search.tpl:297
 msgid ""
 "The word <strong>%1</strong> is not in the dictionary. Here are some "
 "suggestions:"
@@ -1013,19 +1022,19 @@ msgstr ""
 "El término <strong>%1</strong> no se encuentra en el diccionario. Le damos "
 "las siguientes sugerencias:"
 
-#: templates/search.tpl:316 lib/models/InflectedForm.php:72
+#: templates/search.tpl:323 lib/models/InflectedForm.php:72
 msgid "unrecommended or incorrect form"
 msgstr "forma no recomendada o incorrecta"
 
-#: templates/search.tpl:320 templates/search.tpl:328 templates/search.tpl:332
+#: templates/search.tpl:327 templates/search.tpl:335 templates/search.tpl:339
 msgid "hide"
 msgstr "esconde"
 
-#: templates/search.tpl:335
+#: templates/search.tpl:342
 msgid "elisions and long verb forms"
 msgstr "elisiones y formas largas"
 
-#: templates/search.tpl:360
+#: templates/search.tpl:387
 msgid ""
 "<b>The Synthesis tab</b> shows a condensed list of definitions compiled by "
 "the dexonline team. This tab will become the default view in the future. You "
@@ -1049,6 +1058,12 @@ msgstr ""
 "Ahora mismo no puede buscar dentro de las definiciones porque el índice se "
 "está regenerando. Este proceso lleva normalmente unos 10 minutos. Pedimos "
 "disculpas por las molestias."
+
+#: templates/search/gallery.tpl:3
+msgid "One image"
+msgid_plural "%1 images"
+msgstr[0] "Una imagen"
+msgstr[1] "%1 imagenes"
 
 #: templates/search/missingDefinitionWarnings.tpl:6
 msgid ""
@@ -1078,9 +1093,11 @@ msgstr "editar"
 msgid "etymology"
 msgstr "etimología"
 
-#: templates/search/wikiArticles.tpl:5
-msgid "Articles on this subject"
-msgstr "Artículos con este tema"
+#: templates/search/wikiArticles.tpl:3
+msgid "One linguistics article"
+msgid_plural "%1 linguistics articles"
+msgstr[0] "Un artículo lingüístico"
+msgstr[1] "%1 artículos lingüísticos"
 
 #: templates/simple/contact.tpl:18
 msgid "Useful information"
@@ -1391,88 +1408,128 @@ msgstr "por aféresis y/o elisión"
 msgid "long verb form"
 msgstr "forma larga verbal"
 
-#: lib/models/SourceType.php:32
+#: lib/models/SourceType.php:33
+msgid "general use"
+msgstr "uso general"
+
+#: lib/models/SourceType.php:34
+msgid "morphological"
+msgstr "morfológicos"
+
+#: lib/models/SourceType.php:35
+msgid "relational"
+msgstr "relacionales"
+
+#: lib/models/SourceType.php:36
+msgid "etymological"
+msgstr "etimológicos"
+
+#: lib/models/SourceType.php:37
+msgid "specialized"
+msgstr "especializados"
+
+#: lib/models/SourceType.php:38
+msgid "encyclopedic"
+msgstr "enciclopédicos"
+
+#: lib/models/SourceType.php:39
+msgid "slang"
+msgstr "jerga"
+
+#: lib/models/SourceType.php:40
+msgid "regional"
+msgstr "regionales"
+
+#: lib/models/SourceType.php:41
+msgid "other"
+msgstr "otros"
+
+#: lib/models/SourceType.php:42
+msgid "unverified"
+msgstr "sin comprombar"
+
+#: lib/models/SourceType.php:48
 msgid "General use dictionaries"
 msgstr "Diccionarios de uso general"
 
-#: lib/models/SourceType.php:33
+#: lib/models/SourceType.php:49
 msgid "Morphological dictionaries"
 msgstr "Diccionarios morfológicos"
 
-#: lib/models/SourceType.php:34
+#: lib/models/SourceType.php:50
 msgid "Relational dictionaries"
 msgstr "Diccionarios relacionales"
 
-#: lib/models/SourceType.php:35
+#: lib/models/SourceType.php:51
 msgid "Etymological dictionaries"
 msgstr "Diccionarios etimológicos"
 
-#: lib/models/SourceType.php:36
+#: lib/models/SourceType.php:52
 msgid "Specialized dictionaries"
 msgstr "Diccionarios especializados"
 
-#: lib/models/SourceType.php:37
+#: lib/models/SourceType.php:53
 msgid "Encyclopedic dictionaries"
 msgstr "Diccionarios enciclopédicos"
 
-#: lib/models/SourceType.php:38
+#: lib/models/SourceType.php:54
 msgid "Slang dictionaries"
 msgstr "Diccionarios de jerga"
 
-#: lib/models/SourceType.php:39
+#: lib/models/SourceType.php:55
 msgid "Regional dictionaries"
-msgstr "Diccionarios relacionales"
+msgstr "Diccionarios regionales"
 
-#: lib/models/SourceType.php:40
+#: lib/models/SourceType.php:56
 msgid "Other dictionaries"
 msgstr "Otros diccionarios"
 
-#: lib/models/SourceType.php:41
+#: lib/models/SourceType.php:57
 msgid "Unverified dictionaries"
 msgstr "Diccionarios sin comprobar"
 
-#: lib/models/SourceType.php:48
+#: lib/models/SourceType.php:64
 msgid "The most common sense of the words are explained."
 msgstr "Se explica el sentido primario de las palabras."
 
-#: lib/models/SourceType.php:50
+#: lib/models/SourceType.php:66
 msgid "The correspondences between lemma and lexical forms of words."
 msgstr ""
 "Las correspondencias entre el lema y las formas léxicas de las palabras."
 
-#: lib/models/SourceType.php:52
+#: lib/models/SourceType.php:68
 msgid "These are not definitions, but relations between words."
 msgstr "No son definiciones, sino relaciones entre las palabras."
 
-#: lib/models/SourceType.php:54
+#: lib/models/SourceType.php:70
 msgid "The etymology of (family of) words are explained."
 msgstr "Se explican las etimologías de las (familias de) palabras."
 
-#: lib/models/SourceType.php:56
+#: lib/models/SourceType.php:72
 msgid "These definitions usually explain only specialized meanings of words."
 msgstr ""
 "Estas definiciones explican normalmente solo las acepciones especializadas "
 "de las palabras."
 
-#: lib/models/SourceType.php:58
+#: lib/models/SourceType.php:74
 msgid "Encyclopedic definitions"
 msgstr "Definiciones enciclopedicas"
 
-#: lib/models/SourceType.php:60
+#: lib/models/SourceType.php:76
 msgid "Only slang words or senses are defined."
 msgstr "Se definen solo las voces jergales."
 
-#: lib/models/SourceType.php:62
+#: lib/models/SourceType.php:78
 msgid "Only regional (or archaic) words or senses are defined."
 msgstr "Se definen solo las voces regionales (o arcaicas)."
 
-#: lib/models/SourceType.php:64
+#: lib/models/SourceType.php:80
 msgid "These definitions could explain only certain meanings of words."
 msgstr ""
 "Estas definiciones pueden explicar solo algunas de las acepciones de las "
 "palabras."
 
-#: lib/models/SourceType.php:66
+#: lib/models/SourceType.php:82
 msgid ""
 "Since they are not made by lexicographers, these definitions may contain "
 "errors."
@@ -1609,15 +1666,24 @@ msgid_plural "%d randomly chosen words of the day"
 msgstr[0] "Una palabra del día escogida aleatoriamente"
 msgstr[1] "%d palabras del día escogidas aleatoriamente"
 
-#: www/search.php:224
+#: www/search.php:222
 #, php-format
 msgid "We redirected you automatically from <b>%s</b> to <b>%s</b>."
 msgstr "Ha sido automáticamente redirigido de <b>%s</b> a <b>%s</b>."
 
-#: www/search.php:345
+#: www/search.php:356
 msgid "conjugations"
 msgstr "conjugaciones"
 
-#: www/search.php:346
+#: www/search.php:357
 msgid "declensions"
 msgstr "declinaciones"
+
+#~ msgid "linguistic articles"
+#~ msgstr "artículos lingüísticos"
+
+#~ msgid "Other linguistic articles"
+#~ msgstr "Otros artículos lingüísticos"
+
+#~ msgid "Articles on this subject"
+#~ msgstr "Artículos con este tema"

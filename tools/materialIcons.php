@@ -39,6 +39,7 @@ const CODEPOINTS = [
   'help',
   'history',
   'hourglass_empty',
+  'image',
   'info',
   'keyboard',
   'language',

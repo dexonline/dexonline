@@ -102,7 +102,7 @@
             </li>
             <li>
               <a href="{Router::link('article/list')}" class="dropdown-item">
-                {cap}{t}linguistic articles{/t}{/cap}
+                {cap}{t}linguistics articles{/t}{/cap}
               </a>
             </li>
             <li>

@@ -188,10 +188,14 @@ class Constant {
   const TAB_RESULTS = 0;
   const TAB_PARADIGM = 1;
   const TAB_TREE = 2;
+  const TAB_GALLERY = 3;
+  const TAB_ARTICLES = 4;
   const TAB_URL = [
     self::TAB_RESULTS => '',
     self::TAB_PARADIGM => '/paradigma',
     self::TAB_TREE => '/sinteza',
+    self::TAB_GALLERY => '/imagini',
+    self::TAB_ARTICLES => '/articole',
   ];
 
   // Long participles and gerunds (like dusu- and ducându-) need some special treatment.

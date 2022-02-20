@@ -455,9 +455,6 @@ Smart::assign([
   'sourceId' => $sourceId,
   'sourceTypes' => $sourceTypes,
   'tab' => $tab,
-  'definitionLink' => getTabPermalink(Constant::TAB_RESULTS),
-  'paradigmLink' => getTabPermalink(Constant::TAB_PARADIGM),
-  'treeLink' => getTabPermalink(Constant::TAB_TREE),
   'allDefinitions' => $all,
   'showWotd' => $showWotd,
   'pageType' => 'search',
@@ -520,10 +517,12 @@ function getTabPermalink($tab) {
   $uri = $_SERVER['REQUEST_URI'];
 
   // remove existing tab markers
-  $uri = str_replace([
-    Constant::TAB_URL[Constant::TAB_PARADIGM],
-    Constant::TAB_URL[Constant::TAB_TREE],
-  ], '', $uri);
+  $regexp = sprintf('@(%s|%s|%s|%s)$@',
+                    Constant::TAB_URL[Constant::TAB_PARADIGM],
+                    Constant::TAB_URL[Constant::TAB_TREE],
+                    Constant::TAB_URL[Constant::TAB_GALLERY],
+                    Constant::TAB_URL[Constant::TAB_ARTICLES]);
+  $uri = preg_replace($regexp, '', $uri);
 
   // add the paradigm tab marker
   $uri .= Constant::TAB_URL[$tab];

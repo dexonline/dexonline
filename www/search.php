@@ -475,7 +475,7 @@ switch ($format['name']) {
     break;
   case 'html':
   default:
-    Smart::addResources('paradigm');
+    Smart::addResources('paradigm', 'scrollTop');
     Smart::display('search.tpl');
 }
 

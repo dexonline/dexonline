@@ -48,6 +48,7 @@
       {/capture}
       {include "search/tab.tpl"
         activeTab=$tab
+        cssClass="text-secondary"
         tab=Constant::TAB_GALLERY
         target="galleryTab"
         text=$smarty.capture.text}
@@ -60,6 +61,7 @@
       {/capture}
       {include "search/tab.tpl"
         activeTab=$tab
+        cssClass="text-secondary"
         tab=Constant::TAB_ARTICLES
         target="articlesTab"
         text=$smarty.capture.text}

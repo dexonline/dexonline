@@ -213,16 +213,18 @@ class Entry extends BaseObject implements DatedObject {
     // load lexemes from two sources:
     // * simple lexemes that generate this form;
     // * compound lexemes that have a fragment that generates this form
+    //   (do not include compound lexemes for prepositions like "de" or "a")
 
     $simple = 'select l.id ' .
-            'from Lexeme l ' .
-            'join InflectedForm i on l.id = i.lexemeId ' .
-            "where i.$field = :form";
-    $compound = 'select l.id ' .
-              'from Lexeme l ' .
-              'join Fragment f on l.id = f.lexemeId ' .
-              'join InflectedForm i on f.partId = i.lexemeId ' .
-              "where i.$field = :form";
+      'from Lexeme l ' .
+      'join InflectedForm i on l.id = i.lexemeId ' .
+      "where i.$field = :form";
+    $compound = 'select f.lexemeId ' .
+      'from Fragment f ' .
+      'join Lexeme part on f.partId = part.id ' .
+      'join InflectedForm i on f.partId = i.lexemeId ' .
+      "where i.$field = :form " .
+      'and (part.modelType != "I" or part.modelNumber not in ("11", "12"))';
     $subquery = "{$simple} union {$compound}";
 
     // load entries for the above lexemes

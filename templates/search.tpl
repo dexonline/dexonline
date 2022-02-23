@@ -29,9 +29,9 @@
   <ul class="nav nav-tabs" role="tablist">
     {include "search/tab.tpl"
       activeTab=$tab
+      count=$extra.numResults
       tab=Tab::T_RESULTS
-      target="resultsTab"
-      text="{t}results{/t} ({$extra.numResults})"}
+      target="resultsTab"}
 
     {if $searchParams.paradigm}
       {include "search/tab.tpl"
@@ -44,27 +44,27 @@
     {if count($images)}
       {include "search/tab.tpl"
         activeTab=$tab
+        count=count($images)
         notice=true
         tab=Tab::T_GALLERY
-        target="galleryTab"
-        text="{t}images{/t} ({count($images)})"}
+        target="galleryTab"}
     {/if}
 
     {if count($wikiArticles)}
       {include "search/tab.tpl"
         activeTab=$tab
+        count=count($wikiArticles)
         notice=true
         tab=Tab::T_ARTICLES
-        target="articlesTab"
-        text="{t}articles{/t} ({count($wikiArticles)})"}
+        target="articlesTab"}
     {/if}
 
     {if count($trees)}
       {include "search/tab.tpl"
         activeTab=$tab
+        count=count($trees)
         tab=Tab::T_TREES
-        target="treeTab"
-        text="{t}synthesis{/t} ({count($trees)})"}
+        target="treeTab"}
 
       <li class="align-self-center ms-2">
         <a id="tabAdvertiser" href="#">

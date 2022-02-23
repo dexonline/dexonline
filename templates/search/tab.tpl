@@ -3,9 +3,10 @@
    $activeTab: active tab
    $tab: tab to display
    $target: ID of content element
-   $text: tab title
   **}
+{$count=$count|default:0}    {* if non-zero, display it in parentheses *}
 {$notice=$notice|default:''} {* make the nav slightly more prominent *}
+{$text=$text|default:''}     {* override tab name *}
 <li class="nav-item" role="presentation">
   <button
     aria-controls="{$target}"
@@ -16,6 +17,13 @@
     data-permalink="{Tab::getPermalink($tab)}"
     role="tab"
     type="button">
-    {$text}
+
+    {if $text}
+      {$text}
+    {else}
+      {Tab::getName($tab)}
+    {/if}
+
+    {if $count}({$count}){/if}
   </button>
 </li>

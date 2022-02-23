@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2022-02-23 15:40+0200\n"
-"PO-Revision-Date: 2022-02-23 15:42+0200\n"
+"POT-Creation-Date: 2022-02-23 17:09+0200\n"
+"PO-Revision-Date: 2022-02-23 17:09+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -544,8 +544,8 @@ msgstr ""
 msgid "Show models for"
 msgstr "Arată modelele pentru"
 
-#: templates/games/scrabble.tpl:184 templates/search.tpl:316
-#: templates/search.tpl:324 templates/search.tpl:326
+#: templates/games/scrabble.tpl:184 templates/search.tpl:300
+#: templates/search.tpl:308 templates/search.tpl:310
 msgid "show"
 msgstr "arată"
 
@@ -924,8 +924,7 @@ msgstr[0] "O definiție conține toate cuvintele căutate"
 msgstr[1] "%1 definiții conțin toate cuvintele căutate"
 msgstr[2] "%1 de definiții conțin toate cuvintele căutate"
 
-#: templates/search.tpl:107 templates/search.tpl:174 templates/search.tpl:213
-#: templates/search.tpl:233 templates/search.tpl:259
+#: templates/search.tpl:107 templates/search.tpl:174
 msgid "(at most %1 shown)"
 msgstr "(cel mult %1 afișate)"
 
@@ -963,7 +962,7 @@ msgstr[0] "Un rezultat pentru <strong>%2</strong>"
 msgstr[1] "%1 rezultate pentru <strong>%2</strong>"
 msgstr[2] "%1 de rezultate pentru <strong>%2</strong>"
 
-#: templates/search.tpl:170 templates/search.tpl:291
+#: templates/search.tpl:170 templates/search.tpl:275
 msgid "No results for <strong>%1</strong>"
 msgstr "Niciun rezultat pentru <strong>%1</strong>"
 
@@ -974,14 +973,14 @@ msgstr[0] "O intrare"
 msgstr[1] "%1 intrări"
 msgstr[2] "%1 de intrări"
 
-#: templates/search.tpl:227
+#: templates/search.tpl:223
 msgid "One definition"
 msgid_plural "%1 definitions"
 msgstr[0] "O definiție"
 msgstr[1] "%1 definiții"
 msgstr[2] "%1 de definiții"
 
-#: templates/search.tpl:250
+#: templates/search.tpl:240
 msgid "One definition matches at least two words"
 msgid_plural "%1 definitions match at least two words"
 msgstr[0] "O definiție se potrivește cu cel puțin două din cuvintele căutate"
@@ -989,12 +988,12 @@ msgstr[1] "%1 definiții se potrivesc cu cel puțin două din cuvintele căutate
 msgstr[2] ""
 "%1 de definiții se potrivesc cu cel puțin două din cuvintele căutate"
 
-#: templates/search.tpl:255
+#: templates/search.tpl:245
 msgid "No definitions match at least two words"
 msgstr ""
 "Nicio definiție nu se potrivește cu cel puțin două din cuvintele căutate"
 
-#: templates/search.tpl:264
+#: templates/search.tpl:250
 msgid ""
 "If the results are inadequate, you can look up individual words or you can "
 "search"
@@ -1002,34 +1001,34 @@ msgstr ""
 "Dacă rezultatele nu sunt mulțumitoare, puteți căuta cuvintele separat sau "
 "puteți căuta"
 
-#: templates/search.tpl:265
+#: templates/search.tpl:251
 msgid "full-text"
 msgstr "în tot textul definițiilor"
 
-#: templates/search.tpl:270
+#: templates/search.tpl:256
 msgid "At most 5 words are allowed. The following words were ignored:"
 msgstr "Sunt permise maximum 5 cuvinte. Următoarele cuvinte au fost ignorate:"
 
-#: templates/search.tpl:285
+#: templates/search.tpl:269
 msgid ""
 "The word <strong>%1</strong> is not in the dictionary. Here are some "
 "suggestions:"
 msgstr ""
 "Cuvântul <strong>%1</strong> nu este în dicționar. Iată câteva sugestii:"
 
-#: templates/search.tpl:311 lib/models/InflectedForm.php:72
+#: templates/search.tpl:295 lib/models/InflectedForm.php:72
 msgid "unrecommended or incorrect form"
 msgstr "formă nerecomandată sau greșită"
 
-#: templates/search.tpl:315 templates/search.tpl:323 templates/search.tpl:327
+#: templates/search.tpl:299 templates/search.tpl:307 templates/search.tpl:311
 msgid "hide"
 msgstr "ascunde"
 
-#: templates/search.tpl:330
+#: templates/search.tpl:314
 msgid "elisions and long verb forms"
 msgstr "forme elidate și forme verbale lungi"
 
-#: templates/search.tpl:375
+#: templates/search.tpl:359
 msgid ""
 "<b>The Synthesis tab</b> shows a condensed list of definitions compiled by "
 "the dexonline team. The original definitions are available on the "
@@ -1081,10 +1080,6 @@ msgid ""
 msgstr ""
 "Există definiții din dicționare pentru care dexonline nu are drepturi de "
 "redistribuire:"
-
-#: templates/search/showAllLink.tpl:4
-msgid "show all definitions"
-msgstr "arată toate definițiile"
 
 #: templates/search/trees.tpl:22
 msgid "edit"
@@ -1681,15 +1676,15 @@ msgstr[0] "Un cuvânt al zilei ales la întâmplare"
 msgstr[1] "%d cuvinte ale zilei alese la întâmplare"
 msgstr[2] "%d de cuvinte ale zilei alese la întâmplare"
 
-#: www/search.php:223
+#: www/search.php:216
 #, php-format
 msgid "We redirected you automatically from <b>%s</b> to <b>%s</b>."
 msgstr "V-am redirecționat automat de la <b>%s</b> la <b>%s</b>."
 
-#: www/search.php:357
+#: www/search.php:341
 msgid "conjugations"
 msgstr "conjugări"
 
-#: www/search.php:358
+#: www/search.php:342
 msgid "declensions"
 msgstr "declinări"

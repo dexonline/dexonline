@@ -11,22 +11,17 @@ const SEARCH_ENTRY_ID = 5;
 const SEARCH_FULL_TEXT = 6;
 const SEARCH_LEXEME_ID = 7;
 
-// defLimit: how many definitions to display (null = not relevant)
 // paradigm: whether to display the paradigm for $entries
 // trees: whether to display the entries' trees
 const DEFAULT_SEARCH_PARAMS = [
-  'defLimit' => null,
   'paradigm' => false,
   'trees' => false,
 ];
 
 $searchParams = [
   SEARCH_REGEXP => DEFAULT_SEARCH_PARAMS,
-  SEARCH_MULTIWORD => array_replace(DEFAULT_SEARCH_PARAMS, [
-    'defLimit' => Config::LIMIT_SEARCH_DEFINITIONS,
-  ]),
+  SEARCH_MULTIWORD => DEFAULT_SEARCH_PARAMS,
   SEARCH_INFLECTED => array_replace(DEFAULT_SEARCH_PARAMS, [
-    'defLimit' => Config::LIMIT_SEARCH_DEFINITIONS,
     'paradigm' => true,
     'trees' => true,
   ]),
@@ -48,7 +43,6 @@ $sourceUrlName = Request::get('source');
 $text = Request::has('text');
 $tab = Tab::getFromUrl();
 $format = checkFormat();
-$all = Request::get('all');
 
 $redirect = Session::get('redirect');
 $redirectFrom = Session::get('init_word', '');
@@ -60,13 +54,12 @@ if ($cuv && !$redirect) {
 }
 
 Request::redirectToFriendlyUrl(
-  $cuv, $entryId, $lexemeId, $sourceUrlName, $text, $tab, $format, $all);
+  $cuv, $entryId, $lexemeId, $sourceUrlName, $text, $tab, $format);
 
 $searchType = SEARCH_INFLECTED;
 $hasDiacritics = Session::userPrefers(Preferences::FORCE_DIACRITICS);
 $hasRegexp = FALSE;
 $isAllDigits = FALSE;
-$all = $all || ($tab != Tab::T_RESULTS);
 
 $source = $sourceUrlName ? Source::get_by_urlName($sourceUrlName) : null;
 $sourceId = $source ? $source->id : null;
@@ -287,15 +280,6 @@ SearchResult::collapseIdentical($results);
 
 $extra['numResults'] = count($results) ?: count($entries) ?: count($lexemes);
 
-// Keep only a maximum number of definitions
-$defLimit = $searchParams[$searchType]['defLimit'];
-if ($defLimit) {
-  $extra['numDefinitions'] = count($results);
-  if (!$all) {
-    $results = array_slice($results, 0, $defLimit);
-  }
-}
-
 $sourceTypes = SourceType::loadForSearchResults($results);
 
 if (empty($entries) && empty($lexemes) && empty($results)) {
@@ -453,7 +437,6 @@ Smart::assign([
   'sourceId' => $sourceId,
   'sourceTypes' => $sourceTypes,
   'tab' => $tab,
-  'allDefinitions' => $all,
   'showWotd' => $showWotd,
   'pageType' => 'search',
 ]);

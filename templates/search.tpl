@@ -200,17 +200,13 @@
           <h3>
             {if count($results)}
               {t
-                count=$extra.numDefinitions
-                1=$extra.numDefinitions
+                count=count($results)
+                1=count($results)
                 2=$smarty.capture.entryText
                 plural="%1 definitions for %2"}
               One definition for %2{/t}
             {else}
               {t 1=$smarty.capture.entryText}No definitions for %1{/t}
-            {/if}
-
-            {if $extra.numDefinitions > count($results)}
-              {t 1=count($results)}(at most %1 shown){/t}
             {/if}
           </h3>
           {include "search/sourceTypes.tpl"}
@@ -224,39 +220,29 @@
         {if (count($entries) > 1) && count($results)}
           <h3>
             {t
-              count=$extra.numDefinitions
-              1=$extra.numDefinitions
+              count=count($results)
+              1=count($results)
               plural="%1 definitions"}
             One definition{/t}
-
-            {if $extra.numDefinitions > count($results)}
-              {t 1=count($results)}(at most %1 shown){/t}
-            {/if}
           </h3>
           {include "search/sourceTypes.tpl"}
         {/if}
 
         {include "search/missingDefinitionWarnings.tpl"}
 
-        {include "search/showAllLink.tpl"}
         {include "search/definitionList.tpl"}
-        {include "search/showAllLink.tpl"}
 
         {* multiword search *}
       {elseif $searchType == $smarty.const.SEARCH_MULTIWORD}
         <h3>
           {if count($results)}
             {t
-              count=$extra.numDefinitions
-              1=$extra.numDefinitions
+              count=count($results)
+              1=count($results)
               plural="%1 definitions match at least two words"}
             One definition matches at least two words{/t}
           {else}
             {t}No definitions match at least two words{/t}
-          {/if}
-
-          {if $extra.numDefinitions > count($results)}
-            {t 1=count($results)}(at most %1 shown){/t}
           {/if}
         </h3>
 
@@ -274,9 +260,7 @@
           </p>
         {/if}
 
-        {include "search/showAllLink.tpl"}
         {include "search/definitionList.tpl" categories=false}
-        {include "search/showAllLink.tpl"}
 
         {* approximate search *}
       {elseif $searchType == $smarty.const.SEARCH_APPROXIMATE}

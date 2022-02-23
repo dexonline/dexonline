@@ -141,7 +141,7 @@ class Request {
    * should not contain lexemeId / definitionId.
    */
   static function redirectToFriendlyUrl(
-    $cuv, $entryId, $lexemeId, $sourceUrlName, $text, $tab, $format, $all
+    $cuv, $entryId, $lexemeId, $sourceUrlName, $text, $tab, $format
   ) {
     if (strpos($_SERVER['REQUEST_URI'], '/search.php?') === false) {
       return;    // The url is already friendly.
@@ -156,7 +156,6 @@ class Request {
 
     $sourcePart = $sourceUrlName ? "-{$sourceUrlName}" : '';
     $tabPart = Tab::URL[$tab];
-    $allPart = ($all && ($tab == Tab::T_RESULTS)) ? '/expandat' : '';
 
     if ($text) {
       $url = "text{$sourcePart}/{$cuv}";
@@ -177,7 +176,7 @@ class Request {
       $url = "definitie{$sourcePart}/{$cuv}{$tabPart}";
     }
 
-    Util::redirect(Config::URL_PREFIX . $url . $allPart);
+    Util::redirect(Config::URL_PREFIX . $url);
   }
 
 }

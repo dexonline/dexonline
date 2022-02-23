@@ -25,7 +25,7 @@ class Tab {
   ];
 
   const URL = [
-    self::T_RESULTS => '',
+    self::T_RESULTS => '/definitii',
     self::T_PARADIGM => '/paradigma',
     self::T_TREES => '/sinteza',
     self::T_GALLERY => '/imagini',
@@ -62,11 +62,8 @@ class Tab {
     $uri = $_SERVER['REQUEST_URI'];
 
     // remove existing tab markers
-    $regexp = sprintf('@(%s|%s|%s|%s)$@',
-                      self::URL[self::T_PARADIGM],
-                      self::URL[self::T_TREES],
-                      self::URL[self::T_GALLERY],
-                      self::URL[self::T_ARTICLES]);
+    $parts = implode('|', self::URL);
+    $regexp = sprintf('@(%s)$@', $parts);
     $uri = preg_replace($regexp, '', $uri);
 
     // add the paradigm tab marker

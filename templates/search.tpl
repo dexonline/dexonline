@@ -44,7 +44,7 @@
     {if count($images)}
       {include "search/tab.tpl"
         activeTab=$tab
-        cssClass="text-warning"
+        notice=true
         tab=Tab::T_GALLERY
         target="galleryTab"
         text="{t}images{/t} ({count($images)})"}
@@ -53,7 +53,7 @@
     {if count($wikiArticles)}
       {include "search/tab.tpl"
         activeTab=$tab
-        cssClass="text-warning"
+        notice=true
         tab=Tab::T_ARTICLES
         target="articlesTab"
         text="{t}articles{/t} ({count($wikiArticles)})"}

@@ -1,3 +1,13 @@
+/* more prominent tab headers */
+.nav-link.nav-notice:not(.active) {
+  color: var(--bs-warning) !important;
+}
+
+.nav-link.nav-notice:hover:not(.active),
+.nav-link.nav-notice:focus:not(.active) {
+  opacity: 0.8;
+}
+
 .tab-pane {
   padding-top: 20px;
 }

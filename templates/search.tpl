@@ -42,29 +42,21 @@
     {/if}
 
     {if count($images)}
-      {capture "text"}
-        {include "bits/icon.tpl" i=image}
-        {t}images{/t} ({count($images)})
-      {/capture}
       {include "search/tab.tpl"
         activeTab=$tab
-        cssClass="text-secondary"
+        cssClass="text-warning"
         tab=Constant::TAB_GALLERY
         target="galleryTab"
-        text=$smarty.capture.text}
+        text="{t}images{/t} ({count($images)})"}
     {/if}
 
     {if count($wikiArticles)}
-      {capture "text"}
-        {include "bits/icon.tpl" i=school}
-        {t}articles{/t} ({count($wikiArticles)})
-      {/capture}
       {include "search/tab.tpl"
         activeTab=$tab
-        cssClass="text-secondary"
+        cssClass="text-warning"
         tab=Constant::TAB_ARTICLES
         target="articlesTab"
-        text=$smarty.capture.text}
+        text="{t}articles{/t} ({count($wikiArticles)})"}
     {/if}
 
     {if count($trees)}

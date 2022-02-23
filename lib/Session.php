@@ -19,7 +19,7 @@ class Session {
     self::set('userId', $user->id);
     if ($remember) {
       $cookie = Cookie::create($user->id);
-      setcookie("prefs[lll]", $cookie->cookieString, time() + self::ONE_YEAR_IN_SECONDS, '/');
+      self::setCookie('prefs[lll]', $cookie->cookieString);
     }
 
     User::setActive($user->id); // for logging purposes only
@@ -102,21 +102,18 @@ class Session {
   static function setTabOrder(int $tabOrder) {
     // Remove the cookie rather than setting it to its default value.
     if ($tabOrder) {
-      setcookie('prefs[tabOrder]', $tabOrder, time() + self::ONE_YEAR_IN_SECONDS, '/');
+      self::setCookie('prefs[tabOrder]', $tabOrder);
     } else {
-      setcookie('prefs[tabOrder]', null, -1, '/');
+      self::unsetCookie('prefs[tabOrder]');
     }
   }
 
   static function setAnonymousPrefs($pref) {
-    $_COOKIE['prefs']['anonymousPrefs'] = $pref;
-
     // Remove the cookie rather than setting it to its default value.
-    // This promotes caching.
     if ($pref) {
-      setcookie('prefs[anonymousPrefs]', $pref, time() + self::ONE_YEAR_IN_SECONDS, '/');
+      self::setCookie('prefs[anonymousPrefs]', $pref);
     } else {
-      setcookie('prefs[anonymousPrefs]', null, -1, '/');
+      self::unsetCookie('prefs[anonymousPrefs]');
     }
   }
 
@@ -129,8 +126,11 @@ class Session {
   }
 
   static function setWidgetMask($widgetMask) {
-    $_COOKIE['prefs']['widgetMask'] = $widgetMask;
-    setcookie('prefs[widgetMask]', $widgetMask, time() + self::ONE_YEAR_IN_SECONDS, '/');
+    if ($widgetMask === null) {
+      self::unsetCookie('prefs[widgetMask]');
+    } else {
+      self::setCookie('prefs[widgetMask]', $widgetMask);
+    }
   }
 
   static function getWidgetCount() {
@@ -138,12 +138,15 @@ class Session {
   }
 
   static function setWidgetCount($widgetCount) {
-    $_COOKIE['prefs']['widgetCount'] = $widgetCount;
-    setcookie('prefs[widgetCount]', $widgetCount, time() + self::ONE_YEAR_IN_SECONDS, '/');
+    if ($widgetCount === null) {
+      self::unsetCookie('prefs[widgetCount]');
+    } else {
+      self::setCookie('prefs[widgetCount]', $widgetCount);
+    }
   }
 
   static function setSourceCookie($source) {
-    setcookie('prefs[source]', $source, time() + self::ONE_YEAR_IN_SECONDS, '/');
+    self::setCookie('prefs[source]', $source);
   }
 
   static function getSourceCookie() {
@@ -173,6 +176,10 @@ class Session {
     }
   }
 
+  static function setCookie(string $name, string $value) {
+    setcookie($name, $value, time() + self::ONE_YEAR_IN_SECONDS, '/');
+  }
+
   static function unsetCookie($name) {
     unset($_COOKIE[$name]);
     setcookie($name, '', time() - 3600, '/');
@@ -188,7 +195,7 @@ class Session {
     }
     session_unset();
     @session_destroy();
-    if (ini_get("session.use_cookies")) {
+    if (ini_get('session.use_cookies')) {
       self::unsetCookie(session_name());
     }
   }
@@ -205,7 +212,7 @@ class Session {
     $on = !isset($_COOKIE['prefs'][$cookieName]);
 
     if ($on) {
-      setcookie("prefs[{$cookieName}]", '1', time() + self::ONE_YEAR_IN_SECONDS, '/');
+      self::setCookie("prefs[{$cookieName}]", '1');
       FlashMessage::add($onMessage, 'success');
     } else {
       self::unsetCookie("prefs[{$cookieName}]");
@@ -222,7 +229,7 @@ class Session {
     $newLevel = ($currentLevel + 1) % DiffUtil::NUM_GRANULARITIES;
 
     if ($newLevel != DiffUtil::DEFAULT_GRANULARITY) {
-      setcookie('prefs[diffGranularity]', $newLevel, time() + self::ONE_YEAR_IN_SECONDS, '/');
+      self::setCookie('prefs[diffGranularity]', $newLevel);
     } else {
       self::unsetCookie('prefs[diffGranularity]');
     }

@@ -6,7 +6,7 @@
   **}
 {$count=$count|default:0}    {* if non-zero, display it in parentheses *}
 {$notice=$notice|default:''} {* make the nav slightly more prominent *}
-{$text=$text|default:''}     {* override tab name *}
+{$title=$title|default:''}   {* override tab name *}
 <li class="nav-item" role="presentation">
   <button
     aria-controls="{$target}"
@@ -18,8 +18,8 @@
     role="tab"
     type="button">
 
-    {if $text}
-      {$text}
+    {if $title}
+      {$title}
     {else}
       {Tab::getName($tab)}
     {/if}

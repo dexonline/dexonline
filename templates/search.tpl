@@ -46,7 +46,7 @@
         activeTab=$tab
         tab=Tab::T_PARADIGM
         target="paradigmTab"
-        text=$declensionText}
+        title=$declensionText}
     {/if}
 
     {if count($images)}

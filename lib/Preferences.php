@@ -69,17 +69,18 @@ class Preferences {
       : Widget::getWidgets(Session::getWidgetMask(), Session::getWidgetCount());
   }
 
-  static function set($user, $detailsVisible, $userPrefs, $preferredTab, $widgetMask) {
+  static function set($user, $detailsVisible, $userPrefs, $tabs, $widgetMask) {
+    $tabOrder = Tab::isDefaultOrder($tabs) ? 0 : Tab::pack($tabs);
     if ($user) {
       $user->detailsVisible = $detailsVisible;
       $user->preferences = $userPrefs;
-      $user->preferredTab = $preferredTab;
+      $user->tabOrder = $tabOrder;
       $user->widgetMask = $widgetMask;
       $user->widgetCount = Widget::WIDGET_COUNT;
       $user->save();
     } else {
       Session::setAnonymousPrefs($userPrefs);
-      Session::setPreferredTab($preferredTab);
+      Session::setTabOrder($tabOrder);
       // Set the widgetMask / widgetCount cookies.
       // This is a bit complex, because we want to delete the cookie when the settings
       // are all default.

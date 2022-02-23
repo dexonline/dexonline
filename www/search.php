@@ -46,7 +46,7 @@ $lexemeId = Request::get('lexemeId');
 $defId = Request::get('defId');
 $sourceUrlName = Request::get('source');
 $text = Request::has('text');
-$tab = getTab();
+$tab = Tab::getFromUrl();
 $format = checkFormat();
 $all = Request::get('all');
 
@@ -66,7 +66,7 @@ $searchType = SEARCH_INFLECTED;
 $hasDiacritics = Session::userPrefers(Preferences::FORCE_DIACRITICS);
 $hasRegexp = FALSE;
 $isAllDigits = FALSE;
-$all = $all || ($tab != Constant::TAB_RESULTS);
+$all = $all || ($tab != Tab::T_RESULTS);
 
 $source = $sourceUrlName ? Source::get_by_urlName($sourceUrlName) : null;
 $sourceId = $source ? $source->id : null;
@@ -84,6 +84,7 @@ $definitions = [];
 $entries = [];
 $lexemes = [];
 $trees = [];
+$wikiArticles = [];
 $extra = [];
 $adult = false;
 
@@ -197,7 +198,7 @@ if ($searchType == SEARCH_INFLECTED) {
   if (count($entries)) {
     $definitions = Definition::loadForEntries($entries, $sourceId, $cuv);
     Plugin::notify('searchInflected', $definitions, $sourceId);
-    Smart::assign('wikiArticles', WikiArticle::loadForEntries($entries));
+    $wikiArticles = WikiArticle::loadForEntries($entries);
 
     // Add a warning if this word is in WotD
     if ($showWotd) {
@@ -418,24 +419,19 @@ if ($cuv) {
   Smart::assign('pageDescription', $pageDescription);
 }
 
-// Gallery images
-$images = empty($entries) ? [] : Visual::loadAllForEntries($entries);
-Smart::assign('images', $images);
+$images = Visual::loadAllForEntries($entries);
 if (count($images)) {
   Smart::addResources('gallery');
 }
 
-// If the URL doesn't specify a tab, and if the user's preferred tab exists in
-// the output, then switch to that tab.
+// if the URL doesn't specify a tab, choose an active one
 if ($tab === false) {
-  if (Session::getPreferredTab() ==  Constant::TAB_PARADIGM &&
-      $searchParams[$searchType]['paradigm']) {
-    $tab = Constant::TAB_PARADIGM;
-  } else if (Session::getPreferredTab() ==  Constant::TAB_TREE &&
-             $searchParams[$searchType]['trees'] &&
-             count($trees)) {
-    $tab = Constant::TAB_TREE;
-  }
+  $tab = Tab::getActive(
+    $searchParams[$searchType]['paradigm'],
+    count($trees),
+    count($images),
+    count($wikiArticles)
+  );
 }
 
 foreach ($entries as $e) {
@@ -447,6 +443,8 @@ Smart::assign([
   'lexemes' => $lexemes,
   'results' => $results,
   'trees' => $trees,
+  'images' => $images,
+  'wikiArticles' => $wikiArticles,
   'extra' => $extra,
   'text' => $text,
   'searchType' => $searchType,

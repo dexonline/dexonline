@@ -29,14 +29,14 @@
   <ul class="nav nav-tabs" role="tablist">
     {include "search/tab.tpl"
       activeTab=$tab
-      tab=Constant::TAB_RESULTS
+      tab=Tab::T_RESULTS
       target="resultsTab"
       text="{t}results{/t} ({$extra.numResults})"}
 
     {if $searchParams.paradigm}
       {include "search/tab.tpl"
         activeTab=$tab
-        tab=Constant::TAB_PARADIGM
+        tab=Tab::T_PARADIGM
         target="paradigmTab"
         text=$declensionText}
     {/if}
@@ -45,7 +45,7 @@
       {include "search/tab.tpl"
         activeTab=$tab
         cssClass="text-warning"
-        tab=Constant::TAB_GALLERY
+        tab=Tab::T_GALLERY
         target="galleryTab"
         text="{t}images{/t} ({count($images)})"}
     {/if}
@@ -54,7 +54,7 @@
       {include "search/tab.tpl"
         activeTab=$tab
         cssClass="text-warning"
-        tab=Constant::TAB_ARTICLES
+        tab=Tab::T_ARTICLES
         target="articlesTab"
         text="{t}articles{/t} ({count($wikiArticles)})"}
     {/if}
@@ -62,7 +62,7 @@
     {if count($trees)}
       {include "search/tab.tpl"
         activeTab=$tab
-        tab=Constant::TAB_TREE
+        tab=Tab::T_TREES
         target="treeTab"
         text="{t}synthesis{/t} ({count($trees)})"}
 
@@ -79,7 +79,7 @@
     {* results tab *}
     <div
       role="tabpanel"
-      class="tab-pane fade {if $tab == Constant::TAB_RESULTS}show active{/if}"
+      class="tab-pane fade {if $tab == Tab::T_RESULTS}show active{/if}"
       id="resultsTab">
 
       {* definition ID search *}
@@ -296,7 +296,7 @@
     {if $searchParams.paradigm}
       <div
         role="tabpanel"
-        class="tab-pane fade {if $tab == Constant::TAB_PARADIGM}show active{/if}"
+        class="tab-pane fade {if $tab == Tab::T_PARADIGM}show active{/if}"
         id="paradigmTab">
 
         {foreach $entries as $e}
@@ -340,7 +340,7 @@
     {if count($trees)}
       <div
         role="tabpanel"
-        class="tab-pane fade {if $tab == Constant::TAB_TREE}show active{/if}"
+        class="tab-pane fade {if $tab == Tab::T_TREES}show active{/if}"
         id="treeTab">
         {include "search/trees.tpl"}
       </div>
@@ -350,7 +350,7 @@
     {if count($images)}
       <div
         role="tabpanel"
-        class="tab-pane fade {if $tab == Constant::TAB_GALLERY}show active{/if}"
+        class="tab-pane fade {if $tab == Tab::T_GALLERY}show active{/if}"
         id="galleryTab">
         {include "search/gallery.tpl"}
       </div>
@@ -360,7 +360,7 @@
     {if count($wikiArticles)}
       <div
         role="tabpanel"
-        class="tab-pane fade {if $tab == Constant::TAB_ARTICLES}show active{/if}"
+        class="tab-pane fade {if $tab == Tab::T_ARTICLES}show active{/if}"
         id="articlesTab">
         {include "search/wikiArticles.tpl"}
       </div>

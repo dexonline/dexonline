@@ -391,6 +391,11 @@ div.thumb {
   border: 0;
 }
 
+/* sortable */
+.drag-indicator {
+  cursor: move;
+}
+
 /****************** „Read more” link for long sections ******************/
 
 .read-more {

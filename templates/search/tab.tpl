@@ -13,7 +13,7 @@
     class="nav-link {$cssClass} {if $tab == $activeTab}active{/if}"
     data-bs-target="#{$target}"
     data-bs-toggle="tab"
-    data-permalink="{getTabPermalink($tab)}"
+    data-permalink="{Tab::getPermalink($tab)}"
     role="tab"
     type="button">
     {$text}

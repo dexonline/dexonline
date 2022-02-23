@@ -155,8 +155,8 @@ class Request {
     $sourceUrlName = urlencode($sourceUrlName);
 
     $sourcePart = $sourceUrlName ? "-{$sourceUrlName}" : '';
-    $tabPart = Constant::TAB_URL[$tab];
-    $allPart = ($all && ($tab == Constant::TAB_RESULTS)) ? '/expandat' : '';
+    $tabPart = Tab::URL[$tab];
+    $allPart = ($all && ($tab == Tab::T_RESULTS)) ? '/expandat' : '';
 
     if ($text) {
       $url = "text{$sourcePart}/{$cuv}";

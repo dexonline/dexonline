@@ -1,3 +1,4 @@
+{$withCharmap=false}
 {extends "layout-admin.tpl"}
 
 {block "title"}Donează{/block}

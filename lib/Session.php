@@ -83,24 +83,28 @@ class Session {
     return (int)$preferences & $pref;
   }
 
-  static function getPreferredTab() {
+  /**
+   * Returns a list of search tabs ordered by user preferences or. If no
+   * preference is set, returns tabs in the default order.
+   */
+  static function getTabs() {
     $u = User::getActive();
-    if ($u) {
-      return $u->preferredTab;
-    } else {
-      return self::getCookieSetting('preferredTab', 0);
-    }
+
+    $tabOrder = $u
+      ? $u->tabOrder
+      : self::getCookieSetting('tabOrder', 0);
+
+    return ($tabOrder == 0)
+      ? Tab::ORDER
+      : Tab::unpack($tabOrder);
   }
 
-  static function setPreferredTab($tab) {
-    $_COOKIE['prefs']['preferredTab'] = $tab;
-
+  static function setTabOrder(int $tabOrder) {
     // Remove the cookie rather than setting it to its default value.
-    // This promotes caching.
-    if ($tab != Constant::TAB_RESULTS) {
-      setcookie('prefs[preferredTab]', $tab, time() + self::ONE_YEAR_IN_SECONDS, '/');
+    if ($tabOrder) {
+      setcookie('prefs[tabOrder]', $tabOrder, time() + self::ONE_YEAR_IN_SECONDS, '/');
     } else {
-      setcookie('prefs[preferredTab]', null, -1, '/');
+      setcookie('prefs[tabOrder]', null, -1, '/');
     }
   }
 

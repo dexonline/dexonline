@@ -156,30 +156,31 @@
             help=$i.comment
             value=$value}
         {/foreach}
+      </div>
+    </div>
 
-        <div class="d-flex">
-          <label class="col-form-label">Fila implicită</label>
-          <div class="ms-2">
-            {$tab=Session::getPreferredTab()}
-            <select name="preferredTab" class="form-select">
-              <option
-                value="{Constant::TAB_RESULTS}"
-                {if $tab == Constant::TAB_RESULTS}selected{/if}>
-                rezultate
-              </option>
-              <option
-                value="{Constant::TAB_PARADIGM}"
-                {if $tab == Constant::TAB_PARADIGM}selected{/if}>
-                flexiuni
-              </option>
-              <option
-                value="{Constant::TAB_TREE}"
-                {if $tab == Constant::TAB_TREE}selected{/if}>
-                sinteză
-              </option>
-            </select>
-          </div>
-        </div>
+    <div class="card mb-3">
+      <div class="card-header">Fila preferată</div>
+
+      <div class="card-body">
+        <p>
+          Trageți de file pentru a le reordona. La căutări, vom afișa prima filă
+          disponibilă. Nu toate filele există tot timpul; de exemplu nu
+          întotdeauna vor exista imagini.
+        </p>
+
+        <ul id="tab-order" class="list-group sortable mb-3">
+          {foreach Session::getTabs() as $tab}
+            <li class="list-group-item">
+              <input type="hidden" name="tabs[]" value="{$tab}">
+              {Tab::getName($tab)}
+            </li>
+          {/foreach}
+        </ul>
+
+        <a href="#" id="restore-tab-order-link">
+          revino la ordinea implicită
+        </a>
       </div>
     </div>
 

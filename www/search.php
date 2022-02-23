@@ -28,13 +28,13 @@ $searchParams = [
   SEARCH_INFLECTED => array_replace(DEFAULT_SEARCH_PARAMS, [
     'defLimit' => Config::LIMIT_SEARCH_DEFINITIONS,
     'paradigm' => true,
-    'trees' => Config::SEARCH_SHOW_TREES,
+    'trees' => true,
   ]),
   SEARCH_APPROXIMATE => DEFAULT_SEARCH_PARAMS,
   SEARCH_DEF_ID => DEFAULT_SEARCH_PARAMS,
   SEARCH_ENTRY_ID => array_replace(DEFAULT_SEARCH_PARAMS, [
     'paradigm' => true,
-    'trees' => Config::SEARCH_SHOW_TREES,
+    'trees' => true,
   ]),
   // there is a limit for full-text searches, but we handle it separately for memory reasons
   SEARCH_FULL_TEXT => DEFAULT_SEARCH_PARAMS,

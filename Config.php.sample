@@ -79,9 +79,6 @@ class Config {
   const SEARCH_JSON_API = true;
   const SEARCH_XML_API = true;
 
-  // Whether to show meaning trees (on the syntesis tab)
-  const SEARCH_SHOW_TREES = true;
-
   /*********************** Functional test options ***********************/
 
   // When true, use the test database. Only needed to run functional tests.

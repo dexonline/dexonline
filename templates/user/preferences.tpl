@@ -171,9 +171,13 @@
 
         <ul id="tab-order" class="list-group sortable mb-3">
           {foreach Session::getTabs() as $tab}
-            <li class="list-group-item">
+            <li
+              class="list-group-item"
+              data-default-order="{Tab::getDefaultOrderPosition($tab)}">
+
               <input type="hidden" name="tabs[]" value="{$tab}">
               {Tab::getName($tab)}
+
             </li>
           {/foreach}
         </ul>

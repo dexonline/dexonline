@@ -27,6 +27,14 @@
   {include "bits/flashMessages.tpl"}
 
   <ul class="nav nav-tabs" role="tablist">
+    {if count($trees)}
+      {include "search/tab.tpl"
+        activeTab=$tab
+        count=count($trees)
+        tab=Tab::T_TREES
+        target="treeTab"}
+    {/if}
+
     {include "search/tab.tpl"
       activeTab=$tab
       count=$extra.numResults
@@ -60,12 +68,7 @@
     {/if}
 
     {if count($trees)}
-      {include "search/tab.tpl"
-        activeTab=$tab
-        count=count($trees)
-        tab=Tab::T_TREES
-        target="treeTab"}
-
+      {* don't advertise the synthesis tab unless it exists *}
       <li class="align-self-center ms-2">
         <a id="tabAdvertiser" href="#">
           {include "bits/icon.tpl" i=info}
@@ -370,10 +373,9 @@
 
   <div id="tabAdvertiserContent" style="display: none">
     {t 1=Router::link('user/preferences')}
-    <b>The Synthesis tab</b> shows a condensed list of definitions compiled
-    by the dexonline team. This tab will become the default view in the
-    future. You can select your preferred tab from your
-    <a href="%1">preferences page</a>.
+    <b>The Synthesis tab</b> shows a condensed list of definitions compiled by
+    the dexonline team. The original definitions are available on the <b>Results</b>
+    tab. You can select your preferred tab from your <a href="%1">preferences page</a>.
     {/t}
   </div>
 {/block}

@@ -1,8 +1,8 @@
 $(function() {
 
   function tabCmp(a, b) {
-    var tabA = $(a).find('input').val();
-    var tabB = $(b).find('input').val();
+    var tabA = $(a).data('defaultOrder');
+    var tabB = $(b).data('defaultOrder');
     return parseInt(tabA) - parseInt(tabB);
   }
 

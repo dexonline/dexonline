@@ -17,9 +17,9 @@ class Tab {
    * The default order of tabs. Can be overridden by user preferences.
    */
   const ORDER = [
+    self::T_TREES,
     self::T_RESULTS,
     self::T_PARADIGM,
-    self::T_TREES,
     self::T_GALLERY,
     self::T_ARTICLES,
   ];
@@ -69,6 +69,10 @@ class Tab {
     // add the paradigm tab marker
     $uri .= self::URL[$tab];
     return $uri;
+  }
+
+  static function getDefaultOrderPosition($tab) {
+    return array_search($tab, self::ORDER);
   }
 
   static function isDefaultOrder(array $tabs) {

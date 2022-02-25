@@ -82,7 +82,7 @@
     {* results tab *}
     <div
       role="tabpanel"
-      class="tab-pane fade {if $tab == Tab::T_RESULTS}show active{/if}"
+      class="tab-pane {if $tab == Tab::T_RESULTS}show active{/if}"
       id="resultsTab">
 
       {* definition ID search *}
@@ -283,7 +283,7 @@
     {if $searchParams.paradigm}
       <div
         role="tabpanel"
-        class="tab-pane fade {if $tab == Tab::T_PARADIGM}show active{/if}"
+        class="tab-pane {if $tab == Tab::T_PARADIGM}show active{/if}"
         id="paradigmTab">
 
         {foreach $entries as $e}
@@ -327,7 +327,7 @@
     {if count($trees)}
       <div
         role="tabpanel"
-        class="tab-pane fade {if $tab == Tab::T_TREES}show active{/if}"
+        class="tab-pane {if $tab == Tab::T_TREES}show active{/if}"
         id="treeTab">
         {include "search/trees.tpl"}
       </div>
@@ -337,7 +337,7 @@
     {if count($images)}
       <div
         role="tabpanel"
-        class="tab-pane fade {if $tab == Tab::T_GALLERY}show active{/if}"
+        class="tab-pane {if $tab == Tab::T_GALLERY}show active{/if}"
         id="galleryTab">
         {include "search/gallery.tpl"}
       </div>
@@ -347,7 +347,7 @@
     {if count($wikiArticles)}
       <div
         role="tabpanel"
-        class="tab-pane fade {if $tab == Tab::T_ARTICLES}show active{/if}"
+        class="tab-pane {if $tab == Tab::T_ARTICLES}show active{/if}"
         id="articlesTab">
         {include "search/wikiArticles.tpl"}
       </div>

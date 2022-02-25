@@ -2,7 +2,7 @@
   <ul class="list-inline ms-5">
     {foreach $sourceTypes as $st}
       <li class="list-inline-item">
-        <a href="#cat-{$st->id}">
+        <a class="cat-link" href="#cat-{$st->id}">
           {SourceType::getShortName($st->id)}
         </a>
         <span class="text-muted">({$st->count})</span>

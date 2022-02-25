@@ -28,6 +28,8 @@ $(function() {
       tabAdvertiser.click(function() { return false; });
     }
 
+    $('.cat-link').click(scrollToSourceType);
+
     $(document).on('shown.bs.tab', 'button[data-bs-target="#resultsTab"]', collapseReadMore);
 
     moveBanner();
@@ -82,6 +84,18 @@ $(function() {
     var btn = $('button[data-bs-target="' + state + '"]');
     var tab = new bootstrap.Tab(btn);
     tab.show();
+  }
+
+  /**
+   * For unknown reasons, implementing these links as regular #fragments makes
+   * the browser switch to the tree tab when the user clicks a link. So we
+   * implement the links ourselves.
+   */
+  function scrollToSourceType() {
+    var sel = $(this).attr('href');
+    var header = $(sel);
+    header[0].scrollIntoView();
+    return false;
   }
 
   {

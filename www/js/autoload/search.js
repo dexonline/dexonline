@@ -28,6 +28,8 @@ $(function() {
       tabAdvertiser.click(function() { return false; });
     }
 
+    $(document).on('shown.bs.tab', 'button[data-bs-target="#resultsTab"]', collapseReadMore);
+
     moveBanner();
   }
 
@@ -80,6 +82,17 @@ $(function() {
     var btn = $('button[data-bs-target="' + state + '"]');
     var tab = new bootstrap.Tab(btn);
     tab.show();
+  }
+
+  {
+    let called = false;
+
+    function collapseReadMore() {
+      if (!called) {
+        called = true;
+        $('#resultsTab .read-more').readMore();
+      }
+    }
   }
 
   init();

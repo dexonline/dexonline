@@ -291,6 +291,13 @@ $(function() {
 
 /****************** „Read more” link for long sections ******************/
 
+/**
+ * Note: Attempting to render the 'expand' button on read-more does nothing if
+ * the tab is hidden on page render, because its scroll height is zero.  To
+ * collapse read-more sections in a hidden parent, call .readMore() once the
+ * parent becomes visible.
+ */
+
 $(function() {
   const BTN_HTML =
         '<button class="read-more-btn btn btn-sm">' +
@@ -298,18 +305,27 @@ $(function() {
         _('expand') +
         '</btn>';
 
-  $('.read-more').each(function() {
-    var realHeight = $(this).prop('scrollHeight');
-    var lineHeight = parseInt($(this).css('line-height')); // ignore the 'px' suffix
-    var lines = $(this).data('readMoreLines');
+  $.fn.readMore = function() {
+    $(this).each(function() {
 
-    // If the whole thing isn't much larger than the proposed visible area,
-    // don't hide anything
-    if (realHeight / lineHeight > lines * 1.33) {
-      $(this).css('max-height', (lines * lineHeight) + 'px');
-      $(this).append(BTN_HTML);
-    }
-  });
+      var realHeight = $(this).prop('scrollHeight');
+      var lineHeight = parseInt($(this).css('line-height')); // ignore the 'px' suffix
+      var lines = $(this).data('readMoreLines');
+
+      // If the whole thing isn't much larger than the proposed visible area,
+      // don't hide anything
+      if ((realHeight / lineHeight > lines * 1.33) &&
+          !$(this).find('.read-more-btn').length) {
+
+        $(this).css('max-height', (lines * lineHeight) + 'px');
+        $(this).append(BTN_HTML);
+      }
+    });
+
+    return this;
+  }
+
+  $('.read-more').readMore();
 
   $(document).on('click', '.read-more-btn', function() {
     var p = $(this).closest('.read-more')

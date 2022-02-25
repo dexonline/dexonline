@@ -31,3 +31,10 @@
     {include "bits/meaningTree.tpl" meanings=$t->getEtymologies() etymologies=true}
   </div>
 {/foreach}
+
+<p class="text-muted">
+  {include "bits/icon.tpl" i=info}
+  {t 1="tree-tab-link"}
+  The full definition list is available on the <a id="%1" href="#">results</a> tab.
+  {/t}
+</p>

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2022-02-23 17:09+0200\n"
-"PO-Revision-Date: 2022-02-23 17:09+0200\n"
+"POT-Creation-Date: 2022-02-25 15:49+0200\n"
+"PO-Revision-Date: 2022-02-25 15:50+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -1088,6 +1088,14 @@ msgstr "editează"
 #: templates/search/trees.tpl:30
 msgid "etymology"
 msgstr "etimologie"
+
+#: templates/search/trees.tpl:36
+msgid ""
+"The full definition list is available on the <a id=\"%1\" href=\"#"
+"\">results</a> tab."
+msgstr ""
+"Lista completă de definiții se află pe fila <a id=\"%1\" href=\"#"
+"\">rezultate</a>."
 
 #: templates/search/wikiArticles.tpl:3
 msgid "One linguistics article"

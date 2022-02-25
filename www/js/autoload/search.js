@@ -29,6 +29,7 @@ $(function() {
     }
 
     $('.cat-link').click(scrollToSourceType);
+    $('#tree-tab-link').click(showResultsTab);
 
     $(document).on('shown.bs.tab', 'button[data-bs-target="#resultsTab"]', collapseReadMore);
 
@@ -95,6 +96,11 @@ $(function() {
     var sel = $(this).attr('href');
     var header = $(sel);
     header[0].scrollIntoView();
+    return false;
+  }
+
+  function showResultsTab() {
+    $('button[data-bs-target="#resultsTab"]').click();
     return false;
   }
 

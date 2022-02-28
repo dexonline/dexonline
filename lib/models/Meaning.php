@@ -78,18 +78,31 @@ class Meaning extends BaseObject implements DatedObject {
   }
 
   /**
-   * Returns true iff we should display the relations alongside the meaning. This happens when:
+   * If necessary, returns a comma-separated list of synonyms to display
+   * alongside the meaning. This happens when:
    * - The meaning is empty;
    * - The meaning is a parenthesis;
-   * - The meaning ends in an '=' sign;
+   * - The meaning ends in '=' or ':'.
    **/
-  function includeRelations() {
+  function getDisplaySynonyms() {
     $r = $this->internalRep;
-    return (
-     !$r ||
-     (Str::startsWith($r, '(') && Str::endsWith($r, ')')) ||
-     Str::endsWith($r, '=')
-    );
+
+    if (!$r ||
+        (Str::startsWith($r, '(') && Str::endsWith($r, ')')) ||
+        Str::endsWith($r, '=') ||
+        Str::endsWith($r, ':')) {
+      $synonyms = $this->getRelations()[Relation::TYPE_SYNONYM];
+      $parts = [];
+      foreach ($synonyms as $s) {
+        $parts[] = $s->getShortDescription();
+      }
+
+      $list = implode(', ', $parts);
+
+      return Str::capitalize($list) . '.';
+    }
+
+    return '';
   }
 
   /**

@@ -4,7 +4,6 @@
 {if $meanings}
   <ul {if $root}class="meaningTree"{/if}>
     {foreach $meanings as $t}
-      {$relationsShown=false}
       <li>
         <div
           id="meaning{$t.meaning->id}"
@@ -22,13 +21,9 @@
 
             {include "bits/meaningTags.tpl" tags=$t.tags}
 
-            {* When the meaning itself is empty, show something else *}
             <span class="def html {$t.meaning->getCssClass()}">
               {HtmlConverter::convert($t.meaning)}
-              {if $t.meaning->includeRelations()}
-                {include "bits/meaningRelations.tpl" relations=$t.relations}
-                {$relationsShown=true}
-              {/if}
+              {$t.meaning->getDisplaySynonyms()}
             </span>
 
           </div>
@@ -44,9 +39,7 @@
               </span>
             {/if}
 
-            {if !$relationsShown}
-              {include "bits/meaningRelations.tpl" relations=$t.relations defaultLabel=true}
-            {/if}
+            {include "bits/meaningRelations.tpl" relations=$t.relations defaultLabel=true}
 
             {if !empty($t.examples)}
               {$collapseId="exampleCollapse_{$t.meaning->id}"}

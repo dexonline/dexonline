@@ -40,7 +40,7 @@ class Preferences {
     self::PRIVATE_MODE => [
       'enabled' => false,
       'label' => 'Modul confidențial',
-      'comment' => 'Dezactivează caseta Facebook, reclamele AdSense și alte elemente '
+      'comment' => 'Dezactivează caseta Facebook și alte elemente '
       . 'care divulgă informații despre dumneavoastră unor terțe părți. '
       . '<a href="https://wiki.dexonline.ro/wiki/Modul_confiden%C8%9Bial" '
       . 'target="_blank">Modul confidențial</a> '

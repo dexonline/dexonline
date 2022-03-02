@@ -181,19 +181,15 @@ class Config {
 
   /**************************** Banner options ****************************/
 
-  // Type of banner to be served. Choices are 'adsense', 'dfp', 'revive',
-  // 'fake' or 'none'.  The option 'fake' displays a placeholder banner and
-  // can be used in development/beta (so as not to steal real impressions from
-  // campaigns).
+  // Type of banner to be served. Choices are 'dfp', 'revive', 'fake' or
+  // 'none'.  The option 'fake' displays a placeholder banner and can be used
+  // in development/beta (so as not to steal real impressions from campaigns).
   const BANNER_TYPE = 'none';
 
   // Strategy for moving the banner using JS. Can be one of:
   // * default: do not move the banner; leave the banner wherever the HTML has it;
   // * dynamic: (maybe) move the banner, e.g. between two definitions.
   const BANNER_PLACEMENT = 'default';
-
-  // AdSense options
-  const BANNER_ADSENSE = [];
 
   // DoubleClick for Publishers options
   const BANNER_DFP = [];

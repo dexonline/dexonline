@@ -87,10 +87,13 @@ class Meaning extends BaseObject implements DatedObject {
   function getDisplaySynonyms() {
     $r = $this->internalRep;
 
-    if (!$r ||
-        (Str::startsWith($r, '(') && Str::endsWith($r, ')')) ||
-        Str::endsWith($r, '=') ||
-        Str::endsWith($r, ':')) {
+    $isEmpty = !$r;
+    $isParent = Str::startsWith($r, '(') && Str::endsWith($r, ')');
+    $isEqual = Str::endsWith($r, '=');
+    $isColon = Str::endsWith($r, ':');
+
+    if ($isEmpty || $isParent || $isEqual || $isColon) {
+
       $synonyms = $this->getRelations()[Relation::TYPE_SYNONYM];
       $parts = [];
       foreach ($synonyms as $s) {
@@ -99,7 +102,11 @@ class Meaning extends BaseObject implements DatedObject {
 
       $list = implode(', ', $parts);
 
-      return Str::capitalize($list) . '.';
+      if ($isEmpty || $isParent) {
+        $list = Str::capitalize($list);
+      }
+
+      return $list . '.';
     }
 
     return '';

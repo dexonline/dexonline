@@ -36,7 +36,6 @@
 }
 
 .meaningTree .html {
-  font-size: 14px;
   margin-right: 10px;
 }
 
@@ -120,8 +119,12 @@
   font-size: 18px;
 }
 
-.secondaryMeaning .bc,
 .etymology {
+  font-size: 80%;
+}
+
+.secondaryMeaning .bc,
+.etymology-heading {
   font-weight: bold;
 }
 

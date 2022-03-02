@@ -15,6 +15,8 @@ $(function() {
       initEditable();
       renumber();
     }
+
+    $('.horiz-collapse-link').click(horizontalCollapse);
   }
 
   function initEditable() {
@@ -553,6 +555,11 @@ $(function() {
 
   function hidePopover() {
     deletePopover.hide();
+  }
+
+  function horizontalCollapse() {
+    $(this).siblings('.horiz-collapse').toggleClass('in');
+    return false;
   }
 
   init();

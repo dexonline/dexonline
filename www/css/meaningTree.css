@@ -45,10 +45,6 @@
   text-decoration: none;
 }
 
-.meaningTree .tag-group {
-  padding-right: 5px;
-}
-
 .meaningTree .tag-group a {
   color: var(--bs-gray-800);
 }
@@ -172,6 +168,21 @@
 
 .tab-pane > ul {
   margin-bottom: 20px;
+}
+
+/* Useful when the width is unknown. */
+.horiz-collapse {
+  display: inline-block;
+  overflow: hidden;
+  transition: transform 0.2s ease;
+  vertical-align: top;
+  white-space: nowrap;
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.horiz-collapse.in {
+  transform: scaleX(1);
 }
 
 @media (max-width: 991px) {

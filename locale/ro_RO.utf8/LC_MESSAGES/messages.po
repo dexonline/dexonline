@@ -1,18 +1,18 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2022-02-25 15:49+0200\n"
-"PO-Revision-Date: 2022-02-25 15:50+0200\n"
+"POT-Creation-Date: 2022-03-02 12:10+0200\n"
+"PO-Revision-Date: 2022-03-02 12:55+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.0\n"
-"X-Poedit-Basepath: ../../..\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n==0 || (n!=1 && n%100>=1 && n"
 "%100<=19) ? 1 : 2);\n"
+"X-Generator: Poedit 3.0.1\n"
+"X-Poedit-Basepath: ../../..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: lib\n"
 "X-Poedit-SearchPath-1: routes\n"
@@ -104,12 +104,16 @@ msgstr "compus"
 msgid "Inflection sources"
 msgstr "Surse flexiune"
 
-#: templates/bits/meaningTree.tpl:59
+#: templates/bits/meaningTree.tpl:42
 msgid "one example"
 msgid_plural "%1 examples"
 msgstr[0] "un exemplu"
 msgstr[1] "%1 exemple"
 msgstr[2] "%1 de exemple"
+
+#: templates/bits/meaningTree.tpl:55
+msgid "show sources"
+msgstr "arată sursele"
 
 #: templates/bits/multiParadigm.tpl:6
 msgid "entry"
@@ -1085,11 +1089,11 @@ msgstr ""
 msgid "edit"
 msgstr "editează"
 
-#: templates/search/trees.tpl:30
+#: templates/search/trees.tpl:31
 msgid "etymology"
 msgstr "etimologie"
 
-#: templates/search/trees.tpl:36
+#: templates/search/trees.tpl:39
 msgid ""
 "The full definition list is available on the <a id=\"%1\" href=\"#"
 "\">results</a> tab."

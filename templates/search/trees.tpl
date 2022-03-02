@@ -27,10 +27,12 @@
   <div class="tree-body">
     {include "bits/meaningTree.tpl" meanings=$t->getMeanings()}
 
-    <div class="etymology">
-      <h6 class="etymology-heading">{t}etymology{/t}:</h6>
-      {include "bits/meaningTree.tpl" meanings=$t->getEtymologies() etymologies=true}
-    </div>
+    {if count($t->getEtymologies())}
+      <div class="etymology">
+        <h6 class="etymology-heading">{t}etymology{/t}:</h6>
+        {include "bits/meaningTree.tpl" meanings=$t->getEtymologies() etymologies=true}
+      </div>
+    {/if}
   </div>
 {/foreach}
 

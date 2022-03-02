@@ -7,8 +7,6 @@
       {include "banner/adsense.tpl"}
     {elseif Config::BANNER_TYPE == 'dfp'}
       {include "banner/dfp.tpl"}
-    {elseif Config::BANNER_TYPE == 'pubgalaxy'}
-      {include "banner/pubGalaxy.tpl"}
     {elseif Config::BANNER_TYPE == 'fake'}
       <div class="fakeBanner">
         Banner fals

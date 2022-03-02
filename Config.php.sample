@@ -181,10 +181,10 @@ class Config {
 
   /**************************** Banner options ****************************/
 
-  // Type of banner to be served. Choices are 'adsense', 'dfp', 'pubgalaxy',
-  // 'revive', 'fake' or 'none'.  The option 'fake' displays a
-  // placeholder banner and can be used in development/beta (so as not to
-  // steal real impressions from campaigns).
+  // Type of banner to be served. Choices are 'adsense', 'dfp', 'revive',
+  // 'fake' or 'none'.  The option 'fake' displays a placeholder banner and
+  // can be used in development/beta (so as not to steal real impressions from
+  // campaigns).
   const BANNER_TYPE = 'none';
 
   // Strategy for moving the banner using JS. Can be one of:
@@ -197,9 +197,6 @@ class Config {
 
   // DoubleClick for Publishers options
   const BANNER_DFP = [];
-
-  // PubGalaxy options
-  const BANNER_PG = [];
 
   // Revive options. See dex.js for details.
   const BANNER_REVIVE = [];

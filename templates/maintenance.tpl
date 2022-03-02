@@ -14,5 +14,3 @@
   </h4>
 
 {/block}
-
-{block "footer"}{/block}

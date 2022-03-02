@@ -15,10 +15,6 @@
       <meta property="og:title" content="dexonline">
       <link rel="image_src" href="{Config::URL_PREFIX}img/logo/logo-og.png">
     {/block}
-    {if !$privateMode}
-      <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,b,i,bi"
-        rel="stylesheet" type="text/css">
-    {/if}
     <link href="{$cssFile.path}?v={$cssFile.date}" rel="stylesheet" type="text/css">
     <script src="{$jsFile.path}?v={$jsFile.date}"></script>
     <link
@@ -38,7 +34,6 @@
     <link rel="icon" type="image/svg+xml" href="{Config::URL_PREFIX}img/favicon.svg">
     <link rel="apple-touch-icon" href="{Config::URL_PREFIX}img/apple-touch-icon.png">
     {Plugin::notify('htmlHead')}
-    {include "bits/analytics.tpl"}
   </head>
 
   <body class="{$pageType}">
@@ -66,14 +61,6 @@
       </main>
 
       <footer>
-        {block "footer"}
-          {if Config::SKIN_FACEBOOK && !$privateMode && !User::can(User::PRIV_ANY)}
-            <hr>
-            {include "bits/facebook.tpl"}
-            <hr>
-          {/if}
-        {/block}
-
         <div class="text-center">
           Copyright © 2004-{$currentYear} dexonline (https://dexonline.ro)
         </div>

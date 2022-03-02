@@ -20,19 +20,4 @@ foreach($pts as $pt) {
   $pt->delete();
 }
 
-Log::info('revoking private mode rights');
-$users = Model::factory('User')
-       ->where_lt('noAdsUntil', $now)
-       ->where_gt('noAdsUntil', 0)
-       ->find_many();
-foreach ($users as $u) {
-  Log::info("Clearing noAdsUntil for $u (ID={$u->id})");
-  $u->noAdsUntil = 0;
-  if ($u->preferences & Preferences::PRIVATE_MODE) {
-    Log::info('* Also revoking private mode');
-    $u->preferences &= ~Preferences::PRIVATE_MODE;
-  }
-  $u->save();
-}
-
 Log::notice('finished');

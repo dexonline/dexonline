@@ -9,4 +9,3 @@
   {/if}
   {$smarty.block.child}
 {/block}
-{block "footer"}{/block}

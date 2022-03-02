@@ -46,7 +46,6 @@ $john = Model::factory('User')->create();
 $john->email = 'john@x.com';
 $john->nick = 'john';
 $john->name = 'John Smith';
-$john->preferences = Preferences::PRIVATE_MODE; // prevent loading FB crap
 $john->save();
 
 // sources

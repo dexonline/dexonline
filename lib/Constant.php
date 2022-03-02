@@ -330,9 +330,6 @@ class Constant {
     'seedrandom' => [
       'js' => [ 'third-party/seedrandom.min.js' ],
     ],
-    'privateMode' => [
-      'css' => [ 'opensans.css' ],
-    ],
     'diff' => [
       'css' => [ 'diff.css' ],
       'js' => [ 'diff.js' ],

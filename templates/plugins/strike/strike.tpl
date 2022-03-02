@@ -200,5 +200,3 @@
   </div>
 
 {/block}
-
-{block "footer"}{/block}

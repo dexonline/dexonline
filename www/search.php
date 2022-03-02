@@ -219,7 +219,6 @@ if ($searchType == SEARCH_INFLECTED) {
   if (empty($entries) && empty($definitions)) {
     $searchType = SEARCH_APPROXIMATE;
     $entries = Lexeme::searchApproximate($cuv);
-    Util::hideThirdPartyBanners();
     if (count($entries) == 1) {
       $msg = sprintf(_('We redirected you automatically from <b>%s</b> to <b>%s</b>.'),
                      $cuv, $entries[0]->description);
@@ -441,9 +440,6 @@ if ($tab === false) {
 
 foreach ($entries as $e) {
   $adult |= $e->adult;
-}
-if ($adult) {
-  Util::hideThirdPartyBanners();
 }
 
 Smart::assign([

@@ -8,7 +8,7 @@ class Preferences {
   // 0x10 and 0x20 are no longer in use. The DB values have been cleared. Feel
   // free to reuse when needed.
   const SHOW_ADVANCED = 0x40;
-  const PRIVATE_MODE = 0x80;
+  // 0x80 is no longer in use. Clear the DB values before reusing.
 
   // Set of all customizable user preferences
   static $allPrefs = [
@@ -37,16 +37,6 @@ class Preferences {
       'label' => 'Afișează meniul de căutare avansată în mod implicit',
       'comment' => 'În mod implicit, meniul de căutare avansată (marcat cu „opțiuni”) va fi afișat pe toate paginile.',
     ],
-    self::PRIVATE_MODE => [
-      'enabled' => false,
-      'label' => 'Modul confidențial',
-      'comment' => 'Dezactivează caseta Facebook și alte elemente '
-      . 'care divulgă informații despre dumneavoastră unor terțe părți. '
-      . '<a href="https://wiki.dexonline.ro/wiki/Modul_confiden%C8%9Bial" '
-      . 'target="_blank">Modul confidențial</a> '
-      . 'este disponibil timp de un an celor care <a href="doneaza">donează</a> '
-      . 'minimum 50 de lei.',
-    ],
   ];
 
   static function getDetailsVisible($user) {
@@ -68,15 +58,6 @@ class Preferences {
           $copy[$key]['checked'] = true;
         }
       }
-    }
-    // activate the private mode preference for donors
-    if ($user && $user->noAdsUntil > time()) {
-      $copy[self::PRIVATE_MODE]['enabled'] = true;
-    }
-
-    if (Config::GLOBAL_PRIVATE_MODE) {
-      $copy[self::PRIVATE_MODE]['comment'] .=
-        '<br><b>Notă</b>: Modul confidențial este de acum activat automat pentru toți utilizatorii.';
     }
 
     return $copy;

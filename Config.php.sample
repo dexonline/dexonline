@@ -17,15 +17,11 @@ class Config {
   // Database connection. Format: mysql://user[:password]@host/database
   const DATABASE = 'mysql://root@localhost/dexonline';
 
-  // When true, hide the Google Analytics code and to allow fake user logins.
+  // When true, allow fake user logins.
   const DEVELOPMENT_MODE = true;
 
   // When true, only display a maintenance message. Will work without a DB connection.
   const MAINTENANCE = false;
-
-  // Prevent ads, fonts, social media boxes and any other resources from third
-  // party domains.
-  const GLOBAL_PRIVATE_MODE = true;
 
   // Folder for temporary data. Include a trailing slash.
   const TEMP_DIR = '/tmp/';
@@ -139,7 +135,6 @@ class Config {
   const COLOR_SCHEMES = [ 'light', 'dark' ];
 
   const SKIN_BANNER = true;
-  const SKIN_FACEBOOK = true;
   const SKIN_PERMALINK = true;
   const SKIN_TYPO = true;
   const SKIN_WIDGETS = true;

@@ -25,7 +25,6 @@ class Smart {
     if (Request::isWeb()) {
       self::assign([
         'currentYear' => date('Y'),
-        'privateMode' => Util::isPrivateMode(),
         'advancedSearch' => $advancedSearch,
         'svgLogo' => file_get_contents(Config::ROOT . 'www/img/svg/logo-dexonline.svg'),
       ]);
@@ -210,9 +209,6 @@ class Smart {
       }
       if (User::can(User::PRIV_ANY)) {
         self::addResources('admin', 'charmap', 'sprintf');
-      }
-      if (Util::isPrivateMode()) {
-        self::addResources('privateMode');
       }
     }
     self::addSameNameFiles($templateName);

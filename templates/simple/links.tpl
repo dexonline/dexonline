@@ -18,10 +18,6 @@
       Romanian Academy{/t}
     </li>
     <li>
-      <a href="http://www.xn--scriuromnete-wbb074b.net/">ScriuRomânește.net</a>
-      &mdash; {t}why and how to write using diacritics on the Internet{/t}
-    </li>
-    <li>
       {t
         1="https://unibuc.academia.edu/SPaliga"
         2="https://www.researchgate.net/profile/Sorin_Paliga"}
@@ -40,7 +36,7 @@
     </li>
   </ul>
 
-  <h3>Scrabble</h3>
+  <h3>{cap}{t}games{/t}{/cap}</h3>
 
   <ul>
     <li>
@@ -48,18 +44,9 @@
       The <a href="%1">Romanian Scrabble Federation</a>{/t}
     </li>
     <li>
-      {t 1="http://www.scrabrom.3x.ro/Anascrab7.html"}
-      <a href="%1">AnaScrab 7</a> &mdash; a seven-letter anagram generator{/t}
-    </li>
-    <li>
       {t 1="https://play.google.com/store/apps/details?id=com.dance.findwords"}
       <a href="%1">Find words</a> &mdash; a helper for crosswords and Scrabble{/t}
     </li>
-  </ul>
-
-  <h3>{t}Programs that use the database of dexonline{/t}</h3>
-
-  <ul>
     <li>
       {t 1="https://play.google.com/store/apps/details?id=com.kynamar.fazan"}
       A <a href="%1">game of Fazan</a> for Android devices{/t}

@@ -30,8 +30,14 @@
 
           <div class="defDetails">
             {if count($t.sources)}
-              <span class="tag-group">
-                <span class="text-muted">surse:</span>
+              {$collapseId="sourceCollapse_{$t.meaning->id}"}
+              <a
+                data-bs-toggle="collapse"
+                class="muted-link"
+                href="#{$collapseId}"
+                aria-controls="{$collapseId}">
+                {t}show sources{/t}</a>
+              <span class="collapse tag-group" id="{$collapseId}">
                 {foreach $t.sources as $s}
                   <span class="badge badge-source"
                         title="{$s->name}, {$s->year}">{$s->shortName}</span>
@@ -45,12 +51,13 @@
               {$collapseId="exampleCollapse_{$t.meaning->id}"}
               <a
                 data-bs-toggle="collapse"
-                class="exampleLink"
+                class="muted-link"
                 href="#{$collapseId}"
                 aria-controls="{$collapseId}">
                 {include "bits/icon.tpl" i=attach_file}
                 {t count=$t.examples|@count 1=$t.examples|@count plural="%1 examples"}
-                one example{/t}
+                one example
+                {/t}
               </a>
             {/if}
 

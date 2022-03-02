@@ -136,7 +136,7 @@
   padding-left: 42px;
 }
 
-.exampleLink {
+.muted-link {
   color: var(--bs-gray-700) !important;
 }
 

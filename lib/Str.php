@@ -207,7 +207,7 @@ class Str {
     }
 
     // sunt(em,eți) -> sînt(em,eți)
-    $tpl_output = preg_replace("/(\W)sunt(em|eți)?/i", "\${1}sînt\${2}", $tpl_output);
+    $tpl_output = preg_replace("/\bsunt(em|eți)?/i", "sînt\${1}", $tpl_output);
 
     // Handle some accented letters in paradigms. Accents are denoted by a class.
     $a = "<span class=\"tonic-accent\">â</span>";

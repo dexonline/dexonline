@@ -16,18 +16,18 @@ Dorim să răsplătim gestul dumneavoastră după cum urmează:
 * trei autocolante cu dexonline;
 {/if}
 {if $donor->needsReward(Donor::RANGE_NO_BANNERS)}
-* pagini fără reclame și preferință pentru modul confidențial [2] timp de un an;
+* pagini fără reclame timp de un an;
 {/if}
 * o medalie (virtuală) pentru donatori.
 
 {if !$donor->user}
 Dacă doriți să beneficiați de premiile virtuale (medalie și/sau pagini fără
-reclame), aveți nevoie de un cont pe dexonline [3].
+reclame), aveți nevoie de un cont pe dexonline [2].
 {elseif $donor->needsReward(Donor::RANGE_NO_BANNERS)}
-V-am acordat medalia și am ascuns reclamele în contul dumneavoastră [3].  Dacă
+V-am acordat medalia și am ascuns reclamele în contul dumneavoastră [2].  Dacă
 preferați ca donația dumneavoastră să fie anonimă, vă rugăm să ne contactați.
 {else}
-V-am acordat medalia în contul dumneavoastră [3]. Dacă preferați ca donația
+V-am acordat medalia în contul dumneavoastră [2]. Dacă preferați ca donația
 dumneavoastră să fie anonimă, vă rugăm să ne contactați.
 {/if}
 
@@ -45,11 +45,8 @@ Din partea echipei dexonline,
 
 ----
 [1] {Router::link('donation/donate', true)}
-{if $donor->needsReward(Donor::RANGE_NO_BANNERS)}
-[2] https://wiki.dexonline.ro/wiki/Modul_confiden%C8%9Bial
-{/if}
 {if $donor->user}
-[3] {Router::link('user/view', true)}/{$donor->user->nick|escape:url}
+[2] {Router::link('user/view', true)}/{$donor->user->nick|escape:url}
 {else}
-[3] {Router::link('auth/login', true)}
+[2] {Router::link('auth/login', true)}
 {/if}

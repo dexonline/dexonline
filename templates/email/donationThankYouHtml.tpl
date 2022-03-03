@@ -30,9 +30,7 @@
   {/if}
   {if $donor->needsReward(Donor::RANGE_NO_BANNERS)}
     <li>
-      pagini fără reclame și preferință pentru
-      <a href="https://wiki.dexonline.ro/wiki/Modul_confiden%C8%9Bial">modul confidențial</a>
-      timp de un an;
+      pagini fără reclame timp de un an;
     </li>
   {/if}
   <li>

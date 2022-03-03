@@ -208,7 +208,7 @@ $(function() {
     // Assign range to selection
     var sel = range.toString();
     var txt = $('#typoText_'+id).val();
-    txt += txt ? ' ￭ ' : '';
+    txt += txt ? ' • ' : '';
     $('#typoText_'+id).val(txt + sel);
 
   }

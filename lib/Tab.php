@@ -37,8 +37,8 @@ class Tab {
    */
   static function getName(int $tab) {
     switch ($tab) {
-      case self::T_RESULTS:  return _('results');
-      case self::T_PARADIGM: return _('inflections');
+      case self::T_RESULTS:  return _('definitions');
+      case self::T_PARADIGM: return _('conjugations') . ' / ' . _('declensions');
       case self::T_TREES:    return _('synthesis');
       case self::T_GALLERY:  return _('images');
       case self::T_ARTICLES: return _('articles');

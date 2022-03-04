@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2022-03-04 14:24+0200\n"
-"PO-Revision-Date: 2022-03-04 14:24+0200\n"
+"POT-Creation-Date: 2022-03-04 14:30+0200\n"
+"PO-Revision-Date: 2022-03-04 14:30+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -300,7 +300,7 @@ msgid "characters"
 msgstr "caractere"
 
 #: templates/bits/top.tpl:7 templates/games/hangman.tpl:48
-#: templates/games/mill.tpl:80
+#: templates/games/mill.tpl:80 lib/Tab.php:40
 msgid "definitions"
 msgstr "definiții"
 
@@ -1402,13 +1402,13 @@ msgstr "precedentul"
 msgid "next"
 msgstr "următorul"
 
-#: lib/Tab.php:40
-msgid "results"
-msgstr "rezultate"
+#: lib/Tab.php:41 www/search.php:340
+msgid "conjugations"
+msgstr "conjugări"
 
-#: lib/Tab.php:41
-msgid "inflections"
-msgstr "flexiuni"
+#: lib/Tab.php:41 www/search.php:341
+msgid "declensions"
+msgstr "declinări"
 
 #: lib/Tab.php:42
 msgid "synthesis"
@@ -1682,23 +1682,3 @@ msgstr[2] "%d de cuvinte ale zilei alese la întâmplare"
 #, php-format
 msgid "We redirected you automatically from <b>%s</b> to <b>%s</b>."
 msgstr "V-am redirecționat automat de la <b>%s</b> la <b>%s</b>."
-
-#: www/search.php:340
-msgid "conjugations"
-msgstr "conjugări"
-
-#: www/search.php:341
-msgid "declensions"
-msgstr "declinări"
-
-#~ msgid "why and how to write using diacritics on the Internet"
-#~ msgstr "de ce și cum să scrii cu diacritice pe Internet"
-
-#~ msgid ""
-#~ "<a href=\"%1\">AnaScrab 7</a> &mdash; a seven-letter anagram generator"
-#~ msgstr ""
-#~ "<a href=\"%1\">AnaScrab 7</a> &mdash; un generator de anagrame de șapte "
-#~ "litere"
-
-#~ msgid "Programs that use the database of dexonline"
-#~ msgstr "Programe care folosesc baza de date a dexonline"

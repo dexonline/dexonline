@@ -20,52 +20,17 @@
 {block "flashMessages"}{/block}
 
 {block "content"}
-  {assign var="declensionText" value=$declensionText|default:null}
-  {assign var="tab" value=$tab|default:false}
-
   {include "banner/banner.tpl"}
   {include "bits/flashMessages.tpl"}
 
   <ul class="nav nav-tabs" role="tablist">
-    {if count($trees)}
+    {foreach $tabs as $tab => $info}
       {include "search/tab.tpl"
-        activeTab=$tab
-        count=count($trees)
-        tab=Tab::T_TREES
-        target="treeTab"}
-    {/if}
-
-    {include "search/tab.tpl"
-      activeTab=$tab
-      count=$extra.numResults
-      tab=Tab::T_RESULTS
-      target="resultsTab"}
-
-    {if $searchParams.paradigm}
-      {include "search/tab.tpl"
-        activeTab=$tab
-        tab=Tab::T_PARADIGM
-        target="paradigmTab"
-        title=$declensionText}
-    {/if}
-
-    {if count($images)}
-      {include "search/tab.tpl"
-        activeTab=$tab
-        count=count($images)
-        notice=true
-        tab=Tab::T_GALLERY
-        target="galleryTab"}
-    {/if}
-
-    {if count($wikiArticles)}
-      {include "search/tab.tpl"
-        activeTab=$tab
-        count=count($wikiArticles)
-        notice=true
-        tab=Tab::T_ARTICLES
-        target="articlesTab"}
-    {/if}
+        count=$info.count
+        prominent=$info.prominent
+        tab=$tab
+        title=$info.title}
+    {/foreach}
 
     {if count($trees)}
       {* don't advertise the synthesis tab unless it exists *}
@@ -82,8 +47,8 @@
     {* results tab *}
     <div
       role="tabpanel"
-      class="tab-pane {if $tab == Tab::T_RESULTS}show active{/if}"
-      id="resultsTab">
+      class="tab-pane {if $activeTab == Tab::T_RESULTS}show active{/if}"
+      id="tab_{Tab::T_RESULTS}">
 
       {* definition ID search *}
       {if $searchType == $smarty.const.SEARCH_DEF_ID}
@@ -283,8 +248,8 @@
     {if $searchParams.paradigm}
       <div
         role="tabpanel"
-        class="tab-pane {if $tab == Tab::T_PARADIGM}show active{/if}"
-        id="paradigmTab">
+        class="tab-pane {if $activeTab == Tab::T_PARADIGM}show active{/if}"
+        id="tab_{Tab::T_PARADIGM}">
 
         {foreach $entries as $e}
           {include "bits/multiParadigm.tpl" entry=$e}
@@ -327,8 +292,8 @@
     {if count($trees)}
       <div
         role="tabpanel"
-        class="tab-pane {if $tab == Tab::T_TREES}show active{/if}"
-        id="treeTab">
+        class="tab-pane {if $activeTab == Tab::T_TREES}show active{/if}"
+        id="tab_{Tab::T_TREES}">
         {include "search/trees.tpl"}
       </div>
     {/if}
@@ -337,8 +302,8 @@
     {if count($images)}
       <div
         role="tabpanel"
-        class="tab-pane {if $tab == Tab::T_GALLERY}show active{/if}"
-        id="galleryTab">
+        class="tab-pane {if $activeTab == Tab::T_GALLERY}show active{/if}"
+        id="tab_{Tab::T_GALLERY}">
         {include "search/gallery.tpl"}
       </div>
     {/if}
@@ -347,8 +312,8 @@
     {if count($wikiArticles)}
       <div
         role="tabpanel"
-        class="tab-pane {if $tab == Tab::T_ARTICLES}show active{/if}"
-        id="articlesTab">
+        class="tab-pane {if $activeTab == Tab::T_ARTICLES}show active{/if}"
+        id="tab_{Tab::T_ARTICLES}">
         {include "search/wikiArticles.tpl"}
       </div>
     {/if}

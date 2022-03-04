@@ -32,6 +32,14 @@ class Tab {
     self::T_ARTICLES => '/articole',
   ];
 
+  const PROMINENT = [
+    self::T_RESULTS => false,
+    self::T_PARADIGM => false,
+    self::T_TREES => false,
+    self::T_GALLERY => true,
+    self::T_ARTICLES => true,
+  ];
+
   /**
    * Returns a localized name for the given tab.
    */
@@ -85,24 +93,58 @@ class Tab {
   }
 
   /**
-   * Returns the tab that should be active on page render, based on the user
-   * preferences and the availability of data.
+   * Based on the URL, user preferences and the availability of data, returns
+   * an ordered list of tabs to display and the active tab.
+   *
+   * @param mixed $urlTab One of the T_* constans or false if the URL doesn't indicate a tab.
+   * @param int $numResults The number of items on the definitions tab.
+   * @param bool $hasParadigm Whether we should display the paradigm tab.
+   * @param int $numTrees The number of structured trees.
+   * @param int $numImages The number of images.
+   * @param int $numArticles The number of linguistics articles.
+   * @param string $declensionText The title of the paradigm tab.
+   *
+   * @return A tuple of
+   *   * the active tab
+   *   * an array of tab ID => tab info
    */
-  static function getActive($hasParadigm, $hasTrees, $hasImages, $hasArticles) {
-    $tabs = Session::getTabs();
-    $good = [
+  static function getInfo(
+    mixed $urlTab, int $numResults, bool $hasParadigm, int $numTrees, int $numImages,
+    int $numArticles, string $declensionText) {
+
+    $allTabs = Session::getTabs();
+
+    $isVisible = [
       self::T_RESULTS => true, // this tab is always visible
       self::T_PARADIGM => $hasParadigm,
-      self::T_TREES => $hasTrees,
-      self::T_GALLERY => $hasImages,
-      self::T_ARTICLES => $hasArticles,
+      self::T_TREES => $numTrees,
+      self::T_GALLERY => $numImages,
+      self::T_ARTICLES => $numArticles,
+    ];
+    $counts = [
+      self::T_RESULTS => $numResults,
+      self::T_PARADIGM => 0, // never display this count
+      self::T_TREES => $numTrees,
+      self::T_GALLERY => $numImages,
+      self::T_ARTICLES => $numArticles,
     ];
 
-    $i = 0;
-    while (!$good[$tabs[$i]]) {
-      $i++;
+    $tabs = [];
+    foreach ($allTabs as $tab) {
+      if ($isVisible[$tab]) {
+        $tabs[$tab] = [
+          'count' => $counts[$tab],
+          'prominent' => self::PROMINENT[$tab],
+          'title' => ($tab == self::T_PARADIGM) ? $declensionText : self::getName($tab),
+        ];
+      }
     }
-    return $tabs[$i];
+
+    $activeTab = (($urlTab !== false) && ($isVisible[$urlTab]))
+      ? $urlTab
+      : array_key_first($tabs);
+
+    return [ $activeTab, $tabs ];
   }
 
   /**

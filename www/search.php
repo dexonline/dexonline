@@ -43,6 +43,7 @@ $sourceUrlName = Request::get('source');
 $text = Request::has('text');
 $tab = Tab::getFromUrl();
 $format = checkFormat();
+$declensionText = '';
 
 $redirect = Session::get('redirect');
 $redirectFrom = Session::get('init_word', '');
@@ -340,7 +341,6 @@ if ($searchParams[$searchType]['paradigm']) {
     $conjugations ? _('conjugations') : '',
     $declensions ? _('declensions') : '',
   ]));
-  Smart::assign('declensionText', $declensionText);
 
   // Check if any of the inflected forms are unrecommended
   $hasUnrecommendedForms = false;
@@ -408,15 +408,18 @@ if (count($images)) {
   Smart::addResources('gallery');
 }
 
-// if the URL doesn't specify a tab, choose an active one
-if ($tab === false) {
-  $tab = Tab::getActive(
-    $searchParams[$searchType]['paradigm'],
-    count($trees),
-    count($images),
-    count($wikiArticles)
-  );
-}
+// Figure out the list of tabs, their order and the active tab given
+// * the tab specified in the URL;
+// * the user tab preference.
+list($activeTab, $tabs) = Tab::getInfo(
+  $tab,
+  $extra['numResults'],
+  $searchParams[$searchType]['paradigm'],
+  count($trees),
+  count($images),
+  count($wikiArticles),
+  $declensionText
+);
 
 foreach ($entries as $e) {
   $adult |= $e->adult;
@@ -436,7 +439,8 @@ Smart::assign([
   'source' => $source,
   'sourceId' => $sourceId,
   'sourceTypes' => $sourceTypes,
-  'tab' => $tab,
+  'tabs' => $tabs,
+  'activeTab' => $activeTab,
   'showWotd' => $showWotd,
   'pageType' => 'search',
 ]);

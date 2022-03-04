@@ -16,7 +16,7 @@ $(function() {
       renumber();
     }
 
-    $('.horiz-collapse-link').click(horizontalCollapse);
+    $('.meaning-sources a').click(toggleSources);
   }
 
   function initEditable() {
@@ -557,8 +557,8 @@ $(function() {
     deletePopover.hide();
   }
 
-  function horizontalCollapse() {
-    $(this).siblings('.horiz-collapse').toggleClass('in');
+  function toggleSources() {
+    $(this).siblings('.tag-group').toggle();
     return false;
   }
 

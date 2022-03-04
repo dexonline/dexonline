@@ -26,6 +26,7 @@
               {$t.meaning->getDisplaySynonyms()}
             </span>
 
+            {include "bits/meaningSources.tpl" sources=$t.sources}
           </div>
 
           <div class="defDetails">
@@ -42,22 +43,6 @@
                 {t count=$t.examples|@count 1=$t.examples|@count plural="%1 examples"}
                 one example
                 {/t}</a>
-            {/if}
-
-            {if count($t.sources)}
-              <a
-                class="horiz-collapse-link me-1 muted-link"
-                href="#">
-                {t}show sources{/t}</a>
-              <span class="horiz-collapse tag-group">
-                {foreach $t.sources as $s}
-                  <span
-                    class="badge badge-source"
-                    title="{$s->name}, {$s->year}">
-                    {$s->shortName}
-                  </span>
-                {/foreach}
-              </span>
             {/if}
 
           </div>

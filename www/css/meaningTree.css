@@ -136,6 +136,18 @@
   color: var(--bs-gray-700) !important;
 }
 
+.meaning-sources {
+  vertical-align: 10%;
+}
+
+.meaning-sources a,
+.meaning-sources a:focus,
+.meaning-sources a:hover {
+  color: var(--bs-gray-500) !important;
+  font-size: 80%;
+  text-decoration: none;
+}
+
 .exampleBody {
   color: var(--bs-gray-700);
 }
@@ -170,19 +182,8 @@
   margin-bottom: 20px;
 }
 
-/* Useful when the width is unknown. */
-.horiz-collapse {
-  display: inline-block;
-  overflow: hidden;
-  transition: transform 0.2s ease;
-  vertical-align: top;
-  white-space: nowrap;
-  transform: scaleX(0);
-  transform-origin: left;
-}
-
-.horiz-collapse.in {
-  transform: scaleX(1);
+.meaning-sources .tag-group {
+  display: none;
 }
 
 @media (max-width: 991px) {

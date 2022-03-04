@@ -95,18 +95,21 @@ class Meaning extends BaseObject implements DatedObject {
     if ($isEmpty || $isParent || $isEqual || $isColon) {
 
       $synonyms = $this->getRelations()[Relation::TYPE_SYNONYM];
-      $parts = [];
-      foreach ($synonyms as $s) {
-        $parts[] = $s->getShortDescription();
+
+      if (!empty($synonyms)) {
+        $parts = [];
+        foreach ($synonyms as $s) {
+          $parts[] = $s->getShortDescription();
+        }
+
+        $list = implode(', ', $parts);
+
+        if ($isEmpty || $isParent) {
+          $list = Str::capitalize($list);
+        }
+
+        return $list . '.';
       }
-
-      $list = implode(', ', $parts);
-
-      if ($isEmpty || $isParent) {
-        $list = Str::capitalize($list);
-      }
-
-      return $list . '.';
     }
 
     return '';

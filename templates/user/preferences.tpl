@@ -182,7 +182,7 @@
           {/foreach}
         </ul>
 
-        <a href="#" id="restore-tab-order-link">
+        <a href="#" class="btn btn-outline-secondary" id="restore-tab-order-link">
           revino la ordinea implicită
         </a>
       </div>

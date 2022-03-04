@@ -12,7 +12,7 @@ $(function() {
       .children()
       .sort(tabCmp)
       .appendTo($('#tab-order'));
-    return false;
+    $('button[name="saveButton"]').click();
   });
 
 });

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2022-03-02 12:10+0200\n"
-"PO-Revision-Date: 2022-03-02 12:55+0200\n"
+"POT-Creation-Date: 2022-03-04 14:24+0200\n"
+"PO-Revision-Date: 2022-03-04 14:24+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -104,16 +104,16 @@ msgstr "compus"
 msgid "Inflection sources"
 msgstr "Surse flexiune"
 
-#: templates/bits/meaningTree.tpl:42
+#: templates/bits/meaningSources.tpl:3
+msgid "show sources"
+msgstr "arată sursele"
+
+#: templates/bits/meaningTree.tpl:43
 msgid "one example"
 msgid_plural "%1 examples"
 msgstr[0] "un exemplu"
 msgstr[1] "%1 exemple"
 msgstr[2] "%1 de exemple"
-
-#: templates/bits/meaningTree.tpl:55
-msgid "show sources"
-msgstr "arată sursele"
 
 #: templates/bits/multiParadigm.tpl:6
 msgid "entry"
@@ -752,12 +752,12 @@ msgstr ""
 msgid "Current status: %1 definitions, of which %2 learned last month."
 msgstr "Starea curentă: %1 de definiții, din care %2 învățate în ultima lună."
 
-#: templates/layout.tpl:86 templates/simple/tools.tpl:84
+#: templates/layout.tpl:70 templates/simple/tools.tpl:84
 #: templates/simple/tools.tpl:105
 msgid "license"
 msgstr "licență"
 
-#: templates/layout.tpl:89
+#: templates/layout.tpl:73
 msgid "privacy"
 msgstr "confidențialitate"
 
@@ -1085,15 +1085,19 @@ msgstr ""
 "Există definiții din dicționare pentru care dexonline nu are drepturi de "
 "redistribuire:"
 
+#: templates/search/sourceTypes.tpl:3
+msgid "of which"
+msgstr "din care"
+
 #: templates/search/trees.tpl:22
 msgid "edit"
 msgstr "editează"
 
-#: templates/search/trees.tpl:31
+#: templates/search/trees.tpl:32
 msgid "etymology"
 msgstr "etimologie"
 
-#: templates/search/trees.tpl:39
+#: templates/search/trees.tpl:41
 msgid ""
 "The full definition list is available on the <a id=\"%1\" href=\"#"
 "\">results</a> tab."
@@ -1157,10 +1161,6 @@ msgstr ""
 "Rosetti” al Academiei Române"
 
 #: templates/simple/links.tpl:22
-msgid "why and how to write using diacritics on the Internet"
-msgstr "de ce și cum să scrii cu diacritice pe Internet"
-
-#: templates/simple/links.tpl:26
 msgid ""
 "Sorin Paliga &mdash; volumes in PDF format at <a href=\"%1\">Academia.edu</"
 "a> and <a href=\"%2\">ResearchGate</a>"
@@ -1168,11 +1168,11 @@ msgstr ""
 "Sorin Paliga &mdash; volume în format PDF la <a href=\"%1\">Academia.edu</a> "
 "și <a href=\"%2\">ResearchGate</a>"
 
-#: templates/simple/links.tpl:33
+#: templates/simple/links.tpl:29
 msgid "Other languages"
 msgstr "Alte limbi"
 
-#: templates/simple/links.tpl:37
+#: templates/simple/links.tpl:33
 msgid ""
 "<a href=\"%1\">hallo.ro</a> &mdash; bilingual dictionaries between Romanian "
 "and English, French, Spanish, German, Italian"
@@ -1180,28 +1180,22 @@ msgstr ""
 "<a href=\"%1\">hallo.ro</a> &mdash; dicționare bilingve între română și "
 "engleză, franceză, spaniolă, germană, italiană"
 
-#: templates/simple/links.tpl:47
+#: templates/simple/links.tpl:39 templates/widgets/games.tpl:3
+msgid "games"
+msgstr "jocuri"
+
+#: templates/simple/links.tpl:43
 msgid "The <a href=\"%1\">Romanian Scrabble Federation</a>"
 msgstr "<a href=\"%1\">Federația Română de Scrabble</a>"
 
-#: templates/simple/links.tpl:51
-msgid "<a href=\"%1\">AnaScrab 7</a> &mdash; a seven-letter anagram generator"
-msgstr ""
-"<a href=\"%1\">AnaScrab 7</a> &mdash; un generator de anagrame de șapte "
-"litere"
-
-#: templates/simple/links.tpl:55
+#: templates/simple/links.tpl:47
 msgid ""
 "<a href=\"%1\">Find words</a> &mdash; a helper for crosswords and Scrabble"
 msgstr ""
 "<a href=\"%1\">Găsește cuvinte</a> &mdash; un ajutor pentru cuvinte "
 "încrucișate și Scrabble"
 
-#: templates/simple/links.tpl:60
-msgid "Programs that use the database of dexonline"
-msgstr "Programe care folosesc baza de date a dexonline"
-
-#: templates/simple/links.tpl:64
+#: templates/simple/links.tpl:51
 msgid "A <a href=\"%1\">game of Fazan</a> for Android devices"
 msgstr "Un <a href=\"%1\">joc de Fazan</a> pentru dispozitive cu Android"
 
@@ -1345,10 +1339,6 @@ msgstr "În această categorie intră definițiile trimise folosind un program."
 #: templates/widgets/articleOfTheMonth.tpl:10
 msgid "article of the month"
 msgstr "articolul lunii"
-
-#: templates/widgets/games.tpl:3
-msgid "games"
-msgstr "jocuri"
 
 #: templates/widgets/randomWord.tpl:6
 msgid "random word"
@@ -1688,15 +1678,27 @@ msgstr[0] "Un cuvânt al zilei ales la întâmplare"
 msgstr[1] "%d cuvinte ale zilei alese la întâmplare"
 msgstr[2] "%d de cuvinte ale zilei alese la întâmplare"
 
-#: www/search.php:216
+#: www/search.php:215
 #, php-format
 msgid "We redirected you automatically from <b>%s</b> to <b>%s</b>."
 msgstr "V-am redirecționat automat de la <b>%s</b> la <b>%s</b>."
 
-#: www/search.php:341
+#: www/search.php:340
 msgid "conjugations"
 msgstr "conjugări"
 
-#: www/search.php:342
+#: www/search.php:341
 msgid "declensions"
 msgstr "declinări"
+
+#~ msgid "why and how to write using diacritics on the Internet"
+#~ msgstr "de ce și cum să scrii cu diacritice pe Internet"
+
+#~ msgid ""
+#~ "<a href=\"%1\">AnaScrab 7</a> &mdash; a seven-letter anagram generator"
+#~ msgstr ""
+#~ "<a href=\"%1\">AnaScrab 7</a> &mdash; un generator de anagrame de șapte "
+#~ "litere"
+
+#~ msgid "Programs that use the database of dexonline"
+#~ msgstr "Programe care folosesc baza de date a dexonline"

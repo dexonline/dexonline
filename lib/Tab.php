@@ -109,7 +109,7 @@ class Tab {
    *   * an array of tab ID => tab info
    */
   static function getInfo(
-    mixed $urlTab, int $numResults, bool $hasParadigm, int $numTrees, int $numImages,
+    $urlTab, int $numResults, bool $hasParadigm, int $numTrees, int $numImages,
     int $numArticles, string $declensionText) {
 
     $allTabs = Session::getTabs();

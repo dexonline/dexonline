@@ -1,5 +1,8 @@
 $(function() {
 
+  const RESULTS_TAB_ID = '#tab_0';
+  const RESULTS_TAB_BUTTON = 'button[data-bs-target="' + RESULTS_TAB_ID + '"]';
+
   function init() {
     $('#toggleNotRecommended').click(function() {
       $('li.notRecommended').toggleClass('notRecommendedShown notRecommendedHidden');
@@ -31,7 +34,7 @@ $(function() {
     $('.cat-link').click(scrollToSourceType);
     $('#tree-tab-link').click(showResultsTab);
 
-    $(document).on('shown.bs.tab', 'button[data-bs-target="#resultsTab"]', collapseReadMore);
+    $(document).on('shown.bs.tab', RESULTS_TAB_BUTTON, collapseReadMore);
 
     moveBanner();
   }
@@ -100,7 +103,7 @@ $(function() {
   }
 
   function showResultsTab() {
-    $('button[data-bs-target="#resultsTab"]').click();
+    $('button[data-bs-target="#tab_0"]').click();
     return false;
   }
 
@@ -110,7 +113,7 @@ $(function() {
     function collapseReadMore() {
       if (!called) {
         called = true;
-        $('#resultsTab .read-more').readMore();
+        $(RESULTS_TAB_ID + ' .read-more').readMore();
       }
     }
   }

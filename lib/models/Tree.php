@@ -57,6 +57,10 @@ class Tree extends BaseObject implements DatedObject {
     }
   }
 
+  function getSize() {
+    return Preload::getTreeSize($this->id);
+  }
+
   function getEtymologies() {
     if ($this->etymologies === null) {
       $this->extractEtymologies();

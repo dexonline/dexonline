@@ -17,6 +17,7 @@ $(function() {
     }
 
     $('.meaning-sources a').click(toggleSources);
+    $('.collapse-root').click(toggleSubtree);
   }
 
   function initEditable() {
@@ -559,6 +560,15 @@ $(function() {
 
   function toggleSources() {
     $(this).siblings('.tag-group').toggle();
+    return false;
+  }
+
+  function toggleSubtree() {
+    var container = $(this).closest('.meaningContainer');
+    container.find('.defDetails').stop().slideToggle();
+    container.siblings('ul').stop().slideToggle();
+    container.siblings('.examples').removeClass('show'); /* leverage BS collapse */
+    $(this).toggleClass('active');
     return false;
   }
 

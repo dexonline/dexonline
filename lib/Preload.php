@@ -714,6 +714,11 @@ class Preload {
   private static array $treeMeanings = [];
 
   /**
+   * Maps tree IDs to number of meanings.
+   */
+  private static array $treeSizes = [];
+
+  /**
    * Loads meanings for all trees with the given IDs.
    */
   static function loadTreeMeanings(array $treeIds) {
@@ -725,6 +730,7 @@ class Preload {
 
     // initialize to empty trees
     self::initKeys(self::$treeMeanings, $treeIds, []);
+    self::initKeys(self::$treeSizes, $treeIds, 0);
 
     $meanings = Model::factory('Meaning')
       ->where_in('treeId', $treeIds)
@@ -754,6 +760,7 @@ class Preload {
         // meanings with incoming mentions cannot be deleted
         'canDelete' => !isset($mentionMap[$m->id]),
       ];
+      self::$treeSizes[$m->treeId]++;
     }
 
     foreach ($tuples as &$tuple) {
@@ -771,6 +778,11 @@ class Preload {
   static function &getTreeMeanings($treeId) {
     self::loadTreeMeanings([$treeId]);
     return self::$treeMeanings[$treeId];
+  }
+
+  static function getTreeSize(int $treeId) {
+    self::loadTreeMeanings([$treeId]);
+    return self::$treeSizes[$treeId];
   }
 
 }

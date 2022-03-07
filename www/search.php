@@ -78,6 +78,7 @@ $definitions = [];
 $entries = [];
 $lexemes = [];
 $trees = [];
+$totalTreeSize = 0;
 $wikiArticles = [];
 $extra = [];
 $adult = false;
@@ -303,6 +304,7 @@ if ($searchParams[$searchType]['trees'] && !$sourceId) {
           $t->extractExamples();
           $t->extractEtymologies();
           $trees[$t->id] = $t;
+          $totalTreeSize += $t->getSize();
         }
       }
     }
@@ -430,6 +432,7 @@ Smart::assign([
   'lexemes' => $lexemes,
   'results' => $results,
   'trees' => $trees,
+  'totalTreeSize' => $totalTreeSize,
   'images' => $images,
   'wikiArticles' => $wikiArticles,
   'extra' => $extra,

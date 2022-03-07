@@ -15,6 +15,11 @@
                 <span class="etymologyBc">({$t.lastBreadcrumb})</span>
               {/if}
             {else}
+              {if $root && ($totalTreeSize > Config::SEARCH_COLLAPSE_ROOTS)}
+                <a class="collapse-root muted-link text-decoration-none" href="#">
+                  {include "bits/icon.tpl" i=expand_less}
+                </a>
+              {/if}
               <span class="bc">{$t.meaning->breadcrumb}</span>
               <span class="typeName">{$t.meaning->getDisplayTypeName()}</span>
             {/if}

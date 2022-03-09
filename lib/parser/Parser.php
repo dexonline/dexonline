@@ -16,6 +16,9 @@ abstract class Parser {
 
   abstract function prepare($rep);
 
+  abstract function postProcess(
+    string $rule, string $content, ParserState $state, array &$warnings);
+
   // instantiates a base parser and compiles the grammar
   function __construct() {
     $grammar = $this->getGrammar();
@@ -122,91 +125,7 @@ abstract class Parser {
         $content .= $this->parseTree($c, $state, $comments, $warnings);
       }
       $state->popRule();
-
-      switch ($rule) {
-        case 'pos':
-          // parts of speech should always be italicized
-          if (!$state->isItalic()) {
-            $warnings[] = "Am pus în italic partea de vorbire «{$content}».";
-            $content = '$' . $content . '$';
-          }
-          if ($state->isBold()) {
-            $warnings[] = "Am scos din bold partea de vorbire «{$content}».";
-            $content = '@' . $content . '@';
-          }
-          break;
-
-        case 'posNoHash':
-          // parts of speech should always go between hash signs
-          $warnings[] = "Am pus între diezi partea de vorbire «{$content}».";
-          $content = "#{$content}#";
-          break;
-
-        case 'formattedVz':
-          if ($state->isBold()) {
-            $warnings[] = "Am scos din bold textul «vz».";
-            $content = '@' . $content . '@';
-          }
-          if ($state->isItalic()) {
-            $warnings[] = "Am scos din italic textul «vz».";
-            $content = '$' . $content . '$';
-          }
-          break;
-
-        case 'mainForm': // for references
-          if (!$state->isItalic()) {
-            $warnings[] = "Am pus în italic textul «{$content}».";
-            $content = '$' . $content . '$';
-          }
-          if (!$state->isBold()) {
-            $warnings[] = "Am pus în bold textul «{$content}».";
-            $content = '@' . $content . '@';
-          }
-          break;
-
-        case 'form': // word forms and their inflected forms
-          if ($content == '-ă') {
-            $warnings[] = "Am înlocuit - cu ~ în forma «{$content}».";
-            $content = '~ă';
-          }
-          break;
-
-        case 'meaningNumber':
-          $old = $state->getMeaningNumber();
-          $new = explode('@', $content)[1];
-          $parts = explode('-', $new);
-          if (count($parts) > 2) {
-            $warnings[] = "Număr de sens incorect: «{$new}».";
-          } else {
-            if (count($parts) == 1) {
-              $from = $to = $new;
-            } else {
-              $from = $parts[0];
-              $to = $parts[1];
-            }
-            if ($from != $old + 1) {
-              $warnings[] = "Numerotare incorectă a sensurilor: «{$new}» după «{$old}».";
-            }
-            $state->setMeaningNumber($to);
-          }
-          break;
-
-        case 'entryWithInflectedForms':
-          $state->setForm($content);
-          break;
-
-        case 'accent':
-          $unknown = strpos($content, '#nct#') !== false;
-          $formHasAccent = preg_match("/(?<!\\\\|\\')'(\p{L})/u", $state->getForm());
-          if ($unknown && $formHasAccent) {
-            $warnings[] = 'Indicație de accent necunoscut, dar forma de bază are accent.';
-          }
-          break;
-
-        case 'formattedSlash':
-          $content = $this->fixSlashFormatting($content, $state);
-          break;
-      }
+      $content = $this->postProcess($rule, $content, $state, $warnings);
 
     } else { // leaf
 
@@ -226,34 +145,6 @@ abstract class Parser {
     }
 
     return $content;
-  }
-
-  // $s: string containing exactly one slash plus bold and italic markers;
-  // $endState: state at the END of this token.
-  function fixSlashFormatting($s, $endState) {
-    $result = '/';
-
-    $final = [
-      '@' => $endState->isBold(),
-      '$' => $endState->isItalic(),
-    ];
-    $parts = explode('/', $s);
-
-    foreach (['@', '$'] as $char) {
-      // initial parity of $char to the left and right of the slash
-      $left = substr_count($parts[0], $char) & 1;
-      $right = substr_count($parts[1], $char) & 1;
-
-      // desired parity of $char
-      $left = $final[$char] ^ $left ^ $right;
-      $right = $final[$char];
-
-      // note that the initial $left ^ $right is equal to the final $left ^ $right,
-      // so this does not change the parity; the overall definition remains valid
-      $result = str_repeat($char, $left) . $result . str_repeat($char, $right);
-    }
-
-    return $result;
   }
 
 }

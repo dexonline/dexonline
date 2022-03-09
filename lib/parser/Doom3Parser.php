@@ -4,11 +4,6 @@ class Doom3Parser extends Parser {
 
   const SOURCE_ID = 88;
 
-  const PARTS_OF_SPEECH = [
-    'adj.', 'adv.', 'conjcț.', 'interj.', 'loc.', 'num.', 'pr.', 'prep.',
-    'pron.', 's.', 'vb.',
-  ];
-
   const INFO_KEYWORDS = [
     'cuv. amerind.', '#cuv.# #amerind.#',
     'cuv. ar.', '#cuv.# #ar.#',
@@ -16,6 +11,7 @@ class Doom3Parser extends Parser {
     'în tempo rapid',
     'rar',
     'sport',
+    'uzual',
   ];
 
   const PRONUNCIATION_KEYWORDS = [
@@ -117,10 +113,92 @@ class Doom3Parser extends Parser {
     ],
 
     'body' => [
-      'pos ignored',
+      '("adj. invar."|"#adj.# #invar.#")', // nothing further
+      '("#adj.# #invar.#, #adv.#"|"adj. invar., adv.")', // nothing further
+      '"#adj.# #m.#" adjective',
+      '"adj. m." adjective',
+      '"adj. m., s. m." adjective',
+      '"#adj.# #m.#, #s.# #m.#" adjective',
+      '("adv."|"#adv.#")', // nothing further
+      '("interj."|"#interj.#")', // nothing further
+      '("loc. adj., loc. adv."|"#loc.# #adj.#, #loc.# #adv.#")', // nothing further
+      '("loc. adv."|"#loc.# #adv.#")', // nothing further
+      '("loc. conjcț."|"#loc.# #conjcț.#")', // nothing further
+      '("loc. prep."|"#loc.# #prep.#")', // nothing further
+      '"#s.# #f.#" noun',
+      '"s. f." noun',
+      '"#s.# #m.#" noun',
+      '"s. m." noun',
+      '"#s.# #n.#" noun',
+      '"s. propriu f." noun',
+      '"#s.# propriu #f.#" noun',
+      '"s. propriu m." noun',
+      '"#s.# propriu #m.#" noun',
+      '"s. propriu n." noun',
+      '"#s.# propriu #n.#" noun',
+      '"s. n." noun',
+      '"v." ws reference',
+      '("#vb.#"|"vb.") verb',
+      '("#vb.# #refl.#"|"vb. refl.") verb',
     ],
 
-    'pos' => [ /* set in getGrammar() */ ],
+    // parts of speech
+    'reference' => [
+      '/@[a-zăâîșț]+(\^\d+)?@/',
+    ],
+    'adjective' => [
+      '(/[;,]/ ws (infoBlock ws)? adjInflection ws formWithDetails)*',
+    ],
+    'noun' => [
+      '(/[;,]/ ws (infoBlock ws)? nounInflection ws formWithDetails)*',
+    ],
+    'verb' => [
+      '(/[;,]/ ws (infoBlock ws)? verbInflection ws formWithDetails)*',
+    ],
+
+    'adjInflection' => [
+      '"adj. f., s. f."', '"#adj.# #f.#, #s.# #f.#"',
+      '"adj. f., s. f. sg. și pl."', '"#adj.# #f.#, #s.# #f.# #sg.# și #pl.#"',
+      '"f."', '"#f.#"',
+      '"f. sg. și pl."', '"#f.# #sg.# și #pl.#"',
+      '"pl."', '"#pl.#"',
+    ],
+    'nounInflection' => [
+      '"art."',
+      '"#art.#"',
+      '"g.-d."',
+      '"#g.-d.#"',
+      '"g.-d. art."',
+      '"#g.-d.# #art.#"',
+      '"pl."',
+      '"#pl.#"',
+    ],
+    'verbInflection' => [
+      'impersonalTense',
+      'personalTense ws person ws "și" ws person',
+      'personalTense ws person',
+      'person',
+    ],
+    'impersonalTense' => [
+      '/(ger\.|#ger\.#|part\.|#part\.#)/',
+      // not really impersonal, but only accepts one person
+      '/(imper\. 2 sg\. afirm\.|#imper\.# 2 #sg\.# #afirm\.#)/',
+    ],
+    'personalTense' => [
+      '/(conj\. prez\.|imperf\.|ind\. prez\.|m\.m\.c\.p\.|perf\. s\.)/',
+      '/(#conj\.# #prez\.#|#imperf\.#|#ind\.# #prez\.#|#m\.m\.c\.p\.#|#perf\. s\.#)/',
+    ],
+    'person' => [
+      '/[123]/',
+      '/[123] (pl\.|#pl\.#|sg\.|#sg\.#)/',
+    ],
+
+    'formWithDetails' => [
+      'form (ws hyphBlock)?',
+    ],
+    'form' => [
+      '/\$[-a-zăâîșț\'\/ ]+\$/i',
+    ],
 
     // utilities
     'ws' => [
@@ -148,24 +226,16 @@ class Doom3Parser extends Parser {
       }
     }
 
-    $partsOfSpeech = [];
-    foreach (self::PARTS_OF_SPEECH as $pos) {
-      // include as-is and with every word abbreviated
-      $partsOfSpeech[] = $pos;
-      $partsOfSpeech[] = '#' . str_replace(' ', '# #', $pos) . '#';
-    }
-
     $g = self::GRAMMAR;
     $g['pronKeyword'][] = self::implodeStringConstants(self::PRONUNCIATION_KEYWORDS);
     $g['info'][] = self::implodeStringConstants($infoKeywords);
-    $g['pos'][] = self::implodeStringConstants($partsOfSpeech);
 
     return $g;
   }
 
   function prepare($rep) {
     // migrate indices inside bold
-    $rep = preg_replace('/@\^(\d+) /', '^$1@ ', $rep);
+    $rep = preg_replace('/@\^(\d+)(?=( |$))/', '^$1@', $rep);
 
     // migrate hyphens inside italics
     $rep = str_replace('(desp. -$', '(desp. $-', $rep);
@@ -173,9 +243,11 @@ class Doom3Parser extends Parser {
     $rep = str_replace('$-)', '-$)', $rep);
 
     // migrate italics inside parentheses and brackets
-    $rep = str_replace(')$ ', '$) ', $rep);
+    $rep = preg_replace('/([\)\]])\$(?=( |$))/', '\$$1', $rep);
     $rep = str_replace(' $[', ' [$', $rep);
-    $rep = str_replace(']$ ', '$] ', $rep);
+
+    // migrate italics before punctuation
+    $rep = preg_replace('/([;,])\$ /', '\$$1 ', $rep);
 
     // migrate edition markers inside bold
     $rep = preg_replace('/^([!+])@/', '@$1', $rep);
@@ -184,58 +256,40 @@ class Doom3Parser extends Parser {
     $rep = str_replace('@ ~)', ' ~)@', $rep);
     $rep = str_replace('@ ~ @', ' ~ ', $rep);
 
-    // replace final tildes with dashes in hyphenations
-    $rep = preg_replace('/(?<=\pL)~\$\)/', '-$)', $rep);
-
     // remove duplicate markers
     $rep = str_replace('@ @', ' ', $rep);
     $rep = str_replace('@@', '', $rep);
     $rep = str_replace('$ $', ' ', $rep);
+    $rep = str_replace('$/$', '/', $rep);
     $rep = str_replace('$$', '', $rep);
-    var_dump($rep);
 
     return $rep;
+  }
+
+  function postProcess(string $rule, string $content, ParserState $state, array &$warnings) {
+    return $content;
   }
 }
 
 /**
  * Remainig corner cases. If they turn out to be numerous, extend the grammar.
 
- wrong order:
- * abia ce (desp. ...) (pop.)
- * angstrom [pron. ...] (înv.)
- * buieci (desp. ...) (reg.)
- * cocleț (desp. ...) (pop.)
- * cote d'ivoire (microdef) (info) [pron] (microdef)
- * disjunctivă (desp.) (propoziție)
+ wrong order of hyphenation / pronunciation / info / microdefinition blocks:
+ * abia ce, angstrom, buieci, cocleț, cote d'ivoire, disjunctivă
 
- two entries:
- * @+aceea (după ~)@ [pron.  ...] / (în tempo rapid) @dup-aceea@
- * @adendă@ / (lat.) @addenda@
- * @adineauri@ / (înv.) @adineaori@
- * @Aheron@ / (gr.) @Acheron@ [pron.] (desp.)
- * africanologă (livr.) / (colocv.) africanoloagă -> idem agrobiologă, agrogeologă,
- agrometeorologă, alergologă, anatomopatologă, bacteriologă...
- * @!alocuri (pe ~)@ / (în tempo rapid) @pe-alocuri@
- * @Amfitrion@ (erou mitic) / (gr.) @Amphitryon@
- * @antifilozofic@ / (livr.) @antifilosofic@
- * @asiduu@ [pron] (desp) / @asiduu@ [pron] (desp), idem continuu, discontinuu
- * @contiguu@ (livr.) [pron] (desp) / @contiguu@ [pron] (desp)
- * @asta (de ~)@ / (în tempo rapid) @de-asta@
- * @cluj-napoca@ (oraș) / (uzual) @cluj@, idem drobeta-turnu severin
- * corintian (desp) / (relig) corintean
- * derby (engl) / derbi (microdef)
- * @domnule@ / (fam., în tempo rapid) dom'le / domn'e
- -> between title and slash: info > pron > desp, microdef
- -> between slash and title: info*
+ qualifications of part of speech:
+ * absorbant^2: s.n. / (tehn.) s.m.
+ * accelerator^2: s. m/s. n., pl. m. $...$ / n $...$
 
- two pronunciations:
- * afro-jazz: [pron. afrogaz / engl.  afrogez ]
+ examples:
+ * abundență (din ~): ($marfă ~, a produce ~$), idem acut, ad-hoc, ad-interim (also has abr.),
+ aequo, afara-, afrikaans
+ * example immediately after pos: adpres, aductor
 
- dot in title:
- * atât... cât și
+ abbreviations:
+ * last: ad-interim, adagio^1, adendă
 
- expressions in title:
- * bază: (pe ~ de)
+ form pronunciations
+ * advertising
 
  **/

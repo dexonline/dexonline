@@ -42,6 +42,7 @@ abstract class Parser {
     $s = $def->internalRep;
     list($rep, $comments) = $this->extractComments($s);
     $rep = $this->prepare($rep);
+    var_dump($rep);
 
     $tree = $this->baseParser->parse($rep);
     if (!$tree) {

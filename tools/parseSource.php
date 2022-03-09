@@ -79,6 +79,7 @@ function main() {
                 $i + 1, count($defs), $d->lexicon, $d->internalRep);
       }
       $orig = $d->internalRep;
+      $errors = [];
       $warnings = [];
       $d->parse($warnings, $errors);
       if ($warnings || $errors) {

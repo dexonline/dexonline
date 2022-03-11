@@ -12,6 +12,7 @@ class Doom3Parser extends Parser {
     'rar',
     'sport',
     'uzual',
+    // getGrammar() will add all abreviations
   ];
 
   const PRONUNCIATION_KEYWORDS = [
@@ -109,40 +110,68 @@ class Doom3Parser extends Parser {
       'hyphUnformatted',
     ],
     'hyphUnformatted' => [
-      '/[-a-zăâîșț, ]+/i',
-    ],
-
-    'body' => [
-      '("adj. invar."|"#adj.# #invar.#")', // nothing further
-      '("#adj.# #invar.#, #adv.#"|"adj. invar., adv.")', // nothing further
-      '"#adj.# #m.#" adjective',
-      '"adj. m." adjective',
-      '"adj. m., s. m." adjective',
-      '"#adj.# #m.#, #s.# #m.#" adjective',
-      '("adv."|"#adv.#")', // nothing further
-      '("interj."|"#interj.#")', // nothing further
-      '("loc. adj., loc. adv."|"#loc.# #adj.#, #loc.# #adv.#")', // nothing further
-      '("loc. adv."|"#loc.# #adv.#")', // nothing further
-      '("loc. conjcț."|"#loc.# #conjcț.#")', // nothing further
-      '("loc. prep."|"#loc.# #prep.#")', // nothing further
-      '"#s.# #f.#" noun',
-      '"s. f." noun',
-      '"#s.# #m.#" noun',
-      '"s. m." noun',
-      '"#s.# #n.#" noun',
-      '"s. propriu f." noun',
-      '"#s.# propriu #f.#" noun',
-      '"s. propriu m." noun',
-      '"#s.# propriu #m.#" noun',
-      '"s. propriu n." noun',
-      '"#s.# propriu #n.#" noun',
-      '"s. n." noun',
-      '"v." ws reference',
-      '("#vb.#"|"vb.") verb',
-      '("#vb.# #refl.#"|"vb. refl.") verb',
+      '/[-~a-zăâîșț, ]+/i',
     ],
 
     // parts of speech
+    'body' => [
+      // Make sure noun stays before adjective. Otherwise we'll go down the
+      // wrong branch for 's.  m.', which also occurs in 'adj. m., s. m.'.
+      'nounLikePosList (ws example)? noun coda*',
+      'adjectiveLikePosList (ws example)? adjective coda*',
+      'invariablePosList (ws example)? coda*',
+      'verbLikePosList (ws example)? verb coda*',
+      '("v."|"#v.#") ws reference',
+    ],
+
+    'adjectiveLikePosList' => [
+      'adjectiveLikePos+", "',
+    ],
+    'adjectiveLikePos' => [
+      '"adj. m. pl."', '"#adj.# #m.# #pl.#"',
+      '"adj. m."', '"#adj.# #m.#"',
+      '"adj. pr. antepus m."', '"#adj.# #pr.# antepus #m.#"',
+      '"adj. pr. postpus m."', '"#adj.# #pr.# postpus #m.#"',
+      '"adj. pr. m. pl."', '"#adj.# #pr.# #m.# #pl.#"',
+      '"adj. pr. m."', '"#adj.# #pr.# #m.#"',
+      '"pr. m. pl."', '"#pr.# #m.# #pl.#"',
+      '"pr. m."', '"#pr.# #m.#"',
+      '"s. m. pl."', '"#s.# #m.# #pl.#"',
+      '"s. m."', '"#s.# #m.#"', // for smf
+    ],
+
+    'invariablePosList' => [
+      'invariablePos+", "',
+    ],
+    'invariablePos' => [
+      '"adj. invar."', '"#adj.# #invar.#"',
+      '"adv."', '"#adv.#"',
+      '"interj."', '"#interj.#"',
+      '"loc. adj."', '"#loc.# #adj.#"',
+      '"loc. adv."', '"#loc.# #adv.#"',
+      '"loc. conjcț."', '"#loc.# #conjcț.#"',
+      '"loc. prep."', '"#loc.# #prep.#"',
+    ],
+
+    'nounLikePosList' => [
+      'nounLikePos+", "',
+    ],
+    'nounLikePos' => [
+      '"loc. s. f."', '"#loc.# #s.# #f.#"',
+      '"loc. s. n."', '"#loc.# #s.# #n.#"',
+      '/(s\.|#s\.#)( propriu)? (f\.|#f\.#|m\.|#m\.#|n\.|#n\.#)( (art\.|#art\.#))?/',
+      '"s. propriu"', '"#s.# propriu"',
+    ],
+
+    'verbLikePosList' => [
+      'verbLikePos+", "',
+    ],
+    'verbLikePos' => [
+      '"vb. refl"', '"#vb.# #refl.#"',
+      '"vb."', '"#vb.#"',
+    ],
+
+    // inflected forms with optional details (hyphenation, pronunciation, abbreviation, examples)
     'reference' => [
       '/@[a-zăâîșț]+(\^\d+)?@/',
     ],
@@ -156,22 +185,23 @@ class Doom3Parser extends Parser {
       '(/[;,]/ ws (infoBlock ws)? verbInflection ws formWithDetails)*',
     ],
 
+    // inflection names
     'adjInflection' => [
-      '"adj. f., s. f."', '"#adj.# #f.#, #s.# #f.#"',
       '"adj. f., s. f. sg. și pl."', '"#adj.# #f.#, #s.# #f.# #sg.# și #pl.#"',
-      '"f."', '"#f.#"',
+      '"adj. f., s. f."', '"#adj.# #f.#, #s.# #f.#"',
+      '"adj. f."', '"#adj.# #f.#"',
+      '"art."', '"#art.#"',
       '"f. sg. și pl."', '"#f.# #sg.# și #pl.#"',
+      '"f."', '"#f.#"',
+      '"g.-d. m. și f."', '"#g.-d.# #m.# și #f.#"',
+      '"g.-d."', '"#g.-d.#"',
       '"pl."', '"#pl.#"',
     ],
     'nounInflection' => [
-      '"art."',
-      '"#art.#"',
-      '"g.-d."',
-      '"#g.-d.#"',
-      '"g.-d. art."',
-      '"#g.-d.# #art.#"',
-      '"pl."',
-      '"#pl.#"',
+      '"art."', '"#art.#"',
+      '"g.-d. art."', '"#g.-d.# #art.#"',
+      '"g.-d."', '"#g.-d.#"',
+      '"pl."', '"#pl.#"',
     ],
     'verbInflection' => [
       'impersonalTense',
@@ -181,7 +211,8 @@ class Doom3Parser extends Parser {
     ],
     'impersonalTense' => [
       '/(ger\.|#ger\.#|part\.|#part\.#)/',
-      // not really impersonal, but only accepts one person
+      // these are not really impersonal, but they only accept one person
+      '/(imper\. 2 sg\. afirm\. intranz\.|#imper\.# 2 #sg\.# #afirm\.# #intranz\.#)/',
       '/(imper\. 2 sg\. afirm\.|#imper\.# 2 #sg\.# #afirm\.#)/',
     ],
     'personalTense' => [
@@ -194,10 +225,18 @@ class Doom3Parser extends Parser {
     ],
 
     'formWithDetails' => [
-      'form (ws hyphBlock)?',
+      'form (ws hyphBlock)? (ws example)?',
     ],
     'form' => [
-      '/\$[-a-zăâîșț\'\/ ]+\$/i',
+      '/\$[-a-zăâîșț\'\/\(\) ]+\$/i',
+    ],
+    'example' => [
+      '/\(\$[-a-zăâîșț#!;,.~\/\(\) ]+\$\)/i',
+    ],
+
+    // abbrevation and symbol
+    'coda' => [
+      '";" ws ("abr."|"#abr.#"|"simb."|"#simb.#") ws /\$(\pL|[-0-9.,\/#° ])+\$/',
     ],
 
     // utilities
@@ -242,12 +281,13 @@ class Doom3Parser extends Parser {
     $rep = str_replace('(#desp.# -$', '(#desp.# $-', $rep);
     $rep = str_replace('$-)', '-$)', $rep);
 
-    // migrate italics inside parentheses and brackets
-    $rep = preg_replace('/([\)\]])\$(?=( |$))/', '\$$1', $rep);
-    $rep = str_replace(' $[', ' [$', $rep);
-
     // migrate italics before punctuation
     $rep = preg_replace('/([;,])\$ /', '\$$1 ', $rep);
+
+    // migrate italics inside parentheses and brackets
+    $rep = preg_replace('/([\)\]])\$(?=([,; ]|$))/', '\$$1', $rep);
+    $rep = str_replace(' $[', ' [$', $rep);
+    $rep = str_replace(' $(', ' ($', $rep);
 
     // migrate edition markers inside bold
     $rep = preg_replace('/^([!+])@/', '@$1', $rep);
@@ -267,29 +307,66 @@ class Doom3Parser extends Parser {
   }
 
   function postProcess(string $rule, string $content, ParserState $state, array &$warnings) {
+    switch ($rule) {
+      case 'ignored':
+        print "**** Warning: ignored [{$content}]\n";
+        break;
+    }
     return $content;
   }
 }
 
 /**
- * Remainig corner cases. If they turn out to be numerous, extend the grammar.
+ * Remaining corner cases. If they turn out to be numerous, extend the grammar.
 
  wrong order of hyphenation / pronunciation / info / microdefinition blocks:
  * abia ce, angstrom, buieci, cocleț, cote d'ivoire, disjunctivă
 
- qualifications of part of speech:
+ pos / inflections with slashes (and sometimes further details):
+ * a^1 s.m. / s.n., pl. a / a-uri
  * absorbant^2: s.n. / (tehn.) s.m.
  * accelerator^2: s. m/s. n., pl. m. $...$ / n $...$
+ * aduce: ... #imper.# 2 #sg.# #afirm.# $ad'u$ /(#fam.#) '$adu$;
+ * ajunge^2 #imper.# 2 #sg.# afirm, #intranz.# $ajungi / #tranz.# ajunge (Ajunge-l din urmă!)$;
 
- examples:
- * abundență (din ~): ($marfă ~, a produce ~$), idem acut, ad-hoc, ad-interim (also has abr.),
- aequo, afara-, afrikaans
- * example immediately after pos: adpres, aductor
+ pos / inflections with "+" signs:
+ * @!acatal'ectic@ adj. m. (+ s. n.: $vers ~$),
+ * @!ad'onic@ #adj.# #m.# #m.#◼◼◼ (+ #s.# #n.#: $vers ~$);
+ * @adormi (a ~)@ ... #imper.# 2 #sg.# #afirm.# $ad'ormi$/(+ clitic) $ado'arme$
+ * @!aer'obic^1@ #adj.# #m.# (+ #s.# #n.#: $exercițiu$ ~);
+ * @!africat@ (#desp.# $a-fri-$) #adj.# #m.# (+ #s.# n: $sunet$ ~);
+ * @+alături de@ #adv.# + #prep.#
+ * @+alt fel (de ~)@ (de alt soi) #prep.# + #adj.# #pr.# + #s.# #n.#
+ * alt fel de #adj.# #pr.# + #s.# #n.# + #prep.#
+ * altă dată^1 #adj.# #pr.# + #s.# #f.#
+ * @+Alteța Voastră Regală@ #loc.# #pr.# + #adj.#
+ * @!amfidromic@ (#desp.# $-fi-dro-)$ #adj.# #m.# (+ #s.# #n.#: $punct$ ~);
+ * aneroid #adj.# #m.# (+ #s.# #n.#: $barometru$ ~);
 
- abbreviations:
- * last: ad-interim, adagio^1, adendă
+ form pronunciations:
+ * advertising, afterschool, agreement
 
- form pronunciations
- * advertising
+ form / inflections with "etc."
+ * @a doua@ etc. @oară@
+ * @+acr'i^2@ ... vb. refl., ind. prez. 3 sg. $mi$ (etc.) $se acr'ește$
+
+ explanation before form:
+ * agrement ... (documente) #pl.# $agremente$
+ * aligote ... (porții; sorturi) #pl.# $aligoteuri$
+ * alpaca^2 ... (animale) #pl.# $alpacale$
+ * amanet ... (obiecte) #pl.# $amanete$
+ * amândoi ... #g.-d.# (antepus) $amânduror$, (singur/postpus) $amândurora
+ * amfibolie ... (exprimări) #pl.# amfibolii
+ * angiocolită ... (cazuri; forme) #pl.# $angiocolite$
+
+ reference with inflected forms:
+ * ad'uce aminte loc. vb. v. aduce; imper. 2 sg. afirm. ...
+
+ exotic pos:
+ * @!Altețele Voastre@ #loc.# #pr.# #pl.#
+ * @+Altețele Voastre Regale@ #loc.# #pr.# #pl.# + #adj.#
+
+ example contains non-bold portions:
+ * aman^2 ... #loc.# #adj.#, #loc.# #adv.# (în: $a fi/a ajunge/a lăsa la aman$)
 
  **/

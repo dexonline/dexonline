@@ -95,7 +95,7 @@ function main() {
           }
         }
       }
-      if ($orig != $d->internalRep) {
+      if (($orig != $d->internalRep) && count($errors)) {
         wdiff($orig, $d->internalRep);
 
         $minor = (abs(strlen($orig) - strlen($d->internalRep)) <= $MINOR);

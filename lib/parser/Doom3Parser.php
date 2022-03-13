@@ -176,13 +176,13 @@ class Doom3Parser extends Parser {
       '/@[a-zăâîșț]+(\^\d+)?@/',
     ],
     'adjective' => [
-      '(/[;,]/ ws (infoBlock ws)? adjInflection ws formWithDetails)*',
+      '(/[;,]/ ws (microdef ws)? adjInflection ws formWithDetails)*',
     ],
     'noun' => [
-      '(/[;,]/ ws (infoBlock ws)? nounInflection ws formWithDetails)*',
+      '(/[;,]/ ws (microdef ws)? nounInflection ws formWithDetails)*',
     ],
     'verb' => [
-      '(/[;,]/ ws (infoBlock ws)? verbInflection ws formWithDetails)*',
+      '(/[;,]/ ws (microdef ws)? verbInflection ws formWithDetails)*',
     ],
 
     // inflection names
@@ -331,7 +331,7 @@ class Doom3Parser extends Parser {
 
  pos / inflections with "+" signs:
  * @!acatal'ectic@ adj. m. (+ s. n.: $vers ~$),
- * @!ad'onic@ #adj.# #m.# #m.#◼◼◼ (+ #s.# #n.#: $vers ~$);
+ * @!ad'onic@ #adj.# #m.# (+ #s.# #n.#: $vers ~$);
  * @adormi (a ~)@ ... #imper.# 2 #sg.# #afirm.# $ad'ormi$/(+ clitic) $ado'arme$
  * @!aer'obic^1@ #adj.# #m.# (+ #s.# #n.#: $exercițiu$ ~);
  * @!africat@ (#desp.# $a-fri-$) #adj.# #m.# (+ #s.# n: $sunet$ ~);
@@ -350,14 +350,8 @@ class Doom3Parser extends Parser {
  * @a doua@ etc. @oară@
  * @+acr'i^2@ ... vb. refl., ind. prez. 3 sg. $mi$ (etc.) $se acr'ește$
 
- explanation before form:
- * agrement ... (documente) #pl.# $agremente$
- * aligote ... (porții; sorturi) #pl.# $aligoteuri$
- * alpaca^2 ... (animale) #pl.# $alpacale$
- * amanet ... (obiecte) #pl.# $amanete$
+ microdefinition between inflection and form:
  * amândoi ... #g.-d.# (antepus) $amânduror$, (singur/postpus) $amândurora
- * amfibolie ... (exprimări) #pl.# amfibolii
- * angiocolită ... (cazuri; forme) #pl.# $angiocolite$
 
  reference with inflected forms:
  * ad'uce aminte loc. vb. v. aduce; imper. 2 sg. afirm. ...

@@ -126,6 +126,7 @@ class Doom3Parser extends Parser {
 
     'adjectiveLikePosList' => [
       'adjectiveLikePos+", "',
+      'adjectiveLikePos ws "(+" ws nounLikePos ":" ws "$" /[a-zăâîșț~ ]+/ "$)"',
     ],
     'adjectiveLikePos' => [
       '"adj. m. pl."', '"#adj.# #m.# #pl.#"',
@@ -330,18 +331,12 @@ class Doom3Parser extends Parser {
  * ajunge^2 #imper.# 2 #sg.# afirm, #intranz.# $ajungi / #tranz.# ajunge (Ajunge-l din urmă!)$;
 
  pos / inflections with "+" signs:
- * @!acatal'ectic@ adj. m. (+ s. n.: $vers ~$),
- * @!ad'onic@ #adj.# #m.# (+ #s.# #n.#: $vers ~$);
  * @adormi (a ~)@ ... #imper.# 2 #sg.# #afirm.# $ad'ormi$/(+ clitic) $ado'arme$
- * @!aer'obic^1@ #adj.# #m.# (+ #s.# #n.#: $exercițiu$ ~);
- * @!africat@ (#desp.# $a-fri-$) #adj.# #m.# (+ #s.# n: $sunet$ ~);
  * @+alături de@ #adv.# + #prep.#
  * @+alt fel (de ~)@ (de alt soi) #prep.# + #adj.# #pr.# + #s.# #n.#
  * alt fel de #adj.# #pr.# + #s.# #n.# + #prep.#
  * altă dată^1 #adj.# #pr.# + #s.# #f.#
  * @+Alteța Voastră Regală@ #loc.# #pr.# + #adj.#
- * @!amfidromic@ (#desp.# $-fi-dro-)$ #adj.# #m.# (+ #s.# #n.#: $punct$ ~);
- * aneroid #adj.# #m.# (+ #s.# #n.#: $barometru$ ~);
 
  form pronunciations:
  * advertising, afterschool, agreement

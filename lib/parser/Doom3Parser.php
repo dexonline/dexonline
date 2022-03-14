@@ -128,7 +128,9 @@ class Doom3Parser extends Parser {
 
     'adjectiveLikePosList' => [
       'adjectiveLikePos+", "',
-      'adjectiveLikePos ws "(+" ws nounLikePos ":" ws "$" /[a-zăâîșț~ ]+/ "$)"',
+      // one or more alternative parts of speech:
+      // @+demidulce@ #adj.# #m.# și #f.# (+ #s.# #n.#: $vin ~$, + #s.# #f.#: $șampanie ~$);
+      'adjectiveLikePos ws "(" altAdjectivePos+", " ")"',
     ],
     'adjectiveLikePos' => [
       '"adj. f."', '"#adj.# #f.#"',
@@ -150,6 +152,9 @@ class Doom3Parser extends Parser {
       '"s. m. pl."', '"#s.# #m.# #pl.#"',
       '"s. m. și f."', '"#s.# #m.# și #f.#"',
       '"s. m."', '"#s.# #m.#"', // for smf
+    ],
+    'altAdjectivePos' => [
+      '"+" ws nounLikePos ":" ws "$" /[a-zăâîșț~ ]+/ "$"',
     ],
 
     'invariablePosList' => [
@@ -208,7 +213,7 @@ class Doom3Parser extends Parser {
     'verb' => [
       '/[;,]/ ws (microdef ws)? verbInflection ws formWithDetails verb',
       // used for verbs with different conjugations, e.g. "intranz. $ajungi$ / tranz. $ajunge$"
-      'ws? "/" ws? verbSlashInflection ws formWithDetails verb',
+      'ws? "/" ws? (infoBlock ws)? (verbSlashInflection ws)? formWithDetails verb',
       '""',
     ],
 
@@ -233,6 +238,7 @@ class Doom3Parser extends Parser {
       '"g.-d. art."', '"#g.-d.# #art.#"',
       '"g.-d."', '"#g.-d.#"',
       '"neart."', '"#neart.#"',
+      '"pl. art."', '"#pl.# #art.#"',
       '"pl. m."', '"#pl.# #m.#"',
       '"pl. n."', '"#pl.# #n.#"',
       '"pl."', '"#pl.#"',
@@ -276,7 +282,7 @@ class Doom3Parser extends Parser {
       '/\$[-a-zăâéîșț\'\/\(\) ]+\$/ui',
     ],
     'example' => [
-      '/\(\$[-a-zăâîșț0-9#!;,.~\/\(\) ]+\$\)/ui',
+      '/\(((dar:|în:|mai ales în:|și:|și în:) )?\$[-a-zăâîșț0-9#!;,.~\/\(\) ]+\$\)/ui',
     ],
 
     // abbrevation and symbol
@@ -373,26 +379,20 @@ class Doom3Parser extends Parser {
  * @+abi'a ce@ (desp. $-bia$) (pop.): wrong order hyphenation > info
  * @+'afro-jazz@ [#pron.# $'afroğaz$ / #engl.# $'afrogez$]
  * $să ajungă/ajungă(-ți)$; : incorrectly changed to $să ajungă/ajungă(-ți$);
- * occurrences of "etc."
+ * occurrences of "etc." and "dar:"
 
  wrong order of hyphenation / pronunciation / info / microdefinition blocks:
  * angstrom, buieci, cocleț, cote d'ivoire, disjunctivă
 
  pos / inflections with slashes (and sometimes further details):
  * #imper.# 2 #sg.# #afirm.# $ad'ormi$/(+ clitic) $ado'arme$ ($Adormi repede!$ dar: $Adoarme-l repede! Adoarme-i bănuielile!$)
- * aduce: ... #imper.# 2 #sg.# #afirm.# $ad'u$ /(#fam.#) '$adu$;
 
  pos / inflections with "+" signs:
- * @adormi (a ~)@ ... #imper.# 2 #sg.# #afirm.# $ad'ormi$/(+ clitic) $ado'arme$
  * @+alături de@ #adv.# + #prep.#
  * @+alt fel (de ~)@ (de alt soi) #prep.# + #adj.# #pr.# + #s.# #n.#
  * alt fel de #adj.# #pr.# + #s.# #n.# + #prep.#
  * altă dată^1 #adj.# #pr.# + #s.# #f.#
  * @+Alteța Voastră Regală@ #loc.# #pr.# + #adj.#
-
- form / inflections with "etc."
- * @a doua@ etc. @oară@
- * @+acr'i^2@ ... vb. refl., ind. prez. 3 sg. $mi$ (etc.) $se acr'ește$
 
  microdefinition after part of speech:
  * @+antemergător^{1}@ #adj.# #m.#, #s.# #m.# (persoană),
@@ -407,8 +407,5 @@ class Doom3Parser extends Parser {
  exotic pos:
  * @!Altețele Voastre@ #loc.# #pr.# #pl.#
  * @+Altețele Voastre Regale@ #loc.# #pr.# #pl.# + #adj.#
-
- example contains non-bold portions:
- * aman^2 ... #loc.# #adj.#, #loc.# #adv.# (în: $a fi/a ajunge/a lăsa la aman$)
 
  **/

@@ -119,6 +119,7 @@ class Doom3Parser extends Parser {
     'body' => [
       // Make sure noun stays before adjective. Otherwise we'll go down the
       // wrong branch for 's.  m.', which also occurs in 'adj. m., s. m.'.
+      'compoundPosList (ws example)?',
       'nounLikePosList (ws example)? noun coda*',
       'adjectiveLikePosList (ws example)? adjective coda*',
       'invariablePosList (ws example)? coda*',
@@ -141,6 +142,8 @@ class Doom3Parser extends Parser {
       '"adj. pr. postpus m."', '"#adj.# #pr.# postpus #m.#"',
       '"adj. pr. m. pl."', '"#adj.# #pr.# #m.# #pl.#"',
       '"adj. pr. m."', '"#adj.# #pr.# #m.#"',
+      '"adj. pr."', '"#adj.# #pr.#"',
+      '"adj."', '"#adj.#"',
       '"loc. pr. pl."', '"#loc.# #pr.# #pl.#"',
       '"loc. pr."', '"#loc.# #pr.#"',
       '"num. m."', '"#num.# #m.#"',
@@ -197,6 +200,10 @@ class Doom3Parser extends Parser {
       '"vb."', '"#vb.#"',
     ],
 
+    'compoundPosList' => [
+      '(nounLikePos|adjectiveLikePos|invariablePos|verbLikePos)+" + "',
+    ],
+
     // inflected forms with optional details (hyphenation, pronunciation, abbreviation, examples)
     'reference' => [
       '/@(!)?[a-zăâîșț]+(\^\d+)?@/',
@@ -207,7 +214,7 @@ class Doom3Parser extends Parser {
     'noun' => [
       '/[;,]/ ws (microdef ws)? nounInflection ws formWithDetails noun',
       // used for nouns with different plurals, e.g. "pl. m. $accelerat'ori$ /n. $accelerato'are$"
-      'ws? "/" ws? nounSlashInflection ws formWithDetails noun',
+      'ws? "/" ws? (infoBlock ws)? (nounSlashInflection ws)? formWithDetails noun',
       '""',
     ],
     'verb' => [
@@ -379,26 +386,35 @@ class Doom3Parser extends Parser {
  * @+abi'a ce@ (desp. $-bia$) (pop.): wrong order hyphenation > info
  * @+'afro-jazz@ [#pron.# $'afroğaz$ / #engl.# $'afrogez$]
  * $să ajungă/ajungă(-ți)$; : incorrectly changed to $să ajungă/ajungă(-ți$);
+ * @!angstrom/angstrom@ (unitate de măsură) [$â$ #pron.# #sued.# $o$] (#înv.#) #s.# #m.#, : wrong order
  * occurrences of "etc." and "dar:"
 
  wrong order of hyphenation / pronunciation / info / microdefinition blocks:
- * angstrom, buieci, cocleț, cote d'ivoire, disjunctivă
+ * buieci, cocleț, cote d'ivoire, disjunctivă
 
  pos / inflections with slashes (and sometimes further details):
  * #imper.# 2 #sg.# #afirm.# $ad'ormi$/(+ clitic) $ado'arme$ ($Adormi repede!$ dar: $Adoarme-l repede! Adoarme-i bănuielile!$)
 
- pos / inflections with "+" signs:
- * @+alături de@ #adv.# + #prep.#
- * @+alt fel (de ~)@ (de alt soi) #prep.# + #adj.# #pr.# + #s.# #n.#
- * alt fel de #adj.# #pr.# + #s.# #n.# + #prep.#
- * altă dată^1 #adj.# #pr.# + #s.# #f.#
- * @+Alteța Voastră Regală@ #loc.# #pr.# + #adj.#
+ pos with "+" signs and inflections:
+ * @+Alteța Voastră Regală@ #loc.# #pr.# + ◼◼◼+ #adj.#, #g.-d.# $Alteței$ $Voastre Regale$
 
  microdefinition after part of speech:
  * @+antemergător^{1}@ #adj.# #m.#, #s.# #m.# (persoană),
+ * @+anticearcăn@ #adj.# #invar.# ($creme ~$), #s.# #n.#,
+ * @!antofită@ #adj.# #f.# ($plantă ~$), #s.# #f.#,
 
  microdefinition between inflection and form:
  * amândoi ... #g.-d.# (antepus) $amânduror$, (singur/postpus) $amândurora
+
+ infoBlock before inflection:
+ * @!amatorism@ #s.# #n.#, (#fam.#) #pl.# $amatorisme$
+ * @!apocalipsă@ (sfârșitul lumii) #s.# #f.#, #g.-d.# #art.# $apocalipsei;$ (#colocv.#) #pl.# ...
+
+ infoBlock after part of speech:
+ * @+angajator@ #adj.# #m.# (rar), (◼◼◼rar), #s.# #m.#, ...
+
+ infoBlock before part of speech:
+ * @+apucat^{1}@ #adj.# #m.#, (#fam.#) #s.# #m.#, ...
 
  reference with inflected forms:
  * ad'uce aminte loc. vb. v. aduce; imper. 2 sg. afirm. ...

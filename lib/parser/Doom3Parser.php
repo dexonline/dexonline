@@ -112,7 +112,7 @@ class Doom3Parser extends Parser {
       'hyphUnformatted',
     ],
     'hyphUnformatted' => [
-      '/[-~a-zăâîöșț;, ]+/ui',
+      '/[-~a-zăâîöșț#;, ]+/ui',
     ],
 
     // parts of speech
@@ -172,6 +172,7 @@ class Doom3Parser extends Parser {
 
     'nounLikePosList' => [
       'nounLikePos+", "',
+      'nounLikePos ws? "/" ws? infoBlock? ws? nounLikePosList',
     ],
     'nounLikePos' => [
       '"loc. s. f."', '"#loc.# #s.# #f.#"',
@@ -199,10 +200,16 @@ class Doom3Parser extends Parser {
       '(/[;,]/ ws (microdef ws)? adjInflection ws formWithDetails)*',
     ],
     'noun' => [
-      '(/[;,]/ ws (microdef ws)? nounInflection ws formWithDetails)*',
+      '/[;,]/ ws (microdef ws)? nounInflection ws formWithDetails noun',
+      // used for nouns with different plurals, e.g. "pl. m. $accelerat'ori$ /n. $accelerato'are$"
+      'ws? "/" ws? nounSlashInflection ws formWithDetails noun',
+      '""',
     ],
     'verb' => [
-      '(/[;,]/ ws (microdef ws)? verbInflection ws formWithDetails)*',
+      '/[;,]/ ws (microdef ws)? verbInflection ws formWithDetails verb',
+      // used for verbs with different conjugations, e.g. "intranz. $ajungi$ / tranz. $ajunge$"
+      'ws? "/" ws? verbSlashInflection ws formWithDetails verb',
+      '""',
     ],
 
     // inflection names
@@ -218,23 +225,32 @@ class Doom3Parser extends Parser {
       '"g.-d. sg. m. și f."', '"#g.-d.# #sg.# #m.# și #f.#"',
       '"g.-d. pl."', '"#g.-d.# #pl.#"',
       '"g.-d."', '"#g.-d.#"',
-      '"pl."', '"#pl.#"',
       '"pl. m. și f."', '"#pl.# #m.# și #f.#"',
+      '"pl."', '"#pl.#"',
     ],
     'nounInflection' => [
       '"art."', '"#art.#"',
       '"g.-d. art."', '"#g.-d.# #art.#"',
       '"g.-d."', '"#g.-d.#"',
       '"neart."', '"#neart.#"',
+      '"pl. m."', '"#pl.# #m.#"',
+      '"pl. n."', '"#pl.# #n.#"',
       '"pl."', '"#pl.#"',
       '"voc. neart."', '"#voc.# #neart.#"',
       '"voc."', '"#voc.#"',
+    ],
+    'nounSlashInflection' => [
+      '"m."', '"#m.#"',
+      '"n."', '"#n.#"',
     ],
     'verbInflection' => [
       'impersonalTense',
       'personalTense ws person ws "și" ws person',
       'personalTense ws person',
       'person',
+    ],
+    'verbSlashInflection' => [
+      '"tranz."', '"#tranz.#"',
     ],
     'impersonalTense' => [
       '/(ger\.|#ger\.#|part\.|#part\.#)/',
@@ -352,15 +368,19 @@ class Doom3Parser extends Parser {
 /**
  * Remaining corner cases. If they turn out to be numerous, extend the grammar.
 
+ errors and rare cases we won't handle
+ * @+abac'a@ (cânepă de Manila) (cuv. filip.): no such abbreviation
+ * @+abi'a ce@ (desp. $-bia$) (pop.): wrong order hyphenation > info
+ * @+'afro-jazz@ [#pron.# $'afroğaz$ / #engl.# $'afrogez$]
+ * $să ajungă/ajungă(-ți)$; : incorrectly changed to $să ajungă/ajungă(-ți$);
+ * occurrences of "etc."
+
  wrong order of hyphenation / pronunciation / info / microdefinition blocks:
- * abia ce, angstrom, buieci, cocleț, cote d'ivoire, disjunctivă
+ * angstrom, buieci, cocleț, cote d'ivoire, disjunctivă
 
  pos / inflections with slashes (and sometimes further details):
- * a^1 s.m. / s.n., pl. a / a-uri
- * absorbant^2: s.n. / (tehn.) s.m.
- * accelerator^2: s. m/s. n., pl. m. $...$ / n $...$
+ * #imper.# 2 #sg.# #afirm.# $ad'ormi$/(+ clitic) $ado'arme$ ($Adormi repede!$ dar: $Adoarme-l repede! Adoarme-i bănuielile!$)
  * aduce: ... #imper.# 2 #sg.# #afirm.# $ad'u$ /(#fam.#) '$adu$;
- * ajunge^2 #imper.# 2 #sg.# afirm, #intranz.# $ajungi / #tranz.# ajunge (Ajunge-l din urmă!)$;
 
  pos / inflections with "+" signs:
  * @adormi (a ~)@ ... #imper.# 2 #sg.# #afirm.# $ad'ormi$/(+ clitic) $ado'arme$

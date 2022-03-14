@@ -90,7 +90,7 @@ class Doom3Parser extends Parser {
       'pronUnformatted',
     ],
     'pronUnformatted' => [
-      '/[a-zăâčéğĭîõöșțŭ\'\/]+/i',
+      '/[a-zăâčẽéğĭîõöșțŭ\'\/^{}]+/i',
     ],
 
     // hyphenation e.g. (desp. $a-bi-o-$)
@@ -129,6 +129,7 @@ class Doom3Parser extends Parser {
       'adjectiveLikePos ws "(+" ws nounLikePos ":" ws "$" /[a-zăâîșț~ ]+/ "$)"',
     ],
     'adjectiveLikePos' => [
+      '"adj. f."', '"#adj.# #f.#"',
       '"adj. m. pl."', '"#adj.# #m.# #pl.#"',
       '"adj. m."', '"#adj.# #m.#"',
       '"adj. pr. antepus m."', '"#adj.# #pr.# antepus #m.#"',
@@ -137,6 +138,7 @@ class Doom3Parser extends Parser {
       '"adj. pr. m."', '"#adj.# #pr.# #m.#"',
       '"pr. m. pl."', '"#pr.# #m.# #pl.#"',
       '"pr. m."', '"#pr.# #m.#"',
+      '"s. f."', '"#s.# #f.#"',
       '"s. m. pl."', '"#s.# #m.# #pl.#"',
       '"s. m."', '"#s.# #m.#"', // for smf
     ],
@@ -152,6 +154,7 @@ class Doom3Parser extends Parser {
       '"loc. adv."', '"#loc.# #adv.#"',
       '"loc. conjcț."', '"#loc.# #conjcț.#"',
       '"loc. prep."', '"#loc.# #prep.#"',
+      '"prep."', '"#prep.#"',
     ],
 
     'nounLikePosList' => [
@@ -160,7 +163,8 @@ class Doom3Parser extends Parser {
     'nounLikePos' => [
       '"loc. s. f."', '"#loc.# #s.# #f.#"',
       '"loc. s. n."', '"#loc.# #s.# #n.#"',
-      '/(s\.|#s\.#)( propriu)? (f\.|#f\.#|m\.|#m\.#|n\.|#n\.#)( (art\.|#art\.#))?/',
+      '/(s\.|#s\.#)( propriu)? (f\.|#f\.#|m\.|#m\.#|n\.|#n\.#)( (art\.|#art\.#|pl\.|#pl\.#))?/',
+      '/(s\.|#s\.#) (f\.|#f\.#|m\.|#m\.#|n\.|#n\.#) (pl\.|#pl\.#)/',
       '"s. propriu"', '"#s.# propriu"',
     ],
 
@@ -168,7 +172,8 @@ class Doom3Parser extends Parser {
       'verbLikePos+", "',
     ],
     'verbLikePos' => [
-      '"vb. refl"', '"#vb.# #refl.#"',
+      '"vb. pred."', '"#vb.# #pred.#"',
+      '"vb. refl."', '"#vb.# #refl.#"',
       '"vb."', '"#vb.#"',
     ],
 
@@ -194,15 +199,19 @@ class Doom3Parser extends Parser {
       '"art."', '"#art.#"',
       '"f. sg. și pl."', '"#f.# #sg.# și #pl.#"',
       '"f."', '"#f.#"',
+      '"g.-d. sg. m. și f."', '"#g.-d.# #sg.# #m.# și #f.#"',
       '"g.-d. m. și f."', '"#g.-d.# #m.# și #f.#"',
       '"g.-d."', '"#g.-d.#"',
       '"pl."', '"#pl.#"',
+      '"pl. m. și f."', '"#pl.# #m.# și #f.#"',
     ],
     'nounInflection' => [
       '"art."', '"#art.#"',
       '"g.-d. art."', '"#g.-d.# #art.#"',
       '"g.-d."', '"#g.-d.#"',
+      '"neart."', '"#neart.#"',
       '"pl."', '"#pl.#"',
+      '"voc."', '"#voc.#"',
     ],
     'verbInflection' => [
       'impersonalTense',
@@ -215,6 +224,7 @@ class Doom3Parser extends Parser {
       // these are not really impersonal, but they only accept one person
       '/(imper\. 2 sg\. afirm\. intranz\.|#imper\.# 2 #sg\.# #afirm\.# #intranz\.#)/',
       '/(imper\. 2 sg\. afirm\.|#imper\.# 2 #sg\.# #afirm\.#)/',
+      '/(neg\.|#neg\.#)/',
     ],
     'personalTense' => [
       '/(conj\. prez\.|imperf\.|ind\. prez\.|m\.m\.c\.p\.|perf\. s\.)/',
@@ -226,7 +236,7 @@ class Doom3Parser extends Parser {
     ],
 
     'formWithDetails' => [
-      'form (ws hyphBlock)? (ws example)?',
+      'form (ws pronBlock)? (ws hyphBlock)? (ws example)?',
     ],
     'form' => [
       '/\$[-a-zăâîșț\'\/\(\) ]+\$/i',
@@ -297,6 +307,9 @@ class Doom3Parser extends Parser {
     $rep = str_replace('@ ~)', ' ~)@', $rep);
     $rep = str_replace('@ ~ @', ' ~ ', $rep);
 
+    // tildes in examples should be italic
+    $rep = str_replace('$ ~)', ' ~$)', $rep);
+
     // remove duplicate markers
     $rep = str_replace('@ @', ' ', $rep);
     $rep = str_replace('@@', '', $rep);
@@ -338,12 +351,12 @@ class Doom3Parser extends Parser {
  * altă dată^1 #adj.# #pr.# + #s.# #f.#
  * @+Alteța Voastră Regală@ #loc.# #pr.# + #adj.#
 
- form pronunciations:
- * advertising, afterschool, agreement
-
  form / inflections with "etc."
  * @a doua@ etc. @oară@
  * @+acr'i^2@ ... vb. refl., ind. prez. 3 sg. $mi$ (etc.) $se acr'ește$
+
+ microdefinition after part of speech:
+ * @+antemergător^{1}@ #adj.# #m.#, #s.# #m.# (persoană),
 
  microdefinition between inflection and form:
  * amândoi ... #g.-d.# (antepus) $amânduror$, (singur/postpus) $amândurora

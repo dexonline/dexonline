@@ -953,4 +953,15 @@ class Str {
 
     return $result;
   }
+
+  /**
+   * Given a pointer inside $str which might split a multibyte char, advance
+   * the pointer to the next UTF-8 boundary.
+   */
+  static function extendToValidUtf8(string $str, int $pos) {
+    while (!mb_check_encoding(substr($str, 0, $pos))) {
+      $pos++;
+    }
+    return $pos;
+  }
 }

@@ -42,13 +42,14 @@ abstract class Parser {
     $s = $def->internalRep;
     list($rep, $comments) = $this->extractComments($s);
     $rep = $this->prepare($rep);
-    var_dump($rep);
+    // var_dump($rep);
 
     $tree = $this->baseParser->parse($rep);
     if (!$tree) {
       // the reported error position needs to be adjusted for comments we have
       // previously removed
       $index = $this->baseParser->getError()['index'];
+      $index = Str::extendToValidUtf8($rep, $index);
       $delta = 0;
       foreach ($comments as $pos => $text) {
         if ($pos < $index) {

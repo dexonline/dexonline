@@ -217,7 +217,7 @@ function createMeaningDiffs($meanings, $search, $replace) {
 function processObjectIds(&$remainingIds, $excludedIds, &$numExcluded, $limit) {
 
   $excludedIds = filter_var_array(
-    preg_split('/,/', $excludedIds, null, PREG_SPLIT_NO_EMPTY), FILTER_SANITIZE_NUMBER_INT);
+    preg_split('/,/', $excludedIds, -1, PREG_SPLIT_NO_EMPTY), FILTER_SANITIZE_NUMBER_INT);
   $numExcluded += count($excludedIds);
   Session::set('numExcluded', $numExcluded);
 

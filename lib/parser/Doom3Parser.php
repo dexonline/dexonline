@@ -146,7 +146,7 @@ class Doom3Parser extends Parser {
       'adjectiveLikePos ws "(" altAdjectivePos+", " ")"',
     ],
     'adjectiveLikePosWithInfo' => [
-      '(infoBlock ws)? adjectiveLikePos (ws infoBlock)?'
+      '(infoBlock ws)? adjectiveLikePos (ws infoBlock)? (ws example)?'
     ],
     'adjectiveLikePos' => [
       '"adj. f."', '"#adj.# #f.#"',
@@ -179,7 +179,10 @@ class Doom3Parser extends Parser {
     ],
 
     'invariablePosList' => [
-      'invariablePos+", "',
+      'invariablePosWithInfo+", "',
+    ],
+    'invariablePosWithInfo' => [
+      '(infoBlock ws)? invariablePos (ws infoBlock)? (ws example)?'
     ],
     'invariablePos' => [
       '"art."', '"#art.#"', // e.g. dintr-al
@@ -235,7 +238,7 @@ class Doom3Parser extends Parser {
       '/@(!)?[a-zăâîșț]+(\^\d+)?@/',
     ],
     'adjective' => [
-      '/[;,]/ ws (microdef ws)? (infoBlock ws)? adjInflection ws formWithDetails adjective',
+      '/[;,]/ ws (microdef ws)? (infoBlock ws)? adjInflectionList ws formWithDetails adjective',
       // e.g. atât^1
       'ws? "/" ws? (infoBlock ws)? (adjSlashInflection ws)? formWithDetails adjective',
       '""',
@@ -254,9 +257,13 @@ class Doom3Parser extends Parser {
     ],
 
     // inflection names
+    'adjInflectionList' => [
+      'adjInflectionWithDetails+", "',
+    ],
+    'adjInflectionWithDetails' => [
+      '(infoBlock ws)? adjInflection (ws example)?',
+    ],
     'adjInflection' => [
-      '"adj. f., s. f. sg. și pl."', '"#adj.# #f.#, #s.# #f.# #sg.# și #pl.#"',
-      '"adj. f., s. f."', '"#adj.# #f.#, #s.# #f.#"',
       '"adj. f."', '"#adj.# #f.#"',
       '"art."', '"#art.#"',
       '"f. sg. și pl."', '"#f.# #sg.# și #pl.#"',
@@ -268,6 +275,8 @@ class Doom3Parser extends Parser {
       '"g.-d."', '"#g.-d.#"',
       '"pl. m. și f."', '"#pl.# #m.# și #f.#"',
       '"pl."', '"#pl.#"',
+      '"s. f. sg. și pl."', '"#s.# #f.# #sg.# și #pl.#"',
+      '"s. f."', '"#s.# #f.#"',
     ],
     'adjSlashInflection' => [
       '"ac. m."', '"#ac.# #m.#"',
@@ -445,6 +454,7 @@ class Doom3Parser extends Parser {
  incompatible pos:
  @+detox@ (#fam.#) #adj.# #invar.#, #s.# #n.# $(cure ~)$
  @+drege-strică@ #adj.# #invar.#, #s.# #m.# ($meșter ~$)
+ @+anticearcăn@ #adj.# #invar.# ($creme ~$), #s.# #n.#, #pl.# ...
 
  pos / inflections with slashes (and sometimes further details):
  * #imper.# 2 #sg.# #afirm.# $ad'ormi$/(+ clitic) $ado'arme$ ($Adormi repede!$ dar: $Adoarme-l repede! Adoarme-i bănuielile!$)
@@ -455,25 +465,14 @@ class Doom3Parser extends Parser {
  microdefinition before simbol:
  * ($bolívar soberano$) #simb.#
 
- microdefinition/example after part of speech:
+ microdefinition after part of speech:
  * @+antemergător^{1}@ #adj.# #m.#, #s.# #m.# (persoană),
- * @+anticearcăn@ #adj.# #invar.# ($creme ~$), #s.# #n.#,
- * @!antofită@ #adj.# #f.# ($plantă ~$), #s.# #f.#,
- * @!avram@ (#reg.#) (#desp.# $a-vram$) #adj.# #m.# ($prun ~$), #s.# #m.#, #pl.# ...
- * @!divanist@ #adj.# #m.# ($boier ~$), #s.# #m.#, ...
-
- microdefinition after inflection:
- * @+clocitor@ ... #adj.# #f.# ($pasăre ~$), #s.# #f. ...
- * @!condroid@ ... #adj.# #f.# ($tumoră ~$), #s.# #f.#
 
  microdefinition after inflected form:
  * @!centralist@ ... #adj.# #f.#, #s.# #f.# $centralistă$ (persoană), ...
 
  multiple forms for one inflection, with infoBlocks
  * amândoi ... #g.-d.# (antepus) $amânduror$, (singur/postpus) $amândurora
-
- infoBlock between inflections (currently not parsed)
- * @+apucat^{1}@ #adj.# #m.# ...; #adj.# #f.#, (#fam.#) #s.# #f.# $apucată$,
 
  reference with pos
  * @+băga în seamă (a ~)@ (a da atenție) #loc.# #vb.# #v.# @băga@

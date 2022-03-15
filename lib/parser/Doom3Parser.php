@@ -5,17 +5,22 @@ class Doom3Parser extends Parser {
   const SOURCE_ID = 88;
 
   const INFO_KEYWORDS = [
+    'antepus',
+    'azi glumeț',
     'cuv. amerind.', '#cuv.# #amerind.#',
     'cuv. ar.', '#cuv.# #ar.#',
     'cuv. jap.', '#cuv.# #jap.#',
     'în tempo rapid',
+    'mai frecv.', 'mai #frecv.#',
     'rar',
+    'singur/postpus',
     'sport',
     'uzual',
     // getGrammar() will add all abreviations
   ];
 
   const PRONUNCIATION_KEYWORDS = [
+    'cit. engl', '#cit.# #engl.#',
     'cit.', '#cit.#',
     'pron. engl.', '#pron.# #engl.#',
     'pron. fr.', '#pron.# #fr.#',
@@ -56,7 +61,7 @@ class Doom3Parser extends Parser {
       'titleText titleIndex? (ws construct)?',
     ],
     'titleText' => [
-      '/[-a-zăâéîíôóșț\'\/ ]*[-a-zăâéîíôóșț]/ui',
+      '/[-a-zăâéîíôóșț.,\'\/ ]*[-a-zăâéîíôóșț]/ui',
     ],
     'titleIndex' => [
       '/\^\d+/',
@@ -64,7 +69,7 @@ class Doom3Parser extends Parser {
     ],
     'construct' => [
        // e.g. (a ~), (pe ~ de), (din ~ în ~), (cu ~, cu vai)
-      '/\([-a-zăâîșț\'\/~ ]+ ~( [a-zăâîșț]+)?\)/ui',
+      '/\([-a-zăâîșț,\'\/ ]*~[-a-zăâîșț,\'\/~ ]*\)/ui',
     ],
 
     // a microdefinition e.g. (regiune din SUA)
@@ -92,7 +97,7 @@ class Doom3Parser extends Parser {
     ],
     'pronUnformatted' => [
       // use four backslashes to indicate that backslashes are allowed
-      '/[a-zăâčẽéğĭîõôöșțŭə\\\\\'\/^{} ]+/ui',
+      '/[a-zăâčẽĕéğĭîõôöșțŭə\\\\\'\/^{} ]+/ui',
     ],
 
     // hyphenation e.g. (desp. $a-bi-o-$)
@@ -129,6 +134,7 @@ class Doom3Parser extends Parser {
 
     'adjectiveLikePosList' => [
       'adjectiveLikePos+", "',
+      'adjectiveLikePos ws? "/" ws? infoBlock? ws? adjectiveLikePosList',
       // one or more alternative parts of speech:
       // @+demidulce@ #adj.# #m.# și #f.# (+ #s.# #n.#: $vin ~$, + #s.# #f.#: $șampanie ~$);
       'adjectiveLikePos ws "(" altAdjectivePos+", " ")"',
@@ -146,7 +152,9 @@ class Doom3Parser extends Parser {
       '"adj."', '"#adj.#"',
       '"loc. pr. pl."', '"#loc.# #pr.# #pl.#"',
       '"loc. pr."', '"#loc.# #pr.#"',
+      '"num. f."', '"#num.# #f.#"',
       '"num. m."', '"#num.# #m.#"',
+      '"num."', '"#num.#"',
       '"pr. m. pl."', '"#pr.# #m.# #pl.#"',
       '"pr. m."', '"#pr.# #m.#"',
       '"pr. pl."', '"#pr.# #pl.#"',
@@ -155,6 +163,7 @@ class Doom3Parser extends Parser {
       '"s. m. pl."', '"#s.# #m.# #pl.#"',
       '"s. m. și f."', '"#s.# #m.# și #f.#"',
       '"s. m."', '"#s.# #m.#"', // for smf
+      '"s. n. pl."', '"#s.# #n.# #pl.#"',
     ],
     'altAdjectivePos' => [
       '"+" ws nounLikePos ":" ws "$" /[a-zăâîșț~ ]+/ "$"',
@@ -164,6 +173,7 @@ class Doom3Parser extends Parser {
       'invariablePos+", "',
     ],
     'invariablePos' => [
+      '"art."', '"#art.#"', // e.g. dintr-al
       '"adj. invar."', '"#adj.# #invar.#"',
       '"adv."', '"#adv.#"',
       '"conjcț."', '"#conjcț.#"',
@@ -189,6 +199,7 @@ class Doom3Parser extends Parser {
       '/(s\.|#s\.#)( propri[iu])? (f\.|#f\.#|m\.|#m\.#|n\.|#n\.#)( (pl\.|#pl\.#))?( (art\.|#art\.#))?/',
       '/(s\.|#s\.#) (f\.|#f\.#|m\.|#m\.#|n\.|#n\.#) (pl\.|#pl\.#)/',
       '/(s\.|#s\.#) propri[iu]/',
+      '"f."', '"#f.#"', // e.g. Belarus
     ],
 
     'verbLikePosList' => [
@@ -209,16 +220,19 @@ class Doom3Parser extends Parser {
       '/@(!)?[a-zăâîșț]+(\^\d+)?@/',
     ],
     'adjective' => [
-      '(/[;,]/ ws (microdef ws)? adjInflection ws formWithDetails)*',
+      '/[;,]/ ws (microdef ws)? (infoBlock ws)? adjInflection ws formWithDetails adjective',
+      // e.g. atât^1
+      'ws? "/" ws? (infoBlock ws)? (adjSlashInflection ws)? formWithDetails adjective',
+      '""',
     ],
     'noun' => [
-      '/[;,]/ ws (microdef ws)? nounInflection ws formWithDetails noun',
+      '/[;,]/ ws (microdef ws)? (infoBlock ws)? nounInflection ws formWithDetails noun',
       // used for nouns with different plurals, e.g. "pl. m. $accelerat'ori$ /n. $accelerato'are$"
       'ws? "/" ws? (infoBlock ws)? (nounSlashInflection ws)? formWithDetails noun',
       '""',
     ],
     'verb' => [
-      '/[;,]/ ws (microdef ws)? verbInflection ws formWithDetails verb',
+      '/[;,]/ ws (microdef ws)? (infoBlock ws)? verbInflection ws formWithDetails verb',
       // used for verbs with different conjugations, e.g. "intranz. $ajungi$ / tranz. $ajunge$"
       'ws? "/" ws? (infoBlock ws)? (verbSlashInflection ws)? formWithDetails verb',
       '""',
@@ -240,7 +254,11 @@ class Doom3Parser extends Parser {
       '"pl. m. și f."', '"#pl.# #m.# și #f.#"',
       '"pl."', '"#pl.#"',
     ],
+    'adjSlashInflection' => [
+      '"ac. m."', '"#ac.# #m.#"',
+    ],
     'nounInflection' => [
+      '"art. m."', '"#art.# #m.#"',
       '"art."', '"#art.#"',
       '"g.-d. art."', '"#g.-d.# #art.#"',
       '"g.-d."', '"#g.-d.#"',
@@ -289,12 +307,12 @@ class Doom3Parser extends Parser {
       '/\$[-a-zăâéîșț\'\/\(\) ]+\$/ui',
     ],
     'example' => [
-      '/\(((dar:|în:|mai ales în:|și:|și în:) )?\$[-a-zăâîșț0-9#!;,.~\/\(\) ]+\$\)/ui',
+      '/\(((dar:|în:|mai ales în:|și:|și în:) )?\$[-a-zăâîșț0-9#!?;,.~\/\(\) ]+\$\)/ui',
     ],
 
     // abbrevation and symbol
     'coda' => [
-      '";" ws ("abr."|"#abr.#"|"simb."|"#simb.#") ws /\$(\pL|[-0-9.,\/#° ])+\$/',
+      '";" ws ("abr."|"#abr.#"|"simb."|"#simb.#") ws (infoBlock ws)? /\$(\pL|[-0-9.,\/#° ])+\$/ui (ws pronBlock)?',
     ],
 
     // utilities
@@ -307,8 +325,10 @@ class Doom3Parser extends Parser {
   ];
 
   function implodeStringConstants(array $a) {
-    $regexp = '/(' . implode('|', $a) . ')/';
+    $regexp = implode('|', $a);
     $regexp = str_replace('.', '\\.', $regexp);
+    $regexp = str_replace('/', '\\/', $regexp);
+    $regexp = '/(' . $regexp . ')/';
     return $regexp;
   }
 
@@ -387,10 +407,25 @@ class Doom3Parser extends Parser {
  * @+'afro-jazz@ [#pron.# $'afroğaz$ / #engl.# $'afrogez$]
  * $să ajungă/ajungă(-ți)$; : incorrectly changed to $să ajungă/ajungă(-ți$);
  * @!angstrom/angstrom@ (unitate de măsură) [$â$ #pron.# #sued.# $o$] (#înv.#) #s.# #m.#, : wrong order
- * occurrences of "etc." and "dar:"
+ * Atlantic/Oceanul ~: tildes are usually in parentheses
+ * @!crede (a ~)@ ... #imper.# 2 #sg.# $(nu) crede$: incorrectly changed to ($nu) crede$
+ * @!de mâncat@ #vb.# la supin ($~ a mâncat.$) idem de scăzut
+ * @dus și întors@: "în ritm rapid" instead of "în tempo rapid"
+ * occurrences of "etc.", "dar:", "și:"
 
  wrong order of hyphenation / pronunciation / info / microdefinition blocks:
- * buieci, cocleț, cote d'ivoire, disjunctivă
+ * câteodată, cocleț, cote d'ivoire, disjunctivă, după-masă
+
+ complex pronunciations:
+ * @+Cincizecimea@ (sărbătoare) [(în tempo rapid) $Cinci$ #pron.# $cin$]
+ * @!conclusum@ (#lat.#) [$s$ #pron.# $s$◼◼◼ / #rom.# $z$] #s.# #n.#
+
+ index after construct:
+ * @câte (de ~ ori)^{1}@ #loc.# #adv.# ...
+
+ incompatible pos:
+ @+detox@ (#fam.#) #adj.# #invar.#, #s.# #n.# $(cure ~)$
+ @+drege-strică@ #adj.# #invar.#, #s.# #m.# ($meșter ~$)
 
  pos / inflections with slashes (and sometimes further details):
  * #imper.# 2 #sg.# #afirm.# $ad'ormi$/(+ clitic) $ado'arme$ ($Adormi repede!$ dar: $Adoarme-l repede! Adoarme-i bănuielile!$)
@@ -398,30 +433,89 @@ class Doom3Parser extends Parser {
  pos with "+" signs and inflections:
  * @+Alteța Voastră Regală@ #loc.# #pr.# + ◼◼◼+ #adj.#, #g.-d.# $Alteței$ $Voastre Regale$
 
+ microdefinition includes an infoBlock:
+ * @!carcalete^{2}@ (lăcustă; (#arg.#) persoană) #s.# #m.#, ...
+ * @!complet^{2}@ (bal; local (#înv.#); colectiv de judecători)
+ * @+diplomat^2@ (prăjitură; tort; (#fam.#) servietă)
+
+ microdefinition before simbol:
+ * ($bolívar soberano$) #simb.#
+
  microdefinition after part of speech:
  * @+antemergător^{1}@ #adj.# #m.#, #s.# #m.# (persoană),
  * @+anticearcăn@ #adj.# #invar.# ($creme ~$), #s.# #n.#,
  * @!antofită@ #adj.# #f.# ($plantă ~$), #s.# #f.#,
+ * @!avram@ (#reg.#) (#desp.# $a-vram$) #adj.# #m.# ($prun ~$), #s.# #m.#, #pl.# ...
+ * @!divanist@ #adj.# #m.# ($boier ~$), #s.# #m.#, ...
 
- microdefinition between inflection and form:
+ microdefinition after inflection:
+ * @+clocitor@ ... #adj.# #f.# ($pasăre ~$), #s.# #f. ...
+ * @!condroid@ ... #adj.# #f.# ($tumoră ~$), #s.# #f.#
+
+ microdefinition after inflected form:
+ * @!centralist@ ... #adj.# #f.#, #s.# #f.# $centralistă$ (persoană), ...
+
+ multiple forms for one inflection, with infoBlocks
  * amândoi ... #g.-d.# (antepus) $amânduror$, (singur/postpus) $amândurora
 
- infoBlock before inflection:
- * @!amatorism@ #s.# #n.#, (#fam.#) #pl.# $amatorisme$
- * @!apocalipsă@ (sfârșitul lumii) #s.# #f.#, #g.-d.# #art.# $apocalipsei;$ (#colocv.#) #pl.# ...
-
  infoBlock after part of speech:
- * @+angajator@ #adj.# #m.# (rar), (◼◼◼rar), #s.# #m.#, ...
+ * @+angajator@ #adj.# #m.# (rar), #s.# #m.#, ...
+ * @!body@ #s.# #n.# (#engl.#) [#pron.# $badi$], ...
 
  infoBlock before part of speech:
  * @+apucat^{1}@ #adj.# #m.#, (#fam.#) #s.# #m.#, ...
+ * @!baubau@ (#desp.# $bau-$) (#fam.#) #s.# #m.#, ...
+ * @!buieci (a ~)@ (#desp.# $bu-i-$) (#reg.#) #vb.#, ...
 
- reference with inflected forms:
+ infoBlock between inflection and inflected form
+ * @!atomizare@ #s.# #f.#, #g.-d.# #art.# $atomizării$; #pl.# (#fig.#) $atomizări$
+ * @!converge (a ~)@ ... #part.# (rar) $convers$ (nefolosit la #perf.#)
+ * @!desfide (a ~)@ ... #ger.# (rar) $desfidând$ (nefolosit la timpuri trecute, #part.#)
+ * @!diverge (a ~)@ ... #part.# (rar) $divers$ (nefolosit la #perf.#)
+
+ reference with pos
+ * @+băga în seamă (a ~)@ (a da atenție) #loc.# #vb.# #v.# @băga@
+ idem da de gol, da de știre, da foc, da năvală, da seamă
+
+ reference with pos inflected forms:
  * ad'uce aminte loc. vb. v. aduce; imper. 2 sg. afirm. ...
- * bate joc
+ idem bate joc, da seama,
 
  exotic pos:
  * @!Altețele Voastre@ #loc.# #pr.# #pl.#
  * @+Altețele Voastre Regale@ #loc.# #pr.# #pl.# + #adj.#
+
+ title and/or construct include parentheses
+ * @!atunci (de/(de) pe ~)@/(în tempo rapid) @de-atunci/(de) pe-atunci@
+ * @+avea (de/de-) a face (a ~)@
+ * @!Baba-Cloanța(-Cotoroanța)@
+ * @!boala (lui) Parkinson@ #v.# @!parkinson@, idem Basedow
+ * @+cine știe (de/până/pe) când/unde@
+ * @+dinadinsul (cu (tot) ~)@
+ * @+dreapta (de (la)/din/din(spre)/în/(în)spre/la/prin ~)@
+
+ compound pos with inflections or examples:
+ * @+bunică-miu/-tu/-su@ (#fam.#, #pop.#) #s.# #m.# + #adj.# #pr.#, #g.-d.# $lui bunică-miu/-tu/-su$
+ idem bunicu-meu, cumnatu-meu, cumnatu-miu
+ * @+ce-i^2@ (în tempo rapid) #pr.# + #vb.#◼◼◼ ($~ cu el? = Ce e cu el?$)
+ * @+cel care@ #pr.# #m.# + #pr.#, #g.-d.# ...
+ * @!cel ce@ #pr.# #m.# + #pr.#, #g.-d.# ...
+ * @+deținut politic@ #s.# #m.# + #adv.#, #pl.# ...
+ * @+deținută politic@ #s.# #f.# + #adv.#, #pl.# ...
+
+ compound pos with addon pos:
+ * @+cât privește@ #adv.# + #vb.# (+ #s.# #sg.# / #pl.#: $~ condițiile$)
+
+ compound with redundant square bracket:
+ * @+condiția (cu ~)@ #prep.# + #s.# #f.# [= $cu condiția$]
+ * @+condiția ca/să (cu ~)@ #prep.# + #s.# #f.# + #conjcț.# [$=cu condiția ca/să$]
+
+ verb with unused tenses:
+ * @+cădea^{2} ... (nefolosit la celelalte moduri și timpuri)
+ * @!converge (a ~)@ ... (nefolosit la #perf.#)
+ * @!desfide (a ~)@ ... (nefolosit la timpuri trecute, #part.#)
+ * @!detraca (a se ~)@ ... (mai folosit la timpuri trecute și compuse)
+ * @!dezvoalbe (a ~)@ ... (nefolosit la #part.#)
+ * @!diverge (a ~)@ ... (nefolosit la #perf.#)
 
  **/

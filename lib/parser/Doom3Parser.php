@@ -128,7 +128,7 @@ class Doom3Parser extends Parser {
       'nounLikePosList (ws example)? noun coda*',
       'adjectiveLikePosList (ws example)? adjective coda*',
       'invariablePosList (ws example)? coda*',
-      'verbLikePosList (ws example)? verb coda*',
+      'verbLikePosList (ws example)? verb (ws unusedTenses)? coda*',
       '("v."|"#v.#") ws reference',
     ],
 
@@ -299,9 +299,12 @@ class Doom3Parser extends Parser {
       '/[123]/',
       '/[123] (pl\.|#pl\.#|sg\.|#sg\.#)/',
     ],
+    'unusedTenses' => [
+      '/\((mai folosit|nefolosit).*\)/',
+    ],
 
     'formWithDetails' => [
-      'form (ws pronBlock)? (ws hyphBlock)? (ws example)?',
+      '(infoBlock ws)? form (ws pronBlock)? (ws hyphBlock)? (ws example)?',
     ],
     'form' => [
       '/\$[-a-zăâéîșț\'\/\(\) ]+\$/ui',
@@ -467,12 +470,6 @@ class Doom3Parser extends Parser {
  * @!baubau@ (#desp.# $bau-$) (#fam.#) #s.# #m.#, ...
  * @!buieci (a ~)@ (#desp.# $bu-i-$) (#reg.#) #vb.#, ...
 
- infoBlock between inflection and inflected form
- * @!atomizare@ #s.# #f.#, #g.-d.# #art.# $atomizării$; #pl.# (#fig.#) $atomizări$
- * @!converge (a ~)@ ... #part.# (rar) $convers$ (nefolosit la #perf.#)
- * @!desfide (a ~)@ ... #ger.# (rar) $desfidând$ (nefolosit la timpuri trecute, #part.#)
- * @!diverge (a ~)@ ... #part.# (rar) $divers$ (nefolosit la #perf.#)
-
  reference with pos
  * @+băga în seamă (a ~)@ (a da atenție) #loc.# #vb.# #v.# @băga@
  idem da de gol, da de știre, da foc, da năvală, da seamă
@@ -509,13 +506,5 @@ class Doom3Parser extends Parser {
  compound with redundant square bracket:
  * @+condiția (cu ~)@ #prep.# + #s.# #f.# [= $cu condiția$]
  * @+condiția ca/să (cu ~)@ #prep.# + #s.# #f.# + #conjcț.# [$=cu condiția ca/să$]
-
- verb with unused tenses:
- * @+cădea^{2} ... (nefolosit la celelalte moduri și timpuri)
- * @!converge (a ~)@ ... (nefolosit la #perf.#)
- * @!desfide (a ~)@ ... (nefolosit la timpuri trecute, #part.#)
- * @!detraca (a se ~)@ ... (mai folosit la timpuri trecute și compuse)
- * @!dezvoalbe (a ~)@ ... (nefolosit la #part.#)
- * @!diverge (a ~)@ ... (nefolosit la #perf.#)
 
  **/

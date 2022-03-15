@@ -70,8 +70,17 @@ class Doom3Parser extends Parser {
     ],
 
     // a microdefinition e.g. (regiune din SUA)
+    // we allow these to include infoBlocks, e.g. carcalete^2, complet^2, diplomat^2
     'microdef' => [
-      '/\([-a-zăâîöșț0-9;.,\/ ]+\)/ui',
+      '"(" microdefChunk+"; " ")"',
+    ],
+    'microdefChunk' => [
+      'infoBlock ws microdefText',
+      'microdefText infoBlock',
+      'microdefText',
+    ],
+    'microdefText' => [
+      '/[-a-zăâîöșț0-9.,\/ ]+/ui',
     ],
 
     // usage, etymology etc. e.g. (astr.; med.)
@@ -130,11 +139,14 @@ class Doom3Parser extends Parser {
     ],
 
     'adjectiveLikePosList' => [
-      'adjectiveLikePos+", "',
-      'adjectiveLikePos ws? "/" ws? infoBlock? ws? adjectiveLikePosList',
+      'adjectiveLikePosWithInfo+", "',
+      'adjectiveLikePosWithInfo ws? "/" ws? infoBlock? ws? adjectiveLikePosList',
       // one or more alternative parts of speech:
       // @+demidulce@ #adj.# #m.# și #f.# (+ #s.# #n.#: $vin ~$, + #s.# #f.#: $șampanie ~$);
       'adjectiveLikePos ws "(" altAdjectivePos+", " ")"',
+    ],
+    'adjectiveLikePosWithInfo' => [
+      '(infoBlock ws)? adjectiveLikePos (ws infoBlock)?'
     ],
     'adjectiveLikePos' => [
       '"adj. f."', '"#adj.# #f.#"',
@@ -186,8 +198,11 @@ class Doom3Parser extends Parser {
     ],
 
     'nounLikePosList' => [
-      'nounLikePos+", "',
-      'nounLikePos ws? "/" ws? infoBlock? ws? nounLikePosList',
+      'nounLikePosWithInfo+", "',
+      'nounLikePosWithInfo ws? "/" ws? infoBlock? ws? nounLikePosList',
+    ],
+    'nounLikePosWithInfo' => [
+      '(infoBlock ws)? nounLikePos (ws infoBlock)?'
     ],
     'nounLikePos' => [
       '"loc. s. f."', '"#loc.# #s.# #f.#"',
@@ -200,7 +215,10 @@ class Doom3Parser extends Parser {
     ],
 
     'verbLikePosList' => [
-      'verbLikePos+", "',
+      'verbLikePosWithInfo+", "',
+    ],
+    'verbLikePosWithInfo' => [
+      '(infoBlock ws)? verbLikePos (ws infoBlock)?'
     ],
     'verbLikePos' => [
       '"vb. pred."', '"#vb.# #pred.#"',
@@ -415,7 +433,7 @@ class Doom3Parser extends Parser {
  * occurrences of "etc.", "dar:", "și:"
 
  wrong order of hyphenation / pronunciation / info / microdefinition blocks:
- * câteodată, cocleț, cote d'ivoire, disjunctivă, după-masă
+ * body, câteodată, cocleț, cote d'ivoire, disjunctivă, după-masă
 
  complex pronunciations:
  * @+Cincizecimea@ (sărbătoare) [(în tempo rapid) $Cinci$ #pron.# $cin$]
@@ -434,15 +452,10 @@ class Doom3Parser extends Parser {
  pos with "+" signs and inflections:
  * @+Alteța Voastră Regală@ #loc.# #pr.# + ◼◼◼+ #adj.#, #g.-d.# $Alteței$ $Voastre Regale$
 
- microdefinition includes an infoBlock:
- * @!carcalete^{2}@ (lăcustă; (#arg.#) persoană) #s.# #m.#, ...
- * @!complet^{2}@ (bal; local (#înv.#); colectiv de judecători)
- * @+diplomat^2@ (prăjitură; tort; (#fam.#) servietă)
-
  microdefinition before simbol:
  * ($bolívar soberano$) #simb.#
 
- microdefinition after part of speech:
+ microdefinition/example after part of speech:
  * @+antemergător^{1}@ #adj.# #m.#, #s.# #m.# (persoană),
  * @+anticearcăn@ #adj.# #invar.# ($creme ~$), #s.# #n.#,
  * @!antofită@ #adj.# #f.# ($plantă ~$), #s.# #f.#,
@@ -459,14 +472,8 @@ class Doom3Parser extends Parser {
  multiple forms for one inflection, with infoBlocks
  * amândoi ... #g.-d.# (antepus) $amânduror$, (singur/postpus) $amândurora
 
- infoBlock after part of speech:
- * @+angajator@ #adj.# #m.# (rar), #s.# #m.#, ...
- * @!body@ #s.# #n.# (#engl.#) [#pron.# $badi$], ...
-
- infoBlock before part of speech:
- * @+apucat^{1}@ #adj.# #m.#, (#fam.#) #s.# #m.#, ...
- * @!baubau@ (#desp.# $bau-$) (#fam.#) #s.# #m.#, ...
- * @!buieci (a ~)@ (#desp.# $bu-i-$) (#reg.#) #vb.#, ...
+ infoBlock between inflections (currently not parsed)
+ * @+apucat^{1}@ #adj.# #m.# ...; #adj.# #f.#, (#fam.#) #s.# #f.# $apucată$,
 
  reference with pos
  * @+băga în seamă (a ~)@ (a da atenție) #loc.# #vb.# #v.# @băga@

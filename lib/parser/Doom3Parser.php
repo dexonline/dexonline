@@ -55,21 +55,18 @@ class Doom3Parser extends Parser {
       '"@" ("+"|"!")? titleUnformatted "@"',
     ],
     'titleUnformatted' => [
-      'titleChunk (ws? "/" ws? titleChunk)*',
+      'titleText titleIndex? titleText? (titleParent titleText?)*',
     ],
-    'titleChunk' => [
-      'titleText titleIndex? (ws construct)?',
+    'titleParent' => [
+      '"(" titleText titleParent? ")"',
+      '"(" titleText (titleParent titleText?)* ")"',
     ],
     'titleText' => [
-      '/[-a-zăâéîíôóșț.,\'\/ ]*[-a-zăâéîíôóșț]/ui',
+      '/[-a-zăâéîíôóșț.,~\'\/ ]+/ui',
     ],
     'titleIndex' => [
       '/\^\d+/',
       '/\^\{\d+\}/',
-    ],
-    'construct' => [
-       // e.g. (a ~), (pe ~ de), (din ~ în ~), (cu ~, cu vai)
-      '/\([-a-zăâîșț,\'\/ ]*~[-a-zăâîșț,\'\/~ ]*\)/ui',
     ],
 
     // a microdefinition e.g. (regiune din SUA)
@@ -414,6 +411,7 @@ class Doom3Parser extends Parser {
  * @!crede (a ~)@ ... #imper.# 2 #sg.# $(nu) crede$: incorrectly changed to ($nu) crede$
  * @!de mâncat@ #vb.# la supin ($~ a mâncat.$) idem de scăzut
  * @dus și întors@: "în ritm rapid" instead of "în tempo rapid"
+ * @!Baba-Cloanța(-Cotoroanța)@ ... $Babei-Cloanța(-Cotoroanța)$ : incorrectly changed
  * occurrences of "etc.", "dar:", "și:"
 
  wrong order of hyphenation / pronunciation / info / microdefinition blocks:
@@ -472,7 +470,7 @@ class Doom3Parser extends Parser {
 
  reference with pos
  * @+băga în seamă (a ~)@ (a da atenție) #loc.# #vb.# #v.# @băga@
- idem da de gol, da de știre, da foc, da năvală, da seamă
+ idem avea de a face, da de gol, da de știre, da foc, da năvală, da seamă
 
  reference with pos inflected forms:
  * ad'uce aminte loc. vb. v. aduce; imper. 2 sg. afirm. ...
@@ -481,15 +479,6 @@ class Doom3Parser extends Parser {
  exotic pos:
  * @!Altețele Voastre@ #loc.# #pr.# #pl.#
  * @+Altețele Voastre Regale@ #loc.# #pr.# #pl.# + #adj.#
-
- title and/or construct include parentheses
- * @!atunci (de/(de) pe ~)@/(în tempo rapid) @de-atunci/(de) pe-atunci@
- * @+avea (de/de-) a face (a ~)@
- * @!Baba-Cloanța(-Cotoroanța)@
- * @!boala (lui) Parkinson@ #v.# @!parkinson@, idem Basedow
- * @+cine știe (de/până/pe) când/unde@
- * @+dinadinsul (cu (tot) ~)@
- * @+dreapta (de (la)/din/din(spre)/în/(în)spre/la/prin ~)@
 
  compound pos with inflections or examples:
  * @+bunică-miu/-tu/-su@ (#fam.#, #pop.#) #s.# #m.# + #adj.# #pr.#, #g.-d.# $lui bunică-miu/-tu/-su$

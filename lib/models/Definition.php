@@ -51,7 +51,7 @@ class Definition extends BaseObject implements DatedObject {
     return $this->footnotes;
   }
 
-  // Single entry point for sanitizing / extracting lexicon / counting ambigious abbreviations.
+  // Single entry point for sanitizing / extracting lexicon / counting ambiguous abbreviations.
   function process($flash = false) {
     $warnings = [];
     $errors = [];

@@ -7,11 +7,11 @@ class Doom3Parser extends Parser {
   const INFO_KEYWORDS = [
     'antepus',
     'azi glumeț',
-    'cuv. amerind.', '#cuv.# #amerind.#',
-    'cuv. ar.', '#cuv.# #ar.#',
-    'cuv. jap.', '#cuv.# #jap.#',
+    '#cuv.# #amerind.#',
+    '#cuv.# #ar.#',
+    '#cuv.# #jap.#',
     'în tempo rapid',
-    'mai frecv.', 'mai #frecv.#',
+    'mai #frecv.#',
     'rar',
     'singur/postpus',
     'sport',
@@ -20,18 +20,18 @@ class Doom3Parser extends Parser {
   ];
 
   const PRONUNCIATION_KEYWORDS = [
-    'cit. engl', '#cit.# #engl.#',
-    'cit.', '#cit.#',
-    'pron. engl.', '#pron.# #engl.#',
-    'pron. fr.', '#pron.# #fr.#',
-    'pron. germ.', '#pron.# #germ.#',
-    'pron. gr.', '#pron.# #gr.#',
-    'pron. it.', '#pron.# #it.#',
-    'pron. port.', '#pron.# #port.#',
-    'pron. rom.', '#pron. rom.#',
-    'pron. sp.', '#pron.# #sp.#',
-    'pron. sued.', '#pron.# #sued.#',
-    'pron.', '#pron.#',
+    '#cit.# #engl.#',
+    '#cit.#',
+    '#pron.# #engl.#',
+    '#pron.# #fr.#',
+    '#pron.# #germ.#',
+    '#pron.# #gr.#',
+    '#pron.# #it.#',
+    '#pron.# #port.#',
+    '#pron. rom.#',
+    '#pron.# #sp.#',
+    '#pron.# #sued.#',
+    '#pron.#',
   ];
 
   const GRAMMAR = [
@@ -109,7 +109,7 @@ class Doom3Parser extends Parser {
     // hyphenation e.g. (desp. $a-bi-o-$)
     // accepts slash-separated lists, either as $la-la / la-la$ or as $la-la$ / $la-la$
     'hyphBlock' => [
-      '"(" ("desp."|"#desp.#") ws hyphList ")"',
+      '"(#desp.#" ws hyphList ")"',
     ],
     'hyphList' => [
       'hyph (ws? "/" ws? hyph)*',
@@ -135,7 +135,7 @@ class Doom3Parser extends Parser {
       'adjectiveLikePosList (ws example)? adjective coda*',
       'invariablePosList (ws example)? coda*',
       'verbLikePosList (ws example)? verb (ws unusedTenses)? coda*',
-      '("v."|"#v.#") ws reference',
+      '"#v.#" ws reference',
     ],
 
     'adjectiveLikePosList' => [
@@ -149,30 +149,30 @@ class Doom3Parser extends Parser {
       '(infoBlock ws)? adjectiveLikePos (ws infoBlock)? (ws example)?'
     ],
     'adjectiveLikePos' => [
-      '"adj. f."', '"#adj.# #f.#"',
-      '"adj. m. pl."', '"#adj.# #m.# #pl.#"',
-      '"adj. m. și f."', '"#adj.# #m.# și #f.#"',
-      '"adj. m."', '"#adj.# #m.#"',
-      '"adj. pr. antepus m."', '"#adj.# #pr.# antepus #m.#"',
-      '"adj. pr. postpus m."', '"#adj.# #pr.# postpus #m.#"',
-      '"adj. pr. m. pl."', '"#adj.# #pr.# #m.# #pl.#"',
-      '"adj. pr. m."', '"#adj.# #pr.# #m.#"',
-      '"adj. pr."', '"#adj.# #pr.#"',
-      '"adj."', '"#adj.#"',
-      '"loc. pr. pl."', '"#loc.# #pr.# #pl.#"',
-      '"loc. pr."', '"#loc.# #pr.#"',
-      '"num. f."', '"#num.# #f.#"',
-      '"num. m."', '"#num.# #m.#"',
-      '"num."', '"#num.#"',
-      '"pr. m. pl."', '"#pr.# #m.# #pl.#"',
-      '"pr. m."', '"#pr.# #m.#"',
-      '"pr. pl."', '"#pr.# #pl.#"',
-      '"pr."', '"#pr.#"',
-      '"s. f."', '"#s.# #f.#"',
-      '"s. m. pl."', '"#s.# #m.# #pl.#"',
-      '"s. m. și f."', '"#s.# #m.# și #f.#"',
-      '"s. m."', '"#s.# #m.#"', // for smf
-      '"s. n. pl."', '"#s.# #n.# #pl.#"',
+      '"#adj.# #f.#"',
+      '"#adj.# #m.# #pl.#"',
+      '"#adj.# #m.# și #f.#"',
+      '"#adj.# #m.#"',
+      '"#adj.# #pr.# antepus #m.#"',
+      '"#adj.# #pr.# postpus #m.#"',
+      '"#adj.# #pr.# #m.# #pl.#"',
+      '"#adj.# #pr.# #m.#"',
+      '"#adj.# #pr.#"',
+      '"#adj.#"',
+      '"#loc.# #pr.# #pl.#"',
+      '"#loc.# #pr.#"',
+      '"#num.# #f.#"',
+      '"#num.# #m.#"',
+      '"#num.#"',
+      '"#pr.# #m.# #pl.#"',
+      '"#pr.# #m.#"',
+      '"#pr.# #pl.#"',
+      '"#pr.#"',
+      '"#s.# #f.#"',
+      '"#s.# #m.# #pl.#"',
+      '"#s.# #m.# și #f.#"',
+      '"#s.# #m.#"', // for smf
+      '"#s.# #n.# #pl.#"',
     ],
     'altAdjectivePos' => [
       '"+" ws nounLikePos ":" ws "$" /[a-zăâîșț~ ]+/ "$"',
@@ -185,19 +185,19 @@ class Doom3Parser extends Parser {
       '(infoBlock ws)? invariablePos (ws infoBlock)? (ws example)?'
     ],
     'invariablePos' => [
-      '"art."', '"#art.#"', // e.g. dintr-al
-      '"adj. invar."', '"#adj.# #invar.#"',
-      '"adv."', '"#adv.#"',
-      '"conjcț."', '"#conjcț.#"',
-      '"interj."', '"#interj.#"',
-      '"loc. adj. pr."', '"#loc.# #adj.# #pr.#"',
-      '"loc. adj."', '"#loc.# #adj.#"',
-      '"loc. adv."', '"#loc.# #adv.#"',
-      '"loc. conjcț."', '"#loc.# #conjcț.#"',
-      '"loc. interj."', '"#loc.# #interj.#"',
-      '"loc. prep."', '"#loc.# #prep.#"',
-      '"pr. invar."', '"#pr.# #invar.#"',
-      '"prep."', '"#prep.#"',
+      '"#art.#"', // e.g. dintr-al
+      '"#adj.# #invar.#"',
+      '"#adv.#"',
+      '"#conjcț.#"',
+      '"#interj.#"',
+      '"#loc.# #adj.# #pr.#"',
+      '"#loc.# #adj.#"',
+      '"#loc.# #adv.#"',
+      '"#loc.# #conjcț.#"',
+      '"#loc.# #interj.#"',
+      '"#loc.# #prep.#"',
+      '"#pr.# #invar.#"',
+      '"#prep.#"',
     ],
 
     'nounLikePosList' => [
@@ -208,13 +208,12 @@ class Doom3Parser extends Parser {
       '(infoBlock ws)? nounLikePos (ws infoBlock)?'
     ],
     'nounLikePos' => [
-      '"loc. s. f."', '"#loc.# #s.# #f.#"',
-      '"loc. s. n. pl."', '"#loc.# #s.# #n.# #pl.#"',
-      '"loc. s. n."', '"#loc.# #s.# #n.#"',
-      '/(s\.|#s\.#)( propri[iu])? (f\.|#f\.#|m\.|#m\.#|n\.|#n\.#)( (pl\.|#pl\.#))?( (art\.|#art\.#))?/',
-      '/(s\.|#s\.#) (f\.|#f\.#|m\.|#m\.#|n\.|#n\.#) (pl\.|#pl\.#)/',
-      '/(s\.|#s\.#) propri[iu]/',
-      '"f."', '"#f.#"', // e.g. Belarus
+      '"#loc.# #s.# #f.#"',
+      '"#loc.# #s.# #n.# #pl.#"',
+      '"#loc.# #s.# #n.#"',
+      '/#s\.#( propri[iu])? #[fmn]\.#( #pl\.#)?( #art\.#)?/',
+      '/#s\.# propri[iu]/',
+      '"#f.#"', // e.g. Belarus
     ],
 
     'verbLikePosList' => [
@@ -225,9 +224,9 @@ class Doom3Parser extends Parser {
       '(infoBlock ws)? verbLikePos (ws infoBlock)?'
     ],
     'verbLikePos' => [
-      '"vb. pred."', '"#vb.# #pred.#"',
-      '"vb. refl."', '"#vb.# #refl.#"',
-      '"vb."', '"#vb.#"',
+      '"#vb.# #pred.#"',
+      '"#vb.# #refl.#"',
+      '"#vb.#"',
     ],
 
     'compoundPosList' => [
@@ -265,40 +264,40 @@ class Doom3Parser extends Parser {
       '(infoBlock ws)? adjInflection (ws example)?',
     ],
     'adjInflection' => [
-      '"adj. f."', '"#adj.# #f.#"',
-      '"art."', '"#art.#"',
-      '"f. sg. și pl."', '"#f.# #sg.# și #pl.#"',
-      '"f."', '"#f.#"',
-      '"g.-d. art."', '"#g.-d.# #art.#"',
-      '"g.-d. m. și f."', '"#g.-d.# #m.# și #f.#"',
-      '"g.-d. pl. m. și f."', '"#g.-d.# #pl.# #m.# și #f.#"',
-      '"g.-d. sg. m. și f."', '"#g.-d.# #sg.# #m.# și #f.#"',
-      '"g.-d. pl."', '"#g.-d.# #pl.#"',
-      '"g.-d."', '"#g.-d.#"',
-      '"pl. m. și f."', '"#pl.# #m.# și #f.#"',
-      '"pl."', '"#pl.#"',
-      '"s. f. sg. și pl."', '"#s.# #f.# #sg.# și #pl.#"',
-      '"s. f."', '"#s.# #f.#"',
+      '"#adj.# #f.#"',
+      '"#art.#"',
+      '"#f.# #sg.# și #pl.#"',
+      '"#f.#"',
+      '"#g.-d.# #art.#"',
+      '"#g.-d.# #m.# și #f.#"',
+      '"#g.-d.# #pl.# #m.# și #f.#"',
+      '"#g.-d.# #sg.# #m.# și #f.#"',
+      '"#g.-d.# #pl.#"',
+      '"#g.-d.#"',
+      '"#pl.# #m.# și #f.#"',
+      '"#pl.#"',
+      '"#s.# #f.# #sg.# și #pl.#"',
+      '"#s.# #f.#"',
     ],
     'adjSlashInflection' => [
-      '"ac. m."', '"#ac.# #m.#"',
+      '"#ac.# #m.#"',
     ],
     'nounInflection' => [
-      '"art. m."', '"#art.# #m.#"',
-      '"art."', '"#art.#"',
-      '"g.-d. art."', '"#g.-d.# #art.#"',
-      '"g.-d."', '"#g.-d.#"',
-      '"neart."', '"#neart.#"',
-      '"pl. art."', '"#pl.# #art.#"',
-      '"pl. m."', '"#pl.# #m.#"',
-      '"pl. n."', '"#pl.# #n.#"',
-      '"pl."', '"#pl.#"',
-      '"voc. neart."', '"#voc.# #neart.#"',
-      '"voc."', '"#voc.#"',
+      '"#art.# #m.#"',
+      '"#art.#"',
+      '"#g.-d.# #art.#"',
+      '"#g.-d.#"',
+      '"#neart.#"',
+      '"#pl.# #art.#"',
+      '"#pl.# #m.#"',
+      '"#pl.# #n.#"',
+      '"#pl.#"',
+      '"#voc.# #neart.#"',
+      '"#voc.#"',
     ],
     'nounSlashInflection' => [
-      '"m."', '"#m.#"',
-      '"n."', '"#n.#"',
+      '"#m.#"',
+      '"#n.#"',
     ],
     'verbInflection' => [
       'impersonalTense',
@@ -307,23 +306,21 @@ class Doom3Parser extends Parser {
       'person',
     ],
     'verbSlashInflection' => [
-      '"tranz."', '"#tranz.#"',
+      '"#tranz.#"',
     ],
     'impersonalTense' => [
-      '/(ger\.|#ger\.#|part\.|#part\.#)/',
+      '"#ger.#"',
+      '"#part.#"',
       // these are not really impersonal, but they only accept one person
-      '/(imper\. 2 sg\. afirm\. intranz\.|#imper\.# 2 #sg\.# #afirm\.# #intranz\.#)/',
-      '/(imper\. 2 sg\. afirm\.|#imper\.# 2 #sg\.# #afirm\.#)/',
-      '/(imper\. 2 sg\.|#imper\.# 2 #sg\.#)/',
-      '/(neg\.|#neg\.#)/',
+      '/#imper\.# 2 #sg\.#( #afirm\.#( #intranz\.#)?)?/',
+      '"#neg.#"',
     ],
     'personalTense' => [
-      '/(conj\. prez\.|imperf\.|ind\. prez\.|m\.m\.c\.p\.|perf\. s\.)/',
       '/(#conj\.# #prez\.#|#imperf\.#|#ind\.# #prez\.#|#m\.m\.c\.p\.#|#perf\. s\.#)/',
     ],
     'person' => [
       '/[123]/',
-      '/[123] (pl\.|#pl\.#|sg\.|#sg\.#)/',
+      '/[123] (#pl\.#|#sg\.#)/',
     ],
     'unusedTenses' => [
       '/\((mai folosit|nefolosit).*\)/',
@@ -341,7 +338,7 @@ class Doom3Parser extends Parser {
 
     // abbrevation and symbol
     'coda' => [
-      '";" ws ("abr."|"#abr.#"|"simb."|"#simb.#") ws (infoBlock ws)? /\$(\pL|[-0-9.,\/#° ])+\$/ui (ws pronBlock)?',
+      '";" ws ("#abr.#"|"#simb.#") ws (infoBlock ws)? /\$(\pL|[-0-9.,\/#° ])+\$/ui (ws pronBlock)?',
     ],
 
     // utilities
@@ -419,6 +416,12 @@ class Doom3Parser extends Parser {
 
   function postProcess(string $rule, string $content, ParserState $state, array &$warnings) {
     switch ($rule) {
+      case 'hyphUnformatted':
+        if (strpos($content, '~') !== false) {
+          $warnings[] = "Am înlocuit ~ cu - în silabisirea «{$content}».";
+          $content = str_replace('~', '-', $content);
+        }
+        break;
       case 'ignored':
         print "**** Warning: ignored [{$content}]\n";
         break;
@@ -433,9 +436,7 @@ class Doom3Parser extends Parser {
  errors and rare cases we won't handle
  * @+abac'a@ (cânepă de Manila) (cuv. filip.): no such abbreviation
  * @+abi'a ce@ (desp. $-bia$) (pop.): wrong order hyphenation > info
- * @+'afro-jazz@ [#pron.# $'afroğaz$ / #engl.# $'afrogez$]
  * $să ajungă/ajungă(-ți)$; : incorrectly changed to $să ajungă/ajungă(-ți$);
- * @!angstrom/angstrom@ (unitate de măsură) [$â$ #pron.# #sued.# $o$] (#înv.#) #s.# #m.#, : wrong order
  * Atlantic/Oceanul ~: tildes are usually in parentheses
  * @!crede (a ~)@ ... #imper.# 2 #sg.# $(nu) crede$: incorrectly changed to ($nu) crede$
  * @!de mâncat@ #vb.# la supin ($~ a mâncat.$) idem de scăzut
@@ -456,9 +457,6 @@ class Doom3Parser extends Parser {
 
  pos / inflections with slashes (and sometimes further details):
  * #imper.# 2 #sg.# #afirm.# $ad'ormi$/(+ clitic) $ado'arme$ ($Adormi repede!$ dar: $Adoarme-l repede! Adoarme-i bănuielile!$)
-
- pos with "+" signs and inflections:
- * @+Alteța Voastră Regală@ #loc.# #pr.# + ◼◼◼+ #adj.#, #g.-d.# $Alteței$ $Voastre Regale$
 
  microdefinition before simbol:
  * ($bolívar soberano$) #simb.#

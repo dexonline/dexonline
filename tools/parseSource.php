@@ -61,6 +61,7 @@ function main() {
   }
 
   $offset = 0;
+  $unparseable = 0;
 
   do {
     $defs = Model::factory('Definition')
@@ -78,9 +79,12 @@ function main() {
         printf("Considering definition %d/%d [%s] [%s]\n",
                 $i + 1, count($defs), $d->lexicon, $d->internalRep);
       }
+
+      $d->internalRep = Str::sanitize($d->internalRep, $d->sourceId)[0];
       $orig = $d->internalRep;
       $errors = [];
       $warnings = [];
+
       $d->parse($warnings, $errors);
       if ($warnings || $errors) {
         printf("%s\n", defUrl($d));
@@ -100,6 +104,7 @@ function main() {
 
         $minor = (abs(strlen($orig) - strlen($d->internalRep)) <= $MINOR);
 
+        $unparseable++;
         if ($minor ||
             readCommand('Acceptați [d/n]?', ['d', 'n']) == 'd') {
           $d->save();
@@ -111,6 +116,7 @@ function main() {
     Log::info("Processed $offset definitions.");
   } while (count($defs) == BATCH_SIZE);
 
+  print("$unparseable unparseable\n");
   Log::info('ended');
 }
 

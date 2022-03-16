@@ -227,6 +227,7 @@ class Preload {
       self::$lexemeInflectedForms[$if->lexemeId][] = $if;
     }
 
+    self::initKeys(self::$lexemeInflectedForms, $lexemeIds, []);
     $inflectionIds = Util::objectProperty($inflectedForms, 'inflectionId');
     self::loadInflections($inflectionIds);
   }

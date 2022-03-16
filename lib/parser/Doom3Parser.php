@@ -62,7 +62,7 @@ class Doom3Parser extends Parser {
       '"(" titleText (titleParent titleText?)* ")"',
     ],
     'titleText' => [
-      '/[-a-zăâéîíôóșț.,~\'\/ ]+/ui',
+      '/(\pL|[-.,~\'\/ ])+/ui',
     ],
     'titleIndex' => [
       '/\^\d+/',
@@ -80,7 +80,7 @@ class Doom3Parser extends Parser {
       'microdefText',
     ],
     'microdefText' => [
-      '/[-a-zăâîöșț0-9.,\/ ]+/ui',
+      '/(\pL|[-0-9.,\/ ])+/ui',
     ],
 
     // usage, etymology etc. e.g. (astr.; med.)
@@ -94,16 +94,20 @@ class Doom3Parser extends Parser {
 
     // pronunciation e.g. [$aa$ #pron.# $a$]
     'pronBlock' => [
-      '"[" (pron ws)? pronKeyword ws pron "]"',
+      '"[" (infoBlock ws)? (pron ws)? pronKeyword ws pron (ws "/" ws pronAltKeyword ws pron)? "]"',
     ],
     'pronKeyword' => [ /* set in getGrammar() */ ],
+    'pronAltKeyword' => [
+      '"(în tempo rapid)"',
+      '"#engl.#"',
+      '"#rom.#"',
+    ],
     'pron' => [
       '"$" pronUnformatted "$"',
-      'pronUnformatted',
     ],
     'pronUnformatted' => [
       // use four backslashes to indicate that backslashes are allowed
-      '/[a-zăâčẽĕéğĭîõôöșțŭə\\\\\'\/^{} ]+/ui',
+      '/(\pL|[-\\\\\'\/^{} ])+/ui',
     ],
 
     // hyphenation e.g. (desp. $a-bi-o-$)
@@ -123,7 +127,7 @@ class Doom3Parser extends Parser {
       'hyphUnformatted',
     ],
     'hyphUnformatted' => [
-      '/[-~a-zăâîöșț#;, ]+/ui',
+      '/(\pL|[-~#;, ])+/ui',
     ],
 
     // parts of speech
@@ -236,7 +240,7 @@ class Doom3Parser extends Parser {
 
     // inflected forms with optional details (hyphenation, pronunciation, abbreviation, examples)
     'reference' => [
-      '/@(!)?[a-zăâîșț\']+(\^\d+|\^\{\d+\})?@/',
+      '/@(!)?(\pL|\')+(\^\d+|\^\{\d+\})?@/',
     ],
     'adjective' => [
       '/[;,]/ ws (microdef ws)? (infoBlock ws)? adjInflectionList ws formWithDetails adjective',
@@ -333,10 +337,10 @@ class Doom3Parser extends Parser {
       '(infoBlock ws)? form (ws pronBlock)? (ws hyphBlock)? (ws example)?',
     ],
     'form' => [
-      '/\$[-a-zăâéîșț\'\/\(\) ]+\$/ui',
+      '/\$(\pL|[-\'\/\(\) ])+\$/ui',
     ],
     'example' => [
-      '/\(((dar:|în:|mai ales în:|și:|și în:) )?\$[-a-zăâîșț0-9#!?;,.=~\/\(\) ]+\$\)/ui',
+      '/\(((dar:|în:|mai ales în:|și:|și în:) )?\$(\pL|[-0-9#!?;,.=~\/\(\) ])+\$\)/ui',
     ],
 
     // abbrevation and symbol
@@ -445,10 +449,6 @@ class Doom3Parser extends Parser {
 
  wrong order of hyphenation / pronunciation / info / microdefinition blocks:
  * body, câteodată, cel ce, cocleț, cote d'ivoire, disjunctivă, după-masă
-
- complex pronunciations:
- * @+Cincizecimea@ (sărbătoare) [(în tempo rapid) $Cinci$ #pron.# $cin$]
- * @!conclusum@ (#lat.#) [$s$ #pron.# $s$◼◼◼ / #rom.# $z$] #s.# #n.#
 
  index after construct:
  * @câte (de ~ ori)^{1}@ #loc.# #adv.# ...

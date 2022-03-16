@@ -55,18 +55,14 @@ class Doom3Parser extends Parser {
       '"@" ("+"|"!")? titleUnformatted "@"',
     ],
     'titleUnformatted' => [
-      'titleText titleIndex? titleText? (titleParent titleText?)*',
+      'titleText (titleParent titleText?)*',
     ],
     'titleParent' => [
       '"(" titleText titleParent? ")"',
       '"(" titleText (titleParent titleText?)* ")"',
     ],
     'titleText' => [
-      '/(\pL|[-.,~\'\/ ])+/ui',
-    ],
-    'titleIndex' => [
-      '/\^\d+/',
-      '/\^\{\d+\}/',
+      '/(\pL|[-0-9^.,~\'\/ ])+/ui',
     ],
 
     // a microdefinition e.g. (regiune din SUA)
@@ -240,7 +236,7 @@ class Doom3Parser extends Parser {
 
     // inflected forms with optional details (hyphenation, pronunciation, abbreviation, examples)
     'reference' => [
-      '/@(!)?(\pL|\')+(\^\d+|\^\{\d+\})?@/',
+      '/@(!)?(\pL|\')+(\^\d+|\^\{\d+\})?@/ui',
     ],
     'adjective' => [
       '/[;,]/ ws (microdef ws)? (infoBlock ws)? adjInflectionList ws formWithDetails adjective',

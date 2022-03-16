@@ -208,9 +208,7 @@ class Doom3Parser extends Parser {
       '(infoBlock ws)? nounLikePos (ws infoBlock)?'
     ],
     'nounLikePos' => [
-      '"#loc.# #s.# #f.#"',
-      '"#loc.# #s.# #n.# #pl.#"',
-      '"#loc.# #s.# #n.#"',
+      '/#loc\.# #s\.# #[fmn].#( #pl\.#)?/',
       '/#s\.#( propri[iu])? #[fmn]\.#( #pl\.#)?( #art\.#)?/',
       '/#s\.# propri[iu]/',
       '"#f.#"', // e.g. Belarus
@@ -218,15 +216,13 @@ class Doom3Parser extends Parser {
 
     'verbLikePosList' => [
       'verbLikePosWithInfo+", "',
-      '"#loc.# #vb.#" (ws "#refl.#")? ","? ws "#v.#" ws reference',
+      '/#loc\.# #vb\.#( #refl\.#)?(,)? #v\.# / reference',
     ],
     'verbLikePosWithInfo' => [
       '(infoBlock ws)? verbLikePos (ws infoBlock)?'
     ],
     'verbLikePos' => [
-      '"#vb.# #pred.#"',
-      '"#vb.# #refl.#"',
-      '"#vb.#"',
+      '/#vb\.#( #(pred|refl)\.#)?/',
     ],
 
     'compoundPosList' => [
@@ -266,18 +262,11 @@ class Doom3Parser extends Parser {
     'adjInflection' => [
       '"#adj.# #f.#"',
       '"#art.#"',
-      '"#f.# #sg.# și #pl.#"',
-      '"#f.#"',
+      '/#f\.#( #sg\.# și #pl\.#)?/',
       '"#g.-d.# #art.#"',
-      '"#g.-d.# #m.# și #f.#"',
-      '"#g.-d.# #pl.# #m.# și #f.#"',
-      '"#g.-d.# #sg.# #m.# și #f.#"',
-      '"#g.-d.# #pl.#"',
-      '"#g.-d.#"',
-      '"#pl.# #m.# și #f.#"',
-      '"#pl.#"',
-      '"#s.# #f.# #sg.# și #pl.#"',
-      '"#s.# #f.#"',
+      '/#g\.-d\.#( #(pl|sg)\.#)?( #m\.# și #f\.#)?/',
+      '/#pl\.#( #m\.# și #f\.#)?/',
+      '/#s\.# #f\.#( #sg\.# și #pl\.#)?/',
     ],
     'adjSlashInflection' => [
       '"#ac.# #m.#"',
@@ -285,19 +274,14 @@ class Doom3Parser extends Parser {
     'nounInflection' => [
       '"#art.# #m.#"',
       '"#art.#"',
-      '"#g.-d.# #art.#"',
-      '"#g.-d.#"',
+      '/#g.-d\.#( #art\.#)?/',
       '"#neart.#"',
       '"#pl.# #art.#"',
-      '"#pl.# #m.#"',
-      '"#pl.# #n.#"',
-      '"#pl.#"',
-      '"#voc.# #neart.#"',
-      '"#voc.#"',
+      '/#pl\.#( #[fmn]\.#)?/',
+      '/#voc\.#( #neart\.#)?/',
     ],
     'nounSlashInflection' => [
-      '"#m.#"',
-      '"#n.#"',
+      '/#[fmn]\.#/',
     ],
     'verbInflection' => [
       'impersonalTense',

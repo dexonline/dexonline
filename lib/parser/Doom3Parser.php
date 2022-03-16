@@ -336,7 +336,7 @@ class Doom3Parser extends Parser {
       '/\$[-a-zăâéîșț\'\/\(\) ]+\$/ui',
     ],
     'example' => [
-      '/\(((dar:|în:|mai ales în:|și:|și în:) )?\$[-a-zăâîșț0-9#!?;,.~\/\(\) ]+\$\)/ui',
+      '/\(((dar:|în:|mai ales în:|și:|și în:) )?\$[-a-zăâîșț0-9#!?;,.=~\/\(\) ]+\$\)/ui',
     ],
 
     // abbrevation and symbol
@@ -479,11 +479,6 @@ class Doom3Parser extends Parser {
  exotic pos:
  * @!Altețele Voastre@ #loc.# #pr.# #pl.#
  * @+Altețele Voastre Regale@ #loc.# #pr.# #pl.# + #adj.#
-
- compound pos with inflections or examples:
- * @+bunică-miu/-tu/-su@ (#fam.#, #pop.#) #s.# #m.# + #adj.# #pr.#, #g.-d.# $lui bunică-miu/-tu/-su$
- idem bunicu-meu, cumnatu-meu, cumnatu-miu
- * @+ce-i^2@ (în tempo rapid) #pr.# + #vb.#◼◼◼ ($~ cu el? = Ce e cu el?$)
 
  compound pos with addon pos:
  * @+cât privește@ #adv.# + #vb.# (+ #s.# #sg.# / #pl.#: $~ condițiile$)

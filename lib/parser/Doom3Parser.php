@@ -130,7 +130,7 @@ class Doom3Parser extends Parser {
     'body' => [
       // Make sure noun stays before adjective. Otherwise we'll go down the
       // wrong branch for 's.  m.', which also occurs in 'adj. m., s. m.'.
-      'compoundPosList (ws example)?',
+      'compoundPosList (ws example)? adjective coda*',
       'nounLikePosList (ws example)? noun coda*',
       'adjectiveLikePosList (ws example)? adjective coda*',
       'invariablePosList (ws example)? coda*',
@@ -219,6 +219,7 @@ class Doom3Parser extends Parser {
 
     'verbLikePosList' => [
       'verbLikePosWithInfo+", "',
+      '"#loc.# #vb.#" (ws "#refl.#")? ","? ws "#v.#" ws reference',
     ],
     'verbLikePosWithInfo' => [
       '(infoBlock ws)? verbLikePos (ws infoBlock)?'
@@ -235,7 +236,7 @@ class Doom3Parser extends Parser {
 
     // inflected forms with optional details (hyphenation, pronunciation, abbreviation, examples)
     'reference' => [
-      '/@(!)?[a-zăâîșț]+(\^\d+)?@/',
+      '/@(!)?[a-zăâîșț\']+(\^\d+|\^\{\d+\})?@/',
     ],
     'adjective' => [
       '/[;,]/ ws (microdef ws)? (infoBlock ws)? adjInflectionList ws formWithDetails adjective',
@@ -270,6 +271,7 @@ class Doom3Parser extends Parser {
       '"f."', '"#f.#"',
       '"g.-d. art."', '"#g.-d.# #art.#"',
       '"g.-d. m. și f."', '"#g.-d.# #m.# și #f.#"',
+      '"g.-d. pl. m. și f."', '"#g.-d.# #pl.# #m.# și #f.#"',
       '"g.-d. sg. m. și f."', '"#g.-d.# #sg.# #m.# și #f.#"',
       '"g.-d. pl."', '"#g.-d.# #pl.#"',
       '"g.-d."', '"#g.-d.#"',
@@ -386,15 +388,15 @@ class Doom3Parser extends Parser {
     $rep = str_replace('(#desp.# -$', '(#desp.# $-', $rep);
     $rep = str_replace('$-)', '-$)', $rep);
 
-    // migrate italics before punctuation
-    $rep = preg_replace('/([;,])\$ /', '\$$1 ', $rep);
+    // migrate bold and italics before punctuation
+    $rep = preg_replace('/([;,])([@$]) /', '$2$1 ', $rep);
 
     // migrate italics inside parentheses and brackets
     $rep = preg_replace('/([\)\]])\$(?=([,; ]|$))/', '\$$1', $rep);
     $rep = str_replace(' $[', ' [$', $rep);
     $rep = str_replace(' $(', ' ($', $rep);
 
-    // migrate edition markers inside bold
+    // migrate novelty markers inside bold
     $rep = preg_replace('/^([!+])@/', '@$1', $rep);
 
     // tildes in title should be bold
@@ -442,7 +444,7 @@ class Doom3Parser extends Parser {
  * occurrences of "etc.", "dar:", "și:"
 
  wrong order of hyphenation / pronunciation / info / microdefinition blocks:
- * body, câteodată, cocleț, cote d'ivoire, disjunctivă, după-masă
+ * body, câteodată, cel ce, cocleț, cote d'ivoire, disjunctivă, după-masă
 
  complex pronunciations:
  * @+Cincizecimea@ (sărbătoare) [(în tempo rapid) $Cinci$ #pron.# $cin$]
@@ -474,14 +476,6 @@ class Doom3Parser extends Parser {
  multiple forms for one inflection, with infoBlocks
  * amândoi ... #g.-d.# (antepus) $amânduror$, (singur/postpus) $amândurora
 
- reference with pos
- * @+băga în seamă (a ~)@ (a da atenție) #loc.# #vb.# #v.# @băga@
- idem avea de a face, da de gol, da de știre, da foc, da năvală, da seamă
-
- reference with pos inflected forms:
- * ad'uce aminte loc. vb. v. aduce; imper. 2 sg. afirm. ...
- idem bate joc, da seama,
-
  exotic pos:
  * @!Altețele Voastre@ #loc.# #pr.# #pl.#
  * @+Altețele Voastre Regale@ #loc.# #pr.# #pl.# + #adj.#
@@ -490,10 +484,6 @@ class Doom3Parser extends Parser {
  * @+bunică-miu/-tu/-su@ (#fam.#, #pop.#) #s.# #m.# + #adj.# #pr.#, #g.-d.# $lui bunică-miu/-tu/-su$
  idem bunicu-meu, cumnatu-meu, cumnatu-miu
  * @+ce-i^2@ (în tempo rapid) #pr.# + #vb.#◼◼◼ ($~ cu el? = Ce e cu el?$)
- * @+cel care@ #pr.# #m.# + #pr.#, #g.-d.# ...
- * @!cel ce@ #pr.# #m.# + #pr.#, #g.-d.# ...
- * @+deținut politic@ #s.# #m.# + #adv.#, #pl.# ...
- * @+deținută politic@ #s.# #f.# + #adv.#, #pl.# ...
 
  compound pos with addon pos:
  * @+cât privește@ #adv.# + #vb.# (+ #s.# #sg.# / #pl.#: $~ condițiile$)

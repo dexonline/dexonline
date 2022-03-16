@@ -223,11 +223,11 @@ class Preload {
       ->order_by_asc('apocope')
       ->find_many();
 
+    self::initKeys(self::$lexemeInflectedForms, $lexemeIds, []);
     foreach ($inflectedForms as $if) {
       self::$lexemeInflectedForms[$if->lexemeId][] = $if;
     }
 
-    self::initKeys(self::$lexemeInflectedForms, $lexemeIds, []);
     $inflectionIds = Util::objectProperty($inflectedForms, 'inflectionId');
     self::loadInflections($inflectionIds);
   }

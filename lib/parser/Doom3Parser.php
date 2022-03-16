@@ -62,7 +62,7 @@ class Doom3Parser extends Parser {
       '"(" titleText (titleParent titleText?)* ")"',
     ],
     'titleText' => [
-      '/(\pL|[-.,~\'\/ ]|\^(\d+|\{\d+\}))+/ui',
+      '/(\pL|[-.,~\\\\\'\/ ]|\^(\d+|\{\d+\}))+/ui',
     ],
 
     // a microdefinition e.g. (regiune din SUA)

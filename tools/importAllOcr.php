@@ -10,7 +10,6 @@ function main() {
   $ocrs = Model::factory('OCR')
     ->where('status', 'raw')
     ->where('sourceId', 88)
-    ->where_not_in('id', [391440])
     ->find_many();
 
   foreach ($ocrs as $ocr) {

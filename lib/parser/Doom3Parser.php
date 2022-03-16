@@ -103,7 +103,7 @@ class Doom3Parser extends Parser {
     ],
     'pronUnformatted' => [
       // use four backslashes to indicate that backslashes are allowed
-      '/(\pL|[-\\\\\'\/^{} ])+/ui',
+      '/(\pL|[-\\\\\'\/^{}, ])+/ui',
     ],
 
     // hyphenation e.g. (desp. $a-bi-o-$)

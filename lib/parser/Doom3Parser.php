@@ -140,7 +140,7 @@ class Doom3Parser extends Parser {
 
     'adjectiveLikePosList' => [
       'adjectiveLikePosWithInfo+", "',
-      'adjectiveLikePosWithInfo ws? "/" ws? infoBlock? ws? adjectiveLikePosList',
+      'adjectiveLikePosWithInfo ws "/" ws (infoBlock ws)? adjectiveLikePosList',
       // one or more alternative parts of speech:
       // @+demidulce@ #adj.# #m.# și #f.# (+ #s.# #n.#: $vin ~$, + #s.# #f.#: $șampanie ~$);
       'adjectiveLikePos ws "(" altAdjectivePos+", " ")"',
@@ -202,7 +202,7 @@ class Doom3Parser extends Parser {
 
     'nounLikePosList' => [
       'nounLikePosWithInfo+", "',
-      'nounLikePosWithInfo ws? "/" ws? infoBlock? ws? nounLikePosList',
+      'nounLikePosWithInfo ws? "/" ws (infoBlock ws)? nounLikePosList',
     ],
     'nounLikePosWithInfo' => [
       '(infoBlock ws)? nounLikePos (ws infoBlock)?'
@@ -240,19 +240,19 @@ class Doom3Parser extends Parser {
     'adjective' => [
       '/[;,]/ ws (microdef ws)? (infoBlock ws)? adjInflectionList ws formWithDetails adjective',
       // e.g. atât^1
-      'ws? "/" ws? (infoBlock ws)? (adjSlashInflection ws)? formWithDetails adjective',
+      '" / " (infoBlock ws)? (adjSlashInflection ws)? formWithDetails adjective',
       '""',
     ],
     'noun' => [
       '/[;,]/ ws (microdef ws)? (infoBlock ws)? nounInflection ws formWithDetails noun',
       // used for nouns with different plurals, e.g. "pl. m. $accelerat'ori$ /n. $accelerato'are$"
-      'ws? "/" ws? (infoBlock ws)? (nounSlashInflection ws)? formWithDetails noun',
+      '" / " (infoBlock ws)? (nounSlashInflection ws)? formWithDetails noun',
       '""',
     ],
     'verb' => [
       '/[;,]/ ws (microdef ws)? (infoBlock ws)? verbInflection ws formWithDetails verb',
       // used for verbs with different conjugations, e.g. "intranz. $ajungi$ / tranz. $ajunge$"
-      'ws? "/" ws? (infoBlock ws)? (verbSlashInflection ws)? formWithDetails verb',
+      '" / " (infoBlock ws)? (verbSlashInflection ws)? formWithDetails verb',
       '""',
     ],
 

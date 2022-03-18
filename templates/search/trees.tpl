@@ -42,7 +42,12 @@
     {if count($t->getEtymologies())}
       <div class="etymology">
         <h6 class="etymology-heading">{t}etymology{/t}:</h6>
-        {include "bits/meaningTree.tpl" meanings=$t->getEtymologies() etymologies=true}
+
+        <ul class="meaningTree">
+          <li>
+            {include "bits/meaningTree.tpl" meanings=$t->getEtymologies() etymologies=true}
+          </li>
+        </ul>
       </div>
     {/if}
   </div>

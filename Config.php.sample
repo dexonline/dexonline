@@ -225,6 +225,7 @@ class Config {
 
   // Maps Definition.urlName to ParserClassName (file should reside in lib/parser/)
   const PARSERS = [
+    'doom3' => 'Doom3Parser',
     'mda2' => 'Mda2Parser',
   ];
 

@@ -200,7 +200,7 @@
               disabled
               title="stagiarii nu pot modifica definiții introduse de altcineva"
               {/if}>
-              salvează și preia următoarea definiție OCR
+              salvează și preia urm. def. OCR
             </button>
           {/if}
 

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2022-03-04 14:30+0200\n"
-"PO-Revision-Date: 2022-03-04 14:30+0200\n"
+"POT-Creation-Date: 2022-03-18 13:50+0200\n"
+"PO-Revision-Date: 2022-03-18 13:50+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -104,11 +104,7 @@ msgstr "compus"
 msgid "Inflection sources"
 msgstr "Surse flexiune"
 
-#: templates/bits/meaningSources.tpl:3
-msgid "show sources"
-msgstr "arată sursele"
-
-#: templates/bits/meaningTree.tpl:43
+#: templates/bits/meaningTree.tpl:48
 msgid "one example"
 msgid_plural "%1 examples"
 msgstr[0] "un exemplu"
@@ -300,7 +296,7 @@ msgid "characters"
 msgstr "caractere"
 
 #: templates/bits/top.tpl:7 templates/games/hangman.tpl:48
-#: templates/games/mill.tpl:80 lib/Tab.php:40
+#: templates/games/mill.tpl:80 lib/Tab.php:48
 msgid "definitions"
 msgstr "definiții"
 
@@ -362,7 +358,7 @@ msgstr "spânzurătoarea"
 msgid "Lives remaining"
 msgstr "Vieți rămase"
 
-#: templates/games/hangman.tpl:18 lib/Tab.php:43
+#: templates/games/hangman.tpl:18 lib/Tab.php:51
 msgid "images"
 msgstr "imagini"
 
@@ -548,8 +544,8 @@ msgstr ""
 msgid "Show models for"
 msgstr "Arată modelele pentru"
 
-#: templates/games/scrabble.tpl:184 templates/search.tpl:300
-#: templates/search.tpl:308 templates/search.tpl:310
+#: templates/games/scrabble.tpl:184 templates/search.tpl:265
+#: templates/search.tpl:273 templates/search.tpl:275
 msgid "show"
 msgstr "arată"
 
@@ -917,74 +913,74 @@ msgstr "definiție"
 msgid "and paradigm"
 msgstr "și paradigmă"
 
-#: templates/search.tpl:90
+#: templates/search.tpl:55
 msgid "Definition with ID"
 msgstr "Definiția cu ID-ul"
 
-#: templates/search.tpl:102
+#: templates/search.tpl:67
 msgid "One definition contains all the words"
 msgid_plural "%1 definitions contain all the words"
 msgstr[0] "O definiție conține toate cuvintele căutate"
 msgstr[1] "%1 definiții conțin toate cuvintele căutate"
 msgstr[2] "%1 de definiții conțin toate cuvintele căutate"
 
-#: templates/search.tpl:107 templates/search.tpl:174
+#: templates/search.tpl:72 templates/search.tpl:139
 msgid "(at most %1 shown)"
 msgstr "(cel mult %1 afișate)"
 
-#: templates/search.tpl:110
+#: templates/search.tpl:75
 msgid "No definitions contain all the words"
 msgstr "Nicio definiție nu conține toate cuvintele căutate"
 
-#: templates/search.tpl:116
+#: templates/search.tpl:81
 msgid "The following words were ignored because they are too common:"
 msgstr "Următoarele cuvinte au fost ignorate deoarece sunt prea comune:"
 
-#: templates/search.tpl:130
+#: templates/search.tpl:95
 msgid "There is no entry with the given ID."
 msgstr "Nu există nicio intrare cu ID-ul căutat."
 
-#: templates/search.tpl:140 templates/search.tpl:203
+#: templates/search.tpl:105 templates/search.tpl:168
 msgid "One definition for %2"
 msgid_plural "%1 definitions for %2"
 msgstr[0] "O definiție pentru %2"
 msgstr[1] "%1 definiții pentru %2"
 msgstr[2] "%1 de definiții pentru %2"
 
-#: templates/search.tpl:146 templates/search.tpl:209
+#: templates/search.tpl:111 templates/search.tpl:174
 msgid "No definitions for %1"
 msgstr "Nicio definiție pentru %1"
 
-#: templates/search.tpl:158
+#: templates/search.tpl:123
 msgid "for"
 msgstr "pentru"
 
-#: templates/search.tpl:164
+#: templates/search.tpl:129
 msgid "One result for <strong>%2</strong>"
 msgid_plural "%1 results for <strong>%2</strong>"
 msgstr[0] "Un rezultat pentru <strong>%2</strong>"
 msgstr[1] "%1 rezultate pentru <strong>%2</strong>"
 msgstr[2] "%1 de rezultate pentru <strong>%2</strong>"
 
-#: templates/search.tpl:170 templates/search.tpl:275
+#: templates/search.tpl:135 templates/search.tpl:240
 msgid "No results for <strong>%1</strong>"
 msgstr "Niciun rezultat pentru <strong>%1</strong>"
 
-#: templates/search.tpl:190
+#: templates/search.tpl:155
 msgid "One entry"
 msgid_plural "%1 entries"
 msgstr[0] "O intrare"
 msgstr[1] "%1 intrări"
 msgstr[2] "%1 de intrări"
 
-#: templates/search.tpl:223
+#: templates/search.tpl:188
 msgid "One definition"
 msgid_plural "%1 definitions"
 msgstr[0] "O definiție"
 msgstr[1] "%1 definiții"
 msgstr[2] "%1 de definiții"
 
-#: templates/search.tpl:240
+#: templates/search.tpl:205
 msgid "One definition matches at least two words"
 msgid_plural "%1 definitions match at least two words"
 msgstr[0] "O definiție se potrivește cu cel puțin două din cuvintele căutate"
@@ -992,12 +988,12 @@ msgstr[1] "%1 definiții se potrivesc cu cel puțin două din cuvintele căutate
 msgstr[2] ""
 "%1 de definiții se potrivesc cu cel puțin două din cuvintele căutate"
 
-#: templates/search.tpl:245
+#: templates/search.tpl:210
 msgid "No definitions match at least two words"
 msgstr ""
 "Nicio definiție nu se potrivește cu cel puțin două din cuvintele căutate"
 
-#: templates/search.tpl:250
+#: templates/search.tpl:215
 msgid ""
 "If the results are inadequate, you can look up individual words or you can "
 "search"
@@ -1005,34 +1001,34 @@ msgstr ""
 "Dacă rezultatele nu sunt mulțumitoare, puteți căuta cuvintele separat sau "
 "puteți căuta"
 
-#: templates/search.tpl:251
+#: templates/search.tpl:216
 msgid "full-text"
 msgstr "în tot textul definițiilor"
 
-#: templates/search.tpl:256
+#: templates/search.tpl:221
 msgid "At most 5 words are allowed. The following words were ignored:"
 msgstr "Sunt permise maximum 5 cuvinte. Următoarele cuvinte au fost ignorate:"
 
-#: templates/search.tpl:269
+#: templates/search.tpl:234
 msgid ""
 "The word <strong>%1</strong> is not in the dictionary. Here are some "
 "suggestions:"
 msgstr ""
 "Cuvântul <strong>%1</strong> nu este în dicționar. Iată câteva sugestii:"
 
-#: templates/search.tpl:295 lib/models/InflectedForm.php:72
+#: templates/search.tpl:260 lib/models/InflectedForm.php:72
 msgid "unrecommended or incorrect form"
 msgstr "formă nerecomandată sau greșită"
 
-#: templates/search.tpl:299 templates/search.tpl:307 templates/search.tpl:311
+#: templates/search.tpl:264 templates/search.tpl:272 templates/search.tpl:276
 msgid "hide"
 msgstr "ascunde"
 
-#: templates/search.tpl:314
+#: templates/search.tpl:279
 msgid "elisions and long verb forms"
 msgstr "forme elidate și forme verbale lungi"
 
-#: templates/search.tpl:359
+#: templates/search.tpl:324
 msgid ""
 "<b>The Synthesis tab</b> shows a condensed list of definitions compiled by "
 "the dexonline team. The original definitions are available on the "
@@ -1089,15 +1085,19 @@ msgstr ""
 msgid "of which"
 msgstr "din care"
 
-#: templates/search/trees.tpl:22
+#: templates/search/trees.tpl:6
+msgid "show sources"
+msgstr "arată sursele"
+
+#: templates/search/trees.tpl:33
 msgid "edit"
 msgstr "editează"
 
-#: templates/search/trees.tpl:32
+#: templates/search/trees.tpl:43
 msgid "etymology"
 msgstr "etimologie"
 
-#: templates/search/trees.tpl:41
+#: templates/search/trees.tpl:52
 msgid ""
 "The full definition list is available on the <a id=\"%1\" href=\"#"
 "\">results</a> tab."
@@ -1402,19 +1402,19 @@ msgstr "precedentul"
 msgid "next"
 msgstr "următorul"
 
-#: lib/Tab.php:41 www/search.php:340
+#: lib/Tab.php:49 www/search.php:343
 msgid "conjugations"
 msgstr "conjugări"
 
-#: lib/Tab.php:41 www/search.php:341
+#: lib/Tab.php:49 www/search.php:344
 msgid "declensions"
 msgstr "declinări"
 
-#: lib/Tab.php:42
+#: lib/Tab.php:50
 msgid "synthesis"
 msgstr "sinteză"
 
-#: lib/Tab.php:44
+#: lib/Tab.php:52
 msgid "articles"
 msgstr "articole"
 
@@ -1678,7 +1678,7 @@ msgstr[0] "Un cuvânt al zilei ales la întâmplare"
 msgstr[1] "%d cuvinte ale zilei alese la întâmplare"
 msgstr[2] "%d de cuvinte ale zilei alese la întâmplare"
 
-#: www/search.php:215
+#: www/search.php:217
 #, php-format
 msgid "We redirected you automatically from <b>%s</b> to <b>%s</b>."
 msgstr "V-am redirecționat automat de la <b>%s</b> la <b>%s</b>."

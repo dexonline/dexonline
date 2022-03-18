@@ -3,6 +3,9 @@ $(function() {
   // define a fake meaning type to distinguish the meaning and submeaning buttons
   const TYPE_SUBMEANING = -1;
 
+  const SOURCES_CHECKBOX_ID = 'tree-check-sources';
+  const SOURCES_LS_KEY = 'tree-check-sources';
+
   var stem = null;
   var anyChanges = false;
   var editable = $('#editable').length;
@@ -16,8 +19,14 @@ $(function() {
       renumber();
     }
 
-    $('.meaning-sources a').click(toggleSources);
     $('.collapse-root').click(toggleSubtree);
+
+    $('#' + SOURCES_CHECKBOX_ID).change(checkSourcesChange);
+    if (lsGet(SOURCES_LS_KEY, true)) {
+      $('#' + SOURCES_CHECKBOX_ID).prop('checked', true);
+      toggleSources();
+    }
+
   }
 
   function initEditable() {
@@ -558,9 +567,25 @@ $(function() {
     deletePopover.hide();
   }
 
+  // Returns a boolean value from localStorage. Note that localStorage can
+  // only store string values like 'false'.
+  function lsGet(key, defaultValue) {
+    var r = localStorage.getItem(key);
+    switch (r) {
+      case 'false': return false;
+      case 'true': return true;
+      default: return defaultValue;
+    }
+  }
+
+  function checkSourcesChange() {
+    toggleSources();
+    var checked = $('#' + SOURCES_CHECKBOX_ID).prop('checked');
+    localStorage.setItem(SOURCES_LS_KEY, checked);
+  }
+
   function toggleSources() {
-    $(this).siblings('.tag-group').toggle();
-    return false;
+    $('.meaning-sources').toggle();
   }
 
   function toggleSubtree() {

@@ -1,3 +1,14 @@
+<div class="card small mb-3">
+  <div class="card-body">
+    <div class="form-check">
+      <label class="form-check-label">
+        <input class="form-check-input" type="checkbox" id="tree-check-sources">
+        {t}show sources{/t}
+      </label>
+    </div>
+  </div>
+</div>
+
 {foreach $trees as $t}
   <h3 class="tree-heading">
     {$t->description}

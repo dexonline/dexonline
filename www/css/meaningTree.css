@@ -147,15 +147,9 @@
 }
 
 .meaning-sources {
+  display: none;
+  line-height: 100%; /* prevents a vertical glitch when toggling sources */
   vertical-align: 10%;
-}
-
-.meaning-sources a,
-.meaning-sources a:focus,
-.meaning-sources a:hover {
-  color: var(--bs-gray-500) !important;
-  font-size: 80%;
-  text-decoration: none;
 }
 
 .exampleBody {
@@ -190,10 +184,6 @@
 
 .tab-pane > ul {
   margin-bottom: 20px;
-}
-
-.meaning-sources .tag-group {
-  display: none;
 }
 
 @media (max-width: 991px) {

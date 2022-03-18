@@ -2,13 +2,18 @@
   <div class="card-body">
     {include "bs/checkbox.tpl"
       divClass="form-check-inline"
-      inputId="tree-check-sources"
-      label="{t}show sources{/t}"
+      inputId="tree-check-subtrees"
+      label="{t}show secondary meanings{/t}"
       name=""}
     {include "bs/checkbox.tpl"
       divClass="form-check-inline"
       inputId="tree-check-examples"
       label="{t}show examples{/t}"
+      name=""}
+    {include "bs/checkbox.tpl"
+      divClass="form-check-inline"
+      inputId="tree-check-sources"
+      label="{t}show sources{/t}"
       name=""}
   </div>
 </div>

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2022-03-18 14:21+0200\n"
-"PO-Revision-Date: 2022-03-18 14:22+0200\n"
+"POT-Creation-Date: 2022-03-18 15:27+0200\n"
+"PO-Revision-Date: 2022-03-18 15:27+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -103,13 +103,6 @@ msgstr "compus"
 #: templates/bits/lexeme.tpl:25
 msgid "Inflection sources"
 msgstr "Surse flexiune"
-
-#: templates/bits/meaningTree.tpl:48
-msgid "one example"
-msgid_plural "%1 examples"
-msgstr[0] "un exemplu"
-msgstr[1] "%1 exemple"
-msgstr[2] "%1 de exemple"
 
 #: templates/bits/multiParadigm.tpl:6
 msgid "entry"
@@ -1086,22 +1079,26 @@ msgid "of which"
 msgstr "din care"
 
 #: templates/search/trees.tpl:6
-msgid "show sources"
-msgstr "arată sursele"
+msgid "show secondary meanings"
+msgstr "arată sensurile secundare"
 
 #: templates/search/trees.tpl:11
 msgid "show examples"
 msgstr "arată exemplele"
 
-#: templates/search/trees.tpl:37
+#: templates/search/trees.tpl:16
+msgid "show sources"
+msgstr "arată sursele"
+
+#: templates/search/trees.tpl:42
 msgid "edit"
 msgstr "editează"
 
-#: templates/search/trees.tpl:47
+#: templates/search/trees.tpl:52
 msgid "etymology"
 msgstr "etimologie"
 
-#: templates/search/trees.tpl:56
+#: templates/search/trees.tpl:61
 msgid ""
 "The full definition list is available on the <a id=\"%1\" href=\"#"
 "\">results</a> tab."
@@ -1686,3 +1683,9 @@ msgstr[2] "%d de cuvinte ale zilei alese la întâmplare"
 #, php-format
 msgid "We redirected you automatically from <b>%s</b> to <b>%s</b>."
 msgstr "V-am redirecționat automat de la <b>%s</b> la <b>%s</b>."
+
+#~ msgid "one example"
+#~ msgid_plural "%1 examples"
+#~ msgstr[0] "un exemplu"
+#~ msgstr[1] "%1 exemple"
+#~ msgstr[2] "%1 de exemple"

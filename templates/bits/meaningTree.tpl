@@ -1,8 +1,9 @@
 {* Recursively displays a meaning tree. *}
-{$root=$root|default:true}
+{$class=$class|default:'meaningTree'}
 {$etymologies=$etymologies|default:false}
+{$root=$root|default:true}
 {if $meanings}
-  <ul {if $root}class="meaningTree"{/if}>
+  <ul class="{$class}">
     {foreach $meanings as $t}
       <li>
         <div
@@ -15,11 +16,6 @@
                 <span class="etymologyBc">({$t.lastBreadcrumb})</span>
               {/if}
             {else}
-              {if $root && ($totalTreeSize > Config::SEARCH_COLLAPSE_ROOTS)}
-                <a class="collapse-root muted-link text-decoration-none" href="#">
-                  {include "bits/icon.tpl" i=expand_less}
-                </a>
-              {/if}
               <span class="bc">{$t.meaning->breadcrumb}</span>
               <span class="typeName">{$t.meaning->getDisplayTypeName()}</span>
             {/if}
@@ -42,11 +38,11 @@
 
         {if !empty($t.examples)}
           <div class="meaning-examples">
-            {include "bits/meaningTree.tpl" meanings=$t.examples root=false}
+            {include "bits/meaningTree.tpl" class="" meanings=$t.examples root=false}
           </div>
         {/if}
 
-        {include "bits/meaningTree.tpl" meanings=$t.children root=false}
+        {include "bits/meaningTree.tpl" class="subtree" meanings=$t.children root=false}
       </li>
     {/foreach}
   </ul>

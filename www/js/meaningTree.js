@@ -3,6 +3,8 @@ $(function() {
   // define a fake meaning type to distinguish the meaning and submeaning buttons
   const TYPE_SUBMEANING = -1;
 
+  const SUBTREES_CHECKBOX_ID = 'tree-check-subtrees';
+  const SUBTREES_LS_KEY = 'tree-check-subtrees';
   const SOURCES_CHECKBOX_ID = 'tree-check-sources';
   const SOURCES_LS_KEY = 'tree-check-sources';
   const EXAMPLES_CHECKBOX_ID = 'tree-check-examples';
@@ -21,7 +23,11 @@ $(function() {
       renumber();
     }
 
-    $('.collapse-root').click(toggleSubtree);
+    $('#' + SUBTREES_CHECKBOX_ID).change(checkSubtreesChange);
+    if (lsGet(SUBTREES_LS_KEY, true)) {
+      $('#' + SUBTREES_CHECKBOX_ID).prop('checked', true);
+      toggleSubtrees();
+    }
 
     $('#' + SOURCES_CHECKBOX_ID).change(checkSourcesChange);
     if (lsGet(SOURCES_LS_KEY, false)) {
@@ -586,6 +592,16 @@ $(function() {
     }
   }
 
+  function checkSubtreesChange() {
+    toggleSubtrees();
+    var checked = $('#' + SUBTREES_CHECKBOX_ID).prop('checked');
+    localStorage.setItem(SUBTREES_LS_KEY, checked);
+  }
+
+  function toggleSubtrees() {
+    $('.subtree').toggle();
+  }
+
   function checkSourcesChange() {
     toggleSources();
     var checked = $('#' + SOURCES_CHECKBOX_ID).prop('checked');
@@ -604,15 +620,6 @@ $(function() {
 
   function toggleExamples() {
     $('.meaning-examples').toggle();
-  }
-
-  function toggleSubtree() {
-    var container = $(this).closest('.meaningContainer');
-    container.find('.defDetails').stop().slideToggle();
-    container.siblings('ul').stop().slideToggle();
-    container.siblings('.meaning-examples').toggle(); /* leverage BS collapse */
-    $(this).toggleClass('active');
-    return false;
   }
 
   init();

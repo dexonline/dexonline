@@ -79,9 +79,6 @@ class Config {
   const SEARCH_JSON_API = true;
   const SEARCH_XML_API = true;
 
-  // Show a collapse icon next to tree roots when the total size exceeds this.
-  const SEARCH_COLLAPSE_ROOTS = 80;
-
   /*********************** Functional test options ***********************/
 
   // When true, use the test database. Only needed to run functional tests.

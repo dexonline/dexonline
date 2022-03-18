@@ -115,16 +115,6 @@
   font-size: 18px;
 }
 
-.collapse-root {
-  display: inline-block;
-  font-size: 18px;
-  transition: all 0.5s;
-}
-
-.collapse-root.active {
-  transform: rotate(180deg);
-}
-
 .etymology {
   font-size: 80%;
 }
@@ -142,8 +132,8 @@
   padding-left: 42px;
 }
 
-.muted-link {
-  color: var(--bs-gray-700) !important;
+.subtree {
+  display: none;
 }
 
 .meaning-sources {
@@ -155,6 +145,7 @@
 .exampleBody {
   color: var(--bs-gray-700);
 }
+
 .meaning-examples {
   display: none;
   padding-left: 42px;

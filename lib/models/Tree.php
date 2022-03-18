@@ -156,35 +156,6 @@ class Tree extends BaseObject implements DatedObject {
   }
 
   /**
-   * Collects the lexemes of all entries associated with this tree.
-   * Returns the list of lexemes sorted with main lexemes first.
-   * Excludes duplicate lexemes and lexemes that have a form equal to the tree's description.
-   **/
-  function getPrintableLexemes() {
-    $lexemes = Preload::getTreeLexemes($this->id);
-
-    // if any lexemes are verbs, remove participle and long infinitive lexemes
-    $verbs = array_filter($lexemes, function($l) {
-      return in_array($l->modelType, ['V', 'VT']);
-    });
-
-    if (count($verbs)) {
-      $lexemes = array_filter($lexemes, function($l) {
-        return !in_array($l->modelType, ['IL', 'PT']);
-      });
-    }
-
-    // only now remove lexemes equal to the tree's description;
-    // we couldn't do this before because we needed the verbs
-    $shortDesc = $this->getShortDescription();
-    $lexemes =  array_filter($lexemes, function($l) use ($shortDesc) {
-      return $l->formNoAccent != $shortDesc;
-    });
-
-    return $lexemes;
-  }
-
-  /**
    * Counts trees not associated with any entries.
    **/
   static function countUnassociated() {

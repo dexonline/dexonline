@@ -103,7 +103,6 @@ class Preload {
 
     $treeIds = Util::objectProperty($trees, 'id');
     self::loadTreeEntries($treeIds);
-    self::loadTreeLexemes($treeIds);
     self::loadTreeMeanings($treeIds);
     self::loadTreeTags($treeIds);
   }
@@ -661,49 +660,6 @@ class Preload {
   static function getTreeEntries($treeId) {
     self::loadTreeEntries([$treeId]);
     return self::$treeEntries[$treeId];
-  }
-
-  /******************* a tree's lexemes (via entries) *******************/
-
-  /**
-   * Maps tree IDs to lists of lexemes.
-   */
-  private static array $treeLexemes = [];
-
-  /**
-   * Loads lexemes for all trees with the given IDs.
-   */
-  static function loadTreeLexemes(array $treeIds) {
-    $treeIds = self::filterIds($treeIds, self::$treeLexemes);
-
-    if (empty($treeIds)) {
-      return;
-    }
-
-    $lexemes = Model::factory('Lexeme')
-      ->table_alias('l')
-      ->select('l.*')
-      ->select('te.treeId')
-      ->distinct()
-      ->join('EntryLexeme', ['l.id', '=', 'el.lexemeId'], 'el')
-      ->join('TreeEntry', ['el.entryId', '=', 'te.entryId'], 'te')
-      ->where_in('te.treeId', $treeIds)
-      ->group_by('l.formNoAccent')
-      ->order_by_desc('el.main')
-      ->order_by_asc('el.lexemeRank')
-      ->order_by_asc('l.formNoAccent')
-      ->find_many();
-
-    self::initKeys(self::$treeLexemes, $treeIds, []);
-    foreach ($lexemes as $l) {
-      self::$treeLexemes[$l->treeId][] = $l;
-      unset($l->treeId);
-    }
-  }
-
-  static function getTreeLexemes($treeId) {
-    self::loadTreeLexemes([$treeId]);
-    return self::$treeLexemes[$treeId];
   }
 
   /************************* a tree's meanings *************************/

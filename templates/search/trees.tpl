@@ -22,14 +22,6 @@
   <h3 class="tree-heading">
     {$t->description}
 
-    <span class="variantList">
-      {foreach $t->getPrintableLexemes() as $l}
-        <span {if !$l->main}class="text-muted"{/if}>
-          {$l->formNoAccent}
-        </span>
-      {/foreach}
-    </span>
-
     <span class="ms-2">
       {foreach $t->getTags() as $tag}
         {include "bits/tag.tpl" t=$tag}

@@ -265,6 +265,7 @@ $(function() {
 
   function mentionHoverIn() {
     var elem = $(this);
+    elem.data('inside', 1)
 
     if (elem.data('loaded')) {
       $(this).popover('show');
@@ -272,20 +273,24 @@ $(function() {
       var meaningId = elem.attr('title');
       $.getJSON(wwwRoot + 'ajax/getMeaningById', { id: meaningId })
         .done(function(resp) {
-          elem.removeAttr('title');
+          var title = resp.description + ' (' + resp.breadcrumb + ')';
+          elem.attr('title', title);
           elem.data('loaded', 1);
           var p = new bootstrap.Popover(elem, {
             content: resp.html,
             html: true,
-            title: resp.description + ' (' + resp.breadcrumb + ')',
+            title: title,
           });
-          p.show();
+          if (elem.data('inside')) {
+            p.show();
+          }
         });
     }
   }
 
   function mentionHoverOut() {
     $(this).popover('hide');
+    $(this).data('inside', 0)
   }
 });
 

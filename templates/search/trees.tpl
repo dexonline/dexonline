@@ -1,11 +1,15 @@
 <div class="card small mb-3">
   <div class="card-body">
-    <div class="form-check">
-      <label class="form-check-label">
-        <input class="form-check-input" type="checkbox" id="tree-check-sources">
-        {t}show sources{/t}
-      </label>
-    </div>
+    {include "bs/checkbox.tpl"
+      divClass="form-check-inline"
+      inputId="tree-check-sources"
+      label="{t}show sources{/t}"
+      name=""}
+    {include "bs/checkbox.tpl"
+      divClass="form-check-inline"
+      inputId="tree-check-examples"
+      label="{t}show examples{/t}"
+      name=""}
   </div>
 </div>
 

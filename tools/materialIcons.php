@@ -36,6 +36,7 @@ const CODEPOINTS = [
   'filter_alt',
   'first_page',
   'flag',
+  'format_quote',
   'help',
   'history',
   'hourglass_empty',

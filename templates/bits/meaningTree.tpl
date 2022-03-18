@@ -36,32 +36,13 @@
 
           <div class="defDetails">
             {include "bits/meaningRelations.tpl" relations=$t.relations defaultLabel=true}
-
-            {if !empty($t.examples)}
-              {$collapseId="exampleCollapse_{$t.meaning->id}"}
-              <a
-                data-bs-toggle="collapse"
-                class="muted-link me-3"
-                href="#{$collapseId}"
-                aria-controls="{$collapseId}">
-                {include "bits/icon.tpl" i=attach_file}
-                {t count=$t.examples|@count 1=$t.examples|@count plural="%1 examples"}
-                one example
-                {/t}</a>
-            {/if}
-
           </div>
 
         </div>
 
         {if !empty($t.examples)}
-          <div class="examples collapse" id="{$collapseId}">
-            <div class="card">
-              <div class="card-header">exemple</div>
-              <div class="card-body">
-                {include "bits/meaningTree.tpl" meanings=$t.examples root=false}
-              </div>
-            </div>
+          <div class="meaning-examples">
+            {include "bits/meaningTree.tpl" meanings=$t.examples root=false}
           </div>
         {/if}
 

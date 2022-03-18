@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2022-03-18 13:50+0200\n"
-"PO-Revision-Date: 2022-03-18 13:50+0200\n"
+"POT-Creation-Date: 2022-03-18 14:21+0200\n"
+"PO-Revision-Date: 2022-03-18 14:22+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -1089,15 +1089,19 @@ msgstr "din care"
 msgid "show sources"
 msgstr "arată sursele"
 
-#: templates/search/trees.tpl:33
+#: templates/search/trees.tpl:11
+msgid "show examples"
+msgstr "arată exemplele"
+
+#: templates/search/trees.tpl:37
 msgid "edit"
 msgstr "editează"
 
-#: templates/search/trees.tpl:43
+#: templates/search/trees.tpl:47
 msgid "etymology"
 msgstr "etimologie"
 
-#: templates/search/trees.tpl:52
+#: templates/search/trees.tpl:56
 msgid ""
 "The full definition list is available on the <a id=\"%1\" href=\"#"
 "\">results</a> tab."

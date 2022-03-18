@@ -5,6 +5,8 @@ $(function() {
 
   const SOURCES_CHECKBOX_ID = 'tree-check-sources';
   const SOURCES_LS_KEY = 'tree-check-sources';
+  const EXAMPLES_CHECKBOX_ID = 'tree-check-examples';
+  const EXAMPLES_LS_KEY = 'tree-check-examples';
 
   var stem = null;
   var anyChanges = false;
@@ -22,9 +24,15 @@ $(function() {
     $('.collapse-root').click(toggleSubtree);
 
     $('#' + SOURCES_CHECKBOX_ID).change(checkSourcesChange);
-    if (lsGet(SOURCES_LS_KEY, true)) {
+    if (lsGet(SOURCES_LS_KEY, false)) {
       $('#' + SOURCES_CHECKBOX_ID).prop('checked', true);
       toggleSources();
+    }
+
+    $('#' + EXAMPLES_CHECKBOX_ID).change(checkExamplesChange);
+    if (lsGet(EXAMPLES_LS_KEY, false)) {
+      $('#' + EXAMPLES_CHECKBOX_ID).prop('checked', true);
+      toggleExamples();
     }
 
   }
@@ -588,11 +596,21 @@ $(function() {
     $('.meaning-sources').toggle();
   }
 
+  function checkExamplesChange() {
+    toggleExamples();
+    var checked = $('#' + EXAMPLES_CHECKBOX_ID).prop('checked');
+    localStorage.setItem(EXAMPLES_LS_KEY, checked);
+  }
+
+  function toggleExamples() {
+    $('.meaning-examples').toggle();
+  }
+
   function toggleSubtree() {
     var container = $(this).closest('.meaningContainer');
     container.find('.defDetails').stop().slideToggle();
     container.siblings('ul').stop().slideToggle();
-    container.siblings('.examples').removeClass('show'); /* leverage BS collapse */
+    container.siblings('.meaning-examples').toggle(); /* leverage BS collapse */
     $(this).toggleClass('active');
     return false;
   }

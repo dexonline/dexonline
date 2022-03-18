@@ -155,16 +155,20 @@
 .exampleBody {
   color: var(--bs-gray-700);
 }
-
-.examples {
-  overflow: hidden;
+.meaning-examples {
+  display: none;
   padding-left: 42px;
-  padding-top: 10px;
 }
 
-.examples ul {
+.meaning-examples ul {
   margin-left: 0 !important;
   padding-left: 0 !important;
+}
+
+.meaning-examples span.typeName:before {
+  color: var(--bs-gray-500);
+  content: 'format_quote';
+  font-family: 'Material Icons';
 }
 
 .tree-heading {

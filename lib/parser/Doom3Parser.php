@@ -322,7 +322,7 @@ class Doom3Parser extends Parser {
 
     // abbrevation and symbol
     'coda' => [
-      '";" ws ("#abr.#"|"#simb.#") ws (infoBlock ws)? /\$(\pL|[-0-9.,\/#° ])+\$/ui (ws pronBlock)?',
+      '";" ws ("#abr.#"|"#simb.#") ws (infoBlock ws)? /\$(\pL|[-0-9.,\,\/#° ])+\$/ui (ws pronBlock)?',
     ],
 
     // utilities

@@ -30,7 +30,7 @@
             {include "bits/meaningSources.tpl" sources=$t.sources}
           </div>
 
-          <div class="defDetails">
+          <div class="meaning-relations">
             {include "bits/meaningRelations.tpl" relations=$t.relations defaultLabel=true}
           </div>
 

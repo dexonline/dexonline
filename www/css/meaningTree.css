@@ -128,7 +128,7 @@
   width: 90%;
 }
 
-.meaningContainer .defDetails {
+.meaning-relations {
   padding-left: 42px;
 }
 
@@ -196,7 +196,7 @@
     width: 86%;
   }
 
-  .meaningContainer .defDetails {
+  .meaning-relations {
     padding-left: 32px;
   }
 
@@ -216,7 +216,7 @@
     padding: 0;
   }
 
-  .meaningContainer .defDetails {
+  .meaning-relations {
     padding-left: 4px;
   }
 

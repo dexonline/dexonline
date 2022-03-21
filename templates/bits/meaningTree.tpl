@@ -43,6 +43,13 @@
         {/if}
 
         {include "bits/meaningTree.tpl" class="subtree" meanings=$t.children root=false}
+
+        {if !empty($t.expressions)}
+          <div class="meaning-expressions">
+            {include "bits/meaningTree.tpl" class="" meanings=$t.expressions root=false}
+          </div>
+        {/if}
+
       </li>
     {/foreach}
   </ul>

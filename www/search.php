@@ -300,7 +300,7 @@ if ($searchParams[$searchType]['trees'] && !$sourceId) {
         if (($t->status == Tree::ST_VISIBLE) &&
             count($t->getMeanings()) &&
             !isset($trees[$t->id])) {
-          $t->extractExamples();
+          $t->extractDetails();
           $t->extractEtymologies();
           $trees[$t->id] = $t;
         }

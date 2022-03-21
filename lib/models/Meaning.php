@@ -8,6 +8,7 @@ class Meaning extends BaseObject implements DatedObject {
   const TYPE_EXAMPLE = 2;
   const TYPE_COMMENT = 3;
   const TYPE_DIFF = 4;
+  const TYPE_EXPRESSION = 5;
 
   const DISPLAY_NAMES = [
     self::TYPE_MEANING => '',
@@ -15,6 +16,7 @@ class Meaning extends BaseObject implements DatedObject {
     self::TYPE_EXAMPLE => '',
     self::TYPE_COMMENT => 'comentariu',
     self::TYPE_DIFF => 'diferențiere',
+    self::TYPE_EXPRESSION => '',
   ];
 
   const CSS_CLASS_NAMES = [
@@ -23,6 +25,7 @@ class Meaning extends BaseObject implements DatedObject {
     self::TYPE_EXAMPLE => 'exampleBody',
     self::TYPE_COMMENT => 'commentBody',
     self::TYPE_DIFF => 'diffBody',
+    self::TYPE_EXPRESSION => 'expressionBody',
   ];
 
   const FIELD_NAMES = [
@@ -31,6 +34,7 @@ class Meaning extends BaseObject implements DatedObject {
     self::TYPE_EXAMPLE => 'exemplu',
     self::TYPE_COMMENT => 'comentariu (public)',
     self::TYPE_DIFF => 'diferențiere',
+    self::TYPE_EXPRESSION => 'expresie',
   ];
 
   private $tree = null;

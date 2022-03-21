@@ -156,10 +156,18 @@
   padding-left: 0 !important;
 }
 
+.meaning-expressions span.typeName:before,
 .meaning-examples span.typeName:before {
   color: var(--bs-gray-500);
-  content: 'format_quote';
   font-family: 'Material Icons';
+  vertical-align: middle;
+}
+
+.meaning-expressions span.typeName:before {
+  content: 'chat_bubble';
+}
+.meaning-examples span.typeName:before {
+  content: 'format_quote';
 }
 
 .tree-heading {

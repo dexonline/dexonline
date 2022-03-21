@@ -85,20 +85,24 @@ class Tree extends BaseObject implements DatedObject {
     }
   }
 
-  /* When displaying search results, examples are special, so we separate them from the
-   * other child meanings. */
-  function extractExamples() {
+  /* When displaying search results, examples and expressions are special, so
+   * we separate them from the other child meanings. */
+  function extractDetails() {
     $meanings = &$this->getMeanings();
-    $this->extractExamplesHelper($meanings);
+    $this->extractDetailsHelper($meanings);
   }
 
-  function extractExamplesHelper(&$meanings) {
+  function extractDetailsHelper(&$meanings) {
     foreach ($meanings as &$t) {
-      $this->extractExamplesHelper($t['children']);
+      $this->extractDetailsHelper($t['children']);
       $t['examples'] = [];
+      $t['expressions'] = [];
       foreach ($t['children'] as $i => $child) {
         if ($child['meaning']->type == Meaning::TYPE_EXAMPLE) {
           $t['examples'][] = $child;
+          unset($t['children'][$i]);
+        } else if ($child['meaning']->type == Meaning::TYPE_EXPRESSION) {
+          $t['expressions'][] = $child;
           unset($t['children'][$i]);
         }
       }

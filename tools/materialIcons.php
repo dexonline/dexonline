@@ -14,6 +14,7 @@ const CODEPOINTS = [
   'arrow_back',
   'attach_file',
   'badge',
+  'chat_bubble',
   'chevron_left',
   'chevron_right',
   'clear',

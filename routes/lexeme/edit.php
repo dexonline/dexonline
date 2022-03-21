@@ -217,8 +217,8 @@ function populate(&$lexeme, &$original, $lexemeForm, $lexemeNumber, $lexemeDescr
   $lexeme->hasApocope = $hasApocope;
 
   if ($compound) {
-    $lexeme->modelType = $compoundModelType;
     $lexeme->modelNumber = 0;
+    $lexeme->setModelType($compoundModelType);
     $lexeme->restriction = $compoundRestriction;
     // create Fragments
     $fragments = [];
@@ -228,8 +228,8 @@ function populate(&$lexeme, &$original, $lexemeForm, $lexemeNumber, $lexemeDescr
     }
     $lexeme->setFragments($fragments);
   } else {
-    $lexeme->modelType = $modelType;
     $lexeme->modelNumber = $modelNumber;
+    $lexeme->setModelType($modelType);
     $lexeme->restriction = $restriction;
     $lexeme->harmonizeModel($tagIds);
   }

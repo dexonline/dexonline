@@ -4,6 +4,8 @@ class Lexeme extends BaseObject implements DatedObject {
   public static $_table = 'Lexeme';
 
   private $sourceNames = null;         // comma-separated list of source names
+  private $modelTypeObject = null;
+  private $partOfSpeech = null;
   private $inflectedForms = null;
   private $inflectedFormMap = null;    // mapped by various criteria depending on the caller
   private $fragments = null;           // for compound lexemes
@@ -53,15 +55,38 @@ class Lexeme extends BaseObject implements DatedObject {
   }
 
   function getModelType() {
-    // Preload loads model types in bulk, by lexeme ID. This break for some
+    // Preload loads model types in bulk, by lexeme ID. This breaks for some
     // model exponents that don't have an underlying lexeme (see
     // FlexModel::getExponentWithParadigm()).
-    return Preload::getLexemeModelType($this->id)
-      ?: ModelType::get_by_code($this->modelType);
+    if ($this->modelTypeObject === null) {
+     $this->modelTypeObject = Preload::getLexemeModelType($this->id)
+       ?: ModelType::get_by_code($this->modelType);
+    }
+    return $this->modelTypeObject;
+  }
+
+  function setModelType(string $modelType) {
+    $mt = ModelType::get_by_code($modelType);
+    $this->modelType = $modelType;
+    $this->modelTypeObject = $mt;
+    // This duplicates code from Preload.php, where it is executed in bulk.
+    if ($modelType == 'I') {
+      $m = FlexModel::loadCanonicalByTypeNumber($modelType, $this->modelNumber);
+      $this->setPartOfSpeech($m->description);
+    } else {
+      $this->setPartOfSpeech($mt->description);
+    }
   }
 
   function getPartOfSpeech() {
-    return Preload::getLexemePartOfSpeech($this->id);
+    if ($this->partOfSpeech === null) {
+      $this->partOfSpeech = Preload::getLexemePartOfSpeech($this->id);
+    }
+    return $this->partOfSpeech;
+  }
+
+  function setPartOfSpeech(string $partOfSpeech) {
+    $this->partOfSpeech = $partOfSpeech;
   }
 
   function hasModel($type, $number) {

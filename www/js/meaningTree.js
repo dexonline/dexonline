@@ -9,6 +9,8 @@ $(function() {
   const SOURCES_LS_KEY = 'tree-check-sources';
   const EXAMPLES_CHECKBOX_ID = 'tree-check-examples';
   const EXAMPLES_LS_KEY = 'tree-check-examples';
+  const EXPRESSIONS_CHECKBOX_ID = 'tree-check-expressions';
+  const EXPRESSIONS_LS_KEY = 'tree-check-expressions';
 
   var stem = null;
   var anyChanges = false;
@@ -39,6 +41,12 @@ $(function() {
     if (lsGet(EXAMPLES_LS_KEY, false)) {
       $('#' + EXAMPLES_CHECKBOX_ID).prop('checked', true);
       toggleExamples();
+    }
+
+    $('#' + EXPRESSIONS_CHECKBOX_ID).change(checkExpressionsChange);
+    if (lsGet(EXPRESSIONS_LS_KEY, false)) {
+      $('#' + EXPRESSIONS_CHECKBOX_ID).prop('checked', true);
+      toggleExpressions();
     }
 
   }
@@ -620,6 +628,16 @@ $(function() {
 
   function toggleExamples() {
     $('.meaning-examples').toggle();
+  }
+
+  function checkExpressionsChange() {
+    toggleExpressions();
+    var checked = $('#' + EXPRESSIONS_CHECKBOX_ID).prop('checked');
+    localStorage.setItem(EXPRESSIONS_LS_KEY, checked);
+  }
+
+  function toggleExpressions() {
+    $('.meaning-expressions').toggle();
   }
 
   init();

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2022-03-18 15:27+0200\n"
-"PO-Revision-Date: 2022-03-18 15:27+0200\n"
+"POT-Creation-Date: 2022-03-21 17:47+0200\n"
+"PO-Revision-Date: 2022-03-21 17:47+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -1083,22 +1083,26 @@ msgid "show secondary meanings"
 msgstr "arată sensurile secundare"
 
 #: templates/search/trees.tpl:11
+msgid "show expressions"
+msgstr "arată expresiile"
+
+#: templates/search/trees.tpl:16
 msgid "show examples"
 msgstr "arată exemplele"
 
-#: templates/search/trees.tpl:16
+#: templates/search/trees.tpl:21
 msgid "show sources"
 msgstr "arată sursele"
 
-#: templates/search/trees.tpl:42
+#: templates/search/trees.tpl:39
 msgid "edit"
 msgstr "editează"
 
-#: templates/search/trees.tpl:52
+#: templates/search/trees.tpl:49
 msgid "etymology"
 msgstr "etimologie"
 
-#: templates/search/trees.tpl:61
+#: templates/search/trees.tpl:63
 msgid ""
 "The full definition list is available on the <a id=\"%1\" href=\"#"
 "\">results</a> tab."
@@ -1403,11 +1407,11 @@ msgstr "precedentul"
 msgid "next"
 msgstr "următorul"
 
-#: lib/Tab.php:49 www/search.php:343
+#: lib/Tab.php:49 www/search.php:341
 msgid "conjugations"
 msgstr "conjugări"
 
-#: lib/Tab.php:49 www/search.php:344
+#: lib/Tab.php:49 www/search.php:342
 msgid "declensions"
 msgstr "declinări"
 
@@ -1679,7 +1683,7 @@ msgstr[0] "Un cuvânt al zilei ales la întâmplare"
 msgstr[1] "%d cuvinte ale zilei alese la întâmplare"
 msgstr[2] "%d de cuvinte ale zilei alese la întâmplare"
 
-#: www/search.php:217
+#: www/search.php:216
 #, php-format
 msgid "We redirected you automatically from <b>%s</b> to <b>%s</b>."
 msgstr "V-am redirecționat automat de la <b>%s</b> la <b>%s</b>."

@@ -7,6 +7,11 @@
       name=""}
     {include "bs/checkbox.tpl"
       divClass="form-check-inline"
+      inputId="tree-check-expressions"
+      label="{t}show expressions{/t}"
+      name=""}
+    {include "bs/checkbox.tpl"
+      divClass="form-check-inline"
       inputId="tree-check-examples"
       label="{t}show examples{/t}"
       name=""}

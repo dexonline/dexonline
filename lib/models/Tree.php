@@ -98,12 +98,15 @@ class Tree extends BaseObject implements DatedObject {
       $t['examples'] = [];
       $t['expressions'] = [];
       foreach ($t['children'] as $i => $child) {
-        if ($child['meaning']->type == Meaning::TYPE_EXAMPLE) {
-          $t['examples'][] = $child;
-          unset($t['children'][$i]);
-        } else if ($child['meaning']->type == Meaning::TYPE_EXPRESSION) {
-          $t['expressions'][] = $child;
-          unset($t['children'][$i]);
+        switch ($child['meaning']->type) {
+          case Meaning::TYPE_EXAMPLE:
+            $t['examples'][] = $child;
+            unset($t['children'][$i]);
+            break;
+          case Meaning::TYPE_EXPRESSION:
+            $t['expressions'][] = $child;
+            unset($t['children'][$i]);
+            break;
         }
       }
     }

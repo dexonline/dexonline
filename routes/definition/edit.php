@@ -178,6 +178,15 @@ if ($isOcr && empty($entryIds)) {
 // If we got here, either there were errors saving, or this is the first time
 // loading the page.
 
+$lexemes = Model::factory('Lexeme')
+  ->table_alias('l')
+  ->select('l.*')
+  ->distinct()
+  ->join('EntryLexeme', ['l.id', '=', 'el.lexemeId'], 'el')
+  ->where_in('el.entryId', $entryIds ?: [ 0 ])
+  ->where('el.main', true)
+  ->find_many();
+
 // create a stub SearchResult so we can show the menu
 $row = new SearchResult();
 $row->definition = $d;
@@ -191,6 +200,7 @@ $sources = Model::factory('Source')
 Smart::assign([
   'isOcr' => $isOcr,
   'def' => $d,
+  'lexemes' => $lexemes,
   'row' => $row,
   'source' => $d->getSource(),
   'sim' => SimilarRecord::create($d, $entryIds),

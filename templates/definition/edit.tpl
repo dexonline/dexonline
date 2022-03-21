@@ -102,21 +102,35 @@
               {/foreach}
             </select>
 
-            <div class="float-end mt-1">
-              <button
-                id="refreshEntriesButton"
-                type="button"
-                class="btn btn-outline-secondary btn-sm"
-                title="recalculează lista de intrări pe baza cuvîntului definit">
-                {include "bits/icon.tpl" i=refresh}
-              </button>
-              <button
-                id="clearEntriesButton"
-                type="button"
-                class="btn btn-outline-secondary btn-sm"
-                title="golește lista de intrări">
-                {include "bits/icon.tpl" i=delete}
-              </button>
+            <div class="d-flex justify-content-between align-items-center mt-1">
+              <div class="lexeme-links text-muted">
+                {if count($lexemes)}
+                  lexeme:
+                  <ul class="d-inline list-inline list-inline-bullet">
+                  {foreach $lexemes as $lexeme}
+                    <li class="list-inline-item">
+                      {include "bits/lexemeLink.tpl" model=false}
+                    </li>
+                  {/foreach}
+                {/if}
+              </div>
+
+              <div class="flex-shrink-0">
+                <button
+                  id="refreshEntriesButton"
+                  type="button"
+                  class="btn btn-outline-secondary btn-sm"
+                  title="recalculează lista de intrări pe baza cuvîntului definit">
+                  {include "bits/icon.tpl" i=refresh}
+                </button>
+                <button
+                  id="clearEntriesButton"
+                  type="button"
+                  class="btn btn-outline-secondary btn-sm"
+                  title="golește lista de intrări">
+                  {include "bits/icon.tpl" i=delete}
+                </button>
+              </div>
             </div>
           </div>
         </div>

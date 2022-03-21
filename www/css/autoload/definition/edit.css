@@ -1,3 +1,7 @@
+.lexeme-links a {
+  color: var(--bs-secondary) !important;
+}
+
 #similarDiff ins, #similarDiff del {
   cursor: pointer;
 }

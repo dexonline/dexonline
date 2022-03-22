@@ -2,7 +2,7 @@
 
 /* Change some regular meanings to expressions. */
 
-const PATCH_DEBUG = true;
+const PATCH_DEBUG = false;
 const EXPRESSION_TAG_ID = 10; // [expresie] (11.693 occurrences)
 const TAG_IDS = [
   EXPRESSION_TAG_ID,
@@ -122,6 +122,15 @@ function reorder($meanings) {
 
 }
 
+/**
+ * Ensure we have an identical set of meaning IDs after reordering.
+ */
+function compare($oldIds, $meanings) {
+  $newIds = Util::objectProperty($meanings, 'id');
+  assert(empty(array_diff($oldIds, $newIds)));
+  assert(empty(array_diff($newIds, $oldIds)));
+}
+
 function main() {
   $trees = loadTrees();
   $expressionIds = loadExpressionIds();
@@ -133,6 +142,7 @@ function main() {
       ->where('treeId', $t->id)
       ->order_by_asc('displayOrder')
       ->find_many();
+    $origIds = Util::objectProperty($meanings, 'id');
 
     foreach ($meanings as &$m) {
       if (isset($expressionIds[$m->id])) {
@@ -146,11 +156,16 @@ function main() {
 
     $meanings = reorder($meanings);
     Meaning::renumber($meanings);
-    foreach ($meanings as $m) {
-      printf("    %6d %6d %2d %3d %-10s %s\n",
-             $m->id, $m->parentId, $m->type, $m->displayOrder, $m->breadcrumb,
-             mb_substr($m->internalRep, 0, 80));
+
+    if (PATCH_DEBUG) {
+      foreach ($meanings as $m) {
+        printf("    %6d %6d %2d %3d %-10s %s\n",
+               $m->id, $m->parentId, $m->type, $m->displayOrder, $m->breadcrumb,
+               mb_substr($m->internalRep, 0, 80));
+      }
     }
+
+    compare($origIds, $meanings);
 
     if (!PATCH_DEBUG) {
       foreach ($meanings as $m) {
@@ -158,10 +173,14 @@ function main() {
       }
     }
 
-    exit;
+    if (PATCH_DEBUG)  {
+      exit; // stop after every tree
+    }
   }
 
-  exit;
+  if (PATCH_DEBUG) {
+    exit; // don't let patch number increment
+  }
 }
 
 main();

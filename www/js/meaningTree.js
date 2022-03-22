@@ -44,7 +44,7 @@ $(function() {
     }
 
     $('#' + EXPRESSIONS_CHECKBOX_ID).change(checkExpressionsChange);
-    if (lsGet(EXPRESSIONS_LS_KEY, false)) {
+    if (lsGet(EXPRESSIONS_LS_KEY, true)) {
       $('#' + EXPRESSIONS_CHECKBOX_ID).prop('checked', true);
       toggleExpressions();
     }

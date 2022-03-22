@@ -24,19 +24,13 @@
 
 .meaningTree .bc:not(:empty) {
   margin-right: 5px;
-  vertical-align: top;
 }
 
 .meaningTree .typeName:not(:empty) {
-  display: inline-block;
   font-weight: bold;
   margin-right: 5px;
   margin-bottom: 3px;
   color: var(--bs-gray-700);
-}
-
-.meaningTree .html {
-  margin-right: 10px;
 }
 
 .meaningTree .mention {
@@ -106,12 +100,7 @@
   margin-top: 10px;
 }
 
-.primaryMeaning .bc {
-  font-size: 18px;
-  font-weight: bold;
-}
-
-.primaryMeaning .meaningBody {
+.primaryMeaning .meaning-row {
   font-size: 18px;
 }
 
@@ -119,13 +108,13 @@
   font-size: 80%;
 }
 
-.secondaryMeaning .bc,
-.etymology-heading {
-  font-weight: bold;
+.etymology .meaningTree  {
+  padding-left: 42px;
 }
 
-.secondaryMeaning .meaningBody {
-  width: 90%;
+.bc,
+.etymology-heading {
+  font-weight: bold;
 }
 
 .meaning-relations {
@@ -142,36 +131,25 @@
   vertical-align: 10%;
 }
 
-.exampleBody {
+.meaning-type-etymology .meaning-row {
+  margin-bottom: 3px;
+}
+
+.meaning-type-example .def { /* example */
   color: var(--bs-gray-700);
 }
 
-.meaning-examples {
-  display: none;
-  padding-left: 42px;
-}
-
-.meaning-expressions {
+.meaning-type-example {
   display: none;
 }
 
-.meaning-examples ul {
-  margin-left: 0 !important;
-  padding-left: 0 !important;
+.meaning-type-expression {
+  display: none;
 }
 
-.meaning-expressions span.typeName:before,
-.meaning-examples span.typeName:before {
+.meaning-icon {
   color: var(--bs-gray-500);
-  font-family: 'Material Icons';
-  vertical-align: middle;
-}
-
-.meaning-expressions span.typeName:before {
-  content: 'chat_bubble';
-}
-.meaning-examples span.typeName:before {
-  content: 'format_quote';
+  font-size: 80%;
 }
 
 .tree-heading {
@@ -185,29 +163,7 @@
   padding-left: 20px;
 }
 
-.tab-pane > ul {
-  margin-left: 20px;
-}
-
-.tab-pane > ul {
-  margin-bottom: 20px;
-}
-
-@media (max-width: 991px) {
-  .primaryMeaning .meaningBody {
-    width: 93%;
-  }
-}
-
 @media (max-width: 480px) {
-  .primaryMeaning .meaningBody {
-    width: 90%;
-  }
-
-  .secondaryMeaning .meaningBody {
-    width: 86%;
-  }
-
   .meaning-relations {
     padding-left: 32px;
   }

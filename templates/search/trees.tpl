@@ -48,11 +48,10 @@
       <div class="etymology">
         <h6 class="etymology-heading">{t}etymology{/t}:</h6>
 
-        <ul class="meaningTree">
-          <li>
-            {include "bits/meaningTree.tpl" meanings=$t->getEtymologies() etymologies=true}
-          </li>
-        </ul>
+        {include "bits/meaningTree.tpl"
+          meanings=$t->getEtymologies()
+          etymologies=true
+          primary=false}
       </div>
     {/if}
   </div>

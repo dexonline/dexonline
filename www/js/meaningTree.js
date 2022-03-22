@@ -627,7 +627,7 @@ $(function() {
   }
 
   function toggleExamples() {
-    $('.meaning-examples').toggle();
+    $('.meaning-type-example').toggle();
   }
 
   function checkExpressionsChange() {
@@ -637,7 +637,7 @@ $(function() {
   }
 
   function toggleExpressions() {
-    $('.meaning-expressions').toggle();
+    $('.meaning-type-expression').toggle();
   }
 
   init();

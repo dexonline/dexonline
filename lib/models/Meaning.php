@@ -19,13 +19,13 @@ class Meaning extends BaseObject implements DatedObject {
     self::TYPE_EXPRESSION => '',
   ];
 
-  const CSS_CLASS_NAMES = [
-    self::TYPE_MEANING => 'meaningBody',
-    self::TYPE_ETYMOLOGY => 'etymologyBody',
-    self::TYPE_EXAMPLE => 'exampleBody',
-    self::TYPE_COMMENT => 'commentBody',
-    self::TYPE_DIFF => 'diffBody',
-    self::TYPE_EXPRESSION => 'expressionBody',
+  const CSS_CLASSES = [
+    self::TYPE_MEANING => '',
+    self::TYPE_ETYMOLOGY => 'meaning-type-etymology',
+    self::TYPE_EXAMPLE => 'meaning-type-example',
+    self::TYPE_COMMENT => '',
+    self::TYPE_DIFF => '',
+    self::TYPE_EXPRESSION => 'meaning-type-expression',
   ];
 
   const FIELD_NAMES = [
@@ -37,6 +37,15 @@ class Meaning extends BaseObject implements DatedObject {
     self::TYPE_EXPRESSION => 'expresie',
   ];
 
+  const ICONS = [
+    self::TYPE_MEANING => null,
+    self::TYPE_ETYMOLOGY => null,
+    self::TYPE_EXAMPLE => 'format_quote',
+    self::TYPE_COMMENT => null,
+    self::TYPE_DIFF => null,
+    self::TYPE_EXPRESSION => 'chat_bubble',
+  ];
+
   private $tree = null;
 
   function getDisplayTypeName() {
@@ -44,7 +53,7 @@ class Meaning extends BaseObject implements DatedObject {
   }
 
   function getCssClass() {
-    return self::CSS_CLASS_NAMES[$this->type];
+    return self::CSS_CLASSES[$this->type];
   }
 
   function getTree() {
@@ -64,6 +73,10 @@ class Meaning extends BaseObject implements DatedObject {
 
   function getTags() {
     return Preload::getMeaningTags($this->id);
+  }
+
+  function getIcon() {
+    return self::ICONS[$this->type];
   }
 
   // Single entry point for sanitize()

@@ -1,16 +1,21 @@
 {* Recursively displays a meaning tree. *}
 {$class=$class|default:'meaningTree'}
 {$etymologies=$etymologies|default:false}
-{$root=$root|default:true}
+{$primary=$primary|default:true}
 {if $meanings}
   <ul class="{$class}">
     {foreach $meanings as $t}
-      <li>
+      <li class="{$t.meaning->getCssClass()}">
         <div
           id="meaning{$t.meaning->id}"
-          class="meaningContainer {if $root}primaryMeaning{else}secondaryMeaning{/if}">
+          class="meaningContainer {if $primary}primaryMeaning{/if}">
 
-          <div>
+          <div class="meaning-row">
+            {$icon=$t.meaning->getIcon()}
+            {if $icon}
+              {include "bits/icon.tpl" i=$icon class="meaning-icon"}
+            {/if}
+
             {if $etymologies}
               {if $t.lastBreadcrumb}
                 <span class="etymologyBc">({$t.lastBreadcrumb})</span>
@@ -22,7 +27,7 @@
 
             {include "bits/meaningTags.tpl" tags=$t.tags}
 
-            <span class="def html {$t.meaning->getCssClass()}">
+            <span class="def html">
               {HtmlConverter::convert($t.meaning)}
               {$t.meaning->getDisplaySynonyms()}
             </span>
@@ -37,17 +42,13 @@
         </div>
 
         {if !empty($t.examples)}
-          <div class="meaning-examples">
-            {include "bits/meaningTree.tpl" class="" meanings=$t.examples root=false}
-          </div>
+          {include "bits/meaningTree.tpl" class="subtree" meanings=$t.examples primary=false}
         {/if}
 
-        {include "bits/meaningTree.tpl" class="subtree" meanings=$t.children root=false}
+        {include "bits/meaningTree.tpl" class="subtree" meanings=$t.children primary=false}
 
         {if !empty($t.expressions)}
-          <div class="meaning-expressions">
-            {include "bits/meaningTree.tpl" class="" meanings=$t.expressions root=false}
-          </div>
+          {include "bits/meaningTree.tpl" class="subtree" meanings=$t.expressions primary=false}
         {/if}
 
       </li>

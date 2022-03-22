@@ -468,3 +468,9 @@ div.thumb {
   overflow-x: hidden;
   text-overflow: ellipsis;
 }
+
+/**************************** articles ****************************/
+
+blockquote {
+  border: 1px solid black;
+}

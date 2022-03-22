@@ -273,7 +273,8 @@ $(function() {
       var meaningId = elem.attr('title');
       $.getJSON(wwwRoot + 'ajax/getMeaningById', { id: meaningId })
         .done(function(resp) {
-          var title = resp.description + ' (' + resp.breadcrumb + ')';
+          var title = resp.description +
+              (resp.breadcrumb ? ' (' + resp.breadcrumb + ')' : '');
           elem.attr('title', title);
           elem.data('loaded', 1);
           var p = new bootstrap.Popover(elem, {

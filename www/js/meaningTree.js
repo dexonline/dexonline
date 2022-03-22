@@ -419,6 +419,9 @@ $(function() {
     var type = parseInt($('.editorType:checked').val());
     c.find('.type').text(type);
 
+    // Update the icon
+    c.find('.meaning-icon').text(MEANING_ICONS[type]);
+
     // Update internal and HTML reps
     var internalRep = $('#editorRep').val();
     c.find('.internalRep').text(internalRep);

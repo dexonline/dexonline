@@ -38,11 +38,11 @@ class Meaning extends BaseObject implements DatedObject {
   ];
 
   const ICONS = [
-    self::TYPE_MEANING => null,
-    self::TYPE_ETYMOLOGY => null,
+    self::TYPE_MEANING => '',
+    self::TYPE_ETYMOLOGY => '',
     self::TYPE_EXAMPLE => 'format_quote',
-    self::TYPE_COMMENT => null,
-    self::TYPE_DIFF => null,
+    self::TYPE_COMMENT => '',
+    self::TYPE_DIFF => '',
     self::TYPE_EXPRESSION => 'chat_bubble',
   ];
 

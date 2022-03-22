@@ -127,8 +127,8 @@ function reorder($meanings) {
  */
 function compare($oldIds, $meanings) {
   $newIds = Util::objectProperty($meanings, 'id');
-  assert(empty(array_diff($oldIds, $newIds)));
-  assert(empty(array_diff($newIds, $oldIds)));
+  empty(array_diff($oldIds, $newIds)) or die("ERROR: Meaning set has changed!\n");
+  empty(array_diff($newIds, $oldIds)) or die("ERROR: Meaning set has changed!\n");
 }
 
 function main() {
@@ -143,14 +143,21 @@ function main() {
       ->order_by_asc('displayOrder')
       ->find_many();
     $origIds = Util::objectProperty($meanings, 'id');
+    $meaningMap = Util::mapById($meanings);
 
-    foreach ($meanings as &$m) {
-      if (isset($expressionIds[$m->id])) {
+    foreach ($meanings as $m) {
+       // Make a change if either the meaning is tagged or it has an expression ancestor.
+      if (isset($expressionIds[$m->id]) ||
+          (($m->type == Meaning::TYPE_MEANING) &&
+           $m->parentId &&
+           ($meaningMap[$m->parentId]->type == Meaning::TYPE_EXPRESSION))) {
+
         printf("    Changing meaning %s to expression\n", $m->breadcrumb);
         $m->type = Meaning::TYPE_EXPRESSION;
         if (!PATCH_DEBUG) {
           ObjectTag::dissociate(ObjectTag::TYPE_MEANING, $m->id, EXPRESSION_TAG_ID);
         }
+
       }
     }
 

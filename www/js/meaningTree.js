@@ -630,7 +630,7 @@ $(function() {
   }
 
   function toggleExamples() {
-    $('.meaning-type-example').toggle();
+    $('.type-example').toggle();
   }
 
   function checkExpressionsChange() {
@@ -640,7 +640,7 @@ $(function() {
   }
 
   function toggleExpressions() {
-    $('.meaning-type-expression').toggle();
+    $('.type-expression').toggle();
   }
 
   init();

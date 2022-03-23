@@ -6,7 +6,7 @@
 {if $meanings}
   <ul class="{$class}">
     {foreach $meanings as $t}
-      <li class="{$t.meaning->getCssClass()} meaning-depth-{$depth}">
+      <li class="{$t.meaning->getCssClass()} depth-{$depth}">
         <div id="meaning{$t.meaning->id}" class="meaningContainer">
 
           <div class="meaning-row">

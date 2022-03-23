@@ -21,11 +21,11 @@ class Meaning extends BaseObject implements DatedObject {
 
   const CSS_CLASSES = [
     self::TYPE_MEANING => '',
-    self::TYPE_ETYMOLOGY => 'meaning-type-etymology',
-    self::TYPE_EXAMPLE => 'meaning-type-example',
+    self::TYPE_ETYMOLOGY => 'type-etymology',
+    self::TYPE_EXAMPLE => 'type-example',
     self::TYPE_COMMENT => '',
     self::TYPE_DIFF => '',
-    self::TYPE_EXPRESSION => 'meaning-type-expression',
+    self::TYPE_EXPRESSION => 'type-expression',
   ];
 
   const FIELD_NAMES = [

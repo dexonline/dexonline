@@ -96,11 +96,11 @@
   font-weight: bold;
 }
 
-.meaning-depth-0 {
+.depth-0 {
   margin-top: 10px;
 }
 
-.meaning-depth-0 > .meaningContainer > .meaning-row {
+.depth-0 > .meaningContainer > .meaning-row {
   font-size: 18px;
 }
 
@@ -131,19 +131,19 @@
   vertical-align: 10%;
 }
 
-.meaning-type-etymology .meaning-row {
+.type-etymology .meaning-row {
   margin-bottom: 3px;
 }
 
-.meaning-type-example .def { /* example */
+.type-example .def { /* example */
   color: var(--bs-gray-700);
 }
 
-.meaning-type-example {
+.type-example {
   display: none;
 }
 
-.meaning-type-expression {
+.type-expression {
   display: none;
 }
 

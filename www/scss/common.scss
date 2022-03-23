@@ -6,6 +6,11 @@
  **/
 
 /* Bootstrap overrides */
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+);
 $dropdown-bg: $surface;
 $dropdown-link-hover-color: $primary;
 $font-family-sans-serif: Open Sans, Arial, sans-serif;

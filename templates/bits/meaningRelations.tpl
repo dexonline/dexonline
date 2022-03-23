@@ -7,7 +7,7 @@
       {/if}
       {foreach $treeList as $tree}
         {$entries=$tree->getEntries()}
-        <span class="badge badge-relation badge-relation-{$type}">
+        <span class="badge-relation badge-relation-{$type}">
           <a href="{Config::URL_PREFIX}intrare/{$tree->getShortDescription()}/{$entries[0]->id}">
             {$tree->getShortDescription()}
           </a>

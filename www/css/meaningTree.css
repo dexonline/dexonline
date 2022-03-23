@@ -57,22 +57,28 @@
 }
 
 .meaningTree .badge-relation {
-  background: #fff;
   font-weight: normal;
-  margin-right: 3px;
+  margin-left: 8px;
+}
+
+.meaningTree .badge-relation a:hover {
+  filter: brightness(75%);
+  text-decoration: none;
 }
 
 .meaningTree .badge-relation a,
 .meaningTree .badge-relation a:hover {
-  color: #212529; /* in both themes */
+  color: var(--bs-gray-700);
 }
 
-.meaningTree .badge-relation-1 {
-  background: #c5e9c9;
+.meaningTree .badge-relation-1 a,
+.meaningTree .badge-relation-1 a:hover {
+  color: var(--bs-green);
 }
 
-.meaningTree .badge-relation-2 {
-  background: #f5bad6;
+.meaningTree .badge-relation-2 a,
+.meaningTree .badge-relation-2 a:hover {
+  color: var(--bs-red);
 }
 
 .meaningContainer:target {

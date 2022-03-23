@@ -12,6 +12,7 @@
     <div class="d-flex align-items-end align-items-md-center flex-column flex-md-row">
       <div class="input-group dropdown">
         <input
+          autocapitalize="off"
           autocomplete="off"
           {* no autofocus here: Chrome complains it conflicts with the focus+select in dex.js *}
           class="dropdown-toggle form-control"

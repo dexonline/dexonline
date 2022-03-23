@@ -3,6 +3,36 @@ $(function() {
   // define a fake meaning type to distinguish the meaning and submeaning buttons
   const TYPE_SUBMEANING = -1;
 
+  // defaultState: default checkbox state
+  // lsKey: local storage key for persisting the value of the checkbox
+  // selectors: CSS selectors to toggle when toggling the checkbox
+  const CHECKBOXES = {
+    'tree-check-examples': {
+      defaultState: false,
+      lsKey: 'tree-check-examples',
+      selectors: [ '.type-example' ],
+    },
+    'tree-check-expressions': {
+      defaultState: true,
+      lsKey: 'tree-check-expressions',
+      selectors: [
+        '.type-expression.depth-1',
+        '.type-expression.depth-2',
+        '.type-meaning.depth-0 ~ .type-expression',
+      ],
+    },
+    'tree-check-sources': {
+      defaultState: false,
+      lsKey: 'tree-check-sources',
+      selectors: [ '.meaning-sources' ],
+    },
+    'tree-check-subtrees': {
+      defaultState: true,
+      lsKey: 'tree-check-subtrees',
+      selectors: [ '.type-meaning.depth-1' ],
+    },
+  }
+
   const SUBTREES_CHECKBOX_ID = 'tree-check-subtrees';
   const SUBTREES_LS_KEY = 'tree-check-subtrees';
   const SOURCES_CHECKBOX_ID = 'tree-check-sources';
@@ -25,30 +55,13 @@ $(function() {
       renumber();
     }
 
-    $('#' + SUBTREES_CHECKBOX_ID).change(checkSubtreesChange);
-    if (lsGet(SUBTREES_LS_KEY, true)) {
-      $('#' + SUBTREES_CHECKBOX_ID).prop('checked', true);
-      toggleSubtrees();
+    $('.tree-check').change(checkboxChange);
+    for (var id in CHECKBOXES) {
+      if (lsGet(CHECKBOXES[id].lsKey, CHECKBOXES[id].defaultState)) {
+        $('#' + id).prop('checked', true);
+        toggle(CHECKBOXES[id].selectors);
+      }
     }
-
-    $('#' + SOURCES_CHECKBOX_ID).change(checkSourcesChange);
-    if (lsGet(SOURCES_LS_KEY, false)) {
-      $('#' + SOURCES_CHECKBOX_ID).prop('checked', true);
-      toggleSources();
-    }
-
-    $('#' + EXAMPLES_CHECKBOX_ID).change(checkExamplesChange);
-    if (lsGet(EXAMPLES_LS_KEY, false)) {
-      $('#' + EXAMPLES_CHECKBOX_ID).prop('checked', true);
-      toggleExamples();
-    }
-
-    $('#' + EXPRESSIONS_CHECKBOX_ID).change(checkExpressionsChange);
-    if (lsGet(EXPRESSIONS_LS_KEY, true)) {
-      $('#' + EXPRESSIONS_CHECKBOX_ID).prop('checked', true);
-      toggleExpressions();
-    }
-
   }
 
   function initEditable() {
@@ -603,49 +616,18 @@ $(function() {
     }
   }
 
-  function checkSubtreesChange() {
-    toggleSubtrees();
-    var checked = $('#' + SUBTREES_CHECKBOX_ID).prop('checked');
-    localStorage.setItem(SUBTREES_LS_KEY, checked);
-  }
-
-  function toggleSubtrees() {
-    $('.type-meaning.depth-1').toggle();
-  }
-
-  function checkSourcesChange() {
-    toggleSources();
-    var checked = $('#' + SOURCES_CHECKBOX_ID).prop('checked');
-    localStorage.setItem(SOURCES_LS_KEY, checked);
-  }
-
-  function toggleSources() {
-    $('.meaning-sources').toggle();
-  }
-
-  function checkExamplesChange() {
-    toggleExamples();
-    var checked = $('#' + EXAMPLES_CHECKBOX_ID).prop('checked');
-    localStorage.setItem(EXAMPLES_LS_KEY, checked);
-  }
-
-  function toggleExamples() {
-    $('.type-example').toggle();
-  }
-
-  function checkExpressionsChange() {
-    toggleExpressions();
-    var checked = $('#' + EXPRESSIONS_CHECKBOX_ID).prop('checked');
-    localStorage.setItem(EXPRESSIONS_LS_KEY, checked);
-  }
-
-  function toggleExpressions() {
-    var selectors = [
-      '.type-expression.depth-1',
-      '.type-expression.depth-2',
-      '.type-meaning.depth-0 ~ .type-expression',
-    ];
+  function toggle(selectors) {
     $(selectors.join(',')).toggle();
+  }
+
+  function checkboxChange() {
+    var id = $(this).attr('id');
+    var checked = $(this).prop('checked');
+    var selectors = CHECKBOXES[id].selectors;
+    var lsKey = CHECKBOXES[id].lsKey;
+
+    toggle(selectors);
+    localStorage.setItem(lsKey, checked);
   }
 
   init();

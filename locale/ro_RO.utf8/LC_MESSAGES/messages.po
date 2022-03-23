@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2022-03-21 17:47+0200\n"
-"PO-Revision-Date: 2022-03-21 17:47+0200\n"
+"POT-Creation-Date: 2022-03-23 09:37+0200\n"
+"PO-Revision-Date: 2022-03-23 09:37+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -1102,13 +1102,13 @@ msgstr "editează"
 msgid "etymology"
 msgstr "etimologie"
 
-#: templates/search/trees.tpl:63
+#: templates/search/trees.tpl:62
 msgid ""
 "The full definition list is available on the <a id=\"%1\" href=\"#"
-"\">results</a> tab."
+"\">definitions</a> tab."
 msgstr ""
 "Lista completă de definiții se află pe fila <a id=\"%1\" href=\"#"
-"\">rezultate</a>."
+"\">definiții</a>."
 
 #: templates/search/wikiArticles.tpl:3
 msgid "One linguistics article"
@@ -1687,9 +1687,3 @@ msgstr[2] "%d de cuvinte ale zilei alese la întâmplare"
 #, php-format
 msgid "We redirected you automatically from <b>%s</b> to <b>%s</b>."
 msgstr "V-am redirecționat automat de la <b>%s</b> la <b>%s</b>."
-
-#~ msgid "one example"
-#~ msgid_plural "%1 examples"
-#~ msgstr[0] "un exemplu"
-#~ msgstr[1] "%1 exemple"
-#~ msgstr[2] "%1 de exemple"

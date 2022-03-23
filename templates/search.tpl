@@ -323,7 +323,7 @@
   <div id="tabAdvertiserContent" style="display: none">
     {t 1=Router::link('user/preferences')}
     <b>The Synthesis tab</b> shows a condensed list of definitions compiled by
-    the dexonline team. The original definitions are available on the <b>Results</b>
+    the dexonline team. The original definitions are available on the <b>Definitions</b>
     tab. You can select your preferred tab from your <a href="%1">preferences page</a>.
     {/t}
   </div>

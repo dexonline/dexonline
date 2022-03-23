@@ -53,7 +53,7 @@ $(function() {
         // Move the banner down a few meanings, but
         // * not lower than 2/3 of the window height;
         // * only if followed by more meanings;
-        var selector = '#treeTab .primaryMeaning:not(:first)';
+        var selector = '#treeTab .meaning-depth-0:not(:first)';
         $(selector).slice(0,3).each(function() {
           var top = $(this).offset().top;
           if (top + 100 < 2 * h / 3) {

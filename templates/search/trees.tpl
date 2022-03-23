@@ -51,7 +51,7 @@
         {include "bits/meaningTree.tpl"
           meanings=$t->getEtymologies()
           etymologies=true
-          primary=false}
+          depth=1}
       </div>
     {/if}
   </div>

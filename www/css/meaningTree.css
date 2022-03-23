@@ -96,11 +96,11 @@
   font-weight: bold;
 }
 
-.primaryMeaning {
+.meaning-depth-0 {
   margin-top: 10px;
 }
 
-.primaryMeaning .meaning-row {
+.meaning-depth-0 > .meaningContainer > .meaning-row {
   font-size: 18px;
 }
 

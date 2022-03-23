@@ -1,14 +1,13 @@
 {* Recursively displays a meaning tree. *}
 {$class=$class|default:'meaningTree'}
 {$etymologies=$etymologies|default:false}
-{$primary=$primary|default:true}
+{* For CSS / JS purposes, there is no distinction from depth 2 onwards *}
+{$depth=$depth|default:0|min:2}
 {if $meanings}
   <ul class="{$class}">
     {foreach $meanings as $t}
-      <li class="{$t.meaning->getCssClass()}">
-        <div
-          id="meaning{$t.meaning->id}"
-          class="meaningContainer {if $primary}primaryMeaning{/if}">
+      <li class="{$t.meaning->getCssClass()} meaning-depth-{$depth}">
+        <div id="meaning{$t.meaning->id}" class="meaningContainer">
 
           <div class="meaning-row">
             {$icon=$t.meaning->getIcon()}
@@ -42,13 +41,13 @@
         </div>
 
         {if !empty($t.examples)}
-          {include "bits/meaningTree.tpl" class="subtree" meanings=$t.examples primary=false}
+          {include "bits/meaningTree.tpl" class="subtree" meanings=$t.examples depth=$depth+1}
         {/if}
 
-        {include "bits/meaningTree.tpl" class="subtree" meanings=$t.children primary=false}
+        {include "bits/meaningTree.tpl" class="subtree" meanings=$t.children depth=$depth+1}
 
         {if !empty($t.expressions)}
-          {include "bits/meaningTree.tpl" class="subtree" meanings=$t.expressions primary=false}
+          {include "bits/meaningTree.tpl" class="subtree" meanings=$t.expressions depth=$depth+1}
         {/if}
 
       </li>

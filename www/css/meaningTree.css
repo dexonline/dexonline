@@ -1,5 +1,5 @@
 .meaningTree {
-  margin-bottom: 10px;
+  margin-bottom: 0px;
   margin-top: 0px;
   padding-left: 0px;
 }
@@ -106,6 +106,7 @@
 
 .etymology {
   font-size: 80%;
+  margin-top: 10px;
 }
 
 .etymology .meaningTree  {
@@ -121,12 +122,7 @@
   padding-left: 42px;
 }
 
-.subtree {
-  display: none;
-}
-
 .meaning-sources {
-  display: none;
   line-height: 100%; /* prevents a vertical glitch when toggling sources */
   vertical-align: 10%;
 }
@@ -137,14 +133,6 @@
 
 .type-example .def { /* example */
   color: var(--bs-gray-700);
-}
-
-.type-example {
-  display: none;
-}
-
-.type-expression {
-  display: none;
 }
 
 .meaning-icon {
@@ -161,6 +149,16 @@
 .tree-body {
   margin-bottom: 40px;
   padding-left: 20px;
+}
+
+/* visibility control; works in conjunction with the checkboxes on the tree tab */
+.meaning-sources,
+.type-example,
+.type-expression.depth-1,
+.type-expression.depth-2,
+.type-meaning.depth-0 ~ .type-expression,
+.type-meaning.depth-1 {
+  display: none;
 }
 
 @media (max-width: 480px) {

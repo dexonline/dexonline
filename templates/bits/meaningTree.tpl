@@ -41,13 +41,13 @@
         </div>
 
         {if !empty($t.examples)}
-          {include "bits/meaningTree.tpl" class="subtree" meanings=$t.examples depth=$depth+1}
+          {include "bits/meaningTree.tpl" class="" meanings=$t.examples depth=$depth+1}
         {/if}
 
-        {include "bits/meaningTree.tpl" class="subtree" meanings=$t.children depth=$depth+1}
+        {include "bits/meaningTree.tpl" class="" meanings=$t.children depth=$depth+1}
 
         {if !empty($t.expressions)}
-          {include "bits/meaningTree.tpl" class="subtree" meanings=$t.expressions depth=$depth+1}
+          {include "bits/meaningTree.tpl" class="" meanings=$t.expressions depth=$depth+1}
         {/if}
 
       </li>

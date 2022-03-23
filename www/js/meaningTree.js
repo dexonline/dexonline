@@ -610,7 +610,7 @@ $(function() {
   }
 
   function toggleSubtrees() {
-    $('.subtree').toggle();
+    $('.type-meaning.depth-1').toggle();
   }
 
   function checkSourcesChange() {
@@ -640,7 +640,12 @@ $(function() {
   }
 
   function toggleExpressions() {
-    $('.type-expression').toggle();
+    var selectors = [
+      '.type-expression.depth-1',
+      '.type-expression.depth-2',
+      '.type-meaning.depth-0 ~ .type-expression',
+    ];
+    $(selectors.join(',')).toggle();
   }
 
   init();

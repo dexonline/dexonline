@@ -70,7 +70,7 @@ class Lexeme extends BaseObject implements DatedObject {
     $this->modelType = $modelType;
     $this->modelTypeObject = $mt;
     // This duplicates code from Preload.php, where it is executed in bulk.
-    if ($modelType == 'I') {
+    if ($modelType == 'I' && !$this->compound) {
       $m = FlexModel::loadCanonicalByTypeNumber($modelType, $this->modelNumber);
       $this->setPartOfSpeech($m->description);
     } else {

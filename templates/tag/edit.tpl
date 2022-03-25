@@ -72,6 +72,14 @@
                   checked=$t->public
                   help='Dacă nu este publică, eticheta este vizibilă doar pentru utilizatorii privilegiați.'}
               </div>
+
+              <div class="mt-2">
+                {include "bs/checkbox.tpl"
+                  name=isPos
+                  label='parte de vorbire'
+                  checked=$t->isPos
+                  help='Afișează această etichetă pe fila sinteză, ca parte de vorbire.'}
+              </div>
             </div>
           </div>
         </div>

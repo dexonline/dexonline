@@ -371,6 +371,36 @@ class Lexeme extends BaseObject implements DatedObject {
     return Model::factory('Lexeme')->raw_query($query)->find_many();
   }
 
+  /**
+   * Load main lexemes from structured entries that are missing tags with isPos=true.
+   */
+  static function loadWithoutPos() {
+    // lexeme IDs that do have a part of speech tag
+    $subquery = [
+      'select ot.objectId',
+      'from ObjectTag ot',
+      'join Tag t on ot.tagId = t.id',
+      'where ot.objectType = %d',
+      'and t.isPos',
+    ];
+    $subquery = sprintf(implode(' ', $subquery), ObjectTag::TYPE_LEXEME);
+
+    // main lexemes from structured entries not in the ID set above
+    $query = [
+      'select distinct l.* from Lexeme l',
+      'join EntryLexeme el on l.id = el.lexemeId',
+      'join Entry e on el.entryId = e.id',
+      'where el.main',
+      'and e.structStatus in (%d, %d)',
+      'and l.id not in (%s)',
+    ];
+    $query = sprintf(implode(' ', $query),
+                     Entry::STRUCT_STATUS_UNDER_REVIEW,
+                     Entry::STRUCT_STATUS_DONE,
+                     $subquery);
+    return Model::factory('Lexeme')->raw_query($query)->find_many();
+  }
+
   static function countStaleParadigms() {
     return Model::factory('Lexeme')
       ->where('staleParadigm', true)

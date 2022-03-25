@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2022-03-23 09:51+0200\n"
-"PO-Revision-Date: 2022-03-23 09:52+0200\n"
+"POT-Creation-Date: 2022-03-25 10:53+0200\n"
+"PO-Revision-Date: 2022-03-25 10:54+0200\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -247,23 +247,23 @@ msgstr "Forma <strong>%1</strong> există în LOC %2."
 msgid "The form <strong>%1</strong> does not exist in LOC %2."
 msgstr "Forma <strong>%1</strong> nu există în LOC %2."
 
-#: templates/bits/searchForm.tpl:23
+#: templates/bits/searchForm.tpl:24
 msgid "word"
 msgstr "cuvânt"
 
-#: templates/bits/searchForm.tpl:46
+#: templates/bits/searchForm.tpl:47
 msgid "search"
 msgstr "caută"
 
-#: templates/bits/searchForm.tpl:51 templates/games/scramble.tpl:32
+#: templates/bits/searchForm.tpl:52 templates/games/scramble.tpl:32
 msgid "options"
 msgstr "opțiuni"
 
-#: templates/bits/searchForm.tpl:65
+#: templates/bits/searchForm.tpl:66
 msgid "Full-text search"
 msgstr "Caută în tot textul definițiilor"
 
-#: templates/bits/searchForm.tpl:75
+#: templates/bits/searchForm.tpl:76
 msgid "help"
 msgstr "ajutor"
 
@@ -1078,31 +1078,31 @@ msgstr ""
 msgid "of which"
 msgstr "din care"
 
-#: templates/search/trees.tpl:6
+#: templates/search/trees.tpl:7
 msgid "show secondary meanings"
 msgstr "arată sensurile secundare"
 
-#: templates/search/trees.tpl:11
+#: templates/search/trees.tpl:13
 msgid "show expressions"
 msgstr "arată expresiile"
 
-#: templates/search/trees.tpl:16
+#: templates/search/trees.tpl:19
 msgid "show examples"
 msgstr "arată exemplele"
 
-#: templates/search/trees.tpl:21
+#: templates/search/trees.tpl:25
 msgid "show sources"
 msgstr "arată sursele"
 
-#: templates/search/trees.tpl:39
+#: templates/search/trees.tpl:43
 msgid "edit"
 msgstr "editează"
 
-#: templates/search/trees.tpl:49
+#: templates/search/trees.tpl:53
 msgid "etymology"
 msgstr "etimologie"
 
-#: templates/search/trees.tpl:62
+#: templates/search/trees.tpl:66
 msgid ""
 "The full definition list is available on the <a id=\"%1\" href=\"#"
 "\">definitions</a> tab."
@@ -1309,6 +1309,14 @@ msgstr "Dicționare în formatul StarDict"
 #: templates/simple/tools.tpl:189
 msgid "all of the above"
 msgstr "toate cele de mai sus"
+
+#: templates/tag/list.tpl:18
+msgid "link-collapse-all"
+msgstr "închide tot"
+
+#: templates/tag/list.tpl:21
+msgid "link-expand-all"
+msgstr "extinde tot"
 
 #: templates/user/top.tpl:6
 msgid "Manual contribution rankings"

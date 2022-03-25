@@ -1,12 +1,12 @@
-#tagTree {
+#tag-tree {
   line-height: 200%;
 }
 
-#tagTree > ul {
+#tag-tree > ul {
   padding-left: 0px;
 }
 
-#tagTree li {
+#tag-tree li {
   list-style: none;
 }
 

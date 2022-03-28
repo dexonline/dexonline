@@ -18,6 +18,11 @@ class Entry extends BaseObject implements DatedObject {
     self::STRUCT_STATUS_DONE => 'terminată',
   ];
 
+  const PRINTABLE_STATUSES = [
+    self::STRUCT_STATUS_UNDER_REVIEW,
+    self::STRUCT_STATUS_DONE,
+  ];
+
   // create and associate and empty tree if $tree == true
   static function createAndSave($description, $tree = false) {
     $e = Model::factory('Entry')->create();
@@ -107,6 +112,10 @@ class Entry extends BaseObject implements DatedObject {
     return $results;
   }
 
+  function isStructured() {
+    return in_array($this->structStatus, self::PRINTABLE_STATUSES);
+  }
+
   static function loadUnassociated() {
     $query = 'select * from Entry ' .
            'where id not in (select entryId from EntryLexeme) ' .
@@ -143,7 +152,7 @@ class Entry extends BaseObject implements DatedObject {
       ->join('EntryDefinition', ['e.id', '=', 'ed.entryId'], 'ed')
       ->join('Definition', ['ed.definitionId', '=', 'd.id'], 'd')
       ->join('Source', ['d.sourceId', '=', 's.id'], 's')
-      ->where_in('e.structStatus', [self::STRUCT_STATUS_UNDER_REVIEW, self::STRUCT_STATUS_DONE])
+      ->where_in('e.structStatus', self::PRINTABLE_STATUSES)
       ->where('d.structured', 0)
       ->where_in('d.status', [Definition::ST_ACTIVE, Definition::ST_HIDDEN])
       ->where('s.structurable', 1)

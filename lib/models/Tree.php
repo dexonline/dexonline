@@ -38,6 +38,60 @@ class Tree extends BaseObject implements DatedObject {
     return Preload::getTreeTags($this->id);
   }
 
+  /**
+   * Returns main lexemes from structured entries.
+   */
+  function getPrintableLexemes() {
+    $lexemes = Preload::getTreeLexemes($this->id);
+    $lexemes = Lexeme::filterVerbs($lexemes);
+
+    // compile lexemes and sets of pos tags
+    $tuples = [];
+    foreach ($lexemes as $l) {
+      $tags = [];
+      foreach ($l->getTags() as $t) {
+        if ($t->isPos) {
+          $tags[] = $t;
+        }
+      }
+      $tuples[] = [
+        'lexeme' => $l,
+        'tags' => $tags,
+      ];
+    }
+
+    // merge lexemes having identical tags
+    $results = [];
+    foreach ($tuples as $tuple) {
+      $match = false;
+      foreach ($results as $i => $res) {
+        // compare $res.tags with $tuple.tags
+        if (count($res['tags']) == count($tuple['tags'])) {
+          $sameTags = true;
+          foreach ($res['tags'] as $j => $tag) {
+            if ($tag->id != $tuple['tags'][$j]->id) {
+              $sameTags = false;
+            }
+          }
+          if ($sameTags) {
+            $match = $i;
+          }
+        }
+      }
+
+      if ($match !== false) {
+        $results[$match]['lexemes'][] = $tuple['lexeme'];
+      } else {
+        $results[] = [
+          'lexemes' => [ $tuple['lexeme'] ],
+          'tags' => $tuple['tags'],
+        ];
+      }
+    }
+
+    return $results;
+  }
+
   function hasMeanings() {
     return Model::factory('Meaning')
       ->where('treeId', $this->id)

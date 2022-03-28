@@ -28,24 +28,52 @@
 </div>
 
 {foreach $trees as $t}
+  {if User::can(User::PRIV_EDIT + User::PRIV_STRUCT)}
+    <a href="{Router::link('tree/edit')}?id={$t->id}" class="btn btn-sm btn-link float-end">
+      {include "bits/icon.tpl" i=edit}
+      {t}edit{/t}
+    </a>
+  {/if}
+
   <h3 class="tree-heading">
-    {$t->description}
 
-    <span class="ms-2">
-      {foreach $t->getTags() as $tag}
-        {include "bits/tag.tpl" t=$tag}
+    {$printable=$t->getPrintableLexemes()}
+    {if count($printable)}
+      {foreach $printable as $rec}
+        <div>
+          {strip}
+          {foreach $rec.lexemes as $i => $l}
+            {if $i} / {/if}
+            {Str::highlightAccent($l->form)}
+            {$if=$l->getSampleInflectedForm()}
+            {if $if}
+              <span class="tree-inflected-form">
+                , {$if->getHtmlForm()}
+              </span>
+            {/if}
+          {/foreach}
+
+          <span class="tree-pos-info">
+            {foreach $rec.tags as $i => $t}
+              {if $i}, {/if}
+              {$t->value}
+            {/foreach}
+          </span>
+          {/strip}
+        </div>
       {/foreach}
-    </span>
-
-    {if User::can(User::PRIV_EDIT + User::PRIV_STRUCT)}
-      <a href="{Router::link('tree/edit')}?id={$t->id}" class="btn btn-link float-end">
-        {include "bits/icon.tpl" i=edit}
-        {t}edit{/t}
-      </a>
+    {else}
+      {$t->description}
     {/if}
   </h3>
 
   <div class="tree-body">
+    {if count($t->getTags())}
+      {foreach $t->getTags() as $tag}
+        {include "bits/tag.tpl" t=$tag}
+      {/foreach}
+    {/if}
+
     {include "bits/meaningTree.tpl" meanings=$t->getMeanings()}
 
     {if count($t->getEtymologies())}

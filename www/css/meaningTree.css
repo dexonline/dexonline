@@ -19,7 +19,7 @@
 }
 
 .meaningTree .meaningContainer {
-  padding: 2px 5px;
+  padding: 2px 0px;
 }
 
 .meaningTree .bc:not(:empty) {

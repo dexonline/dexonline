@@ -12,6 +12,24 @@
   padding-top: 20px;
 }
 
+.tree-heading .tonic-accent {
+  text-decoration-color: var(--bs-gray-600);
+  text-underline-offset: 0.2rem;
+}
+
+.tree-inflected-form {
+  color: var(--bs-gray-700);
+  font-size: 70%;
+  font-weight: normal;
+}
+
+.tree-pos-info {
+  color: var(--bs-secondary);
+  font-size: 70%;
+  font-weight: normal;
+  margin-left: 1rem;
+}
+
 .variantList span:before {
   content: '•';
 }

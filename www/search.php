@@ -293,9 +293,8 @@ Preload::loadEntryTags(Util::objectProperty($entries, 'id'));
 // only display trees when no source is selected
 if ($searchParams[$searchType]['trees'] && !$sourceId) {
   Preload::loadEntryTrees(Util::objectProperty($entries, 'id'));
-  $statuses = [Entry::STRUCT_STATUS_DONE, Entry::STRUCT_STATUS_UNDER_REVIEW];
   foreach ($entries as $e) {
-    if (in_array($e->structStatus, $statuses)) {
+    if ($e->isStructured()) {
       foreach ($e->getTrees() as $t) {
         if (($t->status == Tree::ST_VISIBLE) &&
             count($t->getMeanings()) &&
@@ -309,6 +308,7 @@ if ($searchParams[$searchType]['trees'] && !$sourceId) {
   }
 
   if (count($trees)) {
+    Preload::loadTreeLexemes(array_keys($trees));
     Smart::addResources('meaningTree');
     usort($trees, [new TreeComparator($cuv), 'cmp']);
   }
@@ -326,9 +326,8 @@ if ($searchParams[$searchType]['paradigm']) {
   $lexemeIds = [];
   foreach ($entries as $e) {
     foreach ($e->getLexemes() as $l) {
-      $isVerb = ($l->modelType == 'V') || ($l->modelType == 'VT');
-      $conjugations |= $isVerb;
-      $declensions |= !$isVerb;
+      $conjugations |= $l->isVerb();
+      $declensions |= !$l->isVerb();
       $lexemeIds[] = $l->id;
     }
   }

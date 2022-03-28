@@ -591,7 +591,6 @@ class Preload {
       return;
     }
 
-    $statuses = [Entry::STRUCT_STATUS_DONE, Entry::STRUCT_STATUS_UNDER_REVIEW];
     $entries = Model::factory('Entry')
       ->select('e.*')
       ->select('m.id', 'meaningId')
@@ -603,7 +602,7 @@ class Preload {
       ->where_in('m.id', $meaningIds)
       ->where('t.status', Tree::ST_VISIBLE)
       ->where('te.entryRank', 1)
-      ->where_in('e.structStatus', $statuses)
+      ->where_in('e.structStatus', Entry::PRINTABLE_STATUSES)
       ->find_many();
 
     self::initKeys(self::$mentionedMeanings, $meaningIds, [ null, null ]);
@@ -660,6 +659,49 @@ class Preload {
   static function getTreeEntries($treeId) {
     self::loadTreeEntries([$treeId]);
     return self::$treeEntries[$treeId];
+  }
+
+  /************ a tree's main lexemes from structured entries ************/
+
+  /**
+   * Maps tree IDs to lists of lexemes
+   */
+  private static array $treeLexemes = [];
+
+  /**
+   * Loads lexemes for all trees with the given IDs.
+   */
+  static function loadTreeLexemes(array $treeIds) {
+    $treeIds = self::filterIds($treeIds, self::$treeLexemes);
+
+    if (empty($treeIds)) {
+      return;
+    }
+
+    $lexemes = Model::factory('Lexeme')
+      ->table_alias('l')
+      ->select('l.*')
+      ->select('te.treeId')
+      ->join('EntryLexeme', ['l.id', '=', 'el.lexemeId'], 'el')
+      ->join('Entry', ['el.entryId', '=', 'e.id'], 'e')
+      ->join('TreeEntry', [ 'e.id', '=', 'te.entryId' ], 'te')
+      ->where('el.main', true)
+      ->where_in('e.structStatus', Entry::PRINTABLE_STATUSES)
+      ->where_in('te.treeId', $treeIds)
+      ->order_by_asc('te.entryRank')
+      ->order_by_asc('el.lexemeRank')
+      ->find_many();
+
+    self::initKeys(self::$treeLexemes, $treeIds, []);
+    foreach ($lexemes as $l) {
+      self::$treeLexemes[$l->treeId][] = $l;
+      unset($l->treeId);
+    }
+  }
+
+  static function getTreeLexemes($treeId) {
+    self::loadTreeLexemes([$treeId]);
+    return self::$treeLexemes[$treeId];
   }
 
   /************************* a tree's meanings *************************/

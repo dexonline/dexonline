@@ -3,7 +3,6 @@
 {$target=$target|default:'_self'}
 {$editLinkClass=$editLinkClass|default:''}
 {$link=$link|default:false}
-{$variantList=$variantList|default:false}
 {$tagList=$tagList|default:false}
 
 {strip}
@@ -25,16 +24,6 @@
 {/if}
 {if $boxed}</span>{/if}
 {/strip}
-
-{if $variantList}
-  <span class="variantList">
-    {foreach $entry->getPrintableLexemes() as $l}
-      <span {if !$l->main}class="text-muted"{/if}>
-        {$l->formNoAccent}
-      </span>
-    {/foreach}
-  </span>
-{/if}
 
 {if $tagList}
   <span class="tagList">

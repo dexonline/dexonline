@@ -83,35 +83,6 @@ class Entry extends BaseObject implements DatedObject {
     return Preload::getEntryTags($this->id);
   }
 
-  /**
-   * Returns the list of lexemes sorted with main lexemes first. Excludes
-   * lexemes that have a form equal to the entry's description. Lexemes with
-   * identical values of formNoAccent are only collected once.
-   *
-   * Due to the mechanics of getMainLexemes() / getVariants(), lexemes will be
-   * sorted by the main bit, then by lexemeRank.
-   **/
-  function getPrintableLexemes() {
-    $desc = $this->getShortDescription();
-    $seen = [ $desc => true ];
-    $results = [];
-
-    foreach ([true, false] as $main) {
-      $lexemes = $main ? $this->getMainLexemes() : $this->getVariants();
-
-      foreach ($lexemes as $l) {
-        $form = $l->formNoAccent;
-        if (!isset($seen[$form])) {
-          $seen[$form] = true;
-          $l->main = $main;
-          $results[] = $l;
-        }
-      }
-    }
-
-    return $results;
-  }
-
   function isStructured() {
     return in_array($this->structStatus, self::PRINTABLE_STATUSES);
   }

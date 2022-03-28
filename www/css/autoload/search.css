@@ -30,14 +30,6 @@
   margin-left: 1rem;
 }
 
-.variantList span:before {
-  content: '•';
-}
-
-h3 .variantList {
-  font-size: 80%;
-}
-
 .entryName {
   font-weight: bold;
 }

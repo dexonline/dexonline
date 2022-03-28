@@ -97,7 +97,7 @@
 
           <h3>
             {capture "entryText"}
-              {include "bits/entry.tpl" entry=$entries[0] variantList=true tagList=true}
+              {include "bits/entry.tpl" entry=$entries[0] tagList=true}
             {/capture}
 
             {if count($results)}
@@ -159,7 +159,7 @@
           {include "search/entryToc.tpl"}
         {else}
           {capture "entryText"}
-          {include "bits/entry.tpl" entry=$entries[0] variantList=true tagList=true}
+          {include "bits/entry.tpl" entry=$entries[0] tagList=true}
           {/capture}
 
           <h3>

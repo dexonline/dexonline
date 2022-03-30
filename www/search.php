@@ -118,7 +118,7 @@ if ($lexemeId) {
     Util::redirectToHome();
   }
   $e = $l->getEntries()[0];
-  Util::redirect(sprintf('%sintrare/%s/%s', Config::URL_PREFIX, $e->getShortDescription(), $e->id));
+  redirectToEntry($e);
 }
 
 // Full-text search
@@ -184,6 +184,15 @@ if ($hasRegexp) {
 
 // If no search type requested so far, then normal search
 if ($searchType == SEARCH_INFLECTED) {
+  // Convenience redirect when there is only one canonical form (possibly with
+  // diacritics added).
+  $canonicalCuv = Lexeme::canonicalize($cuv, $hasDiacritics);
+  if ($canonicalCuv && ($canonicalCuv != $cuv)) {
+    Session::set('redirect', true);
+    Session::set('init_word', $cuv);
+    redirectToDefinition($canonicalCuv, $source, $format);
+  }
+
   $entries = Entry::searchInflectedForms($cuv, $hasDiacritics);
 
   // successful search
@@ -260,19 +269,10 @@ if ($searchType == SEARCH_INFLECTED) {
             'warning');
         }
 
-        $sourcePart = $source ? "-{$source->urlName}" : '';
-        Util::redirect(sprintf('%sdefinitie%s/%s%s',
-                               Config::URL_PREFIX,
-                               $sourcePart,
-                               $l->formNoAccent,
-                               $format['tpl_path']));
+        redirectToDefinition($l->formNoAccent, $source, $format);
       } else if (!$sourceId) {
         // if the source is set, then the lesser evil is to just leave the search word unaltered
-        Util::redirect(sprintf('%sintrare/%s/%s%s',
-                               Config::URL_PREFIX,
-                               $e->getShortDescription(),
-                               $e->id,
-                               $format['tpl_path']));
+        redirectToEntry($e, $format);
       }
     }
   }
@@ -527,6 +527,23 @@ function getTabPermalink($tab) {
   // add the paradigm tab marker
   $uri .= Constant::TAB_URL[$tab];
   return $uri;
+}
+
+function redirectToDefinition(string $query, ?Source $source, array $format) {
+  $sourcePart = $source ? "-{$source->urlName}" : '';
+  Util::redirect(sprintf('%sdefinitie%s/%s%s',
+                         Config::URL_PREFIX,
+                         $sourcePart,
+                         $query,
+                         $format['tpl_path']));
+}
+
+function redirectToEntry(Entry $e, array $format = null) {
+  Util::redirect(sprintf('%sintrare/%s/%s%s',
+                         Config::URL_PREFIX,
+                         $e->getShortDescription(),
+                         $e->id,
+                         $format['tpl_path'] ?? ''));
 }
 
 class TreeComparator {

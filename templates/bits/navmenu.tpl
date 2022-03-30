@@ -209,7 +209,7 @@
             aria-expanded="false">
             {include "bits/avatar.tpl" user=User::getActive()}
             {capture "anon"}{t}Anonymous{/t}{/capture}
-            {User::getActive()|escape|default:$smarty.capture.anon}
+            {User::getActive()|default:$smarty.capture.anon|escape}
           </a>
 
           <ul class="dropdown-menu">

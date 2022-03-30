@@ -240,7 +240,8 @@ class Lexeme extends BaseObject implements DatedObject {
     // Best case scenario: a single base form, e.g. 'padurilor' => 'pădure'
     $forms = Model::factory('Lexeme')
       ->table_alias('l')
-      ->select_expr('distinct lower(l.formNoAccent)', 'form')
+      ->select('l.formNoAccent')
+      ->distinct()
       ->join('InflectedForm', ['l.id', '=', 'i.lexemeId'], 'i')
       ->where("i.{$field}", $query)
       ->find_array();
@@ -248,17 +249,18 @@ class Lexeme extends BaseObject implements DatedObject {
     if (empty($forms)) {
       return null;
     } else if (count($forms) == 1) {
-      return $forms[0]['form'];
+      return $forms[0]['formNoAccent'];
     }
 
     // Second-best case scenario: multiple base forms, but a single inflected
     // form, e.g. 'sageti' => 'săgeți' (base forms: 'săgeată', 'săget', 'săgeți')
     $forms = Model::factory('InflectedForm')
-      ->select_expr('distinct lower(formNoAccent)', 'form')
+      ->select('formNoAccent')
+      ->distinct()
       ->where($field, $query)
       ->find_array();
     return (count($forms) == 1)
-      ? $forms[0]['form']
+      ? $forms[0]['formNoAccent']
       : null;
   }
 

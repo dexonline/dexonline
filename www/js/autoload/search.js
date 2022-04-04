@@ -53,7 +53,7 @@ $(function() {
         // Move the banner down a few meanings, but
         // * not lower than 2/3 of the window height;
         // * only if followed by more meanings;
-        var selector = '#treeTab .depth-0:not(:first)';
+        var selector = '#tab_2 .depth-0:not(:first)';
         $(selector).slice(0,3).each(function() {
           var top = $(this).offset().top;
           if (top + 100 < 2 * h / 3) {
@@ -84,7 +84,8 @@ $(function() {
   }
 
   function popHistory(e) {
-    var state = e.state || '#treeTab'; // it's null for the original page
+    var firstTab = $('.nav-tabs button').attr('data-bs-target');
+    var state = e.state || firstTab; // it's null for the original page
     var btn = $('button[data-bs-target="' + state + '"]');
     var tab = new bootstrap.Tab(btn);
     tab.show();

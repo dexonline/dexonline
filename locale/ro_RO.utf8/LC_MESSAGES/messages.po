@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2022-03-25 10:53+0200\n"
-"PO-Revision-Date: 2022-03-25 10:54+0200\n"
+"POT-Creation-Date: 2022-04-04 11:52+0300\n"
+"PO-Revision-Date: 2022-04-04 11:53+0300\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -539,6 +539,7 @@ msgstr "Arată modelele pentru"
 
 #: templates/games/scrabble.tpl:184 templates/search.tpl:265
 #: templates/search.tpl:273 templates/search.tpl:275
+#: templates/search/trees.tpl:4
 msgid "show"
 msgstr "arată"
 
@@ -721,15 +722,15 @@ msgstr "Dicționare ale limbii române"
 msgid "customize widgets"
 msgstr "personalizare elemente"
 
-#: templates/index.tpl:39
+#: templates/index.tpl:38
 msgid "digitizes prestigious dictionaries of the Romanian language."
 msgstr "transpune pe Internet dicționare de prestigiu ale limbii române."
 
-#: templates/index.tpl:40
+#: templates/index.tpl:39
 msgid "The project is maintained by a team of volunteers."
 msgstr "Proiectul este întreținut de o echipă de voluntari."
 
-#: templates/index.tpl:41
+#: templates/index.tpl:40
 msgid ""
 "Much of the data can be downloaded freely under the GNU General Public "
 "License."
@@ -737,7 +738,7 @@ msgstr ""
 "O parte din date pot fi descărcate liber și gratuit sub Licența Publică "
 "Generală GNU."
 
-#: templates/index.tpl:44
+#: templates/index.tpl:41
 msgid "Current status: %1 definitions, of which %2 learned last month."
 msgstr "Starea curentă: %1 de definiții, din care %2 învățate în ultima lună."
 
@@ -1078,31 +1079,31 @@ msgstr ""
 msgid "of which"
 msgstr "din care"
 
-#: templates/search/trees.tpl:7
-msgid "show secondary meanings"
-msgstr "arată sensurile secundare"
+#: templates/search/trees.tpl:9
+msgid "secondary meanings"
+msgstr "sensuri secundare"
 
-#: templates/search/trees.tpl:13
-msgid "show expressions"
-msgstr "arată expresiile"
+#: templates/search/trees.tpl:14
+msgid "expressions"
+msgstr "expresii"
 
 #: templates/search/trees.tpl:19
-msgid "show examples"
-msgstr "arată exemplele"
+msgid "examples"
+msgstr "exemple"
 
-#: templates/search/trees.tpl:25
-msgid "show sources"
-msgstr "arată sursele"
+#: templates/search/trees.tpl:24
+msgid "sources"
+msgstr "surse"
 
-#: templates/search/trees.tpl:43
+#: templates/search/trees.tpl:33
 msgid "edit"
 msgstr "editează"
 
-#: templates/search/trees.tpl:53
+#: templates/search/trees.tpl:80
 msgid "etymology"
 msgstr "etimologie"
 
-#: templates/search/trees.tpl:66
+#: templates/search/trees.tpl:93
 msgid ""
 "The full definition list is available on the <a id=\"%1\" href=\"#"
 "\">definitions</a> tab."
@@ -1415,11 +1416,11 @@ msgstr "precedentul"
 msgid "next"
 msgstr "următorul"
 
-#: lib/Tab.php:49 www/search.php:341
+#: lib/Tab.php:49 www/search.php:340
 msgid "conjugations"
 msgstr "conjugări"
 
-#: lib/Tab.php:49 www/search.php:342
+#: lib/Tab.php:49 www/search.php:341
 msgid "declensions"
 msgstr "declinări"
 
@@ -1691,7 +1692,10 @@ msgstr[0] "Un cuvânt al zilei ales la întâmplare"
 msgstr[1] "%d cuvinte ale zilei alese la întâmplare"
 msgstr[2] "%d de cuvinte ale zilei alese la întâmplare"
 
-#: www/search.php:216
+#: www/search.php:225
 #, php-format
 msgid "We redirected you automatically from <b>%s</b> to <b>%s</b>."
 msgstr "V-am redirecționat automat de la <b>%s</b> la <b>%s</b>."
+
+#~ msgid "show sources"
+#~ msgstr "arată sursele"

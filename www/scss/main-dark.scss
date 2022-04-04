@@ -52,7 +52,7 @@ $black:    hsl(0, 0%, 100%);
 /* Bootstrap overrides */
 $body-bg: $white;
 $body-color: #e0e0e0;
-$surface: $gray-100;
+$surface: #212121;
 
 $modal-backdrop-bg: $gray-700;
 
@@ -65,6 +65,7 @@ html.dark {
   --c-notice-bg: #212121;
   --c-read-more-top: rgba(18, 18, 18, 0.8);
   --c-search-shadow: #777;
+  --c-surface: #{$surface};
 
   /* tag backgrounds and colors */
   --c-tag-bg-1: #ff7c5b;

@@ -12,6 +12,27 @@
   padding-top: 20px;
 }
 
+#tree-checks {
+  background-color: var(--c-surface);
+}
+
+@media (max-width: 1399px) { /* xl and below */
+  #tree-checks .form-check-inline {
+    margin-bottom: 0;
+  }
+}
+
+@media (min-width: 1400px) { /* xxl only */
+  #tree-checks {
+    position: fixed;
+    transform: translateX(-110%);
+  }
+
+  #tree-checks .form-check-inline {
+    display: block;
+  }
+}
+
 .tree-heading .tonic-accent {
   text-decoration-color: var(--bs-gray-600);
   text-underline-offset: 0.2rem;
@@ -25,7 +46,7 @@
 
 .tree-pos-info {
   color: var(--bs-secondary);
-  font-size: 70%;
+  font-size: 55%;
   font-weight: normal;
   margin-left: 1rem;
 }

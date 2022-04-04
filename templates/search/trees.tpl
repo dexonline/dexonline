@@ -1,28 +1,31 @@
-<div class="card small mb-3">
-  <div class="card-body">
+<div class="card small mb-3" id="tree-checks">
+  <div class="card-body bg-surface">
+    <div class="form-check form-check-inline ps-0">
+      {t}show{/t}:
+    </div>
     {include "bs/checkbox.tpl"
       divClass="form-check-inline"
       inputClass="tree-check"
       inputId="tree-check-subtrees"
-      label="{t}show secondary meanings{/t}"
+      label="{t}secondary meanings{/t}"
       name=""}
     {include "bs/checkbox.tpl"
       divClass="form-check-inline"
       inputClass="tree-check"
       inputId="tree-check-expressions"
-      label="{t}show expressions{/t}"
+      label="{t}expressions{/t}"
       name=""}
     {include "bs/checkbox.tpl"
       divClass="form-check-inline"
       inputClass="tree-check"
       inputId="tree-check-examples"
-      label="{t}show examples{/t}"
+      label="{t}examples{/t}"
       name=""}
     {include "bs/checkbox.tpl"
       divClass="form-check-inline"
       inputClass="tree-check"
       inputId="tree-check-sources"
-      label="{t}show sources{/t}"
+      label="{t}sources{/t}"
       name=""}
   </div>
 </div>

@@ -231,37 +231,60 @@ class Lexeme extends BaseObject implements DatedObject {
   }
 
   /**
-   * Tries to canonicalize an inflected form. If there are multiple matches,
-   * then returns null.
+   * Checks if all the $forms are equal, allowing for case differences.
+   *   * If there is only one form or multiple equal forms, then returns the
+         form, in uppercase if all the forms are in uppercase, in lowercase
+         otherwise.
+   *   * If there are multiple equal forms, returns false.
+   *   * If there are no forms, returns null.
+   */
+  static function _canonicalizeHelper(array $forms) {
+    if (empty ($forms)) {
+      return null;
+    }
+
+    $forms = array_column($forms, 'formNoAccent');
+
+    rsort($forms); // prefer lowercase
+    $candidate = $forms[0];
+    $lowerCandidate = mb_strtolower($candidate);
+
+    $i = count($forms) - 1;
+    while (($i > 1) && (mb_strtolower($forms[$i]) == $lowerCandidate)) {
+      $i--;
+    }
+
+    return ($i <= 1) ? $candidate : false;
+  }
+
+  /**
+   * Tries to canonicalize an inflected form. If there are multiple matches or
+   * no matches, then returns null. We don't use MySQL's distinct clause
+   * because it doesn't play nice with case differences (urs / Urs etc.)
    */
   static function canonicalize(string $query, bool $hasDiacritics) {
     $field = $hasDiacritics ? 'formNoAccent' : 'formUtf8General';
 
-    // Best case scenario: a single base form, e.g. 'padurilor' => 'pădure'
+    // Case 1: a single base form, e.g. 'padurilor' => 'pădure'
     $forms = Model::factory('Lexeme')
       ->table_alias('l')
       ->select('l.formNoAccent')
-      ->distinct()
       ->join('InflectedForm', ['l.id', '=', 'i.lexemeId'], 'i')
       ->where("i.{$field}", $query)
       ->find_array();
 
-    if (empty($forms)) {
-      return null;
-    } else if (count($forms) == 1) {
-      return $forms[0]['formNoAccent'];
+    $canonical = self::_canonicalizeHelper($forms);
+    if ($canonical !== false) {
+      return $canonical;
     }
 
-    // Second-best case scenario: multiple base forms, but a single inflected
-    // form, e.g. 'sageti' => 'săgeți' (base forms: 'săgeată', 'săget', 'săgeți')
+    // Case 2: multiple base forms, but a single inflected form, e.g. 'sageti'
+    // => 'săgeți' (base forms: 'săgeată', 'săget', 'săgeți')
     $forms = Model::factory('InflectedForm')
       ->select('formNoAccent')
-      ->distinct()
       ->where($field, $query)
       ->find_array();
-    return (count($forms) == 1)
-      ? $forms[0]['formNoAccent']
-      : null;
+    return self::_canonicalizeHelper($forms);
   }
 
   static function searchApproximate($cuv) {

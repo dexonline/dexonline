@@ -25,6 +25,7 @@ html.dark {
 
 .website-statement {
   color: var(--bs-gray-600);
+  font-style: italic;
 }
 
 /********************* Home page widgets *********************/

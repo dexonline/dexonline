@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2022-04-04 11:52+0300\n"
-"PO-Revision-Date: 2022-04-04 11:53+0300\n"
+"POT-Creation-Date: 2022-04-04 15:42+0300\n"
+"PO-Revision-Date: 2022-04-04 15:42+0300\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -1059,6 +1059,10 @@ msgstr[0] "O imagine"
 msgstr[1] "%1 imagini"
 msgstr[2] "%1 de imagini"
 
+#: templates/search/gallery.tpl:19
+msgid "click any image for details"
+msgstr "clic pe imagini pentru detalii"
+
 #: templates/search/missingDefinitionWarnings.tpl:6
 msgid ""
 "There are definitions in non-normative dictionaries, which <a href="
@@ -1079,31 +1083,31 @@ msgstr ""
 msgid "of which"
 msgstr "din care"
 
-#: templates/search/trees.tpl:9
+#: templates/search/trees.tpl:10
 msgid "secondary meanings"
 msgstr "sensuri secundare"
 
-#: templates/search/trees.tpl:14
+#: templates/search/trees.tpl:16
 msgid "expressions"
 msgstr "expresii"
 
-#: templates/search/trees.tpl:19
+#: templates/search/trees.tpl:22
 msgid "examples"
 msgstr "exemple"
 
-#: templates/search/trees.tpl:24
+#: templates/search/trees.tpl:28
 msgid "sources"
 msgstr "surse"
 
-#: templates/search/trees.tpl:33
+#: templates/search/trees.tpl:37
 msgid "edit"
 msgstr "editează"
 
-#: templates/search/trees.tpl:80
+#: templates/search/trees.tpl:84
 msgid "etymology"
 msgstr "etimologie"
 
-#: templates/search/trees.tpl:93
+#: templates/search/trees.tpl:97
 msgid ""
 "The full definition list is available on the <a id=\"%1\" href=\"#"
 "\">definitions</a> tab."
@@ -1696,6 +1700,3 @@ msgstr[2] "%d de cuvinte ale zilei alese la întâmplare"
 #, php-format
 msgid "We redirected you automatically from <b>%s</b> to <b>%s</b>."
 msgstr "V-am redirecționat automat de la <b>%s</b> la <b>%s</b>."
-
-#~ msgid "show sources"
-#~ msgstr "arată sursele"

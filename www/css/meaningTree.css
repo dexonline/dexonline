@@ -144,6 +144,7 @@
 .meaning-icon {
   color: var(--bs-gray-500);
   font-size: 80%;
+  padding: 0 0.6rem;
 }
 
 .tree-heading {

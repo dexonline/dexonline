@@ -25,7 +25,7 @@
 @media (min-width: 1400px) { /* xxl only */
   #tree-checks {
     position: fixed;
-    transform: translateX(-110%);
+    transform: translateX(-120%);
   }
 
   #tree-checks .form-check-inline {

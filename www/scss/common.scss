@@ -6,11 +6,6 @@
  **/
 
 /* Bootstrap overrides */
-$container-max-widths: (
-  sm: 540px,
-  md: 720px,
-  lg: 960px,
-);
 $dropdown-bg: $surface;
 $dropdown-link-hover-color: $primary;
 $font-family-sans-serif: Open Sans, Arial, sans-serif;
@@ -88,6 +83,13 @@ $utilities-bg-colors: map-loop($utilities-colors, rgba-css-var, "$key", "bg");
 /**
  * end of BS imports
  */
+
+/* lower main container width, except for admin pages */
+@include media-breakpoint-up(lg) {
+  .container-narrow {
+    max-width: 960px;
+  }
+}
 
 @include media-breakpoint-down(lg) {
   /* navbar logo: show just the computer, not the "dexonline" word */

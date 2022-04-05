@@ -249,12 +249,13 @@ class Lexeme extends BaseObject implements DatedObject {
     $candidate = $forms[0];
     $lowerCandidate = mb_strtolower($candidate);
 
-    $i = count($forms) - 1;
-    while (($i > 1) && (mb_strtolower($forms[$i]) == $lowerCandidate)) {
-      $i--;
+    $i = 1;
+    while (($i < count($forms)) &&
+           (mb_strtolower($forms[$i]) == $lowerCandidate)) {
+      $i++;
     }
 
-    return ($i <= 1) ? $candidate : false;
+    return ($i == count($forms)) ? $candidate : false;
   }
 
   /**

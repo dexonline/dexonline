@@ -603,13 +603,15 @@ class Str {
       }
     }
 
-    // t'onic 'accent
-    $s = self::highlightAccent($s);
-
     // various substitutions
     $from = array_keys(Constant::HTML_REPLACEMENTS);
     $to = array_values(Constant::HTML_REPLACEMENTS);
     $s = str_replace($from, $to, $s);
+
+    // t'onic 'accent
+    // This needs to happen after HTML_REPLACEMENTS so that [\''x] is
+    // converted correctly to [’<span class="tonic-accent">x</span>].
+    $s = self::highlightAccent($s);
 
     // finally, remove the escape character -- we no longer need it
     $s = preg_replace('/(?<!\\\\)\\\\/', '', $s);

@@ -218,6 +218,10 @@ assertTransform('Str::htmlize', [ 0 ], [
   "I\\'m the ▶invisible ◀man▶ - some lyrics from Queen◀." =>
   ["I’m the man.", []],
 
+  // apostrophe followed by tonic accent
+  "lasagna bolon\\''ese" =>
+  ['lasagna bolon’<span class="tonic-accent">e</span>se', []],
+
 ]);
 
 // htmlize with footnotes

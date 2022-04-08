@@ -2,8 +2,8 @@
 html.dark {
   --c-logo-home: #c5c5c5;
   --c-logo-nav: #c5c5c5;
-  --c-navbar-bg: #212529;
-  --c-navbar-border: #212529;
+  --c-navbar-bg: #212121;
+  --c-navbar-border: #212121;
   --c-notice: var(--bs-body-color);
   --c-notice-bg: #212121;
   --c-read-more-top: rgba(18, 18, 18, 0.8);

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2022-04-04 15:42+0300\n"
-"PO-Revision-Date: 2022-04-04 15:42+0300\n"
+"POT-Creation-Date: 2022-04-08 12:23+0300\n"
+"PO-Revision-Date: 2022-04-08 12:24+0300\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -646,7 +646,7 @@ msgid ""
 "the letters, then click on the magnifier to check a word."
 msgstr ""
 "Dacă folosiți tastatura, tastați pur și simplu literele. Dacă folosiți mouse-"
-"ul, dați clic pe litere, apoi pe lupă pentru a verifica un cuvânt."
+"ul, dați click pe litere, apoi pe lupă pentru a verifica un cuvânt."
 
 #: templates/games/scramble.tpl:170
 msgid ""
@@ -1052,16 +1052,9 @@ msgstr ""
 "curs de reconstrucție. Această operație durează de obicei circa 10 minute. "
 "Ne cerem scuze pentru neplăcere."
 
-#: templates/search/gallery.tpl:3
-msgid "One image"
-msgid_plural "%1 images"
-msgstr[0] "O imagine"
-msgstr[1] "%1 imagini"
-msgstr[2] "%1 de imagini"
-
-#: templates/search/gallery.tpl:19
+#: templates/search/gallery.tpl:11
 msgid "click any image for details"
-msgstr "clic pe imagini pentru detalii"
+msgstr "click pe imagini pentru detalii"
 
 #: templates/search/missingDefinitionWarnings.tpl:6
 msgid ""
@@ -1277,7 +1270,7 @@ msgid ""
 "spelling</em> box, right-click once more and select <em>Languages > "
 "Romanian</em>."
 msgstr ""
-"Pentru a folosi corectorul, faceți clic-dreapta în orice cîmp de text, "
+"Pentru a folosi corectorul, faceți click-dreapta în orice cîmp de text, "
 "bifați opțiunea <em>Verifică ortografia</em>, faceți clic-dreapta din nou și "
 "selectați <em>Limbi > Română</em>."
 
@@ -1292,7 +1285,7 @@ msgstr ""
 #: templates/simple/tools.tpl:146
 msgid "A <a href=\"%1\">Chrome extension</a> for right-click searches."
 msgstr ""
-"O <a href=\"%1\">extensie de Chrome</a> pentru căutarea cu clic-dreapta."
+"O <a href=\"%1\">extensie de Chrome</a> pentru căutarea cu click-dreapta."
 
 #: templates/simple/tools.tpl:151
 msgid ""
@@ -1300,7 +1293,7 @@ msgid ""
 "click searches and registers a one-click search engine."
 msgstr ""
 "O <a href=\"%1\">extensie de Firefox</a> pentru dexonline scrisă de "
-"AdaKaleh. Permite căutări cu clic dreapta și adaugă un motor de căutare cu "
+"AdaKaleh. Permite căutări cu click dreapta și adaugă un motor de căutare cu "
 "un singur click."
 
 #: templates/simple/tools.tpl:158
@@ -1658,14 +1651,14 @@ msgstr ""
 
 #: routes/simple/tools.php:33
 msgid "Word clicks"
-msgstr "Clic pe cuvânt"
+msgstr "Click pe cuvânt"
 
 #: routes/simple/tools.php:34
 msgid ""
 "When you click a word in a definition, this client goes to the definition "
 "for that word."
 msgstr ""
-"Când dați clic pe un cuvânt dintr-o definiție, acest client navighează la "
+"Când dați click pe un cuvânt dintr-o definiție, acest client navighează la "
 "definiția acelui cuvânt."
 
 #: routes/simple/tools.php:37

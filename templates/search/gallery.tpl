@@ -1,11 +1,3 @@
-<h3>
-  {t
-    count=count($images)
-    1=count($images)
-    plural="%1 images"}
-    One image{/t}
-</h3>
-
 {foreach $images as $i}
   <a class="gallery"
     href="{$i->getImageUrl()}"

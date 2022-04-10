@@ -402,6 +402,11 @@ class Router {
       'en_US.utf8' => 'word-of-the-month',
       'ro_RO.utf8' => 'cuvantul-lunii',
     ],
+    // expression of the month
+    'wote/view' => [
+      'en_US.utf8' => 'expression-of-the-month',
+      'ro_RO.utf8' => 'expresia-lunii',
+    ],
   ];
 
   // file => list of parameters expected in the URL (none by default)
@@ -418,6 +423,7 @@ class Router {
     'wotd/random' => [ 'count', 'skin' ],
     'wotd/view' => [ 'year', 'month', 'day', 'format' ],
     'wotm/view' => [ 'year', 'month', 'format' ],
+    'wote/view' => [ 'year', 'month', 'format' ],
     'user/view' => [ 'nick' ],
   ];
 
@@ -426,6 +432,9 @@ class Router {
       'regex' => '/^(?:(\d{4})(?:\/)(\d{2})(?:\/)(\d{2}))?(?:\/)?(xml|json)?$/',
     ],
     'wotm/view' => [
+      'regex' =>'/^(?:(\d{4})(?:\/)(\d{2}))?(?:\/)?(xml|json)?$/',
+    ],
+    'wote/view' => [
       'regex' =>'/^(?:(\d{4})(?:\/)(\d{2}))?(?:\/)?(xml|json)?$/',
     ],
   ];

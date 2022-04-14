@@ -71,6 +71,7 @@
       <tr>
         <th>Moderator</th>
         <th>Definiții finalizate</th>
+        <th>Dicționar în lucru</th>
         <th>Definiții alocate</th>
         <th>Caractere alocate</th>
       </tr>
@@ -81,6 +82,7 @@
         <tr>
           <td>{$i.0}</td>
           <td>{$i.1}</td>
+          <td>{$i.5}</td>
           <td>{$i.2}</td>
           <td>{$i.4}</td>
         </tr>

@@ -77,10 +77,12 @@ const OCR_EDITOR_STATS =
   SUM(IF(X.status='published', X.cnt, 0)) Număr_de_definiții_publicate,
   SUM(IF(X.status='raw', X.cnt, 0)) Număr_de_definiții_alocate,
   SUM(IF(X.status='published', X.tsize, 0)) Număr_de_caractere_publicate,
-  SUM(IF(X.status='raw', X.tsize, 0)) Număr_de_caractere_alocate
+  SUM(IF(X.status='raw', X.tsize, 0)) Număr_de_caractere_alocate,
+      IF(X.status='raw', X.dict, '') Din_dicționarul
 FROM (
-  SELECT editorId, status, count(*) cnt, sum(char_length(ocrText)) tsize
-  FROM OCR GROUP BY editorId, status
+  SELECT editorId, status, count(*) cnt, sum(char_length(ocrText)) tsize, group_concat(DISTINCT S.shortName) dict
+  FROM OCR JOIN Source S ON OCR.sourceId=S.id
+  GROUP BY editorId, status
 ) X
 JOIN User U on X.editorId=U.id
 GROUP BY U.nick";

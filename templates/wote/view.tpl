@@ -75,7 +75,7 @@
                 <td class="activeMonth">
                   <div class="thumb">
                     {if $day.wotd && $day.wotd->image && $day.visible}
-                      <a href="{Router::link('wote/view')}/{$year}/{$day.wotd->id }">
+                      <a href="{Router::link('wote/view')}/{$day.wotd->id }">
                         <img
                           src="{$day.wotd->getMediumThumbUrl()}"
                           alt="thumbnail {$day.wotd->title}"

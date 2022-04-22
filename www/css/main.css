@@ -474,3 +474,13 @@ div.thumb {
 blockquote {
   border: 1px solid black;
 }
+
+.img-center {
+  table-layout: fixed;
+}
+
+.img-center td img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}

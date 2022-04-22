@@ -6,6 +6,31 @@ class ExpressionOfTheMonth extends BaseObject implements DatedObject {
   const DEFAULT_IMAGE = 'generic.jpg';
   const SIZE_XL = 600;
 
+  static function getExpressionsFromYear($year) {
+    return Model::factory('ExpressionOfTheMonth')
+      ->raw_query("SELECT id FROM ExpressionOfTheMonth WHERE YEAR(displayDate)=$year")
+      ->find_many();
+  }
+
+  static function getExpression($id) {
+    return Model::factory('ExpressionOfTheMonth')
+      ->where('id', $id)
+      ->find_one();
+  }
+
+  static function getTodayExpression() {
+    return Model::factory('ExpressionOfTheMonth')
+      ->raw_query('SELECT * FROM ExpressionOfTheMonth WHERE displayDate < NOW() order by displayDate DESC LIMIT 1')
+      ->find_one();
+      /*
+      ->where_lte('displayDate', 'NOW()')
+      ->order_by_desc('displayDate')
+      ->limit(1)
+      ->find_one();
+      */
+
+  }
+
   static function getWotM($date) {
     return Model::factory('ExpressionOfTheMonth')
       ->where_lte('displayDate', $date)
@@ -46,7 +71,7 @@ class ExpressionOfTheMonth extends BaseObject implements DatedObject {
   }
 
   function getLargeThumbUrl() {
-    return $this->getThumbUrl(self::SIZE_XL);
+    return $this->getThumbUrl(WordOfTheDay::SIZE_L);
   }
 
   function getArtist() {

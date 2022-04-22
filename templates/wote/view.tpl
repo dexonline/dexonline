@@ -1,14 +1,13 @@
 {extends "layout.tpl"}
 
 {block "title"}
-    {t}Expression of the month for{/t} {$monthName} {$year}:
-    {$searchResult->definition->lexicon}
+    Expresia zilei: {$title}
 {/block}
 
 {block "pageDescription"}
   <meta
     name="description"
-    content="Expresia lunii {$monthName} {$year} la dexonline: {$searchResult->definition->lexicon}">
+    content="Expresia zilei la dexonline: {$searchResult->definition->lexicon}">
 {/block}
 
 {block "openGraph"}
@@ -16,7 +15,7 @@
 {/block}
 
 {block "content"}
-  <h3>{t}Expresia lunii{/t} {$monthName} {$year}</h3>
+  <h3>Expresia zilei: {$title}</h3>
   <div class="card mb-3">
     <div class="card-header fs-2 px-2 py-0 d-flex justify-content-between">
         {if isset($prevmon)}
@@ -58,4 +57,41 @@
         </div>
       {/if}
   </div>
+  <br/>
+
+  <h3>Dicționarul expresiilor ilustrate</h3>
+  <div class="card mb-4">
+    <div class="card-header fs-5 text-center">
+     <span id="wotdDate">
+        Expresiile anului {cap}{$year}{/cap}
+      </span>
+    </div>
+    <table class="table table-bordered mb-0 wotdArchiveTable img-center ">
+      <tbody>
+        {foreach $words as $week}
+          <tr>
+            {foreach $week as $day}
+              {if $day}
+                <td class="activeMonth">
+                  <div class="thumb">
+                    {if $day.wotd && $day.wotd->image && $day.visible}
+                      <a href="{Router::link('wote/view')}/{$year}/{$day.wotd->id }">
+                        <img
+                          src="{$day.wotd->getMediumThumbUrl()}"
+                          alt="thumbnail {$day.wotd->title}"
+                          title="{$day.wotd->title}"
+                        >
+                      </a>
+                    {/if}
+                  </div>
+                </td>
+              {else}
+                <td></td>
+              {/if}
+            {/foreach}
+          </tr>
+        {/foreach}
+      </tbody>
+    </table>
+   </div>
 {/block}

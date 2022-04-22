@@ -2,50 +2,34 @@
 
 const WOTE_BIG_BANG = '2022-01-01';
 
-$year = (int)Request::get('year', date('Y'));
-$month = (int)Request::get('month', date('m'));
+$id = (int)Request::get('id');
 $format = Request::getFormat();
 
-if (!checkDate($month, 1, $year)) {
-  Util::redirectToRoute('wote/view'); // current month
+$year = date('Y');
+
+$wotm = $id ? ExpressionOfTheMonth::getExpression($id) :  ExpressionOfTheMonth::getTodayExpression();
+if (!$wotm) {
+  Util::redirectToRoute('wote/view'); // current expression
 }
-
-$today = date('Y-m-01', time()); // Always use the first of the month
-$timestamp = strtotime("{$year}-{$month}");
-$monthName = LocaleUtil::getMonthName($month);
-$mysqlDate = sprintf('%s-%02s-01', $year, $month);
-
-if ($mysqlDate < WOTE_BIG_BANG || (($mysqlDate > $today) && !User::can(User::PRIV_WOTD))) {
-  Util::redirectToRoute('wote/view');
-}
-
-$wotm = ExpressionOfTheMonth::getWotM($mysqlDate);
 $def = Definition::get_by_id($wotm->definitionId);
+$crt_id = $wotm->id;
 
 $searchResults = SearchResult::mapDefinitionArray([$def]);
-
-$cYear = date('Y', $timestamp);
-$cMonth = date('n', $timestamp);
-$nextTS = mktime(0, 0, 0, $cMonth + 1, 1, $cYear);
-$prevTS = mktime(0, 0, 0, $cMonth - 1, 1, $cYear);
-
-if ($mysqlDate > WOTE_BIG_BANG) {
-  Smart::assign('prevmon', date('Y/m', $prevTS));
+if ($crt_id > 1) {
+  Smart::assign('prevmon', $crt_id - 1);
 }
-if ($mysqlDate < $today || User::can(User::PRIV_WOTD)) {
-  Smart::assign('nextmon', date('Y/m', $nextTS));
-}
+Smart::assign('nextmon', $crt_id + 1);
 
 Smart::assign([
   'year' => $year,
-  'month' => $month,
-  'monthName' => $monthName,
+  'id' => $crt_id,
+  'title' => $wotm->title,
   'imageUrl' => $wotm->getLargeThumbUrl(),
   'artist' => $wotm->getArtist(),
   'reason' => $wotm->description,
   'searchResult' => array_pop($searchResults),
+  'words' => createGallery($year),
 ]);
-
 
 switch ($format['name']) {
   case 'xml':
@@ -55,4 +39,32 @@ switch ($format['name']) {
     break;
   default:
     Smart::display('wote/view.tpl');
+}
+
+function createGallery($year) {
+  $gallery = [];
+
+  $expressions = ExpressionOfTheMonth::getExpressionsFromYear($year);
+  foreach ($expressions as $expr) {
+    $wote = ExpressionOfTheMonth::GetExpression ($expr->id);
+    $def = $wote ? Definition::get_by_id($wote->definitionId) : null;
+    $gallery[] = [
+      'wotd' => $wote,
+      'def' => $def,
+      'visible' => 1,
+      'dayOfMonth' => $expr->id
+    ];
+  }
+
+  // Pad end
+  while (count($gallery) % 7 != 0) {
+    $gallery[] = [];
+  }
+
+  // Wrap 7 records per line
+  $lines = [];
+  while (count($gallery)) {
+    $lines[] = array_splice($gallery, 0, 7);
+  }
+  return $lines;
 }

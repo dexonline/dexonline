@@ -28,7 +28,7 @@ Smart::assign([
   'imageUrl' => $wotm->getLargeThumbUrl(),
   'imageXLUrl' => $wotm->getXLargeThumbUrl(),
   'imageXXLUrl' => $wotm->getXXLargeThumbUrl(),
-  'artist' => $wotm->getArtist(),
+  'artist' => WotdArtist::get_by_id($wotm->idArtist),
   'reason' => $wotm->description,
   'searchResult' => array_pop($searchResults),
   'words' => createGallery($year),

@@ -112,18 +112,19 @@
             <div class="col-md-10">
 
               <div class="btn-group" role="group">
-                {for $time=1 to 5}
+                {$minutes=[1,2,3,4,5,10]}
+                {foreach $minutes as $i => $time}
                   <input
-                    id="radioTime{$time-1}"
+                    id="radioTime{$i}"
                     type="radio"
                     class="btn-check"
                     name="seconds"
-                    value="{$time-1}"
+                    value="{$i}"
                     {if $time == 3}checked{/if}>
-                  <label for="radioTime{$time-1}" class="btn btn-outline-secondary">
+                  <label for="radioTime{$i}" class="btn btn-outline-secondary">
                     {t count=$time 1=$time plural="%1 minutes"}one minute{/t}
                   </label>
-                {/for}
+                {/foreach}
               </div>
 
             </div>

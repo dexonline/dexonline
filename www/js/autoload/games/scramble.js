@@ -39,7 +39,7 @@ $(function() {
   // maps 0-based HTML field values to parameter values
   const PARAM_VALUES = {
     level: [ 4, 5, 6, 7 ],
-    seconds: [ 60, 120, 180, 240, 300 ],
+    seconds: [ 60, 120, 180, 240, 300, 600 ],
   }
 
   // game states

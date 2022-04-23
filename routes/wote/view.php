@@ -26,6 +26,8 @@ Smart::assign([
   'id' => $crt_id,
   'title' => $wotm->title,
   'imageUrl' => $wotm->getLargeThumbUrl(),
+  'imageXLUrl' => $wotm->getXLargeThumbUrl(),
+  'imageXXLUrl' => $wotm->getXXLargeThumbUrl(),
   'artist' => $wotm->getArtist(),
   'reason' => $wotm->description,
   'searchResult' => array_pop($searchResults),

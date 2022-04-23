@@ -4,7 +4,9 @@ class ExpressionOfTheMonth extends BaseObject implements DatedObject {
   public static $_table = 'ExpressionOfTheMonth';
 
   const DEFAULT_IMAGE = 'generic.jpg';
+  const SIZE_XM = 150;
   const SIZE_XL = 600;
+  const SIZE_XXL=1080;
 
   static function getExpressionsFromYear($year) {
     return Model::factory('ExpressionOfTheMonth')
@@ -70,8 +72,20 @@ class ExpressionOfTheMonth extends BaseObject implements DatedObject {
     return $this->getThumbUrl(WordOfTheDay::SIZE_M);
   }
 
+  function getXMediumThumbUrl() {
+    return $this->getThumbUrl(self::SIZE_XM);
+  }
+
   function getLargeThumbUrl() {
     return $this->getThumbUrl(WordOfTheDay::SIZE_L);
+  }
+
+  function getXLargeThumbUrl() {
+    return $this->getThumbUrl(self::SIZE_XL);
+  }
+
+  function getXXLargeThumbUrl() {
+    return $this->getThumbUrl(self::SIZE_XXL);
   }
 
   function getArtist() {

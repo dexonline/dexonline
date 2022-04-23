@@ -35,7 +35,11 @@
         {if $imageUrl}
           <img
             class="img-fluid mx-auto d-block"
-            src="{$imageUrl}"
+            src="{$imageXLUrl}"
+            srcset="
+            {$imageUrl} 0.5x
+            {$imageXXLUrl} 1.8x
+            "
             alt="{$searchResult->definition->lexicon}"
             title="{$searchResult->definition->lexicon}">
           <div class="text-muted text-end">
@@ -77,7 +81,7 @@
                     {if $day.wotd && $day.wotd->image && $day.visible}
                       <a href="{Router::link('wote/view')}/{$day.wotd->id}">
                         <img
-                          src="{$day.wotd->getMediumThumbUrl()}"
+                          src="{$day.wotd->getXMediumThumbUrl()}"
                           alt="thumbnail {$day.wotd->title}"
                           title="{$day.wotd->title}"
                         >

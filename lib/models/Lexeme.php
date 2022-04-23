@@ -905,7 +905,9 @@ class Lexeme extends BaseObject implements DatedObject {
   function save() {
     $this->formUtf8General = $this->formNoAccent;
     $this->reverse = Str::reverse($this->formNoAccent);
-    $this->consistentAccent = (strpos($this->form, "'") !== false) ^ $this->noAccent;
+    $this->consistentAccent =
+      preg_match("/(^|[^\\\\])'./", $this->form) ^
+      $this->noAccent;
     // It is important for empty fields to be null, not "".
     // This allows queries for records with non-null values to run faster.
     if (!$this->number) {

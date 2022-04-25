@@ -103,7 +103,6 @@ class Preload {
 
     $treeIds = Util::objectProperty($trees, 'id');
     self::loadTreeEntries($treeIds);
-    self::loadTreeLexemes($treeIds);
     self::loadTreeMeanings($treeIds);
     self::loadTreeTags($treeIds);
   }
@@ -592,7 +591,6 @@ class Preload {
       return;
     }
 
-    $statuses = [Entry::STRUCT_STATUS_DONE, Entry::STRUCT_STATUS_UNDER_REVIEW];
     $entries = Model::factory('Entry')
       ->select('e.*')
       ->select('m.id', 'meaningId')
@@ -604,7 +602,7 @@ class Preload {
       ->where_in('m.id', $meaningIds)
       ->where('t.status', Tree::ST_VISIBLE)
       ->where('te.entryRank', 1)
-      ->where_in('e.structStatus', $statuses)
+      ->where_in('e.structStatus', Entry::PRINTABLE_STATUSES)
       ->find_many();
 
     self::initKeys(self::$mentionedMeanings, $meaningIds, [ null, null ]);
@@ -663,10 +661,10 @@ class Preload {
     return self::$treeEntries[$treeId];
   }
 
-  /******************* a tree's lexemes (via entries) *******************/
+  /************ a tree's main lexemes from structured entries ************/
 
   /**
-   * Maps tree IDs to lists of lexemes.
+   * Maps tree IDs to lists of lexemes
    */
   private static array $treeLexemes = [];
 
@@ -684,14 +682,14 @@ class Preload {
       ->table_alias('l')
       ->select('l.*')
       ->select('te.treeId')
-      ->distinct()
       ->join('EntryLexeme', ['l.id', '=', 'el.lexemeId'], 'el')
-      ->join('TreeEntry', ['el.entryId', '=', 'te.entryId'], 'te')
+      ->join('Entry', ['el.entryId', '=', 'e.id'], 'e')
+      ->join('TreeEntry', [ 'e.id', '=', 'te.entryId' ], 'te')
+      ->where('el.main', true)
+      ->where_in('e.structStatus', Entry::PRINTABLE_STATUSES)
       ->where_in('te.treeId', $treeIds)
-      ->group_by('l.formNoAccent')
-      ->order_by_desc('el.main')
+      ->order_by_asc('te.entryRank')
       ->order_by_asc('el.lexemeRank')
-      ->order_by_asc('l.formNoAccent')
       ->find_many();
 
     self::initKeys(self::$treeLexemes, $treeIds, []);

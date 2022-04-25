@@ -265,6 +265,7 @@ $(function() {
 
   function mentionHoverIn() {
     var elem = $(this);
+    elem.data('inside', 1)
 
     if (elem.data('loaded')) {
       $(this).popover('show');
@@ -272,24 +273,36 @@ $(function() {
       var meaningId = elem.attr('title');
       $.getJSON(wwwRoot + 'ajax/getMeaningById', { id: meaningId })
         .done(function(resp) {
-          elem.removeAttr('title');
+          var title = resp.description +
+              (resp.breadcrumb ? ' (' + resp.breadcrumb + ')' : '');
+          elem.attr('title', title);
           elem.data('loaded', 1);
           var p = new bootstrap.Popover(elem, {
             content: resp.html,
             html: true,
-            title: resp.description + ' (' + resp.breadcrumb + ')',
+            title: title,
           });
-          p.show();
+          if (elem.data('inside')) {
+            p.show();
+          }
         });
     }
   }
 
   function mentionHoverOut() {
     $(this).popover('hide');
+    $(this).data('inside', 0)
   }
 });
 
 /****************** „Read more” link for long sections ******************/
+
+/**
+ * Note: Attempting to render the 'expand' button on read-more does nothing if
+ * the tab is hidden on page render, because its scroll height is zero.  To
+ * collapse read-more sections in a hidden parent, call .readMore() once the
+ * parent becomes visible.
+ */
 
 $(function() {
   const BTN_HTML =
@@ -298,18 +311,27 @@ $(function() {
         _('expand') +
         '</btn>';
 
-  $('.read-more').each(function() {
-    var realHeight = $(this).prop('scrollHeight');
-    var lineHeight = parseInt($(this).css('line-height')); // ignore the 'px' suffix
-    var lines = $(this).data('readMoreLines');
+  $.fn.readMore = function() {
+    $(this).each(function() {
 
-    // If the whole thing isn't much larger than the proposed visible area,
-    // don't hide anything
-    if (realHeight / lineHeight > lines * 1.33) {
-      $(this).css('max-height', (lines * lineHeight) + 'px');
-      $(this).append(BTN_HTML);
-    }
-  });
+      var realHeight = $(this).prop('scrollHeight');
+      var lineHeight = parseInt($(this).css('line-height')); // ignore the 'px' suffix
+      var lines = $(this).data('readMoreLines');
+
+      // If the whole thing isn't much larger than the proposed visible area,
+      // don't hide anything
+      if ((realHeight / lineHeight > lines * 1.33) &&
+          !$(this).find('.read-more-btn').length) {
+
+        $(this).css('max-height', (lines * lineHeight) + 'px');
+        $(this).append(BTN_HTML);
+      }
+    });
+
+    return this;
+  }
+
+  $('.read-more').readMore();
 
   $(document).on('click', '.read-more-btn', function() {
     var p = $(this).closest('.read-more')
@@ -512,6 +534,18 @@ $(function() {
         $(this).toggle(visible);
       });
     }
+  });
+
+});
+
+/******************************* sortable *******************************/
+
+$(function() {
+
+  // Sortable.js may not be included, so don't try to call it when no
+  // .sortable elements exist.
+  $('.sortable').each(function() {
+    $(this).sortable();
   });
 
 });

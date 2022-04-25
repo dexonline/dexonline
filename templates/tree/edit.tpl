@@ -26,6 +26,7 @@
   <ul id="stemNode">
     <li>
       <div class="meaningContainer">
+        {include "bits/icon.tpl" i="" class="meaning-icon"}
         <span class="id"></span>
         <span class="bc"></span>
 

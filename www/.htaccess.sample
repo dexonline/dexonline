@@ -14,8 +14,8 @@ ErrorDocument 404 /404
 
 # search pages
 RewriteRule ^text(-([^/]+))?/(.*)$ search.php?cuv=$3&source=$2&text=1 [L]
-RewriteRule ^definitie(-([^/]+))?/([^/]+)(/([0-9]+))?(/expandat)?(/(paradigma|sinteza))?(/xml|/json)?$ search.php?cuv=$3&source=$2&defId=$5&tab=$8&all=$6&format=$9 [PT,L]
-RewriteRule ^intrare(-([^/]+))?/([^/]+)(/([0-9]+))?(/(paradigma|sinteza))?(/xml|/json)?$ search.php?cuv=$3&source=$2&entryId=$5&tab=$7&format=$8 [PT,L]
+RewriteRule ^definitie(-([^/]+))?/([^/]+)(/([0-9]+))?(/(articole|definitii|imagini|paradigma|sinteza))?(/xml|/json)?$ search.php?cuv=$3&source=$2&defId=$5&tab=$7&format=$8 [PT,L]
+RewriteRule ^intrare(-([^/]+))?/([^/]+)(/([0-9]+))?(/(articole|definitii|imagini|paradigma|sinteza))?(/xml|/json)?$ search.php?cuv=$3&source=$2&entryId=$5&tab=$7&format=$8 [PT,L]
 RewriteRule ^lexem/([^/]+)(/([0-9]+))?$ search.php?cuv=$1&lexemeId=$3 [PT,L]
 
 # Append .php when a file by that name exists

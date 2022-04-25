@@ -1,13 +1,54 @@
+/* more prominent tab headers */
+.nav-link.nav-notice:not(.active) {
+  color: var(--bs-warning) !important;
+}
+
+.nav-link.nav-notice:hover:not(.active),
+.nav-link.nav-notice:focus:not(.active) {
+  opacity: 0.8;
+}
+
 .tab-pane {
   padding-top: 20px;
 }
 
-.variantList span:before {
-  content: '•';
+#tree-checks {
+  background-color: var(--c-surface);
 }
 
-h3 .variantList {
-  font-size: 80%;
+@media (max-width: 1399px) { /* xl and below */
+  #tree-checks .form-check-inline {
+    margin-bottom: 0;
+  }
+}
+
+@media (min-width: 1400px) { /* xxl only */
+  #tree-checks {
+    position: fixed;
+    transform: translateX(-120%);
+  }
+
+  #tree-checks .form-check-inline {
+    display: block;
+  }
+}
+
+.tree-heading .tonic-accent {
+  text-decoration-color: var(--bs-gray-600);
+  text-underline-offset: 0.2rem;
+}
+
+.tree-inflected-form {
+  color: var(--bs-gray-700);
+  font-size: 70%;
+  font-weight: normal;
+}
+
+.tree-pos-info {
+  color: var(--bs-secondary);
+  font-size: 55%;
+  font-weight: normal;
+  margin-left: 1rem;
 }
 
 .entryName {

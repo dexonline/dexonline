@@ -18,6 +18,11 @@ class Entry extends BaseObject implements DatedObject {
     self::STRUCT_STATUS_DONE => 'terminată',
   ];
 
+  const PRINTABLE_STATUSES = [
+    self::STRUCT_STATUS_UNDER_REVIEW,
+    self::STRUCT_STATUS_DONE,
+  ];
+
   // create and associate and empty tree if $tree == true
   static function createAndSave($description, $tree = false) {
     $e = Model::factory('Entry')->create();
@@ -78,33 +83,8 @@ class Entry extends BaseObject implements DatedObject {
     return Preload::getEntryTags($this->id);
   }
 
-  /**
-   * Returns the list of lexemes sorted with main lexemes first. Excludes
-   * lexemes that have a form equal to the entry's description. Lexemes with
-   * identical values of formNoAccent are only collected once.
-   *
-   * Due to the mechanics of getMainLexemes() / getVariants(), lexemes will be
-   * sorted by the main bit, then by lexemeRank.
-   **/
-  function getPrintableLexemes() {
-    $desc = $this->getShortDescription();
-    $seen = [ $desc => true ];
-    $results = [];
-
-    foreach ([true, false] as $main) {
-      $lexemes = $main ? $this->getMainLexemes() : $this->getVariants();
-
-      foreach ($lexemes as $l) {
-        $form = $l->formNoAccent;
-        if (!isset($seen[$form])) {
-          $seen[$form] = true;
-          $l->main = $main;
-          $results[] = $l;
-        }
-      }
-    }
-
-    return $results;
+  function isStructured() {
+    return in_array($this->structStatus, self::PRINTABLE_STATUSES);
   }
 
   static function loadUnassociated() {
@@ -143,7 +123,7 @@ class Entry extends BaseObject implements DatedObject {
       ->join('EntryDefinition', ['e.id', '=', 'ed.entryId'], 'ed')
       ->join('Definition', ['ed.definitionId', '=', 'd.id'], 'd')
       ->join('Source', ['d.sourceId', '=', 's.id'], 's')
-      ->where_in('e.structStatus', [self::STRUCT_STATUS_UNDER_REVIEW, self::STRUCT_STATUS_DONE])
+      ->where_in('e.structStatus', self::PRINTABLE_STATUSES)
       ->where('d.structured', 0)
       ->where_in('d.status', [Definition::ST_ACTIVE, Definition::ST_HIDDEN])
       ->where('s.structurable', 1)
@@ -213,16 +193,18 @@ class Entry extends BaseObject implements DatedObject {
     // load lexemes from two sources:
     // * simple lexemes that generate this form;
     // * compound lexemes that have a fragment that generates this form
+    //   (do not include compound lexemes for prepositions like "de" or "a")
 
     $simple = 'select l.id ' .
-            'from Lexeme l ' .
-            'join InflectedForm i on l.id = i.lexemeId ' .
-            "where i.$field = :form";
-    $compound = 'select l.id ' .
-              'from Lexeme l ' .
-              'join Fragment f on l.id = f.lexemeId ' .
-              'join InflectedForm i on f.partId = i.lexemeId ' .
-              "where i.$field = :form";
+      'from Lexeme l ' .
+      'join InflectedForm i on l.id = i.lexemeId ' .
+      "where i.$field = :form";
+    $compound = 'select f.lexemeId ' .
+      'from Fragment f ' .
+      'join Lexeme part on f.partId = part.id ' .
+      'join InflectedForm i on f.partId = i.lexemeId ' .
+      "where i.$field = :form " .
+      'and (part.modelType != "I" or part.modelNumber not in ("11", "12"))';
     $subquery = "{$simple} union {$compound}";
 
     // load entries for the above lexemes

@@ -4,8 +4,11 @@
     {foreach $meanings as $t}
       <li>
         <div class="meaningContainer"
-             data-meaning-id="{$t.meaning->id}"
-             {if !$t.canDelete}data-no-delete{/if}>
+          data-meaning-id="{$t.meaning->id}"
+          {if !$t.canDelete}data-no-delete{/if}>
+
+          {include "bits/icon.tpl" i="{$t.meaning->getIcon()}" class="meaning-icon"}
+
           <span class="bc">{$t.meaning->breadcrumb}</span>
           <span class="type">{$t.meaning->type}</span>
           <span class="typeName">{$t.meaning->getDisplayTypeName()}</span>

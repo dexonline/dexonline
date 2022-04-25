@@ -202,15 +202,12 @@ class Str {
     ];
 
     foreach ($char_map as $a => $i) {
-      // workaround for the fact that /\b{$a}\b/u doesn't work.
-      // see http://stackoverflow.com/questions/2432868/php-regex-word-boundary-matching-in-utf-8
-      $tpl_output = preg_replace("/(?<=[A-Za-zĂȘȚășț]){$a}(?=[A-Za-zĂȘȚășț])/",
-                                 "$1{$i}$2", $tpl_output);
+      $tpl_output = preg_replace("/\b{$a}\b/", $i, $tpl_output);
       $tpl_output = preg_replace("/(r[ou]m)$i(n)/i", "\${1}$a\${2}", $tpl_output);
     }
 
     // sunt(em,eți) -> sînt(em,eți)
-    $tpl_output = preg_replace("/(\W)sunt(em|eți)?/i", "\${1}sînt\${2}", $tpl_output);
+    $tpl_output = preg_replace("/\bsunt(em|eți)?/i", "sînt\${1}", $tpl_output);
 
     // Handle some accented letters in paradigms. Accents are denoted by a class.
     $a = "<span class=\"tonic-accent\">â</span>";

@@ -31,13 +31,13 @@ if ($saveButton) {
     // fields applicable to logged in and anonymous users
     $detailsVisible = Request::has('detailsVisible');
     $userPrefs = Request::getArray('userPrefs');
-    $preferredTab = Request::get('preferredTab');
+    $tabs = Request::get('tabs');
     $widgets = Request::getArray('widgets');
     Preferences::set(
       $user,
       $detailsVisible,
       array_sum($userPrefs),
-      $preferredTab,
+      $tabs,
       array_sum($widgets),
     );
 
@@ -68,6 +68,7 @@ Smart::assign([
   'newPassword' => $newPassword,
   'newPassword2' => $newPassword2,
 ]);
+Smart::addResources('sortable');
 Smart::display('user/preferences.tpl');
 
 /*************************************************************************/

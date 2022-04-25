@@ -38,6 +38,60 @@ class Tree extends BaseObject implements DatedObject {
     return Preload::getTreeTags($this->id);
   }
 
+  /**
+   * Returns main lexemes from structured entries.
+   */
+  function getPrintableLexemes() {
+    $lexemes = Preload::getTreeLexemes($this->id);
+    $lexemes = Lexeme::filterVerbs($lexemes);
+
+    // compile lexemes and sets of pos tags
+    $tuples = [];
+    foreach ($lexemes as $l) {
+      $tags = [];
+      foreach ($l->getTags() as $t) {
+        if ($t->isPos) {
+          $tags[] = $t;
+        }
+      }
+      $tuples[] = [
+        'lexeme' => $l,
+        'tags' => $tags,
+      ];
+    }
+
+    // merge lexemes having identical tags
+    $results = [];
+    foreach ($tuples as $tuple) {
+      $match = false;
+      foreach ($results as $i => $res) {
+        // compare $res.tags with $tuple.tags
+        if (count($res['tags']) == count($tuple['tags'])) {
+          $sameTags = true;
+          foreach ($res['tags'] as $j => $tag) {
+            if ($tag->id != $tuple['tags'][$j]->id) {
+              $sameTags = false;
+            }
+          }
+          if ($sameTags) {
+            $match = $i;
+          }
+        }
+      }
+
+      if ($match !== false) {
+        $results[$match]['lexemes'][] = $tuple['lexeme'];
+      } else {
+        $results[] = [
+          'lexemes' => [ $tuple['lexeme'] ],
+          'tags' => $tuple['tags'],
+        ];
+      }
+    }
+
+    return $results;
+  }
+
   function hasMeanings() {
     return Model::factory('Meaning')
       ->where('treeId', $this->id)
@@ -85,21 +139,28 @@ class Tree extends BaseObject implements DatedObject {
     }
   }
 
-  /* When displaying search results, examples are special, so we separate them from the
-   * other child meanings. */
-  function extractExamples() {
+  /* When displaying search results, examples and expressions are special, so
+   * we separate them from the other child meanings. */
+  function extractDetails() {
     $meanings = &$this->getMeanings();
-    $this->extractExamplesHelper($meanings);
+    $this->extractDetailsHelper($meanings);
   }
 
-  function extractExamplesHelper(&$meanings) {
+  function extractDetailsHelper(&$meanings) {
     foreach ($meanings as &$t) {
-      $this->extractExamplesHelper($t['children']);
+      $this->extractDetailsHelper($t['children']);
       $t['examples'] = [];
+      $t['expressions'] = [];
       foreach ($t['children'] as $i => $child) {
-        if ($child['meaning']->type == Meaning::TYPE_EXAMPLE) {
-          $t['examples'][] = $child;
-          unset($t['children'][$i]);
+        switch ($child['meaning']->type) {
+          case Meaning::TYPE_EXAMPLE:
+            $t['examples'][] = $child;
+            unset($t['children'][$i]);
+            break;
+          case Meaning::TYPE_EXPRESSION:
+            $t['expressions'][] = $child;
+            unset($t['children'][$i]);
+            break;
         }
       }
     }
@@ -153,35 +214,6 @@ class Tree extends BaseObject implements DatedObject {
     }
 
     return $result;
-  }
-
-  /**
-   * Collects the lexemes of all entries associated with this tree.
-   * Returns the list of lexemes sorted with main lexemes first.
-   * Excludes duplicate lexemes and lexemes that have a form equal to the tree's description.
-   **/
-  function getPrintableLexemes() {
-    $lexemes = Preload::getTreeLexemes($this->id);
-
-    // if any lexemes are verbs, remove participle and long infinitive lexemes
-    $verbs = array_filter($lexemes, function($l) {
-      return in_array($l->modelType, ['V', 'VT']);
-    });
-
-    if (count($verbs)) {
-      $lexemes = array_filter($lexemes, function($l) {
-        return !in_array($l->modelType, ['IL', 'PT']);
-      });
-    }
-
-    // only now remove lexemes equal to the tree's description;
-    // we couldn't do this before because we needed the verbs
-    $shortDesc = $this->getShortDescription();
-    $lexemes =  array_filter($lexemes, function($l) use ($shortDesc) {
-      return $l->formNoAccent != $shortDesc;
-    });
-
-    return $lexemes;
   }
 
   /**

@@ -9,6 +9,7 @@ const I18N_MESSAGES = {
   'expand': 'expand',
   'hangman-word-list-download-error':
   'Cannot download the word list. Please retry in a few minutes.',
+  'scroll-top': 'back to top',
 
 };
 

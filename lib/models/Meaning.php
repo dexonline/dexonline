@@ -8,6 +8,7 @@ class Meaning extends BaseObject implements DatedObject {
   const TYPE_EXAMPLE = 2;
   const TYPE_COMMENT = 3;
   const TYPE_DIFF = 4;
+  const TYPE_EXPRESSION = 5;
 
   const DISPLAY_NAMES = [
     self::TYPE_MEANING => '',
@@ -15,14 +16,16 @@ class Meaning extends BaseObject implements DatedObject {
     self::TYPE_EXAMPLE => '',
     self::TYPE_COMMENT => 'comentariu',
     self::TYPE_DIFF => 'diferențiere',
+    self::TYPE_EXPRESSION => '',
   ];
 
-  const CSS_CLASS_NAMES = [
-    self::TYPE_MEANING => 'meaningBody',
-    self::TYPE_ETYMOLOGY => 'etymologyBody',
-    self::TYPE_EXAMPLE => 'exampleBody',
-    self::TYPE_COMMENT => 'commentBody',
-    self::TYPE_DIFF => 'diffBody',
+  const CSS_CLASSES = [
+    self::TYPE_MEANING => 'type-meaning',
+    self::TYPE_ETYMOLOGY => 'type-etymology',
+    self::TYPE_EXAMPLE => 'type-example',
+    self::TYPE_COMMENT => '',
+    self::TYPE_DIFF => '',
+    self::TYPE_EXPRESSION => 'type-expression',
   ];
 
   const FIELD_NAMES = [
@@ -31,6 +34,16 @@ class Meaning extends BaseObject implements DatedObject {
     self::TYPE_EXAMPLE => 'exemplu',
     self::TYPE_COMMENT => 'comentariu (public)',
     self::TYPE_DIFF => 'diferențiere',
+    self::TYPE_EXPRESSION => 'expresie',
+  ];
+
+  const ICONS = [
+    self::TYPE_MEANING => '',
+    self::TYPE_ETYMOLOGY => '',
+    self::TYPE_EXAMPLE => 'format_quote',
+    self::TYPE_COMMENT => '',
+    self::TYPE_DIFF => '',
+    self::TYPE_EXPRESSION => 'chat_bubble',
   ];
 
   private $tree = null;
@@ -40,7 +53,7 @@ class Meaning extends BaseObject implements DatedObject {
   }
 
   function getCssClass() {
-    return self::CSS_CLASS_NAMES[$this->type];
+    return self::CSS_CLASSES[$this->type];
   }
 
   function getTree() {
@@ -62,6 +75,10 @@ class Meaning extends BaseObject implements DatedObject {
     return Preload::getMeaningTags($this->id);
   }
 
+  function getIcon() {
+    return self::ICONS[$this->type];
+  }
+
   // Single entry point for sanitize()
   // $flash (boolean): if true, set flash messages for warnings
   // Simpler version of Definition->process()
@@ -78,18 +95,41 @@ class Meaning extends BaseObject implements DatedObject {
   }
 
   /**
-   * Returns true iff we should display the relations alongside the meaning. This happens when:
+   * If necessary, returns a comma-separated list of synonyms to display
+   * alongside the meaning. This happens when:
    * - The meaning is empty;
    * - The meaning is a parenthesis;
-   * - The meaning ends in an '=' sign;
+   * - The meaning ends in '=' or ':'.
    **/
-  function includeRelations() {
+  function getDisplaySynonyms() {
     $r = $this->internalRep;
-    return (
-     !$r ||
-     (Str::startsWith($r, '(') && Str::endsWith($r, ')')) ||
-     Str::endsWith($r, '=')
-    );
+
+    $isEmpty = !$r;
+    $isParent = Str::startsWith($r, '(') && Str::endsWith($r, ')');
+    $isEqual = Str::endsWith($r, '=');
+    $isColon = Str::endsWith($r, ':');
+
+    if ($isEmpty || $isParent || $isEqual || $isColon) {
+
+      $synonyms = $this->getRelations()[Relation::TYPE_SYNONYM];
+
+      if (!empty($synonyms)) {
+        $parts = [];
+        foreach ($synonyms as $s) {
+          $parts[] = $s->getShortDescription();
+        }
+
+        $list = implode(', ', $parts);
+
+        if ($isEmpty || $isParent) {
+          $list = Str::capitalize($list);
+        }
+
+        return $list . '.';
+      }
+    }
+
+    return '';
   }
 
   /**

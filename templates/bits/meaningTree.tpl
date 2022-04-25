@@ -1,16 +1,20 @@
 {* Recursively displays a meaning tree. *}
-{$root=$root|default:true}
+{$class=$class|default:'meaningTree'}
 {$etymologies=$etymologies|default:false}
+{* For CSS / JS purposes, there is no distinction from depth 2 onwards *}
+{$depth=$depth|default:0|min:2}
 {if $meanings}
-  <ul {if $root}class="meaningTree"{/if}>
+  <ul class="{$class}">
     {foreach $meanings as $t}
-      {$relationsShown=false}
-      <li>
-        <div
-          id="meaning{$t.meaning->id}"
-          class="meaningContainer {if $root}primaryMeaning{else}secondaryMeaning{/if}">
+      <li class="{$t.meaning->getCssClass()} depth-{$depth}">
+        <div id="meaning{$t.meaning->id}" class="meaningContainer">
 
-          <div>
+          <div class="meaning-row">
+            {$icon=$t.meaning->getIcon()}
+            {if $icon}
+              {include "bits/icon.tpl" i=$icon class="meaning-icon"}
+            {/if}
+
             {if $etymologies}
               {if $t.lastBreadcrumb}
                 <span class="etymologyBc">({$t.lastBreadcrumb})</span>
@@ -22,61 +26,30 @@
 
             {include "bits/meaningTags.tpl" tags=$t.tags}
 
-            {* When the meaning itself is empty, show something else *}
-            <span class="def html {$t.meaning->getCssClass()}">
+            <span class="def html">
               {HtmlConverter::convert($t.meaning)}
-              {if $t.meaning->includeRelations()}
-                {include "bits/meaningRelations.tpl" relations=$t.relations}
-                {$relationsShown=true}
-              {/if}
+              {$t.meaning->getDisplaySynonyms()}
             </span>
 
+            {include "bits/meaningSources.tpl" sources=$t.sources}
           </div>
 
-          <div class="defDetails">
-            {if count($t.sources)}
-              <span class="tag-group">
-                <span class="text-muted">surse:</span>
-                {foreach $t.sources as $s}
-                  <span class="badge badge-source"
-                        title="{$s->name}, {$s->year}">{$s->shortName}</span>
-                {/foreach}
-              </span>
-            {/if}
-
-            {if !$relationsShown}
-              {include "bits/meaningRelations.tpl" relations=$t.relations defaultLabel=true}
-            {/if}
-
-            {if !empty($t.examples)}
-              {$collapseId="exampleCollapse_{$t.meaning->id}"}
-              <a
-                data-bs-toggle="collapse"
-                class="exampleLink"
-                href="#{$collapseId}"
-                aria-controls="{$collapseId}">
-                {include "bits/icon.tpl" i=attach_file}
-                {t count=$t.examples|@count 1=$t.examples|@count plural="%1 examples"}
-                one example{/t}
-              </a>
-            {/if}
-
+          <div class="meaning-relations">
+            {include "bits/meaningRelations.tpl" relations=$t.relations defaultLabel=true}
           </div>
 
         </div>
 
         {if !empty($t.examples)}
-          <div class="examples collapse" id="{$collapseId}">
-            <div class="card">
-              <div class="card-header">exemple</div>
-              <div class="card-body">
-                {include "bits/meaningTree.tpl" meanings=$t.examples root=false}
-              </div>
-            </div>
-          </div>
+          {include "bits/meaningTree.tpl" class="" meanings=$t.examples depth=$depth+1}
         {/if}
 
-        {include "bits/meaningTree.tpl" meanings=$t.children root=false}
+        {include "bits/meaningTree.tpl" class="" meanings=$t.children depth=$depth+1}
+
+        {if !empty($t.expressions)}
+          {include "bits/meaningTree.tpl" class="" meanings=$t.expressions depth=$depth+1}
+        {/if}
+
       </li>
     {/foreach}
   </ul>

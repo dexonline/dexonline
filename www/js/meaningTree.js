@@ -3,6 +3,45 @@ $(function() {
   // define a fake meaning type to distinguish the meaning and submeaning buttons
   const TYPE_SUBMEANING = -1;
 
+  // defaultState: default checkbox state
+  // lsKey: local storage key for persisting the value of the checkbox
+  // selectors: CSS selectors to toggle when toggling the checkbox
+  const CHECKBOXES = {
+    'tree-check-examples': {
+      defaultState: false,
+      lsKey: 'tree-check-examples',
+      selectors: [ '.type-example' ],
+    },
+    'tree-check-expressions': {
+      defaultState: true,
+      lsKey: 'tree-check-expressions',
+      selectors: [
+        '.type-expression.depth-1',
+        '.type-expression.depth-2',
+        '.type-meaning.depth-0 ~ .type-expression',
+      ],
+    },
+    'tree-check-sources': {
+      defaultState: false,
+      lsKey: 'tree-check-sources',
+      selectors: [ '.meaning-sources' ],
+    },
+    'tree-check-subtrees': {
+      defaultState: true,
+      lsKey: 'tree-check-subtrees',
+      selectors: [ '.type-meaning.depth-1' ],
+    },
+  }
+
+  const SUBTREES_CHECKBOX_ID = 'tree-check-subtrees';
+  const SUBTREES_LS_KEY = 'tree-check-subtrees';
+  const SOURCES_CHECKBOX_ID = 'tree-check-sources';
+  const SOURCES_LS_KEY = 'tree-check-sources';
+  const EXAMPLES_CHECKBOX_ID = 'tree-check-examples';
+  const EXAMPLES_LS_KEY = 'tree-check-examples';
+  const EXPRESSIONS_CHECKBOX_ID = 'tree-check-expressions';
+  const EXPRESSIONS_LS_KEY = 'tree-check-expressions';
+
   var stem = null;
   var anyChanges = false;
   var editable = $('#editable').length;
@@ -14,6 +53,14 @@ $(function() {
     if (editable) {
       initEditable();
       renumber();
+    }
+
+    $('.tree-check').change(checkboxChange);
+    for (var id in CHECKBOXES) {
+      if (lsGet(CHECKBOXES[id].lsKey, CHECKBOXES[id].defaultState)) {
+        $('#' + id).prop('checked', true);
+        toggle(CHECKBOXES[id].selectors);
+      }
     }
   }
 
@@ -65,7 +112,7 @@ $(function() {
 
     $('#editorRep').textcomplete([
       {
-        match: /(([-a-zăâîșț]+)((\[[0-9.]*)|(\[\[)))$/i,
+        match: /(([-a-zăâîșț]+)((\[[0-9.a-zăâîșț]*)|(\[\[)))$/i,
         search: meaningMention,
         template: function(obj) {
           if (obj.treeDescription) {
@@ -385,6 +432,9 @@ $(function() {
     var type = parseInt($('.editorType:checked').val());
     c.find('.type').text(type);
 
+    // Update the icon
+    c.find('.meaning-icon').text(MEANING_ICONS[type]);
+
     // Update internal and HTML reps
     var internalRep = $('#editorRep').val();
     c.find('.internalRep').text(internalRep);
@@ -553,6 +603,31 @@ $(function() {
 
   function hidePopover() {
     deletePopover.hide();
+  }
+
+  // Returns a boolean value from localStorage. Note that localStorage can
+  // only store string values like 'false'.
+  function lsGet(key, defaultValue) {
+    var r = localStorage.getItem(key);
+    switch (r) {
+      case 'false': return false;
+      case 'true': return true;
+      default: return defaultValue;
+    }
+  }
+
+  function toggle(selectors) {
+    $(selectors.join(',')).toggle();
+  }
+
+  function checkboxChange() {
+    var id = $(this).attr('id');
+    var checked = $(this).prop('checked');
+    var selectors = CHECKBOXES[id].selectors;
+    var lsKey = CHECKBOXES[id].lsKey;
+
+    toggle(selectors);
+    localStorage.setItem(lsKey, checked);
   }
 
   init();

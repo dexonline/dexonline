@@ -172,6 +172,9 @@ class Util {
       'Count.lexemesWithoutAccent', Model::factory('Lexeme')->where('consistentAccent', 0)->count()
     );
     Variable::poke(
+      'Count.lexemesWithoutPos', count(Lexeme::loadWithoutPos())
+    );
+    Variable::poke(
       'Count.ambiguousLexemes', count(Lexeme::loadAmbiguous())
     );
     Variable::poke(

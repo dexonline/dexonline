@@ -5,7 +5,7 @@ class Visual extends BaseObject implements DatedObject {
 
   const STATIC_DIR = 'img/visual/';
   const STATIC_THUMB_DIR = 'img/visual/thumb/';
-  const THUMB_SIZE = 150;
+  const THUMB_SIZE = 300;
 
   private $entry = null;
 

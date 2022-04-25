@@ -16,10 +16,11 @@ $data = Model::factory('Meaning')
       ->join('Lexeme', ['l.id', '=', 'el.lexemeId'], 'l')
       ->join('InflectedForm', ['if.lexemeId', '=', 'l.id'], 'if')
       ->where('if.formNoAccent', $form)
-      ->where('m.type', Meaning::TYPE_MEANING)
-      ->where_any_is([['m.breadcrumb' => "{$qualifier}%"],
-                      ['m.id' => "{$qualifier}%"]],
-                     'like')
+      ->where_any_is([
+        ['m.breadcrumb' => "{$qualifier}%"],
+        ['m.id' => "{$qualifier}%"],
+        ['m.internalRep' => "%{$qualifier}%"],
+      ], 'like')
       ->order_by_asc('t.descriptionSort')
       ->order_by_asc('m.displayOrder')
       ->find_many();

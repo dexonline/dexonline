@@ -1,3 +1,5 @@
+{$wikiArticles=$wikiArticles|default:[]}
+
 {extends "layout.tpl"}
 
 {block "title"}
@@ -18,60 +20,20 @@
 {block "flashMessages"}{/block}
 
 {block "content"}
-  {assign var="declensionText" value=$declensionText|default:null}
-  {assign var="tab" value=$tab|default:false}
-
   {include "banner/banner.tpl"}
   {include "bits/flashMessages.tpl"}
 
   <ul class="nav nav-tabs" role="tablist">
-    <li class="nav-item" role="presentation">
-      <button
-        class="nav-link {if $tab == Constant::TAB_RESULTS}active{/if}"
-        data-bs-toggle="tab"
-        data-bs-target="#resultsTab"
-        type="button"
-        role="tab"
-        aria-controls="resultsTab"
-        aria-selected="true"
-        data-permalink="{$definitionLink}">
-        {t}results{/t} ({$extra.numResults})
-      </button>
-    </li>
-
-    {if $searchParams.paradigm}
-      <li class="nav-item" role="presentation">
-        <button
-          class="nav-link {if $tab == Constant::TAB_PARADIGM}active{/if}"
-          data-bs-toggle="tab"
-          data-bs-target="#paradigmTab"
-          type="button"
-          role="tab"
-          aria-controls="paradigmTab"
-          aria-selected="true"
-          data-permalink="{$paradigmLink}">
-          {$declensionText}
-        </button>
-      </li>
-    {/if}
+    {foreach $tabs as $tab => $info}
+      {include "search/tab.tpl"
+        count=$info.count
+        prominent=$info.prominent
+        tab=$tab
+        title=$info.title}
+    {/foreach}
 
     {if count($trees)}
-      <li class="nav-item" role="presentation">
-        <button
-          class="nav-link {if $tab == Constant::TAB_TREE}active{/if}"
-          data-bs-toggle="tab"
-          data-bs-target="#treeTab"
-          type="button"
-          role="tab"
-          aria-controls="treeTab"
-          aria-selected="true"
-          data-permalink="{$treeLink}">
-          {t}synthesis{/t} ({count($trees)})
-
-        </button>
-
-      </li>
-
+      {* don't advertise the synthesis tab unless it exists *}
       <li class="align-self-center ms-2">
         <a id="tabAdvertiser" href="#">
           {include "bits/icon.tpl" i=info}
@@ -81,11 +43,12 @@
   </ul>
 
   <div class="tab-content">
+
     {* results tab *}
     <div
       role="tabpanel"
-      class="tab-pane fade {if $tab == Constant::TAB_RESULTS}show active{/if}"
-      id="resultsTab">
+      class="tab-pane {if $activeTab == Tab::T_RESULTS}show active{/if}"
+      id="tab_{Tab::T_RESULTS}">
 
       {* definition ID search *}
       {if $searchType == $smarty.const.SEARCH_DEF_ID}
@@ -128,15 +91,13 @@
         {* entry ID search *}
       {elseif $searchType == $smarty.const.SEARCH_ENTRY_ID}
 
-        {include "search/gallery.tpl"}
-
         {if !count($entries)}
           <h3>{t}There is no entry with the given ID.{/t}</h3>
         {else}
 
           <h3>
             {capture "entryText"}
-            {include "bits/entry.tpl" entry=$entries[0] variantList=true tagList=true}
+              {include "bits/entry.tpl" entry=$entries[0] tagList=true}
             {/capture}
 
             {if count($results)}
@@ -151,6 +112,7 @@
             {/if}
           </h3>
 
+          {include "search/sourceTypes.tpl"}
           {include "search/missingDefinitionWarnings.tpl"}
           {include "search/definitionList.tpl"}
         {/if}
@@ -187,8 +149,6 @@
         {* normal search (inflected form search) *}
       {elseif $searchType == $smarty.const.SEARCH_INFLECTED}
 
-        {include "search/gallery.tpl"}
-
         {if count($entries) > 1}
           <h3>
             {* this is always plural, but still needs to be localized *}
@@ -199,69 +159,55 @@
           {include "search/entryToc.tpl"}
         {else}
           {capture "entryText"}
-          {include "bits/entry.tpl" entry=$entries[0] variantList=true tagList=true}
+          {include "bits/entry.tpl" entry=$entries[0] tagList=true}
           {/capture}
 
           <h3>
             {if count($results)}
               {t
-                count=$extra.numDefinitions
-                1=$extra.numDefinitions
+                count=count($results)
+                1=count($results)
                 2=$smarty.capture.entryText
                 plural="%1 definitions for %2"}
               One definition for %2{/t}
             {else}
               {t 1=$smarty.capture.entryText}No definitions for %1{/t}
             {/if}
-
-            {if $extra.numDefinitions > count($results)}
-              {t 1=count($results)}(at most %1 shown){/t}
-            {/if}
           </h3>
+          {include "search/sourceTypes.tpl"}
 
           {if !count($results) && count($entries) && $sourceId}
             {include "search/extendToAllSources.tpl"}
           {/if}
         {/if}
 
-        {include "search/wikiArticles.tpl"}
-
         {* another <h3> for the definition list, if needed *}
         {if (count($entries) > 1) && count($results)}
           <h3>
             {t
-              count=$extra.numDefinitions
-              1=$extra.numDefinitions
+              count=count($results)
+              1=count($results)
               plural="%1 definitions"}
             One definition{/t}
-
-            {if $extra.numDefinitions > count($results)}
-              {t 1=count($results)}(at most %1 shown){/t}
-            {/if}
           </h3>
+          {include "search/sourceTypes.tpl"}
         {/if}
 
         {include "search/missingDefinitionWarnings.tpl"}
 
-        {include "search/showAllLink.tpl"}
         {include "search/definitionList.tpl"}
-        {include "search/showAllLink.tpl"}
 
         {* multiword search *}
       {elseif $searchType == $smarty.const.SEARCH_MULTIWORD}
         <h3>
           {if count($results)}
             {t
-              count=$extra.numDefinitions
-              1=$extra.numDefinitions
+              count=count($results)
+              1=count($results)
               plural="%1 definitions match at least two words"}
             One definition matches at least two words{/t}
           {else}
             {t}No definitions match at least two words{/t}
-          {/if}
-
-          {if $extra.numDefinitions > count($results)}
-            {t 1=count($results)}(at most %1 shown){/t}
           {/if}
         </h3>
 
@@ -279,9 +225,7 @@
           </p>
         {/if}
 
-        {include "search/showAllLink.tpl"}
         {include "search/definitionList.tpl" categories=false}
-        {include "search/showAllLink.tpl"}
 
         {* approximate search *}
       {elseif $searchType == $smarty.const.SEARCH_APPROXIMATE}
@@ -304,8 +248,8 @@
     {if $searchParams.paradigm}
       <div
         role="tabpanel"
-        class="tab-pane fade {if $tab == Constant::TAB_PARADIGM}show active{/if}"
-        id="paradigmTab">
+        class="tab-pane {if $activeTab == Tab::T_PARADIGM}show active{/if}"
+        id="tab_{Tab::T_PARADIGM}">
 
         {foreach $entries as $e}
           {include "bits/multiParadigm.tpl" entry=$e}
@@ -348,9 +292,29 @@
     {if count($trees)}
       <div
         role="tabpanel"
-        class="tab-pane fade {if $tab == Constant::TAB_TREE}show active{/if}"
-        id="treeTab">
+        class="tab-pane {if $activeTab == Tab::T_TREES}show active{/if}"
+        id="tab_{Tab::T_TREES}">
         {include "search/trees.tpl"}
+      </div>
+    {/if}
+
+    {* gallery tab *}
+    {if count($images)}
+      <div
+        role="tabpanel"
+        class="tab-pane {if $activeTab == Tab::T_GALLERY}show active{/if}"
+        id="tab_{Tab::T_GALLERY}">
+        {include "search/gallery.tpl"}
+      </div>
+    {/if}
+
+    {* articles tab *}
+    {if count($wikiArticles)}
+      <div
+        role="tabpanel"
+        class="tab-pane {if $activeTab == Tab::T_ARTICLES}show active{/if}"
+        id="tab_{Tab::T_ARTICLES}">
+        {include "search/wikiArticles.tpl"}
       </div>
     {/if}
 
@@ -358,10 +322,9 @@
 
   <div id="tabAdvertiserContent" style="display: none">
     {t 1=Router::link('user/preferences')}
-    <b>The Synthesis tab</b> shows a condensed list of definitions compiled
-    by the dexonline team. This tab will become the default view in the
-    future. You can select your preferred tab from your
-    <a href="%1">preferences page</a>.
+    <b>The Synthesis tab</b> shows a condensed list of definitions compiled by
+    the dexonline team. The original definitions are available on the <b>Definitions</b>
+    tab. You can select your preferred tab from your <a href="%1">preferences page</a>.
     {/t}
   </div>
 {/block}

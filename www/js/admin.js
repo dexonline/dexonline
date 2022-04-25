@@ -134,15 +134,3 @@ $(function() {
     });
   });
 });
-
-/******************************* sortable *******************************/
-
-$(function() {
-
-  // Sortable.js may not be included, so don't try to call it when no
-  // .sortable elements exist.
-  $('.sortable').each(function() {
-    $(this).sortable();
-  });
-
-});

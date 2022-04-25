@@ -185,15 +185,6 @@ class Constant {
     ],
   ];
 
-  const TAB_RESULTS = 0;
-  const TAB_PARADIGM = 1;
-  const TAB_TREE = 2;
-  const TAB_URL = [
-    self::TAB_RESULTS => '',
-    self::TAB_PARADIGM => '/paradigma',
-    self::TAB_TREE => '/sinteza',
-  ];
-
   // Long participles and gerunds (like dusu- and ducându-) need some special treatment.
   const LONG_VERB_INFLECTION_IDS = [ 106, 107 ];
 

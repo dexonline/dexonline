@@ -1,5 +1,5 @@
 .meaningTree {
-  margin-bottom: 10px;
+  margin-bottom: 0px;
   margin-top: 0px;
   padding-left: 0px;
 }
@@ -19,35 +19,24 @@
 }
 
 .meaningTree .meaningContainer {
-  padding: 2px 5px;
+  padding: 2px 0px;
 }
 
 .meaningTree .bc:not(:empty) {
   margin-right: 5px;
-  vertical-align: top;
 }
 
 .meaningTree .typeName:not(:empty) {
-  display: inline-block;
   font-weight: bold;
   margin-right: 5px;
   margin-bottom: 3px;
   color: var(--bs-gray-700);
 }
 
-.meaningTree .html {
-  font-size: 14px;
-  margin-right: 10px;
-}
-
 .meaningTree .mention {
   border-bottom: 1px dotted var(--bs-gray-800);
   color: inherit;
   text-decoration: none;
-}
-
-.meaningTree .tag-group {
-  padding-right: 5px;
 }
 
 .meaningTree .tag-group a {
@@ -68,22 +57,28 @@
 }
 
 .meaningTree .badge-relation {
-  background: #fff;
   font-weight: normal;
-  margin-right: 3px;
+  margin-left: 8px;
+}
+
+.meaningTree .badge-relation a:hover {
+  filter: brightness(75%);
+  text-decoration: none;
 }
 
 .meaningTree .badge-relation a,
 .meaningTree .badge-relation a:hover {
-  color: #212529; /* in both themes */
+  color: var(--bs-gray-700);
 }
 
-.meaningTree .badge-relation-1 {
-  background: #c5e9c9;
+.meaningTree .badge-relation-1 a,
+.meaningTree .badge-relation-1 a:hover {
+  color: var(--bs-green);
 }
 
-.meaningTree .badge-relation-2 {
-  background: #f5bad6;
+.meaningTree .badge-relation-2 a,
+.meaningTree .badge-relation-2 a:hover {
+  color: var(--bs-red);
 }
 
 .meaningContainer:target {
@@ -107,49 +102,49 @@
   font-weight: bold;
 }
 
-.primaryMeaning {
+.depth-0 {
   margin-top: 10px;
 }
 
-.primaryMeaning .bc {
-  font-size: 18px;
-  font-weight: bold;
-}
-
-.primaryMeaning .meaningBody {
+.depth-0 > .meaningContainer > .meaning-row {
   font-size: 18px;
 }
 
-.secondaryMeaning .bc,
 .etymology {
-  font-weight: bold;
+  font-size: 80%;
+  margin-top: 10px;
 }
 
-.secondaryMeaning .meaningBody {
-  width: 90%;
-}
-
-.meaningContainer .defDetails {
+.etymology .meaningTree  {
   padding-left: 42px;
 }
 
-.exampleLink {
-  color: var(--bs-gray-700) !important;
+.bc,
+.etymology-heading {
+  font-weight: bold;
 }
 
-.exampleBody {
+.meaning-relations {
+  padding-left: 42px;
+}
+
+.meaning-sources {
+  line-height: 100%; /* prevents a vertical glitch when toggling sources */
+  vertical-align: 10%;
+}
+
+.type-etymology .meaning-row {
+  margin-bottom: 3px;
+}
+
+.type-example .def { /* example */
   color: var(--bs-gray-700);
 }
 
-.examples {
-  overflow: hidden;
-  padding-left: 42px;
-  padding-top: 10px;
-}
-
-.examples ul {
-  margin-left: 0 !important;
-  padding-left: 0 !important;
+.meaning-icon {
+  color: var(--bs-gray-500);
+  font-size: 80%;
+  padding: 0 0.2rem;
 }
 
 .tree-heading {
@@ -163,30 +158,18 @@
   padding-left: 20px;
 }
 
-.tab-pane > ul {
-  margin-left: 20px;
-}
-
-.tab-pane > ul {
-  margin-bottom: 20px;
-}
-
-@media (max-width: 991px) {
-  .primaryMeaning .meaningBody {
-    width: 93%;
-  }
+/* visibility control; works in conjunction with the checkboxes on the tree tab */
+.meaning-sources,
+.type-example,
+.type-expression.depth-1,
+.type-expression.depth-2,
+.type-meaning.depth-0 ~ .type-expression,
+.type-meaning.depth-1 {
+  display: none;
 }
 
 @media (max-width: 480px) {
-  .primaryMeaning .meaningBody {
-    width: 90%;
-  }
-
-  .secondaryMeaning .meaningBody {
-    width: 86%;
-  }
-
-  .meaningContainer .defDetails {
+  .meaning-relations {
     padding-left: 32px;
   }
 
@@ -206,7 +189,7 @@
     padding: 0;
   }
 
-  .meaningContainer .defDetails {
+  .meaning-relations {
     padding-left: 4px;
   }
 

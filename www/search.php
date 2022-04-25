@@ -11,32 +11,25 @@ const SEARCH_ENTRY_ID = 5;
 const SEARCH_FULL_TEXT = 6;
 const SEARCH_LEXEME_ID = 7;
 
-const PREVIEW_LIMIT = 20; // how many definitions to show by default
-
-// defLimit: how many definitions to display (null = not relevant)
 // paradigm: whether to display the paradigm for $entries
 // trees: whether to display the entries' trees
 const DEFAULT_SEARCH_PARAMS = [
-  'defLimit' => null,
   'paradigm' => false,
   'trees' => false,
 ];
 
 $searchParams = [
   SEARCH_REGEXP => DEFAULT_SEARCH_PARAMS,
-  SEARCH_MULTIWORD => array_replace(DEFAULT_SEARCH_PARAMS, [
-    'defLimit' => PREVIEW_LIMIT,
-  ]),
+  SEARCH_MULTIWORD => DEFAULT_SEARCH_PARAMS,
   SEARCH_INFLECTED => array_replace(DEFAULT_SEARCH_PARAMS, [
-    'defLimit' => PREVIEW_LIMIT,
     'paradigm' => true,
-    'trees' => Config::SEARCH_SHOW_TREES,
+    'trees' => true,
   ]),
   SEARCH_APPROXIMATE => DEFAULT_SEARCH_PARAMS,
   SEARCH_DEF_ID => DEFAULT_SEARCH_PARAMS,
   SEARCH_ENTRY_ID => array_replace(DEFAULT_SEARCH_PARAMS, [
     'paradigm' => true,
-    'trees' => Config::SEARCH_SHOW_TREES,
+    'trees' => true,
   ]),
   // there is a limit for full-text searches, but we handle it separately for memory reasons
   SEARCH_FULL_TEXT => DEFAULT_SEARCH_PARAMS,
@@ -48,9 +41,9 @@ $lexemeId = Request::get('lexemeId');
 $defId = Request::get('defId');
 $sourceUrlName = Request::get('source');
 $text = Request::has('text');
-$tab = getTab();
+$tab = Tab::getFromUrl();
 $format = checkFormat();
-$all = Request::get('all');
+$declensionText = '';
 
 $redirect = Session::get('redirect');
 $redirectFrom = Session::get('init_word', '');
@@ -62,13 +55,12 @@ if ($cuv && !$redirect) {
 }
 
 Request::redirectToFriendlyUrl(
-  $cuv, $entryId, $lexemeId, $sourceUrlName, $text, $tab, $format, $all);
+  $cuv, $entryId, $lexemeId, $sourceUrlName, $text, $tab, $format);
 
 $searchType = SEARCH_INFLECTED;
 $hasDiacritics = Session::userPrefers(Preferences::FORCE_DIACRITICS);
 $hasRegexp = FALSE;
 $isAllDigits = FALSE;
-$all = $all || ($tab != Constant::TAB_RESULTS);
 
 $source = $sourceUrlName ? Source::get_by_urlName($sourceUrlName) : null;
 $sourceId = $source ? $source->id : null;
@@ -86,6 +78,7 @@ $definitions = [];
 $entries = [];
 $lexemes = [];
 $trees = [];
+$wikiArticles = [];
 $extra = [];
 $adult = false;
 
@@ -199,7 +192,7 @@ if ($searchType == SEARCH_INFLECTED) {
   if (count($entries)) {
     $definitions = Definition::loadForEntries($entries, $sourceId, $cuv);
     Plugin::notify('searchInflected', $definitions, $sourceId);
-    Smart::assign('wikiArticles', WikiArticle::loadForEntries($entries));
+    $wikiArticles = WikiArticle::loadForEntries($entries);
 
     // Add a warning if this word is in WotD
     if ($showWotd) {
@@ -288,14 +281,7 @@ SearchResult::collapseIdentical($results);
 
 $extra['numResults'] = count($results) ?: count($entries) ?: count($lexemes);
 
-// Keep only a maximum number of definitions
-$defLimit = $searchParams[$searchType]['defLimit'];
-if ($defLimit) {
-  $extra['numDefinitions'] = count($results);
-  if (!$all) {
-    $results = array_slice($results, 0, $defLimit);
-  }
-}
+$sourceTypes = SourceType::loadForSearchResults($results);
 
 if (empty($entries) && empty($lexemes) && empty($results)) {
   header('HTTP/1.0 404 Not Found');
@@ -307,14 +293,13 @@ Preload::loadEntryTags(Util::objectProperty($entries, 'id'));
 // only display trees when no source is selected
 if ($searchParams[$searchType]['trees'] && !$sourceId) {
   Preload::loadEntryTrees(Util::objectProperty($entries, 'id'));
-  $statuses = [Entry::STRUCT_STATUS_DONE, Entry::STRUCT_STATUS_UNDER_REVIEW];
   foreach ($entries as $e) {
-    if (in_array($e->structStatus, $statuses)) {
+    if ($e->isStructured()) {
       foreach ($e->getTrees() as $t) {
         if (($t->status == Tree::ST_VISIBLE) &&
             count($t->getMeanings()) &&
             !isset($trees[$t->id])) {
-          $t->extractExamples();
+          $t->extractDetails();
           $t->extractEtymologies();
           $trees[$t->id] = $t;
         }
@@ -323,6 +308,7 @@ if ($searchParams[$searchType]['trees'] && !$sourceId) {
   }
 
   if (count($trees)) {
+    Preload::loadTreeLexemes(array_keys($trees));
     Smart::addResources('meaningTree');
     usort($trees, [new TreeComparator($cuv), 'cmp']);
   }
@@ -340,9 +326,8 @@ if ($searchParams[$searchType]['paradigm']) {
   $lexemeIds = [];
   foreach ($entries as $e) {
     foreach ($e->getLexemes() as $l) {
-      $isVerb = ($l->modelType == 'V') || ($l->modelType == 'VT');
-      $conjugations |= $isVerb;
-      $declensions |= !$isVerb;
+      $conjugations |= $l->isVerb();
+      $declensions |= !$l->isVerb();
       $lexemeIds[] = $l->id;
     }
   }
@@ -355,7 +340,6 @@ if ($searchParams[$searchType]['paradigm']) {
     $conjugations ? _('conjugations') : '',
     $declensions ? _('declensions') : '',
   ]));
-  Smart::assign('declensionText', $declensionText);
 
   // Check if any of the inflected forms are unrecommended
   $hasUnrecommendedForms = false;
@@ -418,25 +402,23 @@ if ($cuv) {
   Smart::assign('pageDescription', $pageDescription);
 }
 
-// Gallery images
-$images = empty($entries) ? [] : Visual::loadAllForEntries($entries);
-Smart::assign('images', $images);
+$images = Visual::loadAllForEntries($entries);
 if (count($images)) {
   Smart::addResources('gallery');
 }
 
-// If the URL doesn't specify a tab, and if the user's preferred tab exists in
-// the output, then switch to that tab.
-if ($tab === false) {
-  if (Session::getPreferredTab() ==  Constant::TAB_PARADIGM &&
-      $searchParams[$searchType]['paradigm']) {
-    $tab = Constant::TAB_PARADIGM;
-  } else if (Session::getPreferredTab() ==  Constant::TAB_TREE &&
-             $searchParams[$searchType]['trees'] &&
-             count($trees)) {
-    $tab = Constant::TAB_TREE;
-  }
-}
+// Figure out the list of tabs, their order and the active tab given
+// * the tab specified in the URL;
+// * the user tab preference.
+list($activeTab, $tabs) = Tab::getInfo(
+  $tab,
+  $extra['numResults'],
+  $searchParams[$searchType]['paradigm'],
+  count($trees),
+  count($images),
+  count($wikiArticles),
+  $declensionText
+);
 
 foreach ($entries as $e) {
   $adult |= $e->adult;
@@ -447,17 +429,17 @@ Smart::assign([
   'lexemes' => $lexemes,
   'results' => $results,
   'trees' => $trees,
+  'images' => $images,
+  'wikiArticles' => $wikiArticles,
   'extra' => $extra,
   'text' => $text,
   'searchType' => $searchType,
   'searchParams' => $searchParams[$searchType],
   'source' => $source,
   'sourceId' => $sourceId,
-  'tab' => $tab,
-  'definitionLink' => getTabPermalink(Constant::TAB_RESULTS),
-  'paradigmLink' => getTabPermalink(Constant::TAB_PARADIGM),
-  'treeLink' => getTabPermalink(Constant::TAB_TREE),
-  'allDefinitions' => $all,
+  'sourceTypes' => $sourceTypes,
+  'tabs' => $tabs,
+  'activeTab' => $activeTab,
   'showWotd' => $showWotd,
   'pageType' => 'search',
 ]);
@@ -477,7 +459,7 @@ switch ($format['name']) {
     break;
   case 'html':
   default:
-    Smart::addResources('paradigm');
+    Smart::addResources('paradigm', 'scrollTop');
     Smart::display('search.tpl');
 }
 
@@ -519,10 +501,12 @@ function getTabPermalink($tab) {
   $uri = $_SERVER['REQUEST_URI'];
 
   // remove existing tab markers
-  $uri = str_replace([
-    Constant::TAB_URL[Constant::TAB_PARADIGM],
-    Constant::TAB_URL[Constant::TAB_TREE],
-  ], '', $uri);
+  $regexp = sprintf('@(%s|%s|%s|%s)$@',
+                    Constant::TAB_URL[Constant::TAB_PARADIGM],
+                    Constant::TAB_URL[Constant::TAB_TREE],
+                    Constant::TAB_URL[Constant::TAB_GALLERY],
+                    Constant::TAB_URL[Constant::TAB_ARTICLES]);
+  $uri = preg_replace($regexp, '', $uri);
 
   // add the paradigm tab marker
   $uri .= Constant::TAB_URL[$tab];

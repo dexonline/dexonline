@@ -1,0 +1,9 @@
+.sortable .list-group-item {
+  cursor: move;
+  text-align: center;
+  width: 15rem;
+}
+
+.list-group-item + .list-group-item {
+  border-top-width: 0 !important; /* dark mode overrides this */
+}

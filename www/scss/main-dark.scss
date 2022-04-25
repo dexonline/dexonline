@@ -52,19 +52,20 @@ $black:    hsl(0, 0%, 100%);
 /* Bootstrap overrides */
 $body-bg: $white;
 $body-color: #e0e0e0;
-$surface: $gray-100;
+$surface: #212121;
 
 $modal-backdrop-bg: $gray-700;
 
 html.dark {
   --c-logo-home: #c5c5c5;
   --c-logo-nav: #c5c5c5;
-  --c-navbar-bg: #212529;
-  --c-navbar-border: #212529;
+  --c-navbar-bg: #{$surface};
+  --c-navbar-border: #{$surface};
   --c-notice: var(--bs-body-color);
   --c-notice-bg: #212121;
   --c-read-more-top: rgba(18, 18, 18, 0.8);
   --c-search-shadow: #777;
+  --c-surface: #{$surface};
 
   /* tag backgrounds and colors */
   --c-tag-bg-1: #ff7c5b;

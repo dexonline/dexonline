@@ -4,6 +4,7 @@ const I18N_MESSAGES = {
   'hangman-word-list-download-error': 'Nu pot descărca lista de cuvinte. Te rog reîncearcă în cîteva minute.',
 
   'hide tags': 'ascunde etichetele',
+  'scroll-top': 'înapoi sus',
   'show tags': 'arată etichetele',
 
 };

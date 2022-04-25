@@ -185,6 +185,10 @@ class Lexeme extends BaseObject implements DatedObject {
     return Str::htmlize($this->pronunciations)[0];
   }
 
+  function isVerb() {
+    return in_array($this->modelType, ['V', 'VT']);
+  }
+
   function isAnimate() {
     if ($this->animate === null) {
       $this->animate = false;
@@ -199,6 +203,20 @@ class Lexeme extends BaseObject implements DatedObject {
 
   function setAnimate($animate) {
     $this->animate = $animate;
+  }
+
+  /* If the list contains any verbs, remove any non-verbs. */
+  static function filterVerbs($lexemes) {
+    $hasVerb = false;
+    foreach ($lexemes as $l) {
+      $hasVerb |= $l->isVerb();
+    }
+    if ($hasVerb) {
+      $lexemes = array_filter($lexemes, function($l) {
+        return $l->isVerb();
+      });
+    }
+    return $lexemes;
   }
 
   static function loadByExtendedName($extName) {
@@ -368,6 +386,35 @@ class Lexeme extends BaseObject implements DatedObject {
       'where description = "" ' .
       'group by form ' .
       'having count(*) > 1';
+    return Model::factory('Lexeme')->raw_query($query)->find_many();
+  }
+
+  /**
+   * Load main lexemes from structured entries that are missing tags with isPos=true.
+   */
+  static function loadWithoutPos() {
+    // lexeme IDs that do have a part of speech tag
+    $subquery = [
+      'select ot.objectId',
+      'from ObjectTag ot',
+      'join Tag t on ot.tagId = t.id',
+      'where ot.objectType = %d',
+      'and t.isPos',
+    ];
+    $subquery = sprintf(implode(' ', $subquery), ObjectTag::TYPE_LEXEME);
+
+    // main lexemes from structured entries not in the ID set above
+    $query = [
+      'select distinct l.* from Lexeme l',
+      'join EntryLexeme el on l.id = el.lexemeId',
+      'join Entry e on el.entryId = e.id',
+      'where el.main',
+      'and e.structStatus in (%s)',
+      'and l.id not in (%s)',
+    ];
+    $query = sprintf(implode(' ', $query),
+                     implode(',', Entry::PRINTABLE_STATUSES),
+                     $subquery);
     return Model::factory('Lexeme')->raw_query($query)->find_many();
   }
 
@@ -693,6 +740,33 @@ class Lexeme extends BaseObject implements DatedObject {
     }
   }
 
+  /**
+   * Returns an inflection suitable for exemplifying the paradigm:
+   *   - the indicative present first person for verbs;
+   *   - the feminine for adjectives and pronouns;
+   *   - the plural for nouns;
+   *   - null for invariables or if the above is not defined.
+   */
+  function getSampleInflectedForm() {
+    $canonical = ModelType::canonicalize($this->modelType);
+    $map = $this->loadInflectedFormMap();
+
+    switch ($canonical) {
+      case 'A':
+        return $map[9][0] ?? null;
+      case 'F':
+      case 'M':
+      case 'N':
+        return $map[3][0] ?? null;
+      case 'P':
+        return $map[5][0] ?? null;
+      case 'V':
+        return $map[9][0] ?? null;
+      default:
+        return null;
+    }
+  }
+
   // change the model given the tags, according to harmonization rules
   function harmonizeModel($tagIds) {
     if (empty($tagIds)) {
@@ -728,7 +802,7 @@ class Lexeme extends BaseObject implements DatedObject {
 
       $this->_regenerateDependentLexemesHelper($infl, 'A', 'PT', $number);
     }
-    if (in_array($this->modelType, ['V', 'VT'])) {
+    if ($this->isVerb()) {
       $infl = Inflection::loadLongInfinitive();
 
       // there could be several forms - just load the first one
@@ -812,7 +886,7 @@ class Lexeme extends BaseObject implements DatedObject {
    * Only deletes PT participles, not A participles.
    */
   function deleteParticiple() {
-    if ($this->modelType == 'V' || $this->modelType == 'VT') {
+    if ($this->isVerb()) {
       $infl = Inflection::loadParticiple();
       $pm = ParticipleModel::get_by_verbModel($this->modelNumber);
       $this->_deleteDependentLexemes($infl->id, ['VT'], 'PT', [$pm->adjectiveModel]);
@@ -886,7 +960,7 @@ class Lexeme extends BaseObject implements DatedObject {
       if ($this->modelType == 'VT') {
         $this->deleteParticiple();
       }
-      if ($this->modelType == 'VT' || $this->modelType == 'V') {
+      if ($this->isVerb()) {
         $this->deleteLongInfinitive();
       }
       InflectedForm::delete_all_by_lexemeId($this->id);

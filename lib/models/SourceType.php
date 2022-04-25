@@ -27,6 +27,22 @@ class SourceType extends BaseObject {
     self::TYPE_DICT_UNVERIFIED,
   ];
 
+  // used in the search results scrollspy
+  static function getShortName($typeId) {
+    switch ($typeId) {
+      case self::TYPE_DICT_GENERAL_USE:   return _('general use');
+      case self::TYPE_DICT_MORPHOLOGICAL: return _('morphological');
+      case self::TYPE_DICT_RELATIONAL:    return _('relational');
+      case self::TYPE_DICT_ETYMOLOGICAL:  return _('etymological');
+      case self::TYPE_DICT_SPECIALIZED:   return _('specialized');
+      case self::TYPE_DICT_ENCYCLOPEDIC:  return _('encyclopedic');
+      case self::TYPE_DICT_SLANG:         return _('slang');
+      case self::TYPE_DICT_REGIONAL:      return _('regional');
+      case self::TYPE_DICT_OTHER:         return _('other');
+      case self::TYPE_DICT_UNVERIFIED:    return _('unverified');
+    }
+  }
+
   static function getName($typeId) {
     switch ($typeId) {
       case self::TYPE_DICT_GENERAL_USE:   return _('General use dictionaries');
@@ -65,6 +81,28 @@ class SourceType extends BaseObject {
       case self::TYPE_DICT_UNVERIFIED:
         return _('Since they are not made by lexicographers, these definitions may contain errors.');
     }
+  }
+
+  /**
+   * Returns an array of SourceType objects, each extended with a count field
+   * storing the number of times it occurs in $results.
+   */
+  static function loadForSearchResults(array $results) {
+    $sourceTypeIds = [];
+    foreach ($results as $result) {
+      $stId = $result->source->sourceTypeId;
+      $sourceTypeIds[$stId] = ($sourceTypeIds[$stId] ?? 0) + 1;
+    }
+
+    $sourceTypes = Model::factory('SourceType')
+      ->where_in('id', array_keys($sourceTypeIds) ?: [ 0 ])
+      ->find_many();
+
+    foreach ($sourceTypes as $st) {
+      $st->count = $sourceTypeIds[$st->id];
+    }
+
+    return $sourceTypes;
   }
 
 }

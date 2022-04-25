@@ -85,8 +85,7 @@ if ($refreshButton || $saveButton) {
       if (($original->modelType == 'VT') && ($lexeme->modelType != 'VT')) {
         $original->deleteParticiple();
       }
-      if (in_array($original->modelType, ['V', 'VT']) &&
-          !in_array($lexeme->modelType, ['V', 'VT'])) {
+      if ($original->isVerb() && !$lexeme->isVerb()) {
         $original->deleteLongInfinitive();
       }
       $lexeme->deepSave();

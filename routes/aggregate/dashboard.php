@@ -96,6 +96,11 @@ $reports = [
    'count' => $counts['lexemesWithoutAccent'],
    'privilege' => User::PRIV_EDIT
   ],
+  ['text' => 'Lexeme fără etichetă de parte de vorbire',
+   'url' => 'report/lexemesWithoutPos',
+   'count' => $counts['lexemesWithoutPos'],
+   'privilege' => User::PRIV_EDIT
+  ],
   ['text' => 'Lexeme ambigue',
    'url' => 'report/ambiguousLexemes',
    'count' => $counts['ambiguousLexemes'],

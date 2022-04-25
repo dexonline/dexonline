@@ -47,9 +47,9 @@
       {include "bits/navmenu.tpl"}
       {include "bits/recentlyVisited.tpl"}
     </header>
-    <div class="container">
+    <div class="container {block "containerClasses"}container-narrow{/block}">
       <main class="row">
-        <div class="col-md-12 main-content">
+        <div class="col-md-12">
           {block "flashMessages"}
             {include "bits/flashMessages.tpl"}
           {/block}

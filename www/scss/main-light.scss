@@ -26,6 +26,7 @@ html.light {
   --c-notice-bg: #e2e3e5;
   --c-read-more-top: rgba(255, 255, 255, 0.8);
   --c-search-shadow: #ddd;
+  --c-surface: #{$surface};
 
   /* tag backgrounds and colors */
   --c-tag-bg-1: #e01e00;

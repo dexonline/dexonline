@@ -24,6 +24,7 @@ if ($saveButton) {
   $tag->iconOnly = Request::has('iconOnly');
   $tag->tooltip = Request::get('tooltip');
   $tag->public = Request::has('public');
+  $tag->isPos = Request::has('isPos');
 
   $errors = $tag->validate();
   if ($errors) {

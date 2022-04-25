@@ -1,5 +1,8 @@
 $(function() {
 
+  const RESULTS_TAB_ID = '#tab_0';
+  const RESULTS_TAB_BUTTON = 'button[data-bs-target="' + RESULTS_TAB_ID + '"]';
+
   function init() {
     $('#toggleNotRecommended').click(function() {
       $('li.notRecommended').toggleClass('notRecommendedShown notRecommendedHidden');
@@ -28,6 +31,11 @@ $(function() {
       tabAdvertiser.click(function() { return false; });
     }
 
+    $('.cat-link').click(scrollToSourceType);
+    $('#tree-tab-link').click(showResultsTab);
+
+    $(document).on('shown.bs.tab', RESULTS_TAB_BUTTON, collapseReadMore);
+
     moveBanner();
   }
 
@@ -35,34 +43,30 @@ $(function() {
     var placement = $('.banner-section').data('placement');
 
     switch (placement) {
-    case 'default':
-      break;
+      case 'default':
+        break;
 
-    case 'dynamic':
-      var h = $(window).height();
-      var pos = null;
+      case 'dynamic':
+        var h = $(window).height();
+        var pos = null;
 
-      // Move the banner down a few definitions or meanings, but
-      // * not lower than 2/3 of the window height;
-      // * only if followed by more definitions;
-      // * only if there are no images to show.
-      var selector =
-          '#resultsTab .primaryMeaning:not(:first), ' +
-          'h4.etymology, ' +
-          '#resultsTab .defWrapper:not(:first)';
-      $(selector).slice(0,3).each(function() {
-        var top = $(this).offset().top;
-        if (top + 100 < 2 * h / 3) {
-          pos = $(this);
+        // Move the banner down a few meanings, but
+        // * not lower than 2/3 of the window height;
+        // * only if followed by more meanings;
+        var selector = '#tab_2 .depth-0:not(:first)';
+        $(selector).slice(0,3).each(function() {
+          var top = $(this).offset().top;
+          if (top + 100 < 2 * h / 3) {
+            pos = $(this);
+          }
+        });
+
+        if (pos) {
+          $('.banner-section').insertBefore(pos);
+        } else {
+          $('.banner-section').show();
         }
-      });
-
-      if (pos && !$('#gallery').length) {
-        $('.banner-section').insertBefore(pos);
-      } else {
-        $('.banner-section').show();
-      }
-      break;
+        break;
     }
   }
 
@@ -80,10 +84,39 @@ $(function() {
   }
 
   function popHistory(e) {
-    var state = e.state || '#resultsTab'; // it's null for the original page
+    var firstTab = $('.nav-tabs button').attr('data-bs-target');
+    var state = e.state || firstTab; // it's null for the original page
     var btn = $('button[data-bs-target="' + state + '"]');
     var tab = new bootstrap.Tab(btn);
     tab.show();
+  }
+
+  /**
+   * For unknown reasons, implementing these links as regular #fragments makes
+   * the browser switch to the tree tab when the user clicks a link. So we
+   * implement the links ourselves.
+   */
+  function scrollToSourceType() {
+    var sel = $(this).attr('href');
+    var header = $(sel);
+    header[0].scrollIntoView();
+    return false;
+  }
+
+  function showResultsTab() {
+    $('button[data-bs-target="#tab_0"]').click();
+    return false;
+  }
+
+  {
+    let called = false;
+
+    function collapseReadMore() {
+      if (!called) {
+        called = true;
+        $(RESULTS_TAB_ID + ' .read-more').readMore();
+      }
+    }
   }
 
   init();

@@ -281,7 +281,7 @@ function checkDeletedStructuredEntries($d, $entryIds) {
     ->select('e.*')
     ->join('EntryDefinition', ['e.id', '=', 'ed.entryId'], 'ed')
     ->where('ed.definitionId', $d->id)
-    ->where_in('e.structStatus', [Entry::STRUCT_STATUS_UNDER_REVIEW, Entry::STRUCT_STATUS_DONE])
+    ->where_in('e.structStatus', Entry::PRINTABLE_STATUSES)
     ->where_not_in('e.id', $entryIds)
     ->find_many();
 

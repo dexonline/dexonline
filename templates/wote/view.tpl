@@ -15,7 +15,7 @@
 {/block}
 
 {block "content"}
-  <h3>Expresia zilei: {$title}</h3>
+  <h3>Expresia: {$title}</h3>
   <div class="card mb-3">
     <div class="card-header fs-2 px-2 py-0 d-flex justify-content-between">
         {if isset($prevmon)}
@@ -63,7 +63,7 @@
   </div>
   <br/>
 
-  <h3>Dicționarul expresiilor ilustrate</h3>
+  <h3>Dicționarul vizual al expresiilor cu și despre mâncare</h3>
   <div class="card mb-4">
     <div class="card-header fs-5 text-center">
      <span id="wotdDate">

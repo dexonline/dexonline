@@ -37,7 +37,7 @@
             class="img-fluid mx-auto d-block"
             src="{$imageXLUrl}"
             srcset="
-            {$imageUrl} 0.5x
+            {$imageUrl} 0.5x,
             {$imageXXLUrl} 1.8x
             "
             alt="{$searchResult->definition->lexicon}"

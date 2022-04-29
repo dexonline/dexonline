@@ -7,7 +7,8 @@ class Widget {
   const WIDGET_AOTM = 0x08;
   const WIDGET_GAMES = 0x10;
   const WIDGET_SOCIAL = 0x20;
-  const WIDGET_COUNT = 6;
+  const WIDGET_EXPRESSION = 0x40;
+  const WIDGET_COUNT = 7;
 
   // 'enabled' means "enabled by default". All widgets can later be enabled or disabled based on user prefs.
   const DATA = [
@@ -39,8 +40,13 @@ class Widget {
     self::WIDGET_SOCIAL => [
       'name' => 'Rețele sociale',
       'template' => 'social.tpl',
-      'enabled' => true,
+      'enabled' => false,
     ],
+    self::WIDGET_EXPRESSION => [
+      'name' => 'Expresii',
+      'template' => 'expression.tpl',
+      'enabled' => true,
+    ]
   ];
 
   /**

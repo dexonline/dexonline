@@ -42,4 +42,11 @@ Smart::assign([
   'wotmDef' => $wotmDef,
 ]);
 
+/* Expression part */
+$wote = ExpressionOfTheMonth::getTodayExpression();
+Smart::assign([
+  'exprId' => $wote->id(),
+  'thumbUrlE' => $wote->getMediumThumbUrl(),
+]);
+
 Smart::display('index.tpl');

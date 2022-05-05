@@ -324,7 +324,7 @@
     {t 1=Router::link('user/preferences')}
     <b>The Synthesis tab</b> shows a condensed list of definitions compiled by
     the dexonline team. The original definitions are available on the <b>Definitions</b>
-    tab. You can select your preferred tab from your <a href="%1">preferences page</a>.
+    tab. You can reorder tabs on your <a href="%1">preferences</a> page.
     {/t}
   </div>
 {/block}

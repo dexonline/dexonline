@@ -51,6 +51,10 @@
   margin-left: 1rem;
 }
 
+#notice-synthesis {
+  display: none;
+}
+
 .entryName {
   font-weight: bold;
 }

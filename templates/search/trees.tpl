@@ -1,3 +1,23 @@
+<div id="notice-synthesis">
+  {notice type="info"}
+
+    {t 1="tree-tab-link" 2=Router::link('user/preferences')}
+    These definitions are compiled by the dexonline team. The original
+    definitions are available on the <a id="%1" href="#">definitions</a> tab.
+    You can reorder tabs on your <a href="%2">preferences</a> page.
+  {/t}
+
+  <div class="mt-3">
+    <button
+      class="btn btn-sm btn-outline-secondary"
+      id="btn-hide-synthesis-notice">
+      {t}hide{/t}
+    </button>
+  </div>
+
+  {/notice}
+</div>
+
 <div class="card small mb-3" id="tree-checks">
   <div class="card-body bg-surface">
     <div class="form-check form-check-inline ps-0">

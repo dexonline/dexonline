@@ -3,22 +3,10 @@
  * JS (for the TinyMCE iframe).
  **/
 
-/* necessary because TinyMCE runs in an iframe and :root variables are not defined */
-:root {
-  --c-abbr: #aaa;
-  --c-spaced-bg: #ddd;
-}
-@media (prefers-color-scheme: dark) {
-  :root {
-    --c-abbr: #888;
-    --c-spaced-bg: #444;
-    color-scheme: dark;
-  }
-}
-
-.spaced {
-  background: var(--c-spaced-bg);
+/* Note: TinyMCE runs in an iframe and :root variables are not defined */
+#tinymce .spaced {
   letter-spacing: 3px;
+  padding-left: 2px;
 }
 
 /* show the resize button, but not the status bar */
@@ -31,5 +19,6 @@
 }
 
 #tinymce abbr {
-  color: var(--c-abbr);
+  text-decoration: dotted underline 1px;
+  text-underline-offset: 2px;
 }

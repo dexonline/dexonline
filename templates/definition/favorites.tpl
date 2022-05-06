@@ -11,6 +11,7 @@
     {foreach $results as $i => $row}
       <dd>
         {include "bits/definition.tpl"
+          readMore=true
           showRemoveBookmark=1
           showCourtesyLink=1
           showFlagTypo=1

@@ -1,3 +1,4 @@
+{$readMore=$readMore|default:false}
 {$showFootnotes=$showFootnotes|default:true}
 {$showTypos=$showTypos|default:false}
 
@@ -8,7 +9,7 @@
   defWrapper
   {if $numDeps}hasDependants{/if}
   ">
-  <p class="mb-2 read-more" data-read-more-lines="15">
+  <p class="mb-2 {if $readMore}read-more{/if}" data-read-more-lines="15">
     <span class="def" title="Clic pentru a naviga la acest cuvânt">
       {HtmlConverter::convert($def)}
     </span>
@@ -52,7 +53,7 @@
     {foreach $row->dependants as $dep}
       {* keep all parameters unchanged, but suppress the footnotes, since by
          definition they are identical *}
-      {include "bits/definition.tpl" row=$dep showFootnotes=false}
+      {include "bits/definition.tpl" readMore=true row=$dep showFootnotes=false}
     {/foreach}
   </div>
 {/if}

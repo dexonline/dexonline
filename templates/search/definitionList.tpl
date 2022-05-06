@@ -14,6 +14,7 @@
   {/if}
 
   {include "bits/definition.tpl"
+    readMore=true
     showBookmark=1
     showCourtesyLink=1
     showFlagTypo=1

@@ -550,3 +550,17 @@ $(function() {
   });
 
 });
+
+/****** tab switch *******/
+
+$(function() {
+  var tabs = document.querySelectorAll('button[data-bs-toggle="tab"]');
+  for (i=0; i<tabs.length; i++) {
+    tabType = /[^/]*$/.exec($(tabs[i]).attr("data-permalink"))[0];
+    if (tabType == 'imagini') {
+      tabs[i].addEventListener('shown.bs.tab', function (event) {
+        document.getElementsByClassName('gallery')[0].click();
+      })
+    }
+  }
+})

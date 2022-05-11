@@ -552,7 +552,6 @@ $(function() {
 });
 
 /****** tab switch *******/
-
 $(function() {
   var tabs = document.querySelectorAll('button[data-bs-toggle="tab"]');
   for (i=0; i<tabs.length; i++) {
@@ -560,7 +559,15 @@ $(function() {
     if (tabType == 'imagini') {
       tabs[i].addEventListener('shown.bs.tab', function (event) {
         document.getElementsByClassName('gallery')[0].click();
-      })
+      });
+      // if the tab is open directly from link
+      for (j=0; j<tabs[i].classList.length; j++) {
+        if((tabs[i].classList)[j] == 'active') {
+          $( document ).ready(function() {
+            document.getElementsByClassName('gallery')[0].click();
+          });
+        }
+      }
     }
   }
 });

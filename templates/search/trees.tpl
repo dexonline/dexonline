@@ -1,9 +1,9 @@
 <div id="notice-synthesis">
   {notice type="info"}
 
-    {t 1="tree-tab-link" 2=Router::link('user/preferences')}
+    {t 1="results-tab-link" 2=Router::link('user/preferences')}
     These definitions are compiled by the dexonline team. The original
-    definitions are available on the <a id="%1" href="#">definitions</a> tab.
+    definitions are available on the <a class="%1" href="#">definitions</a> tab.
     You can reorder tabs on your <a href="%2">preferences</a> page.
   {/t}
 
@@ -114,7 +114,7 @@
 
 <p class="text-muted">
   {include "bits/icon.tpl" i=info}
-  {t 1="tree-tab-link"}
-  The full definition list is available on the <a id="%1" href="#">definitions</a> tab.
+  {t 1="results-tab-link"}
+  The full definition list is available on the <a class="%1" href="#">definitions</a> tab.
   {/t}
 </p>

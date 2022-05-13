@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2022-05-06 14:53+0300\n"
-"PO-Revision-Date: 2022-05-06 14:54+0300\n"
+"POT-Creation-Date: 2022-05-13 09:25+0300\n"
+"PO-Revision-Date: 2022-05-13 09:25+0300\n"
 "Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -1080,11 +1080,11 @@ msgstr "din care"
 #: templates/search/trees.tpl:4
 msgid ""
 "These definitions are compiled by the dexonline team. The original "
-"definitions are available on the <a id=\"%1\" href=\"#\">definitions</a> "
+"definitions are available on the <a class=\"%1\" href=\"#\">definitions</a> "
 "tab. You can reorder tabs on your <a href=\"%2\">preferences</a> page."
 msgstr ""
 "Aceste definiții sunt compilate de echipa dexonline. Definițiile originale "
-"se află pe fila <a id=\"%1\" href=\"#\">definiții</a>. Puteți reordona "
+"se află pe fila <a class=\"%1\" href=\"#\">definiții</a>. Puteți reordona "
 "filele pe pagina de <a href=\"%2\">preferințe</a>."
 
 #: templates/search/trees.tpl:30
@@ -1113,10 +1113,10 @@ msgstr "etimologie"
 
 #: templates/search/trees.tpl:117
 msgid ""
-"The full definition list is available on the <a id=\"%1\" href=\"#"
+"The full definition list is available on the <a class=\"%1\" href=\"#"
 "\">definitions</a> tab."
 msgstr ""
-"Lista completă de definiții se află pe fila <a id=\"%1\" href=\"#"
+"Lista completă de definiții se află pe fila <a class=\"%1\" href=\"#"
 "\">definiții</a>."
 
 #: templates/search/wikiArticles.tpl:3

@@ -32,7 +32,7 @@ $(function() {
     }
 
     $('.cat-link').click(scrollToSourceType);
-    $('#tree-tab-link').click(showResultsTab);
+    $('.results-tab-link').click(showResultsTab);
 
     showSynthesisNotice();
     $('#btn-hide-synthesis-notice').click(hideSynthesisNotice);

@@ -47,8 +47,9 @@
       <label class="col-sm-2 col-form-label">terminator</label>
       <div class="col-sm-10">
         <select class="form-select" name="term">
-          <option value="0">linie nouă</option>
-          <option value="1" selected="selected">linie dublă</option>
+          <option value="0">linie nouă (o definiție pe linie)</option>
+          <option value="1" selected="selected">linie dublă (definiții separate de o linie goală)</option>
+          <option value="2">linie triplă (definiții separate de două linii goală)</option>
         </select>
       </div>
     </div>

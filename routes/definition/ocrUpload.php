@@ -3,7 +3,7 @@ User::mustHave(User::PRIV_ADMIN);
 
 $sourceId = Request::get('source');
 $editorId = Request::get('editor');
-$terminator = PHP_EOL . (Request::get('term') == 1 ? PHP_EOL : "");
+$terminator = str_repeat(PHP_EOL,Request::get('term') + 1 );
 $msgType = 'success';
 $message = '';
 

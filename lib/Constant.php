@@ -152,7 +152,7 @@ class Constant {
    *   maîtrise (French word)
    */
   const I_PREFIXES = [
-    'arhi', 'auto', 'bine', 'bio', 'bun', 'cap', 'co', 'con', 'de', 'dez',
+    'anti', 'arhi', 'auto', 'bine', 'bio', 'bun', 'cap', 'co', 'con', 'de', 'dez',
     'di', 'ex', 'fie', 'foto', 'micro', 'mini', 'ne', 'nemai', 'ori', 'port',
     'pră', 'prea', 'pre', 'pro', 're', 'rupt', 'semi', 'sub', 'subt', 'super',
     'supra', 'supt', 'tele', 'ultra',

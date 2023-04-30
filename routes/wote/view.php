@@ -19,7 +19,14 @@ $searchResults = SearchResult::mapDefinitionArray([$def]);
 if ($crt_id > 1) {
   Smart::assign('prevmon', $crt_id - 1);
 }
-Smart::assign('nextmon', $crt_id + 1);
+
+$nextWote = ExpressionOfTheMonth::getExpression($crt_id + 1);
+$today = date('Y-m-d');
+if ($nextWote->displayDate < $today || User::can(User::PRIV_ADMIN)) {
+  Smart::assign('nextmon', $crt_id + 1);
+} else {
+  Smart::assign('nextmon', false);
+}
 
 Smart::assign([
   'year' => $year,

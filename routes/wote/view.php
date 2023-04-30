@@ -25,7 +25,7 @@ $today = date('Y-m-d');
 if ($nextWote->displayDate < $today || User::can(User::PRIV_ADMIN)) {
   Smart::assign('nextmon', $crt_id + 1);
 } else {
-  Smart::assign('nextmon', false);
+  //Smart::assign('nextmon', false);
 }
 
 Smart::assign([

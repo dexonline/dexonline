@@ -63,7 +63,7 @@
   </div>
   <br/>
 
-  <h3>Dicționarul vizual al expresiilor cu și despre mâncare</h3>
+  <h3>Dicționarul vizual de expresii</h3>
   <div class="card mb-4">
     <table class="table table-bordered mb-0 wotdArchiveTable img-center ">
       <tbody>

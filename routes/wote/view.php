@@ -46,15 +46,17 @@ switch ($format['name']) {
 
 function createGallery($year) {
   $gallery = [];
-
+  $today = date('Y-m-d');
   $expressions = ExpressionOfTheMonth::getExpressionsFromYear($year);
+
   foreach ($expressions as $expr) {
     $wote = ExpressionOfTheMonth::GetExpression ($expr->id);
     $def = $wote ? Definition::get_by_id($wote->definitionId) : null;
+    $visible = (($wote->displayDate <= $today) || User::can(User::PRIV_WOTD));
     $gallery[] = [
       'wotd' => $wote,
       'def' => $def,
-      'visible' => 1,
+      'visible' => $visible,
       'dayOfMonth' => $expr->id
     ];
   }

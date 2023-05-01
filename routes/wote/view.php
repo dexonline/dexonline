@@ -22,7 +22,7 @@ if ($crt_id > 1) {
 
 $nextWote = ExpressionOfTheMonth::getExpression($crt_id + 1);
 $today = date('Y-m-d');
-if ($nextWote->displayDate < $today || User::can(User::PRIV_ADMIN)) {
+if ($nextWote->displayDate <= $today || User::can(User::PRIV_ADMIN)) {
   Smart::assign('nextmon', $crt_id + 1);
 } else {
   //Smart::assign('nextmon', false);

@@ -10,8 +10,9 @@
 <h4>Metoda 1</h4>
 
 <p>
-  Vizitează <a href="https://redirectioneaza.ro/dexonline">redirectioneaza.ro</a> și
-  urmează instrucțiunile. Formularul PDF este deja completat cu datele <i>Asociației
+  Vizitează <a href="https://redirectioneaza.ro/dexonline">redirectioneaza.ro</a> sau
+  <a href="https://formular230.ro/asociatia-dexonline">formular230.ro</a> și
+  urmează instrucțiunile. Formularele PDF vor fi deja completate cu datele <i>Asociației
   dexonline</i>.
 </p>
 

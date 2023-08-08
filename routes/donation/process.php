@@ -8,13 +8,13 @@ const OTRS_DONATION_EMAIL_REGEX =
 
 class Donor {
   // inclusive to the left, exclusive to the right
-  const RANGE_MEDAL = [ [ 20, INF ] ];
-  const RANGE_NO_BANNERS = [ [ 50, INF ] ];
+  const RANGE_MEDAL = [ [ 50, INF ] ];
+  const RANGE_NO_BANNERS = [ [ 100, INF ] ];
   const RANGE_STICKER = [ [ 100, 150 ] ];
-  const RANGE_LAPEL_PIN = [ [ 150, 200 ], [ 250, INF ] ];
-  const RANGE_TEE = [ [ 200, INF ] ];
+  const RANGE_LAPEL_PIN = [ [ 150, 250 ], [ 350, INF ] ];
+  const RANGE_TEE = [ [ 250, INF ] ];
 
-  const EMAIL_AMOUNT_THRESHOLD = 20;
+  const EMAIL_AMOUNT_THRESHOLD = 50;
   const EMAIL_YES = 0;         // this user should get an email response
   const EMAIL_LOW_AMOUNT = 1;  // no donations for amounts under EMAIL_AMOUNT_THRESHOLD
   const EMAIL_BAD_ADDRESS = 2; // email is incorrect (e.g. for SMS donations)  public $email;

@@ -2,7 +2,6 @@
 {assign var="pageType" value=$pageType|default:'other'}
 <!DOCTYPE html>
 <html>
-
   <head>
     <title>{block "title"}Dicționare ale limbii române{/block} | dexonline</title>
     <meta charset="utf-8">
@@ -22,7 +21,6 @@
       type="application/opensearchdescription+xml"
       href="{Config::STATIC_URL}download/dex.xml"
       title="Căutare dexonline.ro">
-    <link href="https://plus.google.com/100407552237543221945" rel="publisher">
     <link
       rel="alternate"
       type="application/rss+xml"

@@ -60,10 +60,12 @@ class ExpressionOfTheMonth extends BaseObject implements DatedObject {
   // TODO: this duplicates code from WordOfTheDay.php
   function getThumbUrl($size) {
     $pic = $this->image ? $this->image : self::DEFAULT_IMAGE;
+    /* TODO: check why this is not working!
     StaticUtil::ensureThumb(
       "img/wotd/expresia-lunii/{$pic}",
       "img/wotd/thumb{$size}/expresia-lunii/{$pic}",
       $size);
+    */
     return sprintf('%simg/wotd/thumb%s/expresia-lunii/%s',
       Config::STATIC_URL,  $size, $pic);
   }

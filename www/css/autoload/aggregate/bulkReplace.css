@@ -4,6 +4,6 @@
 }
 
 input[data-type="unstructured"]:checked {
-  background-color: var(--bs-secondary) !important;
-  border-color: var(--bs-secondary) !important;
+  background-color: var(--bs-gray) !important;
+  border-color: var(--bs-gray) !important;
 }

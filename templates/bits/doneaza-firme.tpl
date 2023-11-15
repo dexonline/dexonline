@@ -1,4 +1,4 @@
-<h3 class="mt-3">Sponsorizarea Asociației dexonline</h3>
+<h3 class="mt-3" id="sposorizeaza">Sponsorizarea Asociației dexonline</h3>
 
 <p>
   Dacă ai o firmă, ai profit și plătești impozit, ne poți sponsoriza. Suma

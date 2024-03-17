@@ -116,18 +116,18 @@ class Medal {
 
   /**************************** what medals to display ***********************/
   const SIMPLE_MEDALS = [
-    Medal::MEDAL_SPONSOR    => Medal::SPONSOR_TEMPLATE,
-    Medal::MEDAL_SOCIAL     => Medal::SOCIAL_TEMPLATE,
+    Medal::MEDAL_MODERATOR  => Medal::MODERATOR_TEMPLATE,
     Medal::MEDAL_ARTICLES   => Medal::ARTICLES_TEMPLATE,
     Medal::MEDAL_WOTD       => Medal::WOTD_TEMPLATE,
-    Medal::MEDAL_MODERATOR  => Medal::MODERATOR_TEMPLATE,
+    Medal::MEDAL_SPONSOR    => Medal::SPONSOR_TEMPLATE,
+    Medal::MEDAL_SOCIAL     => Medal::SOCIAL_TEMPLATE,
   ];
 
   const MEDALS_WITH_LEVELS = [
     ['level' => Medal::PROGRAMMER_LEVELS, 'template' => Medal::PROGRAMMER_TEMPLATE],
-    ['level' => Medal::EMAIL_LEVELS,      'template' => Medal::EMAIL_TEMPLATE],
     ['level' => Medal::EDITOR_LEVELS,     'template' => Medal::EDITOR_TEMPLATE],
     ['level' => Medal::ARTIST_LEVELS,     'template' => Medal::ARTIST_TEMPLATE],
+    ['level' => Medal::EMAIL_LEVELS,      'template' => Medal::EMAIL_TEMPLATE],
   ];
   /*************************************************************************/
 

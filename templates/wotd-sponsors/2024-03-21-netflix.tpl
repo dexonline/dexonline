@@ -3,17 +3,9 @@
 
     <div class="card">
       <div class="card-body">
-        Doar pe <a href="/spre/netflix">Netflix</a>!
+        <a href="/spre/netflix">Problema celor trei corpuri</a> – doar pe Netflix!
       </div>
     </div>
   </div>
 </div>
-
-<ins class='dcmads' style='display:inline-block;width:1px;height:1px'
-     data-dcm-placement='N160405.3392140DEXONLINE.RO/B21615378.227637736'
-     data-dcm-rendering-mode='script'
-     data-dcm-https-only
-     data-dcm-resettable-device-id=''
-     data-dcm-app-id=''>
-  <script src='https://www.googletagservices.com/dcm/dcmads.js'></script>
 </ins>

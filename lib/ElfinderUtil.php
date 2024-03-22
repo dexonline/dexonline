@@ -15,7 +15,28 @@ class ElfinderUtil {
   // default elFinder (wotd, top)
   static function getOptionsMultiRoot() {
     $logger = new ElfinderSimpleLogger(Config::LOG_FILE);
+    $roots = [];
+    foreach (ElfinderUtil::DIRS as $dir => $config){
+      $subdir = $config['subdir'];
+      $alias  = $config['alias'];;
+      $path = Config::STATIC_PATH . $subdir;
+      @mkdir($path, 0777, true); // make sure the full path exists
+      $root = [
+        'driver'        => 'LocalFileSystem',
+        'path'          => $path,
+        'URL'           => Config::STATIC_URL . $subdir,
+        'alias'         => $alias,
+        'uploadAllow'   => ['image'], // mimetypes allowed to upload
+        'disabled'      => ['resize', 'mkfile'],
+        'imgLib'        => 'gd',
+        // Thumbnails are still stored locally
+        'tmbPath'       => Config::ROOT . 'www/img/generated',
+        'tmbURL'        => Config::URL_PREFIX . 'img/generated',
+      ];
 
+      array_push($roots, $root);
+    }
+/*
     $subdir_wotd = 'img/wotd';
     $alias_wotd = 'Imagini pentru cuvântul zilei';
     $path_wotd = Config::STATIC_PATH . $subdir_wotd;
@@ -66,6 +87,7 @@ class ElfinderUtil {
       'tmbPath'       => Config::ROOT . 'www/img/generated',
       'tmbURL'        => Config::URL_PREFIX . 'img/generated',
     ];
+*/
 
     $opts = [
       'bind'  => [
@@ -74,11 +96,14 @@ class ElfinderUtil {
         'upload.presave' => ['ElfinderUtil::cleanupFileName'],
       ],
 
+      'roots' => $roots,
+/*
       'roots' => [
         $root_wotd,
         $root_provb,
         $root_top,
       ],
+*/
     ];
 
     return $opts;

@@ -5,11 +5,11 @@
 class ElfinderUtil {
   //
   const DIRS = [
-    'wotd'     => ['subdir' => 'img/wotd',     'alias' => 'Imagini pentru cuvântul zilei'],
-    'expresii' => ['subdir' => 'img/expresii', 'alias' => 'Expresii vizuale'],
-    'wotm'     => ['subdir' => 'img/wotm',     'alias' => 'Imagini pentru cuvântul lunii'],
-    'proverbe' => ['subdir' => 'img/proverbe', 'alias' => 'Proverbe ilustrate'],
-    'top'      => ['subdir' => 'img/top',      'alias' => 'Topul căutărilor'],
+    'wotd'     => ['subdir' => 'img/wotd',           'alias' => 'Imagini pentru cuvântul zilei'],
+    'expresii' => ['subdir' => 'img/expresii',       'alias' => 'Expresii vizuale'],
+    'wotm'     => ['subdir' => 'img/cuvantul-lunii', 'alias' => 'Imagini pentru cuvântul lunii'],
+    'proverbe' => ['subdir' => 'img/proverbe',       'alias' => 'Proverbe ilustrate'],
+    'top'      => ['subdir' => 'img/top',            'alias' => 'Topul căutărilor'],
     ];
 
   // default elFinder (wotd, top)

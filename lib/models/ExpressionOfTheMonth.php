@@ -52,7 +52,7 @@ class ExpressionOfTheMonth extends BaseObject implements DatedObject {
 
   function getImageUrl() {
     if ($this->image) {
-      return Config::STATIC_URL . 'img/wotd/expresia-lunii/' . $this->image;
+      return Config::STATIC_URL . 'img/expresia-lunii/' . $this->image;
     }
     return null;
   }
@@ -62,11 +62,11 @@ class ExpressionOfTheMonth extends BaseObject implements DatedObject {
     $pic = $this->image ? $this->image : self::DEFAULT_IMAGE;
     /* TODO: check why this is not working!
     StaticUtil::ensureThumb(
-      "img/wotd/expresia-lunii/{$pic}",
-      "img/wotd/thumb{$size}/expresia-lunii/{$pic}",
+      "img/expresia-lunii/{$pic}",
+      "img/expresia-lunii/thumb{$size}/{$pic}",
       $size);
     */
-    return sprintf('%simg/wotd/thumb%s/expresia-lunii/%s',
+    return sprintf('%simg/expresia-lunii/thumb%s/%s',
       Config::STATIC_URL,  $size, $pic);
   }
 

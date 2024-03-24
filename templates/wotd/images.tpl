@@ -1,10 +1,10 @@
 {extends "layout-admin.tpl"}
 
-{block "title"}Imagini pentru cuvântul zilei{/block}
+{block "title"}Catalog de imagini{/block}
 
 {block "content"}
 
-  <h3>Imagini pentru cuvântul zilei</h3>
+  <h3>Catalog de imagini</h3>
 
   <div id="fileManager"></div>
 

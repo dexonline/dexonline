@@ -536,6 +536,22 @@
     </div>
   {/if}
 
+    {if User::can(User::PRIV_EDIT)}
+      <div class="card mb-3">
+        <div class="card-header">
+          Regenerează top
+        </div>
+
+        <div class="card-body">
+          <form>
+            <button type="submit" class="btn btn-primary" name="syncTopButton">
+              regenerează topul
+            </button>
+          </form>
+        </div>
+      </div>
+    {/if}
+
   {if User::can(User::PRIV_EDIT)}
     <div class="card mb-3">
       <div class="card-header">

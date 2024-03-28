@@ -4,6 +4,7 @@ User::mustHave(User::PRIV_ANY);
 
 $recountButton = Request::has('recountButton');
 $syncWikiButton = Request::has('syncWikiButton');
+$syncTopButton = Request::has('syncTopButton');
 
 if ($recountButton) {
   Util::recount();
@@ -12,6 +13,11 @@ if ($recountButton) {
 
 if ($syncWikiButton) {
   SyncWiki::process();
+  Util::redirectToRoute('aggregate/dashboard');
+}
+
+if ($syncTopButton) {
+  SyncTop::process();
   Util::redirectToRoute('aggregate/dashboard');
 }
 

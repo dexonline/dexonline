@@ -44,9 +44,13 @@ Smart::assign([
 
 /* Expression part */
 $wote = ExpressionOfTheMonth::getTodayExpression();
+if (!$wote) {
+  $wote = Model::factory('ExpressionOfTheMonth')->create(); // generic Expression
+}
 Smart::assign([
   'exprId' => $wote->id(),
   'thumbUrlE' => $wote->getMediumThumbUrl(),
+  'exprTitle' => $wote->title,
 ]);
 
 Smart::display('index.tpl');

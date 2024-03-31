@@ -6,6 +6,7 @@ class WordOfTheDay extends BaseObject implements DatedObject {
   const BIG_BANG = '2011-04-29';
   const DEFAULT_IMAGE = 'generic.jpg';
   const OLDER_WOTD_DISPLAY_LIMIT = 5;
+  const OLDER_WOTD_DISPLAY_LIMIT_ADMIN = 15;
 
   // Thumbnail sizes
   const SIZE_S = 48;
@@ -51,15 +52,16 @@ class WordOfTheDay extends BaseObject implements DatedObject {
   }
 
   // get words of the day for this day and month in other years, up to and including today
-  static function getWotdsInOtherYears($year, $month, $day) {
+  static function getWotdsInOtherYears($year, $month, $day, $admin = false) {
     $today = date('Y-m-d');
+    $limit = $admin ? self::OLDER_WOTD_DISPLAY_LIMIT_ADMIN : self::OLDER_WOTD_DISPLAY_LIMIT;
     return Model::factory('WordOfTheDay')
       ->where_lte('displayDate', $today)
       ->where_raw('year(displayDate) != ?', $year)
       ->where_raw('month(displayDate) = ?', $month)
       ->where_raw('day(displayDate) = ?', $day)
       ->order_by_desc('displayDate')
-      ->limit(self::OLDER_WOTD_DISPLAY_LIMIT)
+      ->limit($limit)
       ->find_many();
   }
 

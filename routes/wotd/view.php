@@ -75,7 +75,8 @@ $monthName = LocaleUtil::getMonthName($month);
 $day = $date->format('j');
 $dayPadded = $date->format('d');
 
-$otherWotds = WordOfTheDay::getWotdsInOtherYears($year, $month, $day);
+$admin = User::can(User::PRIV_ADMIN);
+$otherWotds = WordOfTheDay::getWotdsInOtherYears($year, $month, $day, $admin);
 $otherYears = [];
 foreach ($otherWotds as $w) {
   $def = $w->getDefinition();

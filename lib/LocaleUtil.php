@@ -87,7 +87,7 @@ class LocaleUtil {
 
   /**
    * Returns the full month name in the current locale.
-   * @param $month an integer or string between 01 and 12.
+   * @param $month mixed an integer or string between 01 and 12.
    */
   static function getMonthName($month) {
     return self::date("2022-{$month}", 'LLLL');

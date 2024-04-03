@@ -22,7 +22,7 @@ if ($sourceId) {
 $defs = $defs
   ->order_by_asc('lexicon')
   ->order_by_asc('sourceId')
-  ->limit(500)
+  ->limit(1000)
   ->find_many();
 
 $searchResults = SearchResult::mapDefinitionArray($defs);

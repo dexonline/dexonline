@@ -29,6 +29,9 @@ a:focus {
     margin-right: .25rem;
 }
 
+.leonardo {
+  transform: rotateY(180deg);
+}
 
 /*********** navbar and its elements ***********/
 

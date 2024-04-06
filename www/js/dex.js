@@ -571,3 +571,13 @@ $(function() {
     }
   }
 });
+
+/*** leonardo ***/
+function toggleLeonardo() {
+    classListBody = document.body.classList;
+    if (classListBody.contains('leonardo')) {
+        classListBody.remove('leonardo');
+    } else {
+        classListBody.add('leonardo');
+    }
+}

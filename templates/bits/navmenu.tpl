@@ -155,7 +155,6 @@
                 class="nav-link leonardo-on-toggle"
                 data-mode="leonardo-on"
                 href="#"
-                style="display: none;"
                 title="Leonardo">
 
                   {include "bits/icon.tpl" i=swap_horiz}
@@ -164,6 +163,7 @@
                 class="nav-link leonardo-off-toggle"
                 data-mode="leonardo-off"
                 href="#"
+                style="display: none;"
                 title="normal">
 
                   {include "bits/icon.tpl" i=swap_horiz}

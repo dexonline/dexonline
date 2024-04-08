@@ -585,7 +585,7 @@ function toggleLeonardo() {
 }
 
 $(function() {
-  if (localStorage.getItem('leonardo')) {
+  if (localStorage.getItem('leonardo') == 1) {
     document.body.classList.add('leonardo');
     $('.leonardo-on-toggle').css('display', 'block');
   } else {

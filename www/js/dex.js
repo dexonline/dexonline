@@ -585,6 +585,13 @@ function toggleLeonardo() {
 }
 
 $(function() {
+  if (localStorage.getItem('leonardo')) {
+    document.body.classList.add('leonardo');
+    $('.leonardo-on-toggle').css('display', 'block');
+  } else {
+    $('.leonardo-off-toggle').css('display', 'block');
+  }
+
   $('.leonardo-on-toggle, .leonardo-off-toggle').click(function() {
     toggleLeonardo();
     $(this).hide();

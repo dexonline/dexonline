@@ -35,9 +35,11 @@ a:focus {
   transform: rotateY(180deg);
 }
 
+/*
 .leonardo-on-toggle, .leonardo-off-toggle {
   display: none;
 }
+*/
 
 /*********** navbar and its elements ***********/
 

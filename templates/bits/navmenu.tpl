@@ -148,6 +148,27 @@
       </ul>
 
       <ul class="navbar-nav ms-auto">
+        {* leonardo *}
+          {if User::can(User::PRIV_PLUGIN)}
+            <li class="nav-item">
+              <a
+                class="nav-link leonardo-on-toggle"
+                data-mode="leonardo-on"
+                href="#"
+                title="Leonardo">
+
+                  {include "bits/icon.tpl" i=swap_horiz}
+              </a>
+              <a
+                class="nav-link leonardo-off-toggle"
+                data-mode="leonardo-off"
+                href="#"
+                title="normal">
+
+                  {include "bits/icon.tpl" i=swap_horiz}
+              </a>
+            </li>
+          {/if}
 
         {* language selector *}
         <li class="nav-item dropdown">

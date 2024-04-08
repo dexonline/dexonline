@@ -163,7 +163,6 @@
                 class="nav-link leonardo-off-toggle"
                 data-mode="leonardo-off"
                 href="#"
-                style="display: none;"
                 title="normal">
 
                   {include "bits/icon.tpl" i=swap_horiz}

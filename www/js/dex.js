@@ -577,8 +577,10 @@ function toggleLeonardo() {
     classListBody = document.body.classList;
     if (classListBody.contains('leonardo')) {
         classListBody.remove('leonardo');
+        localStorage.setItem("leonardo", 0);
     } else {
         classListBody.add('leonardo');
+        localStorage.setItem("leonardo", 1);
     }
 }
 

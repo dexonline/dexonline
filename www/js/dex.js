@@ -581,3 +581,12 @@ function toggleLeonardo() {
         classListBody.add('leonardo');
     }
 }
+
+$(function() {
+  $('.leonardo-on-toggle, .leonardo-off-toggle').click(function() {
+    toggleLeonardo();
+    $(this).hide();
+    $(this).siblings().css('display', 'block');
+    return false;
+  });
+});

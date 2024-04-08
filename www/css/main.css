@@ -29,8 +29,14 @@ a:focus {
     margin-right: .25rem;
 }
 
+/* leonardo */
+
 .leonardo {
   transform: rotateY(180deg);
+}
+
+.leonardo-on-toggle, .leonardo-off-toggle {
+  display: none;
 }
 
 /*********** navbar and its elements ***********/

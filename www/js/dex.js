@@ -609,9 +609,14 @@ $(function() {
   }
 
   $('.leonardo-on-toggle, .leonardo-off-toggle').click(function() {
-    toggleLeonardo();
-    $(this).hide();
-    $(this).siblings().css('display', 'block');
+    if (isHomePage()) {
+      //do nothing on homepage
+    }
+    else {
+      toggleLeonardo();
+      $(this).hide();
+      $(this).siblings().css('display', 'block');
+    }
     return false;
   });
 });

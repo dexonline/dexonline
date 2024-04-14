@@ -592,9 +592,18 @@ function isHomePage() {
 }
 
 $(function() {
+  // set by default (if it is not set yet)
+  if (localStorage.getItem('leonardo') === null) {
+    //localStorage.setItem("leonardo", 1); // uncomment when it is ready!
+  }
   if (localStorage.getItem('leonardo') == 1) {
-    document.body.classList.add('leonardo');
-    $('.leonardo-on-toggle').css('display', 'block');
+    if (isHomePage()) {
+      //do nothing on homepage
+    }
+    else {
+      document.body.classList.add('leonardo');
+      $('.leonardo-on-toggle').css('display', 'block');
+    }
   } else {
     $('.leonardo-off-toggle').css('display', 'block');
   }

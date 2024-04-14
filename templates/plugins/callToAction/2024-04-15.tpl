@@ -8,10 +8,13 @@
     A fost un adevărat polimat: inventator și om de știință de geniu, arhitect, inginer, filozof, anatomist, pictor…
     Avea modul său foarte inventiv de a lua notițe: scria de la dreapta la stânga, cu mâna stângă, astfel încât era foarte dificil să îl citești fără oglindă:
     din acest motiv, acest mod de a scrie este cunoscut sub numele de scriere „speculară” (<i>speculus</i> = oglindă).
+  </p>
+  <p>
     Istoricii nu se pun de acord dacă Leonardo scria așa pentru a face notițele sale mai greu de citit
     (în special în acea perioadă, când arsul pe rug pentru erezii era la ordinea zilei)
     sau dacă este mai degrabă de un obicei al unui stângaci, cu un creier organizat atipic.
-
+  </p>
+  <p>
     Pentru a trece din modul <i>Leonardo</i> în modul normal și viceversa, apăsați iconița <span class="material-icons ">swap_horiz</span> din partea de sus a paginii.
   </p>
 

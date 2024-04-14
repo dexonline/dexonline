@@ -584,6 +584,13 @@ function toggleLeonardo() {
     }
 }
 
+function isHomePage() {
+  if ($('.widgets').length != 0) {
+    return true;
+  }
+  return false;
+}
+
 $(function() {
   if (localStorage.getItem('leonardo') == 1) {
     document.body.classList.add('leonardo');

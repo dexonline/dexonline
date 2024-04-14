@@ -3,7 +3,8 @@
     <span aria-hidden="true">&times;</span>
   </button>
 
-  <p class="lead">
+  <p class="lead">Leonardo</p>
+  <p>
     Astăzi îi aducem un omagiu lui <strong>Leonardo da Vinci</strong>, născut pe 15 aprilie 1452 într-un sat din Toscana.
     A fost un adevărat polimat: inventator și om de știință de geniu, arhitect, inginer, filozof, anatomist, pictor…
     Avea modul său foarte inventiv de a lua notițe: scria de la dreapta la stânga, cu mâna stângă, astfel încât era foarte dificil să îl citești fără oglindă:

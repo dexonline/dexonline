@@ -75,6 +75,21 @@ a:focus {
   cursor: pointer;
 }
 
+.leoForget {
+  color: #ccc;
+  /*  float: left; */
+  font-size: 20px;
+  font-weight: bold;
+  background: #888;
+}
+
+.leoForget:hover,
+.leoForget:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
 /*********** navbar and its elements ***********/
 
 .navbar {

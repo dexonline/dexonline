@@ -610,19 +610,16 @@ function leoModalCreate() {
     'încât era foarte dificil să îl citești fără oglindă. Se numește scriere „speculară” (speculus = oglindă).</p>' +
     '<p>Pentru a trece din modul <i>Leonardo</i> în modul normal și viceversa, apăsați iconița ' +
     '<span class="material-icons ">swap_horiz</span> din partea de sus a paginii.</p>' +
-//    '<span class="leoForget" onclick="leoModalCloseAndForget()">Ascunde mesajul!</span>' +
-    '</div>';
+    '<span class="leoForget" onclick="leoModalCloseAndForget()">Ascunde mesajul!</span></div>';
   document.body.insertBefore(modalDiv, document.getElementById('pageModal'));
 }
 
 setTimeout(function(){
-//  if (localStorage.getItem('leoModalShown') != 1) {
-  if ((!isHomePage()) {
+  if (localStorage.getItem('leoModalShown') != 1) {
     if (localStorage.getItem('leonardo') == 1) {
       leoModalCreate();
     }
   }
-//  }
 }, 5000);
 
 

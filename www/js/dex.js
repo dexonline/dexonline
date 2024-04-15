@@ -617,9 +617,11 @@ function leoModalCreate() {
 
 setTimeout(function(){
 //  if (localStorage.getItem('leoModalShown') != 1) {
+  if ((!isHomePage()) {
     if (localStorage.getItem('leonardo') == 1) {
       leoModalCreate();
     }
+  }
 //  }
 }, 5000);
 

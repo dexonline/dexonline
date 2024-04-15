@@ -618,7 +618,7 @@ function leoModalCreate() {
 setTimeout(function(){
 //  if (localStorage.getItem('leoModalShown') != 1) {
     if (localStorage.getItem('leonardo') == 1) {
-      if (!isHomePage) {
+      if (!isHomePage()) {
         leoModalCreate();
       }
 //  }

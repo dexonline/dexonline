@@ -607,10 +607,10 @@ function leoModalCreate() {
     '<span class="leoClose" onclick="leoModalClose()">&times;</span><p>Sunteți pe modul <i>Leonardo</i>!</p>' +
     '<p>Astfel îi aducem astăzi un omagiu lui Leonardo da Vinci, născut pe 15 aprilie 1452. ' +
     'Avea modul său foarte inventiv de a scrie: de la dreapta la stânga, cu mâna stângă, ' +
-    'încât era foarte dificil să îl citești fără oglindă. Se numește scriere „speculară” (speculus = oglindă).</p>' +
-    '<p>Pentru a trece din modul <i>Leonardo</i> în modul normal și viceversa, apăsați iconița ' +
+    'încât era foarte dificil să îl citești fără oglindă. Se numește scriere „speculară” (speculum = oglindă).</p>' +
+    '<p>Pentru a trece din modul <i>Leonardo</i> în modul normal și viceversa, pe calculator apăsați iconița ' +
     '<span class="material-icons ">swap_horiz</span> din partea de sus a paginii, iar pe telefon o puteți găsi ' +
-    'în meniu, apăsând iconița <span class="material-icons ">menu</span></p>' +
+    'în meniu, apăsând iconița <span class="material-symbols-outlined">menu</span></p>' +
 //    '<span class="leoForget" onclick="leoModalCloseAndForget()">Ascunde mesajul!</span>' +
     '</div>';
   document.body.insertBefore(modalDiv, document.getElementById('pageModal'));

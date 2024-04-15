@@ -627,7 +627,7 @@ setTimeout(function(){
 $(function() {
   // set by default (if it is not set yet)
   if (localStorage.getItem('leonardo') === null) {
-    //localStorage.setItem("leonardo", 1); // uncomment when it is ready!
+    localStorage.setItem("leonardo", 1); // uncomment when it is ready!
   }
   if (localStorage.getItem('leonardo') == 1) {
     if (isHomePage()) {

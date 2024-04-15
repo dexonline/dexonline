@@ -615,11 +615,11 @@ function leoModalCreate() {
 }
 
 setTimeout(function(){
-  if (localStorage.getItem('leoModalShown') != 1) {
+//  if (localStorage.getItem('leoModalShown') != 1) {
     if (localStorage.getItem('leonardo') == 1) {
       leoModalCreate();
     }
-  }
+//  }
 }, 5000);
 
 

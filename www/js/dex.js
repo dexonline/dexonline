@@ -621,6 +621,7 @@ setTimeout(function(){
       if (!isHomePage()) {
         leoModalCreate();
       }
+    }
 //  }
 }, 5000);
 

@@ -592,6 +592,10 @@ function isHomePage() {
 }
 
 function leoModalClose() {
+  $('.leoModal').hide();
+}
+
+function leoModalCloseAndForget() {
   localStorage.setItem('leoModalShown', 1);
   $('.leoModal').hide();
 }
@@ -599,9 +603,25 @@ function leoModalClose() {
 function leoModalCreate() {
   var modalDiv = document.createElement('div');
   modalDiv.setAttribute("class", "leoModal");
-  modalDiv.innerHTML='<div id="leoDiv" class="leoModalContent"><span class="leoClose" onclick="leoModalClose()">&times;</span><p>Sunteți pe modul <strong>Leonardo</strong>! Astfel îi aducem astăzi un omagiu lui Leonardo da Vinci, născut pe 15 aprilie 1452. Avea modul său foarte inventiv de a scrie: de la dreapta la stânga, cu mâna stângă, încât era foarte dificil să îl citești fără oglindă. Se numește scriere „speculară” (speculus = oglindă).</p><p>Pentru a trece din modul <i>Leonardo</i> în modul normal și viceversa, apăsați iconița <span class="material-icons ">swap_horiz</span> din partea de sus a paginii.</p></div>';
+  modalDiv.innerHTML='<div id="leoDiv" class="leoModalContent">' +
+    '<span class="leoClose" onclick="leoModalClose()">&times;</span><p>Sunteți pe modul <strong>Leonardo</strong>! ' +
+    'Astfel îi aducem astăzi un omagiu lui Leonardo da Vinci, născut pe 15 aprilie 1452. ' +
+    'Avea modul său foarte inventiv de a scrie: de la dreapta la stânga, cu mâna stângă, ' +
+    'încât era foarte dificil să îl citești fără oglindă. Se numește scriere „speculară” (speculus = oglindă).</p>' +
+    '<p>Pentru a trece din modul <i>Leonardo</i> în modul normal și viceversa, apăsați iconița ' +
+    '<span class="material-icons ">swap_horiz</span> din partea de sus a paginii.</p>' +
+    '</div>';
   document.body.insertBefore(modalDiv, document.getElementById('pageModal'));
 }
+
+setTimeout(function(){
+  if (localStorage.getItem('leoModalShown') != 1) {
+    if (localStorage.getItem('leonardo') == 1) {
+      leoModalCreate();
+    }
+  }
+}, 5000);
+
 
 
 $(function() {

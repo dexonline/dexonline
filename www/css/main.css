@@ -42,7 +42,7 @@ a:focus {
 .leoModal {
   display: block; /* Shown by default */
   position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
+  z-index: 9999; /* Sit on top */
   left: 0;
   top: 0;
   width: 100%;
@@ -63,7 +63,7 @@ a:focus {
 
 .leoClose {
   color: #aaa;
-  float: right;
+/*  float: left; */
   font-size: 28px;
   font-weight: bold;
 }

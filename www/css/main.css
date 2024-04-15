@@ -81,6 +81,7 @@ a:focus {
   font-size: 20px;
   font-weight: bold;
   background: #888;
+  padding: 3px;
 }
 
 .leoForget:hover,

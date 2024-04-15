@@ -610,7 +610,7 @@ function leoModalCreate() {
     'încât era foarte dificil să îl citești fără oglindă. Se numește scriere „speculară” (speculum = oglindă).</p>' +
     '<p>Pentru a trece din modul <i>Leonardo</i> în modul normal și viceversa, pe calculator apăsați iconița ' +
     '<span class="material-icons ">swap_horiz</span> din partea de sus a paginii, iar pe telefon o găsiți ' +
-    'în meniu, apăsând iconița <span class="material-symbols-outlined">menu</span>.</p>' +
+    'în meniu, apăsând iconița <span class="material-symbols-outlined ">menu</span>.</p>' +
 //    '<span class="leoForget" onclick="leoModalCloseAndForget()">Ascunde mesajul!</span>' +
     '</div>';
   document.body.insertBefore(modalDiv, document.getElementById('pageModal'));

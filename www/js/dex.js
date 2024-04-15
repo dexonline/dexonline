@@ -604,7 +604,7 @@ function leoModalCreate() {
   var modalDiv = document.createElement('div');
   modalDiv.setAttribute("class", "leoModal");
   modalDiv.innerHTML='<div id="leoDiv" class="leoModalContent">' +
-    '<span class="leoClose" onclick="leoModalClose()">&times;</span><p>Sunteți pe modul <strong>Leonardo</strong>! ' +
+    '<span class="leoClose" onclick="leoModalClose()">&times;</span><p>Sunteți pe modul <i>Leonardo</i>! ' +
     'Astfel îi aducem astăzi un omagiu lui Leonardo da Vinci, născut pe 15 aprilie 1452. ' +
     'Avea modul său foarte inventiv de a scrie: de la dreapta la stânga, cu mâna stângă, ' +
     'încât era foarte dificil să îl citești fără oglindă. Se numește scriere „speculară” (speculus = oglindă).</p>' +

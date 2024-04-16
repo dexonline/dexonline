@@ -573,6 +573,7 @@ $(function() {
 });
 
 /*** leonardo ***/
+/*
 function toggleLeonardo() {
     classListBody = document.body.classList;
     if (classListBody.contains('leonardo')) {
@@ -657,5 +658,7 @@ $(function() {
     return false;
   });
 });
+
+ */
 
 

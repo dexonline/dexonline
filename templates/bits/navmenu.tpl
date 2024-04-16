@@ -149,6 +149,8 @@
 
       <ul class="navbar-nav ms-auto">
         {* leonardo *}
+        {*
+          {if User::can(User::PRIV_PLUGIN)}
             <li class="nav-item">
               <a
                 class="nav-link leonardo-on-toggle"
@@ -167,6 +169,8 @@
                   {include "bits/icon.tpl" i=swap_horiz}
               </a>
             </li>
+          {/if}
+         *}
 
         {* language selector *}
         <li class="nav-item dropdown">

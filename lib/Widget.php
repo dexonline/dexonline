@@ -8,7 +8,9 @@ class Widget {
   const WIDGET_GAMES = 0x10;
   const WIDGET_SOCIAL = 0x20;
   const WIDGET_EXPRESSION = 0x40;
-  const WIDGET_COUNT = 7;
+  const WIDGET_NEWSLETTER = 0x80;
+  const WIDGET_PROVERB = 0x100;
+  const WIDGET_COUNT = 9;
 
   // 'enabled' means "enabled by default". All widgets can later be enabled or disabled based on user prefs.
   const DATA = [
@@ -46,6 +48,16 @@ class Widget {
       'name' => 'Expresii',
       'template' => 'expression.tpl',
       'enabled' => true,
+    ],
+    self::WIDGET_NEWSLETTER => [
+      'name' => 'Newsletter',
+      'template' => 'newsletter.tpl',
+      'enabled' => true,
+    ],
+    self::WIDGET_PROVERB => [
+      'name' => 'Proverbe',
+      'template' => 'proverb.tpl',
+      'enabled' => false,
     ]
   ];
 

@@ -52,7 +52,7 @@ class Widget {
     self::WIDGET_NEWSLETTER => [
       'name' => 'Newsletter',
       'template' => 'newsletter.tpl',
-      'enabled' => true,
+      'enabled' => false,
     ],
     self::WIDGET_PROVERB => [
       'name' => 'Proverbe',

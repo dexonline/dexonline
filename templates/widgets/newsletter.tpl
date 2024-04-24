@@ -15,6 +15,7 @@
       <div class="input-group">
         <input
           class="input-group-text"
+          style="padding: 6px;"
           type="email"
           autocomplete="email"
           id="form_email_2"

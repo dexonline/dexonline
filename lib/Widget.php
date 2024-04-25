@@ -13,6 +13,7 @@ class Widget {
   const WIDGET_COUNT = 9;
 
   // 'enabled' means "enabled by default". All widgets can later be enabled or disabled based on user prefs.
+  // also this array determines the order of the widgets
   const DATA = [
     self::WIDGET_WOTD => [
       'name' => 'Cuvântul zilei',
@@ -24,9 +25,9 @@ class Widget {
       'template' => 'wotm.tpl',
       'enabled' => true,
     ],
-    self::WIDGET_RANDOM_WORD => [
-      'name' => 'Cuvânt aleatoriu',
-      'template' => 'randomWord.tpl',
+    self::WIDGET_NEWSLETTER => [
+      'name' => 'Newsletter',
+      'template' => 'newsletter.tpl',
       'enabled' => true,
     ],
     self::WIDGET_AOTM => [
@@ -49,9 +50,9 @@ class Widget {
       'template' => 'expression.tpl',
       'enabled' => true,
     ],
-    self::WIDGET_NEWSLETTER => [
-      'name' => 'Newsletter',
-      'template' => 'newsletter.tpl',
+    self::WIDGET_RANDOM_WORD => [
+      'name' => 'Cuvânt aleatoriu',
+      'template' => 'randomWord.tpl',
       'enabled' => false,
     ],
     self::WIDGET_PROVERB => [

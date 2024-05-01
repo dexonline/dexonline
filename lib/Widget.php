@@ -25,14 +25,14 @@ class Widget {
       'template' => 'wotm.tpl',
       'enabled' => true,
     ],
+    self::WIDGET_EXPRESSION => [
+      'name' => 'Expresii',
+      'template' => 'expression.tpl',
+      'enabled' => true,
+    ],
     self::WIDGET_NEWSLETTER => [
       'name' => 'Newsletter',
       'template' => 'newsletter.tpl',
-      'enabled' => true,
-    ],
-    self::WIDGET_AOTM => [
-      'name' => 'Articolul lunii',
-      'template' => 'articleOfTheMonth.tpl',
       'enabled' => true,
     ],
     self::WIDGET_GAMES => [
@@ -40,15 +40,15 @@ class Widget {
       'template' => 'games.tpl',
       'enabled' => true,
     ],
+    self::WIDGET_AOTM => [
+      'name' => 'Articolul lunii',
+      'template' => 'articleOfTheMonth.tpl',
+      'enabled' => true,
+    ],
     self::WIDGET_SOCIAL => [
       'name' => 'Rețele sociale',
       'template' => 'social.tpl',
       'enabled' => false,
-    ],
-    self::WIDGET_EXPRESSION => [
-      'name' => 'Expresii',
-      'template' => 'expression.tpl',
-      'enabled' => true,
     ],
     self::WIDGET_RANDOM_WORD => [
       'name' => 'Cuvânt aleatoriu',

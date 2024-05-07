@@ -19,10 +19,11 @@ if ($sourceId) {
   $defs = $defs->where('sourceId', $sourceId);
 }
 
+$pending_show_limit = 2 * Config::LIMIT_TRAINEE_PENDING_DEFS;
 $defs = $defs
   ->order_by_asc('lexicon')
   ->order_by_asc('sourceId')
-  ->limit(1000)
+  ->limit($pending_show_limit)
   ->find_many();
 
 $searchResults = SearchResult::mapDefinitionArray($defs);

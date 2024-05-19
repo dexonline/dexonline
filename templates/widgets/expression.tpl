@@ -8,6 +8,6 @@
       {/if}
   </div>
   <div>
-    <img src="{$thumbUrlE}" alt="iconiță cuvântul zilei" class="widget-icon">
+    <img src="{$thumbUrlE}" onerror="this.onerror=null;this.src='{$thumbDefault}'" alt="iconiță cuvântul zilei" class="widget-icon">
   </div>
 </a>

@@ -3,7 +3,7 @@
 class ExpressionOfTheMonth extends BaseObject implements DatedObject {
   public static $_table = 'ExpressionOfTheMonth';
 
-  const DEFAULT_IMAGE = 'generic.jpg';
+  const DEFAULT_IMAGE = 'drawing.gif';
   const SIZE_XM = 150;
   const SIZE_XL = 600;
   const SIZE_XXL=1080;
@@ -88,6 +88,10 @@ class ExpressionOfTheMonth extends BaseObject implements DatedObject {
 
   function getXXLargeThumbUrl() {
     return $this->getThumbUrl(self::SIZE_XXL);
+  }
+
+  function getDefaultThumbUrl() {
+        return sprintf('%simg/expresii/%s',Config::STATIC_URL, self::DEFAULT_IMAGE);
   }
 
   function getArtist() {

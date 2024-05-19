@@ -50,6 +50,7 @@ if (!$wote) {
 Smart::assign([
   'exprId' => $wote->id(),
   'thumbUrlE' => $wote->getMediumThumbUrl(),
+  'thumbDefault' => $wote->getDefaultThumbUrl(),
   'exprTitle' => $wote->title,
 ]);
 

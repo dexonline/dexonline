@@ -11,8 +11,6 @@
 
 {block "openGraph"}
   <meta property="og:image" content="{$imageUrl}">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Cuvântul lunii - {$monthName} {$year} - {$searchResult->definition->lexicon}">
 {/block}
 
 {block "content"}

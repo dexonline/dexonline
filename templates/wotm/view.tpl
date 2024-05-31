@@ -6,13 +6,13 @@
 {/block}
 
 {block "pageDescription"}
-  <meta
-    name="description"
-    content="Cuvântul lunii {$monthName} {$year} la dexonline: {$searchResult->definition->lexicon}">
+  <meta name="description" content="Cuvântul lunii {$monthName} {$year} la dexonline: {$searchResult->definition->lexicon}">
 {/block}
 
 {block "openGraph"}
-  {* Nothing -- so crawlers index the image of the month instead. *}
+  <meta property="og:image" content="{$imageUrl}">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Cuvântul lunii - {$monthName} {$year} - {$searchResult->definition->lexicon}">
 {/block}
 
 {block "content"}

@@ -1,9 +1,12 @@
 <?php
 
 const WOTM_BIG_BANG = '2012-04-01';
+$default_month = date('m', strtotime("first day of previous month")); //self explanatory date('Y')
+$default_year = date('Y', strtotime("first day of previous month")); //self explanatory date('m')
 
-$year = (int)Request::get('year', date('Y'));
-$month = (int)Request::get('month', date('m'));
+
+$year = (int)Request::get('year', $default_year);
+$month = (int)Request::get('month', $default_month);
 $format = Request::getFormat();
 
 if (!checkDate($month, 1, $year)) {

@@ -13,7 +13,8 @@ if (!checkDate($month, 1, $year)) {
   Util::redirectToRoute('wotm/view'); // current month
 }
 
-$today = date('Y-m-01', time()); // Always use the first of the month
+//$today = date('Y-m-01', time()); // Always use the first of the month
+$today = date('Y-m-01', strtotime("first day of previous month")); // Always use the first of the month
 $timestamp = strtotime("{$year}-{$month}");
 $monthName = LocaleUtil::getMonthName($month);
 $mysqlDate = sprintf('%s-%02s-01', $year, $month);

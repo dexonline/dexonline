@@ -3,7 +3,9 @@
 class ExpressionOfTheMonth extends BaseObject implements DatedObject {
   public static $_table = 'ExpressionOfTheMonth';
 
-  const DEFAULT_IMAGE = 'drawing.gif';
+  //const DEFAULT_IMAGE = 'drawing.gif';
+  const DEFAULT_IMAGE = 'expresia-în-lucru.png';
+  const SIZE_M  =  88;
   const SIZE_XM = 150;
   const SIZE_XL = 600;
   const SIZE_XXL=1080;
@@ -70,6 +72,10 @@ class ExpressionOfTheMonth extends BaseObject implements DatedObject {
       Config::STATIC_URL,  $size, $pic);
   }
 
+  function getDefaultThumbUrlSize($size) {
+    return sprintf('%simg/expresii/thumb%s/%s',Config::STATIC_URL, $size, self::DEFAULT_IMAGE);
+  }
+
   function getMediumThumbUrl() {
     return $this->getThumbUrl(WordOfTheDay::SIZE_M);
   }
@@ -91,7 +97,12 @@ class ExpressionOfTheMonth extends BaseObject implements DatedObject {
   }
 
   function getDefaultThumbUrl() {
-        return sprintf('%simg/expresii/%s',Config::STATIC_URL, self::DEFAULT_IMAGE);
+     //   return sprintf('%simg/expresii/%s',Config::STATIC_URL, self::DEFAULT_IMAGE);
+     return $this->getDefaultThumbUrlSize(self::SIZE_M);
+  }
+
+  function getXMediumDefaultThumbUrl() {
+    return $this->getDefaultThumbUrlSize(self::SIZE_XM);
   }
 
   function getArtist() {

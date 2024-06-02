@@ -77,6 +77,7 @@
                       <a href="{Router::link('wote/view')}/{$day.wotd->id}">
                         <img
                           src="{$day.wotd->getXMediumThumbUrl()}"
+                          onerror="this.onerror=null;this.src='{$day.wotd->getXMediumDefaultThumbUrl()}'"
                           alt="thumbnail {$day.wotd->title}"
                           title="{$day.wotd->title}"
                         >

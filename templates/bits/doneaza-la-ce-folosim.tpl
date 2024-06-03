@@ -1,4 +1,4 @@
-<h3>La ce folosim sumele donate</h3>
+<h3 id="proiecte">La ce folosim sumele donate</h3>
 
 <p>
   Avem multe idei pentru a dezvolta site-ul și prea puțin timp să ne ocupăm

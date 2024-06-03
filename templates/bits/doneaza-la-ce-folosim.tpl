@@ -27,12 +27,12 @@
       le elaboreze definiții;</li>
     <li>confruntarea și unificarea definițiilor pentru același cuvânt, din dicționare diferite, pentru eliminarea redundanței;</li>
     <li>restructurarea definițiilor pentru a separa silabația, pronunția, etimologia, sinonimele și variantele;</li>
-    <li>jocuri bazate pe dicționare, din serie cu <a href="{Router::link('games/hangman')}">Spânzurătoarea</a> și <a href="{Router::link('games/mill')}">Moara cuvintelor</a>.</li>
-    <li>crearea unei aplicații pentru mobil</li>
+    <li>jocuri bazate pe dicționare, din serie cu <a href="{Router::link('games/hangman')}">Spânzurătoarea</a> și <a href="{Router::link('games/mill')}">Moara cuvintelor</a>;</li>
+    <li>crearea unei aplicații pentru mobil.</li>
   </ul>
     <p>
     Dar e nevoie de oameni și pentru munca un pic mai plictisitoare: rezolvarea bugurilor, aducerea la zi a versiunilor
-      de software și a librăriilor de funcții, optimizări cerute de voluntari etc.
+      de software și a librăriilor de funcții, optimizarea codului la cererea moderatorilor etc.
     </p>
 {/capture}
 
@@ -104,17 +104,15 @@
 
   <p>
     <strong>Motiv:</strong>
-    Dorim să ne îmbogățim
-    <a href="{Router::link('article/list')}">colecția de articole</a>
-    pe teme lingvistice (exprimare, pronunție, împrumuturi din alte
-    limbi etc.). Uneori putem scrie singuri câteva paragrafe, dar,
-    pentru a nu rămâne la un nivel de diletanți, avem nevoie de
-    colaborări cu profesioniști în domeniu.
+    Dorim să ne îmbogățim <a href="{Router::link('article/list')}">colecția de articole</a>
+    pe teme lingvistice (exprimare, pronunție, împrumuturi din alte limbi etc.). Uneori putem
+    scrie singuri câteva paragrafe, dar, pentru a nu rămâne la un nivel de diletanți, avem nevoie
+    de colaborări cu profesioniști în domeniu.
   </p>
 
   <p>
     Al doilea motiv este că limba evoluează. Apar mereu cuvinte noi, pe care noi le putem depista în mod automat, prin scanarea periodică a
-    site-urilor românești. Nu putem însă să le elaborăm o definiție completă -- acesta este apanajul unui lexicograf profesionist.
+    site-urilor românești. Nu putem însă să le elaborăm o definiție completă – acesta este apanajul unui lexicograf profesionist.
   </p>
 
   <p>
@@ -154,18 +152,12 @@
 
   <p>
     <strong>Motiv:</strong>
-    Lumea iubește concursurile de aptitudini, iar cele lingvistice nu
-    fac excepție. E nevoie de un documentarist care să descopere
-    lucruri interesante, de un creator de conținut pentru a le da o formă,
-    de un desenator pentru a le ilustra la nevoie și chiar de un
-    programator care să ajute când e nevoie.
-    Pentru <i>dexonline,</i> organizarea de concursuri ar
-    fi un prilej bun de a stimula oamenii să învețe lucruri noi și de
-    a-i ține aproape de site.
-    De exemplu, <a href="{Router::link('wotd/view')}">cuvântul zilei</a>
-    este ales în fiecare zi în legătură cu un eveniment notabil din acea
-    zi (în anul curent sau în anii trecuți). Tu câte din aceste
-    evenimente poți identifica?
+    Lumea iubește concursurile de aptitudini, iar cele lingvistice nu fac excepție. E nevoie de un documentarist care să
+    descopere lucruri interesante, de un creator de conținut pentru a le da o formă, de un desenator pentru a le ilustra
+    la nevoie și chiar de un programator care să ajute când e necesar. Pentru <i>dexonline,</i> organizarea de concursuri
+    ar fi un prilej bun de a stimula oamenii să învețe lucruri noi și de a-i ține aproape de site.
+    De exemplu, <a href="{Router::link('wotd/view')}">cuvântul zilei</a> este ales în fiecare zi în legătură cu un
+    eveniment notabil din acea zi (în anul curent sau în anii trecuți). Tu câte din aceste  evenimente poți identifica?
   </p>
 {/capture}
 
@@ -178,27 +170,88 @@
   <p>
     <strong>Cheltuieli estimate:</strong>
     3.000 - 5.000 € / lună.</p>
-
   <p>
     <strong>Motiv:</strong>
-    Spre deosebire de alte site-uri cu un trafic comparabil cu al nostru, <i>dexonline</i> nu deține o fermă de servere. Tot proiectul rulează pe
-    un singur calculator, din care stoarcem tot ce putem pentru a face față traficului. Chiar și așa, în permanență sunt necesare mici lucrări pentru
-    a ține la zi multitudinea de componente aferente proiectului:</p>
+    Spre deosebire de alte site-uri cu un trafic comparabil cu al nostru, <i>dexonline</i> nu deține o fermă de servere.
+    Tot proiectul rulează pe două calculatoare, din care stoarcem tot ce putem pentru a face față traficului. Chiar și
+    așa, în permanență sunt necesare mici lucrări pentru a ține la zi multitudinea de componente aferente proiectului:
+  </p>
 
   <ul>
     <li>sistemul de operare;</li>
-    <li>actualizarea bibliotecilor de funcții și a frameworkurilor folosite</li>
+    <li>limbajul de programare;</li>
+    <li>actualizarea bibliotecilor de funcții și a frameworkurilor folosite;</li>
+    <li>baza de date;</li>
     <li>cache-ul Varnish, pe care îl folosim pentru a accelera servirea paginilor, și care trebuie foarte bine adaptat la nevoile noastre;</li>
     <li>sistemul OTRS, folosit pentru a răspunde la e-mailuri;</li>
     <li>filtrul de spam;</li>
-    <li>înteținerea blogului</li>
+    <li>sistemul de bannere;</li>
+    <li>înteținerea blogului;</li>
     <li>pagina wiki.</li>
   </ul>
 
-  <p>Toate adunate pot ține un inginer de sistem ocupat două-trei zile pe săptămână.</p>
+  <p>Toate adunate pot ține un inginer de sistem ocupat cel puțin două-trei zile pe săptămână. Plus partea de securitate.
+    Mai adăugăm și partea de administrator de baze de date și e de muncă toată săptămâna!
+  </p>
 {/capture}
 
 {include "bits/doneaza-section.tpl"
   id=7
-  title="Mentenanța sistemului"
+  title="Administrarea și mentenanța sistemului"
   body=$smarty.capture.body}
+
+{capture "body"}
+  <p>
+    <strong>Cheltuieli estimate:</strong> 500 - 1.000 € / lună.
+  </p>
+
+  <p>
+    <strong>Motiv:</strong>
+    Am putea să ne închidem și noi într-un turn de fildeș și să limităm contactul cu utilizatorii noștri, dar ar fi un
+    pic absurd să creăm acest sistem pentru ei și să nu ne intereseze să comunicăm cu ei. Avem de răspuns la e-mailuri,
+    de scris articole de blog, de scris newsletterul, de răspuns la comentarii și întrebări. Încercăm să democratizăm
+    dialogul cu utilizatorii, așa că existăm și pe rețelele de socializare (facebook și instagram).
+    Scopul nostru e să atragem lumea către cunoaștere și știință și fără popularizare nu se poate!
+  </p>
+{/capture}
+
+{include "bits/doneaza-section.tpl"
+id=8
+title="Menținerea contactului cu utilizatorii"
+body=$smarty.capture.body}
+
+{capture "body"}
+  <p>
+    <strong>Cheltuieli estimate:</strong> 200 - 500 € / lună.
+  </p>
+
+  <p>
+    <strong>Motiv:</strong>
+    Chiar dacă suntem ingineri (sau poate tocmai de aceea), nu putem reinventa roate. Uneori e pur și simplu mai ieftin
+    să cumpărăm soft gata făcut: nu ar avea sens să creăm de la zero un sistem OCR sau să pierdem timp cu crearea unui
+    sistem de trimitere a newsletterului. Nu e rentabil economic, nici inginerește nu are sens!
+  </p>
+{/capture}
+
+{include "bits/doneaza-section.tpl"
+id=9
+title="Achiziția de software și servicii"
+body=$smarty.capture.body}
+
+{capture "body"}
+<p>
+  <strong>Cheltuieli estimate:</strong> 200 - 500 € / lună.
+</p>
+
+<p>
+  <strong>Motiv:</strong>
+  Cu traficul pe care îl avem trebuie să cumpărăm găzduire, nu mai putem să ținem serverul în sufragerie, ca la început.
+  Deocamdată reușim să ținem traficul cu doar două servere, dar suntem la limită! Și dacă plătim facturi, ne trebuie și
+  un contabil! Din când în când e nevoie și de avocat (de exemplu pentru menținerea mărcii înregistrate).
+</p>
+{/capture}
+
+{include "bits/doneaza-section.tpl"
+id=8
+title="Cheltuieli de infrastructură și administrare"
+body=$smarty.capture.body}

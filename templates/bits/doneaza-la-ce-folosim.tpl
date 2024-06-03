@@ -252,6 +252,6 @@ body=$smarty.capture.body}
 {/capture}
 
 {include "bits/doneaza-section.tpl"
-id=8
+id=10
 title="Cheltuieli de infrastructură și administrare"
 body=$smarty.capture.body}

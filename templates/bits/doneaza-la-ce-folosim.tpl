@@ -10,12 +10,14 @@
 </p>
 
 {capture "body"}
-  <p><strong>Cheltuieli estimate:</strong> 1.500 € - 2.000 € pe lună.</p>
+  <p><strong>Cheltuieli estimate:</strong> 5.000 € - 10.000 € pe lună.</p>
 
   <p>
     <strong>Motiv:</strong>
     Avem suficiente idei de proiecte software, pe termen scurt și lung,
-    pentru a angaja cel puțin un programator cu normă întreagă; de exemplu:
+    pentru a angaja cel puțin un coordonator de proiecte, doi programatori
+    cu normă întreagă, iar cu jumătate de normă un inginer de testare
+    și respectiv un web designer. De exemplu:
   </p>
 
   <ul>
@@ -26,7 +28,12 @@
     <li>confruntarea și unificarea definițiilor pentru același cuvânt, din dicționare diferite, pentru eliminarea redundanței;</li>
     <li>restructurarea definițiilor pentru a separa silabația, pronunția, etimologia, sinonimele și variantele;</li>
     <li>jocuri bazate pe dicționare, din serie cu <a href="{Router::link('games/hangman')}">Spânzurătoarea</a> și <a href="{Router::link('games/mill')}">Moara cuvintelor</a>.</li>
+    <li>crearea unei aplicații pentru mobil</li>
   </ul>
+    <p>
+    Dar e nevoie de oameni și pentru munca un pic mai plictisitoare: rezolvarea bugurilor, aducerea la zi a versiunilor
+      de software și a librăriilor de funcții, optimizări cerute de voluntari etc.
+    </p>
 {/capture}
 
 {include "bits/doneaza-section.tpl"
@@ -92,7 +99,7 @@
 {capture "body"}
   <p>
     <strong>Cheltuieli estimate:</strong>
-    20-30 € per articol lingvistic; variabile pentru elaborarea de definiții.
+    20-50 € per articol lingvistic; variabile pentru elaborarea de definiții.
   </p>
 
   <p>
@@ -142,15 +149,20 @@
 
 {capture "body"}
   <p>
-    <strong>Cheltuieli estimate:</strong> 100 € / lună.
+    <strong>Cheltuieli estimate:</strong> 500 - 1.000 € / lună.
   </p>
 
   <p>
     <strong>Motiv:</strong>
     Lumea iubește concursurile de aptitudini, iar cele lingvistice nu
-    fac excepție. Pentru <i>dexonline,</i> organizarea de concursuri ar
+    fac excepție. E nevoie de un documentarist care să descopere
+    lucruri interesante, de un creator de conținut pentru a le da o formă,
+    de un desenator pentru a le ilustra la nevoie și chiar de un
+    programator care să ajute când e nevoie.
+    Pentru <i>dexonline,</i> organizarea de concursuri ar
     fi un prilej bun de a stimula oamenii să învețe lucruri noi și de
-    a-i ține aproape de site. De exemplu, <a href="{Router::link('wotd/view')}">cuvântul zilei</a>
+    a-i ține aproape de site.
+    De exemplu, <a href="{Router::link('wotd/view')}">cuvântul zilei</a>
     este ales în fiecare zi în legătură cu un eveniment notabil din acea
     zi (în anul curent sau în anii trecuți). Tu câte din aceste
     evenimente poți identifica?
@@ -165,7 +177,7 @@
 {capture "body"}
   <p>
     <strong>Cheltuieli estimate:</strong>
-    100 - 200 € / lună.</p>
+    3.000 - 5.000 € / lună.</p>
 
   <p>
     <strong>Motiv:</strong>
@@ -175,13 +187,15 @@
 
   <ul>
     <li>sistemul de operare;</li>
+    <li>actualizarea bibliotecilor de funcții și a frameworkurilor folosite</li>
     <li>cache-ul Varnish, pe care îl folosim pentru a accelera servirea paginilor, și care trebuie foarte bine adaptat la nevoile noastre;</li>
     <li>sistemul OTRS, folosit pentru a răspunde la e-mailuri;</li>
     <li>filtrul de spam;</li>
+    <li>înteținerea blogului</li>
     <li>pagina wiki.</li>
   </ul>
 
-  <p>Toate adunate pot ține un inginer de sistem ocupat câteva ore pe săptămână.</p>
+  <p>Toate adunate pot ține un inginer de sistem ocupat două-trei zile pe săptămână.</p>
 {/capture}
 
 {include "bits/doneaza-section.tpl"

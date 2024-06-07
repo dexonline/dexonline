@@ -53,7 +53,7 @@
     Pentru instrucțiuni privind descărcarea și instalarea codului-sursă, vizitați pagina <a href="https://wiki.dexonline.ro/wiki/Instruc%C8%9Biuni_de_instalare">Acces la codul-sursă</a>.
   </p>
 
-  <h3>Explicație</h3>
+  <h3 id="explicatie">Explicație</h3>
 
   <p>
     Am pus această licență pe definițiile existente în <em>dexonline</em> pentru a ne asuma paternitatea asupra formei digitale a definițiilor. <strong>Nu</strong>

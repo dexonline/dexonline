@@ -41,11 +41,14 @@
       </li>
     {/if}
 
+    {* only special people are allowed ;) *}
     {if User::can(User::PRIV_PLUGIN)}
+    {if $cuv == 'empatie'}
       {* don't advertise the expert explanatinon tab unless it exists *}
       <li class="align-self-center ms-2">
         {include "bits/expert.tpl"}
       </li>
+    {/if}
     {/if}
   </ul>
 

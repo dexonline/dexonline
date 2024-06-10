@@ -40,6 +40,13 @@
         </a>
       </li>
     {/if}
+
+    {if User::can(User::PRIV_PLUGIN)}
+      {* don't advertise the expert explanatinon tab unless it exists *}
+      <li class="align-self-center ms-2">
+        {include "bits/expert.tpl"}
+      </li>
+    {/if}
   </ul>
 
   <div class="tab-content">

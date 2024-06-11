@@ -549,3 +549,11 @@ blockquote {
     margin-left: auto;
     margin-right: auto;
 }
+
+/******* redefine .btn-danger (temporary)  *******/
+
+.btn-danger {
+    color: #ad1700;
+    background-color: #ffcccc;
+    border-color: #ad1700;
+}

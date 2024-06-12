@@ -33,8 +33,8 @@
           astfel de situații, ajung rapid la burnout</i>, o tulburare emoțională.<br><br> Deci să fim empatici cognitiv,
         dar să fim prudenți cu empatia emoțională.<br><br> <b><i>Empatia diferă de simpatie</i></b>, care presupune că
         eu aloc o valență pozitivă unei persoane, doresc să fiu mai aproape de ea. Empatia înseamnă că îl înțeleg, nu
-        contează ce valență, pozitivă sau negativă, are în ochii mei.<br> <b><i>Empatia diferă de milă sau compasiune
-          </i></b>, care sunt emoții ce ne pregătesc să acordăm un ajutor cuiva, pe care îl socotim că are nevoie de așa
+        contează ce valență, pozitivă sau negativă, are în ochii mei.<br> <b><i>Empatia diferă de milă sau compasiune</i></b>,
+        care sunt emoții ce ne pregătesc să acordăm un ajutor cuiva, pe care îl socotim că are nevoie de așa
         ceva. Pot să fiu cuprins de milă fără să-l înțeleg pe celălalt, adică nu sunt empatic. De aceea uneori cînd
         oamenii primesc milă se simt jigniți sau devalorizați, pentru că nu se simt înțeleși.
         Au nevoie de înțelegere, nu de milă. Iar uneori mila e produsă în scop manipulativ: mă victimizez, îți produc

@@ -1,4 +1,4 @@
-$(function() {
+rndw=function() {
   const STORAGE_LIST = 'randomWord';
   const STORAGE_POS = 'randomWordPos';
 
@@ -48,4 +48,6 @@ $(function() {
   }
 
   init();
-});
+}
+
+$(rndw);

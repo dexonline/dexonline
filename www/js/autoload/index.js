@@ -43,7 +43,9 @@ rndw=function() {
   }
 
   function displayWord(word) {
-    obj.attr('href', obj.attr('href') + word);
+    oldhref = obj.attr('href');
+    newhref = oldhref.substring(0, oldhref.lastIndexOf('/')) + '/' + word;
+    obj.attr('href', newhref);
     obj.find('.widget-value').text(word);
   }
 

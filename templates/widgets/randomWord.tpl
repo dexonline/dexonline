@@ -6,7 +6,7 @@
     <h4>{t}random word{/t}</h4><br>
     <span class="widget-value"></span>
   </div>
-  <div>
+  <div onclick="event.preventDefault(); rndw();">
     <img alt="cuvânt aleatoriu"
          src="{Config::STATIC_URL}img/wotd/thumb88/misc/aleator.jpg"
          class="widget-icon">

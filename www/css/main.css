@@ -288,6 +288,14 @@ abbr[title] {
   padding-left: 2px;
 }
 
+.small-caps {
+  font-variant: small-caps;
+}
+
+.petite-caps {
+  font-variant: petite-caps;
+}
+
 .deemph {
   color: var(--bs-gray-500);
 }

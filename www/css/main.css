@@ -292,6 +292,11 @@ abbr[title] {
   font-variant: all-small-caps;
 }
 
+.small-caps-l {
+  font-variant: all-small-caps;
+  font-size: larger;
+}
+
 .petite-caps {
   font-variant: all-petite-caps;
 }

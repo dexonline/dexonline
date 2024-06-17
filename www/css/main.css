@@ -289,11 +289,11 @@ abbr[title] {
 }
 
 .small-caps {
-  font-variant: small-caps;
+  font-variant: all-small-caps;
 }
 
 .petite-caps {
-  font-variant: petite-caps;
+  font-variant: all-petite-caps;
 }
 
 .deemph {

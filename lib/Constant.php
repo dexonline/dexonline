@@ -66,24 +66,24 @@ class Constant {
 
   // will use preg_replace for string values, preg_replace_callback for arrays
   const HTML_PATTERNS = [
-    '/▶(.*?)◀/s' => '',                                                      // remove unwanted parts of definition
-    '/(?<!\\\\)"([^"]*)"/' => '„$1”',                                        // "x" => „x” - romanian quoting style
-    '/(?<!\\\\)\{{2}(.*)(?<![+])\}{2}/U' => [ 'FootnoteHtmlizer' ],          // {{footnote}}
-    '/(?<!\\\\)\{-(.*)-\}/Us' => [ 'DeleteHtmlizer' ],                       // deletions {-foo-}
-    '/(?<!\\\\)\{\+(.*)\+\}/Us' => [ 'InsertHtmlizer' ],                     // insertions {+foo+}
-    '/(?<!\\\\)##(.*)(?<!\\\\)##/Us' => '$1',                                // ##non-abbreviation##
-    '/\{#(.*)#\}/Us' => '<span class="ambigAbbrev">$1</span>',               // {#abbreviation#} for review
-    '/(?<!\\\\)#(.*)(?<!\\\\)#/Us' => [ 'AbbrevHtmlizer' ],                  // #abbreviation#
-    '/(?<!\\\\)\{~(.*)(?<!\\\\)~\}/Us' => '<span class="small-caps">$1</span>',// {~small-caps~}
-    '/(?<!\\\\)~~(.*)(?<!\\\\)~~/Us' => '<span class="small-caps-l">$1</span>',// ~~small-caps-large~~
-    '/(?<!\\\\)%(.*)(?<!\\\\)%/Us' => '<span class="spaced">$1</span>',      // %spaced%
-    '/(?<!\\\\)@(.*)(?<!\\\\)@/Us' => '<b>$1</b>',                           // @bold@
-    '/(?<!\\\\)\\$(.*)(?<!\\\\)\\$/Us' => '<i>$1</i>',                       // $italic$
-    '/(?<!\\\\)\^(\d)/' => '<sup>$1</sup>',                                  // superscript ^123
-    '/(?<!\\\\)\^\{([^}]*)\}/' => '<sup>$1</sup>',                           // superscript ^{a b c}
-    '/(?<!\\\\)_(\d)/' => '<sub>$1</sub>',                                   // subscript _123
-    '/(?<!\\\\)_\{([^}]*)\}/' => '<sub>$1</sub>',                            // superscript _{a b c}
-    "/\n\n/" => '<br>',                                                      // double newlines
+    '/▶(.*?)◀/s' => '',                                                         // remove unwanted parts of definition
+    '/(?<!\\\\)"([^"]*)"/' => '„$1”',                                           // "x" => „x” - romanian quoting style
+    '/(?<!\\\\)\{{2}(.*)(?<![+])\}{2}/U' => [ 'FootnoteHtmlizer' ],             // {{footnote}}
+    '/(?<!\\\\)\{-(.*)-\}/Us' => [ 'DeleteHtmlizer' ],                          // deletions {-foo-}
+    '/(?<!\\\\)\{\+(.*)\+\}/Us' => [ 'InsertHtmlizer' ],                        // insertions {+foo+}
+    '/(?<!\\\\)##(.*)(?<!\\\\)##/Us' => '$1',                                   // ##non-abbreviation##
+    '/\{#(.*)#\}/Us' => '<span class="ambigAbbrev">$1</span>',                  // {#abbreviation#} for review
+    '/(?<!\\\\)#(.*)(?<!\\\\)#/Us' => [ 'AbbrevHtmlizer' ],                     // #abbreviation#
+    '/(?<!\\\\)\{~(.*)(?<!\\\\)~\}/Us' => '<span class="small-caps">$1</span>', // {~small-caps~}
+    '/(?<!\\\\)~~(.*)(?<!\\\\)~~/Us' => '<span class="small-caps-l">$1</span>', // ~~small-caps-large~~
+    '/(?<!\\\\)%(.*)(?<!\\\\)%/Us' => '<span class="spaced">$1</span>',         // %spaced%
+    '/(?<!\\\\)@(.*)(?<!\\\\)@/Us' => '<b>$1</b>',                              // @bold@
+    '/(?<!\\\\)\\$(.*)(?<!\\\\)\\$/Us' => '<i>$1</i>',                          // $italic$
+    '/(?<!\\\\)\^(\d)/' => '<sup>$1</sup>',                                     // superscript ^123
+    '/(?<!\\\\)\^\{([^}]*)\}/' => '<sup>$1</sup>',                              // superscript ^{a b c}
+    '/(?<!\\\\)_(\d)/' => '<sub>$1</sub>',                                      // subscript _123
+    '/(?<!\\\\)_\{([^}]*)\}/' => '<sub>$1</sub>',                               // superscript _{a b c}
+    "/\n\n/" => '<br>',                                                         // double newlines
     '/' . self::PARSING_ERROR_MARKER . '/' => '',
 
     // cycle CSS class {cfoo,0c}, used to highlight full-text search matches
@@ -91,6 +91,9 @@ class Constant {
 
     // |foo|bar| references
     '/(?<!\\\\)\|([^|]*)\|([^|]*)\|/' => '<a class="ref" href="/definitie/$2">$1</a>',
+
+    // {fr: term}
+    '/(?<!\\\\)\{fr:(.*)\}/' => '<a class="ref" href="https://cnrtl.fr/definition/$1" target="_blank" rel="nofollow">$1</a>',
 
     // tree mentions
     '/([-a-zăâîșț]+)\[\[([0-9]+)\]\]/iu' =>

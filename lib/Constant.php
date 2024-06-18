@@ -74,9 +74,9 @@ class Constant {
     '/(?<!\\\\)##(.*)(?<!\\\\)##/Us' => '$1',                                // ##non-abbreviation##
     '/\{#(.*)#\}/Us' => '<span class="ambigAbbrev">$1</span>',               // {#abbreviation#} for review
     '/(?<!\\\\)#(.*)(?<!\\\\)#/Us' => [ 'AbbrevHtmlizer' ],                  // #abbreviation#
+    '/(?<!\\\\)%~(.*)(?<!\\\\)~%/Us' => '<span class="small-caps">$1</span>',// %~small-caps~%
+    '/(?<!\\\\)~~(.*)(?<!\\\\)~~/Us' => '<span class="small-caps-l">$1</span>',// ~~small-caps-large~~
     '/(?<!\\\\)%(.*)(?<!\\\\)%/Us' => '<span class="spaced">$1</span>',      // %spaced%
-    '/(?<!\\\\)~~(.*)(?<!\\\\)~~/Us' => '<span class="small-caps">$1</span>',// ~~small-caps~~
-    '/(?<!\\\\)~(.*)(?<!\\\\)~/Us' => '<span class="small-caps-l">$1</span>',  // ~small-caps-large~
     '/(?<!\\\\)@(.*)(?<!\\\\)@/Us' => '<b>$1</b>',                           // @bold@
     '/(?<!\\\\)\\$(.*)(?<!\\\\)\\$/Us' => '<i>$1</i>',                       // $italic$
     '/(?<!\\\\)\^(\d)/' => '<sup>$1</sup>',                                  // superscript ^123

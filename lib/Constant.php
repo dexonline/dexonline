@@ -93,7 +93,8 @@ class Constant {
     '/(?<!\\\\)\|([^|]*)\|([^|]*)\|/' => '<a class="ref" href="/definitie/$2">$1</a>',
 
     // {fr: term}
-    '/(?<!\\\\)\{fr:(.*)\}/' => '<a class="ref" href="https://cnrtl.fr/definition/$1" target="_blank" rel="nofollow">$1</a>',
+    '/(?<!\\\\)\{fr:(.*)\}/' => '<a class="ref" href="https://cnrtl.fr/definition/$1" target="_blank" rel="nofollow"
+    title="Clic pentru navigarea la dicționarul franțuzesc">$1</a>',
 
     // tree mentions
     '/([-a-zăâîșț]+)\[\[([0-9]+)\]\]/iu' =>

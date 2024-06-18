@@ -208,7 +208,6 @@ function endsWith(str, sub) {
 function searchClickedWord(event) {
   if ($(event.target).is('abbr')) return false;
   if ($(event.target).is('a')) {
-    alert("Go to:" + event.target.href);
     window.location = event.target.href;
     return;
   }

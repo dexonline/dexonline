@@ -9,6 +9,10 @@
   padding-left: 2px;
 }
 
+#tinymce .small-caps {
+  font-variant: all-small-caps;
+}
+
 /* show the resize button, but not the status bar */
 .mce-path {
   display: none !important;

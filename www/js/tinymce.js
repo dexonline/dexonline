@@ -159,7 +159,7 @@ $(function() {
     s = s.replace(/%([^%]*)%/g, '<span class="spaced">$1</span>');
     s = s.replace(/~~~SAVE~~~/g, '\\%'); // restore \%
 
-    s = s.replace(/\{\~([^~]*)\~\}/g, '<span class="small-caps">$1</span>');
+    s = s.replace(/\{~(.*?)~\}/g, '<span class="small-caps">$1</span>');
 
     s = s.replace(/\\#/g, '~~~SAVE~~~'); // move \# out of the way
     s = s.replace(/#([^#]*)#/g, '<abbr>$1</abbr>');

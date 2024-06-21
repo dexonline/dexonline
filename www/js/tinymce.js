@@ -44,7 +44,7 @@ $(function() {
         selector: '.tinymceTextarea',
         setup: tinymceSetup,
         skin: darkMode ? 'oxide-dark' : 'oxide',
-        toolbar: 'undo redo | bold italic spaced superscript subscript abbrev',
+        toolbar: 'undo redo | bold italic spaced superscript subscript abbrev smallcapsabbrev',
         width: '100%',
       });
       localStorage.setItem(STORAGE_KEY, 'on');
@@ -76,6 +76,12 @@ $(function() {
       // Register an "abbrev" format
       editor.formatter.register('abbrev', {
         inline : 'abbr',
+      });
+
+      // Register an "smallcapsabbr" format
+      editor.formatter.register('smallcapsabbr', {
+        inline : 'abbr',
+        classes: 'small-caps',
       });
 
       // Add a shortcut for toggling the spaced format
@@ -120,6 +126,19 @@ $(function() {
       }
     });
 
+    // Add a toolbar button for small caps text for abbreviation
+    editor.ui.registry.addToggleButton('smallcapsabbr', {
+      tooltip: 'Capităluțe abrevieri',
+      text: 'SC',
+      onAction: function (_) {
+        editor.execCommand('mceToggleFormat', false, 'smallcapsabbr');
+      },
+      onSetup: function (api) {
+        editor.formatter.formatChanged('smallcapsabbr', function (state) {
+          api.setActive(state);
+        });
+      }
+    });
   }
 
   // Convert some of our internal notation to HTML. This is not exhaustive,
@@ -140,12 +159,15 @@ $(function() {
     s = s.replace(/%([^%]*)%/g, '<span class="spaced">$1</span>');
     s = s.replace(/~~~SAVE~~~/g, '\\%'); // restore \%
 
+    s = s.replace(/{~([^%]*)~}/g, '<span class="small-caps">$1</span>');
+
     s = s.replace(/\\#/g, '~~~SAVE~~~'); // move \# out of the way
     s = s.replace(/#([^#]*)#/g, '<abbr>$1</abbr>');
     s = s.replace(/~~~SAVE~~~/g, '\\#'); // restore \#
 
     s = s.replace(/\^(\d)/g, '<sup>$1</sup>');
     s = s.replace(/_(\d)/g, '<sub>$1</sub>');
+
     s = s.replace(/\^\{([^}]*)\}/g, '<sup>$1</sup>');
     s = s.replace(/_\{([^}]*)\}/g, '<sub>$1</sub>');
     ed.target.setContent(s);
@@ -158,6 +180,7 @@ $(function() {
     s = s.replace(/<\/?strong>/gi, '@');
     s = s.replace(/<\/?em>/gi, '$');
     s = s.replace(/<span class="spaced">(.*?)<\/span>/gi, '%$1%');
+    s = s.replace(/<span class="small-caps">(.*?)<\/span>/gi, '{~$1~}');
     s = s.replace(/<abbr>(.*?)<\/abbr>/gi, '#$1#');
     s = s.replace(/<sup>(\d)<\/sup>/gi, '^$1');
     s = s.replace(/<sub>(\d)<\/sub>/gi, '_$1');

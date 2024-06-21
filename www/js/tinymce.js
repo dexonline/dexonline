@@ -44,7 +44,7 @@ $(function() {
         selector: '.tinymceTextarea',
         setup: tinymceSetup,
         skin: darkMode ? 'oxide-dark' : 'oxide',
-        toolbar: 'undo redo | bold italic spaced superscript subscript abbrev smallcapsabbrev',
+        toolbar: 'undo redo | bold italic spaced superscript subscript abbrev smallcapsabbr',
         width: '100%',
       });
       localStorage.setItem(STORAGE_KEY, 'on');
@@ -80,7 +80,7 @@ $(function() {
 
       // Register an "smallcapsabbr" format
       editor.formatter.register('smallcapsabbr', {
-        inline : 'abbr',
+        inline : 'span',
         classes: 'small-caps',
       });
 
@@ -159,7 +159,7 @@ $(function() {
     s = s.replace(/%([^%]*)%/g, '<span class="spaced">$1</span>');
     s = s.replace(/~~~SAVE~~~/g, '\\%'); // restore \%
 
-    s = s.replace(/{~([^%]*)~}/g, '<span class="small-caps">$1</span>');
+    s = s.replace(/\{~([^%]*)~\}/g, '<span class="small-caps">$1</span>');
 
     s = s.replace(/\\#/g, '~~~SAVE~~~'); // move \# out of the way
     s = s.replace(/#([^#]*)#/g, '<abbr>$1</abbr>');

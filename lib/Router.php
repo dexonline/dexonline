@@ -279,6 +279,10 @@ class Router {
       'en_US.utf8' => 'contact',
       'ro_RO.utf8' => 'contact',
     ],
+    'simple/newsletter' => [
+      'en_US.utf8' => 'newsletter',
+      'ro_RO.utf8' => 'newsletter',
+    ],
     'simple/license' => [
       'en_US.utf8' => 'license',
       'ro_RO.utf8' => 'licenta',

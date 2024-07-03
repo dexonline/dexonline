@@ -15,7 +15,7 @@
   <h3>Arhiva newsletterului</h3>
 
   <h4>Ultimul număr</h4>
-  <p class="fs-5 ps-3">
+  <p class="fs-6 ps-3">
   &#x2022; 3 iulie 2024 <a href="https://blog.dexonline.ro/?mailpoet_router&endpoint=view_in_browser&action=view&data=WzE2LCI1YjdmZGU3YzNmNjQiLDQsIjNlYjljZCIsODgyLDFd">
   jurnal de dicționar / iulie 24</a><br/>
   <b>Cuvinte cheie:</b> cifre romane, bacalaureat, Dicționar enciclopedic ilustrat (Candrea, Adamescu),

@@ -48,6 +48,11 @@
                 {cap}{t}blog{/t}{/cap}
               </a>
             </li>
+            <li>
+              <a href="/newsletter" class="dropdown-item">
+                  {cap}newsletter{/cap}
+              </a>
+            </li>
           </ul>
 
         </li>

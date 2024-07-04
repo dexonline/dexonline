@@ -1,7 +1,7 @@
 <div class="widget newsletter d-flex flex-md-column flex-xl-row">
   <div class="flex-grow-1">
     <h4>Newsletter</h4>
-    <p style="text-align: left;margin-bottom: 8px;">Dorești să te abonezi? (vezi <a href="https://blog.dexonline.ro/arhiva-newsletter" target="_new">arhiva</a>)</p>
+    <p style="text-align: left;margin-bottom: 8px;">Dorești să te abonezi? (vezi <a href="/newsletter">arhiva</a>)</p>
 
     <form target="_self" method="post" action="https://blog.dexonline.ro/wp-admin/admin-post.php?action=mailpoet_subscription_form">
       <input type="hidden" name="data[form_id]" value="2">

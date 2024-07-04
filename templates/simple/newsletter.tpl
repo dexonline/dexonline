@@ -16,17 +16,14 @@
 
   <p class="fs-6 ps-3">
   &#x2022; 3 iulie 2024 <a href="https://blog.dexonline.ro/?mailpoet_router&endpoint=view_in_browser&action=view&data=WzE2LCI1YjdmZGU3YzNmNjQiLDQsIjNlYjljZCIsODgyLDFd">
-  jurnal de dicționar / iulie 24</a><br/>
-  <b>Cuvinte cheie:</b> cifre romane, bacalaureat, Dicționar enciclopedic ilustrat (Candrea, Adamescu),
-  greșeli dexonline, interviu playtech, Oana Ciobancan
+  jurnal de dicționar / iulie 24</a> (cifre romane, bacalaureat, Dicționar enciclopedic ilustrat CADE,
+  greșeli dexonline, interviu playtech, Oana Ciobancan)
   </br>
   &#x2022; 3 iunie 2024 <a href="https://blog.dexonline.ro/?mailpoet_router&endpoint=view_in_browser&action=view&data=WzEzLCI2ZjQwZjM1ZWNlOTMiLDQsIjNlYjljZCIsNjA0LDFd">
-  jurnal de dicționar / iunie 24</a><br/>
-  <b>Cuvinte cheie:</b> Mircea Miclea, empatie, principii dexonline, învederat-inveterat, Cătălin Frâncu
+  jurnal de dicționar / iunie 24</a> (Mircea Miclea, empatie, principii dexonline, învederat-inveterat, Cătălin Frâncu)
   <br/>
   &#x2022; 3 mai 2024 <a href="https://blog.dexonline.ro/?mailpoet_router&endpoint=view_in_browser&action=view&data=WzQsIjI1MDQ2NGViNDQ0MCIsNCwiM2ViOWNkIiwyLDFd">
-  jurnal de dicționar / mai 24</a><br/>
-  <b>Cuvinte cheie:</b> Leonardo da Vinci, ortografie, ca și, Matei Gall
+  jurnal de dicționar / mai 24</a> (Leonardo da Vinci, ortografie, ca și, Matei Gall)
   </p>
 
 {/block}

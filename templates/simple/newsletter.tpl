@@ -14,16 +14,16 @@
   <br/>
   <h3>Arhiva newsletterului</h3>
 
-  <p class="fs-5 ps-3">
-  &#x2022; 3 iulie 2024 <a href="https://blog.dexonline.ro/?mailpoet_router&endpoint=view_in_browser&action=view&data=WzE2LCI1YjdmZGU3YzNmNjQiLDQsIjNlYjljZCIsODgyLDFd">
-  jurnal de dicționar / iulie 24</a> <span clas="fs-6">(cifre romane, bacalaureat, Dicționar enciclopedic ilustrat CADE,
+  <p class="ps-3">
+  <span class="fs-5">&#x2022; 3 iulie 2024 <a href="https://blog.dexonline.ro/?mailpoet_router&endpoint=view_in_browser&action=view&data=WzE2LCI1YjdmZGU3YzNmNjQiLDQsIjNlYjljZCIsODgyLDFd">
+      jurnal de dicționar / iulie 24</a></span> <span clas="fs-6">(cifre romane, bacalaureat, Dicționar enciclopedic ilustrat CADE,
       greșeli dexonline, interviu playtech, Oana Ciobancan)</span>
   </br>
-  &#x2022; 3 iunie 2024 <a href="https://blog.dexonline.ro/?mailpoet_router&endpoint=view_in_browser&action=view&data=WzEzLCI2ZjQwZjM1ZWNlOTMiLDQsIjNlYjljZCIsNjA0LDFd">
-      jurnal de dicționar / iunie 24</a> <span clas="fs-6">(Mircea Miclea, empatie, principii dexonline, învederat-inveterat, Cătălin Frâncu)</span>
+  <span class="fs-5">&#x2022; 3 iunie 2024 <a href="https://blog.dexonline.ro/?mailpoet_router&endpoint=view_in_browser&action=view&data=WzEzLCI2ZjQwZjM1ZWNlOTMiLDQsIjNlYjljZCIsNjA0LDFd">
+      jurnal de dicționar / iunie 24</a></span> <span clas="fs-6">(Mircea Miclea, empatie, principii dexonline, învederat-inveterat, Cătălin Frâncu)</span>
   <br/>
-  &#x2022; 3 mai 2024 <a href="https://blog.dexonline.ro/?mailpoet_router&endpoint=view_in_browser&action=view&data=WzQsIjI1MDQ2NGViNDQ0MCIsNCwiM2ViOWNkIiwyLDFd">
-      jurnal de dicționar / mai 24</a> <span clas="fs-6">(Leonardo da Vinci, ortografie, ca și, Matei Gall)</span>
+    <span class="fs-5">&#x2022; 3 mai 2024 <a href="https://blog.dexonline.ro/?mailpoet_router&endpoint=view_in_browser&action=view&data=WzQsIjI1MDQ2NGViNDQ0MCIsNCwiM2ViOWNkIiwyLDFd">
+        jurnal de dicționar / mai 24</a></span> <span clas="fs-6">(Leonardo da Vinci, ortografie, ca și, Matei Gall)</span>
   </p>
 
 {/block}

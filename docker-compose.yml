@@ -5,6 +5,10 @@ services:
       - .:/var/www/html
     ports:
       - "80:80"
+    networks:
+      default:
+        aliases:
+          - dex.localhost
     depends_on:
       - db
   db:

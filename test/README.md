@@ -35,3 +35,4 @@ If you wish to run just parts of the suite, please be aware that some tests requ
 7. Save the file over the old one, `test/dexonline-test-suite.side`.
 
 Then commit and push the changes as usual.
+

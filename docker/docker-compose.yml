@@ -1,0 +1,19 @@
+services:
+  app:
+    build: php
+    volumes:
+      - ../.:/var/www/html
+    ports:
+      - "80:80"
+    networks:
+      default:
+        aliases:
+          - dex.localhost
+    depends_on:
+      - db
+  db:
+    build: mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: "admin"

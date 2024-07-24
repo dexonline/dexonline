@@ -15,5 +15,9 @@ services:
     build: mysql
     ports:
       - "3306:3306"
+    networks:
+      default:
+        aliases:
+          - db.localhost
     environment:
       MYSQL_ROOT_PASSWORD: "admin"

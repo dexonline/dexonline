@@ -3,6 +3,7 @@ rndw=function() {
   const STORAGE_POS = 'randomWordPos';
 
   var obj = $('#randomWordLink');
+  var objImg = $('#randomWordImg');
 
   function init() {
     if (!obj.length) {
@@ -43,8 +44,10 @@ rndw=function() {
   }
 
   function displayWord(word) {
+    oldImg = objImg.attr('src');
     oldhref = obj.attr('href');
     newhref = oldhref.substring(0, oldhref.lastIndexOf('/')) + '/' + word;
+    objImg.attr('src',oldImg);
     obj.attr('href', newhref);
     obj.find('.widget-value').text(word);
   }

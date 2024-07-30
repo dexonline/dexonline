@@ -47,7 +47,8 @@ rndw=function() {
     oldImg = objImg.attr('src');
     oldhref = obj.attr('href');
     newhref = oldhref.substring(0, oldhref.lastIndexOf('/')) + '/' + word;
-    objImg.attr('src',oldImg);
+    var timestamp = new Date().getTime();
+    objImg.attr('src', oldImg.split('?')[0] + '?t=' + timestamp);
     obj.attr('href', newhref);
     obj.find('.widget-value').text(word);
   }

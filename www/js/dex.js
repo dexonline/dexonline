@@ -511,6 +511,11 @@ $(function() {
 
     // prevent the # from being appended to the URL
     e.preventDefault();
+
+    // perform the search (if the word is introduced) after change the source
+    if ($('#searchField')[0].value) {
+      $('#searchButton').click();
+    }
   });
 
   $('#source-field').on('shown.bs.dropdown', function () {

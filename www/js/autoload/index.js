@@ -1,7 +1,7 @@
 rndw=function() {
   const STORAGE_LIST = 'randomWord';
   const STORAGE_POS = 'randomWordPos';
-  const DELAY_TIME = 1600;
+  const DELAY_TIME = 1700;
 
   var obj = $('#randomWordLink');
   var objImg = $('#randomWordImg');

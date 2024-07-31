@@ -1,6 +1,7 @@
 rndw=function() {
   const STORAGE_LIST = 'randomWord';
   const STORAGE_POS = 'randomWordPos';
+  const DELAY_TIME = 1600;
 
   var obj = $('#randomWordLink');
   var objImg = $('#randomWordImg');
@@ -15,7 +16,7 @@ rndw=function() {
       // serve the next word from local storage
       list = list.split('\n');
       var pos = localStorage.getItem(STORAGE_POS);
-      displayWord(list[pos]);
+      displayWord(list[pos], DELAY_TIME);
 
       // advance the pointer; delete the list if it's done
       pos++;
@@ -35,7 +36,7 @@ rndw=function() {
           shuffle(list);
 
           // show the first word and store the others
-          displayWord(list[0]);
+          displayWord(list[0], DELAY_TIME);
           localStorage.setItem(STORAGE_LIST, list.join('\n'));
           localStorage.setItem(STORAGE_POS, 1);
         }
@@ -43,14 +44,17 @@ rndw=function() {
     }
   }
 
-  function displayWord(word) {
+  function displayWord(word, delayTime) {
     oldImg = objImg.attr('src');
     oldhref = obj.attr('href');
     newhref = oldhref.substring(0, oldhref.lastIndexOf('/')) + '/' + word;
     var timestamp = new Date().getTime();
     objImg.attr('src', oldImg.split('?')[0] + '?t=' + timestamp);
-    obj.attr('href', newhref);
-    obj.find('.widget-value').text(word);
+    obj.find('.widget-value').text('...');
+    setTimeout(function () {
+      obj.attr('href', newhref);
+      obj.find('.widget-value').text(word);
+    }, delayTime);
   }
 
   init();

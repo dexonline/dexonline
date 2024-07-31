@@ -43,7 +43,7 @@ class Widget {
     self::WIDGET_AOTM => [
       'name' => 'Articolul lunii',
       'template' => 'articleOfTheMonth.tpl',
-      'enabled' => true,
+      'enabled' => false,
     ],
     self::WIDGET_SOCIAL => [
       'name' => 'Rețele sociale',
@@ -53,7 +53,7 @@ class Widget {
     self::WIDGET_RANDOM_WORD => [
       'name' => 'Cuvânt aleatoriu',
       'template' => 'randomWord.tpl',
-      'enabled' => false,
+      'enabled' => true,
     ],
     self::WIDGET_PROVERB => [
       'name' => 'Proverbe',

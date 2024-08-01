@@ -93,6 +93,7 @@ html.dark {
 /* temporary workaround until fix scss */
 .widget {
   padding: 10px 0.75rem !important;
+  min-height: 118px !important;
 }
 
 /* used in widgets/games.tpl, but only appears on the home page */

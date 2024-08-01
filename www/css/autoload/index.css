@@ -90,6 +90,11 @@ html.dark {
   text-transform: uppercase;
 }
 
+/* temporary workaround until fix scss */
+.widget {
+  padding: 10px 0.75rem !important;
+}
+
 /* used in widgets/games.tpl, but only appears on the home page */
 .list-games {
   margin-bottom: 0;

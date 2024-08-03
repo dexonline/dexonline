@@ -16,7 +16,7 @@
 
   <p class="ps-3">
    <span class="fs-5">&#x2022; 3 august 2024 <a href="https://blog.dexonline.ro/?mailpoet_router&endpoint=view_in_browser&action=view&data=WzIwLCIzMGNlMThjNDk0MmEiLDQsIjNlYjljZCIsMTA1MiwxXQ">
-      jurnal de dicționar / iulie 24</a></span> <span clas="fs-6">(concurs, Ziua Limbii Române, panseluțe, oameni, BBC, jaluzea, caniculă, cuvinte aleatorii, Anca Alexandru)</span>
+      jurnal de dicționar / august 24</a></span> <span clas="fs-6">(concurs, Ziua Limbii Române, panseluțe, oameni, BBC, jaluzea, caniculă, cuvinte aleatorii, Anca Alexandru)</span>
     </br>
   <span class="fs-5">&#x2022; 3 iulie 2024 <a href="https://blog.dexonline.ro/?mailpoet_router&endpoint=view_in_browser&action=view&data=WzE2LCI1YjdmZGU3YzNmNjQiLDQsIjNlYjljZCIsODgyLDFd">
       jurnal de dicționar / iulie 24</a></span> <span clas="fs-6">(cifre romane, bacalaureat, Dicționar enciclopedic ilustrat CADE,

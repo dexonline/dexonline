@@ -22,8 +22,8 @@
           <div class="card border-secondary paymentSection">
             <div
               class="card-header text-white bg-secondary"
-              title="Comision fix de 3,5% la donațiile online și 9-18% la cele prin SMS">
-              Donează online sau prin SMS
+              title="Comision fix de 3,5% la donațiile online">
+              Donează online (cu cardul)
               {include "bits/icon.tpl" i=info class="float-end"}
             </div>
             <div class="card-body">
@@ -39,13 +39,13 @@
                       id="donateOnlineAmount"
                       name="amount"
                       class="form-select">
-                      <option value="10">10 lei</option>
                       <option value="20">20 lei</option>
-                      <option value="50" selected>50 lei</option>
-                      <option value="100">100 lei</option>
+                      <option value="50">50 lei</option>
+                      <option value="100" selected>100 lei</option>
                       <option value="150">150 lei</option>
                       <option value="200">200 lei</option>
                       <option value="250">250 lei</option>
+                      <option value="500">500 lei</option>
                     </select>
                   </div>
                 </div>

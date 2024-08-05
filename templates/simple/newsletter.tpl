@@ -12,6 +12,15 @@
   {include "bits/newsletterForm.tpl"}
   <p>
   <br/>
+  <h3>{cap}Contact{/cap}</h3>
+
+  <p class="fs-4 ps-3">
+    <a href="mailto:newsletter@dexonline.ro">
+        {include "bits/icon.tpl" i=email}
+        newsletter@dexonline.ro
+    </a>
+  <p>
+  <br/>
   <h3>Arhiva newsletterului</h3>
 
   <p class="ps-3">

@@ -11,6 +11,7 @@
   <p class="fs-4 ps-3">
   {include "bits/newsletterForm.tpl"}
   <p>
+  <br/>
   <h3>{cap}Contact{/cap}</h3>
 
   <p class="fs-4 ps-3">
@@ -19,7 +20,6 @@
         newsletter@dexonline.ro
     </a>
   <p>
-  <br/>
   <h3>Arhiva newsletterului</h3>
 
   <p class="ps-3">

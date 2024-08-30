@@ -223,7 +223,30 @@ class Str {
     return $tpl_output;
   }
 
-  static function shorten($s, $maxLength) {
+  static function farsa_31_august($tpl_output) {
+    $tpl_output = str_replace(['ă', 'Ă', 'â', 'Â', 'î', 'Î'], ['a', 'A', 'a', 'A', 'i', 'I'], $tpl_output);
+    $tpl_output = str_replace(['ș', 'Ș', 'ț', 'Ț'], ['sh', 'SH', 'tz', 'TZ'], $tpl_output);
+    //$tpl_output = str_replace(['ca','Ca','ii'], ['k', 'K', 'i'], $tpl_output);
+    $tpl_output = str_replace(['a-i','i-a','a-shi','ntr-'], ['ai', 'ia', 'ashi','ntr'], $tpl_output);
+
+    $char_map = [
+      'ấ' => 'a',
+      'Ấ' => 'A',
+      'ca' => 'k',
+      'Ca' => 'K',
+      'CA' => 'K',
+      'ii' => 'i',
+      'oștri' => 'oștrii',
+    ];
+
+    foreach ($char_map as $a => $i) {
+      $tpl_output = preg_replace("/\b{$a}\b/", $i, $tpl_output);
+    }
+
+    return $tpl_output;
+  }
+
+    static function shorten($s, $maxLength) {
     $l = mb_strlen($s);
     if ($l >= $maxLength + 3) {
       return mb_substr($s, 0, $maxLength - 3) . '...';
@@ -571,6 +594,9 @@ class Str {
   static function htmlize($s, $sourceId = null, &$errors = null, &$warnings = null) {
     $errors = $errors ?? [];
     $warnings = $warnings ?? [];
+
+    /* farsa_31_august */
+    $s = str_replace([',','-'], ['',''], $s);
 
     $s = htmlspecialchars($s, ENT_NOQUOTES);
 

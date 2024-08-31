@@ -256,7 +256,7 @@ class Smart {
   }
 
   static function registerOutputFilters() {
-    self::registerFilter('output', ['Str', 'farsa_31_august']);
+    //self::registerFilter('output', ['Str', 'farsa_31_august']);
     if (Session::userPrefers(Preferences::CEDILLA_BELOW)) {
       self::registerFilter('output', ['Str', 'replace_st']);
     }

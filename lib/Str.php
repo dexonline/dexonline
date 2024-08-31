@@ -596,7 +596,7 @@ class Str {
     $warnings = $warnings ?? [];
 
     /* farsa_31_august */
-    $s = str_replace([',','-'], ['',''], $s);
+    //$s = str_replace([',','-'], ['',''], $s);
 
     $s = htmlspecialchars($s, ENT_NOQUOTES);
 

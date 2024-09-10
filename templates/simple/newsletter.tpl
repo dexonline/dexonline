@@ -23,7 +23,10 @@
   <h3>Arhiva newsletterului</h3>
 
   <p class="ps-3">
-  <span class="fs-5">&#x2022; 3 septembrie 2024 <a href="https://blog.dexonline.ro/?mailpoet_router&endpoint=view_in_browser&action=view&data=WzIzLCJiNmQxYzEwOTVkMDciLDQsIjNlYjljZCIsMTE1NiwxXQ">
+    <span class="fs-5">&#x2022; 9 septembrie 2024 <a href="https://blog.dexonline.ro/?mailpoet_router&endpoint=view_in_browser&action=view&data=WzI1LCJkZTNhNDA0ZGE3MTciLDQsIjNlYjljZCIsMTE3NSwxXQ">
+      bliț-răvaș / septembrie 24</a></span> <span clas="fs-6">(Ziua Limbii Române, concurs, premii)</span>
+    </br>
+    <span class="fs-5">&#x2022; 3 septembrie 2024 <a href="https://blog.dexonline.ro/?mailpoet_router&endpoint=view_in_browser&action=view&data=WzIzLCJiNmQxYzEwOTVkMDciLDQsIjNlYjljZCIsMTE1NiwxXQ">
       jurnal de dicționar / septembrie 24</a></span> <span clas="fs-6">(Ziua Limbii Române, școală, pampers, Radu Borza)</span>
     </br>
    <span class="fs-5">&#x2022; 3 august 2024 <a href="https://blog.dexonline.ro/?mailpoet_router&endpoint=view_in_browser&action=view&data=WzIwLCIzMGNlMThjNDk0MmEiLDQsIjNlYjljZCIsMTA1MiwxXQ">

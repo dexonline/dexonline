@@ -23,6 +23,11 @@
   <h3>Arhiva newsletterului</h3>
 
   <p class="ps-3">
+    <span class="fs-5">&#x2022; 3 noiembrie 2024 <a href="https://blog.dexonline.ro/?mailpoet_router&endpoint=view_in_browser&action=view&data=WzMwLCJjZTg4NjE5NzlmMmUiLDQsIjNlYjljZCIsMTQxMCwxXQ">
+      jurnal de dicționar / noiembrie 24</a></span> <span clas="fs-6">(greșeli prezidențiabili, Halloween, ziua pastelor, Mihail şi Gavriil, prenume nume, cuscus, a lua (la) cunoștință, YouTube dexonline, simpozion Iași
+
+)</span>
+    </br>
      <span class="fs-5">&#x2022; 3 octombrie 2024 <a href="https://blog.dexonline.ro/?mailpoet_router&endpoint=view_in_browser&action=view&data=WzI5LCI2N2NiYjU4MWEzZGUiLDQsIjNlYjljZCIsMTIxMiwxXQ">
       jurnal de dicționar / octombrie 24</a></span> <span clas="fs-6">(profesor, magister dixit, astrologie, Laurențiu Bașchir)</span>
     </br>

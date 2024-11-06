@@ -344,6 +344,8 @@ $(function() {
 
     p.animate({ maxHeight: realHeight }, 1000);
     $(this).animate({ opacity: 0 }, 1000);
+    $('.read-more-btn').hide()
+    
     return false;
   });
 });

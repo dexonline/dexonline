@@ -147,17 +147,19 @@
 
       <ul class="dropdown-menu">
         {if $showFlagTypo}
-          {if Config::SKIN_TYPO}
-            <li>
-              <a href="#"
-                class="dropdown-item"
-                data-definition-id="{$def->id}"
-                data-bs-toggle="modal"
-                data-bs-target="#typoModal">
-                {include "bits/icon.tpl" i=flag}
-                {t}report a typo{/t}
-              </a>
-            </li>
+          {if User::getActive()}
+            {if Config::SKIN_TYPO}
+              <li>
+                <a href="#"
+                  class="dropdown-item"
+                  data-definition-id="{$def->id}"
+                  data-bs-toggle="modal"
+                  data-bs-target="#typoModal">
+                  {include "bits/icon.tpl" i=flag}
+                  {t}report a typo{/t}
+                </a>
+              </li>
+            {/if}
           {/if}
         {/if}
 

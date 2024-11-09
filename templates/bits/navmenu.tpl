@@ -377,6 +377,10 @@
               = adaugă o definiție
             </li>
             <li>
+              <a href="{Router::link('definition/trainee')}">Alt-M</a>
+              = definițiile mele
+            </li>
+            <li>
               <a href="{Router::link('wotd/table')}">Alt-C</a>
               = cuvintele zilei
             </li>

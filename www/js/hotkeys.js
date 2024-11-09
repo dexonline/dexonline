@@ -12,6 +12,7 @@ $(function() {
 
     $(document).bind('keydown', 'alt+a', function() { redirect('admin'); });
     $(document).bind('keydown', 'alt+n', function() { redirect('editare-definitie'); });
+    $(document).bind('keydown', 'alt+m', function() { redirect('definitii-stagiar'); });
     $(document).bind('keydown', 'alt+r', clickRefreshButton);
     $(document).bind('keydown', 'alt+s', clickSaveButton);
     $(document).bind('keydown', 'alt+v', clickRecentPagesLink);

@@ -4,6 +4,7 @@
 # Liniile sunt procesate de sus în jos până când un regex se potrivește cu o dată.
 # Este afișat creditul înregistrării WotdArtist cu eticheta respectivă.
 
+^2024-{08,09,10}::rb
 ^2024::elena
 ^2023-06::ana
 ^202[2-9]::rb

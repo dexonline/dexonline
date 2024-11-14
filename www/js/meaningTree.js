@@ -396,7 +396,14 @@ $(function() {
     var type = c.find('.type').text();
     $('.editorType[value="' + type + '"]').prop('checked', true);
 
-    $('#editorRep').val(c.find('.internalRep').text()).focus();
+    $('#editorRep').val(c.find('.internalRep').text());
+    // Scroll only as much as necessary, to keep the meaning tree visible. By
+    // default browsers scroll all the way to the bottom.
+    // TODO: Replicate the old behavior, where only the first row of the text
+    // area scrolled into view.
+    var field = $('#editorRep')[0];
+    field.focus({preventScroll: true});
+    field.scrollIntoView({block: "end"});
 
     $('#editorSources option').prop('selected', false);
     c.find('.sourceIds span').each(function() {

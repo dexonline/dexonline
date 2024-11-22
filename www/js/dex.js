@@ -225,7 +225,7 @@ function endsWith(str, sub) {
 }
 
 /* adapted from http://stackoverflow.com/questions/7563169/detect-which-word-has-been-clicked-on-within-a-text */
-function searchClickedWord(event, redirect = false) {
+function searchClickedWord(event, redirect = true) {
   if ($(event.target).is('abbr')) return false;
   if ($(event.target).is('a')) {
     console.log(event.target.href);

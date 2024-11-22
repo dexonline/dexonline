@@ -225,7 +225,7 @@ function endsWith(str, sub) {
 }
 
 /* adapted from http://stackoverflow.com/questions/7563169/detect-which-word-has-been-clicked-on-within-a-text */
-function searchClickedWord(event) {
+function searchClickedWord(event, redirect = false) {
   if ($(event.target).is('abbr')) return false;
   if ($(event.target).is('a')) {
     console.log(event.target.href);
@@ -271,7 +271,11 @@ function searchClickedWord(event) {
   }
 
   if (word) {
-    window.location = wwwRoot + 'definitie' + source + '/' + encodeURIComponent(word);
+    if (redirect) {
+      window.location = wwwRoot + 'definitie' + source + '/' + encodeURIComponent(word);
+    } else {
+      return word;
+    }
   }
 }
 

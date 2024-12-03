@@ -23,6 +23,9 @@
   <h3>Arhiva newsletterului</h3>
 
   <p class="ps-3">
+    <span class="fs-5">&#x2022; 3 decembrie 2024 <a href="https://blog.dexonline.ro/?mailpoet_router&endpoint=view_in_browser&action=view&data=WzMxLCIyNzg4YmFkMWZkYjkiLDQsIjNlYjljZCIsMTcwNSwxXQ">
+      jurnal de dicționar / decembrie 24</a></span> <span clas="fs-6">(predictibilitate, pleonasm, perisologie, siglă, logo, acronim, curcan, păcănele)</span>
+    </br>
     <span class="fs-5">&#x2022; 3 noiembrie 2024 <a href="https://blog.dexonline.ro/?mailpoet_router&endpoint=view_in_browser&action=view&data=WzMwLCJjZTg4NjE5NzlmMmUiLDQsIjNlYjljZCIsMTQxMCwxXQ">
       jurnal de dicționar / noiembrie 24</a></span> <span clas="fs-6">(greșeli prezidențiabili, Halloween, ziua pastelor, Mihail şi Gavriil, prenume nume, cuscus, a lua (la) cunoștință, YouTube dexonline, simpozion Iași)</span>
     </br>

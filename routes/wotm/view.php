@@ -1,12 +1,17 @@
 <?php
 
 const WOTM_BIG_BANG = '2012-04-01';
+
+//previous month
 $default_month = date('m', strtotime("first day of previous month")); //self explanatory date('Y')
 $default_year = date('Y', strtotime("first day of previous month")); //self explanatory date('m')
-
-
 $year = (int)Request::get('year', $default_year);
 $month = (int)Request::get('month', $default_month);
+
+//crt month
+$year = (int)Request::get('year', date('Y'));
+$month = (int)Request::get('month', date('m'));
+
 $format = Request::getFormat();
 
 if (!checkDate($month, 1, $year)) {
@@ -14,7 +19,7 @@ if (!checkDate($month, 1, $year)) {
 }
 
 $today = date('Y-m-01', time()); // Always use the first of the month
-//$today = date('Y-m-01', strtotime("first day of previous month")); // Always use the first of the month
+//$today = date('Y-m-01', strtotime("first day of previous month")); // Always use the first of the previous month
 $timestamp = strtotime("{$year}-{$month}");
 $monthName = LocaleUtil::getMonthName($month);
 $mysqlDate = sprintf('%s-%02s-01', $year, $month);

@@ -13,7 +13,7 @@
       </div>
       <div class="modal-body">
         De ce caută românii obsesiv <i>empatia</i> în dicționar și ce înseamnă exact acest concept? Ne-a răspuns
-        Mircea Miclea, psiholog, profesor, întemeietor al <i>Școlii psihologice cognitive</i> din România.i<br/>
+        Mircea Miclea, psiholog, profesor, întemeietor al <i>Școlii psihologice cognitive</i> din România.<br/><br/>
 
         Relațiile interpersonale reprezintă, cum ar zice Cicero, „supremul bine și supremul rău”, adică principala sursă
         de bucurie și sens, dar și de nevroză, conflict și frustrare, pentru noi oamenii. Mai ales atunci cînd relațiile

@@ -14,7 +14,9 @@
       <div class="modal-body">
         De ce caută românii obsesiv <i>empatia</i> în dicționar și ce înseamnă exact acest concept? Ne-a răspuns
         Mircea Miclea, psiholog, profesor, întemeietor al <i>Școlii psihologice cognitive</i> din România.<br/><br/>
-
+        <div class="notice d-flex">
+          <div class="notice-icon d-flex"><span class="material-icons"></span></div>
+          <div class=""notice-body">
         Relațiile interpersonale reprezintă, cum ar zice Cicero, „supremul bine și supremul rău”, adică principala sursă
         de bucurie și sens, dar și de nevroză, conflict și frustrare, pentru noi oamenii. Mai ales atunci cînd relațiile
         nu merg bine, în cuplu, în familie, cu copiii, cu managerii sau angajații, principalul factor incriminat,
@@ -42,6 +44,8 @@
         oamenii primesc milă se simt jigniți sau devalorizați, pentru că nu se simt înțeleși.
         Au nevoie de înțelegere, nu de milă. Iar uneori mila e produsă în scop manipulativ: mă victimizez, îți produc
         sentimentul de milă, ca apoi tu să-mi dai ceea ce eu îți cer. Cerșetorii recurg uneori la această strategie.
+          </div>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Închide</button>

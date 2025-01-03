@@ -23,6 +23,9 @@
   <h3>Arhiva newsletterului</h3>
 
   <p class="ps-3">
+    <span class="fs-5">&#x2022; 3 ianuarie 2025 <a href="https://blog.dexonline.ro/?mailpoet_router&endpoint=view_in_browser&action=view&data=WzM1LCJhZTU0MTMzZjE0ODUiLDQsIjNlYjljZCIsMTkzNSwxXQ">
+      jurnal de dicționar / ianuarie 25</a></span> <span clas="fs-6">(top 2024, empatie, sudalme, cacofonie, lerui ler, onomastică de sezon)</span>
+    </br>
     <span class="fs-5">&#x2022; 3 decembrie 2024 <a href="https://blog.dexonline.ro/?mailpoet_router&endpoint=view_in_browser&action=view&data=WzMxLCIyNzg4YmFkMWZkYjkiLDQsIjNlYjljZCIsMTcwNSwxXQ">
       jurnal de dicționar / decembrie 24</a></span> <span clas="fs-6">(predictibilitate, pleonasm, perisologie, siglă, logo, acronim, curcan, păcănele)</span>
     </br>

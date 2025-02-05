@@ -23,6 +23,9 @@
   <h3>Arhiva newsletterului</h3>
 
   <p class="ps-3">
+    <span class="fs-5">&#x2022; 3 februarie 2025 <a href="https://blog.dexonline.ro/?mailpoet_router&endpoint=view_in_browser&action=view&data=WzM2LCI4ZDQ0YTI4YzBkODUiLDQsIjNlYjljZCIsMTk1OCwxXQ">
+      jurnal de dicționar / februarie 25</a></span> <span class="fs-6">(amor, Dragobete, Sf. Valentin, atlas lingvistic, dopamină, caligrafie, Octavian Mocanu)</span>
+    </br>
     <span class="fs-5">&#x2022; 3 ianuarie 2025 <a href="https://blog.dexonline.ro/?mailpoet_router&endpoint=view_in_browser&action=view&data=WzM1LCJhZTU0MTMzZjE0ODUiLDQsIjNlYjljZCIsMTkzNSwxXQ">
       jurnal de dicționar / ianuarie 25</a></span> <span class="fs-6">(top 2024, empatie, sudalme, cacofonie, lerui ler, onomastică de sezon)</span>
     </br>

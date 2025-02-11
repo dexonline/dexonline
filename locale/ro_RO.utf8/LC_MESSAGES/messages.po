@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2024-11-17 14:25+0900\n"
-"PO-Revision-Date: 2024-11-17 14:25+0900\n"
-"Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
+"POT-Creation-Date: 2025-02-11 02:51+0200\n"
+"PO-Revision-Date: 2025-02-11 02:52+0200\n"
+"Last-Translator: Radu Borza <radu@dexonline.ro>\n"
 "Language-Team: \n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n==0 || (n!=1 && n%100>=1 && "
 "n%100<=19) ? 1 : 2);\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.0.1\n"
 "X-Poedit-Basepath: ../../..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: lib\n"
@@ -1126,11 +1126,11 @@ msgstr[0] "Un articol lingvistic"
 msgstr[1] "%1 articole lingvistice"
 msgstr[2] "%1 de articole lingvistice"
 
-#: templates/simple/contact.tpl:18
+#: templates/simple/contact.tpl:27
 msgid "Useful information"
 msgstr "Informații utile"
 
-#: templates/simple/contact.tpl:22
+#: templates/simple/contact.tpl:31
 msgid ""
 "<a href=\"%1\">What dexonline is <strong>not</strong></a> (ways we cannot "
 "help you)."
@@ -1138,13 +1138,13 @@ msgstr ""
 "<a href=\"%1\">Ce <strong>nu</strong> este dexonline</a> (când nu vă putem "
 "ajuta)."
 
-#: templates/simple/contact.tpl:29
+#: templates/simple/contact.tpl:38
 msgid "You can install dexonline on <a href=\"%1\">your computer or phone</a>."
 msgstr ""
 "Puteți instala dexonline pe <a href=\"%1\">calculatorul sau pe telefonul "
 "dumneavoastră</a>."
 
-#: templates/simple/contact.tpl:35
+#: templates/simple/contact.tpl:44
 msgid "You can download a <a href=\"%1\">copy of the database</a>."
 msgstr "Puteți descărca o <a href=\"%1\">copie a bazei de date</a>."
 
@@ -1449,135 +1449,159 @@ msgstr "prin afereză și/sau eliziune"
 msgid "long verb form"
 msgstr "formă verbală lungă"
 
-#: lib/models/SourceType.php:35
+#: lib/models/SourceType.php:40
 msgid "general use"
 msgstr "explicative"
 
-#: lib/models/SourceType.php:36
-msgid "morphological"
-msgstr "morfologice"
-
-#: lib/models/SourceType.php:37
-msgid "relational"
-msgstr "relaționale"
-
-#: lib/models/SourceType.php:38
+#: lib/models/SourceType.php:41
 msgid "etymological"
 msgstr "etimologice"
 
-#: lib/models/SourceType.php:39
+#: lib/models/SourceType.php:42
+msgid "morphological"
+msgstr "ortografice"
+
+#: lib/models/SourceType.php:43
+msgid "synonyms"
+msgstr "sinonime"
+
+#: lib/models/SourceType.php:44
+msgid "antonyms"
+msgstr "antonime"
+
+#: lib/models/SourceType.php:45
+msgid "relational"
+msgstr "relaționale"
+
+#: lib/models/SourceType.php:46
 msgid "specialized"
-msgstr "specializate"
+msgstr "jargon"
 
-#: lib/models/SourceType.php:40
-msgid "encyclopedic"
-msgstr "enciclopedice"
-
-#: lib/models/SourceType.php:41
+#: lib/models/SourceType.php:47
 msgid "slang"
 msgstr "argou"
 
-#: lib/models/SourceType.php:42
+#: lib/models/SourceType.php:48
+msgid "phrases"
+msgstr "expresii"
+
+#: lib/models/SourceType.php:49
 msgid "regional"
 msgstr "regionalisme"
 
-#: lib/models/SourceType.php:43
-msgid "citate"
-msgstr ""
+#: lib/models/SourceType.php:50
+msgid "encyclopedic"
+msgstr "enciclopedice"
 
-#: lib/models/SourceType.php:44
+#: lib/models/SourceType.php:51
 msgid "other"
-msgstr "altele"
+msgstr "tezaur"
 
-#: lib/models/SourceType.php:45
+#: lib/models/SourceType.php:52
 msgid "unverified"
 msgstr "neverificate"
 
-#: lib/models/SourceType.php:51
-msgid "General use dictionaries"
-msgstr "Dicționare explicative"
-
-#: lib/models/SourceType.php:52
-msgid "Morphological dictionaries"
-msgstr "Dicționare morfologice"
-
-#: lib/models/SourceType.php:53
-msgid "Relational dictionaries"
-msgstr "Dicționare relaționale"
-
-#: lib/models/SourceType.php:54
-msgid "Etymological dictionaries"
-msgstr "Dicționare etimologice"
-
-#: lib/models/SourceType.php:55
-msgid "Specialized dictionaries"
-msgstr "Dicționare specializate"
-
-#: lib/models/SourceType.php:56
-msgid "Encyclopedic dictionaries"
-msgstr "Dicționare enciclopedice"
-
-#: lib/models/SourceType.php:57
-msgid "Slang dictionaries"
-msgstr "Dicționare de argou"
-
 #: lib/models/SourceType.php:58
-msgid "Regional dictionaries"
-msgstr "Dicționare de regionalisme (sau arhaisme)"
+msgid "General use dictionaries"
+msgstr "Explicative DEX"
 
 #: lib/models/SourceType.php:59
-msgid "Citate"
-msgstr ""
+msgid "Etymological dictionaries"
+msgstr "Etimologice"
 
 #: lib/models/SourceType.php:60
-msgid "Other dictionaries"
-msgstr "Dicționare neclasificate"
+msgid "Morphological dictionaries"
+msgstr "Ortografice DOOM"
 
 #: lib/models/SourceType.php:61
-msgid "Unverified dictionaries"
-msgstr "Definiții din dicționare neverificate"
+msgid "Antonyms dictionaries"
+msgstr "Antonime"
+
+#: lib/models/SourceType.php:62
+msgid "Synonyms dictionaries"
+msgstr "Sinonime"
+
+#: lib/models/SourceType.php:63
+msgid "Other relational dictionaries"
+msgstr "Relaționale"
+
+#: lib/models/SourceType.php:64
+msgid "Specialized dictionaries"
+msgstr "Jargon"
+
+#: lib/models/SourceType.php:65
+msgid "Slang dictionaries"
+msgstr "Argou"
+
+#: lib/models/SourceType.php:66
+msgid "Phrases and quotes"
+msgstr "Expresii și citate"
+
+#: lib/models/SourceType.php:67
+msgid "Regional dictionaries"
+msgstr "Regionalisme / arhaisme"
 
 #: lib/models/SourceType.php:68
+msgid "Encyclopedic dictionaries"
+msgstr "Enciclopedice"
+
+#: lib/models/SourceType.php:69
+msgid "Other dictionaries"
+msgstr "Tezaur"
+
+#: lib/models/SourceType.php:70
+msgid "Unverified dictionaries"
+msgstr "Neverificate"
+
+#: lib/models/SourceType.php:77
 msgid "The most common sense of the words are explained."
 msgstr "Explică cele mai întâlnite sensuri ale cuvintelor."
 
-#: lib/models/SourceType.php:70
-msgid "The correspondences between lemma and lexical forms of words."
-msgstr "Indică formele flexionare ale cuvintelor (conjugări, declinări)."
-
-#: lib/models/SourceType.php:72
-msgid "These are not definitions, but relations between words."
-msgstr "Indică relații între cuvinte (sinonime, antonime)."
-
-#: lib/models/SourceType.php:74
+#: lib/models/SourceType.php:79
 msgid "The etymology of (family of) words are explained."
 msgstr "Explică etimologiile cuvintelor sau familiilor de cuvinte."
 
-#: lib/models/SourceType.php:76
+#: lib/models/SourceType.php:81
+msgid "The correspondences between lemma and lexical forms of words."
+msgstr "Indică formele flexionare ale cuvintelor (conjugări, declinări)."
+
+#: lib/models/SourceType.php:83
+msgid "Synonyms and similar meaning words."
+msgstr "Sinonime / cuvinte cu sensuri similare"
+
+#: lib/models/SourceType.php:85
+msgid "Antonyms and opposite meaning words."
+msgstr "Antonime / cuvinte cu sensuri opuse"
+
+#: lib/models/SourceType.php:87
+msgid "These are not definitions, but relations between words."
+msgstr "Indică relații între cuvinte (sinonime, antonime)."
+
+#: lib/models/SourceType.php:89
 msgid "These definitions usually explain only specialized meanings of words."
 msgstr "Explică înțelesuri specializate ale cuvintelor."
 
-#: lib/models/SourceType.php:78
-msgid "Encyclopedic definitions"
-msgstr "Definiții enciclopedice"
-
-#: lib/models/SourceType.php:80
+#: lib/models/SourceType.php:91
 msgid "Only slang words or senses are defined."
 msgstr "Explică doar sensurile argotice ale cuvintelor."
 
-#: lib/models/SourceType.php:82
+#: lib/models/SourceType.php:93
+msgid "Romanian phrases, quotes and idiotisms."
+msgstr "Expresii, proverbe și citate."
+
+#: lib/models/SourceType.php:95
 msgid "Only regional (or archaic) words or senses are defined."
 msgstr "Explică doar sensurile regionale (sau arhaice) ale cuvintelor."
 
-#: lib/models/SourceType.php:84
-msgid "Explicații date de experți."
-msgstr ""
+#: lib/models/SourceType.php:97
+msgid "Encyclopedic definitions"
+msgstr "Definiții enciclopedice"
 
-#: lib/models/SourceType.php:86
+#: lib/models/SourceType.php:99
 msgid "These definitions could explain only certain meanings of words."
 msgstr "Aceste definiții pot explica numai anumite înțelesuri ale cuvintelor."
 
-#: lib/models/SourceType.php:88
+#: lib/models/SourceType.php:101
 msgid ""
 "Since they are not made by lexicographers, these definitions may contain "
 "errors."
@@ -1717,3 +1741,16 @@ msgstr[2] "%d de cuvinte ale zilei alese la întâmplare"
 #, php-format
 msgid "We redirected you automatically from <b>%s</b> to <b>%s</b>."
 msgstr "V-am redirecționat automat de la <b>%s</b> la <b>%s</b>."
+
+#, fuzzy
+#~| msgid "general use"
+#~ msgid "General use"
+#~ msgstr "explicative"
+
+#, fuzzy
+#~| msgid "notes"
+#~ msgid "quotes"
+#~ msgstr "note"
+
+#~ msgid "Quotes"
+#~ msgstr "Expresii / citate"

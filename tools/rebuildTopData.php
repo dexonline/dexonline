@@ -14,7 +14,7 @@ const BULK = [
   [null,           'GTA',             null,                   null],
   [null,           'DCR2',            null,                   null],
   [null,           'DOR',             null,                   null],
-  ['raduborza',    'DOOM 2',          " > '2013-01-01'",         4],
+#  ['raduborza',    'DOOM 2',          " > '2013-01-01'",         4],
   [null,           'DRAM',            null,                   null],
   [null,           'DRAM 2015',       null,                   null],
   ['siveco',       null,              null,                   null],

@@ -103,8 +103,8 @@
 
     {if $reason}
       <div class="card-footer">
-        <b>{t}Chosen because:{/t}</b>
         <span class="def" title="Clic pentru a naviga la acest cuvânt">
+          <b>{t}Chosen because:{/t}</b>
           {$reason}
         </span>
       </div>

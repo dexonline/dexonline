@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2025-02-11 03:09+0200\n"
-"PO-Revision-Date: 2025-02-11 05:50+0200\n"
+"PO-Revision-Date: 2025-02-21 03:06+0200\n"
 "Last-Translator: Radu Borza <radu@dexonline.ro>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -1451,7 +1451,7 @@ msgstr "formă verbală lungă"
 
 #: lib/models/SourceType.php:40
 msgid "general use"
-msgstr "explicative"
+msgstr "explicative DEX"
 
 #: lib/models/SourceType.php:41
 msgid "etymological"
@@ -1459,7 +1459,7 @@ msgstr "etimologice"
 
 #: lib/models/SourceType.php:42
 msgid "morphological"
-msgstr "ortografice"
+msgstr "ortografice DOOM"
 
 #: lib/models/SourceType.php:43
 msgid "synonyms"

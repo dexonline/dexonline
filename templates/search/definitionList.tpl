@@ -7,7 +7,7 @@
     {if $tid > 0  && !isset($displayedSpec[$tid])}
       <div class="callout callout-secondary mt-5" id="cat-{$tid}">
         <h3>{SourceType::getName($tid)}</h3>
-        <p class="text-muted">{SourceType::getDescription($tid)}</p>
+        <!-- p class="text-muted">{SourceType::getDescription($tid)}</p -->
       </div>
       {$displayedSpec[$tid]=true}
     {/if}

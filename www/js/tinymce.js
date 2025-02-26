@@ -145,7 +145,7 @@ $(function() {
   // just enough to allow TinyMCE to work properly.
   function internalToHtml(ed) {
     var s = $('#' + ed.target.id).val();
-    s = '<p>' + s.replace(/\n{1,}/gi, '</p><p>') + '</p>'; // wrap paragraphs
+    s = '<p>' + s.replace(/\n/gi, '</p><p>') + '</p>'; // wrap paragraphs
 
     s = s.replace(/\\@/g, '~~~SAVE~~~'); // move \@ out of the way
     s = s.replace(/@([^@]*)@/g, '<strong>$1</strong>');

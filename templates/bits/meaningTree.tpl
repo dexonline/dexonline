@@ -26,7 +26,7 @@
 
             {include "bits/meaningTags.tpl" tags=$t.tags}
 
-            <span class="def html">
+            <span class="tree-def html">
               {HtmlConverter::convert($t.meaning)}
               {$t.meaning->getDisplaySynonyms()}
             </span>

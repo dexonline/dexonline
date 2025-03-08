@@ -268,9 +268,13 @@ abbr[title] {
   margin-bottom: 0;
 }
 
-.def {
+.def .tree-def {
   color: var(--bs-body-color);
   cursor: pointer;
+}
+
+/* for better alignment */
+.def {
   text-align: justify;
   display: block;
 }

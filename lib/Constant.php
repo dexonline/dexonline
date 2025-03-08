@@ -83,7 +83,7 @@ class Constant {
     '/(?<!\\\\)\^\{([^}]*)\}/' => '<sup>$1</sup>',                              // superscript ^{a b c}
     '/(?<!\\\\)_(\d)/' => '<sub>$1</sub>',                                      // subscript _123
     '/(?<!\\\\)_\{([^}]*)\}/' => '<sub>$1</sub>',                               // superscript _{a b c}
-    "/\n\ +\n/" => '<br>',                                                      // double newlines
+    "/\n\ *\n/" => '<br>',                                                      // double newlines
     '/' . self::PARSING_ERROR_MARKER . '/' => '',
 
     // cycle CSS class {cfoo,0c}, used to highlight full-text search matches

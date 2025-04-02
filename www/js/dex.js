@@ -584,6 +584,51 @@ $(function() {
   }
 });
 
+/* limba de lemn */
+var limbaDeLemn = [
+  ["Doamnelor și domnilor,","conjunctura actuală","trebuie integrată în finalizarea globală a","unui proces care să conducă spre trezirea în conștiință."],
+  ["Rămân fundamental convins că","situația de excludere cu care se confruntă unii dintre dumneavoastră","arată că trebuie să facem față și mai eficient ","unui viitor care se îndreaptă spre mai mult progres și mai multă dreptate și egalitate."],
+  ["Așadar, astăzi pot afirma în cunoștință de cauză că","determinarea acerbă de a scoate țara noastră din criză","are drept consecință obligatorie necesitatea urgentă a","unei valorizări fără concesii a caracterelor noastre specifice."],
+  ["Profit de această ocazie pentru a-mi exprima hotărârea fermă de a afirma sus și tare că","prioritatea acordată statutului precar al celor excluși","îmi întărește dorința incontestabilă de a merge pe calea","unui plan care să răspundă cu adevărat cerințelor legitime ale tuturor."],
+  ["De mult timp — după cum știți — apăr ideea că","natura specială a istoriei noastre unice","ar trebui să ne determine să facem o alegere cu adevărat imperativă a","soluțiilor rapide corespunzătoare principalelor axe sociale prioritare."],
+  ["Cu toată conștiința afirm cu convingere că","aspirația mai mult decât legitimă a fiecăruia la progres social","trebuie să ia în considerare preocupările populației de bază în dezvoltarea","unui program mai uman, mai fratern și mai echitabil."],
+  ["Cu siguranță nu sunteți voi, dragii mei compatrioți, cei care mă vor contrazice dacă vă spun că","nevoia de a răspunde preocupărilor voastre zilnice, fie că sunteți tineri sau bătrâni,","implică o misiune care este, în ansamblu, una dintre cele mai entuziasmante pentru mine: dezvoltarea","unui proiect care oferă o speranță reală, în special pentru cei mai dezavantajați."],
+];
+
+// Builds the HTML Table out of myList.
+function buildHtmlTable(selector,myList) {
+  var columns = addAllColumnHeaders(myList, selector);
+
+  for (var i = 0; i < myList.length; i++) {
+    var row$ = $('<tr/>');
+    for (var colIndex = 0; colIndex < columns.length; colIndex++) {
+      var cellValue = myList[i][columns[colIndex]];
+      if (cellValue == null) cellValue = "";
+      row$.append($('<td/>').html(cellValue));
+    }
+    $(selector).append(row$);
+  }
+}
+
+function addAllColumnHeaders(myList, selector) {
+  var columnSet = [];
+  var headerTr$ = $('<tr/>');
+
+  for (var i = 0; i < myList.length; i++) {
+    var rowHash = myList[i];
+    for (var key in rowHash) {
+      if ($.inArray(key, columnSet) == -1) {
+        columnSet.push(key);
+        headerTr$.append($('<th/>').html(key));
+      }
+    }
+  }
+  $(selector).append(headerTr$);
+
+  return columnSet;
+}
+
+
 /*** leonardo ***/
 /*
 function toggleLeonardo() {

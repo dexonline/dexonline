@@ -295,7 +295,18 @@ class Router {
       'en_US.utf8' => 'tools',
       'ro_RO.utf8' => 'unelte',
     ],
-
+    'simple/original' => [
+      'en_US.utf8' => 'original',
+      'ro_RO.utf8' => 'original',
+    ],
+    'simple/polls' => [
+      'en_US.utf8' => 'polls',
+      'ro_RO.utf8' => 'sondaje',
+    ],
+    'simple/wood' => [
+      'en_US.utf8' => 'wood',
+      'ro_RO.utf8' => 'limba-de-lemn',
+    ],
     // sources
     'source/edit' => [
       'en_US.utf8' => 'edit-source',

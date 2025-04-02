@@ -28,7 +28,7 @@ class Widget {
     self::WIDGET_EXPRESSION => [
       'name' => 'Expresii',
       'template' => 'expression.tpl',
-      'enabled' => true,
+      'enabled' => false,
     ],
     self::WIDGET_NEWSLETTER => [
       'name' => 'Newsletter',

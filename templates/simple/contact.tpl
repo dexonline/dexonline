@@ -15,6 +15,15 @@
     </a>
   <p>
 
+  <h3>{cap}newsletter{/cap}</h3>
+
+  <p class="fs-4 ps-3">
+    <a href="mailto:newsletter@dexonline.ro">
+        {include "bits/icon.tpl" i=email}
+        newsletter@dexonline.ro
+    </a>
+  <p>
+
   <h3>{t}Useful information{/t}</h3>
 
   <ul>

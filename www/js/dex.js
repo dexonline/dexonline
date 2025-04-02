@@ -15,7 +15,7 @@ function shuffle(a) {
 }
 
 $(function() {
-  $('.def').click(searchClickedWord);
+  $('.def,.tree-def').click(searchClickedWord);
   $('#typoModal').on('shown.bs.modal', shownTypoModal);
 
   $('#searchField').select().focus();

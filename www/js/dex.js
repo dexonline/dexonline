@@ -639,6 +639,30 @@ function shuffleArray(array) {
   }
 }
 
+function genereazaLinie(matrice){
+  var text = "";
+  for (var i = 0; i < matrice.length; i++) {
+    text += matrice[i][Math.floor(Math.random()*matrice[i].length)] + " ";
+  }
+  return text;
+}
+
+function genereazaDiscurs(mat){
+  var matrice = mat.slice();
+  for (var i = 0; i < matrice.length; i++) {
+    shuffleArray(matrice[i]);
+  }
+
+  var text = "";
+  var iteratii = matrice[0].length;
+  for (var j = 0; j < iteratii; j++) {
+    for (var i = 0; i < matrice.length; i++) {
+      text += matrice[i][j] + " ";
+    }
+  }
+  return text;
+}
+
 /*** leonardo ***/
 /*
 function toggleLeonardo() {

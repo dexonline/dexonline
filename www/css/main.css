@@ -576,3 +576,11 @@ blockquote {
     background-color: #ffcccc;
     border-color: #ad1700;
 }
+
+/*** limba de lemn ***/
+.wood {
+  font-size: .675rem;
+}
+.wood td {
+  padding: 0.2rem;
+}

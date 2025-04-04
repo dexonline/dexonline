@@ -23,6 +23,9 @@
   <h3>Arhiva newsletterului</h3>
 
   <p class="ps-3">
+    <span class="fs-5">&#x2022; 3 aprilie 2025 <a href="https://blog.dexonline.ro/?mailpoet_router&endpoint=view_in_browser&action=view&data=WzM4LCIwOGE2ZTViNjQ1YWIiLDQsIjNlYjljZCIsMjIxMywxXQ">
+      jurnal de dicționar / aprilie 25</a></span> <span class="fs-6">(limbă de lemn, idiot util, din cauza / datorită, cusurgiu, lalele, banane)</span>
+    </br>
     <span class="fs-5">&#x2022; 3 martie 2025 <a href="https://blog.dexonline.ro/?mailpoet_router&endpoint=view_in_browser&action=view&data=WzM3LCJmNDliYjg0ZjhlMGIiLDQsIjNlYjljZCIsMjExMSwxXQ">
       jurnal de dicționar / martie 25</a></span> <span class="fs-6">(femeie, babe, familie, frumusețe, franceză, publicitate)</span>
     </br>

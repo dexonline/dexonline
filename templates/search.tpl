@@ -50,6 +50,15 @@
       </li>
     {/if}
     {* /if *}
+
+    {* only special people are allowed ;) *}
+    {if User::can(User::PRIV_PLUGIN) }
+    {if $cuv == 'limbă de lemn'}
+      <li class="align-self-center ms-2">
+          {include "bits/limba-de-lemn.tpl"}
+      </li>
+    {/if}
+    {/if}
   </ul>
 
   <div class="tab-content">

@@ -93,8 +93,20 @@ class Constant {
     '/(?<!\\\\)\|([^|]*)\|([^|]*)\|/' => '<a class="ref" href="/definitie/$2">$1</a>',
 
     // {fr: term}
-    '/(?<!\\\\)\{fr:(.*)\}/' => '<a class="ref" href="https://cnrtl.fr/definition/$1" target="_blank" rel="nofollow"
-    title="Clic pentru navigarea la dicționarul franțuzesc">$1</a>',
+    '/(?<!\\\\)\{fr:(.*)\}/' => '<a class="ref" href="https://cnrtl.fr/definition/$1"
+    target="_blank" rel="nofollow" title="Clic pentru navigarea la dicționarul al Academiei franceze">$1</a>',
+
+    // {fr-a: term}
+    '/(?<!\\\\)\{fr-a:([^:]*):(.*)\}/' => '<a class="ref" href="https://www.dictionnaire-academie.fr/article/$1"
+    target="_blank" rel="nofollow" title="Clic pentru navigarea la dicționarul de limbă franceză">$2</a>',
+
+    // {en-c: term}
+    '/(?<!\\\\)\{en-c:(.*)\}/' => '<a class="ref" href="https://dictionary.cambridge.org/dictionary/english/$1"
+    target="_blank" rel="nofollow" title="Clic pentru navigarea la dicționarul Cambridge">$1</a>',
+
+    // {en-w: term}
+    '/(?<!\\\\)\{en-w:(.*)\}/' => '<a class="ref" href="https://www.merriam-webster.com/dictionary/$1"
+    target="_blank" rel="nofollow" title="Clic pentru navigarea la dicționarul de limbă engleză">$1</a>',
 
     // tree mentions
     '/([-a-zăâîșț]+)\[\[([0-9]+)\]\]/iu' =>

@@ -64,4 +64,10 @@
         jurnal de dicționar / mai 24</a></span> <span class="fs-6">(Leonardo da Vinci, ortografie, ca și, Matei Gall)</span>
   </p>
 
+<h4>jurnal de dicționar</h4>
+<table class="issn">
+<tr><td>ISSN:</td><td>3091-0900</td></tr>
+<tr><td>ISSN-L:</td><td>3091-0900</td></tr>
+</table>
+
 {/block}

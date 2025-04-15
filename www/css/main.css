@@ -584,3 +584,8 @@ blockquote {
 .wood td {
   padding: 0.2rem;
 }
+
+/**** issn *****/
+.issn td {
+  text-align: right;
+}

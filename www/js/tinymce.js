@@ -160,6 +160,7 @@ $(function() {
     s = s.replace(/~~~SAVE~~~/g, '\\%'); // restore \%
 
     s = s.replace(/\{~(.*?)~\}/g, '<span class="small-caps">$1</span>');
+    s = s.replace(/~~(.*?)~~/g, '<span class="small-caps-l">$1</span>');
 
     s = s.replace(/\\#/g, '~~~SAVE~~~'); // move \# out of the way
     s = s.replace(/#([^#]*)#/g, '<abbr>$1</abbr>');
@@ -181,6 +182,7 @@ $(function() {
     s = s.replace(/<\/?em>/gi, '$');
     s = s.replace(/<span class="spaced">(.*?)<\/span>/gi, '%$1%');
     s = s.replace(/<span class="small-caps">(.*?)<\/span>/gi, '{~$1~}');
+    s = s.replace(/<span class="small-caps-l">(.*?)<\/span>/gi, '~~$1~~');
     s = s.replace(/<abbr[^>]*>(.*?)<\/abbr>/gi, '#$1#');
     s = s.replace(/<sup>(\d)<\/sup>/gi, '^$1');
     s = s.replace(/<sub>(\d)<\/sub>/gi, '_$1');

@@ -23,6 +23,9 @@
   <h3>Arhiva newsletterului</h3>
 
   <p class="ps-3">
+    <span class="fs-5">&#x2022; 6 mai 2025 <a href="https://blog.dexonline.ro/?mailpoet_router&endpoint=view_in_browser&action=view&data=WzQzLCI2OWYwY2I1N2VkNGEiLDAsMCwyMzMwLDFd">
+      bliț-răvaș / mai 25</a></span> <span class="fs-6">(conclav, Habemus Papam, papa, pontificat)</span>
+    </br>
     <span class="fs-5">&#x2022; 3 mai 2025 <a href="https://blog.dexonline.ro/?mailpoet_router&endpoint=view_in_browser&action=view&data=WzQyLCI2YTYyNjZjZGY5NGQiLDQsIjNlYjljZCIsMjMxMiwxXQ">
       jurnal de dicționar / mai 25</a></span> <span class="fs-6">(Caragiale, adulterin, liliac, bulgar, aromân, cusurgiu)</span>
     </br>

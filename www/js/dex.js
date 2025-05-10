@@ -671,14 +671,27 @@ function pollModalCreate() {
   modalDiv.innerHTML='<div id="pollDiv" class="pollModalContent">' +
     '<b>Sondajele <i>dexonline</i></b><p></p>' +
     '<p>Votați pentru Nicușor Dan?</p><br/>' +
-    '<input class="btn btn-primary btn-poll" type="submit" onclick="pollModalClose()" value=" DA ">&nbsp;&nbsp;' +
-    '<input class="btn btn-primary btn-poll" type="submit" value=" NU ">' +
+    '<input class="btn btn-primary btn-poll" type="submit" onclick="pollModalClose()" value=" DA ">' +
+    '<input class="btn btn-primary btn-poll" type="submit" onclick="pollModalResponse()" value=" NU ">' +
     '</div>';
   document.body.insertBefore(modalDiv, document.getElementById('pageModal'));
 }
 
 function pollModalClose() {
-  $('.pollModal').hide();
+  $('.pollModal').remove();
+}
+
+function pollModalResponse() {
+  pollModalClose();
+  var modalDiv = document.createElement('div');
+  modalDiv.setAttribute("class", "pollModal");
+  modalDiv.innerHTML='<div id="pollDiv" class="pollModalContent">' +
+    '<p>Of! N-ați vrea să vă mai gândiți puțin? 🙇🏻‍♀️🙇‍♂️</p>' +
+    '<p>E în joc viitorul nostru și al copiilor noștri. Haideți să alegem mintea deschisă și calculată a unui matematician, ' +
+    'nu izolarea care ne-ar lăsa pe dinafară, la ușa Europei. Ce spuneți?</p><br/>' +
+    '<input class="btn btn-primary btn-poll" type="submit" onclick="pollModalClose()" value="OK, aveți dreptate, mă mai gândesc 👍">' +
+    '</div>';
+  document.body.insertBefore(modalDiv, document.getElementById('pageModal'));
 }
 
 setTimeout(function(){

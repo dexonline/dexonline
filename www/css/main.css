@@ -45,11 +45,12 @@ a:focus {
 
 .pollModalContent {
   background-color: #fefefe;
+  text-align: center;
   color: #212529;
   margin: 15% auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 50%;
+  width: 80%;
 }
 
 /* leonardo */

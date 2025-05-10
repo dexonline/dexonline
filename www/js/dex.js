@@ -671,8 +671,8 @@ function pollModalCreate() {
   modalDiv.innerHTML='<div id="pollDiv" class="pollModalContent">' +
     '<b>Sondajele <i>dexonline</i></b><p></p>' +
     '<p>Votați pentru Nicușor Dan?</p>' +
-    '<input class="btn btn-primary" type="submit" value="DA">&nbsp;&nbsp;' +
-    '<input class="btn btn-primary" type="submit" value="NU">' +
+    '<input class="btn btn-primary" type="submit" onclick="pollModalClose()" value=" DA ">&nbsp;&nbsp;' +
+    '<input class="btn btn-primary" type="submit" value=" NU ">' +
     '</div>';
   document.body.insertBefore(modalDiv, document.getElementById('pageModal'));
 }
@@ -685,7 +685,7 @@ setTimeout(function(){
   if (sessionStorage.getItem('pollModal') != 1) {
     pollModalCreate();
   }
-}, 5000);
+}, 1000);
 
 /*** END call for poll ***/
 

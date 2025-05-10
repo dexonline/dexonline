@@ -663,6 +663,32 @@ function genereazaDiscurs(mat){
   return text;
 }
 
+/*** START call for poll ***/
+function pollModalCreate() {
+  sessionStorage.setItem('pollModal', 1);
+  var modalDiv = document.createElement('div');
+  modalDiv.setAttribute("class", "pollModal");
+  modalDiv.innerHTML='<div id="pollDiv" class="pollModalContent">' +
+    '<b>Sondajele <i>dexonline</i></b><p></p>' +
+    '<p>Votați pentru Nicușor Dan?</p>' +
+    '<input class="btn btn-primary" type="submit" value="DA">&nbsp;&nbsp;' +
+    '<input class="btn btn-primary" type="submit" value="NU">' +
+    '</div>';
+  document.body.insertBefore(modalDiv, document.getElementById('pageModal'));
+}
+
+function pollModalClose() {
+  $('.pollModal').hide();
+}
+
+setTimeout(function(){
+  if (sessionStorage.getItem('pollModal') != 1) {
+    pollModalCreate();
+  }
+}, 5000);
+
+/*** END call for poll ***/
+
 /*** leonardo ***/
 /*
 function toggleLeonardo() {

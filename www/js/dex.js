@@ -690,7 +690,7 @@ function pollModalResponse() {
     '<p>Of! N-ați vrea să vă mai gândiți puțin? 🙇🏻‍♀️🙇‍♂️</p>' +
     '<p>E în joc viitorul nostru și al copiilor noștri. Haideți să alegem mintea deschisă și calculată a unui matematician, ' +
     'nu izolarea care ne-ar lăsa pe dinafară, la ușa Europei. Ce spuneți?</p><br/>' +
-    '<input class="btn btn-primary btn-poll" type="submit" onclick="pollModalClose()" value="OK, aveți dreptate, mă mai gândesc 👍">' +
+    '<input class="btn btn-primary btn-response" type="submit" onclick="pollModalClose()" value="OK, aveți dreptate, mă mai gândesc 👍">' +
     '</div>';
   domModal = document.body.insertBefore(modalDiv, document.getElementById('pageModal'));
   domModal.querySelector('input').focus();
@@ -700,7 +700,7 @@ setTimeout(function(){
   if (sessionStorage.getItem('pollModal') != 1) {
     pollModalCreate();
   }
-}, 1500);
+}, 500);
 
 /*** END call for poll ***/
 

@@ -62,6 +62,12 @@ a:focus {
   min-width: 80px;
 }
 
+.btn-response {
+  padding-left: 10px;
+  padding-right: 10px;
+  min-width: 80px;
+}
+
 /* leonardo */
 /*
 

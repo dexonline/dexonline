@@ -674,7 +674,8 @@ function pollModalCreate() {
     '<input class="btn btn-primary btn-poll" type="submit" onclick="pollModalClose()" value=" DA ">' +
     '<input class="btn btn-primary btn-poll" type="submit" onclick="pollModalResponse()" value=" NU ">' +
     '</div>';
-  document.body.insertBefore(modalDiv, document.getElementById('pageModal'));
+  domModal = document.body.insertBefore(modalDiv, document.getElementById('pageModal'));
+  domModal.querySelector('input').focus();
 }
 
 function pollModalClose() {
@@ -691,7 +692,8 @@ function pollModalResponse() {
     'nu izolarea care ne-ar lăsa pe dinafară, la ușa Europei. Ce spuneți?</p><br/>' +
     '<input class="btn btn-primary btn-poll" type="submit" onclick="pollModalClose()" value="OK, aveți dreptate, mă mai gândesc 👍">' +
     '</div>';
-  document.body.insertBefore(modalDiv, document.getElementById('pageModal'));
+  domModal = document.body.insertBefore(modalDiv, document.getElementById('pageModal'));
+  domModal.querySelector('input').focus();
 }
 
 setTimeout(function(){

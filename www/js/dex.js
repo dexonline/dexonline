@@ -670,7 +670,7 @@ function pollModalCreate() {
   modalDiv.setAttribute("class", "pollModal");
   modalDiv.innerHTML='<div id="pollDiv" class="pollModalContent">' +
     '<b>Sondajele <i>dexonline</i></b><p></p>' +
-    '<p>Rămâne cum am stabilit?</p><br/>' +
+    '<p>Rămâne cum am stabilit... bine? 🗳️</p><br/>' +
     '<input class="btn btn-primary btn-poll" type="submit" onclick="pollModalClose()" value=" DA ">' +
     '<input class="btn btn-primary btn-poll" type="submit" onclick="pollModalResponse()" value=" NU ">' +
     '</div>';

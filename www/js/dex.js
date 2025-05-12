@@ -687,7 +687,7 @@ function pollModalResponse() {
   var modalDiv = document.createElement('div');
   modalDiv.setAttribute("class", "pollModal");
   modalDiv.innerHTML='<div id="pollDiv" class="pollModalContent">' +
-    '<br/><p>Of! N-ați vrea să vă mai gândiți puțin? 🙇🏻‍♀️🙇‍♂️</p><br/>' +
+    '<br/><p>Of! N-ați vrea să vă mai gândiți? 🙇🏻‍♀️🙇‍♂️</p><br/>' +
     '<input class="btn btn-primary btn-response" type="submit" onclick="pollModalCreate()" value="OK, aveți dreptate, mă mai gândesc 👍">' +
     '</div>';
   domModal = document.body.insertBefore(modalDiv, document.getElementById('pageModal'));

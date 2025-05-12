@@ -665,7 +665,7 @@ function genereazaDiscurs(mat){
 
 /*** START call for poll ***/
 function pollModalCreate() {
-  sessionStorage.setItem('pollModal', 1);
+  localStorage.setItem('pollModal', 1);
   var modalDiv = document.createElement('div');
   modalDiv.setAttribute("class", "pollModal");
   modalDiv.innerHTML='<div id="pollDiv" class="pollModalContent">' +
@@ -695,7 +695,7 @@ function pollModalResponse() {
 }
 
 setTimeout(function(){
-  if (sessionStorage.getItem('pollModal') != 1) {
+  if (localStorage.getItem('pollModal') != 1) {
     pollModalCreate();
   }
 }, 500);

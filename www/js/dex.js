@@ -695,6 +695,7 @@ function pollModalResponse() {
 }
 
 setTimeout(function() {
+  //block also by local storage value
   if ((localStorage.getItem('pollModal') != 1) && (sessionStorage.getItem('pollModal') != 1)) {
     pollModalCreate();
   }

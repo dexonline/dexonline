@@ -694,9 +694,11 @@ function pollModalResponse() {
   domModal.querySelector('input').focus();
 }
 
-setTimeout(function(){
-  if (sessionStorage.getItem('pollModal') != 1) {
-    pollModalCreate();
+setTimeout(function() {
+  if (localStorage.getItem('pollModal') != 1)
+    if (sessionStorage.getItem('pollModal') != 1) {
+      pollModalCreate();
+    }
   }
 }, 500);
 

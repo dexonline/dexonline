@@ -663,45 +663,6 @@ function genereazaDiscurs(mat){
   return text;
 }
 
-/*** START call for poll ***/
-function pollModalCreate() {
-  sessionStorage.setItem('pollModal', 1);
-  var modalDiv = document.createElement('div');
-  modalDiv.setAttribute("class", "pollModal");
-  modalDiv.innerHTML='<div id="pollDiv" class="pollModalContent">' +
-    '<b>Sondajele <i>dexonline</i></b><p></p>' +
-    '<p>Rămâne cum am stabilit... bine? 🗳️</p><br/>' +
-    '<input class="btn btn-primary btn-poll" type="submit" onclick="pollModalClose()" value=" DA ">' +
-    '<input class="btn btn-primary btn-poll" type="submit" onclick="pollModalResponse()" value=" NU ">' +
-    '</div>';
-  domModal = document.body.insertBefore(modalDiv, document.getElementById('pageModal'));
-  domModal.querySelector('input').focus();
-}
-
-function pollModalClose() {
-  $('.pollModal').remove();
-}
-
-function pollModalResponse() {
-  pollModalClose();
-  var modalDiv = document.createElement('div');
-  modalDiv.setAttribute("class", "pollModal");
-  modalDiv.innerHTML='<div id="pollDiv" class="pollModalContent">' +
-    '<br/><p>Of! N-ați vrea să vă mai gândiți? 🙇🏻‍♀️🙇‍♂️</p><br/>' +
-    '<input class="btn btn-primary btn-response" type="submit" onclick="pollModalCreate()" value="OK, aveți dreptate, mă mai gândesc 👍">' +
-    '</div>';
-  domModal = document.body.insertBefore(modalDiv, document.getElementById('pageModal'));
-  domModal.querySelector('input').focus();
-}
-
-setTimeout(function(){
-  if (sessionStorage.getItem('pollModal') != 1) {
-    pollModalCreate();
-  }
-}, 500);
-
-/*** END call for poll ***/
-
 /*** leonardo ***/
 /*
 function toggleLeonardo() {

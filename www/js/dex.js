@@ -695,10 +695,8 @@ function pollModalResponse() {
 }
 
 setTimeout(function() {
-  if (localStorage.getItem('pollModal') != 1)
-    if (sessionStorage.getItem('pollModal') != 1) {
-      pollModalCreate();
-    }
+  if ((localStorage.getItem('pollModal') != 1) && (sessionStorage.getItem('pollModal') != 1)) {
+    pollModalCreate();
   }
 }, 500);
 

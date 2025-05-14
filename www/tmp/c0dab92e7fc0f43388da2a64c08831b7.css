@@ -1949,454 +1949,117 @@ blockquote {
 }
 
 html.light {
-  --c-not-recommended: #004db2;
+  --c-social-svg: #303030;
 }
 
 html.dark {
-  --c-not-recommended: var(--bs-blue);
+  --c-social-svg: #b2b2b2;
 }
 
-.paraLexeme {
-  margin-bottom: 10px;
+.siteIdentity {
+  max-width: 316px;
+  margin: 30px auto 35px;
 }
 
-.lexemeName {
-  font-weight: bold;
+.siteIdentity g {
+  stroke: var(--c-logo-home);
 }
 
-.lexeme {
-  border-collapse: collapse;
-  margin-left: 0;
-  margin-top: 5px;
-}
-
-.lexeme td {
-  border: 1px solid var(--bs-gray-200);
-  padding: 0px 10px;
-}
-
-.lexeme .inflection {
-  color: var(--bs-gray-600);
-  font-style: italic;
-  font-size: small;
-  text-align: center;
-}
-
-.lexeme .form {
-  font-style: italic;
-}
-
-.lexeme .spacer {
-  height: 2px;
-}
-
-.lexeme tr .person {
-  text-align: right;
-}
-
-.noParadigm {
-  color: var(--bs-gray-600);
-  font-style: italic;
-  padding-left: 80px;
-  white-space: nowrap;
-}
-
-.lexemeMorphology {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-
-.lexemeMorphology li {
-  display: inline;
-}
-
-.lexemeMorphology li + li:before {
-  content: '/';
-}
-
-.lexemeMorphology .value {
-  font-style: italic;
-}
-
-.lexemeNotes,
-.lexemeSources {
-  font-size: 75%;
-  color: var(--bs-primary);
-}
-
-.paradigmDiv {
-  white-space: nowrap;
-}
-
-.commaList {
-  display: inline;
-  list-style: none;
-  padding: 0px;
-}
-
-.commaList li {
-  display: inline;
-}
-
-.commaList li::before {
-  content: ', ';
-}
-
-.commaList li:first-child::before {
-  content: '';
-}
-
-li.elision {
-  color: var(--bs-orange);
-  cursor: help;
-}
-
-li.elisionShown {
-  display: inline;
-}
-
-li.elisionHidden {
-  display: none;
-}
-
-.elisionLegend {
-  color: var(--bs-orange);
-  font-style: italic;
-}
-
-li.notRecommended {
-  color: var(--c-not-recommended);
-  cursor: help;
-}
-
-li.notRecommendedShown {
-  display: inline;
-}
-
-li.notRecommendedHidden {
-  display: none;
-}
-
-.notRecommendedLegend {
-  color: var(--c-not-recommended);
-  font-style: italic;
-}
-
-li.elision::after,
-li.notRecommended::after {
-  content: '*';
-}
-
-/*
-  Fix the inflection arrow for Google Chrome
-  Reference: https://github.com/dexonline/dexonline/issues/484
-*/
-#inflArrow {
-  font-family: serif;
-}
-
-.meaningTree {
-  margin-bottom: 0px;
-  margin-top: 0px;
-  padding-left: 0px;
-}
-
-.meaningTree ul {
-  padding-left: 30px;
-  margin-left: 10px;
-}
-
-.meaningTree ul ul {
-  padding-left: 30px;
-  margin-left: 10px;
-}
-
-.meaningTree li {
-  list-style: none;
-}
-
-.meaningTree .meaningContainer {
-  padding: 2px 0px;
-}
-
-.meaningTree .bc:not(:empty) {
-  margin-right: 5px;
-}
-
-.meaningTree .typeName:not(:empty) {
-  font-weight: bold;
-  margin-right: 5px;
-  margin-bottom: 3px;
-  color: var(--bs-gray-700);
-}
-
-.meaningTree .mention {
-  border-bottom: 1px dotted var(--bs-gray-800);
-  color: inherit;
-  text-decoration: none;
-}
-
-.meaningTree .tag-group a {
+.tagline {
   color: var(--bs-gray-800);
+  font-size: 14px;
+  letter-spacing: 1px;
+  text-align: right;
+  margin: -2px auto 0;
 }
 
-.meaningTree .meaning-tags .badge {
-  background-color: inherit !important;
+.website-statement {
+  color: var(--bs-gray-600);
+  font-style: italic;
+}
+
+/********************* Home page widgets *********************/
+.widgets {
+  margin-top: 25px;
+}
+
+.widget {
+  margin: 10px;
+  padding: 15px 1rem;
   border: 1px solid var(--bs-gray-400);
-  font-weight: normal;
+  border-radius: 4px;
+  color: var(--bs-gray-600) !important;
 }
 
-.meaningTree .badge-source {
-  background: var(--bs-gray-200);
-  color: var(--bs-gray-800) !important;
-  cursor: help;
-  font-weight: normal;
+.widget.aotm:hover {
+  border-color: var(--bs-blue);
 }
 
-.meaningTree .badge-relation {
-  font-weight: normal;
-  margin-left: 8px;
+.widget.games:hover {
+  border-color: var(--bs-primary);
 }
 
-.meaningTree .badge-relation a:hover {
-  filter: brightness(75%);
-  text-decoration: none;
+.widget.random-word:hover {
+  border-color: var(--bs-yellow);
 }
 
-.meaningTree .badge-relation a,
-.meaningTree .badge-relation a:hover {
-  color: var(--bs-gray-700);
+.widget.social:hover {
+  border-color: #303030;
 }
 
-.meaningTree .badge-relation-1 a,
-.meaningTree .badge-relation-1 a:hover {
-  color: var(--bs-green);
+.widget.social svg {
+  height: 32px;
+  width: 32px;
 }
 
-.meaningTree .badge-relation-2 a,
-.meaningTree .badge-relation-2 a:hover {
-  color: var(--bs-red);
+.social-1 path:nth-child(4),
+.social-2 path,
+.social-3 path {
+  fill: var(--c-social-svg);
 }
 
-.meaningContainer:target {
-  background: var(--bs-gray-300);
-  border: 1px solid transparent;
-  border-radius: 5px;
+.social-4 g {
+  fill: var(--c-social-svg);
+  stroke: var(--c-social-svg);
 }
 
-.textcomplete-dropdown {
-  max-height: 155px;
-  overflow-y: scroll;
+.widget.wotd:hover {
+  border-color: var(--bs-pink);
 }
 
-.textcomplete-item a {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  width: 500px;
+.widget.wotm:hover {
+  border-color: var(--bs-teal);
 }
 
-.etymologyBc {
-  font-weight: bold;
+.widget h4,
+.widget-value {
+  display: inline-block;
 }
 
-.depth-0 {
-  margin-top: 10px;
+.widget h4::first-letter {
+  text-transform: uppercase;
 }
 
-.depth-0 > .meaningContainer > .meaning-row {
-  font-size: 18px;
+/* temporary workaround until fix scss */
+.widget {
+  padding: 10px 0.75rem !important;
+  min-height: 118px !important;
 }
 
-.etymology {
-  font-size: 80%;
-  margin-top: 10px;
-}
-
-.etymology .meaningTree  {
-  padding-left: 42px;
-}
-
-.bc,
-.etymology-heading {
-  font-weight: bold;
-}
-
-.meaning-relations {
-  padding-left: 42px;
-}
-
-.meaning-sources {
-  line-height: 100%; /* prevents a vertical glitch when toggling sources */
-  vertical-align: 10%;
-}
-
-.type-etymology .meaning-row {
-  margin-bottom: 3px;
-}
-
-.type-example .def { /* example */
-  color: var(--bs-gray-700);
-}
-
-.meaning-icon {
-  color: var(--bs-gray-500);
-  font-size: 80%;
-  padding: 0 0.2rem;
-}
-
-.tree-heading {
-  border-bottom: 1px solid var(--bs-gray-500);
-  font-weight: bold;
-  padding-bottom: 10px;
-}
-
-.tree-body {
-  margin-bottom: 40px;
-  padding-left: 20px;
-}
-
-/* visibility control; works in conjunction with the checkboxes on the tree tab */
-.meaning-sources,
-.type-example,
-.type-expression.depth-1,
-.type-expression.depth-2,
-.type-meaning.depth-0 ~ .type-expression,
-.type-meaning.depth-1 {
-  display: none;
-}
-
-@media (max-width: 480px) {
-  .meaning-relations {
-    padding-left: 32px;
-  }
-
-  .meaningTree ul {
-    padding-left: 20px;
-    margin-left: 0;
-  }
-
-  .meaningTree ul ul {
-    padding-left: 28px;
-    margin-left: 0;
-  }
+/* used in widgets/games.tpl, but only appears on the home page */
+.list-games {
+  margin-bottom: 0;
+  padding-left: 18px;
 }
 
 @media (max-width: 320px) {
-  .card-body {
-    padding: 0;
-  }
-
-  .meaning-relations {
-    padding-left: 4px;
-  }
-
-  .meaningTree ul,
-  .meaningTree ul ul {
-    padding-left: 0;
-    margin-left: 0;
+  .list-games {
+    font-size: 11px;
   }
 }
 
-#scrollTopButton {
-  bottom: 20px;
-  display: none;
-  position: fixed;
-  right: 20px;
-  z-index: 99;
-}
-
-/* more prominent tab headers */
-.nav-link.nav-notice:not(.active) {
-  color: var(--bs-warning) !important;
-}
-
-.nav-link.nav-notice:hover:not(.active),
-.nav-link.nav-notice:focus:not(.active) {
-  opacity: 0.8;
-}
-
-.tab-pane {
-  padding-top: 20px;
-}
-
-#tree-checks {
-  background-color: var(--c-surface);
-}
-
-@media (max-width: 1399px) { /* xl and below */
-  #tree-checks .form-check-inline {
-    margin-bottom: 0;
-  }
-}
-
-@media (min-width: 1400px) { /* xxl only */
-  #tree-checks {
-    position: fixed;
-    transform: translateX(-120%);
-  }
-
-  #tree-checks .form-check-inline {
-    display: block;
-  }
-}
-
-.tree-heading .tonic-accent {
-  text-decoration-color: var(--bs-gray-600);
-  text-underline-offset: 0.2rem;
-}
-
-.tree-inflected-form {
-  color: var(--bs-gray-700);
-  font-size: 70%;
-  font-weight: normal;
-}
-
-.tree-pos-info {
-  color: var(--bs-secondary);
-  font-size: 55%;
-  font-weight: normal;
-  margin-left: 1rem;
-}
-
-#notice-synthesis {
-  display: none;
-}
-
-.entryName {
-  font-weight: bold;
-}
-
-/* Full text highlight. Keep the number of colors in sync with Definition::highlight(). */
-.fth {
-  padding: 0 2px;
-  color: #fff;
-  border-radius: 2px;
-  border: 1px solid transparent;
-}
-
-.fth0 {
-  background: #b50000;
-  border-color: #a50000;
-}
-
-.fth1 {
-  background: #cc6600;
-  border-color: #bc6600;
-}
-
-.fth2 {
-  background: #008800;
-  border-color: #007800;
-}
-
-.fth3 {
-  background: #000088;
-  border-color: #000078;
-}
-
-.fth4 {
-  background: #880088;
-  border-color: #780088;
+.customise-widgets {
+  padding-right: 25px;
+  font-size: 12px;
 }
 

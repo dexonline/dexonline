@@ -694,12 +694,14 @@ function pollModalResponse() {
   domModal.querySelector('input').focus();
 }
 
+/*
 setTimeout(function() {
   //block also by local storage value
   if ((localStorage.getItem('pollModal') != 1) && (sessionStorage.getItem('pollModal') != 1)) {
     pollModalCreate();
   }
 }, 500);
+*/
 
 /*** END call for poll ***/
 

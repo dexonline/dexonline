@@ -670,9 +670,9 @@ function pollModalCreate() {
   modalDiv.setAttribute("class", "pollModal");
   modalDiv.innerHTML='<div id="pollDiv" class="pollModalContent">' +
     '<b>Sondajele <i>dexonline</i></b><p></p>' +
-    '<p>Rămâne cum am stabilit... bine? 🗳️</p><br/>' +
-    '<input class="btn btn-primary btn-poll" type="submit" onclick="pollModalClose()" value=" DA ">' +
-    '<input class="btn btn-primary btn-poll" type="submit" onclick="pollModalResponse()" value=" NU ">' +
+    '<p>Rămâne cum am stabilit… Europa, bine?</p><br/>' +
+    '<input class="btn btn-primary btn-poll" type="submit" onclick="pollModalClose()" value=" SIGUR ">' +
+    '<input class="btn btn-primary btn-poll" type="submit" onclick="window.location.replace(\'turbinca.html\')" value=" NIET ">' +
     '</div>';
   domModal = document.body.insertBefore(modalDiv, document.getElementById('pageModal'));
   domModal.querySelector('input').focus();
@@ -694,14 +694,14 @@ function pollModalResponse() {
   domModal.querySelector('input').focus();
 }
 
-/*
+
 setTimeout(function() {
   //block also by local storage value
   if ((localStorage.getItem('pollModal') != 1) && (sessionStorage.getItem('pollModal') != 1)) {
     pollModalCreate();
   }
 }, 500);
-*/
+
 
 /*** END call for poll ***/
 

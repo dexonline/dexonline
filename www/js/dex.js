@@ -670,7 +670,7 @@ function pollModalCreate() {
   modalDiv.setAttribute("class", "pollModal");
   modalDiv.innerHTML='<div id="pollDiv" class="pollModalContent">' +
     '<b>Sondajele <i>dexonline</i></b><p></p>' +
-    '<p>Rămâne cum am stabilit… Europa, bine?</p><br/>' +
+    '<p>Susținem Europa!</p><br/>' +
     '<input class="btn btn-primary btn-poll" type="submit" onclick="pollModalClose()" value=" SIGUR ">' +
     '<input class="btn btn-primary btn-poll" type="submit" onclick="window.location.replace(\'turbinca.html\')" value=" NIET ">' +
     '</div>';

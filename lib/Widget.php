@@ -43,7 +43,7 @@ class Widget {
     self::WIDGET_AOTM => [
       'name' => 'Articolul lunii',
       'template' => 'articleOfTheMonth.tpl',
-      'enabled' => false,
+      'enabled' => true,
     ],
     self::WIDGET_SOCIAL => [
       'name' => 'Rețele sociale',

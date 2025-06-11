@@ -2,7 +2,7 @@ services:
   app:
     build: php
     volumes:
-      - ../.:/var/www/html
+      - ../../.:/var/www/html
     ports:
       - "80:80"
     networks:

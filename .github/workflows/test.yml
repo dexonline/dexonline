@@ -15,7 +15,7 @@ jobs:
         image: mysql:5.7
         env:
           MYSQL_ROOT_PASSWORD: admin
-          MYSQL_DATABASE: dexonline_test
+          MYSQL_DATABASE: dexonline
         ports:
           - 3306:3306
         options: --health-cmd="mysqladmin ping -h 127.0.0.1 -u root --password=admin" --health-interval=10s --health-timeout=5s --health-retries=3
@@ -37,8 +37,8 @@ jobs:
       - name: Create Config.php from sample
         run: |
           cp Config.php.sample Config.php
-          sed -i 's|const DATABASE = .*;|const DATABASE = "mysql://root:admin@127.0.0.1/dexonline_test";|' Config.php
-          sed -i 's|const TEST_DATABASE = .*;|const TEST_DATABASE = "mysql://root:admin@127.0.0.1/dexonline_test";|' Config.php
+          sed -i 's|const DATABASE = .*;|const DATABASE = "mysql://root:admin@127.0.0.1/dexonline";|' Config.php
+          sed -i 's|const TEST_DATABASE = .*;|const TEST_DATABASE = "mysql://root:admin@127.0.0.1/dexonline";|' Config.php
           sed -i 's|const TEST_MODE = false;|const TEST_MODE = true;|' Config.php
           sed -i 's|const DEVELOPMENT_MODE = false;|const DEVELOPMENT_MODE = true;|' Config.php
           sed -i 's|const URL_PREFIX = .*;|const URL_PREFIX = "/";|' Config.php
@@ -57,13 +57,13 @@ jobs:
           chmod 666 /tmp/dexonline.log
           sed -i 's|const LOG_FILE = .*;|const LOG_FILE = "/tmp/dexonline.log";|' Config.php
 
-      - name: Run setup script
-        run: bash tools/setup.sh
+      - name: Setup test database
+        run: bash tools/docker/mysql/init.sh
         env:
           MYSQL_PWD: admin
 
-      - name: Setup test database
-        run: php tools/resetTestingDatabase.php
+      - name: Run setup script
+        run: bash tools/setup.sh
         env:
           MYSQL_PWD: admin
 

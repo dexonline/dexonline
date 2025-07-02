@@ -92,9 +92,9 @@ jobs:
         with:
           node-version: '16'
 
-      - name: Install Selenium dependencies
+      - name: Check available selenium-side-runner versions and install
         run: |
-          npm install -g selenium-side-runner@4.0.0-alpha.22
+          npm install -g selenium-side-runner@3.17.2
           mkdir -p /tmp/selenium-logs
 
       - name: Start Xvfb for display
@@ -103,20 +103,17 @@ jobs:
           export DISPLAY=:99
           Xvfb :99 -screen 0 1920x1080x24 > /dev/null 2>&1 &
 
-      - name: Run tests with stable session configuration
+      - name: Run tests
         run: |
           export DISPLAY=:99
 
           selenium-side-runner \
-            --server http://localhost:4444 \
-            --capabilities "browserName=chrome goog:chromeOptions.args=[--no-sandbox,--disable-dev-shm-usage,--disable-gpu,--disable-extensions,--disable-background-timer-throttling,--disable-backgrounding-occluded-windows,--disable-renderer-backgrounding,--window-size=1920,1080,--disable-web-security,--disable-features=TranslateUI] goog:chromeOptions.detach=false" \
+            --capabilities "browserName=chrome chromeOptions.args=[--no-sandbox,--disable-dev-shm-usage,--disable-gpu,--disable-extensions,--window-size=1920,1080,--headless]" \
             --base-url http://dex.localhost \
-            --timeout 60000 \
+            --timeout 30000 \
             --output-directory /tmp/selenium-logs \
-            --max-workers 1 \
             test/dexonline-test-suite.side || true
         env:
-          SELENIUM_PROMISE_MANAGER: 0
           CHROME_BIN: /usr/bin/google-chrome
 
       - name: Collect logs on failure

@@ -30,6 +30,21 @@ jobs:
           php-version: '7.4'
           extensions: intl, mysqli, pdo_mysql
 
+      - name: Install and configure Apache
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y apache2
+          sudo a2enmod rewrite
+
+          # Copy the custom Apache configuration from the specified location
+          sudo cp tools/docker/php/000-default.conf /etc/apache2/sites-available/000-default.conf
+
+          sudo service apache2 restart
+          sudo rm -rf /var/www/html
+          sudo ln -s $GITHUB_WORKSPACE /var/www/html
+          sudo chown -R www-data:www-data /var/www/html
+          sudo chmod -R 755 /var/www/html
+
       - name: Install dependencies
         run: |
           composer install --no-interaction --prefer-dist

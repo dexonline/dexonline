@@ -90,7 +90,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version: '21'
 
       - name: Check available selenium-side-runner versions and install
         run: |

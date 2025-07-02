@@ -57,11 +57,6 @@ jobs:
           chmod 666 /tmp/dexonline.log
           sed -i 's|const LOG_FILE = .*;|const LOG_FILE = "/tmp/dexonline.log";|' Config.php
 
-      - name: Setup test database
-        run: bash tools/docker/mysql/init.sh
-        env:
-          MYSQL_PWD: admin
-
       - name: Run setup script
         run: bash tools/setup.sh
         env:
@@ -79,10 +74,25 @@ jobs:
           wget https://github.com/SeleniumHQ/selenium/releases/download/selenium-4.8.0/selenium-server-4.8.0.jar -O selenium/selenium-server.jar
 
       - name: Start Selenium server
-        run: java -jar selenium/selenium-server.jar standalone &
+        run: |
+          # Create a unique user data directory for Chrome
+          mkdir -p /tmp/chrome-user-data
+
+          # Start Selenium server with specific Chrome options
+          java -jar selenium/selenium-server.jar standalone \
+            --port 4444 \
+            --selenium-manager true &
+
+          # Wait for the server to start
+          sleep 5
 
       - name: Install Selenium IDE Runner
         run: npm install -g selenium-side-runner
 
       - name: Run Selenium tests
-        run: selenium-side-runner -c "browserName=chrome" test/dexonline-test-suite.side
+        run: |
+          # Run Selenium tests with specific Chrome options
+          selenium-side-runner \
+            -c "browserName=chrome goog:chromeOptions.args=[--no-sandbox,--disable-dev-shm-usage,--headless,--disable-gpu,--user-data-dir=/tmp/chrome-user-data-$RANDOM]" \
+            --base-url http://localhost \
+            test/dexonline-test-suite.side

@@ -77,7 +77,7 @@ jobs:
         env:
           MYSQL_PWD: admin
 
-      #- name: Run PHP tests
+        #- name: Run PHP tests
         #run: vendor/bin/phpunit
 
       - name: Install Chrome for Selenium tests
@@ -93,21 +93,30 @@ jobs:
           # Create a unique user data directory for Chrome
           mkdir -p /tmp/chrome-user-data
 
-          # Start Selenium server with specific Chrome options
+          # Start Selenium server with specific Chrome options and debug
           java -jar selenium/selenium-server.jar standalone \
             --port 4444 \
-            --selenium-manager true &
+            --selenium-manager true \
+            --session-timeout 300 \
+            --log-level INFO &
 
-          # Wait for the server to start
-          sleep 5
+          # Wait for the server to start properly
+          sleep 10
+
+          # Check if Selenium is running
+          curl -s http://localhost:4444/status || echo "Selenium server not responding"
 
       - name: Install Selenium IDE Runner
         run: npm install -g selenium-side-runner
 
       - name: Run Selenium tests
         run: |
-          # Run Selenium tests with specific Chrome options
+          # Run Selenium tests with enhanced Chrome options
           selenium-side-runner \
-            -c "browserName=chrome goog:chromeOptions.args=[--no-sandbox,--disable-dev-shm-usage,--headless,--disable-gpu,--user-data-dir=/tmp/chrome-user-data-$RANDOM]" \
+            -c "browserName=chrome goog:chromeOptions.args=[--no-sandbox,--disable-dev-shm-usage,--headless=new,--disable-gpu,--window-size=1920,1080,--disable-extensions,--user-data-dir=/tmp/chrome-user-data-$RANDOM]" \
+            --output-directory=/tmp/selenium-results \
+            --timeout=30000 \
             --base-url http://localhost \
             test/dexonline-test-suite.side
+        env:
+          SELENIUM_PROMISE_MANAGER: false

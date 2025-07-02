@@ -22,7 +22,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
@@ -84,7 +84,7 @@ jobs:
           chrome-version: stable
 
       - name: Install Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '21'
 
@@ -100,7 +100,7 @@ jobs:
           Xvfb :99 -screen 0 1920x1080x24 > /dev/null 2>&1 &
 
       - name: Run tests
-        id: tests # Add an ID to reference this step's outcome
+        id: tests
         run: |
           export DISPLAY=:99
           selenium-side-runner \
@@ -123,17 +123,17 @@ jobs:
 
       - name: Upload screenshots and logs on failure
         if: failure()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: test-failure-artifacts
           path: |
             screenshot.png
             /tmp/selenium-logs/
             /tmp/dexonline.log
-          retention-days: 1
+          retention-days: 2
 
       - name: Collect logs
-        if: always() # This now just collects and prints logs for quick viewing
+        if: always()
         run: |
           echo "### Selenium Logs ###"
           find /tmp/selenium-logs -name "*.log" -exec cat {} \; || echo "No Selenium logs found"

@@ -112,7 +112,7 @@ jobs:
             --base-url http://dex.localhost \
             --timeout 30000 \
             --output-directory /tmp/selenium-logs \
-            test/dexonline-test-suite.side || true
+            test/esential.json
         env:
           CHROME_BIN: /usr/bin/google-chrome
 

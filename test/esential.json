@@ -1,0 +1,164 @@
+{
+  "id": "335079ed-3579-4207-8cfc-68ab2509c3f3",
+  "name": "dexonline-test-suite",
+  "url": "http://dex.localhost/",
+  "tests": [
+    {
+      "id": "homePage.htm",
+      "name": "homePage",
+      "commands": [
+        {
+          "id": "73ef4467-9767-4dbe-a4f2-46a68af5e5de",
+          "comment": "",
+          "command": "open",
+          "target": ".",
+          "targets": [],
+          "value": ""
+        },
+        {
+          "id": "da9fd4ac-3153-429a-9c6f-742056c9c34d",
+          "comment": "",
+          "command": "verifyElementPresent",
+          "target": "linkText=despre noi",
+          "targets": [
+            [
+              "linkText=despre noi",
+              "linkText"
+            ],
+            [
+              "css=.nav:nth-child(1) > .dropdown:nth-child(1) > .dropdown-toggle",
+              "css:finder"
+            ],
+            [
+              "css=a.dropdown-toggle",
+              "css"
+            ],
+            [
+              "xpath=//a[contains(text(),'despre noi')]",
+              "xpath:link"
+            ],
+            [
+              "xpath=//div[@id='navMenu']/ul/li/a",
+              "xpath:idRelative"
+            ],
+            [
+              "xpath=//a[contains(@href, '#')]",
+              "xpath:href"
+            ],
+            [
+              "xpath=//li/a",
+              "xpath:position"
+            ]
+          ],
+          "value": ""
+        },
+        {
+          "id": "9b6ee84e-d339-4d3e-a3b4-b290159aa4f0",
+          "comment": "",
+          "command": "verifyElementPresent",
+          "target": "linkText=implică-te",
+          "targets": [
+            [
+              "linkText=implică-te",
+              "linkText"
+            ],
+            [
+              "css=.nav:nth-child(1) > .dropdown:nth-child(2) > .dropdown-toggle",
+              "css:finder"
+            ],
+            [
+              "xpath=//a[contains(text(),'implică-te')]",
+              "xpath:link"
+            ],
+            [
+              "xpath=//div[@id='navMenu']/ul/li[2]/a",
+              "xpath:idRelative"
+            ],
+            [
+              "xpath=(//a[contains(@href, '#')])[2]",
+              "xpath:href"
+            ],
+            [
+              "xpath=//div[3]/ul/li[2]/a",
+              "xpath:position"
+            ]
+          ],
+          "value": ""
+        },
+        {
+          "id": "c1af77e2-ce20-4360-b26d-5e4af2c70c2b",
+          "comment": "",
+          "command": "verifyElementPresent",
+          "target": "linkText=resurse",
+          "targets": [
+            [
+              "linkText=resurse",
+              "linkText"
+            ],
+            [
+              "css=.dropdown:nth-child(3) > .dropdown-toggle",
+              "css:finder"
+            ],
+            [
+              "xpath=//a[contains(text(),'resurse')]",
+              "xpath:link"
+            ],
+            [
+              "xpath=//div[@id='navMenu']/ul/li[3]/a",
+              "xpath:idRelative"
+            ],
+            [
+              "xpath=(//a[contains(@href, '#')])[3]",
+              "xpath:href"
+            ],
+            [
+              "xpath=//div[3]/ul/li[3]/a",
+              "xpath:position"
+            ]
+          ],
+          "value": ""
+        },
+        {
+          "id": "d208ca88-5fce-4d5f-9608-7f15fe480d0c",
+          "comment": "",
+          "command": "verifyElementPresent",
+          "target": "name=cuv",
+          "targets": [],
+          "value": ""
+        },
+        {
+          "id": "0abd7b6c-53d1-4c52-9d85-f2584113ab52",
+          "comment": "",
+          "command": "verifyElementPresent",
+          "target": "id=searchButton",
+          "targets": [],
+          "value": ""
+        },
+        {
+          "id": "07ceac09-d335-41ab-b156-6f71f9f63d91",
+          "comment": "",
+          "command": "verifyText",
+          "target": "id=advancedAnchor",
+          "targets": [],
+          "value": "opțiuni"
+        }
+      ]
+    }
+  ],
+  "suites": [
+    {
+      "id": "8e569eef-5c5a-49f1-ae36-424b7372a393",
+      "name": "default suite",
+      "persistSession": true,
+      "parallel": false,
+      "timeout": 300,
+      "tests": [
+        "homePage.htm"
+      ]
+    }
+  ],
+  "urls": [
+    "http://dex.localhost/"
+  ],
+  "plugins": []
+}

@@ -18,7 +18,7 @@ jobs:
           MYSQL_DATABASE: dexonline_test
         ports:
           - 3306:3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+        options: --health-cmd="mysqladmin ping -h 127.0.0.1 -u root --password=admin" --health-interval=10s --health-timeout=5s --health-retries=3
 
     steps:
       - name: Checkout code
@@ -42,8 +42,18 @@ jobs:
           sed -i 's|const TEST_MODE = false;|const TEST_MODE = true;|' Config.php
           sed -i 's|const DEVELOPMENT_MODE = false;|const DEVELOPMENT_MODE = true;|' Config.php
 
+      - name: Setup MySQL credentials
+        run: |
+          echo "[client]
+          user=root
+          password=admin
+          host=127.0.0.1" > ~/.my.cnf
+          chmod 600 ~/.my.cnf
+
       - name: Setup test database
         run: php tools/resetTestingDatabase.php
+        env:
+          MYSQL_PWD: admin
 
       - name: Run PHP tests
         run: vendor/bin/phpunit

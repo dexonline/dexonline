@@ -102,6 +102,7 @@ jobs:
       - name: Install and Start Chromedriver
         run: |
           npm install -g chromedriver
+          # Force chromedriver to start on the default port 9515
           chromedriver --port=9515 &
           # Wait for chromedriver to be ready by polling its status endpoint
           while ! curl -s http://localhost:9515/status; do
@@ -116,7 +117,7 @@ jobs:
           export DISPLAY=:99
           selenium-side-runner \
             --server http://localhost:9515 \
-            --capabilities "browserName=chrome,goog:chromeOptions={args: ['--headless=new', '--no-sandbox', '--disable-dev-shm-usage', '--window-size=1920,1080']}" \
+            --capabilities "browserName=chrome goog:chromeOptions={args: ['--headless=new','--no-sandbox','--disable-dev-shm-usage','--window-size=1920,1080']}" \
             --base-url http://dex.localhost \
             --timeout 30000 \
             --output-directory /tmp/selenium-logs \
@@ -140,7 +141,7 @@ jobs:
             screenshot.png
             /tmp/selenium-logs/
             /tmp/dexonline.log
-          retention-days: 2
+          retention-days: 30
 
       - name: Collect logs
         if: always()

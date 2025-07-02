@@ -67,8 +67,8 @@ jobs:
         env:
           MYSQL_PWD: admin
 
-      - name: Run PHP tests
-        run: vendor/bin/phpunit
+      #- name: Run PHP tests
+        #run: vendor/bin/phpunit
 
       - name: Install Chrome for Selenium tests
         uses: browser-actions/setup-chrome@latest

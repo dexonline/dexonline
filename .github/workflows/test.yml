@@ -80,43 +80,42 @@ jobs:
         #- name: Run PHP tests
         #run: vendor/bin/phpunit
 
-      - name: Install Chrome for Selenium tests
+      # Use the reliable Chrome setup action
+      - name: Setup Chrome
         uses: browser-actions/setup-chrome@latest
+        with:
+          chrome-version: stable
 
-      - name: Install Selenium
-        run: |
-          mkdir -p selenium
-          wget https://github.com/SeleniumHQ/selenium/releases/download/selenium-4.8.0/selenium-server-4.8.0.jar -O selenium/selenium-server.jar
+      # Setup ChromeDriver that matches the Chrome version
+      - name: Setup ChromeDriver
+        uses: nanasess/setup-chromedriver@v2
 
-      - name: Start Selenium server
-        run: |
-          # Create a unique user data directory for Chrome
-          mkdir -p /tmp/chrome-user-data
-
-          # Start Selenium server with specific Chrome options and debug
-          java -jar selenium/selenium-server.jar standalone \
-            --port 4444 \
-            --selenium-manager true \
-            --session-timeout 300 \
-            --log-level INFO &
-
-          # Wait for the server to start properly
-          sleep 10
-
-          # Check if Selenium is running
-          curl -s http://localhost:4444/status || echo "Selenium server not responding"
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
 
       - name: Install Selenium IDE Runner
         run: npm install -g selenium-side-runner
 
+      - name: Start ChromeDriver
+        run: |
+          # Start ChromeDriver in the background
+          chromedriver --port=4444 --verbose --whitelisted-ips="" --url-base=/wd/hub &
+          # Wait for ChromeDriver to start
+          sleep 3
+          # Verify ChromeDriver is running
+          curl -s http://localhost:4444/status || echo "ChromeDriver not responding"
+
       - name: Run Selenium tests
         run: |
-          # Run Selenium tests with enhanced Chrome options
+          # Run the tests with proper configuration
           selenium-side-runner \
-            -c "browserName=chrome goog:chromeOptions.args=[--no-sandbox,--disable-dev-shm-usage,--headless=new,--disable-gpu,--window-size=1920,1080,--disable-extensions,--user-data-dir=/tmp/chrome-user-data-$RANDOM]" \
-            --output-directory=/tmp/selenium-results \
-            --timeout=30000 \
+            -c "browserName=chrome goog:chromeOptions.args=[--no-sandbox,--disable-dev-shm-usage,--headless=new,--disable-gpu,--window-size=1920,1080]" \
             --base-url http://localhost \
+            --timeout=60000 \
             test/dexonline-test-suite.side
         env:
           SELENIUM_PROMISE_MANAGER: false
+          # Debugging
+          DEBUG: selenium-side-runner:*

@@ -2,9 +2,9 @@ name: Run Tests
 
 on:
   push:
-    branches: [ main, master, automatic-selenium-tests ]
+    branches: [ main, master ]
   pull_request:
-    branches: [ main, master, automatic-selenium-tests ]
+    branches: [ "**" ]
 
 jobs:
   test:

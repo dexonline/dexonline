@@ -33,7 +33,7 @@ jobs:
       - name: Install and configure Apache
         run: |
           sudo apt-get update
-          sudo apt-get install -y apache2 x11-utils
+          sudo apt-get install -y apache2 x11-utils # x11-utils for xwd and xdpyinfo
           sudo a2enmod rewrite
           sudo cp tools/docker/php/000-default.conf /etc/apache2/sites-available/000-default.conf
           sudo service apache2 restart
@@ -139,8 +139,19 @@ jobs:
         run: |
           echo "Attempting to take screenshot..."
           export DISPLAY=:99
+
+          echo "1. Verifying screenshot tools are installed:"
+          which xwd || echo "xwd command not found"
+          which convert || echo "convert (imagemagick) command not found"
+
+          echo "2. Checking virtual display status:"
+          # xdpyinfo is in the x11-utils package
+          xdpyinfo -display :99 > /dev/null 2>&1 && echo "Display :99 is active." || echo "Display :99 is NOT active."
+
+          echo "3. Taking screenshot..."
           xwd -root -display :99 | convert xwd:- screenshot.png
-          echo "Verifying screenshot file was created:"
+
+          echo "4. Verifying screenshot file was created:"
           ls -l screenshot.png || echo "screenshot.png file was NOT created."
 
       - name: Upload screenshots and logs on failure

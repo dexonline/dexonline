@@ -88,7 +88,7 @@ jobs:
         with:
           node-version: '21'
 
-      - name: Check available selenium-side-runner versions and install
+      - name: Install Selenium Runner
         run: |
           npm install -g selenium-side-runner
           mkdir -p /tmp/selenium-logs
@@ -99,12 +99,19 @@ jobs:
           export DISPLAY=:99
           Xvfb :99 -screen 0 1920x1080x24 > /dev/null 2>&1 &
 
+      - name: Install and Start Chromedriver
+        run: |
+          npm install -g chromedriver
+          chromedriver &
+          sleep 5 # Give chromedriver time to start
+
       - name: Run tests
         id: tests
         run: |
           export DISPLAY=:99
           selenium-side-runner \
-            --capabilities "browserName=chrome,chromeOptions.args=[--no-sandbox,--disable-dev-shm-usage,--disable-gpu,--disable-extensions,--window-size=1920,1080,--headless=new]" \
+            --server http://localhost:9515 \
+            --capabilities "browserName=chrome,goog:chromeOptions={args: ['--headless=new', '--no-sandbox', '--disable-dev-shm-usage', '--window-size=1920,1080']}" \
             --base-url http://dex.localhost \
             --timeout 30000 \
             --output-directory /tmp/selenium-logs \
@@ -116,7 +123,6 @@ jobs:
         if: failure()
         run: |
           export DISPLAY=:99
-          # Use xwd to capture the screen and ImageMagick to convert it
           xwd -root -display :99 | convert xwd:- screenshot.png
           echo "Screenshot captured and saved as screenshot.png"
 

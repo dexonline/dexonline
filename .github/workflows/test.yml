@@ -35,6 +35,8 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y apache2
           sudo a2enmod rewrite
+          echo "ServerName localhost" | sudo tee /etc/apache2/conf-available/servername.conf
+          sudo a2enconf servername
           sudo cp tools/docker/php/000-default.conf /etc/apache2/sites-available/000-default.conf
           sudo rm -rf /var/www/html
           sudo ln -s $GITHUB_WORKSPACE /var/www/html
@@ -92,9 +94,9 @@ jobs:
           set -e
           # Start chromedriver in the background
           chromedriver --port=4444 --verbose --log-path=/tmp/chromedriver.log &
-          # Use start-server-and-test to wait for Apache and then run tests
-          start-server-and-test \
-            'sudo /usr/sbin/apache2ctl -D FOREGROUND' \
+          # Use sudo to run start-server-and-test to allow it to manage the sudo'd apache process
+          sudo start-server-and-test \
+            '/usr/sbin/apache2ctl -D FOREGROUND' \
             http-get://dex.localhost \
             'selenium-side-runner \
               --server http://localhost:4444 \

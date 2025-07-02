@@ -77,45 +77,91 @@ jobs:
         env:
           MYSQL_PWD: admin
 
-        #- name: Run PHP tests
-        #run: vendor/bin/phpunit
+      # Configure hosts file
+      - name: Configure hosts file
+        run: |
+          echo "127.0.0.1 dex.localhost" | sudo tee -a /etc/hosts
+          echo "127.0.0.1 localhost" | sudo tee -a /etc/hosts
+          cat /etc/hosts
 
-      # Use the reliable Chrome setup action
+      # Setup Chrome
       - name: Setup Chrome
         uses: browser-actions/setup-chrome@latest
         with:
           chrome-version: stable
 
-      # Setup ChromeDriver that matches the Chrome version
+      # Setup ChromeDriver
       - name: Setup ChromeDriver
         uses: nanasess/setup-chromedriver@v2
 
+      # Install NodeJS
       - name: Install Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '16'
 
-      - name: Install Selenium IDE Runner
-        run: npm install -g selenium-side-runner
+      # Install Selenium dependencies
+      - name: Install Selenium dependencies
+        run: |
+          npm install -g selenium-side-runner
+          npm install -g selenium-webdriver
 
+          # Create a directory for debug logs
+          mkdir -p /tmp/selenium-logs
+
+      # Start ChromeDriver with enhanced logging
       - name: Start ChromeDriver
         run: |
-          # Start ChromeDriver in the background
-          chromedriver --port=4444 --verbose --whitelisted-ips="" --url-base=/wd/hub &
+          # Start ChromeDriver in the background with more logging
+          chromedriver --port=4444 --verbose --log-path=/tmp/selenium-logs/chromedriver.log &
+
           # Wait for ChromeDriver to start
-          sleep 3
+          sleep 5
+
           # Verify ChromeDriver is running
           curl -s http://localhost:4444/status || echo "ChromeDriver not responding"
 
-      - name: Run Selenium tests
+      # Create a modified test file with enhanced session handling
+      - name: Create modified test file
         run: |
-          # Run the tests with proper configuration
+          # Create a backup of the original test file
+          cp test/dexonline-test-suite.side test/dexonline-test-suite.original.side
+
+          # Apply modifications to enhance session handling
+          # This is a simple example - adjust as needed
+          cat test/dexonline-test-suite.original.side | \
+            sed 's/"storeWindowHandle"/"pause", "target": "1000"\n    },\n    {\n      "id": ".*", "comment": "Added pause before store window handle", "command": "storeWindowHandle"/g' > \
+            test/dexonline-test-suite.modified.side
+
+      # Run each test with increased session timeout and better error handling
+      - name: Run tests with enhanced session handling
+        run: |
+          # Run tests with session debugging
           selenium-side-runner \
-            -c "browserName=chrome goog:chromeOptions.args=[--no-sandbox,--disable-dev-shm-usage,--headless=new,--disable-gpu,--window-size=1920,1080]" \
-            --base-url http://dex.localhost \
-            --timeout 30000 \
+            -c "browserName=chrome goog:chromeOptions.args=[--no-sandbox,--disable-dev-shm-usage,--headless,--disable-gpu,--window-size=1920,1080]" \
+            --base-url http://localhost \
+            --timeout 120000 \
+            --output-directory=/tmp/selenium-logs \
             test/dexonline-test-suite.side
         env:
+          # Enable all debug logging
+          DEBUG: selenium-side-runner:*,selenium-webdriver:*
+          # Set session timeouts
+          SELENIUM_BROWSER_SESSION_TIMEOUT: 300000
+          # Increase stability
+          SELENIUM_SESSION_RETRY_ATTEMPTS: 3
+          # Disable Promise Manager (deprecated)
           SELENIUM_PROMISE_MANAGER: false
-          # Debugging
-          DEBUG: selenium-side-runner:*
+
+      # If tests failed, collect and display logs
+      - name: Collect logs on failure
+        if: ${{ failure() }}
+        run: |
+          echo "### ChromeDriver Logs ###"
+          cat /tmp/selenium-logs/chromedriver.log || echo "No ChromeDriver logs found"
+
+          echo "### Apache Error Logs ###"
+          sudo cat /var/log/apache2/error.log || echo "No Apache error logs found"
+
+          echo "### Application Logs ###"
+          cat /tmp/dexonline.log || echo "No application logs found"

@@ -109,9 +109,10 @@ jobs:
           done
           echo "Chromedriver is ready."
 
-      - name: Run tests
-        id: tests
+      - name: Run tests and take screenshot on failure
+        if: always() # This step now controls the pass/fail logic itself
         run: |
+          # Create the config file first
           cat > .side.yml << EOL
           capabilities:
             browserName: "chrome"
@@ -123,35 +124,31 @@ jobs:
           server: "http://localhost:9515"
           EOL
 
+          # Disable "exit on error" so we can capture the exit code
+          set +e
           export DISPLAY=:99
+
+          # Run the tests
           selenium-side-runner \
             --config-file .side.yml \
             --base-url http://dex.localhost \
             --timeout 30000 \
             --output-directory /tmp/selenium-logs \
             test/esential.json
-        env:
-          CHROME_BIN: /usr/bin/google-chrome
 
-      - name: Screenshot on failure 📸
-        if: failure()
-        run: |
-          echo "Attempting to take screenshot..."
-          export DISPLAY=:99
+          # Capture the exit code
+          EXIT_CODE=$?
 
-          echo "1. Verifying screenshot tools are installed:"
-          which xwd || echo "xwd command not found"
-          which convert || echo "convert (imagemagick) command not found"
+          # Take screenshot ONLY if the tests failed
+          if [ $EXIT_CODE -ne 0 ]; then
+            echo "Tests failed. Taking screenshot..."
+            sudo apt-get update && sudo apt-get install -y x11-utils
+            xwd -root -display :99 | convert xwd:- screenshot.png
+            echo "Screenshot captured."
+          fi
 
-          echo "2. Checking virtual display status:"
-          # xdpyinfo is in the x11-utils package
-          xdpyinfo -display :99 > /dev/null 2>&1 && echo "Display :99 is active." || echo "Display :99 is NOT active."
-
-          echo "3. Taking screenshot..."
-          xwd -root -display :99 | convert xwd:- screenshot.png
-
-          echo "4. Verifying screenshot file was created:"
-          ls -l screenshot.png || echo "screenshot.png file was NOT created."
+          # Exit with the original exit code
+          exit $EXIT_CODE
 
       - name: Upload screenshots and logs on failure
         if: failure()

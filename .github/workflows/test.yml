@@ -102,7 +102,7 @@ jobs:
       - name: Install and Start Chromedriver
         run: |
           npm install -g chromedriver
-          chromedriver &
+          chromedriver --port=9515 &
           # Wait for chromedriver to be ready by polling its status endpoint
           while ! curl -s http://localhost:9515/status; do
             echo "Waiting for Chromedriver to be ready..."

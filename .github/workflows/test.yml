@@ -94,7 +94,7 @@ jobs:
 
       - name: Check available selenium-side-runner versions and install
         run: |
-          npm install -g selenium-side-runner@3.17.0
+          npm install -g selenium-side-runner
           mkdir -p /tmp/selenium-logs
 
       - name: Start Xvfb for display

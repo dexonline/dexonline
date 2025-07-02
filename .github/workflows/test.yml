@@ -35,16 +35,19 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y apache2
           sudo a2enmod rewrite
-          echo "ServerName localhost" | sudo tee /etc/apache2/conf-available/servername.conf
-          sudo a2enconf servername
+
+          # Copy the custom Apache configuration from the specified location
           sudo cp tools/docker/php/000-default.conf /etc/apache2/sites-available/000-default.conf
+
+          sudo service apache2 restart
           sudo rm -rf /var/www/html
           sudo ln -s $GITHUB_WORKSPACE /var/www/html
           sudo chown -R www-data:www-data /var/www/html
           sudo chmod -R 755 /var/www/html
 
       - name: Install dependencies
-        run: composer install --no-interaction --prefer-dist
+        run: |
+          composer install --no-interaction --prefer-dist
 
       - name: Create Config.php from sample
         run: |
@@ -54,7 +57,6 @@ jobs:
           sed -i 's|const TEST_MODE = false;|const TEST_MODE = true;|' Config.php
           sed -i 's|const DEVELOPMENT_MODE = false;|const DEVELOPMENT_MODE = true;|' Config.php
           sed -i 's|const URL_PREFIX = .*;|const URL_PREFIX = "/";|' Config.php
-          sed -i 's|const LOG_FILE = .*;|const LOG_FILE = "/tmp/dexonline.log";|' Config.php
 
       - name: Setup MySQL credentials
         run: |
@@ -68,6 +70,7 @@ jobs:
         run: |
           touch /tmp/dexonline.log
           chmod 666 /tmp/dexonline.log
+          sed -i 's|const LOG_FILE = .*;|const LOG_FILE = "/tmp/dexonline.log";|' Config.php
 
       - name: Run setup script
         run: bash tools/setup.sh
@@ -75,44 +78,52 @@ jobs:
           MYSQL_PWD: admin
 
       - name: Configure hosts file
-        run: echo "127.0.0.1 localhost dex.localhost" | sudo tee -a /etc/hosts
+        run: |
+          echo "127.0.0.1 dex.localhost" | sudo tee -a /etc/hosts
+          echo "127.0.0.1 localhost" | sudo tee -a /etc/hosts
 
       - name: Setup Chrome
         uses: browser-actions/setup-chrome@latest
+        with:
+          chrome-version: stable
 
-      - name: Setup ChromeDriver
-        uses: nanasess/setup-chromedriver@v2
-
-      - name: Install Node.js and test runner
+      - name: Install Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '16'
-      - run: npm install -g selenium-side-runner start-server-and-test
 
-      - name: Run Selenium Tests
+      - name: Install Selenium dependencies
         run: |
-          set -e
-          # Start chromedriver in the background
-          chromedriver --port=4444 --verbose --log-path=/tmp/chromedriver.log &
-          # Use sudo to run start-server-and-test to allow it to manage the sudo'd apache process
-          sudo start-server-and-test \
-            '/usr/sbin/apache2ctl -D FOREGROUND' \
-            http-get://dex.localhost \
-            'selenium-side-runner \
-              --server http://localhost:4444 \
-              -c "browserName=chrome goog:chromeOptions.args=[--headless,--no-sandbox,--disable-dev-shm-usage,--disable-gpu,--window-size=1920,1080]" \
-              --base-url http://dex.localhost \
-              --timeout 120000 \
-              --output-directory=/tmp/selenium-results \
-              test/dexonline-test-suite.side'
+          npm install -g selenium-side-runner@4.0.0-alpha.22
+          mkdir -p /tmp/selenium-logs
+
+      - name: Start Xvfb for display
+        run: |
+          sudo apt-get install -y xvfb
+          export DISPLAY=:99
+          Xvfb :99 -screen 0 1920x1080x24 > /dev/null 2>&1 &
+
+      - name: Run tests with stable session configuration
+        run: |
+          export DISPLAY=:99
+
+          selenium-side-runner \
+            --server http://localhost:4444 \
+            --capabilities "browserName=chrome goog:chromeOptions.args=[--no-sandbox,--disable-dev-shm-usage,--disable-gpu,--disable-extensions,--disable-background-timer-throttling,--disable-backgrounding-occluded-windows,--disable-renderer-backgrounding,--window-size=1920,1080,--disable-web-security,--disable-features=TranslateUI] goog:chromeOptions.detach=false" \
+            --base-url http://dex.localhost \
+            --timeout 60000 \
+            --output-directory /tmp/selenium-logs \
+            --max-workers 1 \
+            test/dexonline-test-suite.side || true
         env:
-          WAIT_ON_TIMEOUT: 60
+          SELENIUM_PROMISE_MANAGER: 0
+          CHROME_BIN: /usr/bin/google-chrome
 
       - name: Collect logs on failure
-        if: ${{ failure() }}
+        if: always()
         run: |
-          echo "### ChromeDriver Logs ###"
-          cat /tmp/chromedriver.log || echo "No ChromeDriver logs found"
+          echo "### Selenium Logs ###"
+          find /tmp/selenium-logs -name "*.log" -exec cat {} \; || echo "No Selenium logs found"
 
           echo "### Apache Error Logs ###"
           sudo cat /var/log/apache2/error.log || echo "No Apache error logs found"
@@ -120,5 +131,5 @@ jobs:
           echo "### Application Logs ###"
           cat /tmp/dexonline.log || echo "No application logs found"
 
-          echo "### Selenium Results ###"
-          cat /tmp/selenium-results/default_suite.json || echo "No Selenium result file found"
+          echo "### Chrome Process Status ###"
+          ps aux | grep chrome || echo "No Chrome processes found"

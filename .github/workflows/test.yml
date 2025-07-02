@@ -1,0 +1,66 @@
+name: Run Tests
+
+on:
+  push:
+    branches: [ main, master, automatic-selenium-tests ]
+  pull_request:
+    branches: [ main, master, automatic-selenium-tests ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_ROOT_PASSWORD: admin
+          MYSQL_DATABASE: dexonline_test
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+          extensions: intl, mysqli, pdo_mysql
+
+      - name: Install dependencies
+        run: |
+          composer install --no-interaction --prefer-dist
+
+      - name: Create Config.php from sample
+        run: |
+          cp Config.php.sample Config.php
+          sed -i 's|const DATABASE = .*;|const DATABASE = "mysql://root:admin@127.0.0.1/dexonline_test";|' Config.php
+          sed -i 's|const TEST_DATABASE = .*;|const TEST_DATABASE = "mysql://root:admin@127.0.0.1/dexonline_test";|' Config.php
+          sed -i 's|const TEST_MODE = false;|const TEST_MODE = true;|' Config.php
+          sed -i 's|const DEVELOPMENT_MODE = false;|const DEVELOPMENT_MODE = true;|' Config.php
+
+      - name: Setup test database
+        run: php tools/resetTestingDatabase.php
+
+      - name: Run PHP tests
+        run: vendor/bin/phpunit
+
+      - name: Install Chrome for Selenium tests
+        uses: browser-actions/setup-chrome@latest
+
+      - name: Install Selenium
+        run: |
+          mkdir -p selenium
+          wget https://github.com/SeleniumHQ/selenium/releases/download/selenium-4.8.0/selenium-server-4.8.0.jar -O selenium/selenium-server.jar
+
+      - name: Start Selenium server
+        run: java -jar selenium/selenium-server.jar standalone &
+
+      - name: Install Selenium IDE Runner
+        run: npm install -g selenium-side-runner
+
+      - name: Run Selenium tests
+        run: selenium-side-runner -c "browserName=chrome" test/dexonline-test-suite.side

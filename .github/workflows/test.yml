@@ -41,6 +41,7 @@ jobs:
           sed -i 's|const TEST_DATABASE = .*;|const TEST_DATABASE = "mysql://root:admin@127.0.0.1/dexonline_test";|' Config.php
           sed -i 's|const TEST_MODE = false;|const TEST_MODE = true;|' Config.php
           sed -i 's|const DEVELOPMENT_MODE = false;|const DEVELOPMENT_MODE = true;|' Config.php
+          sed -i 's|const URL_PREFIX = .*;|const URL_PREFIX = "/";|' Config.php
 
       - name: Setup MySQL credentials
         run: |
@@ -49,6 +50,17 @@ jobs:
           password=admin
           host=127.0.0.1" > ~/.my.cnf
           chmod 600 ~/.my.cnf
+
+      - name: Create log file
+        run: |
+          touch /tmp/dexonline.log
+          chmod 666 /tmp/dexonline.log
+          sed -i 's|const LOG_FILE = .*;|const LOG_FILE = "/tmp/dexonline.log";|' Config.php
+
+      - name: Run setup script
+        run: bash tools/setup.sh
+        env:
+          MYSQL_PWD: admin
 
       - name: Setup test database
         run: php tools/resetTestingDatabase.php

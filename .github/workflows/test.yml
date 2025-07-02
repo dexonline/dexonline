@@ -112,8 +112,8 @@ jobs:
           # Run the tests with proper configuration
           selenium-side-runner \
             -c "browserName=chrome goog:chromeOptions.args=[--no-sandbox,--disable-dev-shm-usage,--headless=new,--disable-gpu,--window-size=1920,1080]" \
-            --base-url http://localhost \
-            --timeout=60000 \
+            --base-url http://dex.localhost \
+            --timeout 30000 \
             test/dexonline-test-suite.side
         env:
           SELENIUM_PROMISE_MANAGER: false

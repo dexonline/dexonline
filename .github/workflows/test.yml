@@ -40,8 +40,6 @@ jobs:
           sudo ln -s $GITHUB_WORKSPACE /var/www/html
           sudo chown -R www-data:www-data /var/www/html
           sudo chmod -R 755 /var/www/html
-          # Start Apache in the background
-          sudo /usr/sbin/apache2ctl -D FOREGROUND &
 
       - name: Install dependencies
         run: composer install --no-interaction --prefer-dist
@@ -92,9 +90,12 @@ jobs:
       - name: Run Selenium Tests
         run: |
           set -e
+          # Start chromedriver in the background
+          chromedriver --port=4444 --verbose --log-path=/tmp/chromedriver.log &
+          # Use start-server-and-test to wait for Apache and then run tests
           start-server-and-test \
-            'chromedriver --port=4444 --verbose --log-path=/tmp/chromedriver.log' \
-            http-get://localhost:4444/status \
+            'sudo /usr/sbin/apache2ctl -D FOREGROUND' \
+            http-get://dex.localhost \
             'selenium-side-runner \
               --server http://localhost:4444 \
               -c "browserName=chrome goog:chromeOptions.args=[--headless,--no-sandbox,--disable-dev-shm-usage,--disable-gpu,--window-size=1920,1080]" \
@@ -103,8 +104,6 @@ jobs:
               --output-directory=/tmp/selenium-results \
               test/dexonline-test-suite.side'
         env:
-          # This environment variable is used by start-server-and-test
-          # It sets the timeout for waiting for the server to start (in seconds)
           WAIT_ON_TIMEOUT: 60
 
       - name: Collect logs on failure
@@ -120,5 +119,4 @@ jobs:
           cat /tmp/dexonline.log || echo "No application logs found"
 
           echo "### Selenium Results ###"
-          # The output file is often named after the suite
           cat /tmp/selenium-results/default_suite.json || echo "No Selenium result file found"

@@ -35,10 +35,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y apache2
           sudo a2enmod rewrite
-
-          # Copy the custom Apache configuration from the specified location
           sudo cp tools/docker/php/000-default.conf /etc/apache2/sites-available/000-default.conf
-
           sudo service apache2 restart
           sudo rm -rf /var/www/html
           sudo ln -s $GITHUB_WORKSPACE /var/www/html
@@ -46,8 +43,7 @@ jobs:
           sudo chmod -R 755 /var/www/html
 
       - name: Install dependencies
-        run: |
-          composer install --no-interaction --prefer-dist
+        run: composer install --no-interaction --prefer-dist
 
       - name: Create Config.php from sample
         run: |
@@ -99,34 +95,51 @@ jobs:
 
       - name: Start Xvfb for display
         run: |
-          sudo apt-get install -y xvfb
+          sudo apt-get install -y xvfb imagemagick
           export DISPLAY=:99
           Xvfb :99 -screen 0 1920x1080x24 > /dev/null 2>&1 &
 
       - name: Run tests
+        id: tests # Add an ID to reference this step's outcome
         run: |
           export DISPLAY=:99
-
           selenium-side-runner \
-            --capabilities "browserName=chrome chromeOptions.args=[--no-sandbox,--disable-dev-shm-usage,--disable-gpu,--disable-extensions,--window-size=1920,1080,--headless]" \
+            --capabilities "browserName=chrome,chromeOptions.args=[--no-sandbox,--disable-dev-shm-usage,--disable-gpu,--disable-extensions,--window-size=1920,1080,--headless=new]" \
             --base-url http://dex.localhost \
             --timeout 30000 \
             --output-directory /tmp/selenium-logs \
+            --output-format=junit \
             test/esential.json
         env:
           CHROME_BIN: /usr/bin/google-chrome
 
-      - name: Collect logs on failure
-        if: always()
+      - name: Screenshot on failure 📸
+        if: failure()
+        run: |
+          export DISPLAY=:99
+          # Use xwd to capture the screen and ImageMagick to convert it
+          xwd -root -display :99 | convert xwd:- screenshot.png
+          echo "Screenshot captured and saved as screenshot.png"
+
+      - name: Upload screenshots and logs on failure
+        if: failure()
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-failure-artifacts
+          path: |
+            screenshot.png
+            /tmp/selenium-logs/
+            /tmp/dexonline.log
+          retention-days: 1
+
+      - name: Collect logs
+        if: always() # This now just collects and prints logs for quick viewing
         run: |
           echo "### Selenium Logs ###"
           find /tmp/selenium-logs -name "*.log" -exec cat {} \; || echo "No Selenium logs found"
-
           echo "### Apache Error Logs ###"
           sudo cat /var/log/apache2/error.log || echo "No Apache error logs found"
-
           echo "### Application Logs ###"
           cat /tmp/dexonline.log || echo "No application logs found"
-
           echo "### Chrome Process Status ###"
           ps aux | grep chrome || echo "No Chrome processes found"

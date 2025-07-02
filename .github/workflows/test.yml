@@ -35,19 +35,16 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y apache2
           sudo a2enmod rewrite
-
-          # Copy the custom Apache configuration from the specified location
           sudo cp tools/docker/php/000-default.conf /etc/apache2/sites-available/000-default.conf
-
-          sudo service apache2 restart
           sudo rm -rf /var/www/html
           sudo ln -s $GITHUB_WORKSPACE /var/www/html
           sudo chown -R www-data:www-data /var/www/html
           sudo chmod -R 755 /var/www/html
+          # Start Apache in the background
+          sudo /usr/sbin/apache2ctl -D FOREGROUND &
 
       - name: Install dependencies
-        run: |
-          composer install --no-interaction --prefer-dist
+        run: composer install --no-interaction --prefer-dist
 
       - name: Create Config.php from sample
         run: |
@@ -57,6 +54,7 @@ jobs:
           sed -i 's|const TEST_MODE = false;|const TEST_MODE = true;|' Config.php
           sed -i 's|const DEVELOPMENT_MODE = false;|const DEVELOPMENT_MODE = true;|' Config.php
           sed -i 's|const URL_PREFIX = .*;|const URL_PREFIX = "/";|' Config.php
+          sed -i 's|const LOG_FILE = .*;|const LOG_FILE = "/tmp/dexonline.log";|' Config.php
 
       - name: Setup MySQL credentials
         run: |
@@ -70,98 +68,57 @@ jobs:
         run: |
           touch /tmp/dexonline.log
           chmod 666 /tmp/dexonline.log
-          sed -i 's|const LOG_FILE = .*;|const LOG_FILE = "/tmp/dexonline.log";|' Config.php
 
       - name: Run setup script
         run: bash tools/setup.sh
         env:
           MYSQL_PWD: admin
 
-      # Configure hosts file
       - name: Configure hosts file
-        run: |
-          echo "127.0.0.1 dex.localhost" | sudo tee -a /etc/hosts
-          echo "127.0.0.1 localhost" | sudo tee -a /etc/hosts
-          cat /etc/hosts
+        run: echo "127.0.0.1 localhost dex.localhost" | sudo tee -a /etc/hosts
 
-      # Setup Chrome
       - name: Setup Chrome
         uses: browser-actions/setup-chrome@latest
-        with:
-          chrome-version: stable
 
-      # Setup ChromeDriver
       - name: Setup ChromeDriver
         uses: nanasess/setup-chromedriver@v2
 
-      # Install NodeJS
-      - name: Install Node.js
+      - name: Install Node.js and test runner
         uses: actions/setup-node@v3
         with:
           node-version: '16'
+      - run: npm install -g selenium-side-runner start-server-and-test
 
-      # Install Selenium dependencies
-      - name: Install Selenium dependencies
+      - name: Run Selenium Tests
         run: |
-          npm install -g selenium-side-runner
-          npm install -g selenium-webdriver
-
-          # Create a directory for debug logs
-          mkdir -p /tmp/selenium-logs
-
-      # Start ChromeDriver with enhanced logging
-      - name: Start ChromeDriver
-        run: |
-          # Start ChromeDriver in the background with more logging
-          chromedriver --port=4444 --verbose --log-path=/tmp/selenium-logs/chromedriver.log &
-
-          # Wait for ChromeDriver to start
-          sleep 5
-
-          # Verify ChromeDriver is running
-          curl -s http://localhost:4444/status || echo "ChromeDriver not responding"
-
-      # Create a modified test file with enhanced session handling
-      - name: Create modified test file
-        run: |
-          # Create a backup of the original test file
-          cp test/dexonline-test-suite.side test/dexonline-test-suite.original.side
-
-          # Apply modifications to enhance session handling
-          # This is a simple example - adjust as needed
-          cat test/dexonline-test-suite.original.side | \
-            sed 's/"storeWindowHandle"/"pause", "target": "1000"\n    },\n    {\n      "id": ".*", "comment": "Added pause before store window handle", "command": "storeWindowHandle"/g' > \
-            test/dexonline-test-suite.modified.side
-
-      # Run each test with increased session timeout and better error handling
-      - name: Run tests with enhanced session handling
-        run: |
-          # Run tests with session debugging
-          selenium-side-runner \
-            -c "browserName=chrome goog:chromeOptions.args=[--no-sandbox,--disable-dev-shm-usage,--headless,--disable-gpu,--window-size=1920,1080]" \
-            --base-url http://localhost \
-            --timeout 120000 \
-            --output-directory=/tmp/selenium-logs \
-            test/dexonline-test-suite.side
+          start-server-and-test \
+            'chromedriver --port=4444 --verbose --log-path=/tmp/chromedriver.log' \
+            http-get://localhost:4444/status \
+            'selenium-side-runner \
+              --server http://localhost:4444 \
+              -c "browserName=chrome goog:chromeOptions.args=[--headless,--no-sandbox,--disable-dev-shm-usage,--disable-gpu,--window-size=1920,1080]" \
+              --base-url http://dex.localhost \
+              --timeout 120000 \
+              --fail-first \
+              --output-directory=/tmp/selenium-results \
+              test/dexonline-test-suite.side'
         env:
-          # Enable all debug logging
-          DEBUG: selenium-side-runner:*,selenium-webdriver:*
-          # Set session timeouts
-          SELENIUM_BROWSER_SESSION_TIMEOUT: 300000
-          # Increase stability
-          SELENIUM_SESSION_RETRY_ATTEMPTS: 3
-          # Disable Promise Manager (deprecated)
-          SELENIUM_PROMISE_MANAGER: false
+          # This environment variable is used by start-server-and-test
+          # It sets the timeout for waiting for the server to start (in seconds)
+          WAIT_ON_TIMEOUT: 60
 
-      # If tests failed, collect and display logs
       - name: Collect logs on failure
         if: ${{ failure() }}
         run: |
           echo "### ChromeDriver Logs ###"
-          cat /tmp/selenium-logs/chromedriver.log || echo "No ChromeDriver logs found"
+          cat /tmp/chromedriver.log || echo "No ChromeDriver logs found"
 
           echo "### Apache Error Logs ###"
           sudo cat /var/log/apache2/error.log || echo "No Apache error logs found"
 
           echo "### Application Logs ###"
           cat /tmp/dexonline.log || echo "No application logs found"
+
+          echo "### Selenium Results ###"
+          # The output file is often named after the suite
+          cat /tmp/selenium-results/default_suite.json || echo "No Selenium result file found"

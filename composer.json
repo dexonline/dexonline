@@ -1,0 +1,6 @@
+{
+    "name": "dexonline/dexonline",
+    "require": {
+        "php": ">=7.4"
+    }
+}

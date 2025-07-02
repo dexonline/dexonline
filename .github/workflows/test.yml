@@ -91,6 +91,7 @@ jobs:
 
       - name: Run Selenium Tests
         run: |
+          set -e
           start-server-and-test \
             'chromedriver --port=4444 --verbose --log-path=/tmp/chromedriver.log' \
             http-get://localhost:4444/status \
@@ -99,7 +100,6 @@ jobs:
               -c "browserName=chrome goog:chromeOptions.args=[--headless,--no-sandbox,--disable-dev-shm-usage,--disable-gpu,--window-size=1920,1080]" \
               --base-url http://dex.localhost \
               --timeout 120000 \
-              --fail-first \
               --output-directory=/tmp/selenium-results \
               test/dexonline-test-suite.side'
         env:

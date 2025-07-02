@@ -121,6 +121,7 @@ jobs:
                 - "--no-sandbox"
                 - "--disable-dev-shm-usage"
                 - "--window-size=1920,1080"
+                - "--disable-gpu"
           server: "http://localhost:9515"
           EOL
 

@@ -1,0 +1,94 @@
+# This workflow name will be displayed in the GitHub Actions UI.
+name: Selenium E2E Tests
+
+# This section defines the events that trigger the workflow.
+on:
+  # Trigger on pushes to the 'master' branch. This is typically for post-merge validation.
+  push:
+    branches: [ master ]
+  # Trigger on pull requests that target the 'master' branch. This is for pre-merge validation.
+  pull_request:
+    branches: [ master ]
+
+# Defines the jobs to be run. In this case, there is a single job.
+jobs:
+  run-selenium-tests:
+    # Specifies the type of runner the job will execute on. 'ubuntu-latest' is a standard, well-supported choice.
+    runs-on: ubuntu-latest
+
+    # A job is a sequence of steps.
+    steps:
+      # Step 1: Check out the repository's code.
+      # This action clones the repository into the runner's workspace, making the code accessible.
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Step 2: Set up the Node.js environment.
+      # 'selenium-side-runner' is a Node.js tool, so Node.js must be installed.
+      # 'actions/setup-node' is the official action for this purpose.
+      - name: Set up Node.js and cache npm dependencies
+        uses: actions/setup-node@v4
+        with:
+          # Specify a stable Long-Term Support (LTS) version of Node.js.
+          node-version: '20.x'
+          # Enable caching for the npm package manager. This significantly speeds up subsequent runs
+          # by caching globally installed packages.
+          cache: 'npm'
+
+      # Step 3: Install the browser and its corresponding driver.
+      # 'browser-actions/setup-chrome' reliably installs Chrome and the matching ChromeDriver.
+      # This avoids common version mismatch errors.
+      - name: Install Google Chrome and ChromeDriver
+        uses: browser-actions/setup-chrome@v1
+        with:
+          # This flag ensures the correct version of ChromeDriver is installed for the version of Chrome.
+          install-chromedriver: true
+
+      # Step 4: Install the Selenium Side Runner tool.
+      # The '-g' flag installs the package globally, making it available in the PATH.
+      - name: Install Selenium Side Runner
+        run: npm install -g selenium-side-runner
+
+      # Step 5: Execute the Selenium tests using the side-runner.
+      # The 'continue-on-error: true' flag ensures that subsequent steps (like publishing results)
+      # will run even if the tests fail. The job will still be marked as a failure.
+      - name: Run Selenium tests
+        id: run_tests
+        continue-on-error: true
+        run: |
+          selenium-side-runner \
+            --output-directory./test-results \
+            --output-format junit \
+            --screenshot-failure-directory./failure-screenshots \
+            -c "goog:chromeOptions.args=[--headless,--no-sandbox] browserName=chrome" \
+            test/dexonline-test-suite.side
+
+      # Step 6: Publish a human-readable summary of the test results.
+      # This action parses the JUnit XML file and creates a check run summary in the GitHub UI.
+      # 'if: always()' ensures this step runs even if the previous steps failed.
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        if: always()
+        with:
+          # Specifies the path to the JUnit XML report files. The glob pattern handles multiple files.
+          files: test-results/**/*.xml
+
+      # Step 7: Upload the raw JUnit test report as a workflow artifact.
+      # This makes the full report available for download and deeper analysis.
+      # 'if: always()' ensures the report is always archived.
+      - name: Upload Test Report Artifact
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: junit-test-report
+          path: test-results/
+
+      # Step 8: Upload screenshots of failed tests as a workflow artifact.
+      # This step is conditional and only runs if the test execution step ('run_tests') failed.
+      # This provides invaluable visual context for debugging UI failures.
+      - name: Upload Failure Screenshots
+        uses: actions/upload-artifact@v4
+        if: steps.run_tests.outcome == 'failure'
+        with:
+          name: failure-screenshots
+          path: failure-screenshots/

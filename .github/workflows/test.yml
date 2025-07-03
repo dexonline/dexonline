@@ -1,4 +1,4 @@
-name: Run Tests with Pytest
+name: Run Tests
 
 on:
   push:
@@ -24,14 +24,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.9'
-
-      - name: Install Python Dependencies
-        run: pip install selenium pytest pytest-base-url
-
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
@@ -41,12 +33,14 @@ jobs:
       - name: Install and configure Apache
         run: |
           sudo apt-get update
-          sudo apt-get install -y apache2
+          sudo apt-get install -y apache2 x11-utils x11-apps
           sudo a2enmod rewrite
           sudo cp tools/docker/php/000-default.conf /etc/apache2/sites-available/000-default.conf
           sudo service apache2 restart
           sudo rm -rf /var/www/html
           sudo ln -s $GITHUB_WORKSPACE /var/www/html
+          sudo chown -R www-data:www-data /var/www/html
+          sudo chmod -R 755 /var/www/html
 
       - name: Install dependencies
         run: composer install --no-interaction --prefer-dist
@@ -68,13 +62,11 @@ jobs:
           host=127.0.0.1" > ~/.my.cnf
           chmod 600 ~/.my.cnf
 
-      - name: Create log file and set permissions
+      - name: Create log file
         run: |
           touch /tmp/dexonline.log
           chmod 666 /tmp/dexonline.log
           sed -i 's|const LOG_FILE = .*;|const LOG_FILE = "/tmp/dexonline.log";|' Config.php
-          sudo chown -R $USER:www-data $GITHUB_WORKSPACE
-          sudo chmod -R g+w $GITHUB_WORKSPACE
 
       - name: Run setup script
         run: bash tools/setup.sh
@@ -84,48 +76,100 @@ jobs:
       - name: Configure hosts file
         run: |
           echo "127.0.0.1 dex.localhost" | sudo tee -a /etc/hosts
+          echo "127.0.0.1 localhost" | sudo tee -a /etc/hosts
 
-      - name: Setup Chrome Browser
-        id: setup-chrome
-        uses: browser-actions/setup-chrome@v1
+      - name: Setup Chrome
+        uses: browser-actions/setup-chrome@latest
         with:
-          chrome-version: 120
-          install-chromedriver: true
-          install-dependencies: true
+          chrome-version: stable
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '21'
 
       - name: Install Selenium Runner
-        run: npm install -g selenium-side-runner
-
-      - name: Start Matching Chromedriver
         run: |
-          echo "Starting Chromedriver from path: ${{ steps.setup-chrome.outputs.chromedriver-path }}"
-          ${{ steps.setup-chrome.outputs.chromedriver-path }} --port=4444 > chromedriver.log 2>&1 &
-          while ! curl -s http://localhost:4444/status; do
-            echo "Waiting for Chromedriver..."
+          npm install -g selenium-side-runner
+          mkdir -p /tmp/selenium-logs
+
+      - name: Start Xvfb for display
+        run: |
+          sudo apt-get install -y xvfb imagemagick
+          export DISPLAY=:99
+          Xvfb :99 -screen 0 1920x1080x24 > /dev/null 2>&1 &
+
+      - name: Install and Start Chromedriver
+        run: |
+          npm install -g chromedriver@137
+          chromedriver --port=9515 &
+          while ! curl -s http://localhost:9515/status; do
+            echo "Waiting for Chromedriver to be ready..."
             sleep 1
           done
           echo "Chromedriver is ready."
 
-      - name: Run Pytest Tests
-        run: pytest test/test_homePage.py --base-url http://dex.localhost
+      - name: Run tests and take screenshot on failure
+        if: always() # This step now controls the pass/fail logic itself
+        run: |
+          # Create the config file first
+          cat > .side.yml << EOL
+          capabilities:
+            browserName: "chrome"
+            "goog:chromeOptions":
+              args:
+                - "--no-sandbox"
+                - "--disable-dev-shm-usage"
+                - "--window-size=1920,1080"
+                - "--disable-gpu"
+          server: "http://localhost:9515"
+          EOL
 
-      - name: Upload Artifacts on Failure
+          # Disable "exit on error" so we can capture the exit code
+          set +e
+          export DISPLAY=:99
+
+          # Run the tests
+          selenium-side-runner \
+            --config-file .side.yml \
+            --base-url http://dex.localhost \
+            --timeout 30000 \
+            --output-directory /tmp/selenium-logs \
+            test/esential.json
+
+          # Capture the exit code
+          EXIT_CODE=$?
+
+          # Take screenshot ONLY if the tests failed
+          if [ $EXIT_CODE -ne 0 ]; then
+            echo "Tests failed. Taking screenshot..."
+            sudo apt-get update && sudo apt-get install -y x11-utils
+            xwd -root -display :99 | convert xwd:- screenshot.png
+            echo "Screenshot captured."
+          fi
+
+          # Exit with the original exit code
+          exit $EXIT_CODE
+
+      - name: Upload screenshots and logs on failure
         if: failure()
         uses: actions/upload-artifact@v4
         with:
           name: test-failure-artifacts
           path: |
-            *.png
-            chromedriver.log
+            screenshot.png
+            /tmp/selenium-logs/
             /tmp/dexonline.log
           retention-days: 30
 
-      - name: Collect Logs on Completion
+      - name: Collect logs
         if: always()
         run: |
-          echo "### Chromedriver Log ###"
-          cat chromedriver.log || echo "No Chromedriver log found"
+          echo "### Selenium Logs ###"
+          find /tmp/selenium-logs -name "*.log" -exec cat {} \; || echo "No Selenium logs found"
           echo "### Apache Error Logs ###"
           sudo cat /var/log/apache2/error.log || echo "No Apache error logs found"
           echo "### Application Logs ###"
           cat /tmp/dexonline.log || echo "No application logs found"
+          echo "### Chrome Process Status ###"
+          ps aux | grep chrome || echo "No Chrome processes found"

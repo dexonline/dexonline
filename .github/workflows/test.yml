@@ -30,7 +30,7 @@ jobs:
           python-version: '3.9'
 
       - name: Install Python Dependencies
-        run: pip install selenium pytest
+        run: pip install selenium pytest pytest-base-url
 
       - name: Set up PHP
         uses: shivammathur/setup-php@v2

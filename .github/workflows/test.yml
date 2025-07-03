@@ -126,7 +126,6 @@ jobs:
               args:
                 - "--no-sandbox"
                 - "--disable-dev-shm-usage"
-                - "--headless"
                 - "--window-size=1920,1080"
           server: "http://localhost:9515"
           EOL

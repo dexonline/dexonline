@@ -80,23 +80,24 @@ jobs:
         run: |
           echo "127.0.0.1 dex.localhost" | sudo tee -a /etc/hosts
 
+      # CORRECT ORDER: Install Node.js first...
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '21'
+
+      # ...then setup Chrome, which depends on Node.js
       - name: Setup Chrome Browser
         id: setup-chrome
         uses: browser-actions/setup-chrome@latest
         with:
           chrome-version: stable
 
-      - name: Install Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '21'
-
       - name: Install Selenium Runner
         run: npm install -g selenium-side-runner
 
       - name: Start Xvfb (Virtual Display)
         run: |
-          # Install all tools needed for the virtual display and screenshots
           sudo apt-get update && sudo apt-get install -y xvfb imagemagick x11-utils
           Xvfb :99 -screen 0 1920x1080x24 > /dev/null 2>&1 &
 
@@ -105,12 +106,8 @@ jobs:
           echo "Chromedriver path: ${{ steps.setup-chrome.outputs.chrome-driver }}"
           echo "Checking permissions:"
           ls -l "${{ steps.setup-chrome.outputs.chrome-driver }}"
-
           echo "Starting Chromedriver and logging to chromedriver.log..."
-          # Redirect all output from chromedriver to a log file
           ${{ steps.setup-chrome.outputs.chrome-driver }} --port=9515 > chromedriver.log 2>&1 &
-
-          # Wait for Chromedriver to be ready
           while ! curl -s http://localhost:9515/status; do
             echo "Waiting for Chromedriver..."
             sleep 1
@@ -119,7 +116,6 @@ jobs:
 
       - name: Run Selenium Tests
         run: |
-          # Create the config file for the runner
           cat > .side.yml << EOL
           capabilities:
             browserName: "chrome"
@@ -131,30 +127,20 @@ jobs:
                 - "--window-size=1920,1080"
           server: "http://localhost:9515"
           EOL
-
-          # Don't exit the script if tests fail, so we can take a screenshot
           set +e
           export DISPLAY=:99
-
-          # Run the tests
           selenium-side-runner \
             --config-file .side.yml \
             --base-url http://dex.localhost \
             --timeout 30000 \
             --output-directory /tmp/selenium-logs \
             test/esential.json
-
-          # Capture the exit code from the test runner
           EXIT_CODE=$?
-
-          # Take a screenshot ONLY if the tests failed
           if [ $EXIT_CODE -ne 0 ]; then
             echo "Tests failed with exit code $EXIT_CODE. Capturing screenshot..."
             xwd -root -display :99 | convert xwd:- screenshot.png
             echo "Screenshot saved as screenshot.png"
           fi
-
-          # Exit with the original exit code to mark the job as failed or passed
           exit $EXIT_CODE
 
       - name: Upload Artifacts on Failure
@@ -164,6 +150,7 @@ jobs:
           name: test-failure-artifacts
           path: |
             screenshot.png
+            chromedriver.log
             /tmp/selenium-logs/
             /tmp/dexonline.log
           retention-days: 30
@@ -171,6 +158,8 @@ jobs:
       - name: Collect Logs on Completion
         if: always()
         run: |
+          echo "### Chromedriver Log ###"
+          cat chromedriver.log || echo "No Chromedriver log found"
           echo "### Selenium Logs ###"
           find /tmp/selenium-logs -name "*.log" -exec cat {} \; || echo "No Selenium logs found"
           echo "### Apache Error Logs ###"

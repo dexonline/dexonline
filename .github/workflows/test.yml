@@ -89,30 +89,33 @@ jobs:
       # ...then setup Chrome, which depends on Node.js
       - name: Setup Chrome Browser
         id: setup-chrome
-        uses: browser-actions/setup-chrome@latest
+        uses: browser-actions/setup-chrome@v1
         with:
-          chrome-version: stable
+          chrome-version: 120
+          install-chromedriver: true
+          install-dependencies: true
 
       - name: Install Selenium Runner
         run: npm install -g selenium-side-runner
 
-      - name: Start Xvfb (Virtual Display)
-        run: |
-          sudo apt-get update && sudo apt-get install -y xvfb imagemagick x11-utils
-          Xvfb :99 -screen 0 1920x1080x24 > /dev/null 2>&1 &
-
       - name: Start Matching Chromedriver
         run: |
-          echo "Chromedriver path: ${{ steps.setup-chrome.outputs.chrome-driver }}"
+          ${{ steps.setup-chrome.outputs.chrome-path }} --version
+          echo "Chromedriver path: ${{ steps.setup-chrome.outputs.chromedriver-path }}"
           echo "Checking permissions:"
-          ls -l "${{ steps.setup-chrome.outputs.chrome-driver }}"
+          ls -l "${{ steps.setup-chrome.outputs.chromedriver-path }}"
           echo "Starting Chromedriver and logging to chromedriver.log..."
-          ${{ steps.setup-chrome.outputs.chrome-driver }} --port=9515 > chromedriver.log 2>&1 &
+          ${{ steps.setup-chrome.outputs.chromedriver-path }} --port=9515 > chromedriver.log 2>&1 &
           while ! curl -s http://localhost:9515/status; do
             echo "Waiting for Chromedriver..."
             sleep 1
           done
           echo "Chromedriver is ready."
+
+      - name: Start Xvfb (Virtual Display)
+        run: |
+          sudo apt-get update && sudo apt-get install -y xvfb imagemagick x11-utils
+          Xvfb :99 -screen 0 1920x1080x24 > /dev/null 2>&1 &
 
       - name: Run Selenium Tests
         run: |

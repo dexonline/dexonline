@@ -33,14 +33,12 @@ jobs:
       - name: Install and configure Apache
         run: |
           sudo apt-get update
-          sudo apt-get install -y apache2 x11-utils x11-apps
+          sudo apt-get install -y apache2
           sudo a2enmod rewrite
           sudo cp tools/docker/php/000-default.conf /etc/apache2/sites-available/000-default.conf
           sudo service apache2 restart
           sudo rm -rf /var/www/html
           sudo ln -s $GITHUB_WORKSPACE /var/www/html
-          sudo chown -R www-data:www-data /var/www/html
-          sudo chmod -R 755 /var/www/html
 
       - name: Install dependencies
         run: composer install --no-interaction --prefer-dist
@@ -62,11 +60,13 @@ jobs:
           host=127.0.0.1" > ~/.my.cnf
           chmod 600 ~/.my.cnf
 
-      - name: Create log file
+      - name: Create log file and set permissions
         run: |
           touch /tmp/dexonline.log
           chmod 666 /tmp/dexonline.log
           sed -i 's|const LOG_FILE = .*;|const LOG_FILE = "/tmp/dexonline.log";|' Config.php
+          sudo chown -R www-data:www-data $GITHUB_WORKSPACE
+          sudo chmod -R 775 $GITHUB_WORKSPACE
 
       - name: Run setup script
         run: bash tools/setup.sh
@@ -76,9 +76,9 @@ jobs:
       - name: Configure hosts file
         run: |
           echo "127.0.0.1 dex.localhost" | sudo tee -a /etc/hosts
-          echo "127.0.0.1 localhost" | sudo tee -a /etc/hosts
 
-      - name: Setup Chrome
+      - name: Setup Chrome Browser
+        id: setup-chrome
         uses: browser-actions/setup-chrome@latest
         with:
           chrome-version: stable
@@ -89,30 +89,28 @@ jobs:
           node-version: '21'
 
       - name: Install Selenium Runner
-        run: |
-          npm install -g selenium-side-runner
-          mkdir -p /tmp/selenium-logs
+        run: npm install -g selenium-side-runner
 
-      - name: Start Xvfb for display
+      - name: Start Xvfb (Virtual Display)
         run: |
-          sudo apt-get install -y xvfb imagemagick
-          export DISPLAY=:99
+          # Install all tools needed for the virtual display and screenshots
+          sudo apt-get update && sudo apt-get install -y xvfb imagemagick x11-utils
           Xvfb :99 -screen 0 1920x1080x24 > /dev/null 2>&1 &
 
-      - name: Install and Start Chromedriver
+      - name: Start Matching Chromedriver
         run: |
-          npm install -g chromedriver@137
-          chromedriver --port=9515 &
+          # Use the Chromedriver downloaded by setup-chrome action to ensure versions match
+          ${{ steps.setup-chrome.outputs.chrome-driver }} --port=9515 &
+          # Wait for Chromedriver to be ready
           while ! curl -s http://localhost:9515/status; do
-            echo "Waiting for Chromedriver to be ready..."
+            echo "Waiting for Chromedriver..."
             sleep 1
           done
           echo "Chromedriver is ready."
 
-      - name: Run tests and take screenshot on failure
-        if: always() # This step now controls the pass/fail logic itself
+      - name: Run Selenium Tests
         run: |
-          # Create the config file first
+          # Create the config file for the runner
           cat > .side.yml << EOL
           capabilities:
             browserName: "chrome"
@@ -120,12 +118,12 @@ jobs:
               args:
                 - "--no-sandbox"
                 - "--disable-dev-shm-usage"
+                - "--headless"
                 - "--window-size=1920,1080"
-                - "--disable-gpu"
           server: "http://localhost:9515"
           EOL
 
-          # Disable "exit on error" so we can capture the exit code
+          # Don't exit the script if tests fail, so we can take a screenshot
           set +e
           export DISPLAY=:99
 
@@ -137,21 +135,20 @@ jobs:
             --output-directory /tmp/selenium-logs \
             test/esential.json
 
-          # Capture the exit code
+          # Capture the exit code from the test runner
           EXIT_CODE=$?
 
-          # Take screenshot ONLY if the tests failed
+          # Take a screenshot ONLY if the tests failed
           if [ $EXIT_CODE -ne 0 ]; then
-            echo "Tests failed. Taking screenshot..."
-            sudo apt-get update && sudo apt-get install -y x11-utils
+            echo "Tests failed with exit code $EXIT_CODE. Capturing screenshot..."
             xwd -root -display :99 | convert xwd:- screenshot.png
-            echo "Screenshot captured."
+            echo "Screenshot saved as screenshot.png"
           fi
 
-          # Exit with the original exit code
+          # Exit with the original exit code to mark the job as failed or passed
           exit $EXIT_CODE
 
-      - name: Upload screenshots and logs on failure
+      - name: Upload Artifacts on Failure
         if: failure()
         uses: actions/upload-artifact@v4
         with:
@@ -162,7 +159,7 @@ jobs:
             /tmp/dexonline.log
           retention-days: 30
 
-      - name: Collect logs
+      - name: Collect Logs on Completion
         if: always()
         run: |
           echo "### Selenium Logs ###"
@@ -171,5 +168,3 @@ jobs:
           sudo cat /var/log/apache2/error.log || echo "No Apache error logs found"
           echo "### Application Logs ###"
           cat /tmp/dexonline.log || echo "No application logs found"
-          echo "### Chrome Process Status ###"
-          ps aux | grep chrome || echo "No Chrome processes found"

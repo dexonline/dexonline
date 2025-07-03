@@ -102,8 +102,14 @@ jobs:
 
       - name: Start Matching Chromedriver
         run: |
-          # Use the Chromedriver downloaded by setup-chrome action to ensure versions match
-          ${{ steps.setup-chrome.outputs.chrome-driver }} --port=9515 &
+          echo "Chromedriver path: ${{ steps.setup-chrome.outputs.chrome-driver }}"
+          echo "Checking permissions:"
+          ls -l "${{ steps.setup-chrome.outputs.chrome-driver }}"
+
+          echo "Starting Chromedriver and logging to chromedriver.log..."
+          # Redirect all output from chromedriver to a log file
+          ${{ steps.setup-chrome.outputs.chrome-driver }} --port=9515 > chromedriver.log 2>&1 &
+
           # Wait for Chromedriver to be ready
           while ! curl -s http://localhost:9515/status; do
             echo "Waiting for Chromedriver..."

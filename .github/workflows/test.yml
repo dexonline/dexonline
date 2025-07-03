@@ -68,6 +68,9 @@ jobs:
           sudo chown -R www-data:www-data $GITHUB_WORKSPACE
           sudo chmod -R 775 $GITHUB_WORKSPACE
 
+      - name: Take Ownership of Workspace
+        run: sudo chown -R $USER:$USER .
+
       - name: Run setup script
         run: bash tools/setup.sh
         env:

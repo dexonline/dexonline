@@ -1,4 +1,4 @@
-name: Run Tests
+name: Run Tests with Pytest
 
 on:
   push:
@@ -23,6 +23,14 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+
+      - name: Install Python Dependencies
+        run: pip install selenium pytest
 
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
@@ -65,11 +73,8 @@ jobs:
           touch /tmp/dexonline.log
           chmod 666 /tmp/dexonline.log
           sed -i 's|const LOG_FILE = .*;|const LOG_FILE = "/tmp/dexonline.log";|' Config.php
-          sudo chown -R www-data:www-data $GITHUB_WORKSPACE
-          sudo chmod -R 775 $GITHUB_WORKSPACE
-
-      - name: Take Ownership of Workspace
-        run: sudo chown -R $USER:$USER .
+          sudo chown -R $USER:www-data $GITHUB_WORKSPACE
+          sudo chmod -R g+w $GITHUB_WORKSPACE
 
       - name: Run setup script
         run: bash tools/setup.sh
@@ -80,13 +85,6 @@ jobs:
         run: |
           echo "127.0.0.1 dex.localhost" | sudo tee -a /etc/hosts
 
-      # CORRECT ORDER: Install Node.js first...
-      - name: Install Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '21'
-
-      # ...then setup Chrome, which depends on Node.js
       - name: Setup Chrome Browser
         id: setup-chrome
         uses: browser-actions/setup-chrome@v1
@@ -100,50 +98,16 @@ jobs:
 
       - name: Start Matching Chromedriver
         run: |
-          ${{ steps.setup-chrome.outputs.chrome-path }} --version
-          echo "Chromedriver path: ${{ steps.setup-chrome.outputs.chromedriver-path }}"
-          echo "Checking permissions:"
-          ls -l "${{ steps.setup-chrome.outputs.chromedriver-path }}"
-          echo "Starting Chromedriver and logging to chromedriver.log..."
-          ${{ steps.setup-chrome.outputs.chromedriver-path }} --port=9515 > chromedriver.log 2>&1 &
-          while ! curl -s http://localhost:9515/status; do
+          echo "Starting Chromedriver from path: ${{ steps.setup-chrome.outputs.chromedriver-path }}"
+          ${{ steps.setup-chrome.outputs.chromedriver-path }} --port=4444 > chromedriver.log 2>&1 &
+          while ! curl -s http://localhost:4444/status; do
             echo "Waiting for Chromedriver..."
             sleep 1
           done
           echo "Chromedriver is ready."
 
-      - name: Start Xvfb (Virtual Display)
-        run: |
-          sudo apt-get update && sudo apt-get install -y xvfb imagemagick x11-utils x11-apps
-          Xvfb :99 -screen 0 1920x1080x24 > /dev/null 2>&1 &
-
-      - name: Run Selenium Tests
-        run: |
-          cat > .side.yml << EOL
-          capabilities:
-            browserName: "chrome"
-            "goog:chromeOptions":
-              args:
-                - "--no-sandbox"
-                - "--disable-dev-shm-usage"
-                - "--window-size=1920,1080"
-          server: "http://localhost:9515"
-          EOL
-          set +e
-          export DISPLAY=:99
-          selenium-side-runner \
-            --config-file .side.yml \
-            --base-url http://dex.localhost \
-            --timeout 30000 \
-            --output-directory /tmp/selenium-logs \
-            test/esential.json
-          EXIT_CODE=$?
-          if [ $EXIT_CODE -ne 0 ]; then
-            echo "Tests failed with exit code $EXIT_CODE. Capturing screenshot..."
-            xwd -root -display :99 | convert xwd:- screenshot.png
-            echo "Screenshot saved as screenshot.png"
-          fi
-          exit $EXIT_CODE
+      - name: Run Pytest Tests
+        run: pytest test/test_homePage.py --base-url http://dex.localhost
 
       - name: Upload Artifacts on Failure
         if: failure()
@@ -151,9 +115,8 @@ jobs:
         with:
           name: test-failure-artifacts
           path: |
-            screenshot.png
+            *.png
             chromedriver.log
-            /tmp/selenium-logs/
             /tmp/dexonline.log
           retention-days: 30
 
@@ -162,8 +125,6 @@ jobs:
         run: |
           echo "### Chromedriver Log ###"
           cat chromedriver.log || echo "No Chromedriver log found"
-          echo "### Selenium Logs ###"
-          find /tmp/selenium-logs -name "*.log" -exec cat {} \; || echo "No Selenium logs found"
           echo "### Apache Error Logs ###"
           sudo cat /var/log/apache2/error.log || echo "No Apache error logs found"
           echo "### Application Logs ###"

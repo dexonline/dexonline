@@ -23,6 +23,9 @@
   <h3>Arhiva newsletterului</h3>
 
   <p class="ps-3">
+    <span class="fs-5">&#x2022; 3 iulie 2025 <a href="https://blog.dexonline.ro/?mailpoet_router&endpoint=view_in_browser&action=view&data=WzQ5LCJjYjczODFiYTg5NjIiLDAsMCwyNjMzLDFd">
+      jurnal de dicționar / iulie 25</a></span> <span class="fs-6">(enantiosemantic, evrika, atac Moscova, sinecură, voluntar, dar totuși, a înota)</span>
+    <br/>
     <span class="fs-5">&#x2022; 3 iunie 2025 <a href="https://blog.dexonline.ro/?mailpoet_router&endpoint=view_in_browser&action=view&data=WzQ4LCJhMGZjOGJkODIyMWQiLDQsIjNlYjljZCIsMjU0OCwxXQ">
       jurnal de dicționar / iunie 25</a></span> <span class="fs-6">(apel articole, suveranism, campanie electorală, Eminescu vandalizat)</span>
     <br/>

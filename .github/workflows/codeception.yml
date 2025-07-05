@@ -1,0 +1,91 @@
+name: Run Acceptance Tests
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ "**" ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_ROOT_PASSWORD: admin
+          MYSQL_DATABASE: dexonline
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping -h 127.0.0.1 -u root --password=admin" --health-interval=10s --health-timeout=5s --health-retries=3
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+          extensions: intl, mysqli, pdo_mysql
+
+      - name: Install and configure Apache
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y apache2
+          sudo a2enmod rewrite
+          sudo cp tools/docker/php/000-default.conf /etc/apache2/sites-available/000-default.conf
+          sudo service apache2 restart
+          sudo rm -rf /var/www/html
+          sudo ln -s $GITHUB_WORKSPACE /var/www/html
+          sudo chown -R www-data:www-data /var/www/html
+          sudo chmod -R 755 /var/www/html
+
+      - name: Install dependencies
+        run: composer install --no-interaction --prefer-dist
+
+      - name: Create Config.php from sample
+        run: |
+          cp Config.php.sample Config.php
+          sed -i 's|const DATABASE = .*;|const DATABASE = "mysql://root:admin@127.0.0.1/dexonline";|' Config.php
+          sed -i 's|const TEST_DATABASE = .*;|const TEST_DATABASE = "mysql://root:admin@127.0.0.1/dexonline";|' Config.php
+          sed -i 's|const TEST_MODE = false;|const TEST_MODE = true;|' Config.php
+          sed -i 's|const DEVELOPMENT_MODE = false;|const DEVELOPMENT_MODE = true;|' Config.php
+          sed -i 's|const URL_PREFIX = .*;|const URL_PREFIX = "/";|' Config.php
+
+      - name: Setup MySQL credentials
+        run: |
+          echo "[client]
+          user=root
+          password=admin
+          host=127.0.0.1" > ~/.my.cnf
+          chmod 600 ~/.my.cnf
+
+      - name: Create log file
+        run: |
+          touch /tmp/dexonline.log
+          chmod 666 /tmp/dexonline.log
+          sed -i 's|const LOG_FILE = .*;|const LOG_FILE = "/tmp/dexonline.log";|' Config.php
+
+      - name: Run setup script
+        run: bash tools/setup.sh
+        env:
+          MYSQL_PWD: admin
+
+      - name: Configure hosts file
+        run: echo "127.0.0.1 dex.localhost" | sudo tee -a /etc/hosts
+
+      - name: Run Codeception tests
+        run: vendor/bin/codecept run acceptance test/acceptance/DexonlineCest.php --steps --html
+
+      - name: Upload test artifacts
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-failure-artifacts
+          path: |
+            tests/_output/
+            /tmp/dexonline.log
+            /var/log/apache2/error.log
+          retention-days: 30

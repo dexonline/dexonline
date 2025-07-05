@@ -2,5 +2,8 @@
     "name": "dexonline/dexonline",
     "require": {
         "php": ">=7.4"
+    },
+    "require-dev": {
+        "codeception/codeception": "^1.1"
     }
 }

@@ -313,6 +313,11 @@ abbr[title] {
 }
 
 /* for better alignment */
+.just {
+  text-align: justify;
+  display: block;
+}
+
 .def {
   text-align: justify;
   display: block;

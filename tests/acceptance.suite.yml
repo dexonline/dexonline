@@ -1,0 +1,7 @@
+actor: AcceptanceTester
+modules:
+  enabled:
+    - WebDriver:
+        url: 'http://dex.localhost/'
+        browser: chrome # or firefox
+    - \Helper\Acceptance

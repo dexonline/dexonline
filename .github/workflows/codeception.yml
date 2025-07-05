@@ -77,7 +77,7 @@ jobs:
         run: echo "127.0.0.1 dex.localhost" | sudo tee -a /etc/hosts
 
       - name: Run Codeception tests
-        run: vendor/bin/codecept run acceptance -c test/acceptance.suite.yml test/acceptance/DexonlineCest.php --steps --html
+        run: vendor/bin/codecept run acceptance -c tests/acceptance.suite.yml tests/acceptance/DexonlineCest.php --steps --html
 
       - name: Upload test artifacts
         if: failure()

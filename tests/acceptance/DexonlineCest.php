@@ -1,5 +1,7 @@
 <?php
 
+namespace acceptance;
+
 use AcceptanceTester;
 
 class DexonlineCest

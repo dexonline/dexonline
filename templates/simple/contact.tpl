@@ -6,10 +6,8 @@
 
 {block "content"}
   <p><span class="just">
-  <b>Notă</b>: Prin trimiterea unui email către noi, sunteți de acord ca mesajul dumneavoastră (parțial sau integral)
-  să poată fi publicat pe site-ul nostru, cu sau fără modificări, și însoțit de un răspuns public. Mesajele marcate
-  explicit ca fiind „confidențiale” vor fi tratate cu discreție, cu excepția cazurilor în care conținutul este abuziv,
-  calomnios, spam sau contrar legii.
+  <b>Notă</b>: Prin trimiterea unui email către dexonline, sunteți de acord ca mesajul dumneavoastră să fie (eventual)
+  publicat (integral sau parțial) pe site-ul nostru și/sau pe rețelele de socializare.
   </span>
   </p>
 

@@ -6,8 +6,9 @@
 
 {block "content"}
   <p><span class="just">
-  <b>Notă</b>: Prin trimiterea unui email către dexonline, sunteți de acord ca mesajul dumneavoastră să fie (eventual)
-  publicat (integral sau parțial) pe site-ul nostru și/sau pe rețelele de socializare.
+  <b>Notă</b>: Prin trimiterea unui e-mail către dexonline, sunteți de acord ca mesajul dumneavoastră și datele de
+  identificare (numele, adresa de e-mail) să fie eventual publicate (integral sau parțial) pe site-ul nostru și/sau
+  pe rețelele de socializare.
   </span>
   </p>
 

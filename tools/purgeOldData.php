@@ -12,7 +12,7 @@ $oneYearAgo = $now - 365 * 24 * 3600; //should match to Session::setCookie
 $cookies = Model::factory('Cookie')->where_lt('createDate', $oneYearAgo)->find_many();
 foreach ($cookies as $cookie) {
   $cookie->delete();
-}i
+}
 
 Log::info('removing old password tokens');
 $yesterday = $now - 24 * 3600;

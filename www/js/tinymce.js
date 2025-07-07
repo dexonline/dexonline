@@ -46,6 +46,7 @@ $(function() {
         skin: darkMode ? 'oxide-dark' : 'oxide',
         toolbar: 'undo redo | bold italic spaced superscript subscript abbrev smallcapsabbr',
         width: '100%',
+        plugins: 'paste',
       });
       localStorage.setItem(STORAGE_KEY, 'on');
     } else {

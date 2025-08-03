@@ -23,6 +23,9 @@
   <h3>Arhiva newsletterului</h3>
 
   <p class="ps-3">
+    <span class="fs-5">&#x2022; 3 august 2025 <a href="https://blog.dexonline.ro/?mailpoet_router&endpoint=view_in_browser&action=view&data=WzUwLCIxZGJkZTdkZGU0ZjEiLDQsIjNlYjljZCIsMjcxMiwxXQ">
+      jurnal de dicționar / august 25</a></span> <span class="fs-6">(patocrație, femicid, șuvoi, curricula, macadam, Sarmizegetusa, în ceasul al doisprezecelea, poșta redacției)</span>
+    <br/>
     <span class="fs-5">&#x2022; 3 iulie 2025 <a href="https://blog.dexonline.ro/?mailpoet_router&endpoint=view_in_browser&action=view&data=WzQ5LCJjYjczODFiYTg5NjIiLDAsMCwyNjMzLDFd">
       jurnal de dicționar / iulie 25</a></span> <span class="fs-6">(enantiosemantic, evrika, atac Moscova, sinecură, voluntar, dar totuși, a înota)</span>
     <br/>

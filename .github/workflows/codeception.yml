@@ -16,6 +16,8 @@ jobs:
         env:
           MYSQL_ROOT_PASSWORD: admin
           MYSQL_DATABASE: dexonline
+          MYSQL_USER: dexonline
+          MYSQL_PASSWORD: admin
         ports:
           - 3306:3306
         options: --health-cmd="mysqladmin ping -h 127.0.0.1 -u root --password=admin" --health-interval=10s --health-timeout=5s --health-retries=3
@@ -28,64 +30,97 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '7.4'
-          extensions: intl, mysqli, pdo_mysql
+          extensions: intl, mysqli, pdo_mysql, gd, curl, zip, xml, mbstring
+          tools: composer
+
+      - name: Install Composer dependencies
+        run: composer install --no-interaction --prefer-dist --optimize-autoloader
+
+      - name: Setup Chrome for testing
+        uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: stable
+
+      - name: Setup ChromeDriver
+        uses: nanasess/setup-chromedriver@v2
+        with:
+          chromedriver-version: latest
 
       - name: Install and configure Apache
         run: |
           sudo apt-get update
           sudo apt-get install -y apache2
           sudo a2enmod rewrite
-          sudo cp tools/docker/php/000-default.conf /etc/apache2/sites-available/000-default.conf
+
+          # Create Apache virtual host configuration
+          sudo tee /etc/apache2/sites-available/000-default.conf > /dev/null <<EOF
+          <VirtualHost *:80>
+              ServerName localhost
+              DocumentRoot /var/www/html/www
+
+              <Directory /var/www/html/www>
+                  Options -Indexes +FollowSymLinks
+                  AllowOverride All
+                  Require all granted
+              </Directory>
+
+              ErrorLog \${APACHE_LOG_DIR}/error.log
+              CustomLog \${APACHE_LOG_DIR}/access.log combined
+          </VirtualHost>
+          EOF
+
           sudo service apache2 restart
           sudo rm -rf /var/www/html
           sudo ln -s $GITHUB_WORKSPACE /var/www/html
           sudo chown -R www-data:www-data /var/www/html
           sudo chmod -R 755 /var/www/html
 
-      - name: Install dependencies
-        run: composer install --no-interaction --prefer-dist
-
-      - name: Create Config.php from sample
+      - name: Setup database and application config
         run: |
+          # Copy sample config and configure for CI
           cp Config.php.sample Config.php
-          sed -i 's|const DATABASE = .*;|const DATABASE = "mysql://root:admin@127.0.0.1/dexonline";|' Config.php
-          sed -i 's|const TEST_DATABASE = .*;|const TEST_DATABASE = "mysql://root:admin@127.0.0.1/dexonline";|' Config.php
-          sed -i 's|const TEST_MODE = false;|const TEST_MODE = true;|' Config.php
-          sed -i 's|const DEVELOPMENT_MODE = false;|const DEVELOPMENT_MODE = true;|' Config.php
-          sed -i 's|const URL_PREFIX = .*;|const URL_PREFIX = "/";|' Config.php
 
-      - name: Setup MySQL credentials
+          # Update database configuration in Config.php for CI environment
+          sed -i "s/define('DB_HOST', 'localhost');/define('DB_HOST', '127.0.0.1');/" Config.php
+          sed -i "s/define('DB_DATABASE', 'dexonline');/define('DB_DATABASE', 'dexonline');/" Config.php
+          sed -i "s/define('DB_USER', 'dexonline');/define('DB_USER', 'root');/" Config.php
+          sed -i "s/define('DB_PASSWORD', 'dexonline');/define('DB_PASSWORD', 'admin');/" Config.php
+
+      - name: Import test database
         run: |
-          echo "[client]
-          user=root
-          password=admin
-          host=127.0.0.1" > ~/.my.cnf
-          chmod 600 ~/.my.cnf
+          # Check if there's a test database dump and import it
+          if [ -f "tests/_data/dump.sql" ]; then
+            mysql -h 127.0.0.1 -u root -padmin dexonline < tests/_data/dump.sql
+          elif [ -f "tests/_data/dexonline.sql" ]; then
+            mysql -h 127.0.0.1 -u root -padmin dexonline < tests/_data/dexonline.sql
+          else
+            # Create minimal test data structure if no dump exists
+            mysql -h 127.0.0.1 -u root -padmin dexonline -e "
+            CREATE TABLE IF NOT EXISTS definitions (id INT PRIMARY KEY, lexicon VARCHAR(255), internalRep TEXT);
+            CREATE TABLE IF NOT EXISTS lexemes (id INT PRIMARY KEY, form VARCHAR(255));
+            CREATE TABLE IF NOT EXISTS sources (id INT PRIMARY KEY, shortName VARCHAR(255), name VARCHAR(255));
+            INSERT INTO definitions (id, lexicon, internalRep) VALUES (1, 'brânză', 'Produs alimentar[1] obținut prin coagularea și prelucrarea laptelui.');
+            INSERT INTO lexemes (id, form) VALUES (1, 'brânză');
+            INSERT INTO sources (id, shortName, name) VALUES (1, 'Source 1', 'English - Klingon Dictionary');
+            "
+          fi
 
-      - name: Create log file
+      - name: Start ChromeDriver
         run: |
-          touch /tmp/dexonline.log
-          chmod 666 /tmp/dexonline.log
-          sed -i 's|const LOG_FILE = .*;|const LOG_FILE = "/tmp/dexonline.log";|' Config.php
+          chromedriver --port=9515 &
+          sleep 3
 
-      - name: Run setup script
-        run: bash tools/setup.sh
-        env:
-          MYSQL_PWD: admin
+      - name: Build Codeception actors
+        run: vendor/bin/codecept build
 
-      - name: Configure hosts file
-        run: echo "127.0.0.1 dex.localhost" | sudo tee -a /etc/hosts
+      - name: Run acceptance tests
+        run: vendor/bin/codecept run acceptance --steps --debug
 
-      - name: Run Codeception tests
-        run: vendor/bin/codecept run acceptance -c tests/acceptance.suite.yml tests/acceptance/DexonlineCest.php --steps --html
-
-      - name: Upload test artifacts
+      - name: Upload test results
+        uses: actions/upload-artifact@v3
         if: failure()
-        uses: actions/upload-artifact@v4
         with:
-          name: test-failure-artifacts
+          name: codeception-results
           path: |
             tests/_output/
-            /tmp/dexonline.log
-            /var/log/apache2/error.log
-          retention-days: 30
+            tests/_log/

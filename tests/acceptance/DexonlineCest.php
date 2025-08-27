@@ -1,8 +1,8 @@
 <?php
 
-namespace acceptance;
+namespace Tests\System\acceptance;
 
-use AcceptanceTester;
+use Tests\System\_helpers\WebHelper;
 
 class DexonlineCest
 {
@@ -10,7 +10,7 @@ class DexonlineCest
    * Test: homePage
    * Ensures that the homepage loads correctly and key elements are present.
    */
-  public function homePage(AcceptanceTester $I)
+  public function homePage(WebHelper $I)
   {
     $I->wantTo('ensure the homepage loads correctly with all key elements');
     $I->amOnPage('/');
@@ -26,7 +26,7 @@ class DexonlineCest
    * Test: searchByInflectedForm
    * Searches by an inflected word form and verifies the results.
    */
-  public function searchByInflectedForm(AcceptanceTester $I)
+  public function searchByInflectedForm(WebHelper $I)
   {
     $I->wantTo('search by inflected form and verify the results');
     $I->amOnPage('/');
@@ -46,7 +46,7 @@ class DexonlineCest
    * Test: searchApproximate
    * Performs an approximate (typo) search and verifies the redirection.
    */
-  public function searchApproximate(AcceptanceTester $I)
+  public function searchApproximate(WebHelper $I)
   {
     $I->wantTo('perform an approximate search and verify the redirection and results');
     $I->amOnPage('/');
@@ -61,7 +61,7 @@ class DexonlineCest
    * Test: searchRegexp
    * Performs a search with a regular expression and verifies the results.
    */
-  public function searchRegexp(AcceptanceTester $I)
+  public function searchRegexp(WebHelper $I)
   {
     $I->wantTo('perform a search with a regular expression and verify the results');
     $I->amOnPage('/');
@@ -79,7 +79,7 @@ class DexonlineCest
    * Test: searchFullText
    * Performs a full-text search using advanced options.
    */
-  public function searchFullText(AcceptanceTester $I)
+  public function searchFullText(WebHelper $I)
   {
     $I->wantTo('perform a full-text search and verify the results');
     $I->amOnPage('/');
@@ -98,7 +98,7 @@ class DexonlineCest
    * Test: searchByDefinitionId
    * Searches by a specific definition ID.
    */
-  public function searchByDefinitionId(AcceptanceTester $I)
+  public function searchByDefinitionId(WebHelper $I)
   {
     $I->wantTo('search by definition ID and verify the result');
     $I->amOnPage('/');
@@ -112,7 +112,7 @@ class DexonlineCest
    * Test: searchByLexemeId
    * Searches by a lexeme ID and verifies the results.
    */
-  public function searchByLexemeId(AcceptanceTester $I)
+  public function searchByLexemeId(WebHelper $I)
   {
     $I->wantTo('search by lexeme ID and verify the results');
     $I->amOnPage('/');
@@ -129,7 +129,7 @@ class DexonlineCest
    * Test: adsLink
    * Verifies that an external ad link works correctly.
    */
-  public function adsLink(AcceptanceTester $I)
+  public function adsLink(WebHelper $I)
   {
     $I->wantTo('verify that the ads link to Wikipedia works correctly');
     $I->amOnPage('/spre/wikipedia');
@@ -140,7 +140,7 @@ class DexonlineCest
    * Test: articles
    * Navigates through linguistic articles pages.
    */
-  public function articles(AcceptanceTester $I)
+  public function articles(WebHelper $I)
   {
     $I->wantTo('navigate through linguistic articles');
     $I->amOnPage('/articole');
@@ -155,7 +155,7 @@ class DexonlineCest
    * Test: articlesSearchResults
    * Verifies that relevant articles appear on search result pages.
    */
-  public function articlesSearchResults(AcceptanceTester $I)
+  public function articlesSearchResults(WebHelper $I)
   {
     $I->wantTo('verify that relevant articles are displayed on search results pages');
     $I->amOnPage('/definitie/metal');
@@ -169,7 +169,7 @@ class DexonlineCest
    * Test: commentView
    * Views comments on a definition page.
    */
-  public function commentView(AcceptanceTester $I)
+  public function commentView(WebHelper $I)
   {
     $I->wantTo('view comments on a definition page');
     $I->amOnPage('/definitie/brânză');
@@ -181,7 +181,7 @@ class DexonlineCest
    * Test: constraints
    * Verifies constraints and paradigm tabs for definitions.
    */
-  public function constraints(AcceptanceTester $I)
+  public function constraints(WebHelper $I)
   {
     $I->wantTo('verify constraints and paradigm tabs');
     $I->amOnPage('/definitie/ladă/paradigma');
@@ -197,7 +197,7 @@ class DexonlineCest
    * Test: autocomplete
    * Tests the autocomplete functionality in the search bar.
    */
-  public function autocomplete(AcceptanceTester $I)
+  public function autocomplete(WebHelper $I)
   {
     $I->wantTo('test the autocomplete functionality in the search bar');
     $I->amOnPage('/');
@@ -213,7 +213,7 @@ class DexonlineCest
    * Test: lexemeSourcesView
    * Views lexeme sources on the paradigm page.
    */
-  public function lexemeSourcesView(AcceptanceTester $I)
+  public function lexemeSourcesView(WebHelper $I)
   {
     $I->wantTo('view lexeme sources on the paradigm page');
     $I->amOnPage('/definitie/metal/paradigma');
@@ -225,7 +225,7 @@ class DexonlineCest
    * Test: sourcesViewAsAnonymous
    * Views sources as an anonymous user.
    */
-  public function sourcesViewAsAnonymous(AcceptanceTester $I)
+  public function sourcesViewAsAnonymous(WebHelper $I)
   {
     $I->wantTo('view sources as an anonymous user');
     $I->amOnPage('/surse');
@@ -240,7 +240,7 @@ class DexonlineCest
    * Test: hangman
    * Plays the hangman game.
    */
-  public function hangman(AcceptanceTester $I)
+  public function hangman(WebHelper $I)
   {
     $I->wantTo('play the hangman game');
     $I->amOnPage('/spanzuratoarea');
@@ -257,7 +257,7 @@ class DexonlineCest
    * Test: localeChange
    * Changes the interface language.
    */
-  public function localeChange(AcceptanceTester $I)
+  public function localeChange(WebHelper $I)
   {
     $I->wantTo('change the interface language');
     $I->amOnPage('/');
@@ -275,7 +275,7 @@ class DexonlineCest
    * Test: loginFakeUser
    * Logs in as a fake user with privileges.
    */
-  public function loginFakeUser(AcceptanceTester $I)
+  public function loginFakeUser(WebHelper $I)
   {
     $I->wantTo('log in as a fake user');
     $I->amOnPage('/');
@@ -294,7 +294,7 @@ class DexonlineCest
    * Test: bookmarks
    * Manages user bookmarks after logging in.
    */
-  public function bookmarks(AcceptanceTester $I)
+  public function bookmarks(WebHelper $I)
   {
     $I->wantTo('manage bookmarks');
     $this->loginFakeUser($I); // Ensure user is logged in
@@ -316,7 +316,7 @@ class DexonlineCest
    * Test: definitionRepWhitespace
    * Checks how whitespace is handled in the definition editor.
    */
-  public function definitionRepWhitespace(AcceptanceTester $I)
+  public function definitionRepWhitespace(WebHelper $I)
   {
     $I->wantTo('check whitespace representation in definition editing');
     $this->loginFakeUser($I); // Editing requires login
@@ -331,7 +331,7 @@ class DexonlineCest
    * Test: redundantLinkWarning
    * Ensures warnings for redundant links are displayed.
    */
-  public function redundantLinkWarning(AcceptanceTester $I)
+  public function redundantLinkWarning(WebHelper $I)
   {
     $I->wantTo('test for redundant link warnings');
     $this->loginFakeUser($I); // Editing requires login
@@ -348,7 +348,7 @@ class DexonlineCest
    * Test: logout
    * Logs the user out of the application.
    */
-  public function logout(AcceptanceTester $I)
+  public function logout(WebHelper $I)
   {
     $I->wantTo('log out from the application');
     $this->loginFakeUser($I); // Ensure user is logged in to log out

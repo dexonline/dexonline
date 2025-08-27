@@ -1,11 +1,17 @@
+namespace: Tests\System
+actor_suffix: Helper
 paths:
     tests: tests
-    log: tests/_log
+    output: tests/_output
     data: tests/_data
-    helpers: tests/_helpers
+    support: tests/_support
+    envs: tests/_envs
 settings:
     bootstrap: _bootstrap.php
-    suite_class: \PHPUnit_Framework_TestSuite
     colors: true
     memory_limit: 1024M
-    log: true
+coverage:
+    enabled: false
+extensions:
+    enabled:
+        - Codeception\Extension\RunFailed

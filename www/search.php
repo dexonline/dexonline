@@ -10,6 +10,7 @@ const SEARCH_DEF_ID = 4;
 const SEARCH_ENTRY_ID = 5;
 const SEARCH_FULL_TEXT = 6;
 const SEARCH_LEXEME_ID = 7;
+const SEARCH_PRONUNCIATION = 8;
 
 // paradigm: whether to display the paradigm for $entries
 // trees: whether to display the entries' trees
@@ -215,6 +216,17 @@ if ($searchType == SEARCH_INFLECTED) {
     $words = array_slice($words, 0, 5);
     $definitions = Definition::searchMultipleWords(
       $words, $hasDiacritics, $sourceId);
+  }
+
+  // fallback to pronunciation search
+  if (empty($entries) && empty($definitions)) {
+    $searchType = SEARCH_PRONUNCIATION;
+    $entries = Lexeme::searchByPronunciations($cuv);
+    if (count($entries) == 1) {
+      $msg = sprintf(_('We redirected you automatically from <b>%s</b> to <b>%s</b>.'),
+        $cuv, $entries[0]->description);
+      FlashMessage::add($msg);
+    }
   }
 
   // fallback to approximate search
@@ -442,6 +454,7 @@ Smart::assign([
   'activeTab' => $activeTab,
   'showWotd' => $showWotd,
   'pageType' => 'search',
+  'searchTerm' => $cuv,
 ]);
 if ($text || $sourceId) {
   // must show the advanced search menu regardless of preference

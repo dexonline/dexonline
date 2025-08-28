@@ -327,6 +327,20 @@ class Lexeme extends BaseObject implements DatedObject {
     return $entries;
   }
 
+  static function searchByPronunciations($cuv) {
+    $entries = Model::factory('Entry')
+      ->table_alias('e')
+      ->select('e.*')
+      ->join('EntryLexeme', ['e.id', '=', 'el.entryId'], 'el')
+      ->join('Lexeme', ['el.lexemeId', '=', 'l.id'], 'l')
+      ->where_raw("FIND_IN_SET(?, REPLACE(l.pronunciations, ' ', ''))", [$cuv])
+  //    ->where('l.pronunciations', $cuv)
+      ->find_many();
+
+    $entries = array_unique($entries, SORT_REGULAR);
+    return $entries;
+  }
+
   static function getRegexpQuery($regexp, $hasDiacritics, $sourceId) {
     $mysqlRegexp = Str::dexRegexpToMysqlRegexp($regexp);
     $field = $hasDiacritics ? 'formNoAccent' : 'formUtf8General';

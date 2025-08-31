@@ -12,6 +12,7 @@ class Tab {
   const T_TREES = 2;
   const T_GALLERY = 3;
   const T_ARTICLES = 4;
+  const T_PRONUNCIATION = 5;
 
   /**
    * The default order of tabs. Can be overridden by user preferences.
@@ -22,6 +23,7 @@ class Tab {
     self::T_PARADIGM,
     self::T_GALLERY,
     self::T_ARTICLES,
+    self::T_PRONUNCIATION,
   ];
 
   const URL = [
@@ -30,6 +32,7 @@ class Tab {
     self::T_TREES => '/sinteza',
     self::T_GALLERY => '/imagini',
     self::T_ARTICLES => '/articole',
+    self::T_PRONUNCIATION => '/pronuntie',
   ];
 
   const PROMINENT = [
@@ -38,6 +41,7 @@ class Tab {
     self::T_TREES => false,
     self::T_GALLERY => true,
     self::T_ARTICLES => true,
+    self::T_PRONUNCIATION => false,
   ];
 
   /**
@@ -50,6 +54,7 @@ class Tab {
       case self::T_TREES:    return _('synthesis');
       case self::T_GALLERY:  return _('images');
       case self::T_ARTICLES: return _('articles');
+      case self::T_PRONUNCIATION: return 'pronunție 📢';
     }
   }
 
@@ -120,6 +125,7 @@ class Tab {
       self::T_TREES => $numTrees,
       self::T_GALLERY => $numImages,
       self::T_ARTICLES => $numArticles,
+      self::T_PRONUNCIATION => true,
     ];
     $counts = [
       self::T_RESULTS => $numResults,
@@ -127,6 +133,7 @@ class Tab {
       self::T_TREES => $numTrees,
       self::T_GALLERY => $numImages,
       self::T_ARTICLES => $numArticles,
+      self::T_PRONUNCIATION => 0, // never display this count
     ];
 
     $tabs = [];

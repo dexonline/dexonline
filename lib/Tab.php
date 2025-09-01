@@ -54,7 +54,7 @@ class Tab {
       case self::T_TREES:    return _('synthesis');
       case self::T_GALLERY:  return _('images');
       case self::T_ARTICLES: return _('articles');
-      case self::T_PRONUNCIATION: return 'pronunție 📢';
+      case self::T_PRONUNCIATION: return 'pronunție';
     }
   }
 
@@ -143,6 +143,7 @@ class Tab {
           'count' => $counts[$tab],
           'prominent' => self::PROMINENT[$tab],
           'title' => ($tab == self::T_PARADIGM) ? $declensionText : self::getName($tab),
+          'icon' => ($tab == self::T_PRONUNCIATION) ? 'volume_up' : null,
         ];
       }
     }

@@ -29,6 +29,7 @@
         count=$info.count
         prominent=$info.prominent
         tab=$tab
+        icon=$info.icon
         title=$info.title}
     {/foreach}
 

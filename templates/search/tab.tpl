@@ -16,6 +16,7 @@
     type="button">
 
     {$title}
+    {if $icon}{include "bits/icon.tpl" i={$icon}}{/if}
 
     {if $count}({$count}){/if}
   </button>

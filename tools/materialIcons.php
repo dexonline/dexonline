@@ -73,6 +73,7 @@ const CODEPOINTS = [
   'translate',
   'visibility',
   'visibility_off',
+  'volume_up',
   'warning',
 ];
 

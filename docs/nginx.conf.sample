@@ -15,8 +15,8 @@ server {
   location / {
 
     rewrite ^/text(-([^/]+))?/(.*)$ /search.php?cuv=$3&source=$2&text=1 last;
-    rewrite ^/definitie(-([^/]+))?/([^/]+)(/([0-9]+))?(/(articole|definitii|imagini|paradigma|sinteza))?(/xml|/json)?$ /search.php?cuv=$3&source=$2&defId=$5&tab=$7&format=$8 last;
-    rewrite ^/intrare(-([^/]+))?/([^/]+)(/([0-9]+))?(/(articole|definitii|imagini|paradigma|sinteza))?(/xml|/json)?$ /search.php?cuv=$3&source=$2&entryId=$5&tab=$7&format=$8 last;
+    rewrite ^/definitie(-([^/]+))?/([^/]+)(/([0-9]+))?(/(articole|definitii|imagini|paradigma|sinteza|pronuntie))?(/xml|/json)?$ /search.php?cuv=$3&source=$2&defId=$5&tab=$7&format=$8 last;
+    rewrite ^/intrare(-([^/]+))?/([^/]+)(/([0-9]+))?(/(articole|definitii|imagini|paradigma|sinteza|pronuntie))?(/xml|/json)?$ /search.php?cuv=$3&source=$2&entryId=$5&tab=$7&format=$8 last;
     rewrite ^/lexem/([^/]+)(/([0-9]+))?$ /search.php?cuv=$1&lexemeId=$3 last;
 
     if (-f $document_root/$uri.php) {

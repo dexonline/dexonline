@@ -581,6 +581,17 @@ $(function() {
         }
       }
     }
+    else if (tabType == 'pronuntie') {
+      tabs[i].addEventListener('click', function(event) {
+        searchYGTerm();
+      });
+      // if the tab is open directly from link
+      for (j=0; j<tabs[i].classList.length; j++) {
+        if((tabs[i].classList)[j] == 'active') {
+            searchYGTerm();
+        }
+      }
+    }
   }
 });
 

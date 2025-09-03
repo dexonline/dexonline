@@ -340,14 +340,14 @@
 
     {* pronunciation tab *}
     {* only special people are allowed ;) *}
-    {if User::can(User::PRIV_PLUGIN) }
+    {* if User::can(User::PRIV_PLUGIN) *}
       <div
         role="tabpanel"
         class="tab-pane {if $activeTab == Tab::T_PRONUNCIATION}show active{/if}"
         id="tab_{Tab::T_PRONUNCIATION}">
         {include "search/pronunciation.tpl" searchTerm=$searchTerm}
       </div>
-    {/if}
+    {* /if *}
   </div>
 
   <div id="tabAdvertiserContent" style="display: none">

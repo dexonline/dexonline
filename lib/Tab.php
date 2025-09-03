@@ -125,7 +125,7 @@ class Tab {
       self::T_TREES => $numTrees,
       self::T_GALLERY => $numImages,
       self::T_ARTICLES => $numArticles,
-      self::T_PRONUNCIATION => false,
+      self::T_PRONUNCIATION => true,
     ];
     $counts = [
       self::T_RESULTS => $numResults,

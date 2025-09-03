@@ -44,6 +44,15 @@ class Tab {
     self::T_PRONUNCIATION => false,
   ];
 
+  const EMPHASIZE = [
+    self::T_RESULTS => false,
+    self::T_PARADIGM => false,
+    self::T_TREES => false,
+    self::T_GALLERY => false,
+    self::T_ARTICLES => false,
+    self::T_PRONUNCIATION => true,
+  ];
+
   /**
    * Returns a localized name for the given tab.
    */
@@ -142,6 +151,7 @@ class Tab {
         $tabs[$tab] = [
           'count' => $counts[$tab],
           'prominent' => self::PROMINENT[$tab],
+          'emphasize' => self::EMPHASIZE[$tab],
           'title' => ($tab == self::T_PARADIGM) ? $declensionText : self::getName($tab),
           'icon' => ($tab == self::T_PRONUNCIATION) ? 'volume_up' : null,
         ];

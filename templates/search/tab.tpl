@@ -8,7 +8,7 @@
   <button
     aria-controls="tab_{$tab}"
     aria-selected="{if $tab == $activeTab}true{else}false{/if}"
-    class="nav-link {if $prominent}nav-notice{/if} {if $tab == $activeTab}active{/if}"
+    class="{if $emphasize}btn btn-danger{else}nav-link{/if} {if $prominent}nav-notice{/if} {if $tab == $activeTab}active{/if}"
     data-bs-target="#tab_{$tab}"
     data-bs-toggle="tab"
     data-permalink="{Tab::getPermalink($tab)}"

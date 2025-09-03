@@ -28,6 +28,7 @@
       {include "search/tab.tpl"
         count=$info.count
         prominent=$info.prominent
+        emphasize=$info.emphasize
         tab=$tab
         icon=$info.icon
         title=$info.title}

@@ -50,7 +50,7 @@ class Tab {
     self::T_TREES => false,
     self::T_GALLERY => false,
     self::T_ARTICLES => false,
-    self::T_PRONUNCIATION => true,
+    self::T_PRONUNCIATION => false,
   ];
 
   /**

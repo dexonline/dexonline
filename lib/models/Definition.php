@@ -8,12 +8,14 @@ class Definition extends BaseObject implements DatedObject {
   const ST_PENDING = 1;
   const ST_DELETED = 2;
   const ST_HIDDEN = 3;
+  const ST_REVIEW = 4;
 
   const STATUS_NAMES = [
     self::ST_ACTIVE  => 'activă',
     self::ST_PENDING => 'temporară',
     self::ST_DELETED => 'ștearsă',
     self::ST_HIDDEN  => 'ascunsă',
+    self::ST_REVIEW => 'șantier',
   ];
 
   private $source = null;

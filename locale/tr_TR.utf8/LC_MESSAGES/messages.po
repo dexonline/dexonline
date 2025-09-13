@@ -1,0 +1,1763 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-09-14 00:26+0300\n"
+"PO-Revision-Date: 2025-09-14 00:56+0300\n"
+"Last-Translator: Serhat Demirkol <srhtdmrkl@gmail.com>\n"
+"Language-Team: \n"
+"Language: tr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.7\n"
+"X-Poedit-Basepath: ../../..\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: lib\n"
+"X-Poedit-SearchPath-1: routes\n"
+"X-Poedit-SearchPath-2: templates\n"
+"X-Poedit-SearchPath-3: www\n"
+"X-Poedit-SearchPathExcluded-0: lib/third-party\n"
+"X-Poedit-SearchPathExcluded-1: www/js\n"
+
+#: www/search.php:226 www/search.php:237
+#, php-format
+msgid "We redirected you automatically from <b>%s</b> to <b>%s</b>."
+msgstr ""
+"Sizi otomatik olarak <b>%s</b> adresinden <b>%s</b> adresine yönlendirdik."
+
+#: www/search.php:352 lib/Tab.php:62
+msgid "conjugations"
+msgstr "fiil çekimleri"
+
+#: www/search.php:353 lib/Tab.php:62
+msgid "declensions"
+msgstr "isim çekimleri"
+
+#: lib/Tab.php:61 templates//bits/top.tpl:7 templates//games/mill.tpl:80
+#: templates//games/hangman.tpl:48
+msgid "definitions"
+msgstr "tanımlar"
+
+#: lib/Tab.php:63
+msgid "synthesis"
+msgstr "özet"
+
+#: lib/Tab.php:64 templates//games/hangman.tpl:18
+msgid "images"
+msgstr "görseller"
+
+#: lib/Tab.php:65
+msgid "articles"
+msgstr "makaleler"
+
+#: lib/models/InflectedForm.php:72 templates//search.tpl:281
+msgid "unrecommended or incorrect form"
+msgstr "tavsiye edilmeyen veya hatalı form"
+
+#: lib/models/InflectedForm.php:75
+msgid "by apheresis and/or elision"
+msgstr "hece düşmesi ve/veya hece yutması ile"
+
+#: lib/models/InflectedForm.php:78
+msgid "long verb form"
+msgstr "uzun fiil formu"
+
+#: lib/models/SourceType.php:40
+msgid "general use"
+msgstr "genel kullanım"
+
+#: lib/models/SourceType.php:41
+msgid "etymological"
+msgstr "etimolojik"
+
+#: lib/models/SourceType.php:42
+msgid "morphological"
+msgstr "morfolojik"
+
+#: lib/models/SourceType.php:43
+msgid "synonyms"
+msgstr "eş anlamlılar"
+
+#: lib/models/SourceType.php:44
+msgid "antonyms"
+msgstr "zıt anlamlılar"
+
+#: lib/models/SourceType.php:45
+msgid "relational"
+msgstr "ilişkisel"
+
+#: lib/models/SourceType.php:46
+msgid "specialized"
+msgstr "uzmanlaşmış"
+
+#: lib/models/SourceType.php:47
+msgid "slang"
+msgstr "argo"
+
+#: lib/models/SourceType.php:48
+msgid "phrases"
+msgstr "deyimler"
+
+#: lib/models/SourceType.php:49
+msgid "regional"
+msgstr "yöresel"
+
+#: lib/models/SourceType.php:50
+msgid "encyclopedic"
+msgstr "ansiklopedik"
+
+#: lib/models/SourceType.php:51
+msgid "other"
+msgstr "diğer"
+
+#: lib/models/SourceType.php:52
+msgid "unverified"
+msgstr "doğrulanmamış"
+
+#: lib/models/SourceType.php:58
+msgid "General use dictionaries"
+msgstr "Genel kullanım sözlükleri"
+
+#: lib/models/SourceType.php:59
+msgid "Etymological dictionaries"
+msgstr "Etimolojik sözlükler"
+
+#: lib/models/SourceType.php:60
+msgid "Morphological dictionaries"
+msgstr "Morfolojik sözlükler"
+
+#: lib/models/SourceType.php:61
+msgid "Antonyms dictionaries"
+msgstr "Zıt anlamlı kelime sözlükleri"
+
+#: lib/models/SourceType.php:62
+msgid "Synonyms dictionaries"
+msgstr "Eş anlamlı kelime sözlükleri"
+
+#: lib/models/SourceType.php:63
+msgid "Other relational dictionaries"
+msgstr "Diğer ilişkisel sözlükler"
+
+#: lib/models/SourceType.php:64
+msgid "Specialized dictionaries"
+msgstr "Uzmanlaşmış sözlükler"
+
+#: lib/models/SourceType.php:65
+msgid "Slang dictionaries"
+msgstr "Argo sözlükler"
+
+#: lib/models/SourceType.php:66
+msgid "Phrases and quotes"
+msgstr "Deyimler ve alıntılar"
+
+#: lib/models/SourceType.php:67
+msgid "Regional dictionaries"
+msgstr "Yöresel sözlükler"
+
+#: lib/models/SourceType.php:68
+msgid "Encyclopedic dictionaries"
+msgstr "Ansiklopedik sözlükler"
+
+#: lib/models/SourceType.php:69
+msgid "Other dictionaries"
+msgstr "Diğer sözlükler"
+
+#: lib/models/SourceType.php:70
+msgid "Unverified dictionaries"
+msgstr "Doğrulanmamış sözlükler"
+
+#: lib/models/SourceType.php:77
+msgid "The most common sense of the words are explained."
+msgstr "Kelimenin en yaygın anlamları açıklanır."
+
+#: lib/models/SourceType.php:79
+msgid "The etymology of (family of) words are explained."
+msgstr "Kelimenin (kelime ailesinin) etimolojisi açıklanır."
+
+#: lib/models/SourceType.php:81
+msgid "The correspondences between lemma and lexical forms of words."
+msgstr "Kelimelerin temel ve diğer kelime formları arasındaki ilişkiler."
+
+#: lib/models/SourceType.php:83
+msgid "Synonyms and similar meaning words."
+msgstr "Eş anlamlı ve benzer anlamlı kelimeler."
+
+#: lib/models/SourceType.php:85
+msgid "Antonyms and opposite meaning words."
+msgstr "Zıt anlamlı kelimeler ve ters anlamlı kelimeler."
+
+#: lib/models/SourceType.php:87
+msgid "These are not definitions, but relations between words."
+msgstr "Bunlar tanım değil, kelimeler arasındaki ilişkilerdir."
+
+#: lib/models/SourceType.php:89
+msgid "These definitions usually explain only specialized meanings of words."
+msgstr ""
+"Bu tanımlar genellikle sadece kelimelerin uzmanlaşmış anlamlarını açıklar."
+
+#: lib/models/SourceType.php:91
+msgid "Only slang words or senses are defined."
+msgstr "Sadece argo kelimeler veya anlamları tanımlanmıştır."
+
+#: lib/models/SourceType.php:93
+msgid "Romanian phrases, quotes and idiotisms."
+msgstr "Romence deyimler, alıntılar ve deyimler."
+
+#: lib/models/SourceType.php:95
+msgid "Only regional (or archaic) words or senses are defined."
+msgstr "Sadece yöresel (veya eskimiş) kelimeler veya anlamları tanımlanmıştır."
+
+#: lib/models/SourceType.php:97
+msgid "Encyclopedic definitions"
+msgstr "Ansiklopedik tanımlar"
+
+#: lib/models/SourceType.php:99
+msgid "These definitions could explain only certain meanings of words."
+msgstr "Bu tanımlar sadece kelimelerin belirli anlamlarını açıklayabilir."
+
+#: lib/models/SourceType.php:101
+msgid ""
+"Since they are not made by lexicographers, these definitions may contain "
+"errors."
+msgstr ""
+"Dilbilimciler tarafından hazırlanmadıkları için bu tanımlar hata içerebilir."
+
+#: routes/wotd/random.php:22
+#, php-format
+msgid "A randomly chosen word of the day"
+msgid_plural "%d randomly chosen words of the day"
+msgstr[0] "Günün rastgele seçilen kelimesi"
+msgstr[1] "Günün rastgele seçilen %d kelimesi"
+
+#: routes/source/view.php:7
+msgid "No source exists with the given ID."
+msgstr "Verilen ID ile ilgili kaynak bulunmamaktadır."
+
+#: routes/simple/tools.php:5
+msgid "Synchronization with dexonline"
+msgstr "Dexonline ile senkronizasyon"
+
+#: routes/simple/tools.php:6
+msgid "This client connects to dexonline periodically to download updates."
+msgstr ""
+"Bu istemci, güncellemeleri indirmek için düzenli aralıklarla dexonline'a "
+"bağlanır."
+
+#: routes/simple/tools.php:9
+msgid "Interface for visually impaired users"
+msgstr "Görme engelli kullanıcılar için arayüz"
+
+#: routes/simple/tools.php:10
+msgid "This client has a friendly interface for visually impaired users."
+msgstr ""
+"Bu istemci, görme engelli kullanıcılar için kullanıcı dostu bir arayüze "
+"sahiptir."
+
+#: routes/simple/tools.php:13
+msgid "Regular expressions, wildcards"
+msgstr "Düzenli ifadeler, joker karakterler"
+
+#: routes/simple/tools.php:14
+msgid ""
+"This client accepts searches using regular expressions and/or wildcards, "
+"such as «echi*» for echilibru, echinocțiu etc."
+msgstr ""
+"Bu istemci, echilibru, echinocțiu vb. için «echi*» gibi düzenli ifadeler ve/"
+"veya joker karakterler kullanılarak yapılan aramaları kabul eder."
+
+#: routes/simple/tools.php:17
+msgid "Suggestions"
+msgstr "Öneriler"
+
+#: routes/simple/tools.php:18
+msgid ""
+"This client offers the closest matches when an exact match is not found."
+msgstr "Bu istemci, tam eşleşme bulunamadığında en yakın eşleşmeleri sunar."
+
+#: routes/simple/tools.php:21
+msgid "Diacritics support"
+msgstr "Aksan desteği"
+
+#: routes/simple/tools.php:22
+msgid "This client supports searching with or without diacritics."
+msgstr "Bu istemci, aksan işaretli veya aksansız aramayı destekler."
+
+#: routes/simple/tools.php:25
+msgid "Full-text searches"
+msgstr "Tam metin aramaları"
+
+#: routes/simple/tools.php:26
+msgid ""
+"This client can search not just keywords, but the definition body as well."
+msgstr ""
+"Bu istemci sadece anahtar kelimeleri değil, aynı zamanda tanım metnini de "
+"arayabilir."
+
+#: routes/simple/tools.php:29
+msgid "Inflected form search"
+msgstr "Çekimli biçim araması"
+
+#: routes/simple/tools.php:30
+msgid ""
+"This client can query declensions and conjugations, such as «lucreze» "
+"instead of «lucra»."
+msgstr ""
+"Bu istemci, «lucra» yerine «lucreze» gibi çekimli fiil ve isim araması "
+"yapabilir."
+
+#: routes/simple/tools.php:33
+msgid "Word clicks"
+msgstr "Kelime tıklamaları"
+
+#: routes/simple/tools.php:34
+msgid ""
+"When you click a word in a definition, this client goes to the definition "
+"for that word."
+msgstr ""
+"Bir tanım içindeki bir kelimeye tıkladığınızda, bu istemci o kelimenin "
+"tanımına gider."
+
+#: routes/simple/tools.php:37
+msgid "Search history"
+msgstr "Arama geçmişi"
+
+#: routes/simple/tools.php:38
+msgid "This client remembers the most recent searches and can revisit them."
+msgstr ""
+"Bu istemci en son aramaları hatırlar ve bunları tekrar ziyaret edebilir."
+
+#: routes/simple/tools.php:49
+msgid "Perl, wxWidgets (only under Linux)"
+msgstr "Perl, wxWidgets (sadece Linux altında)"
+
+#: routes/simple/tools.php:73
+msgid "QT, g++ (only under Linux)"
+msgstr "QT, g++ (sadece Linux altında)"
+
+#: routes/helpers/changeLocale.php:6
+msgid ""
+"Interface language changed. Definition text and external links are always in "
+"Romanian."
+msgstr ""
+"Arayüz dili değiştirildi. Tanım metni ve harici bağlantılar her zaman "
+"Romence'dir."
+
+#: routes/lexeme/random.php:24
+#, php-format
+msgid "A randomly chosen word"
+msgid_plural "%d randomly chosen words"
+msgstr[0] "Rastgele seçilmiş bir kelime"
+msgstr[1] "Rastgele seçilmiş %d kelime"
+
+#: templates//index.tpl:12
+msgid "Dictionaries of the Romanian language"
+msgstr "Romence sözlükler"
+
+#: templates//index.tpl:32
+msgid "customize widgets"
+msgstr "ekran araçlarını özelleştir"
+
+#: templates//index.tpl:38
+msgid "digitizes prestigious dictionaries of the Romanian language."
+msgstr "saygın Romence sözlükleri dijitalleştirir."
+
+#: templates//index.tpl:39
+msgid "The project is maintained by a team of volunteers."
+msgstr "Proje, gönüllülerden oluşan bir ekip tarafından yürütülmektedir."
+
+#: templates//index.tpl:40
+msgid ""
+"Much of the data can be downloaded freely under the GNU General Public "
+"License."
+msgstr ""
+"Verilerin çoğu GNU Genel Kamu Lisansı kapsamında ücretsiz olarak "
+"indirilebilir."
+
+#: templates//index.tpl:41
+msgid "Current status: %1 definitions, of which %2 learned last month."
+msgstr "Mevcut durum: %1 adet tanım, bunun %2 adedi geçen ay önerildi."
+
+#: templates//wotd/view.tpl:4 templates//bits/navmenu.tpl:122
+#: templates//widgets/wotd.tpl:5
+msgid "word of the day"
+msgstr "günün kelimesi"
+
+#: templates//wotd/view.tpl:24
+msgid "Word of the day for %2 %1, %3"
+msgstr "%1 %2 %3 için günün kelimesi"
+
+#: templates//wotd/view.tpl:55
+msgid ""
+"<i>dexonline</i> does not directly offer the word of the day by email. "
+"However, there are <a href=\"%1\">many sites</a> that do this for any RSS "
+"feed. We recommend <a href=\"%2\">Blogtrottr</a>."
+msgstr ""
+"<i>Dexonline</i>, günün kelimesini doğrudan e-posta yoluyla sunmamaktadır. "
+"Ancak, bunu herhangi bir RSS beslemesi için yapan <a href=\\\"%1\\\">birçok "
+"site</a> bulunmaktadır. <a href=\\\"%2\\\">Blogtrottr</a>'ı öneriyoruz."
+
+#: templates//wotd/view.tpl:107 templates//wotm/view.tpl:55
+#: templates//wote/view.tpl:60
+msgid "Chosen because:"
+msgstr "Seçilme nedeni:"
+
+#: templates//wotd/view.tpl:115
+msgid "Word of the day archive"
+msgstr "Günün kelimesi arşivi"
+
+#: templates//wotd/view.tpl:125
+msgid "Word of the day for %2 %1 in other years:"
+msgstr "Diğer yıllarda %1 %2 için günün kelimesi:"
+
+#: templates//wotm/view.tpl:4 templates//wotm/view.tpl:17
+msgid "Word of the month for"
+msgstr "Ayın kelimesi"
+
+#: templates//wotm/view.tpl:21 templates//wote/view.tpl:22
+msgid "previous"
+msgstr "önceki"
+
+#: templates//wotm/view.tpl:26 templates//wote/view.tpl:27
+msgid "next"
+msgstr "sonraki"
+
+#: templates//search.tpl:7
+msgid "definition"
+msgstr "tanım"
+
+#: templates//search.tpl:9
+msgid "and paradigm"
+msgstr "ve örneklem"
+
+#: templates//search.tpl:76
+msgid "Definition with ID"
+msgstr "ID’li tanım"
+
+#: templates//search.tpl:88
+msgid "One definition contains all the words"
+msgid_plural "%1 definitions contain all the words"
+msgstr[0] "Bir tanım tüm kelimeleri içerir"
+msgstr[1] "%1 tanım tüm kelimeleri içerir"
+
+#: templates//search.tpl:93 templates//search.tpl:160
+msgid "(at most %1 shown)"
+msgstr "(En fazla %1 gösterilir)"
+
+#: templates//search.tpl:96
+msgid "No definitions contain all the words"
+msgstr "Hiçbir tanım tüm kelimeleri içermiyor"
+
+#: templates//search.tpl:102
+msgid "The following words were ignored because they are too common:"
+msgstr "Aşağıdaki kelimeler çok yaygın oldukları için göz ardı edildi:"
+
+#: templates//search.tpl:116
+msgid "There is no entry with the given ID."
+msgstr "Verilen ID ile hiçbir giriş bulunamadı."
+
+#: templates//search.tpl:126 templates//search.tpl:189
+msgid "One definition for %2"
+msgid_plural "%1 definitions for %2"
+msgstr[0] "%2 için bir tanım"
+msgstr[1] "%2 için %1 tanım"
+
+#: templates//search.tpl:132 templates//search.tpl:195
+msgid "No definitions for %1"
+msgstr "%1 için tanım bulunamadı"
+
+#: templates//search.tpl:144
+msgid "for"
+msgstr "için"
+
+#: templates//search.tpl:150
+msgid "One result for <strong>%2</strong>"
+msgid_plural "%1 results for <strong>%2</strong>"
+msgstr[0] "<strong>%2</strong> için bir sonuç"
+msgstr[1] "<strong>%2</strong> için %1 sonuç"
+
+#: templates//search.tpl:156 templates//search.tpl:261
+msgid "No results for <strong>%1</strong>"
+msgstr "<strong>%1</strong> için sonuç bulunamadı"
+
+#: templates//search.tpl:176
+msgid "One entry"
+msgid_plural "%1 entries"
+msgstr[0] "Bir giriş"
+msgstr[1] "%1 giriş"
+
+#: templates//search.tpl:209
+msgid "One definition"
+msgid_plural "%1 definitions"
+msgstr[0] "Bir tanım"
+msgstr[1] "%1 tanım"
+
+#: templates//search.tpl:226
+msgid "One definition matches at least two words"
+msgid_plural "%1 definitions match at least two words"
+msgstr[0] "Bir tanım en az iki kelimeyle eşleşiyor"
+msgstr[1] "%1 tanım en az iki kelimeyle eşleşiyor"
+
+#: templates//search.tpl:231
+msgid "No definitions match at least two words"
+msgstr "En az iki kelimeyle eşleşen tanım yok"
+
+#: templates//search.tpl:236
+msgid ""
+"If the results are inadequate, you can look up individual words or you can "
+"search"
+msgstr ""
+"Eğer sonuçlar yetersize, tek bir kelime arayabilir veya tam metin araması "
+"yapabilirsiniz"
+
+#: templates//search.tpl:237
+msgid "full-text"
+msgstr "tam metin"
+
+#: templates//search.tpl:242
+msgid "At most 5 words are allowed. The following words were ignored:"
+msgstr "En fazla 5 kelimeye izin verilir. Aşağıdaki kelimeler göz ardı edildi:"
+
+#: templates//search.tpl:255
+msgid ""
+"The word <strong>%1</strong> is not in the dictionary. Here are some "
+"suggestions:"
+msgstr "<strong>%1</strong> kelimesi sözlükte bulunmuyor. İşte bazı öneriler:"
+
+#: templates//search.tpl:285 templates//search.tpl:293
+#: templates//search.tpl:297 templates//search/trees.tpl:14
+msgid "hide"
+msgstr "gizle"
+
+#: templates//search.tpl:286 templates//search.tpl:294
+#: templates//search.tpl:296 templates//search/trees.tpl:24
+#: templates//games/scrabble.tpl:184
+msgid "show"
+msgstr "göster"
+
+#: templates//search.tpl:300
+msgid "elisions and long verb forms"
+msgstr "ses düşmesi ve uzun fiil formları"
+
+#: templates//search.tpl:355
+msgid ""
+"<b>The Synthesis tab</b> shows a condensed list of definitions compiled by "
+"the dexonline team. The original definitions are available on the "
+"<b>Definitions</b> tab. You can reorder tabs on your <a "
+"href=\"%1\">preferences</a> page."
+msgstr ""
+"<b>Özet sekmesi</b>, dexonline ekibi tarafından derlenen tanımların özet bir "
+"listesini gösterir. Orijinal tanımlar <b>Tanımlar</b> sekmesinde bulunur. <a "
+"href=\"%1\">tercihler</a> sayfanızda sekmeleri yeniden sıralayabilirsiniz."
+
+#: templates//user/top.tpl:6
+msgid "Manual contribution rankings"
+msgstr "Manuel katkı sıralamaları"
+
+#: templates//user/top.tpl:9
+msgid ""
+"For every user the number of definitions and the total character length of "
+"those definitions are shown. For comparison, the Bible has roughly 3,500,000 "
+"characters."
+msgstr ""
+"Her kullanıcı için tanımların sayısı ve bu tanımların toplam karakter "
+"uzunluğu gösterilir. Karşılaştırma için, İncil’de yaklaşık 3.500.000 "
+"karakter vardır."
+
+#: templates//user/top.tpl:14
+msgid "Last year ranking"
+msgstr "Geçen yılın sıralaması"
+
+#: templates//user/top.tpl:18
+msgid "Global ranking"
+msgstr "Dünya genelinde sıralama"
+
+#: templates//user/top.tpl:22
+msgid "Automated contribution rankings"
+msgstr "Otomatik katkı sıralaması"
+
+#: templates//user/top.tpl:25
+msgid "These include definitions entered using a program."
+msgstr "Bunlar, bir program kullanılarak girilen tanımları içerir."
+
+#: templates//simple/tools.tpl:3 templates//bits/navmenu.tpl:142
+msgid "tools"
+msgstr "araçlar"
+
+#: templates//simple/tools.tpl:6
+msgid "off-line clients"
+msgstr "çevrimdışı istemciler"
+
+#: templates//simple/tools.tpl:9
+msgid ""
+"These applications download the definitions from <i>dexonline</i> to your "
+"computer or phone. Then you can see them without an Internet connection."
+msgstr ""
+"Bu uygulamalar tanımları <i>dexonline</i>'dan bilgisayarınıza veya "
+"telefonunuza indirir. Ardından internet bağlantısı olmadan da "
+"görüntüleyebilirsiniz."
+
+#: templates//simple/tools.tpl:17
+msgid "Client"
+msgstr "İstemci"
+
+#: templates//simple/tools.tpl:30
+msgid "Platforms"
+msgstr "Platformlar"
+
+#: templates//simple/tools.tpl:57
+msgid "Requirements"
+msgstr "Gereksinimler"
+
+#: templates//simple/tools.tpl:64
+msgid "Disk space required"
+msgstr "Gerekli disk alanı"
+
+#: templates//simple/tools.tpl:71
+msgid "Author"
+msgstr "Yazar"
+
+#: templates//simple/tools.tpl:84 templates//simple/tools.tpl:105
+#: templates//layout.tpl:70
+msgid "license"
+msgstr "lisans"
+
+#: templates//simple/tools.tpl:99
+msgid "license on the data in this table"
+msgstr "bu tablodaki veriler için lisans"
+
+#: templates//simple/tools.tpl:107
+msgid ""
+"The information in this table is dual-licensed under the GNU General Public "
+"License (as applicable to the entire site) and the <a href=\"%1\">Creative "
+"Commons Attribution-ShareAlike 3.0</a> license. The information can be used "
+"(copied, modified, adapted etc.) by the website http://wikipedia.org. The "
+"data are gathered from the mailing list discutii@dexonline.ro (formerly "
+"dictionar@yahoogroups.com) in collaboration with the application developers."
+msgstr ""
+"Bu tablodaki bilgiler, GNU Genel Kamu Lisansı (tüm site için geçerlidir) ve "
+"<a href=\"%1\">Creative Commons Attribution-ShareAlike 3.0</a> lisansı "
+"altında çift lisanslıdır. Bu bilgiler http://wikipedia.org web sitesi "
+"tarafından kullanılabilir (kopyalanabilir, değiştirilebilir, uyarlanabilir "
+"vb.). Veriler, uygulama geliştiricileriyle işbirliği içinde "
+"discutii@dexonline.ro (eski adıyla dictionar@yahoogroups.com) posta "
+"listesinden toplanmıştır."
+
+#: templates//simple/tools.tpl:118
+msgid "Browser integration"
+msgstr "Tarayıcı entegrasyonu"
+
+#: templates//simple/tools.tpl:124
+msgid "A <a href=\"%1\" onclick=\"%2\">spell checker</a> for Firefox."
+msgstr ""
+"Firefox için bir <a href=\"%1\" onclick=\"%2\">yazım denetleyicisi</a>."
+
+#: templates//simple/tools.tpl:130
+msgid ""
+"To use the spell checker, right-click in any text box, check the <em>Check "
+"spelling</em> box, right-click once more and select <em>Languages > "
+"Romanian</em>."
+msgstr ""
+"Yazım denetleyicisini kullanmak için, herhangi bir metin kutusuna sağ "
+"tıklayın, <em>Yazım denetle</em> kutusunu işaretleyin, bir kez daha sağ "
+"tıklayın ve <em>Diller > Romence</em> seçeneğini seçin."
+
+#: templates//simple/tools.tpl:140
+msgid ""
+"<a href=\"#\" onclick=\"%1\">Add <i>dexonline</i> to the search engine list</"
+"a> of your browser. Thanks to Alexandru Lixandru."
+msgstr ""
+"<a href=\"\"# onclick=\"%1\">Tarayıcınızın arama motoru listesine "
+"<i>dexonline</i> ekleyin</a>. Alexandru Lixandru'ya teşekkür ederiz."
+
+#: templates//simple/tools.tpl:146
+msgid "A <a href=\"%1\">Chrome extension</a> for right-click searches."
+msgstr "Sağ tıklama aramaları için bir <a href=“%1”>Chrome uzantısı</a>."
+
+#: templates//simple/tools.tpl:151
+msgid ""
+"A <a href=\"%1\">Firefox add-on</a> for dexonline by AdaKaleh. Allows right-"
+"click searches and registers a one-click search engine."
+msgstr ""
+"AdaKaleh tarafından geliştirilen dexonline için bir <a href=\\\"%1\\"
+"\">Firefox eklentisi</a>. Sağ tıklama ile arama yapmayı sağlar ve tek "
+"tıklamayla arama motoru kaydeder."
+
+#: templates//simple/tools.tpl:158
+msgid "A <a href=\"%1\">WordPress plugin</a> for your blog."
+msgstr "Blogunuz için bir <a href=\"%1\">WordPress eklentisi</a>."
+
+#: templates//simple/tools.tpl:164
+msgid "Dictionaries in StarDict format"
+msgstr "StarDict formatındaki sözlükler"
+
+#: templates//simple/tools.tpl:189
+msgid "all of the above"
+msgstr "yukarıdakilerin tümü"
+
+#: templates//simple/contact.tpl:4 templates//simple/contact.tpl:15
+#: templates//bits/navmenu.tpl:43
+msgid "contact us"
+msgstr "bize ulaşın"
+
+#: templates//simple/contact.tpl:33
+msgid "Useful information"
+msgstr "Faydalı bilgiler"
+
+#: templates//simple/contact.tpl:37
+msgid ""
+"<a href=\"%1\">What dexonline is <strong>not</strong></a> (ways we cannot "
+"help you)."
+msgstr ""
+"<a href=\"%1\">Dexonline’ın <strong>yapamadıklar</strong></a> (size yardımcı "
+"olamayacağımız durumlar)."
+
+#: templates//simple/contact.tpl:44
+msgid "You can install dexonline on <a href=\"%1\">your computer or phone</a>."
+msgstr ""
+"Dexonline'ı <a href=\"%1\">bilgisayarınıza veya telefonunuza</a> "
+"yükleyebilirsiniz."
+
+#: templates//simple/contact.tpl:50
+msgid "You can download a <a href=\"%1\">copy of the database</a>."
+msgstr "<a href=\"%1\">Veritabanının bir kopyasını</a> indirebilirsiniz."
+
+#: templates//simple/links.tpl:3
+msgid "links"
+msgstr "bağlantılar"
+
+#: templates//simple/links.tpl:7
+msgid ""
+"This page contains useful language links. These links are not sponsored; we "
+"consider them useful to our visitors. We are not affiliated with the "
+"respective sites and institutions."
+msgstr ""
+"Bu sayfa faydalı bağlantılar içermektedir. Bu bağlantılar sponsorlu "
+"değildir; ziyaretçilerimiz için faydalı olduğunu düşünüyoruz. İlgili siteler "
+"ve kurumlarla herhangi bir bağlantımız bulunmamaktadır."
+
+#: templates//simple/links.tpl:12
+msgid "Romanian language"
+msgstr "Romen dili"
+
+#: templates//simple/links.tpl:16
+msgid ""
+"Iorgu Iordan - Alexandru Rosetti <a href=\"%1\">Institute of Linguistics</"
+"a>, Romanian Academy"
+msgstr ""
+"Iorgu Iordan - Alexandru Rosetti <a href=\"%1\">Dilbilim Enstitüsü</a>, "
+"Romanya Akademisi"
+
+#: templates//simple/links.tpl:22
+msgid ""
+"Sorin Paliga &mdash; volumes in PDF format at <a href=\"%1\">Academia.edu</"
+"a> and <a href=\"%2\">ResearchGate</a>"
+msgstr ""
+"Sorin Paliga — PDF formatındaki kitaplar <a href=\"%1\">Academia.edu</a> ve "
+"<a href=\"%2\">ResearchGate</a> adreslerinde bulunabilir"
+
+#: templates//simple/links.tpl:29
+msgid "Other languages"
+msgstr "Diğer diller"
+
+#: templates//simple/links.tpl:33
+msgid ""
+"<a href=\"%1\">hallo.ro</a> &mdash; bilingual dictionaries between Romanian "
+"and English, French, Spanish, German, Italian"
+msgstr ""
+"<a href=\"%1\">hallo.ro</a> &mdash; Romence ve İngilizce, Fransızca, "
+"İspanyolca, Almanya, İtalyanca iki dilli sözlükler"
+
+#: templates//simple/links.tpl:39 templates//widgets/games.tpl:3
+msgid "games"
+msgstr "oyunlar"
+
+#: templates//simple/links.tpl:43
+msgid "The <a href=\"%1\">Romanian Scrabble Federation</a>"
+msgstr "<a href=\"%1\">Romanya Scrabble Federasyonu</a>"
+
+#: templates//simple/links.tpl:47
+msgid ""
+"<a href=\"%1\">Find words</a> &mdash; a helper for crosswords and Scrabble"
+msgstr ""
+"<a href=\"%1\">Kelime bulma</a> &mdash; çapraz bulmaca ve Scrabble için "
+"yardımcı araç"
+
+#: templates//simple/links.tpl:51
+msgid "A <a href=\"%1\">game of Fazan</a> for Android devices"
+msgstr "Android cihazlar için bir <a href=\"%1\">Fazan oyunu</a>"
+
+#: templates//notices/searchedVariant.tpl:1
+msgid "Your query <b>%1</b> is a variant of <b>%2</b>."
+msgstr "Sorgunuz <b>%1</b>, <b>%2</b>'nin bir başka şeklidir."
+
+#: templates//notices/formIsElision.tpl:2
+msgid "Your query <b>%1</b> is an elision of <b>%2</b>."
+msgstr "Aramanız <b>%1</b>, <b>%2</b>'nin bir ses düşmesidir."
+
+#: templates//search/gallery.tpl:11
+msgid "click any image for details"
+msgstr "detaylar için herhangi bir resme tıklayın"
+
+#: templates//search/sourceTypes.tpl:3
+msgid "of which"
+msgstr ""
+
+#: templates//search/extendToAllSources.tpl:3
+msgid "Repeat your search <a href=\"%1\">in all dictionaries</a>."
+msgstr "Aramanızı <a href=\"%1\">tüm sözlüklerde</a> tekrarlayın."
+
+#: templates//search/fullTextLock.tpl:1
+msgid "Search disabled"
+msgstr "Arama devre dışı"
+
+#: templates//search/fullTextLock.tpl:4
+msgid ""
+"You cannot currently perform full-text searches because the index is being "
+"regenerated. This typically takes about 10 minutes. We apologize for the "
+"inconvenience."
+msgstr ""
+"Dizin yeniden oluşturulduğu için şu anda tam metin araması yapamazsınız. Bu "
+"işlem genellikle yaklaşık 10 dakika sürer. Verdiğimiz rahatsızlıktan dolayı "
+"özür dileriz."
+
+#: templates//search/trees.tpl:4
+msgid ""
+"These definitions are compiled by the dexonline team. The original "
+"definitions are available on the <a class=\"%1\" href=\"#\">definitions</a> "
+"tab. You can reorder tabs on your <a href=\"%2\">preferences</a> page."
+msgstr ""
+"Bu tanımlar dexonline ekibi tarafından derlenmiştir. Orijinal tanımlar <a "
+"class=\"%1\" href=\"\"#>tanımlar</a> sekmesinde bulunabilir. <a "
+"href=\"%2\">tercihler</a> sayfanızda sekmeleri yeniden sıralayabilirsiniz."
+
+#: templates//search/trees.tpl:30
+msgid "secondary meanings"
+msgstr "ikincil anlamlar"
+
+#: templates//search/trees.tpl:36
+msgid "expressions"
+msgstr "ifadeler"
+
+#: templates//search/trees.tpl:42
+msgid "examples"
+msgstr "örnekler"
+
+#: templates//search/trees.tpl:48
+msgid "sources"
+msgstr "kaynaklar"
+
+#: templates//search/trees.tpl:57
+msgid "edit"
+msgstr "düzenle"
+
+#: templates//search/trees.tpl:104
+msgid "etymology"
+msgstr "etimoloji"
+
+#: templates//search/trees.tpl:117
+msgid ""
+"The full definition list is available on the <a class=\"%1\" "
+"href=\"#\">definitions</a> tab."
+msgstr ""
+"Tam tanım listesi <a class=\"%1\" href=\"\"#>tanımlar</a> sekmesinde "
+"mevcuttur."
+
+#: templates//search/wikiArticles.tpl:3
+msgid "One linguistics article"
+msgid_plural "%1 linguistics articles"
+msgstr[0] "Bir dilbilim makalesi"
+msgstr[1] "%1 dilbilim makalesi"
+
+#: templates//search/missingDefinitionWarnings.tpl:6
+msgid ""
+"There are definitions in non-normative dictionaries, which <a "
+"href=\"%1\">you have chosen to hide</a>."
+msgstr ""
+"Normatif olmayan sözlüklerde, <a href=\"%1\">gizlemeyi seçtiğiniz</a> "
+"tanımlar bulunmaktadır."
+
+#: templates//search/missingDefinitionWarnings.tpl:13
+msgid ""
+"There are definitions in dictionaries for which dexonline has no publishing "
+"rights:"
+msgstr ""
+"Dexonline’ın yayın haklarına sahip olmadığı sözlüklerde tanımlar "
+"bulunmaktadır:"
+
+#: templates//bits/sourceDropDown.tpl:19 templates//bits/sourceField.tpl:21
+#: templates//bits/sourceField.tpl:36
+msgid "All dictionaries"
+msgstr "Tüm sözlükler"
+
+#: templates//bits/definitionMenuProper.tpl:38
+msgid "source"
+msgstr "kaynak"
+
+#: templates//bits/definitionMenuProper.tpl:53
+msgid "provided by"
+msgstr "sağlayan"
+
+#: templates//bits/definitionMenuProper.tpl:63
+msgid "status"
+msgstr "durum"
+
+#: templates//bits/definitionMenuProper.tpl:70
+msgid "added by"
+msgstr "ekleyen"
+
+#: templates//bits/definitionMenuProper.tpl:145
+msgid "actions"
+msgstr "eylemler"
+
+#: templates//bits/definitionMenuProper.tpl:159 templates//bits/typoForm.tpl:10
+#: templates//bits/typoForm.tpl:61
+msgid "report a typo"
+msgstr "yazım hatası bildir"
+
+#: templates//bits/definitionMenuProper.tpl:172
+#: templates//bits/definitionMenuProper.tpl:182
+msgid "added to favorites"
+msgstr "favorilere eklendi"
+
+#: templates//bits/definitionMenuProper.tpl:181
+#: templates//bits/definitionMenuProper.tpl:196
+msgid "please wait..."
+msgstr "lütfen bekleyin…"
+
+#: templates//bits/definitionMenuProper.tpl:183
+msgid "add to favorites"
+msgstr "favorilere ekle"
+
+#: templates//bits/definitionMenuProper.tpl:197
+msgid "remove from favorites"
+msgstr "favorilerden çıkar"
+
+#: templates//bits/definitionMenuProper.tpl:210
+msgid "permalink"
+msgstr "kalıcı bağlantı"
+
+#: templates//bits/definitionMenuProper.tpl:261
+msgid "+1 identical definition"
+msgid_plural "+%1 identical definitions"
+msgstr[0] "+1 aynı tanım"
+msgstr[1] "+%1 aynı tanım"
+
+#: templates//bits/lexeme.tpl:6
+msgid "compound"
+msgstr "bileşik"
+
+#: templates//bits/lexeme.tpl:25
+msgid "Inflection sources"
+msgstr "Çekim kaynakları"
+
+#: templates//bits/scrabbleResults.tpl:4
+msgid "The form <strong>%1</strong> exists in LOC %2."
+msgstr "<strong>%1</strong> biçimi LOC %2'de mevcuttur."
+
+#: templates//bits/scrabbleResults.tpl:8
+msgid "The form <strong>%1</strong> does not exist in LOC %2."
+msgstr "<strong>%1</strong> biçimi LOC %2'de mevcut değildir."
+
+#: templates//bits/multiParadigm.tpl:6
+msgid "entry"
+msgstr "giriş"
+
+#: templates//bits/multiParadigm.tpl:36
+msgid "hide variants"
+msgstr "değişkenleri gizle"
+
+#: templates//bits/multiParadigm.tpl:42
+msgid "show variants"
+msgstr "değişkenleri göster"
+
+#: templates//bits/sourceField.tpl:30
+msgid "choose a dictionary..."
+msgstr "bir sözlük seçin…"
+
+#: templates//bits/typoForm.tpl:26
+msgid "please describe the error; at most 400 characters are allowed"
+msgstr "lütfen hatayı açıklayın; en fazla 400 karaktere izin verilir"
+
+#: templates//bits/typoForm.tpl:30
+msgid "notes"
+msgstr "notlar"
+
+#: templates//bits/typoForm.tpl:35
+msgid ""
+"Some dictionaries (such as <em>Scriban</em>) use old orthographies. This is "
+"not a typo."
+msgstr ""
+"Bazı sözlükler (örneğin <em>Scriban</em>) eski yazım kurallarını kullanır. "
+"Bu bir yazım hatası değildir."
+
+#: templates//bits/typoForm.tpl:40
+msgid ""
+"We generally do not change the original text of definitions, but we can add "
+"comments. Please do not report semantic errors except in obvious cases."
+msgstr ""
+"Genellikle tanımların orijinal metnini değiştirmiyoruz, ancak yorumlar "
+"ekleyebiliyoruz. Bariz durumlar dışında anlamsal hataları bildirmeyiniz."
+
+#: templates//bits/typoForm.tpl:48
+msgid "submit"
+msgstr "gönder"
+
+#: templates//bits/typoForm.tpl:49
+msgid "cancel"
+msgstr "iptal"
+
+#: templates//bits/typoForm.tpl:71
+msgid "Thank you for your report!"
+msgstr "Bildiriminiz için teşekkür ederiz!"
+
+#: templates//bits/typoForm.tpl:75
+msgid "close"
+msgstr "kapat"
+
+#: templates//bits/top.tpl:4
+msgid "rank"
+msgstr "sıralama"
+
+#: templates//bits/top.tpl:5
+msgid "name"
+msgstr "isim"
+
+#: templates//bits/top.tpl:6
+msgid "characters"
+msgstr "karakterler"
+
+#: templates//bits/top.tpl:8
+msgid "most recent submission"
+msgstr "en son gönderim"
+
+#: templates//bits/extendedParadigm.tpl:20
+msgid "hyphenation"
+msgstr "sözcük kesme"
+
+#: templates//bits/extendedParadigm.tpl:22
+msgid "Hyphenation splits the word into syllables."
+msgstr "Sözlük kesme kelimeyi hecelere ayırır."
+
+#: templates//bits/extendedParadigm.tpl:30
+msgid "pronunciation"
+msgstr "telaffuz"
+
+#: templates//bits/searchForm.tpl:24
+msgid "word"
+msgstr "kelime"
+
+#: templates//bits/searchForm.tpl:47
+msgid "search"
+msgstr "ara"
+
+#: templates//bits/searchForm.tpl:52 templates//games/scramble.tpl:32
+msgid "options"
+msgstr "seçenekler"
+
+#: templates//bits/searchForm.tpl:66
+msgid "Full-text search"
+msgstr "Tam metin arama"
+
+#: templates//bits/searchForm.tpl:76
+msgid "help"
+msgstr "yardım"
+
+#: templates//bits/navmenu.tpl:9
+msgid "home page"
+msgstr "ana sayfa"
+
+#: templates//bits/navmenu.tpl:29
+msgid "about"
+msgstr "hakkında"
+
+#: templates//bits/navmenu.tpl:38
+msgid "information"
+msgstr "bilgi"
+
+#: templates//bits/navmenu.tpl:48
+msgid "blog"
+msgstr "blog"
+
+#: templates//bits/navmenu.tpl:53
+msgid "newsletter"
+msgstr "bülten"
+
+#: templates//bits/navmenu.tpl:68
+msgid "get involved"
+msgstr "dahil ol"
+
+#: templates//bits/navmenu.tpl:76
+msgid "ways to help"
+msgstr "yardım etme yolları"
+
+#: templates//bits/navmenu.tpl:81
+msgid "volunteer ranking"
+msgstr "gönüllü sıralaması"
+
+#: templates//bits/navmenu.tpl:96
+msgid "resources"
+msgstr "kaynaklar"
+
+#: templates//bits/navmenu.tpl:105
+msgid "abbreviations table"
+msgstr "kısaltmalar tablosu"
+
+#: templates//bits/navmenu.tpl:110 templates//article/list.tpl:3
+#: templates//article/list.tpl:6
+msgid "linguistics articles"
+msgstr "dilbilim makaleleri"
+
+#: templates//bits/navmenu.tpl:117
+msgid "grammar guide"
+msgstr "dilbilgisi rehberi"
+
+#: templates//bits/navmenu.tpl:127 templates//widgets/wotm.tpl:5
+msgid "word of the month"
+msgstr "ayın kelimesi"
+
+#: templates//bits/navmenu.tpl:132
+msgid "random words"
+msgstr "rastgele kelimeler"
+
+#: templates//bits/navmenu.tpl:137
+msgid "Scrabble"
+msgstr "Scrabble"
+
+#: templates//bits/navmenu.tpl:147
+msgid "external links"
+msgstr "dış bağlantılar"
+
+#: templates//bits/navmenu.tpl:214
+msgid "light mode"
+msgstr "aydınlık mod"
+
+#: templates//bits/navmenu.tpl:222
+msgid "dark mode"
+msgstr "koyu mod"
+
+#: templates//bits/navmenu.tpl:239
+msgid "Anonymous"
+msgstr "Anonim"
+
+#: templates//bits/navmenu.tpl:248
+msgid "moderator page"
+msgstr "moderatör sayfası"
+
+#: templates//bits/navmenu.tpl:258
+msgid "hotkeys"
+msgstr "kısayol tuşları"
+
+#: templates//bits/navmenu.tpl:271
+msgid "recently viewed pages"
+msgstr "son görüntülenen sayfalar"
+
+#: templates//bits/navmenu.tpl:278
+msgid "preferences"
+msgstr "tercihler"
+
+#: templates//bits/navmenu.tpl:287
+msgid "profile"
+msgstr "profil"
+
+#: templates//bits/navmenu.tpl:293 templates//definition/favorites.tpl:3
+#: templates//definition/favorites.tpl:7
+msgid "favorite words"
+msgstr "favori kelimeler"
+
+#: templates//bits/navmenu.tpl:299
+msgid "log out"
+msgstr "çıkış"
+
+#: templates//bits/navmenu.tpl:306
+msgid "log in"
+msgstr "giriş"
+
+#: templates//bits/navmenu.tpl:320
+msgid "donate"
+msgstr "bağış yap"
+
+#: templates//bits/navmenu.tpl:330
+msgid "navigation"
+msgstr "gezinme"
+
+#: templates//paradigm/paradigmN.tpl:8 templates//paradigm/paradigmM.tpl:8
+#: templates//paradigm/paradigmF.tpl:8 templates//paradigm/paradigmSP.tpl:8
+#: templates//paradigm/paradigmA.tpl:12 templates//paradigm/paradigmA.tpl:14
+msgid "no article"
+msgstr "belirsiz"
+
+#: templates//paradigm/paradigmN.tpl:9 templates//paradigm/paradigmM.tpl:9
+#: templates//paradigm/paradigmF.tpl:9 templates//paradigm/paradigmSP.tpl:9
+#: templates//paradigm/paradigmA.tpl:13 templates//paradigm/paradigmA.tpl:15
+msgid "def. article"
+msgstr "belirli"
+
+#: templates//paradigm/paradigmN.tpl:12 templates//paradigm/paradigmM.tpl:12
+#: templates//paradigm/paradigmF.tpl:12 templates//paradigm/paradigmP.tpl:12
+#: templates//paradigm/paradigmSP.tpl:12 templates//paradigm/paradigmA.tpl:18
+msgid "nominative-accusative"
+msgstr "yalın hali / -i hali"
+
+#: templates//paradigm/paradigmN.tpl:13 templates//paradigm/paradigmN.tpl:32
+#: templates//paradigm/paradigmN.tpl:51 templates//paradigm/paradigmM.tpl:13
+#: templates//paradigm/paradigmM.tpl:32 templates//paradigm/paradigmM.tpl:51
+#: templates//paradigm/paradigmF.tpl:13 templates//paradigm/paradigmF.tpl:32
+#: templates//paradigm/paradigmF.tpl:51 templates//paradigm/paradigmP.tpl:13
+#: templates//paradigm/paradigmP.tpl:32 templates//paradigm/paradigmSP.tpl:13
+#: templates//paradigm/paradigmSP.tpl:32 templates//paradigm/paradigmSP.tpl:51
+#: templates//paradigm/paradigmA.tpl:19 templates//paradigm/paradigmA.tpl:50
+#: templates//paradigm/paradigmA.tpl:81 templates//paradigm/paradigmV.tpl:34
+#: templates//paradigm/paradigmV.tpl:60
+msgid "singular"
+msgstr "tekil"
+
+#: templates//paradigm/paradigmN.tpl:22 templates//paradigm/paradigmN.tpl:41
+#: templates//paradigm/paradigmN.tpl:57 templates//paradigm/paradigmM.tpl:22
+#: templates//paradigm/paradigmM.tpl:41 templates//paradigm/paradigmM.tpl:57
+#: templates//paradigm/paradigmF.tpl:22 templates//paradigm/paradigmF.tpl:41
+#: templates//paradigm/paradigmF.tpl:57 templates//paradigm/paradigmP.tpl:22
+#: templates//paradigm/paradigmP.tpl:41 templates//paradigm/paradigmSP.tpl:22
+#: templates//paradigm/paradigmSP.tpl:41 templates//paradigm/paradigmSP.tpl:57
+#: templates//paradigm/paradigmA.tpl:34 templates//paradigm/paradigmA.tpl:65
+#: templates//paradigm/paradigmA.tpl:90 templates//paradigm/paradigmV.tpl:35
+#: templates//paradigm/paradigmV.tpl:118
+msgid "plural"
+msgstr "çoğul"
+
+#: templates//paradigm/paradigmN.tpl:31 templates//paradigm/paradigmM.tpl:31
+#: templates//paradigm/paradigmF.tpl:31 templates//paradigm/paradigmP.tpl:31
+#: templates//paradigm/paradigmSP.tpl:31 templates//paradigm/paradigmA.tpl:49
+msgid "genitive-dative"
+msgstr "-in hali / -e hali"
+
+#: templates//paradigm/paradigmN.tpl:50 templates//paradigm/paradigmM.tpl:50
+#: templates//paradigm/paradigmF.tpl:50 templates//paradigm/paradigmSP.tpl:50
+#: templates//paradigm/paradigmA.tpl:80
+msgid "vocative"
+msgstr "seslenme hali"
+
+#: templates//paradigm/paradigmP.tpl:8 templates//paradigm/paradigmA.tpl:8
+msgid "masculine"
+msgstr "eril"
+
+#: templates//paradigm/paradigmP.tpl:9 templates//paradigm/paradigmA.tpl:9
+msgid "feminine"
+msgstr "dişil"
+
+#: templates//paradigm/paradigmV.tpl:8
+msgid "infinitive"
+msgstr "mastar"
+
+#: templates//paradigm/paradigmV.tpl:9
+msgid "long infinitive"
+msgstr "uzun mastar"
+
+#: templates//paradigm/paradigmV.tpl:10
+msgid "participle"
+msgstr "ortaç"
+
+#: templates//paradigm/paradigmV.tpl:11
+msgid "gerund"
+msgstr "ulaç"
+
+#: templates//paradigm/paradigmV.tpl:12
+msgid "imperative 2nd person"
+msgstr "emir kipi 2. şahıs"
+
+#: templates//paradigm/paradigmV.tpl:51
+msgid "number"
+msgstr "sayı"
+
+#: templates//paradigm/paradigmV.tpl:52
+msgid "person"
+msgstr "kişi"
+
+#: templates//paradigm/paradigmV.tpl:53
+msgid "present"
+msgstr "geniş zaman"
+
+#: templates//paradigm/paradigmV.tpl:54
+msgid "present subjunctive"
+msgstr "dilek kipi"
+
+#: templates//paradigm/paradigmV.tpl:55
+msgid "imperfect"
+msgstr "şimdiki zamanın hikayesi"
+
+#: templates//paradigm/paradigmV.tpl:56
+msgid "simple perfect"
+msgstr "geçmiş zaman"
+
+#: templates//paradigm/paradigmV.tpl:57
+msgid "pluperfect"
+msgstr "önceki geçmiş zaman"
+
+#: templates//paradigm/paradigmV.tpl:61
+msgid "1st (eu)"
+msgstr "1. tekil (eu)"
+
+#: templates//paradigm/paradigmV.tpl:80
+msgid "2nd (tu)"
+msgstr "2. tekil (tu)"
+
+#: templates//paradigm/paradigmV.tpl:99
+msgid "3rd (el, ea)"
+msgstr "3. tekil (el, ea)"
+
+#: templates//paradigm/paradigmV.tpl:119
+msgid "1st (noi)"
+msgstr "1. çoğul (noi)"
+
+#: templates//paradigm/paradigmV.tpl:138
+msgid "2nd (voi)"
+msgstr "2. çoğul (voi)"
+
+#: templates//paradigm/paradigmV.tpl:157
+msgid "3rd (ei, ele)"
+msgstr "3. çoğul (ei, ele)"
+
+#: templates//paradigm/paradigmT.tpl:2
+msgid "We have no information on the paradigm of this word."
+msgstr "Bu kelimenin örneklemi hakkında hiçbir bilgimiz yoktur."
+
+#: templates//definition/favorites.tpl:10
+#: templates//definition/favorites.tpl:21
+msgid "You have no favorite words."
+msgstr "Favori kelimeniz yok."
+
+#: templates//layout.tpl:73
+msgid "privacy"
+msgstr "gizlilik"
+
+#: templates//hosting/hosterion.tpl:1
+msgid "hosted by"
+msgstr "barındıran"
+
+#: templates//article/view.tpl:17
+msgid "Other linguistics articles"
+msgstr "Diğer dilbilim makaleleri"
+
+#: templates//games/scrabble.tpl:9
+msgid "Scrabble lookup"
+msgstr "Scrabble araması"
+
+#: templates//games/scrabble.tpl:15
+msgid ""
+"Are you playing Scrabble and your friends do not believe that <em>kwyjibo</"
+"em> is a perfectly legal word? Type in your word to show them who the boss "
+"is."
+msgstr ""
+"Scrabble oynuyorsunuz ve arkadaşlarınız <em>kwyjibo</em> kelimesinin tamamen "
+"geçerli bir kelime olduğuna inanmıyorlar mı? Kelimenizi yazarak onlara kimin "
+"patron olduğunu gösterin."
+
+#: templates//games/scrabble.tpl:39
+msgid "in version"
+msgstr "sürümünde"
+
+#: templates//games/scrabble.tpl:54
+msgid "look up"
+msgstr "arama"
+
+#: templates//games/scrabble.tpl:67
+msgid "Official Scrabble word list (LOC)"
+msgstr "Resmi Scrabble kelime listesi (LOC)"
+
+#: templates//games/scrabble.tpl:73
+msgid "version"
+msgstr "sürüm"
+
+#: templates//games/scrabble.tpl:74
+msgid "publication date"
+msgstr "yayınlanma tarihi"
+
+#: templates//games/scrabble.tpl:75 templates//games/scrabble.tpl:94
+#: templates//games/scrabble.tpl:133
+msgid "reduced forms"
+msgstr "indirgenmiş biçimler"
+
+#: templates//games/scrabble.tpl:76 templates//games/scrabble.tpl:97
+#: templates//games/scrabble.tpl:131
+msgid "base forms"
+msgstr "temel biçimler"
+
+#: templates//games/scrabble.tpl:77 templates//games/scrabble.tpl:104
+#: templates//games/scrabble.tpl:132
+msgid "inflected forms"
+msgstr "çekimli biçimler"
+
+#: templates//games/scrabble.tpl:85 templates//games/scrabble.tpl:86
+#: templates//games/scrabble.tpl:87
+msgid "download"
+msgstr "indir"
+
+#: templates//games/scrabble.tpl:95
+msgid "a list of words between 2 and 15 letters, without diacritics"
+msgstr "2 ile 15 harf arasında, aksan işareti içermeyen kelimelerin listesi"
+
+#: templates//games/scrabble.tpl:99
+msgid "word list in alphabetical order"
+msgstr "alfabetik sırayla kelime listesi"
+
+#: templates//games/scrabble.tpl:101
+msgid "legend of notations"
+msgstr "gösterimler için açıklama"
+
+#: templates//games/scrabble.tpl:105
+msgid "list of words and their conjugations/declensions"
+msgstr "kelimelerin ve çekimlerinin listesi"
+
+#: templates//games/scrabble.tpl:109
+msgid ""
+"The last official LOC version is 5.0. Version 6.0 contains changes to LOC "
+"made using the dexonline interface, but not included in the official version."
+msgstr ""
+"LOC'nin son resmi sürümü 5.0'dır. Sürüm 6.0, dexonline arayüzü kullanılarak "
+"LOC'de yapılan değişiklikleri içerir, ancak resmi sürüme dahil değildir."
+
+#: templates//games/scrabble.tpl:117
+msgid "Differences between versions"
+msgstr "Sürümler arasındaki farklar"
+
+#: templates//games/scrabble.tpl:121
+msgid "Find out what changed between two versions of LOC."
+msgstr "LOC'nin iki sürümü arasında neler değiştiğini öğrenin."
+
+#: templates//games/scrabble.tpl:127 templates//games/scrabble.tpl:154
+msgid "compare"
+msgstr "karşılaştır"
+
+#: templates//games/scrabble.tpl:137
+msgid "between"
+msgstr "arasında"
+
+#: templates//games/scrabble.tpl:145
+msgid "version %1 and version %2"
+msgstr "sürüm %1 ve sürüm %2"
+
+#: templates//games/scrabble.tpl:161
+msgid "Inflection models"
+msgstr "Çekim modelleri"
+
+#: templates//games/scrabble.tpl:165
+msgid ""
+"<em>%1</em> and <em>%2</em> have similar declensions... but not <em>%3</em> "
+"and <em>%4</em>? Here is why."
+msgstr ""
+"<em>%1</em> ve <em>%2</em> benzer çekimlere sahiptir... ancak <em>%3</em> ve "
+"<em>%4</em> aynı şekilde değildir. İşte nedeni."
+
+#: templates//games/scrabble.tpl:172
+msgid "Show models for"
+msgstr "Modelleri göster"
+
+#: templates//games/mill.tpl:3 templates//games/mill.tpl:10
+#: templates//widgets/games.tpl:6
+msgid "word mill"
+msgstr "kelime değirmeni"
+
+#: templates//games/mill.tpl:15
+msgid "Level"
+msgstr "Seviye"
+
+#: templates//games/mill.tpl:16 templates//games/hangman.tpl:37
+msgid "easy"
+msgstr "kolay"
+
+#: templates//games/mill.tpl:17 templates//games/hangman.tpl:38
+msgid "medium"
+msgstr "orta"
+
+#: templates//games/mill.tpl:18 templates//games/hangman.tpl:39
+msgid "hard"
+msgstr "zor"
+
+#: templates//games/mill.tpl:19 templates//games/hangman.tpl:40
+msgid "expert"
+msgstr "uzman"
+
+#: templates//games/mill.tpl:23
+msgid "You can also use the keys 1, 2, 3, 4."
+msgstr "1, 2, 3, 4 tuşlarını kullanabilirsiniz."
+
+#: templates//games/mill.tpl:27
+msgid ""
+"We are currently recalibrating the difficulty levels. Please excuse any "
+"words that are too easy or too hard for the level you selected."
+msgstr ""
+"Şu anda zorluk seviyelerini yeniden ayarlıyoruz. Seçtiğiniz seviyeye göre "
+"çok kolay veya çok zor olan kelimeler için lütfen kusura bakmayın."
+
+#: templates//games/mill.tpl:49
+msgid "The correct definition of <span class=\"word fs-3\"></span>:"
+msgstr "<span class=\"word fs-3\"></span>'nin doğru tanımı:"
+
+#: templates//games/mill.tpl:69
+msgid ""
+"Congratulations! You answered <b id=\"answeredCorrect\">0</b> of 10 "
+"questions correctly."
+msgstr ""
+"Tebrikler! 10 sorudan <b id=\"answeredCorrect\">0</b> tanesini doğru "
+"cevapladınız."
+
+#: templates//games/mill.tpl:72
+msgid "new game"
+msgstr "yeni oyun"
+
+#: templates//games/mill.tpl:73
+msgid "see all definitions"
+msgstr "tüm tanımları gör"
+
+#: templates//games/hangman.tpl:3 templates//games/hangman.tpl:10
+#: templates//widgets/games.tpl:5
+msgid "hangman"
+msgstr "adam asmaca"
+
+#: templates//games/hangman.tpl:16
+msgid "Lives remaining"
+msgstr "Kalan hak"
+
+#: templates//games/hangman.tpl:32
+msgid "Get a clue"
+msgstr "İpucu al"
+
+#: templates//games/hangman.tpl:59
+msgid "Congratulations, you win!"
+msgstr "Tebrikler, kazandın!"
+
+#: templates//games/hangman.tpl:62
+msgid "Sorry, you lose."
+msgstr "Üzgünüm, kaybettin."
+
+#: templates//games/scramble.tpl:4 templates//games/scramble.tpl:12
+#: templates//games/scramble.tpl:212 templates//widgets/games.tpl:7
+msgid "word scramble"
+msgstr "karışık kelime"
+
+#: templates//games/scramble.tpl:21
+msgid "start"
+msgstr "başla"
+
+#: templates//games/scramble.tpl:39
+msgid "object"
+msgstr "amaç"
+
+#: templates//games/scramble.tpl:45 templates//games/scramble.tpl:146
+msgid "all words"
+msgstr "tüm kelimeler"
+
+#: templates//games/scramble.tpl:50 templates//games/scramble.tpl:150
+msgid "one anagram"
+msgstr "bir anagram"
+
+#: templates//games/scramble.tpl:55 templates//games/scramble.tpl:154
+msgid "all anagrams"
+msgstr "tüm anagramlar"
+
+#: templates//games/scramble.tpl:63
+msgid "level"
+msgstr "seviye"
+
+#: templates//games/scramble.tpl:69 templates//games/scramble.tpl:74
+#: templates//games/scramble.tpl:79 templates//games/scramble.tpl:84
+msgid "letters"
+msgstr "harfler"
+
+#: templates//games/scramble.tpl:92
+msgid "diacritics"
+msgstr "aksan işaretleri"
+
+#: templates//games/scramble.tpl:98
+msgid "no"
+msgstr "hayır"
+
+#: templates//games/scramble.tpl:103
+msgid "yes"
+msgstr "evet"
+
+#: templates//games/scramble.tpl:111
+msgid "time"
+msgstr "süre"
+
+#: templates//games/scramble.tpl:125
+msgid "one minute"
+msgid_plural "%1 minutes"
+msgstr[0] "bir dakika"
+msgstr[1] "%1 dakika"
+
+#: templates//games/scramble.tpl:134
+msgid "Object of the game"
+msgstr "Oyunun amacı"
+
+#: templates//games/scramble.tpl:136
+msgid ""
+"Find as many words as you can using the given letters, before the time runs "
+"out."
+msgstr ""
+"Süre bitmeden önce verilen harfleri kullanarak olabildiğince çok kelime "
+"bulun."
+
+#: templates//games/scramble.tpl:141
+msgid "There are three game types:"
+msgstr "Üç oyun türü var:"
+
+#: templates//games/scramble.tpl:147
+msgid "find all words having at least three letters."
+msgstr "en az üç harften oluşan tüm kelimeleri bulun."
+
+#: templates//games/scramble.tpl:151
+msgid "find a word using all the letters, then receive a new set of letters."
+msgstr ""
+"tüm harfleri kullanarak bir kelime bulun, ardından yeni bir harf grubu alın."
+
+#: templates//games/scramble.tpl:156
+msgid ""
+"find all words using all the letters, then receive a new set of letters. For "
+"example, for the set AINTT you must guess all three anagrams (<i>%1</i>) to "
+"receive the next set."
+msgstr ""
+"tüm harfleri kullanarak tüm kelimeleri bulun, ardından yeni bir harf grubu "
+"alın. Örneğin, AINTT grubu için bir sonraki grubu almak için üç anagramın "
+"tümünü (<i>%1</i>) tahmin etmelisiniz."
+
+#: templates//games/scramble.tpl:163
+msgid "Instructions"
+msgstr "Talimatlar"
+
+#: templates//games/scramble.tpl:165
+msgid ""
+"When using a keyboard, simply type the letters. When using a mouse, click on "
+"the letters, then click on the magnifier to check a word."
+msgstr ""
+"Klavye kullanırken, harfleri tuşlamanız yeterlidir. Fare kullanırken, "
+"harflerin üzerine tıklayın, ardından büyüteci tıklayarak kelimeyi kontrol "
+"edin."
+
+#: templates//games/scramble.tpl:171
+msgid ""
+"Legal words include conjugations (such as <i>lucrez</i>) and declensions "
+"(such as <i>verzi</i>). If you opted for diacritics, then the letters %1 "
+"cannot be interchanged with %2."
+msgstr ""
+"Geçerli kelimeler çekimleri (örneğin <i>lucrez</i>) ve çekimleri (örneğin "
+"<i>verzi</i>) içerir. Aksan işaretlerini seçtiyseniz, %1 harfleri %2 ile "
+"değiştirilemez."
+
+#: templates//games/scramble.tpl:177
+msgid "Special keys"
+msgstr "Özel tuşlar"
+
+#: templates//games/scramble.tpl:181
+msgid "checks the word"
+msgstr "kelimeyi kontrol eder"
+
+#: templates//games/scramble.tpl:182
+msgid "deletes the last letter"
+msgstr "son harfi siler"
+
+#: templates//games/scramble.tpl:183
+msgid "deletes all the letters"
+msgstr "tüm harfleri siler"
+
+#: templates//games/scramble.tpl:184
+msgid "shuffles the letters"
+msgstr "harfleri karıştırır"
+
+#: templates//games/scramble.tpl:188
+msgid "Below the game area there is"
+msgstr "Oyun alanının altında bulunanlar"
+
+#: templates//games/scramble.tpl:194
+msgid "time remaining"
+msgstr "kalan süre"
+
+#: templates//games/scramble.tpl:198
+msgid "number of words found / total number of words"
+msgstr "bulunan kelime sayısı / toplam kelime sayısı"
+
+#: templates//games/scramble.tpl:202
+msgid "score (longer words earn more points)"
+msgstr "puan (daha uzun kelimeler daha fazla puan kazandırır)"
+
+#: templates//games/scramble.tpl:240
+msgid "play again"
+msgstr "tekrar oyna"
+
+#: templates//games/scramble.tpl:248
+msgid "Legal words"
+msgstr "Geçerli kelimeler"
+
+#: templates//games/scramble.tpl:272
+msgid ""
+"You can share this link with your friends to compare scores on the same "
+"letter sets."
+msgstr ""
+"Bu bağlantıyı arkadaşlarınızla paylaşarak aynı harf gruplarındaki "
+"puanlarınızı karşılaştırabilirsiniz."
+
+#: templates//tag/list.tpl:18
+msgid "link-collapse-all"
+msgstr "tümünü daralt"
+
+#: templates//tag/list.tpl:21
+msgid "link-expand-all"
+msgstr "tümünü genişlet"
+
+#: templates//widgets/newsletter.tpl:3
+msgid "Newsletter"
+msgstr "Bülten"
+
+#: templates//widgets/newsletter.tpl:4
+msgid "Do you want to subscribe? (see <a href=\"/newsletter\">archive</a>)"
+msgstr "Abone olmak ister misiniz? (bkz. <a href=\"/newsletter\">arşiv</a>)"
+
+#: templates//widgets/newsletter.tpl:13
+msgid "Please leave this field empty"
+msgstr "Lütfen bu alanı boş bırakın"
+
+#: templates//widgets/newsletter.tpl:23
+msgid "Email address"
+msgstr "Eposta adresi"
+
+#: templates//widgets/newsletter.tpl:25
+msgid "email address"
+msgstr "eposta adresi"
+
+#: templates//widgets/newsletter.tpl:26
+msgid "Yes!"
+msgstr "Evet!"
+
+#: templates//widgets/expression.tpl:5
+msgid "Visual expressions"
+msgstr "Görsel ifadeler"
+
+#: templates//widgets/randomWord.tpl:5
+msgid "random word"
+msgstr "rastgele kelime"
+
+#: templates//widgets/articleOfTheMonth.tpl:5
+#: templates//widgets/articleOfTheMonth.tpl:10
+msgid "article of the month"
+msgstr "ayın makalesi"
+
+#: templates//widgets/social.tpl:2
+msgid "follow us on"
+msgstr "bizi takip edin"
+
+#: templates//widgets/social.tpl:5
+msgid "Follow us on Instagram"
+msgstr "Bizi Instagram’da takip edin"
+
+#: templates//widgets/social.tpl:10
+msgid "Follow our blog"
+msgstr "Blogumuzu takip edin"
+
+#: templates//widgets/social.tpl:15
+msgid "Follow us on Facebook"
+msgstr "Bizi Facebook’ta takip edin"
+
+#: templates//widgets/social.tpl:20
+msgid "Follow us on Twitter"
+msgstr "Bizi Twitter’da takip edin"

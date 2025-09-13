@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-09-14 00:26+0300\n"
-"PO-Revision-Date: 2025-09-14 00:56+0300\n"
+"PO-Revision-Date: 2025-09-14 01:30+0300\n"
 "Last-Translator: Serhat Demirkol <srhtdmrkl@gmail.com>\n"
 "Language-Team: \n"
 "Language: tr\n"
@@ -581,6 +581,22 @@ msgstr "Otomatik katkı sıralaması"
 msgid "These include definitions entered using a program."
 msgstr "Bunlar, bir program kullanılarak girilen tanımları içerir."
 
+#: templates//simple/newsletter.tpl:4 templates//bits/navmenu.tpl:53
+msgid "newsletter"
+msgstr "bülten"
+
+#: templates//simple/newsletter.tpl:9
+msgid "Subscribe to the newsletter"
+msgstr "Bültene abone olun"
+
+#: templates//simple/newsletter.tpl:15
+msgid "Contact"
+msgstr "İletişim"
+
+#: templates//simple/newsletter.tpl:23
+msgid "Newsletter archive"
+msgstr "Bülten arşivi"
+
 #: templates//simple/tools.tpl:3 templates//bits/navmenu.tpl:142
 msgid "tools"
 msgstr "araçlar"
@@ -952,6 +968,22 @@ msgstr "bileşik"
 msgid "Inflection sources"
 msgstr "Çekim kaynakları"
 
+#: templates//bits/newsletterForm.tpl:8 templates//widgets/newsletter.tpl:13
+msgid "Please leave this field empty"
+msgstr "Lütfen bu alanı boş bırakın"
+
+#: templates//bits/newsletterForm.tpl:18 templates//widgets/newsletter.tpl:23
+msgid "Email address"
+msgstr "Eposta adresi"
+
+#: templates//bits/newsletterForm.tpl:20 templates//widgets/newsletter.tpl:25
+msgid "email address"
+msgstr "eposta adresi"
+
+#: templates//bits/newsletterForm.tpl:21
+msgid "Subscribe"
+msgstr "Abone Ol"
+
 #: templates//bits/scrabbleResults.tpl:4
 msgid "The form <strong>%1</strong> exists in LOC %2."
 msgstr "<strong>%1</strong> biçimi LOC %2'de mevcuttur."
@@ -1079,10 +1111,6 @@ msgstr "bilgi"
 #: templates//bits/navmenu.tpl:48
 msgid "blog"
 msgstr "blog"
-
-#: templates//bits/navmenu.tpl:53
-msgid "newsletter"
-msgstr "bülten"
 
 #: templates//bits/navmenu.tpl:68
 msgid "get involved"
@@ -1712,18 +1740,6 @@ msgstr "Bülten"
 #: templates//widgets/newsletter.tpl:4
 msgid "Do you want to subscribe? (see <a href=\"/newsletter\">archive</a>)"
 msgstr "Abone olmak ister misiniz? (bkz. <a href=\"/newsletter\">arşiv</a>)"
-
-#: templates//widgets/newsletter.tpl:13
-msgid "Please leave this field empty"
-msgstr "Lütfen bu alanı boş bırakın"
-
-#: templates//widgets/newsletter.tpl:23
-msgid "Email address"
-msgstr "Eposta adresi"
-
-#: templates//widgets/newsletter.tpl:25
-msgid "email address"
-msgstr "eposta adresi"
 
 #: templates//widgets/newsletter.tpl:26
 msgid "Yes!"

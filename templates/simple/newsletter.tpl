@@ -1,18 +1,18 @@
 {extends "layout.tpl"}
 
 {block "title"}
-    {cap}newsletter{/cap}
+    {t}newsletter{/t}
 {/block}
 
 {block "content"}
 
-  <h3>Abonează-te la newsletter</h3>
+  <h3>{t}Subscribe to the newsletter{/t}</h3>
 
   <p class="fs-4 ps-3">
   {include "bits/newsletterForm.tpl"}
   <p>
   <br/>
-  <h3>{cap}Contact{/cap}</h3>
+  <h3>{t}Contact{/t}</h3>
 
   <p class="fs-4 ps-3">
     <a href="mailto:newsletter@dexonline.ro">
@@ -20,7 +20,7 @@
         newsletter@dexonline.ro
     </a>
   <p>
-  <h3>Arhiva newsletterului</h3>
+  <h3>{t}Newsletter archive{/t}</h3>
 
   <p class="ps-3">
     <span class="fs-5">&#x2022; 3 septembrie 2025 <a href="https://blog.dexonline.ro/?mailpoet_router&endpoint=view_in_browser&action=view&data=WzU0LCJjYTk2ZTQ0NzYzY2UiLDQsIjNlYjljZCIsMjc4NSwxXQ">

@@ -1,15 +1,15 @@
 {extends "layout.tpl"}
 
-{block "title"}Model de flexiune{/block}
+{block "title"}{t}Flexion model{/t}{/block}
 
 {block "content"}
   <h3>
-    Modelul de flexiune {$model} ({$exponent})
+    {t}Flexion model{/t} {$model} ({$exponent})
   </h3>
 
   {if $model->description}
     <h4>
-      Descriere: {$model->description}
+      {t}Description{/t}: {$model->description}
     </h4>
   {/if}
 
@@ -17,7 +17,7 @@
     {include "paradigm/paradigm.tpl" lexeme=$exponent}
   </div>
 
-  <h3>Cuvinte care se flexionează conform acestui model (maximum 100 afișate)</h3>
+  <h3>{t}Words that inflect according to this model (maximum 100 displayed){/t}</h3>
 
   {include "search/lexemeList.tpl"}
 
@@ -25,12 +25,12 @@
     {if User::can(User::PRIV_EDIT)}
       <a class="btn btn-primary" href="{Router::link('model/edit')}?id={$model->id}">
         {include "bits/icon.tpl" i=edit}
-        editează
+        {t}edit{/t}
       </a>
     {/if}
     <a class="btn btn-link" href="{Router::link('model/list')}/{$model->modelType}">
       {include "bits/icon.tpl" i=arrow_back}
-      toate modelele de tip {$model->modelType}
+      {t 1=$model->modelType}all models of type %1{/t}
     </a>
   </p>
 

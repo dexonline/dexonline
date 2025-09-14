@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-09-14 00:26+0300\n"
-"PO-Revision-Date: 2025-09-14 09:18+0300\n"
+"PO-Revision-Date: 2025-09-14 10:09+0300\n"
 "Last-Translator: Serhat Demirkol <srhtdmrkl@gmail.com>\n"
 "Language-Team: \n"
 "Language: tr\n"
@@ -868,7 +868,7 @@ msgstr "örnekler"
 msgid "sources"
 msgstr "kaynaklar"
 
-#: templates//search/trees.tpl:57
+#: templates//search/trees.tpl:57 templates//model/view.tpl:28
 msgid "edit"
 msgstr "düzenle"
 
@@ -1362,6 +1362,31 @@ msgstr "Favori kelimeniz yok."
 #: templates//layout.tpl:73
 msgid "privacy"
 msgstr "gizlilik"
+
+#: templates//model/list.tpl:3 templates//model/view.tpl:3
+#: templates//model/view.tpl:7
+msgid "Flexion model"
+msgstr "Büküm modeli"
+
+#: templates//model/list.tpl:7
+msgid "Flexion models for the type %1 (%2)"
+msgstr "%1 (%2) tipi için büküm modelleri"
+
+#: templates//model/list.tpl:13
+msgid "back"
+msgstr "geri"
+
+#: templates//model/view.tpl:12
+msgid "Description"
+msgstr "Tanım"
+
+#: templates//model/view.tpl:20
+msgid "Words that inflect according to this model (maximum 100 displayed)"
+msgstr "Bu modele göre çekimlenen kelimeler (en fazla 100 gösterilir)"
+
+#: templates//model/view.tpl:33
+msgid "all models of type %1"
+msgstr "%1 tipi tüm modeller"
 
 #: templates//hosting/hosterion.tpl:1
 msgid "hosted by"

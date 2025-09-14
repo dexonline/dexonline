@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-09-14 00:26+0300\n"
-"PO-Revision-Date: 2025-09-14 01:30+0300\n"
+"PO-Revision-Date: 2025-09-14 09:18+0300\n"
 "Last-Translator: Serhat Demirkol <srhtdmrkl@gmail.com>\n"
 "Language-Team: \n"
 "Language: tr\n"
@@ -818,7 +818,7 @@ msgstr "detaylar için herhangi bir resme tıklayın"
 
 #: templates//search/sourceTypes.tpl:3
 msgid "of which"
-msgstr ""
+msgstr "bunların"
 
 #: templates//search/extendToAllSources.tpl:3
 msgid "Repeat your search <a href=\"%1\">in all dictionaries</a>."
@@ -837,6 +837,10 @@ msgstr ""
 "Dizin yeniden oluşturulduğu için şu anda tam metin araması yapamazsınız. Bu "
 "işlem genellikle yaklaşık 10 dakika sürer. Verdiğimiz rahatsızlıktan dolayı "
 "özür dileriz."
+
+#: templates//search/pronunciation.tpl:1
+msgid "Examples of pronunciation for the term"
+msgstr "Terimin telaffuz örnekleri"
 
 #: templates//search/trees.tpl:4
 msgid ""
@@ -1530,7 +1534,7 @@ msgstr ""
 "Tebrikler! 10 sorudan <b id=\"answeredCorrect\">0</b> tanesini doğru "
 "cevapladınız."
 
-#: templates//games/mill.tpl:72
+#: templates//games/mill.tpl:72 templates//games/hangman.tpl:36
 msgid "new game"
 msgstr "yeni oyun"
 

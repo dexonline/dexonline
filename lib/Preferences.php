@@ -11,49 +11,51 @@ class Preferences {
   // 0x80 is no longer in use. Clear the DB values before reusing.
 
   // Set of all customizable user preferences
-  static $allPrefs = [
-    self::CEDILLA_BELOW => [
-      'enabled' => true,
-      'label' => 'Folosesc ş și ţ cu sedilă (în loc de virgulă)',
-      'comment' => 'Scrierea corectă este cu &#x219; și &#x21b; în loc de ş și ţ, dar este posibil ca aceste simboluri să nu fie afișate corect în browserul dumneavoastră.',
-    ],
-    self::FORCE_DIACRITICS => [
-      'enabled' => true,
-      'label' => 'Pun eu diacritice în căutare',
-      'comment' => 'Fără această opțiune, o căutare după „mal” va returna și rezultatele pentru „mâl”. Cu această opțiune, rezultatele pentru „mâl” nu mai sunt returnate decât când căutați explicit „mâl”.',
-    ],
-    self::OLD_ORTHOGRAPHY => [
-      'enabled' => true,
-      'label' => 'Folosesc ortografia dinainte de 1993 (î din i)',
-      'comment' => 'Până în 1993, „&#xe2;” era folosit doar în cuvântul „român”, în cuvintele derivate și în unele nume proprii.',
-    ],
-    self::NORMATIVE_ONLY => [
-      'enabled' => true,
-      'label' => 'Afișează doar dicționarele normative',
-      'comment' => 'Afișează doar dicționarele normative editate de Institutul de Lingvistică din cadrul Academiei Române (ultimele ediții ale DEX și DOOM).',
-    ],
-    self::SHOW_ADVANCED => [
-      'enabled' => true,
-      'label' => 'Afișează meniul de căutare avansată în mod implicit',
-      'comment' => 'În mod implicit, meniul de căutare avansată (marcat cu „opțiuni”) va fi afișat pe toate paginile.',
-    ],
-  ];
+  public static function getAllPrefs() {
+    return [
+      self::CEDILLA_BELOW => [
+        'enabled' => true,
+        'label' => _('I use ș and ț with a cedilla (instead of a comma)'),
+        'comment' => _('The correct spelling is with ș and ț instead of ș and ț, but these symbols may not be displayed correctly in your browser.'),
+      ],
+      self::FORCE_DIACRITICS => [
+        'enabled' => true,
+        'label' => _('I put diacritics in the search'),
+        'comment' => _('Without this option, a search for "mal" will also return results for "mâl". With this option, the results for "mâl" are no longer returned unless you explicitly search for "mâl".'),
+      ],
+      self::OLD_ORTHOGRAPHY => [
+        'enabled' => true,
+        'label' => _('I use the pre-1993 orthography (î from i)'),
+        'comment' => _('Until 1993, "â" was used only in the word "român", in derived words and in some proper names.'),
+      ],
+      self::NORMATIVE_ONLY => [
+        'enabled' => true,
+        'label' => _('Display only normative dictionaries'),
+        'comment' => _('Displays only the normative dictionaries edited by the Institute of Linguistics of the Romanian Academy (the latest editions of DEX and DOOM).'),
+      ],
+      self::SHOW_ADVANCED => [
+        'enabled' => true,
+        'label' => _('Show advanced search menu by default'),
+        'comment' => _('By default, the advanced search menu (marked with "options") will be displayed on all pages.'),
+      ],
+    ];
+  }
 
   static function getDetailsVisible($user) {
     return $user ? $user->detailsVisible : false;
   }
 
-  /* Returns a copy of self::$allPrefs with an extra field 'checked' set to true or false. */
+  /* Returns a copy of self::getAllPrefs() with an extra field 'checked' set to true or false. */
   static function getUserPrefs($user) {
     $userPrefs = $user ? $user->preferences : Session::getAnonymousPrefs();
-    $copy = self::$allPrefs;
+    $copy = self::getAllPrefs();
     // Set the checked field to false / true according to user preferences
     foreach ($copy as $key => $value) {
       $copy[$key]['checked'] = false;
     }
 
     if ($userPrefs) {
-      foreach (self::$allPrefs as $key => $value) {
+      foreach (self::getAllPrefs() as $key => $value) {
         if ($userPrefs & $key) {
           $copy[$key]['checked'] = true;
         }

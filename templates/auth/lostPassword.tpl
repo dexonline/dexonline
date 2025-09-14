@@ -1,19 +1,18 @@
 {extends "layout.tpl"}
 
-{block "title"}Parolă uitată{/block}
+{block "title"}{t}Forgot your password?{/t}{/block}
 
 {block "search"}{/block}
 
 {block "content"}
   <div class="card col-md-6 col-sm-8 mx-auto">
     <div class="card-header">
-      Parolă uitată
+      {t}Forgot your password?{/t}
     </div>
 
     <div class="card-body">
       <p>
-        Introdu adresa de e-mail și îți vom trimite un e-mail cu instrucțiuni
-        pentru recuperarea parolei.
+        {t}Enter your email address and we will send you an email with instructions on how to recover your password.{/t}
       </p>
 
       <form method="post">
@@ -28,12 +27,12 @@
             name="email"
             value="{$email}"
             autofocus
-            placeholder="adresa de e-mail">
+            placeholder="{t}email address{/t}">
           {include "bits/fieldErrors.tpl" errors=$errors.email|default:null}
         </div>
 
         <button class="btn btn-primary" type="submit" name="submitButton">
-          trimite
+          {t}send{/t}
         </button>
 
       </form>

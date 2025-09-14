@@ -41,7 +41,7 @@ if ($saveButton) {
       array_sum($widgets),
     );
 
-    FlashMessage::add('Am salvat preferințele.', 'success');
+    FlashMessage::add(_('Your preferences have been saved.'), 'success');
     Util::redirectToSelf();
   }
 } else {
@@ -83,9 +83,9 @@ function validate($email, $password, $newPassword, $newPassword2) {
 
   if ($password || $newPassword || $newPassword2) {
     if (!$password) {
-      $errors['password'][] = 'Introdu parola curentă.';
+      $errors['password'][] = _('Enter your current password.');
     } else if (md5($password) != User::getActive()->password) {
-      $errors['password'][] = 'Parola curentă este incorectă.';
+      $errors['password'][] = _('The current password is incorrect.');
     }
 
     User::validateNewPassword($newPassword, $newPassword2, $errors, 'newPassword');

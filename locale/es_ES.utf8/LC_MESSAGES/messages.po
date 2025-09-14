@@ -1,16 +1,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2024-11-17 14:26+0900\n"
-"PO-Revision-Date: 2024-11-17 14:26+0900\n"
-"Last-Translator: Cătălin Frâncu <cata@francu.com>\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-09-14 17:00+0300\n"
+"PO-Revision-Date: 2025-09-14 19:44+0300\n"
+"Last-Translator: Serhat Demirkol <srhtdmrkl@gmail.com>\n"
 "Language-Team: \n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.7\n"
 "X-Poedit-Basepath: ../../..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: lib\n"
@@ -20,1414 +21,43 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: lib/third-party\n"
 "X-Poedit-SearchPathExcluded-1: www/js\n"
 
-#: templates/article/list.tpl:3 templates/article/list.tpl:6
-#: templates/bits/navmenu.tpl:110
-msgid "linguistics articles"
-msgstr "artículos lingüísticos"
-
-#: templates/article/view.tpl:17
-msgid "Other linguistics articles"
-msgstr "Otros artículos lingüísticos"
-
-#: templates/bits/definitionMenuProper.tpl:38
-msgid "source"
-msgstr "fuente"
-
-#: templates/bits/definitionMenuProper.tpl:53
-msgid "provided by"
-msgstr "proporcionado por"
-
-#: templates/bits/definitionMenuProper.tpl:63
-msgid "status"
-msgstr "estado"
-
-#: templates/bits/definitionMenuProper.tpl:70
-msgid "added by"
-msgstr "añadida por"
-
-#: templates/bits/definitionMenuProper.tpl:145
-msgid "actions"
-msgstr "acciones"
-
-#: templates/bits/definitionMenuProper.tpl:159 templates/bits/typoForm.tpl:10
-#: templates/bits/typoForm.tpl:61
-msgid "report a typo"
-msgstr "comunicar un error"
-
-#: templates/bits/definitionMenuProper.tpl:172
-#: templates/bits/definitionMenuProper.tpl:182
-msgid "added to favorites"
-msgstr "añadido a favoritos"
-
-#: templates/bits/definitionMenuProper.tpl:181
-#: templates/bits/definitionMenuProper.tpl:196
-msgid "please wait..."
-msgstr "espere por favor…"
-
-#: templates/bits/definitionMenuProper.tpl:183
-msgid "add to favorites"
-msgstr "añadir a favoritos"
-
-#: templates/bits/definitionMenuProper.tpl:197
-msgid "remove from favorites"
-msgstr "eliminar de favoritos"
-
-#: templates/bits/definitionMenuProper.tpl:210
-msgid "permalink"
-msgstr "enlace permanente"
-
-#: templates/bits/definitionMenuProper.tpl:261
-msgid "+1 identical definition"
-msgid_plural "+%1 identical definitions"
-msgstr[0] "+1 definición idéntica"
-msgstr[1] "+%1 definiciones idénticas"
-
-#: templates/bits/extendedParadigm.tpl:20
-msgid "hyphenation"
-msgstr "silabación"
-
-#: templates/bits/extendedParadigm.tpl:22
-msgid "Hyphenation splits the word into syllables."
-msgstr "La silabación divide la palabra en sílabas."
-
-#: templates/bits/extendedParadigm.tpl:30
-msgid "pronunciation"
-msgstr "pronunciación"
-
-#: templates/bits/lexeme.tpl:6
-msgid "compound"
-msgstr "compuesto"
-
-#: templates/bits/lexeme.tpl:25
-msgid "Inflection sources"
-msgstr "Fuentes para la flexión"
-
-#: templates/bits/multiParadigm.tpl:6
-msgid "entry"
-msgstr "entrada"
-
-#: templates/bits/multiParadigm.tpl:36
-msgid "hide variants"
-msgstr "no mostrar las variantes"
-
-#: templates/bits/multiParadigm.tpl:42
-msgid "show variants"
-msgstr "mostrar las variantes"
-
-#: templates/bits/navmenu.tpl:9
-msgid "home page"
-msgstr "página principal"
-
-#: templates/bits/navmenu.tpl:29
-msgid "about"
-msgstr "sobre nosotros"
-
-#: templates/bits/navmenu.tpl:38
-msgid "information"
-msgstr "información"
-
-#: templates/bits/navmenu.tpl:43 templates/simple/contact.tpl:4
-#: templates/simple/contact.tpl:9
-msgid "contact us"
-msgstr "contáctenos"
-
-#: templates/bits/navmenu.tpl:48
-msgid "blog"
-msgstr "blog"
-
-#: templates/bits/navmenu.tpl:68
-msgid "get involved"
-msgstr "colabore"
-
-#: templates/bits/navmenu.tpl:76
-msgid "ways to help"
-msgstr "maneras de ayudar"
-
-#: templates/bits/navmenu.tpl:81
-msgid "volunteer ranking"
-msgstr "ranking de los voluntarios"
-
-#: templates/bits/navmenu.tpl:96
-msgid "resources"
-msgstr "fuentes"
-
-#: templates/bits/navmenu.tpl:105
-msgid "abbreviations table"
-msgstr "tabla de abreviaturas"
-
-#: templates/bits/navmenu.tpl:117
-msgid "grammar guide"
-msgstr "guía gramatical"
-
-#: templates/bits/navmenu.tpl:122 templates/widgets/wotd.tpl:5
-#: templates/wotd/view.tpl:4
-msgid "word of the day"
-msgstr "la palabra del día"
-
-#: templates/bits/navmenu.tpl:127 templates/widgets/wotm.tpl:5
-msgid "word of the month"
-msgstr "la palabra del mes"
-
-#: templates/bits/navmenu.tpl:132
-msgid "random words"
-msgstr "palabras aleatorias"
-
-#: templates/bits/navmenu.tpl:137
-msgid "Scrabble"
-msgstr "Scrabble"
-
-#: templates/bits/navmenu.tpl:142 templates/simple/tools.tpl:3
-msgid "tools"
-msgstr "herramientas"
-
-#: templates/bits/navmenu.tpl:147
-msgid "external links"
-msgstr "enlaces externos"
-
-#: templates/bits/navmenu.tpl:214
-msgid "light mode"
-msgstr "modo claro"
-
-#: templates/bits/navmenu.tpl:222
-msgid "dark mode"
-msgstr "modo oscuro"
-
-#: templates/bits/navmenu.tpl:239
-msgid "Anonymous"
-msgstr "Anónimo"
-
-#: templates/bits/navmenu.tpl:248
-msgid "moderator page"
-msgstr "página del moderador"
-
-#: templates/bits/navmenu.tpl:258
-msgid "hotkeys"
-msgstr "teclas de acceso rápido"
-
-#: templates/bits/navmenu.tpl:271
-msgid "recently viewed pages"
-msgstr "páginas visitadas recientemente"
-
-#: templates/bits/navmenu.tpl:278
-msgid "preferences"
-msgstr "preferencias"
-
-#: templates/bits/navmenu.tpl:287
-msgid "profile"
-msgstr "perfil"
-
-#: templates/bits/navmenu.tpl:293 templates/definition/favorites.tpl:3
-#: templates/definition/favorites.tpl:7
-msgid "favorite words"
-msgstr "palabras favoritas"
-
-#: templates/bits/navmenu.tpl:299
-msgid "log out"
-msgstr "cerrar la sesión"
-
-#: templates/bits/navmenu.tpl:306
-msgid "log in"
-msgstr "loguearse"
-
-#: templates/bits/navmenu.tpl:320
-msgid "donate"
-msgstr "donar"
-
-#: templates/bits/navmenu.tpl:330
-msgid "navigation"
-msgstr "navegación"
-
-#: templates/bits/scrabbleResults.tpl:4
-msgid "The form <strong>%1</strong> exists in LOC %2."
-msgstr "La forma <strong>%1</strong> está en LOC %2."
-
-#: templates/bits/scrabbleResults.tpl:8
-msgid "The form <strong>%1</strong> does not exist in LOC %2."
-msgstr "La forma <strong>%1</strong> no está en LOC %2."
-
-#: templates/bits/searchForm.tpl:24
-msgid "word"
-msgstr "palabra"
-
-#: templates/bits/searchForm.tpl:47
-msgid "search"
-msgstr "búsqueda"
-
-#: templates/bits/searchForm.tpl:52 templates/games/scramble.tpl:32
-msgid "options"
-msgstr "opciones"
-
-#: templates/bits/searchForm.tpl:66
-msgid "Full-text search"
-msgstr "Búsqueda en el texto de las definiciones"
-
-#: templates/bits/searchForm.tpl:76
-msgid "help"
-msgstr "ayuda"
-
-#: templates/bits/sourceDropDown.tpl:19 templates/bits/sourceField.tpl:21
-#: templates/bits/sourceField.tpl:36
-msgid "All dictionaries"
-msgstr "Todos los diccionarios"
-
-#: templates/bits/sourceField.tpl:30
-msgid "choose a dictionary..."
-msgstr ""
-
-#: templates/bits/top.tpl:4
-msgid "rank"
-msgstr "ranking"
-
-#: templates/bits/top.tpl:5
-msgid "name"
-msgstr "nombre"
-
-#: templates/bits/top.tpl:6
-msgid "characters"
-msgstr "caracteres"
-
-#: templates/bits/top.tpl:7 templates/games/hangman.tpl:48
-#: templates/games/mill.tpl:80 lib/Tab.php:48
-msgid "definitions"
-msgstr "definiciones"
-
-#: templates/bits/top.tpl:8
-msgid "most recent submission"
-msgstr "último envío"
-
-#: templates/bits/typoForm.tpl:26
-msgid "please describe the error; at most 400 characters are allowed"
-msgstr "por favor describa el error; puede usar un máximo de 400 caracteres"
-
-#: templates/bits/typoForm.tpl:30
-msgid "notes"
-msgstr "notas"
-
-#: templates/bits/typoForm.tpl:35
-msgid ""
-"Some dictionaries (such as <em>Scriban</em>) use old orthographies. This is "
-"not a typo."
-msgstr ""
-"Algunos diccionarios (como <em>Scriban</em>) usan ortografías anticuadas. "
-"Esto no es un error."
-
-#: templates/bits/typoForm.tpl:40
-msgid ""
-"We generally do not change the original text of definitions, but we can add "
-"comments. Please do not report semantic errors except in obvious cases."
-msgstr ""
-"En general no cambiamos el texto original de las definiciones, no obstante "
-"sí podemos añadir comentarios. Por favor no nos informen sobre errores "
-"semánticos, salvo en casos patentes."
-
-#: templates/bits/typoForm.tpl:48
-msgid "submit"
-msgstr "envíe"
-
-#: templates/bits/typoForm.tpl:49
-msgid "cancel"
-msgstr "cancele"
-
-#: templates/bits/typoForm.tpl:71
-msgid "Thank you for your report!"
-msgstr "¡Gracias por informarnos!"
-
-#: templates/bits/typoForm.tpl:75
-msgid "close"
-msgstr "cierre"
-
-#: templates/definition/favorites.tpl:10 templates/definition/favorites.tpl:21
-msgid "You have no favorite words."
-msgstr "No tiene ninguna palabra favorita."
-
-#: templates/games/hangman.tpl:3 templates/games/hangman.tpl:10
-#: templates/widgets/games.tpl:5
-msgid "hangman"
-msgstr "el colgado"
-
-#: templates/games/hangman.tpl:16
-msgid "Lives remaining"
-msgstr "Vidas restantes"
-
-#: templates/games/hangman.tpl:18 lib/Tab.php:51
-msgid "images"
-msgstr "imágenes"
-
-#: templates/games/hangman.tpl:32
-msgid "Get a clue"
-msgstr "Obtenga una pista"
-
-#: templates/games/hangman.tpl:37 templates/games/mill.tpl:16
-msgid "easy"
-msgstr "fácil"
-
-#: templates/games/hangman.tpl:38 templates/games/mill.tpl:17
-msgid "medium"
-msgstr "medio"
-
-#: templates/games/hangman.tpl:39 templates/games/mill.tpl:18
-msgid "hard"
-msgstr "difícil"
-
-#: templates/games/hangman.tpl:40 templates/games/mill.tpl:19
-msgid "expert"
-msgstr "experto"
-
-#: templates/games/hangman.tpl:59
-msgid "Congratulations, you win!"
-msgstr "¡Enhorabuena, ha ganado!"
-
-#: templates/games/hangman.tpl:62
-msgid "Sorry, you lose."
-msgstr "Lo sentimos, ha perdido."
-
-#: templates/games/mill.tpl:3 templates/games/mill.tpl:10
-#: templates/widgets/games.tpl:6
-msgid "word mill"
-msgstr "la ruleta de las palabras"
-
-#: templates/games/mill.tpl:15
-msgid "Level"
-msgstr "Nivel"
-
-#: templates/games/mill.tpl:23
-msgid "You can also use the keys 1, 2, 3, 4."
-msgstr "Puede usar las claves 1, 2, 3, 4."
-
-#: templates/games/mill.tpl:27
-msgid ""
-"We are currently recalibrating the difficulty levels. Please excuse any "
-"words that are too easy or too hard for the level you selected."
-msgstr ""
-
-#: templates/games/mill.tpl:49
-msgid "The correct definition of <span class=\"word fs-3\"></span>:"
-msgstr "La definición correcta de <span class=\"word fs-3\"></span>:"
-
-#: templates/games/mill.tpl:69
-msgid ""
-"Congratulations! You answered <b id=\"answeredCorrect\">0</b> of 10 "
-"questions correctly."
-msgstr ""
-"¡Enhorabuena! Ha contestado correctamente <b id=\"answeredCorrect\">0</b> de "
-"10 preguntas."
-
-#: templates/games/mill.tpl:72
-msgid "new game"
-msgstr "juegue otra vez"
-
-#: templates/games/mill.tpl:73
-msgid "see all definitions"
-msgstr "vea todas las definiciones"
-
-#: templates/games/scrabble.tpl:9
-msgid "Scrabble lookup"
-msgstr "Verificar Scrabble"
-
-#: templates/games/scrabble.tpl:15
-msgid ""
-"Are you playing Scrabble and your friends do not believe that <em>kwyjibo</"
-"em> is a perfectly legal word? Type in your word to show them who the boss "
-"is."
-msgstr ""
-"Está jugando al Scrabble y sus amigos ¿no creen que <em>kwyjibo</em> es una "
-"palabra perfectamente correcta? Introduzca su palabra para que sepan ¡quién "
-"manda aquí!"
-
-#: templates/games/scrabble.tpl:39
-msgid "in version"
-msgstr "en la versión"
-
-#: templates/games/scrabble.tpl:54
-msgid "look up"
-msgstr "verificar"
-
-#: templates/games/scrabble.tpl:67
-msgid "Official Scrabble word list (LOC)"
-msgstr "Listado oficial de palabras de Scrabble (LOC)"
-
-#: templates/games/scrabble.tpl:73
-msgid "version"
-msgstr "versión"
-
-#: templates/games/scrabble.tpl:74
-msgid "publication date"
-msgstr "fecha de publicación"
-
-#: templates/games/scrabble.tpl:75 templates/games/scrabble.tpl:94
-#: templates/games/scrabble.tpl:133
-msgid "reduced forms"
-msgstr "formas reducidas"
-
-#: templates/games/scrabble.tpl:76 templates/games/scrabble.tpl:97
-#: templates/games/scrabble.tpl:131
-msgid "base forms"
-msgstr "forma de base"
-
-#: templates/games/scrabble.tpl:77 templates/games/scrabble.tpl:104
-#: templates/games/scrabble.tpl:132
-msgid "inflected forms"
-msgstr "formas flexionadas"
-
-#: templates/games/scrabble.tpl:85 templates/games/scrabble.tpl:86
-#: templates/games/scrabble.tpl:87
-msgid "download"
-msgstr "descargar"
-
-#: templates/games/scrabble.tpl:95
-msgid "a list of words between 2 and 15 letters, without diacritics"
-msgstr "un listado de palabras de entre 2 y 15 letras, sin diacríticos"
-
-#: templates/games/scrabble.tpl:99
-msgid "word list in alphabetical order"
-msgstr "listado de palabras en orden alfabético"
-
-#: templates/games/scrabble.tpl:101
-msgid "legend of notations"
-msgstr "leyenda de las notaciones"
-
-#: templates/games/scrabble.tpl:105
-msgid "list of words and their conjugations/declensions"
-msgstr "listado de palabras y su conjugación/declinación"
-
-#: templates/games/scrabble.tpl:109
-msgid ""
-"The last official LOC version is 5.0. Version 6.0 contains changes to LOC "
-"made using the dexonline interface, but not included in the official version."
-msgstr ""
-"La última versión oficial del LOC es 5.0. La versión 6.0 contiene cambios en "
-"el LOC hechos mediante la interfaz dexonline, pero sin estar incluidos en la "
-"versión oficial."
-
-#: templates/games/scrabble.tpl:117
-msgid "Differences between versions"
-msgstr "Diferencias entre las versiones"
-
-#: templates/games/scrabble.tpl:121
-msgid "Find out what changed between two versions of LOC."
-msgstr "Descubra los cambios entre dos versiones del LOC."
-
-#: templates/games/scrabble.tpl:127 templates/games/scrabble.tpl:154
-msgid "compare"
-msgstr "compare"
-
-#: templates/games/scrabble.tpl:137
-msgid "between"
-msgstr "entre"
-
-#: templates/games/scrabble.tpl:145
-msgid "version %1 and version %2"
-msgstr "la versión %1 y la versión %2"
-
-#: templates/games/scrabble.tpl:161
-msgid "Inflection models"
-msgstr "Modelos de inflexión"
-
-#: templates/games/scrabble.tpl:165
-msgid ""
-"<em>%1</em> and <em>%2</em> have similar declensions... but not <em>%3</em> "
-"and <em>%4</em>? Here is why."
-msgstr ""
-"<em>%1</em> y <em>%2</em> tienen declinaciones parecidas… sin embargo "
-"¿<em>%3</em> y <em>%4</em> no? He aquí por qué."
-
-#: templates/games/scrabble.tpl:172
-msgid "Show models for"
-msgstr "Muestre los modelos para"
-
-#: templates/games/scrabble.tpl:184 templates/search.tpl:275
-#: templates/search.tpl:283 templates/search.tpl:285
-#: templates/search/trees.tpl:24
-msgid "show"
-msgstr "muestre"
-
-#: templates/games/scramble.tpl:4 templates/games/scramble.tpl:12
-#: templates/games/scramble.tpl:212 templates/widgets/games.tpl:7
-msgid "word scramble"
-msgstr "la tortilla de las palabras"
-
-#: templates/games/scramble.tpl:21
-msgid "start"
-msgstr "salida"
-
-#: templates/games/scramble.tpl:39
-msgid "object"
-msgstr "objeto"
-
-#: templates/games/scramble.tpl:45 templates/games/scramble.tpl:146
-msgid "all words"
-msgstr "todas las palabras"
-
-#: templates/games/scramble.tpl:50 templates/games/scramble.tpl:150
-msgid "one anagram"
-msgstr "un anagrama"
-
-#: templates/games/scramble.tpl:55 templates/games/scramble.tpl:154
-msgid "all anagrams"
-msgstr "todos los anagramas"
-
-#: templates/games/scramble.tpl:63
-msgid "level"
-msgstr "nivel"
-
-#: templates/games/scramble.tpl:69 templates/games/scramble.tpl:74
-#: templates/games/scramble.tpl:79 templates/games/scramble.tpl:84
-msgid "letters"
-msgstr "letras"
-
-#: templates/games/scramble.tpl:92
-msgid "diacritics"
-msgstr "diacríticos"
-
-#: templates/games/scramble.tpl:98
-msgid "no"
-msgstr "no"
-
-#: templates/games/scramble.tpl:103
-msgid "yes"
-msgstr "sí"
-
-#: templates/games/scramble.tpl:111
-msgid "time"
-msgstr "tiempo"
-
-#: templates/games/scramble.tpl:125
-msgid "one minute"
-msgid_plural "%1 minutes"
-msgstr[0] "un minuto"
-msgstr[1] "%1 minutos"
-
-#: templates/games/scramble.tpl:134
-msgid "Object of the game"
-msgstr "Objetivo del juego"
-
-#: templates/games/scramble.tpl:136
-msgid ""
-"Find as many words as you can using the given letters, before the time runs "
-"out."
-msgstr ""
-"Encuentre tantas palabras como pueda formar con las letras dadas, antes de "
-"que se agote el tiempo."
-
-#: templates/games/scramble.tpl:141
-msgid "There are three game types:"
-msgstr "Hay tres tipos de juegos:"
-
-#: templates/games/scramble.tpl:147
-msgid "find all words having at least three letters."
-msgstr "encuentre todos las palabras que tengan al menos tres letras."
-
-#: templates/games/scramble.tpl:151
-msgid "find a word using all the letters, then receive a new set of letters."
-msgstr ""
-"encuentre una palabra usando todas las letras, luego recibirá un nuevo "
-"conjunto de letras."
-
-#: templates/games/scramble.tpl:156
-msgid ""
-"find all words using all the letters, then receive a new set of letters. For "
-"example, for the set AINTT you must guess all three anagrams (<i>%1</i>) to "
-"receive the next set."
-msgstr ""
-"encuentre todas las palabras con todas las letras, luego recibirá un nuevo "
-"conjunto de letras. Por ejemplo, para el conjunto AINTT, tiene que encontrar "
-"todos los tres anagramas (<i>%1</i>), con tal de poder seguir con el próximo "
-"conjunto de letras."
-
-#: templates/games/scramble.tpl:163
-msgid "Instructions"
-msgstr "Acciones"
-
-#: templates/games/scramble.tpl:165
-msgid ""
-"When using a keyboard, simply type the letters. When using a mouse, click on "
-"the letters, then click on the magnifier to check a word."
-msgstr ""
-"Al usar el teclado, solo tiene que teclear las letras. A usar el ratón, "
-"clique en las letras, luego clique la lupa para comprobar una palabra."
-
-#: templates/games/scramble.tpl:171
-msgid ""
-"Legal words include conjugations (such as <i>lucrez</i>) and declensions "
-"(such as <i>verzi</i>). If you opted for diacritics, then the letters %1 "
-"cannot be interchanged with %2."
-msgstr ""
-"Las palabras admitidas incluyen conjugaciones (tales como <i>lucrez</i>) y "
-"declinaciones (tales como <i>verzi</i>). Si ha optado por los diacríticos, "
-"las letras %1 no se pueden intercambiar con %2."
-
-#: templates/games/scramble.tpl:177
-msgid "Special keys"
-msgstr "Teclas especiales"
-
-#: templates/games/scramble.tpl:181
-msgid "checks the word"
-msgstr "comprueba la palabra"
-
-#: templates/games/scramble.tpl:182
-msgid "deletes the last letter"
-msgstr "borra la última letra"
-
-#: templates/games/scramble.tpl:183
-msgid "deletes all the letters"
-msgstr "borra todas las letras"
-
-#: templates/games/scramble.tpl:184
-msgid "shuffles the letters"
-msgstr "mezcla las letras"
-
-#: templates/games/scramble.tpl:188
-msgid "Below the game area there is"
-msgstr "Debajo del área del juego está"
-
-#: templates/games/scramble.tpl:194
-msgid "time remaining"
-msgstr "tiempo restante"
-
-#: templates/games/scramble.tpl:198
-msgid "number of words found / total number of words"
-msgstr "número de palabras encontradas / número total de palabras"
-
-#: templates/games/scramble.tpl:202
-msgid "score (longer words earn more points)"
-msgstr "marcador (las palabras más largas dan más puntos)"
-
-#: templates/games/scramble.tpl:240
-msgid "play again"
-msgstr "juegue otra vez"
-
-#: templates/games/scramble.tpl:248
-msgid "Legal words"
-msgstr "Palabras admitidas"
-
-#: templates/games/scramble.tpl:272
-msgid ""
-"You can share this link with your friends to compare scores on the same "
-"letter sets."
-msgstr ""
-"Puede compartir el enlace con sus amigos para comparar los marcadores con "
-"los mismos conjuntos de letras."
-
-#: templates/hosting/hosterion.tpl:1
-msgid "hosted by"
-msgstr "alojado por"
-
-#: templates/index.tpl:12
-msgid "Dictionaries of the Romanian language"
-msgstr "Diccionarios de la lengua rumana"
-
-#: templates/index.tpl:32
-msgid "customize widgets"
-msgstr "personalizar widgets"
-
-#: templates/index.tpl:38
-msgid "digitizes prestigious dictionaries of the Romanian language."
-msgstr "digitaliza diccionarios de prestigio de la lengua rumana."
-
-#: templates/index.tpl:39
-msgid "The project is maintained by a team of volunteers."
-msgstr "El proyecto está mantenido por un equipo de voluntarios."
-
-#: templates/index.tpl:40
-msgid ""
-"Much of the data can be downloaded freely under the GNU General Public "
-"License."
-msgstr ""
-"Los datos en su mayoría se pueden bajar libremente bajo la Licencia Pública "
-"General GNU."
-
-#: templates/index.tpl:41
-msgid "Current status: %1 definitions, of which %2 learned last month."
-msgstr ""
-"Estado actual: %1 definiciones, de las cuales %2 aprendidas durante el "
-"último mes."
-
-#: templates/layout.tpl:70 templates/simple/tools.tpl:84
-#: templates/simple/tools.tpl:105
-msgid "license"
-msgstr "licencia"
-
-#: templates/layout.tpl:73
-msgid "privacy"
-msgstr "privacidad"
-
-#: templates/notices/formIsElision.tpl:2
-msgid "Your query <b>%1</b> is an elision of <b>%2</b>."
-msgstr "Su búsqueda <b>%1</b> es una elisión de <b>%2</b>."
-
-#: templates/notices/searchedVariant.tpl:1
-msgid "Your query <b>%1</b> is a variant of <b>%2</b>."
-msgstr "Su búsqueda <b>%1</b> es una elisión de <b>%2</b>."
-
-#: templates/paradigm/paradigmA.tpl:8 templates/paradigm/paradigmP.tpl:8
-msgid "masculine"
-msgstr "masculino"
-
-#: templates/paradigm/paradigmA.tpl:9 templates/paradigm/paradigmP.tpl:9
-msgid "feminine"
-msgstr "femenino"
-
-#: templates/paradigm/paradigmA.tpl:12 templates/paradigm/paradigmA.tpl:14
-#: templates/paradigm/paradigmF.tpl:8 templates/paradigm/paradigmM.tpl:8
-#: templates/paradigm/paradigmN.tpl:8 templates/paradigm/paradigmSP.tpl:8
-msgid "no article"
-msgstr "sin artículo"
-
-#: templates/paradigm/paradigmA.tpl:13 templates/paradigm/paradigmA.tpl:15
-#: templates/paradigm/paradigmF.tpl:9 templates/paradigm/paradigmM.tpl:9
-#: templates/paradigm/paradigmN.tpl:9 templates/paradigm/paradigmSP.tpl:9
-msgid "def. article"
-msgstr "artículo def."
-
-#: templates/paradigm/paradigmA.tpl:18 templates/paradigm/paradigmF.tpl:12
-#: templates/paradigm/paradigmM.tpl:12 templates/paradigm/paradigmN.tpl:12
-#: templates/paradigm/paradigmP.tpl:12 templates/paradigm/paradigmSP.tpl:12
-msgid "nominative-accusative"
-msgstr "nominativo-acusativo"
-
-#: templates/paradigm/paradigmA.tpl:19 templates/paradigm/paradigmA.tpl:50
-#: templates/paradigm/paradigmA.tpl:81 templates/paradigm/paradigmF.tpl:13
-#: templates/paradigm/paradigmF.tpl:32 templates/paradigm/paradigmF.tpl:51
-#: templates/paradigm/paradigmM.tpl:13 templates/paradigm/paradigmM.tpl:32
-#: templates/paradigm/paradigmM.tpl:51 templates/paradigm/paradigmN.tpl:13
-#: templates/paradigm/paradigmN.tpl:32 templates/paradigm/paradigmN.tpl:51
-#: templates/paradigm/paradigmP.tpl:13 templates/paradigm/paradigmP.tpl:32
-#: templates/paradigm/paradigmSP.tpl:13 templates/paradigm/paradigmSP.tpl:32
-#: templates/paradigm/paradigmSP.tpl:51 templates/paradigm/paradigmV.tpl:34
-#: templates/paradigm/paradigmV.tpl:60
-msgid "singular"
-msgstr "singular"
-
-#: templates/paradigm/paradigmA.tpl:34 templates/paradigm/paradigmA.tpl:65
-#: templates/paradigm/paradigmA.tpl:90 templates/paradigm/paradigmF.tpl:22
-#: templates/paradigm/paradigmF.tpl:41 templates/paradigm/paradigmF.tpl:57
-#: templates/paradigm/paradigmM.tpl:22 templates/paradigm/paradigmM.tpl:41
-#: templates/paradigm/paradigmM.tpl:57 templates/paradigm/paradigmN.tpl:22
-#: templates/paradigm/paradigmN.tpl:41 templates/paradigm/paradigmN.tpl:57
-#: templates/paradigm/paradigmP.tpl:22 templates/paradigm/paradigmP.tpl:41
-#: templates/paradigm/paradigmSP.tpl:22 templates/paradigm/paradigmSP.tpl:41
-#: templates/paradigm/paradigmSP.tpl:57 templates/paradigm/paradigmV.tpl:35
-#: templates/paradigm/paradigmV.tpl:118
-msgid "plural"
-msgstr "plural"
-
-#: templates/paradigm/paradigmA.tpl:49 templates/paradigm/paradigmF.tpl:31
-#: templates/paradigm/paradigmM.tpl:31 templates/paradigm/paradigmN.tpl:31
-#: templates/paradigm/paradigmP.tpl:31 templates/paradigm/paradigmSP.tpl:31
-msgid "genitive-dative"
-msgstr "genitivo-dativo"
-
-#: templates/paradigm/paradigmA.tpl:80 templates/paradigm/paradigmF.tpl:50
-#: templates/paradigm/paradigmM.tpl:50 templates/paradigm/paradigmN.tpl:50
-#: templates/paradigm/paradigmSP.tpl:50
-msgid "vocative"
-msgstr "vocativo"
-
-#: templates/paradigm/paradigmT.tpl:2
-msgid "We have no information on the paradigm of this word."
-msgstr "No tenemos ninguna información sobre el paradigma de esta palabra."
-
-#: templates/paradigm/paradigmV.tpl:8
-msgid "infinitive"
-msgstr "infinitivo"
-
-#: templates/paradigm/paradigmV.tpl:9
-msgid "long infinitive"
-msgstr "infinitivo largo"
-
-#: templates/paradigm/paradigmV.tpl:10
-msgid "participle"
-msgstr "participio"
-
-#: templates/paradigm/paradigmV.tpl:11
-msgid "gerund"
-msgstr "gerundio"
-
-#: templates/paradigm/paradigmV.tpl:12
-msgid "imperative 2nd person"
-msgstr "imperativo en 2ª persona"
-
-#: templates/paradigm/paradigmV.tpl:51
-msgid "number"
-msgstr "número"
-
-#: templates/paradigm/paradigmV.tpl:52
-msgid "person"
-msgstr "persona"
-
-#: templates/paradigm/paradigmV.tpl:53
-msgid "present"
-msgstr "presente"
-
-#: templates/paradigm/paradigmV.tpl:54
-msgid "present subjunctive"
-msgstr "presente del subjuntivo"
-
-#: templates/paradigm/paradigmV.tpl:55
-msgid "imperfect"
-msgstr "pretérito imperfecto"
-
-#: templates/paradigm/paradigmV.tpl:56
-msgid "simple perfect"
-msgstr "pretérito perfecto"
-
-#: templates/paradigm/paradigmV.tpl:57
-msgid "pluperfect"
-msgstr "pretérito pluscuamperfecto"
-
-#: templates/paradigm/paradigmV.tpl:61
-msgid "1st (eu)"
-msgstr "1ª (eu)"
-
-#: templates/paradigm/paradigmV.tpl:80
-msgid "2nd (tu)"
-msgstr "2ª (tu)"
-
-#: templates/paradigm/paradigmV.tpl:99
-msgid "3rd (el, ea)"
-msgstr "3ª (el, ea)"
-
-#: templates/paradigm/paradigmV.tpl:119
-msgid "1st (noi)"
-msgstr "1ª (noi)"
-
-#: templates/paradigm/paradigmV.tpl:138
-msgid "2nd (voi)"
-msgstr "2ª (voi)"
-
-#: templates/paradigm/paradigmV.tpl:157
-msgid "3rd (ei, ele)"
-msgstr "3ª (ei, ele)"
-
-#: templates/search.tpl:7
-msgid "definition"
-msgstr "definición"
-
-#: templates/search.tpl:9
-msgid "and paradigm"
-msgstr "y paradigma"
-
-#: templates/search.tpl:65
-msgid "Definition with ID"
-msgstr "Definición con el ID"
-
-#: templates/search.tpl:77
-msgid "One definition contains all the words"
-msgid_plural "%1 definitions contain all the words"
-msgstr[0] "Una sola definición contiene todas las palabras"
-msgstr[1] "%1 definiciones contienen todas las palabras"
-
-#: templates/search.tpl:82 templates/search.tpl:149
-msgid "(at most %1 shown)"
-msgstr "(máximo %1 mostradas)"
-
-#: templates/search.tpl:85
-msgid "No definitions contain all the words"
-msgstr "Ninguna de las definiciones contiene todas las palabras"
-
-#: templates/search.tpl:91
-msgid "The following words were ignored because they are too common:"
-msgstr "Las siguientes palabras se ignoran por ser demasiado comunes:"
-
-#: templates/search.tpl:105
-msgid "There is no entry with the given ID."
-msgstr "No hay ninguna entrada con el ID dado."
-
-#: templates/search.tpl:115 templates/search.tpl:178
-msgid "One definition for %2"
-msgid_plural "%1 definitions for %2"
-msgstr[0] "Una definición por %2"
-msgstr[1] "%1 definiciones por %2"
-
-#: templates/search.tpl:121 templates/search.tpl:184
-msgid "No definitions for %1"
-msgstr "Ninguna definición por %1"
-
-#: templates/search.tpl:133
-msgid "for"
-msgstr "para"
-
-#: templates/search.tpl:139
-msgid "One result for <strong>%2</strong>"
-msgid_plural "%1 results for <strong>%2</strong>"
-msgstr[0] "Un resultado para <strong>%2</strong>"
-msgstr[1] "%1 resultados para <strong>%2</strong>"
-
-#: templates/search.tpl:145 templates/search.tpl:250
-msgid "No results for <strong>%1</strong>"
-msgstr "No hay resultados para <strong>%1</strong>"
-
-#: templates/search.tpl:165
-msgid "One entry"
-msgid_plural "%1 entries"
-msgstr[0] "Una entrada"
-msgstr[1] "%1 entradas"
-
-#: templates/search.tpl:198
-msgid "One definition"
-msgid_plural "%1 definitions"
-msgstr[0] "Una definición"
-msgstr[1] "%1 definiciones"
-
-#: templates/search.tpl:215
-msgid "One definition matches at least two words"
-msgid_plural "%1 definitions match at least two words"
-msgstr[0] "Una definición coincide con al menos dos palabras"
-msgstr[1] "%1 definiciones coinciden con al menos dos palabras"
-
-#: templates/search.tpl:220
-msgid "No definitions match at least two words"
-msgstr "Ninguna definición coincide con al menos dos palabras"
-
-#: templates/search.tpl:225
-msgid ""
-"If the results are inadequate, you can look up individual words or you can "
-"search"
-msgstr ""
-"Si los resultados no se corresponden, puede buscar las palabras por separado "
-"o puede buscar"
-
-#: templates/search.tpl:226
-msgid "full-text"
-msgstr "en el texto de las definiciones"
-
-#: templates/search.tpl:231
-msgid "At most 5 words are allowed. The following words were ignored:"
-msgstr ""
-"Como mucho 5 palabras permitidas. Las siguientes palabras se van a ignorar:"
-
-#: templates/search.tpl:244
-msgid ""
-"The word <strong>%1</strong> is not in the dictionary. Here are some "
-"suggestions:"
-msgstr ""
-"El término <strong>%1</strong> no se encuentra en el diccionario. Le damos "
-"las siguientes sugerencias:"
-
-#: templates/search.tpl:270 lib/models/InflectedForm.php:72
-msgid "unrecommended or incorrect form"
-msgstr "forma no recomendada o incorrecta"
-
-#: templates/search.tpl:274 templates/search.tpl:282 templates/search.tpl:286
-#: templates/search/trees.tpl:14
-msgid "hide"
-msgstr "esconde"
-
-#: templates/search.tpl:289
-msgid "elisions and long verb forms"
-msgstr "elisiones y formas largas"
-
-#: templates/search.tpl:334
-msgid ""
-"<b>The Synthesis tab</b> shows a condensed list of definitions compiled by "
-"the dexonline team. The original definitions are available on the "
-"<b>Definitions</b> tab. You can reorder tabs on your <a "
-"href=\"%1\">preferences</a> page."
-msgstr ""
-
-#: templates/search/extendToAllSources.tpl:3
-msgid "Repeat your search <a href=\"%1\">in all dictionaries</a>."
-msgstr "Buscar de nuevo <a href=\"%1\">en todos los diccionarios</a>."
-
-#: templates/search/fullTextLock.tpl:1
-msgid "Search disabled"
-msgstr "Búsqueda deshabitada"
-
-#: templates/search/fullTextLock.tpl:4
-msgid ""
-"You cannot currently perform full-text searches because the index is being "
-"regenerated. This typically takes about 10 minutes. We apologize for the "
-"inconvenience."
-msgstr ""
-"Ahora mismo no puede buscar dentro de las definiciones porque el índice se "
-"está regenerando. Este proceso lleva normalmente unos 10 minutos. Pedimos "
-"disculpas por las molestias."
-
-#: templates/search/gallery.tpl:11
-msgid "click any image for details"
-msgstr ""
-
-#: templates/search/missingDefinitionWarnings.tpl:6
-msgid ""
-"There are definitions in non-normative dictionaries, which <a "
-"href=\"%1\">you have chosen to hide</a>."
-msgstr ""
-"Hay definiciones en los diccionarios no normativos que <a href=\"%1\">ha "
-"escogido no mostrar</a>."
-
-#: templates/search/missingDefinitionWarnings.tpl:13
-msgid ""
-"There are definitions in dictionaries for which dexonline has no publishing "
-"rights:"
-msgstr ""
-"Hay definiciones en diccionarios para los cuales dexonline no tiene derechos "
-"de publicación:"
-
-#: templates/search/sourceTypes.tpl:3
-msgid "of which"
-msgstr ""
-
-#: templates/search/trees.tpl:4
-msgid ""
-"These definitions are compiled by the dexonline team. The original "
-"definitions are available on the <a class=\"%1\" href=\"#\">definitions</a> "
-"tab. You can reorder tabs on your <a href=\"%2\">preferences</a> page."
-msgstr ""
-
-#: templates/search/trees.tpl:30
-msgid "secondary meanings"
-msgstr ""
-
-#: templates/search/trees.tpl:36
-#, fuzzy
-#| msgid "version"
-msgid "expressions"
-msgstr "versión"
-
-#: templates/search/trees.tpl:42
-#, fuzzy
-#| msgid "one example"
-#| msgid_plural "%1 examples"
-msgid "examples"
-msgstr "un ejemplo"
-
-#: templates/search/trees.tpl:48
-#, fuzzy
-#| msgid "source"
-msgid "sources"
-msgstr "fuente"
-
-#: templates/search/trees.tpl:57
-msgid "edit"
-msgstr "editar"
-
-#: templates/search/trees.tpl:104
-msgid "etymology"
-msgstr "etimología"
-
-#: templates/search/trees.tpl:117
-msgid ""
-"The full definition list is available on the <a class=\"%1\" "
-"href=\"#\">definitions</a> tab."
-msgstr ""
-
-#: templates/search/wikiArticles.tpl:3
-msgid "One linguistics article"
-msgid_plural "%1 linguistics articles"
-msgstr[0] "Un artículo lingüístico"
-msgstr[1] "%1 artículos lingüísticos"
-
-#: templates/simple/contact.tpl:18
-msgid "Useful information"
-msgstr "Información útil"
-
-#: templates/simple/contact.tpl:22
-msgid ""
-"<a href=\"%1\">What dexonline is <strong>not</strong></a> (ways we cannot "
-"help you)."
-msgstr ""
-"<a href=\"%1\">Lo que dexonline <strong>no</strong> es</a> (maneras en que "
-"no podemos ayudarlo)."
-
-#: templates/simple/contact.tpl:29
-msgid "You can install dexonline on <a href=\"%1\">your computer or phone</a>."
-msgstr "Puede instalar dexonline en <a href=\"%1\">su ordenador o móvil</a>."
-
-#: templates/simple/contact.tpl:35
-msgid "You can download a <a href=\"%1\">copy of the database</a>."
-msgstr "Puede bajarse una <a href=\"%1\">copia de la base de datos</a>."
-
-#: templates/simple/links.tpl:3
-msgid "links"
-msgstr "enlaces"
-
-#: templates/simple/links.tpl:7
-msgid ""
-"This page contains useful language links. These links are not sponsored; we "
-"consider them useful to our visitors. We are not affiliated with the "
-"respective sites and institutions."
-msgstr ""
-"Esta página contiene enlaces lingüísticos útiles. Estos enlaces no están "
-"patrocinados; los consideramos útiles para nuestros visitantes. No estamos "
-"afiliados con sus respectivos webs o instituciones."
-
-#: templates/simple/links.tpl:12
-msgid "Romanian language"
-msgstr "Rumano"
-
-#: templates/simple/links.tpl:16
-msgid ""
-"Iorgu Iordan - Alexandru Rosetti <a href=\"%1\">Institute of Linguistics</"
-"a>, Romanian Academy"
-msgstr ""
-"Iorgu Iordan - Alexandru Rosetti <a href=\"%1\">Instituto de Lingüística</"
-"a>, Academia Rumana"
-
-#: templates/simple/links.tpl:22
-msgid ""
-"Sorin Paliga &mdash; volumes in PDF format at <a href=\"%1\">Academia.edu</"
-"a> and <a href=\"%2\">ResearchGate</a>"
-msgstr ""
-"Sorin Paliga &mdash; volúmenes en el formato PDF en <a href=\"%1\">Academia."
-"edu</a> y <a href=\"%2\">ResearchGate</a>"
-
-#: templates/simple/links.tpl:29
-msgid "Other languages"
-msgstr "Otros idiomas"
-
-#: templates/simple/links.tpl:33
-msgid ""
-"<a href=\"%1\">hallo.ro</a> &mdash; bilingual dictionaries between Romanian "
-"and English, French, Spanish, German, Italian"
-msgstr ""
-"<a href=\"%1\"\">hallo.ro</a> &mdash; diccionarios bilingües entre rumano e "
-"inglés, francés, español, alemán, italiano"
-
-#: templates/simple/links.tpl:39 templates/widgets/games.tpl:3
-msgid "games"
-msgstr "juegos"
-
-#: templates/simple/links.tpl:43
-msgid "The <a href=\"%1\">Romanian Scrabble Federation</a>"
-msgstr "La <a href=\"%1\">Federación Rumana de Scrabble</a>"
-
-#: templates/simple/links.tpl:47
-msgid ""
-"<a href=\"%1\">Find words</a> &mdash; a helper for crosswords and Scrabble"
-msgstr ""
-"<a href=\"%1\">Encuentre palabras</a> &mdash; una aplicación útil para "
-"crucigramas y Scrabble"
-
-#: templates/simple/links.tpl:51
-msgid "A <a href=\"%1\">game of Fazan</a> for Android devices"
-msgstr "El <a href=\"%1\">juego \"Fazan\"</a> para dispositivos Android"
-
-#: templates/simple/tools.tpl:6
-msgid "off-line clients"
-msgstr "clientes off-cine"
-
-#: templates/simple/tools.tpl:9
-msgid ""
-"These applications download the definitions from <i>dexonline</i> to your "
-"computer or phone. Then you can see them without an Internet connection."
-msgstr ""
-"Las aplicaciones descargan las definiciones desde <i>dexonline</i> a su "
-"ordenador o móvil. A continuación, las puede ver sin necesidad de tener "
-"conexión a Internet."
-
-#: templates/simple/tools.tpl:17
-msgid "Client"
-msgstr "Cliente"
-
-#: templates/simple/tools.tpl:30
-msgid "Platforms"
-msgstr "Platformas"
-
-#: templates/simple/tools.tpl:57
-msgid "Requirements"
-msgstr "Requerimientos"
-
-#: templates/simple/tools.tpl:64
-msgid "Disk space required"
-msgstr "Espacio de disco necesario"
-
-#: templates/simple/tools.tpl:71
-msgid "Author"
-msgstr "Autor"
-
-#: templates/simple/tools.tpl:99
-msgid "license on the data in this table"
-msgstr "licencia sobre los datos en esta tabla"
-
-#: templates/simple/tools.tpl:107
-msgid ""
-"The information in this table is dual-licensed under the GNU General Public "
-"License (as applicable to the entire site) and the <a href=\"%1\">Creative "
-"Commons Attribution-ShareAlike 3.0</a> license. The information can be used "
-"(copied, modified, adapted etc.) by the website http://wikipedia.org. The "
-"data are gathered from the mailing list discutii@dexonline.ro (formerly "
-"dictionar@yahoogroups.com) in collaboration with the application developers."
-msgstr ""
-"La información de esta tabla esta bajo las dos licencias: Licencia Pública "
-"General GNU (aplicable a todo el web) y la licencia <a href=\"%1\">Creative "
-"Commons Attribution-ShareAlike 3.0</a>. La información se puede utilizar "
-"(copiar, modificar, adaptar etc.) por el web http://wikipedia.org. Los datos "
-"proceden de la lista de correos discutii@dexonline.ro (antes "
-"dictionar@yahoogroups.com) gracias a la colaboración con los desarrolladores "
-"de las aplicaciones."
-
-#: templates/simple/tools.tpl:118
-msgid "Browser integration"
-msgstr "Integración en el navegador"
-
-#: templates/simple/tools.tpl:124
-msgid "A <a href=\"%1\" onclick=\"%2\">spell checker</a> for Firefox."
-msgstr ""
-"Un <a href=\"%1\" onclick=\"%2\">corrector ortográfico</a> para Firefox."
-
-#: templates/simple/tools.tpl:130
-msgid ""
-"To use the spell checker, right-click in any text box, check the <em>Check "
-"spelling</em> box, right-click once more and select <em>Languages > "
-"Romanian</em>."
-msgstr ""
-"Para usar el corrector ortográfico, haga clic derecho en cualquier recuadro "
-"de texto, marque la casilla <em>Corrector ortográfico</em>, haga clic "
-"derecho otra vez y seleccione <em>Idiomas > Rumano</em>."
-
-#: templates/simple/tools.tpl:140
-msgid ""
-"<a href=\"#\" onclick=\"%1\">Add <i>dexonline</i> to the search engine list</"
-"a> of your browser. Thanks to Alexandru Lixandru."
-msgstr ""
-"<a href=\"#\" onclick=\"%1\">Añada <i>dexonline</i> a la lista de motores de "
-"búsqueda</a> de su navegador. Gracias a Alexandru Lixandru."
-
-#: templates/simple/tools.tpl:146
-msgid "A <a href=\"%1\">Chrome extension</a> for right-click searches."
-msgstr ""
-"Una <a href=\"%1\">extensión para Chrome</a> para búsquedas con el clic "
-"derecho."
-
-#: templates/simple/tools.tpl:151
-msgid ""
-"A <a href=\"%1\">Firefox add-on</a> for dexonline by AdaKaleh. Allows right-"
-"click searches and registers a one-click search engine."
-msgstr ""
-
-#: templates/simple/tools.tpl:158
-msgid "A <a href=\"%1\">WordPress plugin</a> for your blog."
-msgstr "Un <a href=\"%1\">plugin de WordPress</a> para su blog."
-
-#: templates/simple/tools.tpl:164
-msgid "Dictionaries in StarDict format"
-msgstr ""
-
-#: templates/simple/tools.tpl:189
-msgid "all of the above"
-msgstr "todas las de arriba"
-
-#: templates/tag/list.tpl:18
-msgid "link-collapse-all"
-msgstr ""
-
-#: templates/tag/list.tpl:21
-msgid "link-expand-all"
-msgstr ""
-
-#: templates/user/top.tpl:6
-msgid "Manual contribution rankings"
-msgstr "Ranking de las contribuciones manuales"
-
-#: templates/user/top.tpl:9
-msgid ""
-"For every user the number of definitions and the total character length of "
-"those definitions are shown. For comparison, the Bible has roughly 3,500,000 "
-"characters."
-msgstr ""
-"Para cada usuario, se muestra el número de las definiciones y la longitud "
-"total de los caracteres de estas definiciones. Comparativamente, la Biblia "
-"tiene aproximadamente 3,500,000 caracteres."
-
-#: templates/user/top.tpl:14
-msgid "Last year ranking"
-msgstr "Ranking de las contribuciones del año pasado"
-
-#: templates/user/top.tpl:18
-msgid "Global ranking"
-msgstr "Ranking de los voluntarios"
-
-#: templates/user/top.tpl:22
-msgid "Automated contribution rankings"
-msgstr "Ranking de las contribuciones automáticas"
-
-#: templates/user/top.tpl:25
-msgid "These include definitions entered using a program."
-msgstr "Incluye las definiciones introducidas mediante programas."
-
-#: templates/widgets/articleOfTheMonth.tpl:5
-#: templates/widgets/articleOfTheMonth.tpl:10
-msgid "article of the month"
-msgstr "artículo del mes"
-
-#: templates/widgets/randomWord.tpl:5
-msgid "random word"
-msgstr "palabra aleatoria"
-
-#: templates/widgets/social.tpl:2
-msgid "follow us on"
-msgstr "síganos en"
-
-#: templates/widgets/social.tpl:5
-msgid "Follow us on Instagram"
-msgstr "Síganos en Instagram"
-
-#: templates/widgets/social.tpl:10
-msgid "Follow our blog"
-msgstr "Síganos en Blogger"
-
-#: templates/widgets/social.tpl:15
-msgid "Follow us on Facebook"
-msgstr "Follow us on Facebook"
-
-#: templates/widgets/social.tpl:20
-msgid "Follow us on Twitter"
-msgstr "Síganos en Twitter"
-
-#: templates/wotd/view.tpl:24
-msgid "Word of the day for %2 %1, %3"
-msgstr "Palabra del día para %2 %1, %3"
-
-#: templates/wotd/view.tpl:55
-msgid ""
-"<i>dexonline</i> does not directly offer the word of the day by email. "
-"However, there are <a href=\"%1\">many sites</a> that do this for any RSS "
-"feed. We recommend <a href=\"%2\">Blogtrottr</a>."
-msgstr ""
-"<i>dexonline</i> no permite recibir la palabra del día por correo. No "
-"obstante, existen <a href=\"%1\">varios webs</a> que lo hacen para cualquier "
-"feed RSS. Le sugerimos <a href=\"%2\">IFTTT</a>."
-
-#: templates/wotd/view.tpl:106 templates/wote/view.tpl:60
-#: templates/wotm/view.tpl:55
-msgid "Chosen because:"
-msgstr "Escogido porque:"
-
-#: templates/wotd/view.tpl:115
-msgid "Word of the day archive"
-msgstr "El archivo de las palabras del día"
-
-#: templates/wotd/view.tpl:125
-msgid "Word of the day for %2 %1 in other years:"
-msgstr "La palabra del día para %2 %1 en otros años:"
-
-#: templates/wote/view.tpl:22 templates/wotm/view.tpl:21
-msgid "previous"
-msgstr "anterior"
-
-#: templates/wote/view.tpl:27 templates/wotm/view.tpl:26
-msgid "next"
-msgstr "siguiente"
-
-#: templates/wotm/view.tpl:4 templates/wotm/view.tpl:17
-msgid "Word of the month for"
-msgstr "La palabra del mes para"
-
-#: lib/Tab.php:49 www/search.php:340
+#: www/search.php:226 www/search.php:237
+#, php-format
+msgid "We redirected you automatically from <b>%s</b> to <b>%s</b>."
+msgstr "Ha sido automáticamente redirigido de <b>%s</b> a <b>%s</b>."
+
+#: www/search.php:352 lib/Tab.php:62
 msgid "conjugations"
 msgstr "conjugaciones"
 
-#: lib/Tab.php:49 www/search.php:341
+#: www/search.php:353 lib/Tab.php:62
 msgid "declensions"
 msgstr "declinaciones"
 
-#: lib/Tab.php:50
+#: lib/Tab.php:61 templates//bits/top.tpl:7 templates//games/mill.tpl:80
+#: templates//games/hangman.tpl:48
+msgid "definitions"
+msgstr "definiciones"
+
+#: lib/Tab.php:63
 msgid "synthesis"
 msgstr "síntesis"
 
-#: lib/Tab.php:52
+#: lib/Tab.php:64 templates//games/hangman.tpl:18
+msgid "images"
+msgstr "imágenes"
+
+#: lib/Tab.php:65
 msgid "articles"
 msgstr "artículos"
+
+#: lib/Tab.php:66 templates//bits/extendedParadigm.tpl:30
+msgid "pronunciation"
+msgstr "pronunciación"
+
+#: lib/models/InflectedForm.php:72 templates//search.tpl:281
+msgid "unrecommended or incorrect form"
+msgstr "forma no recomendada o incorrecta"
 
 #: lib/models/InflectedForm.php:75
 msgid "by apheresis and/or elision"
@@ -1437,140 +67,192 @@ msgstr "por aféresis y/o elisión"
 msgid "long verb form"
 msgstr "forma larga verbal"
 
-#: lib/models/SourceType.php:35
+#: lib/models/User.php:52
+msgid "You do not have sufficient privileges to access this page."
+msgstr "No tienes privilegios suficientes para acceder a esta página."
+
+#: lib/models/User.php:89
+msgid "This email address is already registered."
+msgstr "Esta dirección de correo electrónico ya está registrada."
+
+#: lib/models/User.php:93
+msgid "Invalid email address."
+msgstr "Dirección de correo electrónico no válida."
+
+#: lib/models/User.php:101
+msgid "The password cannot be empty."
+msgstr "La contraseña no puede estar vacía."
+
+#: lib/models/User.php:103
+msgid "Enter your password twice for verification."
+msgstr "Introduce tu contraseña dos veces para verificarla."
+
+#: lib/models/User.php:105
+msgid "Passwords do not match."
+msgstr "Las contraseñas no coinciden."
+
+#: lib/models/User.php:107
+msgid "Password must be at least 8 characters long."
+msgstr "La contraseña debe tener al menos 8 caracteres."
+
+#: lib/models/SourceType.php:40
 msgid "general use"
 msgstr "uso general"
 
-#: lib/models/SourceType.php:36
-msgid "morphological"
-msgstr "morfológicos"
-
-#: lib/models/SourceType.php:37
-msgid "relational"
-msgstr "relacionales"
-
-#: lib/models/SourceType.php:38
+#: lib/models/SourceType.php:41
 msgid "etymological"
 msgstr "etimológicos"
 
-#: lib/models/SourceType.php:39
+#: lib/models/SourceType.php:42
+msgid "morphological"
+msgstr "morfológicos"
+
+#: lib/models/SourceType.php:43
+msgid "synonyms"
+msgstr "sinónimos"
+
+#: lib/models/SourceType.php:44
+msgid "antonyms"
+msgstr "antónimos"
+
+#: lib/models/SourceType.php:45
+msgid "relational"
+msgstr "relacionales"
+
+#: lib/models/SourceType.php:46
 msgid "specialized"
 msgstr "especializados"
 
-#: lib/models/SourceType.php:40
-msgid "encyclopedic"
-msgstr "enciclopédicos"
-
-#: lib/models/SourceType.php:41
+#: lib/models/SourceType.php:47
 msgid "slang"
 msgstr "jerga"
 
-#: lib/models/SourceType.php:42
+#: lib/models/SourceType.php:48
+msgid "phrases"
+msgstr "frases"
+
+#: lib/models/SourceType.php:49
 msgid "regional"
 msgstr "regionales"
 
-#: lib/models/SourceType.php:43
-msgid "citate"
-msgstr ""
+#: lib/models/SourceType.php:50
+msgid "encyclopedic"
+msgstr "enciclopédicos"
 
-#: lib/models/SourceType.php:44
+#: lib/models/SourceType.php:51
 msgid "other"
 msgstr "otros"
 
-#: lib/models/SourceType.php:45
+#: lib/models/SourceType.php:52
 msgid "unverified"
 msgstr "sin comprombar"
 
-#: lib/models/SourceType.php:51
+#: lib/models/SourceType.php:58
 msgid "General use dictionaries"
 msgstr "Diccionarios de uso general"
 
-#: lib/models/SourceType.php:52
-msgid "Morphological dictionaries"
-msgstr "Diccionarios morfológicos"
-
-#: lib/models/SourceType.php:53
-msgid "Relational dictionaries"
-msgstr "Diccionarios relacionales"
-
-#: lib/models/SourceType.php:54
+#: lib/models/SourceType.php:59
 msgid "Etymological dictionaries"
 msgstr "Diccionarios etimológicos"
 
-#: lib/models/SourceType.php:55
+#: lib/models/SourceType.php:60
+msgid "Morphological dictionaries"
+msgstr "Diccionarios morfológicos"
+
+#: lib/models/SourceType.php:61
+msgid "Antonyms dictionaries"
+msgstr "Diccionarios de antónimos"
+
+#: lib/models/SourceType.php:62
+msgid "Synonyms dictionaries"
+msgstr "Diccionarios de sinónimos"
+
+#: lib/models/SourceType.php:63
+msgid "Other relational dictionaries"
+msgstr "Otros diccionarios relacionales"
+
+#: lib/models/SourceType.php:64
 msgid "Specialized dictionaries"
 msgstr "Diccionarios especializados"
 
-#: lib/models/SourceType.php:56
-msgid "Encyclopedic dictionaries"
-msgstr "Diccionarios enciclopédicos"
-
-#: lib/models/SourceType.php:57
+#: lib/models/SourceType.php:65
 msgid "Slang dictionaries"
 msgstr "Diccionarios de jerga"
 
-#: lib/models/SourceType.php:58
+#: lib/models/SourceType.php:66
+msgid "Phrases and quotes"
+msgstr "Frases y citas"
+
+#: lib/models/SourceType.php:67
 msgid "Regional dictionaries"
 msgstr "Diccionarios regionales"
 
-#: lib/models/SourceType.php:59
-msgid "Citate"
-msgstr ""
+#: lib/models/SourceType.php:68
+msgid "Encyclopedic dictionaries"
+msgstr "Diccionarios enciclopédicos"
 
-#: lib/models/SourceType.php:60
+#: lib/models/SourceType.php:69
 msgid "Other dictionaries"
 msgstr "Otros diccionarios"
 
-#: lib/models/SourceType.php:61
+#: lib/models/SourceType.php:70
 msgid "Unverified dictionaries"
 msgstr "Diccionarios sin comprobar"
 
-#: lib/models/SourceType.php:68
+#: lib/models/SourceType.php:77
 msgid "The most common sense of the words are explained."
 msgstr "Se explica el sentido primario de las palabras."
 
-#: lib/models/SourceType.php:70
+#: lib/models/SourceType.php:79
+msgid "The etymology of (family of) words are explained."
+msgstr "Se explican las etimologías de las (familias de) palabras."
+
+#: lib/models/SourceType.php:81
 msgid "The correspondences between lemma and lexical forms of words."
 msgstr ""
 "Las correspondencias entre el lema y las formas léxicas de las palabras."
 
-#: lib/models/SourceType.php:72
+#: lib/models/SourceType.php:83
+msgid "Synonyms and similar meaning words."
+msgstr "Sinónimos y palabras con significado similar."
+
+#: lib/models/SourceType.php:85
+msgid "Antonyms and opposite meaning words."
+msgstr "Antónimos y palabras con significado opuesto."
+
+#: lib/models/SourceType.php:87
 msgid "These are not definitions, but relations between words."
 msgstr "No son definiciones, sino relaciones entre las palabras."
 
-#: lib/models/SourceType.php:74
-msgid "The etymology of (family of) words are explained."
-msgstr "Se explican las etimologías de las (familias de) palabras."
-
-#: lib/models/SourceType.php:76
+#: lib/models/SourceType.php:89
 msgid "These definitions usually explain only specialized meanings of words."
 msgstr ""
 "Estas definiciones explican normalmente solo las acepciones especializadas "
 "de las palabras."
 
-#: lib/models/SourceType.php:78
-msgid "Encyclopedic definitions"
-msgstr "Definiciones enciclopedicas"
-
-#: lib/models/SourceType.php:80
+#: lib/models/SourceType.php:91
 msgid "Only slang words or senses are defined."
 msgstr "Se definen solo las voces jergales."
 
-#: lib/models/SourceType.php:82
+#: lib/models/SourceType.php:93
+msgid "Romanian phrases, quotes and idiotisms."
+msgstr "Frases, citas e idiomas rumanos."
+
+#: lib/models/SourceType.php:95
 msgid "Only regional (or archaic) words or senses are defined."
 msgstr "Se definen solo las voces regionales (o arcaicas)."
 
-#: lib/models/SourceType.php:84
-msgid "Explicații date de experți."
-msgstr ""
+#: lib/models/SourceType.php:97
+msgid "Encyclopedic definitions"
+msgstr "Definiciones enciclopedicas"
 
-#: lib/models/SourceType.php:86
+#: lib/models/SourceType.php:99
 msgid "These definitions could explain only certain meanings of words."
 msgstr ""
 "Estas definiciones pueden explicar solo algunas de las acepciones de las "
 "palabras."
 
-#: lib/models/SourceType.php:88
+#: lib/models/SourceType.php:101
 msgid ""
 "Since they are not made by lexicographers, these definitions may contain "
 "errors."
@@ -1578,20 +260,131 @@ msgstr ""
 "Ya que no se definieron por lexicógrafos, estas definiciones pueden contener "
 "errores."
 
-#: routes/helpers/changeLocale.php:6
-msgid ""
-"Interface language changed. Definition text and external links are always in "
-"Romanian."
-msgstr ""
-"El idioma de la interfaz ha cambiado. El texto de las definiciones y los "
-"enlaces externos están siempre en rumano."
+#: lib/Widget.php:20 templates//wotd/view.tpl:4 templates//bits/navmenu.tpl:122
+#: templates//widgets/wotd.tpl:5
+msgid "word of the day"
+msgstr "la palabra del día"
 
-#: routes/lexeme/random.php:24
+#: lib/Widget.php:25 templates//bits/navmenu.tpl:127
+#: templates//widgets/wotm.tpl:5
+msgid "word of the month"
+msgstr "la palabra del mes"
+
+#: lib/Widget.php:30 templates//search/trees.tpl:36
+msgid "expressions"
+msgstr "expresiones"
+
+#: lib/Widget.php:35 templates//simple/newsletter.tpl:4
+#: templates//bits/navmenu.tpl:53
+msgid "newsletter"
+msgstr "boletín informativo"
+
+#: lib/Widget.php:40 templates//simple/links.tpl:39
+#: templates//widgets/games.tpl:3
+msgid "games"
+msgstr "juegos"
+
+#: lib/Widget.php:45 templates//widgets/articleOfTheMonth.tpl:5
+#: templates//widgets/articleOfTheMonth.tpl:10
+msgid "article of the month"
+msgstr "artículo del mes"
+
+#: lib/Widget.php:50
+msgid "social networks"
+msgstr "redes sociales"
+
+#: lib/Widget.php:55 templates//widgets/randomWord.tpl:5
+msgid "random word"
+msgstr "palabra aleatoria"
+
+#: lib/Widget.php:60
+msgid "proverbs"
+msgstr "proverbios"
+
+#: lib/Preferences.php:18
+msgid "I use ș and ț with a cedilla (instead of a comma)"
+msgstr "Utilizo ș y ț con cedilla (en lugar de coma)."
+
+#: lib/Preferences.php:19
+msgid ""
+"The correct spelling is with ș and ț instead of ș and ț, but these symbols "
+"may not be displayed correctly in your browser."
+msgstr ""
+"La ortografía correcta es con ș y ț en lugar de ș y ț, pero es posible que "
+"estos símbolos no se muestren correctamente en su navegador."
+
+#: lib/Preferences.php:23
+msgid "I put diacritics in the search"
+msgstr "He puesto signos diacríticos en la búsqueda"
+
+#: lib/Preferences.php:24
+msgid ""
+"Without this option, a search for \"mal\" will also return results for "
+"\"mâl\". With this option, the results for \"mâl\" are no longer returned "
+"unless you explicitly search for \"mâl\"."
+msgstr ""
+"Sin esta opción, una búsqueda de «mal» también devolverá resultados para "
+"«mâl». Con esta opción, los resultados para «mâl» ya no se devolverán a "
+"menos que se busque explícitamente «mâl»."
+
+#: lib/Preferences.php:28
+msgid "I use the pre-1993 orthography (î from i)"
+msgstr "Utilizo la ortografía anterior a 1993 (î en lugar de i)."
+
+#: lib/Preferences.php:29
+msgid ""
+"Until 1993, \"â\" was used only in the word \"român\", in derived words and "
+"in some proper names."
+msgstr ""
+"Hasta 1993, «â» solo se utilizaba en la palabra «român», en palabras "
+"derivadas y en algunos nombres propios."
+
+#: lib/Preferences.php:33
+msgid "Display only normative dictionaries"
+msgstr "Muestra solo diccionarios normativos"
+
+#: lib/Preferences.php:34
+msgid ""
+"Displays only the normative dictionaries edited by the Institute of "
+"Linguistics of the Romanian Academy (the latest editions of DEX and DOOM)."
+msgstr ""
+"Muestra solo los diccionarios normativos editados por el Instituto de "
+"Lingüística de la Academia Rumana (las últimas ediciones de DEX y DOOM)."
+
+#: lib/Preferences.php:38
+msgid "Show advanced search menu by default"
+msgstr "Muestra el menú de búsqueda avanzada de forma predeterminada"
+
+#: lib/Preferences.php:39
+msgid ""
+"By default, the advanced search menu (marked with \"options\") will be "
+"displayed on all pages."
+msgstr ""
+"De forma predeterminada, el menú de búsqueda avanzada (marcado con "
+"«opciones») se mostrará en todas las páginas."
+
+#: routes/wotd/random.php:22
 #, php-format
-msgid "A randomly chosen word"
-msgid_plural "%d randomly chosen words"
-msgstr[0] "Una palabra escogida aleatoriamente"
-msgstr[1] "%d palabras escogidas aleatoriamente"
+msgid "A randomly chosen word of the day"
+msgid_plural "%d randomly chosen words of the day"
+msgstr[0] "Una palabra del día escogida aleatoriamente"
+msgstr[1] "%d palabras del día escogidas aleatoriamente"
+
+#: routes/source/view.php:7
+msgid "No source exists with the given ID."
+msgstr "No hay ninguna entrada con el ID dado."
+
+#: routes/user/preferences.php:44
+msgid "Your preferences have been saved."
+msgstr "Se han guardado tus preferencias."
+
+#: routes/user/preferences.php:86
+msgid "Enter your current password."
+msgstr "Introduce tu contraseña actual."
+
+#: routes/user/preferences.php:88
+msgid "The current password is incorrect."
+msgstr "La contraseña actual es incorrecta."
 
 #: routes/simple/tools.php:5
 msgid "Synchronization with dexonline"
@@ -1696,29 +489,1623 @@ msgstr "Perl, wxWidgets (sólo en Linux)"
 msgid "QT, g++ (only under Linux)"
 msgstr "QT, g++ (sólo en Linux)"
 
-#: routes/source/view.php:7
-msgid "No source exists with the given ID."
+#: routes/helpers/changeLocale.php:6
+msgid ""
+"Interface language changed. Definition text and external links are always in "
+"Romanian."
+msgstr ""
+"El idioma de la interfaz ha cambiado. El texto de las definiciones y los "
+"enlaces externos están siempre en rumano."
+
+#: routes/lexeme/random.php:24
+#, php-format
+msgid "A randomly chosen word"
+msgid_plural "%d randomly chosen words"
+msgstr[0] "Una palabra escogida aleatoriamente"
+msgstr[1] "%d palabras escogidas aleatoriamente"
+
+#: templates//index.tpl:12
+msgid "Dictionaries of the Romanian language"
+msgstr "Diccionarios de la lengua rumana"
+
+#: templates//index.tpl:32
+msgid "customize widgets"
+msgstr "personalizar widgets"
+
+#: templates//index.tpl:38
+msgid "digitizes prestigious dictionaries of the Romanian language."
+msgstr "digitaliza diccionarios de prestigio de la lengua rumana."
+
+#: templates//index.tpl:39
+msgid "The project is maintained by a team of volunteers."
+msgstr "El proyecto está mantenido por un equipo de voluntarios."
+
+#: templates//index.tpl:40
+msgid ""
+"Much of the data can be downloaded freely under the GNU General Public "
+"License."
+msgstr ""
+"Los datos en su mayoría se pueden bajar libremente bajo la Licencia Pública "
+"General GNU."
+
+#: templates//index.tpl:41
+msgid "Current status: %1 definitions, of which %2 learned last month."
+msgstr ""
+"Estado actual: %1 definiciones, de las cuales %2 aprendidas durante el "
+"último mes."
+
+#: templates//wotd/view.tpl:24
+msgid "Word of the day for %2 %1, %3"
+msgstr "Palabra del día para %2 %1, %3"
+
+#: templates//wotd/view.tpl:55
+msgid ""
+"<i>dexonline</i> does not directly offer the word of the day by email. "
+"However, there are <a href=\"%1\">many sites</a> that do this for any RSS "
+"feed. We recommend <a href=\"%2\">Blogtrottr</a>."
+msgstr ""
+"<i>dexonline</i> no permite recibir la palabra del día por correo. No "
+"obstante, existen <a href=\"%1\">varios webs</a> que lo hacen para cualquier "
+"feed RSS. Le sugerimos <a href=\"%2\">IFTTT</a>."
+
+#: templates//wotd/view.tpl:107 templates//wotm/view.tpl:55
+#: templates//wote/view.tpl:60
+msgid "Chosen because:"
+msgstr "Escogido porque:"
+
+#: templates//wotd/view.tpl:115
+msgid "Word of the day archive"
+msgstr "El archivo de las palabras del día"
+
+#: templates//wotd/view.tpl:125
+msgid "Word of the day for %2 %1 in other years:"
+msgstr "La palabra del día para %2 %1 en otros años:"
+
+#: templates//wotm/view.tpl:4 templates//wotm/view.tpl:17
+msgid "Word of the month for"
+msgstr "La palabra del mes para"
+
+#: templates//wotm/view.tpl:21 templates//wote/view.tpl:22
+msgid "previous"
+msgstr "anterior"
+
+#: templates//wotm/view.tpl:26 templates//wote/view.tpl:27
+msgid "next"
+msgstr "siguiente"
+
+#: templates//auth/lostPassword.tpl:3 templates//auth/lostPassword.tpl:10
+msgid "Forgot your password?"
+msgstr "¿Olvidaste tu contraseña?"
+
+#: templates//auth/lostPassword.tpl:15
+msgid ""
+"Enter your email address and we will send you an email with instructions on "
+"how to recover your password."
+msgstr ""
+"Introduce tu dirección de correo electrónico y te enviaremos un correo "
+"electrónico con instrucciones sobre cómo recuperar tu contraseña."
+
+#: templates//auth/lostPassword.tpl:30 templates//auth/register.tpl:67
+#: templates//user/preferences.tpl:69 templates//bits/newsletterForm.tpl:20
+#: templates//widgets/newsletter.tpl:25
+msgid "email address"
+msgstr "dirección de correo electrónico"
+
+#: templates//auth/lostPassword.tpl:35
+msgid "send"
+msgstr "enviar"
+
+#: templates//auth/login.tpl:3 templates//auth/login.tpl:60
+msgid "login"
+msgstr "iniciar sesión"
+
+#: templates//auth/login.tpl:17
+msgid "Login"
+msgstr "Iniciar sesión"
+
+#: templates//auth/login.tpl:33 templates//auth/register.tpl:26
+msgid "username or email address"
+msgstr "nombre de usuario o dirección de correo electrónico"
+
+#: templates//auth/login.tpl:45 templates//auth/register.tpl:39
+msgid "password"
+msgstr "contraseña"
+
+#: templates//auth/login.tpl:50 templates//auth/register.tpl:88
+msgid "keep me logged in for a year"
+msgstr "mantenerme conectado durante un año"
+
+#: templates//auth/login.tpl:64
+msgid "forgot my password"
+msgstr "olvidé mi contraseña"
+
+#: templates//auth/login.tpl:74
+msgid "create an account"
+msgstr "crear una cuenta"
+
+#: templates//auth/register.tpl:3 templates//auth/register.tpl:10
+msgid "Sign up"
+msgstr "Regístrese"
+
+#: templates//auth/register.tpl:52 templates//user/preferences.tpl:138
+msgid "confirm password"
+msgstr "confirme la contraseña"
+
+#: templates//auth/register.tpl:56
+msgid "optional"
+msgstr "opcional"
+
+#: templates//auth/register.tpl:71 templates//user/preferences.tpl:73
+msgid "This email address is used for account recovery only."
+msgstr ""
+"Esta dirección de correo electrónico solo se utiliza para recuperar la "
+"cuenta."
+
+#: templates//auth/register.tpl:84 templates//user/preferences.tpl:85
+#: templates//bits/top.tpl:5
+msgid "name"
+msgstr "nombre"
+
+#: templates//auth/register.tpl:100
+msgid "sign up"
+msgstr "regístrese"
+
+#: templates//auth/register.tpl:104
+msgid "already have an account"
+msgstr "ya tengo una cuenta"
+
+#: templates//search.tpl:7
+msgid "definition"
+msgstr "definición"
+
+#: templates//search.tpl:9
+msgid "and paradigm"
+msgstr "y paradigma"
+
+#: templates//search.tpl:76
+msgid "Definition with ID"
+msgstr "Definición con el ID"
+
+#: templates//search.tpl:88
+msgid "One definition contains all the words"
+msgid_plural "%1 definitions contain all the words"
+msgstr[0] "Una sola definición contiene todas las palabras"
+msgstr[1] "%1 definiciones contienen todas las palabras"
+
+#: templates//search.tpl:93 templates//search.tpl:160
+msgid "(at most %1 shown)"
+msgstr "(máximo %1 mostradas)"
+
+#: templates//search.tpl:96
+msgid "No definitions contain all the words"
+msgstr "Ninguna de las definiciones contiene todas las palabras"
+
+#: templates//search.tpl:102
+msgid "The following words were ignored because they are too common:"
+msgstr "Las siguientes palabras se ignoran por ser demasiado comunes:"
+
+#: templates//search.tpl:116
+msgid "There is no entry with the given ID."
 msgstr "No hay ninguna entrada con el ID dado."
 
-#: routes/wotd/random.php:22
-#, php-format
-msgid "A randomly chosen word of the day"
-msgid_plural "%d randomly chosen words of the day"
-msgstr[0] "Una palabra del día escogida aleatoriamente"
-msgstr[1] "%d palabras del día escogidas aleatoriamente"
+#: templates//search.tpl:126 templates//search.tpl:189
+msgid "One definition for %2"
+msgid_plural "%1 definitions for %2"
+msgstr[0] "Una definición por %2"
+msgstr[1] "%1 definiciones por %2"
 
-#: www/search.php:225
-#, php-format
-msgid "We redirected you automatically from <b>%s</b> to <b>%s</b>."
-msgstr "Ha sido automáticamente redirigido de <b>%s</b> a <b>%s</b>."
+#: templates//search.tpl:132 templates//search.tpl:195
+msgid "No definitions for %1"
+msgstr "Ninguna definición por %1"
+
+#: templates//search.tpl:144
+msgid "for"
+msgstr "para"
+
+#: templates//search.tpl:150
+msgid "One result for <strong>%2</strong>"
+msgid_plural "%1 results for <strong>%2</strong>"
+msgstr[0] "Un resultado para <strong>%2</strong>"
+msgstr[1] "%1 resultados para <strong>%2</strong>"
+
+#: templates//search.tpl:156 templates//search.tpl:261
+msgid "No results for <strong>%1</strong>"
+msgstr "No hay resultados para <strong>%1</strong>"
+
+#: templates//search.tpl:176
+msgid "One entry"
+msgid_plural "%1 entries"
+msgstr[0] "Una entrada"
+msgstr[1] "%1 entradas"
+
+#: templates//search.tpl:209
+msgid "One definition"
+msgid_plural "%1 definitions"
+msgstr[0] "Una definición"
+msgstr[1] "%1 definiciones"
+
+#: templates//search.tpl:226
+msgid "One definition matches at least two words"
+msgid_plural "%1 definitions match at least two words"
+msgstr[0] "Una definición coincide con al menos dos palabras"
+msgstr[1] "%1 definiciones coinciden con al menos dos palabras"
+
+#: templates//search.tpl:231
+msgid "No definitions match at least two words"
+msgstr "Ninguna definición coincide con al menos dos palabras"
+
+#: templates//search.tpl:236
+msgid ""
+"If the results are inadequate, you can look up individual words or you can "
+"search"
+msgstr ""
+"Si los resultados no se corresponden, puede buscar las palabras por separado "
+"o puede buscar"
+
+#: templates//search.tpl:237
+msgid "full-text"
+msgstr "en el texto de las definiciones"
+
+#: templates//search.tpl:242
+msgid "At most 5 words are allowed. The following words were ignored:"
+msgstr ""
+"Como mucho 5 palabras permitidas. Las siguientes palabras se van a ignorar:"
+
+#: templates//search.tpl:255
+msgid ""
+"The word <strong>%1</strong> is not in the dictionary. Here are some "
+"suggestions:"
+msgstr ""
+"El término <strong>%1</strong> no se encuentra en el diccionario. Le damos "
+"las siguientes sugerencias:"
+
+#: templates//search.tpl:285 templates//search.tpl:293
+#: templates//search.tpl:297 templates//search/trees.tpl:14
+msgid "hide"
+msgstr "esconde"
+
+#: templates//search.tpl:286 templates//search.tpl:294
+#: templates//search.tpl:296 templates//search/trees.tpl:24
+#: templates//games/scrabble.tpl:184
+msgid "show"
+msgstr "muestre"
+
+#: templates//search.tpl:300
+msgid "elisions and long verb forms"
+msgstr "elisiones y formas largas"
+
+#: templates//search.tpl:355
+msgid ""
+"<b>The Synthesis tab</b> shows a condensed list of definitions compiled by "
+"the dexonline team. The original definitions are available on the "
+"<b>Definitions</b> tab. You can reorder tabs on your <a "
+"href=\"%1\">preferences</a> page."
+msgstr ""
+"<b>La pestaña Síntesis</b> muestra una lista resumida de definiciones "
+"recopiladas por el equipo de dexonline. Las definiciones originales están "
+"disponibles en la pestaña <b>Definiciones</b>. Puede reordenar las pestañas "
+"en su página de <a href=\"%1\">preferencias</a>."
+
+#: templates//user/top.tpl:6
+msgid "Manual contribution rankings"
+msgstr "Ranking de las contribuciones manuales"
+
+#: templates//user/top.tpl:9
+msgid ""
+"For every user the number of definitions and the total character length of "
+"those definitions are shown. For comparison, the Bible has roughly 3,500,000 "
+"characters."
+msgstr ""
+"Para cada usuario, se muestra el número de las definiciones y la longitud "
+"total de los caracteres de estas definiciones. Comparativamente, la Biblia "
+"tiene aproximadamente 3,500,000 caracteres."
+
+#: templates//user/top.tpl:14
+msgid "Last year ranking"
+msgstr "Ranking de las contribuciones del año pasado"
+
+#: templates//user/top.tpl:18
+msgid "Global ranking"
+msgstr "Ranking de los voluntarios"
+
+#: templates//user/top.tpl:22
+msgid "Automated contribution rankings"
+msgstr "Ranking de las contribuciones automáticas"
+
+#: templates//user/top.tpl:25
+msgid "These include definitions entered using a program."
+msgstr "Incluye las definiciones introducidas mediante programas."
+
+#: templates//user/preferences.tpl:3 templates//bits/navmenu.tpl:278
+msgid "preferences"
+msgstr "preferencias"
+
+#: templates//user/preferences.tpl:10
+msgid "Image"
+msgstr "Imagen"
+
+#: templates//user/preferences.tpl:20
+msgid "File"
+msgstr "Archivo"
+
+#: templates//user/preferences.tpl:31 templates//search/trees.tpl:57
+#: templates//model/view.tpl:28
+msgid "edit"
+msgstr "editar"
+
+#: templates//user/preferences.tpl:39
+msgid "delete image"
+msgstr "eliminar imagen"
+
+#: templates//user/preferences.tpl:46
+msgid "The resolution of your profile picture must be 48x48 pixels."
+msgstr "La resolución de tu foto de perfil debe ser de 48 x 48 píxeles."
+
+#: templates//user/preferences.tpl:47
+msgid "On the next screen, you can edit the uploaded photo."
+msgstr "En la siguiente pantalla, puedes editar la foto subida."
+
+#: templates//user/preferences.tpl:57
+msgid "Personal data"
+msgstr "Datos personales"
+
+#: templates//user/preferences.tpl:89
+msgid ""
+"You can show or hide your name and email address in <a href=\"%1/%2\">your "
+"profile</a>."
+msgstr ""
+"Puedes mostrar u ocultar tu nombre y dirección de correo electrónico en <a "
+"href=\"%1/%2\">tu perfil</a>."
+
+#: templates//user/preferences.tpl:101
+msgid "if you want to change your password"
+msgstr "si quieres cambiar tu contraseña"
+
+#: templates//user/preferences.tpl:112
+msgid "current password"
+msgstr "contraseña actual"
+
+#: templates//user/preferences.tpl:125
+msgid "new password"
+msgstr "nueva contraseña"
+
+#: templates//user/preferences.tpl:147
+msgid "Settings"
+msgstr "Configuración"
+
+#: templates//user/preferences.tpl:163
+msgid "Favorite tabs"
+msgstr "Pestañas favoritas"
+
+#: templates//user/preferences.tpl:167
+msgid ""
+"Drag and drop tabs to reorder them. For searches, we will display the first "
+"available tab. Not all tabs are available at all times; for example, images "
+"will not always be available."
+msgstr ""
+"Arrastra y suelta las pestañas para reordenarlas. Para las búsquedas, "
+"mostraremos la primera pestaña disponible. No todas las pestañas están "
+"disponibles en todo momento; por ejemplo, las imágenes no siempre estarán "
+"disponibles."
+
+#: templates//user/preferences.tpl:184
+msgid "restore default order"
+msgstr "restaurar orden predeterminado"
+
+#: templates//user/preferences.tpl:190
+msgid "Elements on the main page"
+msgstr "Elementos de la página principal"
+
+#: templates//user/preferences.tpl:222
+msgid "save"
+msgstr "guardar"
+
+#: templates//user/preferences.tpl:226 templates//bits/typoForm.tpl:49
+msgid "cancel"
+msgstr "cancelar"
+
+#: templates//user/preferences.tpl:237
+msgid "The maximum size allowed is 2 MB."
+msgstr "El tamaño máximo permitido es de 2 MB."
+
+#: templates//user/preferences.tpl:239
+msgid "Only jpeg, png, or gif images are allowed."
+msgstr "Solo se permiten imágenes en formato jpeg, png o gif."
+
+#: templates//simple/newsletter.tpl:9
+msgid "Subscribe to the newsletter"
+msgstr "Suscríbete al boletín informativo"
+
+#: templates//simple/newsletter.tpl:15
+msgid "Contact"
+msgstr "Contacto"
+
+#: templates//simple/newsletter.tpl:23
+msgid "Newsletter archive"
+msgstr "Archivo del boletín informativo"
+
+#: templates//simple/tools.tpl:3 templates//bits/navmenu.tpl:142
+msgid "tools"
+msgstr "herramientas"
+
+#: templates//simple/tools.tpl:6
+msgid "off-line clients"
+msgstr "clientes off-cine"
+
+#: templates//simple/tools.tpl:9
+msgid ""
+"These applications download the definitions from <i>dexonline</i> to your "
+"computer or phone. Then you can see them without an Internet connection."
+msgstr ""
+"Las aplicaciones descargan las definiciones desde <i>dexonline</i> a su "
+"ordenador o móvil. A continuación, las puede ver sin necesidad de tener "
+"conexión a Internet."
+
+#: templates//simple/tools.tpl:17
+msgid "Client"
+msgstr "Cliente"
+
+#: templates//simple/tools.tpl:30
+msgid "Platforms"
+msgstr "Platformas"
+
+#: templates//simple/tools.tpl:57
+msgid "Requirements"
+msgstr "Requerimientos"
+
+#: templates//simple/tools.tpl:64
+msgid "Disk space required"
+msgstr "Espacio de disco necesario"
+
+#: templates//simple/tools.tpl:71
+msgid "Author"
+msgstr "Autor"
+
+#: templates//simple/tools.tpl:84 templates//simple/tools.tpl:105
+#: templates//layout.tpl:70
+msgid "license"
+msgstr "licencia"
+
+#: templates//simple/tools.tpl:99
+msgid "license on the data in this table"
+msgstr "licencia sobre los datos en esta tabla"
+
+#: templates//simple/tools.tpl:107
+msgid ""
+"The information in this table is dual-licensed under the GNU General Public "
+"License (as applicable to the entire site) and the <a href=\"%1\">Creative "
+"Commons Attribution-ShareAlike 3.0</a> license. The information can be used "
+"(copied, modified, adapted etc.) by the website http://wikipedia.org. The "
+"data are gathered from the mailing list discutii@dexonline.ro (formerly "
+"dictionar@yahoogroups.com) in collaboration with the application developers."
+msgstr ""
+"La información de esta tabla esta bajo las dos licencias: Licencia Pública "
+"General GNU (aplicable a todo el web) y la licencia <a href=\"%1\">Creative "
+"Commons Attribution-ShareAlike 3.0</a>. La información se puede utilizar "
+"(copiar, modificar, adaptar etc.) por el web http://wikipedia.org. Los datos "
+"proceden de la lista de correos discutii@dexonline.ro (antes "
+"dictionar@yahoogroups.com) gracias a la colaboración con los desarrolladores "
+"de las aplicaciones."
+
+#: templates//simple/tools.tpl:118
+msgid "Browser integration"
+msgstr "Integración en el navegador"
+
+#: templates//simple/tools.tpl:124
+msgid "A <a href=\"%1\" onclick=\"%2\">spell checker</a> for Firefox."
+msgstr ""
+"Un <a href=\"%1\" onclick=\"%2\">corrector ortográfico</a> para Firefox."
+
+#: templates//simple/tools.tpl:130
+msgid ""
+"To use the spell checker, right-click in any text box, check the <em>Check "
+"spelling</em> box, right-click once more and select <em>Languages > "
+"Romanian</em>."
+msgstr ""
+"Para usar el corrector ortográfico, haga clic derecho en cualquier recuadro "
+"de texto, marque la casilla <em>Corrector ortográfico</em>, haga clic "
+"derecho otra vez y seleccione <em>Idiomas > Rumano</em>."
+
+#: templates//simple/tools.tpl:140
+msgid ""
+"<a href=\"#\" onclick=\"%1\">Add <i>dexonline</i> to the search engine list</"
+"a> of your browser. Thanks to Alexandru Lixandru."
+msgstr ""
+"<a href=\"#\" onclick=\"%1\">Añada <i>dexonline</i> a la lista de motores de "
+"búsqueda</a> de su navegador. Gracias a Alexandru Lixandru."
+
+#: templates//simple/tools.tpl:146
+msgid "A <a href=\"%1\">Chrome extension</a> for right-click searches."
+msgstr ""
+"Una <a href=\"%1\">extensión para Chrome</a> para búsquedas con el clic "
+"derecho."
+
+#: templates//simple/tools.tpl:151
+msgid ""
+"A <a href=\"%1\">Firefox add-on</a> for dexonline by AdaKaleh. Allows right-"
+"click searches and registers a one-click search engine."
+msgstr ""
+"Un <a href=\"%1\">complemento de Firefox</a> para dexonline de AdaKaleh. "
+"Permite realizar búsquedas con el botón derecho del ratón y registra un "
+"motor de búsqueda con un solo clic."
+
+#: templates//simple/tools.tpl:158
+msgid "A <a href=\"%1\">WordPress plugin</a> for your blog."
+msgstr "Un <a href=\"%1\">plugin de WordPress</a> para su blog."
+
+#: templates//simple/tools.tpl:164
+msgid "Dictionaries in StarDict format"
+msgstr "Diccionarios en formato StarDict"
+
+#: templates//simple/tools.tpl:189
+msgid "all of the above"
+msgstr "todas las de arriba"
+
+#: templates//simple/contact.tpl:4 templates//simple/contact.tpl:15
+#: templates//bits/navmenu.tpl:43
+msgid "contact us"
+msgstr "contáctenos"
+
+#: templates//simple/contact.tpl:33
+msgid "Useful information"
+msgstr "Información útil"
+
+#: templates//simple/contact.tpl:37
+msgid ""
+"<a href=\"%1\">What dexonline is <strong>not</strong></a> (ways we cannot "
+"help you)."
+msgstr ""
+"<a href=\"%1\">Lo que dexonline <strong>no</strong> es</a> (maneras en que "
+"no podemos ayudarlo)."
+
+#: templates//simple/contact.tpl:44
+msgid "You can install dexonline on <a href=\"%1\">your computer or phone</a>."
+msgstr "Puede instalar dexonline en <a href=\"%1\">su ordenador o móvil</a>."
+
+#: templates//simple/contact.tpl:50
+msgid "You can download a <a href=\"%1\">copy of the database</a>."
+msgstr "Puede bajarse una <a href=\"%1\">copia de la base de datos</a>."
+
+#: templates//simple/links.tpl:3
+msgid "links"
+msgstr "enlaces"
+
+#: templates//simple/links.tpl:7
+msgid ""
+"This page contains useful language links. These links are not sponsored; we "
+"consider them useful to our visitors. We are not affiliated with the "
+"respective sites and institutions."
+msgstr ""
+"Esta página contiene enlaces lingüísticos útiles. Estos enlaces no están "
+"patrocinados; los consideramos útiles para nuestros visitantes. No estamos "
+"afiliados con sus respectivos webs o instituciones."
+
+#: templates//simple/links.tpl:12
+msgid "Romanian language"
+msgstr "Rumano"
+
+#: templates//simple/links.tpl:16
+msgid ""
+"Iorgu Iordan - Alexandru Rosetti <a href=\"%1\">Institute of Linguistics</"
+"a>, Romanian Academy"
+msgstr ""
+"Iorgu Iordan - Alexandru Rosetti <a href=\"%1\">Instituto de Lingüística</"
+"a>, Academia Rumana"
+
+#: templates//simple/links.tpl:22
+msgid ""
+"Sorin Paliga &mdash; volumes in PDF format at <a href=\"%1\">Academia.edu</"
+"a> and <a href=\"%2\">ResearchGate</a>"
+msgstr ""
+"Sorin Paliga &mdash; volúmenes en el formato PDF en <a "
+"href=\"%1\">Academia.edu</a> y <a href=\"%2\">ResearchGate</a>"
+
+#: templates//simple/links.tpl:29
+msgid "Other languages"
+msgstr "Otros idiomas"
+
+#: templates//simple/links.tpl:33
+msgid ""
+"<a href=\"%1\">hallo.ro</a> &mdash; bilingual dictionaries between Romanian "
+"and English, French, Spanish, German, Italian"
+msgstr ""
+"<a href=\"%1\"\">hallo.ro</a> &mdash; diccionarios bilingües entre rumano e "
+"inglés, francés, español, alemán, italiano"
+
+#: templates//simple/links.tpl:43
+msgid "The <a href=\"%1\">Romanian Scrabble Federation</a>"
+msgstr "La <a href=\"%1\">Federación Rumana de Scrabble</a>"
+
+#: templates//simple/links.tpl:47
+msgid ""
+"<a href=\"%1\">Find words</a> &mdash; a helper for crosswords and Scrabble"
+msgstr ""
+"<a href=\"%1\">Encuentre palabras</a> &mdash; una aplicación útil para "
+"crucigramas y Scrabble"
+
+#: templates//simple/links.tpl:51
+msgid "A <a href=\"%1\">game of Fazan</a> for Android devices"
+msgstr "El <a href=\"%1\">juego \"Fazan\"</a> para dispositivos Android"
+
+#: templates//notices/searchedVariant.tpl:1
+msgid "Your query <b>%1</b> is a variant of <b>%2</b>."
+msgstr "Su búsqueda <b>%1</b> es una elisión de <b>%2</b>."
+
+#: templates//notices/formIsElision.tpl:2
+msgid "Your query <b>%1</b> is an elision of <b>%2</b>."
+msgstr "Su búsqueda <b>%1</b> es una elisión de <b>%2</b>."
+
+#: templates//search/gallery.tpl:11
+msgid "click any image for details"
+msgstr "haga clic en cualquier imagen para obtener más detalles"
+
+#: templates//search/sourceTypes.tpl:3
+msgid "of which"
+msgstr "de los cuales"
+
+#: templates//search/extendToAllSources.tpl:3
+msgid "Repeat your search <a href=\"%1\">in all dictionaries</a>."
+msgstr "Buscar de nuevo <a href=\"%1\">en todos los diccionarios</a>."
+
+#: templates//search/fullTextLock.tpl:1
+msgid "Search disabled"
+msgstr "Búsqueda deshabitada"
+
+#: templates//search/fullTextLock.tpl:4
+msgid ""
+"You cannot currently perform full-text searches because the index is being "
+"regenerated. This typically takes about 10 minutes. We apologize for the "
+"inconvenience."
+msgstr ""
+"Ahora mismo no puede buscar dentro de las definiciones porque el índice se "
+"está regenerando. Este proceso lleva normalmente unos 10 minutos. Pedimos "
+"disculpas por las molestias."
+
+#: templates//search/pronunciation.tpl:1
+msgid "Examples of pronunciation for the term"
+msgstr "Ejemplos de pronunciación del término"
+
+#: templates//search/trees.tpl:4
+msgid ""
+"These definitions are compiled by the dexonline team. The original "
+"definitions are available on the <a class=\"%1\" href=\"#\">definitions</a> "
+"tab. You can reorder tabs on your <a href=\"%2\">preferences</a> page."
+msgstr ""
+"Estas definiciones han sido recopiladas por el equipo de dexonline. Las "
+"definiciones originales están disponibles en la pestaña <a class=\"%1\" "
+"href=\"\"#>definiciones</a>. Puede reordenar las pestañas en su página de <a "
+"href=\"%2\">preferencias</a>."
+
+#: templates//search/trees.tpl:30
+msgid "secondary meanings"
+msgstr "significados secundarios"
+
+#: templates//search/trees.tpl:42
+msgid "examples"
+msgstr "ejemplos"
+
+#: templates//search/trees.tpl:48
+msgid "sources"
+msgstr "fuentes"
+
+#: templates//search/trees.tpl:104
+msgid "etymology"
+msgstr "etimología"
+
+#: templates//search/trees.tpl:117
+msgid ""
+"The full definition list is available on the <a class=\"%1\" "
+"href=\"#\">definitions</a> tab."
+msgstr ""
+"La lista completa de definiciones está disponible en la pestaña <a "
+"class=\"%1\" href=\"\"#>definiciones</a>."
+
+#: templates//search/wikiArticles.tpl:3
+msgid "One linguistics article"
+msgid_plural "%1 linguistics articles"
+msgstr[0] "Un artículo lingüístico"
+msgstr[1] "%1 artículos lingüísticos"
+
+#: templates//search/missingDefinitionWarnings.tpl:6
+msgid ""
+"There are definitions in non-normative dictionaries, which <a "
+"href=\"%1\">you have chosen to hide</a>."
+msgstr ""
+"Hay definiciones en los diccionarios no normativos que <a href=\"%1\">ha "
+"escogido no mostrar</a>."
+
+#: templates//search/missingDefinitionWarnings.tpl:13
+msgid ""
+"There are definitions in dictionaries for which dexonline has no publishing "
+"rights:"
+msgstr ""
+"Hay definiciones en diccionarios para los cuales dexonline no tiene derechos "
+"de publicación:"
+
+#: templates//bits/sourceDropDown.tpl:19 templates//bits/sourceField.tpl:21
+#: templates//bits/sourceField.tpl:36
+msgid "All dictionaries"
+msgstr "Todos los diccionarios"
+
+#: templates//bits/definitionMenuProper.tpl:38
+msgid "source"
+msgstr "fuente"
+
+#: templates//bits/definitionMenuProper.tpl:53
+msgid "provided by"
+msgstr "proporcionado por"
+
+#: templates//bits/definitionMenuProper.tpl:63
+msgid "status"
+msgstr "estado"
+
+#: templates//bits/definitionMenuProper.tpl:70
+msgid "added by"
+msgstr "añadida por"
+
+#: templates//bits/definitionMenuProper.tpl:145
+msgid "actions"
+msgstr "acciones"
+
+#: templates//bits/definitionMenuProper.tpl:159 templates//bits/typoForm.tpl:10
+#: templates//bits/typoForm.tpl:61
+msgid "report a typo"
+msgstr "comunicar un error"
+
+#: templates//bits/definitionMenuProper.tpl:172
+#: templates//bits/definitionMenuProper.tpl:182
+msgid "added to favorites"
+msgstr "añadido a favoritos"
+
+#: templates//bits/definitionMenuProper.tpl:181
+#: templates//bits/definitionMenuProper.tpl:196
+msgid "please wait..."
+msgstr "espere por favor…"
+
+#: templates//bits/definitionMenuProper.tpl:183
+msgid "add to favorites"
+msgstr "añadir a favoritos"
+
+#: templates//bits/definitionMenuProper.tpl:197
+msgid "remove from favorites"
+msgstr "eliminar de favoritos"
+
+#: templates//bits/definitionMenuProper.tpl:210
+msgid "permalink"
+msgstr "enlace permanente"
+
+#: templates//bits/definitionMenuProper.tpl:261
+msgid "+1 identical definition"
+msgid_plural "+%1 identical definitions"
+msgstr[0] "+1 definición idéntica"
+msgstr[1] "+%1 definiciones idénticas"
+
+#: templates//bits/lexeme.tpl:6
+msgid "compound"
+msgstr "compuesto"
+
+#: templates//bits/lexeme.tpl:25
+msgid "Inflection sources"
+msgstr "Fuentes para la flexión"
+
+#: templates//bits/newsletterForm.tpl:8 templates//widgets/newsletter.tpl:13
+msgid "Please leave this field empty"
+msgstr "Por favor, deje este campo en blanco"
+
+#: templates//bits/newsletterForm.tpl:18 templates//widgets/newsletter.tpl:23
+msgid "Email address"
+msgstr "Dirección de correo electrónico"
+
+#: templates//bits/newsletterForm.tpl:21
+msgid "Subscribe"
+msgstr "Suscríbete"
+
+#: templates//bits/scrabbleResults.tpl:4
+msgid "The form <strong>%1</strong> exists in LOC %2."
+msgstr "La forma <strong>%1</strong> está en LOC %2."
+
+#: templates//bits/scrabbleResults.tpl:8
+msgid "The form <strong>%1</strong> does not exist in LOC %2."
+msgstr "La forma <strong>%1</strong> no está en LOC %2."
+
+#: templates//bits/multiParadigm.tpl:6
+msgid "entry"
+msgstr "entrada"
+
+#: templates//bits/multiParadigm.tpl:36
+msgid "hide variants"
+msgstr "no mostrar las variantes"
+
+#: templates//bits/multiParadigm.tpl:42
+msgid "show variants"
+msgstr "mostrar las variantes"
+
+#: templates//bits/sourceField.tpl:30
+msgid "choose a dictionary..."
+msgstr "elige un diccionario..."
+
+#: templates//bits/typoForm.tpl:26
+msgid "please describe the error; at most 400 characters are allowed"
+msgstr "por favor describa el error; puede usar un máximo de 400 caracteres"
+
+#: templates//bits/typoForm.tpl:30
+msgid "notes"
+msgstr "notas"
+
+#: templates//bits/typoForm.tpl:35
+msgid ""
+"Some dictionaries (such as <em>Scriban</em>) use old orthographies. This is "
+"not a typo."
+msgstr ""
+"Algunos diccionarios (como <em>Scriban</em>) usan ortografías anticuadas. "
+"Esto no es un error."
+
+#: templates//bits/typoForm.tpl:40
+msgid ""
+"We generally do not change the original text of definitions, but we can add "
+"comments. Please do not report semantic errors except in obvious cases."
+msgstr ""
+"En general no cambiamos el texto original de las definiciones, no obstante "
+"sí podemos añadir comentarios. Por favor no nos informen sobre errores "
+"semánticos, salvo en casos patentes."
+
+#: templates//bits/typoForm.tpl:48
+msgid "submit"
+msgstr "envíe"
+
+#: templates//bits/typoForm.tpl:71
+msgid "Thank you for your report!"
+msgstr "¡Gracias por informarnos!"
+
+#: templates//bits/typoForm.tpl:75
+msgid "close"
+msgstr "cierre"
+
+#: templates//bits/top.tpl:4
+msgid "rank"
+msgstr "ranking"
+
+#: templates//bits/top.tpl:6
+msgid "characters"
+msgstr "caracteres"
+
+#: templates//bits/top.tpl:8
+msgid "most recent submission"
+msgstr "último envío"
+
+#: templates//bits/extendedParadigm.tpl:20
+msgid "hyphenation"
+msgstr "silabación"
+
+#: templates//bits/extendedParadigm.tpl:22
+msgid "Hyphenation splits the word into syllables."
+msgstr "La silabación divide la palabra en sílabas."
+
+#: templates//bits/searchForm.tpl:24
+msgid "word"
+msgstr "palabra"
+
+#: templates//bits/searchForm.tpl:47
+msgid "search"
+msgstr "búsqueda"
+
+#: templates//bits/searchForm.tpl:52 templates//games/scramble.tpl:32
+msgid "options"
+msgstr "opciones"
+
+#: templates//bits/searchForm.tpl:66
+msgid "Full-text search"
+msgstr "Búsqueda en el texto de las definiciones"
+
+#: templates//bits/searchForm.tpl:76
+msgid "help"
+msgstr "ayuda"
+
+#: templates//bits/navmenu.tpl:9
+msgid "home page"
+msgstr "página principal"
+
+#: templates//bits/navmenu.tpl:29
+msgid "about"
+msgstr "sobre nosotros"
+
+#: templates//bits/navmenu.tpl:38
+msgid "information"
+msgstr "información"
+
+#: templates//bits/navmenu.tpl:48
+msgid "blog"
+msgstr "blog"
+
+#: templates//bits/navmenu.tpl:68
+msgid "get involved"
+msgstr "colabore"
+
+#: templates//bits/navmenu.tpl:76
+msgid "ways to help"
+msgstr "maneras de ayudar"
+
+#: templates//bits/navmenu.tpl:81
+msgid "volunteer ranking"
+msgstr "ranking de los voluntarios"
+
+#: templates//bits/navmenu.tpl:96
+msgid "resources"
+msgstr "fuentes"
+
+#: templates//bits/navmenu.tpl:105
+msgid "abbreviations table"
+msgstr "tabla de abreviaturas"
+
+#: templates//bits/navmenu.tpl:110 templates//article/list.tpl:3
+#: templates//article/list.tpl:6
+msgid "linguistics articles"
+msgstr "artículos lingüísticos"
+
+#: templates//bits/navmenu.tpl:117
+msgid "grammar guide"
+msgstr "guía gramatical"
+
+#: templates//bits/navmenu.tpl:132
+msgid "random words"
+msgstr "palabras aleatorias"
+
+#: templates//bits/navmenu.tpl:137
+msgid "Scrabble"
+msgstr "Scrabble"
+
+#: templates//bits/navmenu.tpl:147
+msgid "external links"
+msgstr "enlaces externos"
+
+#: templates//bits/navmenu.tpl:214
+msgid "light mode"
+msgstr "modo claro"
+
+#: templates//bits/navmenu.tpl:222
+msgid "dark mode"
+msgstr "modo oscuro"
+
+#: templates//bits/navmenu.tpl:239
+msgid "Anonymous"
+msgstr "Anónimo"
+
+#: templates//bits/navmenu.tpl:248
+msgid "moderator page"
+msgstr "página del moderador"
+
+#: templates//bits/navmenu.tpl:258
+msgid "hotkeys"
+msgstr "teclas de acceso rápido"
+
+#: templates//bits/navmenu.tpl:271
+msgid "recently viewed pages"
+msgstr "páginas visitadas recientemente"
+
+#: templates//bits/navmenu.tpl:287
+msgid "profile"
+msgstr "perfil"
+
+#: templates//bits/navmenu.tpl:293 templates//definition/favorites.tpl:3
+#: templates//definition/favorites.tpl:7
+msgid "favorite words"
+msgstr "palabras favoritas"
+
+#: templates//bits/navmenu.tpl:299
+msgid "log out"
+msgstr "cerrar la sesión"
+
+#: templates//bits/navmenu.tpl:306
+msgid "log in"
+msgstr "loguearse"
+
+#: templates//bits/navmenu.tpl:320
+msgid "donate"
+msgstr "donar"
+
+#: templates//bits/navmenu.tpl:330
+msgid "navigation"
+msgstr "navegación"
+
+#: templates//paradigm/paradigmN.tpl:8 templates//paradigm/paradigmM.tpl:8
+#: templates//paradigm/paradigmF.tpl:8 templates//paradigm/paradigmSP.tpl:8
+#: templates//paradigm/paradigmA.tpl:12 templates//paradigm/paradigmA.tpl:14
+msgid "no article"
+msgstr "sin artículo"
+
+#: templates//paradigm/paradigmN.tpl:9 templates//paradigm/paradigmM.tpl:9
+#: templates//paradigm/paradigmF.tpl:9 templates//paradigm/paradigmSP.tpl:9
+#: templates//paradigm/paradigmA.tpl:13 templates//paradigm/paradigmA.tpl:15
+msgid "def. article"
+msgstr "artículo def."
+
+#: templates//paradigm/paradigmN.tpl:12 templates//paradigm/paradigmM.tpl:12
+#: templates//paradigm/paradigmF.tpl:12 templates//paradigm/paradigmP.tpl:12
+#: templates//paradigm/paradigmSP.tpl:12 templates//paradigm/paradigmA.tpl:18
+msgid "nominative-accusative"
+msgstr "nominativo-acusativo"
+
+#: templates//paradigm/paradigmN.tpl:13 templates//paradigm/paradigmN.tpl:32
+#: templates//paradigm/paradigmN.tpl:51 templates//paradigm/paradigmM.tpl:13
+#: templates//paradigm/paradigmM.tpl:32 templates//paradigm/paradigmM.tpl:51
+#: templates//paradigm/paradigmF.tpl:13 templates//paradigm/paradigmF.tpl:32
+#: templates//paradigm/paradigmF.tpl:51 templates//paradigm/paradigmP.tpl:13
+#: templates//paradigm/paradigmP.tpl:32 templates//paradigm/paradigmSP.tpl:13
+#: templates//paradigm/paradigmSP.tpl:32 templates//paradigm/paradigmSP.tpl:51
+#: templates//paradigm/paradigmA.tpl:19 templates//paradigm/paradigmA.tpl:50
+#: templates//paradigm/paradigmA.tpl:81 templates//paradigm/paradigmV.tpl:34
+#: templates//paradigm/paradigmV.tpl:60
+msgid "singular"
+msgstr "singular"
+
+#: templates//paradigm/paradigmN.tpl:22 templates//paradigm/paradigmN.tpl:41
+#: templates//paradigm/paradigmN.tpl:57 templates//paradigm/paradigmM.tpl:22
+#: templates//paradigm/paradigmM.tpl:41 templates//paradigm/paradigmM.tpl:57
+#: templates//paradigm/paradigmF.tpl:22 templates//paradigm/paradigmF.tpl:41
+#: templates//paradigm/paradigmF.tpl:57 templates//paradigm/paradigmP.tpl:22
+#: templates//paradigm/paradigmP.tpl:41 templates//paradigm/paradigmSP.tpl:22
+#: templates//paradigm/paradigmSP.tpl:41 templates//paradigm/paradigmSP.tpl:57
+#: templates//paradigm/paradigmA.tpl:34 templates//paradigm/paradigmA.tpl:65
+#: templates//paradigm/paradigmA.tpl:90 templates//paradigm/paradigmV.tpl:35
+#: templates//paradigm/paradigmV.tpl:118
+msgid "plural"
+msgstr "plural"
+
+#: templates//paradigm/paradigmN.tpl:31 templates//paradigm/paradigmM.tpl:31
+#: templates//paradigm/paradigmF.tpl:31 templates//paradigm/paradigmP.tpl:31
+#: templates//paradigm/paradigmSP.tpl:31 templates//paradigm/paradigmA.tpl:49
+msgid "genitive-dative"
+msgstr "genitivo-dativo"
+
+#: templates//paradigm/paradigmN.tpl:50 templates//paradigm/paradigmM.tpl:50
+#: templates//paradigm/paradigmF.tpl:50 templates//paradigm/paradigmSP.tpl:50
+#: templates//paradigm/paradigmA.tpl:80
+msgid "vocative"
+msgstr "vocativo"
+
+#: templates//paradigm/paradigmP.tpl:8 templates//paradigm/paradigmA.tpl:8
+msgid "masculine"
+msgstr "masculino"
+
+#: templates//paradigm/paradigmP.tpl:9 templates//paradigm/paradigmA.tpl:9
+msgid "feminine"
+msgstr "femenino"
+
+#: templates//paradigm/paradigmV.tpl:8
+msgid "infinitive"
+msgstr "infinitivo"
+
+#: templates//paradigm/paradigmV.tpl:9
+msgid "long infinitive"
+msgstr "infinitivo largo"
+
+#: templates//paradigm/paradigmV.tpl:10
+msgid "participle"
+msgstr "participio"
+
+#: templates//paradigm/paradigmV.tpl:11
+msgid "gerund"
+msgstr "gerundio"
+
+#: templates//paradigm/paradigmV.tpl:12
+msgid "imperative 2nd person"
+msgstr "imperativo en 2ª persona"
+
+#: templates//paradigm/paradigmV.tpl:51
+msgid "number"
+msgstr "número"
+
+#: templates//paradigm/paradigmV.tpl:52
+msgid "person"
+msgstr "persona"
+
+#: templates//paradigm/paradigmV.tpl:53
+msgid "present"
+msgstr "presente"
+
+#: templates//paradigm/paradigmV.tpl:54
+msgid "present subjunctive"
+msgstr "presente del subjuntivo"
+
+#: templates//paradigm/paradigmV.tpl:55
+msgid "imperfect"
+msgstr "pretérito imperfecto"
+
+#: templates//paradigm/paradigmV.tpl:56
+msgid "simple perfect"
+msgstr "pretérito perfecto"
+
+#: templates//paradigm/paradigmV.tpl:57
+msgid "pluperfect"
+msgstr "pretérito pluscuamperfecto"
+
+#: templates//paradigm/paradigmV.tpl:61
+msgid "1st (eu)"
+msgstr "1ª (eu)"
+
+#: templates//paradigm/paradigmV.tpl:80
+msgid "2nd (tu)"
+msgstr "2ª (tu)"
+
+#: templates//paradigm/paradigmV.tpl:99
+msgid "3rd (el, ea)"
+msgstr "3ª (el, ea)"
+
+#: templates//paradigm/paradigmV.tpl:119
+msgid "1st (noi)"
+msgstr "1ª (noi)"
+
+#: templates//paradigm/paradigmV.tpl:138
+msgid "2nd (voi)"
+msgstr "2ª (voi)"
+
+#: templates//paradigm/paradigmV.tpl:157
+msgid "3rd (ei, ele)"
+msgstr "3ª (ei, ele)"
+
+#: templates//paradigm/paradigmT.tpl:2
+msgid "We have no information on the paradigm of this word."
+msgstr "No tenemos ninguna información sobre el paradigma de esta palabra."
+
+#: templates//definition/favorites.tpl:10
+#: templates//definition/favorites.tpl:21
+msgid "You have no favorite words."
+msgstr "No tiene ninguna palabra favorita."
+
+#: templates//layout.tpl:73
+msgid "privacy"
+msgstr "privacidad"
+
+#: templates//model/list.tpl:3 templates//model/view.tpl:3
+#: templates//model/view.tpl:7
+msgid "Flexion model"
+msgstr "Modelo de flexión"
+
+#: templates//model/list.tpl:7
+msgid "Flexion models for the type %1 (%2)"
+msgstr "Modelos de flexión para el tipo %1 (%2)"
+
+#: templates//model/list.tpl:13 templates//games/scrabbleLocDifferences.tpl:17
+msgid "back"
+msgstr "atrás"
+
+#: templates//model/view.tpl:12
+msgid "Description"
+msgstr "Descripción"
+
+#: templates//model/view.tpl:20
+msgid "Words that inflect according to this model (maximum 100 displayed)"
+msgstr ""
+"Palabras que se declinan según este modelo (se muestran un máximo de 100)"
+
+#: templates//model/view.tpl:33
+msgid "all models of type %1"
+msgstr "todos los modelos de tipo %1"
+
+#: templates//hosting/hosterion.tpl:1
+msgid "hosted by"
+msgstr "alojado por"
+
+#: templates//article/view.tpl:17
+msgid "Other linguistics articles"
+msgstr "Otros artículos lingüísticos"
+
+#: templates//games/scrabble.tpl:9
+msgid "Scrabble lookup"
+msgstr "Verificar Scrabble"
+
+#: templates//games/scrabble.tpl:15
+msgid ""
+"Are you playing Scrabble and your friends do not believe that <em>kwyjibo</"
+"em> is a perfectly legal word? Type in your word to show them who the boss "
+"is."
+msgstr ""
+"Está jugando al Scrabble y sus amigos ¿no creen que <em>kwyjibo</em> es una "
+"palabra perfectamente correcta? Introduzca su palabra para que sepan ¡quién "
+"manda aquí!"
+
+#: templates//games/scrabble.tpl:39
+msgid "in version"
+msgstr "en la versión"
+
+#: templates//games/scrabble.tpl:54
+msgid "look up"
+msgstr "verificar"
+
+#: templates//games/scrabble.tpl:67
+msgid "Official Scrabble word list (LOC)"
+msgstr "Listado oficial de palabras de Scrabble (LOC)"
+
+#: templates//games/scrabble.tpl:73
+msgid "version"
+msgstr "versión"
+
+#: templates//games/scrabble.tpl:74
+msgid "publication date"
+msgstr "fecha de publicación"
+
+#: templates//games/scrabble.tpl:75 templates//games/scrabble.tpl:94
+#: templates//games/scrabble.tpl:133
+msgid "reduced forms"
+msgstr "formas reducidas"
+
+#: templates//games/scrabble.tpl:76 templates//games/scrabble.tpl:97
+#: templates//games/scrabble.tpl:131
+msgid "base forms"
+msgstr "forma de base"
+
+#: templates//games/scrabble.tpl:77 templates//games/scrabble.tpl:104
+#: templates//games/scrabble.tpl:132
+msgid "inflected forms"
+msgstr "formas flexionadas"
+
+#: templates//games/scrabble.tpl:85 templates//games/scrabble.tpl:86
+#: templates//games/scrabble.tpl:87
+#: templates//games/scrabbleLocDifferences.tpl:13
+msgid "download"
+msgstr "descargar"
+
+#: templates//games/scrabble.tpl:95
+msgid "a list of words between 2 and 15 letters, without diacritics"
+msgstr "un listado de palabras de entre 2 y 15 letras, sin diacríticos"
+
+#: templates//games/scrabble.tpl:99
+msgid "word list in alphabetical order"
+msgstr "listado de palabras en orden alfabético"
+
+#: templates//games/scrabble.tpl:101
+msgid "legend of notations"
+msgstr "leyenda de las notaciones"
+
+#: templates//games/scrabble.tpl:105
+msgid "list of words and their conjugations/declensions"
+msgstr "listado de palabras y su conjugación/declinación"
+
+#: templates//games/scrabble.tpl:109
+msgid ""
+"The last official LOC version is 5.0. Version 6.0 contains changes to LOC "
+"made using the dexonline interface, but not included in the official version."
+msgstr ""
+"La última versión oficial del LOC es 5.0. La versión 6.0 contiene cambios en "
+"el LOC hechos mediante la interfaz dexonline, pero sin estar incluidos en la "
+"versión oficial."
+
+#: templates//games/scrabble.tpl:117
+msgid "Differences between versions"
+msgstr "Diferencias entre las versiones"
+
+#: templates//games/scrabble.tpl:121
+msgid "Find out what changed between two versions of LOC."
+msgstr "Descubra los cambios entre dos versiones del LOC."
+
+#: templates//games/scrabble.tpl:127 templates//games/scrabble.tpl:154
+msgid "compare"
+msgstr "compare"
+
+#: templates//games/scrabble.tpl:137
+msgid "between"
+msgstr "entre"
+
+#: templates//games/scrabble.tpl:145
+msgid "version %1 and version %2"
+msgstr "la versión %1 y la versión %2"
+
+#: templates//games/scrabble.tpl:161
+msgid "Inflection models"
+msgstr "Modelos de inflexión"
+
+#: templates//games/scrabble.tpl:165
+msgid ""
+"<em>%1</em> and <em>%2</em> have similar declensions... but not <em>%3</em> "
+"and <em>%4</em>? Here is why."
+msgstr ""
+"<em>%1</em> y <em>%2</em> tienen declinaciones parecidas… sin embargo "
+"¿<em>%3</em> y <em>%4</em> no? He aquí por qué."
+
+#: templates//games/scrabble.tpl:172
+msgid "Show models for"
+msgstr "Muestre los modelos para"
+
+#: templates//games/scrabbleLocDifferences.tpl:3
+msgid "Official Word List"
+msgstr "Lista Oficial de Palabras"
+
+#: templates//games/scrabbleLocDifferences.tpl:7
+msgid "Differences between LOC %1 and LOC %2 (%3)"
+msgstr "Diferencias entre LOC %1 y LOC %2 (%3)"
+
+#: templates//games/mill.tpl:3 templates//games/mill.tpl:10
+#: templates//widgets/games.tpl:6
+msgid "word mill"
+msgstr "la ruleta de las palabras"
+
+#: templates//games/mill.tpl:15
+msgid "Level"
+msgstr "Nivel"
+
+#: templates//games/mill.tpl:16 templates//games/hangman.tpl:37
+msgid "easy"
+msgstr "fácil"
+
+#: templates//games/mill.tpl:17 templates//games/hangman.tpl:38
+msgid "medium"
+msgstr "medio"
+
+#: templates//games/mill.tpl:18 templates//games/hangman.tpl:39
+msgid "hard"
+msgstr "difícil"
+
+#: templates//games/mill.tpl:19 templates//games/hangman.tpl:40
+msgid "expert"
+msgstr "experto"
+
+#: templates//games/mill.tpl:23
+msgid "You can also use the keys 1, 2, 3, 4."
+msgstr "Puede usar las claves 1, 2, 3, 4."
+
+#: templates//games/mill.tpl:27
+msgid ""
+"We are currently recalibrating the difficulty levels. Please excuse any "
+"words that are too easy or too hard for the level you selected."
+msgstr ""
+"Actualmente estamos recalibrando los niveles de dificultad. Disculpa si "
+"algunas palabras son demasiado fáciles o demasiado difíciles para el nivel "
+"que has seleccionado."
+
+#: templates//games/mill.tpl:49
+msgid "The correct definition of <span class=\"word fs-3\"></span>:"
+msgstr "La definición correcta de <span class=\"word fs-3\"></span>:"
+
+#: templates//games/mill.tpl:69
+msgid ""
+"Congratulations! You answered <b id=\"answeredCorrect\">0</b> of 10 "
+"questions correctly."
+msgstr ""
+"¡Enhorabuena! Ha contestado correctamente <b id=\"answeredCorrect\">0</b> de "
+"10 preguntas."
+
+#: templates//games/mill.tpl:72 templates//games/hangman.tpl:36
+msgid "new game"
+msgstr "juegue otra vez"
+
+#: templates//games/mill.tpl:73
+msgid "see all definitions"
+msgstr "vea todas las definiciones"
+
+#: templates//games/hangman.tpl:3 templates//games/hangman.tpl:10
+#: templates//widgets/games.tpl:5
+msgid "hangman"
+msgstr "el colgado"
+
+#: templates//games/hangman.tpl:16
+msgid "Lives remaining"
+msgstr "Vidas restantes"
+
+#: templates//games/hangman.tpl:32
+msgid "Get a clue"
+msgstr "Obtenga una pista"
+
+#: templates//games/hangman.tpl:59
+msgid "Congratulations, you win!"
+msgstr "¡Enhorabuena, ha ganado!"
+
+#: templates//games/hangman.tpl:62
+msgid "Sorry, you lose."
+msgstr "Lo sentimos, ha perdido."
+
+#: templates//games/scramble.tpl:4 templates//games/scramble.tpl:12
+#: templates//games/scramble.tpl:212 templates//widgets/games.tpl:7
+msgid "word scramble"
+msgstr "la tortilla de las palabras"
+
+#: templates//games/scramble.tpl:21
+msgid "start"
+msgstr "salida"
+
+#: templates//games/scramble.tpl:39
+msgid "object"
+msgstr "objeto"
+
+#: templates//games/scramble.tpl:45 templates//games/scramble.tpl:146
+msgid "all words"
+msgstr "todas las palabras"
+
+#: templates//games/scramble.tpl:50 templates//games/scramble.tpl:150
+msgid "one anagram"
+msgstr "un anagrama"
+
+#: templates//games/scramble.tpl:55 templates//games/scramble.tpl:154
+msgid "all anagrams"
+msgstr "todos los anagramas"
+
+#: templates//games/scramble.tpl:63
+msgid "level"
+msgstr "nivel"
+
+#: templates//games/scramble.tpl:69 templates//games/scramble.tpl:74
+#: templates//games/scramble.tpl:79 templates//games/scramble.tpl:84
+msgid "letters"
+msgstr "letras"
+
+#: templates//games/scramble.tpl:92
+msgid "diacritics"
+msgstr "diacríticos"
+
+#: templates//games/scramble.tpl:98
+msgid "no"
+msgstr "no"
+
+#: templates//games/scramble.tpl:103
+msgid "yes"
+msgstr "sí"
+
+#: templates//games/scramble.tpl:111
+msgid "time"
+msgstr "tiempo"
+
+#: templates//games/scramble.tpl:125
+msgid "one minute"
+msgid_plural "%1 minutes"
+msgstr[0] "un minuto"
+msgstr[1] "%1 minutos"
+
+#: templates//games/scramble.tpl:134
+msgid "Object of the game"
+msgstr "Objetivo del juego"
+
+#: templates//games/scramble.tpl:136
+msgid ""
+"Find as many words as you can using the given letters, before the time runs "
+"out."
+msgstr ""
+"Encuentre tantas palabras como pueda formar con las letras dadas, antes de "
+"que se agote el tiempo."
+
+#: templates//games/scramble.tpl:141
+msgid "There are three game types:"
+msgstr "Hay tres tipos de juegos:"
+
+#: templates//games/scramble.tpl:147
+msgid "find all words having at least three letters."
+msgstr "encuentre todos las palabras que tengan al menos tres letras."
+
+#: templates//games/scramble.tpl:151
+msgid "find a word using all the letters, then receive a new set of letters."
+msgstr ""
+"encuentre una palabra usando todas las letras, luego recibirá un nuevo "
+"conjunto de letras."
+
+#: templates//games/scramble.tpl:156
+msgid ""
+"find all words using all the letters, then receive a new set of letters. For "
+"example, for the set AINTT you must guess all three anagrams (<i>%1</i>) to "
+"receive the next set."
+msgstr ""
+"encuentre todas las palabras con todas las letras, luego recibirá un nuevo "
+"conjunto de letras. Por ejemplo, para el conjunto AINTT, tiene que encontrar "
+"todos los tres anagramas (<i>%1</i>), con tal de poder seguir con el próximo "
+"conjunto de letras."
+
+#: templates//games/scramble.tpl:163
+msgid "Instructions"
+msgstr "Acciones"
+
+#: templates//games/scramble.tpl:165
+msgid ""
+"When using a keyboard, simply type the letters. When using a mouse, click on "
+"the letters, then click on the magnifier to check a word."
+msgstr ""
+"Al usar el teclado, solo tiene que teclear las letras. A usar el ratón, "
+"clique en las letras, luego clique la lupa para comprobar una palabra."
+
+#: templates//games/scramble.tpl:171
+msgid ""
+"Legal words include conjugations (such as <i>lucrez</i>) and declensions "
+"(such as <i>verzi</i>). If you opted for diacritics, then the letters %1 "
+"cannot be interchanged with %2."
+msgstr ""
+"Las palabras admitidas incluyen conjugaciones (tales como <i>lucrez</i>) y "
+"declinaciones (tales como <i>verzi</i>). Si ha optado por los diacríticos, "
+"las letras %1 no se pueden intercambiar con %2."
+
+#: templates//games/scramble.tpl:177
+msgid "Special keys"
+msgstr "Teclas especiales"
+
+#: templates//games/scramble.tpl:181
+msgid "checks the word"
+msgstr "comprueba la palabra"
+
+#: templates//games/scramble.tpl:182
+msgid "deletes the last letter"
+msgstr "borra la última letra"
+
+#: templates//games/scramble.tpl:183
+msgid "deletes all the letters"
+msgstr "borra todas las letras"
+
+#: templates//games/scramble.tpl:184
+msgid "shuffles the letters"
+msgstr "mezcla las letras"
+
+#: templates//games/scramble.tpl:188
+msgid "Below the game area there is"
+msgstr "Debajo del área del juego está"
+
+#: templates//games/scramble.tpl:194
+msgid "time remaining"
+msgstr "tiempo restante"
+
+#: templates//games/scramble.tpl:198
+msgid "number of words found / total number of words"
+msgstr "número de palabras encontradas / número total de palabras"
+
+#: templates//games/scramble.tpl:202
+msgid "score (longer words earn more points)"
+msgstr "marcador (las palabras más largas dan más puntos)"
+
+#: templates//games/scramble.tpl:240
+msgid "play again"
+msgstr "juegue otra vez"
+
+#: templates//games/scramble.tpl:248
+msgid "Legal words"
+msgstr "Palabras admitidas"
+
+#: templates//games/scramble.tpl:272
+msgid ""
+"You can share this link with your friends to compare scores on the same "
+"letter sets."
+msgstr ""
+"Puede compartir el enlace con sus amigos para comparar los marcadores con "
+"los mismos conjuntos de letras."
+
+#: templates//tag/list.tpl:18
+msgid "link-collapse-all"
+msgstr "cerrar todos los enlaces"
+
+#: templates//tag/list.tpl:21
+msgid "link-expand-all"
+msgstr "expandir todos los enlaces"
+
+#: templates//widgets/newsletter.tpl:3
+msgid "Newsletter"
+msgstr "Boletín informativo"
+
+#: templates//widgets/newsletter.tpl:4
+msgid "Do you want to subscribe? (see <a href=\"/newsletter\">archive</a>)"
+msgstr "¿Quieres suscribirte? (ver <a href=\"/newsletter\">archivo</a>)"
+
+#: templates//widgets/newsletter.tpl:26
+msgid "Yes!"
+msgstr "¡Sí!"
+
+#: templates//widgets/expression.tpl:5
+msgid "Visual expressions"
+msgstr "Expresiones visuales"
+
+#: templates//widgets/social.tpl:2
+msgid "follow us on"
+msgstr "síganos en"
+
+#: templates//widgets/social.tpl:5
+msgid "Follow us on Instagram"
+msgstr "Síganos en Instagram"
+
+#: templates//widgets/social.tpl:10
+msgid "Follow our blog"
+msgstr "Síganos en Blogger"
+
+#: templates//widgets/social.tpl:15
+msgid "Follow us on Facebook"
+msgstr "Follow us on Facebook"
+
+#: templates//widgets/social.tpl:20
+msgid "Follow us on Twitter"
+msgstr "Síganos en Twitter"
 
 #~ msgid "results"
 #~ msgstr "resultados"
-
-#~ msgid "One image"
-#~ msgid_plural "%1 images"
-#~ msgstr[0] "Una imagen"
-#~ msgstr[1] "%1 imagenes"
 
 #~ msgid "show all definitions"
 #~ msgstr "mostrar todas las definiciones"

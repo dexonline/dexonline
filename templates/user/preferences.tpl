@@ -1,13 +1,13 @@
 {extends "layout.tpl"}
 
-{block "title"}Preferințe{/block}
+{block "title"}{t}preferences{/t}{/block}
 
 {block "search"}{/block}
 
 {block "content"}
   {if User::getActive()}
     <div class="card mb-3">
-      <div class="card-header">Imagine</div>
+      <div class="card-header">{t}Image{/t}</div>
       <div class="card-body">
         {include "bits/avatar.tpl" user=User::getActive()}
 
@@ -17,7 +17,7 @@
           enctype="multipart/form-data">
 
           <div class="d-flex mt-2">
-            <label class="col-form-label">Fișier:</label>
+            <label class="col-form-label">{t}File{/t}:</label>
             <div class="ms-2">
               <input class="form-control" id="avatarFileName" type="file" name="avatarFileName">
             </div>
@@ -28,7 +28,7 @@
               name="submit"
               disabled>
               {include "bits/icon.tpl" i=edit}
-              editează
+              {t}edit{/t}
             </button>
 
             {if User::getActive()->hasAvatar}
@@ -36,15 +36,15 @@
                 class="btn btn-outline-danger ms-1"
                 onclick="return confirm('Confirmați ștergerea imaginii?');">
                 {include "bits/icon.tpl" i=delete}
-                șterge imaginea
+                {t}delete image{/t}
               </a>
             {/if}
 
           </div>
 
           <div class="form-text">
-            Imaginea profilului tău are rezoluția de 48x48 pixeli.
-            Pe ecranul următor poți edita poza încărcată.
+            {t}The resolution of your profile picture must be 48x48 pixels.{/t}
+            {t}On the next screen, you can edit the uploaded photo.{/t}
           </div>
         </form>
       </div>
@@ -54,7 +54,7 @@
   <form method="post">
     {if User::getActive()}
       <div class="card mb-3">
-        <div class="card-header">Date personale</div>
+        <div class="card-header">{t}Personal data{/t}</div>
         <div class="card-body">
 
           <div class="input-group">
@@ -66,11 +66,11 @@
               type="text"
               name="email"
               value="{$email}"
-              placeholder="adresa de e-mail">
+              placeholder="{t}email address{/t}">
             {include "bits/fieldErrors.tpl" errors=$errors.email|default:null}
           </div>
           <div class="form-text mb-3">
-            folosită <b>doar</b> ca să îți poți recupera contul dacă îți uiți parola
+            {t}This email address is used for account recovery only.{/t}
           </div>
 
           <div class="input-group mb-3">
@@ -82,12 +82,12 @@
               type="text"
               name="name"
               value="{$name}"
-              placeholder="numele real">
+              placeholder="{t}name{/t}">
           </div>
 
           {capture "help"}
-          Poți afișa sau ascunde numele și adresa de email în
-          <a href="{Router::link('user/view')}/{User::getActive()}">profilul tău</a>.
+          {t 1=Router::link('user/view') 2=User::getActive()}You can show or hide your name and email address in
+          <a href="%1/%2">your profile</a>.{/t}
           {/capture}
 
           {include "bs/checkbox.tpl"
@@ -98,7 +98,7 @@
             help=$smarty.capture.help}
 
           <fieldset>
-            <legend>dacă vrei să îți schimbi parola</legend>
+            <legend>{t}if you want to change your password{/t}</legend>
 
             <div class="input-group mb-3">
               <span class="input-group-text">
@@ -109,7 +109,7 @@
                 type="password"
                 name="password"
                 value="{$password}"
-                placeholder="parola curentă">
+                placeholder="{t}current password{/t}">
               {include "bits/fieldErrors.tpl" errors=$errors.password|default:null}
             </div>
 
@@ -122,7 +122,7 @@
                 type="password"
                 name="newPassword"
                 value="{$newPassword}"
-                placeholder="parola nouă">
+                placeholder="{t}new password{/t}">
               {include "bits/fieldErrors.tpl" errors=$errors.newPassword|default:null}
             </div>
 
@@ -135,7 +135,7 @@
                 type="password"
                 name="newPassword2"
                 value="{$newPassword2}"
-                placeholder="parola nouă (din nou)">
+                placeholder="{t}confirm password{/t}">
             </div>
           </fieldset>
 
@@ -144,7 +144,7 @@
     {/if}
 
     <div class="card mb-3">
-      <div class="card-header">Preferințe</div>
+      <div class="card-header">{t}Settings{/t}</div>
       <div class="card-body">
         {foreach $userPrefs as $value => $i}
           {include "bs/checkbox.tpl"
@@ -160,13 +160,11 @@
     </div>
 
     <div class="card mb-3">
-      <div class="card-header">Fila preferată</div>
+      <div class="card-header">{t}Favorite tabs{/t}</div>
 
       <div class="card-body">
         <p>
-          Trageți de file pentru a le reordona. La căutări, vom afișa prima filă
-          disponibilă. Nu toate filele există tot timpul; de exemplu nu
-          întotdeauna vor exista imagini.
+          {t}Drag and drop tabs to reorder them. For searches, we will display the first available tab. Not all tabs are available at all times; for example, images will not always be available.{/t}
         </p>
 
         <ul id="tab-order" class="list-group sortable mb-3">
@@ -183,13 +181,13 @@
         </ul>
 
         <a href="#" class="btn btn-outline-secondary" id="restore-tab-order-link">
-          revino la ordinea implicită
+          {t}restore default order{/t}
         </a>
       </div>
     </div>
 
     <div class="card mb-3">
-      <div class="card-header">Elemente în pagina principală</div>
+      <div class="card-header">{t}Elements on the main page{/t}</div>
       <div class="card-body row">
 
         {foreach $widgets as $value => $w}
@@ -221,11 +219,12 @@
 
     <button class="btn btn-primary" type="submit" name="saveButton">
       {include "bits/icon.tpl" i=save}
-      salvează
+      {t}save{/t}
     </button>
     {if User::getActive()}
       <a class="btn btn-link" href="{Router::link('user/view')}/{User::getActive()|escape}">
-        renunță</a>
+        {t}cancel{/t}
+      </a>
     {/if}
 
   </form>
@@ -235,9 +234,9 @@
       var error = '';
       var allowedTypes = ['image/gif', 'image/jpeg', 'image/png'];
       if (this.files[0].size > (1 << 21)) {
-        error = 'Dimensiunea maximă admisă este 2 MB.';
+        error = '{t}The maximum size allowed is 2 MB.{/t}';
       } else if (allowedTypes.indexOf(this.files[0].type) == -1) {
-        error = 'Sunt permise doar imagini jpeg, png sau gif.';
+        error = '{t}Only jpeg, png, or gif images are allowed.{/t}';
       }
       if (error) {
         $('#avatarFileName').val('');

@@ -14,53 +14,55 @@ class Widget {
 
   // 'enabled' means "enabled by default". All widgets can later be enabled or disabled based on user prefs.
   // also this array determines the order of the widgets
-  const DATA = [
-    self::WIDGET_WOTD => [
-      'name' => 'Cuvântul zilei',
-      'template' => 'wotd.tpl',
-      'enabled' => true,
-    ],
-    self::WIDGET_WOTM => [
-      'name' => 'Cuvântul lunii',
-      'template' => 'wotm.tpl',
-      'enabled' => true,
-    ],
-    self::WIDGET_EXPRESSION => [
-      'name' => 'Expresii',
-      'template' => 'expression.tpl',
-      'enabled' => false,
-    ],
-    self::WIDGET_NEWSLETTER => [
-      'name' => 'Newsletter',
-      'template' => 'newsletter.tpl',
-      'enabled' => true,
-    ],
-    self::WIDGET_GAMES => [
-      'name' => 'Jocuri',
-      'template' => 'games.tpl',
-      'enabled' => true,
-    ],
-    self::WIDGET_AOTM => [
-      'name' => 'Articolul lunii',
-      'template' => 'articleOfTheMonth.tpl',
-      'enabled' => true,
-    ],
-    self::WIDGET_SOCIAL => [
-      'name' => 'Rețele sociale',
-      'template' => 'social.tpl',
-      'enabled' => false,
-    ],
-    self::WIDGET_RANDOM_WORD => [
-      'name' => 'Cuvânt aleatoriu',
-      'template' => 'randomWord.tpl',
-      'enabled' => true,
-    ],
-    self::WIDGET_PROVERB => [
-      'name' => 'Proverbe',
-      'template' => 'proverb.tpl',
-      'enabled' => false,
-    ]
-  ];
+  public static function getData() {
+    return [
+      self::WIDGET_WOTD => [
+        'name' => _('word of the day'),
+        'template' => 'wotd.tpl',
+        'enabled' => true,
+      ],
+      self::WIDGET_WOTM => [
+        'name' => _('word of the month'),
+        'template' => 'wotm.tpl',
+        'enabled' => true,
+      ],
+      self::WIDGET_EXPRESSION => [
+        'name' => _('expressions'),
+        'template' => 'expression.tpl',
+        'enabled' => false,
+      ],
+      self::WIDGET_NEWSLETTER => [
+        'name' => _('newsletter'),
+        'template' => 'newsletter.tpl',
+        'enabled' => true,
+      ],
+      self::WIDGET_GAMES => [
+        'name' => _('games'),
+        'template' => 'games.tpl',
+        'enabled' => true,
+      ],
+      self::WIDGET_AOTM => [
+        'name' => _('article of the month'),
+        'template' => 'articleOfTheMonth.tpl',
+        'enabled' => true,
+      ],
+      self::WIDGET_SOCIAL => [
+        'name' => _('social networks'),
+        'template' => 'social.tpl',
+        'enabled' => false,
+      ],
+      self::WIDGET_RANDOM_WORD => [
+        'name' => _('random word'),
+        'template' => 'randomWord.tpl',
+        'enabled' => true,
+      ],
+      self::WIDGET_PROVERB => [
+        'name' => _('proverbs'),
+        'template' => 'proverb.tpl',
+        'enabled' => false,
+      ]
+    ];
+  }
 
   /**
    * Returns a copy of DATA with the 'enabled' field modified where necessary.
@@ -69,7 +71,7 @@ class Widget {
    * we use the widget's default state.
    **/
   static function getWidgets($widgetMask, $widgetCount) {
-    $result = self::DATA;
+    $result = self::getData();
     for ($mask = 1; $mask < 1 << $widgetCount; $mask <<= 1) {
       $result[$mask]['enabled'] = ($widgetMask & $mask) ? true : false;
     }
@@ -78,7 +80,7 @@ class Widget {
 
   static function getDefaultWidgetMask() {
     $result = 0;
-    foreach (self::DATA as $mask => $params) {
+    foreach (self::getData() as $mask => $params) {
       if ($params['enabled']) {
         $result += $mask;
       }

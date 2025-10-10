@@ -23,7 +23,7 @@
   <h3>Arhiva newsletterului</h3>
 
   <p class="ps-3">
-    <span class="fs-5">&#x2022; 3 octombrie 2025 <a href="">
+    <span class="fs-5">&#x2022; 3 octombrie 2025 <a href="https://blog.dexonline.ro/?mailpoet_router&endpoint=view_in_browser&action=view&data=WzU1LCI5YTU1MGFhODM0ZmQiLDQsIjNlYjljZCIsMjg2OCwxXQ">
       jurnal de dicționar / octombrie 25</a></span> <span class="fs-6">(argou, jargon, pârnaie, cockney, verlan, porumb)</span>
     <br/>
     <span class="fs-5">&#x2022; 3 septembrie 2025 <a href="https://blog.dexonline.ro/?mailpoet_router&endpoint=view_in_browser&action=view&data=WzU0LCJjYTk2ZTQ0NzYzY2UiLDQsIjNlYjljZCIsMjc4NSwxXQ">

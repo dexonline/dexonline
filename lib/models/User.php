@@ -49,7 +49,7 @@ class User extends BaseObject {
   // If the user does not have at least one privilege from the mask, redirect to the home page.
   static function mustHave($priv) {
     if (!self::can($priv)) {
-      FlashMessage::add('Nu aveți privilegii suficiente pentru a accesa această pagină.');
+      FlashMessage::add(_('You do not have sufficient privileges to access this page.'), 'danger');
       Util::redirectToHome();
     }
   }
@@ -86,11 +86,11 @@ class User extends BaseObject {
 
     $u = User::get_by_email($email);
     if ($u && $u->id != self::getActiveId()) {
-      return 'Această adresă de e-mail este deja folosită.';
+      return _('This email address is already registered.');
     }
 
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-      return 'Adresa de e-mail pare incorectă.';
+      return _('Invalid email address.');
     }
 
     return null;
@@ -98,13 +98,13 @@ class User extends BaseObject {
 
   static function validateNewPassword($password, $password2, &$errors, $field) {
     if (!$password) {
-      $errors[$field][] = 'Parola nu poate fi vidă.';
+      $errors[$field][] = _('The password cannot be empty.');
     } else if (!$password2) {
-      $errors[$field][] = 'Introdu parola de două ori pentru verificare.';
+      $errors[$field][] = _('Enter your password twice for verification.');
     } else if ($password != $password2) {
-      $errors[$field][] = 'Parolele nu coincid.';
+      $errors[$field][] = _('Passwords do not match.');
     } else if (strlen($password) < 8) {
-      $errors[$field][] = 'Parola trebuie să aibă minimum 8 caractere.';
+      $errors[$field][] = _('Password must be at least 8 characters long.');
     }
   }
 }

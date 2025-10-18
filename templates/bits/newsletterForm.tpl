@@ -5,7 +5,7 @@
   <input type="hidden" name="endpoint" value="subscribers">
   <input type="hidden" name="mailpoet_method" value="subscribe">
 
-  <label style="display: none !important;">Te rog lasă gol acest câmp<input type="email" name="data[email]"></label>
+  <label style="display: none !important;">{t}Please leave this field empty{/t}<input type="email" name="data[email]"></label>
 
   <div class="input-group">
     <input
@@ -15,9 +15,9 @@
       autocomplete="email"
       id="form_email_2"
       name="data[form_field_YWY1NmM5NmJjMDQyX2VtYWls]"
-      title="Adresă de email"
+      title="{t}Email address{/t}"
       value=""
-      placeholder="adresa de email">
-    <input class="btn btn-primary" type="submit" value="Mă abonez!">
+      placeholder="{t}email address{/t}">
+    <input class="btn btn-primary" type="submit" value="{t}Subscribe{/t}">
   </div>
 </form>

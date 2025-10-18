@@ -1,6 +1,6 @@
 {extends "layout.tpl"}
 
-{block "title"}Autentificare{/block}
+{block "title"}{t}login{/t}{/block}
 
 {block "search"}{/block}
 
@@ -14,7 +14,7 @@
 
     <div class="card mb-3">
       <div class="card-header">
-        Autentificare
+        {t}Login{/t}
       </div>
 
       <div class="card-body">
@@ -30,7 +30,7 @@
               name="nick"
               value="{$nick}"
               autofocus
-              placeholder="numele de utilizator sau adresa de e-mail">
+              placeholder="{t}username or email address{/t}">
             {include "bits/fieldErrors.tpl" errors=$errors.nick|default:null}
           </div>
 
@@ -42,24 +42,26 @@
               class="form-control {if isset($errors.password)}is-invalid{/if}"
               type="password"
               name="password"
-              placeholder="parola">
+              placeholder="{t}password{/t}">
             {include "bits/fieldErrors.tpl" errors=$errors.password|default:null}
           </div>
 
+          {* We must capture the translated string first, as Smarty won't evaluate {t} tags in parameters *}
+          {capture name="remember_me_label"}{t}keep me logged in for a year{/t}{/capture}
           {include "bs/checkbox.tpl"
             name='remember'
-            label='ține-mă autentificat un an'
+            label=$smarty.capture.remember_me_label
             checked=$remember
             divClass='mb-3'}
 
           <div class="d-flex justify-content-between">
             <button class="btn btn-primary" type="submit" name="submitButton">
               {include "bits/icon.tpl" i=login}
-              autentificare
+              {t}login{/t}
             </button>
 
             <a class="btn btn-link" href="{Router::link('auth/lostPassword')}">
-              mi-am uitat parola
+              {t}forgot my password{/t}
             </a>
           </div>
         </form>
@@ -69,7 +71,7 @@
     <a
       class="btn btn-link"
       href="{Router::link('auth/register')}">
-      mă înregistrez
+      {t}create an account{/t}
     </a>
 
   </div>

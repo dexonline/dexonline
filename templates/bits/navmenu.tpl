@@ -50,7 +50,7 @@
             </li>
             <li>
               <a href="/newsletter" class="dropdown-item">
-                  {cap}newsletter{/cap}
+                  {cap}{t}newsletter{/t}{/cap}
               </a>
             </li>
           </ul>

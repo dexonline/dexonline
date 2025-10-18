@@ -1,16 +1,16 @@
 {extends "layout.tpl"}
 
-{block "title"}Modele de flexiune{/block}
+{block "title"}{t}Flexion model{/t}{/block}
 
 {block "content"}
   <h3>
-    Modele de flexiune pentru tipul {$modelType->code} ({$modelType->description})
+    {t 1=$modelType->code 2=$modelType->description}Flexion models for the type %1 (%2){/t}
   </h3>
 
   <p>
     <a class="btn btn-link" href="{Router::link('games/scrabble')}">
       {include "bits/icon.tpl" i=arrow_back}
-      înapoi
+      {t}back{/t}
     </a>
   </p>
 

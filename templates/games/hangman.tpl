@@ -33,7 +33,7 @@
         </div>
 
         <div class="newGameControls">
-          <label>Joc nou:</label>
+          <label>{t}new game{/t}:</label>
           <button class="btn btn-secondary" type="button" data-level="1">{t}easy{/t}</button>
           <button class="btn btn-secondary" type="button" data-level="2">{t}medium{/t}</button><br>
           <button class="btn btn-secondary" type="button" data-level="3">{t}hard{/t}</button>

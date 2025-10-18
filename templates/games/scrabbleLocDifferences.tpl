@@ -1,20 +1,20 @@
 {extends "layout-admin.tpl"}
 
-{block "title"}Lista Oficială de Cuvinte{/block}
+{block "title"}{t}Official Word List{/t}{/block}
 
 {block "content"}
   <h3>
-    Diferențe între LOC {$versions.0} și LOC {$versions.1} ({$listType})
+    {t 1=$version.0 2=$version.1 3=$listType}Differences between LOC %1 and LOC %2 (%3){/t}
   </h3>
 
   <p>
     <a class="btn btn-outline-secondary" href="{$zipUrl}">
       {include "bits/icon.tpl" i=file_download}
-      descarcă
+      {t}download{/t}
     </a>
     <a class="btn btn-link" href="{Router::link('games/scrabble')}">
       {include "bits/icon.tpl" i=arrow_back}
-      înapoi
+      {t}back{/t}
     </a>
   </p>
 

@@ -3,15 +3,14 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-09-14 17:00+0300\n"
-"PO-Revision-Date: 2025-09-14 19:46+0300\n"
+"PO-Revision-Date: 2025-09-14 19:43+0300\n"
 "Last-Translator: Serhat Demirkol <srhtdmrkl@gmail.com>\n"
 "Language-Team: \n"
-"Language: ro\n"
+"Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n==0 || (n!=1 && n%100>=1 && "
-"n%100<=19) ? 1 : 2);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.7\n"
 "X-Poedit-Basepath: ../../..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -25,293 +24,294 @@ msgstr ""
 #: www/search.php:226 www/search.php:237
 #, php-format
 msgid "We redirected you automatically from <b>%s</b> to <b>%s</b>."
-msgstr "V-am redirecționat automat de la <b>%s</b> la <b>%s</b>."
+msgstr ""
+"Sizi otomatik olarak <b>%s</b> adresinden <b>%s</b> adresine yönlendirdik."
 
 #: www/search.php:352 lib/Tab.php:62
 msgid "conjugations"
-msgstr "conjugări"
+msgstr "fiil çekimleri"
 
 #: www/search.php:353 lib/Tab.php:62
 msgid "declensions"
-msgstr "declinări"
+msgstr "isim çekimleri"
 
 #: lib/Tab.php:61 templates//bits/top.tpl:7 templates//games/mill.tpl:80
 #: templates//games/hangman.tpl:48
 msgid "definitions"
-msgstr "definiții"
+msgstr "tanımlar"
 
 #: lib/Tab.php:63
 msgid "synthesis"
-msgstr "sinteză"
+msgstr "özet"
 
 #: lib/Tab.php:64 templates//games/hangman.tpl:18
 msgid "images"
-msgstr "imagini"
+msgstr "görseller"
 
 #: lib/Tab.php:65
 msgid "articles"
-msgstr "articole"
+msgstr "makaleler"
 
 #: lib/Tab.php:66 templates//bits/extendedParadigm.tpl:30
 msgid "pronunciation"
-msgstr "pronunție"
+msgstr "telaffuz"
 
 #: lib/models/InflectedForm.php:72 templates//search.tpl:281
 msgid "unrecommended or incorrect form"
-msgstr "formă nerecomandată sau greșită"
+msgstr "tavsiye edilmeyen veya hatalı form"
 
 #: lib/models/InflectedForm.php:75
 msgid "by apheresis and/or elision"
-msgstr "prin afereză și/sau eliziune"
+msgstr "hece düşmesi ve/veya hece yutması ile"
 
 #: lib/models/InflectedForm.php:78
 msgid "long verb form"
-msgstr "formă verbală lungă"
+msgstr "uzun fiil formu"
 
 #: lib/models/User.php:52
 msgid "You do not have sufficient privileges to access this page."
-msgstr "Nu aveți privilegii suficiente pentru a accesa această pagină."
+msgstr "Bu sayfaya erişmek için yeterli yetkiniz yok."
 
 #: lib/models/User.php:89
 msgid "This email address is already registered."
-msgstr "Această adresă de e-mail este deja folosită."
+msgstr "Bu e-posta adresi zaten kayıtlı."
 
 #: lib/models/User.php:93
 msgid "Invalid email address."
-msgstr "Adresa de e-mail pare incorectă."
+msgstr "Geçersiz e-posta adresi."
 
 #: lib/models/User.php:101
 msgid "The password cannot be empty."
-msgstr "Parola nu poate fi vidă."
+msgstr "Şifre boş bırakılamaz."
 
 #: lib/models/User.php:103
 msgid "Enter your password twice for verification."
-msgstr "Introdu parola de două ori pentru verificare."
+msgstr "Doğrulama için şifrenizi iki kez girin."
 
 #: lib/models/User.php:105
 msgid "Passwords do not match."
-msgstr "Parolele nu coincid."
+msgstr "Şifreler eşleşmiyor."
 
 #: lib/models/User.php:107
 msgid "Password must be at least 8 characters long."
-msgstr "Parola trebuie să aibă minimum 8 caractere."
+msgstr "Şifre en az 8 karakter uzunluğunda olmalıdır."
 
 #: lib/models/SourceType.php:40
 msgid "general use"
-msgstr "explicative DEX"
+msgstr "genel kullanım"
 
 #: lib/models/SourceType.php:41
 msgid "etymological"
-msgstr "etimologice"
+msgstr "etimolojik"
 
 #: lib/models/SourceType.php:42
 msgid "morphological"
-msgstr "ortografice DOOM"
+msgstr "morfolojik"
 
 #: lib/models/SourceType.php:43
 msgid "synonyms"
-msgstr "sinonime"
+msgstr "eş anlamlılar"
 
 #: lib/models/SourceType.php:44
 msgid "antonyms"
-msgstr "antonime"
+msgstr "zıt anlamlılar"
 
 #: lib/models/SourceType.php:45
 msgid "relational"
-msgstr "relaționale"
+msgstr "ilişkisel"
 
 #: lib/models/SourceType.php:46
 msgid "specialized"
-msgstr "jargon"
+msgstr "uzmanlaşmış"
 
 #: lib/models/SourceType.php:47
 msgid "slang"
-msgstr "argou"
+msgstr "argo"
 
 #: lib/models/SourceType.php:48
 msgid "phrases"
-msgstr "expresii"
+msgstr "deyimler"
 
 #: lib/models/SourceType.php:49
 msgid "regional"
-msgstr "regionalisme"
+msgstr "yöresel"
 
 #: lib/models/SourceType.php:50
 msgid "encyclopedic"
-msgstr "enciclopedice"
+msgstr "ansiklopedik"
 
 #: lib/models/SourceType.php:51
 msgid "other"
-msgstr "tezaur"
+msgstr "diğer"
 
 #: lib/models/SourceType.php:52
 msgid "unverified"
-msgstr "neverificate"
+msgstr "doğrulanmamış"
 
 #: lib/models/SourceType.php:58
 msgid "General use dictionaries"
-msgstr "Explicative DEX"
+msgstr "Genel kullanım sözlükleri"
 
 #: lib/models/SourceType.php:59
 msgid "Etymological dictionaries"
-msgstr "Etimologice"
+msgstr "Etimolojik sözlükler"
 
 #: lib/models/SourceType.php:60
 msgid "Morphological dictionaries"
-msgstr "Ortografice DOOM"
+msgstr "Morfolojik sözlükler"
 
 #: lib/models/SourceType.php:61
 msgid "Antonyms dictionaries"
-msgstr "Antonime"
+msgstr "Zıt anlamlı kelime sözlükleri"
 
 #: lib/models/SourceType.php:62
 msgid "Synonyms dictionaries"
-msgstr "Sinonime"
+msgstr "Eş anlamlı kelime sözlükleri"
 
 #: lib/models/SourceType.php:63
 msgid "Other relational dictionaries"
-msgstr "Relaționale"
+msgstr "Diğer ilişkisel sözlükler"
 
 #: lib/models/SourceType.php:64
 msgid "Specialized dictionaries"
-msgstr "Jargon"
+msgstr "Uzmanlaşmış sözlükler"
 
 #: lib/models/SourceType.php:65
 msgid "Slang dictionaries"
-msgstr "Argou"
+msgstr "Argo sözlükler"
 
 #: lib/models/SourceType.php:66
 msgid "Phrases and quotes"
-msgstr "Expresii și citate"
+msgstr "Deyimler ve alıntılar"
 
 #: lib/models/SourceType.php:67
 msgid "Regional dictionaries"
-msgstr "Regionalisme / arhaisme"
+msgstr "Yöresel sözlükler"
 
 #: lib/models/SourceType.php:68
 msgid "Encyclopedic dictionaries"
-msgstr "Enciclopedice"
+msgstr "Ansiklopedik sözlükler"
 
 #: lib/models/SourceType.php:69
 msgid "Other dictionaries"
-msgstr "Tezaur"
+msgstr "Diğer sözlükler"
 
 #: lib/models/SourceType.php:70
 msgid "Unverified dictionaries"
-msgstr "Neverificate"
+msgstr "Doğrulanmamış sözlükler"
 
 #: lib/models/SourceType.php:77
 msgid "The most common sense of the words are explained."
-msgstr "Explică cele mai întâlnite sensuri ale cuvintelor."
+msgstr "Kelimenin en yaygın anlamları açıklanır."
 
 #: lib/models/SourceType.php:79
 msgid "The etymology of (family of) words are explained."
-msgstr "Explică etimologiile cuvintelor sau familiilor de cuvinte."
+msgstr "Kelimenin (kelime ailesinin) etimolojisi açıklanır."
 
 #: lib/models/SourceType.php:81
 msgid "The correspondences between lemma and lexical forms of words."
-msgstr "Indică formele flexionare ale cuvintelor (conjugări, declinări)."
+msgstr "Kelimelerin temel ve diğer kelime formları arasındaki ilişkiler."
 
 #: lib/models/SourceType.php:83
 msgid "Synonyms and similar meaning words."
-msgstr "Sinonime / cuvinte cu sensuri similare."
+msgstr "Eş anlamlı ve benzer anlamlı kelimeler."
 
 #: lib/models/SourceType.php:85
 msgid "Antonyms and opposite meaning words."
-msgstr "Antonime / cuvinte cu sensuri opuse."
+msgstr "Zıt anlamlı kelimeler ve ters anlamlı kelimeler."
 
 #: lib/models/SourceType.php:87
 msgid "These are not definitions, but relations between words."
-msgstr "Indică relații între cuvinte (sinonime, antonime)."
+msgstr "Bunlar tanım değil, kelimeler arasındaki ilişkilerdir."
 
 #: lib/models/SourceType.php:89
 msgid "These definitions usually explain only specialized meanings of words."
-msgstr "Explică înțelesuri specializate ale cuvintelor."
+msgstr ""
+"Bu tanımlar genellikle sadece kelimelerin uzmanlaşmış anlamlarını açıklar."
 
 #: lib/models/SourceType.php:91
 msgid "Only slang words or senses are defined."
-msgstr "Explică doar sensurile argotice ale cuvintelor."
+msgstr "Sadece argo kelimeler veya anlamları tanımlanmıştır."
 
 #: lib/models/SourceType.php:93
 msgid "Romanian phrases, quotes and idiotisms."
-msgstr "Expresii, proverbe și citate."
+msgstr "Romence deyimler, alıntılar ve deyimler."
 
 #: lib/models/SourceType.php:95
 msgid "Only regional (or archaic) words or senses are defined."
-msgstr "Explică doar sensurile regionale (sau arhaice) ale cuvintelor."
+msgstr "Sadece yöresel (veya eskimiş) kelimeler veya anlamları tanımlanmıştır."
 
 #: lib/models/SourceType.php:97
 msgid "Encyclopedic definitions"
-msgstr "Definiții enciclopedice"
+msgstr "Ansiklopedik tanımlar"
 
 #: lib/models/SourceType.php:99
 msgid "These definitions could explain only certain meanings of words."
-msgstr "Aceste definiții pot explica numai anumite înțelesuri ale cuvintelor."
+msgstr "Bu tanımlar sadece kelimelerin belirli anlamlarını açıklayabilir."
 
 #: lib/models/SourceType.php:101
 msgid ""
 "Since they are not made by lexicographers, these definitions may contain "
 "errors."
 msgstr ""
-"Deoarece nu sunt editate de lexicografi, aceste definiții pot conține erori."
+"Dilbilimciler tarafından hazırlanmadıkları için bu tanımlar hata içerebilir."
 
 #: lib/Widget.php:20 templates//wotd/view.tpl:4 templates//bits/navmenu.tpl:122
 #: templates//widgets/wotd.tpl:5
 msgid "word of the day"
-msgstr "cuvântul zilei"
+msgstr "günün kelimesi"
 
 #: lib/Widget.php:25 templates//bits/navmenu.tpl:127
 #: templates//widgets/wotm.tpl:5
 msgid "word of the month"
-msgstr "cuvântul lunii"
+msgstr "ayın kelimesi"
 
 #: lib/Widget.php:30 templates//search/trees.tpl:36
 msgid "expressions"
-msgstr "expresii"
+msgstr "ifadeler"
 
 #: lib/Widget.php:35 templates//simple/newsletter.tpl:4
 #: templates//bits/navmenu.tpl:53
 msgid "newsletter"
-msgstr "newsletter"
+msgstr "bülten"
 
 #: lib/Widget.php:40 templates//simple/links.tpl:39
 #: templates//widgets/games.tpl:3
 msgid "games"
-msgstr "jocuri"
+msgstr "oyunlar"
 
 #: lib/Widget.php:45 templates//widgets/articleOfTheMonth.tpl:5
 #: templates//widgets/articleOfTheMonth.tpl:10
 msgid "article of the month"
-msgstr "articolul lunii"
+msgstr "ayın makalesi"
 
 #: lib/Widget.php:50
 msgid "social networks"
-msgstr "rețele sociale"
+msgstr "sosyal ağlar"
 
 #: lib/Widget.php:55 templates//widgets/randomWord.tpl:5
 msgid "random word"
-msgstr "cuvânt aleatoriu"
+msgstr "rastgele kelime"
 
 #: lib/Widget.php:60
 msgid "proverbs"
-msgstr "proverbe"
+msgstr "deyimler"
 
 #: lib/Preferences.php:18
 msgid "I use ș and ț with a cedilla (instead of a comma)"
-msgstr "Folosesc ş și ţ cu sedilă (în loc de virgulă)"
+msgstr "Ş ve ț harflerini virgül yerine sedilla ile kullanıyorum."
 
 #: lib/Preferences.php:19
 msgid ""
 "The correct spelling is with ș and ț instead of ș and ț, but these symbols "
 "may not be displayed correctly in your browser."
 msgstr ""
-"Scrierea corectă este cu &#x219; și &#x21b; în loc de ş și ţ, dar este "
-"posibil ca aceste simboluri să nu fie afișate corect în browserul "
-"dumneavoastră."
+"Doğru yazım ş ve ț yerine ș ve ț ile yapılır, ancak bu semboller "
+"tarayıcınızda doğru görüntülenmeyebilir."
 
 #: lib/Preferences.php:23
 msgid "I put diacritics in the search"
-msgstr "Pun eu diacritice în căutare"
+msgstr "Aramaya aksan işaretleri eklerim"
 
 #: lib/Preferences.php:24
 msgid ""
@@ -319,218 +319,216 @@ msgid ""
 "\"mâl\". With this option, the results for \"mâl\" are no longer returned "
 "unless you explicitly search for \"mâl\"."
 msgstr ""
-"Fără această opțiune, o căutare după „mal” va returna și rezultatele pentru "
-"„mâl”. Cu această opțiune, rezultatele pentru „mâl” nu mai sunt returnate "
-"decât când căutați explicit „mâl”."
+"Bu seçenek olmadan, “mal” araması “mâl” için de sonuçlar döndürür. Bu "
+"seçenekle, ‘mâl’ için sonuçlar artık “mâl” araması yapmadığınız sürece "
+"döndürülmez."
 
 #: lib/Preferences.php:28
 msgid "I use the pre-1993 orthography (î from i)"
-msgstr "Folosesc ortografia dinainte de 1993 (î din i)"
+msgstr "1993 öncesi yazım kurallarını kullanıyorum (i yerine î)."
 
 #: lib/Preferences.php:29
 msgid ""
 "Until 1993, \"â\" was used only in the word \"român\", in derived words and "
 "in some proper names."
 msgstr ""
-"Până în 1993, „&#xe2;” era folosit doar în cuvântul „român”, în cuvintele "
-"derivate și în unele nume proprii."
+"1993 yılına kadar, “â” harfi yalnızca “român” kelimesinde, türetilmiş "
+"kelimelerde ve bazı özel isimlerde kullanılıyordu."
 
 #: lib/Preferences.php:33
 msgid "Display only normative dictionaries"
-msgstr "Afișează doar dicționarele normative"
+msgstr "Sadece normatif sözlükleri göster"
 
 #: lib/Preferences.php:34
 msgid ""
 "Displays only the normative dictionaries edited by the Institute of "
 "Linguistics of the Romanian Academy (the latest editions of DEX and DOOM)."
 msgstr ""
-"Afișează doar dicționarele normative editate de Institutul de Lingvistică "
-"din cadrul Academiei Române (ultimele ediții ale DEX și DOOM)."
+"Sadece Romanya Akademisi Dilbilim Enstitüsü tarafından düzenlenmiş normatif "
+"sözlükleri gösterir (DEX ve DOOM'un en son baskıları)."
 
 #: lib/Preferences.php:38
 msgid "Show advanced search menu by default"
-msgstr "Afișează meniul de căutare avansată în mod implicit"
+msgstr "Varsayılan olarak gelişmiş arama menüsünü göster"
 
 #: lib/Preferences.php:39
 msgid ""
 "By default, the advanced search menu (marked with \"options\") will be "
 "displayed on all pages."
 msgstr ""
-"În mod implicit, meniul de căutare avansată (marcat cu „opțiuni”) va fi "
-"afișat pe toate paginile."
+"Varsayılan olarak, gelişmiş arama menüsü (“seçenekler” ile işaretlenmiş) tüm "
+"sayfalarda görüntülenecektir."
 
 #: routes/wotd/random.php:22
 #, php-format
 msgid "A randomly chosen word of the day"
 msgid_plural "%d randomly chosen words of the day"
-msgstr[0] "Un cuvânt al zilei ales la întâmplare"
-msgstr[1] "%d cuvinte ale zilei alese la întâmplare"
-msgstr[2] "%d de cuvinte ale zilei alese la întâmplare"
+msgstr[0] "Günün rastgele seçilen kelimesi"
+msgstr[1] "Günün rastgele seçilen %d kelimesi"
 
 #: routes/source/view.php:7
 msgid "No source exists with the given ID."
-msgstr "Nu există nicio sursă cu ID-ul căutat."
+msgstr "Verilen ID ile ilgili kaynak bulunmamaktadır."
 
 #: routes/user/preferences.php:44
 msgid "Your preferences have been saved."
-msgstr "Am salvat preferințele."
+msgstr "Tercihleriniz kaydedildi."
 
 #: routes/user/preferences.php:86
 msgid "Enter your current password."
-msgstr "Introdu parola curentă."
+msgstr "Mevcut şifrenizi girin."
 
 #: routes/user/preferences.php:88
 msgid "The current password is incorrect."
-msgstr "Parola curentă este incorectă."
+msgstr "Mevcut şifre yanlış."
 
 #: routes/simple/tools.php:5
 msgid "Synchronization with dexonline"
-msgstr "Sincronizare cu dexonline"
+msgstr "Dexonline ile senkronizasyon"
 
 #: routes/simple/tools.php:6
 msgid "This client connects to dexonline periodically to download updates."
 msgstr ""
-"Acest client se poate conecta periodic la dexonline pentru a-și transfera "
-"definițiile nou adăugate."
+"Bu istemci, güncellemeleri indirmek için düzenli aralıklarla dexonline'a "
+"bağlanır."
 
 #: routes/simple/tools.php:9
 msgid "Interface for visually impaired users"
-msgstr "Interfață pentru nevăzători"
+msgstr "Görme engelli kullanıcılar için arayüz"
 
 #: routes/simple/tools.php:10
 msgid "This client has a friendly interface for visually impaired users."
-msgstr "Acest client are o interfață prietenoasă pentru nevăzători."
+msgstr ""
+"Bu istemci, görme engelli kullanıcılar için kullanıcı dostu bir arayüze "
+"sahiptir."
 
 #: routes/simple/tools.php:13
 msgid "Regular expressions, wildcards"
-msgstr "Expresii regulate, wildcards"
+msgstr "Düzenli ifadeler, joker karakterler"
 
 #: routes/simple/tools.php:14
 msgid ""
 "This client accepts searches using regular expressions and/or wildcards, "
 "such as «echi*» for echilibru, echinocțiu etc."
 msgstr ""
-"Acest client acceptă căutări cu expresii regulate și/sau wildcards, cum ar "
-"fi «echi*» pentru echilibru, echinocțiu etc."
+"Bu istemci, echilibru, echinocțiu vb. için «echi*» gibi düzenli ifadeler ve/"
+"veya joker karakterler kullanılarak yapılan aramaları kabul eder."
 
 #: routes/simple/tools.php:17
 msgid "Suggestions"
-msgstr "Sugestii"
+msgstr "Öneriler"
 
 #: routes/simple/tools.php:18
 msgid ""
 "This client offers the closest matches when an exact match is not found."
-msgstr ""
-"Acest client oferă cele mai apropiate rezultate atunci când cuvântul căutat "
-"nu este găsit exact."
+msgstr "Bu istemci, tam eşleşme bulunamadığında en yakın eşleşmeleri sunar."
 
 #: routes/simple/tools.php:21
 msgid "Diacritics support"
-msgstr "Cu / fără diacritice"
+msgstr "Aksan desteği"
 
 #: routes/simple/tools.php:22
 msgid "This client supports searching with or without diacritics."
-msgstr ""
-"Acest client oferă opțiuni pentru tastarea căutărilor cu sau fără diacritice."
+msgstr "Bu istemci, aksan işaretli veya aksansız aramayı destekler."
 
 #: routes/simple/tools.php:25
 msgid "Full-text searches"
-msgstr "Căutare full-text"
+msgstr "Tam metin aramaları"
 
 #: routes/simple/tools.php:26
 msgid ""
 "This client can search not just keywords, but the definition body as well."
 msgstr ""
-"Acest client poate căuta nu doar cuvintele-titlu, ci și întreg textul "
-"definițiilor."
+"Bu istemci sadece anahtar kelimeleri değil, aynı zamanda tanım metnini de "
+"arayabilir."
 
 #: routes/simple/tools.php:29
 msgid "Inflected form search"
-msgstr "Căutare forme flexionare"
+msgstr "Çekimli biçim araması"
 
 #: routes/simple/tools.php:30
 msgid ""
 "This client can query declensions and conjugations, such as «lucreze» "
 "instead of «lucra»."
 msgstr ""
-"Acest client poate căuta declinări și conjugări ale cuvintelor, cum ar fi "
-"«lucreze» în loc de «lucra»."
+"Bu istemci, «lucra» yerine «lucreze» gibi çekimli fiil ve isim araması "
+"yapabilir."
 
 #: routes/simple/tools.php:33
 msgid "Word clicks"
-msgstr "Click pe cuvânt"
+msgstr "Kelime tıklamaları"
 
 #: routes/simple/tools.php:34
 msgid ""
 "When you click a word in a definition, this client goes to the definition "
 "for that word."
 msgstr ""
-"Când dați click pe un cuvânt dintr-o definiție, acest client navighează la "
-"definiția acelui cuvânt."
+"Bir tanım içindeki bir kelimeye tıkladığınızda, bu istemci o kelimenin "
+"tanımına gider."
 
 #: routes/simple/tools.php:37
 msgid "Search history"
-msgstr "Istoria căutărilor"
+msgstr "Arama geçmişi"
 
 #: routes/simple/tools.php:38
 msgid "This client remembers the most recent searches and can revisit them."
-msgstr "Acest client ține minte ultimele cuvinte căutate și le poate revizita."
+msgstr ""
+"Bu istemci en son aramaları hatırlar ve bunları tekrar ziyaret edebilir."
 
 #: routes/simple/tools.php:49
 msgid "Perl, wxWidgets (only under Linux)"
-msgstr "Perl, wxWidgets (numai sub Linux)"
+msgstr "Perl, wxWidgets (sadece Linux altında)"
 
 #: routes/simple/tools.php:73
 msgid "QT, g++ (only under Linux)"
-msgstr "QT, g++ (numai sub Linux)"
+msgstr "QT, g++ (sadece Linux altında)"
 
 #: routes/helpers/changeLocale.php:6
 msgid ""
 "Interface language changed. Definition text and external links are always in "
 "Romanian."
 msgstr ""
-"Am schimbat limba interfeței. Textul definițiilor și legăturile externe sunt "
-"mereu în română."
+"Arayüz dili değiştirildi. Tanım metni ve harici bağlantılar her zaman "
+"Romence'dir."
 
 #: routes/lexeme/random.php:24
 #, php-format
 msgid "A randomly chosen word"
 msgid_plural "%d randomly chosen words"
-msgstr[0] "Un cuvânt ales la întâmplare"
-msgstr[1] "%d cuvinte alese la întâmplare"
-msgstr[2] "%d de cuvinte alese la întâmplare"
+msgstr[0] "Rastgele seçilmiş bir kelime"
+msgstr[1] "Rastgele seçilmiş %d kelime"
 
 #: templates//index.tpl:12
 msgid "Dictionaries of the Romanian language"
-msgstr "Dicționare ale limbii române"
+msgstr "Romence sözlükler"
 
 #: templates//index.tpl:32
 msgid "customize widgets"
-msgstr "personalizare elemente"
+msgstr "ekran araçlarını özelleştir"
 
 #: templates//index.tpl:38
 msgid "digitizes prestigious dictionaries of the Romanian language."
-msgstr "transpune pe Internet dicționare de prestigiu ale limbii române."
+msgstr "saygın Romence sözlükleri dijitalleştirir."
 
 #: templates//index.tpl:39
 msgid "The project is maintained by a team of volunteers."
-msgstr "Proiectul este întreținut de o echipă de voluntari."
+msgstr "Proje, gönüllülerden oluşan bir ekip tarafından yürütülmektedir."
 
 #: templates//index.tpl:40
 msgid ""
 "Much of the data can be downloaded freely under the GNU General Public "
 "License."
 msgstr ""
-"O parte din date pot fi descărcate liber și gratuit sub Licența Publică "
-"Generală GNU."
+"Verilerin çoğu GNU Genel Kamu Lisansı kapsamında ücretsiz olarak "
+"indirilebilir."
 
 #: templates//index.tpl:41
 msgid "Current status: %1 definitions, of which %2 learned last month."
-msgstr "Starea curentă: %1 de definiții, din care %2 învățate în ultima lună."
+msgstr "Mevcut durum: %1 adet tanım, bunun %2 adedi geçen ay önerildi."
 
 #: templates//wotd/view.tpl:24
 msgid "Word of the day for %2 %1, %3"
-msgstr "Cuvântul zilei, %1 %2 %3"
+msgstr "%1 %2 %3 için günün kelimesi"
 
 #: templates//wotd/view.tpl:55
 msgid ""
@@ -538,240 +536,230 @@ msgid ""
 "However, there are <a href=\"%1\">many sites</a> that do this for any RSS "
 "feed. We recommend <a href=\"%2\">Blogtrottr</a>."
 msgstr ""
-"<i>dexonline</i> nu oferă cuvântul zilei direct prin e-mail. Există însă <a "
-"href=\"%1\">multe site-uri</a> care fac acest lucru pentru orice RSS. Vă "
-"recomandăm <a href=\"%2\">Blogtrottr</a>."
+"<i>Dexonline</i>, günün kelimesini doğrudan e-posta yoluyla sunmamaktadır. "
+"Ancak, bunu herhangi bir RSS beslemesi için yapan <a href=\\\"%1\\\">birçok "
+"site</a> bulunmaktadır. <a href=\\\"%2\\\">Blogtrottr</a>'ı öneriyoruz."
 
 #: templates//wotd/view.tpl:107 templates//wotm/view.tpl:55
 #: templates//wote/view.tpl:60
 msgid "Chosen because:"
-msgstr "Cheia alegerii:"
+msgstr "Seçilme nedeni:"
 
 #: templates//wotd/view.tpl:115
 msgid "Word of the day archive"
-msgstr "Arhiva cuvintelor zilei"
+msgstr "Günün kelimesi arşivi"
 
 #: templates//wotd/view.tpl:125
 msgid "Word of the day for %2 %1 in other years:"
-msgstr "Cuvântul zilei de %1 %2 în alți ani:"
+msgstr "Diğer yıllarda %1 %2 için günün kelimesi:"
 
 #: templates//wotm/view.tpl:4 templates//wotm/view.tpl:17
 msgid "Word of the month for"
-msgstr "Cuvântul lunii"
+msgstr "Ayın kelimesi"
 
 #: templates//wotm/view.tpl:21 templates//wote/view.tpl:22
 msgid "previous"
-msgstr "precedentul"
+msgstr "önceki"
 
 #: templates//wotm/view.tpl:26 templates//wote/view.tpl:27
 msgid "next"
-msgstr "următorul"
+msgstr "sonraki"
 
 #: templates//auth/lostPassword.tpl:3 templates//auth/lostPassword.tpl:10
 msgid "Forgot your password?"
-msgstr "Parolă uitată"
+msgstr "Şifrenizi mi unuttunuz?"
 
 #: templates//auth/lostPassword.tpl:15
 msgid ""
 "Enter your email address and we will send you an email with instructions on "
 "how to recover your password."
 msgstr ""
-"Introdu adresa de e-mail și îți vom trimite un e-mail cu instrucțiuni pentru "
-"recuperarea parolei."
+"E-posta adresinizi girin, şifrenizi nasıl kurtarabileceğinize dair "
+"talimatları içeren bir e-posta göndereceğiz."
 
 #: templates//auth/lostPassword.tpl:30 templates//auth/register.tpl:67
 #: templates//user/preferences.tpl:69 templates//bits/newsletterForm.tpl:20
 #: templates//widgets/newsletter.tpl:25
 msgid "email address"
-msgstr "adresa de e-mail"
+msgstr "eposta adresi"
 
 #: templates//auth/lostPassword.tpl:35
 msgid "send"
-msgstr "trimite"
+msgstr "gönder"
 
 #: templates//auth/login.tpl:3 templates//auth/login.tpl:60
 msgid "login"
-msgstr "autentificare"
+msgstr "giriş"
 
 #: templates//auth/login.tpl:17
 msgid "Login"
-msgstr "Autentificare"
+msgstr "Giriş"
 
 #: templates//auth/login.tpl:33 templates//auth/register.tpl:26
 msgid "username or email address"
-msgstr "numele de utilizator sau adresa de e-mail"
+msgstr "kullanıcı adı veya eposta adresi"
 
 #: templates//auth/login.tpl:45 templates//auth/register.tpl:39
 msgid "password"
-msgstr "parola"
+msgstr "şifre"
 
 #: templates//auth/login.tpl:50 templates//auth/register.tpl:88
 msgid "keep me logged in for a year"
-msgstr "ține-mă autentificat un an"
+msgstr "beni hatırla"
 
 #: templates//auth/login.tpl:64
 msgid "forgot my password"
-msgstr "mi-am uitat parola"
+msgstr "şifremi unuttum"
 
 #: templates//auth/login.tpl:74
 msgid "create an account"
-msgstr "mă înregistrez"
+msgstr "hesap oluştur"
 
 #: templates//auth/register.tpl:3 templates//auth/register.tpl:10
 msgid "Sign up"
-msgstr "Înregistrare"
+msgstr "Kayıt ol"
 
 #: templates//auth/register.tpl:52 templates//user/preferences.tpl:138
 msgid "confirm password"
-msgstr "parola (din nou)"
+msgstr "yeni şifre (tekrar)"
 
 #: templates//auth/register.tpl:56
 msgid "optional"
-msgstr "opțional"
+msgstr "opsiyonel"
 
 #: templates//auth/register.tpl:71 templates//user/preferences.tpl:73
 msgid "This email address is used for account recovery only."
-msgstr ""
-"Folosită <b>doar</b> ca să îți poți recupera contul dacă îți uiți parola."
+msgstr "Bu e-posta adresi yalnızca hesap kurtarma amacıyla kullanılır."
 
 #: templates//auth/register.tpl:84 templates//user/preferences.tpl:85
 #: templates//bits/top.tpl:5
 msgid "name"
-msgstr "nume"
+msgstr "isim"
 
 #: templates//auth/register.tpl:100
 msgid "sign up"
-msgstr "înregistrare"
+msgstr "kayıt ol"
 
 #: templates//auth/register.tpl:104
 msgid "already have an account"
-msgstr "am deja un cont"
+msgstr "zaten bir hesabım var"
 
 #: templates//search.tpl:7
 msgid "definition"
-msgstr "definiție"
+msgstr "tanım"
 
 #: templates//search.tpl:9
 msgid "and paradigm"
-msgstr "și paradigmă"
+msgstr "ve örneklem"
 
 #: templates//search.tpl:76
 msgid "Definition with ID"
-msgstr "Definiția cu ID-ul"
+msgstr "ID’li tanım"
 
 #: templates//search.tpl:88
 msgid "One definition contains all the words"
 msgid_plural "%1 definitions contain all the words"
-msgstr[0] "O definiție conține toate cuvintele căutate"
-msgstr[1] "%1 definiții conțin toate cuvintele căutate"
-msgstr[2] "%1 de definiții conțin toate cuvintele căutate"
+msgstr[0] "Bir tanım tüm kelimeleri içerir"
+msgstr[1] "%1 tanım tüm kelimeleri içerir"
 
 #: templates//search.tpl:93 templates//search.tpl:160
 msgid "(at most %1 shown)"
-msgstr "(cel mult %1 afișate)"
+msgstr "(En fazla %1 gösterilir)"
 
 #: templates//search.tpl:96
 msgid "No definitions contain all the words"
-msgstr "Nicio definiție nu conține toate cuvintele căutate"
+msgstr "Hiçbir tanım tüm kelimeleri içermiyor"
 
 #: templates//search.tpl:102
 msgid "The following words were ignored because they are too common:"
-msgstr "Următoarele cuvinte au fost ignorate deoarece sunt prea comune:"
+msgstr "Aşağıdaki kelimeler çok yaygın oldukları için göz ardı edildi:"
 
 #: templates//search.tpl:116
 msgid "There is no entry with the given ID."
-msgstr "Nu există nicio intrare cu ID-ul căutat."
+msgstr "Verilen ID ile hiçbir giriş bulunamadı."
 
 #: templates//search.tpl:126 templates//search.tpl:189
 msgid "One definition for %2"
 msgid_plural "%1 definitions for %2"
-msgstr[0] "O definiție pentru %2"
-msgstr[1] "%1 definiții pentru %2"
-msgstr[2] "%1 de definiții pentru %2"
+msgstr[0] "%2 için bir tanım"
+msgstr[1] "%2 için %1 tanım"
 
 #: templates//search.tpl:132 templates//search.tpl:195
 msgid "No definitions for %1"
-msgstr "Nicio definiție pentru %1"
+msgstr "%1 için tanım bulunamadı"
 
 #: templates//search.tpl:144
 msgid "for"
-msgstr "pentru"
+msgstr "için"
 
 #: templates//search.tpl:150
 msgid "One result for <strong>%2</strong>"
 msgid_plural "%1 results for <strong>%2</strong>"
-msgstr[0] "Un rezultat pentru <strong>%2</strong>"
-msgstr[1] "%1 rezultate pentru <strong>%2</strong>"
-msgstr[2] "%1 de rezultate pentru <strong>%2</strong>"
+msgstr[0] "<strong>%2</strong> için bir sonuç"
+msgstr[1] "<strong>%2</strong> için %1 sonuç"
 
 #: templates//search.tpl:156 templates//search.tpl:261
 msgid "No results for <strong>%1</strong>"
-msgstr "Niciun rezultat pentru <strong>%1</strong>"
+msgstr "<strong>%1</strong> için sonuç bulunamadı"
 
 #: templates//search.tpl:176
 msgid "One entry"
 msgid_plural "%1 entries"
-msgstr[0] "O intrare"
-msgstr[1] "%1 intrări"
-msgstr[2] "%1 de intrări"
+msgstr[0] "Bir giriş"
+msgstr[1] "%1 giriş"
 
 #: templates//search.tpl:209
 msgid "One definition"
 msgid_plural "%1 definitions"
-msgstr[0] "O definiție"
-msgstr[1] "%1 definiții"
-msgstr[2] "%1 de definiții"
+msgstr[0] "Bir tanım"
+msgstr[1] "%1 tanım"
 
 #: templates//search.tpl:226
 msgid "One definition matches at least two words"
 msgid_plural "%1 definitions match at least two words"
-msgstr[0] "O definiție se potrivește cu cel puțin două din cuvintele căutate"
-msgstr[1] "%1 definiții se potrivesc cu cel puțin două din cuvintele căutate"
-msgstr[2] ""
-"%1 de definiții se potrivesc cu cel puțin două din cuvintele căutate"
+msgstr[0] "Bir tanım en az iki kelimeyle eşleşiyor"
+msgstr[1] "%1 tanım en az iki kelimeyle eşleşiyor"
 
 #: templates//search.tpl:231
 msgid "No definitions match at least two words"
-msgstr ""
-"Nicio definiție nu se potrivește cu cel puțin două din cuvintele căutate"
+msgstr "En az iki kelimeyle eşleşen tanım yok"
 
 #: templates//search.tpl:236
 msgid ""
 "If the results are inadequate, you can look up individual words or you can "
 "search"
 msgstr ""
-"Dacă rezultatele nu sunt mulțumitoare, puteți căuta cuvintele separat sau "
-"puteți căuta"
+"Eğer sonuçlar yetersize, tek bir kelime arayabilir veya tam metin araması "
+"yapabilirsiniz"
 
 #: templates//search.tpl:237
 msgid "full-text"
-msgstr "în tot textul definițiilor"
+msgstr "tam metin"
 
 #: templates//search.tpl:242
 msgid "At most 5 words are allowed. The following words were ignored:"
-msgstr "Sunt permise maximum 5 cuvinte. Următoarele cuvinte au fost ignorate:"
+msgstr "En fazla 5 kelimeye izin verilir. Aşağıdaki kelimeler göz ardı edildi:"
 
 #: templates//search.tpl:255
 msgid ""
 "The word <strong>%1</strong> is not in the dictionary. Here are some "
 "suggestions:"
-msgstr ""
-"Cuvântul <strong>%1</strong> nu este în dicționar. Iată câteva sugestii:"
+msgstr "<strong>%1</strong> kelimesi sözlükte bulunmuyor. İşte bazı öneriler:"
 
 #: templates//search.tpl:285 templates//search.tpl:293
 #: templates//search.tpl:297 templates//search/trees.tpl:14
 msgid "hide"
-msgstr "ascunde"
+msgstr "gizle"
 
 #: templates//search.tpl:286 templates//search.tpl:294
 #: templates//search.tpl:296 templates//search/trees.tpl:24
 #: templates//games/scrabble.tpl:184
 msgid "show"
-msgstr "arată"
+msgstr "göster"
 
 #: templates//search.tpl:300
 msgid "elisions and long verb forms"
-msgstr "forme elidate și forme verbale lungi"
+msgstr "ses düşmesi ve uzun fiil formları"
 
 #: templates//search.tpl:355
 msgid ""
@@ -780,14 +768,13 @@ msgid ""
 "<b>Definitions</b> tab. You can reorder tabs on your <a "
 "href=\"%1\">preferences</a> page."
 msgstr ""
-"<b>Fila Sinteză</b> arată o listă condensată de definiții, compilată de "
-"echipa dexonline. Definițiile originale sunt disponibile pe fila "
-"<b>Definiții</b>. Puteți reordona filele pe pagina de <a "
-"href=\"%1\">preferințe</a>."
+"<b>Özet sekmesi</b>, dexonline ekibi tarafından derlenen tanımların özet bir "
+"listesini gösterir. Orijinal tanımlar <b>Tanımlar</b> sekmesinde bulunur. <a "
+"href=\"%1\">tercihler</a> sayfanızda sekmeleri yeniden sıralayabilirsiniz."
 
 #: templates//user/top.tpl:6
 msgid "Manual contribution rankings"
-msgstr "Topul contribuțiilor manuale"
+msgstr "Manuel katkı sıralamaları"
 
 #: templates//user/top.tpl:9
 msgid ""
@@ -795,86 +782,86 @@ msgid ""
 "those definitions are shown. For comparison, the Bible has roughly 3,500,000 "
 "characters."
 msgstr ""
-"Pentru fiecare utilizator sunt indicate numărul de definiții trimise și "
-"numărul total de caractere din acele definiții. Comparativ, Biblia are circa "
-"3.500.000 de caractere."
+"Her kullanıcı için tanımların sayısı ve bu tanımların toplam karakter "
+"uzunluğu gösterilir. Karşılaştırma için, İncil’de yaklaşık 3.500.000 "
+"karakter vardır."
 
 #: templates//user/top.tpl:14
 msgid "Last year ranking"
-msgstr "Contribuțiile ultimului an"
+msgstr "Geçen yılın sıralaması"
 
 #: templates//user/top.tpl:18
 msgid "Global ranking"
-msgstr "Clasamentul global"
+msgstr "Dünya genelinde sıralama"
 
 #: templates//user/top.tpl:22
 msgid "Automated contribution rankings"
-msgstr "Topul contribuțiilor automate"
+msgstr "Otomatik katkı sıralaması"
 
 #: templates//user/top.tpl:25
 msgid "These include definitions entered using a program."
-msgstr "În această categorie intră definițiile trimise folosind un program."
+msgstr "Bunlar, bir program kullanılarak girilen tanımları içerir."
 
 #: templates//user/preferences.tpl:3 templates//bits/navmenu.tpl:278
 msgid "preferences"
-msgstr "preferințe"
+msgstr "tercihler"
 
 #: templates//user/preferences.tpl:10
 msgid "Image"
-msgstr "Imagine"
+msgstr "Profil fotoğrafı"
 
 #: templates//user/preferences.tpl:20
 msgid "File"
-msgstr "Fișier"
+msgstr "Dosya"
 
 #: templates//user/preferences.tpl:31 templates//search/trees.tpl:57
 #: templates//model/view.tpl:28
 msgid "edit"
-msgstr "editează"
+msgstr "düzenle"
 
 #: templates//user/preferences.tpl:39
 msgid "delete image"
-msgstr "șterge imaginea"
+msgstr "fotoğrafı sil"
 
 #: templates//user/preferences.tpl:46
 msgid "The resolution of your profile picture must be 48x48 pixels."
-msgstr "Imaginea profilului tău are rezoluția de 48x48 pixeli."
+msgstr "Profil resminizin çözünürlüğü 48x48 piksel olmalıdır."
 
 #: templates//user/preferences.tpl:47
 msgid "On the next screen, you can edit the uploaded photo."
-msgstr "Pe ecranul următor poți edita poza încărcată."
+msgstr "Bir sonraki ekranda, yüklediğiniz fotoğrafı düzenleyebilirsiniz."
 
 #: templates//user/preferences.tpl:57
 msgid "Personal data"
-msgstr "Date personale"
+msgstr "Kişisel veri"
 
 #: templates//user/preferences.tpl:89
 msgid ""
 "You can show or hide your name and email address in <a href=\"%1/%2\">your "
 "profile</a>."
 msgstr ""
-"Poți afișa sau ascunde numele și adresa de email în <a "
-"href=\"%1/%2\">profilul tău</a>."
+"Adınızı ve e-posta adresinizi <a href=\"%1/%2\">profilinizde</a> "
+"gösterebilir veya gizleyebilirsiniz."
 
 #: templates//user/preferences.tpl:101
 msgid "if you want to change your password"
-msgstr "dacă vrei să îți schimbi parola"
+msgstr "şifrenizi değiştirmek istiyorsanız"
 
 #: templates//user/preferences.tpl:112
 msgid "current password"
-msgstr "parola curentă"
+msgstr "mevcut şifre"
 
 #: templates//user/preferences.tpl:125
 msgid "new password"
-msgstr "parola nouă"
+msgstr "yeni şifre"
 
 #: templates//user/preferences.tpl:147
 msgid "Settings"
-msgstr "Preferințe"
+msgstr "Ayarlar"
 
 #: templates//user/preferences.tpl:163
 msgid "Favorite tabs"
-msgstr "Fila preferată"
+msgstr "Favori sekmeler"
 
 #: templates//user/preferences.tpl:167
 msgid ""
@@ -882,91 +869,91 @@ msgid ""
 "available tab. Not all tabs are available at all times; for example, images "
 "will not always be available."
 msgstr ""
-"Trageți de file pentru a le reordona. La căutări, vom afișa prima filă "
-"disponibilă. Nu toate filele există tot timpul; de exemplu nu întotdeauna "
-"vor exista imagini."
+"Sekmeleri sürükleyip bırakarak yeniden sıralayabilirsiniz. Aramalarda, ilk "
+"kullanılabilir sekme görüntülenir. Tüm sekmeler her zaman kullanılabilir "
+"değildir; örneğin, resimler her zaman kullanılabilir olmayabilir."
 
 #: templates//user/preferences.tpl:184
 msgid "restore default order"
-msgstr "revino la ordinea implicită"
+msgstr "varsayılan sırayı geri yükle"
 
 #: templates//user/preferences.tpl:190
 msgid "Elements on the main page"
-msgstr "Elemente în pagina principală"
+msgstr "Ana sayfadaki öğeler"
 
 #: templates//user/preferences.tpl:222
 msgid "save"
-msgstr "salvează"
+msgstr "kaydet"
 
 #: templates//user/preferences.tpl:226 templates//bits/typoForm.tpl:49
 msgid "cancel"
-msgstr "anulează"
+msgstr "iptal"
 
 #: templates//user/preferences.tpl:237
 msgid "The maximum size allowed is 2 MB."
-msgstr "Dimensiunea maximă admisă este 2 MB."
+msgstr "İzin verilen maksimum boyut 2 MB'dir."
 
 #: templates//user/preferences.tpl:239
 msgid "Only jpeg, png, or gif images are allowed."
-msgstr "Sunt permise doar imagini jpeg, png sau gif."
+msgstr "Yalnızca jpeg, png veya gif formatındaki resimler kabul edilir."
 
 #: templates//simple/newsletter.tpl:9
 msgid "Subscribe to the newsletter"
-msgstr "Abonează-te la newsletter"
+msgstr "Bültene abone olun"
 
 #: templates//simple/newsletter.tpl:15
 msgid "Contact"
-msgstr "Contact"
+msgstr "İletişim"
 
 #: templates//simple/newsletter.tpl:23
 msgid "Newsletter archive"
-msgstr "Arhiva newsletterului"
+msgstr "Bülten arşivi"
 
 #: templates//simple/tools.tpl:3 templates//bits/navmenu.tpl:142
 msgid "tools"
-msgstr "unelte"
+msgstr "araçlar"
 
 #: templates//simple/tools.tpl:6
 msgid "off-line clients"
-msgstr "clienți off-line"
+msgstr "çevrimdışı istemciler"
 
 #: templates//simple/tools.tpl:9
 msgid ""
 "These applications download the definitions from <i>dexonline</i> to your "
 "computer or phone. Then you can see them without an Internet connection."
 msgstr ""
-"Aceste aplicații descarcă definițiile din <i>dexonline</i> pe calculatorul "
-"dumneavoastră personal. Ulterior, le puteți consulta și în absența unei "
-"conexiuni la Internet."
+"Bu uygulamalar tanımları <i>dexonline</i>'dan bilgisayarınıza veya "
+"telefonunuza indirir. Ardından internet bağlantısı olmadan da "
+"görüntüleyebilirsiniz."
 
 #: templates//simple/tools.tpl:17
 msgid "Client"
-msgstr "Client"
+msgstr "İstemci"
 
 #: templates//simple/tools.tpl:30
 msgid "Platforms"
-msgstr "Platforme"
+msgstr "Platformlar"
 
 #: templates//simple/tools.tpl:57
 msgid "Requirements"
-msgstr "Cerințe"
+msgstr "Gereksinimler"
 
 #: templates//simple/tools.tpl:64
 msgid "Disk space required"
-msgstr "Spațiu pe disc necesar"
+msgstr "Gerekli disk alanı"
 
 #: templates//simple/tools.tpl:71
 msgid "Author"
-msgstr "Autor"
+msgstr "Yazar"
 
 #: templates//simple/tools.tpl:84 templates//simple/tools.tpl:105
 #: templates//layout.tpl:70
 msgid "license"
-msgstr "licență"
+msgstr "lisans"
 
 #: templates//simple/tools.tpl:99
 msgid "license on the data in this table"
-msgstr "licență pe informațiile din acest tabel"
+msgstr "bu tablodaki veriler için lisans"
 
 #: templates//simple/tools.tpl:107
 msgid ""
@@ -977,21 +964,22 @@ msgid ""
 "data are gathered from the mailing list discutii@dexonline.ro (formerly "
 "dictionar@yahoogroups.com) in collaboration with the application developers."
 msgstr ""
-"Informațiile din acest tabel poartă o dublă licență: Licența Publică "
-"Generală GNU (care se aplică întregului site) și licența <a "
-"href=\"%1\">Creative Commons Attribution-ShareAlike 3.0</a>. Informațiile "
-"pot fi folosite (copiate, modificate, adaptate, etc.) de către siteul http://"
-"wikipedia.org. Datele sunt adunate de pe lista discutii@dexonline.ro (fostă "
-"dictionar@yahoogroups.com) prin colaborare cu dezvoltatorii aplicațiilor."
+"Bu tablodaki bilgiler, GNU Genel Kamu Lisansı (tüm site için geçerlidir) ve "
+"<a href=\"%1\">Creative Commons Attribution-ShareAlike 3.0</a> lisansı "
+"altında çift lisanslıdır. Bu bilgiler http://wikipedia.org web sitesi "
+"tarafından kullanılabilir (kopyalanabilir, değiştirilebilir, uyarlanabilir "
+"vb.). Veriler, uygulama geliştiricileriyle işbirliği içinde "
+"discutii@dexonline.ro (eski adıyla dictionar@yahoogroups.com) posta "
+"listesinden toplanmıştır."
 
 #: templates//simple/tools.tpl:118
 msgid "Browser integration"
-msgstr "Integrare în browser"
+msgstr "Tarayıcı entegrasyonu"
 
 #: templates//simple/tools.tpl:124
 msgid "A <a href=\"%1\" onclick=\"%2\">spell checker</a> for Firefox."
 msgstr ""
-"Un <a href=\"%1\" onclick=\"%1\">corector ortografic</a> pentru Firefox."
+"Firefox için bir <a href=\"%1\" onclick=\"%2\">yazım denetleyicisi</a>."
 
 #: templates//simple/tools.tpl:130
 msgid ""
@@ -999,74 +987,73 @@ msgid ""
 "spelling</em> box, right-click once more and select <em>Languages > "
 "Romanian</em>."
 msgstr ""
-"Pentru a folosi corectorul, faceți click-dreapta în orice câmp de text, "
-"bifați opțiunea <em>Verifică ortografia</em>, faceți clic-dreapta din nou și "
-"selectați <em>Limbi > Română</em>."
+"Yazım denetleyicisini kullanmak için, herhangi bir metin kutusuna sağ "
+"tıklayın, <em>Yazım denetle</em> kutusunu işaretleyin, bir kez daha sağ "
+"tıklayın ve <em>Diller > Romence</em> seçeneğini seçin."
 
 #: templates//simple/tools.tpl:140
 msgid ""
 "<a href=\"#\" onclick=\"%1\">Add <i>dexonline</i> to the search engine list</"
 "a> of your browser. Thanks to Alexandru Lixandru."
 msgstr ""
-"<a href=\"#\" onclick=\"%1\">Adăugați <i>dexonline</i> la motoarele de "
-"căutare</a> ale browserului dumneavoastră. Mulțumiri lui Alexandru Lixandru."
+"<a href=\"\"# onclick=\"%1\">Tarayıcınızın arama motoru listesine "
+"<i>dexonline</i> ekleyin</a>. Alexandru Lixandru'ya teşekkür ederiz."
 
 #: templates//simple/tools.tpl:146
 msgid "A <a href=\"%1\">Chrome extension</a> for right-click searches."
-msgstr ""
-"O <a href=\"%1\">extensie de Chrome</a> pentru căutarea cu click-dreapta."
+msgstr "Sağ tıklama aramaları için bir <a href=“%1”>Chrome uzantısı</a>."
 
 #: templates//simple/tools.tpl:151
 msgid ""
 "A <a href=\"%1\">Firefox add-on</a> for dexonline by AdaKaleh. Allows right-"
 "click searches and registers a one-click search engine."
 msgstr ""
-"O <a href=\"%1\">extensie de Firefox</a> pentru dexonline scrisă de "
-"AdaKaleh. Permite căutări cu click dreapta și adaugă un motor de căutare cu "
-"un singur click."
+"AdaKaleh tarafından geliştirilen dexonline için bir <a href=\\\"%1\\"
+"\">Firefox eklentisi</a>. Sağ tıklama ile arama yapmayı sağlar ve tek "
+"tıklamayla arama motoru kaydeder."
 
 #: templates//simple/tools.tpl:158
 msgid "A <a href=\"%1\">WordPress plugin</a> for your blog."
-msgstr "Un <a href=\"%1\">modul de WordPress</a> pentru blogul dumneavoastră."
+msgstr "Blogunuz için bir <a href=\"%1\">WordPress eklentisi</a>."
 
 #: templates//simple/tools.tpl:164
 msgid "Dictionaries in StarDict format"
-msgstr "Dicționare în formatul StarDict"
+msgstr "StarDict formatındaki sözlükler"
 
 #: templates//simple/tools.tpl:189
 msgid "all of the above"
-msgstr "toate cele de mai sus"
+msgstr "yukarıdakilerin tümü"
 
 #: templates//simple/contact.tpl:4 templates//simple/contact.tpl:15
 #: templates//bits/navmenu.tpl:43
 msgid "contact us"
-msgstr "contact"
+msgstr "bize ulaşın"
 
 #: templates//simple/contact.tpl:33
 msgid "Useful information"
-msgstr "Informații utile"
+msgstr "Faydalı bilgiler"
 
 #: templates//simple/contact.tpl:37
 msgid ""
 "<a href=\"%1\">What dexonline is <strong>not</strong></a> (ways we cannot "
 "help you)."
 msgstr ""
-"<a href=\"%1\">Ce <strong>nu</strong> este dexonline</a> (când nu vă putem "
-"ajuta)."
+"<a href=\"%1\">Dexonline’ın <strong>yapamadıklar</strong></a> (size yardımcı "
+"olamayacağımız durumlar)."
 
 #: templates//simple/contact.tpl:44
 msgid "You can install dexonline on <a href=\"%1\">your computer or phone</a>."
 msgstr ""
-"Puteți instala dexonline pe <a href=\"%1\">calculatorul sau pe telefonul "
-"dumneavoastră</a>."
+"Dexonline'ı <a href=\"%1\">bilgisayarınıza veya telefonunuza</a> "
+"yükleyebilirsiniz."
 
 #: templates//simple/contact.tpl:50
 msgid "You can download a <a href=\"%1\">copy of the database</a>."
-msgstr "Puteți descărca o <a href=\"%1\">copie a bazei de date</a>."
+msgstr "<a href=\"%1\">Veritabanının bir kopyasını</a> indirebilirsiniz."
 
 #: templates//simple/links.tpl:3
 msgid "links"
-msgstr "legături"
+msgstr "bağlantılar"
 
 #: templates//simple/links.tpl:7
 msgid ""
@@ -1074,80 +1061,80 @@ msgid ""
 "consider them useful to our visitors. We are not affiliated with the "
 "respective sites and institutions."
 msgstr ""
-"Această pagină conține legături utile de natură lingvistică. Aceste legături "
-"nu sunt sponsorizate, ci le considerăm utile pentru vizitatorii noștri. Nu "
-"suntem afiliați cu site-urile sau cu instituțiile menționate."
+"Bu sayfa faydalı bağlantılar içermektedir. Bu bağlantılar sponsorlu "
+"değildir; ziyaretçilerimiz için faydalı olduğunu düşünüyoruz. İlgili siteler "
+"ve kurumlarla herhangi bir bağlantımız bulunmamaktadır."
 
 #: templates//simple/links.tpl:12
 msgid "Romanian language"
-msgstr "Limba română"
+msgstr "Romen dili"
 
 #: templates//simple/links.tpl:16
 msgid ""
 "Iorgu Iordan - Alexandru Rosetti <a href=\"%1\">Institute of Linguistics</"
 "a>, Romanian Academy"
 msgstr ""
-"<a href=\"%1\">Institutul de Lingvistică</a> „Iorgu Iordan – Alexandru "
-"Rosetti” al Academiei Române"
+"Iorgu Iordan - Alexandru Rosetti <a href=\"%1\">Dilbilim Enstitüsü</a>, "
+"Romanya Akademisi"
 
 #: templates//simple/links.tpl:22
 msgid ""
 "Sorin Paliga &mdash; volumes in PDF format at <a href=\"%1\">Academia.edu</"
 "a> and <a href=\"%2\">ResearchGate</a>"
 msgstr ""
-"Sorin Paliga &mdash; volume în format PDF la <a href=\"%1\">Academia.edu</a> "
-"și <a href=\"%2\">ResearchGate</a>"
+"Sorin Paliga — PDF formatındaki kitaplar <a href=\"%1\">Academia.edu</a> ve "
+"<a href=\"%2\">ResearchGate</a> adreslerinde bulunabilir"
 
 #: templates//simple/links.tpl:29
 msgid "Other languages"
-msgstr "Alte limbi"
+msgstr "Diğer diller"
 
 #: templates//simple/links.tpl:33
 msgid ""
 "<a href=\"%1\">hallo.ro</a> &mdash; bilingual dictionaries between Romanian "
 "and English, French, Spanish, German, Italian"
 msgstr ""
-"<a href=\"%1\">hallo.ro</a> &mdash; dicționare bilingve între română și "
-"engleză, franceză, spaniolă, germană, italiană"
+"<a href=\"%1\">hallo.ro</a> &mdash; Romence ve İngilizce, Fransızca, "
+"İspanyolca, Almanya, İtalyanca iki dilli sözlükler"
 
 #: templates//simple/links.tpl:43
 msgid "The <a href=\"%1\">Romanian Scrabble Federation</a>"
-msgstr "<a href=\"%1\">Federația Română de Scrabble</a>"
+msgstr "<a href=\"%1\">Romanya Scrabble Federasyonu</a>"
 
 #: templates//simple/links.tpl:47
 msgid ""
 "<a href=\"%1\">Find words</a> &mdash; a helper for crosswords and Scrabble"
 msgstr ""
-"<a href=\"%1\">Găsește cuvinte</a> &mdash; un ajutor pentru cuvinte "
-"încrucișate și Scrabble"
+"<a href=\"%1\">Kelime bulma</a> &mdash; çapraz bulmaca ve Scrabble için "
+"yardımcı araç"
 
 #: templates//simple/links.tpl:51
 msgid "A <a href=\"%1\">game of Fazan</a> for Android devices"
-msgstr "Un <a href=\"%1\">joc de Fazan</a> pentru dispozitive cu Android"
+msgstr "Android cihazlar için bir <a href=\"%1\">Fazan oyunu</a>"
 
 #: templates//notices/searchedVariant.tpl:1
 msgid "Your query <b>%1</b> is a variant of <b>%2</b>."
-msgstr "Forma <b>%1</b> este o variantă a lui <b>%2</b>."
+msgstr "Sorgunuz <b>%1</b>, <b>%2</b>'nin bir başka şeklidir."
 
 #: templates//notices/formIsElision.tpl:2
 msgid "Your query <b>%1</b> is an elision of <b>%2</b>."
-msgstr "Varianta <b>%1</b> este o formă elidată a lui <b>%2</b>."
+msgstr "Aramanız <b>%1</b>, <b>%2</b>'nin bir ses düşmesidir."
 
 #: templates//search/gallery.tpl:11
 msgid "click any image for details"
-msgstr "click pe imagini pentru detalii"
+msgstr "detaylar için herhangi bir resme tıklayın"
 
 #: templates//search/sourceTypes.tpl:3
 msgid "of which"
-msgstr "din care"
+msgstr "bunlardan"
 
 #: templates//search/extendToAllSources.tpl:3
 msgid "Repeat your search <a href=\"%1\">in all dictionaries</a>."
-msgstr "Repetați căutarea <a href=\"%1\">în toate dicționarele</a>."
+msgstr "Aramanızı <a href=\"%1\">tüm sözlüklerde</a> tekrarlayın."
 
 #: templates//search/fullTextLock.tpl:1
 msgid "Search disabled"
-msgstr "Căutare dezactivată"
+msgstr "Arama devre dışı"
 
 #: templates//search/fullTextLock.tpl:4
 msgid ""
@@ -1155,13 +1142,13 @@ msgid ""
 "regenerated. This typically takes about 10 minutes. We apologize for the "
 "inconvenience."
 msgstr ""
-"Momentan nu puteți căuta prin textul definițiilor, deoarece indexul este în "
-"curs de reconstrucție. Această operație durează de obicei circa 10 minute. "
-"Ne cerem scuze pentru neplăcere."
+"Dizin yeniden oluşturulduğu için şu anda tam metin araması yapamazsınız. Bu "
+"işlem genellikle yaklaşık 10 dakika sürer. Verdiğimiz rahatsızlıktan dolayı "
+"özür dileriz."
 
 #: templates//search/pronunciation.tpl:1
 msgid "Examples of pronunciation for the term"
-msgstr "Exemple de pronunție a termenului"
+msgstr "Terimin telaffuz örnekleri"
 
 #: templates//search/trees.tpl:4
 msgid ""
@@ -1169,248 +1156,245 @@ msgid ""
 "definitions are available on the <a class=\"%1\" href=\"#\">definitions</a> "
 "tab. You can reorder tabs on your <a href=\"%2\">preferences</a> page."
 msgstr ""
-"Aceste definiții sunt compilate de echipa dexonline. Definițiile originale "
-"se află pe fila <a class=\"%1\" href=\"#\">definiții</a>. Puteți reordona "
-"filele pe pagina de <a href=\"%2\">preferințe</a>."
+"Bu tanımlar dexonline ekibi tarafından derlenmiştir. Orijinal tanımlar <a "
+"class=\"%1\" href=\"\"#>tanımlar</a> sekmesinde bulunabilir. <a "
+"href=\"%2\">tercihler</a> sayfanızda sekmeleri yeniden sıralayabilirsiniz."
 
 #: templates//search/trees.tpl:30
 msgid "secondary meanings"
-msgstr "sensuri secundare"
+msgstr "ikincil anlamlar"
 
 #: templates//search/trees.tpl:42
 msgid "examples"
-msgstr "exemple"
+msgstr "örnekler"
 
 #: templates//search/trees.tpl:48
 msgid "sources"
-msgstr "surse"
+msgstr "kaynaklar"
 
 #: templates//search/trees.tpl:104
 msgid "etymology"
-msgstr "etimologie"
+msgstr "etimoloji"
 
 #: templates//search/trees.tpl:117
 msgid ""
 "The full definition list is available on the <a class=\"%1\" "
 "href=\"#\">definitions</a> tab."
 msgstr ""
-"Lista completă de definiții se află pe fila <a class=\"%1\" "
-"href=\"#\">definiții</a>."
+"Tam tanım listesi <a class=\"%1\" href=\"\"#>tanımlar</a> sekmesinde "
+"mevcuttur."
 
 #: templates//search/wikiArticles.tpl:3
 msgid "One linguistics article"
 msgid_plural "%1 linguistics articles"
-msgstr[0] "Un articol lingvistic"
-msgstr[1] "%1 articole lingvistice"
-msgstr[2] "%1 de articole lingvistice"
+msgstr[0] "Bir dilbilim makalesi"
+msgstr[1] "%1 dilbilim makalesi"
 
 #: templates//search/missingDefinitionWarnings.tpl:6
 msgid ""
 "There are definitions in non-normative dictionaries, which <a "
 "href=\"%1\">you have chosen to hide</a>."
 msgstr ""
-"Există definiții din dicționare nenormative, pe care <a href=\"%1\">ați ales "
-"să le ascundeți</a>."
+"Normatif olmayan sözlüklerde, <a href=\"%1\">gizlemeyi seçtiğiniz</a> "
+"tanımlar bulunmaktadır."
 
 #: templates//search/missingDefinitionWarnings.tpl:13
 msgid ""
 "There are definitions in dictionaries for which dexonline has no publishing "
 "rights:"
 msgstr ""
-"Există definiții din dicționare pentru care dexonline nu are drepturi de "
-"redistribuire:"
+"Dexonline’ın yayın haklarına sahip olmadığı sözlüklerde tanımlar "
+"bulunmaktadır:"
 
 #: templates//bits/sourceDropDown.tpl:19 templates//bits/sourceField.tpl:21
 #: templates//bits/sourceField.tpl:36
 msgid "All dictionaries"
-msgstr "Toate dicționarele"
+msgstr "Tüm sözlükler"
 
 #: templates//bits/definitionMenuProper.tpl:38
 msgid "source"
-msgstr "sursa"
+msgstr "kaynak"
 
 #: templates//bits/definitionMenuProper.tpl:53
 msgid "provided by"
-msgstr "furnizată de"
+msgstr "sağlayan"
 
 #: templates//bits/definitionMenuProper.tpl:63
 msgid "status"
-msgstr "starea"
+msgstr "durum"
 
 #: templates//bits/definitionMenuProper.tpl:70
 msgid "added by"
-msgstr "adăugată de"
+msgstr "ekleyen"
 
 #: templates//bits/definitionMenuProper.tpl:145
 msgid "actions"
-msgstr "acțiuni"
+msgstr "eylemler"
 
 #: templates//bits/definitionMenuProper.tpl:159 templates//bits/typoForm.tpl:10
 #: templates//bits/typoForm.tpl:61
 msgid "report a typo"
-msgstr "semnalează o greșeală"
+msgstr "yazım hatası bildir"
 
 #: templates//bits/definitionMenuProper.tpl:172
 #: templates//bits/definitionMenuProper.tpl:182
 msgid "added to favorites"
-msgstr "adăugată la favorite"
+msgstr "favorilere eklendi"
 
 #: templates//bits/definitionMenuProper.tpl:181
 #: templates//bits/definitionMenuProper.tpl:196
 msgid "please wait..."
-msgstr "un moment..."
+msgstr "lütfen bekleyin…"
 
 #: templates//bits/definitionMenuProper.tpl:183
 msgid "add to favorites"
-msgstr "adaugă la favorite"
+msgstr "favorilere ekle"
 
 #: templates//bits/definitionMenuProper.tpl:197
 msgid "remove from favorites"
-msgstr "șterge dintre favorite"
+msgstr "favorilerden çıkar"
 
 #: templates//bits/definitionMenuProper.tpl:210
 msgid "permalink"
-msgstr "permalink"
+msgstr "kalıcı bağlantı"
 
 #: templates//bits/definitionMenuProper.tpl:261
 msgid "+1 identical definition"
 msgid_plural "+%1 identical definitions"
-msgstr[0] "+1 definiție identică"
-msgstr[1] "+%1 definiții identice"
-msgstr[2] "+%1 de definiții identice"
+msgstr[0] "+1 aynı tanım"
+msgstr[1] "+%1 aynı tanım"
 
 #: templates//bits/lexeme.tpl:6
 msgid "compound"
-msgstr "compus"
+msgstr "bileşik"
 
 #: templates//bits/lexeme.tpl:25
 msgid "Inflection sources"
-msgstr "Surse flexiune"
+msgstr "Çekim kaynakları"
 
 #: templates//bits/newsletterForm.tpl:8 templates//widgets/newsletter.tpl:13
 msgid "Please leave this field empty"
-msgstr "Te rog lasă gol acest câmp"
+msgstr "Lütfen bu alanı boş bırakın"
 
 #: templates//bits/newsletterForm.tpl:18 templates//widgets/newsletter.tpl:23
 msgid "Email address"
-msgstr "Adresa de email"
+msgstr "Eposta adresi"
 
 #: templates//bits/newsletterForm.tpl:21
 msgid "Subscribe"
-msgstr "Abonează-te"
+msgstr "Abone Ol"
 
 #: templates//bits/scrabbleResults.tpl:4
 msgid "The form <strong>%1</strong> exists in LOC %2."
-msgstr "Forma <strong>%1</strong> există în LOC %2."
+msgstr "<strong>%1</strong> biçimi LOC %2'de mevcuttur."
 
 #: templates//bits/scrabbleResults.tpl:8
 msgid "The form <strong>%1</strong> does not exist in LOC %2."
-msgstr "Forma <strong>%1</strong> nu există în LOC %2."
+msgstr "<strong>%1</strong> biçimi LOC %2'de mevcut değildir."
 
 #: templates//bits/multiParadigm.tpl:6
 msgid "entry"
-msgstr "intrare"
+msgstr "giriş"
 
 #: templates//bits/multiParadigm.tpl:36
 msgid "hide variants"
-msgstr "ascunde variantele"
+msgstr "değişkenleri gizle"
 
 #: templates//bits/multiParadigm.tpl:42
 msgid "show variants"
-msgstr "arată variantele"
+msgstr "değişkenleri göster"
 
 #: templates//bits/sourceField.tpl:30
 msgid "choose a dictionary..."
-msgstr "alege un dicționar..."
+msgstr "bir sözlük seçin…"
 
 #: templates//bits/typoForm.tpl:26
 msgid "please describe the error; at most 400 characters are allowed"
-msgstr "vă rugăm descrieți problema în maximum 400 de caractere"
+msgstr "lütfen hatayı açıklayın; en fazla 400 karaktere izin verilir"
 
 #: templates//bits/typoForm.tpl:30
 msgid "notes"
-msgstr "note"
+msgstr "notlar"
 
 #: templates//bits/typoForm.tpl:35
 msgid ""
 "Some dictionaries (such as <em>Scriban</em>) use old orthographies. This is "
 "not a typo."
 msgstr ""
-"Unele dicționare (de exemplu <em>Scriban</em>) folosesc grafia veche. "
-"Aceasta nu este o greșeală de tipar."
+"Bazı sözlükler (örneğin <em>Scriban</em>) eski yazım kurallarını kullanır. "
+"Bu bir yazım hatası değildir."
 
 #: templates//bits/typoForm.tpl:40
 msgid ""
 "We generally do not change the original text of definitions, but we can add "
 "comments. Please do not report semantic errors except in obvious cases."
 msgstr ""
-"În general, preluăm definițiile fără modificări, dar putem face comentarii "
-"pe marginea lor. Vă rugăm să nu ne semnalați greșeli semantice decât în "
-"situații evidente."
+"Genellikle tanımların orijinal metnini değiştirmiyoruz, ancak yorumlar "
+"ekleyebiliyoruz. Bariz durumlar dışında anlamsal hataları bildirmeyiniz."
 
 #: templates//bits/typoForm.tpl:48
 msgid "submit"
-msgstr "trimite"
+msgstr "gönder"
 
 #: templates//bits/typoForm.tpl:71
 msgid "Thank you for your report!"
-msgstr "Vă mulțumim pentru semnalare!"
+msgstr "Bildiriminiz için teşekkür ederiz!"
 
 #: templates//bits/typoForm.tpl:75
 msgid "close"
-msgstr "închide"
+msgstr "kapat"
 
 #: templates//bits/top.tpl:4
 msgid "rank"
-msgstr "loc"
+msgstr "sıralama"
 
 #: templates//bits/top.tpl:6
 msgid "characters"
-msgstr "caractere"
+msgstr "karakterler"
 
 #: templates//bits/top.tpl:8
 msgid "most recent submission"
-msgstr "data ultimei trimiteri"
+msgstr "en son gönderim"
 
 #: templates//bits/extendedParadigm.tpl:20
 msgid "hyphenation"
-msgstr "silabație"
+msgstr "sözcük kesme"
 
 #: templates//bits/extendedParadigm.tpl:22
 msgid "Hyphenation splits the word into syllables."
-msgstr "Silabația este despărțirea în silabe a cuvântului."
+msgstr "Sözlük kesme kelimeyi hecelere ayırır."
 
 #: templates//bits/searchForm.tpl:24
 msgid "word"
-msgstr "cuvânt"
+msgstr "kelime"
 
 #: templates//bits/searchForm.tpl:47
 msgid "search"
-msgstr "caută"
+msgstr "ara"
 
 #: templates//bits/searchForm.tpl:52 templates//games/scramble.tpl:32
 msgid "options"
-msgstr "opțiuni"
+msgstr "seçenekler"
 
 #: templates//bits/searchForm.tpl:66
 msgid "Full-text search"
-msgstr "Caută în tot textul definițiilor"
+msgstr "Tam metin arama"
 
 #: templates//bits/searchForm.tpl:76
 msgid "help"
-msgstr "ajutor"
+msgstr "yardım"
 
 #: templates//bits/navmenu.tpl:9
 msgid "home page"
-msgstr "pagina principală"
+msgstr "ana sayfa"
 
 #: templates//bits/navmenu.tpl:29
 msgid "about"
-msgstr "despre noi"
+msgstr "hakkında"
 
 #: templates//bits/navmenu.tpl:38
 msgid "information"
-msgstr "informații"
+msgstr "bilgi"
 
 #: templates//bits/navmenu.tpl:48
 msgid "blog"
@@ -1418,36 +1402,36 @@ msgstr "blog"
 
 #: templates//bits/navmenu.tpl:68
 msgid "get involved"
-msgstr "implică-te"
+msgstr "katılımcı ol"
 
 #: templates//bits/navmenu.tpl:76
 msgid "ways to help"
-msgstr "cum poți ajuta"
+msgstr "yardım etme yolları"
 
 #: templates//bits/navmenu.tpl:81
 msgid "volunteer ranking"
-msgstr "topul voluntarilor"
+msgstr "gönüllü sıralaması"
 
 #: templates//bits/navmenu.tpl:96
 msgid "resources"
-msgstr "resurse"
+msgstr "kaynaklar"
 
 #: templates//bits/navmenu.tpl:105
 msgid "abbreviations table"
-msgstr "abrevieri folosite"
+msgstr "kısaltmalar tablosu"
 
 #: templates//bits/navmenu.tpl:110 templates//article/list.tpl:3
 #: templates//article/list.tpl:6
 msgid "linguistics articles"
-msgstr "articole lingvistice"
+msgstr "dilbilim makaleleri"
 
 #: templates//bits/navmenu.tpl:117
 msgid "grammar guide"
-msgstr "ghid de exprimare"
+msgstr "dilbilgisi rehberi"
 
 #: templates//bits/navmenu.tpl:132
 msgid "random words"
-msgstr "cuvinte aleatorii"
+msgstr "rastgele kelimeler"
 
 #: templates//bits/navmenu.tpl:137
 msgid "Scrabble"
@@ -1455,15 +1439,15 @@ msgstr "Scrabble"
 
 #: templates//bits/navmenu.tpl:147
 msgid "external links"
-msgstr "legături externe"
+msgstr "dış bağlantılar"
 
 #: templates//bits/navmenu.tpl:214
 msgid "light mode"
-msgstr "modul luminos"
+msgstr "aydınlık mod"
 
 #: templates//bits/navmenu.tpl:222
 msgid "dark mode"
-msgstr "modul întunecat"
+msgstr "koyu mod"
 
 #: templates//bits/navmenu.tpl:239
 msgid "Anonymous"
@@ -1471,58 +1455,58 @@ msgstr "Anonim"
 
 #: templates//bits/navmenu.tpl:248
 msgid "moderator page"
-msgstr "pagina moderatorului"
+msgstr "moderatör sayfası"
 
 #: templates//bits/navmenu.tpl:258
 msgid "hotkeys"
-msgstr "hotkeys"
+msgstr "kısayol tuşları"
 
 #: templates//bits/navmenu.tpl:271
 msgid "recently viewed pages"
-msgstr "pagini vizitate recent"
+msgstr "son görüntülenen sayfalar"
 
 #: templates//bits/navmenu.tpl:287
 msgid "profile"
-msgstr "profilul meu"
+msgstr "profil"
 
 #: templates//bits/navmenu.tpl:293 templates//definition/favorites.tpl:3
 #: templates//definition/favorites.tpl:7
 msgid "favorite words"
-msgstr "cuvinte favorite"
+msgstr "favori kelimeler"
 
 #: templates//bits/navmenu.tpl:299
 msgid "log out"
-msgstr "închide sesiunea"
+msgstr "çıkış"
 
 #: templates//bits/navmenu.tpl:306
 msgid "log in"
-msgstr "autentificare"
+msgstr "giriş"
 
 #: templates//bits/navmenu.tpl:320
 msgid "donate"
-msgstr "donează"
+msgstr "bağış yap"
 
 #: templates//bits/navmenu.tpl:330
 msgid "navigation"
-msgstr "navigare"
+msgstr "gezinme"
 
 #: templates//paradigm/paradigmN.tpl:8 templates//paradigm/paradigmM.tpl:8
 #: templates//paradigm/paradigmF.tpl:8 templates//paradigm/paradigmSP.tpl:8
 #: templates//paradigm/paradigmA.tpl:12 templates//paradigm/paradigmA.tpl:14
 msgid "no article"
-msgstr "nearticulat"
+msgstr "belirsiz"
 
 #: templates//paradigm/paradigmN.tpl:9 templates//paradigm/paradigmM.tpl:9
 #: templates//paradigm/paradigmF.tpl:9 templates//paradigm/paradigmSP.tpl:9
 #: templates//paradigm/paradigmA.tpl:13 templates//paradigm/paradigmA.tpl:15
 msgid "def. article"
-msgstr "articulat"
+msgstr "belirli"
 
 #: templates//paradigm/paradigmN.tpl:12 templates//paradigm/paradigmM.tpl:12
 #: templates//paradigm/paradigmF.tpl:12 templates//paradigm/paradigmP.tpl:12
 #: templates//paradigm/paradigmSP.tpl:12 templates//paradigm/paradigmA.tpl:18
 msgid "nominative-accusative"
-msgstr "nominativ-acuzativ"
+msgstr "yalın hali / -i hali"
 
 #: templates//paradigm/paradigmN.tpl:13 templates//paradigm/paradigmN.tpl:32
 #: templates//paradigm/paradigmN.tpl:51 templates//paradigm/paradigmM.tpl:13
@@ -1535,7 +1519,7 @@ msgstr "nominativ-acuzativ"
 #: templates//paradigm/paradigmA.tpl:81 templates//paradigm/paradigmV.tpl:34
 #: templates//paradigm/paradigmV.tpl:60
 msgid "singular"
-msgstr "singular"
+msgstr "tekil"
 
 #: templates//paradigm/paradigmN.tpl:22 templates//paradigm/paradigmN.tpl:41
 #: templates//paradigm/paradigmN.tpl:57 templates//paradigm/paradigmM.tpl:22
@@ -1548,150 +1532,149 @@ msgstr "singular"
 #: templates//paradigm/paradigmA.tpl:90 templates//paradigm/paradigmV.tpl:35
 #: templates//paradigm/paradigmV.tpl:118
 msgid "plural"
-msgstr "plural"
+msgstr "çoğul"
 
 #: templates//paradigm/paradigmN.tpl:31 templates//paradigm/paradigmM.tpl:31
 #: templates//paradigm/paradigmF.tpl:31 templates//paradigm/paradigmP.tpl:31
 #: templates//paradigm/paradigmSP.tpl:31 templates//paradigm/paradigmA.tpl:49
 msgid "genitive-dative"
-msgstr "genitiv-dativ"
+msgstr "-in hali / -e hali"
 
 #: templates//paradigm/paradigmN.tpl:50 templates//paradigm/paradigmM.tpl:50
 #: templates//paradigm/paradigmF.tpl:50 templates//paradigm/paradigmSP.tpl:50
 #: templates//paradigm/paradigmA.tpl:80
 msgid "vocative"
-msgstr "vocativ"
+msgstr "seslenme hali"
 
 #: templates//paradigm/paradigmP.tpl:8 templates//paradigm/paradigmA.tpl:8
 msgid "masculine"
-msgstr "masculin"
+msgstr "eril"
 
 #: templates//paradigm/paradigmP.tpl:9 templates//paradigm/paradigmA.tpl:9
 msgid "feminine"
-msgstr "feminin"
+msgstr "dişil"
 
 #: templates//paradigm/paradigmV.tpl:8
 msgid "infinitive"
-msgstr "infinitiv"
+msgstr "mastar"
 
 #: templates//paradigm/paradigmV.tpl:9
 msgid "long infinitive"
-msgstr "infinitiv lung"
+msgstr "uzun mastar"
 
 #: templates//paradigm/paradigmV.tpl:10
 msgid "participle"
-msgstr "participiu"
+msgstr "ortaç"
 
 #: templates//paradigm/paradigmV.tpl:11
 msgid "gerund"
-msgstr "gerunziu"
+msgstr "ulaç"
 
 #: templates//paradigm/paradigmV.tpl:12
 msgid "imperative 2nd person"
-msgstr "imperativ pers. a II-a"
+msgstr "emir kipi 2. şahıs"
 
 #: templates//paradigm/paradigmV.tpl:51
 msgid "number"
-msgstr "numărul"
+msgstr "sayı"
 
 #: templates//paradigm/paradigmV.tpl:52
 msgid "person"
-msgstr "persoana"
+msgstr "kişi"
 
 #: templates//paradigm/paradigmV.tpl:53
 msgid "present"
-msgstr "prezent"
+msgstr "geniş zaman"
 
 #: templates//paradigm/paradigmV.tpl:54
 msgid "present subjunctive"
-msgstr "conjunctiv prezent"
+msgstr "dilek kipi"
 
 #: templates//paradigm/paradigmV.tpl:55
 msgid "imperfect"
-msgstr "imperfect"
+msgstr "şimdiki zamanın hikayesi"
 
 #: templates//paradigm/paradigmV.tpl:56
 msgid "simple perfect"
-msgstr "perfect simplu"
+msgstr "geçmiş zaman"
 
 #: templates//paradigm/paradigmV.tpl:57
 msgid "pluperfect"
-msgstr "mai mult ca perfect"
+msgstr "önceki geçmiş zaman"
 
 #: templates//paradigm/paradigmV.tpl:61
 msgid "1st (eu)"
-msgstr "I (eu)"
+msgstr "1. tekil (eu)"
 
 #: templates//paradigm/paradigmV.tpl:80
 msgid "2nd (tu)"
-msgstr "a II-a (tu)"
+msgstr "2. tekil (tu)"
 
 #: templates//paradigm/paradigmV.tpl:99
 msgid "3rd (el, ea)"
-msgstr "a III-a (el, ea)"
+msgstr "3. tekil (el, ea)"
 
 #: templates//paradigm/paradigmV.tpl:119
 msgid "1st (noi)"
-msgstr "I (noi)"
+msgstr "1. çoğul (noi)"
 
 #: templates//paradigm/paradigmV.tpl:138
 msgid "2nd (voi)"
-msgstr "a II-a (voi)"
+msgstr "2. çoğul (voi)"
 
 #: templates//paradigm/paradigmV.tpl:157
 msgid "3rd (ei, ele)"
-msgstr "a III-a (ei, ele)"
+msgstr "3. çoğul (ei, ele)"
 
 #: templates//paradigm/paradigmT.tpl:2
 msgid "We have no information on the paradigm of this word."
-msgstr "Nu există informații despre paradigma acestui cuvânt."
+msgstr "Bu kelimenin örneklemi hakkında hiçbir bilgimiz yoktur."
 
 #: templates//definition/favorites.tpl:10
 #: templates//definition/favorites.tpl:21
 msgid "You have no favorite words."
-msgstr "Nu aveți niciun cuvânt favorit."
+msgstr "Favori kelimeniz yok."
 
 #: templates//layout.tpl:73
 msgid "privacy"
-msgstr "confidențialitate"
+msgstr "gizlilik"
 
 #: templates//model/list.tpl:3 templates//model/view.tpl:3
 #: templates//model/view.tpl:7
 msgid "Flexion model"
-msgstr "Modele de flexiune"
+msgstr "Büküm modeli"
 
 #: templates//model/list.tpl:7
 msgid "Flexion models for the type %1 (%2)"
-msgstr "Modele de flexiune pentru tipul %1 (%2)"
+msgstr "%1 (%2) tipi için büküm modelleri"
 
 #: templates//model/list.tpl:13 templates//games/scrabbleLocDifferences.tpl:17
 msgid "back"
-msgstr "înapoi"
+msgstr "geri"
 
 #: templates//model/view.tpl:12
 msgid "Description"
-msgstr "Descriere"
+msgstr "Tanım"
 
 #: templates//model/view.tpl:20
 msgid "Words that inflect according to this model (maximum 100 displayed)"
-msgstr ""
-"Cuvinte care se flexionează conform acestui model (maximum 100 afișate)"
+msgstr "Bu modele göre çekimlenen kelimeler (en fazla 100 gösterilir)"
 
 #: templates//model/view.tpl:33
 msgid "all models of type %1"
-msgstr "toate modelele de tip %1"
+msgstr "%1 tipi tüm modeller"
 
 #: templates//hosting/hosterion.tpl:1
 msgid "hosted by"
-msgstr "găzduit de"
+msgstr "barındıran"
 
 #: templates//article/view.tpl:17
 msgid "Other linguistics articles"
-msgstr "Alte articole lingvistice"
+msgstr "Diğer dilbilim makaleleri"
 
 #: templates//games/scrabble.tpl:9
 msgid "Scrabble lookup"
-msgstr "Verificare Scrabble"
+msgstr "Scrabble araması"
 
 #: templates//games/scrabble.tpl:15
 msgid ""
@@ -1699,278 +1682,277 @@ msgid ""
 "em> is a perfectly legal word? Type in your word to show them who the boss "
 "is."
 msgstr ""
-"Joci Scrabble și prietenii tăi nu cred că <em>kwyjibo</em> este un cuvânt "
-"perfect legal? Tastează cuvântul tău ca să le arăți cine e șeful."
+"Scrabble oynuyorsunuz ve arkadaşlarınız <em>kwyjibo</em> kelimesinin tamamen "
+"geçerli bir kelime olduğuna inanmıyorlar mı? Kelimenizi yazarak onlara kimin "
+"patron olduğunu gösterin."
 
 #: templates//games/scrabble.tpl:39
 msgid "in version"
-msgstr "în versiunea"
+msgstr "sürümünde"
 
 #: templates//games/scrabble.tpl:54
 msgid "look up"
-msgstr "verifică"
+msgstr "arama"
 
 #: templates//games/scrabble.tpl:67
 msgid "Official Scrabble word list (LOC)"
-msgstr "Lista Oficială de Cuvinte admise la Scrabble (LOC)"
+msgstr "Resmi Scrabble kelime listesi (LOC)"
 
 #: templates//games/scrabble.tpl:73
 msgid "version"
-msgstr "versiunea"
+msgstr "sürüm"
 
 #: templates//games/scrabble.tpl:74
 msgid "publication date"
-msgstr "data publicării"
+msgstr "yayınlanma tarihi"
 
 #: templates//games/scrabble.tpl:75 templates//games/scrabble.tpl:94
 #: templates//games/scrabble.tpl:133
 msgid "reduced forms"
-msgstr "forme reduse"
+msgstr "indirgenmiş biçimler"
 
 #: templates//games/scrabble.tpl:76 templates//games/scrabble.tpl:97
 #: templates//games/scrabble.tpl:131
 msgid "base forms"
-msgstr "forme de bază"
+msgstr "temel biçimler"
 
 #: templates//games/scrabble.tpl:77 templates//games/scrabble.tpl:104
 #: templates//games/scrabble.tpl:132
 msgid "inflected forms"
-msgstr "forme flexionare"
+msgstr "çekimli biçimler"
 
 #: templates//games/scrabble.tpl:85 templates//games/scrabble.tpl:86
 #: templates//games/scrabble.tpl:87
 #: templates//games/scrabbleLocDifferences.tpl:13
 msgid "download"
-msgstr "descarcă"
+msgstr "indir"
 
 #: templates//games/scrabble.tpl:95
 msgid "a list of words between 2 and 15 letters, without diacritics"
-msgstr "lista de cuvinte între 2 și 15 litere, fără diacritice"
+msgstr "2 ile 15 harf arasında, aksan işareti içermeyen kelimelerin listesi"
 
 #: templates//games/scrabble.tpl:99
 msgid "word list in alphabetical order"
-msgstr "lista de cuvinte ordonată alfabetic"
+msgstr "alfabetik sırayla kelime listesi"
 
 #: templates//games/scrabble.tpl:101
 msgid "legend of notations"
-msgstr "legenda notațiilor"
+msgstr "gösterimler için açıklama"
 
 #: templates//games/scrabble.tpl:105
 msgid "list of words and their conjugations/declensions"
-msgstr "lista de cuvinte cu conjugările/declinările lor"
+msgstr "kelimelerin ve çekimlerinin listesi"
 
 #: templates//games/scrabble.tpl:109
 msgid ""
 "The last official LOC version is 5.0. Version 6.0 contains changes to LOC "
 "made using the dexonline interface, but not included in the official version."
 msgstr ""
-"Ultima versiune oficială a LOC este 5.0. Versiunea 6.0 conține modificări "
-"aduse LOC în dexonline, dar neîncorporate în versiunea oficială."
+"LOC'nin son resmi sürümü 5.0'dır. Sürüm 6.0, dexonline arayüzü kullanılarak "
+"LOC'de yapılan değişiklikleri içerir, ancak resmi sürüme dahil değildir."
 
 #: templates//games/scrabble.tpl:117
 msgid "Differences between versions"
-msgstr "Diferențe între versiuni"
+msgstr "Sürümler arasındaki farklar"
 
 #: templates//games/scrabble.tpl:121
 msgid "Find out what changed between two versions of LOC."
-msgstr "Află ce s-a schimbat între două versiuni ale LOC."
+msgstr "LOC'nin iki sürümü arasında neler değiştiğini öğrenin."
 
 #: templates//games/scrabble.tpl:127 templates//games/scrabble.tpl:154
 msgid "compare"
-msgstr "compară"
+msgstr "karşılaştır"
 
 #: templates//games/scrabble.tpl:137
 msgid "between"
-msgstr "între"
+msgstr "arasında"
 
 #: templates//games/scrabble.tpl:145
 msgid "version %1 and version %2"
-msgstr "versiunea %1 și versiunea %2"
+msgstr "sürüm %1 ve sürüm %2"
 
 #: templates//games/scrabble.tpl:161
 msgid "Inflection models"
-msgstr "Modele de flexionare"
+msgstr "Çekim modelleri"
 
 #: templates//games/scrabble.tpl:165
 msgid ""
 "<em>%1</em> and <em>%2</em> have similar declensions... but not <em>%3</em> "
 "and <em>%4</em>? Here is why."
 msgstr ""
-"<em>%1</em> și <em>%2</em> se declină la fel... dar <em>%3</em> și <em>%4</"
-"em> nu? Iată de ce."
+"<em>%1</em> ve <em>%2</em> benzer çekimlere sahiptir... ancak <em>%3</em> ve "
+"<em>%4</em> aynı şekilde değildir. İşte nedeni."
 
 #: templates//games/scrabble.tpl:172
 msgid "Show models for"
-msgstr "Arată modelele pentru"
+msgstr "Modelleri göster"
 
 #: templates//games/scrabbleLocDifferences.tpl:3
 msgid "Official Word List"
-msgstr "Lista Oficială de Cuvinte"
+msgstr "Resmi Kelime Listesi"
 
 #: templates//games/scrabbleLocDifferences.tpl:7
 msgid "Differences between LOC %1 and LOC %2 (%3)"
-msgstr "Diferențe între LOC %1 și LOC %2 (%3)"
+msgstr "LOC %1 ile LOC %2 (%3) arasındaki farklar"
 
 #: templates//games/mill.tpl:3 templates//games/mill.tpl:10
 #: templates//widgets/games.tpl:6
 msgid "word mill"
-msgstr "moara cuvintelor"
+msgstr "kelime değirmeni"
 
 #: templates//games/mill.tpl:15
 msgid "Level"
-msgstr "Nivel"
+msgstr "Seviye"
 
 #: templates//games/mill.tpl:16 templates//games/hangman.tpl:37
 msgid "easy"
-msgstr "ușor"
+msgstr "kolay"
 
 #: templates//games/mill.tpl:17 templates//games/hangman.tpl:38
 msgid "medium"
-msgstr "mediu"
+msgstr "orta"
 
 #: templates//games/mill.tpl:18 templates//games/hangman.tpl:39
 msgid "hard"
-msgstr "dificil"
+msgstr "zor"
 
 #: templates//games/mill.tpl:19 templates//games/hangman.tpl:40
 msgid "expert"
-msgstr "expert"
+msgstr "uzman"
 
 #: templates//games/mill.tpl:23
 msgid "You can also use the keys 1, 2, 3, 4."
-msgstr "Poți folosi și tastele 1, 2, 3, 4."
+msgstr "1, 2, 3, 4 tuşlarını kullanabilirsiniz."
 
 #: templates//games/mill.tpl:27
 msgid ""
 "We are currently recalibrating the difficulty levels. Please excuse any "
 "words that are too easy or too hard for the level you selected."
 msgstr ""
-"În prezent recalibrăm nivelurile de dificultate. Te rugăm să ne ierți pentru "
-"cuvinte prea ușoare sau prea grele față de nivelul ales."
+"Şu anda zorluk seviyelerini yeniden ayarlıyoruz. Seçtiğiniz seviyeye göre "
+"çok kolay veya çok zor olan kelimeler için lütfen kusura bakmayın."
 
 #: templates//games/mill.tpl:49
 msgid "The correct definition of <span class=\"word fs-3\"></span>:"
-msgstr "Definiția corectă pentru <span class=\"word fs-3\"></span>:"
+msgstr "<span class=\"word fs-3\"></span>'nin doğru tanımı:"
 
 #: templates//games/mill.tpl:69
 msgid ""
 "Congratulations! You answered <b id=\"answeredCorrect\">0</b> of 10 "
 "questions correctly."
 msgstr ""
-"Felicitări! Ai răspuns corect la <b id=\"answeredCorrect\">0</b> din 10 "
-"întrebări."
+"Tebrikler! 10 sorudan <b id=\"answeredCorrect\">0</b> tanesini doğru "
+"cevapladınız."
 
 #: templates//games/mill.tpl:72 templates//games/hangman.tpl:36
 msgid "new game"
-msgstr "joc nou"
+msgstr "yeni oyun"
 
 #: templates//games/mill.tpl:73
 msgid "see all definitions"
-msgstr "arată toate definițiile"
+msgstr "tüm tanımları gör"
 
 #: templates//games/hangman.tpl:3 templates//games/hangman.tpl:10
 #: templates//widgets/games.tpl:5
 msgid "hangman"
-msgstr "spânzurătoarea"
+msgstr "adam asmaca"
 
 #: templates//games/hangman.tpl:16
 msgid "Lives remaining"
-msgstr "Vieți rămase"
+msgstr "Kalan hak"
 
 #: templates//games/hangman.tpl:32
 msgid "Get a clue"
-msgstr "Dă-mi un indiciu"
+msgstr "İpucu al"
 
 #: templates//games/hangman.tpl:59
 msgid "Congratulations, you win!"
-msgstr "Felicitări, ai câștigat!"
+msgstr "Tebrikler, kazandın!"
 
 #: templates//games/hangman.tpl:62
 msgid "Sorry, you lose."
-msgstr "Ne pare rău, ai pierdut."
+msgstr "Üzgünüm, kaybettin."
 
 #: templates//games/scramble.tpl:4 templates//games/scramble.tpl:12
 #: templates//games/scramble.tpl:212 templates//widgets/games.tpl:7
 msgid "word scramble"
-msgstr "omleta cuvintelor"
+msgstr "karışık kelime"
 
 #: templates//games/scramble.tpl:21
 msgid "start"
-msgstr "începe"
+msgstr "başla"
 
 #: templates//games/scramble.tpl:39
 msgid "object"
-msgstr "mod"
+msgstr "amaç"
 
 #: templates//games/scramble.tpl:45 templates//games/scramble.tpl:146
 msgid "all words"
-msgstr "toate cuvintele"
+msgstr "tüm kelimeler"
 
 #: templates//games/scramble.tpl:50 templates//games/scramble.tpl:150
 msgid "one anagram"
-msgstr "o anagramă"
+msgstr "bir anagram"
 
 #: templates//games/scramble.tpl:55 templates//games/scramble.tpl:154
 msgid "all anagrams"
-msgstr "toate anagramele"
+msgstr "tüm anagramlar"
 
 #: templates//games/scramble.tpl:63
 msgid "level"
-msgstr "nivel"
+msgstr "seviye"
 
 #: templates//games/scramble.tpl:69 templates//games/scramble.tpl:74
 #: templates//games/scramble.tpl:79 templates//games/scramble.tpl:84
 msgid "letters"
-msgstr "litere"
+msgstr "harfler"
 
 #: templates//games/scramble.tpl:92
 msgid "diacritics"
-msgstr "diacritice"
+msgstr "aksan işaretleri"
 
 #: templates//games/scramble.tpl:98
 msgid "no"
-msgstr "nu"
+msgstr "hayır"
 
 #: templates//games/scramble.tpl:103
 msgid "yes"
-msgstr "da"
+msgstr "evet"
 
 #: templates//games/scramble.tpl:111
 msgid "time"
-msgstr "timp"
+msgstr "süre"
 
 #: templates//games/scramble.tpl:125
 msgid "one minute"
 msgid_plural "%1 minutes"
-msgstr[0] "un minut"
-msgstr[1] "%1 minute"
-msgstr[2] "%1 de minute"
+msgstr[0] "bir dakika"
+msgstr[1] "%1 dakika"
 
 #: templates//games/scramble.tpl:134
 msgid "Object of the game"
-msgstr "Scopul jocului"
+msgstr "Oyunun amacı"
 
 #: templates//games/scramble.tpl:136
 msgid ""
 "Find as many words as you can using the given letters, before the time runs "
 "out."
 msgstr ""
-"Formați cât de multe cuvinte puteți cu literele primite, până se termină "
-"timpul."
+"Süre bitmeden önce verilen harfleri kullanarak olabildiğince çok kelime "
+"bulun."
 
 #: templates//games/scramble.tpl:141
 msgid "There are three game types:"
-msgstr "Sunt trei moduri de joc:"
+msgstr "Üç oyun türü var:"
 
 #: templates//games/scramble.tpl:147
 msgid "find all words having at least three letters."
-msgstr "găsiți toate cuvintele de cel puțin trei litere."
+msgstr "en az üç harften oluşan tüm kelimeleri bulun."
 
 #: templates//games/scramble.tpl:151
 msgid "find a word using all the letters, then receive a new set of letters."
 msgstr ""
-"găsiți un cuvânt care folosește toate literele, apoi primiți alt set de "
-"litere."
+"tüm harfleri kullanarak bir kelime bulun, ardından yeni bir harf grubu alın."
 
 #: templates//games/scramble.tpl:156
 msgid ""
@@ -1978,21 +1960,22 @@ msgid ""
 "example, for the set AINTT you must guess all three anagrams (<i>%1</i>) to "
 "receive the next set."
 msgstr ""
-"găsiți toate cuvintele care folosesc toate literele, apoi primiți alt set de "
-"litere. De exemplu, pentru grupul AINTT trebuie să ghiciți toate cele trei "
-"anagrame (<i>%1</i>) pentru a trece la următorul set."
+"tüm harfleri kullanarak tüm kelimeleri bulun, ardından yeni bir harf grubu "
+"alın. Örneğin, AINTT grubu için bir sonraki grubu almak için üç anagramın "
+"tümünü (<i>%1</i>) tahmin etmelisiniz."
 
 #: templates//games/scramble.tpl:163
 msgid "Instructions"
-msgstr "Instrucțiuni"
+msgstr "Talimatlar"
 
 #: templates//games/scramble.tpl:165
 msgid ""
 "When using a keyboard, simply type the letters. When using a mouse, click on "
 "the letters, then click on the magnifier to check a word."
 msgstr ""
-"Dacă folosiți tastatura, tastați pur și simplu literele. Dacă folosiți mouse-"
-"ul, dați click pe litere, apoi pe lupă pentru a verifica un cuvânt."
+"Klavye kullanırken, harfleri tuşlamanız yeterlidir. Fare kullanırken, "
+"harflerin üzerine tıklayın, ardından büyüteci tıklayarak kelimeyi kontrol "
+"edin."
 
 #: templates//games/scramble.tpl:171
 msgid ""
@@ -2000,115 +1983,102 @@ msgid ""
 "(such as <i>verzi</i>). If you opted for diacritics, then the letters %1 "
 "cannot be interchanged with %2."
 msgstr ""
-"Cuvintele legale includ conjugările (ca <i>lucrez</i>) și declinările (ca "
-"<i>verzi</i>). Dacă ați optat pentru diacritice, atunci literele %1 nu pot "
-"fi interschimbate cu %2."
+"Geçerli kelimeler çekimleri (örneğin <i>lucrez</i>) ve çekimleri (örneğin "
+"<i>verzi</i>) içerir. Aksan işaretlerini seçtiyseniz, %1 harfleri %2 ile "
+"değiştirilemez."
 
 #: templates//games/scramble.tpl:177
 msgid "Special keys"
-msgstr "Taste speciale"
+msgstr "Özel tuşlar"
 
 #: templates//games/scramble.tpl:181
 msgid "checks the word"
-msgstr "verifică cuvântul"
+msgstr "kelimeyi kontrol eder"
 
 #: templates//games/scramble.tpl:182
 msgid "deletes the last letter"
-msgstr "șterge ultima literă"
+msgstr "son harfi siler"
 
 #: templates//games/scramble.tpl:183
 msgid "deletes all the letters"
-msgstr "șterge toate literele"
+msgstr "tüm harfleri siler"
 
 #: templates//games/scramble.tpl:184
 msgid "shuffles the letters"
-msgstr "amestecă literele"
+msgstr "harfleri karıştırır"
 
 #: templates//games/scramble.tpl:188
 msgid "Below the game area there is"
-msgstr "Sub zona de joc se află"
+msgstr "Oyun alanının altında bulunanlar"
 
 #: templates//games/scramble.tpl:194
 msgid "time remaining"
-msgstr "timpul rămas"
+msgstr "kalan süre"
 
 #: templates//games/scramble.tpl:198
 msgid "number of words found / total number of words"
-msgstr "numărul de cuvinte găsite / numărul de cuvinte posibile"
+msgstr "bulunan kelime sayısı / toplam kelime sayısı"
 
 #: templates//games/scramble.tpl:202
 msgid "score (longer words earn more points)"
-msgstr "scorul (cuvintele mai lungi primesc mai multe puncte)"
+msgstr "puan (daha uzun kelimeler daha fazla puan kazandırır)"
 
 #: templates//games/scramble.tpl:240
 msgid "play again"
-msgstr "joacă din nou"
+msgstr "tekrar oyna"
 
 #: templates//games/scramble.tpl:248
 msgid "Legal words"
-msgstr "Cuvinte posibile"
+msgstr "Geçerli kelimeler"
 
 #: templates//games/scramble.tpl:272
 msgid ""
 "You can share this link with your friends to compare scores on the same "
 "letter sets."
 msgstr ""
-"Puteți trimite această adresă prietenilor dumneavoastră pentru a vă compara "
-"scorurile pe exact aceleași combinații de litere."
+"Bu bağlantıyı arkadaşlarınızla paylaşarak aynı harf gruplarındaki "
+"puanlarınızı karşılaştırabilirsiniz."
 
 #: templates//tag/list.tpl:18
 msgid "link-collapse-all"
-msgstr "închide tot"
+msgstr "tümünü daralt"
 
 #: templates//tag/list.tpl:21
 msgid "link-expand-all"
-msgstr "extinde tot"
+msgstr "tümünü genişlet"
 
 #: templates//widgets/newsletter.tpl:3
 msgid "Newsletter"
-msgstr "Newsletter"
+msgstr "Bülten"
 
 #: templates//widgets/newsletter.tpl:4
 msgid "Do you want to subscribe? (see <a href=\"/newsletter\">archive</a>)"
-msgstr "Dorești să te abonezi? (vezi <a href=\"/newsletter\">arhiva</a>)"
+msgstr "Abone olmak ister misiniz? (bkz. <a href=\"/newsletter\">arşiv</a>)"
 
 #: templates//widgets/newsletter.tpl:26
 msgid "Yes!"
-msgstr "Da!"
+msgstr "Evet!"
 
 #: templates//widgets/expression.tpl:5
 msgid "Visual expressions"
-msgstr "Expresii vizuale"
+msgstr "Görsel ifadeler"
 
 #: templates//widgets/social.tpl:2
 msgid "follow us on"
-msgstr "urmărește-ne pe"
+msgstr "bizi takip edin"
 
 #: templates//widgets/social.tpl:5
 msgid "Follow us on Instagram"
-msgstr "Urmărește-ne pe Instagram"
+msgstr "Bizi Instagram’da takip edin"
 
 #: templates//widgets/social.tpl:10
 msgid "Follow our blog"
-msgstr "Urmărește blogul nostru"
+msgstr "Blogumuzu takip edin"
 
 #: templates//widgets/social.tpl:15
 msgid "Follow us on Facebook"
-msgstr "Urmărește-ne pe Facebook"
+msgstr "Bizi Facebook’ta takip edin"
 
 #: templates//widgets/social.tpl:20
 msgid "Follow us on Twitter"
-msgstr "Urmărește-ne pe Twitter"
-
-#, fuzzy
-#~| msgid "general use"
-#~ msgid "General use"
-#~ msgstr "explicative"
-
-#, fuzzy
-#~| msgid "notes"
-#~ msgid "quotes"
-#~ msgstr "note"
-
-#~ msgid "Quotes"
-#~ msgstr "Expresii / citate"
+msgstr "Bizi Twitter’da takip edin"

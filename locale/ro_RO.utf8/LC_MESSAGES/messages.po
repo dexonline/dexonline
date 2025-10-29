@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2025-02-11 03:09+0200\n"
-"PO-Revision-Date: 2025-02-21 03:06+0200\n"
+"PO-Revision-Date: 2025-10-29 22:08+0200\n"
 "Last-Translator: Radu Borza <radu@dexonline.ro>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -1435,7 +1435,7 @@ msgstr "declinări"
 
 #: lib/Tab.php:50
 msgid "synthesis"
-msgstr "sinteză"
+msgstr "sinteza definițiilor"
 
 #: lib/Tab.php:52
 msgid "articles"

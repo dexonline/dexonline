@@ -1,30 +1,147 @@
-<h4>Exemple de pronunție a termenului „<a href="https://youglish.com/pronounce/{$searchTerm|escape:'url'}/romanian" target="_blank" rel="nofollow noopener noreferrer">{$searchTerm}</a>”</h4>
+<h4>Exemple de pronunție a termenului „{$pronTerm}” ({$pronunciations|@count} clipuri)</h4>
 
-<a id="yg-widget-0" data-delay-load="1" width="640" class="youglish-widget" data-query="{$searchTerm}" data-lang="romanian" data-components="8264" data-auto-start="0" data-bkg-color="theme_light"  rel="nofollow" href="https://youglish.com/romanian">Visit YouGlish.com</a>
-<script async src="https://youglish.com/public/emb/widget.js" charset="utf-8"></script>
+<div id="player-container" style="width: 640px; margin: 0 auto;">
+  <div style="margin-top: 10px;">
+    <button id="prevBtn">⏮️ Precedentul</button>
+    <button id="nextBtn">⏭️ Următorul</button>
+  </div>
+  <div id="player"></div>
+  <div id="subtitles"
+       style="font-size: 1.2em; margin-top: 10px; color: white;
+              background: rgba(0,0,0,0.6); padding: 10px; border-radius: 8px;
+              min-height: 2em; transition: opacity 0.3s ease;">
+  </div>
+</div>
 
+<script src="https://www.youtube.com/iframe_api"></script>
 <script>
-let widget = null;
-let missedSearchTerm = null;
-let fetched = false;
-function onYouglishAPIReady(){
-   widget = YG.getWidget("yg-widget-0");
-   if (missedSearchTerm) {
-     widget.fetch(missedSearchTerm, "romanian");
-     missedSearchTerm = null;
-   }
-}
 
-function searchYGTerm() {
-  if (fetched) return;
+  // Lista de segmente (fiecare video are subtitrarea sa)
+  const segments = {$pronunciations|@json_encode};
+  {literal}
+  for (idx in segments) {segments[idx].subs = wwwRoot + '/subs/' + segments[idx].id + '.ro.srt'}
+  {/literal}
 
-  if (widget) {
-    widget.fetch("{$searchTerm}", "romanian");
-    fetched = true;
+  let player;
+  let subtitles = [];
+  let currentSubtitle = null;
+  let currentIndex = 0;
+
+  // Încarcă subtitrările pentru segmentul curent
+  function loadSubtitles(file) {
+    return fetch(file)
+      .then(res => res.text())
+      .then(parseSRT)
+      .then(data => {
+        subtitles = data;
+        currentSubtitle = null;
+        document.getElementById('subtitles').innerHTML = '';
+      })
+      .catch(err => console.error('Eroare la încărcarea subtitrărilor:', err));
   }
-  else {
-    missedSearchTerm = "{$searchTerm}";
-    console.log("YG widget not yet loaded");
+
+  // Parser pentru format .SRT
+  function parseSRT(data) {
+    const srt = data.trim().split(/\r?\n\r?\n/);
+    const toSeconds = t => {
+      const [h, m, s] = t.replace(',', '.').split(':').map(Number);
+      return h * 3600 + m * 60 + s;
+    };
+    const cues = [];
+    for (const entry of srt) {
+      const lines = entry.split(/\r?\n/);
+      if (lines.length >= 2) {
+        const timeMatch = lines[1].match(/(\d+:\d+:\d+,\d+)\s*-->\s*(\d+:\d+:\d+,\d+)/);
+        if (timeMatch) {
+          const start = toSeconds(timeMatch[1]);
+          const end = toSeconds(timeMatch[2]);
+          const text = lines.slice(2).join('<br>');
+          cues.push({ start, end, text });
+        }
+      }
+    }
+    return cues;
   }
-}
+
+  // Inițializează playerul YouTube
+  function onYouTubeIframeAPIReady() {
+    const seg = segments[currentIndex];
+
+    // seg.subs => wwwRoot + seg.id + '.ro.srt'
+    loadSubtitles(seg.subs).then(() => {
+      player = new YT.Player('player', {
+        height: '360',
+        width: '640',
+        videoId: seg.id,
+        playerVars: { 'playsinline': 1, 'autoplay': 0, 'cc_load_policy': 1, 'cc_lang_pref': 'ro', 'start': seg.start },
+        events: { 'onReady': onPlayerReady }
+      });
+    });
+  }
+
+  // După ce playerul e gata
+  function onPlayerReady() {
+    setupNavigationButtons();
+    player.seekTo(segments[currentIndex].start, true);
+    // player.playVideo();
+    setInterval(checkSubtitle, 200);
+
+    // Creează un observator pentru vizibilitate
+    const container = document.getElementById('player-container');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // Playerul este vizibil => pornește
+          player.playVideo();
+        } else {
+          // Playerul iese din ecran => pune pauză
+          player.pauseVideo();
+        }
+      });
+    }, { threshold: 0.5 }); // Pornește doar dacă 50% din player e vizibil
+
+    observer.observe(container);
+  }
+
+  // Actualizează subtitrările
+  function checkSubtitle() {
+    if (!player || !subtitles.length) return;
+    const time = player.getCurrentTime();
+
+    // găsește toate subtitrările active (nu doar una)
+    const actives = subtitles.filter(s => time >= s.start && time <= s.end);
+
+    // combină textele tuturor subtitrărilor active
+    const combinedText = actives.map(s => s.text).join('<br>');
+
+    if (combinedText !== currentSubtitle) {
+      currentSubtitle = combinedText;
+      const subtitleDiv = document.getElementById('subtitles');
+      subtitleDiv.style.opacity = 0;
+      setTimeout(() => {
+        subtitleDiv.innerHTML = combinedText;
+        subtitleDiv.style.opacity = 1;
+      }, 100);
+    }
+  }
+
+
+  // Butoane navigare
+  function setupNavigationButtons() {
+    document.getElementById('prevBtn').addEventListener('click', () => changeSegment(-1));
+    document.getElementById('nextBtn').addEventListener('click', () => changeSegment(1));
+  }
+
+  // Schimbă segmentul (video + subtitrări)
+  function changeSegment(direction) {
+    currentIndex += direction;
+    if (currentIndex < 0) currentIndex = segments.length - 1;
+    if (currentIndex >= segments.length) currentIndex = 0;
+
+    const seg = segments[currentIndex];
+
+    loadSubtitles(seg.subs).then(() => {
+      player.loadVideoById({ videoId: seg.id, startSeconds: seg.start });
+    });
+  }
 </script>

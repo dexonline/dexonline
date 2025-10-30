@@ -80,6 +80,7 @@ $entries = [];
 $lexemes = [];
 $trees = [];
 $wikiArticles = [];
+$pronunciations = [];
 $extra = [];
 $adult = false;
 
@@ -414,6 +415,9 @@ if ($cuv) {
   Smart::assign('pageDescription', $pageDescription);
 }
 
+$pronTerm = $redirect ? $redirectFrom : $cuv;
+$pronunciations = Subtitle::LoadSubtitles($pronTerm);
+
 $images = Visual::loadAllForEntries($entries);
 if (count($images)) {
   Smart::addResources('gallery');
@@ -429,6 +433,7 @@ list($activeTab, $tabs) = Tab::getInfo(
   count($trees),
   count($images),
   count($wikiArticles),
+  count($pronunciations),
   $declensionText
 );
 
@@ -443,6 +448,8 @@ Smart::assign([
   'trees' => $trees,
   'images' => $images,
   'wikiArticles' => $wikiArticles,
+  'pronunciations' => $pronunciations,
+  'pronTerm' => $pronTerm,
   'extra' => $extra,
   'text' => $text,
   'searchType' => $searchType,

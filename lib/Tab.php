@@ -116,6 +116,7 @@ class Tab {
    * @param int $numTrees The number of structured trees.
    * @param int $numImages The number of images.
    * @param int $numArticles The number of linguistics articles.
+   * @param int $numPronunciations The number of pronunciation clips found
    * @param string $declensionText The title of the paradigm tab.
    *
    * @return A tuple of
@@ -124,7 +125,7 @@ class Tab {
    */
   static function getInfo(
     $urlTab, int $numResults, bool $hasParadigm, int $numTrees, int $numImages,
-    int $numArticles, string $declensionText) {
+    int $numArticles, int $numPronunciations, string $declensionText) {
 
     $allTabs = Session::getTabs();
 
@@ -134,7 +135,7 @@ class Tab {
       self::T_TREES => $numTrees,
       self::T_GALLERY => $numImages,
       self::T_ARTICLES => $numArticles,
-      self::T_PRONUNCIATION => true,
+      self::T_PRONUNCIATION => $numPronunciations,
     ];
     $counts = [
       self::T_RESULTS => $numResults,
@@ -142,7 +143,7 @@ class Tab {
       self::T_TREES => $numTrees,
       self::T_GALLERY => $numImages,
       self::T_ARTICLES => $numArticles,
-      self::T_PRONUNCIATION => 0, // never display this count
+      self::T_PRONUNCIATION => $numPronunciations,
     ];
 
     $tabs = [];

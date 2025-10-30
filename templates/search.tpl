@@ -340,6 +340,7 @@
     {/if}
 
     {* pronunciation tab *}
+    {if count($pronunciations)}
     {* only special people are allowed ;) *}
     {* if User::can(User::PRIV_PLUGIN) *}
       <div
@@ -349,6 +350,7 @@
         {include "search/pronunciation.tpl" searchTerm=$searchTerm}
       </div>
     {* /if *}
+    {/if}
   </div>
 
   <div id="tabAdvertiserContent" style="display: none">

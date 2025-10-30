@@ -581,6 +581,7 @@ $(function() {
         }
       }
     }
+    /*
     else if (tabType == 'pronuntie') {
       tabs[i].addEventListener('click', function(event) {
         searchYGTerm();
@@ -592,6 +593,7 @@ $(function() {
         }
       }
     }
+     */
   }
 });
 

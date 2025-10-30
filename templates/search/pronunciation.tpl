@@ -19,7 +19,8 @@
   // Lista de segmente (fiecare video are subtitrarea sa)
   const segments = {$pronunciations|@json_encode};
   {literal}
-  for (idx in segments) {segments[idx].subs = wwwRoot + '/subs/' + segments[idx].id + '.ro.srt'}
+  let dexRoot = 'https://dexonline.ro';
+  for (idx in segments) {segments[idx].subs = dexRoot + '/subs/' + segments[idx].id + '.ro.srt'}
   {/literal}
 
   let player;
@@ -67,7 +68,6 @@
   function onYouTubeIframeAPIReady() {
     const seg = segments[currentIndex];
 
-    // seg.subs => wwwRoot + seg.id + '.ro.srt'
     loadSubtitles(seg.subs).then(() => {
       player = new YT.Player('player', {
         height: '360',

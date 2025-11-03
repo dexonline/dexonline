@@ -333,6 +333,7 @@ class Lexeme extends BaseObject implements DatedObject {
       ->select('e.*')
       ->join('EntryLexeme', ['e.id', '=', 'el.entryId'], 'el')
       ->join('Lexeme', ['el.lexemeId', '=', 'l.id'], 'l')
+      ->where_raw("l.pronunciations <> ''")
       ->where_raw("FIND_IN_SET(?, REPLACE(l.pronunciations, ' ', ''))", [$cuv])
   //    ->where('l.pronunciations', $cuv)
       ->find_many();

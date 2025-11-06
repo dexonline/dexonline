@@ -1,7 +1,7 @@
-<h4>Exemple de pronunție a termenului „{$pronTerm}” ({$pronunciations|@count} clipuri)</h4>
-
 <div id="player-container" style="width: 640px; margin: 0 auto;">
-  <div style="margin-top: 10px;">
+  <h5>Exemple de pronunție a termenului „{$pronTerm}” ({$pronunciations|@count} clipuri)</h5>
+
+  <div style="margin-top: 10px; float:right;">
     <button id="prevBtn">⏮️ Precedentul</button>
     <button id="nextBtn">⏭️ Următorul</button>
   </div>

@@ -1,9 +1,11 @@
 <div id="player-container" style="width: 640px; margin: 0 auto;">
   <h5>Exemple de pronunție a termenului „{$pronTerm}” ({$pronunciations|@count} clipuri)</h5>
-
-  <div style="margin-top: 10px; float:right;">
-    <button id="prevBtn">⏮️ Precedentul</button>
-    <button id="nextBtn">⏭️ Următorul</button>
+  <div style="float: left;">
+  Clipul <span id="current-clip">1</span> / {$pronunciations|@count}
+  </div>
+  <div style="margin-bottom: 10px; float:right;">
+    <button id="prevBtn">{include "bits/icon.tpl" i="skip_previous"} Precedentul</button>
+    <button id="nextBtn">Următorul {include "bits/icon.tpl" i="skip_next"}</button>
   </div>
   <div id="player"></div>
   <div id="subtitles"
@@ -137,6 +139,8 @@
     currentIndex += direction;
     if (currentIndex < 0) currentIndex = segments.length - 1;
     if (currentIndex >= segments.length) currentIndex = 0;
+
+    document.getElementById('current-clip').innerText = currentIndex + 1;
 
     const seg = segments[currentIndex];
 

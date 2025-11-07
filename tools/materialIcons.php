@@ -67,6 +67,8 @@ const CODEPOINTS = [
   'settings',
   'shield',
   'shuffle',
+  'skip_next',
+  'skip_previous',
   'subdirectory_arrow_right',
   'swap_horiz',
   'today',

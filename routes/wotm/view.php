@@ -46,6 +46,7 @@ if ($mysqlDate < $today || User::can(User::PRIV_WOTD)) {
 }
 
 Smart::assign([
+  'wotm' => $wotm,
   'year' => $year,
   'month' => $month,
   'monthName' => $monthName,

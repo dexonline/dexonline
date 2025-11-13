@@ -42,6 +42,10 @@
         </div>
       {/if}
 
+      {if $wotm->sponsor}
+        {include "wotd-sponsors/{$wotm->sponsor}"}
+      {/if}
+
       {include "bits/definition.tpl"
         row=$searchResult
         showBookmark=1

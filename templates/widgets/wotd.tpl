@@ -7,7 +7,7 @@
       <span class="widget-value">{$wotdDef->lexicon}</span>
     {/if}
   </div>
-  <div>
+  <div style="display: grid; align-items: center;">
     <img src="{$thumbUrl}" alt="iconiță cuvântul zilei" class="widget-icon">
   </div>
 </a>

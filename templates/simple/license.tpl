@@ -68,7 +68,7 @@
 
   <ol>
     <li>Să oferiți mai departe aceste definiții tot sub licența GPL.</li>
-    <li>Să includeți nota de copyright aflată la sfârșitul fiecărei pagini din <i>dexonline</i>, inclusiv URL-ul https://dexonline.ro.</li>
+    <li>Să includeți nota de copyright aflată la sfârșitul fiecărei pagini din <i>dexonline</i>, inclusiv URL-ul https://dexonline.ro (sub formă de link).</li>
   </ol>
 
   Am pus această licență pe definiții:

@@ -119,8 +119,10 @@ class SourceType extends BaseObject {
       $sourceTypeIds[$stId] = ($sourceTypeIds[$stId] ?? 0) + 1;
     }
 
+    // the order of the sections is defined in Definition.php loadForEntries
     $sourceTypes = Model::factory('SourceType')
       ->where_in('id', array_keys($sourceTypeIds) ?: [ 0 ])
+      ->order_by_asc('displayOrder')
       ->find_many();
 
     foreach ($sourceTypes as $st) {

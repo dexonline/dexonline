@@ -271,13 +271,15 @@ class Definition extends BaseObject implements DatedObject {
       ->distinct()
       ->join('EntryDefinition', ['d.id', '=', 'ed.definitionId'], 'ed')
       ->join('Source', ['d.sourceId', '=', 's.id'], 's')
+      ->join('SourceType', ['s.sourceTypeId', '=', 'st.id'], 'st')
       ->where_in('ed.entryId', $entryIds)
       ->where_in('d.status', [self::ST_ACTIVE, self::ST_HIDDEN]);
     if ($sourceId) {
       $query = $query->where('s.id', $sourceId);
     }
     $ids = $query
-      ->order_by_asc('s.sourceTypeId')
+    //  ->order_by_asc('s.sourceTypeId')
+      ->order_by_asc('st.displayOrder')
       ->order_by_expr(sprintf("d.lexicon = '%s' desc", addslashes($preferredWord)))
       ->order_by_asc('s.displayOrder')
       ->order_by_asc('d.lexicon')

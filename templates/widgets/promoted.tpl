@@ -1,5 +1,5 @@
 <a
-  href="{Config::URL_PREFIX}definitie/femeie/1365990"
+  href="{Config::URL_PREFIX}definitie/femeie/definitii"
   class="widget wotd d-flex flex-md-column flex-xl-row">
   <div class="flex-grow-1">
     <h4>Cuvântul din vitrină</h4><br>

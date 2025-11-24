@@ -14,11 +14,13 @@ class SourceType extends BaseObject {
   const TYPE_DICT_ANTONYMS = 9;
   const TYPE_DICT_PHRASES = 10;
   const TYPE_DICT_REGIONAL = 11;
+  const TYPE_DICT_PROMOTED = 12;
   const TYPE_DICT_OTHER = 999;
   const TYPE_DICT_UNVERIFIED = 1000;
 
   // showed this order
   const ALL_TYPES = [
+    self::TYPE_DICT_PROMOTED,
     self::TYPE_DICT_GENERAL_USE,
     self::TYPE_DICT_ETYMOLOGICAL,
     self::TYPE_DICT_MORPHOLOGICAL,
@@ -34,9 +36,10 @@ class SourceType extends BaseObject {
     self::TYPE_DICT_UNVERIFIED,
   ];
 
-  // used in the search results scrollspy
+  // used as headings in the search results scrollspy
   static function getShortName($typeId) {
     switch ($typeId) {
+      case self::TYPE_DICT_PROMOTED:      return _('vitrină');
       case self::TYPE_DICT_GENERAL_USE:   return _('general use');
       case self::TYPE_DICT_ETYMOLOGICAL:  return _('etymological');
       case self::TYPE_DICT_MORPHOLOGICAL: return _('morphological');
@@ -55,6 +58,7 @@ class SourceType extends BaseObject {
 
   static function getName($typeId) {
     switch ($typeId) {
+      case self::TYPE_DICT_PROMOTED:      return _('Cuvântul din vitrină');
       case self::TYPE_DICT_GENERAL_USE:   return _('General use dictionaries');
       case self::TYPE_DICT_ETYMOLOGICAL:  return _('Etymological dictionaries');
       case self::TYPE_DICT_MORPHOLOGICAL: return _('Morphological dictionaries');
@@ -73,6 +77,8 @@ class SourceType extends BaseObject {
 
   static function getDescription($typeId) {
     switch ($typeId) {
+      case self::TYPE_DICT_PROMOTED:
+        return _('Cuvinte promovate');
       case self::TYPE_DICT_GENERAL_USE:
         return _('The most common sense of the words are explained.');
       case self::TYPE_DICT_ETYMOLOGICAL:

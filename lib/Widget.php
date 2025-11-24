@@ -10,7 +10,8 @@ class Widget {
   const WIDGET_EXPRESSION = 0x40;
   const WIDGET_NEWSLETTER = 0x80;
   const WIDGET_PROVERB = 0x100;
-  const WIDGET_COUNT = 9;
+  const WIDGET_PROMOTED = 0x200;
+  const WIDGET_COUNT = 10;
 
   // 'enabled' means "enabled by default". All widgets can later be enabled or disabled based on user prefs.
   // also this array determines the order of the widgets
@@ -25,6 +26,11 @@ class Widget {
       'template' => 'wotm.tpl',
       'enabled' => true,
     ],
+    self::WIDGET_PROMOTED => [
+      'name' => 'Cuvântul din vitrină',
+      'template' => 'promoted.tpl',
+      'enabled' => true,
+    ],
     self::WIDGET_EXPRESSION => [
       'name' => 'Expresii',
       'template' => 'expression.tpl',
@@ -33,7 +39,7 @@ class Widget {
     self::WIDGET_NEWSLETTER => [
       'name' => 'Newsletter',
       'template' => 'newsletter.tpl',
-      'enabled' => true,
+      'enabled' => false,
     ],
     self::WIDGET_GAMES => [
       'name' => 'Jocuri',

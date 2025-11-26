@@ -26,15 +26,10 @@ class Widget {
       'template' => 'wotm.tpl',
       'enabled' => true,
     ],
-    self::WIDGET_PROMOTED => [
-      'name' => 'Cuvântul din vitrină',
-      'template' => 'promoted.tpl',
+    self::WIDGET_RANDOM_WORD => [
+      'name' => 'Cuvânt aleatoriu',
+      'template' => 'randomWord.tpl',
       'enabled' => true,
-    ],
-    self::WIDGET_EXPRESSION => [
-      'name' => 'Expresii',
-      'template' => 'expression.tpl',
-      'enabled' => false,
     ],
     self::WIDGET_NEWSLETTER => [
       'name' => 'Newsletter',
@@ -51,15 +46,20 @@ class Widget {
       'template' => 'articleOfTheMonth.tpl',
       'enabled' => true,
     ],
+    self::WIDGET_PROMOTED => [
+      'name' => 'Cuvântul din vitrină',
+      'template' => 'promoted.tpl',
+      'enabled' => true,
+    ],
     self::WIDGET_SOCIAL => [
       'name' => 'Rețele sociale',
       'template' => 'social.tpl',
       'enabled' => false,
     ],
-    self::WIDGET_RANDOM_WORD => [
-      'name' => 'Cuvânt aleatoriu',
-      'template' => 'randomWord.tpl',
-      'enabled' => true,
+    self::WIDGET_EXPRESSION => [
+      'name' => 'Expresii',
+      'template' => 'expression.tpl',
+      'enabled' => false,
     ],
     self::WIDGET_PROVERB => [
       'name' => 'Proverbe',

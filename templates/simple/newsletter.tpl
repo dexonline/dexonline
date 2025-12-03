@@ -23,6 +23,9 @@
   <h3>Arhiva newsletterului</h3>
 
   <p class="ps-3">
+    <span class="fs-5">&#x2022; 3 decembrie 2025 <a href="https://blog.dexonline.ro/?mailpoet_router&endpoint=view_in_browser&action=view&data=WzU4LCIxYzBiMmQyMmIxOWIiLDQsIjNlYjljZCIsMjk3MywxXQ">
+      jurnal de dicționar / decembrie 25</a></span> <span class="fs-6">(șaraiman, sursă, motorină, fludor, renumit, circumvenție, laoparte, ciurigău, artificii)</span>
+    <br/>
     <span class="fs-5">&#x2022; 3 noiembrie 2025 <a href="https://blog.dexonline.ro/?mailpoet_router&endpoint=view_in_browser&action=view&data=WzU3LCJhOTUwMWY0MjM2MTAiLDQsIjNlYjljZCIsMjk0MSwxXQ">
       jurnal de dicționar / noiembrie 25</a></span> <span class="fs-6">(aprecieri, ucraineană, maghiară, albaneză, Sfântul Andrei, Ramona Costea)</span>
     <br/>

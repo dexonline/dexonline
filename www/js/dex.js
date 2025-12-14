@@ -96,8 +96,13 @@ function reviveInit(config) {
     i++;
   }
 
+  console.log("i:" + i + "; width: " + w + "; height: " + h + "; dpr: " + dpr);
+
   if (i == config.sizes.length) {
+    console.log("no banner to fit");
     return; // cannot accommodate any banner
+  } else {
+    console.log("banner size: " + config.sizes[i][0] + " x " + config.sizes[i][1]);
   }
 
   var zoneId = config.sizes[i][2];

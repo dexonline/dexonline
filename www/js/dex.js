@@ -85,7 +85,7 @@ function formatSource(item) {
  */
 function reviveInit(config) {
 
-  var dpr = window.devicePixelRatio,
+  var dpr = 1, //window.devicePixelRatio,
       w = $(window).width() * dpr,
       h = $(window).height() * dpr;
 

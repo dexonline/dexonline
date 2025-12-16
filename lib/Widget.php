@@ -34,7 +34,7 @@ class Widget {
     self::WIDGET_NEWSLETTER => [
       'name' => 'Newsletter',
       'template' => 'newsletter.tpl',
-      'enabled' => false,
+      'enabled' => true,
     ],
     self::WIDGET_GAMES => [
       'name' => 'Jocuri',
@@ -44,17 +44,17 @@ class Widget {
     self::WIDGET_AOTM => [
       'name' => 'Articolul lunii',
       'template' => 'articleOfTheMonth.tpl',
-      'enabled' => true,
+      'enabled' => false,
     ],
     self::WIDGET_PROMOTED => [
       'name' => 'Cuvântul din vitrină',
       'template' => 'promoted.tpl',
-      'enabled' => true,
+      'enabled' => false,
     ],
     self::WIDGET_SOCIAL => [
       'name' => 'Rețele sociale',
       'template' => 'social.tpl',
-      'enabled' => false,
+      'enabled' => true,
     ],
     self::WIDGET_EXPRESSION => [
       'name' => 'Expresii',

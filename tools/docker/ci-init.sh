@@ -38,10 +38,13 @@ docker compose -f tools/docker/docker-compose.yml -f tools/docker/docker-compose
 # Important: run the loop entirely inside the container so $f isn't expanded by this script (set -u).
 docker compose -f tools/docker/docker-compose.yml -f tools/docker/docker-compose.ci.yml exec -T app bash -s <<'BASH'
 set -e
+
+command -v mysql >/dev/null 2>&1 || { echo "mysql client not found in app container"; exit 1; }
+
 shopt -s nullglob
 for f in patches/*.sql; do
   echo "Applying ${f}"
-  mysql -h db.localhost -uroot -padmin dexonline < "${f}"
+  MYSQL_PWD=admin mysql -h db.localhost -uroot dexonline < "${f}"
 done
 BASH
 

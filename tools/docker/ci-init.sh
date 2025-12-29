@@ -34,16 +34,16 @@ echo "Initializing dexonline schema (best-effort) by applying SQL patches..."
 
 docker compose -f tools/docker/docker-compose.yml -f tools/docker/docker-compose.ci.yml exec -T db mysql -uroot -padmin -e "CREATE DATABASE IF NOT EXISTS dexonline CHARACTER SET utf8mb4 COLLATE utf8mb4_romanian_ci;"
 
-# Apply all SQL patches in order
-# Note: this assumes patches are safe to run on a fresh DB.
-docker compose -f tools/docker/docker-compose.yml -f tools/docker/docker-compose.ci.yml exec -T app bash -lc "\
-  set -e; \
-  shopt -s nullglob; \
-  for f in patches/*.sql; do \
-    echo \"Applying $f\"; \
-    mysql -h db.localhost -uroot -padmin dexonline < \"$f\"; \
-  done\
-"
+# Apply all SQL patches in order.
+# Important: run the loop entirely inside the container so $f isn't expanded by this script (set -u).
+docker compose -f tools/docker/docker-compose.yml -f tools/docker/docker-compose.ci.yml exec -T app bash -s <<'BASH'
+set -e
+shopt -s nullglob
+for f in patches/*.sql; do
+  echo "Applying ${f}"
+  mysql -h db.localhost -uroot -padmin dexonline < "${f}"
+done
+BASH
 
 echo "Resetting test DB (dexonline_test)..."
 docker compose -f tools/docker/docker-compose.yml -f tools/docker/docker-compose.ci.yml exec -T app php tools/resetTestingDatabase.php

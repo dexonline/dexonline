@@ -1,0 +1,56 @@
+name: selenium-ide-side
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  side:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Show Docker versions
+        run: |
+          docker version
+          docker compose version
+
+      - name: Build and start stack
+        run: |
+          docker compose -f tools/docker/docker-compose.yml -f tools/docker/docker-compose.ci.yml up -d --build
+
+      - name: Initialize app + test database
+        run: |
+          chmod +x tools/docker/ci-init.sh tools/docker/run-side.sh
+          tools/docker/ci-init.sh
+
+      - name: Run Selenium IDE suite (.side)
+        env:
+          BASE_URL: http://localhost:8080/
+          SIDE_FILE: test/dexonline-test-suite.side
+        run: |
+          tools/docker/run-side.sh
+
+      - name: Dump compose logs on failure
+        if: failure()
+        run: |
+          docker compose -f tools/docker/docker-compose.yml -f tools/docker/docker-compose.ci.yml logs --no-color > docker-compose.log || true
+
+      - name: Upload artifacts on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: side-artifacts
+          path: |
+            side-results
+            docker-compose.log
+          if-no-files-found: ignore
+
+      - name: Shutdown
+        if: always()
+        run: |
+          docker compose -f tools/docker/docker-compose.yml -f tools/docker/docker-compose.ci.yml down -v
+

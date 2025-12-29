@@ -4,7 +4,7 @@
 
 {block "content"}
   <h3>
-    {cap}{t}favorite words{/t}{/cap} ({$results|count})
+    {cap}{t}favorite words{/t}{/cap} ({$results|count}/{Config::LIMIT_BOOKMARKS})
   </h3>
 
   <dl data-none-text="{t}You have no favorite words.{/t}">

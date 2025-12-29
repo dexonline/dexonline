@@ -29,25 +29,19 @@ docker compose -f tools/docker/docker-compose.yml -f tools/docker/docker-compose
 # resetTestingDatabase.php copies schema from DATABASE -> TEST_DATABASE, so DATABASE must exist and have schema.
 # We create schema by applying patches/*.sql (best-effort) without downloading the huge prod dump.
 
-echo "Initializing dexonline schema (best-effort) by applying SQL patches..."
-# Create empty main DB
+echo "Initializing dexonline schema by importing dex-database.sql.gz (source of truth)..."
+
+# Create main DB
 
 docker compose -f tools/docker/docker-compose.yml -f tools/docker/docker-compose.ci.yml exec -T db mysql -uroot -padmin -e "CREATE DATABASE IF NOT EXISTS dexonline CHARACTER SET utf8mb4 COLLATE utf8mb4_romanian_ci;"
 
-# Apply all SQL patches in order.
-# Important: run the loop entirely inside the container so $f isn't expanded by this script (set -u).
-docker compose -f tools/docker/docker-compose.yml -f tools/docker/docker-compose.ci.yml exec -T app bash -s <<'BASH'
-set -e
+# Import full schema+data (this can take a while)
+docker compose -f tools/docker/docker-compose.yml -f tools/docker/docker-compose.ci.yml exec -T db bash -lc "set -e; \
+  wget -qO /tmp/dex-database.sql.gz https://dexonline.ro/static/download/dex-database.sql.gz; \
+  gzip -d -f /tmp/dex-database.sql.gz; \
+  pv /tmp/dex-database.sql | mysql -uroot -padmin dexonline"
 
-command -v mysql >/dev/null 2>&1 || { echo "mysql client not found in app container"; exit 1; }
-
-shopt -s nullglob
-for f in patches/*.sql; do
-  echo "Applying ${f}"
-  MYSQL_PWD=admin mysql -h db.localhost -uroot dexonline < "${f}"
-done
-BASH
-
+# Now build a deterministic test DB used by the Selenium suite.
 echo "Resetting test DB (dexonline_test)..."
 docker compose -f tools/docker/docker-compose.yml -f tools/docker/docker-compose.ci.yml exec -T app php tools/resetTestingDatabase.php
 

@@ -3,19 +3,19 @@
 class User extends BaseObject {
   public static $_table = 'User';
 
-  const PRIV_ADMIN = 0x01;
-  const PRIV_VIEW_HIDDEN = 0x02;
-  const PRIV_EDIT = 0x04;
-  const PRIV_WOTD = 0x08;
-  const PRIV_STRUCT = 0x10;
-  const PRIV_VISUAL = 0x20;
-  const PRIV_DONATION = 0x40;
-  const PRIV_TRAINEE = 0x80;
-  const PRIV_ORIGINAL = 0x100;
-  const PRIV_PLUGIN = 0x200;
-  const NUM_PRIVILEGES = 10;
+  public const PRIV_ADMIN = 0x01;
+  public const PRIV_VIEW_HIDDEN = 0x02;
+  public const PRIV_EDIT = 0x04;
+  public const PRIV_WOTD = 0x08;
+  public const PRIV_STRUCT = 0x10;
+  public const PRIV_VISUAL = 0x20;
+  public const PRIV_DONATION = 0x40;
+  public const PRIV_TRAINEE = 0x80;
+  public const PRIV_ORIGINAL = 0x100;
+  public const PRIV_PLUGIN = 0x200;
+  public const NUM_PRIVILEGES = 10;
 
-  const PRIV_NAMES = [
+  public const PRIV_NAMES = [
     self::PRIV_ADMIN => 'administrator',
     self::PRIV_VIEW_HIDDEN => 'definiții și surse ascunse',
     self::PRIV_EDIT => 'moderator',
@@ -28,15 +28,16 @@ class User extends BaseObject {
     self::PRIV_PLUGIN => 'testare pluginuri',
   ];
 
-  const PRIV_ANY = (1 << self::NUM_PRIVILEGES) - 1;
+  public const PRIV_ANY = (1 << self::NUM_PRIVILEGES) - 1;
 
-  private static $active = null; // user currently logged in
+  private static ?User $active = null; // user currently logged in
 
-  function __toString() {
-    return $this->nick;
+  public function __toString() {
+    return $this->nick ?? 'Anonymous';
   }
 
-  static function getStructurists($includeUserId = 0) {
+  public static function getStructurists($includeUserId = 0): array
+  {
     if (!$includeUserId) {
       $includeUserId = null; // prevent loading the Anonymous user (id = 0)
     }
@@ -47,7 +48,8 @@ class User extends BaseObject {
   }
 
   // If the user does not have at least one privilege from the mask, redirect to the home page.
-  static function mustHave($priv) {
+  public static function mustHave($priv): void
+  {
     if (!self::can($priv)) {
       FlashMessage::add('Nu aveți privilegii suficiente pentru a accesa această pagină.');
       Util::redirectToHome();
@@ -55,31 +57,34 @@ class User extends BaseObject {
   }
 
   // Check if the user has at least one privilege from the mask.
-  static function can($priv) {
+  public static function can($priv) {
     return self::$active
       ? (self::$active->moderator & $priv)
       : false;
   }
 
-  static function getActive() {
+  public static function getActive(): ?User
+  {
     return self::$active;
   }
 
-  static function getActiveId() {
+  public static function getActiveId() {
     return self::$active ? self::$active->id : 0;
   }
 
-  static function setActive($userId) {
+  public static function setActive($userId): void
+  {
     self::$active = User::get_by_id($userId);
   }
 
-  static function isTrainee() {
+  public static function isTrainee() {
     return self::can(self::PRIV_TRAINEE);
   }
 
   // Checks if the user can claim this email when registering or editing their profile.
   // Returns null on success or an error message on errors.
-  static function canChooseEmail($email) {
+  public static function canChooseEmail($email): ?string
+  {
     if (!$email) {
       return null; // it's optional
     }
@@ -96,7 +101,8 @@ class User extends BaseObject {
     return null;
   }
 
-  static function validateNewPassword($password, $password2, &$errors, $field) {
+  public static function validateNewPassword($password, $password2, &$errors, $field): void
+  {
     if (!$password) {
       $errors[$field][] = 'Parola nu poate fi vidă.';
     } else if (!$password2) {

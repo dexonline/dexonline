@@ -39,7 +39,7 @@ docker compose -f tools/docker/docker-compose.yml -f tools/docker/docker-compose
 docker compose -f tools/docker/docker-compose.yml -f tools/docker/docker-compose.ci.yml exec -T db bash -lc "set -e; \
   wget -qO /tmp/dex-database.sql.gz https://dexonline.ro/static/download/dex-database.sql.gz; \
   gzip -d -f /tmp/dex-database.sql.gz; \
-  pv /tmp/dex-database.sql | mysql -uroot -padmin dexonline"
+  pv /tmp/dex-database.sql | MYSQL_PWD=admin mysql -uroot dexonline"
 
 # Now build a deterministic test DB used by the Selenium suite.
 echo "Resetting test DB (dexonline_test)..."

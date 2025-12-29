@@ -27,6 +27,10 @@ jobs:
           chmod +x tools/docker/ci-init.sh tools/docker/run-side.sh
           tools/docker/ci-init.sh
 
+      - name: Debug Config.php (DB + test flags)
+        run: |
+          docker compose -f tools/docker/docker-compose.yml -f tools/docker/docker-compose.ci.yml exec -T app bash -lc "grep -n \"const DATABASE\|const TEST_DATABASE\|const TEST_MODE\|const DEVELOPMENT_MODE\|const URL_PREFIX\" Config.php || true"
+
       - name: Run Selenium IDE suite (.side)
         env:
           BASE_URL: http://localhost:8080/

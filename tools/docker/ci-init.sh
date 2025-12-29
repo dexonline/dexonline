@@ -7,41 +7,46 @@ until docker compose -f tools/docker/docker-compose.yml -f tools/docker/docker-c
   sleep 1
 done
 
-# Configure app (mirror tools/docker/run.sh, plus test DB settings)
+echo "Starting application setup..."
 docker compose -f tools/docker/docker-compose.yml -f tools/docker/docker-compose.ci.yml exec -T app bash tools/setup.sh
 
-# Make Config.php writable in container (it’s bind-mounted)
-docker compose -f tools/docker/docker-compose.yml -f tools/docker/docker-compose.ci.yml exec -T app bash -lc 'chmod 666 /var/www/html/Config.php || true'
+# Match tools/docker/run.sh behavior as closely as possible
 
-docker compose -f tools/docker/docker-compose.yml -f tools/docker/docker-compose.ci.yml exec -T app bash -lc "touch /var/log/dexonline.log && chmod 666 /var/log/dexonline.log"
+docker compose -f tools/docker/docker-compose.yml -f tools/docker/docker-compose.ci.yml exec -T app bash -c "chmod 666 /var/www/html/Config.php" || true
+docker compose -f tools/docker/docker-compose.yml -f tools/docker/docker-compose.ci.yml exec -T app bash -c "touch /var/log/dexonline.log"
+docker compose -f tools/docker/docker-compose.yml -f tools/docker/docker-compose.ci.yml exec -T app bash -c "chmod 666 /var/log/dexonline.log" || true
 
-# Point the app to the DB container and set URL prefix for Apache docroot
-# Also enable test/development modes and set TEST_DATABASE.
+# Set DB location + URL prefix (same quoting style as run.sh)
+docker compose -f tools/docker/docker-compose.yml -f tools/docker/docker-compose.ci.yml exec -T app bash -c "sed -i 's|const DATABASE = .*;|const DATABASE = '\''mysql://root:admin@db.localhost/dexonline'\'';|' Config.php"
+docker compose -f tools/docker/docker-compose.yml -f tools/docker/docker-compose.ci.yml exec -T app bash -c "sed -i 's|const URL_PREFIX = .*;|const URL_PREFIX = '\''/'\'';|' Config.php"
+
+# Extra CI-only config for test DB
+# Note: resetTestingDatabase.php uses both TEST_DATABASE (PDO) and mysqldump/mysql shell commands.
+docker compose -f tools/docker/docker-compose.yml -f tools/docker/docker-compose.ci.yml exec -T app bash -c "sed -i 's|const TEST_DATABASE = .*;|const TEST_DATABASE = '\''mysql://root:admin@db.localhost/dexonline_test'\'';|' Config.php"
+docker compose -f tools/docker/docker-compose.yml -f tools/docker/docker-compose.ci.yml exec -T app bash -c "sed -i 's|const TEST_MODE = .*;|const TEST_MODE = true;|' Config.php"
+docker compose -f tools/docker/docker-compose.yml -f tools/docker/docker-compose.ci.yml exec -T app bash -c "sed -i 's|const DEVELOPMENT_MODE = .*;|const DEVELOPMENT_MODE = true;|' Config.php"
+
+# Fail fast if the config didn't actually update (this is what causes 'using password: NO')
 docker compose -f tools/docker/docker-compose.yml -f tools/docker/docker-compose.ci.yml exec -T app bash -lc "\
-  sed -i \"s|const DATABASE = .*;|const DATABASE = 'mysql://root:admin@db.localhost/dexonline';|\" Config.php && \
-  sed -i \"s|const TEST_DATABASE = .*;|const TEST_DATABASE = 'mysql://root:admin@db.localhost/dexonline_test';|\" Config.php && \
-  sed -i \"s|const URL_PREFIX = .*;|const URL_PREFIX = '/';|\" Config.php && \
-  sed -i \"s|const TEST_MODE = .*;|const TEST_MODE = true;|\" Config.php && \
-  sed -i \"s|const DEVELOPMENT_MODE = .*;|const DEVELOPMENT_MODE = true;|\" Config.php\
-"
-
-# Create a minimal “production” DB schema and a deterministic test DB.
-# resetTestingDatabase.php copies schema from DATABASE -> TEST_DATABASE, so DATABASE must exist and have schema.
-# We create schema by applying patches/*.sql (best-effort) without downloading the huge prod dump.
+  grep -q \"const DATABASE = 'mysql://root:admin@db.localhost/dexonline';\" Config.php && \
+  grep -q \"const TEST_DATABASE = 'mysql://root:admin@db.localhost/dexonline_test';\" Config.php && \
+  grep -q \"const TEST_MODE = true;\" Config.php && \
+  grep -q \"const DEVELOPMENT_MODE = true;\" Config.php\
+" || {
+  echo "Config.php didn't get the expected CI settings. Dumping relevant lines:";
+  docker compose -f tools/docker/docker-compose.yml -f tools/docker/docker-compose.ci.yml exec -T app bash -lc "grep -n \"const DATABASE\|const TEST_DATABASE\|const TEST_MODE\|const DEVELOPMENT_MODE\|const URL_PREFIX\" Config.php || true";
+  exit 1;
+}
 
 echo "Initializing dexonline schema by importing dex-database.sql.gz (source of truth)..."
 
-# Create main DB
-
 docker compose -f tools/docker/docker-compose.yml -f tools/docker/docker-compose.ci.yml exec -T db mysql -uroot -padmin -e "CREATE DATABASE IF NOT EXISTS dexonline CHARACTER SET utf8mb4 COLLATE utf8mb4_romanian_ci;"
 
-# Import full schema+data (this can take a while)
 docker compose -f tools/docker/docker-compose.yml -f tools/docker/docker-compose.ci.yml exec -T db bash -lc "set -e; \
   wget -qO /tmp/dex-database.sql.gz https://dexonline.ro/static/download/dex-database.sql.gz; \
   gzip -d -f /tmp/dex-database.sql.gz; \
   pv /tmp/dex-database.sql | MYSQL_PWD=admin mysql -uroot dexonline"
 
-# Now build a deterministic test DB used by the Selenium suite.
 echo "Resetting test DB (dexonline_test)..."
 docker compose -f tools/docker/docker-compose.yml -f tools/docker/docker-compose.ci.yml exec -T app php tools/resetTestingDatabase.php
 

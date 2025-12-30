@@ -26,6 +26,38 @@ docker compose -f tools/docker/docker-compose.yml -f tools/docker/docker-compose
 docker compose -f tools/docker/docker-compose.yml -f tools/docker/docker-compose.ci.yml exec -T app bash -c "sed -i 's|const TEST_MODE = .*;|const TEST_MODE = true;|' Config.php"
 docker compose -f tools/docker/docker-compose.yml -f tools/docker/docker-compose.ci.yml exec -T app bash -c "sed -i 's|const DEVELOPMENT_MODE = .*;|const DEVELOPMENT_MODE = true;|' Config.php"
 
+# Provide MySQL CLI credentials for tools/resetTestingDatabase.php.
+# That script refuses to include passwords in CLI flags and requires ~/.my.cnf.
+# In CI containers, $HOME can differ (root vs www-data), so write it to $HOME plus common homes.
+# Also run a quick auth smoke test so we fail early (instead of "using password: NO").
+docker compose -f tools/docker/docker-compose.yml -f tools/docker/docker-compose.ci.yml exec -T app bash -lc '
+  set -euo pipefail
+
+  echo "app container user: $(id -u):$(id -g) ($(id -un))"
+  echo "HOME=$HOME"
+
+  write_mycnf() {
+    local home="$1"
+    mkdir -p "$home"
+    cat > "$home/.my.cnf" <<EOF
+[client]
+user=root
+password=admin
+host=db.localhost
+EOF
+    chmod 600 "$home/.my.cnf"
+  }
+
+  for home in "$HOME" /root /var/www /var/www/html; do
+    write_mycnf "$home"
+  done
+
+  echo "Wrote MySQL client config to: $HOME, /root, /var/www, /var/www/html"
+  echo "MySQL auth smoke test (should not require -p)..."
+  mysql -h db.localhost -u root -e "SELECT 1" >/dev/null
+  echo "MySQL auth OK via option file."
+'
+
 # Fail fast if the config didn't actually update (this is what causes 'using password: NO')
 docker compose -f tools/docker/docker-compose.yml -f tools/docker/docker-compose.ci.yml exec -T app bash -lc "\
   grep -q \"const DATABASE = 'mysql://root:admin@db.localhost/dexonline';\" Config.php && \

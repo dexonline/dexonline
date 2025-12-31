@@ -32,11 +32,6 @@ class Widget {
       'template' => 'woty.tpl',
       'enabled' => true,
     ],
-    self::WIDGET_RANDOM_WORD => [
-      'name' => 'Cuvânt aleatoriu',
-      'template' => 'randomWord.tpl',
-      'enabled' => true,
-    ],
     self::WIDGET_NEWSLETTER => [
       'name' => 'Newsletter',
       'template' => 'newsletter.tpl',
@@ -45,6 +40,11 @@ class Widget {
     self::WIDGET_GAMES => [
       'name' => 'Jocuri',
       'template' => 'games.tpl',
+      'enabled' => true,
+    ],
+    self::WIDGET_RANDOM_WORD => [
+      'name' => 'Cuvânt aleatoriu',
+      'template' => 'randomWord.tpl',
       'enabled' => true,
     ],
     self::WIDGET_AOTM => [

@@ -11,7 +11,8 @@ class Widget {
   const WIDGET_NEWSLETTER = 0x80;
   const WIDGET_PROVERB = 0x100;
   const WIDGET_PROMOTED = 0x200;
-  const WIDGET_COUNT = 10;
+  const WIDGET_WOTY = 0x400;
+  const WIDGET_COUNT = 11;
 
   // 'enabled' means "enabled by default". All widgets can later be enabled or disabled based on user prefs.
   // also this array determines the order of the widgets
@@ -24,6 +25,11 @@ class Widget {
     self::WIDGET_WOTM => [
       'name' => 'Cuvântul lunii',
       'template' => 'wotm.tpl',
+      'enabled' => true,
+    ],
+    self::WIDGET_WOTY => [
+      'name' => 'Cuvântul anulii',
+      'template' => 'woty.tpl',
       'enabled' => true,
     ],
     self::WIDGET_RANDOM_WORD => [
@@ -54,7 +60,7 @@ class Widget {
     self::WIDGET_SOCIAL => [
       'name' => 'Rețele sociale',
       'template' => 'social.tpl',
-      'enabled' => true,
+      'enabled' => false,
     ],
     self::WIDGET_EXPRESSION => [
       'name' => 'Expresii',

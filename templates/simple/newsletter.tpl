@@ -23,6 +23,9 @@
   <h3>Arhiva newsletterului</h3>
 
   <p class="ps-3">
+    <span class="fs-5">&#x2022; 3 ianuarie 2026 <a href="https://blog.dexonline.ro/?mailpoet_router&endpoint=view_in_browser&action=view&data=WzU5LCI2YjM2OWQ3YjI4ZTQiLDQsIjNlYjljZCIsMjk5OSwxXQ">
+      jurnal de dicționar / ianuarie 26</a></span> <span class="fs-6">(comunism, Ceaușescu, sovrom, acrostih, Beatles, Valentin Tănase, manuale, osanale)</span>
+    <br/>
     <span class="fs-5">&#x2022; 3 decembrie 2025 <a href="https://blog.dexonline.ro/?mailpoet_router&endpoint=view_in_browser&action=view&data=WzU4LCIxYzBiMmQyMmIxOWIiLDQsIjNlYjljZCIsMjk3MywxXQ">
       jurnal de dicționar / decembrie 25</a></span> <span class="fs-6">(șaraiman, sursă, motorină, fludor, renumit, circumvenție, laoparte, ciurigău, artificii)</span>
     <br/>

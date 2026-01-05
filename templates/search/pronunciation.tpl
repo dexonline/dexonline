@@ -22,7 +22,7 @@
   const segments = {$pronunciations|@json_encode};
   {literal}
   let dexRoot = 'https://dexonline.ro';
-  for (idx in segments) {segments[idx].subs = dexRoot + '/subs/' + segments[idx].id + '.ro.srt'}
+  for (idx in segments) {segments[idx].subs = dexRoot + '/static/sub/' + segments[idx].id + '.ro.srt'}
   {/literal}
 
   let player;

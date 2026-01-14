@@ -13,13 +13,6 @@
 
     <li>100 de lei donați - în plus, pagini fără reclame timp de un an;</li>
 
-    <li>100 de lei donați - în plus, trei autocolante cu <i>dexonline</i>;</li>
-
-    <li>150 de lei donați - o insignă cu <i>dexonline</i>;</li>
-
-    <li>250 de lei donați - un tricou cu <i>dexonline</i>;</li>
-
-    <li>350 de lei donați - un tricou și o insignă cu <i>dexonline</i>;</li>
   </ul>
 
 </div>

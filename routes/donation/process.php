@@ -57,10 +57,13 @@ class Donor {
   }
 
   function needsMaterialReward() {
+    return false;
+    /* no material reward for now
     return
       $this->needsReward(self::RANGE_STICKER) ||
       $this->needsReward(self::RANGE_LAPEL_PIN) ||
       $this->needsReward(self::RANGE_TEE);
+    */
   }
 
   function needsEmail() {

@@ -182,6 +182,11 @@ $links = [
     'privilege' => User::PRIV_ADMIN,
   ],
   [
+    'url' => Router::link('definition/ocrInfo'),
+    'text' => 'Informații despre OCR',
+    'privilege' => User::PRIV_ADMIN,
+  ],
+  [
     'url' => Router::link('definition/contribTotals'),
     'text' => 'contorizare contribuții',
     'privilege' => User::PRIV_ADMIN,

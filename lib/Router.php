@@ -131,6 +131,11 @@ class Router {
     ],
     'definition/ocrUpload' => [
       'en_US.utf8' => 'upload-ocr-definitions',
+      'ro_RO.utf8' => 'incarcare-definitii-ocr',
+    ],
+    'definition/ocrInfo' => [
+      'en_US.utf8' => 'ocr-info',
+      'ro_RO.utf8' => 'informatii-ocr',
     ],
     'definition/rangeSearch' => [
       'en_US.utf8' => 'words',

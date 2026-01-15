@@ -1,7 +1,4 @@
 {if count($sourceTypes) > 1 && count($results) > 10}
-  <span class="ms-5">
-    {t}of which{/t}
-  </span>
   <ul class="d-inline list-inline ms-2">
     {foreach $sourceTypes as $st}
       <li class="list-inline-item">

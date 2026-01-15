@@ -64,6 +64,7 @@
   </ul>
 
   <div class="tab-content">
+    {* 20260115: temporary change all h3 from this template to h5 *}
 
     {* results tab *}
     <div
@@ -73,7 +74,7 @@
 
       {* definition ID search *}
       {if $searchType == $smarty.const.SEARCH_DEF_ID}
-        <h3>{t}Definition with ID{/t} {$results|array_keys|implode}:</h3>
+        <h5>{t}Definition with ID{/t} {$results|array_keys|implode}:</h5>
 
         {include "search/definitionList.tpl"}
 
@@ -82,7 +83,7 @@
         {if isset($extra.fullTextLock)}
           {include "search/fullTextLock.tpl"}
         {else}
-          <h3>
+          <h5>
             {if count($results)}
               {t
                 count=$extra.numDefinitionsFullText
@@ -95,7 +96,7 @@
             {else}
               {t}No definitions contain all the words{/t}
             {/if}
-          </h3>
+          </h5>
 
           {if !empty($extra.stopWords)}
             <p class="text-warning">
@@ -113,10 +114,10 @@
       {elseif $searchType == $smarty.const.SEARCH_ENTRY_ID}
 
         {if !count($entries)}
-          <h3>{t}There is no entry with the given ID.{/t}</h3>
+          <h5>{t}There is no entry with the given ID.{/t}</h5>
         {else}
 
-          <h3>
+          <h5>
             {capture "entryText"}
               {include "bits/entry.tpl" entry=$entries[0] tagList=true}
             {/capture}
@@ -131,7 +132,7 @@
             {else}
               {t 1=$smarty.capture.entryText}No definitions for %1{/t}
             {/if}
-          </h3>
+          </h5>
 
           {include "search/sourceTypes.tpl"}
           {include "search/missingDefinitionWarnings.tpl"}
@@ -144,7 +145,7 @@
         {t}for{/t} <strong>{$cuv}</strong>
         {/capture}
 
-        <h3>
+        <h5>
           {if count($lexemes)}
             {t
               count=$extra.numLexemes
@@ -159,7 +160,7 @@
           {if $extra.numLexemes > count($lexemes)}
             {t 1=count($lexemes)}(at most %1 shown){/t}
           {/if}
-        </h3>
+        </h5>
 
         {if !count($lexemes) && $sourceId}
           {include "search/extendToAllSources.tpl"}
@@ -171,11 +172,11 @@
       {elseif $searchType == $smarty.const.SEARCH_INFLECTED}
 
         {if count($entries) > 1}
-          <h3>
+          <h5>
             {* this is always plural, but still needs to be localized *}
             {t count=count($entries) 1=count($entries) plural="%1 entries"}
             One entry{/t}
-          </h3>
+          </h5>
 
           {include "search/entryToc.tpl"}
         {else}
@@ -183,7 +184,7 @@
           {include "bits/entry.tpl" entry=$entries[0] tagList=true}
           {/capture}
 
-          <h3>
+          <h5>
             {if count($results)}
               {t
                 count=count($results)
@@ -194,7 +195,7 @@
             {else}
               {t 1=$smarty.capture.entryText}No definitions for %1{/t}
             {/if}
-          </h3>
+          </h5>
           {include "search/sourceTypes.tpl"}
 
           {if !count($results) && count($entries) && $sourceId}
@@ -202,15 +203,15 @@
           {/if}
         {/if}
 
-        {* another <h3> for the definition list, if needed *}
+        {* another <h5> for the definition list, if needed *}
         {if (count($entries) > 1) && count($results)}
-          <h3>
+          <h5>
             {t
               count=count($results)
               1=count($results)
               plural="%1 definitions"}
             One definition{/t}
-          </h3>
+          </h5>
           {include "search/sourceTypes.tpl"}
         {/if}
 
@@ -220,7 +221,7 @@
 
         {* multiword search *}
       {elseif $searchType == $smarty.const.SEARCH_MULTIWORD}
-        <h3>
+        <h5>
           {if count($results)}
             {t
               count=count($results)
@@ -230,7 +231,7 @@
           {else}
             {t}No definitions match at least two words{/t}
           {/if}
-        </h3>
+        </h5>
 
         <p class="text-warning">
           {t}If the results are inadequate, you can look up individual words or you can search{/t}
@@ -251,14 +252,14 @@
         {* approximate search *}
       {elseif $searchType == $smarty.const.SEARCH_APPROXIMATE}
         {if count($entries)}
-          <h3>
+          <h5>
             {t escape="0" 1=$cuv}The word <strong>%1</strong> is not in the dictionary.
             Here are some suggestions:{/t}
-          </h3>
+          </h5>
 
           {include "search/entryList.tpl"}
         {else}
-          <h3>{t escape="no" 1=$cuv}No results for <strong>%1</strong>{/t}</h3>
+          <h5>{t escape="no" 1=$cuv}No results for <strong>%1</strong>{/t}</h5>
         {/if}
 
       {/if}

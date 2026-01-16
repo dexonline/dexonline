@@ -1,15 +1,16 @@
 {extends "layout.tpl"}
 
-{block "title"}{cap}{t}favorite words{/t}{/cap}{/block}
+{block "title"}{cap}{t}favorite words{/t}{/cap} ({$results|count}){/block}
 
 {block "content"}
   <h3>
-    {cap}{t}favorite words{/t}{/cap}
+    {cap}{t}favorite words{/t}{/cap} ({$results|count}/{Config::LIMIT_BOOKMARKS})
   </h3>
 
   <dl data-none-text="{t}You have no favorite words.{/t}">
-    {foreach $results as $i => $row}
+    {foreach $results as $row}
       <dd>
+				<strong>{$row@iteration}.</strong>
         {include "bits/definition.tpl"
           readMore=true
           showRemoveBookmark=1

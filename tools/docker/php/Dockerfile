@@ -1,7 +1,7 @@
 FROM php:7.4-apache
 
 RUN apt-get update \
-  && apt-get install -y --no-install-recommends libicu-dev unzip git gettext locales \
+  && apt-get install -y --no-install-recommends libicu-dev unzip git gettext locales default-mysql-client \
   && sed -i 's/^# *\(en_US\.UTF-8\)/\1/' /etc/locale.gen \
   && sed -i 's/^# *\(ro_RO\.UTF-8\)/\1/' /etc/locale.gen \
   && locale-gen \

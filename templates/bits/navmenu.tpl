@@ -70,15 +70,15 @@
 
           <ul class="dropdown-menu">
             <li>
+              <a href="{Router::link('user/top')}" class="dropdown-item">
+                {cap}{t}volunteer ranking{/t}{/cap}
+              </a>
+            </li>
+            <li>
               <a
                 href="https://wiki.dexonline.ro/wiki/Cum_pute%C8%9Bi_ajuta"
                 class="dropdown-item">
                 {cap}{t}ways to help{/t}{/cap}
-              </a>
-            </li>
-            <li>
-              <a href="{Router::link('user/top')}" class="dropdown-item">
-                {cap}{t}volunteer ranking{/t}{/cap}
               </a>
             </li>
           </ul>

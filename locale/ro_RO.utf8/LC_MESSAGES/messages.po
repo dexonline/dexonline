@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2025-02-11 03:09+0200\n"
-"PO-Revision-Date: 2026-01-14 19:31+0200\n"
+"PO-Revision-Date: 2026-02-07 17:21+0200\n"
 "Last-Translator: Radu Borza <radu@dexonline.ro>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -139,11 +139,11 @@ msgstr "blog"
 
 #: templates/bits/navmenu.tpl:68
 msgid "get involved"
-msgstr "implică-te"
+msgstr "voluntari"
 
 #: templates/bits/navmenu.tpl:76
 msgid "ways to help"
-msgstr "cum poți ajuta"
+msgstr "cum poți contribui"
 
 #: templates/bits/navmenu.tpl:81
 msgid "volunteer ranking"

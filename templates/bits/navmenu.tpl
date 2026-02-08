@@ -147,8 +147,19 @@
                 {cap}{t}external links{/t}{/cap}
               </a>
             </li>
+
           </ul>
 
+        </li>
+
+        <li class="nav-item">
+
+          <a
+            class="btn btn-warning ms-auto order-3"
+            href="{Router::link('donation/donate')}">
+            {include "bits/icon.tpl" i=savings}
+            {cap}{t}donate{/t}{/cap}
+          </a>
         </li>
       </ul>
 
@@ -312,13 +323,14 @@
       </ul>
 
     </div>
-
+    {* mutăm temporar butonul în meniu
     <a
       class="btn btn-warning ms-auto order-3"
       href="{Router::link('donation/donate')}">
       {include "bits/icon.tpl" i=credit_card}
       {cap}{t}donate{/t}{/cap}
     </a>
+    *}
 
     <button
       class="navbar-toggler order-4"

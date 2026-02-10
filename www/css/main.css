@@ -162,6 +162,11 @@ html.dark .dark-mode-toggle {
   display: none;
 }
 
+/* override navbar-toggler transparent background */
+.emphasize {
+  background-color: #ffc107 !important;
+}
+
 /**************************** material icons ****************************/
 
 .material-icons {

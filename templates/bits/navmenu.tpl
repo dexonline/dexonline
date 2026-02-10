@@ -323,14 +323,12 @@
       </ul>
 
     </div>
-    {* mutăm temporar butonul în meniu
     <a
-      class="btn btn-warning ms-auto order-3"
+      class="navbar-toggler btn btn-warning ms-auto order-3 emphasize"
       href="{Router::link('donation/donate')}">
-      {include "bits/icon.tpl" i=credit_card}
+      {include "bits/icon.tpl" i=savings}
       {cap}{t}donate{/t}{/cap}
     </a>
-    *}
 
     <button
       class="navbar-toggler order-4"

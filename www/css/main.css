@@ -165,6 +165,19 @@ html.dark .dark-mode-toggle {
 /* override navbar-toggler transparent background */
 .emphasize {
   background-color: #ffc107 !important;
+  font-size: .875rem !important;
+}
+
+html.dark .emphasize {
+  color: #121212 !important;
+  background-color: #ffd54f !important;
+  border-color: #ffd54f !important;
+  font-size: .875rem !important;
+}
+
+html.dark .emphasize:hover {
+  background-color: #ffc107 !important;
+  border-color: #ffc107 !important;
 }
 
 /**************************** material icons ****************************/

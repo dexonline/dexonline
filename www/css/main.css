@@ -168,6 +168,10 @@ html.dark .dark-mode-toggle {
   font-size: .875rem !important;
 }
 
+.emphasize:hover{
+  background-color: #ffd54f !important;
+}
+
 html.dark .emphasize {
   color: #121212 !important;
   background-color: #ffd54f !important;

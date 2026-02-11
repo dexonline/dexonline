@@ -24,7 +24,7 @@
 
   <p class="ps-3">
      <span class="fs-5">&#x2022; 3 februarie 2026 <a href="https://blog.dexonline.ro/?mailpoet_router&endpoint=view_in_browser&action=view&data=WzYwLCI1OWI3MTFlYmMxM2EiLDQsIjNlYjljZCIsMzA5MSwxXQ">
-      jurnal de dicționar / februarie 26</a></span> <span class="fs-6">(mitologie amoroasă, obscenități, pudibonderie, ⚠️ cuvinte licențioase)</span>
+      jurnal de dicționar / februarie 26</a></span> <span class="fs-6">(mitologie amoroasă, obscenități, pudibonderie, ⚠️ atenție! cuvinte licențioase)</span>
     <br/>
     <span class="fs-5">&#x2022; 3 ianuarie 2026 <a href="https://blog.dexonline.ro/?mailpoet_router&endpoint=view_in_browser&action=view&data=WzU5LCI2YjM2OWQ3YjI4ZTQiLDQsIjNlYjljZCIsMjk5OSwxXQ">
       jurnal de dicționar / ianuarie 26</a></span> <span class="fs-6">(comunism, Ceaușescu, sovrom, acrostih, Beatles, Valentin Tănase, manuale, osanale)</span>

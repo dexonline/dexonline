@@ -1,0 +1,189 @@
+name: Selenium tests
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: ["**"]
+
+jobs:
+  selenium-tests:
+    runs-on: ubuntu-latest
+
+    services:
+      db:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: ci_root
+          MYSQL_DATABASE: dexonline
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd "mysqladmin ping -u root -pci_root"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
+      selenium:
+        image: selenium/standalone-chrome:latest
+        ports:
+          - 4444:4444
+        options: >-
+          --health-cmd "curl -sf http://localhost:4444/wd/hub/status"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
+    steps:
+      # -----------------------------------------------------------------
+      # 1. Checkout
+      # -----------------------------------------------------------------
+      - uses: actions/checkout@v4
+
+      # -----------------------------------------------------------------
+      # 2. PHP + extensions (mirrors tools/ci/Dockerfile)
+      # -----------------------------------------------------------------
+      - name: Set up PHP 7.4
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "7.4"
+          extensions: gettext, mysqli, pdo_mysql, intl
+
+      # -----------------------------------------------------------------
+      # 3. Node (for selenium-side-runner)
+      # -----------------------------------------------------------------
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+
+      # -----------------------------------------------------------------
+      # 4. Romanian locale (required by the application)
+      # -----------------------------------------------------------------
+      - name: Enable Romanian locale
+        run: |
+          sudo locale-gen ro_RO.UTF-8
+          sudo update-locale LANG=ro_RO.UTF-8 LC_ALL=ro_RO.UTF-8
+
+      # -----------------------------------------------------------------
+      # 5. Set Romanian collation on the MySQL service database
+      # -----------------------------------------------------------------
+      - name: Set database collation
+        run: |
+          mysql -h 127.0.0.1 -u root -pci_root \
+            -e "ALTER DATABASE dexonline CHARACTER SET utf8mb4 COLLATE utf8mb4_romanian_ci;"
+
+      # -----------------------------------------------------------------
+      # 6. Import committed schema into the main DB
+      #    (tools/ci/schema.sql — generate with tools/ci/generate-schema.sh)
+      # -----------------------------------------------------------------
+      - name: Import schema
+        run: |
+          mysql -h 127.0.0.1 -u root -pci_root dexonline < tools/ci/schema.sql
+
+      # -----------------------------------------------------------------
+      # 7. Configure the application
+      # -----------------------------------------------------------------
+      - name: Configure application
+        run: |
+          cp Config.php.sample Config.php
+          cp www/.htaccess.sample www/.htaccess
+          sed -i \
+            -e "s|const DATABASE = .*;|const DATABASE = 'mysql://root:ci_root@127.0.0.1/dexonline';|" \
+            -e "s|const TEST_DATABASE = .*;|const TEST_DATABASE = 'mysql://root:ci_root@127.0.0.1/dexonline_test';|" \
+            -e "s|const URL_HOST = .*;|const URL_HOST = 'http://localhost';|" \
+            -e "s|const URL_PREFIX = .*;|const URL_PREFIX = '/dexonline/www/';|" \
+            -e "s|const DEVELOPMENT_MODE = .*;|const DEVELOPMENT_MODE = true;|" \
+            -e "s|const TEST_MODE = .*;|const TEST_MODE = true;|" \
+            Config.php
+
+      # -----------------------------------------------------------------
+      # 8. File permissions expected by the application
+      # -----------------------------------------------------------------
+      - name: Set permissions
+        run: |
+          chmod 777 templates_c www/css/merged www/js/merged www/img/generated
+          sudo touch /var/log/dexonline.log
+          sudo chmod 666 /var/log/dexonline.log
+
+      # -----------------------------------------------------------------
+      # 9. Compile Levenshtein binary (required for approximate search)
+      # -----------------------------------------------------------------
+      - name: Compile Levenshtein
+        run: gcc -O2 -Wall -o lib/c/levenshtein lib/c/levenshtein.c
+
+      # -----------------------------------------------------------------
+      # 10. Configure and start Apache
+      #     The test suite base URL is hardcoded as:
+      #       http://localhost/dexonline/www/
+      #     so we serve the repo's www/ under that path via an Alias.
+      # -----------------------------------------------------------------
+      - name: Configure Apache
+        env:
+          WORKSPACE: ${{ github.workspace }}
+        run: |
+          sudo apt-get install -y libapache2-mod-php7.4
+          sudo a2enmod rewrite php7.4
+          # Substitute the workspace path into the vhost template and install it.
+          # The <Directory> directive needs the real path, not the /dexonline/www alias.
+          sed "s|/var/www/html|${WORKSPACE}|g" tools/ci/php/apache.conf \
+            | sudo tee /etc/apache2/sites-available/000-default.conf > /dev/null
+          sudo apache2ctl configtest
+          sudo apache2ctl start
+
+      - name: Wait for Apache
+        run: |
+          until curl -sf http://localhost/dexonline/www/ > /dev/null 2>&1; do sleep 1; done
+          echo "Apache is up."
+
+      # -----------------------------------------------------------------
+      # 11. Seed the test database
+      # -----------------------------------------------------------------
+      - name: Seed test database
+        run: php tools/resetTestingDatabase.php
+
+      # -----------------------------------------------------------------
+      # 12. Install selenium-side-runner
+      # -----------------------------------------------------------------
+      - name: Install selenium-side-runner
+        run: npm install -g selenium-side-runner@3
+
+      # -----------------------------------------------------------------
+      # 13. Run the Selenium test suite
+      #     No parallelism — tests are stateful and must run in order.
+      # -----------------------------------------------------------------
+      - name: Run Selenium tests
+        run: |
+          selenium-side-runner \
+            --server "http://localhost:4444/wd/hub" \
+            --base-url "http://localhost/dexonline/www/" \
+            --timeout 30000 \
+            --output-directory test/reports \
+            test/dexonline-test-suite.side
+
+      # -----------------------------------------------------------------
+      # 14. Upload reports and logs (always, so failures are debuggable)
+      # -----------------------------------------------------------------
+      - name: Upload test reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: selenium-reports
+          path: test/reports/
+          retention-days: 7
+
+      - name: Upload Apache error log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: apache-error-log
+          path: /var/log/dex-error.log
+          retention-days: 7
+
+      - name: Upload application log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-log
+          path: /var/log/dexonline.log
+          retention-days: 7

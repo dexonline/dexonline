@@ -1,0 +1,35 @@
+services:
+
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: ci_root
+      MYSQL_DATABASE: dexonline
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-u", "root", "-pci_root"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  selenium:
+    image: selenium/standalone-chrome:latest
+    shm_size: "2g"
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://localhost:4444/wd/hub/status"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build: php
+    # Mount the repo root so Apache serves the live source tree,
+    # exactly as the GitHub Actions runner does with its workspace.
+    volumes:
+      - ../../.:/var/www/html
+    depends_on:
+      db:
+        condition: service_healthy
+      selenium:
+        condition: service_healthy
+    # Keep the container running so run.sh can exec commands into it.
+    command: apache2-foreground

@@ -48,6 +48,10 @@ jobs:
         with:
           php-version: "7.4"
           extensions: gettext, mysqli, pdo_mysql, intl
+          coverage: none
+        env:
+          # Install php-fpm alongside the CLI so we can proxy Apache to it.
+          phpts: fpm
 
       # -----------------------------------------------------------------
       # 3. Node (for selenium-side-runner)
@@ -122,29 +126,49 @@ jobs:
         env:
           WORKSPACE: ${{ github.workspace }}
         run: |
-          # Install Apache (php7.4-fpm is already installed by setup-php above).
+          # Install Apache (php7.4-fpm is already provided by setup-php above).
           sudo apt-get install -y apache2
+
           # Enable modules needed for PHP-FPM proxying.
           sudo a2enmod rewrite proxy_fcgi setenvif
+
           # Start php-fpm so its socket exists before Apache starts.
           sudo service php7.4-fpm start
-          # Substitute the workspace path into the vhost template and install it.
-          # The <Directory> directive needs the real path, not the /dexonline/www alias.
+
+          # Build the vhost: substitute workspace path, strip the closing tag,
+          # append the FPM handler, then re-close the block.
           VHOST=/etc/apache2/sites-available/000-default.conf
-          sed "s|/var/www/html|${WORKSPACE}|g" tools/ci/php/apache.conf \
-            | grep -v '</VirtualHost>' \
-            | sudo tee "$VHOST" > /dev/null
-          # Append PHP-FPM handler and close the VirtualHost block.
-          # This is GitHub Actions-specific; the Docker image uses mod_php instead.
-          printf '    <FilesMatch "\\.php$">\n        SetHandler "proxy:unix:/run/php/php7.4-fpm.sock|fcgi://localhost"\n    </FilesMatch>\n</VirtualHost>\n' \
-            | sudo tee -a "$VHOST" > /dev/null
+          {
+            sed "s|/var/www/html|${WORKSPACE}|g" tools/ci/php/apache.conf \
+              | grep -v '</VirtualHost>'
+            printf '    <FilesMatch "\\.php$">\n'
+            printf '        SetHandler "proxy:unix:/run/php/php7.4-fpm.sock|fcgi://localhost"\n'
+            printf '    </FilesMatch>\n'
+            printf '</VirtualHost>\n'
+          } | sudo tee "$VHOST" > /dev/null
+
           sudo apache2ctl configtest
-          sudo apache2ctl start
+          sudo service apache2 start
 
       - name: Wait for Apache
         run: |
-          until curl -sf http://localhost/dexonline/www/ > /dev/null 2>&1; do sleep 1; done
-          echo "Apache is up."
+          for i in $(seq 1 30); do
+            if curl -s -o /dev/null -w "%{http_code}" http://localhost/ | grep -qE '^[0-9]'; then
+              echo "Apache is up."
+              exit 0
+            fi
+            echo "Waiting for Apache... ($i)"
+            sleep 1
+          done
+          echo "--- Apache status ---"
+          sudo service apache2 status || true
+          echo "--- php-fpm status ---"
+          sudo service php7.4-fpm status || true
+          echo "--- /etc/apache2/sites-available/000-default.conf ---"
+          cat /etc/apache2/sites-available/000-default.conf
+          echo "--- Apache error log ---"
+          sudo tail -30 /var/log/apache2/error.log || true
+          exit 1
 
       # -----------------------------------------------------------------
       # 11. Seed the test database

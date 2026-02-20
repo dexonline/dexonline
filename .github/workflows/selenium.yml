@@ -122,12 +122,22 @@ jobs:
         env:
           WORKSPACE: ${{ github.workspace }}
         run: |
-          sudo apt-get install -y libapache2-mod-php7.4
-          sudo a2enmod rewrite php7.4
+          # Install Apache (php7.4-fpm is already installed by setup-php above).
+          sudo apt-get install -y apache2
+          # Enable modules needed for PHP-FPM proxying.
+          sudo a2enmod rewrite proxy_fcgi setenvif
+          # Start php-fpm so its socket exists before Apache starts.
+          sudo service php7.4-fpm start
           # Substitute the workspace path into the vhost template and install it.
           # The <Directory> directive needs the real path, not the /dexonline/www alias.
+          VHOST=/etc/apache2/sites-available/000-default.conf
           sed "s|/var/www/html|${WORKSPACE}|g" tools/ci/php/apache.conf \
-            | sudo tee /etc/apache2/sites-available/000-default.conf > /dev/null
+            | grep -v '</VirtualHost>' \
+            | sudo tee "$VHOST" > /dev/null
+          # Append PHP-FPM handler and close the VirtualHost block.
+          # This is GitHub Actions-specific; the Docker image uses mod_php instead.
+          printf '    <FilesMatch "\\.php$">\n        SetHandler "proxy:unix:/run/php/php7.4-fpm.sock|fcgi://localhost"\n    </FilesMatch>\n</VirtualHost>\n' \
+            | sudo tee -a "$VHOST" > /dev/null
           sudo apache2ctl configtest
           sudo apache2ctl start
 

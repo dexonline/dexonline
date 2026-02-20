@@ -1,0 +1,13 @@
+actor: WebHelper
+modules:
+    enabled:
+        - WebDriver:
+            url: http://localhost
+            browser: chrome
+            window_size: 1920x1080
+            capabilities:
+                chromeOptions:
+                    args: ["--headless", "--no-sandbox", "--disable-dev-shm-usage", "--disable-gpu", "--window-size=1920,1080"]
+        - Asserts
+        - \Tests\System\_helpers\WebHelper
+    step_decorators: ~

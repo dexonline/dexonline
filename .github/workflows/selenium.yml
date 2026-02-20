@@ -83,6 +83,8 @@ jobs:
         run: |
           cp Config.php.sample Config.php
           cp www/.htaccess.sample www/.htaccess
+          # Enable RewriteBase so mod_rewrite works correctly under the Alias path.
+          sed -i 's|# RewriteBase /~username/dexonline/www/|RewriteBase /dexonline/www/|' www/.htaccess
           sed -i \
             -e "s|const DATABASE = .*;|const DATABASE = 'mysql://root:ci_root@127.0.0.1/dexonline';|" \
             -e "s|const TEST_DATABASE = .*;|const TEST_DATABASE = 'mysql://root:ci_root@127.0.0.1/dexonline_test';|" \

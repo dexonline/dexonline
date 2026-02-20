@@ -173,6 +173,11 @@ jobs:
       # -----------------------------------------------------------------
       # 11. Seed the test database
       # -----------------------------------------------------------------
+      - name: Write MySQL credentials file
+        run: |
+          printf '[client]\nuser=root\npassword=ci_root\nhost=127.0.0.1\n' > ~/.my.cnf
+          chmod 600 ~/.my.cnf
+
       - name: Seed test database
         run: php tools/resetTestingDatabase.php
 

@@ -24,16 +24,6 @@ jobs:
           --health-timeout 5s
           --health-retries 10
 
-      selenium:
-        image: selenium/standalone-chrome:latest
-        ports:
-          - 4444:4444
-        options: >-
-          --health-cmd "curl -sf http://localhost:4444/wd/hub/status"
-          --health-interval 5s
-          --health-timeout 5s
-          --health-retries 10
-
     steps:
       # -----------------------------------------------------------------
       # 1. Checkout
@@ -188,7 +178,28 @@ jobs:
         run: npm install -g selenium-side-runner@3
 
       # -----------------------------------------------------------------
-      # 13. Run the Selenium test suite
+      # 13. Start Selenium standalone Chrome on the host network so that
+      #     the browser can reach Apache at http://localhost/
+      # -----------------------------------------------------------------
+      - name: Start Selenium standalone Chrome
+        run: |
+          docker run -d \
+            --network host \
+            --shm-size=2g \
+            --name selenium \
+            selenium/standalone-chrome:latest
+          # Wait until the hub is ready.
+          for i in $(seq 1 30); do
+            if curl -sf http://localhost:4444/wd/hub/status > /dev/null 2>&1; then
+              echo "Selenium is up."
+              break
+            fi
+            echo "Waiting for Selenium... ($i)"
+            sleep 1
+          done
+
+      # -----------------------------------------------------------------
+      # 14. Run the Selenium test suite
       #     No parallelism — tests are stateful and must run in order.
       # -----------------------------------------------------------------
       - name: Run Selenium tests

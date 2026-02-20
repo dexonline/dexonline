@@ -1,5 +1,6 @@
 {
   "id": "335079ed-3579-4207-8cfc-68ab2509c3f3",
+  "version": "2.0",
   "name": "dexonline-test-suite",
   "url": "http://localhost/dexonline/www/",
   "tests": [{

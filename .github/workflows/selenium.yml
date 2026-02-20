@@ -9,6 +9,7 @@ on:
 jobs:
   selenium-tests:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
 
     services:
       db:
@@ -197,17 +198,24 @@ jobs:
             echo "Waiting for Selenium... ($i)"
             sleep 1
           done
+          curl -sf http://localhost:4444/wd/hub/status | python3 -m json.tool || true
 
       # -----------------------------------------------------------------
       # 14. Run the Selenium test suite
       #     No parallelism — tests are stateful and must run in order.
       # -----------------------------------------------------------------
       - name: Run Selenium tests
+        timeout-minutes: 20
+        env:
+          COMPOSER_PROCESS_TIMEOUT: 0
+          COMPOSER_NO_INTERACTION: 1
+          COMPOSER_NO_AUDIT: 1
         run: |
           selenium-side-runner \
             --server "http://localhost:4444/wd/hub" \
             --base-url "http://localhost/dexonline/www/" \
             --timeout 30000 \
+            --jest-timeout 60000 \
             --output-directory test/reports \
             test/dexonline-test-suite.side
 
@@ -221,6 +229,10 @@ jobs:
           name: selenium-reports
           path: test/reports/
           retention-days: 7
+
+      - name: Dump Selenium container logs
+        if: always()
+        run: docker logs selenium 2>&1 || true
 
       - name: Upload Apache error log
         if: always()

@@ -5,6 +5,36 @@
 {block "content"}
   <h3>Pagina moderatorului</h3>
 
+  {if User::can(User::PRIV_PLUGIN)}
+    <div class="card quickNav mb-3">
+      <div class="card-header">
+        Topurile curente
+      </div>
+      <div class="top-card">
+        <div class="top-card-item" onclick="openPopup(this.querySelector('img').src)" >
+          <div>
+            <img src="https://dexonline.ro/static/img/top/curent/top-curent.png" width=300 height=300 alt="topul curent" class="widget-icon">
+            <h6>Topul curent</h6>
+          </div>
+        </div>
+
+        <div class="top-card-item" onclick="openPopup(this.querySelector('img').src)" >
+          <div>
+            <img src="https://dexonline.ro/static/img/top/curent/ultima1h.png" width=300 height=300 alt="topul curent" class="widget-icon">
+            <h6>Topul ultimei ore</h6>
+          </div>
+        </div>
+
+        <div class="top-card-item" onclick="openPopup(this.querySelector('img').src)" >
+          <div>
+            <img src="https://dexonline.ro/static/img/top/curent/ultimele10min.png" width=300 height=300 alt="topul curent" class="widget-icon">
+            <h6>Topul ultimelor 10 minute</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+  {/if}
+
   {if User::can($reportPriv)}
     <div class="card mb-3">
       <div class="card-header d-flex justify-content-between align-items-center">

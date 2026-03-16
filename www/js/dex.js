@@ -681,6 +681,60 @@ function genereazaDiscurs(mat){
   return text;
 }
 
+/**
+ *
+ */
+function openPopup(src) {
+  // blochează scroll-ul paginii
+  document.body.style.overflow = 'hidden';
+
+  const popup = document.createElement('div');
+  popup.id = 'popup';
+
+  const img = document.createElement('img');
+  img.src = src;
+
+  // stiluri overlay
+  Object.assign(popup.style, {
+    position: 'fixed',
+    inset: '0',
+    background: 'rgba(0,0,0,0.8)',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 10000
+  });
+
+  Object.assign(img.style, {
+    maxWidth: '80%',
+    maxHeight: '80%'
+  });
+
+  // blochează click-ul în spate
+  popup.addEventListener('click', e => {
+    if (e.target === popup) closePopup();
+  });
+
+  // închidere cu ESC
+  const escHandler = e => {
+    if (e.key === 'Escape') closePopup();
+  };
+  document.addEventListener('keydown', escHandler);
+
+  function closePopup() {
+    document.body.style.overflow = '';
+    document.removeEventListener('keydown', escHandler);
+    popup.remove();
+  }
+
+  popup.appendChild(img);
+  document.body.appendChild(popup);
+
+  // focus capturat în modală
+  popup.tabIndex = -1;
+  popup.focus();
+}
+
 /*** START call for poll ***/
 function pollModalCreate() {
   sessionStorage.setItem('pollModal', 1);

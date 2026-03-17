@@ -13,21 +13,21 @@
       <div class="top-card">
         <div class="top-card-item" onclick="openPopup(this.querySelector('img').src)" >
           <div>
-            <img src="https://dexonline.ro/static/img/top/curent/top-curent.png" width=300 height=300 alt="topul curent" class="widget-icon">
+            <img src="https://dexonline.ro/static/img/top/curent/top-curent.png" width=200 height=200 alt="topul curent" class="widget-icon">
             <h6>Topul curent</h6>
           </div>
         </div>
 
         <div class="top-card-item" onclick="openPopup(this.querySelector('img').src)" >
           <div>
-            <img src="https://dexonline.ro/static/img/top/curent/ultima1h.png" width=300 height=300 alt="topul curent" class="widget-icon">
+            <img src="https://dexonline.ro/static/img/top/curent/ultima1h.png" width=200 height=200 alt="topul curent" class="widget-icon">
             <h6>Topul ultimei ore</h6>
           </div>
         </div>
 
         <div class="top-card-item" onclick="openPopup(this.querySelector('img').src)" >
           <div>
-            <img src="https://dexonline.ro/static/img/top/curent/ultimele10min.png" width=300 height=300 alt="topul curent" class="widget-icon">
+            <img src="https://dexonline.ro/static/img/top/curent/ultimele10min.png" width=200 height=200 alt="topul curent" class="widget-icon">
             <h6>Topul ultimelor 10 minute</h6>
           </div>
         </div>

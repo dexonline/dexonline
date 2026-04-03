@@ -5,13 +5,14 @@
 {/block}
 
 {block "content"}
-
+  {*
   <h3>Abonează-te la newsletter</h3>
 
   <p class="fs-4 ps-3">
   {include "bits/newsletterForm.tpl"}
   <p>
   <br/>
+  *}
   <h3>{cap}Contact{/cap}</h3>
 
   <p class="fs-4 ps-3">
@@ -23,6 +24,9 @@
   <h3>Arhiva newsletterului</h3>
 
   <p class="ps-3">
+    <span class="fs-5">&#x2022; 3 aprilie 2026 <a href="https://blog.dexonline.ro/?mailpoet_router&endpoint=view_in_browser&action=view&data=WzYzLCJmMWU1MWUzMTkwODAiLDQsIjNlYjljZCIsMzE4NiwxXQ">
+      jurnal de dicționar / aprilie 26</a></span> <span class="fs-6">(Lazăr Șăineanu, animale de companie, câine, Hitler, pisică, atac falic, adio)</span>
+    <br/>
     <span class="fs-5">&#x2022; 3 martie 2026 <a href="https://blog.dexonline.ro/?mailpoet_router&endpoint=view_in_browser&action=view&data=WzYxLCJlM2M4ZjhkYjIxZTkiLDQsIjNlYjljZCIsMzE0NCwxXQ">
       jurnal de dicționar / martie 26</a></span> <span class="fs-6">(femeie, mărțișor, fată-făt-fetus, -man/-men)</span>
     <br/>

@@ -13,7 +13,8 @@ class User extends BaseObject {
   const PRIV_TRAINEE = 0x80;
   const PRIV_ORIGINAL = 0x100;
   const PRIV_PLUGIN = 0x200;
-  const NUM_PRIVILEGES = 10;
+  const PRIV_STUDENT = 0x400;
+  const NUM_PRIVILEGES = 11;
 
   const PRIV_NAMES = [
     self::PRIV_ADMIN => 'administrator',
@@ -26,6 +27,7 @@ class User extends BaseObject {
     self::PRIV_TRAINEE => 'stagiar',
     self::PRIV_ORIGINAL => 'originale scanate',
     self::PRIV_PLUGIN => 'testare pluginuri',
+    self::PRIV_STUDENT => 'student',
   ];
 
   const PRIV_ANY = (1 << self::NUM_PRIVILEGES) - 1;
@@ -75,6 +77,10 @@ class User extends BaseObject {
 
   static function isTrainee() {
     return self::can(self::PRIV_TRAINEE);
+  }
+
+  static function isStudent() {
+    return self::can(self::PRIV_STUDENT);
   }
 
   // Checks if the user can claim this email when registering or editing their profile.

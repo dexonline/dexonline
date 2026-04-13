@@ -44,7 +44,10 @@ $(function() {
         selector: '.tinymceTextarea',
         setup: tinymceSetup,
         skin: darkMode ? 'oxide-dark' : 'oxide',
-        toolbar: 'undo redo | bold italic spaced superscript subscript abbrev smallcapsabbr',
+        toolbar: 'undo redo | ' +
+          'bold italic spaced superscript subscript abbrev smallcapsabbr | ' +
+          'romb rombnegru linie | ' +
+          'elene chirilice speciale',
         width: '100%',
         plugins: 'paste',
       });
@@ -140,6 +143,65 @@ $(function() {
         });
       }
     });
+
+    editor.ui.registry.addButton('romb', {
+      text: '◊',
+      tooltip: 'Inserează romb (între spații)',
+      onAction: function () {
+        editor.insertContent(' ◊ ')
+      }
+    });
+
+    editor.ui.registry.addButton('rombnegru', {
+      text: '♦',
+      tooltip: 'Inserează romb negru (între spații)',
+      onAction: function () {
+        editor.insertContent(' ♦ ')
+      }
+    });
+
+    editor.ui.registry.addButton('linie', {
+      text: '–',
+      tooltip: 'Inserează linie (între spații)',
+      onAction: function () {
+        editor.insertContent(' – ')
+      }
+    });
+
+    /***********/
+
+    const greek = [
+      'α','β','γ','δ','ε','ζ','η','θ','ι','κ','λ','μ', 'ν','ξ','ο','π','ρ','σ',
+      'τ','υ','φ','χ','ψ','ω'
+    ];
+
+    const cyrillic = [
+      'а','б','в','г','д','е','ж','з','и','й','к','л','м','н','о','п','р','с',
+      'т','у','ф','х','ц','ч','ш','щ','ъ','ы','ь','э','ю','я'
+    ];
+
+    editor.ui.registry.addMenuButton('elene', {
+      text: 'αβγ',
+      fetch: function (callback) {
+        callback(greek.map(char => ({
+          type: 'menuitem',
+          text: char,
+          onAction: () => editor.insertContent(char)
+        })));
+      }
+    });
+
+    editor.ui.registry.addMenuButton('chirilice', {
+      text: 'яжч',
+      fetch: function (callback) {
+        callback(cyrillic.map(char => ({
+          type: 'menuitem',
+          text: char,
+          onAction: () => editor.insertContent(char)
+        })));
+      }
+    });
+
   }
 
   // Convert some of our internal notation to HTML. This is not exhaustive,
@@ -167,6 +229,10 @@ $(function() {
     s = s.replace(/#([^#]*)#/g, '<abbr>$1</abbr>');
     s = s.replace(/~~~SAVE~~~/g, '\\#'); // restore \#
 
+    s = s.replace(/ \* /g, ' ◊ ');
+    s = s.replace(/ \*\* /g, ' ♦ ');
+    s = s.replace(/ - /g, ' – ');
+
     s = s.replace(/\^(\d)/g, '<sup>$1</sup>');
     s = s.replace(/_(\d)/g, '<sub>$1</sub>');
 
@@ -185,6 +251,11 @@ $(function() {
     s = s.replace(/<span class="small-caps">(.*?)<\/span>/gi, '{~$1~}');
     s = s.replace(/<span class="small-caps-l">(.*?)<\/span>/gi, '~~$1~~');
     s = s.replace(/<abbr[^>]*>(.*?)<\/abbr>/gi, '#$1#');
+
+    s = s.replace(/ ◊ /g, ' * ');
+    s = s.replace(/ ♦ /g, ' ** ');
+    s = s.replace(/ – /g, ' - ');
+
     s = s.replace(/<sup>(\d)<\/sup>/gi, '^$1');
     s = s.replace(/<sub>(\d)<\/sub>/gi, '_$1');
     s = s.replace(/<sup>(.*?)<\/sup>/gi, '^{$1}'); // *? = non-greedy

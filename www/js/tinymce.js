@@ -171,15 +171,11 @@ $(function() {
     /***********/
 
     const greek = [
-      'α','β','γ','δ','ε','ζ','η','θ','ι','κ','λ','μ', 'ν','ξ','ο','π','ρ','σ',
-      'τ','υ','φ','χ','ψ','ω'
+      'α','β','γ','δ','ε','ζ','η','θ','ι','κ','λ','μ',
+      'ν','ξ','ο','π','ρ','σ','τ','υ','φ','χ','ψ','ω'
     ];
 
-    const cyrillic = [
-      'а','б','в','г','д','е','ж','з','и','й','к','л','м','н','о','п','р','с',
-      'т','у','ф','х','ц','ч','ш','щ','ъ','ы','ь','э','ю','я'
-    ];
-
+    /*
     editor.ui.registry.addMenuButton('elene', {
       text: 'αβγ',
       fetch: function (callback) {
@@ -190,7 +186,133 @@ $(function() {
         })));
       }
     });
+     */
 
+    editor.ui.registry.addButton('elene', {
+      text: 'αβγ',
+      onAction: function () {
+        editor.windowManager.open({
+          title: 'Litere grecești',
+          body: {
+            type: 'panel',
+            items: [{
+              type: 'htmlpanel',
+              html: `
+            <div style="font-family: sans-serif; padding: 4px;">
+
+              <!-- Zona de previzualizare -->
+              <div style="
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                margin-bottom: 8px;
+              ">
+                <div id="greek-preview" style="
+                  flex: 1;
+                  min-height: 32px;
+                  padding: 4px 8px;
+                  border: 1px solid #aaa;
+                  border-radius: 3px;
+                  background: #f9f9f9;
+                  font-size: 1.3em;
+                  letter-spacing: 2px;
+                "></div>
+                <button id="greek-backspace" title="Șterge ultimul caracter" style="
+                  padding: 4px 8px;
+                  cursor: pointer;
+                  border: 1px solid #ccc;
+                  border-radius: 3px;
+                  background: #fff;
+                  font-size: 1em;
+                ">⌫</button>
+                <button id="greek-clear" title="Șterge tot" style="
+                  padding: 4px 8px;
+                  cursor: pointer;
+                  border: 1px solid #ccc;
+                  border-radius: 3px;
+                  background: #fff;
+                  font-size: 1em;
+                ">✕</button>
+                <button id="greek-insert" title="Inserează în editor" style="
+                  padding: 4px 10px;
+                  cursor: pointer;
+                  border: 1px solid #4a90d9;
+                  border-radius: 3px;
+                  background: #4a90d9;
+                  color: #fff;
+                  font-size: 1em;
+                ">✓</button>
+              </div>
+
+              <!-- Grila de caractere -->
+              <div id="greek-grid" style="
+                display: grid;
+                grid-template-columns: repeat(6, 1fr);
+                gap: 4px;
+              ">
+                ${greek.map(ch =>
+                `<button data-ch="${ch}" style="
+                    font-size: 1.2em;
+                    padding: 6px;
+                    cursor: pointer;
+                    background: #fff;
+                    min-width: 32px;
+                  ">${ch}</button>`
+              ).join('')}
+              </div>
+
+            </div>
+          `
+            }]
+          },
+          buttons: [],
+        });
+
+        setTimeout(() => {
+          const preview  = document.getElementById('greek-preview');
+          const grid     = document.getElementById('greek-grid');
+          const btnBS    = document.getElementById('greek-backspace');
+          const btnClear = document.getElementById('greek-clear');
+          const btnIns   = document.getElementById('greek-insert');
+
+          // Adaugă caracter în previzualizare
+          grid.addEventListener('click', function (e) {
+            const ch = e.target.dataset.ch;
+            if (ch) preview.textContent += ch;
+          });
+
+          // Șterge ultimul caracter
+          btnBS.addEventListener('click', function () {
+            preview.textContent = preview.textContent.slice(0, -1);
+          });
+
+          // Golește previzualizarea
+          btnClear.addEventListener('click', function () {
+            preview.textContent = '';
+          });
+
+          // Inserează în editor și închide
+          btnIns.addEventListener('click', function () {
+            const text = preview.textContent;
+            if (text) {
+              editor.insertContent(text);
+              preview.textContent = '';
+              editor.windowManager.close();
+            }
+          });
+
+        }, 100);
+      }
+    });
+
+    /****/
+
+    const cyrillic = [
+      'а','б','в','г','д','е','ж','з','и','й','к','л','м','н','о','п','р','с',
+      'т','у','ф','х','ц','ч','ш','щ','ъ','ы','ь','э','ю','я'
+    ];
+
+    /*
     editor.ui.registry.addMenuButton('chirilice', {
       text: 'яжч',
       fetch: function (callback) {
@@ -199,6 +321,124 @@ $(function() {
           text: char,
           onAction: () => editor.insertContent(char)
         })));
+      }
+    });
+     */
+
+    editor.ui.registry.addButton('chirilice', {
+      text: 'яжч',
+      onAction: function () {
+        editor.windowManager.open({
+          title: 'Litere chirilice',
+          body: {
+            type: 'panel',
+            items: [{
+              type: 'htmlpanel',
+              html: `
+            <div style="font-family: sans-serif; padding: 4px;">
+
+              <!-- Zona de previzualizare -->
+              <div style="
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                margin-bottom: 8px;
+              ">
+                <div id="cyrillic-preview" style="
+                  flex: 1;
+                  min-height: 32px;
+                  padding: 4px 8px;
+                  border: 1px solid #aaa;
+                  border-radius: 3px;
+                  background: #f9f9f9;
+                  font-size: 1.3em;
+                  letter-spacing: 2px;
+                "></div>
+                <button id="cyrillic-backspace" title="Șterge ultimul caracter" style="
+                  padding: 4px 8px;
+                  cursor: pointer;
+                  border: 1px solid #ccc;
+                  border-radius: 3px;
+                  background: #fff;
+                  font-size: 1em;
+                ">⌫</button>
+                <button id="cyrillic-clear" title="Șterge tot" style="
+                  padding: 4px 8px;
+                  cursor: pointer;
+                  border: 1px solid #ccc;
+                  border-radius: 3px;
+                  background: #fff;
+                  font-size: 1em;
+                ">✕</button>
+                <button id="cyrillic-insert" title="Inserează în editor" style="
+                  padding: 4px 10px;
+                  cursor: pointer;
+                  border: 1px solid #4a90d9;
+                  border-radius: 3px;
+                  background: #4a90d9;
+                  color: #fff;
+                  font-size: 1em;
+                ">✓</button>
+              </div>
+
+              <!-- Grila de caractere -->
+              <div id="cyrillic-grid" style="
+                display: grid;
+                grid-template-columns: repeat(8, 1fr);
+                gap: 4px;
+              ">
+                ${cyrillic.map(ch =>
+                `<button data-ch="${ch}" style="
+                    font-size: 1.2em;
+                    padding: 6px;
+                    cursor: pointer;
+                    background: #fff;
+                    min-width: 32px;
+                  ">${ch}</button>`
+              ).join('')}
+              </div>
+
+            </div>
+          `
+            }]
+          },
+          buttons: [],
+        });
+
+        setTimeout(() => {
+          const preview  = document.getElementById('cyrillic-preview');
+          const grid     = document.getElementById('cyrillic-grid');
+          const btnBS    = document.getElementById('cyrillic-backspace');
+          const btnClear = document.getElementById('cyrillic-clear');
+          const btnIns   = document.getElementById('cyrillic-insert');
+
+          // Adaugă caracter în previzualizare
+          grid.addEventListener('click', function (e) {
+            const ch = e.target.dataset.ch;
+            if (ch) preview.textContent += ch;
+          });
+
+          // Șterge ultimul caracter
+          btnBS.addEventListener('click', function () {
+            preview.textContent = preview.textContent.slice(0, -1);
+          });
+
+          // Golește previzualizarea
+          btnClear.addEventListener('click', function () {
+            preview.textContent = '';
+          });
+
+          // Inserează în editor și închide
+          btnIns.addEventListener('click', function () {
+            const text = preview.textContent;
+            if (text) {
+              editor.insertContent(text);
+              preview.textContent = '';
+              editor.windowManager.close();
+            }
+          });
+
+        }, 100);
       }
     });
 

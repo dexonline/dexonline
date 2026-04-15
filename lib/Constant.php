@@ -89,6 +89,9 @@ class Constant {
     // cycle CSS class {cfoo,0c}, used to highlight full-text search matches
     '/(?<!\\\\)\{c([^|}]+),(\d+)c\}/' => '<span class="fth fth$2">$1</span>',
 
+    // ||foo||bar|| references
+    '/(?<!\\\\)\|\|([^|]*)\|\|([^|]*)\|\|/' => '<a class="ref" href="$2">$1</a>',
+
     // |foo|bar| references
     '/(?<!\\\\)\|([^|]*)\|([^|]*)\|/' => '<a class="ref" href="/definitie/$2">$1</a>',
 

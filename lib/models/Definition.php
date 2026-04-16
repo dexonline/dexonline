@@ -567,6 +567,14 @@ class Definition extends BaseObject implements DatedObject {
       ->count();
   }
 
+  static function checkLexicon($id, $lexicon) {
+    return Model::factory('Definition')
+      ->where('id', $id)
+      ->where('lexicon', $lexicon)
+      ->where_in('status', [Definition::ST_ACTIVE, Definition::ST_HIDDEN])
+      ->count() > 0;
+  }
+
   /**
    * @return  bool  <p>$success from parent</p>
    */

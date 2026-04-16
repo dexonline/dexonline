@@ -95,14 +95,19 @@ if ($isAllDigits) {
 
 // Definition.id search
 if ($defId) {
-  $searchType = SEARCH_DEF_ID;
-  $statuses = User::can(User::PRIV_VIEW_HIDDEN)
-            ? [Definition::ST_ACTIVE, Definition::ST_HIDDEN]
-            : [Definition::ST_ACTIVE];
-  $definitions = Model::factory('Definition')
-               ->where('id', $defId)
-               ->where_in('status', $statuses)
-               ->find_many();
+  if (!$cuv || Definition::checkLexicon($defId, $cuv)) {
+    $searchType = SEARCH_DEF_ID;
+    $statuses = User::can(User::PRIV_VIEW_HIDDEN)
+      ? [Definition::ST_ACTIVE, Definition::ST_HIDDEN]
+      : [Definition::ST_ACTIVE];
+    $definitions = Model::factory('Definition')
+      ->where('id', $defId)
+      ->where_in('status', $statuses)
+      ->find_many();
+  } else {
+    //TODO
+    Util::redirect(Config::URL_PREFIX . "doneaza");
+  }
 }
 
 // Lexeme.id search

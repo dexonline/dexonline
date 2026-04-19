@@ -165,6 +165,7 @@
           <a
             class="btn btn-danger ms-auto order-3" style="margin-left: 5px !important;"
             href="https://formular230.ro/asociatia-dexonline">
+            {include "bits/icon.tpl" i=edit}
             Formularul 230
           </a>
         </li>

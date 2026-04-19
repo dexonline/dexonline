@@ -153,12 +153,19 @@
         </li>
 
         <li class="nav-item">
-
           <a
             class="btn btn-warning ms-auto order-3"
             href="{Router::link('donation/donate')}">
             {include "bits/icon.tpl" i=savings}
             {cap}{t}donate{/t}{/cap}
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a
+            class="btn btn-danger ms-auto order-3" style="margin-left: 5px !important;"
+            href="https://formular230.ro/asociatia-dexonline">
+            Formularul 230
           </a>
         </li>
       </ul>
@@ -323,6 +330,15 @@
       </ul>
 
     </div>
+
+    <a
+      class="navbar-toggler btn btn-danger ms-auto order-3"
+      style="font-size: .875rem !important;"
+      href="https://formular230.ro/asociatia-dexonline">
+      {include "bits/icon.tpl" i=edit}
+      Formularul 230
+    </a>
+
     <a
       class="navbar-toggler btn btn-warning ms-auto order-3 emphasize"
       href="{Router::link('donation/donate')}">

@@ -52,7 +52,7 @@
       </li>
     {/if}
     {* Easter egg *}
-    {if $cuv == 'criză'}
+    {if $cuv == 'criză' || $cuv == 'criza'}
       <script>
         document.addEventListener("DOMContentLoaded", () => {
           const wrappers = document.getElementsByClassName("defWrapper");

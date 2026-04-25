@@ -51,6 +51,19 @@
         {include "bits/expert.tpl"}
       </li>
     {/if}
+    {* Easter egg *}
+    {if $cuv == 'criză'}
+      <script>
+        document.addEventListener("DOMContentLoaded", () => {
+          const wrappers = document.getElementsByClassName("defWrapper");
+          const html = '<div class="card-body pb-0"> <img class="img-fluid mx-auto d-block" src="https://dexonline.ro/static/img/cuvantul-lunii/thumb300/2026/penurie2.jpg" alt="criză" title="criză"></div>';
+          wrappers[0].insertAdjacentHTML("afterend", html);
+
+          const container = document.getElementsByClassName("meaningContainer");
+          container[0].insertAdjacentHTML("afterend", html);
+        });
+      </script>
+    {/if}
     {* /if *}
 
     {* only special people are allowed ;) *}

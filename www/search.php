@@ -106,7 +106,7 @@ if ($defId) {
       ->find_many();
   } else {
     //TODO
-    Util::redirect(Config::URL_PREFIX . "doneaza");
+    Util::redirect(Config::URL_PREFIX . "doneaza?");
   }
 }
 
@@ -513,15 +513,18 @@ function checkFormat() {
  * If a tab is specified in the URL, returns one of Constant::TAB_*. Otherwise
  * returns false.
  */
+/*
 function getTab() {
   return array_search('/' . Request::get('tab'), Constant::TAB_URL);
 }
+*/
 
 /**
  * Returns a permalink URL for this tab.
  *
  * @param int $tab One of the Constant::TAB_* values.
  */
+/*
 function getTabPermalink($tab) {
   $uri = $_SERVER['REQUEST_URI'];
 
@@ -537,6 +540,7 @@ function getTabPermalink($tab) {
   $uri .= Constant::TAB_URL[$tab];
   return $uri;
 }
+*/
 
 function redirectToDefinition(string $query, ?Source $source, array $format) {
   $sourcePart = $source ? "-{$source->urlName}" : '';

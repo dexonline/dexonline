@@ -51,21 +51,23 @@
         {include "bits/expert.tpl"}
       </li>
     {/if}
-    {* Easter egg *}
-    {if $cuv == 'criză' || $cuv == 'criza'}
-      <script>
-        document.addEventListener("DOMContentLoaded", () => {
-          const wrappers = document.getElementsByClassName("defWrapper");
-          const html = '<div class="card-body pb-0"> <img class="img-fluid mx-auto d-block" src="https://dexonline.ro/static/img/cuvantul-lunii/thumb300/2026/penurie2.jpg" alt="criză" title="criză"></div>';
-          wrappers[0].insertAdjacentHTML("afterend", html);
-
-          const container = document.getElementsByClassName("meaningContainer");
-          container[0].insertAdjacentHTML("afterend", html);
-        });
-      </script>
+    {* if $showFirstDefImage *}
+    {if 1==1}
+      {* Easter egg (or not) *}
+      {if $cuv == 'criză' || $cuv == 'criza'}
+        {include "bits/first-def-image.tpl"
+          imgsrc='https://dexonline.ro/static/img/cuvantul-lunii/thumb300/2026/penurie2.jpg'
+          imgalt='criză'
+          imgtit='criză'
+        }
+      {else}
+        {include "bits/first-def-image.tpl"
+          imgsrc='https://dexonline.ro/revive-images/7d1d36f47981c1d7edbb5195793b7510.png'
+          imglnk='https://dexonline.ro/spre/formular230'
+        }
+      {/if}
+      {* /if *}
     {/if}
-    {* /if *}
-
     {* only special people are allowed ;) *}
     {* if User::can(User::PRIV_PLUGIN) *}
     {if $cuv == 'limbă de lemn'}

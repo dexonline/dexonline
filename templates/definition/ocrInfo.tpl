@@ -41,7 +41,37 @@
 
   </table>
 
-  <h4 class="mt-4">Dicționare prelucrate</h4>
+  {* if empty($statsStudents) *}
+  <h4 class="mt-4">Studenți</h4>
+
+  <table class="table table-sm table-hover">
+
+    <thead>
+    <tr>
+      <th>Student</th>
+      <th>Definiții finalizate</th>
+      <th>Dicționar în lucru</th>
+      <th>Definiții alocate</th>
+      <th>Caractere alocate</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    {foreach $statsStudents as $i}
+      <tr>
+        <td>{$i.0}</td>
+        <td>{$i.1}</td>
+        <td>{$i.5}</td>
+        <td>{$i.2}</td>
+        <td>{$i.4}</td>
+      </tr>
+    {/foreach}
+    </tbody>
+
+  </table>
+  {* /if *}
+
+  <h4 class="mt-4">Dicționare prelucrate OCR</h4>
 
   <table class="table table-sm table-hover">
 

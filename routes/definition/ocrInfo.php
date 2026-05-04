@@ -71,6 +71,7 @@ if ($_FILES && $_FILES["file"]) {
   }
 }
 
+/* excluding the students (we'll have separated view for them) */
 const OCR_EDITOR_STATS =
 "SELECT
   U.nick Utilizator,
@@ -85,6 +86,25 @@ FROM (
   GROUP BY editorId, status
 ) X
 JOIN User U on X.editorId=U.id
+WHERE NOT (U.moderator & " . User::PRIV_STUDENT . ")
+GROUP BY U.nick
+ORDER BY U.nick";
+
+const OCR_STUDENT_STATS =
+  "SELECT
+  U.nick Utilizator,
+  SUM(IF(X.status='published', X.cnt, 0)) Număr_de_definiții_publicate,
+  SUM(IF(X.status='raw', X.cnt, 0)) Număr_de_definiții_alocate,
+  SUM(IF(X.status='published', X.tsize, 0)) Număr_de_caractere_publicate,
+  SUM(IF(X.status='raw', X.tsize, 0)) Număr_de_caractere_alocate,
+      IF(X.status='raw', X.dict, '') Din_dicționarul
+FROM (
+  SELECT editorId, status, sum(defCnt) cnt, sum(defTotalSize) tsize, group_concat(DISTINCT S.shortName) dict
+  FROM OCR_stats O JOIN Source S ON O.sourceId=S.id
+  GROUP BY editorId, status
+) X
+JOIN User U on X.editorId=U.id
+WHERE (U.moderator & " . User::PRIV_STUDENT . ")
 GROUP BY U.nick
 ORDER BY U.nick";
 
@@ -119,6 +139,7 @@ Smart::assign([
   'message' => $message,
   'statsPrep' => DB::execute(OCR_PREP_STATS),
   'statsEditors' => DB::execute(OCR_EDITOR_STATS),
+  'statsStudents' => DB::execute(OCR_STUDENT_STATS),
 ]);
 Smart::addResources('admin');
 Smart::display('definition/ocrInfo.tpl');

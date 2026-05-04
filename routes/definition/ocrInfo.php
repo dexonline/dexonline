@@ -85,7 +85,8 @@ FROM (
   GROUP BY editorId, status
 ) X
 JOIN User U on X.editorId=U.id
-GROUP BY U.nick";
+GROUP BY U.nick
+ORDER BY U.nick";
 
 const OCR_PREP_STATS =
 "SELECT

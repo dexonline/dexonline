@@ -80,8 +80,8 @@ const OCR_EDITOR_STATS =
   SUM(IF(X.status='raw', X.tsize, 0)) Număr_de_caractere_alocate,
       IF(X.status='raw', X.dict, '') Din_dicționarul
 FROM (
-  SELECT editorId, status, count(*) cnt, sum(char_length(ocrText)) tsize, group_concat(DISTINCT S.shortName) dict
-  FROM OCR JOIN Source S ON OCR.sourceId=S.id
+  SELECT editorId, status, sum(defCnt) cnt, sum(defTotalSize) tsize, group_concat(DISTINCT S.shortName) dict
+  FROM OCR_stats O JOIN Source S ON O.sourceId=S.id
   GROUP BY editorId, status
 ) X
 JOIN User U on X.editorId=U.id
@@ -96,8 +96,8 @@ const OCR_PREP_STATS =
   SUM(IF(X.status='published', X.size, 0)) Nr_caractere_publicate,
   SUM(IF(X.status='raw', X.size, 0)) Nr_caractere_în_lucru
 FROM (
-  SELECT userId, sourceId, status, count(*) cnt, sum(char_length(ocrText)) size
-  FROM OCR GROUP BY userId, sourceId, status
+  SELECT userId, sourceId, status, sum(defCnt) cnt, sum(defTotalSize) size
+  FROM OCR_stats GROUP BY userId, sourceId, status
 ) X
 JOIN User U ON X.userId=U.id
 JOIN Source S ON X.sourceId=S.id

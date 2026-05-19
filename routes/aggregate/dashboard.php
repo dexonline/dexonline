@@ -226,6 +226,11 @@ $links = [
     'text' => 'indecși de pagină',
     'privilege' => User::PRIV_ADMIN | User::PRIV_EDIT,
   ],
+  [
+    'url' => Router::link('simple/original'),
+    'text' => 'arată definițiile orginale',
+    'privilege' => User::PRIV_ADMIN | User::PRIV_ORIGINAL
+  ],
 ];
 
 // OR of all the above privileges -- that's the mask to view any links

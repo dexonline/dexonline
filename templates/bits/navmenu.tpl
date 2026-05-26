@@ -169,8 +169,9 @@
             Formularul 230
           </a>
         </li>
-      </ul>
 *}
+      </ul>
+
       <ul class="navbar-nav ms-auto">
         {* leonardo *}
         {*

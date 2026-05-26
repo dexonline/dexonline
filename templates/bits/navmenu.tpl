@@ -160,7 +160,7 @@
             {cap}{t}donate{/t}{/cap}
           </a>
         </li>
-
+{* hide f230 button
         <li class="nav-item">
           <a
             class="btn btn-danger ms-auto order-3" style="margin-left: 5px !important;"
@@ -170,7 +170,7 @@
           </a>
         </li>
       </ul>
-
+*}
       <ul class="navbar-nav ms-auto">
         {* leonardo *}
         {*
@@ -331,7 +331,7 @@
       </ul>
 
     </div>
-
+{* hide f230 button
     <a
       class="navbar-toggler btn btn-danger ms-auto order-3"
       style="font-size: .875rem !important;"
@@ -339,7 +339,7 @@
       {include "bits/icon.tpl" i=edit}
       Formularul 230
     </a>
-
+*}
     <a
       class="navbar-toggler btn btn-warning ms-auto order-3 emphasize"
       href="{Router::link('donation/donate')}">

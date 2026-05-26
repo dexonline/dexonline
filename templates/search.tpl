@@ -51,8 +51,9 @@
         {include "bits/expert.tpl"}
       </li>
     {/if}
+
     {* if $showFirstDefImage *}
-    {if 1==1}
+    {if 1==0}
       {* Easter egg (or not) *}
       {if $cuv == 'criză' || $cuv == 'criza'}
         {include "bits/first-def-image.tpl"

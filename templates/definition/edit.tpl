@@ -172,7 +172,7 @@
       </div>
     </div>
 
-    <div class="row mb-3">
+    <div class="row mb-3{if $isTrainee} hidden{/if}">
       <div class="col-sm-10 offset-sm-2">
         {include "bs/checkbox.tpl"
           name=structured

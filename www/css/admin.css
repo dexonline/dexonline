@@ -31,3 +31,7 @@ body.other section.search {
 [data-bs-toggle="collapse"]:not(.collapsed) .if-collapsed {
   display: none;
 }
+
+.hidden {
+  display: none;
+}

@@ -211,6 +211,7 @@ Smart::assign([
   'canEdit' => canEdit($d),
   'canEditStatus' => canEditStatus($d),
   'allModeratorSources' => $sources,
+  'isTrainee' => User::isTrainee(),
 ]);
 Smart::addResources('tinymce', 'admin', 'diff', 'frequentObjects', 'select2Dev');
 Smart::display('definition/edit.tpl');

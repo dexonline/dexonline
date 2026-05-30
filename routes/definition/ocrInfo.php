@@ -1,6 +1,14 @@
 <?php
 User::mustHave(User::PRIV_ADMIN);
 
+$recountButton = Request::has('refreshStatsButton');
+if ($recountButton) {
+  Util::refreshOCRStats();
+  Util::redirectToRoute('definition/ocrInfo');
+}
+
+$statsTS = Variable::peek('OCRInfo.statsTS');
+
 $sourceId = Request::get('source');
 $editorId = Request::get('editor');
 $terminator = str_repeat(PHP_EOL,Request::get('term') + 1 );
@@ -140,6 +148,7 @@ Smart::assign([
   'statsPrep' => DB::execute(OCR_PREP_STATS),
   'statsEditors' => DB::execute(OCR_EDITOR_STATS),
   'statsStudents' => DB::execute(OCR_STUDENT_STATS),
+  'statsTS' => $statsTS
 ]);
 Smart::addResources('admin');
 Smart::display('definition/ocrInfo.tpl');

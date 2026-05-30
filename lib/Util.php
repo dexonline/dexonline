@@ -127,6 +127,16 @@ class Util {
     return $result;
   }
 
+  static function refreshOCRStats() {
+    if (DB::execute('truncate OCR_stats')) {
+      // it itakes 1.5 seconds
+      DB::execute('insert into OCR_stats
+        SELECT userId, editorId, sourceId, status, count(*) defCnt, sum(char_length(ocrText)) defTotalSize
+        FROM OCR GROUP BY userId, editorId, sourceId, status');
+      Variable::poke('OCRInfo.statsTS', date("Y-m-d H:i:s"));
+    }
+  }
+
   static function recount() {
     Variable::poke(
       'Count.pendingDefinitions', Model::factory('Definition')->where('status', Definition::ST_PENDING)->count()

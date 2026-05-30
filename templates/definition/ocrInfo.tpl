@@ -2,7 +2,6 @@
 
 {block "title"}Informații despre definițiile OCR{/block}
 
-
 {block "content"}
   <h3>Informații despre definițiile OCR</h3>
 
@@ -11,6 +10,20 @@
     {$message}
     {/notice}
   {/if}
+
+  <div class="card mb-3">
+    <div class="card-header">
+      Împrospătează statisticile (ultima actualizare la {$statsTS})
+    </div>
+
+    <div class="card-body">
+      <form>
+        <button type="submit" class="btn btn-primary" name="refreshStatsButton">
+          regenerează statisticile
+        </button>
+      </form>
+    </div>
+  </div>
 
   {* Am unificat blocul stats cu blocul content *}
   <h4 class="mt-4">Alocarea definițiilor OCR</h4>

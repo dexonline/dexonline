@@ -1,6 +1,6 @@
 {extends "layout.tpl"}
 
-{block "title"}Topul voluntarilor{/block}
+{block "title"}{cap}{t}volunteer ranking{/t}{/cap}{/block}
 
 {block "content"}
   <h3>{t}Manual contribution rankings{/t}</h3>

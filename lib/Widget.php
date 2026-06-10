@@ -15,62 +15,74 @@ class Widget {
   const WIDGET_COUNT = 11;
 
   // 'enabled' means "enabled by default". All widgets can later be enabled or disabled based on user prefs.
+  // 'available' means the user can be tweaked by the user
   // also this array determines the order of the widgets
   const DATA = [
     self::WIDGET_WOTD => [
       'name' => 'Cuvântul zilei',
       'template' => 'wotd.tpl',
       'enabled' => true,
+      'available' => true,
     ],
     self::WIDGET_WOTM => [
       'name' => 'Cuvântul lunii',
       'template' => 'wotm.tpl',
       'enabled' => true,
+      'available' => true,
     ],
     self::WIDGET_WOTY => [
-      'name' => 'Cuvântul anulii',
+      'name' => 'Cuvântul anului',
       'template' => 'woty.tpl',
       'enabled' => true,
+      'available' => false,
     ],
     self::WIDGET_NEWSLETTER => [
       'name' => 'Newsletter',
       'template' => 'newsletter.tpl',
       'enabled' => false,
+      'available' => false,
     ],
     self::WIDGET_GAMES => [
       'name' => 'Jocuri',
       'template' => 'games.tpl',
       'enabled' => true,
+      'available' => true,
     ],
     self::WIDGET_RANDOM_WORD => [
       'name' => 'Cuvânt aleatoriu',
       'template' => 'randomWord.tpl',
       'enabled' => true,
+      'available' => true,
     ],
     self::WIDGET_AOTM => [
       'name' => 'Articolul lunii',
       'template' => 'articleOfTheMonth.tpl',
       'enabled' => false,
+      'available' => true,
     ],
     self::WIDGET_PROMOTED => [
       'name' => 'Cuvântul din vitrină',
       'template' => 'promoted.tpl',
       'enabled' => false,
+      'available' => true,
     ],
     self::WIDGET_SOCIAL => [
       'name' => 'Rețele sociale',
       'template' => 'social.tpl',
       'enabled' => false,
+      'available' => true,
     ],
     self::WIDGET_EXPRESSION => [
       'name' => 'Expresii',
       'template' => 'expression.tpl',
       'enabled' => false,
+      'available' => true,
     ],
     self::WIDGET_PROVERB => [
       'name' => 'Proverbe',
       'template' => 'proverb.tpl',
       'enabled' => false,
+      'available' => false,
     ]
   ];
 

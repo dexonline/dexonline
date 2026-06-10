@@ -1,10 +1,17 @@
 <?php
 User::mustHave(User::PRIV_DONATION);
 
-const OTRS_DONATION_EMAIL_REGEX =
+const OTRS_DONATION_EMAIL_REGEX_OLD =
   '/^Mesaj raspuns: (Approved|SMS Pending Transaction).*' .
   '^3. PRET: (?<amount>[0-9.]+) RON.*' .
   '^   EMAIL: (?<email>[^\n]+)$/ms';
+
+const OTRS_DONATION_EMAIL_REGEX =
+  '/'.
+  'Statusul pl&#259;&#539;ii este: <span style="color:#066A7A;"><b>(Approved)<\/b><\/span>.*' .
+  'Email: <\/td><td style="font-weight: bold;">(?<email>[^\n]+)<.*' .
+  'Suma tranzac&#539;ie: <\/td><td style="font-weight: bold;">(?<amount>[0-9.]+) RON<' .
+  '/ms';
 
 class Donor {
   // inclusive to the left, exclusive to the right

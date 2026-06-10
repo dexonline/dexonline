@@ -52,7 +52,7 @@ Smart::assign([
   'monthName' => $monthName,
   'imageUrl' => $wotm->getLargeThumbUrl(),
   'artist' => $wotm->getArtist(),
-  'reason' => $wotm->description,
+  'reason' => Str::htmlize($wotm->description)[0],
   'searchResult' => array_pop($searchResults),
 ]);
 

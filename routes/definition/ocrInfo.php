@@ -94,7 +94,7 @@ FROM (
   GROUP BY editorId, status
 ) X
 JOIN User U on X.editorId=U.id
-WHERE NOT (U.moderator & " . User::PRIV_STUDENT . ")
+WHERE U.id NOT IN (SELECT userId FROM student)
 GROUP BY U.nick
 ORDER BY U.nick";
 
@@ -112,7 +112,7 @@ FROM (
   GROUP BY editorId, status
 ) X
 JOIN User U on X.editorId=U.id
-WHERE (U.moderator & " . User::PRIV_STUDENT . ")
+WHERE U.id IN (SELECT userId FROM student)
 GROUP BY U.nick
 ORDER BY U.nick";
 

@@ -4,7 +4,8 @@ CREATE TABLE `OCR_stats` (
   `sourceId` int(11) NOT NULL DEFAULT '0',
   `status` enum('raw','published') COLLATE utf8mb4_romanian_ci DEFAULT 'raw',
   `defCnt` int(11) NOT NULL DEFAULT 0,
-  `defTotalSize` int(11) DEFAULT 0
+  `defTotalSize` int(11) DEFAULT 0,
+  `dateModified` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_romanian_ci;
 
 

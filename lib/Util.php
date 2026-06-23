@@ -131,7 +131,7 @@ class Util {
     if (DB::execute('truncate OCR_stats')) {
       // it itakes 1.5 seconds
       DB::execute('insert into OCR_stats
-        SELECT userId, editorId, sourceId, status, count(*) defCnt, sum(char_length(ocrText)) defTotalSize
+        SELECT userId, editorId, sourceId, status, count(*) defCnt, sum(char_length(ocrText)) defTotalSize, max(dateModified) lastModified
         FROM OCR GROUP BY userId, editorId, sourceId, status');
       Variable::poke('OCRInfo.statsTS', date("Y-m-d H:i:s"));
     }

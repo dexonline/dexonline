@@ -98,7 +98,7 @@ WHERE U.id NOT IN (SELECT userId FROM student)
 GROUP BY U.nick
 ORDER BY U.nick";
 
-const OCR_STUDENT_STATS =
+const OCR_STUDENT_STATS_OLD =
   "SELECT
   U.nick Utilizator,
   SUM(IF(X.status='published', X.cnt, 0)) Număr_de_definiții_publicate,
@@ -113,6 +113,25 @@ FROM (
 ) X
 JOIN User U on X.editorId=U.id
 WHERE U.id IN (SELECT userId FROM student)
+GROUP BY U.nick
+ORDER BY U.nick";
+
+const OCR_STUDENT_STATS =
+"SELECT
+  U.nick Utilizator,
+  SUM(IF(X.status='published', X.cnt, 0)) Număr_de_definiții_publicate,
+  SUM(IF(X.status='raw', X.cnt, 0)) Număr_de_definiții_alocate,
+  SUM(IF(X.status='published', X.tsize, 0)) Număr_de_caractere_publicate,
+  SUM(IF(X.status='raw', X.tsize, 0)) Număr_de_caractere_alocate,
+      IF(X.status='raw', X.dict, '') Din_dicționarul,
+  S.year An
+FROM (
+  SELECT editorId, status, sum(defCnt) cnt, sum(defTotalSize) tsize, group_concat(DISTINCT S.shortName) dict
+  FROM OCR_stats O JOIN Source S ON O.sourceId=S.id
+  GROUP BY editorId, status
+) X
+JOIN User U on X.editorId=U.id
+JOIN student S on S.userId=U.id
 GROUP BY U.nick
 ORDER BY U.nick";
 

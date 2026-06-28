@@ -70,6 +70,29 @@
       <th>Definiții alocate</th>
       <th>Caractere alocate</th>
     </tr>
+
+    <tr class="filters">
+      <th></th>
+      <th>
+        <select id="filter-stare" class="form-select form-select-sm">
+          <option value="">Toate</option>
+          <option value="activ" selected>Activ</option>
+          <option value="inactiv">Inactiv</option>
+        </select>
+      </th>
+      <th></th>
+      <th>
+        <select id="filter-an" class="form-select form-select-sm">
+          <option value="">Toți</option>
+          <option value="2026" selected>2026</option>
+          <option value="2025">2025</option>
+        </select>
+      </th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
     </thead>
 
     <tbody>
@@ -77,7 +100,7 @@
       <tr>
         <td>{$i.0}</td>
         <td>{$i.7}</td>
-        <td>{$i.8}</td>
+        <td><time datetime="{$i.8}" title="{$i.8}">{$i.8|truncate:10:""}</time></td>
         <td>{$i.6}</td>
         <td>{$i.1}</td>
         <td>{$i.5}</td>
@@ -89,6 +112,31 @@
 
   </table>
   {* /if *}
+  <script>
+    function filtreaza() {
+      const stare = $("#filter-stare").val().toLowerCase();
+      const an = $("#filter-an").val();
+
+      $("#tabel tbody tr").each(function () {
+
+        const stareRow = $("td:eq(1)", this).text().trim().toLowerCase();
+        const anRow = $("td:eq(3)", this).text().trim();
+
+        const okStare = !stare || stareRow === stare;
+        const okAn = !an || anRow === an;
+
+        $(this).toggle(okStare && okAn);
+
+      });
+    }
+
+    $("#filter-stare, #filter-an").on("change", filtreaza);
+
+    // aplicare implicită la load
+    $(document).ready(function () {
+      filtreaza();
+    });
+  </script>
 
   <h4 class="mt-4">Dicționare prelucrate OCR</h4>
 

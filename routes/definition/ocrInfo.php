@@ -125,9 +125,10 @@ const OCR_STUDENT_STATS =
   SUM(IF(X.status='raw', X.tsize, 0)) Număr_de_caractere_alocate,
       IF(X.status='raw', X.dict, '') Din_dicționarul,
   S.year An,
-  IF(U.moderator & 1024, 'activ', 'inactiv') Activ
+  IF(U.moderator & 1024, 'activ', 'inactiv') Activ,
+  X.lastAction
 FROM (
-  SELECT editorId, status, sum(defCnt) cnt, sum(defTotalSize) tsize, group_concat(DISTINCT S.shortName) dict
+  SELECT editorId, status, sum(defCnt) cnt, sum(defTotalSize) tsize, group_concat(DISTINCT S.shortName) dict, MAX(lastModified) lastAction
   FROM OCR_stats O JOIN Source S ON O.sourceId=S.id
   GROUP BY editorId, status
 ) X

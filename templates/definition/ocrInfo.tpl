@@ -63,6 +63,7 @@
     <tr>
       <th>Student</th>
       <th>Activ</th>
+      <th>Ultima acțiune la</th>
       <th>An</th>
       <th>Definiții finalizate</th>
       <th>Dicționar în lucru</th>
@@ -76,6 +77,7 @@
       <tr>
         <td>{$i.0}</td>
         <td>{$i.7}</td>
+        <td>{$i.8}</td>
         <td>{$i.6}</td>
         <td>{$i.1}</td>
         <td>{$i.5}</td>

@@ -57,7 +57,7 @@
   {* if empty($statsStudents) *}
   <h4 class="mt-4">Studenți</h4>
 
-  <table class="table table-sm table-hover">
+  <table id="practica" class="table table-sm table-hover">
 
     <thead>
     <tr>
@@ -117,7 +117,7 @@
       const stare = $("#filter-stare").val().toLowerCase();
       const an = $("#filter-an").val();
 
-      $("#tabel tbody tr").each(function () {
+      $("#practica tbody tr").each(function () {
 
         const stareRow = $("td:eq(1)", this).text().trim().toLowerCase();
         const anRow = $("td:eq(3)", this).text().trim();

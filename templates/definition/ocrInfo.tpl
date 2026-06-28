@@ -62,7 +62,7 @@
     <thead>
     <tr>
       <th>Student</th>
-      <th>Activ</th>
+      <th>Stare</th>
       <th>Ultima acțiune la</th>
       <th>An</th>
       <th>Definiții finalizate</th>
@@ -75,15 +75,15 @@
       <th></th>
       <th>
         <select id="filter-stare" class="form-select form-select-sm">
-          <option value="">Toate</option>
-          <option value="activ" selected>Activ</option>
-          <option value="inactiv">Inactiv</option>
+          <option value="">toate</option>
+          <option value="activ" selected>activ</option>
+          <option value="inactiv">inactiv</option>
         </select>
       </th>
       <th></th>
       <th>
         <select id="filter-an" class="form-select form-select-sm">
-          <option value="">Toți</option>
+          <option value="">toți</option>
           <option value="2026" selected>2026</option>
           <option value="2025">2025</option>
         </select>

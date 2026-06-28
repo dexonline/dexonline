@@ -87,9 +87,10 @@ const OCR_EDITOR_STATS =
   SUM(IF(X.status='raw', X.cnt, 0)) Număr_de_definiții_alocate,
   SUM(IF(X.status='published', X.tsize, 0)) Număr_de_caractere_publicate,
   SUM(IF(X.status='raw', X.tsize, 0)) Număr_de_caractere_alocate,
-      IF(X.status='raw', X.dict, '') Din_dicționarul
+      IF(X.status='raw', X.dict, '') Din_dicționarul,
+  X.lastAction
 FROM (
-  SELECT editorId, status, sum(defCnt) cnt, sum(defTotalSize) tsize, group_concat(DISTINCT S.shortName) dict
+  SELECT editorId, status, sum(defCnt) cnt, sum(defTotalSize) tsize, group_concat(DISTINCT S.shortName) dict, MAX(lastModified) lastAction
   FROM OCR_stats O JOIN Source S ON O.sourceId=S.id
   GROUP BY editorId, status
 ) X

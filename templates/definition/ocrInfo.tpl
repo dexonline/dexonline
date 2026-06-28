@@ -28,8 +28,7 @@
   {* Am unificat blocul stats cu blocul content *}
   <h4 class="mt-4">Alocarea definițiilor OCR</h4>
 
-  <table class="table table-sm table-hover">
-
+  <table id="alocare" class="table table-sm table-hover">
     <thead>
     <tr>
       <th>Moderator</th>
@@ -37,6 +36,21 @@
       <th>Dicționar în lucru</th>
       <th>Definiții alocate</th>
       <th>Caractere alocate</th>
+      <th>Ultima acțiune la</th>
+    </tr>
+    <tr class="filters">
+      <th></th>
+      <th></th>
+      <th></th>
+      <th>
+        <select id="filter-alocare" class="form-select form-select-sm">
+            <option value="">toate</option>
+            <option value="1" selected>în lucru</option>
+            <option value="0">fără alocare</option>
+        </select>
+      </th>
+      <th></th>
+      <th></th>
     </tr>
     </thead>
 
@@ -48,6 +62,7 @@
         <td>{$i.5}</td>
         <td>{$i.2}</td>
         <td>{$i.4}</td>
+        <td><time datetime="{$i.6}" title="{$i.6}">{$i.6|truncate:10:""}</time></td>
       </tr>
     {/foreach}
     </tbody>
@@ -112,35 +127,11 @@
 
   </table>
   {* /if *}
-  <script>
-    function filtreaza() {
-      const stare = $("#filter-stare").val().toLowerCase();
-      const an = $("#filter-an").val();
 
-      $("#practica tbody tr").each(function () {
-
-        const stareRow = $("td:eq(1)", this).text().trim().toLowerCase();
-        const anRow = $("td:eq(3)", this).text().trim();
-
-        const okStare = !stare || stareRow === stare;
-        const okAn = !an || anRow === an;
-
-        $(this).toggle(okStare && okAn);
-
-      });
-    }
-
-    $("#filter-stare, #filter-an").on("change", filtreaza);
-
-    // aplicare implicită la load
-    $(document).ready(function () {
-      filtreaza();
-    });
-  </script>
 
   <h4 class="mt-4">Dicționare prelucrate OCR</h4>
 
-  <table class="table table-sm table-hover">
+  <table id="preparare" class="table table-sm table-hover">
 
     <thead>
     <tr>
@@ -151,6 +142,19 @@
       <th>Nr. caractere preparate</th>
       <th>Nr. caractere în lucru</th>
     </tr>
+    <tr class="filters">
+      <th></th>
+      <th></th>
+      <th></th>
+      <th>
+        <select id="filter-preparare" class="form-select form-select-sm">
+          <option value="">toate</option>
+          <option value="1" selected>în lucru</option>
+          <option value="0">fără alocare</option>
+        </select>
+      </th>
+      <th></th>
+      <th></th>
     </thead>
 
     <tbody>
@@ -167,5 +171,65 @@
     </tbody>
 
   </table>
+
+  <script>
+    function filtreaza1() {
+      const alocare = $("#filter-alocare").val();
+
+      $("#alocare tbody tr").each(function () {
+        const alocareRow = parseInt($("td:eq(3)", this).text(), 10) || 0;
+
+        let okAlocare = true;
+        if (alocare === "1")
+          okAlocare = alocareRow > 0;
+        if (alocare === "0")
+          okAlocare = alocareRow === 0;
+
+        $(this).toggle(okAlocare);
+      });
+    }
+
+    function filtreaza2() {
+      const stare = $("#filter-stare").val().toLowerCase();
+      const an = $("#filter-an").val();
+
+      $("#practica tbody tr").each(function () {
+        const stareRow = $("td:eq(1)", this).text().trim().toLowerCase();
+        const anRow = $("td:eq(3)", this).text().trim();
+
+        const okStare = !stare || stareRow === stare;
+        const okAn = !an || anRow === an;
+
+        $(this).toggle(okStare && okAn);
+      });
+    }
+
+    function filtreaza3() {
+      const preparare = $("#filter-preparare").val();
+
+      $("#preparare tbody tr").each(function () {
+        const preparareRow = parseInt($("td:eq(3)", this).text(), 10) || 0;
+
+        let okPreparare = true;
+        if (preparare === "1")
+          okPreparare = preparareRow > 0;
+        if (preparare === "0")
+          okPreparare = preparareRow === 0;
+
+        $(this).toggle(okPreparare);
+      });
+    }
+
+    $("#filter-alocare").on("change", filtreaza1);
+    $("#filter-stare, #filter-an").on("change", filtreaza2);
+    $("#filter-preparare").on("change", filtreaza3);
+
+    // aplicare implicită la load
+    $(document).ready(function () {
+      filtreaza1();
+      filtreaza2();
+      filtreaza3();
+    });
+  </script>
 
 {/block}

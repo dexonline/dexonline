@@ -62,6 +62,7 @@
     <thead>
     <tr>
       <th>Student</th>
+      <th>Activ</th>
       <th>An</th>
       <th>Definiții finalizate</th>
       <th>Dicționar în lucru</th>
@@ -74,6 +75,7 @@
     {foreach $statsStudents as $i}
       <tr>
         <td>{$i.0}</td>
+        <td>{$i.7}</td>
         <td>{$i.6}</td>
         <td>{$i.1}</td>
         <td>{$i.5}</td>

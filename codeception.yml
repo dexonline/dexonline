@@ -1,0 +1,17 @@
+namespace: Tests\System
+actor_suffix: Helper
+paths:
+    tests: tests
+    output: tests/_output
+    data: tests/_data
+    support: tests/_support
+    envs: tests/_envs
+settings:
+    bootstrap: _bootstrap.php
+    colors: true
+    memory_limit: 1024M
+coverage:
+    enabled: false
+extensions:
+    enabled:
+        - Codeception\Extension\RunFailed

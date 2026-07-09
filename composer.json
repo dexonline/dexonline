@@ -1,0 +1,16 @@
+{
+    "name": "dexonline/dexonline",
+    "require": {
+        "php": "7.4.*"
+    },
+    "require-dev": {
+        "codeception/codeception": "^4.0",
+        "codeception/module-webdriver": "^1.0",
+        "codeception/module-asserts": "^1.0"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\System\\": "tests/"
+        }
+    }
+}

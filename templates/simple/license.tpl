@@ -5,6 +5,17 @@
 {block "content"}
   <h2>Licență</h2>
 
+  <h3>Interzicerea extragerii automate a datelor (Web Scraping)</h3>
+  <p>
+    Este strict interzisă accesarea, preluarea, stocarea, republicarea sau utilizarea informațiilor și a seturilor de
+    date de pe dexonline (https://dexonline.ro) fără consimțământul nostru explicit și prealabil, oferit în scris.
+  </p>
+  <p>
+    Această interdicție se aplică oricăror metode de extragere automată a datelor, incluzând, dar fără a se limita la:
+    web scraping, data mining, crawling, utilizarea de roboți, spideri, scripturi sau orice alte programe software similare.
+    Orice tentativă de accesare sau preluare neautorizată va atrage după sine măsuri tehnice de blocare a accesului și poate duce la demersuri legale.
+  </p>
+
   <h3>Pentru dicționare fără drept de redistribuire</h3>
 
   <p>

@@ -63,6 +63,9 @@
       <footer>
         <div class="text-center">
           Copyright © 2004-{$currentYear} dexonline (https://dexonline.ro)
+          <p class="website-statement">Preluarea, stocarea sau utilizarea datelor de pe acest site, inclusiv prin orice
+          metode de extragere automată (web scraping, crawling), este strict interzisă fără acordul nostru prealabil scris.
+          </p>
         </div>
 
         <ul class="text-center list-inline list-inline-bullet mt-2">

@@ -26,6 +26,9 @@ html.dark {
 .website-statement {
   color: var(--bs-gray-600);
   font-style: italic;
+  font-size: 12px;
+  width: 80%;
+  margin: 0 auto;
 }
 
 /********************* Home page widgets *********************/

@@ -294,6 +294,13 @@ footer {
   overflow-x: hidden;
 }
 
+.website-statement {
+  color: var(--bs-gray-600);
+  font-style: italic;
+  font-size: 12px;
+  width: 85%;
+  margin: 0 auto;
+}
 
 /*********** definitions ***********/
 

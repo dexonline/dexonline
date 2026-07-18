@@ -23,14 +23,6 @@ html.dark {
   margin: -2px auto 0;
 }
 
-.website-statement {
-  color: var(--bs-gray-600);
-  font-style: italic;
-  font-size: 12px;
-  width: 85%;
-  margin: 0 auto;
-}
-
 /********************* Home page widgets *********************/
 .widgets {
   margin-top: 25px;

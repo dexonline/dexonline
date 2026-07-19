@@ -81,6 +81,8 @@
       <th>Ultima acțiune la</th>
       <th>An</th>
       <th>Definiții finalizate</th>
+      <th>La moderare</th>
+      <th>Respinse</th>
       <th>Dicționar în lucru</th>
       <th>Definiții alocate</th>
       <th>Caractere alocate</th>
@@ -107,6 +109,8 @@
       <th></th>
       <th></th>
       <th></th>
+      <th></th>
+      <th></th>
     </tr>
     </thead>
 
@@ -118,6 +122,8 @@
         <td><time datetime="{$i.8}" title="{$i.8}">{$i.8|truncate:10:""}</time></td>
         <td>{$i.6}</td>
         <td>{$i.1}</td>
+        <td>{$i.9}</td>
+        <td>{$i.10}</td>
         <td>{$i.5}</td>
         <td>{$i.2}</td>
         <td>{$i.4}</td>

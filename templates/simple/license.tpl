@@ -5,7 +5,7 @@
 {block "content"}
   <h2>Licență</h2>
 
-  <h3>Interzicerea extragerii automate a datelor (Web Scraping)</h3>
+  <h3>Interzicerea extragerii automate a datelor (web scraping)</h3>
   <p>
     Este strict interzisă accesarea, preluarea, stocarea, republicarea sau utilizarea informațiilor și a seturilor de
     date de pe dexonline (https://dexonline.ro) fără consimțământul nostru explicit și prealabil, oferit în scris.

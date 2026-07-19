@@ -106,10 +106,13 @@ const OCR_STUDENT_STATS =
   SUM(IF(X.status='raw', X.cnt, 0)) Număr_de_definiții_alocate,
   SUM(IF(X.status='published', X.tsize, 0)) Număr_de_caractere_publicate,
   SUM(IF(X.status='raw', X.tsize, 0)) Număr_de_caractere_alocate,
-      IF(X.status='raw', X.dict, '') Din_dicționarul,
+  IF(X.status='raw', X.dict, '') Din_dicționarul,
   S.year An,
   IF(U.moderator & 1024, 'activ', 'inactiv') Activ,
-  MAX(X.lastAction)
+  MAX(X.lastAction),
+  (SELECT count(*) FROM Definition where userId=editorId and status=0) acceptate,
+  (SELECT count(*) FROM Definition where userId=editorId and status=1) în_curs,
+  (SELECT count(*) FROM Definition where userId=editorId and status in (2,4)) respinse
 FROM (
   SELECT editorId, status, sum(defCnt) cnt, sum(defTotalSize) tsize, group_concat(DISTINCT S.shortName) dict, MAX(lastModified) lastAction
   FROM OCR_stats O JOIN Source S ON O.sourceId=S.id

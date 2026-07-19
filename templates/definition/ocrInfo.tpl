@@ -84,15 +84,15 @@
     <tr>
       <th>Student</th>
       <th>Stare</th>
-      <th>Ultima acțiune la</th>
+      <th>Ultima acțiune</th>
       <th>An</th>
       <th>Finalizate</th>
       <th>Acceptate</th>
       <th>La moderare</th>
       <th>Respinse</th>
       <th>Dicționar în lucru</th>
-      <th>Definiții alocate</th>
-      <th>Caractere alocate</th>
+      <th>Definiții</th>
+      <th>Caractere</th>
     </tr>
 
     <tr class="filters">

@@ -35,3 +35,9 @@ body.other section.search {
 .hidden {
   display: none;
 }
+
+/* tables */
+.merged-header-col {
+  text-align: center;
+  background: #eee;
+}

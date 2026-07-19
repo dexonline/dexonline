@@ -76,11 +76,18 @@
 
     <thead>
     <tr>
+      <th colspan="4"></th>
+      <th colspan="4" class="merged-header-col">Definiții</th>
+      <th></th>
+      <th colspan="2" class="merged-header-col">Alocate</th>
+    </tr>
+    <tr>
       <th>Student</th>
       <th>Stare</th>
       <th>Ultima acțiune la</th>
       <th>An</th>
-      <th>Definiții finalizate</th>
+      <th>Finalizate</th>
+      <th>Acceptate</th>
       <th>La moderare</th>
       <th>Respinse</th>
       <th>Dicționar în lucru</th>
@@ -111,6 +118,7 @@
       <th></th>
       <th></th>
       <th></th>
+      <th></th>
     </tr>
     </thead>
 
@@ -122,6 +130,7 @@
         <td><time datetime="{$i.8}" title="{$i.8}">{$i.8|truncate:10:""}</time></td>
         <td>{$i.6}</td>
         <td>{$i.1}</td>
+        <td>{$i.8}</td>
         <td>{$i.9}</td>
         <td>{$i.10}</td>
         <td>{$i.5}</td>

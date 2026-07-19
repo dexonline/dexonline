@@ -130,9 +130,9 @@
         <td><time datetime="{$i.8}" title="{$i.8}">{$i.8|truncate:10:""}</time></td>
         <td>{$i.6}</td>
         <td>{$i.1}</td>
-        <td>{$i.8}</td>
         <td>{$i.9}</td>
         <td>{$i.10}</td>
+        <td>{$i.11}</td>
         <td>{$i.5}</td>
         <td>{$i.2}</td>
         <td>{$i.4}</td>

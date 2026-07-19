@@ -39,5 +39,5 @@ body.other section.search {
 /* tables */
 .merged-header-col {
   text-align: center;
-  background: #eee;
+  background: #eee !important;
 }

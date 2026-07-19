@@ -112,7 +112,7 @@ const OCR_STUDENT_STATS =
   MAX(X.lastAction),
   (SELECT count(*) FROM Definition where userId=editorId and status=0) acceptate,
   (SELECT count(*) FROM Definition where userId=editorId and status=1) în_curs,
-  (SELECT count(*) FROM Definition where userId=editorId and status in (2,4)) respinse
+  (SELECT count(*) FROM Definition where userId=editorId and status=4) respinse
 FROM (
   SELECT editorId, status, sum(defCnt) cnt, sum(defTotalSize) tsize, group_concat(DISTINCT S.shortName) dict, MAX(lastModified) lastAction
   FROM OCR_stats O JOIN Source S ON O.sourceId=S.id

@@ -86,7 +86,7 @@
       <th>Stare</th>
       <th>Ultima acțiune</th>
       <th>An</th>
-      <th>Finalizate</th>
+      <th>Trimise</th>
       <th>Acceptate</th>
       <th>La moderare</th>
       <th>Respinse</th>

@@ -1,3 +1,14 @@
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: url("/img/25.de.ani.png") center center / 20% auto;
+  opacity: 0.04;
+  pointer-events: none;
+  z-index: -1;
+}
+
+
 body {
   /* prevent ligatures for the following reasons:
    * 1. tonic accent (underline) is not displayed in ~fi~ segments

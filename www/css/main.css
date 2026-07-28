@@ -2,8 +2,8 @@ body::before {
   content: "";
   position: fixed;
   inset: 0;
-  background: url("/img/25.de.ani.png") center center / 20% auto;
-  opacity: 0.04;
+  background: url("/img/tile25.png") center center / 50% auto;
+  opacity: 0.08;
   pointer-events: none;
   z-index: -1;
 }

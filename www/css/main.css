@@ -65,11 +65,16 @@ a:focus {
   max-width: 450px;
 }
 
+.poll-link {
+  text-align: right;
+  color: lightslategrey;
+  font-size: xx-small;
+}
+
 .btn-poll {
   padding-left: 20px;
   padding-right: 20px;
-  margin-left: 20px;
-  margin-right: 20px;
+  margin: 10px;
   min-width: 80px;
 }
 

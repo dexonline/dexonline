@@ -741,10 +741,13 @@ function pollModalCreate() {
   var modalDiv = document.createElement('div');
   modalDiv.setAttribute("class", "pollModal");
   modalDiv.innerHTML='<div id="pollDiv" class="pollModalContent">' +
-    '<b>Sondajele <i>dexonline</i></b><p></p>' +
-    '<p>🇪🇺 Susținem Europa! 🇪🇺</p><br/>' +
-    '<input class="btn btn-primary btn-poll" type="submit" onclick="pollModalClose()" value=" SIGUR ">' +
-    '<input class="btn btn-primary btn-poll" type="submit" onclick="window.location.replace(\'turbinca.html\')" value=" NIET ">' +
+    '<b>🎉 dexonline<sup>®</sup> împlinește 25 de ani 🎉</b><p></p>' +
+    '<p>De un sfert de secol suntem aici, gratuit, zi de zi, pentru milioane de căutări.</p>' +
+    '<p>Cu o mică donație aniversară ne-ați ajuta să păstrăm cuvintele la îndemâna tuturor și pe viitor.</p>' +
+    '<input class="btn btn-primary btn-poll" type="submit" onclick="window.location.replace(\'turbinca.html\')" value=" 25 de lei ">' +
+    '<input class="btn btn-primary btn-poll" type="submit" onclick="pollModalClose()" value=" Sunt european 😉 25 de euro ">' +
+    '<input class="btn btn-primary btn-poll" type="submit" value=" Asta-i bună! Nu donez. Mi se cuvine! ">' +
+    '<br/><br/><p class="poll-link"><a onclick="pollModalClose()">Am donat deja</a></p>'
     '</div>';
   domModal = document.body.insertBefore(modalDiv, document.getElementById('pageModal'));
   domModal.querySelector('input').focus();
@@ -759,7 +762,7 @@ function pollModalResponse() {
   var modalDiv = document.createElement('div');
   modalDiv.setAttribute("class", "pollModal");
   modalDiv.innerHTML='<div id="pollDiv" class="pollModalContent">' +
-    '<br/><p>Of! N-ați vrea să vă mai gândiți? 🙇🏻‍♀️🙇‍♂️</p><br/>' +
+    '<p>Of! N-ați vrea să vă mai gândiți? 🙇🏻‍♀️🙇‍♂️</p>' +
     '<input class="btn btn-primary btn-response" type="submit" onclick="pollModalCreate()" value="OK, aveți dreptate, mă mai gândesc 👍">' +
     '</div>';
   domModal = document.body.insertBefore(modalDiv, document.getElementById('pageModal'));
@@ -767,14 +770,14 @@ function pollModalResponse() {
 }
 
 
-/*
 setTimeout(function() {
   //block also by local storage value
-  if ((localStorage.getItem('pollModal') != 1) && (sessionStorage.getItem('pollModal') != 1)) {
+  //for debugging: show every time
+  //if ((localStorage.getItem('pollModal') != 1) && (sessionStorage.getItem('pollModal') != 1)) {
     pollModalCreate();
-  }
+  //}
 }, 500);
-*/
+
 
 /*** END call for poll ***/
 

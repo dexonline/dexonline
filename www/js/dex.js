@@ -746,7 +746,7 @@ function pollModalCreate() {
     '<p>Cu o mică donație aniversară ne-ați ajuta să păstrăm cuvintele la îndemâna tuturor și pe viitor.</p>' +
     '<input class="btn btn-primary btn-poll" type="submit" onclick="window.location.replace(\'turbinca.html\')" value=" 25 de lei ">' +
     '<input class="btn btn-primary btn-poll" type="submit" onclick="pollModalClose()" value=" Sunt european 😉 25 de euro ">' +
-    '<input class="btn btn-primary btn-poll" type="submit" value=" Asta-i bună! Nu donez. Mi se cuvine! ">' +
+    '<input class="btn btn-primary btn-poll" type="submit" onclick="pollModalResponse()" value=" Asta-i bună! Nu donez. Mi se cuvine! ">' +
     '<br/><br/><p class="poll-link"><a onclick="pollModalClose()">Am donat deja</a></p>'
     '</div>';
   domModal = document.body.insertBefore(modalDiv, document.getElementById('pageModal'));

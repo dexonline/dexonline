@@ -81,6 +81,7 @@ a:focus {
 .btn-response {
   padding-left: 10px;
   padding-right: 10px;
+  margin: 10px;
   min-width: 80px;
 }
 

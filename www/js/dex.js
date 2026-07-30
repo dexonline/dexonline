@@ -763,7 +763,7 @@ function pollModalResponse() {
   modalDiv.setAttribute("class", "pollModal");
   modalDiv.innerHTML='<div id="pollDiv" class="pollModalContent">' +
     '<p>Of! N-ați vrea să vă mai gândiți? 🙇🏻‍♀️🙇‍♂️</p>' +
-    '<p>dexonline este un proiect privat, construit și susținut de o echipă de voluntari. Nu vă bombardăm cu reclame. Nu vindem date despre dumneavoastră.</p>' +
+    '<p>dexonline este un proiect privat, construit și susținut de o echipă de voluntari. Nu vă agasăm cu reclame. Nu vindem date despre dumneavoastră.</p>' +
     '<p>Dacă nu utilizatorii, atunci cine?!</p>' +
     '<input class="btn btn-primary btn-response" type="submit" onclick="pollModalCreate()" value=" M-ați convins. Fac o donație. ">' +
     '<input class="btn btn-primary btn-response" type="submit" onclick="pollModalClose()" value=" Nu-mi pasă. Nu donez. ">'

@@ -3,6 +3,8 @@ var letter = '[' + Alphabet + ']';
 var nonLetter = '[^' + Alphabet + ']';
 var wwwRoot = getWwwRoot();
 
+const POLL_INTERVAL = 24 * 60 * 60 * 1000; // 24h
+
 /**
  * Shuffles an array in place. Welcome to 1975, where this function is not built in.
  * @param Array a
@@ -737,7 +739,6 @@ function openPopup(src) {
 
 /*** START call for poll ***/
 function pollModalCreate() {
-  sessionStorage.setItem('pollModal', 1);
   var modalDiv = document.createElement('div');
   modalDiv.setAttribute("class", "pollModal");
   modalDiv.innerHTML='<div id="pollDiv" class="pollModalContent">' +
@@ -774,11 +775,12 @@ function pollModalResponse() {
 
 
 setTimeout(function() {
-  //block also by local storage value
-  //for debugging: show every time
-  //if ((localStorage.getItem('pollModal') != 1) && (sessionStorage.getItem('pollModal') != 1)) {
+  const now = Date.now();
+  const lastShown = parseInt(localStorage.getItem("pollModal"), 10);
+  if (!lastShown || now - lastShown >= POLL_INTERVAL) {
+    localStorage.setItem("pollModal", now);
     pollModalCreate();
-  //}
+  }
 }, 500);
 
 

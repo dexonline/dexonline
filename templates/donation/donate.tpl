@@ -44,7 +44,7 @@
                       <option disabled>──────────</option>
                       <option value="20">20 lei</option>
                       <option value="50">50 lei</option>
-                      <option value="100" selected>100 lei</option>
+                      <option value="100">100 lei</option>
                       <option value="150">150 lei</option>
                       <option value="200">200 lei</option>
                       <option value="250">250 lei</option>

@@ -6,6 +6,19 @@
   <h3>Pagina moderatorului</h3>
 
   {if User::can(User::PRIV_PLUGIN)}
+  <div class="card quickNav mb-3">
+    <div class="card-header">
+      Resetare variabilă mesaj
+    </div>
+    <div class="top-card">
+      <button name="resetPollButton" class="btn btn-secondary btn-sm ms-2" onclick="localStorage.removeItem('pollModal');">
+      Resetează anunțul
+      </button>
+    </div>
+  </div>
+  {/if}
+
+  {if User::can(User::PRIV_PLUGIN)}
     <div class="card quickNav mb-3">
       <div class="card-header">
         Topurile curente

@@ -744,8 +744,8 @@ function pollModalCreate() {
     '<b>🎉 dexonline<sup>®</sup> împlinește 25 de ani 🎉</b><p></p>' +
     '<p>De un sfert de secol suntem aici, gratuit, zi de zi, pentru milioane de căutări.</p>' +
     '<p>Cu o mică donație aniversară ne-ați ajuta să păstrăm cuvintele la îndemâna tuturor și pe viitor.</p>' +
-    '<input class="btn btn-primary btn-poll" type="submit" onclick="window.location.replace(\'turbinca.html\')" value=" 25 de lei ">' +
-    '<input class="btn btn-primary btn-poll" type="submit" onclick="pollModalClose()" value=" Sunt european 😉 Donez 25 de euro. ">' +
+    '<input class="btn btn-primary btn-poll" type="submit" onclick="window.location.replace(\'https://dexonline.ro/doneaza\')" value=" 25 de lei ">' +
+    '<input class="btn btn-primary btn-poll" type="submit" onclick="window.location.replace(\'https://dexonline.ro/doneaza\')" value=" Sunt european 😉 Donez 25 de euro. ">' +
     '<input class="btn btn-primary btn-poll" type="submit" onclick="pollModalResponse()" value=" Asta-i bună! Nu donez. Mi se cuvine! ">' +
     '<br/><br/><p class="poll-link"><a onclick="pollModalClose()">Am donat deja.</a></p>'
     '</div>';
@@ -763,7 +763,7 @@ function pollModalResponse() {
   modalDiv.setAttribute("class", "pollModal");
   modalDiv.innerHTML='<div id="pollDiv" class="pollModalContent">' +
     '<p>Of! N-ați vrea să vă mai gândiți? 🙇🏻‍♀️🙇‍♂️</p>' +
-    '<p>dexonline este un proiect privat, construit și susținut de o echipă de voluntari. Nu vă agasăm cu reclame. Nu vindem date despre dumneavoastră.</p>' +
+    '<p>dexonline<sup>®</sup> este un proiect privat, construit și susținut de o echipă de voluntari. Nu vă agasăm cu reclame. Nu vindem date despre dumneavoastră.</p>' +
     '<p>Dacă nu utilizatorii, atunci cine?!</p>' +
     '<input class="btn btn-primary btn-response" type="submit" onclick="pollModalCreate()" value=" M-ați convins. Fac o donație. ">' +
     '<input class="btn btn-primary btn-response" type="submit" onclick="pollModalClose()" value=" Nu-mi pasă. Nu donez. ">'

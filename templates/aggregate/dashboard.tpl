@@ -8,14 +8,24 @@
   {if User::can(User::PRIV_PLUGIN)}
   <div class="card quickNav mb-3">
     <div class="card-header">
-      Resetare variabilă mesaj
+      Resetare afișare anunț (ultima afișare: <span id="pollValue"></span>)
     </div>
+    <script>
+      const ts = Number(localStorage.getItem("pollModal"));
+      document.getElementById("pollValue").textContent = ts ? new Date(ts).toLocaleString("ro-RO") : " - ";
+
+      function resetPollModal() {
+        localStorage.removeItem('pollModal');
+        document.getElementById("pollValue").textContent = " - ";
+      }
+    </script>
     <div class="top-card">
-      <button name="resetPollButton" class="btn btn-secondary btn-sm ms-2" onclick="localStorage.removeItem('pollModal');">
+      <button name="resetPollButton" class="btn btn-secondary btn-sm ms-2" onclick="resetPollModal();">
       Resetează anunțul
       </button>
     </div>
   </div>
+
   {/if}
 
   {if User::can(User::PRIV_PLUGIN)}

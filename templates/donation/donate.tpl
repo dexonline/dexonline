@@ -39,16 +39,16 @@
                       id="donateOnlineAmount"
                       name="amount"
                       class="form-select">
-                      <option value="25">25 lei</option>
-                      <option value="131">25 €</option>
+                      <option value="25">25 de lei</option>
+                      <option value="131">131 de lei (25 €)</option>
                       <option disabled>──────────</option>
-                      <option value="20">20 lei</option>
-                      <option value="50">50 lei</option>
-                      <option value="100">100 lei</option>
-                      <option value="150">150 lei</option>
-                      <option value="200">200 lei</option>
-                      <option value="250">250 lei</option>
-                      <option value="500">500 lei</option>
+                      <option value="20">20 de lei</option>
+                      <option value="50">50 de lei</option>
+                      <option value="100">100 de lei</option>
+                      <option value="150">150 de lei</option>
+                      <option value="200">200 de lei</option>
+                      <option value="250">250 de lei</option>
+                      <option value="500">500 de lei</option>
                     </select>
                   </div>
                 </div>

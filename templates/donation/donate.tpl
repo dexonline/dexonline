@@ -75,6 +75,12 @@
             </div>
           </div>
         </div>
+        <script>
+          const params = new URLSearchParams(window.location.search);
+          if (params.has("european")) {
+            document.getElementById("donateOnlineAmount").selectedIndex = 1;
+          }
+        </script>
       {/if}
 
       <div class="col-lg mb-3">

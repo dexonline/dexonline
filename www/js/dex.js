@@ -746,7 +746,7 @@ function pollModalCreate() {
     '<p>De un sfert de secol suntem aici, gratuit, zi de zi, pentru milioane de căutări.</p>' +
     '<p>Cu o mică donație aniversară ne-ați ajuta să păstrăm cuvintele la îndemâna tuturor și pe viitor.</p>' +
     '<input class="btn btn-primary btn-poll" type="submit" onclick="window.location.replace(wwwRoot + \'doneaza\')" value=" 25 de lei ">' +
-    '<input class="btn btn-primary btn-poll" type="submit" onclick="window.location.replace(wwwRoot + \'doneaza\')" value=" Sunt european 😉 Donez 25 de euro. ">' +
+    '<input class="btn btn-primary btn-poll" type="submit" onclick="window.location.replace(wwwRoot + \'doneaza?european\')" value=" Sunt european 😉 Donez 25 de euro. ">' +
     '<input class="btn btn-primary btn-poll" type="submit" onclick="pollModalResponse()" value=" Asta-i bună! Nu donez. Mi se cuvine! ">' +
     '<br/><br/><p class="poll-link"><a onclick="pollModalClose()">Am donat deja.</a></p>'
     '</div>';

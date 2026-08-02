@@ -13,6 +13,15 @@ html.dark body::before {
   opacity: 0.2;
 }
 
+/* supersede bootstrap .card */
+.card {
+    background-color: transparent;
+}
+
+html.dark .card {
+  background-color: transparent;
+}
+
 body {
   /* prevent ligatures for the following reasons:
    * 1. tonic accent (underline) is not displayed in ~fi~ segments

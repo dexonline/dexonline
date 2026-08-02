@@ -9,7 +9,7 @@ body::before {
 }
 
 html.dark body::before {
-  background: url("/img/tile25.png") center center / 50% auto;
+  background: url("/img/tile25i.png") center center / 50% auto;
   opacity: 0.2;
 }
 

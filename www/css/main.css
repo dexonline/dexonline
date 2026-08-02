@@ -8,6 +8,10 @@ body::before {
   z-index: -1;
 }
 
+html.dark body::before {
+  background: url("/img/tile25.png") center center / 50% auto;
+  opacity: 0.2;
+}
 
 body {
   /* prevent ligatures for the following reasons:

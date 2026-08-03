@@ -3,7 +3,7 @@ var letter = '[' + Alphabet + ']';
 var nonLetter = '[^' + Alphabet + ']';
 var wwwRoot = getWwwRoot();
 
-const POLL_INTERVAL = 24 * 60 * 60 * 1000; // 24h
+const POLL_INTERVAL = 36 * 60 * 60 * 1000; // 36h
 
 /**
  * Shuffles an array in place. Welcome to 1975, where this function is not built in.

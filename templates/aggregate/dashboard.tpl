@@ -78,9 +78,11 @@
 
       </div>
 
+      {assign var="hasVisibleReports" value=false}
       <table class="table table-sm table-hover mb-0">
         {foreach $reports as $r}
           {if $r.count && User::can($r.privilege)}
+            {assign var="hasVisibleReports" value=true}
             <tr>
               <td>
                 {$r.text}
@@ -93,6 +95,13 @@
           {/if}
         {/foreach}
       </table>
+      {if !$hasVisibleReports}
+        <div class="card-body">
+          <p class="text-muted">
+            Nu există rapoarte de afișat.
+          </p>
+        </div>
+      {/if}
     </div>
   {/if}
 

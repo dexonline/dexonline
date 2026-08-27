@@ -748,8 +748,8 @@ function CelebrationModalCreate() {
        'Restul, cum se spune, e istorie.</p>' +
     '<p><b>Astăzi împlinim 25 de ani. Și, pentru o zi, ne întoarcem acolo de unde am plecat.</b></p>' +
     '<p>Site-ul pe care îl veți descoperi acum este dexonline așa cum arăta în 2001: ' +
-       'simplu, sărac în informații și foarte departe de instrumentul pe care îl cunoașteți astăzi. ' +
-       'În cei 25 de ani care au trecut, mii și mii de ore de muncă voluntară l-au transformat, pas cu pas, în dexonline de azi.</p>' +
+       'simplu, sărac în informații și foarte departe de instrumentul pe care îl cunoașteți astăzi.</p>' +
+       '<p>În cei 25 de ani care au trecut, mii și mii de ore de muncă voluntară l-au transformat, pas cu pas, în dexonline de azi.</p>' +
     '<p>Vă invităm să vă plimbați puțin prin <b>versiunea dexonline din 2001</b>. ' +
     'Iar când vi se face dor de prezent, în colțul din dreapta jos veți găsi drumul spre contemporaneitate 😇</p>' +
     '<p>Cu această ocazie, le mulțumim tuturor celor care ne-au fost alături de-a lungul anilor și, în mod deosebit, ' +

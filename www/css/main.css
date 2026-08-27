@@ -78,6 +78,16 @@ a:focus {
   max-width: 450px;
 }
 
+.celebration {
+  margin: 4% auto;
+  max-width: 500px;
+  padding: 30px 40px;
+}
+
+.toPresent {
+  float: inline-end;
+}
+
 .poll-link {
   text-align: right;
   color: lightslategrey;

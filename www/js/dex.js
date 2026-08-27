@@ -737,6 +737,32 @@ function openPopup(src) {
   popup.focus();
 }
 
+/*** 25 years ***/
+function CelebrationModalCreate() {
+  var modalDiv = document.createElement('div');
+  modalDiv.setAttribute("class", "pollModal");
+  modalDiv.innerHTML='<div id="pollDiv" class="pollModalContent celebration">' +
+    '<b>25 de ani de dexonline® 🎂</b><p></p>' +
+    '<p>Pe 28 august 2001, Cătălin Frâncu, pe atunci student la MIT, punea online prima versiune a site-ului dexonline. ' +
+       'Totul a pornit de la două preocupări aparent fără legătură: programarea web și grija pentru limba română. ' +
+       'Restul, cum se spune, e istorie.</p>' +
+    '<p><b>Astăzi împlinim 25 de ani. Și, pentru o zi, ne întoarcem acolo de unde am plecat.</b></p>' +
+    '<p>Site-ul pe care îl veți descoperi acum este dexonline așa cum arăta în 2001: ' +
+       'simplu, sărac în informații și foarte departe de instrumentul pe care îl cunoașteți astăzi. ' +
+       'În cei 25 de ani care au trecut, mii și mii de ore de muncă voluntară l-au transformat, pas cu pas, în dexonline de azi.</p>' +
+    '<p>Vă invităm să vă plimbați puțin prin <b>versiunea dexonline din 2001</b>. ' +
+    'Iar când vi se face dor de prezent, în colțul din dreapta jos veți găsi drumul spre contemporaneitate 😇</p>' +
+    '<p>Cu această ocazie, le mulțumim tuturor celor care ne-au fost alături de-a lungul anilor și, în mod deosebit, ' +
+       'celor care ne-au oferit o donație aniversară în această lună.</p>' +
+    '<p><b>La mulți ani, dexonline! La mulți ani nouă, tuturor!</b></p>' +
+    '<input class="btn btn-primary btn-poll" type="submit" onclick="window.location.replace(wwwRoot + \'2001/index.html\')" value=" Înapoi în 2001! ">' +
+  '</div>';
+  domModal = document.body.insertBefore(modalDiv, document.getElementById('pageModal'));
+  domModal.querySelector('input').focus();
+}
+
+/*** END 25 years ***/
+
 /*** START call for poll ***/
 function pollModalCreate() {
   var modalDiv = document.createElement('div');
@@ -775,16 +801,18 @@ function pollModalResponse() {
 
 
 setTimeout(function() {
+  CelebrationModalCreate();
   const now = Date.now();
   const lastShown = parseInt(localStorage.getItem("pollModal"), 10);
   if (!lastShown || now - lastShown >= POLL_INTERVAL) {
-    localStorage.setItem("pollModal", now);
-    pollModalCreate();
+  // temporary disable poll Modal
+  //  localStorage.setItem("pollModal", now);
+  //  pollModalCreate();
   }
 }, 500);
 
-
 /*** END call for poll ***/
+
 
 /*** leonardo ***/
 /*

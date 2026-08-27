@@ -22,12 +22,54 @@
     color:white;
     font-size:large;
   }
+
+  .tooltip {
+    position: relative;
+    cursor: help;
+  }
+
+  .tooltip-text {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 100%;
+    white-space: nowrap;
+    background: #333;
+    color: white;
+    padding: 5px 8px;
+    border-radius: 4px;
+    z-index: 1000;
+  }
+
+  .tooltip:hover .tooltip-text {
+    display: block;
+  }
 </style>
 
 <center>
   <img src="dex-online.png"><br>
   Cuvântul: <input type="text" id="search"><input type="button" value=" Caută! " onclick="doSearch();"><br><br>
-  Pentru a vedea lista cuvintelor, apasă direct butonul "Caută". <i>DEX</i> a învăţat 16 cuvinte. <br><br>
+  Pentru a vedea lista cuvintelor, apasă direct butonul "Caută". <i>DEX</i> a învăţat <span class="tooltip">16 cuvinte.
+  <span class="tooltip-text">
+    abominabil<br/>
+    aplicație<br/>
+    apropo<br/>
+    arahidă<br/>
+    arahnidă<br/>
+    arahnoidă<br/>
+    arahnoidită<br/>
+    bordei<br/>
+    cabalistic<br/>
+    dalb<br/>
+    dihanie<br/>
+    dihonie<br/>
+    investi<br/>
+    învesti<br/>
+    negativ<br/>
+    scepticism
+  </span>
+  </span>
+  <br><br>
 </center>
 
   <p id="not-found" style="display:none">Nu există rezultate.</p>

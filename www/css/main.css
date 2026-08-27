@@ -84,12 +84,6 @@ a:focus {
   padding: 30px 40px;
 }
 
-.toPresent {
-  float: inline-end;
-  background-color: 880000;
-  padding: 10px;
-}
-
 .poll-link {
   text-align: right;
   color: lightslategrey;

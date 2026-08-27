@@ -17,6 +17,7 @@
       function resetPollModal() {
         localStorage.removeItem('pollModal');
         document.getElementById("pollValue").textContent = " - ";
+        localStorage.removeItem('celebModal');
       }
     </script>
     <div class="top-card">

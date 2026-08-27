@@ -801,13 +801,18 @@ function pollModalResponse() {
 
 
 setTimeout(function() {
-  CelebrationModalCreate();
   const now = Date.now();
+  lastCelebrationShown = parseInt(localStorage.getItem("celebModal"), 10);
   const lastShown = parseInt(localStorage.getItem("pollModal"), 10);
-  if (!lastShown || now - lastShown >= POLL_INTERVAL) {
-  // temporary disable poll Modal
-  //  localStorage.setItem("pollModal", now);
-  //  pollModalCreate();
+
+  if (!lastCelebrationShown || now - lastCelebrationShown >= POLL_INTERVAL) {
+    localStorage.setItem("celebModal", now);
+    CelebrationModalCreate();
+  } else {
+    if (!lastShown || now - lastShown >= POLL_INTERVAL) {
+      localStorage.setItem("pollModal", now);
+      pollModalCreate();
+    }
   }
 }, 500);
 

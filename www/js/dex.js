@@ -4,6 +4,8 @@ var nonLetter = '[^' + Alphabet + ']';
 var wwwRoot = getWwwRoot();
 
 const POLL_INTERVAL = 36 * 60 * 60 * 1000; // 36h
+const CELEB_INTERVAL = 8 * 60 * 60 * 1000; // 8h
+
 
 /**
  * Shuffles an array in place. Welcome to 1975, where this function is not built in.
@@ -805,7 +807,7 @@ setTimeout(function() {
   lastCelebrationShown = parseInt(localStorage.getItem("celebModal"), 10);
   const lastShown = parseInt(localStorage.getItem("pollModal"), 10);
 
-  if (!lastCelebrationShown || now - lastCelebrationShown >= POLL_INTERVAL) {
+  if (!lastCelebrationShown || now - lastCelebrationShown >= CELEB_INTERVAL) {
     localStorage.setItem("celebModal", now);
     CelebrationModalCreate();
   } else {

@@ -194,7 +194,12 @@
 <script>
 function doSearch() {
 
-    const term = document.getElementById('search').value.trim().toLowerCase();
+    //const term = document.getElementById('search').value.trim().toLowerCase();
+    const term = document.getElementById('search').value
+      .trim()
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '');
     const results = document.querySelectorAll('.result');
     const notFound = document.getElementById('not-found');
 

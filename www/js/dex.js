@@ -804,18 +804,13 @@ function pollModalResponse() {
 
 setTimeout(function() {
   const now = Date.now();
-  lastCelebrationShown = parseInt(localStorage.getItem("celebModal"), 10);
   const lastShown = parseInt(localStorage.getItem("pollModal"), 10);
 
-  if (!lastCelebrationShown || now - lastCelebrationShown >= CELEB_INTERVAL) {
-    localStorage.setItem("celebModal", now);
-    CelebrationModalCreate();
-  } else {
-    if (!lastShown || now - lastShown >= POLL_INTERVAL) {
-      localStorage.setItem("pollModal", now);
-      pollModalCreate();
-    }
+  if (!lastShown || now - lastShown >= POLL_INTERVAL) {
+    localStorage.setItem("pollModal", now);
+    pollModalCreate();
   }
+
 }, 500);
 
 /*** END call for poll ***/

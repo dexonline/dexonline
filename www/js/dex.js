@@ -802,6 +802,7 @@ function pollModalResponse() {
 }
 
 
+/* 25 years
 setTimeout(function() {
   const now = Date.now();
   const lastShown = parseInt(localStorage.getItem("pollModal"), 10);
@@ -812,6 +813,8 @@ setTimeout(function() {
   }
 
 }, 500);
+*/
+
 
 /*** END call for poll ***/
 

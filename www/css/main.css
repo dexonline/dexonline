@@ -1,3 +1,4 @@
+/* 25 years
 body::before {
   content: "";
   position: fixed;
@@ -7,6 +8,7 @@ body::before {
   pointer-events: none;
   z-index: -1;
 }
+*/
 
 html.dark body::before {
   background: url("/img/tile25i.png") center center / 50% auto;

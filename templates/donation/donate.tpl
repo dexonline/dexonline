@@ -40,7 +40,7 @@
                       name="amount"
                       class="form-select">
                       <option value="20">20 de lei</option>
-                      <option value="50">50 de lei</option>
+                      <option value="50" selected>50 de lei</option>
                       <option value="100">100 de lei</option>
                       <option value="150">150 de lei</option>
                       <option value="200">200 de lei</option>

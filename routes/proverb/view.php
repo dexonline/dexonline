@@ -12,10 +12,14 @@ $wotm = $id ? Proverb::getProverb($id) :  Proverb::getTodayProverb();
 if (!$wotm) {
   Util::redirectToRoute('proverb/view'); // current proverb
 }
-$def = Definition::get_by_id($wotm->definitionId);
-$crt_id = $wotm->id;
 
-$searchResults = SearchResult::mapDefinitionArray([$def]);
+$searchResults = array();
+if ($wotm->definitionId) {
+  $def = Definition::get_by_id($wotm->definitionId);
+  $searchResults = SearchResult::mapDefinitionArray([$def]);
+}
+
+$crt_id = $wotm->id;
 if ($crt_id > 1) {
   Smart::assign('prevmon', $crt_id - 1);
 }

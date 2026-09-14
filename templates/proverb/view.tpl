@@ -7,7 +7,7 @@
 {block "pageDescription"}
   <meta
     name="description"
-    content="Proverbul zilei la dexonline: {$searchResult->definition->lexicon}">
+    content="Proverbul zilei la dexonline: {$title}">
 {/block}
 
 {block "openGraph"}
@@ -15,7 +15,7 @@
 {/block}
 
 {block "content"}
-  <h3>Proverbul: {$title}</h3>
+  <h3>Proverbul zilei: <i>{$title}</i></h3>
   <div class="card mb-3">
     <div class="card-header fs-2 px-2 py-0 d-flex justify-content-between">
       {if isset($prevmon)}
@@ -40,8 +40,8 @@
             {$imageUrl} 0.5x,
             {$imageXXLUrl} 1.8x
             "
-          alt="{$searchResult->definition->lexicon}"
-          title="{$searchResult->definition->lexicon}">
+          alt="{$title}"
+          title="{$title}">
         <div class="text-muted text-end">
           {$artist->credits|default:''}
         </div>

@@ -43,7 +43,7 @@ Smart::assign([
   'definitionId' => $wotm->definitionId,
   'reason' => $wotm->description,
   'searchResult' => array_pop($searchResults),
-  'words' => createGallery($year),
+  //'words' => createGallery($year), //to be activated later
 ]);
 
 switch ($format['name']) {

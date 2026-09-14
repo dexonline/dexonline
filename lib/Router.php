@@ -427,6 +427,11 @@ class Router {
       'en_US.utf8' => 'expression-of-the-day',
       'ro_RO.utf8' => 'expresia-zilei',
     ],
+    // proverbs
+    'proverb/view' => [
+      'en_US.utf8' => 'proverb-of-the-day',
+      'ro_RO.utf8' => 'proverbul-zilei',
+    ],
   ];
 
   // file => list of parameters expected in the URL (none by default)
@@ -444,6 +449,7 @@ class Router {
     'wotd/view' => [ 'year', 'month', 'day', 'format' ],
     'wotm/view' => [ 'year', 'month', 'format' ],
     'wote/view' => [ 'id' ],
+    'proverb/view' => [ 'id' ],
     'user/view' => [ 'nick' ],
   ];
 

@@ -82,7 +82,7 @@ class Widget {
       'name' => 'Proverbe',
       'template' => 'proverb.tpl',
       'enabled' => false,
-      'available' => false,
+      'available' => true,
     ]
   ];
 

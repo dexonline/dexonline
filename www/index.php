@@ -54,4 +54,17 @@ Smart::assign([
   'exprTitle' => $wote->title,
 ]);
 
+/* Proverbs */
+$proverb = Proverb::getTodayProverb();
+if (!$proverb) {
+  $proverb = Model::factory('Proverb')->create(); // generic Proverb
+}
+
+Smart::assign([
+  'proverbId' => $proverb->id(),
+  'thumbProverbUrl' => $proverb->getMediumThumbUrl(),
+  'thumbProverbDefault' => $proverb->getDefaultThumbUrl(),
+  'proverbTitle' => $proverb->title,
+]);
+
 Smart::display('index.tpl');

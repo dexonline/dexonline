@@ -8,9 +8,16 @@ $format = Request::getFormat();
 
 $year = date('Y');
 
-$wotm = $id ? Proverb::getProverb($id) :  Proverb::getTodayProverb();
+$wotm = $id ? Proverb::getProverb($id) : Proverb::getTodayProverb();
 if (!$wotm) {
   Util::redirectToRoute('proverb/view'); // current proverb
+}
+
+$mysqlDate = $wotm->displayDate;
+$today = date('Y-m-d', time());
+
+if ($mysqlDate < PROVERB_BIG_BANG || (($mysqlDate > $today) && !User::can(User::PRIV_WOTD))) {
+  Util::redirectToRoute('proverb/view');
 }
 
 $searchResults = array();

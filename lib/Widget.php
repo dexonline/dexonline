@@ -63,7 +63,7 @@ class Widget {
     self::WIDGET_PROMOTED => [
       'name' => 'Cuvântul din vitrină',
       'template' => 'promoted.tpl',
-      'enabled' => false,
+      'enabled' => true,
       'available' => true,
     ],
     self::WIDGET_SOCIAL => [

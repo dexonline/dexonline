@@ -24,27 +24,9 @@ class Widget {
       'enabled' => true,
       'available' => true,
     ],
-    self::WIDGET_WOTM => [
-      'name' => 'Cuvântul lunii',
-      'template' => 'wotm.tpl',
-      'enabled' => true,
-      'available' => true,
-    ],
-    self::WIDGET_WOTY => [
-      'name' => 'Cuvântul anului',
-      'template' => 'woty.tpl',
-      'enabled' => true,
-      'available' => false,
-    ],
-    self::WIDGET_NEWSLETTER => [
-      'name' => 'Newsletter',
-      'template' => 'newsletter.tpl',
-      'enabled' => false,
-      'available' => false,
-    ],
-    self::WIDGET_GAMES => [
-      'name' => 'Jocuri',
-      'template' => 'games.tpl',
+    self::WIDGET_PROVERB => [
+      'name' => 'Proverbe',
+      'template' => 'proverb.tpl',
       'enabled' => true,
       'available' => true,
     ],
@@ -54,11 +36,29 @@ class Widget {
       'enabled' => true,
       'available' => true,
     ],
+    self::WIDGET_WOTM => [
+      'name' => 'Cuvântul lunii',
+      'template' => 'wotm.tpl',
+      'enabled' => true,
+      'available' => true,
+    ],
+    self::WIDGET_WOTY => [
+      'name' => 'Cuvântul anului',
+      'template' => 'woty.tpl',
+      'enabled' => false,
+      'available' => false,
+    ],
+    self::WIDGET_GAMES => [
+      'name' => 'Jocuri',
+      'template' => 'games.tpl',
+      'enabled' => true,
+      'available' => true,
+    ],
     self::WIDGET_AOTM => [
       'name' => 'Articolul lunii',
       'template' => 'articleOfTheMonth.tpl',
       'enabled' => false,
-      'available' => true,
+      'available' => false,
     ],
     self::WIDGET_PROMOTED => [
       'name' => 'Cuvântul din vitrină',
@@ -70,20 +70,20 @@ class Widget {
       'name' => 'Rețele sociale',
       'template' => 'social.tpl',
       'enabled' => false,
-      'available' => true,
+      'available' => false,
     ],
     self::WIDGET_EXPRESSION => [
       'name' => 'Expresii',
       'template' => 'expression.tpl',
       'enabled' => false,
-      'available' => true,
+      'available' => false,
     ],
-    self::WIDGET_PROVERB => [
-      'name' => 'Proverbe',
-      'template' => 'proverb.tpl',
+    self::WIDGET_NEWSLETTER => [
+      'name' => 'Newsletter',
+      'template' => 'newsletter.tpl',
       'enabled' => false,
-      'available' => true,
-    ]
+      'available' => false,
+    ],
   ];
 
   /**

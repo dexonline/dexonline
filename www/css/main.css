@@ -668,6 +668,16 @@ div.thumb {
 
 blockquote {
   border: 1px solid black;
+  margin: 0.5rem;
+  padding: 0.5rem;
+}
+
+blockquote p {
+  margin-bottom:  0;
+}
+
+.mw-parser-output {
+  text-align: justify;
 }
 
 .img-center {

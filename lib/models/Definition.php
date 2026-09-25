@@ -222,7 +222,7 @@ class Definition extends BaseObject implements DatedObject {
       ->table_alias('d')
       ->select('d.*')
       ->left_outer_join('EntryDefinition', ['d.id', '=', 'ed.definitionId'], 'ed')
-      ->where_not_in('d.status', $notToCheck)
+      ->where_in('d.status', $notToCheck)
       ->where_null('ed.id')
       ->count();
     $associated = DB::getSingleValue('select count(distinct definitionId) from EntryDefinition');

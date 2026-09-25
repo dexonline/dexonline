@@ -24,7 +24,7 @@ $defs = Model::factory('Definition')
       ->table_alias('d')
       ->select('d.*')
       ->left_outer_join('EntryDefinition', ['d.id', '=', 'ed.definitionId'], 'ed')
-      ->where_not_equal('d.status', Definition::ST_DELETED)
+      ->where_not_in('d.status', Definition::ST_DELETED, Definition::ST_REVIEW)
       ->where_null('ed.id')
       ->find_many();
 

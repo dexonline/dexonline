@@ -217,7 +217,14 @@ class Definition extends BaseObject implements DatedObject {
     // We compute (3) as (all definitions) - (1) - (2).
     $all = Model::factory('Definition')->count();
     $notToCheck = [self::ST_DELETED, self::ST_REVIEW];
-    $deleted = Model::factory('Definition')->where_in('status', $notToCheck)->count();
+    //$deleted = Model::factory('Definition')->where_in('status', $notToCheck)->count();
+    $deleted = Model::factory('Definition')
+      ->table_alias('d')
+      ->select('d.*')
+      ->left_outer_join('EntryDefinition', ['d.id', '=', 'ed.definitionId'], 'ed')
+      ->where_not_in('d.status', $notToCheck)
+      ->where_null('ed.id')
+      ->count();
     $associated = DB::getSingleValue('select count(distinct definitionId) from EntryDefinition');
     return $all - $deleted - $associated;
   }

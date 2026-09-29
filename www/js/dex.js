@@ -42,8 +42,11 @@ $(function() {
     if ($(this).data('submitted')) {
       e.preventDefault();
     } else {
-      $(this).data('submitted', true);
-      return true;
+      // do not mark as submitted default prevented submits
+      if (!e.isDefaultPrevented()) {
+        $(this).data('submitted', true);
+        return true;
+      }
     }
   });
 

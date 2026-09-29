@@ -22,7 +22,7 @@
     </span>
   </h3>
 
-  <form method="post">
+  <form method="post" id="definitionForm">
     <input type="hidden" name="definitionId" value="{$def->id}">
     <input type="hidden" name="isOcr" value="{$isOcr}">
 
@@ -101,6 +101,10 @@
                 <option value="{$e}" selected></option>
               {/foreach}
             </select>
+
+            <div id="entryIdsValidationMessage" class="text-danger small mt-1" hidden>
+              O definiție activă trebuie să aibă cel puțin o intrare.
+            </div>
 
             <div class="d-flex justify-content-between align-items-center mt-1">
               <div class="lexeme-links text-muted">
@@ -193,7 +197,7 @@
             <u>r</u>eafișează
           </button>
 
-          <button
+          <button id="saveButton"
             type="submit"
             name="saveButton"
             class="btn btn-primary"
@@ -206,7 +210,7 @@
           </button>
 
           {if $isOcr}
-            <button
+            <button id="but_next_ocr"
               type="submit"
               class="btn btn-primary"
               name="but_next_ocr"
@@ -327,4 +331,36 @@
   </div>
 
   {include "bits/pageModal.tpl"}
+
+  <script>
+    const status = document.querySelector('select[name="status"]');
+    const entryIds = document.querySelector('#entryIds');
+    const message = document.querySelector('#entryIdsValidationMessage');
+    const form = document.querySelector('#definitionForm');
+
+    function validateActiveDefinition() {
+      const values = $('#entryIds').val();
+
+      const invalid =
+        status.value === '0' &&
+        (!values || values.length === 0);
+
+      message.hidden = !invalid;
+
+      return !invalid;
+    }
+
+    status.addEventListener('change', validateActiveDefinition);
+    $('#entryIds').on('change', validateActiveDefinition);
+
+    form.addEventListener('submit', function (event) {
+      if (!validateActiveDefinition()) {
+        event.preventDefault();
+        entryIds.focus();
+        //console.log('BLOCKED');
+      } else {
+        //console.log('ALLOWED');
+      }
+    });
+  </script>
 {/block}

@@ -20,4 +20,8 @@ class Footnote {
   function getUser() {
     return User::get_by_id($this->userId);
   }
+
+  function isAnonymous() {
+    return $this->userId == 0;
+  }
 }

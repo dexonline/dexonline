@@ -3,5 +3,5 @@
     {$u->nick}
   </a>
 {else}
-  anonim
+  {* anonim *}
 {/if}

@@ -99,7 +99,17 @@ $clients = [
     'license' => 'Freeware',
     'options' => ['vision' => 0, 'sync' => 0, 'regexp' => 1, 'suggest' => 0, 'diacritics' => 0, 'full' => 0, 'flex' => 1, 'click' => 0, 'history' => 1],
   ],
-
+  [
+    'name' => 'dex – Dicționar explicativ',
+    'url' => 'https://marianpavel.ro/dexonline/',
+    'download' => null,
+    'os' => ['android', 'iphone'],
+    'space' => '100 MB',
+    'requires' => 'Android 8.0+, iOS 16+',
+    'author' => ['Marian Pavel', 'https://marianpavel.ro/'],
+    'license' => 'Freeware',
+    'options' => ['vision' => 0, 'sync' => 0, 'regexp' => 0, 'suggest' => 1, 'diacritics' => 1, 'full' => 0, 'flex' => 1, 'click' => 0, 'history' => 1],
+  ],
 ];
 
 $osNames = [

@@ -6,7 +6,7 @@
           <li>
             {HtmlConverter::convert($f)}
             {if $f->isAnonymous()}
-              {include "bits/user.tpl"}
+              {include "bits/user.tpl" u=false}
             {else}
               &mdash;
               {include "bits/user.tpl" u=$f->getUser()}

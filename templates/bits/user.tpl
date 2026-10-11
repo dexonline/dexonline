@@ -1,4 +1,4 @@
-{if $u}
+{if isset($u) && $u}
   <a href="{Router::link('user/view')}/{$u->nick}">
     {$u->nick}
   </a>

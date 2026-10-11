@@ -10,6 +10,7 @@ class ElfinderUtil {
     'wotm'     => ['subdir' => 'img/cuvantul-lunii', 'alias' => 'Imagini pentru cuvântul lunii'],
     'proverbe' => ['subdir' => 'img/proverbe',       'alias' => 'Proverbe ilustrate'],
     'top'      => ['subdir' => 'img/top',            'alias' => 'Topul căutărilor'],
+    'dictimg'  => ['subdir' => 'img/dictimg',        'alias' => 'Ilustrații din dicționare'],
     ];
 
   // default elFinder (wotd, top)

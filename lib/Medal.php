@@ -26,6 +26,10 @@ class Medal {
   const MEDAL_ARTIST_1 = 0x10000;
   const MEDAL_ARTIST_2 = 0x20000;
   const MEDAL_ARTIST_3 = 0x40000;
+  const MEDAL_INSTA = 0x80000;
+  const MEDAL_NEWSLETTER_CHIEF = 0x100000;
+  const MEDAL_NEWSLETTER_EDITOR = 0x200000;
+
 
   /* simple medals */
   const SPONSOR_TEMPLATE = [
@@ -56,6 +60,18 @@ class Medal {
     'name' => 'Moderator',
     'description' => '',
     'pic' => 'moderator.svg',
+  ];
+
+  const INSTA_TEMPLATE = [
+    'name' => 'Coordonator Instagram',
+    'description' => '',
+    'pic' => 'instagram.svg',
+  ];
+
+  const NEWSLETTER_CHIEF_TEMPLATE = [
+    'name' => 'Redactor-șef Newsletter',
+    'description' => '',
+    'pic' => 'newsletter-chief.svg',
   ];
 
   /*  medals with more levels */
@@ -116,11 +132,13 @@ class Medal {
 
   /**************************** what medals to display ***********************/
   const SIMPLE_MEDALS = [
-    Medal::MEDAL_MODERATOR  => Medal::MODERATOR_TEMPLATE,
-    Medal::MEDAL_ARTICLES   => Medal::ARTICLES_TEMPLATE,
-    Medal::MEDAL_WOTD       => Medal::WOTD_TEMPLATE,
-    Medal::MEDAL_SPONSOR    => Medal::SPONSOR_TEMPLATE,
-    Medal::MEDAL_SOCIAL     => Medal::SOCIAL_TEMPLATE,
+    Medal::MEDAL_MODERATOR        => Medal::MODERATOR_TEMPLATE,
+    Medal::MEDAL_ARTICLES         => Medal::ARTICLES_TEMPLATE,
+    Medal::MEDAL_WOTD             => Medal::WOTD_TEMPLATE,
+    Medal::MEDAL_SPONSOR          => Medal::SPONSOR_TEMPLATE,
+    Medal::MEDAL_SOCIAL           => Medal::SOCIAL_TEMPLATE,
+    Medal::MEDAL_NEWSLETTER_CHIEF => Medal::NEWSLETTER_CHIEF_TEMPLATE,
+    Medal::MEDAL_INSTA            => Medal::INSTA_TEMPLATE,
   ];
 
   const MEDALS_WITH_LEVELS = [
